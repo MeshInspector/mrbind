@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+    },
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": ".vscode/_build.sh",
+            "group": {"kind": "build", "isDefault": true},
+        },
+        {
+            "label": "Build & Run",
+            "type": "shell",
+            "command": ".vscode/_build.sh && .vscode/_run.sh",
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": ".vscode/_run.sh",
+        },
+        {
+            "label": "Configure",
+            "type": "shell",
+            "command": ".vscode/_configure.sh",
+        },
+        {
+            "label": "Clean (this mode)",
+            "type": "shell",
+            "command": ".vscode/_clean.sh",
+            "presentation": {"close": true},
+        },
+        {
+            "label": "Mode = Debug",
+            "type": "shell",
+            "command": ".vscode/_set_mode.sh Debug",
+            "presentation": {"close": true},
+        },
+        {
+            "label": "Mode = Release",
+            "type": "shell",
+            "command": ".vscode/_set_mode.sh RelWithDebugInfo",
+            "presentation": {"close": true},
+        },
+    ]
+}
