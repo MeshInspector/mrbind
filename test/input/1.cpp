@@ -2,6 +2,7 @@ int foo(int x, int y);
 
 template <typename T> int tfoo(int x, int y) requires true;
 
+/// This is the comment for namespace NS
 namespace NS
 {
     namespace X::Y
@@ -13,6 +14,7 @@ namespace NS
                 struct A
                 {
                     int a;
+                    float *b;
                 };
             }
         }
