@@ -10,7 +10,7 @@ set_property(TARGET mrbind PROPERTY CXX_STANDARD 20)
 set_property(TARGET mrbind PROPERTY CXX_EXTENSIONS off)
 
 if(NOT MSVC)
-    target_compile_options(mrbind PRIVATE -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough)
+    target_compile_options(mrbind PRIVATE -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough -Wconversion)
 endif()
 
 target_include_directories(mrbind PRIVATE "${MRBIND_LLVM_PREFIX}/include")

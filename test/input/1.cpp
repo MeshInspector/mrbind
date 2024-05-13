@@ -17,6 +17,11 @@ namespace MR
                 {
                     int a; ///< Member A docstring
                     float *b; // Member B comment.
+
+                    struct SubA
+                    {
+
+                    };
                 };
             }
         }
@@ -36,5 +41,7 @@ class B
     B() {}
     B(int, float) {}
 
+    // Comment!
     int blah() const {return b1;}
+    void bleh(int x, float y = 12.3f + 1) {}
 };

@@ -137,6 +137,7 @@ namespace MRBind
             presumed,
         };
 
+        // Convert a source location to a user-friendly string.
         [[nodiscard]] std::string SourceLocToString(const CXSourceLocation &loc, SourceLocMode mode = SourceLocMode::spelling)
         {
             decltype(clang_getSpellingLocation) *func = nullptr;
@@ -173,6 +174,36 @@ namespace MRBind
             }
 
             return std::string(*filename && *filename->c_str() ? filename->c_str() : "<N/A>") + ":" + std::to_string(line) + ":" + std::to_string(col);
+        }
+
+        // Tries to convert an expression (or anything else) to its original source code string. The exact whitespacing will be lost.
+        [[nodiscard]] std::string CursorToSourceCode(const CXCursor &cur)
+        {
+            struct Guard
+            {
+                CXTranslationUnit tu{};
+                CXToken *tokens = nullptr;
+                unsigned int num_tokens = 0;
+
+                ~Guard()
+                {
+                    clang_disposeTokens(tu, tokens, num_tokens);
+                }
+            };
+            Guard guard;
+            guard.tu = clang_Cursor_getTranslationUnit(cur);
+            clang_tokenize(guard.tu, clang_getCursorExtent(cur), &guard.tokens, &guard.num_tokens);
+
+            std::string ret;
+            for (unsigned int i = 0; i < guard.num_tokens; i++)
+            {
+                if (i != 0)
+                    ret += ' '; // Ugh.
+
+                ret += String(clang_getTokenSpelling(guard.tu, guard.tokens[i])).c_str();
+            }
+
+            return ret;
         }
 
         [[nodiscard]] std::string CursorDebugString(const CXCursor &cur)
@@ -298,7 +329,7 @@ namespace MRBind
         virtual bool OnPush(const Stack &stack) = 0;
         // About to pop the last element from the stack (it's not popped yet when this is called).
         // `skipped` is true if the corresponding `OnPush()` returned false.
-        virtual void OnPop(const Stack &stack, bool skipped) = 0;
+        virtual void OnPop(const Stack &stack, bool skipped) {(void)stack; (void)skipped;}
 
         // Traverse the AST.
         void Visit(CXCursor cursor)
@@ -388,6 +419,9 @@ int main(int argc, char **argv)
             // Dumps current namespaces into a single string, in the `(a)(b)(c)` format.
             [[nodiscard]] std::string CurrentNamespaces() const
             {
+                if (namespace_stack.empty())
+                    return "/*global namespace*/";
+
                 std::string ret;
                 for (const std::string &elem : namespace_stack)
                 {
@@ -437,13 +471,17 @@ int main(int argc, char **argv)
                         if (!is_anon)
                             namespace_stack.push_back(name.c_str());
 
-                        *output_file << "\nMB_NAMESPACE_OPEN(" << name.c_str() << ",";
+                        *output_file << "\nMB_NAMESPACE_OPEN(" << (is_anon ? "/*anonymous*/" : name.c_str()) << ",";
                         if (is_inline)
                             *output_file << "inline";
+                        else
+                            *output_file << "/*not inline*/";
                         *output_file << ",";
 
                         if (Misc::String comment = clang_Cursor_getRawCommentText(stack.back()))
                             *output_file << Misc::EscapeQuoteString(comment.c_str());
+                        else
+                            *output_file << "/*no comment*/";
                         *output_file << ")\n";
 
                         if (!is_anon)
@@ -461,23 +499,15 @@ int main(int argc, char **argv)
                   case CXCursor_ClassDecl:
                   case CXCursor_StructDecl:
                     {
-                        Misc::String class_name = clang_getCursorSpelling(stack.back());
-
-                        Misc::String comment = clang_Cursor_getRawCommentText(stack.back());
-
-                        *output_file
-                            << "MB_CLASS("
-                            << (kind == CXCursor_ClassDecl ? "class" : "struct") << ", "
-                            << CurrentNamespaces() << ", " << class_name.c_str() << ", "
-                            << (comment ? Misc::EscapeQuoteString(comment.c_str()) : "") << ",\n";
-
-                        std::ostringstream member_vars;
-
                         struct MemberVisitor : Visitor
                         {
                             VisitorImpl *self = nullptr;
 
                             bool first = true;
+
+                            std::ostringstream member_vars;
+                            std::ostringstream member_funcs;
+                            std::ostringstream ctors;
 
                             bool OnPush(const Stack &stack) override
                             {
@@ -489,10 +519,11 @@ int main(int argc, char **argv)
                                 }
 
                                 CXCursorKind kind = clang_getCursorKind(stack.back());
-                                if (kind == CXCursor_FieldDecl)
+                                switch (kind)
                                 {
-                                    CX_CXXAccessSpecifier access = clang_getCXXAccessSpecifier(stack.back());
-                                    if (access == CX_CXXPublic) // Only public members.
+                                    // A member variable.
+                                  case CXCursor_FieldDecl:
+                                    if (clang_getCXXAccessSpecifier(stack.back()) == CX_CXXPublic) // Only public members.
                                     {
                                         CXType field_type = clang_getCursorType(stack.back());
                                         Misc::String type_str = clang_getTypeSpelling(field_type);
@@ -500,29 +531,107 @@ int main(int argc, char **argv)
                                         Misc::String name_str = clang_getCursorSpelling(stack.back());
                                         Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
 
-                                        *self->output_file << "    ("
+                                        member_vars << "    ("
                                             << "(" << type_str.c_str() << "), "
                                             << name_str.c_str() << ", "
-                                            << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "")
+                                            << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/")
                                             << ")\n";
                                     }
+                                    break;
+
+                                    // A member function.
+                                  case CXCursor_CXXMethod:
+                                    if (clang_getCXXAccessSpecifier(stack.back()) == CX_CXXPublic) // Only public members.
+                                    {
+                                        Misc::String name_str = clang_getCursorSpelling(stack.back());
+                                        Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
+
+                                        CXType func_type = clang_getCursorType(stack.back());
+                                        CXType ret_type = clang_getResultType(func_type);
+                                        bool is_const = clang_CXXMethod_isConst(stack.back());
+                                        int num_args = clang_Cursor_getNumArguments(stack.back());
+
+                                        member_funcs << "    (";
+                                        if (ret_type.kind == CXType_Void)
+                                            member_funcs << "/*returns void*/";
+                                        else
+                                            member_funcs << "/*returns:*/(" << Misc::String(clang_getTypeSpelling(ret_type)).c_str() << ")";
+                                        member_funcs << ", /*name:*/" << name_str.c_str() << ", ";
+                                        if (num_args == 0)
+                                            member_funcs << "/*no params*/";
+                                        else
+                                            member_funcs << "/*params:*/";
+                                        for (int i = 0; i < num_args; i++)
+                                        {
+                                            CXCursor arg = clang_Cursor_getArgument(stack.back(), unsigned(i));
+                                            CXType arg_type = clang_getCursorType(arg);
+
+                                            struct DefaultArgVisitor : Visitor
+                                            {
+                                                std::string value;
+                                                bool first = true;
+                                                bool OnPush(const Stack &stack) override
+                                                {
+                                                    if (first)
+                                                    {
+                                                        first = false;
+                                                        return true; // Recurse into the parameter.
+                                                    }
+                                                    value = Misc::CursorToSourceCode(stack.back());
+                                                    return false;
+                                                }
+                                            };
+                                            DefaultArgVisitor default_arg;
+                                            default_arg.Visit(arg);
+
+
+                                            member_funcs << "\n        ("
+                                                << "(" << Misc::String(clang_getTypeSpelling(arg_type)).c_str() << "), "
+                                                << Misc::String(clang_getCursorSpelling(arg)).c_str() << ", "
+                                                << (default_arg.value.empty() ? "/*no default argument*/" : "(" + default_arg.value + ")")
+                                                << ")";
+                                        }
+                                        if (num_args != 0)
+                                            member_funcs << "\n    ";
+                                        member_funcs
+                                            << ", "
+                                            << (is_const ? "const" : "/*non-const*/") << ", "
+                                            << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/")
+                                            << ")\n";
+                                    }
+                                    break;
+
+                                  default:
+                                    break;
                                 }
 
                                 return false;
-                            }
-
-                            void OnPop(const Stack &stack, bool skipped) override
-                            {
-                                (void)stack;
-                                (void)skipped;
                             }
                         };
                         MemberVisitor vis;
                         vis.self = this;
                         vis.Visit(stack.back());
 
-                        *output_file << ")\n";
+                        Misc::String class_name = clang_getCursorSpelling(stack.back());
 
+                        Misc::String comment = clang_Cursor_getRawCommentText(stack.back());
+
+                        *output_file
+                            << "MB_CLASS("
+                            << (kind == CXCursor_ClassDecl ? "class" : "struct") << ", "
+                            << CurrentNamespaces() << ", " << class_name.c_str() << ", "
+                            << (comment ? Misc::EscapeQuoteString(comment.c_str()) : "/*no comment*/") << '\n'
+                            << "    , // Member variables:\n"
+                            << vis.member_vars.str()
+                            << "    , // Constructors:\n"
+                            << vis.ctors.str()
+                            << "    , // Member functions:\n"
+                            << vis.member_funcs.str()
+                            << ")\n";
+                        ;
+
+                        namespace_stack.push_back(class_name.c_str());
+                        closing_func = [this]{namespace_stack.pop_back();};
                     }
                     break;
 
