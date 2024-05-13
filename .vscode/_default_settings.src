@@ -1,2 +1,2 @@
 EXECUTABLE_NAME=mrbind
-EXECUTABLE_FLAGS='-o test/1.out.h --print-ast -- clang++ test/input/1.cpp -fparse-all-comments -std=c++20 -Wall -Wextra -pedantic-errors'
+EXECUTABLE_FLAGS='-o test/1.out.h --print-ast -- clang++ test/input/1.cpp -fparse-all-comments -std=c++20 -Wall -Wextra '
