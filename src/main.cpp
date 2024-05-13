@@ -541,8 +541,13 @@ int main(int argc, char **argv)
 
                                     // A member function.
                                   case CXCursor_CXXMethod:
+                                  case CXCursor_Constructor:
                                     if (clang_getCXXAccessSpecifier(stack.back()) == CX_CXXPublic) // Only public members.
                                     {
+                                        bool is_ctor = kind == CXCursor_Constructor;
+
+                                        std::ostringstream &ss = is_ctor ? ctors : member_funcs;
+
                                         Misc::String name_str = clang_getCursorSpelling(stack.back());
                                         Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
 
@@ -551,16 +556,20 @@ int main(int argc, char **argv)
                                         bool is_const = clang_CXXMethod_isConst(stack.back());
                                         int num_args = clang_Cursor_getNumArguments(stack.back());
 
-                                        member_funcs << "    (";
-                                        if (ret_type.kind == CXType_Void)
-                                            member_funcs << "/*returns void*/";
-                                        else
-                                            member_funcs << "/*returns:*/(" << Misc::String(clang_getTypeSpelling(ret_type)).c_str() << ")";
-                                        member_funcs << ", /*name:*/" << name_str.c_str() << ", ";
+                                        ss << "    (";
+                                        if (!is_ctor)
+                                        {
+                                            if (ret_type.kind == CXType_Void)
+                                                ss << "/*returns void*/";
+                                            else
+                                                ss << "/*returns:*/(" << Misc::String(clang_getTypeSpelling(ret_type)).c_str() << ")";
+                                            ss << ", /*name:*/" << name_str.c_str() << ", ";
+                                        }
+
                                         if (num_args == 0)
-                                            member_funcs << "/*no params*/";
+                                            ss << "/*no params*/";
                                         else
-                                            member_funcs << "/*params:*/";
+                                            ss << "/*params:*/";
                                         for (int i = 0; i < num_args; i++)
                                         {
                                             CXCursor arg = clang_Cursor_getArgument(stack.back(), unsigned(i));
@@ -585,19 +594,19 @@ int main(int argc, char **argv)
                                             default_arg.Visit(arg);
 
 
-                                            member_funcs << "\n        ("
+                                            ss << "\n        ("
                                                 << "(" << Misc::String(clang_getTypeSpelling(arg_type)).c_str() << "), "
                                                 << Misc::String(clang_getCursorSpelling(arg)).c_str() << ", "
                                                 << (default_arg.value.empty() ? "/*no default argument*/" : "(" + default_arg.value + ")")
                                                 << ")";
                                         }
                                         if (num_args != 0)
-                                            member_funcs << "\n    ";
-                                        member_funcs
-                                            << ", "
-                                            << (is_const ? "const" : "/*non-const*/") << ", "
-                                            << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/")
-                                            << ")\n";
+                                            ss << "\n        ";
+                                        ss << ", ";
+                                        if (!is_ctor)
+                                            ss << (is_const ? "const" : "/*non-const*/") << ", ";
+
+                                        ss << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/") << ")\n";
                                     }
                                     break;
 
