@@ -19,4 +19,4 @@ ln -s "$DIR/../build/$1/compile_commands.json" "$DIR/../compile_commands.json"
 
 rm -f "$DIR/launch.json"
 echo >"$DIR/launch.json" '// NOTE: This file is generated, don'"'"'t edit! Edit `launch.default.json` and run a `Mode = ??` task to regenerate this.'
-sed 's|<MODE>|'"$1"'|g;s|<EXECUTABLE>|'"$EXECUTABLE_NAME"'|g;s|<ARGS>|'"$EXECUTABLE_FLAGS"'|g' "$DIR/launch.default.json" >>"$DIR/launch.json"
+sed 's|<MODE>|'"$1"'|g;s|<EXECUTABLE>|'"$EXECUTABLE_NAME"'|g;s|<ARGS>|'"$EXECUTABLE_FLAGS"'|g;s|\[/\*<ARGS_ARR>\*/\]|'"$($(compgen -c lldb-argdumper | sort -r | head -1; echo $EXECUTABLE_FLAGS) | jq -c '.arguments')"'|g' "$DIR/launch.default.json" >>"$DIR/launch.json"
