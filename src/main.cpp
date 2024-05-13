@@ -4,6 +4,8 @@
 #include <fstream>
 #include <functional>
 #include <iostream>
+#include <optional>
+#include <sstream>
 #include <stdexcept>
 #include <string_view>
 #include <string>
@@ -19,6 +21,7 @@ namespace MRBind
         const char *const *libclang_argv = nullptr;
 
         std::string output_path;
+        bool print_ast = false;
 
         constexpr CmdLineArgs() {}
         CmdLineArgs(int argc, char **argv)
@@ -48,6 +51,10 @@ namespace MRBind
                         throw std::runtime_error("Expected a filename after `-o`.");
                     output_path = *argv++;
                     argc--;
+                }
+                else if (this_arg == "--print-ast")
+                {
+                    print_ast = true;
                 }
                 else
                 {
@@ -97,9 +104,10 @@ namespace MRBind
         // A RAII wrapper for `CXString`.
         class String
         {
-            CXString str;
+            CXString str{};
 
           public:
+            String() {}
             String(CXString str) : str(str) {}
 
             String(const String &) = delete;
@@ -116,10 +124,62 @@ namespace MRBind
             [[nodiscard]] const char *c_str() const {return clang_getCString(str);}
         };
 
+        enum class SourceLocMode
+        {
+            // A good default mode.
+            spelling,
+            // Seems to be mostly equivalent to `spelling`? I didn't find any difference.
+            file,
+            // When expanding macros, this always points to the macro name at the call site,
+            // even when it would be more appropriate to point to the argument itself, if it's expanded verbatim.
+            expansion,
+            // This is the only mode that respects `#file` and `#line`.
+            presumed,
+        };
+
+        [[nodiscard]] std::string SourceLocToString(const CXSourceLocation &loc, SourceLocMode mode = SourceLocMode::spelling)
+        {
+            decltype(clang_getSpellingLocation) *func = nullptr;
+
+            std::optional<String> filename;
+            unsigned int line = 0;
+            unsigned int col = 0;
+
+            switch (mode)
+            {
+              case SourceLocMode::expansion:
+                func = clang_getExpansionLocation;
+                break;
+              case SourceLocMode::file:
+                func = clang_getFileLocation;
+                break;
+              case SourceLocMode::spelling:
+                func = clang_getSpellingLocation;
+                break;
+              case SourceLocMode::presumed:
+                {
+                    CXString filename_raw;
+                    clang_getPresumedLocation(loc, &filename_raw, &line, &col);
+                    filename.emplace(filename_raw);
+                }
+                break;
+            }
+
+            if (func)
+            {
+                CXFile file{};
+                func(loc, &file, &line, &col, nullptr);
+                filename.emplace(clang_getFileName(file));
+            }
+
+            return std::string(*filename && *filename->c_str() ? filename->c_str() : "<N/A>") + ":" + std::to_string(line) + ":" + std::to_string(col);
+        }
+
         [[nodiscard]] std::string CursorDebugString(const CXCursor &cur)
         {
             Misc::String kind = clang_getCursorKindSpelling(clang_getCursorKind(cur));
             Misc::String value = clang_getCursorDisplayName(cur);
+
             std::string ret;
             ret += kind.c_str();
             if (value.c_str()[0] != '\0')
@@ -128,6 +188,14 @@ namespace MRBind
                 ret += value.c_str();
                 ret += "`";
             }
+
+            std::string source_loc;
+            if (clang_getCursorKind(cur) == CXCursor_TranslationUnit)
+                source_loc = String(clang_getTranslationUnitSpelling(clang_Cursor_getTranslationUnit(cur))).c_str();
+            else
+                source_loc = SourceLocToString(clang_getCursorLocation(cur), SourceLocMode::spelling);
+
+            ret += " [" + source_loc + "]";
             return ret;
         }
 
@@ -226,10 +294,11 @@ namespace MRBind
         using Stack = std::vector<CXCursor>;
 
         // Just pushed a new element to the stack.
-        // Return false to not recurse deeper. But then `OnPop()` will still be called for this element.
+        // Return false to not recurse deeper. (Then `OnPop()` will NOT be called for this element.)
         virtual bool OnPush(const Stack &stack) = 0;
         // About to pop the last element from the stack (it's not popped yet when this is called).
-        virtual void OnPop(const Stack &stack) = 0;
+        // `skipped` is true if the corresponding `OnPush()` returned false.
+        virtual void OnPop(const Stack &stack, bool skipped) = 0;
 
         // Traverse the AST.
         void Visit(CXCursor cursor)
@@ -263,11 +332,16 @@ namespace MRBind
                             if (clang_equalCursors(parent, data.stack.back()))
                                 break;
 
-                            data.vis->OnPop(data.stack);
+                            data.vis->OnPop(data.stack, false);
                             data.stack.pop_back();
                         }
                         data.stack.push_back(cursor);
                         bool recurse = data.vis->OnPush(data.stack);
+                        if (!recurse)
+                        {
+                            data.vis->OnPop(data.stack, true);
+                            data.stack.pop_back();
+                        }
 
                         return recurse ? CXChildVisit_Recurse : CXChildVisit_Continue;
                     },
@@ -276,9 +350,13 @@ namespace MRBind
 
                 while (!data.stack.empty())
                 {
-                    data.vis->OnPop(data.stack);
+                    data.vis->OnPop(data.stack, false);
                     data.stack.pop_back();
                 }
+            }
+            else
+            {
+                data.vis->OnPop(data.stack, true);
             }
         }
     };
@@ -299,10 +377,13 @@ int main(int argc, char **argv)
         struct VisitorImpl : Visitor
         {
             std::ofstream *output_file = nullptr;
+            const CmdLineArgs *args = nullptr;
 
             std::vector<std::function<void()>> closing_funcs;
 
             std::vector<std::string> namespace_stack;
+
+            std::optional<std::string> main_filename;
 
             // Dumps current namespaces into a single string, in the `(a)(b)(c)` format.
             [[nodiscard]] std::string CurrentNamespaces() const
@@ -319,11 +400,33 @@ int main(int argc, char **argv)
 
             bool OnPush(const Stack &stack) override
             {
+                CXCursorKind kind = clang_getCursorKind(stack.back());
                 std::function<void()> &closing_func = closing_funcs.emplace_back();
 
-                CXCursorKind kind = clang_getCursorKind(stack.back());
+                // Extract the primary file name.
+                if (!main_filename)
+                {
+                    if (kind != CXCursor_TranslationUnit)
+                        throw std::runtime_error("The top-level cursor is not a translation unit.");
+                    Misc::String name = clang_getTranslationUnitSpelling(clang_Cursor_getTranslationUnit(stack.back()));
+                    main_filename = name.c_str();
+                }
+                // Skip if this is in a header.
+                else
+                {
+                    CXFile file;
+                    clang_getSpellingLocation(clang_getCursorLocation(stack.back()), &file, nullptr, nullptr, nullptr);
+                    Misc::String str = clang_getFileName(file);
+                    if (*main_filename != str.c_str())
+                        return false;
+                }
+
                 switch (kind)
                 {
+                  case CXCursor_CompoundStmt:
+                  case CXCursor_FieldDecl:
+                    return false; // Don't recurse into some things. Sometimes for performance, sometimes for correctness.
+
                   case CXCursor_Namespace:
                     {
                         Misc::String name = clang_getCursorSpelling(stack.back());
@@ -353,7 +456,7 @@ int main(int argc, char **argv)
                         }
 
                     }
-                    return true;
+                    break;
 
                   case CXCursor_ClassDecl:
                   case CXCursor_StructDecl:
@@ -366,8 +469,9 @@ int main(int argc, char **argv)
                             << "MB_CLASS("
                             << (kind == CXCursor_ClassDecl ? "class" : "struct") << ", "
                             << CurrentNamespaces() << ", " << class_name.c_str() << ", "
-                            << (comment ? Misc::EscapeQuoteString(comment.c_str()) : "") << ",\n"
-                        ;
+                            << (comment ? Misc::EscapeQuoteString(comment.c_str()) : "") << ",\n";
+
+                        std::ostringstream member_vars;
 
                         struct MemberVisitor : Visitor
                         {
@@ -377,6 +481,7 @@ int main(int argc, char **argv)
 
                             bool OnPush(const Stack &stack) override
                             {
+                                // Recurse into the struct itself.
                                 if (first)
                                 {
                                     first = false;
@@ -387,42 +492,29 @@ int main(int argc, char **argv)
                                 if (kind == CXCursor_FieldDecl)
                                 {
                                     CX_CXXAccessSpecifier access = clang_getCXXAccessSpecifier(stack.back());
-
-                                    const char *access_str = nullptr;
-                                    switch (access)
+                                    if (access == CX_CXXPublic) // Only public members.
                                     {
-                                      case CX_CXXPublic:
-                                        access_str = "public";
-                                        break;
-                                      case CX_CXXProtected:
-                                        access_str = "protected";
-                                        break;
-                                      case CX_CXXPrivate:
-                                        access_str = "private";
-                                        break;
-                                      default:
-                                        throw std::runtime_error("Unknown access specifier on a field.");
+                                        CXType field_type = clang_getCursorType(stack.back());
+                                        Misc::String type_str = clang_getTypeSpelling(field_type);
+
+                                        Misc::String name_str = clang_getCursorSpelling(stack.back());
+                                        Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
+
+                                        *self->output_file << "    ("
+                                            << "(" << type_str.c_str() << "), "
+                                            << name_str.c_str() << ", "
+                                            << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "")
+                                            << ")\n";
                                     }
-                                    CXType field_type = clang_getCursorType(stack.back());
-                                    Misc::String type_str = clang_getTypeSpelling(field_type);
-
-                                    Misc::String name_str = clang_getCursorSpelling(stack.back());
-                                    Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
-
-                                    *self->output_file << "    ("
-                                        << access_str << ", "
-                                        << "(" << type_str.c_str() << "), "
-                                        << name_str.c_str() << ", "
-                                        << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "")
-                                        << ")\n";
                                 }
 
                                 return false;
                             }
 
-                            void OnPop(const Stack &stack) override
+                            void OnPop(const Stack &stack, bool skipped) override
                             {
                                 (void)stack;
+                                (void)skipped;
                             }
                         };
                         MemberVisitor vis;
@@ -430,35 +522,46 @@ int main(int argc, char **argv)
                         vis.Visit(stack.back());
 
                         *output_file << ")\n";
-                    }
 
+                    }
                     break;
 
                   default:
-                    return true;
+                    break;
                 }
 
-                for (std::size_t i = 1; i < stack.size(); i++)
-                    std::cout << "| ";
-                std::cout << "{ " << Misc::CursorDebugString(stack.back()) << '\n';
+                if (args->print_ast)
+                {
+                    for (std::size_t i = 1; i < stack.size(); i++)
+                        std::cout << "| ";
+                    std::cout << "{ " << Misc::CursorDebugString(stack.back()) << '\n';
+                }
+
                 return true;
             }
 
-            void OnPop(const Stack &stack) override
+            void OnPop(const Stack &stack, bool skipped) override
             {
                 if (closing_funcs.back())
                     closing_funcs.back()();
                 closing_funcs.pop_back();
 
-                for (std::size_t i = 1; i < stack.size(); i++)
-                    std::cout << "| ";
-                std::cout << "} " << Misc::CursorDebugString(stack.back()) << '\n';
+                if (!skipped && args->print_ast)
+                {
+                    for (std::size_t i = 1; i < stack.size(); i++)
+                        std::cout << "| ";
+                    std::cout << "} " << Misc::CursorDebugString(stack.back()) << '\n';
+                }
             }
         };
 
         VisitorImpl vis;
         vis.output_file = &output_file;
+        vis.args = &args;
         vis.Visit(tu.GetCursor());
+
+        if (!vis.closing_funcs.empty())
+            throw std::logic_error("The function stack is not empty at the end.");
     }
     catch (std::exception &e)
     {

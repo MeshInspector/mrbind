@@ -2,3 +2,4 @@
 /compile_commands.json
 /.cache
 /.vscode/launch.json
+/test/*.txt

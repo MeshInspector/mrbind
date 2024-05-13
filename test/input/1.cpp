@@ -1,20 +1,22 @@
-int foo(int x, int y);
+#include <iostream>
 
 template <typename T> int tfoo(int x, int y) requires true;
 
-/// This is the comment for namespace NS
-namespace NS
+// Namespace comment.
+namespace MR
 {
+    /// Namespace docstring.
     namespace X::Y
     {
         inline namespace Inl
         {
             namespace
             {
+                /// Class A docstring
                 struct A
                 {
-                    int a;
-                    float *b;
+                    int a; ///< Member A docstring
+                    float *b; // Member B comment.
                 };
             }
         }
@@ -27,6 +29,8 @@ class B
 
   private:
     int b2 = 42;
+
+    void private_func();
 
   public:
     B() {}
