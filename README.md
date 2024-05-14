@@ -1,11 +1,12 @@
-Usage:
+See `--help` for more details.
 
-```sh
-mrbind -o output_file.h -- clang++ input_file.h -fparse-all-comments # Other compiler flags here.
-```
+Example usage:
 
-* Everything after `--` is the simulated compiler command. `clang++` in the command is probably optional.
+* Generate source:
+  `mrbind -o output_file.cpp -- clang++ -xc++-header input_file.h -fparse-all-comments # Other compiler flags here.`
+* Python binding:
+  * Build: ``g++ test/2.out.cpp -I. -Iinclude `pkg-config --cflags --libs python3-embed` -DMRBIND_HEADER='<mrbind/targets/pybind11.h>' -DMB_PYBIND11_MODULE_NAME=mrbind_example -fPIC -shared -o test/mrbind_example$(python3-config --extension-suffix)``
 
-* `-fparse-all-comments` is recommended to capture all comments, not only doxygen ones, but it is optional.
+    Note that the two instances of `mrbind_example` here must always be the same thing.
 
-* You can add `--print-ast` before `--` to dump the parsed AST.
+  * Use: `cd test`, `python3`, `import mrbind_example`.

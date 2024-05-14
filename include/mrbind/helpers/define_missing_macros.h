@@ -5,6 +5,16 @@
 
 // This also serves as the documentation for the macros.
 
+#ifndef MB_FILE
+// A generated file begins.
+#define MB_FILE
+#endif
+
+#ifndef MB_END_FILE
+// A generated file ends.
+#define MB_END_FILE
+#endif
+
 #ifndef MB_NAMESPACE
 // A namespace begins.
 // `namespace_` - namespace name, or empty if anonymous.

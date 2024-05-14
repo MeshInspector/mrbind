@@ -2,4 +2,5 @@
 /compile_commands.json
 /.cache
 /.vscode/launch.json
-/test/*.out.h
+/test/*.out.cpp
+/test/*.so
