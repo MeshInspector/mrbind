@@ -6,6 +6,7 @@
 
 #define MRBIND_NULL(...)
 #define MRBIND_IDENTITY(...) __VA_ARGS__
+#define MRBIND_EXPECT_EMPTY()
 
 // Stringification.
 #define MRBIND_STR(...) DETAIL_MRBIND_STR(__VA_ARGS__)
@@ -21,6 +22,10 @@
 
 // Given `x`, returns `,x`. But if the argument is empty, returns nothing.
 #define MRBIND_PREPEND_COMMA(...) __VA_OPT__(, __VA_ARGS__)
+
+// Strips the leading comma from the argument. But if the argument is empty, returns nothing.
+#define MRBIND_STRIP_LEADING_COMMA(...) DETAIL_MRBIND_STRIP_LEADING_COMMA(__VA_ARGS__)
+#define DETAIL_MRBIND_STRIP_LEADING_COMMA(empty, ...) MRBIND_EXPECT_EMPTY(empty) __VA_ARGS__
 
 // Given `(a)(b)(c)`, returns `a::b::c::`.
 #define MRBIND_NS_QUAL(seq) SF_FOR_EACH(DETAIL_MRBIND_NS_QUAL_BODY, SF_NULL, SF_NULL,, seq)

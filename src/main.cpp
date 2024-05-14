@@ -570,6 +570,8 @@ int main(int argc, char **argv)
                             << CurrentNamespaces(true) << ", "
                             << "/*name:*/" << name_str.c_str() << ", ";
 
+                        *output_file << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/") << ", ";
+
                         if (num_args == 0)
                             *output_file << "/*no params*/";
                         else
@@ -604,10 +606,9 @@ int main(int argc, char **argv)
                                 << ")";
                         }
                         if (num_args != 0)
-                            *output_file << "\n    ";
-                        *output_file << ", ";
+                            *output_file << "\n";
 
-                        *output_file << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/") << ")\n";
+                        *output_file << ")\n";
                     }
                     break;
 
@@ -684,6 +685,11 @@ int main(int argc, char **argv)
                                             ss << ", /*name:*/" << name_str.c_str() << ", ";
                                         }
 
+                                        if (!is_ctor)
+                                            ss << (is_const ? "const" : "/*non-const*/") << ", ";
+
+                                        ss << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/") << ", ";
+
                                         if (num_args == 0)
                                             ss << "/*no params*/";
                                         else
@@ -719,12 +725,8 @@ int main(int argc, char **argv)
                                                 << ")";
                                         }
                                         if (num_args != 0)
-                                            ss << "\n        ";
-                                        ss << ", ";
-                                        if (!is_ctor)
-                                            ss << (is_const ? "const" : "/*non-const*/") << ", ";
-
-                                        ss << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/") << ")\n";
+                                            ss << "\n    ";
+                                        ss << ")\n";
                                     }
                                     break;
 

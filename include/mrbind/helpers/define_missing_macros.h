@@ -35,13 +35,13 @@
 // `ret_` - parenthesized return type, or empty if void.
 // `ns_` - enclosing namespaces as `(A)(B)(C)`, or empty if none.
 // `name_` - function name.
+// `comment_` - a string literal with the comment, or empty if none.
 // `params_` - a list of parameters `(...)(...)(...)`, or empty if none.
 //     Each parameter is `(type_, name_, default_arg_)`, where:
 //     * `type_` - parenthesized parameter type.
 //     * `name_` - parameter name.
 //     * `default_arg_` - parenthesized default argument, or empty if none.
-// `comment_` - a string literal with the comment, or empty if none.
-#define MB_FUNC(ret_, ns_, name_, params_, comment_)
+#define MB_FUNC(ret_, ns_, name_, comment_, params_)
 #endif
 
 #ifndef MB_CLASS
@@ -56,20 +56,20 @@
 //     * `name_` - field name.
 //     * `comment_` - a string literal with the comment, or empty if none.
 // `ctors_` - a list of public constructors, or empty if none.
-//     Each constructor is `(params_, comment_)`, where:
+//     Each constructor is `(comment_, params_)`, where:
+//     * `comment_` - a string literal with the comment, or empty if none.
 //     * `params_` - a parameter list `(...)(...)(...)`.
 //         Each parameter is `(type_, name_, default_arg_)`, where:
 //         * `type_` - parenthesized parameter type.
 //         * `name_` - parameter name.
 //         * `default_arg_` - parenthesized default argument, or empty if none.
-//     * `comment_` - a string literal with the comment, or empty if none.
 // `methods_` - a list of public methods `(...)(...)(...)`, or empty if none.
-//     Each method is `(ret_, name_, params_, const_, comment_)`, where:
+//     Each method is `(ret_, name_, const_, comment_, params_)`, where:
 //     * `ret_` - parenthesized return type, or empty if void.
 //     * `name_` - method name.
-//     * `params_` - a parameter list, same as for constructors as documented above.
 //     * `const_` - either `const` or nothing if non-const.
 //     * `comment_` - a string literal with the comment, or empty if none.
+//     * `params_` - a parameter list, same as for constructors as documented above.
 #define MB_CLASS(kind_, ns_, name_, comment_, fields_, ctors_, methods_)
 #endif
 

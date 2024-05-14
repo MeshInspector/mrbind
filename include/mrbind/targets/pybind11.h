@@ -24,10 +24,12 @@
 #define DETAIL_MB_PYBIND11_EXPAND_TOP_NS(...) __VA_ARGS__
 #endif
 
+// Wrap the whole file in a module.
 #define MB_FILE PYBIND11_MODULE(MB_PYBIND11_MODULE_NAME, m) { (void)m;
 #define MB_END_FILE }
 
-#define MB_FUNC(ret_, ns_, name_, params_, comment_) \
+// Bind a function.
+#define MB_FUNC(ret_, ns_, name_, comment_, params_) \
     m.def( \
         /* Name as a string. */\
         MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PYBIND11_EXPAND_TOP_NS(ns_)(name_))) \
@@ -39,6 +41,7 @@
         DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
     );
 
+// Bind a enum.
 #define MB_ENUM(kind_, ns_, name_, type_, comment_, elems_) \
     pybind11::enum_< \
         /* Type. */\
@@ -49,18 +52,72 @@
         /* Comment, if any. */\
         MRBIND_PREPEND_COMMA(comment_) \
     ) \
+        /* Elements. */\
         DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS(MRBIND_NS_QUAL(ns_(name_)), elems_)\
     ;
 
-// A helper for `MB_FUNC` that generates the parameter list.
-#define DETAIL_MB_PYBIND11_MAKE_PARAMS(seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
+// Bind a class.
+#define MB_CLASS(kind_, ns_, name_, comment_, fields_, ctors_, methods_) \
+    pybind11::class_< \
+        /* Type. */\
+        MRBIND_NS_QUAL(ns_) name_ \
+    >(m, \
+        /* Name as a string. */\
+        MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PYBIND11_EXPAND_TOP_NS(ns_)(name_)))\
+    )\
+        /* Fields. */\
+        DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS(MRBIND_NS_QUAL(ns_(name_)), fields_)\
+        /* Constructors. */\
+        DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS(ctors_)\
+        /* Methods. */\
+        DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS(MRBIND_NS_QUAL(ns_(name_)), methods_)\
+    ;
+
+// A helper for `MB_FUNC` that generates the parameters.
+#define DETAIL_MB_PYBIND11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY(n, d, type_, name_, .../*default_arg_*/) \
     , pybind11::arg(MRBIND_STR(name_)) __VA_OPT__(= __VA_ARGS__)
 
-// A helper for `MB_ENUM` that generates the element list.
+// A helper for `DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS` that generates a list of parameter types.
+#define DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(seq) MRBIND_STRIP_LEADING_COMMA(SF_FOR_EACH0(DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES_BODY, SF_NULL, SF_NULL, 1, seq))
+#define DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES_BODY(n, d, type_, name_, .../*default_arg_*/) \
+    , MRBIND_IDENTITY type_
+
+// A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
 #define DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
     .value(MRBIND_STR(name_), d name_ MRBIND_PREPEND_COMMA(comment_))
+
+// A helper for `MB_CLASS` that generates the fields.
+#define DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS(name, seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS_BODY, SF_STATE, SF_NULL, name, seq)
+#define DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS_BODY(n, d, type_, name_, comment_) \
+    .def_readwrite(MRBIND_STR(name_), &d name_ MRBIND_PREPEND_COMMA(comment_))
+
+// A helper for `MB_CLASS` that generates the constructors.
+#define DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS(seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS_BODY, SF_NULL, SF_NULL,, seq)
+#define DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS_BODY(n, d, comment_, params_) \
+    .def( \
+        /* Parameter types. */\
+        pybind11::init<DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(params_)>() \
+        /* Parameters. */\
+        DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
+        /* Comment, if any. */\
+        MRBIND_PREPEND_COMMA(comment_) \
+    )
+
+// A helper for `MB_CLASS` that generates the methods.
+#define DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS(name, seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS_BODY, SF_STATE, SF_NULL, name, seq)
+#define DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS_BODY(n, d, ret_, name_, const_, comment_, params_) \
+    .def( \
+        /* Name */\
+        MRBIND_STR(name_), \
+        /* Member pointer. */\
+        &d name_ \
+        /* Parameters. */\
+        DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
+        /* Comment, if any. */ \
+        MRBIND_PREPEND_COMMA(comment_) \
+    )
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>
