@@ -57,4 +57,17 @@ class B
     // Comment!
     int blah() const {return b1;}
     void bleh(int x, float y = 12.3f + 1) {}
+
+    // Enum comment!
+    enum class E
+    {
+        e1 = 1,
+        e2,
+        e3 = 10,
+        e4 = 10,
+    };
+
+    enum EOld {};
+
+    enum class E2 : long long {};
 };

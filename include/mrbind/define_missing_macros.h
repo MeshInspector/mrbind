@@ -65,7 +65,23 @@
 
 #ifndef MB_END_CLASS
 // A class ends.
-// The only things that can be inside classes are other classes, since member variables and functions are embedded directly into `MB_CLASS(...)`.
+// Enums and other classes can be inside classes, but member variables and functions are embedded into the `MB_CLASS(...)` call.
 // `class_` - class name.
 #define MB_END_CLASS(class_)
+#endif
+
+#ifndef MB_ENUM
+// A enum declaration.
+// `kind_` - empty for unscoped enums, `class` for scoped enums.
+// `ns_` - enclosing namespaces/classes as `(A)(B)(C)`, or empty if none.
+// `name_` - the enum name.
+// `type_` - the underlying type (even if not manually specified) (spelled as directly as the builtin type, expanding any typedefs).
+// * `comment_` - a string literal with the comment, or empty if none.
+// `elems_` - a list of enum elements `(...)(...)(...)`, or empty if none.
+//     Each element is `(name_, value_, comment_)`, where:
+//     * `name_` - the element name.
+//     * `value_` - the element value (even if not manually specified) (computed as a `int64_t` or `uint64_t` number, ignoring the original spelling).
+//     * `comment_` - a string literal with the comment, or empty if none.
+//         NOTE: Clang 18 currently has a bug where if an element is missing a comment, the comment from the previous element is reused for it.
+#define MB_ENUM(kind_, ns_, name_, type_, comment_, elems_)
 #endif

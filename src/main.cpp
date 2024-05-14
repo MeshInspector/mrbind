@@ -722,6 +722,75 @@ int main(int argc, char **argv)
                     }
                     break;
 
+                  case CXCursor_EnumDecl:
+                    {
+                        Misc::String name_str = clang_getCursorSpelling(stack.back());
+                        Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
+                        CXType underlying_type = clang_getEnumDeclIntegerType(stack.back());
+                        bool is_scoped = clang_EnumDecl_isScoped(stack.back());
+
+                        // Determine signedness, or throw if the underlying type is weird.
+                        // Notably we reject [u]int128_t here, because libclang has no API to get the element values for those.
+                        bool is_signed;
+                        if (underlying_type.kind == CXType_Char_S || underlying_type.kind == CXType_SChar || underlying_type.kind == CXType_Short || underlying_type.kind == CXType_Int || underlying_type.kind == CXType_Long || underlying_type.kind == CXType_LongLong)
+                            is_signed = true;
+                        else if (underlying_type.kind == CXType_Char_U || underlying_type.kind == CXType_UChar || underlying_type.kind == CXType_UShort || underlying_type.kind == CXType_UInt || underlying_type.kind == CXType_ULong || underlying_type.kind == CXType_ULongLong)
+                            is_signed = false;
+                        else
+                            throw std::runtime_error("Enum `" + Misc::CursorDebugString(stack.back()) + "` has an unknown underlying type.");
+
+                        *output_file << "MB_ENUM("
+                            << (is_scoped ? "class" : "/*not enum-class*/") << ", "
+                            << CurrentNamespaces(true) << ", "
+                            << "/*name:*/" << name_str.c_str() << ", "
+                            << "/*type:*/(" << Misc::String(clang_getTypeSpelling(underlying_type)).c_str() << "), "
+                            << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/") << ", ";
+
+                        struct EnumElemsVisitor : Visitor
+                        {
+                            VisitorImpl *self = nullptr;
+
+                            bool first = true;
+                            bool at_least_one_elem = false;
+                            bool is_signed = false;
+
+                            bool OnPush(const Stack &stack) override
+                            {
+                                if (first)
+                                {
+                                    // Enter into the enum.
+                                    first = false;
+                                    return true;
+                                }
+
+                                if (clang_getCursorKind(stack.back()) == CXCursor_EnumConstantDecl)
+                                {
+                                    at_least_one_elem = true;
+                                    Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
+                                    *self->output_file
+                                        << "\n    ("
+                                        << Misc::String(clang_getCursorSpelling(stack.back())).c_str() << ", "
+                                        << (is_signed ? std::to_string(clang_getEnumConstantDeclValue(stack.back())) : std::to_string(clang_getEnumConstantDeclUnsignedValue(stack.back()))) << ", "
+                                        << (comment_str ? Misc::EscapeQuoteString(comment_str.c_str()) : "/*no comment*/")
+                                        << ")";
+                                }
+
+                                return false;
+                            }
+                        };
+                        EnumElemsVisitor vis;
+                        vis.self = this;
+                        vis.is_signed = is_signed;
+                        vis.Visit(stack.back());
+
+                        if (vis.at_least_one_elem)
+                            *output_file << '\n';
+                        else
+                            *output_file << "/*no elems*/";
+                        *output_file << ");\n";
+                    }
+                    break;
+
                   default:
                     break;
                 }
