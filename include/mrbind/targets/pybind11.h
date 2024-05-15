@@ -67,10 +67,12 @@
     ;
 
 // Bind a class.
-#define MB_CLASS(kind_, ns_, name_, comment_, members_) \
+#define MB_CLASS(kind_, ns_, name_, comment_, bases_, members_) \
     pybind11::class_< \
         /* Type. */\
         MRBIND_NS_QUAL(ns_) name_ \
+        /* Bases. */\
+        DETAIL_MB_PYBIND11_BASE_TYPES(bases_)\
     >(_py11_m, \
         /* Name as a string. */\
         MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PYBIND11_EXPAND_TOP_NS(ns_)(name_)))\
@@ -79,25 +81,29 @@
         DETAIL_MB_PYBIND11_DISPATCH_MEMBERS(MRBIND_NS_QUAL(ns_(name_)), members_)\
     ;
 
-// A helper for `MB_CLASS` that handles different kinds of class members.
-#define DETAIL_MB_PYBIND11_DISPATCH_MEMBERS(qual, seq) SF_FOR_EACH1(DETAIL_MB_PYBIND11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, qual, seq)
-#define DETAIL_MB_PYBIND11_DISPATCH_MEMBERS_BODY(n, d, kind_, ...) \
-    MRBIND_CAT(DETAIL_MB_PYBIND11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
-
-// A helper for `MB_FUNC` that generates the parameters.
+// A helper that generates function parameter bindings.
 #define DETAIL_MB_PYBIND11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY(n, d, type_, name_, .../*default_arg_*/) \
     , pybind11::arg(MRBIND_STR(name_)) __VA_OPT__(= __VA_ARGS__)
 
-// A helper for `DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS` that generates a list of parameter types.
-#define DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(seq) MRBIND_STRIP_LEADING_COMMA(SF_FOR_EACH0(DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES_BODY, SF_NULL, SF_NULL, 1, seq))
-#define DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES_BODY(n, d, type_, name_, .../*default_arg_*/) \
+// A helper that generates a list of parameter types.
+#define DETAIL_MB_PYBIND11_PARAM_TYPES(seq) MRBIND_STRIP_LEADING_COMMA(SF_FOR_EACH0(DETAIL_MB_PYBIND11_PARAM_TYPES_BODY, SF_NULL, SF_NULL, 1, seq))
+#define DETAIL_MB_PYBIND11_PARAM_TYPES_BODY(n, d, type_, name_, .../*default_arg_*/) \
     , MRBIND_IDENTITY type_
 
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
 #define DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
     .value(MRBIND_STR(name_), d name_ MRBIND_PREPEND_COMMA(comment_))
+
+// A helper for `MB_CLASS` that generates the base class list with a leading comma.
+#define DETAIL_MB_PYBIND11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
+#define DETAIL_MB_PYBIND11_BASE_TYPES_BODY(n, d, type_, virtual_) , MRBIND_IDENTITY type_
+
+// A helper for `MB_CLASS` that handles different kinds of class members.
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBERS(qual, seq) SF_FOR_EACH1(DETAIL_MB_PYBIND11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, qual, seq)
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBERS_BODY(n, d, kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PYBIND11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
 
 // A helper for `DETAIL_MB_PYBIND11_DISPATCH_MEMBERS` that generates a field.
 #define DETAIL_MB_PYBIND11_DISPATCH_MEMBER_field(qual_, type_, name_, comment_) \
@@ -107,7 +113,7 @@
 #define DETAIL_MB_PYBIND11_DISPATCH_MEMBER_ctor(qual_, comment_, params_) \
     .def( \
         /* Parameter types. */\
-        pybind11::init<DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(params_)>() \
+        pybind11::init<DETAIL_MB_PYBIND11_PARAM_TYPES(params_)>() \
         /* Parameters. */\
         DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
         /* Comment, if any. */\
@@ -121,7 +127,7 @@
         MRBIND_STR(name_), \
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(qual_*)(DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(params_)) const_>(&qual_ name_) \
+        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(qual_*)(DETAIL_MB_PYBIND11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
         /* Parameters. */\
         DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \

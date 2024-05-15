@@ -50,6 +50,10 @@
 // `ns_` - enclosing namespaces/classes as `(A)(B)(C)`, or empty if none.
 // `name_` - class name. Anonymous classes are not emitted at all.
 // `comment_` - a string literal with the comment, or empty if none.
+// `bases_` - a list of public base classes `(...)(...)(...)`.
+//     Each base is `(type_, virtual_)`, where:
+//     * `type_` - parenthesized base type.
+//     * `virtual_` - either `virtual` or nothing if not virtual.
 // `members_` - a list of some kinds of members `(...)(...)(...)`, or empty if none.
 //     Each element starts with its kind. We have following members:
 //     * A public member variable `(field, type_, name_, comment_)`, where:
@@ -69,7 +73,7 @@
 //         * `const_` - either `const` or nothing if non-const.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.
-#define MB_CLASS(kind_, ns_, name_, comment_, members_)
+#define MB_CLASS(kind_, ns_, name_, comment_, bases_, members_)
 #endif
 
 #ifndef MB_END_CLASS

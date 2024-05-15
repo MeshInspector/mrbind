@@ -33,6 +33,6 @@ namespace MR
 
     struct Bar : Vec2, Foo
     {
-
+        int bar = 43;
     };
 }
