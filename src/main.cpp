@@ -273,6 +273,12 @@ namespace MRBind
             ret += '"';
             for (char ch : str)
             {
+                if (ch == '\n')
+                {
+                    ret += "\\n";
+                    continue;
+                }
+
                 if (ch == '"')
                     ret += '\\';
                 ret += ch;
@@ -485,6 +491,47 @@ int main(int argc, char **argv)
                 return ret;
             }
 
+            // Given a cursor pointing to a function argument, return a default string for it, or empty if none.
+            [[nodiscard]] std::string DefaultArgumentString(const CXCursor &cur)
+            {
+                struct DefaultArgVisitor : Visitor
+                {
+                    std::string value;
+                    bool first = true;
+                    bool OnPush(const Stack &stack) override
+                    {
+                        if (first)
+                        {
+                            first = false;
+                            return true; // Recurse into the parameter.
+                        }
+                        if (!clang_isExpression(clang_getCursorKind(stack.back())))
+                            return false; // This is something that's not the default argument, skip it.
+                        value = Misc::CursorToSourceCode(stack.back());
+                        return false;
+                    }
+                };
+                DefaultArgVisitor vis;
+                vis.Visit(cur);
+
+                // Sometimes we get a leading `=` as in `= { }` (but sometimes it's just `{ }`).
+                if (vis.value.starts_with("= "))
+                    vis.value.erase(0, 2);
+
+                if (vis.value == "{ }")
+                {
+                    CXType type = clang_getCanonicalType(clang_getUnqualifiedType(clang_getNonReferenceType(clang_getCursorType(cur))));
+                    std::string type_str = Misc::String(clang_getTypeSpelling(type)).c_str();
+                    if (std::all_of(type_str.begin(), type_str.end(), [](unsigned char ch){return std::isalnum(ch) || ch == ':';}))
+                        return type_str + "{}"; // A simple type, this should work.
+
+                    // A weird type, use a helper typedef.
+                    return "std::type_identity_t<" + type_str + ">{}";
+                }
+
+                return vis.value;
+            }
+
             bool OnPush(const Stack &stack) override
             {
                 CXCursorKind kind = clang_getCursorKind(stack.back());
@@ -548,7 +595,6 @@ int main(int argc, char **argv)
                                 namespace_stack.pop_back();
                             };
                         }
-
                     }
                     break;
 
@@ -581,28 +627,12 @@ int main(int argc, char **argv)
                             CXCursor arg = clang_Cursor_getArgument(stack.back(), unsigned(i));
                             CXType arg_type = clang_getCanonicalType(clang_getCursorType(arg));
 
-                            struct DefaultArgVisitor : Visitor
-                            {
-                                std::string value;
-                                bool first = true;
-                                bool OnPush(const Stack &stack) override
-                                {
-                                    if (first)
-                                    {
-                                        first = false;
-                                        return true; // Recurse into the parameter.
-                                    }
-                                    value = Misc::CursorToSourceCode(stack.back());
-                                    return false;
-                                }
-                            };
-                            DefaultArgVisitor default_arg;
-                            default_arg.Visit(arg);
+                            std::string default_arg = DefaultArgumentString(arg);
 
                             *output_file << "\n    ("
                                 << "(" << Misc::String(clang_getTypeSpelling(arg_type)).c_str() << "), "
                                 << Misc::String(clang_getCursorSpelling(arg)).c_str() << ", "
-                                << (default_arg.value.empty() ? "/*no default argument*/" : "(" + default_arg.value + ")")
+                                << (default_arg.empty() ? "/*no default argument*/" : "(" + default_arg + ")")
                                 << ")";
                         }
                         if (num_args != 0)
@@ -702,29 +732,12 @@ int main(int argc, char **argv)
                                             CXCursor arg = clang_Cursor_getArgument(stack.back(), unsigned(i));
                                             CXType arg_type = clang_getCanonicalType(clang_getCursorType(arg));
 
-                                            struct DefaultArgVisitor : Visitor
-                                            {
-                                                std::string value;
-                                                bool first = true;
-                                                bool OnPush(const Stack &stack) override
-                                                {
-                                                    if (first)
-                                                    {
-                                                        first = false;
-                                                        return true; // Recurse into the parameter.
-                                                    }
-                                                    value = Misc::CursorToSourceCode(stack.back());
-                                                    return false;
-                                                }
-                                            };
-                                            DefaultArgVisitor default_arg;
-                                            default_arg.Visit(arg);
-
+                                            std::string default_arg = self->DefaultArgumentString(arg);
 
                                             ss_members << "\n        ("
                                                 << "(" << Misc::String(clang_getTypeSpelling(arg_type)).c_str() << "), "
                                                 << Misc::String(clang_getCursorSpelling(arg)).c_str() << ", "
-                                                << (default_arg.value.empty() ? "/*no default argument*/" : "(" + default_arg.value + ")")
+                                                << (default_arg.empty() ? "/*no default argument*/" : "(" + default_arg + ")")
                                                 << ")";
                                         }
                                         if (num_args != 0)
