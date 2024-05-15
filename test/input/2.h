@@ -23,5 +23,6 @@ namespace MR
         Vec2(float x, float y) : x(x), y(y) {}
 
         float sum() const {return x + y;}
+        float sum(int x) noexcept {return x + y;}
     };
 }

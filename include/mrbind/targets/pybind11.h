@@ -9,10 +9,20 @@
 // Include the original source.
 #include MRBIND_ORIGINAL_FILE
 
+// Various other headers we need:
+
 #include <mrbind/helpers/common.h>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+
+#include <type_traits>
+
+// Silence some warnings:
+#ifdef __clang__
+// Clang warns about `::` + `*` coming from different macros, but all compilers including Clang emit a hard error when trying to paste the two tokens together.
+#pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+#endif
 
 // Destroy existing macros.
 #include <mrbind/helpers/undef_all_macros.h>
@@ -112,7 +122,8 @@
         /* Name */\
         MRBIND_STR(name_), \
         /* Member pointer. */\
-        &d name_ \
+        /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
+        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(d*)(DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(params_)) const_>(&d name_) \
         /* Parameters. */\
         DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \
