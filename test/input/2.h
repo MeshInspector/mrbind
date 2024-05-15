@@ -25,4 +25,14 @@ namespace MR
         float sum() const {return x + y;}
         float sum(int x) noexcept {return x + y;}
     };
+
+    struct Foo
+    {
+        int f = 42;
+    };
+
+    struct Bar : Vec2, Foo
+    {
+
+    };
 }

@@ -35,12 +35,12 @@
 #endif
 
 // Wrap the whole file in a module.
-#define MB_FILE PYBIND11_MODULE(MB_PYBIND11_MODULE_NAME, m) { (void)m;
+#define MB_FILE PYBIND11_MODULE(MB_PYBIND11_MODULE_NAME, _py11_m) { (void)_py11_m;
 #define MB_END_FILE }
 
 // Bind a function.
 #define MB_FUNC(ret_, ns_, name_, comment_, params_) \
-    m.def( \
+    _py11_m.def( \
         /* Name as a string. */\
         MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PYBIND11_EXPAND_TOP_NS(ns_)(name_))) \
         /* Name without quotes. */\
@@ -56,7 +56,7 @@
     pybind11::enum_< \
         /* Type. */\
         MRBIND_NS_QUAL(ns_) name_ \
-    >(m, \
+    >(_py11_m, \
         /* Name as a string. */\
         MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PYBIND11_EXPAND_TOP_NS(ns_)(name_)))\
         /* Comment, if any. */\
@@ -67,21 +67,22 @@
     ;
 
 // Bind a class.
-#define MB_CLASS(kind_, ns_, name_, comment_, fields_, ctors_, methods_) \
+#define MB_CLASS(kind_, ns_, name_, comment_, members_) \
     pybind11::class_< \
         /* Type. */\
         MRBIND_NS_QUAL(ns_) name_ \
-    >(m, \
+    >(_py11_m, \
         /* Name as a string. */\
         MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PYBIND11_EXPAND_TOP_NS(ns_)(name_)))\
     )\
-        /* Fields. */\
-        DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS(MRBIND_NS_QUAL(ns_(name_)), fields_)\
-        /* Constructors. */\
-        DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS(ctors_)\
-        /* Methods. */\
-        DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS(MRBIND_NS_QUAL(ns_(name_)), methods_)\
+        /* Members. */\
+        DETAIL_MB_PYBIND11_DISPATCH_MEMBERS(MRBIND_NS_QUAL(ns_(name_)), members_)\
     ;
+
+// A helper for `MB_CLASS` that handles different kinds of class members.
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBERS(qual, seq) SF_FOR_EACH1(DETAIL_MB_PYBIND11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, qual, seq)
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBERS_BODY(n, d, kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PYBIND11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
 
 // A helper for `MB_FUNC` that generates the parameters.
 #define DETAIL_MB_PYBIND11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
@@ -98,14 +99,12 @@
 #define DETAIL_MB_PYBIND11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
     .value(MRBIND_STR(name_), d name_ MRBIND_PREPEND_COMMA(comment_))
 
-// A helper for `MB_CLASS` that generates the fields.
-#define DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS(name, seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS_BODY, SF_STATE, SF_NULL, name, seq)
-#define DETAIL_MB_PYBIND11_MAKE_CLASS_FIELDS_BODY(n, d, type_, name_, comment_) \
-    .def_readwrite(MRBIND_STR(name_), &d name_ MRBIND_PREPEND_COMMA(comment_))
+// A helper for `DETAIL_MB_PYBIND11_DISPATCH_MEMBERS` that generates a field.
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBER_field(qual_, type_, name_, comment_) \
+    .def_readwrite(MRBIND_STR(name_), &qual_ name_ MRBIND_PREPEND_COMMA(comment_))
 
-// A helper for `MB_CLASS` that generates the constructors.
-#define DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS(seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS_BODY, SF_NULL, SF_NULL,, seq)
-#define DETAIL_MB_PYBIND11_MAKE_CLASS_CTORS_BODY(n, d, comment_, params_) \
+// A helper for `DETAIL_MB_PYBIND11_DISPATCH_MEMBERS` that generates a constructor.
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBER_ctor(qual_, comment_, params_) \
     .def( \
         /* Parameter types. */\
         pybind11::init<DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(params_)>() \
@@ -115,15 +114,14 @@
         MRBIND_PREPEND_COMMA(comment_) \
     )
 
-// A helper for `MB_CLASS` that generates the methods.
-#define DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS(name, seq) SF_FOR_EACH(DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS_BODY, SF_STATE, SF_NULL, name, seq)
-#define DETAIL_MB_PYBIND11_MAKE_CLASS_METHODS_BODY(n, d, ret_, name_, const_, comment_, params_) \
+// A helper for `DETAIL_MB_PYBIND11_DISPATCH_MEMBERS` that generates a method.
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBER_method(qual_, ret_, name_, const_, comment_, params_) \
     .def( \
         /* Name */\
         MRBIND_STR(name_), \
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(d*)(DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(params_)) const_>(&d name_) \
+        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(qual_*)(DETAIL_MB_PYBIND11_MAKE_PARAM_TYPES(params_)) const_>(&qual_ name_) \
         /* Parameters. */\
         DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \

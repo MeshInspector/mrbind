@@ -50,27 +50,26 @@
 // `ns_` - enclosing namespaces/classes as `(A)(B)(C)`, or empty if none.
 // `name_` - class name. Anonymous classes are not emitted at all.
 // `comment_` - a string literal with the comment, or empty if none.
-// `fields_` - a list of public member variables `(...)(...)(...)`, or empty if none.
-//     Each member variable is `(type_, name_, comment_)`, where:
-//     * `type_` - parenthesized type.
-//     * `name_` - field name.
-//     * `comment_` - a string literal with the comment, or empty if none.
-// `ctors_` - a list of public constructors, or empty if none.
-//     Each constructor is `(comment_, params_)`, where:
+// `members_` - a list of some kinds of members `(...)(...)(...)`, or empty if none.
+//     Each element starts with its kind. We have following members:
+//     * A public member variable `(field, type_, name_, comment_)`, where:
+//         * `type_` - parenthesized type.
+//         * `name_` - field name.
+//         * `comment_` - a string literal with the comment, or empty if none.
+//     * A public constructor `(ctor, comment_, params_)`, where:
 //     * `comment_` - a string literal with the comment, or empty if none.
 //     * `params_` - a parameter list `(...)(...)(...)`.
 //         Each parameter is `(type_, name_, default_arg_)`, where:
 //         * `type_` - parenthesized parameter type.
 //         * `name_` - parameter name.
 //         * `default_arg_` - parenthesized default argument, or empty if none.
-// `methods_` - a list of public methods `(...)(...)(...)`, or empty if none.
-//     Each method is `(ret_, name_, const_, comment_, params_)`, where:
-//     * `ret_` - parenthesized return type, or empty if void.
-//     * `name_` - method name.
-//     * `const_` - either `const` or nothing if non-const.
-//     * `comment_` - a string literal with the comment, or empty if none.
-//     * `params_` - a parameter list, same as for constructors as documented above.
-#define MB_CLASS(kind_, ns_, name_, comment_, fields_, ctors_, methods_)
+//     * A public method `(method, ret_, name_, const_, comment_, params_)`, where:
+//         * `ret_` - parenthesized return type, or empty if void.
+//         * `name_` - method name.
+//         * `const_` - either `const` or nothing if non-const.
+//         * `comment_` - a string literal with the comment, or empty if none.
+//         * `params_` - a parameter list, same as for constructors as documented above.
+#define MB_CLASS(kind_, ns_, name_, comment_, members_)
 #endif
 
 #ifndef MB_END_CLASS
