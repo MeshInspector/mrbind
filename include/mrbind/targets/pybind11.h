@@ -81,6 +81,11 @@
         DETAIL_MB_PYBIND11_DISPATCH_MEMBERS(MRBIND_NS_QUAL(ns_(name_)), members_)\
     ;
 
+// If `...` is empty, returns void. If it's `(T)`, returns `T`.
+#define DETAIL_MB_PYBIND11_TYPE_OR_VOID(...) MRBIND_CAT(DETAIL_MB_PYBIND11_TYPE_OR_VOID_, __VA_OPT__(0))(__VA_ARGS__)
+#define DETAIL_MB_PYBIND11_TYPE_OR_VOID_() void
+#define DETAIL_MB_PYBIND11_TYPE_OR_VOID_0(...) MRBIND_IDENTITY __VA_ARGS__
+
 // A helper that generates function parameter bindings.
 #define DETAIL_MB_PYBIND11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PYBIND11_MAKE_PARAMS_BODY(n, d, type_, name_, .../*default_arg_*/) \
@@ -121,18 +126,22 @@
     )
 
 // A helper for `DETAIL_MB_PYBIND11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PYBIND11_DISPATCH_MEMBER_method(qual_, ret_, name_, const_, comment_, params_) \
-    .def( \
+#define DETAIL_MB_PYBIND11_DISPATCH_MEMBER_method(qual_, static_, ret_, name_, const_, comment_, params_) \
+    /* `.def` or `.def_static` */\
+    .MRBIND_CAT(DETAIL_MB_PYBIND11_METHOD_IF_STATIC_, static_)(def_static, def) \
+    ( \
         /* Name */\
         MRBIND_STR(name_), \
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(qual_*)(DETAIL_MB_PYBIND11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
+        static_cast<std::type_identity_t<DETAIL_MB_PYBIND11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PYBIND11_METHOD_IF_STATIC_, static_)(,qual_)*)(DETAIL_MB_PYBIND11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
         /* Parameters. */\
         DETAIL_MB_PYBIND11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     )
+#define DETAIL_MB_PYBIND11_METHOD_IF_STATIC_(x, y) y
+#define DETAIL_MB_PYBIND11_METHOD_IF_STATIC_static(x, y) x
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>

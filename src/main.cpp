@@ -279,7 +279,7 @@ namespace MRBind
                     continue;
                 }
 
-                if (ch == '"')
+                if (ch == '"' || ch == '\\')
                     ret += '\\';
                 ret += ch;
             }
@@ -706,11 +706,14 @@ int main(int argc, char **argv)
                                         if (!is_ctor)
                                             ret_type = clang_getCanonicalType(clang_getResultType(func_type));
                                         bool is_const = !is_ctor && clang_CXXMethod_isConst(stack.back());
+                                        bool is_static = !is_ctor && clang_CXXMethod_isStatic(stack.back());
                                         int num_args = clang_Cursor_getNumArguments(stack.back());
 
                                         ss_members << "    (" << (is_ctor ? "ctor" : "method") << ", ";
                                         if (!is_ctor)
                                         {
+                                            ss_members << (is_static ? "static" : "/*non-static*/") << ", ";
+
                                             if (ret_type.kind == CXType_Void)
                                                 ss_members << "/*returns void*/";
                                             else

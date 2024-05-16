@@ -68,6 +68,7 @@
 //         * `name_` - parameter name.
 //         * `default_arg_` - parenthesized default argument, or empty if none.
 //     * A public method `(method, ret_, name_, const_, comment_, params_)`, where:
+//         * `static_` - either `static` or nothing if non-static.
 //         * `ret_` - parenthesized return type, or empty if void.
 //         * `name_` - method name.
 //         * `const_` - either `const` or nothing if non-const.
