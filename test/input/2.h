@@ -35,4 +35,9 @@ namespace MR
     {
         int bar = 43;
     };
+
+    inline void MutRef(int &x)
+    {
+        x = 42;
+    }
 }

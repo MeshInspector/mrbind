@@ -80,8 +80,8 @@
 #ifndef MB_END_CLASS
 // A class ends.
 // Enums and other classes can be inside classes, but member variables and functions are embedded into the `MB_CLASS(...)` call.
-// `class_` - class name.
-#define MB_END_CLASS(class_)
+// `name_` - class name.
+#define MB_END_CLASS(name_)
 #endif
 
 #ifndef MB_ENUM
