@@ -5,6 +5,7 @@
 // Some common helper macros.
 
 #define MRBIND_NULL(...)
+#define MRBIND_COMMA(...) ,
 #define MRBIND_IDENTITY(...) __VA_ARGS__
 #define MRBIND_EXPECT_EMPTY()
 

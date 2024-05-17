@@ -19,17 +19,90 @@
 
 namespace MRBind::detail::pb11
 {
-    template <bool IsStatic, typename ...P>
-    void TryAddFunc(auto &c, auto &&... data)
+    template <typename T>
+    struct ParamTraits
     {
-        if constexpr (((std::is_reference_v<P> && !std::is_const_v<std::remove_reference_t<P>>) || ...))
-            ; // This function has output parameters, don't generate any bindings for it.
+        // using disables_func = void; // Disable the whole function because of this parameter.
+
+        // using adjusted_param_type = ...; // Replaces the parameter type in the wrapping lambda.
+
+        // static T UnadjustParam(adjusted_param_type &&); // Unadjust the parameter type back to the original.
+    };
+
+    // Ban non-const lvalue refs to scalar and array types, since writing to those isn't visible in the caller.
+    // Maybe other types are also affected, not sure, need more testing.
+    template <typename T>
+    requires(
+        std::is_lvalue_reference_v<T> &&
+        !std::is_const_v<std::remove_reference_t<T>> &&
+        (std::is_scalar_v<std::remove_reference_t<T>> || std::is_array_v<std::remove_reference_t<T>>)
+    )
+    struct ParamTraits<T>
+    {
+        using disables_func = void; // Disable the whole function because of this parameter.
+    };
+
+    // Adjust rvalue references to copyable types to passing by value and then copying. pybind11 doesn't like rvalue references.
+    template <typename T>
+    requires std::is_rvalue_reference_v<T>
+    struct ParamTraits<T>
+    {
+        using adjusted_param_type = std::remove_reference_t<T>;
+
+        static T UnadjustParam(adjusted_param_type &&param)
+        {
+            return std::move(param);
+        }
+    };
+
+    // ---
+
+    // Whether having a parameter of type `T` should exclude the whole function from the binding.
+    template <typename T>
+    concept ParamTypeDisablesWholeFunction = requires{typename ParamTraits<T>::disables_func;};
+
+    // For our lambda wrapping the original function, the adjust parameter type.
+    template <typename T>
+    struct AdjustedParamType
+    {
+        using type = T;
+    };
+    template <typename T>
+    concept ParamTypeRequiresAdjustment = requires{typename ParamTraits<T>::adjusted_param_type;};
+    template <ParamTypeRequiresAdjustment T>
+    struct AdjustedParamType<T>
+    {
+        using type = typename ParamTraits<T>::adjusted_param_type;
+    };
+
+    // Converts from `AdjustedParamType<T>::type` back to `T`.
+    template <typename T>
+    [[nodiscard]] T UnadjustParam(typename AdjustedParamType<T>::type &&param)
+    {
+        if constexpr (ParamTypeRequiresAdjustment<T>)
+            return ParamTraits<T>::UnadjustParam(std::forward<typename AdjustedParamType<T>::type>(param));
+        else
+            return std::forward<T>(param);
+    }
+
+
+
+    template <bool IsStatic, auto F, typename ...P>
+    void TryAddFunc(auto &c, const char *name, auto &&... data)
+    {
+        if constexpr ((ParamTypeDisablesWholeFunction<P> || ...))
+            ; // This function has a parameter of a weird type that we can't support.
         else
         {
+            auto lambda = [](typename AdjustedParamType<P>::type ...params) -> decltype(auto)
+            {
+                return std::invoke(F, (UnadjustParam<P>)(std::forward<typename AdjustedParamType<P>::type>(params))...);
+            };
+
             if constexpr (IsStatic)
-                c.def_static(decltype(data)(data)...);
+                c.def_static(name, lambda, decltype(data)(data)...);
             else
-                c.def(decltype(data)(data)...);
+                c.def(name, lambda, decltype(data)(data)...);
         }
     }
 }
@@ -88,9 +161,11 @@ namespace MRBind::detail::pb11
 // Bind a class.
 #define MB_CLASS(kind_, ns_, name_, comment_, bases_, members_) \
     { \
+        /* Class type. */\
+        using _py11_C = MRBIND_NS_QUAL(ns_) name_; \
         auto &&_py11_c = pybind11::class_< \
             /* Type. */\
-            MRBIND_NS_QUAL(ns_) name_ \
+            _py11_C \
             /* Bases. */\
             DETAIL_MB_PB11_BASE_TYPES(bases_)\
         >(_py11_m, \
@@ -153,21 +228,25 @@ namespace MRBind::detail::pb11
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddFunc< \
         /* bool: is this function static? */\
-        MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(true, false)\
-        /* Parameter types. */\
+        MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(true, false),\
+        /* Member pointer. */\
+        /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
+        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,qual_)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
+        /* Parameter types: */\
+        /* Self parameter. */\
+        MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_COMMA() _py11_C&)\
+        /* Normal parameter types. */\
         DETAIL_MB_PB11_PARAM_TYPES_WITH_LEADING_COMMA(params_) \
     >( \
         _py11_c, \
         /* Name */\
-        MRBIND_STR(name_), \
-        /* Member pointer. */\
-        /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,qual_)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
+        MRBIND_STR(name_) \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     );
+
 #define DETAIL_MB_PB11_METHOD_IF_STATIC_(x, y) y
 #define DETAIL_MB_PB11_METHOD_IF_STATIC_static(x, y) x
 
