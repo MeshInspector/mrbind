@@ -13,6 +13,6 @@ if(NOT MSVC)
     target_compile_options(mrbind PRIVATE -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough -Wconversion)
 endif()
 
-target_include_directories(mrbind PRIVATE "${MRBIND_LLVM_PREFIX}/include")
+target_include_directories(mrbind PRIVATE "deps/nlohmann_json/single_include" "${MRBIND_LLVM_PREFIX}/include")
 target_link_directories(mrbind PRIVATE "${MRBIND_LLVM_PREFIX}/lib")
 target_link_libraries(mrbind PRIVATE clang)

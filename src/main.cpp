@@ -1,4 +1,5 @@
 #include <clang-c/Index.h>
+#include <nlohmann/json.hpp>
 
 #include <cstdlib>
 #include <exception>
@@ -16,6 +17,7 @@
 
 namespace MRBind
 {
+    // Parsing command line args.
     class CmdLineArgs
     {
       public:
@@ -25,8 +27,13 @@ namespace MRBind
         std::string output_path;
         bool print_ast = false;
 
+        bool verbose = false;
+
         std::set<std::string> namespace_blacklist;
         bool custom_namespace_blacklist = false;
+
+        std::string input_path;
+        std::string compilation_database_dir;
 
         CmdLineArgs() {}
 
@@ -54,14 +61,17 @@ namespace MRBind
                 else if (this_arg == "--help")
                 {
                     std::cout <<
-                        "Usage: mrbind -o output_file.cpp -- [clang++] [-xc++-header] input_file.h [-fparse-all-comments] ...\n"
-                        "  Everything after `--` is a simulated compiler invocation, with whatever flags and/or compiler name you want.\n"
-                        "  Input filename must be specified in there.\n"
+                        "Usage: mrbind -o output.cpp -- clang++ [-xc++-header] input.h [-fparse-all-comments] ...\n"
+                        "  Everything after `--` is a simulated compiler invocation, with whatever flags and compiler name you want. The compiler name shouldn't affect anything.\n"
+                        "  Input filename can be specified in there. Alternatively, use `-i input.h` before `--`.\n"
                         "  `-xc++-header` forces the input to be processed as a C++ header, despite having the `.h` extension.\n"
                         "  `-fparse-all-comments` can be used to respect non-doxygen comments, which are ignored by default. This is optional.\n"
                         "Our own flags (that go before `--`) are:\n"
                         "  --help - Display this page.\n"
                         "  -o filename - Set output filename. Mandatory.\n"
+                        "  -i filename - Set input filename. Optional, you can also specify the path as a compiler flag after `--`.\n"
+                        "  -d directory - Set directory containing `compile_commands.json`. Requires `-i`. We extract flags from it (guessing the `.cpp` filename) and prepend to those after `--` (don't specify the compiler name after `--`).\n"
+                        "  -v - Be verbose.\n"
                         "  --print-ast - Dump AST to stdout for debugging purposes.\n"
                         "  --blacklist-namespaces a,b,c - Blacklist certain namespaces. If not specified, we blacklist common stuff like `detail` and `impl`. Names must not contain `::`.\n";
                     std::exit(0);
@@ -72,6 +82,24 @@ namespace MRBind
                         throw std::runtime_error("Expected a filename after `-o`.");
                     output_path = *argv++;
                     argc--;
+                }
+                else if (this_arg == "-i")
+                {
+                    if (argc == 0)
+                        throw std::runtime_error("Expected a filename after `-i`.");
+                    input_path = *argv++;
+                    argc--;
+                }
+                else if (this_arg == "-d")
+                {
+                    if (argc == 0)
+                        throw std::runtime_error("Expected a directory name after `-d`.");
+                    compilation_database_dir = *argv++;
+                    argc--;
+                }
+                else if (this_arg == "-v")
+                {
+                    verbose = true;
                 }
                 else if (this_arg == "--print-ast")
                 {
@@ -99,8 +127,148 @@ namespace MRBind
 
             if (!custom_namespace_blacklist)
                 namespace_blacklist = {"detail", "details", "impl"};
+
+            if (!compilation_database_dir.empty() && input_path.empty())
+                throw std::runtime_error("Argument `-d` requires `-i`.");
+
+            if (libclang_argc > 0)
+            {
+                if (compilation_database_dir.empty() && libclang_argv[0][0] == '-')
+                    throw std::runtime_error("When running without `-d`, the first argument after `--` must be a (simulated) compiler name.");
+                if (!compilation_database_dir.empty() && libclang_argv[0][0] != '-')
+                    throw std::runtime_error("When running with `-d`, you don't need a (simulated) compiler name after `--`, as it comes from the compilation database.");
+            }
         }
     };
+
+    // Parsing `compile_commands.json`.
+    namespace CompilationDatabase
+    {
+        [[nodiscard]] std::vector<std::string> GuessFlagsForFile(const std::string &json_path, std::string target_path, bool log)
+        {
+            std::ifstream json_file(json_path);
+            if (!json_file)
+                throw std::runtime_error("Unable to open file: " + json_path);
+
+            nlohmann::json parsed_json = nlohmann::json::parse(json_file);
+            json_file.close();
+
+            if (!parsed_json.is_array())
+                throw std::runtime_error("Compilation database parsing error: The top-level json object is not an array.");
+
+            auto IsPathSep = [](char ch)
+            {
+                return ch == '/' || ch == char(std::filesystem::path::preferred_separator);
+            };
+
+            auto NormalizePath = [](std::string &s)
+            {
+                s = std::filesystem::weakly_canonical(std::filesystem::u8path(s).make_preferred()).string();
+            };
+            NormalizePath(target_path);
+
+            // Pick the record with the longest matching filename prefix, but the match must end on a path separator.
+
+            const nlohmann::json *best_record = nullptr;
+            std::size_t best_prefix_len = 0;
+            std::string best_path;
+
+            for (const auto &elem : parsed_json)
+            {
+                std::string elem_path = elem["file"].get<std::string>();
+                NormalizePath(elem_path);
+                auto sep = std::mismatch(elem_path.begin(), elem_path.end(), target_path.begin(), target_path.end());
+
+                if (
+                    (sep.first == elem_path.end() || (sep.first != elem_path.begin() && IsPathSep(sep.first[-1]))) &&
+                    (sep.second == target_path.end() || (sep.second != target_path.begin() && IsPathSep(sep.second[-1])))
+                )
+                {
+                    std::size_t prefix_len = std::size_t(sep.first - elem_path.begin());
+                    if (prefix_len > best_prefix_len)
+                    {
+                        best_prefix_len = prefix_len;
+                        best_record = &elem;
+                        best_path = elem_path;
+                    }
+                }
+            }
+
+            if (!best_record)
+                throw std::runtime_error("Compilation database doesn't contain any filenames similar to: " + target_path);
+
+            if (log)
+                std::cout << "Using compilation database record for file: " << best_path << '\n';
+
+            const nlohmann::json &command_json = (*best_record)["command"];
+            if (!command_json.is_string())
+                throw std::runtime_error("Compilaton database parsing error: Expecting the \"command\"s to be strings.");
+
+
+            std::string_view command_str = command_json.get<std::string_view>();
+
+            // Try to split the command into individual strings, using some simple quote parsing.
+            std::vector<std::string> ret;
+            ret.emplace_back();
+            bool escaped = false;
+            char in_quotes = 0;
+            for (char ch : command_str)
+            {
+                if (escaped)
+                {
+                    escaped = false;
+                    if (ch != '\\' && ch != '"' && ch != '\"')
+                        ret.back().push_back('\\'); // Unknown escape sequence, leave it untouched.
+                }
+                else
+                {
+                    if (ch == '\\')
+                    {
+                        escaped = true;
+                    }
+                    else if (in_quotes)
+                    {
+                        if (ch == in_quotes)
+                            in_quotes = 0;
+                    }
+                    else if (ch == '"' || ch == '\'')
+                    {
+                        in_quotes = ch;
+                    }
+                }
+
+                if (!in_quotes && !escaped && std::isspace((unsigned char)ch))
+                {
+                    if (!ret.back().empty())
+                        ret.emplace_back();
+                }
+                else
+                {
+                    if (!escaped)
+                        ret.back().push_back(ch);
+                }
+            }
+
+            // Now remove the input filename from the command.
+            std::string best_path_filename = std::filesystem::u8path(best_path).filename();
+            auto it = std::find_if(ret.begin(), ret.end(), [&](const std::string &s)
+            {
+                // First, check that `s` ends with the same filename as `best_path`, to avoid calling `NormalizePath(...)` for nothing.
+                if (s.size() <= best_path_filename.size() || !s.ends_with(best_path_filename) || s[s.size() - best_path_filename.size() - 1] != char(std::filesystem::path::preferred_separator))
+                    return false;
+
+                std::string s_fixed = s;
+                NormalizePath(s_fixed);
+                return s_fixed == best_path;
+            });
+            if (it == ret.end())
+                std::cerr << "Compilation database parsing warning: Using the record for `" << best_path << "`, but the flags don't contain this filename, so I'm unable to strip it.\n";
+            else
+                ret.erase(it);
+
+            return ret;
+        }
+    }
 
     class Parser
     {
@@ -298,12 +466,51 @@ namespace MRBind
         explicit TranslationUnit(Parser &parser, const CmdLineArgs &cmdline_args)
             : TranslationUnit() // Need to invoke the destructor even if this constructor fails, hence delegating.
         {
-            CXErrorCode error = clang_parseTranslationUnit2(
+            int libclang_argc = 0;
+            const char *const *libclang_argv = 0;
+            const char *input_filename = nullptr;
+            std::vector<std::string> libclang_argv_storage;
+            std::vector<const char *> libclang_argv_ptrs_storage;
+            { // Guess libclang flags.
+                if (!cmdline_args.input_path.empty())
+                    input_filename = cmdline_args.input_path.c_str();
+
+                if (!cmdline_args.compilation_database_dir.empty())
+                {
+                    libclang_argv_storage = CompilationDatabase::GuessFlagsForFile(cmdline_args.compilation_database_dir + "/compile_commands.json", cmdline_args.input_path, cmdline_args.verbose);
+                    libclang_argc = int(libclang_argv_storage.size()) + cmdline_args.libclang_argc;
+                    for (const auto &elem : libclang_argv_storage)
+                        libclang_argv_ptrs_storage.push_back(elem.c_str());
+                    for (int i = 0; i < cmdline_args.libclang_argc; i++)
+                        libclang_argv_ptrs_storage.push_back(cmdline_args.libclang_argv[i]);
+                    libclang_argv_ptrs_storage.push_back(nullptr);
+                    libclang_argv = libclang_argv_ptrs_storage.data();
+                }
+                else if (cmdline_args.libclang_argv)
+                {
+                    libclang_argc = cmdline_args.libclang_argc;
+                    libclang_argv = cmdline_args.libclang_argv;
+                }
+
+                if (cmdline_args.verbose)
+                {
+                    std::cout << "Command line arguments for libclang:\n";
+                    for (int i = 0; i < libclang_argc; i++)
+                        std::cout << i << ": `" << libclang_argv[i] << "`\n";
+                }
+            }
+
+            // The `clang_parseTranslationUnit2()` without `...FullArgv` seemed to work fine most of the time (it works with and without
+            //   compiler name as argv[0]). But it doesn't seem to strip the compiler name correctly when we extract flags from `compile_commands.json` (probably
+            //   because then we also specify the input filename with `-i`? not sure).
+            // So instead we use this version, with REQUIRES argv[0] to be a compiler name.
+            // Instead we check that argv[0] doesn't start with a `-` in the argument parsing code.
+            CXErrorCode error = clang_parseTranslationUnit2FullArgv(
                 parser.Handle(),
-                // Filename. Null = read from flags.
-                nullptr,
+                // Filename. Null means read from flags.
+                input_filename,
                 // Command line flags.
-                cmdline_args.libclang_argv, cmdline_args.libclang_argc,
+                libclang_argv, libclang_argc,
                 // Unsaved files - none.
                 nullptr, 0,
                 // Bitmask flags.
@@ -325,6 +532,7 @@ namespace MRBind
             if (error == CXError_Success)
             {
                 auto num_diags = clang_getNumDiagnostics(handle);
+                bool fail = false;
                 for (decltype(num_diags) i = 0; i < num_diags; i++)
                 {
                     struct Guard
@@ -339,9 +547,14 @@ namespace MRBind
                     guard.diag = clang_getDiagnostic(handle, i);
                     if (clang_getDiagnosticSeverity(guard.diag) >= CXDiagnostic_Error)
                     {
-                        throw std::runtime_error("A compilation error.");
+                        // Those diagnostics are usually printed automatically. In one rare case they didn't get printed for me, so if this happens again,
+                        // uncomment this temporarily for debugging.
+                        // std::cerr << Misc::String(clang_getDiagnosticSpelling(guard.diag)).c_str() << '\n';
+                        fail = true;
                     }
                 }
+                if (fail)
+                    throw std::runtime_error("A compilation error.");
             }
         }
 
@@ -484,6 +697,10 @@ namespace MRBind
 
 int main(int argc, char **argv)
 {
+    #ifdef _WIN32
+    std::setlocale(LC_ALL, ".UTF-8"); // Hopefully enable UTF-8 support for `std::filesystem::path` on Windows.
+    #endif
+
     using namespace MRBind;
 
     try
