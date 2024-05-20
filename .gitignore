@@ -2,5 +2,6 @@
 /compile_commands.json
 /.cache
 /.vscode/launch.json
+/.vscode/_current_mode.txt
 /test/*.out.cpp
 /test/*.so

@@ -15,6 +15,14 @@
 #include <utility>
 #include <vector>
 
+#ifndef MRBIND_IGNORE_DEPRECATION
+#ifdef _MSC_VER
+#define MRBIND_IGNORE_DEPRECATION(...) _Pragma("warning(push)") _Pragma("warning(disable:4996)") __VA_ARGS__ _Pragma("warning(pop)")
+#else
+#define MRBIND_IGNORE_DEPRECATION(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
+#endif
+#endif
+
 namespace MRBind
 {
     // Parsing command line args.
@@ -163,7 +171,7 @@ namespace MRBind
 
             auto NormalizePath = [](std::string &s)
             {
-                s = std::filesystem::weakly_canonical(std::filesystem::u8path(s).make_preferred()).string();
+                s = std::filesystem::weakly_canonical(MRBIND_IGNORE_DEPRECATION(std::filesystem::u8path(s)).make_preferred()).string();
             };
             NormalizePath(target_path);
 
@@ -250,7 +258,7 @@ namespace MRBind
             }
 
             // Now remove the input filename from the command.
-            std::string best_path_filename = std::filesystem::u8path(best_path).filename();
+            std::string best_path_filename = MRBIND_IGNORE_DEPRECATION(std::filesystem::u8path(best_path)).filename().string();
             auto it = std::find_if(ret.begin(), ret.end(), [&](const std::string &s)
             {
                 // First, check that `s` ends with the same filename as `best_path`, to avoid calling `NormalizePath(...)` for nothing.

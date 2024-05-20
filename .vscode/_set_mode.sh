@@ -15,7 +15,7 @@ source "$DIR/_default_settings.src"
 echo $1 >"$DIR/_current_mode.txt"
 
 rm -f "$DIR/../compile_commands.json"
-ln -s "$DIR/../build/$1/compile_commands.json" "$DIR/../compile_commands.json"
+ln -s "$DIR/../build/$1/compile_commands.json" "$DIR/../compile_commands.json" || true # Fails on MSYS2 when the target doesn't exist yet. Oh well.
 
 rm -f "$DIR/launch.json"
 echo >"$DIR/launch.json" '// NOTE: This file is generated, don'"'"'t edit! Edit `launch.default.json` and run a `Mode = ??` task to regenerate this.'
