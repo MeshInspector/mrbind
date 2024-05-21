@@ -181,11 +181,20 @@ namespace MRBind
             std::size_t best_prefix_len = 0;
             std::string best_path;
 
+            // Case-insensitive compare on Windows.
+            auto case_insensitive_on_win =
+                #ifdef _WIN32
+                [](unsigned char a, unsigned char b){return std::tolower(a) == std::tolower(b);};
+                #else
+                std::equal_to<void>{};
+                #endif
+
             for (const auto &elem : parsed_json)
             {
                 std::string elem_path = elem["file"].get<std::string>();
                 NormalizePath(elem_path);
-                auto sep = std::mismatch(elem_path.begin(), elem_path.end(), target_path.begin(), target_path.end());
+
+                auto sep = std::mismatch(elem_path.begin(), elem_path.end(), target_path.begin(), target_path.end(), case_insensitive_on_win);
 
                 if (
                     (sep.first == elem_path.end() || (sep.first != elem_path.begin() && IsPathSep(sep.first[-1]))) &&
@@ -222,6 +231,8 @@ namespace MRBind
             char in_quotes = 0;
             for (char ch : command_str)
             {
+                bool is_quote = false;
+
                 if (escaped)
                 {
                     escaped = false;
@@ -237,11 +248,15 @@ namespace MRBind
                     else if (in_quotes)
                     {
                         if (ch == in_quotes)
+                        {
                             in_quotes = 0;
+                            is_quote = true;
+                        }
                     }
                     else if (ch == '"' || ch == '\'')
                     {
                         in_quotes = ch;
+                        is_quote = true;
                     }
                 }
 
@@ -252,7 +267,7 @@ namespace MRBind
                 }
                 else
                 {
-                    if (!escaped)
+                    if (!escaped && !is_quote)
                         ret.back().push_back(ch);
                 }
             }
@@ -262,8 +277,13 @@ namespace MRBind
             auto it = std::find_if(ret.begin(), ret.end(), [&](const std::string &s)
             {
                 // First, check that `s` ends with the same filename as `best_path`, to avoid calling `NormalizePath(...)` for nothing.
-                if (s.size() <= best_path_filename.size() || !s.ends_with(best_path_filename) || s[s.size() - best_path_filename.size() - 1] != char(std::filesystem::path::preferred_separator))
+                if (s.size() <= best_path_filename.size() ||
+                    !std::equal(s.begin() + std::ptrdiff_t(s.size() - best_path_filename.size()), s.end(), best_path_filename.begin(), best_path_filename.end(), case_insensitive_on_win) ||
+                    s[s.size() - best_path_filename.size() - 1] != char(std::filesystem::path::preferred_separator)
+                )
+                {
                     return false;
+                }
 
                 std::string s_fixed = s;
                 NormalizePath(s_fixed);
@@ -449,6 +469,9 @@ namespace MRBind
             ret += '"';
             for (char ch : str)
             {
+                if (ch == '\r')
+                    continue; // Strip CR completely, only keep LF.
+
                 if (ch == '\n')
                 {
                     ret += "\\n";
@@ -617,19 +640,25 @@ namespace MRBind
                     {
                         Data &data = *static_cast<Data *>(userdata);
 
+                        // Libclang has a buggy `clang_equalCursors()` that will sometimes return false negatives (last tested on v18).
+                        // As a workaround, we fall back to string representation comparisons.
+                        bool parent_is_bugged = std::none_of(data.stack.rbegin(), data.stack.rend(), [&](const CXCursor &c){return clang_equalCursors(parent, c);});
+
                         // Update `data.stack`.
                         while (true)
                         {
                             if (data.stack.empty())
-                                throw std::logic_error("Libclang jumped to a cursor that's not a parent of the current cursor.");
+                                throw std::logic_error("Libclang jumped to a cursor that's not a parent of the current cursor. Cursor: " + Misc::CursorDebugString(cursor) + ", parent: " + Misc::CursorDebugString(parent));
 
-                            if (clang_equalCursors(parent, data.stack.back()))
+                            if (parent_is_bugged ? Misc::CursorDebugString(parent) == Misc::CursorDebugString(data.stack.back()) : clang_equalCursors(parent, data.stack.back()))
                                 break;
 
                             data.vis->OnPop(data.stack, false);
                             data.stack.pop_back();
                         }
+
                         data.stack.push_back(cursor);
+
                         bool recurse = data.vis->OnPush(data.stack);
                         if (!recurse)
                         {
@@ -836,6 +865,8 @@ int main(int argc, char **argv)
                     CXFile file;
                     clang_getSpellingLocation(clang_getCursorLocation(stack.back()), &file, nullptr, nullptr, nullptr);
                     Misc::String str = clang_getFileName(file);
+                    if (!str)
+                        return false; // Hmm! No filename at all? This happened to me in rare cases.
                     if (*main_filename != str.c_str())
                         return false;
                 }

@@ -13,6 +13,7 @@
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Build",
             "disableASLR": false, // Allow running in docker.
+            "env": [/*<ENV_ARR>*/],
         },
         {
             "name": "Debug (CodeLLDB)",
@@ -22,6 +23,7 @@
             "args": "<ARGS>",
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Build",
+            // TODO: env={...}
         },
     ]
 }

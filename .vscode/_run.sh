@@ -19,4 +19,4 @@ fi
 source "$DIR/_default_settings.src"
 [[ -e $DIR/_settings.src ]] && source "$DIR/_settings.src"
 
-"build/$MODE/$EXECUTABLE_NAME" $EXECUTABLE_FLAGS
+env "$EXECUTABLE_ENV" "build/$MODE/$EXECUTABLE_NAME" $EXECUTABLE_FLAGS
