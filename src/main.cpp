@@ -29,19 +29,31 @@ namespace MRBind
     class CmdLineArgs
     {
       public:
+        // Stuff after `--`.
         int libclang_argc = 0;
         const char *const *libclang_argv = nullptr;
 
+        // Output file path.
         std::string output_path;
+        // Whether to print the AST for debug purposes, `--print-ast`.
         bool print_ast = false;
 
+        // Enable logging, `-v`.
         bool verbose = false;
 
+        // Ignored namespace as per `--blacklist-namespaces`.
         std::set<std::string> namespace_blacklist;
+        // True if `--blacklist-namespaces` is specified. On false we fill `namespace_blacklist` automatically.
         bool custom_namespace_blacklist = false;
 
+        // Input filename from `-i`. Optional, otherwise we let libclang extract the path from flags after `--`.
         std::string input_path;
+        // Directory to search for `compile_commands.json`, from `-d`. Optional.
         std::string compilation_database_dir;
+        // Filename to dump the command discovered from the compilation database to, from `-D`.
+        std::string dump_db_command_path;
+        // If true, the output separator for `-D` is `\0` instead of `\n`.
+        bool dump_db_command_null_separated = false;
 
         CmdLineArgs() {}
 
@@ -75,12 +87,14 @@ namespace MRBind
                         "  `-xc++-header` forces the input to be processed as a C++ header, despite having the `.h` extension.\n"
                         "  `-fparse-all-comments` can be used to respect non-doxygen comments, which are ignored by default. This is optional.\n"
                         "Our own flags (that go before `--`) are:\n"
-                        "  --help - Display this page.\n"
-                        "  -o filename - Set output filename. Mandatory.\n"
-                        "  -i filename - Set input filename. Optional, you can also specify the path as a compiler flag after `--`.\n"
-                        "  -d directory - Set directory containing `compile_commands.json`. Requires `-i`. We extract flags from it (guessing the `.cpp` filename) and prepend to those after `--` (don't specify the compiler name after `--`).\n"
-                        "  -v - Be verbose.\n"
-                        "  --print-ast - Dump AST to stdout for debugging purposes.\n"
+                        "  --help        - Display this page.\n"
+                        "  -o filename   - Set output filename. Mandatory.\n"
+                        "  -i filename   - Set input filename. Optional, you can also specify the path as a compiler flag after `--`.\n"
+                        "  -d directory  - Set directory containing `compile_commands.json`. Requires `-i`. We extract flags from it (guessing the `.cpp` filename) and prepend to those after `--` (don't specify the compiler name after `--`).\n"
+                        "  -D filename   - Dump flags discovered from `-d` into the specified file. Optional, requires `-d`. The resulting file contains one flag per line, with no trailing newline. The input filename is removed from those flags, but the compiler name isn't.\n"
+                        "  -D0 filename  - Same as `-D`, but use `\\0` as the separator instead of `\\n`.\n"
+                        "  -v            - Be verbose.\n"
+                        "  --print-ast   - Dump AST to stdout for debugging purposes.\n"
                         "  --blacklist-namespaces a,b,c - Blacklist certain namespaces. If not specified, we blacklist common stuff like `detail` and `impl`. Names must not contain `::`.\n";
                     std::exit(0);
                 }
@@ -103,6 +117,14 @@ namespace MRBind
                     if (argc == 0)
                         throw std::runtime_error("Expected a directory name after `-d`.");
                     compilation_database_dir = *argv++;
+                    argc--;
+                }
+                else if (this_arg == "-D" || this_arg == "-D0")
+                {
+                    if (argc == 0)
+                        throw std::runtime_error("Expected a filename after `-D`.");
+                    dump_db_command_null_separated = this_arg == "-D0";
+                    dump_db_command_path = *argv++;
                     argc--;
                 }
                 else if (this_arg == "-v")
@@ -138,6 +160,9 @@ namespace MRBind
 
             if (!compilation_database_dir.empty() && input_path.empty())
                 throw std::runtime_error("Argument `-d` requires `-i`.");
+
+            if (!dump_db_command_path.empty() && compilation_database_dir.empty())
+                throw std::runtime_error("Argument `-D` requires `-d`.");
 
             if (libclang_argc > 0)
             {
@@ -509,6 +534,24 @@ namespace MRBind
                 if (!cmdline_args.compilation_database_dir.empty())
                 {
                     libclang_argv_storage = CompilationDatabase::GuessFlagsForFile(cmdline_args.compilation_database_dir + "/compile_commands.json", cmdline_args.input_path, cmdline_args.verbose);
+                    // Dump the guessed flags to `-D ...`.
+                    if (!cmdline_args.dump_db_command_path.empty())
+                    {
+                        std::ofstream out(cmdline_args.dump_db_command_path);
+                        if (!out)
+                            throw std::runtime_error("Unable to open file for writing: " + cmdline_args.dump_db_command_path);
+                        out.exceptions(std::ios::badbit | std::ios::failbit);
+
+                        for (bool first = true; const std::string &elem : libclang_argv_storage)
+                        {
+                            if (first)
+                                first = false;
+                            else
+                                out << "\n"[cmdline_args.dump_db_command_null_separated];
+                            out << elem;
+                        }
+                    }
+
                     libclang_argc = int(libclang_argv_storage.size()) + cmdline_args.libclang_argc;
                     for (const auto &elem : libclang_argv_storage)
                         libclang_argv_ptrs_storage.push_back(elem.c_str());
@@ -628,59 +671,36 @@ namespace MRBind
 
                 std::vector<CXCursor> stack;
             };
+
+            // NOTE: Here we do the AST recursion manually, rather than using `CXChildVisit_Recurse`,
+            // because with that we have NO WAY to determine the tree shape, because `clang_equalCursors()` is hopelessly bugged.
+
+            static constexpr void (*VisitLow)(Data &data, CXCursor cur) = [](Data &data, CXCursor cur) -> void
+            {
+                data.stack.push_back(cur);
+
+                bool recurse = data.vis->OnPush(data.stack);
+                if (recurse)
+                {
+                    clang_visitChildren(
+                        cur,
+                        [](CXCursor cursor, CXCursor parent, void *userdata) -> CXChildVisitResult
+                        {
+                            (void)parent;
+                            VisitLow(*static_cast<Data *>(userdata), cursor);
+                            return CXChildVisit_Continue;
+                        },
+                        &data
+                    );
+                }
+
+                data.vis->OnPop(data.stack, !recurse);
+                data.stack.pop_back();
+            };
+
             Data data;
             data.vis = this;
-            data.stack.push_back(cursor);
-
-            if (data.vis->OnPush(data.stack))
-            {
-                clang_visitChildren(
-                    data.stack.front(),
-                    [](CXCursor cursor, CXCursor parent, void *userdata) -> CXChildVisitResult
-                    {
-                        Data &data = *static_cast<Data *>(userdata);
-
-                        // Libclang has a buggy `clang_equalCursors()` that will sometimes return false negatives (last tested on v18).
-                        // As a workaround, we fall back to string representation comparisons.
-                        bool parent_is_bugged = std::none_of(data.stack.rbegin(), data.stack.rend(), [&](const CXCursor &c){return clang_equalCursors(parent, c);});
-
-                        // Update `data.stack`.
-                        while (true)
-                        {
-                            if (data.stack.empty())
-                                throw std::logic_error("Libclang jumped to a cursor that's not a parent of the current cursor. Cursor: " + Misc::CursorDebugString(cursor) + ", parent: " + Misc::CursorDebugString(parent));
-
-                            if (parent_is_bugged ? Misc::CursorDebugString(parent) == Misc::CursorDebugString(data.stack.back()) : clang_equalCursors(parent, data.stack.back()))
-                                break;
-
-                            data.vis->OnPop(data.stack, false);
-                            data.stack.pop_back();
-                        }
-
-                        data.stack.push_back(cursor);
-
-                        bool recurse = data.vis->OnPush(data.stack);
-                        if (!recurse)
-                        {
-                            data.vis->OnPop(data.stack, true);
-                            data.stack.pop_back();
-                        }
-
-                        return recurse ? CXChildVisit_Recurse : CXChildVisit_Continue;
-                    },
-                    &data
-                );
-
-                while (!data.stack.empty())
-                {
-                    data.vis->OnPop(data.stack, false);
-                    data.stack.pop_back();
-                }
-            }
-            else
-            {
-                data.vis->OnPop(data.stack, true);
-            }
+            VisitLow(data, cursor);
         }
     };
 
@@ -1121,7 +1141,7 @@ int main(int argc, char **argv)
                         bool is_signed;
                         if (underlying_type.kind == CXType_Char_S || underlying_type.kind == CXType_SChar || underlying_type.kind == CXType_Short || underlying_type.kind == CXType_Int || underlying_type.kind == CXType_Long || underlying_type.kind == CXType_LongLong)
                             is_signed = true;
-                        else if (underlying_type.kind == CXType_Char_U || underlying_type.kind == CXType_UChar || underlying_type.kind == CXType_UShort || underlying_type.kind == CXType_UInt || underlying_type.kind == CXType_ULong || underlying_type.kind == CXType_ULongLong)
+                        else if (underlying_type.kind == CXType_Bool || underlying_type.kind == CXType_Char_U || underlying_type.kind == CXType_UChar || underlying_type.kind == CXType_UShort || underlying_type.kind == CXType_UInt || underlying_type.kind == CXType_ULong || underlying_type.kind == CXType_ULongLong)
                             is_signed = false;
                         else
                             throw std::runtime_error("Enum `" + Misc::CursorDebugString(stack.back()) + "` has an unknown underlying type.");

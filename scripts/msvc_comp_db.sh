@@ -9,14 +9,16 @@
 #
 # Example usage:
 # * Raw commands:       msvc_comp_db Debug cl
-# * GCC-style commands: msvc_comp_db Debug 'clang++ --target=x86_64-pc-windows-gnu -std=c++20'
+# * GCC-style commands: msvc_comp_db Debug 'clang++ --target=x86_64-pc-windows-gnu -std=c++23'
 
 # Sometimes the output can contain stale records from deleted files.
 # To fix, delete the logs using: find -wholename '**/x64/Debug/**/CL.command.1.tlog' -delete
 # and rebuild in Visual Studio to regenerate the logs.
 
-# To fetch the unescaped command for a file, use e.g. this command:
-# jq 'map(select(.file == "C:\\...\\FILE.CPP")) | .[].command' -r compile_commands.json
+# To fetch the command for a file, use e.g. this command:
+# jq --arg t 'path/to/my_file.cpp' 'map(select((.file|ascii_downcase) == ($t|ascii_downcase))) | .[].command' -r compile_commands.json
+
+set -euo pipefail
 
 if [[ $# != 2 ]]
 then

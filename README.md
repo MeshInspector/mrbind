@@ -3,24 +3,45 @@ See `--help` for more details.
 ## Example usage
 
 * Generate source:
-  `mrbind -o output_file.cpp -- clang++ -xc++-header input_file.h -fparse-all-comments # Other compiler flags here.`
+  `mrbind -o generated_binding.cpp -- clang++ -xc++-header input_file.h -fparse-all-comments # Other compiler flags here.`
 
   There are three ways to specify the input and flags:
   * After `--` (as a compiler flag).
   * Before `--` as `-i input.h`.
   * Before `--` as `-i input.h`, plus `-d dir` where we should search for `compile_commands.json` to extract the flags from. Then you must not specify the (simulated) compiler name after `--`. Then the only flags that should be after `--` are `-xc++-header -fparse-all-comments`.
+
+    * Useful Clang flags:
+
+      * `-xc++-header` - assume the input is a C++ file, rather than C, despite the `.h` extension.
+
+      * `-fparse-all-comments` - respect all comments, rather than only doxygen-style ones.
+
+      * Windows only, when using MSYS2 Clang to parse in MSVC mode:
+
+        * `--target=x86_64-pc-windows-msvc` - operate in MSVC-compatible mode, rather than MinGW-compatible.
+        * Env variable `VCToolsInstallDir='C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\'`
+
+          Selects a specific VS installation. Can fix some really weird header.
+
+          Grab the exact value from the VS developer command prompt, this one is just an example.
+
+        * `-resource-dir=$(clang -print-resource-dir)` - fix Clang being unable to find its own internal header overrides (such as the one providing a proper `constexpr` `offsetof`). I wonder why libclang doesn't set this automatically, when `clang` itself does. (Do note that `$(...)` is a Bash syntax, pasting the output of the command into the flag. You could run and paste it manually.)
+
 * Python binding:
-  * Build: ``clang++ -std=c++20 test/2.out.cpp -I. -Iinclude `pkg-config --cflags --libs python3-embed` -DMRBIND_HEADER='<mrbind/targets/pybind11.h>' -DMB_PYBIND11_MODULE_NAME=mrbind_example -fPIC -shared -o test/mrbind_example$(python3-config --extension-suffix)``<br/>
+  * Compile: `clang++ -c generated_binding.cpp -o generated_binding.o -std=c++20 -I. -Imrbind/include `pkg-config --cflags python3-embed` -DMRBIND_HEADER='<mrbind/targets/pybind11.h>' -DMB_PB11_MODULE_NAME=mrbind_example -fPIC`<br/>
     (or `g++` instead of `clang++`)
 
-    Note that the two instances of `mrbind_example` here must always be the same thing.
+  * Link: `clang++ generated_binding.o -shared -o test/mrbind_example$(python3-config --extension-suffix) `pkg-config --libs python3-embed``
+
+
+
+    Note that all instances of `mrbind_example` above *must* always be the same string.
 
   * Use: `cd test`, `python3`, `import mrbind_example`.
 
 ## Dependencies
 
-* Windows MSYS2: `
-` (LLVM's CMake config scripts expect `clang-tools-extra`, which choke otherwise).
+* Windows MSYS2: `pacman -S --needed make gawk $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,iconv,jq}` (LLVM's CMake config scripts expect `clang-tools-extra`, which choke otherwise).
 
   Note that you must choose an environment. UCRT64 and CLANG64 are good choices (use the respective shortcuts in the Start menu).
 
