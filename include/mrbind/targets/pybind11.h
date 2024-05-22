@@ -135,8 +135,8 @@ namespace MRBind::detail::pb11
     _py11_m.def( \
         /* Name as a string. */\
         MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PB11_EXPAND_TOP_NS(ns_)(name_))) \
-        /* Name without quotes. */\
-        , MRBIND_NS_QUAL(ns_) name_ \
+        /* The function pointer, cast to the correct type to handle overloads. */\
+        , static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(*)(DETAIL_MB_PB11_PARAM_TYPES(params_))>(MRBIND_NS_QUAL(ns_) name_) \
         /* Comment, if any. */\
         MRBIND_PREPEND_COMMA(comment_) \
         /* Params, if any. */\
@@ -213,7 +213,8 @@ namespace MRBind::detail::pb11
     _py11_c.def_readwrite(MRBIND_STR(name_), &qual_ name_ MRBIND_PREPEND_COMMA(comment_));
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a constructor.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(qual_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qual_, comment_, params_) \
     _py11_c.def( \
         /* Parameter types. */\
         pybind11::init<DETAIL_MB_PB11_PARAM_TYPES(params_)>() \
