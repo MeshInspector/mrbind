@@ -462,6 +462,7 @@ namespace MRBind
             return ret;
         }
 
+        // Returns a debug string describing a cursor.
         [[nodiscard]] std::string CursorDebugString(const CXCursor &cur)
         {
             Misc::String kind = clang_getCursorKindSpelling(clang_getCursorKind(cur));
@@ -484,6 +485,34 @@ namespace MRBind
 
             ret += " [" + source_loc + "]";
             return ret;
+        }
+
+        // Returns true if the type is accessible (aka public).
+        // Currently it's not perfect and can have false positives. Shouldn't have false negatives.
+        [[nodiscard]] bool TypeLooksAccessible(CXType type)
+        {
+            // Remove cvref-qualifiers.
+            type = clang_getUnqualifiedType(clang_getNonReferenceType(type));
+
+            CXCursor decl = clang_getTypeDeclaration(type);
+            if (clang_Cursor_isNull(decl))
+                return true; // A built-in type?
+
+            CX_CXXAccessSpecifier access = clang_getCXXAccessSpecifier(decl);
+            // Allow public and various invalid values (for non-members).
+            return access != CX_CXXProtected && access != CX_CXXPrivate;
+        }
+
+        // Returns true if all arguments of function `cur` are accessible as per `TypeLooksAccessible()`.
+        [[nodiscard]] bool FuncParamTypesLookAccessible(const CXCursor &cur)
+        {
+            int num_args = clang_Cursor_getNumArguments(cur);
+            for (int i = 0; i < num_args; i++)
+            {
+                if (!Misc::TypeLooksAccessible(clang_getCursorType(clang_Cursor_getArgument(cur, unsigned(i)))))
+                    return false;
+            }
+            return true;
         }
 
         // Wrap the string in double quotes and escape any weird characters..
@@ -803,6 +832,7 @@ int main(int argc, char **argv)
             std::vector<std::function<void()>> closing_funcs;
 
             std::vector<std::string> namespace_stack;
+            int class_nesting_depth = 0; // Incremented for nested classes.
 
             std::optional<std::string> main_filename;
 
@@ -893,9 +923,12 @@ int main(int argc, char **argv)
 
                 switch (kind)
                 {
-                  case CXCursor_CompoundStmt:
+                  case CXCursor_CompoundStmt: // To avoid function-local declarations.
                   case CXCursor_FieldDecl:
-                    return false; // Don't recurse into some things. Sometimes for performance, sometimes for correctness.
+                  case CXCursor_ClassTemplate: // To avoid nested non-template classes.
+                  case CXCursor_ClassTemplatePartialSpecialization: // To avoid nested non-template classes.
+                    // Don't recurse into some things. Some for performance, some for correctness.
+                    return false;
 
                   case CXCursor_Namespace:
                     {
@@ -936,6 +969,12 @@ int main(int argc, char **argv)
 
                   case CXCursor_FunctionDecl:
                     {
+                        if (class_nesting_depth > 0)
+                            break; // Reject friend definitions.
+
+                        if (!Misc::FuncParamTypesLookAccessible(stack.back()))
+                            break; // Skipping the function because some of its parameter types seem to be inaccessible.
+
                         Misc::String name_str = clang_getCursorSpelling(stack.back());
                         Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
 
@@ -981,8 +1020,17 @@ int main(int argc, char **argv)
                   case CXCursor_ClassDecl:
                   case CXCursor_StructDecl:
                     {
+                        if (!clang_isCursorDefinition(stack.back()))
+                            break; // Reject forward declarations.
+
+                        if (class_nesting_depth > 0 && clang_getCXXAccessSpecifier(stack.back()) != CX_CXXPublic)
+                            break; // Reject non-public nested classes.
+
                         if (clang_Cursor_isAnonymous(stack.back()))
-                            break; // Skip anonymous structs.
+                            break; // Reject anonymous structs/classes.
+
+                        if (clang_Cursor_getNumTemplateArguments(stack.back()) >= 0)
+                            break; // Reject full specializations. Partial specializations don't arrive here in the first place.
 
                         Misc::String class_name = clang_getCursorSpelling(stack.back());
 
@@ -1032,7 +1080,22 @@ int main(int argc, char **argv)
                                   case CXCursor_Constructor:
                                     if (clang_getCXXAccessSpecifier(stack.back()) == CX_CXXPublic) // Only public members.
                                     {
+                                        if (!Misc::FuncParamTypesLookAccessible(stack.back()))
+                                            break; // Skipping the function because some of its parameter types seem to be inaccessible.
+
                                         bool is_ctor = kind == CXCursor_Constructor;
+
+                                        // Skip copy/move operations.
+                                        if (is_ctor)
+                                        {
+                                            if (clang_CXXConstructor_isCopyConstructor(stack.back()) || clang_CXXConstructor_isMoveConstructor(stack.back()))
+                                                break;
+                                        }
+                                        else
+                                        {
+                                            if (clang_CXXMethod_isCopyAssignmentOperator(stack.back()) || clang_CXXMethod_isMoveAssignmentOperator(stack.back()))
+                                                break;
+                                        }
 
                                         Misc::String name_str = clang_getCursorSpelling(stack.back());
                                         Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
@@ -1121,16 +1184,21 @@ int main(int argc, char **argv)
                             << ")\n";
 
                         namespace_stack.push_back(class_name.c_str());
+                        class_nesting_depth++;
                         closing_func = [this]
                         {
                             *output_file << "MB_END_CLASS(" << namespace_stack.back() << ")\n";
                             namespace_stack.pop_back();
+                            class_nesting_depth--;
                         };
                     }
                     break;
 
                   case CXCursor_EnumDecl:
                     {
+                        if (class_nesting_depth > 0 && clang_getCXXAccessSpecifier(stack.back()) != CX_CXXPublic)
+                            break; // Reject non-public enums inside of classes.
+
                         Misc::String name_str = clang_getCursorSpelling(stack.back());
                         Misc::String comment_str = clang_Cursor_getRawCommentText(stack.back());
                         CXType underlying_type = clang_getEnumDeclIntegerType(stack.back());

@@ -22,9 +22,17 @@ function extract(s, a, b)
 }
 
 BEGIN {
+    # Extract the first word of `cxx`, which should be the compiler name.
+    compiler_name = gensub(/ .*/, "", 1, cxx)
+
+    if (compiler_name ~ /^-/)
+    {
+        print "The compiler name starts with a `-`. Did you forget the compiler name and only added the flags?" >"/dev/stderr"
+        exit 1
+    }
+
     # Whether we should try to convert arguments to GNU style.
-    # We do it when the compiler name (first word of `cxx`) doesn't end in `cl`.
-    convert_args = gensub(/ .*/, "", 1, cxx) !~ /cl$/
+    convert_args = compiler_name !~ /cl$/
 }
 
 /^\^/ {

@@ -25,7 +25,8 @@ INPUT_GLOBS = *.h *.hpp
 MRBIND = mrbind
 
 # Extra compiler flags for libclang.
-LIBCLANG_COMPILER_FLAGS = -fparse-all-comments -xc++-header
+LIBCLANG_COMPILER_FLAGS =
+LIBCLANG_COMPILER_FLAGS_LOW = -fparse-all-comments -xc++-header
 
 # Compilation config: (optional if you just want to generate the sources)
 
@@ -105,7 +106,7 @@ $(call var,files_needing_dirs += $(_gen_output) $(_cmd_output) $(_obj_output))
 # Generated source.
 $(_gen_output) $(_cmd_output) &: $1
 	@echo $(call quote,[Generating] $(_gen_output))
-	@$(MRBIND) -i $(call quote,$1) -o $(call quote,$(_gen_output)) -d $(call quote,$(DB_DIR)) -D0 $(call quote,$(_cmd_output)) -- $(LIBCLANG_COMPILER_FLAGS)
+	@$(MRBIND) -i $(call quote,$1) -o $(call quote,$(_gen_output)) -d $(call quote,$(DB_DIR)) -D0 $(call quote,$(_cmd_output)) -- $(LIBCLANG_COMPILER_FLAGS_LOW) $(LIBCLANG_COMPILER_FLAGS)
 	$(call, ### Remove the first entry from the command, which is the compiler name.)
 	@sed -z 1d -i $(call quote,$(_cmd_output))
 
@@ -132,4 +133,9 @@ generate_all: $(generated_files)
 
 # Compile all files (this implies generation).
 .PHONY: compile_all
+ifneq ($(obj_dir_specified),)
 compile_all: $(obj_files)
+else
+compile_all:
+	$(error Must specify OBJ_DIR and COMPILE_COMMAND to compile)
+endif
