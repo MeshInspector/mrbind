@@ -2,6 +2,7 @@
 
 // Set `MB_PB11_EXPAND_TOP_NAMESPACE` to 1 to omit the top-level namespace from function names
 
+#include <future>
 #ifndef MB_PB11_MODULE_NAME
 #error Must define `MB_PB11_MODULE_NAME` to the desired module name (without quotes).
 #endif
@@ -10,15 +11,96 @@
 
 #include <mrbind/helpers/common.h>
 
+#include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
 #include <type_traits>
+
+#if __has_include(<tl/expected.hpp>)
+#define DETAIL_MB_PB11_HAS_TL_EXPECTED 1
+#include <tl/expected.hpp>
+#else
+#define DETAIL_MB_PB11_HAS_TL_EXPECTED 0
+#endif
 
 // Some template helpers.
 
 namespace MRBind::detail::pb11
 {
+    template <typename T>
+    struct ReturnTypeTraits
+    {
+        // static ?? Adjust(T &&);
+    };
+
+    template <typename T>
+    concept ReturnTypeNeedsAdjusting = requires{ReturnTypeTraits<T>::Adjust(std::declval<T &&>());};
+
+    template <typename T>
+    [[nodiscard]] decltype(auto) AdjustReturnedValue(std::type_identity_t<T &&> value)
+    {
+        if constexpr (ReturnTypeNeedsAdjusting<T>)
+            return ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value));
+        else if constexpr (std::is_reference_v<T>)
+            return std::forward<T &&>(value);
+        else
+            return value;
+    }
+
+    template <typename T>
+    struct AdjustedReturnType {using type = T;};
+    template <ReturnTypeNeedsAdjusting T>
+    struct AdjustedReturnType<T> {using type = decltype(ReturnTypeTraits<T>::Adjust(std::declval<T &&>()));};
+
+    // Adjust returned futures to shared futures.
+    template <typename T>
+    struct ReturnTypeTraits<std::future<T>>
+    {
+        static std::shared_future<T> Adjust(std::future<T> &&fut) {return fut.share();}
+    };
+
+    // Recursive adjustment:
+
+    // Adjust `std::vector` elementwise. (What about other containers?)
+    template <ReturnTypeNeedsAdjusting T, typename ...P>
+    struct ReturnTypeTraits<std::vector<T, P...>>
+    {
+        static std::vector<typename AdjustedReturnType<T>::type> Adjust(std::vector<T, P...> &&value)
+        {
+            std::vector<typename AdjustedReturnType<T>::type> ret;
+            ret.reserve(value.size());
+            for (auto &elem : value)
+                ret.push_back((AdjustReturnedValue<T>)(std::move(elem)));
+            return ret;
+        }
+    };
+
+    #if DETAIL_MB_PB11_HAS_TL_EXPECTED
+    // Adjust `tl::expected` elementwise.
+    template <typename T, typename U> requires ReturnTypeNeedsAdjusting<T> || ReturnTypeNeedsAdjusting<U>
+    struct ReturnTypeTraits<tl::expected<T, U>>
+    {
+        static tl::expected<typename AdjustedReturnType<T>::type, typename AdjustedReturnType<U>::type> Adjust(tl::expected<T, U> &&value)
+        {
+            if (value)
+            {
+                if constexpr (std::is_void_v<T>)
+                    return {};
+                else
+                    return (AdjustReturnedValue<T>)(std::move(value.value()));
+            }
+            else
+            {
+                return tl::unexpected((AdjustReturnedValue<U>)(std::move(value.error())));
+            }
+        }
+    };
+    #endif
+
+    // ---
+
     template <typename T>
     struct ParamTraits
     {
@@ -127,12 +209,18 @@ namespace MRBind::detail::pb11
             ; // This function has a parameter of a weird type that we can't support.
         else
         {
+            using ReturnType = std::invoke_result_t<decltype(F), P &&...>; // `P...` are already unadjusted.
+
             auto lambda = [](typename AdjustedParamType<P>::type ...params) -> decltype(auto)
             {
-                return std::invoke(F, (UnadjustParam<P>)(std::forward<typename AdjustedParamType<P>::type>(params))...);
+                if constexpr (std::is_void_v<ReturnType>)
+                    std::invoke(F, (UnadjustParam<P>)(std::forward<typename AdjustedParamType<P>::type>(params))...);
+                else if constexpr (ReturnTypeNeedsAdjusting<ReturnType>)
+                    return (AdjustReturnedValue<ReturnType>)(std::invoke(F, (UnadjustParam<P>)(std::forward<typename AdjustedParamType<P>::type>(params))...));
+                else
+                    return std::invoke(F, (UnadjustParam<P>)(std::forward<typename AdjustedParamType<P>::type>(params))...);
             };
 
-            // using ReturnType = std::invoke_result_t<decltype(F), P &&...>; // `P...` are already unadjusted.
             constexpr pybind11::return_value_policy ret_policy = pybind11::return_value_policy::automatic_reference;
 
             if constexpr (IsStatic)

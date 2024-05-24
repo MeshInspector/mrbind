@@ -222,8 +222,8 @@ namespace MRBind
                 auto sep = std::mismatch(elem_path.begin(), elem_path.end(), target_path.begin(), target_path.end(), case_insensitive_on_win);
 
                 if (
-                    (sep.first == elem_path.end() || (sep.first != elem_path.begin() && IsPathSep(sep.first[-1]))) &&
-                    (sep.second == target_path.end() || (sep.second != target_path.begin() && IsPathSep(sep.second[-1])))
+                    (sep.first == elem_path.end() || (sep.first != elem_path.begin() && (IsPathSep(sep.first[-1]) || sep.first[-1] == '.'))) &&
+                    (sep.second == target_path.end() || (sep.second != target_path.begin() && (IsPathSep(sep.second[-1]) || sep.second[-1] == '.')))
                 )
                 {
                     std::size_t prefix_len = std::size_t(sep.first - elem_path.begin());
@@ -747,20 +747,31 @@ namespace MRBind
                 return false; // No file.
 
             std::string line;
+            bool escaped_newline = false;
             while (std::getline(in, line))
             {
-                // Try to guess if this is a preprocessor directive. This is not entirely accurate, e.g. we don't handle embedded /*...*/ comments.
-                const char *cur = line.c_str();
+                if (escaped_newline)
+                {
+                    escaped_newline = false;
+                }
+                else
+                {
+                    // Try to guess if this is a preprocessor directive. This is not entirely accurate, e.g. we don't handle embedded /*...*/ comments.
+                    const char *cur = line.c_str();
 
-                // Skip whitespace.
-                while (std::isspace((unsigned char)*cur))
-                    cur++;
+                    // Skip whitespace.
+                    while (std::isspace((unsigned char)*cur))
+                        cur++;
 
-                // Check for `#`.
-                if (*cur != '#')
-                    continue;
+                    // Check for `#`.
+                    if (*cur != '#')
+                        continue;
+                }
 
                 out << line << '\n';
+
+                if (!line.empty() && line.back() == '\\')
+                    escaped_newline = true;
             }
 
             return true;
