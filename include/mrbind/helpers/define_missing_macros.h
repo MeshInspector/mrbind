@@ -5,6 +5,11 @@
 
 // This also serves as the documentation for the macros.
 
+// This is set automatically to 1 in a single .cpp file, so you can emit your implementation there.
+#ifndef MRBIND_IS_IMPL_FILE
+#define MRBIND_IS_IMPL_FILE 0
+#endif
+
 #ifndef MB_FILE
 // A generated file begins.
 #define MB_FILE

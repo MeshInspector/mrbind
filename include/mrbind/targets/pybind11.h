@@ -17,6 +17,7 @@
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
 #include <type_traits>
+#include <vector>
 
 #if __has_include(<tl/expected.hpp>)
 #define DETAIL_MB_PB11_HAS_TL_EXPECTED 1
@@ -29,6 +30,18 @@
 
 namespace MRBind::detail::pb11
 {
+    struct Registry
+    {
+        std::vector<void (*)(pybind11::module_ &)> funcs;
+    };
+    [[nodiscard]] inline Registry &GetRegistry()
+    {
+        static Registry ret;
+        return ret;
+    }
+
+    // ---
+
     template <typename T>
     struct ReturnTypeTraits
     {
@@ -250,6 +263,16 @@ namespace MRBind::detail::pb11
     }
 }
 
+#if MRBIND_IS_IMPL_FILE
+
+PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
+{
+    for (auto f : MRBind::detail::pb11::GetRegistry().funcs)
+        f(_pb11_m);
+}
+
+#else
+
 // Silence some warnings:
 #ifdef __clang__
 // Clang warns about `::` + `*` coming from different macros, but all compilers including Clang emit a hard error when trying to paste the two tokens together.
@@ -269,9 +292,9 @@ namespace MRBind::detail::pb11
 #define DETAIL_MB_PB11_EXPAND_TOP_NS(...) __VA_ARGS__
 #endif
 
-// Wrap the whole file in a module.
-#define MB_FILE PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m) { (void)_pb11_m;
-#define MB_END_FILE }
+// Wrap the whole file in a registered lambda.
+#define MB_FILE static const auto register_bindings = []{ MRBind::detail::pb11::GetRegistry().funcs.push_back([](pybind11::module_ &_pb11_m){
+#define MB_END_FILE }); return nullptr; }();
 
 // For namespaces, emit braces with `using namespace`.
 // This helps with name lookup for default arguments (where we can't easily fully qualify the types ourselves).
@@ -411,3 +434,5 @@ namespace MRBind::detail::pb11
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>
+
+#endif // MRBIND_IS_IMPL_FILE

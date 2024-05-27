@@ -33,9 +33,13 @@ See `--help` for more details.
 
   * Link: `clang++ generated_binding.o -shared -o test/mrbind_example$(python3-config --extension-suffix) `pkg-config --libs python3-embed``
 
-
-
     Note that all instances of `mrbind_example` above *must* always be the same string.
+
+    `$(python3-config --extension-suffix)` outputs the file extension, and includes the Python version number and the platform information. On Linux you can use `.so` instead, and on Windows you can use `.pyd` (this was discovered experimetally).
+
+    If you need a specific non-default Python on Linux, use e.g. `python3.12-config` instead of `python3-config`.
+
+    I wasn't able to find `python3-config` for MSVC on Windows (but MSYS2 does have it), so for MSVC always hardcode the `.pyd` extension.
 
   * Use: `cd test`, `python3`, `import mrbind_example`.
 

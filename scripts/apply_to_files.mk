@@ -31,17 +31,26 @@ LIBCLANG_COMPILER_FLAGS_LOW = -fparse-all-comments -xc++-header
 # Compilation config: (optional if you just want to generate the sources)
 
 OBJ_DIR = $(error Must set OBJ_DIR=... when compiling the bindings)
-# The command for compiling the bindings. Will usually contain at least `clang++`.
+# The command for compiling the bindings. Will usually contain at least `clang++`. For Pybind11, you may need paths to Python and Pybind11 headers, if you don't already have them in your `compile_commands.json`.
 # For now we only support GCC-style flags. In theory supporting MSVC isn't hard, but since even on Windows your `compile_commands.json` will likely be GCC-style (because MSVC-style is wonky), this doesn't make much sense.
 COMPILE_COMMAND = $(error Must set COMPILE_COMMAND=... when compiling the bindings)
-# Same, but for linking. Will usually contain at least `clang++`.
+# Same, but for linking. Will usually contain only the compiler name, since the linked libraries need to be after the object files in some linkers. Prefer `LINK_FLAGS` for the flags.
 LINK_COMMAND = $(error Must set LINK_COMMAND=... when linking the bindings)
+# The linker flags.
+LINK_FLAGS :=
 
-SOURCE_EXT_FOR_DB = .cpp
+# The output filename for linking.
+LINK_OUTPUT = $(error Must set LINK_OUTPUT=... when linking the bindings)
 
 # ---
 
 .DELETE_ON_ERROR: # Delete output on command failure. Otherwise you'll get incomplete bindings.
+
+# An LF constant.
+override define lf :=
+$(call)
+$(call)
+endef
 
 # Recursive wildcard function. $1 is a list of directories, $2 is a list of wildcards.
 override rwildcard = $(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
@@ -99,6 +108,7 @@ override define one_file_snippet =
 $(call var,_gen_output := $(call input_filenames_to_generated,$1))
 # Flags guessed from the compilation database.
 $(call var,_cmd_output := $(call input_filenames_to_generated,$1).command)
+$(call var,any_cmd_file := $(_cmd_output))
 # Object file. Here if `OBJ_DIR` is not overridden by the user, we use a placeholder. No files will be generated at that path anyway.
 $(call var,_obj_output := $(if $(obj_dir_specified),$(call input_filenames_to_obj,$1),$(foreach OBJ_DIR,/dummy,$(call input_filenames_to_obj,$1))))
 $(call var,files_needing_dirs += $(_gen_output) $(_cmd_output) $(_obj_output))
@@ -122,14 +132,22 @@ endef
 # The individual file targets.
 $(foreach f,$(input_files),$(eval $(call one_file_snippet,$f)))
 
-# Director targets.
-$(foreach x,$(files_needing_dirs),$(eval $x: | $(dir $x)))
-$(foreach x,$(sort $(dir $(files_needing_dirs))),$(eval $x: ; @mkdir -p $(call quote,$x)))
-
 # Generate all files.
 .DEFAULT_GOAL := generate_all
 .PHONY: generate_all
 generate_all: $(generated_files)
+
+# An extra object file to put the implementation to.
+# First, a little generated source file.
+override impl_src_file := $(if $(obj_dir_specified),$(OBJ_DIR),/dummy)/__impl.cpp
+override impl_obj_file := $(impl_src_file:.cpp=.o)
+$(impl_src_file):
+	@$(file >$@,#define MRBIND_IS_IMPL_FILE 1$(lf)#include MRBIND_HEADER$(lf))
+$(impl_obj_file): $(impl_src_file)
+	$(call, ### Here we just grab the flags from a random source file. Better than no flags at all.)
+	@$(if $(any_cmd_file),xargs -0 -a $(call quote,$(any_cmd_file))) $(COMPILE_COMMAND) -c $(call quote,$<) -o $(call quote,$@)
+override files_needing_dirs += $(impl_src_file) $(impl_obj_file)
+override obj_files += $(impl_obj_file)
 
 # Compile all files (this implies generation).
 .PHONY: compile_all
@@ -139,3 +157,19 @@ else
 compile_all:
 	$(error Must specify OBJ_DIR and COMPILE_COMMAND to compile)
 endif
+
+# Link compiled files (this implies generation and compilation).
+.PHONY: build
+build: $(LINK_OUTPUT)
+
+$(LINK_OUTPUT): $(obj_files)
+	@MSYS2_ARG_CONV_EXCL=* $(LINK_COMMAND) -o $(call quote,$(LINK_OUTPUT)) $(obj_files) $(LINK_FLAGS)
+
+
+
+
+# ---
+
+# Directory targets.
+$(foreach x,$(files_needing_dirs),$(eval $x: | $(dir $x)))
+$(foreach x,$(sort $(dir $(files_needing_dirs))),$(eval $x: ; @mkdir -p $(call quote,$x)))
