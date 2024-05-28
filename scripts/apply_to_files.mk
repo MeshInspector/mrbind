@@ -15,6 +15,9 @@ CODEGEN_DIR = $(error Must set CODEGEN_DIR=... to the code generation output dir
 # If specified, those files are skipped despite being in the `INPUT_DIRS` directories.
 # Those can contain `%` as a wildcard.
 INPUT_FILES_BLACKLIST :=
+# An optional whitelist.
+# Each file has to match both this and not be in the blacklist.
+INPUT_FILES_WHITELIST := %
 
 
 # Input file globs.
@@ -77,7 +80,7 @@ override safe_shell = $(if $(dry_run),$(warning Would run command: $1),$(if $(tr
 override obj_dir_specified = $(filter-out file,$(origin OBJ_DIR))
 
 # The list of input files.
-override input_files := $(filter-out $(INPUT_FILES_BLACKLIST),$(call rwildcard,$(INPUT_DIRS),$(INPUT_GLOBS)))
+override input_files := $(filter-out $(INPUT_FILES_BLACKLIST),$(filter $(INPUT_FILES_WHITELIST),$(call rwildcard,$(INPUT_DIRS),$(INPUT_GLOBS))))
 
 # Converts input filenames to filenames relative to the input dir.
 override input_filenames_to_relative = $(patsubst $(addsuffix /%,$(INPUT_DIRS)),%,$1)
@@ -147,7 +150,7 @@ $(impl_obj_file): $(impl_src_file)
 	$(call, ### Here we just grab the flags from a random source file. Better than no flags at all.)
 	@$(if $(any_cmd_file),xargs -0 -a $(call quote,$(any_cmd_file))) $(COMPILE_COMMAND) -c $(call quote,$<) -o $(call quote,$@)
 override files_needing_dirs += $(impl_src_file) $(impl_obj_file)
-override obj_files += $(impl_obj_file)
+override obj_files := $(impl_obj_file) $(obj_files)# Inserting the new object file first, to compile it first and catch any errors early.
 
 # Compile all files (this implies generation).
 .PHONY: compile_all
@@ -163,6 +166,7 @@ endif
 build: $(LINK_OUTPUT)
 
 $(LINK_OUTPUT): $(obj_files)
+	@echo $(call quote,[Linking] $(LINK_OUTPUT))
 	@MSYS2_ARG_CONV_EXCL=* $(LINK_COMMAND) -o $(call quote,$(LINK_OUTPUT)) $(obj_files) $(LINK_FLAGS)
 
 
