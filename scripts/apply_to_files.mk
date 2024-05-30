@@ -7,10 +7,17 @@
 
 # Configuration:
 
-# Directories.
-DB_DIR = $(error Must set DB_DIR=... to the directory with `compile_commands.json`)
+# Directories:
+
+# We process headers from those directories.
 INPUT_DIRS = $(error Must set INPUT_DIRS=... to the source directories that we should process)
+# The generated bindings are placed there.
 CODEGEN_DIR = $(error Must set CODEGEN_DIR=... to the code generation output directory)
+
+# This is passed to Clang's libtooling flag `-p ...`.
+# Supposedly this is related to the `compile_commands.json` search, and also to the relative paths in the compilation database.
+# E.g. when you build with CMake, you can point this to the CMake build dir.
+ORIGINAL_BUILD_DIR :=
 
 # If specified, those files are skipped despite being in the `INPUT_DIRS` directories.
 # Those can contain `%` as a wildcard.
@@ -119,7 +126,7 @@ $(call var,files_needing_dirs += $(_gen_output) $(_cmd_output) $(_obj_output))
 # Generated source.
 $(_gen_output) $(_cmd_output) &: $1
 	@echo $(call quote,[Generating] $(_gen_output))
-	@$(MRBIND) -i $(call quote,$1) -o $(call quote,$(_gen_output)) -d $(call quote,$(DB_DIR)) -D0 $(call quote,$(_cmd_output)) -- $(LIBCLANG_COMPILER_FLAGS_LOW) $(LIBCLANG_COMPILER_FLAGS)
+	@$(MRBIND) $(call quote,$1) >$(call quote,$(_gen_output)) $(if $(ORIGINAL_BUILD_DIR),-d $(call quote,$(ORIGINAL_BUILD_DIR))) --dump-command0 $(call quote,$(_cmd_output)) $(foreach x,$(LIBCLANG_COMPILER_FLAGS_LOW) $(LIBCLANG_COMPILER_FLAGS),--extra-arg=$(call quote,$x))
 	$(call, ### Remove the first entry from the command, which is the compiler name.)
 	@sed -z 1d -i $(call quote,$(_cmd_output))
 

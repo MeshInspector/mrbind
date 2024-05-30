@@ -12,5 +12,5 @@ endif()
 
 find_package(Clang REQUIRED)
 
-target_include_directories(mrbind PRIVATE "deps/nlohmann_json/single_include" "${MRBIND_LLVM_PREFIX}/include")
-target_link_libraries(mrbind PRIVATE libclang)
+target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
+target_link_libraries(mrbind PRIVATE clangTooling)

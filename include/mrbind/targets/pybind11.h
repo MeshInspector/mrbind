@@ -34,6 +34,12 @@
 
 namespace MRBind::detail::pb11
 {
+    // Given a qualified C++ name, removes all weird characters from it, replaces `::` with `_`, etc.
+    // The resulting name is used for the python bindings.
+    [[nodiscard]] std::string QualifiedNameToPythonName(std::string_view name);
+
+    // ---
+
     // A module is assembled into this structure on load, and then passed to pybind11.
     struct UnfinishedModule
     {
@@ -297,6 +303,33 @@ namespace MRBind::detail::pb11
 
 #if MRBIND_IS_IMPL_FILE
 
+namespace MRBind::detail::pb11
+{
+    std::string QualifiedNameToPythonName(std::string_view name)
+    {
+        std::string ret;
+        ret.reserve(name.size());
+        bool prev_char_is_special = false;
+        for (char ch : name)
+        {
+            if (std::isalnum((unsigned char)ch))
+            {
+                ret += ch;
+                prev_char_is_special = false;
+            }
+            else
+            {
+                if (!prev_char_is_special)
+                {
+                    ret += '_';
+                    prev_char_is_special = true;
+                }
+            }
+        }
+        return ret;
+    }
+}
+
 PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 {
     using namespace MRBind::detail::pb11;
@@ -381,13 +414,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 // Signal to include the original haders.
 #define MB_INCLUDE_ORIGINAL_HEADER 2
 
-// A helper macro that optionally strips top-level namespace from an `(a)(b)(c)` sequence.
-#if MB_PB11_EXPAND_TOP_NAMESPACE
-#define DETAIL_MB_PB11_EXPAND_TOP_NS(...) __VA_OPT__(MRBIND_NULL __VA_ARGS__)
-#else
-#define DETAIL_MB_PB11_EXPAND_TOP_NS(...) __VA_ARGS__
-#endif
-
 // Wrap the whole file in a registered lambda.
 #define MB_FILE static const auto register_bindings = []{ MRBind::detail::pb11::GetRegistry().files.push_back([](MRBind::detail::pb11::UnfinishedModule &_pb11_u){
 #define MB_END_FILE }); return nullptr; }();
@@ -398,19 +424,19 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 #define MB_END_NAMESPACE(namespace_) }
 
 // Bind a function.
-#define MB_FUNC(ret_, ns_, name_, comment_, params_) \
+#define MB_FUNC(ret_, name_, qualname_, comment_, params_) \
     _pb11_u.func_entries.push_back([](pybind11::module_ &_pb11_m){\
         MRBind::detail::pb11::TryAddMemberFunc<\
             /* Doesn't count as `static` for our purposes. */\
             false, \
             /* The function pointer, cast to the correct type to handle overloads. */\
-            static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(*)(DETAIL_MB_PB11_PARAM_TYPES(params_))>(MRBIND_NS_QUAL(ns_) name_) \
+            static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(*)(DETAIL_MB_PB11_PARAM_TYPES(params_))> qualname_ \
             /* Parameter types. */\
             DETAIL_MB_PB11_PARAM_TYPES_WITH_LEADING_COMMA(params_) \
         >( \
             _pb11_m, \
             /* Name */\
-            MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PB11_EXPAND_TOP_NS(ns_)(name_))) \
+            MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)) \
             /* Parameters. */\
             DETAIL_MB_PB11_MAKE_PARAMS(params_) \
             /* Comment, if any. */ \
@@ -419,29 +445,29 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     });
 
 // Bind a enum.
-#define MB_ENUM(kind_, ns_, name_, type_, comment_, elems_) \
+#define MB_ENUM(kind_, name_, qualname_, type_, comment_, elems_) \
     { \
         /* Type. */\
-        using _pb11_E = MRBIND_NS_QUAL(ns_) name_; \
+        using _pb11_E = MRBIND_IDENTITY qualname_; \
         _pb11_u.type_entries.try_emplace(typeid(_pb11_E), [](pybind11::module_ &_pb11_m) \
         { \
             pybind11::enum_<_pb11_E>(_pb11_m, \
                 /* Name as a string. */\
-                MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PB11_EXPAND_TOP_NS(ns_)(name_)))\
+                MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)) \
                 /* Comment, if any. */\
                 MRBIND_PREPEND_COMMA(comment_) \
             ) \
                 /* Elements. */\
-                DETAIL_MB_PB11_MAKE_ENUM_ELEMS(MRBIND_NS_QUAL(ns_(name_)), elems_)\
+                DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_)\
             ; \
         }); \
     }
 
 // Bind a class.
-#define MB_CLASS(kind_, ns_, name_, comment_, bases_, members_) \
+#define MB_CLASS(kind_, name_, qualname_, comment_, bases_, members_) \
     { \
         /* Class type. */\
-        using _pb11_C = MRBIND_NS_QUAL(ns_) name_; \
+        using _pb11_C = MRBIND_IDENTITY qualname_; \
         _pb11_u.type_entries.try_emplace(typeid(_pb11_C), [](pybind11::module_ &_pb11_m) \
         { \
             auto &&_pb11_c = pybind11::class_< \
@@ -451,10 +477,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
                 DETAIL_MB_PB11_BASE_TYPES(bases_)\
             >(_pb11_m, \
                 /* Name as a string. */\
-                MRBIND_STR(MRBIND_NS_CAT(DETAIL_MB_PB11_EXPAND_TOP_NS(ns_)(name_)))\
+                MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)) \
             ); \
             /* Members. */\
-            DETAIL_MB_PB11_DISPATCH_MEMBERS(MRBIND_NS_QUAL(ns_(name_)), members_) \
+            DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
         }, std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)}); \
     }
 
@@ -481,7 +507,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
-    .value(MRBIND_STR(name_), d name_ MRBIND_PREPEND_COMMA(comment_))
+    .value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ MRBIND_PREPEND_COMMA(comment_))
 
 // A helper for `MB_CLASS` that generates the base class list with a leading comma.
 #define DETAIL_MB_PB11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
@@ -491,17 +517,17 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 #define DETAIL_MB_PB11_BASE_TYPEIDS_BODY(n, d, type_, virtual_) typeid(MRBIND_IDENTITY type_),
 
 // A helper for `MB_CLASS` that handles different kinds of class members.
-#define DETAIL_MB_PB11_DISPATCH_MEMBERS(qual, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, qual, seq)
+#define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
 #define DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY(n, d, kind_, ...) \
     MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qual_, type_, name_, comment_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, type_, name_, comment_) \
     MRBind::detail::pb11::TryAddMemberVar<[](_pb11_C &_pb11_o)->auto&&{return _pb11_o.name_;}>(_pb11_c, MRBIND_STR(name_) MRBIND_PREPEND_COMMA(comment_));
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a constructor.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qual_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, comment_, params_) \
     MRBind::detail::pb11::TryAddCtor<\
         /* Parameter types. */\
         DETAIL_MB_PB11_PARAM_TYPES(params_)\
@@ -514,14 +540,14 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qual_, static_, ret_, name_, const_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, const_, comment_, params_) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddMemberFunc< \
         /* bool: is this function static? */\
         MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(true, false),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,qual_)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
+        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
         /* Parameter types: */\
         /* Self parameter. */\
         MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C&)\
