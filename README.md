@@ -45,7 +45,7 @@ See `--help` for more details.
 
 ## Dependencies
 
-* Windows MSYS2: `pacman -S --needed make gawk $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,iconv,jq}` (LLVM's CMake config scripts expect `clang-tools-extra`, which choke otherwise).
+* Windows MSYS2: `pacman -S --needed make gawk perl $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,iconv,jq}` (LLVM's CMake config scripts expect `clang-tools-extra`, which choke otherwise).
 
   Note that you must choose an environment. UCRT64 and CLANG64 are good choices (use the respective shortcuts in the Start menu).
 

@@ -10,6 +10,7 @@
 // Various headers we need:
 
 #include <mrbind/helpers/common.h>
+#include <mrbind/helpers/macro_sequence_for.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
 #include <pybind11/pybind11.h>
@@ -436,7 +437,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         >( \
             _pb11_m, \
             /* Name */\
-            MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)) \
+            MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
             /* Parameters. */\
             DETAIL_MB_PB11_MAKE_PARAMS(params_) \
             /* Comment, if any. */ \
@@ -453,7 +454,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         { \
             pybind11::enum_<_pb11_E>(_pb11_m, \
                 /* Name as a string. */\
-                MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)) \
+                MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
                 /* Comment, if any. */\
                 MRBIND_PREPEND_COMMA(comment_) \
             ) \
@@ -477,7 +478,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
                 DETAIL_MB_PB11_BASE_TYPES(bases_)\
             >(_pb11_m, \
                 /* Name as a string. */\
-                MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)) \
+                MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
             ); \
             /* Members. */\
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
@@ -540,25 +541,44 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, const_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, simplename_, const_, comment_, params_) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddMemberFunc< \
         /* bool: is this function static? */\
         MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(true, false),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&qual_ name_) \
+        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) \
         /* Parameter types: */\
         /* Self parameter. */\
-        MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C&)\
+        MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
         /* Normal parameter types. */\
         DETAIL_MB_PB11_PARAM_TYPES_WITH_LEADING_COMMA(params_) \
     >( \
         _pb11_c, \
         /* Name */\
-        MRBIND_STR(name_) \
+        MRBIND_STR(simplename_) \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
+        /* Comment, if any. */ \
+        MRBIND_PREPEND_COMMA(comment_) \
+    );
+
+// A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, ret_, const_, comment_) \
+    /* `.def` or `.def_static` */\
+    MRBind::detail::pb11::TryAddMemberFunc< \
+        /* Not static. */\
+        false,\
+        /* Member pointer. */\
+        /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
+        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_IDENTITY qualname_::*)() const_>(&MRBIND_IDENTITY qualname_::operator MRBIND_IDENTITY ret_), \
+        /* The only parameter, which is the class itself. */\
+        _pb11_C & \
+    >( \
+        _pb11_c, \
+        /* Name */\
+        ("_convert_to_" + MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str() \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     );

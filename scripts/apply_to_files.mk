@@ -118,7 +118,7 @@ override define one_file_snippet =
 $(call var,_gen_output := $(call input_filenames_to_generated,$1))
 # Flags guessed from the compilation database.
 $(call var,_cmd_output := $(call input_filenames_to_generated,$1).command)
-$(call var,any_cmd_file := $(_cmd_output))
+$(if $(any_cmd_file),,$(call var,any_cmd_file := $(_cmd_output)))
 # Object file. Here if `OBJ_DIR` is not overridden by the user, we use a placeholder. No files will be generated at that path anyway.
 $(call var,_obj_output := $(if $(obj_dir_specified),$(call input_filenames_to_obj,$1),$(foreach OBJ_DIR,/dummy,$(call input_filenames_to_obj,$1))))
 $(call var,files_needing_dirs += $(_gen_output) $(_cmd_output) $(_obj_output))
@@ -126,9 +126,9 @@ $(call var,files_needing_dirs += $(_gen_output) $(_cmd_output) $(_obj_output))
 # Generated source.
 $(_gen_output) $(_cmd_output) &: $1
 	@echo $(call quote,[Generating] $(_gen_output))
-	@$(MRBIND) $(call quote,$1) >$(call quote,$(_gen_output)) $(if $(ORIGINAL_BUILD_DIR),-d $(call quote,$(ORIGINAL_BUILD_DIR))) --dump-command0 $(call quote,$(_cmd_output)) $(foreach x,$(LIBCLANG_COMPILER_FLAGS_LOW) $(LIBCLANG_COMPILER_FLAGS),--extra-arg=$(call quote,$x))
-	$(call, ### Remove the first entry from the command, which is the compiler name.)
-	@sed -z 1d -i $(call quote,$(_cmd_output))
+	@$(MRBIND) $(call quote,$1) >$(call quote,$(_gen_output)) $(if $(ORIGINAL_BUILD_DIR),-p $(call quote,$(ORIGINAL_BUILD_DIR))) --dump-command0 $(call quote,$(_cmd_output)) $(foreach x,$(LIBCLANG_COMPILER_FLAGS_LOW) $(LIBCLANG_COMPILER_FLAGS),--extra-arg-before=$(call quote,$x))
+	$(call, ### Remove the first entry from the command, which is the compiler name. Also remove the language mode overrides, since we always produce C++.)
+	@perl -pe 's/\0-x\0?[^\0]+//g;s/^[^\0]+\0//' -i $(call quote,$(_cmd_output))
 
 # Object file for it.
 $(_obj_output): $(_gen_output) $(_cmd_output)
@@ -153,7 +153,7 @@ override impl_src_file := $(if $(obj_dir_specified),$(OBJ_DIR),/dummy)/__impl.cp
 override impl_obj_file := $(impl_src_file:.cpp=.o)
 $(impl_src_file):
 	@$(file >$@,#define MRBIND_IS_IMPL_FILE 1$(lf)#include MRBIND_HEADER$(lf))
-$(impl_obj_file): $(impl_src_file)
+$(impl_obj_file): $(impl_src_file) $(any_cmd_file)
 	$(call, ### Here we just grab the flags from a random source file. Better than no flags at all.)
 	@$(if $(any_cmd_file),xargs -0 -a $(call quote,$(any_cmd_file))) $(COMPILE_COMMAND) -c $(call quote,$<) -o $(call quote,$@)
 override files_needing_dirs += $(impl_src_file) $(impl_obj_file)

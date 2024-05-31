@@ -126,6 +126,17 @@ namespace MRBind
         return false;
     }
 
+    // Adjusts a printing policy to make it sane.
+    void FixPrintingPolicy(clang::PrintingPolicy &printing_policy)
+    {
+        printing_policy.PrintCanonicalTypes = true; // Add qualifiers.
+        printing_policy.FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
+        printing_policy.SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
+        printing_policy.SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
+        printing_policy.MSVCFormatting = false; // Unsure what this changes, just in case.
+        printing_policy.PolishForDeclaration = true; // Unsure what this changes, just in case.
+    }
+
     // Returns a comment string associated with a declaration, or empty if none.
     // You might want to process it with `EscapeQuoteString` for output.
     [[nodiscard]] std::string GetCommentString(const clang::ASTContext &ctx, const clang::Decl &decl)
@@ -155,6 +166,10 @@ namespace MRBind
         {
             llvm::raw_string_ostream ss(ret);
             default_arg->printPretty(ss, nullptr, printing_policy);
+
+            // Adjust `{...}` to add an explicit type.
+            if (ret.starts_with('{'))
+                ret = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(printing_policy) + std::move(ret);
         }
         return ret;
     }
@@ -168,6 +183,90 @@ namespace MRBind
             return "/*no default arg*/";
     }
 
+    // Returns function name, or a placeholder if it's an overloaded operator.
+    [[nodiscard]] std::string GetAdjustedFuncName(const clang::FunctionDecl &func)
+    {
+        if (func.getDeclName().isIdentifier())
+        {
+            return std::string(func.getName());
+        }
+        else if (func.isOverloadedOperator())
+        {
+            clang::OverloadedOperatorKind op_kind = func.getOverloadedOperator();
+            switch (op_kind)
+            {
+            case clang::OverloadedOperatorKind::OO_None:
+            case clang::OverloadedOperatorKind::NUM_OVERLOADED_OPERATORS:
+                throw std::runtime_error("Not a valid overloaded operator");
+                #define OVERLOADED_OPERATOR(Name,Spelling,Token,Unary,Binary,MemberOnly) \
+                    case clang::OverloadedOperatorKind::OO_##Name: return "_" #Name; // Can't use `#Token` because it's not defined for `[]`.
+                #include "clang/Basic/OperatorKinds.def"
+                #undef OVERLOADED_OPERATOR
+            }
+        }
+        else
+        {
+            throw std::runtime_error("Unknown function kind.");
+        }
+    }
+
+    // Returns true if the type is publicly accessible.
+    // Can have false positives.
+    [[nodiscard]] bool TypeLooksAccessible(const clang::Type &type)
+    {
+        auto AccessIsOk = [](clang::AccessSpecifier ac)
+        {
+            return ac == clang::AccessSpecifier::AS_public || ac == clang::AccessSpecifier::AS_none;
+        };
+
+        // Strip reference-ness. `Type` (as opposed to `QualType`) apprently can't have cv-qualifiers.
+        const clang::Type *fixed_type = &type;
+        if (auto ref = llvm::dyn_cast<clang::ReferenceType>(&type))
+            fixed_type = ref->getPointeeType().getTypePtr();
+
+        // This is based on `clang_getTypeDeclaration()`.
+        if (auto t = llvm::dyn_cast<clang::TypedefType>(fixed_type))
+            return AccessIsOk(t->getDecl()->getAccess());
+        if (auto t = llvm::dyn_cast<clang::TagType>(fixed_type))
+            return AccessIsOk(t->getDecl()->getAccess());
+        if (auto t = llvm::dyn_cast<clang::TemplateSpecializationType>(fixed_type))
+            return AccessIsOk(t->getTemplateName().getAsTemplateDecl()->getAccess());
+        if (auto t = llvm::dyn_cast<clang::DeducedType>(fixed_type))
+        {
+            if (auto dt = t->getDeducedType().getTypePtrOrNull())
+                return TypeLooksAccessible(*dt);
+            else
+                return true;
+        }
+        if (auto t = llvm::dyn_cast<clang::InjectedClassNameType>(fixed_type))
+            return AccessIsOk(t->getDecl()->getAccess());
+        if (auto t = llvm::dyn_cast<clang::ElaboratedType>(fixed_type))
+        {
+            if (auto dt = t->getNamedType().getTypePtrOrNull())
+                return TypeLooksAccessible(*dt);
+            else
+                return true;
+        }
+        return true;
+    }
+
+    // Returns true if all types in the function signature are publicly accessible.
+    // Can have false positives.
+    [[nodiscard]] bool FuncLooksLikeItHasAccessibleSignatureTypes(const clang::FunctionDecl &func)
+    {
+        if (!llvm::isa<clang::CXXConstructorDecl>(func) && !TypeLooksAccessible(*func.getReturnType()))
+            return false;
+
+        for (const clang::ParmVarDecl *p : func.parameters())
+        {
+            if (!TypeLooksAccessible(*p->getType()))
+                return false;
+        }
+
+        return true;
+    }
+
+    // The main visitor, generates most of our code.
     struct ClangAstVisitor : clang::RecursiveASTVisitor<ClangAstVisitor>
     {
         using Base = clang::RecursiveASTVisitor<ClangAstVisitor>;
@@ -180,11 +279,7 @@ namespace MRBind
             : ctx(&ctx),
             printing_policy(ctx.getPrintingPolicy())
         {
-            printing_policy.PrintCanonicalTypes = true;
-            printing_policy.SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
-            printing_policy.SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
-            printing_policy.MSVCFormatting = false; // Unsure what this changes, just in case.
-            printing_policy.PolishForDeclaration = true; // Unsure what this changes, just in case.
+            FixPrintingPolicy(printing_policy);
         }
 
         // Visit template specializations almost as if they were normal code.
@@ -197,19 +292,24 @@ namespace MRBind
         {
             if (decl->isCXXClassMember())
                 return true; // Reject member functions.
+            if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
+                return true; // Reject user-defined literals.
 
             if (ShouldRejectDeclaration(*ctx, *decl))
                 return true;
 
+            if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
+                return true;
+
             std::string qual_name;
             llvm::raw_string_ostream qual_name_ss(qual_name);
-            decl->printName(qual_name_ss, printing_policy);
+            decl->printQualifiedName(qual_name_ss, printing_policy);
 
             llvm::outs() << "MB_FUNC("
                 // Return type.
                 << "(" << decl->getReturnType().getAsString(printing_policy) << "), "
                 // Name.
-                << decl->getName() << ", "
+                << GetAdjustedFuncName(*decl) << ", "
                 // Qualified name.
                 << "(" << qual_name << "), "
                 // Comment.
@@ -239,13 +339,20 @@ namespace MRBind
             return true;
         }
 
-        bool VisitRecordDecl(const clang::RecordDecl *decl) // CRTP override
+        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
+        bool ProcessRecord(const clang::RecordDecl *decl)
         {
             if (ShouldRejectDeclaration(*ctx, *decl))
-                return true;
+                return false;
+
+            if (decl->isAnonymousStructOrUnion())
+                return false; // Reject anonymous structs/unions.
 
             if (!decl->isCompleteDefinition())
-                return true; // Reject forward declarations.
+                return false; // Reject forward declarations.
+
+            if (!TypeLooksAccessible(*decl->getTypeForDecl()))
+                return false; // Inaccessible type.
 
             auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl);
 
@@ -323,49 +430,83 @@ namespace MRBind
                         continue; // Reject non-public methods.
                     if (method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator() || llvm::isa<clang::CXXDestructorDecl>(method))
                         continue; // Reject copy/move assignment operators and destructors. Constructors don't arrive here in the first place.
-
-                    bool is_ctor = llvm::isa<clang::CXXConstructorDecl>(method);
+                    if (!FuncLooksLikeItHasAccessibleSignatureTypes(*method))
+                        continue; // Inaccessible types in the signature.
 
                     PreOutputMember();
 
-                    llvm::outs() << "    (" << (is_ctor ? "ctor" : "method") << ", ";
+                    std::string name;
+                    bool is_ctor = false;
+                    bool is_conv_op = false;
+
+                    if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
+                    {
+                        if (ctor->isCopyOrMoveConstructor())
+                            continue; // Reject copy/move constructors.
+                        is_ctor = true;
+                    }
+                    else if (llvm::isa<clang::CXXConversionDecl>(method))
+                    {
+                        is_conv_op = true;
+                    }
+                    else
+                    {
+                        name = GetAdjustedFuncName(*method);
+                    }
+
+                    llvm::outs() << "    (" << (is_ctor ? "ctor" : is_conv_op ? "conv_op" : "method") << ", ";
                     if (!is_ctor)
                     {
-                        llvm::outs()
+                        if (!is_conv_op)
+                        {
                             // Static?
-                            << (method->isStatic() ? "static" : "/*non-static*/") << ", "
-                            // Return type.
-                            << "(" << method->getReturnType().getAsString(printing_policy) << "), "
-                            // Name.
-                            << method->getName() << ", "
-                            // Constness.
-                            << (method->isConst() ? "const" : "/*non-const*/") << ", ";
+                            llvm::outs() << (method->isStatic() ? "static" : "/*non-static*/") << ", ";
+                        }
+                        // Return type.
+                        llvm::outs() << "(" << method->getReturnType().getAsString(printing_policy) << "), ";
+                        if (!is_conv_op)
+                        {
+                            llvm::outs()
+                                // Name.
+                                << method->getDeclName().getAsString() << ", "
+                                // Simple name.
+                                << name << ", ";
+                        }
+                        // Constness.
+                        llvm::outs() << (method->isConst() ? "const" : "/*non-const*/") << ", ";
                     }
 
                     // Comment.
-                    llvm::outs() << GetQuotedCommentStringOrPlaceholder(*ctx, *method) << ",";
+                    llvm::outs() << GetQuotedCommentStringOrPlaceholder(*ctx, *method);
 
-                    bool have_any_params = false;
-                    for (const clang::ParmVarDecl *p : method->parameters())
+                    // Params.
+                    if (!is_conv_op)
                     {
-                        if (!have_any_params)
+                        llvm::outs() << ",";
+
+                        bool have_any_params = false;
+                        for (const clang::ParmVarDecl *p : method->parameters())
                         {
-                            have_any_params = true;
-                            llvm::outs() << " /*params:*/\n";
+                            if (!have_any_params)
+                            {
+                                have_any_params = true;
+                                llvm::outs() << " /*params:*/\n";
+                            }
+                            llvm::outs() << "        ("
+                                // Type.
+                                << "(" << p->getType().getAsString(printing_policy) << "), "
+                                // Name.
+                                << p->getName() << ", "
+                                // Default argument.
+                                << GetParenDefaultArgumentStringOrPlaceholder(*p, printing_policy)
+                                << ")\n";
                         }
-                        llvm::outs() << "        ("
-                            // Type.
-                            << "(" << p->getType().getAsString(printing_policy) << "), "
-                            // Name.
-                            << p->getName() << ", "
-                            // Default argument.
-                            << GetParenDefaultArgumentStringOrPlaceholder(*p, printing_policy)
-                            << ")\n";
+                        if (have_any_params)
+                            llvm::outs() << "    ";
+                        else
+                            llvm::outs() << " /*no params*/";
                     }
-                    if (have_any_params)
-                        llvm::outs() << "    ";
-                    else
-                        llvm::outs() << " /*no params*/";
+
                     llvm::outs() << ")\n";
                 }
             }
@@ -384,16 +525,26 @@ namespace MRBind
 
         bool TraverseRecordDecl(clang::RecordDecl *decl) // CRTP override
         {
-            bool ret = Base::TraverseRecordDecl(decl);
-            llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+            bool ret = true;
+            if (ProcessRecord(decl))
+            {
+                bool ret = Base::TraverseRecordDecl(decl);
+                llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                return ret;
+            }
             return ret;
         }
 
         bool TraverseCXXRecordDecl(clang::CXXRecordDecl *decl) // CRTP override
         {
             // Weirdly, `TraverseRecordDecl` doesn't catch C++ classes (including structs in C++ mode), so need to have this separate override.
-            bool ret = Base::TraverseCXXRecordDecl(decl);
-            llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+            bool ret = true;
+            if (ProcessRecord(decl))
+            {
+                bool ret = Base::TraverseCXXRecordDecl(decl);
+                llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                return ret;
+            }
             return ret;
         }
 
@@ -401,6 +552,12 @@ namespace MRBind
         {
             if (!decl->isCompleteDefinition())
                 return true; // Reject enum declarations without the element list.
+
+            if (ShouldRejectDeclaration(*ctx, *decl))
+                return true;
+
+            if (!TypeLooksAccessible(*decl->getTypeForDecl()))
+                return true; // Inaccessible type.
 
             llvm::outs() << "MB_ENUM("
                 // Scoped or non-scoped?
@@ -458,7 +615,7 @@ namespace MRBind
 
             std::string name_str(decl->getName());
             llvm::outs() << "MB_NAMESPACE("
-                << (name_str.empty() ? name_str : "/*unnamed*/") << ", "
+                << (!name_str.empty() ? name_str : "/*unnamed*/") << ", "
                 << (decl->isInlineNamespace() ? "inline" : "/*not inline*/") << ", "
                 << GetQuotedCommentStringOrPlaceholder(*ctx, *decl)
                 << ")\n";
@@ -468,6 +625,70 @@ namespace MRBind
             llvm::outs() << "MB_END_NAMESPACE(" << decl->getName() << ")\n";
 
             return ret;
+        }
+    };
+
+    // Produces declarations for all friends in this file, so we can form pointers to them.
+    struct ClangAstVisitorFriendDeclDumper : clang::RecursiveASTVisitor<ClangAstVisitorFriendDeclDumper>
+    {
+        using Base = clang::RecursiveASTVisitor<ClangAstVisitor>;
+
+        clang::ASTContext *ctx = nullptr;
+
+        clang::PrintingPolicy printing_policy;
+
+        bool first = true;
+
+        ClangAstVisitorFriendDeclDumper(clang::ASTContext &ctx)
+            : ctx(&ctx),
+            printing_policy(ctx.getPrintingPolicy())
+        {
+            FixPrintingPolicy(printing_policy);
+        }
+
+        // Visit template specializations almost as if they were normal code.
+        bool shouldVisitTemplateInstantiations() const // CRTP override
+        {
+            return true;
+        }
+
+        bool VisitFunctionDecl(const clang::FunctionDecl *decl) // CRTP override
+        {
+            if (!(decl->getIdentifierNamespace() & clang::Decl::IDNS_OrdinaryFriend))
+                return true; // This is not a friend.
+
+            if (decl->isCXXClassMember())
+                return true; // Reject member functions.
+            if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
+                return true; // Reject user-defined literals.
+
+            if (ShouldRejectDeclaration(*ctx, *decl))
+                return true;
+
+            if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
+                return true; // Inaccessible signature types.
+
+            if (first)
+            {
+                first = false;
+                llvm::outs() << "\n// Declare friends to allow forming pointers-to-members to them.\n";
+            }
+
+            // Print the declaration.
+            // I wanted to use `decl->print()`, but it wants to print the function bodies, and I'm unsure how to disable that.
+
+            std::string qual_name;
+            llvm::raw_string_ostream qual_name_ss(qual_name);
+            decl->printQualifiedName(qual_name_ss, printing_policy);
+
+            if (decl->isConstexpr())
+                llvm::outs() << "constexpr ";
+            if (decl->isConsteval())
+                llvm::outs() << "consteval ";
+
+            decl->getType().print(llvm::outs(), printing_policy, qual_name);
+            llvm::outs() << ";\n";
+            return true;
         }
     };
 
@@ -510,11 +731,16 @@ namespace MRBind
             }
             llvm::outs()
                 << "#endif\n"
-                << "#endif\n"
+                << "#endif\n";
+
+            // Declare all the friends, to allow us to form pointers to them.
+            ClangAstVisitorFriendDeclDumper(ctx).TraverseDecl(ctx.getTranslationUnitDecl());
+            llvm::outs()
                 << "\n"
                 << "MB_FILE\n"
                 << "\n";
 
+            // Generate the bulk of the code.
             ClangAstVisitor(ctx).TraverseDecl(ctx.getTranslationUnitDecl());
 
             llvm::outs() << "\nMB_END_FILE\n";
@@ -606,22 +832,34 @@ int main(int argc, char **argv)
         {
             std::ofstream out_file(dump_command_to_file);
 
-            auto vec = option_parser.getCompilations().getCompileCommands(option_parser.getSourcePathList().front());
-            if (vec.size() < 1)
+            auto commands_vec = option_parser.getCompilations().getCompileCommands(option_parser.getSourcePathList().front());
+            if (commands_vec.size() < 1)
                 throw std::runtime_error("Unable to dump the compilation command: Clang doesn't know a command for this source file.");
-            if (vec.size() > 1)
+            if (commands_vec.size() > 1)
                 throw std::runtime_error("Unable to dump the compilation command: Clang reported multiple commands for this source file.");
 
+            const clang::tooling::CompileCommand &command = commands_vec.front();
+
             bool first = true;
-            for (const std::string &elem : vec.front().CommandLine)
+            bool found_filename = false;
+            for (const std::string &elem : command.CommandLine)
             {
+                if (command.Filename == elem)
+                {
+                    found_filename = true;
+                    continue;
+                }
+
                 if (first)
                     first = false;
                 else
                     out_file << "\n"[dump_command_with_null_separators];
 
+
                 out_file << elem;
             }
+            if (!found_filename)
+                throw std::runtime_error("Unable to dump the compilation command: Tried to strip the input filename from it, but was unable to find it.");
         }
 
         clang::tooling::ClangTool tool(option_parser.getCompilations(), option_parser.getSourcePathList());

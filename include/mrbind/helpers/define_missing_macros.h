@@ -36,7 +36,7 @@
 #endif
 
 #ifndef MB_FUNC
-// A non-member function.
+// A non-member function, or a friend function defined inside of a class.
 // `ret_` - parenthesized return type, or empty if void.
 // `ns_` - enclosing namespaces as `(A)(B)(C)`, or empty if none.
 // `name_` - function name as a single word.
@@ -73,19 +73,22 @@
 //           * `type_` - parenthesized parameter type.
 //           * `name_` - parameter name (can be empty).
 //           * `default_arg_` - parenthesized default argument, or empty if none.
-//     * A public method `(method, static_, ret_, name_, const_, comment_, params_)`, where:
+//     * A public method `(method, static_, ret_, name_, simplename_, const_, comment_, params_)`, where:
 //         * `static_` - either `static` or nothing if non-static.
 //         * `ret_` - parenthesized return type, or empty if void.
 //         * `name_` - method name.
+//         * `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Subscript`.
 //         * `const_` - either `const` or nothing if non-const.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.
+//     * A public conversion operator `(conv_op, ret_, const_, comment_)`, with the same parameter meaning as above.
 #define MB_CLASS(kind_, name_, qualname_, comment_, bases_, members_)
 #endif
 
 #ifndef MB_END_CLASS
 // A class ends.
-// Enums and other classes can be inside classes, but member variables and functions are embedded into the `MB_CLASS(...)` call.
+// Member variables and member functions are embedded into the `MB_CLASS(...)` call, and will not appear as standalone macro calls.
+// Except friend function definitions are included as `MB_FUNC()` instead.
 // `name_` - class name.
 #define MB_END_CLASS(name_)
 #endif
