@@ -1,2 +1,2 @@
 EXECUTABLE_NAME=mrbind
-EXECUTABLE_FLAGS='-o test/2.out.cpp --print-ast -- clang -xc++-header test/input/2.h -fparse-all-comments -std=c++20 -Wall -Wextra'
+EXECUTABLE_FLAGS='test/input/1.h -- -xc++-header'
