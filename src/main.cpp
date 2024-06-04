@@ -315,6 +315,9 @@ namespace MRBind
             std::string qual_name;
             llvm::raw_string_ostream qual_name_ss(qual_name);
             decl->printQualifiedName(qual_name_ss, printing_policy);
+            // Print template arguments, if any.
+            if (auto template_args = decl->getTemplateSpecializationArgs())
+                clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policy);
 
             llvm::outs() << "MB_FUNC("
                 // Return type.
