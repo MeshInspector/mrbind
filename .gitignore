@@ -3,5 +3,6 @@
 /.cache
 /.vscode/launch.json
 /.vscode/_current_mode.txt
+/.vscode/_settings.src
 /test/*.out.cpp
 /test/*.so

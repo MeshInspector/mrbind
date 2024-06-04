@@ -1,3 +1,19 @@
+# Building
+
+## Dependencies
+
+Libclang must be installed (the C++ API of it). It's not included in the official Windows installer.
+
+* On Windows, using MSYS2 is recommended. Open the UCRT64 environment (using the appropriate Start menu shortcut), install following dependencies:
+  ```
+  pacman -S --needed make gawk perl $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,iconv,jq}`
+  ```
+  (LLVM's CMake config scripts expect `clang-tools-extra`, and choke otherwise)
+
+* On Linux, if you have more than one version installed, pass e.g. `-DClang_DIR=/usr/lib/cmake/clang-18` to CMake to select the desired version. (Or an env variable with the same name.)
+
+# Running
+
 See `--help` for more details.
 
 ## Example usage
@@ -45,7 +61,6 @@ See `--help` for more details.
 
 ## Dependencies
 
-* Windows MSYS2: `pacman -S --needed make gawk perl $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,iconv,jq}` (LLVM's CMake config scripts expect `clang-tools-extra`, which choke otherwise).
 
   Note that you must choose an environment. UCRT64 and CLANG64 are good choices (use the respective shortcuts in the Start menu).
 
