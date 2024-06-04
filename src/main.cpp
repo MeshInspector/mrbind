@@ -15,12 +15,16 @@
 #pragma clang diagnostic pop
 #endif
 
+#include <array>
 #include <cstring>
 #include <exception>
+#include <filesystem>
 #include <fstream>
+#include <regex>
 #include <stdexcept>
 #include <string_view>
 #include <string>
+#include <vector>
 
 namespace MRBind
 {
@@ -312,6 +316,9 @@ namespace MRBind
             if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
                 return true;
 
+            if (decl->isDeleted())
+                return true; // Skip deleted.
+
             std::string qual_name;
             llvm::raw_string_ostream qual_name_ss(qual_name);
             decl->printQualifiedName(qual_name_ss, printing_policy);
@@ -446,6 +453,8 @@ namespace MRBind
                         continue; // Reject copy/move assignment operators and destructors. Constructors don't arrive here in the first place.
                     if (!FuncLooksLikeItHasAccessibleSignatureTypes(*method))
                         continue; // Inaccessible types in the signature.
+                    if (method->isDeleted())
+                        continue; // Skip deleted.
 
                     PreOutputMember();
 
@@ -788,14 +797,80 @@ namespace MRBind
             return std::make_unique<ClangAstConsumer>(std::string(InFile));
         }
     };
+
+    // Wraps the default compilation database, to adjust some flags.
+    // Can hold at most one file at a time.
+    struct ClangAdjustedCompilationDatabase : clang::tooling::CompilationDatabase
+    {
+        clang::tooling::CompilationDatabase *underlying = nullptr;
+
+        bool remove_pch_flags = false;
+
+        ClangAdjustedCompilationDatabase(clang::tooling::CompilationDatabase &underlying, bool remove_pch_flags)
+            : underlying(&underlying), remove_pch_flags(remove_pch_flags)
+        {}
+
+        void AdjustCommand(clang::tooling::CompileCommand &command) const
+        {
+            auto RemoveFlags = [&](const auto &... patterns)
+            {
+                auto iter = command.CommandLine.begin();
+
+                std::array<std::regex, sizeof...(patterns)> pattern_regexes = {std::regex(patterns)...};
+
+                while (true)
+                {
+                    iter = std::search(command.CommandLine.begin(), command.CommandLine.end(), pattern_regexes.begin(), pattern_regexes.end(),
+                        [](const std::string &a, const std::regex &b)
+                        {
+                            return std::regex_match(a, b);
+                        }
+                    );
+                    if (iter == command.CommandLine.end())
+                        break;
+                    command.CommandLine.erase(iter, iter + std::ptrdiff_t(pattern_regexes.size()));
+                }
+            };
+
+            // PCH inclusion, because their Clang version might not match.
+            if (remove_pch_flags)
+                RemoveFlags("-Xclang", "-include-pch", "-Xclang", ".*");
+        }
+
+        std::vector<clang::tooling::CompileCommand> getCompileCommands(clang::StringRef FilePath) const override
+        {
+            auto ret = underlying->getCompileCommands(FilePath);
+            for (auto &elem : ret)
+                AdjustCommand(elem);
+            return ret;
+        }
+
+        std::vector<std::string> getAllFiles() const override
+        {
+            return underlying->getAllFiles();
+        }
+
+        std::vector<clang::tooling::CompileCommand> getAllCompileCommands() const override
+        {
+            auto ret = underlying->getAllCompileCommands();
+            for (auto &elem : ret)
+                AdjustCommand(elem);
+            return ret;
+        }
+    };
 }
 
 int main(int argc, char **argv)
 {
     try
     {
+        #ifdef _WIN32
+        std::setlocale(LC_ALL, ".UTF-8"); // Hopefully enable UTF-8 support for `std::filesystem::path` on Windows.
+        #endif
+
         std::string dump_command_to_file;
         bool dump_command_with_null_separators = false;
+        bool remove_pch_flags = false;
 
         { // Extract custom options from argc/argv.
             int modified_argc = 1;
@@ -811,6 +886,8 @@ int main(int argc, char **argv)
 
                     if (!seen_double_dash)
                     {
+                        // --dump-command
+
                         bool dump_command = false;
                         if (this_arg == "--dump-command")
                         {
@@ -829,6 +906,13 @@ int main(int argc, char **argv)
                                 throw std::runtime_error("Expected a filename after `" + std::string(this_arg) + "`.");
 
                             dump_command_to_file = argv[++i];
+                            continue;
+                        }
+
+                        // --ignore-pch-flags
+                        if (this_arg == "--ignore-pch-flags")
+                        {
+                            remove_pch_flags = true;
                             continue;
                         }
                     }
@@ -859,12 +943,14 @@ int main(int argc, char **argv)
         if (option_parser.getSourcePathList().size() != 1)
             throw std::runtime_error("Must specify exactly one source file."); // By default libtooling accepts >= 1 files, but I don't want to deal with splitting the output.
 
+        MRBind::ClangAdjustedCompilationDatabase adjusted_db(option_parser.getCompilations(), remove_pch_flags);
+
         // Dump compilation command if requested.
         if (!dump_command_to_file.empty())
         {
             std::ofstream out_file(dump_command_to_file);
 
-            auto commands_vec = option_parser.getCompilations().getCompileCommands(option_parser.getSourcePathList().front());
+            auto commands_vec = adjusted_db.getCompileCommands(option_parser.getSourcePathList().front());
             if (commands_vec.size() < 1)
                 throw std::runtime_error("Unable to dump the compilation command: Clang doesn't know a command for this source file.");
             if (commands_vec.size() > 1)
@@ -894,7 +980,7 @@ int main(int argc, char **argv)
                 throw std::runtime_error("Unable to dump the compilation command: Tried to strip the input filename from it, but was unable to find it.");
         }
 
-        clang::tooling::ClangTool tool(option_parser.getCompilations(), option_parser.getSourcePathList());
+        clang::tooling::ClangTool tool(adjusted_db, option_parser.getSourcePathList());
 
         return tool.run(clang::tooling::newFrontendActionFactory<MRBind::ClangFrontendAction>().get());
     }

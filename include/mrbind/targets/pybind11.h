@@ -416,7 +416,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 #define MB_INCLUDE_ORIGINAL_HEADER 2
 
 // Wrap the whole file in a registered lambda.
-#define MB_FILE static const auto register_bindings = []{ MRBind::detail::pb11::GetRegistry().files.push_back([](MRBind::detail::pb11::UnfinishedModule &_pb11_u){
+#define MB_FILE static const auto register_bindings = []{ MRBind::detail::pb11::GetRegistry().files.push_back([]([[maybe_unused]] MRBind::detail::pb11::UnfinishedModule &_pb11_u){
 #define MB_END_FILE }); return nullptr; }();
 
 // For namespaces, emit braces with `using namespace`.
