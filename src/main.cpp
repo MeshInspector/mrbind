@@ -548,7 +548,25 @@ namespace MRBind
 
         bool TraverseCXXRecordDecl(clang::CXXRecordDecl *decl) // CRTP override
         {
-            // Weirdly, `TraverseRecordDecl` doesn't catch C++ classes (including structs in C++ mode), so need to have this separate override.
+            // Unlike `Visit...`, `Traverse...` only handles exact matches, so we need this in addition to `TraverseRecordDecl()`
+            //   to process classes (including structs in C++ mode).
+
+            bool ret = true;
+            if (ProcessRecord(decl))
+            {
+                bool ret = Base::TraverseCXXRecordDecl(decl);
+                llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                return ret;
+            }
+            return ret;
+        }
+
+        bool TraverseClassTemplateSpecializationDecl(clang::ClassTemplateSpecializationDecl *decl)
+        {
+            // Unlike `Visit...`, `Traverse...` only handles exact matches, so we need this in addition to `TraverseRecordDecl()`
+            //   to process class template specializations.
+            // There's also a `...PartialSpecializationDecl` version, which we don't care about.
+
             bool ret = true;
             if (ProcessRecord(decl))
             {
