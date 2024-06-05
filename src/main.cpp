@@ -5,6 +5,7 @@
 #pragma clang diagnostic ignored "-Wextra-semi"
 #endif
 
+#include <clang/AST/DeclBase.h>
 #include <clang/AST/RecursiveASTVisitor.h>
 #include <clang/Frontend/CompilerInstance.h>
 #include <clang/Tooling/CommonOptionsParser.h>
@@ -361,7 +362,7 @@ namespace MRBind
         }
 
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
-        bool ProcessRecord(const clang::RecordDecl *decl)
+        bool ProcessRecord(clang::RecordDecl *decl)
         {
             if (ShouldRejectDeclaration(*ctx, *decl))
                 return false;
@@ -425,7 +426,20 @@ namespace MRBind
                 }
             };
 
-            // -- Data members.
+            { // -- Static data members.
+                clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
+                for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
+                {
+                    PreOutputMember();
+
+                    llvm::outs() << "    (field, static, "
+                        << "(" << var->getType().getAsString(printing_policy) << "), "
+                        << var->getName() << ", "
+                        << GetQuotedCommentStringOrPlaceholder(*ctx, *var) << ")\n";
+                }
+            }
+
+            // -- Non-static data members.
             for (const clang::FieldDecl *field : decl->fields())
             {
                 if (field->isBitField() || field->isAnonymousStructOrUnion())
@@ -436,7 +450,7 @@ namespace MRBind
 
                 PreOutputMember();
 
-                llvm::outs() << "    (field, "
+                llvm::outs() << "    (field, /*non-static*/, "
                     << "(" << field->getType().getAsString(printing_policy) << "), "
                     << field->getName() << ", "
                     << GetQuotedCommentStringOrPlaceholder(*ctx, *field) << ")\n";
@@ -445,6 +459,13 @@ namespace MRBind
             // -- Constructors and methods.
             if (cxxdecl)
             {
+                // Implicit default ctor.
+                if (!cxxdecl->hasUserProvidedDefaultConstructor() && cxxdecl->hasDefaultConstructor())
+                {
+                    PreOutputMember();
+                    llvm::outs() << "    (ctor, /*no comment*/, /*no params*/) // Implicit default constructor.\n";
+                }
+
                 for (const clang::CXXMethodDecl *method : cxxdecl->methods())
                 {
                     if (method->getAccess() != clang::AS_public)

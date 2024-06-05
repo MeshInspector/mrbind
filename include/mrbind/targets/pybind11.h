@@ -95,7 +95,7 @@ namespace MRBind::detail::pb11
     {
         if constexpr (ReturnTypeNeedsAdjusting<T>)
             return ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value));
-        else if constexpr (std::is_reference_v<T>)
+        else if constexpr (std::is_rvalue_reference_v<T &&>)
             return std::forward<T &&>(value);
         else
             return value;
@@ -226,7 +226,7 @@ namespace MRBind::detail::pb11
 
     // ---
 
-    template <auto Getter>
+    template <bool IsStatic, auto Getter>
     void TryAddMemberVar(auto &c, const char *name, auto &&... data)
     {
         // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
@@ -245,12 +245,18 @@ namespace MRBind::detail::pb11
             std::is_pointer_v<T>
         )
         {
-            c.def_property_readonly(name, const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            if constexpr (IsStatic)
+                c.def_property_readonly_static(name, const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            else
+                c.def_property_readonly(name, const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
         else
         {
             // Can't use perfect forwarding here, because pybind11 tries to analyze the functor signature, therefore it chokes on templated lambdas.
-            c.def_property(name, const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            if constexpr (IsStatic)
+                c.def_property_static(name, const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            else
+                c.def_property(name, const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
     }
 
@@ -523,8 +529,19 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, type_, name_, comment_) \
-    MRBind::detail::pb11::TryAddMemberVar<[](_pb11_C &_pb11_o)->auto&&{return _pb11_o.name_;}>(_pb11_c, MRBIND_STR(name_) MRBIND_PREPEND_COMMA(comment_));
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, comment_) \
+    MRBind::detail::pb11::TryAddMemberVar< \
+        /* Static? */\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
+        /* Accessor lambda. */\
+        [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.name_;}\
+    >(\
+        _pb11_c,\
+        /* Name. */\
+        MRBIND_STR(name_)\
+        /* Comment, if any. */\
+        MRBIND_PREPEND_COMMA(comment_)\
+    );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a constructor.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
@@ -545,13 +562,13 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddMemberFunc< \
         /* bool: is this function static? */\
-        MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(true, false),\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(true, false),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) \
+        static_cast<std::type_identity_t<DETAIL_MB_PB11_TYPE_OR_VOID(ret_)>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) \
         /* Parameter types: */\
         /* Self parameter. */\
-        MRBIND_CAT(DETAIL_MB_PB11_METHOD_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
         /* Normal parameter types. */\
         DETAIL_MB_PB11_PARAM_TYPES_WITH_LEADING_COMMA(params_) \
     >( \
@@ -583,10 +600,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         MRBIND_PREPEND_COMMA(comment_) \
     );
 
-#define DETAIL_MB_PB11_METHOD_IF_STATIC_(x, y) y
-#define DETAIL_MB_PB11_METHOD_IF_STATIC_static(x, y) x
+#define DETAIL_MB_PB11_IF_STATIC_(x, y) y
+#define DETAIL_MB_PB11_IF_STATIC_static(x, y) x
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>
 
-#endif // MRBIND_IS_IMPL_FILE
+#endif // not MRBIND_IS_IMPL_FILE

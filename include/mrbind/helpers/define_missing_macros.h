@@ -62,7 +62,8 @@
 //     * `virtual_` - either `virtual` or nothing if not virtual.
 // `members_` - a list of some kinds of members `(...)(...)(...)`, or empty if none.
 //     Each element starts with its kind. We have following members:
-//     * A public member variable `(field, type_, name_, comment_)`, where:
+//     * A public member variable `(field, static_, type_, name_, comment_)`, where:
+//         * `static_` - either `static` or nothing if non-static.
 //         * `type_` - parenthesized type.
 //         * `name_` - field name.
 //         * `comment_` - a string literal with the comment, or empty if none.

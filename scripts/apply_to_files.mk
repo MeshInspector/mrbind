@@ -26,6 +26,10 @@ INPUT_FILES_BLACKLIST :=
 # Each file has to match both this and not be in the blacklist.
 INPUT_FILES_WHITELIST := %
 
+# A list of extra input `.cpp`s that were already generated somehow.
+# As opposed to the normal inputs, the generation step isn't ran for those.
+PREMADE_BINDINGS :=
+
 
 # Input file globs.
 INPUT_GLOBS = *.h *.hpp
@@ -113,6 +117,7 @@ $(if $(filter-out $(words $(sort $(generated_files))),$(words $(generated_files)
 override files_needing_dirs :=
 
 # A function used to generate recipes for each individual input file.
+# $1 is the input filename.
 override define one_file_snippet =
 # Generated file.
 $(call var,_gen_output := $(call input_filenames_to_generated,$1))
@@ -150,14 +155,19 @@ generate_all: $(generated_files)
 # An extra object file to put the implementation to.
 # First, a little generated source file.
 override impl_src_file := $(if $(obj_dir_specified),$(OBJ_DIR),/dummy)/__impl.cpp
-override impl_obj_file := $(impl_src_file:.cpp=.o)
 $(impl_src_file):
 	@$(file >$@,#define MRBIND_IS_IMPL_FILE 1$(lf)#include MRBIND_HEADER$(lf))
-$(impl_obj_file): $(impl_src_file) $(any_cmd_file)
-	$(call, ### Here we just grab the flags from a random source file. Better than no flags at all.)
-	@$(if $(any_cmd_file),xargs -0 -a $(call quote,$(any_cmd_file))) $(COMPILE_COMMAND) -c $(call quote,$<) -o $(call quote,$@)
-override files_needing_dirs += $(impl_src_file) $(impl_obj_file)
-override obj_files := $(impl_obj_file) $(obj_files)# Inserting the new object file first, to compile it first and catch any errors early.
+override define compile_existing_file_snippet =
+$(call var,_obj_file := $(OBJ_DIR)/$(notdir $1).o)
+$(call var,obj_files += $(_obj_file))
+$(call var,files_needing_dirs += $(impl_src_file) $(OBJ_DIR)/$(notdir $1).o)
+$(_obj_file): $1 $(any_cmd_file)
+	$$(call, ### Here we just grab the flags from a random source file. Better than no flags at all.)
+	@$(if $(any_cmd_file),xargs -0 -a $(call quote,$(any_cmd_file))) $(COMPILE_COMMAND) -c $(call quote,$$<) -o $(call quote,$$@)
+endef
+$(eval $(call compile_existing_file_snippet,$(impl_src_file)))
+# Extra source files.
+$(foreach f,$(PREMADE_BINDINGS),$(eval $(call compile_existing_file_snippet,$f)))
 
 # Compile all files (this implies generation).
 .PHONY: compile_all
