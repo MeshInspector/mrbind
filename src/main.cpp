@@ -130,14 +130,16 @@ namespace MRBind
     // Includes some non-contentious stuff like rejecting header contents, template declarations there weren't instantiated yet, function-local declarations.
     [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::Decl &decl)
     {
-        if (ctx.getFullLoc(decl.getBeginLoc()).getFileID() != ctx.getSourceManager().getMainFileID())
-            return true; // Reject declarations in the headers.
-
         if (decl.isTemplated())
             return true; // This is a template, reject. Specific specializations will be given to us separately.
 
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
+
+        if (auto t = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl); t && ctx.getFullLoc(t->getPointOfInstantiation()).getFileID() == ctx.getSourceManager().getMainFileID())
+            ; // This is instantiated in the main file, accept it.
+        else if (ctx.getFullLoc(decl.getBeginLoc()).getFileID() != ctx.getSourceManager().getMainFileID())
+            return true; // Reject declarations in the headers.
 
         return false;
     }
@@ -459,13 +461,6 @@ namespace MRBind
             // -- Constructors and methods.
             if (cxxdecl)
             {
-                // Implicit default ctor.
-                if (!cxxdecl->hasUserProvidedDefaultConstructor() && cxxdecl->hasDefaultConstructor())
-                {
-                    PreOutputMember();
-                    llvm::outs() << "    (ctor, /*no comment*/, /*no params*/) // Implicit default constructor.\n";
-                }
-
                 for (const clang::CXXMethodDecl *method : cxxdecl->methods())
                 {
                     if (method->getAccess() != clang::AS_public)
@@ -603,7 +598,7 @@ namespace MRBind
             bool ret = true;
             if (ProcessRecord(decl))
             {
-                bool ret = Base::TraverseCXXRecordDecl(decl);
+                bool ret = Base::TraverseClassTemplateSpecializationDecl(decl);
                 llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
                 return ret;
             }
@@ -953,6 +948,7 @@ int main(int argc, char **argv)
             "In addition to the stock Clang options explained below, we also support:\n"
             "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline.\n"
             "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
+            "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different Clang version.\n"
         );
         if (!option_parser_ex)
         {
