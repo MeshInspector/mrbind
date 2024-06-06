@@ -667,19 +667,25 @@ namespace MRBind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            if (ShouldRejectDeclaration(*ctx, *decl))
-                return true; // We don't only don't print the rejected namespaces, but also don't recurse into them for speed.
+            bool reject = ShouldRejectDeclaration(*ctx, *decl);
 
-            std::string name_str(decl->getName());
-            llvm::outs() << "MB_NAMESPACE("
-                << (!name_str.empty() ? name_str : "/*unnamed*/") << ", "
-                << (decl->isInlineNamespace() ? "inline" : "/*not inline*/") << ", "
-                << GetQuotedCommentStringOrPlaceholder(*ctx, *decl)
-                << ")\n";
+            if (!reject)
+            {
+                std::string name_str(decl->getName());
+                llvm::outs() << "MB_NAMESPACE("
+                    << (!name_str.empty() ? name_str : "/*unnamed*/") << ", "
+                    << (decl->isInlineNamespace() ? "inline" : "/*not inline*/") << ", "
+                    << GetQuotedCommentStringOrPlaceholder(*ctx, *decl)
+                    << ")\n";
+            }
 
+            // Must do this unconditionally to visit the template specializations.
             bool ret = Base::TraverseNamespaceDecl(decl);
 
-            llvm::outs() << "MB_END_NAMESPACE(" << decl->getName() << ")\n";
+            if (!reject)
+            {
+                llvm::outs() << "MB_END_NAMESPACE(" << decl->getName() << ")\n";
+            }
 
             return ret;
         }
