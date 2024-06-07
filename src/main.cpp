@@ -25,6 +25,7 @@
 #include <filesystem>
 #include <fstream>
 #include <regex>
+#include <set>
 #include <stdexcept>
 #include <string_view>
 #include <string>
@@ -129,9 +130,18 @@ namespace MRBind
         return ret;
     }
 
+    struct VisitorParams
+    {
+        std::set<std::string> blacklisted_entities;
+        std::set<std::string> whitelisted_entities; // This has priority over the blacklist.
+
+        mutable std::vector<char/*bool*/> rejected_namespace_stack;
+    };
+
     // Whether we should skip this declaration when traversing the AST.
     // Includes some non-contentious stuff like rejecting header contents, template declarations there weren't instantiated yet, function-local declarations.
-    [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::Decl &decl)
+    // `params` is optional.
+    [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::NamedDecl &decl, const VisitorParams *params)
     {
         if (decl.isTemplated())
             return true; // This is a template, reject. Specific specializations will be given to us separately.
@@ -139,10 +149,25 @@ namespace MRBind
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
 
-        if (auto t = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl); t && ctx.getFullLoc(t->getPointOfInstantiation()).getFileID() == ctx.getSourceManager().getMainFileID())
-            ; // This is instantiated in the main file, accept it.
-        else if (ctx.getFullLoc(decl.getBeginLoc()).getFileID() != ctx.getSourceManager().getMainFileID())
-            return true; // Reject declarations in the headers.
+        (void)ctx;
+        // if (auto t = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl); t && ctx.getFullLoc(t->getPointOfInstantiation()).getFileID() == ctx.getSourceManager().getMainFileID())
+        //     ; // This is instantiated in the main file, accept it.
+        // else if (ctx.getFullLoc(decl.getBeginLoc()).getFileID() != ctx.getSourceManager().getMainFileID())
+        //     return true; // Reject declarations in the headers.
+
+        // Check against the name blacklist.
+        if (params)
+        {
+            std::string qual_name_without_template_args;
+            llvm::raw_string_ostream ss(qual_name_without_template_args);
+            decl.printQualifiedName(ss);
+
+            if (params->blacklisted_entities.contains(qual_name_without_template_args))
+                return true; // This entity is blacklisted.
+
+            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.contains(qual_name_without_template_args))
+                return true; // This entity is blacklisted because its enclosing entity is blacklisted, and it itself is not whitelisted.
+        }
 
         return false;
     }
@@ -297,11 +322,37 @@ namespace MRBind
 
         clang::PrintingPolicy printing_policy;
 
-        ClangAstVisitor(clang::ASTContext &ctx, clang::CompilerInstance &ci)
+        const VisitorParams *params = nullptr;
+
+        struct QueuedNamespace
+        {
+            std::string name;
+            std::string open_str;
+            bool printed = false;
+        };
+
+        std::vector<QueuedNamespace> namespace_queue;
+
+        ClangAstVisitor(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
-            printing_policy(ctx.getPrintingPolicy())
+            printing_policy(ctx.getPrintingPolicy()),
+            params(&params)
         {
             FixPrintingPolicy(printing_policy);
+        }
+
+        void FlushNamespaceContext()
+        {
+            std::size_t i = namespace_queue.size();
+            while (i > 0 && !namespace_queue[i - 1].printed)
+                i--;
+
+            while (i < namespace_queue.size())
+            {
+                namespace_queue[i].printed = true;
+                llvm::outs() << namespace_queue[i].open_str;
+                i++;
+            }
         }
 
         // Visit template specializations almost as if they were normal code.
@@ -317,7 +368,7 @@ namespace MRBind
             if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
                 return true; // Reject user-defined literals.
 
-            if (ShouldRejectDeclaration(*ctx, *decl))
+            if (ShouldRejectDeclaration(*ctx, *decl, params))
                 return true;
 
             if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
@@ -333,6 +384,7 @@ namespace MRBind
             if (auto template_args = decl->getTemplateSpecializationArgs())
                 clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policy);
 
+            FlushNamespaceContext();
             llvm::outs() << "MB_FUNC("
                 // Return type.
                 << "(" << decl->getReturnType().getAsString(printing_policy) << "), "
@@ -370,7 +422,7 @@ namespace MRBind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
-            if (ShouldRejectDeclaration(*ctx, *decl))
+            if (ShouldRejectDeclaration(*ctx, *decl, params))
                 return false;
 
             if (decl->isAnonymousStructOrUnion())
@@ -386,6 +438,7 @@ namespace MRBind
 
             std::string qual_type_str = ctx->getRecordType(decl).getAsString(printing_policy);
 
+            FlushNamespaceContext();
             llvm::outs() << "MB_CLASS("
                 // Kind.
                 << (decl->isClass() ? "class" : decl->isStruct() ? "struct" : decl->isUnion() ? "union" : throw std::runtime_error("Unable to classify the class-like type `" + qual_type_str + "`.")) << ", "
@@ -475,6 +528,9 @@ namespace MRBind
                         continue; // Inaccessible types in the signature.
                     if (method->isDeleted())
                         continue; // Skip deleted.
+
+                    if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
+                        continue; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
 
                     // Check the requires-clause, if any. Why doesn't libclang do this automatically?
                     if (method->getTrailingRequiresClause())
@@ -630,12 +686,13 @@ namespace MRBind
             if (!decl->isCompleteDefinition())
                 return true; // Reject enum declarations without the element list.
 
-            if (ShouldRejectDeclaration(*ctx, *decl))
+            if (ShouldRejectDeclaration(*ctx, *decl, params))
                 return true;
 
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return true; // Inaccessible type.
 
+            FlushNamespaceContext();
             llvm::outs() << "MB_ENUM("
                 // Scoped or non-scoped?
                 << (decl->isScoped() ? "class" : "/*not enum-class*/") << ", "
@@ -687,25 +744,28 @@ namespace MRBind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*ctx, *decl);
+            bool reject = ShouldRejectDeclaration(*ctx, *decl, params);
 
-            if (!reject)
-            {
+            { // Update the namespace stack queue.
+                std::string str;
+                llvm::raw_string_ostream ss(str);
                 std::string name_str(decl->getName());
-                llvm::outs() << "MB_NAMESPACE("
+                ss << "MB_NAMESPACE("
                     << (!name_str.empty() ? name_str : "/*unnamed*/") << ", "
                     << (decl->isInlineNamespace() ? "inline" : "/*not inline*/") << ", "
                     << GetQuotedCommentStringOrPlaceholder(*ctx, *decl)
                     << ")\n";
+
+                namespace_queue.push_back({.name = name_str, .open_str = str, .printed = false});
             }
 
-            // Must do this unconditionally to visit the template specializations.
+            params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
+            params->rejected_namespace_stack.pop_back();
 
-            if (!reject)
-            {
-                llvm::outs() << "MB_END_NAMESPACE(" << decl->getName() << ")\n";
-            }
+            if (namespace_queue.back().printed)
+                llvm::outs() << "MB_END_NAMESPACE(" << namespace_queue.back().name << ")\n";
+            namespace_queue.pop_back();
 
             return ret;
         }
@@ -714,17 +774,20 @@ namespace MRBind
     // Produces declarations for all friends in this file, so we can form pointers to them.
     struct ClangAstVisitorFriendDeclDumper : clang::RecursiveASTVisitor<ClangAstVisitorFriendDeclDumper>
     {
-        using Base = clang::RecursiveASTVisitor<ClangAstVisitor>;
+        using Base = clang::RecursiveASTVisitor<ClangAstVisitorFriendDeclDumper>;
 
         clang::ASTContext *ctx = nullptr;
 
         clang::PrintingPolicy printing_policy;
 
+        const VisitorParams *params = nullptr;
+
         bool first = true;
 
-        ClangAstVisitorFriendDeclDumper(clang::ASTContext &ctx)
+        ClangAstVisitorFriendDeclDumper(clang::ASTContext &ctx, const VisitorParams &params)
             : ctx(&ctx),
-            printing_policy(ctx.getPrintingPolicy())
+            printing_policy(ctx.getPrintingPolicy()),
+            params(&params)
         {
             FixPrintingPolicy(printing_policy);
         }
@@ -745,7 +808,7 @@ namespace MRBind
             if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
                 return true; // Reject user-defined literals.
 
-            if (ShouldRejectDeclaration(*ctx, *decl))
+            if (ShouldRejectDeclaration(*ctx, *decl, params))
                 return true;
 
             if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
@@ -773,15 +836,27 @@ namespace MRBind
             llvm::outs() << ";\n";
             return true;
         }
+
+        bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
+        {
+            bool reject = ShouldRejectDeclaration(*ctx, *decl, params);
+
+            params->rejected_namespace_stack.push_back(reject);
+            bool ret = Base::TraverseNamespaceDecl(decl);
+            params->rejected_namespace_stack.pop_back();
+
+            return ret;
+        }
     };
 
     struct ClangAstConsumer : clang::ASTConsumer
     {
         std::string input_filename;
         clang::CompilerInstance *ci = nullptr;
+        const VisitorParams *params = nullptr;
 
-        explicit ClangAstConsumer(std::string input_filename, clang::CompilerInstance &ci)
-            : input_filename(std::move(input_filename)), ci(&ci)
+        explicit ClangAstConsumer(std::string input_filename, clang::CompilerInstance &ci, const VisitorParams &params)
+            : input_filename(std::move(input_filename)), ci(&ci), params(&params)
         {}
 
         void HandleTranslationUnit(clang::ASTContext &ctx) override
@@ -817,15 +892,20 @@ namespace MRBind
                 << "#endif\n"
                 << "#endif\n";
 
+            params->rejected_namespace_stack.push_back(params->blacklisted_entities.contains("::"));
+
             // Declare all the friends, to allow us to form pointers to them.
-            ClangAstVisitorFriendDeclDumper(ctx).TraverseDecl(ctx.getTranslationUnitDecl());
+            ClangAstVisitorFriendDeclDumper(ctx, *params).TraverseDecl(ctx.getTranslationUnitDecl());
             llvm::outs()
                 << "\n"
                 << "MB_FILE\n"
                 << "\n";
 
             // Generate the bulk of the code.
-            ClangAstVisitor(ctx, *ci).TraverseDecl(ctx.getTranslationUnitDecl());
+
+            ClangAstVisitor(ctx, *ci, *params).TraverseDecl(ctx.getTranslationUnitDecl());
+
+            params->rejected_namespace_stack.pop_back();
 
             llvm::outs() << "\nMB_END_FILE\n";
         }
@@ -833,10 +913,24 @@ namespace MRBind
 
     struct ClangFrontendAction : clang::ASTFrontendAction
     {
+        const VisitorParams *params = nullptr;
+
+        ClangFrontendAction(const VisitorParams &params) : params(&params) {}
+
         std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef InFile) override
         {
             (void)InFile;
-            return std::make_unique<ClangAstConsumer>(std::string(InFile), CI);
+            return std::make_unique<ClangAstConsumer>(std::string(InFile), CI, *params);
+        }
+    };
+
+    struct ClangFrontendActionFactory : clang::tooling::FrontendActionFactory
+    {
+        const VisitorParams *params = nullptr;
+
+        std::unique_ptr<clang::FrontendAction> create() override
+        {
+            return std::make_unique<ClangFrontendAction>(*params);
         }
     };
 
@@ -914,6 +1008,8 @@ int main(int argc, char **argv)
         bool dump_command_with_null_separators = false;
         bool remove_pch_flags = false;
 
+        MRBind::VisitorParams params;
+
         { // Extract custom options from argc/argv.
             int modified_argc = 1;
             bool seen_double_dash = false;
@@ -951,10 +1047,29 @@ int main(int argc, char **argv)
                             continue;
                         }
 
-                        // --ignore-pch-flags
+                        // ----
+
                         if (this_arg == "--ignore-pch-flags")
                         {
                             remove_pch_flags = true;
+                            continue;
+                        }
+
+                        if (this_arg == "--ignore")
+                        {
+                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                                throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
+
+                            params.blacklisted_entities.insert(argv[++i]);
+                            continue;
+                        }
+
+                        if (this_arg == "--allow")
+                        {
+                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                                throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
+
+                            params.whitelisted_entities.insert(argv[++i]);
                             continue;
                         }
                     }
@@ -975,6 +1090,8 @@ int main(int argc, char **argv)
             "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline.\n"
             "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
             "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different Clang version.\n"
+            "  --ignore T                  - Don't emit bindings for a specific entity. Use the flag several times to ban several entities. Use a fully qualified name, but without template arguments after the last name. Use `::` to reject the global namespace.\n"
+            "  --allow T                   - Unban a subentity of something that was banned with `--ignore`, or a template instantiation from a header.\n"
         );
         if (!option_parser_ex)
         {
@@ -1025,7 +1142,10 @@ int main(int argc, char **argv)
 
         clang::tooling::ClangTool tool(adjusted_db, option_parser.getSourcePathList());
 
-        return tool.run(clang::tooling::newFrontendActionFactory<MRBind::ClangFrontendAction>().get());
+        MRBind::ClangFrontendActionFactory factory;
+        factory.params = &params;
+
+        return tool.run(&factory);
     }
     catch (std::exception &e)
     {
