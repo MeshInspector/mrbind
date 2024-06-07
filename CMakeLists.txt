@@ -10,6 +10,10 @@ if(NOT MSVC)
     target_compile_options(mrbind PRIVATE -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough -Wconversion)
 endif()
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(mrbind PRIVATE -fstandalone-debug)
+endif()
+
 find_package(Clang REQUIRED)
 
 target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})

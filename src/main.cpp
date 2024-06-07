@@ -1,13 +1,16 @@
 #ifdef __clang__
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-parameter"
 #pragma clang diagnostic ignored "-Wconversion"
+#pragma clang diagnostic ignored "-Wdeprecated-copy-with-dtor"
 #pragma clang diagnostic ignored "-Wextra-semi"
+#pragma clang diagnostic ignored "-Wunused-parameter"
 #endif
 
 #include <clang/AST/DeclBase.h>
 #include <clang/AST/RecursiveASTVisitor.h>
 #include <clang/Frontend/CompilerInstance.h>
+#include <clang/Sema/Sema.h>
+#include <clang/Sema/SemaConcept.h>
 #include <clang/Tooling/CommonOptionsParser.h>
 #include <clang/Tooling/Tooling.h>
 #include <llvm/Support/CommandLine.h>
@@ -290,11 +293,12 @@ namespace MRBind
         using Base = clang::RecursiveASTVisitor<ClangAstVisitor>;
 
         clang::ASTContext *ctx = nullptr;
+        clang::CompilerInstance *ci = nullptr;
 
         clang::PrintingPolicy printing_policy;
 
-        ClangAstVisitor(clang::ASTContext &ctx)
-            : ctx(&ctx),
+        ClangAstVisitor(clang::ASTContext &ctx, clang::CompilerInstance &ci)
+            : ctx(&ctx), ci(&ci),
             printing_policy(ctx.getPrintingPolicy())
         {
             FixPrintingPolicy(printing_policy);
@@ -461,7 +465,7 @@ namespace MRBind
             // -- Constructors and methods.
             if (cxxdecl)
             {
-                for (const clang::CXXMethodDecl *method : cxxdecl->methods())
+                for (clang::CXXMethodDecl *method : cxxdecl->methods())
                 {
                     if (method->getAccess() != clang::AS_public)
                         continue; // Reject non-public methods.
@@ -471,6 +475,16 @@ namespace MRBind
                         continue; // Inaccessible types in the signature.
                     if (method->isDeleted())
                         continue; // Skip deleted.
+
+                    // Check the requires-clause, if any. Why doesn't libclang do this automatically?
+                    if (method->getTrailingRequiresClause())
+                    {
+                        clang::ConstraintSatisfaction sat;
+                        if (ci->getSema().CheckFunctionConstraints(method, sat))
+                            throw std::runtime_error("Unable to evaluate the constraints for the method." );
+                        if (!sat.IsSatisfied)
+                            continue; // Constraints are false.
+                    }
 
                     PreOutputMember();
 
@@ -501,8 +515,14 @@ namespace MRBind
                             // Static?
                             llvm::outs() << (method->isStatic() ? "static" : "/*non-static*/") << ", ";
                         }
+
+                        // Force instantiate body to know the true return type rather than `auto`.
+                        if (method->getReturnType()->isUndeducedAutoType())
+                            ci->getSema().InstantiateFunctionDefinition(method->getBeginLoc(), method);
+
                         // Return type.
                         llvm::outs() << "(" << method->getReturnType().getAsString(printing_policy) << "), ";
+
                         if (!is_conv_op)
                         {
                             llvm::outs()
@@ -758,9 +778,10 @@ namespace MRBind
     struct ClangAstConsumer : clang::ASTConsumer
     {
         std::string input_filename;
+        clang::CompilerInstance *ci = nullptr;
 
-        explicit ClangAstConsumer(std::string input_filename)
-            : input_filename(std::move(input_filename))
+        explicit ClangAstConsumer(std::string input_filename, clang::CompilerInstance &ci)
+            : input_filename(std::move(input_filename)), ci(&ci)
         {}
 
         void HandleTranslationUnit(clang::ASTContext &ctx) override
@@ -804,7 +825,7 @@ namespace MRBind
                 << "\n";
 
             // Generate the bulk of the code.
-            ClangAstVisitor(ctx).TraverseDecl(ctx.getTranslationUnitDecl());
+            ClangAstVisitor(ctx, *ci).TraverseDecl(ctx.getTranslationUnitDecl());
 
             llvm::outs() << "\nMB_END_FILE\n";
         }
@@ -814,9 +835,8 @@ namespace MRBind
     {
         std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef InFile) override
         {
-            (void)CI;
             (void)InFile;
-            return std::make_unique<ClangAstConsumer>(std::string(InFile));
+            return std::make_unique<ClangAstConsumer>(std::string(InFile), CI);
         }
     };
 
