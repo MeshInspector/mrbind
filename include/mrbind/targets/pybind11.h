@@ -308,7 +308,7 @@ namespace MRBind::detail::pb11
     }
 }
 
-#if MRBIND_IS_IMPL_FILE
+#if !MRBIND_IS_SECONDARY_FILE // Don't duplicate this if we have >1 TU.
 
 namespace MRBind::detail::pb11
 {
@@ -407,7 +407,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         elem(_pb11_m);
 }
 
-#else
+#endif
 
 // Silence some warnings:
 #ifdef __clang__
@@ -605,5 +605,3 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>
-
-#endif // not MRBIND_IS_IMPL_FILE
