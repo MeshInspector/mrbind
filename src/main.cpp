@@ -207,15 +207,20 @@ namespace MRBind
     // You likely want to set `printing_policy.PrintCanonicalTypes = true`.
     [[nodiscard]] std::string GetDefaultArgumentString(const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
     {
+        auto fixed_printing_policy = printing_policy;
+
+        // We need to reset this because otherwise libclang 18 converts `std::size_t(1)` to `unsigned long(1)`, which is illegal (only MSVC accepts this).
+        fixed_printing_policy.PrintCanonicalTypes = false;
+
         std::string ret;
         if (auto default_arg = param.getDefaultArg())
         {
             llvm::raw_string_ostream ss(ret);
-            default_arg->printPretty(ss, nullptr, printing_policy);
+            default_arg->printPretty(ss, nullptr, fixed_printing_policy);
 
             // Adjust `{...}` to add an explicit type.
             if (ret.starts_with('{'))
-                ret = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(printing_policy) + std::move(ret);
+                ret = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(fixed_printing_policy) + std::move(ret);
         }
         return ret;
     }
