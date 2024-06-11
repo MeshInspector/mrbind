@@ -13,6 +13,7 @@
 #include <mrbind/helpers/macro_sequence_for.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
+#include <pybind11/functional.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
