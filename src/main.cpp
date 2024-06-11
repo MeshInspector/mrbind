@@ -135,6 +135,9 @@ namespace MRBind
         std::set<std::string> blacklisted_entities;
         std::set<std::string> whitelisted_entities; // This has priority over the blacklist.
 
+        // Don't list those base classes.
+        std::set<std::string> skipped_bases;
+
         mutable std::vector<char/*bool*/> rejected_namespace_stack;
     };
 
@@ -462,6 +465,14 @@ namespace MRBind
                 {
                     if (base.getAccessSpecifier() != clang::AS_public)
                         continue; // Reject non-public bases.
+
+                    { // Check against the blacklist.
+                        std::string qual_name_without_template_args;
+                        llvm::raw_string_ostream ss(qual_name_without_template_args);
+                        base.getType()->getAsCXXRecordDecl()->printQualifiedName(ss);
+                        if (params->skipped_bases.contains(qual_name_without_template_args))
+                            continue; // In the base skip list.
+                    }
 
                     if (!have_any_bases)
                     {
@@ -1077,6 +1088,15 @@ int main(int argc, char **argv)
                             params.whitelisted_entities.insert(argv[++i]);
                             continue;
                         }
+
+                        if (this_arg == "--skip-base")
+                        {
+                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                                throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
+
+                            params.skipped_bases.insert(argv[++i]);
+                            continue;
+                        }
                     }
                 }
 
@@ -1097,6 +1117,7 @@ int main(int argc, char **argv)
             "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different Clang version.\n"
             "  --ignore T                  - Don't emit bindings for a specific entity. Use the flag several times to ban several entities. Use a fully qualified name, but without template arguments after the last name. Use `::` to reject the global namespace.\n"
             "  --allow T                   - Unban a subentity of something that was banned with `--ignore`, or a template instantiation from a header.\n"
+            "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
         );
         if (!option_parser_ex)
         {
