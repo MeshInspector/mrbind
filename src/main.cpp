@@ -178,7 +178,8 @@ namespace MRBind
     // Adjusts a printing policy to make it sane.
     void FixPrintingPolicy(clang::PrintingPolicy &printing_policy)
     {
-        printing_policy.PrintCanonicalTypes = true; // Add qualifiers.
+        // Not adding `PrintCanonicalTypes = true`, because that expands typedefs which prevents the bindings from being portable.
+        printing_policy.SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
         printing_policy.FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
         printing_policy.SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
         printing_policy.SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
@@ -207,7 +208,6 @@ namespace MRBind
     }
 
     // Returns the default argument value as a string, or empty if none.
-    // You likely want to set `printing_policy.PrintCanonicalTypes = true`.
     [[nodiscard]] std::string GetDefaultArgumentString(const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
     {
         auto fixed_printing_policy = printing_policy;
