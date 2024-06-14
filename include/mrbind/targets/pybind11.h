@@ -11,13 +11,16 @@
 
 #include <mrbind/helpers/common.h>
 #include <mrbind/helpers/macro_sequence_for.h>
+#include <mrbind/helpers/type_name.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
 #include <pybind11/functional.h>
 #include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
+#include <pybind11/stl_bind.h>
+// NOTE: Not including `<pybind11/stl.h>` because that doesn't cooperate with passing containers by reference.
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
+#include <map>
 #include <type_traits>
 #include <typeindex>
 #include <typeinfo>
@@ -32,13 +35,15 @@
 #define DETAIL_MB_PB11_HAS_TL_EXPECTED 0
 #endif
 
+
+
 // Some template helpers.
 
 namespace MRBind::detail::pb11
 {
     // Given a qualified C++ name, removes all weird characters from it, replaces `::` with `_`, etc.
     // The resulting name is used for the python bindings.
-    [[nodiscard]] std::string QualifiedNameToPythonName(std::string_view name);
+    [[nodiscard]] std::string SanitizeName(std::string_view name);
 
     // ---
 
@@ -97,6 +102,9 @@ namespace MRBind::detail::pb11
     struct Registry
     {
         std::vector<void (*)(UnfinishedModule &)> files;
+
+        // This is for extra bindings, such as those for `std::vector`.
+        std::map<std::type_index, void (*)(UnfinishedModule &)> extra;
     };
 
     [[nodiscard]] inline Registry &GetRegistry()
@@ -106,6 +114,8 @@ namespace MRBind::detail::pb11
     }
 
     // ---
+
+    // This trait can be used to automatically adjust returned values.
 
     template <typename T>
     struct ReturnTypeTraits
@@ -178,6 +188,8 @@ namespace MRBind::detail::pb11
     #endif
 
     // ---
+
+    // This traits lets you adjust ecah passed parameter.
 
     template <typename T>
     struct ParamTraits
@@ -344,21 +356,82 @@ namespace MRBind::detail::pb11
     }
 }
 
+
+
+// STL bindings.
+
+// This is similar to what `PYBIND11_MAKE_OPAQUE()` does, but with added templating.
+PYBIND11_NAMESPACE_BEGIN(PYBIND11_NAMESPACE)
+namespace detail
+{
+    #define ADD_CONTAINER(template_params_, std_type_, pb11_func_, name_str_) \
+        template <MRBIND_IDENTITY template_params_> \
+        class type_caster<MRBIND_IDENTITY std_type_> : public type_caster_base<MRBIND_IDENTITY std_type_> \
+        { \
+            using ThisType = MRBIND_IDENTITY std_type_; \
+            /* This part automatically generates the bindings for this type. */\
+            inline static const std::nullptr_t register_type = []{ \
+                namespace pb11 = MRBind::detail::pb11; \
+                pb11::GetRegistry().extra.try_emplace( \
+                    typeid(ThisType), [](pb11::UnfinishedModule &u) \
+                    { \
+                        u.type_entries.try_emplace( \
+                            typeid(ThisType), \
+                            [](pybind11::module_ &m, std::unique_ptr<pb11::UnfinishedModule::BasicPybindType> &p) \
+                            { \
+                                using C = pybind11::class_<ThisType>; \
+                                if (!p) \
+                                { \
+                                    /* First pass. */\
+                                    p = std::make_unique< \
+                                        pb11::UnfinishedModule::SpecificPybindType<C> \
+                                    >( \
+                                        pb11_func_<ThisType>( \
+                                            m, \
+                                            name_str_ \
+                                        ) \
+                                    ); \
+                                } \
+                                else \
+                                { \
+                                    /* Second pass does nothing. */\
+                                } \
+                            } \
+                        ); \
+                    }); \
+                return nullptr; \
+            }(); \
+            /* Instantiate `register_type`. */ \
+            static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{}; \
+        };
+
+    // Intentionally no custom allocator support for now, to make things easier.
+    ADD_CONTAINER((typename T), (std::vector<T>), pybind11::bind_vector, ("vector_" + pb11::SanitizeName(MRBind::TypeName<T>())))
+    ADD_CONTAINER((typename T, typename U), (std::map<T, U>), pybind11::bind_map, ("map_" + pb11::SanitizeName(MRBind::TypeName<T>()) + "_" + pb11::SanitizeName(MRBind::TypeName<U>())))
+
+    #undef ADD_CONTAINER
+}
+PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
+
+
+
 #if !MRBIND_IS_SECONDARY_FILE // Don't duplicate this if we have >1 TU.
 
 namespace MRBind::detail::pb11
 {
-    std::string QualifiedNameToPythonName(std::string_view name)
+    std::string SanitizeName(std::string_view name)
     {
         std::string ret;
         ret.reserve(name.size());
         bool prev_char_is_special = false;
+        std::size_t last_good_size = 0;
         for (char ch : name)
         {
             if (std::isalnum((unsigned char)ch))
             {
                 ret += ch;
                 prev_char_is_special = false;
+                last_good_size = ret.size();
             }
             else
             {
@@ -369,6 +442,7 @@ namespace MRBind::detail::pb11
                 }
             }
         }
+        ret.resize(last_good_size); // Trim trailing special characters.
         return ret;
     }
 }
@@ -381,6 +455,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     UnfinishedModule _pb11_u;
     for (auto f : MRBind::detail::pb11::GetRegistry().files)
         f(_pb11_u);
+    for (const auto &f : MRBind::detail::pb11::GetRegistry().extra)
+        f.second(_pb11_u);
 
     { // Topologically sort the classes (by inheritance), and load them. https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
         // Populate reverse dependencies.
@@ -454,6 +530,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 
 #endif
 
+
+
 // Silence some warnings:
 #ifdef __clang__
 // Clang warns about `::` + `*` coming from different macros, but all compilers including Clang emit a hard error when trying to paste the two tokens together.
@@ -488,7 +566,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         >( \
             _pb11_m, true, \
             /* Name */\
-            MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+            MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
             /* Parameters. */\
             DETAIL_MB_PB11_MAKE_PARAMS(params_) \
             /* Comment, if any. */ \
@@ -509,7 +587,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
             >;\
             auto _pb11_e = std::make_unique<_pb11_T>(_pb11_m, \
                 /* Name as a string. */\
-                MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+                MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
                 /* Comment, if any. */\
                 MRBIND_PREPEND_COMMA(comment_) \
             ); \
@@ -542,7 +620,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
             { \
                 auto _pb11_tmp = std::make_unique<_pb11_T>(_pb11_m, \
                     /* Name as a string. */\
-                    MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+                    MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
                 ); \
                 _pb11_c = _pb11_tmp.get(); \
                 _pb11_out = std::move(_pb11_tmp); \
@@ -656,7 +734,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     >( \
         _pb11_c->type, _pb11_second_pass, \
         /* Name */\
-        ("_convert_to_" + MRBind::detail::pb11::QualifiedNameToPythonName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str() \
+        ("_convert_to_" + MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str() \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     );
