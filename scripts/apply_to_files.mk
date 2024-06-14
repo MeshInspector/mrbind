@@ -21,13 +21,15 @@ INPUT_FILES_BLACKLIST :=
 # Each file has to match both this and not be in the blacklist.
 INPUT_FILES_WHITELIST := %
 
-# A list of extra input `.cpp`s that were already generated somehow.
-# As opposed to the normal inputs, the generation step isn't ran for those.
-PREMADE_BINDINGS :=
-
 
 # Input file globs.
 INPUT_GLOBS = *.h *.hpp
+
+
+# If set to >1, will split the generated binding into several fragments, either to reduce RAM usage when compiling, or to
+NUM_FRAGMENTS := 1
+override NUM_FRAGMENTS := $(filter-out 0 1,$(NUM_FRAGMENTS))
+
 
 # The mrbind command. Can include extra flags.
 # You might want to override it to set the full path.
@@ -97,20 +99,21 @@ $(OUTPUT_DIR)/combined.hpp: $(input_files) | $(OUTPUT_DIR)
 	$(file >$@,)
 	$(foreach f,$(input_files),$(file >>$@,#include "$f"$(lf)))
 
-# The generated binding.
-$(OUTPUT_DIR)/binding.cpp: $(OUTPUT_DIR)/combined.hpp
-	@echo $(call quote,[Generating] $@)
-	@$(MRBIND) $(call quote,$<) >$(call quote,$@) -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
+# Generate the binding.
+override generated_sources := $(patsubst %,$(OUTPUT_DIR)/%.cpp,$(if $(NUM_FRAGMENTS),$(addprefix binding.,$(call safe_shell,bash -c $(call quote,echo {1..$(strip $(NUM_FRAGMENTS))}))),binding))
+$(generated_sources) &: $(OUTPUT_DIR)/combined.hpp
+	@echo $(call quote,[Generating] $(generated_sources))
+	@$(MRBIND) $(call quote,$<) $(foreach x,$(generated_sources),-o $(call quote,$x)) -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
 
 # Compile the binding.
-$(OUTPUT_DIR)/binding.o: $(OUTPUT_DIR)/binding.cpp
+$(OUTPUT_DIR)/%.o: $(OUTPUT_DIR)/%.cpp
 	@echo $(call quote,[Compiling] $<)
-	@$(COMPILER) $(call quote,$<) -c -o $(call quote,$@) $(COMPILER_FLAGS)
+	@$(COMPILER) $(call quote,$<) -c -o $(call quote,$@) $(COMPILER_FLAGS) $(if $(filter $(firstword $(generated_sources)),$<),,-DMRBIND_IS_SECONDARY_FILE)
 
 # Link the binding.
 .DEFAULT_GOAL := build
 .PHONY: build
 build: $(LINKER_OUTPUT)
-$(LINKER_OUTPUT): $(OUTPUT_DIR)/binding.o
+$(LINKER_OUTPUT): $(generated_sources:.cpp=.o)
 	@echo $(call quote,[Linking] $@)
 	@$(LINKER) $^ -o $(call quote,$@) $(LINKER_FLAGS)

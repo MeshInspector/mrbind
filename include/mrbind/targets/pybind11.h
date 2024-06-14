@@ -526,7 +526,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         using _pb11_C = MRBIND_IDENTITY qualname_; \
         _pb11_u.type_entries.try_emplace(typeid(_pb11_C), [](pybind11::module_ &_pb11_m, std::unique_ptr<MRBind::detail::pb11::UnfinishedModule::BasicPybindType> &_pb11_out) \
         { \
-            bool _pb11_second_pass = bool(_pb11_out); \
+            [[maybe_unused]] bool _pb11_second_pass = bool(_pb11_out); \
             using _pb11_T = MRBind::detail::pb11::UnfinishedModule::SpecificPybindType<\
                 pybind11::class_< \
                     /* Type. */\
@@ -535,7 +535,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
                     DETAIL_MB_PB11_BASE_TYPES(bases_)\
                 >\
             >;\
-            _pb11_T *_pb11_c = nullptr; \
+            [[maybe_unused]] _pb11_T *_pb11_c = nullptr; \
             if (_pb11_out) \
                 _pb11_c = static_cast<_pb11_T *>(_pb11_out.get()); \
             else \

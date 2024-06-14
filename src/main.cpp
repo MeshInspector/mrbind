@@ -139,6 +139,51 @@ namespace MRBind
         std::set<std::string> skipped_bases;
 
         mutable std::vector<char/*bool*/> rejected_namespace_stack;
+
+        struct OutputFile
+        {
+            std::string filename;
+            mutable std::unique_ptr<llvm::raw_fd_ostream> ostream;
+        };
+        std::vector<OutputFile> output_files;
+        mutable std::size_t cur_output_file_index = std::size_t(-1); // This circularly wraps around.
+
+        [[nodiscard]] std::size_t NumOutputFiles() const
+        {
+            return output_files.empty() ? 1 : output_files.size();
+        }
+
+        [[nodiscard]] llvm::raw_ostream &CurrentOutputFile() const
+        {
+            if (output_files.empty())
+            {
+                cur_output_file_index = 0;
+                return llvm::outs();
+            }
+
+            const OutputFile &elem = output_files[cur_output_file_index];
+
+            if (!elem.ostream)
+            {
+                std::error_code ec;
+                elem.ostream = std::make_unique<llvm::raw_fd_ostream>(elem.filename, ec);
+                if (ec)
+                {
+                    elem.ostream = nullptr;
+                    throw std::runtime_error("Unable to open output file: " + ec.message());
+                }
+            }
+
+            return *elem.ostream;
+        }
+
+        [[nodiscard]] llvm::raw_ostream &GetNextOutputFile() const
+        {
+            if (!output_files.empty())
+                ++cur_output_file_index %= output_files.size();
+
+            return CurrentOutputFile();
+        }
     };
 
     // Whether we should skip this declaration when traversing the AST.
@@ -332,14 +377,24 @@ namespace MRBind
 
         const VisitorParams *params = nullptr;
 
+        llvm::raw_ostream *stream = nullptr;
+
         struct QueuedNamespace
         {
             std::string name;
             std::string open_str;
-            bool printed = false;
+            std::size_t id = 0;
         };
+        std::vector<QueuedNamespace> visitor_namespace_stack;
 
-        std::vector<QueuedNamespace> namespace_queue;
+        struct PrintedNamespace
+        {
+            std::string name;
+            std::size_t id = 0;
+        };
+        std::vector<std::vector<PrintedNamespace>> namespace_stack_per_ostream;
+
+        std::size_t namespace_id_counter = 0;
 
         ClangAstVisitor(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
@@ -347,19 +402,37 @@ namespace MRBind
             params(&params)
         {
             FixPrintingPolicy(printing_policy);
+
+            namespace_stack_per_ostream.resize(params.NumOutputFiles());
         }
 
+        // Flushes the current push/pop namespace directives to the current ostream.
         void FlushNamespaceContext()
         {
-            std::size_t i = namespace_queue.size();
-            while (i > 0 && !namespace_queue[i - 1].printed)
-                i--;
+            if (params->cur_output_file_index == std::size_t(-1))
+                return;
 
-            while (i < namespace_queue.size())
+            auto &ostream_stack = namespace_stack_per_ostream.at(params->cur_output_file_index);
+
+            // Exit existing namespaces.
+            while (
+                !ostream_stack.empty() &&
+                (
+                    ostream_stack.size() > visitor_namespace_stack.size() ||
+                    ostream_stack.back().id != visitor_namespace_stack[ostream_stack.size() - 1].id
+                )
+            )
             {
-                namespace_queue[i].printed = true;
-                llvm::outs() << namespace_queue[i].open_str;
-                i++;
+                params->CurrentOutputFile() << "MB_END_NAMESPACE(" << ostream_stack.back().name << ")\n";
+                ostream_stack.pop_back();
+            }
+
+            // Enter new namespaces.
+            while (ostream_stack.size() < visitor_namespace_stack.size())
+            {
+                const QueuedNamespace &elem = visitor_namespace_stack[ostream_stack.size()];
+                params->CurrentOutputFile() << elem.open_str;
+                ostream_stack.push_back({.name = elem.name, .id = elem.id});
             }
         }
 
@@ -392,8 +465,9 @@ namespace MRBind
             if (auto template_args = decl->getTemplateSpecializationArgs())
                 clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policy);
 
+            auto &out = params->GetNextOutputFile();
             FlushNamespaceContext();
-            llvm::outs() << "MB_FUNC("
+            out << "MB_FUNC("
                 // Return type.
                 << "(" << decl->getReturnType().getAsString(printing_policy) << "), "
                 // Name.
@@ -409,9 +483,9 @@ namespace MRBind
                 if (!have_any_params)
                 {
                     have_any_params = true;
-                    llvm::outs() << " /*params:*/\n";
+                    out << " /*params:*/\n";
                 }
-                llvm::outs() << "    ("
+                out << "    ("
                     // Type.
                     << "(" << p->getType().getAsString(printing_policy) << "), "
                     // Name.
@@ -421,8 +495,8 @@ namespace MRBind
                     << ")\n";
             }
             if (!have_any_params)
-                llvm::outs() << " /*no params*/";
-            llvm::outs() << ")\n";
+                out << " /*no params*/";
+            out << ")\n";
 
             return true;
         }
@@ -446,8 +520,9 @@ namespace MRBind
 
             std::string qual_type_str = ctx->getRecordType(decl).getAsString(printing_policy);
 
+            auto &out = params->GetNextOutputFile();
             FlushNamespaceContext();
-            llvm::outs() << "MB_CLASS("
+            out << "MB_CLASS("
                 // Kind.
                 << (decl->isClass() ? "class" : decl->isStruct() ? "struct" : decl->isUnion() ? "union" : throw std::runtime_error("Unable to classify the class-like type `" + qual_type_str + "`.")) << ", "
                 // Short name.
@@ -477,17 +552,17 @@ namespace MRBind
                     if (!have_any_bases)
                     {
                         have_any_bases = true;
-                        llvm::outs() << "\n    ,/*bases:*/";
+                        out << "\n    ,/*bases:*/";
                     }
 
-                    llvm::outs() << "\n    ("
+                    out << "\n    ("
                         << "(" << base.getType().getAsString(printing_policy) << "), "
                         << (base.isVirtual() ? "virtual" : "/*non-virtual*/")
                         << ")";
                 }
             }
             if (!have_any_bases)
-                llvm::outs() << ", /*no bases*/";
+                out << ", /*no bases*/";
 
             // Members:
 
@@ -497,7 +572,7 @@ namespace MRBind
                 if (!have_any_members)
                 {
                     have_any_members = true;
-                    llvm::outs() << "\n    ,/*members:*/\n";
+                    out << "\n    ,/*members:*/\n";
                 }
             };
 
@@ -507,7 +582,7 @@ namespace MRBind
                 {
                     PreOutputMember();
 
-                    llvm::outs() << "    (field, static, "
+                    out << "    (field, static, "
                         << "(" << var->getType().getAsString(printing_policy) << "), "
                         << var->getName() << ", "
                         << GetQuotedCommentStringOrPlaceholder(*ctx, *var) << ")\n";
@@ -525,7 +600,7 @@ namespace MRBind
 
                 PreOutputMember();
 
-                llvm::outs() << "    (field, /*non-static*/, "
+                out << "    (field, /*non-static*/, "
                     << "(" << field->getType().getAsString(printing_policy) << "), "
                     << field->getName() << ", "
                     << GetQuotedCommentStringOrPlaceholder(*ctx, *field) << ")\n";
@@ -579,13 +654,13 @@ namespace MRBind
                         name = GetAdjustedFuncName(*method);
                     }
 
-                    llvm::outs() << "    (" << (is_ctor ? "ctor" : is_conv_op ? "conv_op" : "method") << ", ";
+                    out << "    (" << (is_ctor ? "ctor" : is_conv_op ? "conv_op" : "method") << ", ";
                     if (!is_ctor)
                     {
                         if (!is_conv_op)
                         {
                             // Static?
-                            llvm::outs() << (method->isStatic() ? "static" : "/*non-static*/") << ", ";
+                            out << (method->isStatic() ? "static" : "/*non-static*/") << ", ";
                         }
 
                         // Force instantiate body to know the true return type rather than `auto`.
@@ -593,27 +668,27 @@ namespace MRBind
                             ci->getSema().InstantiateFunctionDefinition(method->getBeginLoc(), method);
 
                         // Return type.
-                        llvm::outs() << "(" << method->getReturnType().getAsString(printing_policy) << "), ";
+                        out << "(" << method->getReturnType().getAsString(printing_policy) << "), ";
 
                         if (!is_conv_op)
                         {
-                            llvm::outs()
+                            out
                                 // Name.
                                 << method->getDeclName().getAsString() << ", "
                                 // Simple name.
                                 << name << ", ";
                         }
                         // Constness.
-                        llvm::outs() << (method->isConst() ? "const" : "/*non-const*/") << ", ";
+                        out << (method->isConst() ? "const" : "/*non-const*/") << ", ";
                     }
 
                     // Comment.
-                    llvm::outs() << GetQuotedCommentStringOrPlaceholder(*ctx, *method);
+                    out << GetQuotedCommentStringOrPlaceholder(*ctx, *method);
 
                     // Params.
                     if (!is_conv_op)
                     {
-                        llvm::outs() << ",";
+                        out << ",";
 
                         bool have_any_params = false;
                         for (const clang::ParmVarDecl *p : method->parameters())
@@ -621,9 +696,9 @@ namespace MRBind
                             if (!have_any_params)
                             {
                                 have_any_params = true;
-                                llvm::outs() << " /*params:*/\n";
+                                out << " /*params:*/\n";
                             }
-                            llvm::outs() << "        ("
+                            out << "        ("
                                 // Type.
                                 << "(" << p->getType().getAsString(printing_policy) << "), "
                                 // Name.
@@ -633,23 +708,23 @@ namespace MRBind
                                 << ")\n";
                         }
                         if (have_any_params)
-                            llvm::outs() << "    ";
+                            out << "    ";
                         else
-                            llvm::outs() << " /*no params*/";
+                            out << " /*no params*/";
                     }
 
-                    llvm::outs() << ")\n";
+                    out << ")\n";
                 }
             }
 
             if (!have_any_members)
             {
-                llvm::outs() << (have_any_bases ? "\n    ," : ", ") << "/*no members*/";
+                out << (have_any_bases ? "\n    ," : ", ") << "/*no members*/";
                 if (have_any_bases)
-                    llvm::outs() << "\n";
+                    out << "\n";
             }
 
-            llvm::outs() << ")\n";
+            out << ")\n";
 
             return true;
         }
@@ -660,7 +735,7 @@ namespace MRBind
             if (ProcessRecord(decl))
             {
                 bool ret = Base::TraverseRecordDecl(decl);
-                llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                params->CurrentOutputFile() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
                 return ret;
             }
             return ret;
@@ -675,7 +750,7 @@ namespace MRBind
             if (ProcessRecord(decl))
             {
                 bool ret = Base::TraverseCXXRecordDecl(decl);
-                llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                params->CurrentOutputFile() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
                 return ret;
             }
             return ret;
@@ -691,7 +766,7 @@ namespace MRBind
             if (ProcessRecord(decl))
             {
                 bool ret = Base::TraverseClassTemplateSpecializationDecl(decl);
-                llvm::outs() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                params->CurrentOutputFile() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
                 return ret;
             }
             return ret;
@@ -708,8 +783,9 @@ namespace MRBind
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return true; // Inaccessible type.
 
+            auto &out = params->GetNextOutputFile();
             FlushNamespaceContext();
-            llvm::outs() << "MB_ENUM("
+            out << "MB_ENUM("
                 // Scoped or non-scoped?
                 << (decl->isScoped() ? "class" : "/*not enum-class*/") << ", "
                 // Short name.
@@ -727,7 +803,7 @@ namespace MRBind
                 at_least_one_elem = true;
 
                 // Print the name.
-                llvm::outs() << "\n    (" << elem->getName() << ", ";
+                out << "\n    (" << elem->getName() << ", ";
 
                 // Print the value.
                 if (is_signed)
@@ -735,25 +811,25 @@ namespace MRBind
                     auto opt = elem->getValue().trySExtValue();
                     if (!opt)
                         throw std::runtime_error("Enum element value doesn't fit into 64 bits.");
-                    llvm::outs() << *opt;
+                    out << *opt;
                 }
                 else
                 {
                     auto opt = elem->getValue().tryZExtValue();
                     if (!opt)
                         throw std::runtime_error("Enum element value doesn't fit into 64 bits.");
-                    llvm::outs() << *opt;
+                    out << *opt;
                 }
-                llvm::outs() << ", ";
+                out << ", ";
 
                 // Print the comment.
-                llvm::outs() << GetQuotedCommentStringOrPlaceholder(*ctx, *elem) << ")";
+                out << GetQuotedCommentStringOrPlaceholder(*ctx, *elem) << ")";
             }
             if (at_least_one_elem)
-                llvm::outs() << "\n";
+                out << "\n";
             else
-                llvm::outs() << " /*no elements*/";
-            llvm::outs() << ")\n";
+                out << " /*no elements*/";
+            out << ")\n";
 
             return true;
         }
@@ -772,16 +848,14 @@ namespace MRBind
                     << GetQuotedCommentStringOrPlaceholder(*ctx, *decl)
                     << ")\n";
 
-                namespace_queue.push_back({.name = name_str, .open_str = str, .printed = false});
+                visitor_namespace_stack.push_back({.name = name_str, .open_str = str, .id = namespace_id_counter++});
             }
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
             params->rejected_namespace_stack.pop_back();
 
-            if (namespace_queue.back().printed)
-                llvm::outs() << "MB_END_NAMESPACE(" << namespace_queue.back().name << ")\n";
-            namespace_queue.pop_back();
+            visitor_namespace_stack.pop_back();
 
             return ret;
         }
@@ -830,10 +904,13 @@ namespace MRBind
             if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
                 return true; // Inaccessible signature types.
 
+            std::string friend_str;
+            llvm::raw_string_ostream stream(friend_str);
+
             if (first)
             {
                 first = false;
-                llvm::outs() << "\n// Declare friends to allow forming pointers-to-members to them.\n";
+                stream << "\n// Declare friends to allow forming pointers-to-members to them.\n";
             }
 
             // Print the declaration.
@@ -844,12 +921,15 @@ namespace MRBind
             decl->printQualifiedName(qual_name_ss, printing_policy);
 
             if (decl->isConstexpr())
-                llvm::outs() << "constexpr ";
+                stream << "constexpr ";
             if (decl->isConsteval())
-                llvm::outs() << "consteval ";
+                stream << "consteval ";
 
-            decl->getType().print(llvm::outs(), printing_policy, qual_name);
-            llvm::outs() << ";\n";
+            decl->getType().print(stream, printing_policy, qual_name);
+            stream << ";\n";
+
+            for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
+                params->GetNextOutputFile() << friend_str;
             return true;
         }
 
@@ -877,53 +957,78 @@ namespace MRBind
 
         void HandleTranslationUnit(clang::ASTContext &ctx) override
         {
-            llvm::outs()
-                << "// Automatically generated by mrbind, do not edit.\n"
-                << "\n"
-                << "#include MRBIND_HEADER\n"
-                << "\n"
-                << "#if MB_INCLUDE_ORIGINAL_HEADER\n"
-                << "#include " << EscapeQuoteString(input_filename) << "\n"
-                << "#if MB_INCLUDE_ORIGINAL_HEADER >= 2 // Headers from the corresponding implementation file.\n";
-            { // Dump the headers from the .cpp file.
+            // Dump the headers from the .cpp file.
+            std::string impl_file_headers;
+            {
+                llvm::raw_string_ostream ss(impl_file_headers);
+
                 std::string impl_filename = PpDirDumper::GuessImplementationFileName(input_filename);
-                PpDirDumper::DumpResult result = PpDirDumper::DumpPreprocessorDirectivesFromFile(impl_filename, llvm::outs());
+                PpDirDumper::DumpResult result = PpDirDumper::DumpPreprocessorDirectivesFromFile(impl_filename, ss);
                 switch (result)
                 {
                   case PpDirDumper::DumpResult::ok:
                     // Nothing.
                     break;
                   case PpDirDumper::DumpResult::filename_not_specified:
-                    llvm::outs() << "// Unable to guess the implementation file name from the input file name.\n";
+                    ss << "// Unable to guess the implementation file name from the input file name.\n";
                     break;
                   case PpDirDumper::DumpResult::no_such_file:
-                    llvm::outs() << "// Implementation file doesn't exist: " << impl_filename << '\n';
+                    ss << "// Implementation file doesn't exist: " << impl_filename << '\n';
                     break;
                   case PpDirDumper::DumpResult::no_pp_directives:
-                    llvm::outs() << "// Implementation file doesn't contain preprocessing directives: " << impl_filename << '\n';
+                    ss << "// Implementation file doesn't contain preprocessing directives: " << impl_filename << '\n';
                     break;
                 }
             }
-            llvm::outs()
-                << "#endif\n"
-                << "#endif\n";
+
+            for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
+            {
+                params->GetNextOutputFile()
+                    << "// Automatically generated by mrbind, do not edit.\n";
+
+                if (params->NumOutputFiles() > 1)
+                    params->CurrentOutputFile() << "// " << (i + 1) << "/" << params->NumOutputFiles() << '\n';
+
+                params->CurrentOutputFile()
+                    << "\n"
+                    << "#include MRBIND_HEADER\n"
+                    << "\n"
+                    << "#if MB_INCLUDE_ORIGINAL_HEADER\n"
+                    << "#include " << EscapeQuoteString(input_filename) << "\n"
+                    << "#if MB_INCLUDE_ORIGINAL_HEADER >= 2 // Headers from the corresponding implementation file.\n"
+                    << impl_file_headers
+                    << "#endif\n"
+                    << "#endif\n";
+            }
 
             params->rejected_namespace_stack.push_back(params->blacklisted_entities.contains("::"));
 
             // Declare all the friends, to allow us to form pointers to them.
             ClangAstVisitorFriendDeclDumper(ctx, *params).TraverseDecl(ctx.getTranslationUnitDecl());
-            llvm::outs()
-                << "\n"
-                << "MB_FILE\n"
-                << "\n";
+
+            for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
+            {
+                params->GetNextOutputFile()
+                    << "\n"
+                    << "MB_FILE\n"
+                    << "\n";
+            }
 
             // Generate the bulk of the code.
 
-            ClangAstVisitor(ctx, *ci, *params).TraverseDecl(ctx.getTranslationUnitDecl());
+            ClangAstVisitor vis(ctx, *ci, *params);
+            vis.TraverseDecl(ctx.getTranslationUnitDecl());
+
+            for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
+            {
+                (void)params->GetNextOutputFile();
+                vis.FlushNamespaceContext();
+            }
 
             params->rejected_namespace_stack.pop_back();
 
-            llvm::outs() << "\nMB_END_FILE\n";
+            for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
+                params->GetNextOutputFile() << "\nMB_END_FILE\n";
         }
     };
 
@@ -1065,6 +1170,14 @@ int main(int argc, char **argv)
 
                         // ----
 
+                        if (this_arg == "-o")
+                        {
+                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                                throw std::runtime_error("Expected a file name after `" + std::string(this_arg) + "`.");
+                            params.output_files.push_back({.filename = argv[++i], .ostream = nullptr});
+                            continue;
+                        }
+
                         if (this_arg == "--ignore-pch-flags")
                         {
                             remove_pch_flags = true;
@@ -1112,6 +1225,7 @@ int main(int argc, char **argv)
         auto option_parser_ex = clang::tooling::CommonOptionsParser::create(argc, const_cast<const char **>(argv), options_category, llvm::cl::OneOrMore,
             "\n\n"
             "In addition to the stock Clang options explained below, we also support:\n"
+            "  -o output.cpp               - Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files which can be compiled in parallel, or sequentally for a lower RAM usage.\n"
             "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline.\n"
             "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
             "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different Clang version.\n"
