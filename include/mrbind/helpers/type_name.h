@@ -123,6 +123,9 @@ namespace MRBind
     template <typename T>
     [[nodiscard]] constexpr std::string_view TypeName()
     {
-        return std::string_view(details::type_name::storage<T>.data(), details::type_name::storage<T>.size() - 1);
+        if constexpr (std::is_same_v<T, std::string>)
+            return "std::string"; // It tends to vary a lot across compilers due to it being a typedef and having default template arguments.
+        else
+            return std::string_view(details::type_name::storage<T>.data(), details::type_name::storage<T>.size() - 1);
     }
 }

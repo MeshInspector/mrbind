@@ -1,7 +1,5 @@
 // Intentionally no include guard.
 
-// Set `MB_PB11_EXPAND_TOP_NAMESPACE` to 1 to omit the top-level namespace from function names
-
 #include <future>
 #ifndef MB_PB11_MODULE_NAME
 #error Must define `MB_PB11_MODULE_NAME` to the desired module name (without quotes).
@@ -43,7 +41,7 @@ namespace MRBind::detail::pb11
 {
     // Given a qualified C++ name, removes all weird characters from it, replaces `::` with `_`, etc.
     // The resulting name is used for the python bindings.
-    [[nodiscard]] std::string SanitizeName(std::string_view name);
+    [[nodiscard]] std::string ToPythonName(std::string_view name);
 
     // ---
 
@@ -360,11 +358,11 @@ namespace MRBind::detail::pb11
 
 // STL bindings.
 
-// This is similar to what `PYBIND11_MAKE_OPAQUE()` does, but with added templating.
-PYBIND11_NAMESPACE_BEGIN(PYBIND11_NAMESPACE)
-namespace detail
-{
-    #define ADD_CONTAINER(template_params_, std_type_, pb11_func_, name_str_) \
+// This is similar to what `PYBIND11_MAKE_OPAQUE()` does, but with added templating, and adds the binding code at the same time.
+#define MB_PB11_ADD_CUSTOM_TYPE(template_params_, std_type_, pb11_kind_, pb11_init_, first_pass_, second_pass_) \
+    PYBIND11_NAMESPACE_BEGIN(PYBIND11_NAMESPACE) \
+    namespace detail \
+    { \
         template <MRBIND_IDENTITY template_params_> \
         class type_caster<MRBIND_IDENTITY std_type_> : public type_caster_base<MRBIND_IDENTITY std_type_> \
         { \
@@ -379,22 +377,20 @@ namespace detail
                             typeid(ThisType), \
                             [](pybind11::module_ &m, std::unique_ptr<pb11::UnfinishedModule::BasicPybindType> &p) \
                             { \
-                                using C = pybind11::class_<ThisType>; \
+                                using C = MRBIND_IDENTITY pb11_kind_; \
                                 if (!p) \
                                 { \
                                     /* First pass. */\
-                                    p = std::make_unique< \
-                                        pb11::UnfinishedModule::SpecificPybindType<C> \
-                                    >( \
-                                        pb11_func_<ThisType>( \
-                                            m, \
-                                            name_str_ \
-                                        ) \
-                                    ); \
+                                    auto tmp = std::make_unique<pb11::UnfinishedModule::SpecificPybindType<C>>(MRBIND_IDENTITY pb11_init_); \
+                                    auto &_ = *tmp; \
+                                    p = std::move(tmp); \
+                                    MRBIND_IDENTITY first_pass_ \
                                 } \
                                 else \
                                 { \
-                                    /* Second pass does nothing. */\
+                                    /* Second pass. */\
+                                    auto &_ = static_cast<pb11::UnfinishedModule::SpecificPybindType<C> *>(p.get())->type; \
+                                    MRBIND_IDENTITY second_pass_ \
                                 } \
                             } \
                         ); \
@@ -403,23 +399,111 @@ namespace detail
             }(); \
             /* Instantiate `register_type`. */ \
             static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{}; \
+        }; \
+    } \
+    PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
+
+// std::vector
+MB_PB11_ADD_CUSTOM_TYPE(
+    // Intentionally no custom allocator support for now, to make things easier.
+    (typename T),
+    (std::vector<T>),
+    (pybind11::class_<ThisType>),
+    (pybind11::bind_vector<ThisType>(m, "std_vector_" + pb11::ToPythonName(MRBind::TypeName<T>()))),
+    (),
+    ()
+)
+// std::map
+MB_PB11_ADD_CUSTOM_TYPE(
+    (typename T, typename U),
+    // Intentionally no custom allocator support for now, to make things easier.
+    (std::map<T, U>),
+    (pybind11::class_<ThisType>),
+    (pybind11::bind_map<ThisType>(m, "std_map_" + pb11::ToPythonName(MRBind::TypeName<T>()) + "_to_" + pb11::ToPythonName(MRBind::TypeName<U>()))),
+    (),
+    ()
+)
+// std::optional
+#include <optional>
+MB_PB11_ADD_CUSTOM_TYPE(
+    (typename T),
+    (std::optional<T>),
+    (pybind11::class_<ThisType>),
+    (m, ("std_optional_" + pb11::ToPythonName(MRBind::TypeName<T>())).c_str()),
+    (),
+    (
+        _.def(pybind11::init<>());
+
+        // Allow constructing from `T`.
+        _.def(pybind11::init<T>());
+        pybind11::implicitly_convertible<T, std::optional<T>>();
+
+        // Allow constructing from `None`.
+        _.def(pybind11::init([](std::nullptr_t){return ThisType{};}));
+        pybind11::implicitly_convertible<std::nullptr_t, std::optional<T>>();
+
+        _.def("__bool__", [](const std::optional<T> &opt){return opt.has_value();});
+        _.def("value", [](const std::optional<T> &opt) -> const auto & {return opt.value();});
+    )
+)
+// std::variant
+#include <variant>
+MB_PB11_ADD_CUSTOM_TYPE(
+    (typename ...P),
+    (std::variant<P...>),
+    (pybind11::class_<ThisType>),
+    (m, []{
+        std::string ret = "std_variant";
+        (void)((ret += "_", ret += pb11::ToPythonName(MRBind::TypeName<P>())), ...);
+        return ret;
+    }().c_str()),
+    (),
+    (
+        if constexpr ((std::default_initializable<P> && ...))
+            _.def(pybind11::init<>());
+
+        static constexpr auto cur_type = [](const std::variant<P...> &var) -> std::string
+        {
+            if (var.valueless_by_exception())
+                return "";
+            else
+                return std::visit([]<typename T>(const T &){return pb11::ToPythonName(MRBind::TypeName<T>());}, var);
         };
 
+        _.def("current_type", cur_type, "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.");
+
+        ([&]{
+            // Allow constructing from `P...`.
+            _.def(pybind11::init<P>());
+            pybind11::implicitly_convertible<P, std::variant<P...>>();
+
+            // Allow getting `P...`.
+            _.def(("get_" + pb11::ToPythonName(MRBind::TypeName<P>())).c_str(), [](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
+        }(), ...);
+    )
+)
+// phmap::flat_hash_map
+#if __has_include(<parallel_hashmap/phmap.h>)
+#include <parallel_hashmap/phmap.h>
+MB_PB11_ADD_CUSTOM_TYPE(
+    (typename T, typename U),
     // Intentionally no custom allocator support for now, to make things easier.
-    ADD_CONTAINER((typename T), (std::vector<T>), pybind11::bind_vector, ("vector_" + pb11::SanitizeName(MRBind::TypeName<T>())))
-    ADD_CONTAINER((typename T, typename U), (std::map<T, U>), pybind11::bind_map, ("map_" + pb11::SanitizeName(MRBind::TypeName<T>()) + "_" + pb11::SanitizeName(MRBind::TypeName<U>())))
+    (phmap::flat_hash_map<T, U>),
+    (pybind11::class_<ThisType>),
+    (pybind11::bind_map<ThisType>(m, "phmap_flat_hash_map_" + pb11::ToPythonName(MRBind::TypeName<T>()) + "_to_" + pb11::ToPythonName(MRBind::TypeName<U>()))),
+    (),
+    ()
+)
+#endif
 
-    #undef ADD_CONTAINER
-}
-PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 
 
-
+// Module entry point.
 #if !MRBIND_IS_SECONDARY_FILE // Don't duplicate this if we have >1 TU.
 
 namespace MRBind::detail::pb11
 {
-    std::string SanitizeName(std::string_view name)
+    std::string ToPythonName(std::string_view name)
     {
         std::string ret;
         ret.reserve(name.size());
@@ -532,6 +616,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 
 
 
+
+// Macros for the generated code:
+
 // Silence some warnings:
 #ifdef __clang__
 // Clang warns about `::` + `*` coming from different macros, but all compilers including Clang emit a hard error when trying to paste the two tokens together.
@@ -566,7 +653,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         >( \
             _pb11_m, true, \
             /* Name */\
-            MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
             /* Parameters. */\
             DETAIL_MB_PB11_MAKE_PARAMS(params_) \
             /* Comment, if any. */ \
@@ -587,7 +674,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
             >;\
             auto _pb11_e = std::make_unique<_pb11_T>(_pb11_m, \
                 /* Name as a string. */\
-                MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+                MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
                 /* Comment, if any. */\
                 MRBIND_PREPEND_COMMA(comment_) \
             ); \
@@ -620,7 +707,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
             { \
                 auto _pb11_tmp = std::make_unique<_pb11_T>(_pb11_m, \
                     /* Name as a string. */\
-                    MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+                    MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
                 ); \
                 _pb11_c = _pb11_tmp.get(); \
                 _pb11_out = std::move(_pb11_tmp); \
@@ -734,7 +821,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     >( \
         _pb11_c->type, _pb11_second_pass, \
         /* Name */\
-        ("_convert_to_" + MRBind::detail::pb11::SanitizeName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str() \
+        ("_convert_to_" + MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str() \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     );
