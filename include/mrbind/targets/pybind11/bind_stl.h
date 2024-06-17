@@ -1,5 +1,7 @@
 #pragma once
 
+#include <future>
+
 #include <mrbind/targets/pybind11/core.h>
 
 namespace MRBind::detail::pb11
@@ -35,7 +37,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename T>),
     (std::vector<T>),
     (pybind11::class_<ThisType>),
-    (pybind11::bind_vector<ThisType>(m, "std_vector_" + pb11::ToPythonName(MRBind::TypeName<T>()))),
+    (pybind11::bind_vector<ThisType>(m, pb11::ToPythonName("std_vector") + "_" + pb11::ToPythonName(MRBind::TypeName<T>()))),
     (),
     ()
 )
@@ -46,7 +48,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     // Intentionally no custom allocator support for now, to make things easier.
     (std::map<T, U>),
     (pybind11::class_<ThisType>),
-    (pybind11::bind_map<ThisType>(m, "std_map_" + pb11::ToPythonName(MRBind::TypeName<T>()) + "_to_" + pb11::ToPythonName(MRBind::TypeName<U>()))),
+    (pybind11::bind_map<ThisType>(m, pb11::ToPythonName("std_map") + "_" + pb11::ToPythonName(MRBind::TypeName<T>()) + "_to_" + pb11::ToPythonName(MRBind::TypeName<U>()))),
     (),
     ()
 )
@@ -56,7 +58,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename T>),
     (std::optional<T>),
     (pybind11::class_<ThisType>),
-    (m, ("std_optional_" + pb11::ToPythonName(MRBind::TypeName<T>())).c_str()),
+    (m, (pb11::ToPythonName("std_optional") + "_" + pb11::ToPythonName(MRBind::TypeName<T>())).c_str()),
     (),
     (
         _.def(pybind11::init<>());
@@ -80,7 +82,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (std::variant<P...>),
     (pybind11::class_<ThisType>),
     (m, []{
-        std::string ret = "std_variant";
+        std::string ret = pb11::ToPythonName("std_variant");
         (void)((ret += "_", ret += pb11::ToPythonName(MRBind::TypeName<P>())), ...);
         return ret;
     }().c_str()),

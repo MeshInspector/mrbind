@@ -1,6 +1,5 @@
 #pragma once
 
-#include <future>
 #ifndef MB_PB11_MODULE_NAME
 #error Must define `MB_PB11_MODULE_NAME` to the desired module name (without quotes).
 #endif
@@ -26,6 +25,10 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+
+#ifdef MB_PB11_ADJUST_NAMES
+#include <regex>
+#endif
 
 
 
@@ -354,7 +357,7 @@ namespace MRBind::detail::pb11
 
 
 
-// Module entry point.
+// Module entry point, and more stuff.
 #if !MRBIND_IS_SECONDARY_FILE // Don't duplicate this if we have >1 TU.
 
 namespace MRBind::detail::pb11
@@ -383,6 +386,70 @@ namespace MRBind::detail::pb11
             }
         }
         ret.resize(last_good_size); // Trim trailing special characters.
+
+        // Read regex replacement rules from `MB_PB11_ADJUST_NAMES`.
+        // This implements a tiny subset of `sed`: a `;`-separated list of `s/../../` or `s/../../g`, where the first `..` is the regex,
+        // and the second `..` is the replacement string, possibly containing `$&` (entire match) and `$1` (a specific capture group).
+        #ifdef MB_PB11_ADJUST_NAMES
+        struct Rule
+        {
+            std::regex regex;
+            std::string replacement;
+            bool global = false;
+        };
+        static const std::vector<Rule> rules = []{
+            std::vector<Rule> rules;
+            const char *const input = MB_PB11_ADJUST_NAMES;
+            const char *cur = input;
+
+            while (*cur)
+            {
+                if (cur != input)
+                {
+                    if (*cur != ';')
+                        throw std::runtime_error("In MB_PB11_ADJUST_NAMES: Expected `;` separator between rules.");
+                    cur++;
+                }
+
+                if (*cur != 's')
+                    throw std::runtime_error("In MB_PB11_ADJUST_NAMES: Expected `s` to start a `s/../../` rule.");
+                cur++;
+
+                if (*cur != '/')
+                    throw std::runtime_error("In MB_PB11_ADJUST_NAMES: Expected `/` after `s`.");
+                cur++;
+
+                std::string regex_str;
+                while (*cur != '/' && *cur != '\0')
+                    regex_str += *cur++;
+
+                if (!*cur)
+                    throw std::runtime_error("In MB_PB11_ADJUST_NAMES: Unterminated `s/`, missing the second `/`.");
+                cur++; // Skip `/`.
+
+                Rule &this_rule = rules.emplace_back();
+                this_rule.regex = std::regex(regex_str);
+
+                while (*cur != '/' && *cur != '\0')
+                    this_rule.replacement += *cur++;
+                if (!*cur)
+                    throw std::runtime_error("In MB_PB11_ADJUST_NAMES: Unterminated `s/../`, missing the third `/`.");
+                cur++; // Skip `/`.
+
+                if (*cur == 'g')
+                {
+                    cur++;
+                    this_rule.global = true;
+                }
+            }
+
+            return rules;
+        }();
+
+        for (const Rule &rule : rules)
+            ret = std::regex_replace(ret, rule.regex, rule.replacement, rule.global ? std::regex_constants::format_default : std::regex_constants::format_first_only);
+        #endif
+
         return ret;
     }
 }
