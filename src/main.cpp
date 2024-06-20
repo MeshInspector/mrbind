@@ -24,6 +24,7 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <map>
 #include <regex>
 #include <set>
 #include <stdexcept>
@@ -130,6 +131,9 @@ namespace MRBind
         return ret;
     }
 
+    constexpr float output_group_preamble = -10;
+    constexpr float output_group_type_info = -5;
+
     struct VisitorParams
     {
         std::set<std::string> blacklisted_entities;
@@ -138,14 +142,28 @@ namespace MRBind
         // Don't list those base classes.
         std::set<std::string> skipped_bases;
 
+        bool emit_type_names = false;
+
         mutable std::vector<char/*bool*/> rejected_namespace_stack;
+
+        struct OutputGroup
+        {
+            std::string text;
+            [[nodiscard]] llvm::raw_string_ostream Stream() {return llvm::raw_string_ostream(text);}
+        };
 
         struct OutputFile
         {
             std::string filename;
-            mutable std::unique_ptr<llvm::raw_fd_ostream> ostream;
+            std::map<float, OutputGroup> groups;
+
+            OutputFile(std::string filename) : filename(std::move(filename)) {}
+            OutputFile(OutputFile &&) = default;
+            OutputFile &operator=(OutputFile &&) = default;
+
+            [[nodiscard]] OutputGroup &DefaultGroup() {return groups[0];}
         };
-        std::vector<OutputFile> output_files;
+        mutable std::vector<OutputFile> output_files;
         mutable std::size_t cur_output_file_index = std::size_t(-1); // This circularly wraps around.
 
         [[nodiscard]] std::size_t NumOutputFiles() const
@@ -153,36 +171,25 @@ namespace MRBind
             return output_files.empty() ? 1 : output_files.size();
         }
 
-        [[nodiscard]] llvm::raw_ostream &CurrentOutputFile() const
+        [[nodiscard]] OutputFile &GetCurrentOutputFile() const
         {
             if (output_files.empty())
             {
                 cur_output_file_index = 0;
-                return llvm::outs();
+                if (output_files.empty())
+                    output_files.emplace_back("-");
+                return output_files[0];
             }
 
-            const OutputFile &elem = output_files[cur_output_file_index];
-
-            if (!elem.ostream)
-            {
-                std::error_code ec;
-                elem.ostream = std::make_unique<llvm::raw_fd_ostream>(elem.filename, ec);
-                if (ec)
-                {
-                    elem.ostream = nullptr;
-                    throw std::runtime_error("Unable to open output file: " + ec.message());
-                }
-            }
-
-            return *elem.ostream;
+            return output_files[cur_output_file_index];
         }
 
-        [[nodiscard]] llvm::raw_ostream &GetNextOutputFile() const
+        [[nodiscard]] OutputFile &GetOutputFileAndRotate() const
         {
             if (!output_files.empty())
                 ++cur_output_file_index %= output_files.size();
 
-            return CurrentOutputFile();
+            return GetCurrentOutputFile();
         }
     };
 
@@ -396,6 +403,35 @@ namespace MRBind
 
         std::size_t namespace_id_counter = 0;
 
+
+        // Emitting type names:
+
+        std::vector<std::set<std::string>> emitted_types_per_ostream;
+
+        void EmitTypeInfo(VisitorParams::OutputFile &output, const clang::QualType &type)
+        {
+            if (!params->emit_type_names)
+                return;
+
+            std::size_t file_index = std::size_t(&output - params->output_files.data());
+            assert(file_index < params->NumOutputFiles());
+
+            if (emitted_types_per_ostream.empty())
+                emitted_types_per_ostream.resize(params->NumOutputFiles());
+
+            auto printing_policy_copy = printing_policy;
+            printing_policy_copy.PrintCanonicalTypes = true; // Must canonicalize the type names to avoid duplicates due to typedefs.
+            std::string type_name = type.getAsString(printing_policy_copy);
+
+            if (emitted_types_per_ostream.at(file_index).insert(type_name).second)
+            {
+                output.groups[output_group_type_info].Stream()
+                    << "template <> struct MRBind::BakedTypeName<" << type_name << "> "
+                    << "{static constexpr const char *name = " << EscapeQuoteString(type_name) << ";};\n";
+            }
+        }
+
+
         ClangAstVisitor(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
             printing_policy(ctx.getPrintingPolicy()),
@@ -423,7 +459,7 @@ namespace MRBind
                 )
             )
             {
-                params->CurrentOutputFile() << "MB_END_NAMESPACE(" << ostream_stack.back().name << ")\n";
+                params->GetCurrentOutputFile().DefaultGroup().Stream() << "MB_END_NAMESPACE(" << ostream_stack.back().name << ")\n";
                 ostream_stack.pop_back();
             }
 
@@ -431,7 +467,7 @@ namespace MRBind
             while (ostream_stack.size() < visitor_namespace_stack.size())
             {
                 const QueuedNamespace &elem = visitor_namespace_stack[ostream_stack.size()];
-                params->CurrentOutputFile() << elem.open_str;
+                params->GetCurrentOutputFile().DefaultGroup().Stream() << elem.open_str;
                 ostream_stack.push_back({.name = elem.name, .id = elem.id});
             }
         }
@@ -465,7 +501,9 @@ namespace MRBind
             if (auto template_args = decl->getTemplateSpecializationArgs())
                 clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policy);
 
-            auto &out = params->GetNextOutputFile();
+            auto &file = params->GetOutputFileAndRotate();
+            auto out = file.DefaultGroup().Stream();
+            EmitTypeInfo(file, decl->getReturnType());
             FlushNamespaceContext();
             out << "MB_FUNC("
                 // Return type.
@@ -480,6 +518,8 @@ namespace MRBind
             bool have_any_params = false;
             for (const clang::ParmVarDecl *p : decl->parameters())
             {
+                EmitTypeInfo(file, p->getType());
+
                 if (!have_any_params)
                 {
                     have_any_params = true;
@@ -520,7 +560,9 @@ namespace MRBind
 
             std::string qual_type_str = ctx->getRecordType(decl).getAsString(printing_policy);
 
-            auto &out = params->GetNextOutputFile();
+            auto &file = params->GetOutputFileAndRotate();
+            auto out = file.DefaultGroup().Stream();
+            EmitTypeInfo(file, ctx->getRecordType(decl));
             FlushNamespaceContext();
             out << "MB_CLASS("
                 // Kind.
@@ -555,6 +597,8 @@ namespace MRBind
                         out << "\n    ,/*bases:*/";
                     }
 
+                    EmitTypeInfo(file, base.getType());
+
                     out << "\n    ("
                         << "(" << base.getType().getAsString(printing_policy) << "), "
                         << (base.isVirtual() ? "virtual" : "/*non-virtual*/")
@@ -582,6 +626,8 @@ namespace MRBind
                 {
                     PreOutputMember();
 
+                    EmitTypeInfo(file, var->getType());
+
                     out << "    (field, static, "
                         << "(" << var->getType().getAsString(printing_policy) << "), "
                         << var->getName() << ", "
@@ -599,6 +645,8 @@ namespace MRBind
                     continue; // Reject non-public fields.
 
                 PreOutputMember();
+
+                EmitTypeInfo(file, field->getType());
 
                 out << "    (field, /*non-static*/, "
                     << "(" << field->getType().getAsString(printing_policy) << "), "
@@ -657,6 +705,8 @@ namespace MRBind
                     out << "    (" << (is_ctor ? "ctor" : is_conv_op ? "conv_op" : "method") << ", ";
                     if (!is_ctor)
                     {
+                        EmitTypeInfo(file, method->getReturnType());
+
                         if (!is_conv_op)
                         {
                             // Static?
@@ -693,6 +743,8 @@ namespace MRBind
                         bool have_any_params = false;
                         for (const clang::ParmVarDecl *p : method->parameters())
                         {
+                            EmitTypeInfo(file, p->getType());
+
                             if (!have_any_params)
                             {
                                 have_any_params = true;
@@ -735,7 +787,7 @@ namespace MRBind
             if (ProcessRecord(decl))
             {
                 bool ret = Base::TraverseRecordDecl(decl);
-                params->CurrentOutputFile() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                params->GetCurrentOutputFile().DefaultGroup().Stream() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
                 return ret;
             }
             return ret;
@@ -750,7 +802,7 @@ namespace MRBind
             if (ProcessRecord(decl))
             {
                 bool ret = Base::TraverseCXXRecordDecl(decl);
-                params->CurrentOutputFile() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                params->GetCurrentOutputFile().DefaultGroup().Stream() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
                 return ret;
             }
             return ret;
@@ -766,7 +818,7 @@ namespace MRBind
             if (ProcessRecord(decl))
             {
                 bool ret = Base::TraverseClassTemplateSpecializationDecl(decl);
-                params->CurrentOutputFile() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
+                params->GetCurrentOutputFile().DefaultGroup().Stream() << "MB_END_CLASS(" << decl->getDeclName() << ")\n";
                 return ret;
             }
             return ret;
@@ -783,7 +835,9 @@ namespace MRBind
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return true; // Inaccessible type.
 
-            auto &out = params->GetNextOutputFile();
+            auto &file = params->GetOutputFileAndRotate();
+            auto out = file.DefaultGroup().Stream();
+            EmitTypeInfo(file, ctx->getEnumType(decl));
             FlushNamespaceContext();
             out << "MB_ENUM("
                 // Scoped or non-scoped?
@@ -929,7 +983,7 @@ namespace MRBind
             stream << ";\n";
 
             for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
-                params->GetNextOutputFile() << friend_str;
+                params->GetOutputFileAndRotate().DefaultGroup().Stream() << friend_str;
             return true;
         }
 
@@ -983,13 +1037,14 @@ namespace MRBind
 
             for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
             {
-                params->GetNextOutputFile()
-                    << "// Automatically generated by mrbind, do not edit.\n";
+                auto out = params->GetOutputFileAndRotate().groups[output_group_preamble].Stream();
+
+                out << "// Automatically generated by mrbind, do not edit.\n";
 
                 if (params->NumOutputFiles() > 1)
-                    params->CurrentOutputFile() << "// " << (i + 1) << "/" << params->NumOutputFiles() << '\n';
+                    out << "// " << (i + 1) << "/" << params->NumOutputFiles() << '\n';
 
-                params->CurrentOutputFile()
+                out
                     << "\n"
                     << "#include MRBIND_HEADER\n"
                     << "\n"
@@ -999,6 +1054,13 @@ namespace MRBind
                     << impl_file_headers
                     << "#endif\n"
                     << "#endif\n";
+
+                if (params->emit_type_names)
+                {
+                    out << "\nnamespace MRBind {template <typename> struct BakedTypeName {};}\n";
+                    // Type names are injected here.
+                    params->GetCurrentOutputFile().DefaultGroup().Stream() << "\n";
+                }
             }
 
             params->rejected_namespace_stack.push_back(params->blacklisted_entities.contains("::"));
@@ -1008,7 +1070,7 @@ namespace MRBind
 
             for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
             {
-                params->GetNextOutputFile()
+                params->GetOutputFileAndRotate().DefaultGroup().Stream()
                     << "\n"
                     << "MB_FILE\n"
                     << "\n";
@@ -1021,14 +1083,26 @@ namespace MRBind
 
             for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
             {
-                (void)params->GetNextOutputFile();
+                (void)params->GetOutputFileAndRotate();
                 vis.FlushNamespaceContext();
             }
 
             params->rejected_namespace_stack.pop_back();
 
             for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
-                params->GetNextOutputFile() << "\nMB_END_FILE\n";
+            {
+                VisitorParams::OutputFile &file = params->GetOutputFileAndRotate();
+
+                file.DefaultGroup().Stream() << "\nMB_END_FILE\n";
+
+                std::error_code ec;
+                llvm::raw_fd_ostream out(file.filename, ec);
+                if (ec)
+                    throw std::runtime_error("Unable to open output file: " + ec.message());
+
+                for (const auto &[key, value] : file.groups)
+                    out << value.text;
+            }
         }
     };
 
@@ -1174,7 +1248,7 @@ int main(int argc, char **argv)
                         {
                             if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
                                 throw std::runtime_error("Expected a file name after `" + std::string(this_arg) + "`.");
-                            params.output_files.push_back({.filename = argv[++i], .ostream = nullptr});
+                            params.output_files.emplace_back(argv[++i]);
                             continue;
                         }
 
@@ -1210,6 +1284,12 @@ int main(int argc, char **argv)
                             params.skipped_bases.insert(argv[++i]);
                             continue;
                         }
+
+                        if (this_arg == "--emit-type-names")
+                        {
+                            params.emit_type_names = true;
+                            continue;
+                        }
                     }
                 }
 
@@ -1232,6 +1312,7 @@ int main(int argc, char **argv)
             "  --ignore T                  - Don't emit bindings for a specific entity. Use the flag several times to ban several entities. Use a fully qualified name, but without template arguments after the last name. Use `::` to reject the global namespace.\n"
             "  --allow T                   - Unban a subentity of something that was banned with `--ignore`, or a template instantiation from a header.\n"
             "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
+            "  --emit-type-names T         - Emit names of all used types as specializations of a predefined template. This is useful to avoid depending on compiler-specific names.\n"
         );
         if (!option_parser_ex)
         {
