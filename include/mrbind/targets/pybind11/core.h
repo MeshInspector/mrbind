@@ -26,7 +26,6 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <iostream>
 
 #ifdef MB_PB11_ADJUST_NAMES
 #include <regex>
@@ -416,8 +415,6 @@ namespace MRBind::detail::pb11
                             typeid(ThisType), \
                             [](pybind11::module_ &m, std::unique_ptr<pb11::UnfinishedModule::BasicPybindType> &p) \
                             { \
-                                std::cout << "-- " << __PRETTY_FUNCTION__ << '\n'; \
-                                std::cout << "## " << MRBind::BakedTypeNameOrFallback<ThisType>() << '\n'; \
                                 using C = MRBIND_IDENTITY pb11_kind_; \
                                 if (!p) \
                                 { \
