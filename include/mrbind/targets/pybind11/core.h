@@ -26,6 +26,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <iostream>
 
 #ifdef MB_PB11_ADJUST_NAMES
 #include <regex>
@@ -136,11 +137,11 @@ namespace MRBind::detail::pb11
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T &&, Name> {using type = typename TypedefWrapperAdder<T, Name>::type &&;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<const T &&, Name> {using type = const typename TypedefWrapperAdder<T, Name>::type &&;};
 
-    // Whether `Name` is the canonical type name of `T` according to `BakedTypeName`.
-    // This is a separate variable to force a hard error if `BakedTypeName` doesn't know this type.
+    // Whether `Name` is the canonical type name of `T` according to `BakedTypeNameOrFallback()`.
     template <typename T, ConstString Name>
-    constexpr bool is_canonical_type_name = BakedTypeName<T>::value == Name.view();
+    constexpr bool is_canonical_type_name = BakedTypeNameOrFallback<T>() == Name.view();
 
+    // Trims trailing `&` and `*` from a type name.
     template <ConstString Name>
     [[nodiscard]] consteval auto TrimPointersAndRefsFromName()
     {
@@ -165,13 +166,6 @@ namespace MRBind::detail::pb11
     // If `Name` is a canonical name of `T`, returns `T`. Otherwise returns `TypedefWrapper<T, Name>`.
     template <typename T, ConstString Name>
     using MaybeTypedefWrapper = typename MaybeTypedefWrapperHelper<T, Name>::type;
-
-    // Given a type, replaces it with the typedef wrapper if needed, or returns it unchanged.
-    template <ConstString Name, typename T>
-    [[nodiscard]] MaybeTypedefWrapper<T, Name> &&MakeTypedefWrapper(T &&x)
-    {
-        return reinterpret_cast<MaybeTypedefWrapper<T, Name> &&>(x);
-    }
 
     // ---
 
@@ -213,7 +207,7 @@ namespace MRBind::detail::pb11
                 if constexpr (std::is_reference_v<W>)
                     return reinterpret_cast<W>(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
                 else
-                    W(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
+                    return W(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
             }
         }
         else if constexpr (std::is_reference_v<T>)
@@ -422,6 +416,8 @@ namespace MRBind::detail::pb11
                             typeid(ThisType), \
                             [](pybind11::module_ &m, std::unique_ptr<pb11::UnfinishedModule::BasicPybindType> &p) \
                             { \
+                                std::cout << "-- " << __PRETTY_FUNCTION__ << '\n'; \
+                                std::cout << "## " << MRBind::BakedTypeNameOrFallback<ThisType>() << '\n'; \
                                 using C = MRBIND_IDENTITY pb11_kind_; \
                                 if (!p) \
                                 { \

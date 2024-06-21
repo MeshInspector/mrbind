@@ -9,7 +9,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename T, typename U>),
     (phmap::flat_hash_map<T, U>), (),
     (pybind11::class_<ThisType>),
-    (pybind11::bind_map<ThisType>(m, pb11::ToPythonName(MRBind::BakedTypeName<ThisType>::value))),
+    (pybind11::bind_map<ThisType>(m, pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>()))),
     (),
     ()
 )

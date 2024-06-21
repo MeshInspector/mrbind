@@ -128,4 +128,18 @@ namespace MRBind
         else
             return std::string_view(detail::type_name::storage<T>.data(), detail::type_name::storage<T>.size() - 1);
     }
+
+    // ---
+
+    template <typename> struct BakedTypeName; // Codegen defines this when you add `--emit-type-names`.
+
+    // If there's a baked type name for `T`, return that. Otherwise return the normal unbaked name.
+    template <typename T>
+    [[nodiscard]] constexpr std::string_view BakedTypeNameOrFallback()
+    {
+        if constexpr (requires{BakedTypeName<T>::value;})
+            return BakedTypeName<T>::value;
+        else
+            return TypeName<T>();
+    }
 }

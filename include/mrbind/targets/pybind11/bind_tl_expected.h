@@ -31,7 +31,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename T, typename U>),
     (tl::expected<T, U>), (),
     (pybind11::class_<ThisType>),
-    (m, pb11::ToPythonName(MRBind::BakedTypeName<ThisType>::value)),
+    (m, pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>())),
     (),
     (
         // Construct with the default-constructed valid value.

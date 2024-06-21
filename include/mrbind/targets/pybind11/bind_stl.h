@@ -37,7 +37,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename T>),
     (std::vector<T>), (),
     (pybind11::class_<ThisType>),
-    (pybind11::bind_vector<ThisType>(m, pb11::ToPythonName(MRBind::BakedTypeName<ThisType>::value))),
+    (pybind11::bind_vector<ThisType>(m, pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>()))),
     (),
     ()
 )
@@ -48,7 +48,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     // Intentionally no custom allocator support for now, to make things easier.
     (std::map<T, U>), (),
     (pybind11::class_<ThisType>),
-    (pybind11::bind_map<ThisType>(m, pb11::ToPythonName(MRBind::BakedTypeName<ThisType>::value))),
+    (pybind11::bind_map<ThisType>(m, pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>()))),
     (),
     ()
 )
@@ -58,7 +58,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename T>),
     (std::optional<T>), (),
     (pybind11::class_<ThisType>),
-    (m, pb11::ToPythonName(MRBind::BakedTypeName<ThisType>::value).c_str()),
+    (m, pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>()).c_str()),
     (),
     (
         _.def(pybind11::init<>());
@@ -81,7 +81,7 @@ MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename ...P>),
     (std::variant<P...>), (),
     (pybind11::class_<ThisType>),
-    (m, pb11::ToPythonName(MRBind::BakedTypeName<ThisType>::value)),
+    (m, pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>())),
     (),
     (
         if constexpr ((std::default_initializable<P> && ...))
