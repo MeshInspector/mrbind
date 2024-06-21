@@ -7,7 +7,7 @@
 
 namespace MRBind
 {
-    namespace details::type_name
+    namespace detail::type_name
     {
         template <typename T>
         constexpr std::string_view RawTypeName()
@@ -126,6 +126,6 @@ namespace MRBind
         if constexpr (std::is_same_v<T, std::string>)
             return "std::string"; // It tends to vary a lot across compilers due to it being a typedef and having default template arguments.
         else
-            return std::string_view(details::type_name::storage<T>.data(), details::type_name::storage<T>.size() - 1);
+            return std::string_view(detail::type_name::storage<T>.data(), detail::type_name::storage<T>.size() - 1);
     }
 }

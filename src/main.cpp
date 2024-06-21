@@ -427,7 +427,7 @@ namespace MRBind
             {
                 output.groups[output_group_type_info].Stream()
                     << "template <> struct MRBind::BakedTypeName<" << type_name << "> "
-                    << "{static constexpr const char *name = " << EscapeQuoteString(type_name) << ";};\n";
+                    << "{static constexpr const char *value = " << EscapeQuoteString(type_name) << ";};\n";
             }
         }
 

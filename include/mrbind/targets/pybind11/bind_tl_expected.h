@@ -29,9 +29,9 @@ namespace MRBind::detail::pb11
 
 MB_PB11_ADD_CUSTOM_TYPE(
     (template <typename T, typename U>),
-    (tl::expected<T, U>),
+    (tl::expected<T, U>), (),
     (pybind11::class_<ThisType>),
-    (m, (pb11::ToPythonName("tl_expected") + "_" + pb11::ToPythonName(MRBind::TypeName<T>()) + "_or_" + pb11::ToPythonName(MRBind::TypeName<U>())).c_str()),
+    (m, pb11::ToPythonName(MRBind::BakedTypeName<ThisType>::value)),
     (),
     (
         // Construct with the default-constructed valid value.
