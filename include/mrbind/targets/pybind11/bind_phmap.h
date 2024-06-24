@@ -2,14 +2,12 @@
 
 #include <mrbind/targets/pybind11/core.h>
 
-// phmap::flat_hash_map
 #include <parallel_hashmap/phmap.h>
-MB_PB11_ADD_CUSTOM_TYPE(
-    // Intentionally no custom allocator support for now, to make things easier.
-    (template <typename T, typename U>),
-    (phmap::flat_hash_map<T, U>), (),
-    (pybind11::class_<ThisType>),
-    (pybind11::bind_map<ThisType>(m, pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>()))),
-    (),
-    ()
-)
+// phmap::flat_hash_map
+template <typename ...P>
+struct MRBind::detail::pb11::CustomTypeBinding<phmap::flat_hash_map<P...>>
+    : public DefaultCustomTypeBinding<phmap::flat_hash_map<P...>>
+{
+    template <typename U>
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_map<U>(m, n));}
+};
