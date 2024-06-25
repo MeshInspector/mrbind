@@ -71,11 +71,15 @@ namespace MRBind::detail::pb11
             SpecificPybindType(P &&... params) : type(std::forward<P>(params)...) {}
         };
 
-        using LoadClass = void (*)(pybind11::module_ &m, std::unique_ptr<BasicPybindType> &p);
+        using InitClass = std::unique_ptr<BasicPybindType> (*)(pybind11::module_ &m, UnfinishedModule &u, const char *n);
+        using AddClassMembers = void (*)(pybind11::module_ &m, UnfinishedModule &u, BasicPybindType &c, bool second_pass);
 
         struct TypeEntry
         {
-            LoadClass load = nullptr;
+            std::string pybind_type_name;
+
+            InitClass init = nullptr;
+            AddClassMembers load_members = nullptr;
 
             bool was_processed = false;
 
@@ -89,8 +93,8 @@ namespace MRBind::detail::pb11
             // Reverse dependencies. Those are populated automatically.
             std::unordered_set<std::type_index> type_rdeps;
 
-            TypeEntry(LoadClass load, std::unordered_set<std::type_index> type_deps = {})
-                : load(load), type_deps(std::move(type_deps))
+            TypeEntry(std::string pybind_type_name, InitClass init, AddClassMembers load_members, std::unordered_set<std::type_index> type_deps = {})
+                : pybind_type_name(std::move(pybind_type_name)), init(init), load_members(load_members), type_deps(std::move(type_deps))
             {}
         };
         // The keys are
@@ -116,7 +120,79 @@ namespace MRBind::detail::pb11
 
     // ---
 
-    // This is used instead of `T` for class typedefs, to give them a unique type.
+    // This is used for manually defining  bindings
+    template <typename T>
+    struct CustomTypeBinding {using unspecialized = void;};
+
+    template <typename T>
+    concept HasCustomTypeBinding = !requires{typename CustomTypeBinding<T>::unspecialized;};
+
+    template <typename T>
+    struct DefaultCustomTypeBinding
+    {
+        // The pybind11's description of this type.
+        // Can also be a `pybind11::enum_<T>` for enums, and perhaps something else.
+        using pybind_type = pybind11::class_<T>;
+
+        // This passes the constructor arguments to `pybind_type`.
+        // Normally you don't need to override this. Override this for stuff like `pybind11::bind_vector()` or `pybind11::bind_map()`.
+        // `U` is either a `pybind_type` or that of a derived class (i.e. `TypedefWrapper<T, "...">`). Use `U` instead of `pybind_type` and `T` here.
+        template <typename U>
+        [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(m, n);}
+
+        // The type name for pybind11. Normally don't need to override this.
+        [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(BakedTypeNameOrFallback<T>());}
+
+        // Which base classes we inherit from. Or in general, which types must be initialized before this one.
+        static std::unordered_set<std::type_index> base_typeids() {return {};}
+
+        // Registers all members. Called twice, with `second_pass = false` and then `= true`.
+        // Usually must override this, unless you do something with `pybind_init` (see comment on it above).
+        // Normally you'd do constructors in the first pass, everything else in the second pass. But often you can just dump everything to the second pass.
+        // Note, must not use `T` here. Use `using TT = typename std::remove_reference_t<decltype(c.type)>::type;` to support derived classes (i.e. `TypedefWrapper<T, "...">`).
+        static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass) {(void)c; (void)second_pass;}
+    };
+
+    template <typename T>
+    struct RegisterTypeWithCustomBinding
+    {
+        inline static const std::nullptr_t register_type = []{
+            namespace pb11 = MRBind::detail::pb11;
+            pb11::GetRegistry().extra.try_emplace(
+                typeid(T), [](pb11::UnfinishedModule &u)
+                {
+                    using Traits = MRBind::detail::pb11::CustomTypeBinding<T>;
+                    using PybindType = typename Traits::pybind_type;
+                    using TypeStorage = pb11::UnfinishedModule::SpecificPybindType<PybindType>;
+                    u.type_entries.try_emplace(
+                        typeid(T),
+                        Traits::pybind_type_name(),
+                        [](pybind11::module_ &m, MRBind::detail::pb11::UnfinishedModule &u, const char *n) -> std::unique_ptr<pb11::UnfinishedModule::BasicPybindType>
+                        {
+                            return Traits::template pybind_init<T>(
+                                [&](auto &&... params)
+                                {
+                                    return std::make_unique<TypeStorage>(decltype(params)(params)...);
+                                },
+                                m, u, n
+                            );
+                        },
+                        [](pybind11::module_ &m, MRBind::detail::pb11::UnfinishedModule &u, pb11::UnfinishedModule::BasicPybindType &b, bool second_pass)
+                        {
+                            Traits::bind_members(m, u, static_cast<TypeStorage &>(b), second_pass);
+                        },
+                        Traits::base_typeids()
+                    );
+                });
+            return nullptr;
+        }();
+        /* Instantiate `register_type`. */
+        static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
+    };
+
+    // ---
+
+    // This is used instead of `T` for class typedefs, to give them a shared type.
     template <typename T, ConstString Name> requires std::is_class_v<T>
     struct TypedefWrapper : T
     {
@@ -127,8 +203,8 @@ namespace MRBind::detail::pb11
 
     // Given a type, wraps it in `TypedefWrapper`. For pointers and references, it inserted into the most nested level only.
     template <typename T, ConstString Name> struct TypedefWrapperAdder {};
-    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<T, Name> {using type = TypedefWrapper<T, Name>;};
-    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<const T, Name> {using type = const TypedefWrapper<T, Name>;};
+    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<      T, Name> : RegisterTypeWithCustomBinding<TypedefWrapper<T, Name>> {using type =       TypedefWrapper<T, Name>;};
+    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<const T, Name> : RegisterTypeWithCustomBinding<TypedefWrapper<T, Name>> {using type = const TypedefWrapper<T, Name>;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T *, Name> {using type = typename TypedefWrapperAdder<T, Name>::type *;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<const T *, Name> {using type = const typename TypedefWrapperAdder<T, Name>::type *;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T &, Name> {using type = typename TypedefWrapperAdder<T, Name>::type &;};
@@ -138,8 +214,13 @@ namespace MRBind::detail::pb11
 
     // Whether `Name` is the canonical type name of `T` according to `BakedTypeNameOrFallback()`.
     // This also rejects non-classes, because we can't apply `TypedefWrapper` to them because it uses inheritance.
+    // Also always returns true for empty strings.
     template <typename T, ConstString Name>
-    constexpr bool is_canonical_type_name_or_nonclass = !std::is_class_v<T> || BakedTypeNameOrFallback<T>() == Name.view();
+    constexpr bool needs_typedef_wrapper =
+        std::is_class_v<T> &&
+        !Name.view().empty() &&
+        HasCustomTypeBinding<T> && // Reject parsed classes because I couldn't figure out how to actually generate typedef bindings for them.
+        BakedTypeNameOrFallback<T>() != Name.view();
 
     // Trims trailing `&` and `*` from a type name.
     template <ConstString Name>
@@ -160,47 +241,12 @@ namespace MRBind::detail::pb11
     // See `MaybeTypedefWrapper` below.
     template <typename T, ConstString Name>
     struct MaybeTypedefWrapperHelper {using type = T;};
-    template <typename T, ConstString Name> requires(!is_canonical_type_name_or_nonclass<T, TrimPointersAndRefsFromName<Name>()>)
+    template <typename T, ConstString Name> requires needs_typedef_wrapper<T, TrimPointersAndRefsFromName<Name>()>
     struct MaybeTypedefWrapperHelper<T, Name> {using type = TypedefWrapperAdder<T, TrimPointersAndRefsFromName<Name>()>::type;};
 
     // If `Name` is a canonical name of `T`, returns `T`. Otherwise returns `TypedefWrapper<T, Name>`.
     template <typename T, ConstString Name>
     using MaybeTypedefWrapper = typename MaybeTypedefWrapperHelper<T, Name>::type;
-
-    // ---
-
-    // This is used for manually defining  bindings
-    template <typename T>
-    struct CustomTypeBinding {using unspecialized = void;};
-
-    template <typename T>
-    concept HaveCustomTypeBinding = !requires{typename CustomTypeBinding<T>::unspecialized;};
-
-    template <typename T>
-    struct DefaultCustomTypeBinding
-    {
-        // The pybind11's description of this type.
-        // Can also be a `pybind11::enum_<T>` for enums, and perhaps something else.
-        using pybind_type = pybind11::class_<T>;
-
-        // This passes the constructor arguments to `pybind_type`.
-        // Normally you don't need to override this. Override this for stuff like `pybind11::bind_vector()` or `pybind11::bind_map()`.
-        // `U` is either a `pybind_type` or that of a derived class (i.e. `TypedefWrapper<T, "...">`). Use `U` instead of `pybind_type` and `T` here.
-        template <typename U>
-        [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(m, n);}
-
-        // The type name for pybind11. Normally don't need to override this.
-        [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(BakedTypeNameOrFallback<T>());}
-
-        // Which base classes we inherit from. Or in general, which types must be initialized before this one.
-        static std::unordered_set<std::type_index> base_typeids() {return {};}
-
-        // Registers all members. Called twice, with `second_pass = false` and then `= true`.
-        // Usually must override this, unless you do something with `pybind_init` (see comment on it above).
-        // Normally you'd do constructors in the first pass, everything else in the second pass. But often you can just dump everything to the second pass.
-        // Note, must not use `T` here. Use `using TT = typename std::remove_reference_t<decltype(c)>::type;` to support derived classes (i.e. `TypedefWrapper<T, "...">`).
-        static void bind_members(auto &c, bool second_pass) {(void)c; (void)second_pass;}
-    };
 
     // ---
 
@@ -231,7 +277,7 @@ namespace MRBind::detail::pb11
     {
         if constexpr (ReturnTypeNeedsAdjusting<T>)
         {
-            if constexpr (is_canonical_type_name_or_nonclass<T, Name>)
+            if constexpr (!needs_typedef_wrapper<T, Name>)
             {
                 return ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value));
             }
@@ -442,71 +488,17 @@ namespace MRBind::detail::pb11
     }
 }
 
-#define MB_PB11_CUSTOM_TYPE_INIT(init_, name_) \
-    ( \
-        auto init_lambda = []<typename _pb11_U>(pybind11::module_ &m, const char *n){return std::make_unique<_pb11_U>(MRBIND_IDENTITY init_);}; \
-        (void)MRBind::detail::pb11::StatefulClassInitWriter<ThisType, decltype(init_lambda)>{}; \
-        auto new_p = init_lambda.template operator()<_pb11_T>(m, MRBIND_IDENTITY name_); \
-        _pb11_c = &new_p.get()->type; \
-        p = std::move(new_p); \
-    )
-
-#define MB_PB11_CUSTOM_TYPE_INIT_DEFAULT MB_PB11_CUSTOM_TYPE_INIT((m, n), (pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<ThisType>()).c_str()))
-
 PYBIND11_NAMESPACE_BEGIN(PYBIND11_NAMESPACE)
 namespace detail
 {
     template <typename T>
-    requires MRBind::detail::pb11::HaveCustomTypeBinding<T>
-    class type_caster<T> : public type_caster_base<T>
-    {
-        inline static const std::nullptr_t register_type = []{
-            namespace pb11 = MRBind::detail::pb11;
-            pb11::GetRegistry().extra.try_emplace(
-                typeid(T), [](pb11::UnfinishedModule &u)
-                {
-                    using Traits = MRBind::detail::pb11::CustomTypeBinding<T>;
-                    u.type_entries.try_emplace(
-                        typeid(T),
-                        [](pybind11::module_ &m, std::unique_ptr<pb11::UnfinishedModule::BasicPybindType> &p)
-                        {
-                            using PybindType = typename Traits::pybind_type;
-                            using TypeStorage = pb11::UnfinishedModule::SpecificPybindType<PybindType>;
-
-                            [[maybe_unused]] PybindType *_pb11_c = nullptr;
-                            bool second_pass = bool(p);
-                            if (!p)
-                            {
-                                std::unique_ptr<TypeStorage> tmp = Traits::template pybind_init<T>(
-                                    [&](auto &&... params)
-                                    {
-                                        return std::make_unique<TypeStorage>(decltype(params)(params)...);
-                                    },
-                                    m,
-                                    Traits::pybind_type_name().c_str()
-                                );
-                                _pb11_c = &tmp.get()->type;
-                                p = std::move(tmp);
-                            }
-                            else
-                            {
-                                _pb11_c = &static_cast<TypeStorage *>(p.get())->type;
-                            }
-
-                            Traits::bind_members(*_pb11_c, second_pass);
-                        },
-                        Traits::base_typeids()
-                    );
-                });
-            return nullptr;
-        }();
-        /* Instantiate `register_type`. */
-        static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
-    };
+    requires MRBind::detail::pb11::HasCustomTypeBinding<T>
+    class type_caster<T> : public type_caster_base<T>, MRBind::detail::pb11::RegisterTypeWithCustomBinding<T> {};
 }
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 
 template <typename T, MRBind::ConstString Name>
+requires MRBind::detail::pb11::HasCustomTypeBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
     : public CustomTypeBinding<T>
 {
@@ -686,12 +678,17 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
                 throw std::runtime_error(std::string("MRBind pybind11: There's a dependency cycle in the type graph, involving ") + elem.first.name());
         }
 
-        // Load in two passes.
+        // Load in two (three?) passes.
+
+        // Init.
         for (auto *elem : final_order)
-            elem->load(_pb11_m, elem->pybind_type);
-        // Exactly the same arguments the second time. Lambdas detect the second pass because they already assigned to `elem->pybind_type`.
+            elem->pybind_type = elem->init(_pb11_m, _pb11_u, elem->pybind_type_name.c_str());
+        // Pass 1.
         for (auto *elem : final_order)
-            elem->load(_pb11_m, elem->pybind_type);
+            elem->load_members(_pb11_m, _pb11_u, *elem->pybind_type, false);
+        // Pass 2.
+        for (auto *elem : final_order)
+            elem->load_members(_pb11_m, _pb11_u, *elem->pybind_type, true);
     }
 
     // Load the functions.
@@ -778,36 +775,30 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     { \
         /* Class type. */\
         using _pb11_C = MRBIND_IDENTITY qualname_; \
-        _pb11_u.type_entries.try_emplace(typeid(_pb11_C), [](pybind11::module_ &_pb11_m, std::unique_ptr<MRBind::detail::pb11::UnfinishedModule::BasicPybindType> &_pb11_out) \
-        { \
-            using _pb11_T = MRBind::detail::pb11::UnfinishedModule::SpecificPybindType<\
-                pybind11::class_< \
-                    /* Type. */\
-                    _pb11_C \
-                    /* Bases. */\
-                    DETAIL_MB_PB11_BASE_TYPES(bases_)\
-                >\
-            >;\
-            [[maybe_unused]] _pb11_T *_pb11_c = nullptr; \
-            bool _pb11_second_pass = bool(_pb11_out); \
-            if (_pb11_out) \
-                _pb11_c = static_cast<_pb11_T *>(_pb11_out.get()); \
-            else \
+        using _pb11_T = MRBind::detail::pb11::UnfinishedModule::SpecificPybindType<\
+            pybind11::class_< \
+                /* Type. */\
+                _pb11_C \
+                /* Bases. */\
+                DETAIL_MB_PB11_BASE_TYPES(bases_)\
+            >\
+        >;\
+        _pb11_u.type_entries.try_emplace( \
+            typeid(_pb11_C), \
+            MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<_pb11_C>()), \
+            /* Init lambda. */\
+            [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::UnfinishedModule &, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::UnfinishedModule::BasicPybindType> \
             { \
-                auto init_lambda = []<typename _pb11_U>(pybind11::module_ &m, const char *n){return std::make_unique<_pb11_U>(m, n);}; \
-                (void)MRBind::detail::pb11::StatefulClassInitWriter<ThisType, decltype(init_lambda)>{}; \
-                auto _pb11_tmp = init_lambda.template operator()<_pb11_T>(_pb11_m, MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str()); \
-                _pb11_c = _pb11_tmp.get(); \
-                _pb11_out = std::move(_pb11_tmp); \
-            } \
-            /* Members. Intentionally passing `auto` here to allow this lambda to be invoked for different types too.  */\
-            auto lambda = []([[maybe_unused]] auto *_pb11_c, [[maybe_unused]] bool _pb11_second_pass) \
+                return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
+            }, \
+            /* Members lamdba. */\
+            [](pybind11::module_ &, MRBind::detail::pb11::UnfinishedModule &, MRBind::detail::pb11::UnfinishedModule::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
             { \
+                [[maybe_unused]] _pb11_T *_pb11_c = static_cast<_pb11_T *>(&_pb11_b); \
                 DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
-            }; \
-            lambda(_pb11_c, _pb11_second_pass); \
-            (void)MRBind::detail::pb11::StatefulClassMembersWriter<_pb11_C, decltype(lambda)>{}; \
-        }, std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)}); \
+            }, \
+            std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
+        ); \
     }
 
 #define MB_END_CLASS(name_)
@@ -885,10 +876,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(true, false),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) \
+        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_), \
+        /* Return type name. */\
+        MRBIND_STR(MRBIND_IDENTITY ret_) \
         /* Parameter types: */\
         /* Self parameter. */\
-        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() MRBind::detail::pb11::ParamInfo<_pb11_C & MRBIND_COMMA() "">)\
         /* Normal parameter types. */\
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
     >( \
@@ -910,8 +903,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
         static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_IDENTITY qualname_::*)() const_>(&MRBIND_IDENTITY qualname_::operator MRBIND_IDENTITY ret_), \
+        /* Return type name. */\
+        MRBIND_STR(MRBIND_IDENTITY ret_), \
         /* The only parameter, which is the class itself. */\
-        _pb11_C & \
+        MRBind::detail::pb11::ParamInfo<_pb11_C &, ""> \
     >( \
         _pb11_c->type, _pb11_second_pass, \
         /* Name */\

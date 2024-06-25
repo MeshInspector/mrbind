@@ -9,5 +9,5 @@ struct MRBind::detail::pb11::CustomTypeBinding<phmap::flat_hash_map<P...>>
     : public DefaultCustomTypeBinding<phmap::flat_hash_map<P...>>
 {
     template <typename U>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_map<U>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(pybind11::bind_map<U>(m, n));}
 };

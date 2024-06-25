@@ -37,7 +37,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<P...>>
     : public DefaultCustomTypeBinding<std::vector<P...>>
 {
     template <typename U>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_vector<U>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(pybind11::bind_vector<U>(m, n));}
 };
 // std::map
 #include <map>
@@ -46,7 +46,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<P...>>
     : public DefaultCustomTypeBinding<std::map<P...>>
 {
     template <typename U>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_map<U>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(pybind11::bind_map<U>(m, n));}
 };
 // std::optional
 #include <optional>
@@ -54,26 +54,26 @@ template <typename T>
 struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
     : public DefaultCustomTypeBinding<std::optional<T>>
 {
-    static void bind_members(auto &c, bool second_pass)
+    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
     {
-        using TT = typename std::remove_reference_t<decltype(c)>::type;
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
 
         if (!second_pass)
         {
-            c.def(pybind11::init<>());
+            c.type.def(pybind11::init<>());
 
             // Allow constructing from `T`.
-            c.def(pybind11::init<T>());
+            c.type.def(pybind11::init<T>());
             pybind11::implicitly_convertible<T, TT>();
 
             // Allow constructing from `None`.
-            c.def(pybind11::init([](std::nullptr_t){return TT{};}));
+            c.type.def(pybind11::init([](std::nullptr_t){return TT{};}));
             pybind11::implicitly_convertible<std::nullptr_t, TT>();
         }
         else
         {
-            c.def("__bool__", [](const TT &opt){return opt.has_value();});
-            c.def("value", [](const TT &opt) -> const auto & {return opt.value();});
+            c.type.def("__bool__", [](const TT &opt){return opt.has_value();});
+            c.type.def("value", [](const TT &opt) -> const auto & {return opt.value();});
         }
     }
 };
@@ -83,9 +83,9 @@ template <typename ...P>
 struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
     : public DefaultCustomTypeBinding<std::variant<P...>>
 {
-    static void bind_members(auto &c, bool second_pass)
+    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
     {
-        using TT = typename std::remove_reference_t<decltype(c)>::type;
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
 
         static constexpr auto cur_type = [](const TT &var) -> std::string
         {
@@ -98,22 +98,22 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
         if (!second_pass)
         {
             if constexpr ((std::default_initializable<P> && ...))
-                c.def(pybind11::init<>());
+                c.type.def(pybind11::init<>());
 
             ([&]{
                 // Allow constructing from `P...`.
-                c.def(pybind11::init<P>());
+                c.type.def(pybind11::init<P>());
                 pybind11::implicitly_convertible<P, TT>();
             }(), ...);
 
         }
         else
         {
-            c.def("current_type", cur_type, "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.");
+            c.type.def("current_type", cur_type, "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.");
 
             ([&]{
                 // Allow getting `P...`.
-                c.def(("get_" + pb11::ToPythonName(MRBind::TypeName<P>())).c_str(), [](const TT &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
+                c.type.def(("get_" + pb11::ToPythonName(MRBind::TypeName<P>())).c_str(), [](const TT &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
             }(), ...);
         }
     }
