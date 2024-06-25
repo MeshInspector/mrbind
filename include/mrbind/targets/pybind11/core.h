@@ -752,22 +752,26 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     { \
         /* Type. */\
         using _pb11_E = MRBIND_IDENTITY qualname_; \
-        _pb11_u.type_entries.try_emplace(typeid(_pb11_E), [](pybind11::module_ &_pb11_m, std::unique_ptr<MRBind::detail::pb11::UnfinishedModule::BasicPybindType> &_pb11_out) \
-        { \
-            if (_pb11_out) return; /* Do nothing on the second pass. */\
-            using _pb11_T = MRBind::detail::pb11::UnfinishedModule::SpecificPybindType<\
-                pybind11::enum_<_pb11_E>\
-            >;\
-            auto _pb11_e = std::make_unique<_pb11_T>(_pb11_m, \
-                /* Name as a string. */\
-                MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
-                /* Comment, if any. */\
-                MRBIND_PREPEND_COMMA(comment_) \
-            ); \
-            /* Elements. */\
-            DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
-            _pb11_out = std::move(_pb11_e); \
-        }); \
+        using _pb11_T = MRBind::detail::pb11::UnfinishedModule::SpecificPybindType<pybind11::enum_<_pb11_E>>; \
+        _pb11_u.type_entries.try_emplace( \
+            typeid(_pb11_E), \
+            MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<_pb11_E>()), \
+            /* Init lambda. */\
+            [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::UnfinishedModule &, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::UnfinishedModule::BasicPybindType> \
+            { \
+                return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
+            }, \
+            /* Members lamdba. */\
+            [](pybind11::module_ &, MRBind::detail::pb11::UnfinishedModule &, MRBind::detail::pb11::UnfinishedModule::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
+            { \
+                if (_pb11_second_pass) \
+                { \
+                    [[maybe_unused]] pybind11::enum_<_pb11_E> &_pb11_e = static_cast<_pb11_T &>(_pb11_b).type; \
+                    DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
+                } \
+            }, \
+            std::unordered_set<std::type_index>{} \
+        ); \
     }
 
 // Bind a class.
@@ -825,7 +829,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
-    _pb11_e->type.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ MRBIND_PREPEND_COMMA(comment_));
+    _pb11_e.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ MRBIND_PREPEND_COMMA(comment_));
 
 // A helper for `MB_CLASS` that generates the base class list with a leading comma.
 #define DETAIL_MB_PB11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
