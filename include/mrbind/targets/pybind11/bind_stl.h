@@ -62,9 +62,12 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
         {
             c.type.def(pybind11::init<>());
 
-            // Allow constructing from `T`.
-            c.type.def(pybind11::init<T>());
-            pybind11::implicitly_convertible<T, TT>();
+            // Allow constructing from `T`, but only if copyable!
+            if constexpr (std::copyable<T>)
+            {
+                c.type.def(pybind11::init<T>());
+                pybind11::implicitly_convertible<T, TT>();
+            }
 
             // Allow constructing from `None`.
             c.type.def(pybind11::init([](std::nullptr_t){return TT{};}));
@@ -73,7 +76,11 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
         else
         {
             c.type.def("__bool__", [](const TT &opt){return opt.has_value();});
-            c.type.def("value", [](const TT &opt) -> const auto & {return opt.value();});
+
+            // if constexpr (std::copyable<T>)
+            {
+                c.type.def("value", [](const TT &opt) -> const auto & {return opt.value();});
+            }
         }
     }
 };
