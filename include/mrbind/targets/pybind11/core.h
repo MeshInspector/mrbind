@@ -46,19 +46,33 @@ namespace MRBind::detail::pb11
     // The resulting name is used for the python bindings.
     [[nodiscard]] std::string ToPythonName(std::string_view name);
 
+    // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
+    [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
+
     // ---
 
     // A module is assembled into this structure on load, and then passed to pybind11.
     struct UnfinishedModule
     {
-        using LoadFunc = void (*)(pybind11::module_ &m);
-
         struct BasicPybindType
         {
             virtual ~BasicPybindType() = default;
             BasicPybindType() = default;
             BasicPybindType(const BasicPybindType &) = delete;
             BasicPybindType &operator=(const BasicPybindType &) = delete;
+
+            virtual pybind11::object &GetPybindObject() = 0;
+
+            void AddExtraMethod(const char *name, auto &&f, const auto &... extra)
+            {
+                GetPybindObject().attr(name) = pybind11::cpp_function(
+                    f,
+                    pybind11::name(name),
+                    pybind11::is_method(GetPybindObject()),
+                    pybind11::sibling(pybind11::getattr(GetPybindObject(), name, pybind11::none())),
+                    extra...
+                );
+            }
         };
 
         template <typename T>
@@ -69,6 +83,8 @@ namespace MRBind::detail::pb11
 
             template <typename ...P>
             SpecificPybindType(P &&... params) : type(std::forward<P>(params)...) {}
+
+            pybind11::object &GetPybindObject() override {return type;}
         };
 
         using InitClass = std::unique_ptr<BasicPybindType> (*)(pybind11::module_ &m, UnfinishedModule &u, const char *n);
@@ -100,6 +116,7 @@ namespace MRBind::detail::pb11
         // The keys are
         std::unordered_map<std::type_index, TypeEntry> type_entries;
 
+        using LoadFunc = void (*)(pybind11::module_ &m, UnfinishedModule &u);
         std::vector<LoadFunc> func_entries;
     };
 
@@ -437,7 +454,7 @@ namespace MRBind::detail::pb11
 
     // Member or non-member functions. Non-member functions should pass `IsStatic == false`.
     template <bool IsStatic, auto F, ConstString ReturnTypeName, typename ...P>
-    void TryAddFunc(auto &c, bool second_pass, const char *name, auto &&... data)
+    void TryAddFunc(auto &c, UnfinishedModule &u, bool second_pass, const char *simplename, const char *fullname, auto &&... data)
     {
         if constexpr ((ParamTypeDisablesWholeFunction<typename P::OriginalType> || ...))
             ; // This function has a parameter of a weird type that we can't support.
@@ -458,10 +475,59 @@ namespace MRBind::detail::pb11
 
             constexpr pybind11::return_value_policy ret_policy = pybind11::return_value_policy::automatic_reference;
 
+            constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
+
+            // If this is an overloaded operator defined outside of a class (or as a `friend`), inject it into
+            // the target class, instead of emitting as a global function.
+            if constexpr (!is_class_method && sizeof...(P) >= 1)
+            {
+                const char *op = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
+                if (op != simplename)
+                {
+                    [&](auto&&, auto &&...trimmed_data)
+                    {
+                        using FirstParam = FirstType<typename P::OriginalType...>;
+
+                        if (auto iter = u.type_entries.find(typeid(FirstParam)); iter != u.type_entries.end())
+                        {
+                            // Try injecting into the type of the first operand.
+                            iter->second.pybind_type->AddExtraMethod(op, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                        }
+                        else
+                        {
+                            // If the first operand is not registered AND this is a binary operator,
+                            // try injecting the reverse form into the type of the second operand.
+                            if constexpr (sizeof...(P) == 2)
+                            {
+                                using SecondParam = SecondType<typename P::OriginalType...>;
+                                if (auto iter = u.type_entries.find(typeid(SecondParam)); iter != u.type_entries.end())
+                                {
+                                    // A lambda to swap the order of the two arguments.
+                                    auto symmetric_lambda = [](SecondType<typename P::WrappedAdjustedType...> x, FirstType<typename P::WrappedAdjustedType...> y) -> decltype(auto)
+                                    {
+                                        // Using `forward` here to have decent behavior when `x`,`y` are non-references.
+                                        return decltype(lambda){}(std::forward<decltype(y)>(y), std::forward<decltype(x)>(x));
+                                    };
+
+                                    // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
+                                    iter->second.pybind_type->AddExtraMethod(("__r" + std::string(op + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                                }
+                            }
+                        }
+                    }
+                    (decltype(data)(data)...);
+
+                    // Return unconditionally. If we couldn't inject this operator into one of the arguments' types, just drop it.
+                    return;
+                }
+            }
+
+            const char *final_name = is_class_method ? AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1) : fullname;
+
             if constexpr (IsStatic)
-                c.def_static(name, lambda, ret_policy, decltype(data)(data)...);
+                c.def_static(final_name, lambda, ret_policy, decltype(data)(data)...);
             else
-                c.def(name, lambda, ret_policy, decltype(data)(data)...);
+                c.def(final_name, lambda, ret_policy, decltype(data)(data)...);
         }
     }
 
@@ -608,6 +674,56 @@ namespace MRBind::detail::pb11
 
         return ret;
     }
+
+    [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary)
+    {
+        std::string_view view = name;
+        if (view == "_Plus") return unary ? "__pos__" : "__add__";
+        if (view == "_Minus") return unary ? "__neg__" : "__sub__";
+        if (view == "_Star") return "__matmul__";
+        if (view == "_Slash") return "__truediv__";
+        if (view == "_Percent") return "__mod__";
+        if (view == "_Caret") return "__xor__";
+        if (view == "_Amp") return "__and__";
+        if (view == "_Pipe") return "__or__";
+        if (view == "_Tilde") return "__invert__";
+        if (view == "_PlusEqual") return "__iadd__";
+        if (view == "_MinusEqual") return "__isub__";
+        if (view == "_StarEqual") return "__imatmul__";
+        if (view == "_SlashEqual") return "__itruediv__";
+        if (view == "_PercentEqual") return "__imod__";
+        if (view == "_CaretEqual") return "__ixor__";
+        if (view == "_AmpEqual") return "__iand__";
+        if (view == "_PipeEqual") return "__ior__";
+        if (view == "_LessLess") return "__lshift__";
+        if (view == "_GreaterGreater") return "__rshift__";
+        if (view == "_LessLessEqual") return "__ilshift__";
+        if (view == "_GreaterGreaterEqual") return "__irshift__";
+        return name;
+        // Unhandled operators: (taken from /usr/lib/llvm-18/include/clang/Basic/OperatorKinds.def)
+        // _New
+        // _Delete
+        // _Array_New
+        // _Array_Delete
+        // _Exclaim
+        // _Equal
+        // _Less
+        // _Greater
+        // _EqualEqual
+        // _ExclaimEqual
+        // _LessEqual
+        // _GreaterEqual
+        // _Spaceship
+        // _AmpAmp
+        // _PipePipe
+        // _PlusPlus
+        // _MinusMinus
+        // _Comma
+        // _ArrowStar
+        // _Arrow
+        // _Call
+        // _Subscript
+    }
 }
 
 PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
@@ -693,7 +809,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 
     // Load the functions.
     for (const auto &elem : _pb11_u.func_entries)
-        elem(_pb11_m);
+        elem(_pb11_m, _pb11_u);
 }
 
 #endif
@@ -726,7 +842,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 
 // Bind a function.
 #define MB_FUNC(ret_, name_, qualname_, comment_, params_) \
-    _pb11_u.func_entries.push_back([](pybind11::module_ &_pb11_m){\
+    _pb11_u.func_entries.push_back([](pybind11::module_ &_pb11_m, MRBind::detail::pb11::UnfinishedModule &_pb11_u){\
         MRBind::detail::pb11::TryAddFunc<\
             /* Doesn't count as `static` for our purposes. */\
             false, \
@@ -737,8 +853,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
             /* Parameter types. */\
             DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
         >( \
-            _pb11_m, true, \
-            /* Name */\
+            _pb11_m, _pb11_u, true, \
+            /* Simple name */\
+            MRBIND_STR(name_), \
+            /* Full name */\
             MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
             /* Parameters. */\
             DETAIL_MB_PB11_MAKE_PARAMS(params_) \
@@ -796,7 +914,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
                 return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
             }, \
             /* Members lamdba. */\
-            [](pybind11::module_ &, MRBind::detail::pb11::UnfinishedModule &, MRBind::detail::pb11::UnfinishedModule::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
+            [](pybind11::module_ &, MRBind::detail::pb11::UnfinishedModule &_pb11_u, MRBind::detail::pb11::UnfinishedModule::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
             { \
                 [[maybe_unused]] _pb11_T *_pb11_c = static_cast<_pb11_T *>(&_pb11_b); \
                 DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
@@ -889,9 +1007,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         /* Normal parameter types. */\
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
     >( \
-        _pb11_c->type, _pb11_second_pass, \
-        /* Name */\
-        MRBIND_STR(simplename_) \
+        _pb11_c->type, _pb11_u, _pb11_second_pass, \
+        /* Simple name */\
+        MRBIND_STR(simplename_), \
+        /* Full name */\
+        MRBIND_STR(name_) \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \
@@ -912,9 +1032,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         /* The only parameter, which is the class itself. */\
         MRBind::detail::pb11::ParamInfo<_pb11_C &, ""> \
     >( \
-        _pb11_c->type, _pb11_second_pass, \
-        /* Name */\
-        ("_convert_to_" + MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str() \
+        _pb11_c->type, _pb11_u, _pb11_second_pass, \
+        /* Simple name */\
+        ("_convert_to_" + MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str(), \
+        /* Full name */\
+        nullptr \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     );

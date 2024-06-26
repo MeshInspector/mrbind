@@ -964,7 +964,7 @@ namespace MRBind
             if (first)
             {
                 first = false;
-                stream << "\n// Declare friends to allow forming pointers-to-members to them.\n";
+                stream << "\n// Declare friends to allow forming function pointers to them.\n";
             }
 
             // Print the declaration.

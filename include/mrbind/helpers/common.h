@@ -1,6 +1,17 @@
 #pragma once
 
-// Some common helper macros.
+// Some common helpers.
+
+namespace MRBind
+{
+    template <typename T, typename...> struct FirstTypeHelper {using type = T;};
+    template <typename T, typename U, typename...> struct SecondTypeHelper {using type = U;};
+
+    // Returns the first type of a parameter pack.
+    template <typename ...P> using FirstType = typename FirstTypeHelper<P...>::type;
+    // Returns the second type of a parameter pack.
+    template <typename ...P> using SecondType = typename SecondTypeHelper<P...>::type;
+}
 
 #define MRBIND_NULL(...)
 #define MRBIND_COMMA(...) ,
