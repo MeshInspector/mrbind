@@ -77,7 +77,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
         {
             c.type.def("__bool__", [](const TT &opt){return opt.has_value();});
 
-            // if constexpr (std::copyable<T>)
+            if constexpr (std::copyable<T>)
             {
                 c.type.def("value", [](const TT &opt) -> const auto & {return opt.value();});
             }
