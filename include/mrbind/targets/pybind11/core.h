@@ -18,8 +18,9 @@
 // NOTE: Not including `<pybind11/stl.h>` because that doesn't cooperate with passing containers by reference.
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
-#include <map>
 #include <optional>
+#include <string_view>
+#include <string>
 #include <type_traits>
 #include <typeindex>
 #include <typeinfo>
@@ -113,7 +114,6 @@ namespace MRBind::detail::pb11
                 : pybind_type_name(std::move(pybind_type_name)), init(init), load_members(load_members), type_deps(std::move(type_deps))
             {}
         };
-        // The keys are
         std::unordered_map<std::type_index, TypeEntry> type_entries;
 
         using LoadFunc = void (*)(pybind11::module_ &m, UnfinishedModule &u);
@@ -126,7 +126,10 @@ namespace MRBind::detail::pb11
         std::vector<void (*)(UnfinishedModule &)> files;
 
         // This is for extra bindings, such as those for `std::vector`.
-        std::map<std::type_index, void (*)(UnfinishedModule &)> extra;
+        std::unordered_map<std::type_index, void (*)(UnfinishedModule &)> extra;
+
+        // The simple type aliases we register.
+        std::unordered_map<std::type_index, std::unordered_set<std::string>> type_aliases;
     };
 
     [[nodiscard]] inline Registry &GetRegistry()
@@ -234,15 +237,27 @@ namespace MRBind::detail::pb11
     template <typename T> struct RemoveCvPointersRefs<T &> {using type = typename RemoveCvPointersRefs<T>::type;};
     template <typename T> struct RemoveCvPointersRefs<T &&> {using type = typename RemoveCvPointersRefs<T>::type;};
 
-    // Whether `Name` is the canonical type name of `T` according to `BakedTypeNameOrFallback()`.
-    // This also rejects non-classes, because we can't apply `TypedefWrapper` to them because it uses inheritance.
-    // Also always returns true for empty strings.
+    // Returns true if `Name` is not the canonical name of `T`.
+    template <typename T, ConstString Name>
+    constexpr bool maybe_needs_typedef_wrapper_or_type_alias =
+        !Name.view().empty() &&
+        BakedTypeNameOrFallback<T>() != Name.view(); // Must compare the typename of exactly `T`, because that's what's baked. Something else might not be.
+
+    // A subset of `maybe_needs_typedef_wrapper_or_type_alias` for classes with custom bindings (aka hardcoded rather than parsed).
+    // For those, we generate a derived class with the same binding. For other types we generate a dumb type alias.
     template <typename T, ConstString Name>
     constexpr bool needs_typedef_wrapper =
-        std::is_class_v<T> &&
-        !Name.view().empty() &&
-        HasCustomTypeBinding<T> && // Reject parsed classes because I couldn't figure out how to actually generate typedef bindings for them.
-        BakedTypeNameOrFallback<T>() != Name.view();
+        std::is_class_v<typename RemoveCvPointersRefs<T>::type> && // We need to be able to inherit from `T`. Could check `std::is_final` here too, hmm... Or is it better to hard fail on those?
+        HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> && // Reject parsed classes because those are handled separately.
+        maybe_needs_typedef_wrapper_or_type_alias<T, Name>;
+
+    // A subset of `maybe_needs_typedef_wrapper_or_type_alias` for types with parsed bindings.
+    template <typename T, ConstString Name>
+    constexpr bool needs_type_alias =
+        // Something we could possibly register. We could remove this condition, since we already reject aliases to unknown types at runtime.
+        (std::is_class_v<T> || std::is_enum_v<T>) &&
+        maybe_needs_typedef_wrapper_or_type_alias<T, Name> &&
+        !needs_typedef_wrapper<T, Name>;
 
     // If `Name` starts with `const `, returns the character index after that, otherwise 0.
     template <ConstString Name>
@@ -272,6 +287,19 @@ namespace MRBind::detail::pb11
         std::copy_n(Name.view().data() + FindFirstIndexAfterLeadingConst<Name>, size, ret.value);
         return ret;
     }
+
+    template <typename T, ConstString Name>
+    struct MaybeRegisterTypeAlias {};
+    template <typename T, ConstString Name> requires needs_type_alias<T, Name>
+    struct MaybeRegisterTypeAlias<T, Name>
+    {
+        static constexpr auto trimmed_name = TrimCvPointersRefsFromName<Name>();
+        inline static const std::nullptr_t register_alias = []{
+            GetRegistry().type_aliases[typeid(typename RemoveCvPointersRefs<T>::type)].insert(ToPythonName(trimmed_name.view()));
+            return nullptr;
+        }();
+        static constexpr std::integral_constant<const std::nullptr_t *, &register_alias> instantiate{};
+    };
 
     // See `MaybeTypedefWrapper` below.
     template <typename T, ConstString Name>
@@ -312,13 +340,14 @@ namespace MRBind::detail::pb11
     {
         if constexpr (ReturnTypeNeedsAdjusting<T>)
         {
+            using R = decltype(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
+            (void)MaybeRegisterTypeAlias<R, Name>{};
             if constexpr (!needs_typedef_wrapper<T, Name>)
             {
                 return ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value));
             }
             else
             {
-                using R = decltype(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
                 using W = MaybeTypedefWrapper<R, Name>;
                 if constexpr (std::is_reference_v<W>)
                     return reinterpret_cast<W>(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
@@ -326,10 +355,14 @@ namespace MRBind::detail::pb11
                     return W(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
             }
         }
-        else if constexpr (std::is_reference_v<T>)
-            return reinterpret_cast<MaybeTypedefWrapper<T, Name> &&>(std::forward<T &&>(value));
         else
-            return MaybeTypedefWrapper<T, Name>(std::move(value));
+        {
+            (void)MaybeRegisterTypeAlias<T, Name>{};
+            if constexpr (std::is_reference_v<T>)
+                return reinterpret_cast<MaybeTypedefWrapper<T, Name> &&>(std::forward<T &&>(value));
+            else
+                return MaybeTypedefWrapper<T, Name>(std::move(value));
+        }
     }
 
     template <typename T>
@@ -428,6 +461,7 @@ namespace MRBind::detail::pb11
     template <typename T, ConstString Name>
     [[nodiscard]] T UnwrapUnadjustParam(WrappedAdjustedParamType<T, Name> &&param)
     {
+        (void)MaybeRegisterTypeAlias<T, Name>{};
         return (UnadjustParam<T>)(static_cast<typename AdjustedParamType<T>::type &&>(std::forward<WrappedAdjustedParamType<T, Name>>(param)));
     }
 
@@ -748,7 +782,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 {
     using namespace MRBind::detail::pb11;
 
-    // Load stuff from evety file.
+    // Load stuff from every file.
     UnfinishedModule _pb11_u;
     for (auto f : MRBind::detail::pb11::GetRegistry().files)
         f(_pb11_u);
@@ -828,6 +862,19 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     // Load the functions.
     for (const auto &elem : _pb11_u.func_entries)
         elem(_pb11_m, _pb11_u);
+
+    // Load the type aliases.
+    for (const auto &elem : MRBind::detail::pb11::GetRegistry().type_aliases)
+    {
+        // If the target type is known.
+        if (auto type_iter = _pb11_u.type_entries.find(elem.first); type_iter != _pb11_u.type_entries.end())
+        {
+            for (const auto &name : elem.second)
+            {
+                _pb11_m.add_object(name.c_str(), type_iter->second.pybind_type->GetPybindObject());
+            }
+        }
+    }
 }
 
 #endif
