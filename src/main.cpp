@@ -657,6 +657,16 @@ namespace MRBind
             // -- Constructors and methods.
             if (cxxdecl)
             {
+                // Implicitly declare the default constructor if viable.
+                if (cxxdecl->needsImplicitDefaultConstructor())
+                {
+                    // Poking this for some reason generates the implicit default constructor, if it can be generated.
+                    (void)ci->getSema().LookupDefaultConstructor(cxxdecl);
+
+                    // Note: Not using `cxxdecl->hasDefaultConstructor()` because it returns false positives,
+                    // e.g. for classes with non-default-constructible fields and no user-declared constructors?).
+                }
+
                 for (clang::CXXMethodDecl *method : cxxdecl->methods())
                 {
                     if (method->getAccess() != clang::AS_public)
