@@ -223,11 +223,16 @@ namespace MRBind::detail::pb11
     template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<      T, Name> : RegisterTypeWithCustomBinding<TypedefWrapper<T, Name>> {using type =       TypedefWrapper<T, Name>;};
     template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<const T, Name> : RegisterTypeWithCustomBinding<TypedefWrapper<T, Name>> {using type = const TypedefWrapper<T, Name>;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T *, Name> {using type = typename TypedefWrapperAdder<T, Name>::type *;};
-    template <typename T, ConstString Name> struct TypedefWrapperAdder<const T *, Name> {using type = const typename TypedefWrapperAdder<T, Name>::type *;};
+    template <typename T, ConstString Name> struct TypedefWrapperAdder<T *const, Name> {using type = typename TypedefWrapperAdder<T, Name>::type *;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T &, Name> {using type = typename TypedefWrapperAdder<T, Name>::type &;};
-    template <typename T, ConstString Name> struct TypedefWrapperAdder<const T &, Name> {using type = const typename TypedefWrapperAdder<T, Name>::type &;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T &&, Name> {using type = typename TypedefWrapperAdder<T, Name>::type &&;};
-    template <typename T, ConstString Name> struct TypedefWrapperAdder<const T &&, Name> {using type = const typename TypedefWrapperAdder<T, Name>::type &&;};
+
+    // Removes all pointers, references, and cv-qualifiers from a type.
+    template <typename T> struct RemoveCvPointersRefs {using type = T;};
+    template <typename T> struct RemoveCvPointersRefs<const T> {using type = typename RemoveCvPointersRefs<T>::type;};
+    template <typename T> struct RemoveCvPointersRefs<T *> {using type = typename RemoveCvPointersRefs<T>::type;};
+    template <typename T> struct RemoveCvPointersRefs<T &> {using type = typename RemoveCvPointersRefs<T>::type;};
+    template <typename T> struct RemoveCvPointersRefs<T &&> {using type = typename RemoveCvPointersRefs<T>::type;};
 
     // Whether `Name` is the canonical type name of `T` according to `BakedTypeNameOrFallback()`.
     // This also rejects non-classes, because we can't apply `TypedefWrapper` to them because it uses inheritance.
@@ -239,27 +244,40 @@ namespace MRBind::detail::pb11
         HasCustomTypeBinding<T> && // Reject parsed classes because I couldn't figure out how to actually generate typedef bindings for them.
         BakedTypeNameOrFallback<T>() != Name.view();
 
-    // Trims trailing `&` and `*` from a type name.
+    // If `Name` starts with `const `, returns the character index after that, otherwise 0.
     template <ConstString Name>
-    [[nodiscard]] consteval auto TrimPointersAndRefsFromName()
+    constexpr std::size_t FindFirstIndexAfterLeadingConst = []{
+        std::string_view v = Name.view();
+        while (v.starts_with("const "))
+            v = v.substr(6);
+        return v.data() - Name.view().data();
+    }();
+
+    // If the `Name` starts with `const` and/or ends with `*`, `&`, `&&`, or `const`, removes all that recursively (i.e. possibly more than once),
+    // trimming trailing and leading spaces.
+    template <ConstString Name>
+    [[nodiscard]] consteval auto TrimCvPointersRefsFromName()
     {
-        constexpr std::size_t size = [&]{
-            constexpr std::string_view v = Name.view();
+        constexpr std::size_t size = []{
+            constexpr std::string_view v = Name.view().substr(FindFirstIndexAfterLeadingConst<Name>);
+            auto IsRemovedChar = [](char ch){return ch == '*' || ch == '&' || ch == ' ';};
+            const char *p = v.data();
             std::size_t n = v.size();
-            while (n > 0 && (v[n-1] == '*' || v[n-1] == '&' || v[n-1] == ' '))
-                n--;
+            bool one_char = false;
+            while (n > 0 && ((one_char = IsRemovedChar(p[n-1])) || (n >= 6 && p[n-5]=='c' && p[n-4]=='o' && p[n-3]=='n' && p[n-2]=='s' && p[n-1]=='t' && IsRemovedChar(p[n-6]))))
+                n -= (one_char ? 1 : 6);
             return n;
         }();
         ConstString<size + 1> ret{};
-        std::copy_n(Name.view().data(), size, ret.value);
+        std::copy_n(Name.view().data() + FindFirstIndexAfterLeadingConst<Name>, size, ret.value);
         return ret;
     }
 
     // See `MaybeTypedefWrapper` below.
     template <typename T, ConstString Name>
     struct MaybeTypedefWrapperHelper {using type = T;};
-    template <typename T, ConstString Name> requires needs_typedef_wrapper<T, TrimPointersAndRefsFromName<Name>()>
-    struct MaybeTypedefWrapperHelper<T, Name> {using type = TypedefWrapperAdder<T, TrimPointersAndRefsFromName<Name>()>::type;};
+    template <typename T, ConstString Name> requires needs_typedef_wrapper<typename RemoveCvPointersRefs<T>::type, TrimCvPointersRefsFromName<Name>()>
+    struct MaybeTypedefWrapperHelper<T, Name> {using type = TypedefWrapperAdder<T, TrimCvPointersRefsFromName<Name>()>::type;};
 
     // If `Name` is a canonical name of `T`, returns `T`. Otherwise returns `TypedefWrapper<T, Name>`.
     template <typename T, ConstString Name>
