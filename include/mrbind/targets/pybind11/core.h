@@ -27,7 +27,6 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <iostream>
 
 #ifdef MB_PB11_ADJUST_NAMES
 #include <regex>
@@ -608,7 +607,6 @@ namespace MRBind::detail::pb11
             // and has at most one parameter without a default argument.
             if constexpr (!IsExplicit && sizeof...(P) > 0 && sizeof...(P) - NumDefaultArgs <= 1)
             {
-                std::cout << typeid(std::remove_cvref_t<FirstType<typename P::OriginalType...>>).name() << " | " << typeid(T).name() << '\n';
                 pybind11::implicitly_convertible<std::remove_cvref_t<FirstType<typename P::OriginalType...>>, T>();
             }
         }
