@@ -696,12 +696,14 @@ namespace MRBind
                     std::string name;
                     bool is_ctor = false;
                     bool is_conv_op = false;
+                    bool ctor_is_explicit = false;
 
                     if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
                     {
                         if (ctor->isCopyOrMoveConstructor())
                             continue; // Reject copy/move constructors.
                         is_ctor = true;
+                        ctor_is_explicit = ctor->isExplicit();
                     }
                     else if (llvm::isa<clang::CXXConversionDecl>(method))
                     {
@@ -713,7 +715,12 @@ namespace MRBind
                     }
 
                     out << "    (" << (is_ctor ? "ctor" : is_conv_op ? "conv_op" : "method") << ", ";
-                    if (!is_ctor)
+                    if (is_ctor)
+                    {
+                        // Explicit?
+                        out << (ctor_is_explicit ? "explicit" : "/*not explicit*/") << ", ";
+                    }
+                    else
                     {
                         EmitTypeInfo(file, method->getReturnType());
 

@@ -27,6 +27,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <iostream>
 
 #ifdef MB_PB11_ADJUST_NAMES
 #include <regex>
@@ -583,7 +584,7 @@ namespace MRBind::detail::pb11
         }
     }
 
-    template <typename ...P>
+    template <int NumDefaultArgs, bool IsExplicit, typename ...P>
     void TryAddCtor(auto &c, bool second_pass, auto &&... data)
     {
         using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
@@ -602,6 +603,14 @@ namespace MRBind::detail::pb11
             };
 
             c.def(pybind11::init(lambda), decltype(data)(data)...);
+
+            // Register this ctor as an implicit conversion if it's not explicit, has at least one parameter,
+            // and has at most one parameter without a default argument.
+            if constexpr (!IsExplicit && sizeof...(P) > 0 && sizeof...(P) - NumDefaultArgs <= 1)
+            {
+                std::cout << typeid(std::remove_cvref_t<FirstType<typename P::OriginalType...>>).name() << " | " << typeid(T).name() << '\n';
+                pybind11::implicitly_convertible<std::remove_cvref_t<FirstType<typename P::OriginalType...>>, T>();
+            }
         }
     }
 }
@@ -979,7 +988,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
                 return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
             }, \
             /* Members lamdba. */\
-            [](pybind11::module_ &, MRBind::detail::pb11::UnfinishedModule &_pb11_u, MRBind::detail::pb11::UnfinishedModule::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
+            [](pybind11::module_ &, [[maybe_unused]]  MRBind::detail::pb11::UnfinishedModule &_pb11_u, MRBind::detail::pb11::UnfinishedModule::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
             { \
                 [[maybe_unused]] _pb11_T *_pb11_c = static_cast<_pb11_T *>(&_pb11_b); \
                 DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
@@ -1004,10 +1013,13 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
     , MRBind::detail::pb11::DecayToTrueParamType<MRBIND_IDENTITY type_>
 
 // A helper that generates a list of info wrappers about each parameter.
-#define DETAIL_MB_PB11_PARAM_ENTRIES(seq) MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(seq))
 #define DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_ENTRIES_BODY, SF_NULL, SF_NULL, 1, seq)
 #define DETAIL_MB_PB11_PARAM_ENTRIES_BODY(n, d, type_, name_, .../*default_arg_*/) \
     , MRBind::detail::pb11::ParamInfo<MRBIND_IDENTITY type_, MRBIND_STR(MRBIND_IDENTITY type_)>
+
+// Returns the number of function parameters with default arguments.
+#define DETAIL_MB_PB11_NUM_DEF_ARGS(seq) 0 SF_FOR_EACH0(DETAIL_MB_PB11_NUM_DEF_ARGS_BODY, SF_NULL, SF_NULL,, seq)
+#define DETAIL_MB_PB11_NUM_DEF_ARGS_BODY(n, d, type_, name_, .../*default_arg_*/) __VA_OPT__(+1)
 
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
@@ -1043,10 +1055,14 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a constructor.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, comment_, params_) \
     MRBind::detail::pb11::TryAddCtor<\
+        /* Default argument counter, to detect converting constructors. */\
+        DETAIL_MB_PB11_NUM_DEF_ARGS(params_),\
+        /* Explicit? */\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_EXPLICIT_, explicit_)()\
         /* Parameter types. */\
-        DETAIL_MB_PB11_PARAM_ENTRIES(params_)\
+        DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_)\
     >( \
         _pb11_c->type, _pb11_second_pass \
         /* Parameters. */\
@@ -1108,6 +1124,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
 
 #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
 #define DETAIL_MB_PB11_IF_STATIC_static(x, y) x
+
+#define DETAIL_MB_PB11_IF_EXPLICIT_() false
+#define DETAIL_MB_PB11_IF_EXPLICIT_explicit() true
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>

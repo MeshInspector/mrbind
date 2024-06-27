@@ -67,7 +67,8 @@
 //         * `type_` - parenthesized type.
 //         * `name_` - field name.
 //         * `comment_` - a string literal with the comment, or empty if none.
-//     * A public constructor `(ctor, comment_, params_)`, where:
+//     * A public constructor `(ctor, explicit_, comment_, params_)`, where:
+//       * `explicit_` - either `explicit` or empty if not explicit.
 //       * `comment_` - a string literal with the comment, or empty if none.
 //       * `params_` - a parameter list `(...)(...)(...)`.
 //           Each parameter is `(type_, name_, default_arg_)`, where:
