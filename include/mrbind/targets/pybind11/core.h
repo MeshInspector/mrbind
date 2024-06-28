@@ -479,6 +479,8 @@ namespace MRBind::detail::pb11
 
         auto const_getter = [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));};
 
+        std::string py_name = ToPythonName(name);
+
         using T = std::remove_reference_t<decltype(Getter(std::declval<ClassType &>()))>;
         if constexpr (
             // If this is a const member (bad!) or a const reference member (also bad).
@@ -490,17 +492,17 @@ namespace MRBind::detail::pb11
         )
         {
             if constexpr (IsStatic)
-                c.def_property_readonly_static(name, const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_readonly_static(py_name.c_str(), const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_property_readonly(name, const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_readonly(py_name.c_str(), const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
         else
         {
             // Can't use perfect forwarding here, because pybind11 tries to analyze the functor signature, therefore it chokes on templated lambdas.
             if constexpr (IsStatic)
-                c.def_property_static(name, const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_static(py_name.c_str(), const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_property(name, const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property(py_name.c_str(), const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
     }
 
@@ -574,7 +576,22 @@ namespace MRBind::detail::pb11
                 }
             }
 
-            const char *final_name = is_class_method ? AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1) : fullname;
+            const char *final_name;
+            std::string final_name_storage;
+            if (is_class_method)
+            {
+                final_name = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
+                if (final_name == simplename) // If this is not an overloaded operator, adjust the name.
+                {
+                    final_name_storage = ToPythonName(final_name);
+                    final_name = final_name_storage.c_str();
+                }
+            }
+            else
+            {
+                // This name is already adjusted...
+                final_name = fullname;
+            }
 
             if constexpr (IsStatic)
                 c.def_static(final_name, lambda, ret_policy, decltype(data)(data)...);

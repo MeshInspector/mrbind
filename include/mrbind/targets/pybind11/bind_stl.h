@@ -38,6 +38,23 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<P...>>
 {
     template <typename U>
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(pybind11::bind_vector<U>(m, n));}
+
+    #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
+    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
+    {
+        if (!second_pass)
+            return;
+
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
+        c.type.def("size", [](const TT &v){return v.size();});
+        if constexpr (std::copyable<typename TT::value_type>)
+        {
+            if constexpr (std::is_default_constructible_v<typename TT::value_type>)
+                c.type.def("resize", [](TT &v, std::size_t n){v.resize(n);});
+            c.type.def("resize", [](TT &v, std::size_t n, const typename TT::value_type &value){v.resize(n, value);});
+        }
+    }
+    #endif
 };
 // std::map
 #include <map>
@@ -47,6 +64,17 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<P...>>
 {
     template <typename U>
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(pybind11::bind_map<U>(m, n));}
+
+    #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
+    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
+    {
+        if (!second_pass)
+            return;
+
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
+        c.type.def("size", [](const TT &v){return v.size();});
+    }
+    #endif
 };
 // std::optional
 #include <optional>
