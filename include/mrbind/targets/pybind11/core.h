@@ -527,7 +527,14 @@ namespace MRBind::detail::pb11
                     return (AdjustAndWrapReturnedValue<ReturnType, ReturnTypeName>)(std::invoke(F, (UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...));
             };
 
-            constexpr pybind11::return_value_policy ret_policy = pybind11::return_value_policy::automatic_reference;
+            using ReturnTypeAdjustedWrapped = decltype(lambda(std::declval<typename P::WrappedAdjustedType>()...));
+
+            // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
+            // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
+            constexpr pybind11::return_value_policy ret_policy =
+                std::is_pointer_v<ReturnTypeAdjustedWrapped> || std::is_reference_v<ReturnTypeAdjustedWrapped>
+                ? pybind11::return_value_policy::reference
+                : pybind11::return_value_policy::move;
 
             constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
 
@@ -615,7 +622,11 @@ namespace MRBind::detail::pb11
 
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
             {
-                return T((UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...);
+                // Note `new` here! Pybind still frees the object automatically.
+                // The only effect this causes is eliminating the extra move that otherwise occurs when creating an object.
+                // This extra move only appears when using `.def(pybind11::init([](...){...}))` and not `.def(pybind11::init<...>())`,
+                // but the latter is not an option for us because it prevents us from adjusting the parameter types.
+                return new T((UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...);
             };
 
             c.def(pybind11::init(lambda), decltype(data)(data)...);
