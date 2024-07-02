@@ -28,6 +28,11 @@
 #include <unordered_set>
 #include <vector>
 
+#if !MRBIND_IS_SECONDARY_FILE
+#include <exception> // For `std::terminate()`.
+#include <iostream> // To report errors.
+#endif
+
 #ifdef MB_PB11_ADJUST_NAMES
 #include <regex>
 #endif
@@ -467,6 +472,24 @@ namespace MRBind::detail::pb11
 
     // ---
 
+    template <typename T>
+    struct DeleterOrCrash
+    {
+        void operator()(T *ptr)
+        {
+            if constexpr (std::is_destructible_v<T>)
+            {
+                delete ptr;
+            }
+            else
+            {
+                CriticalError("Trying to delete a type with a private destructor: " + std::string(BakedTypeNameOrFallback<T>()));
+            }
+        }
+    };
+
+    // ---
+
     template <bool IsStatic, auto Getter>
     void TryAddMemberVar(auto &c, bool second_pass, const char *name, auto &&... data)
     {
@@ -669,6 +692,12 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
 
 namespace MRBind::detail::pb11
 {
+    void CriticalError(std::string_view message)
+    {
+        std::cerr << "mrbind pybind11 bindings: " << message << '\n' << std::flush;
+        std::terminate();
+    }
+
     std::string ToPythonName(std::string_view name)
     {
         // Read regex replacement rules from `MB_PB11_ADJUST_NAMES`.
@@ -1000,7 +1029,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, _pb11_m)
         using _pb11_T = MRBind::detail::pb11::UnfinishedModule::SpecificPybindType<\
             pybind11::class_< \
                 /* Type. */\
-                _pb11_C \
+                _pb11_C, \
+                /* Holder. */\
+                std::unique_ptr<_pb11_C, MRBind::detail::pb11::DeleterOrCrash<_pb11_C>>\
                 /* Bases. */\
                 DETAIL_MB_PB11_BASE_TYPES(bases_)\
             >\
