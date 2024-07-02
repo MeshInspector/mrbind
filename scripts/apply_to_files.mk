@@ -100,9 +100,9 @@ $(OUTPUT_DIR)/combined.hpp: $(input_files) | $(OUTPUT_DIR)
 	$(foreach f,$(input_files),$(file >>$@,#include "$f"$(lf)))
 
 # Generate the binding.
+override generated_sources := $(patsubst %,$(OUTPUT_DIR)/%.cpp,$(if $(NUM_FRAGMENTS),$(addprefix binding.,$(call safe_shell,bash -c $(call quote,echo {1..$(strip $(NUM_FRAGMENTS))}))),binding))
 .PHONY: generate
 generate: $(generated_sources)
-override generated_sources := $(patsubst %,$(OUTPUT_DIR)/%.cpp,$(if $(NUM_FRAGMENTS),$(addprefix binding.,$(call safe_shell,bash -c $(call quote,echo {1..$(strip $(NUM_FRAGMENTS))}))),binding))
 $(generated_sources) &: $(OUTPUT_DIR)/combined.hpp
 	@echo $(call quote,[Generating] $(generated_sources))
 	@$(MRBIND) $(call quote,$<) $(foreach x,$(generated_sources),-o $(call quote,$x)) -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
