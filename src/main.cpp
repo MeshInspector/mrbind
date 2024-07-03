@@ -953,6 +953,15 @@ namespace MRBind
             FixPrintingPolicy(printing_policy);
         }
 
+        void Finish()
+        {
+            if (!first)
+            {
+                for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
+                    params->GetOutputFileAndRotate().DefaultGroup().Stream() << "#endif // DETAIL_MB_SKIP_FRIEND_DECLS\n";
+            }
+        }
+
         // Visit template specializations almost as if they were normal code.
         bool shouldVisitTemplateInstantiations() const // CRTP override
         {
@@ -981,7 +990,10 @@ namespace MRBind
             if (first)
             {
                 first = false;
-                stream << "\n// Declare friends to allow forming function pointers to them.\n";
+                stream
+                    << "\n// Declare friends to allow forming function pointers to them.\n"
+                    << "#ifndef DETAIL_MB_SKIP_FRIEND_DECLS\n"
+                    << "#define DETAIL_MB_SKIP_FRIEND_DECLS\n";
             }
 
             // Print the declaration.
@@ -1063,27 +1075,38 @@ namespace MRBind
 
                 out
                     << "\n"
+                    << "#ifdef MRBIND_HEADER\n"
                     << "#include MRBIND_HEADER\n"
+                    << "#endif // MRBIND_HEADER\n"
                     << "\n"
                     << "#if MB_INCLUDE_ORIGINAL_HEADER\n"
                     << "#include " << EscapeQuoteString(input_filename) << "\n"
                     << "#if MB_INCLUDE_ORIGINAL_HEADER >= 2 // Headers from the corresponding implementation file.\n"
                     << impl_file_headers
                     << "#endif\n"
+                    << "#undef MB_INCLUDE_ORIGINAL_HEADER\n"
                     << "#endif\n";
 
                 if (params->emit_type_names)
                 {
-                    out << "\nnamespace MRBind {template <typename> struct BakedTypeName {};}\n";
+                    out
+                        << "\n"
+                        << "// Baked type names, because `--emit-type-names` was specified:\n"
+                        << "#ifndef DETAIL_MB_SKIP_BAKED_TYPE_NAMES\n"
+                        << "#define DETAIL_MB_SKIP_BAKED_TYPE_NAMES\n"
+                        << "namespace MRBind {template <typename> struct BakedTypeName {};}\n";
                     // Type names are injected here.
-                    params->GetCurrentOutputFile().DefaultGroup().Stream() << "\n";
+                    params->GetCurrentOutputFile().DefaultGroup().Stream() << "#endif // DETAIL_MB_SKIP_BAKED_TYPE_NAMES\n";
                 }
             }
 
             params->rejected_namespace_stack.push_back(params->blacklisted_entities.contains("::"));
 
-            // Declare all the friends, to allow us to form pointers to them.
-            ClangAstVisitorFriendDeclDumper(ctx, *params).TraverseDecl(ctx.getTranslationUnitDecl());
+            { // Declare all the friends, to allow us to form pointers to them.
+                ClangAstVisitorFriendDeclDumper friend_decl_dumper(ctx, *params);
+                friend_decl_dumper.TraverseDecl(ctx.getTranslationUnitDecl());
+                friend_decl_dumper.Finish();
+            }
 
             for (std::size_t i = 0; i < params->NumOutputFiles(); i++)
             {
@@ -1110,7 +1133,13 @@ namespace MRBind
             {
                 VisitorParams::OutputFile &file = params->GetOutputFileAndRotate();
 
-                file.DefaultGroup().Stream() << "\nMB_END_FILE\n";
+                file.DefaultGroup().Stream()
+                    << "\nMB_END_FILE\n"
+                    << "\n"
+                    << "#ifdef MB_AGAIN\n"
+                    << "#undef MB_AGAIN\n"
+                    << "#include __FILE__\n"
+                    << "#endif // MB_AGAIN\n";
 
                 std::error_code ec;
                 llvm::raw_fd_ostream out(file.filename, ec);
