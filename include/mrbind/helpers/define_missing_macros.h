@@ -38,7 +38,6 @@
 #ifndef MB_FUNC
 // A non-member function, or a friend function defined inside of a class.
 // `ret_` - parenthesized return type, or empty if void.
-// `ns_` - enclosing namespaces as `(A)(B)(C)`, or empty if none.
 // `name_` - function name as a single word.
 // `qualname_` - fully qualified function name, parenthesized.
 // `comment_` - a string literal with the comment, or empty if none.
