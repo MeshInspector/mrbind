@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(mrbind)
 
-add_executable(mrbind src/main.cpp)
+add_executable(mrbind src/main.cpp src/data_to_json.cpp)
 set_property(TARGET mrbind PROPERTY CXX_STANDARD 20)
 set_property(TARGET mrbind PROPERTY CXX_EXTENSIONS off)
 
