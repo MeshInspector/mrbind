@@ -494,7 +494,7 @@ namespace mrbind
             {
                 json.BeginObject();
                 json.WriteField("kind", "namespace");
-                json.WriteField("name", value.name);
+                json.WriteField("name", StringOrNull{value.name});
                 json.WriteField("is_inline", value.is_inline);
                 json.WriteField("comment", value.comment);
                 WriteNestedEntities(json, value);

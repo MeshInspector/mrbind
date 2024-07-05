@@ -100,7 +100,7 @@
 // `name_` - enum name, as a single word.
 // `qualname_` - fully qualified enum name, parenthesized.
 // `type_` - the underlying type (even if not manually specified) (spelled as directly as the builtin type, expanding any typedefs).
-// * `comment_` - a string literal with the comment, or empty if none.
+// `comment_` - a string literal with the comment, or empty if none.
 // `elems_` - a list of enum elements `(...)(...)(...)`, or empty if none.
 //     Each element is `(name_, value_, comment_)`, where:
 //     * `name_` - the element name.

@@ -1,4 +1,5 @@
 #include "data_to_json.h"
+#include "data_to_macros.h"
 #include "parsed_data.h"
 
 #include "pre_include_clang.h"
@@ -99,35 +100,11 @@ namespace mrbind
         }
     }
 
-    // Wrap the string in double quotes and escape any weird characters..
-    [[nodiscard]] std::string EscapeQuoteString(std::string_view str)
-    {
-        std::string ret;
-        ret.reserve(str.size() + 2);
-        ret += '"';
-        for (char ch : str)
-        {
-            if (ch == '\r')
-                continue; // Strip CR completely, only keep LF.
-
-            if (ch == '\n')
-            {
-                ret += "\\n";
-                continue;
-            }
-
-            if (ch == '"' || ch == '\\')
-                ret += '\\';
-            ret += ch;
-        }
-        ret += '"';
-        return ret;
-    }
-
     enum class OutputFormat
     {
         unselected,
         json,
+        macros,
     };
 
     struct VisitorParams
@@ -193,13 +170,13 @@ namespace mrbind
         printing_policy.PolishForDeclaration = true; // Unsure what this changes, just in case.
     }
 
-    // Returns a comment string associated with a declaration, or empty if none.
+    // Returns a comment string associated with a declaration, or null if none.
     // You might want to process it with `EscapeQuoteString` for output.
-    [[nodiscard]] std::string GetCommentString(const clang::ASTContext &ctx, const clang::Decl &decl)
+    [[nodiscard]] std::optional<std::string> GetCommentString(const clang::ASTContext &ctx, const clang::Decl &decl)
     {
         const clang::RawComment *comment = ctx.getRawCommentForAnyRedecl(&decl);
         if (!comment)
-            return "";
+            return {};
         return comment->getFormattedText(ctx.getSourceManager(), ctx.getDiagnostics());
     }
 
@@ -771,7 +748,7 @@ namespace mrbind
             if (params->output_format == OutputFormat::unselected)
                 throw std::runtime_error("Must select the output format using `--format=...`, see `--help`.");
 
-            if (params->output_format == OutputFormat::json && params->output_filenames.size() > 1)
+            if (params->output_filenames.size() > 1)
                 throw std::runtime_error("This format supports at most one output file.");
 
             params->parsed_result.original_file = input_filename;
@@ -827,6 +804,17 @@ namespace mrbind
                     if (ec)
                         throw std::runtime_error("Unable to open output file: " + ec.message());
                     mrbind::ParsedFileToJson(params->parsed_result, out);
+                }
+                break;
+              case OutputFormat::macros:
+                {
+                    if (params->output_filenames.size() > 1)
+                        throw std::logic_error("Finsihed parsing, but this output format doesn't support multiple outputs.");
+                    std::error_code ec;
+                    llvm::raw_fd_stream out(params->output_filenames.empty() ? "-" : params->output_filenames.front(), ec);
+                    if (ec)
+                        throw std::runtime_error("Unable to open output file: " + ec.message());
+                    mrbind::ParsedFileToMacros(params->parsed_result, out);
                 }
                 break;
             }
@@ -1019,6 +1007,11 @@ int main(int argc, char **argv)
                             params.output_format = mrbind::OutputFormat::json;
                             continue;
                         }
+                        if (this_arg == "--format=macros")
+                        {
+                            params.output_format = mrbind::OutputFormat::macros;
+                            continue;
+                        }
                     }
                 }
 
@@ -1042,6 +1035,7 @@ int main(int argc, char **argv)
             "  --allow T                   - Unban a subentity of something that was banned with `--ignore`, or a template instantiation from a header.\n"
             "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
             "  --format=json               - Output in JSON format.\n"
+            "  --format=macros             - Output in C/C++ macros format.\n"
         );
         if (!option_parser_ex)
         {
