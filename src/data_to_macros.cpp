@@ -27,7 +27,7 @@ namespace mrbind
             "#endif // MRBIND_HEADER\n"
             "\n"
             "#if MB_INCLUDE_ORIGINAL_HEADER\n"
-            "#include " << EscapeQuoteString(file.guessed_impl_file) << "\n"
+            "#include " << EscapeQuoteString(file.original_file) << "\n"
             "#if MB_INCLUDE_ORIGINAL_HEADER >= 2 // Headers from the corresponding implementation file.\n"
             << file.impl_file_preprocessor_directives <<
             "#endif\n"
@@ -48,7 +48,7 @@ namespace mrbind
                     {
                         first = false;
                         out <<
-                            "#ifndef MB_WANT_BAKED_TYPE_NAMES\n"
+                            "#ifdef MB_WANT_BAKED_TYPE_NAMES\n"
                             "#undef MB_WANT_BAKED_TYPE_NAMES\n"
                             "namespace MRBind {template <typename> struct BakedTypeName {};}\n";
                     }
@@ -98,7 +98,7 @@ namespace mrbind
         if (!file.friend_declarations.empty())
         {
             out <<
-                "#ifndef MB_WANT_FRIEND_DECLS\n"
+                "#ifdef MB_WANT_FRIEND_DECLS\n"
                 "#undef MB_WANT_FRIEND_DECLS\n"
                 "namespace MRBind {template <typename> struct BakedTypeName {};}\n";
 
@@ -144,7 +144,7 @@ namespace mrbind
                             // Is enum class?
                             << (e.is_scoped ? "class" : "/*not enum-class*/") << ", "
                             // Name.
-                            << e.name
+                            << e.name << ", "
                             // Qualified name.
                             << "(" << e.full_type << "), "
                             // Underlying type.
@@ -161,7 +161,7 @@ namespace mrbind
                             out << "\n";
                             for (const EnumElem &elem : e.elems)
                             {
-                                out << "    ((" << elem.name << "), ";
+                                out << "    (" << elem.name << ", ";
                                 if (e.is_signed)
                                     out << std::int64_t(elem.raw_value);
                                 else

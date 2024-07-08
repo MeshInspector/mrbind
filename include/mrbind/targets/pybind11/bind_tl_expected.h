@@ -32,7 +32,7 @@ template <typename T, typename U>
 struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
     : public DefaultCustomTypeBinding<tl::expected<T, U>>
 {
-    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
+    static void bind_members(pybind11::module_ &, auto &c, bool second_pass)
     {
         using TT = typename std::remove_reference_t<decltype(c.type)>::type;
 

@@ -30,6 +30,8 @@ namespace MRBind
 #define MRBIND_END(...) DETAIL_MRBIND_END(__VA_ARGS__)
 #define DETAIL_MRBIND_END(...) __VA_ARGS__##_END
 
+#define MRBIND_UNIQUE_VAR MRBIND_CAT(_mrbind_var_, __COUNTER__)
+
 // Given `x`, returns `,x`. But if the argument is empty, returns nothing.
 #define MRBIND_PREPEND_COMMA(...) __VA_OPT__(, __VA_ARGS__)
 

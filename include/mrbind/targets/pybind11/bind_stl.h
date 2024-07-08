@@ -37,10 +37,10 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<P...>>
     : public DefaultCustomTypeBinding<std::vector<P...>>
 {
     template <typename U>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(pybind11::bind_vector<U>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_vector<U>(m, n));}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
+    static void bind_members(pybind11::module_ &, auto &c, bool second_pass)
     {
         if (!second_pass)
             return;
@@ -63,10 +63,10 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<P...>>
     : public DefaultCustomTypeBinding<std::map<P...>>
 {
     template <typename U>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, UnfinishedModule &, const char *n) {return f(pybind11::bind_map<U>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_map<U>(m, n));}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
+    static void bind_members(pybind11::module_ &, auto &c, bool second_pass)
     {
         if (!second_pass)
             return;
@@ -82,7 +82,7 @@ template <typename T>
 struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
     : public DefaultCustomTypeBinding<std::optional<T>>
 {
-    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
+    static void bind_members(pybind11::module_ &, auto &c, bool second_pass)
     {
         using TT = typename std::remove_reference_t<decltype(c.type)>::type;
 
@@ -118,7 +118,7 @@ template <typename ...P>
 struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
     : public DefaultCustomTypeBinding<std::variant<P...>>
 {
-    static void bind_members(pybind11::module_ &, UnfinishedModule &, auto &c, bool second_pass)
+    static void bind_members(pybind11::module_ &, auto &c, bool second_pass)
     {
         using TT = typename std::remove_reference_t<decltype(c.type)>::type;
 
