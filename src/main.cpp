@@ -1,5 +1,6 @@
 #include "data_to_json.h"
 #include "data_to_macros.h"
+#include "multiplex_data.h"
 #include "parsed_data.h"
 
 #include "pre_include_clang.h"
@@ -748,9 +749,6 @@ namespace mrbind
             if (params->output_format == OutputFormat::unselected)
                 throw std::runtime_error("Must select the output format using `--format=...`, see `--help`.");
 
-            if (params->output_filenames.size() > 1)
-                throw std::runtime_error("This format supports at most one output file.");
-
             params->parsed_result.original_file = input_filename;
 
             { // Dump the headers from the .cpp file.
@@ -790,33 +788,30 @@ namespace mrbind
             params->rejected_namespace_stack.pop_back();
 
 
+            // Multiplex the output between several files, if needed.
+            std::vector<ParsedFile> multiplexed_data = MultiplexData(std::move(params->parsed_result), params->output_filenames.size());
+
             // Write the output.
-            switch (params->output_format)
+            for (std::size_t i = 0; i < multiplexed_data.size(); i++)
             {
-              case OutputFormat::unselected:
-                throw std::logic_error("Finsihed parsing, but no output format is selected.");
-              case OutputFormat::json:
+                std::error_code ec;
+                llvm::raw_fd_stream out(params->output_filenames.at(i), ec);
+                if (ec)
+                    throw std::runtime_error("Unable to open output file: " + ec.message());
+
+                switch (params->output_format)
                 {
-                    if (params->output_filenames.size() > 1)
-                        throw std::logic_error("Finsihed parsing, but this output format doesn't support multiple outputs.");
-                    std::error_code ec;
-                    llvm::raw_fd_stream out(params->output_filenames.empty() ? "-" : params->output_filenames.front(), ec);
-                    if (ec)
-                        throw std::runtime_error("Unable to open output file: " + ec.message());
-                    mrbind::ParsedFileToJson(params->parsed_result, out);
+                  case OutputFormat::unselected:
+                    // This should be unreachable.
+                    throw std::logic_error("Finsihed parsing, but no output format is selected.");
+                    break;
+                  case OutputFormat::json:
+                    mrbind::ParsedFileToJson(multiplexed_data[i], out);
+                    break;
+                  case OutputFormat::macros:
+                    mrbind::ParsedFileToMacros(multiplexed_data[i], out);
+                    break;
                 }
-                break;
-              case OutputFormat::macros:
-                {
-                    if (params->output_filenames.size() > 1)
-                        throw std::logic_error("Finsihed parsing, but this output format doesn't support multiple outputs.");
-                    std::error_code ec;
-                    llvm::raw_fd_stream out(params->output_filenames.empty() ? "-" : params->output_filenames.front(), ec);
-                    if (ec)
-                        throw std::runtime_error("Unable to open output file: " + ec.message());
-                    mrbind::ParsedFileToMacros(params->parsed_result, out);
-                }
-                break;
             }
         }
     };
@@ -1021,6 +1016,11 @@ int main(int argc, char **argv)
             if (modified_argc < argc)
                 argv[modified_argc] = nullptr;
             argc = modified_argc;
+
+            // Adjust the options:
+
+            if (params.output_filenames.empty())
+                params.output_filenames.push_back("-");
         }
 
         llvm::cl::OptionCategory options_category("Standard Clang tooling options");

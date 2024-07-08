@@ -6,6 +6,7 @@ add_executable(mrbind
     src/data_to_json.cpp
     src/data_to_macros.cpp
     src/main.cpp
+    src/multiplex_data.cpp
     src/string_manip.cpp
 )
 set_property(TARGET mrbind PROPERTY CXX_STANDARD 20)

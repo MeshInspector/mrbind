@@ -523,6 +523,9 @@ namespace mrbind
         json.WriteField("impl_file_preprocessor_directives", file.impl_file_preprocessor_directives);
         json.WriteField("friend_declarations", file.friend_declarations);
 
+        json.WriteField("segment_index", file.segment_index);
+        json.WriteField("num_segments", file.num_segments);
+
         json.BeginField("entities");
         json.BeginArray();
         for (const auto &elem : file.entities.nested)

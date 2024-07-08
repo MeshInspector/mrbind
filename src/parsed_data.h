@@ -193,6 +193,15 @@ namespace mrbind
         // Generated declarations for all friend funcitons, use them if you want to form pointers-to-members to them.
         std::vector<std::string> friend_declarations;
 
+        // ---
+
+        // When splitting data using `MultiplexData()`, this is the part index.
+        int segment_index = 0;
+        // ...And this is the total number of parts.
+        int num_segments = 1;
+
+        // ---
+
         // The contents of this file.
         EntityContainer entities;
     };
