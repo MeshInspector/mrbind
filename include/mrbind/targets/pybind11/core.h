@@ -146,23 +146,6 @@ namespace MRBind::detail::pb11
     struct BindParsedClass
     {
         using unspecialized = void;
-        // MB_CLASS specializes this to include the following:
-        //
-        // using pybind_class_type = pybind11::class_<T, ...>;
-        //
-        // template <typename U>
-        // static pybind11::class_<U> BindType(pybind11::module_ &m, const char *n)
-        // {
-        //     pybind11::class_<U> ret(m, n);
-        //     // ...
-        //     return ret;
-        // }
-        //
-        // template <typename U>
-        // static void BindMembers(pybind11::module_ &m, pybind11::class_<U> &c, bool second_pass)
-        // {
-        //     // ...
-        // }
     };
 
     template <typename T>
@@ -243,9 +226,8 @@ namespace MRBind::detail::pb11
     template <typename T, ConstString Name> requires std::is_class_v<T>
     struct TypedefWrapper : T
     {
-        TypedefWrapper() requires std::default_initializable<T> {}
-        TypedefWrapper(const T &other) requires std::copyable<T> : T(other) {}
-        TypedefWrapper(T &&other) requires std::movable<T> : T(std::move(other)) {}
+        template <typename ...P>
+        TypedefWrapper(P &&... params) requires std::constructible_from<T, P &&...> : T(std::forward<P>(params)...) {}
     };
 
     // Given a type, wraps it in `TypedefWrapper`. For pointers and references, it inserted into the most nested level only.
@@ -269,7 +251,7 @@ namespace MRBind::detail::pb11
     constexpr bool needs_typedef_wrapper =
         !Name.view().empty() &&
         BakedTypeNameOrFallback<T>() != Name.view() && // Must compare the typename of exactly `T`, because that's what's baked. If we strip cvref-qualifiers/pointers, the stripped version will not be baked.
-        HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> || HasParsedClassBinding<typename RemoveCvPointersRefs<T>::type>;
+        (HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> || HasParsedClassBinding<typename RemoveCvPointersRefs<T>::type>);
 
     // If `Name` starts with `const `, returns the character index after that, otherwise 0.
     template <ConstString Name>
@@ -682,22 +664,21 @@ requires MRBind::detail::pb11::HasParsedClassBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
     : public DefaultCustomTypeBinding<T>
 {
-    using pybind_type = pybind11::class_<MRBind::detail::pb11::TypedefWrapper<T, Name>, T>;
+    using pybind_type = BindParsedClass<T>::template pybind_class_type_for<TypedefWrapper<T, Name>, T>;
 
-    // This passes the constructor arguments to `pybind_type`.
-    // Normally you don't need to override this. Override this for stuff like `pybind11::bind_vector()` or `pybind11::bind_map()`.
-    // `U` is either a `pybind_type` or that of a derived class (i.e. `TypedefWrapper<T, "...">`). Use `U` instead of `pybind_type` and `T` here.
+    [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
+
     template <typename U>
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n)
     {
-        return f(m, n);
+        return std::make_unique<MRBind::detail::pb11::SpecificPybindType<typename BindParsedClass<T>::template pybind_class_type_for<U, T>>>(BindParsedClass<T>::template BindType<U, T>(m, n));
     }
 
-    // Registers all members. Called twice, with `second_pass = false` and then `= true`.
-    // Usually must override this, unless you do something with `pybind_init` (see comment on it above).
-    // Normally you'd do constructors in the first pass, everything else in the second pass. But often you can just dump everything to the second pass.
-    // Note, must not use `T` here. Use `using TT = typename std::remove_reference_t<decltype(c.type)>::type;` to support derived classes (i.e. `TypedefWrapper<T, "...">`).
-    static void bind_members(pybind11::module_ &, auto &c, bool second_pass) {(void)c; (void)second_pass;}
+    static void bind_members(pybind11::module_ &m, auto &c, bool second_pass)
+    {
+        using U = typename std::remove_reference_t<decltype(c.type)>::type;
+        BindParsedClass<T>::template BindMembers<U, T>(m, c.type, second_pass);
+    }
 };
 
 // Module entry point, and more stuff.
@@ -1010,20 +991,22 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         template <> \
         struct BindParsedClass<MRBIND_IDENTITY qualname_> \
         { \
-            template <typename T> \
+            template <typename T, typename ...P> \
             using pybind_class_type_for = pybind11::class_< \
                 /* Type. */\
                 T, \
                 /* Holder. */\
-                std::unique_ptr<T, MRBind::detail::pb11::DeleterOrCrash<T>>\
-                /* Bases. */\
-                DETAIL_MB_PB11_BASE_TYPES(bases_)\
+                std::unique_ptr<T, MRBind::detail::pb11::DeleterOrCrash<T>>,\
+                /* Extra. */\
+                P... \
             >; \
-            using pybind_class_type = pybind_class_type_for<MRBIND_IDENTITY qualname_>; \
-            template <typename T> \
-            static pybind_class_type_for<T> BindType(pybind11::module_ &m, const char *n); \
-            template <typename U> \
-            static void BindMembers(pybind11::module_ &m, pybind_class_type_for<U> &c, bool second_pass); \
+            using pybind_class_type = pybind_class_type_for<MRBIND_IDENTITY qualname_ DETAIL_MB_PB11_BASE_TYPES(bases_)>; \
+            template <typename T, typename ...E> \
+            static pybind_class_type_for<T, E...> BindType(pybind11::module_ &m, const char *n); \
+            static pybind_class_type BindTypeDefault(pybind11::module_ &m, const char *n) {return BindType<MRBIND_IDENTITY qualname_ DETAIL_MB_PB11_BASE_TYPES(bases_)>(m, n);} \
+            template <typename U, typename ...E> \
+            static void BindMembers(pybind11::module_ &m, pybind_class_type_for<U, E...> &c, bool second_pass); \
+            static void BindMembersDefault(pybind11::module_ &m, pybind_class_type &c, bool second_pass) {BindMembers(m, c, second_pass);} \
         }; \
     }
 
@@ -1100,7 +1083,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             using _pb11_C = MRBIND_IDENTITY qualname_; \
             using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
             using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
-            return std::make_unique<_pb11_T>(_pb11_B::BindType<_pb11_C>(_pb11_m, _pb11_n)); \
+            return std::make_unique<_pb11_T>(_pb11_B::BindTypeDefault(_pb11_m, _pb11_n)); \
         }, \
         /* Members lamdba. */\
         [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
@@ -1108,7 +1091,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             using _pb11_C = MRBIND_IDENTITY qualname_; \
             using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
             using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
-            _pb11_B::BindMembers<_pb11_C>(_pb11_m, static_cast<_pb11_T *>(&_pb11_b)->type, _pb11_second_pass); \
+            _pb11_B::BindMembersDefault(_pb11_m, static_cast<_pb11_T *>(&_pb11_b)->type, _pb11_second_pass); \
         }, \
         std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
     ), 0); \
@@ -1129,15 +1112,15 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_CLASS(kind_, name_, qualname_, comment_, bases_, members_) \
     namespace MRBind::detail::pb11 \
     { \
-        template <typename _pb11_C> \
-        auto BindParsedClass<MRBIND_IDENTITY qualname_>::BindType(pybind11::module_ &_pb11_m, const char *_pb11_n) -> pybind_class_type_for<_pb11_C> \
+        template <typename _pb11_C, typename ..._pb11_E> \
+        auto BindParsedClass<MRBIND_IDENTITY qualname_>::BindType(pybind11::module_ &_pb11_m, const char *_pb11_n) -> pybind_class_type_for<_pb11_C, _pb11_E...> \
         { \
-            pybind_class_type_for<_pb11_C> _pb11_c(_pb11_m, _pb11_n); \
+            pybind_class_type_for<_pb11_C, _pb11_E...> _pb11_c(_pb11_m, _pb11_n); \
             DETAIL_MB_PB11_DISPATCH_INIT_MEMBERS(qualname_, members_) \
             return _pb11_c; \
         } \
-        template <typename _pb11_C> \
-        void BindParsedClass<MRBIND_IDENTITY qualname_>::BindMembers(pybind11::module_ &_pb11_m, pybind_class_type_for<_pb11_C> &_pb11_c, bool _pb11_second_pass) \
+        template <typename _pb11_C, typename ..._pb11_E> \
+        void BindParsedClass<MRBIND_IDENTITY qualname_>::BindMembers(pybind11::module_ &_pb11_m, pybind_class_type_for<_pb11_C, _pb11_E...> &_pb11_c, bool _pb11_second_pass) \
         { \
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
         } \
