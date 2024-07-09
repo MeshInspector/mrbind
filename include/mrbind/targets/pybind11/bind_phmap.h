@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mrbind/targets/pybind11/core.h>
-
 #include <parallel_hashmap/phmap.h>
 // phmap::flat_hash_map
 template <typename ...P>

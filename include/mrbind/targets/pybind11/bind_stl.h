@@ -2,8 +2,6 @@
 
 #include <future>
 
-#include <mrbind/targets/pybind11/core.h>
-
 namespace MRBind::detail::pb11
 {
     // Adjust returned futures to shared futures.

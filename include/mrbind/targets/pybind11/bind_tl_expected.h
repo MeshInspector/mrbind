@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mrbind/targets/pybind11/core.h>
-
 // tl::expected
 #include <tl/expected.hpp>
 
