@@ -99,8 +99,7 @@ namespace mrbind
         {
             out <<
                 "#ifdef MB_WANT_FRIEND_DECLS\n"
-                "#undef MB_WANT_FRIEND_DECLS\n"
-                "namespace MRBind {template <typename> struct BakedTypeName {};}\n";
+                "#undef MB_WANT_FRIEND_DECLS\n";
 
             for (const auto &elem : file.friend_declarations)
                 out << elem << '\n';
@@ -135,6 +134,23 @@ namespace mrbind
                     out << "    ";
             };
 
+            std::vector<std::string> namespace_stack;
+
+            auto NsStackToString = [&]
+            {
+                std::string ret;
+                if (namespace_stack.empty())
+                {
+                    ret = "/*::*/";
+                }
+                else
+                {
+                    for (const auto &segment : namespace_stack)
+                        ret += segment;
+                }
+                return ret;
+            };
+
             auto lambda = [&](auto &lambda, const Entity &e) -> void
             {
                 std::visit(Overload{
@@ -147,6 +163,8 @@ namespace mrbind
                             << e.name << ", "
                             // Qualified name.
                             << "(" << e.full_type << "), "
+                            // Namespace stack.
+                            << NsStackToString() << ", "
                             // Underlying type.
                             << e.canonical_underlying_type << ", "
                             // Comment.
@@ -177,6 +195,7 @@ namespace mrbind
                             << "/*returns*/(" << e.return_type.pretty << "), "
                             << e.name << ", "
                             << "(" << e.full_name << "), "
+                            << NsStackToString() << ", "
                             << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/")
                             << ", ";
                         dump_params(e.params, false);
@@ -195,6 +214,7 @@ namespace mrbind
                             << ", "
                             << e.name << ", "
                             << "(" << e.full_type << "), "
+                            << NsStackToString() << ", "
                             << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/") << ",";
 
                         // Bases.
@@ -269,8 +289,14 @@ namespace mrbind
                             out << ")\n";
                         }
 
+                        // Push to the namespace stack.
+                        namespace_stack.push_back("(" + e.name + ",cl)");
+
                         for (const auto &elem : e.nested)
                             lambda(lambda, elem);
+
+                        // Push the namespace stack.
+                        namespace_stack.pop_back();
 
                         out << "MB_END_CLASS(" << e.name << ")\n";
                     },
@@ -279,10 +305,15 @@ namespace mrbind
                         out << "MB_NAMESPACE("
                             << (ns.name.empty() ? "/*anonymous*/" : ns.name) << ", "
                             << (ns.is_inline ? "inline" : "/*not inline*/") << ", "
+                            << NsStackToString() << ", "
                             << (ns.comment ? EscapeQuoteString(*ns.comment) : "/*no comment*/") << ")\n";
+
+                        namespace_stack.push_back("(" + ns.name + ",ns)");
 
                         for (const auto &elem : ns.nested)
                             lambda(lambda, elem);
+
+                        namespace_stack.pop_back();
 
                         out << "MB_END_NAMESPACE(" << (ns.name.empty() ? "/*anonymous*/" : ns.name) << ")\n";
                     },

@@ -340,7 +340,7 @@ namespace mrbind
             return true;
         }
 
-        bool VisitFunctionDecl(const clang::FunctionDecl *decl) // CRTP override
+        bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
             if (decl->isCXXClassMember())
                 return true; // Reject member functions.
@@ -355,6 +355,10 @@ namespace mrbind
 
             if (decl->isDeleted())
                 return true; // Skip deleted.
+
+            // Force instantiate body to know the true return type rather than `auto`.
+            if (decl->getReturnType()->isUndeducedAutoType())
+                ci->getSema().InstantiateFunctionDefinition(decl->getBeginLoc(), decl);
 
             FuncEntity &new_func = params->container_stack.back()->nested.emplace_back().variant.emplace<FuncEntity>();
 
@@ -393,7 +397,7 @@ namespace mrbind
             params->container_stack.push_back(&new_class);
 
             new_class.name = decl->getName();
-            new_class.full_type = ctx->getRecordType(decl).getAsString(printing_policy);
+            new_class.full_type = ctx->getRecordType(decl).getAsString(printing_policy_canonical);
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
 
@@ -605,7 +609,7 @@ namespace mrbind
             new_enum.name = decl->getName();
             new_enum.is_scoped = decl->isScoped();
             new_enum.comment = GetCommentString(*ctx, *decl);
-            new_enum.full_type = ctx->getEnumType(decl).getAsString(printing_policy);
+            new_enum.full_type = ctx->getEnumType(decl).getAsString(printing_policy_canonical);
             new_enum.canonical_underlying_type = decl->getIntegerType().getAsString(printing_policy_canonical);
             new_enum.is_signed = decl->getIntegerType()->isSignedIntegerType();
 

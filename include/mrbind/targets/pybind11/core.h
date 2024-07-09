@@ -968,6 +968,16 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define DETAIL_MB_PB11_BASE_TYPEIDS(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPEIDS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PB11_BASE_TYPEIDS_BODY(n, d, type_, virtual_) typeid(MRBIND_IDENTITY type_),
 
+// Given a namespace stack (see comments on `MB_NAMESPACE` in `define_missing_macros.h`),
+// emits `using namespace`s for every namespace listed in it.
+#define DETAIL_MB_PB11_USING_NAMESPACES(ns_stack) SF_FOR_EACH(DETAIL_MB_PB11_USING_NAMESPACES_BODY, DETAIL_MB_PB11_USING_NAMESPACES_STEP, SF_NULL,, ns_stack)
+#define DETAIL_MB_PB11_USING_NAMESPACES_BODY(n, d, name_, kind_) MRBIND_CAT(DETAIL_MB_PB11_USING_NAMESPACES_BODY_, kind_)(d, name_)
+#define DETAIL_MB_PB11_USING_NAMESPACES_BODY_ns(d, name_) using namespace d::name_;
+#define DETAIL_MB_PB11_USING_NAMESPACES_BODY_cl(d, name_)
+#define DETAIL_MB_PB11_USING_NAMESPACES_STEP(n, d, name_, kind_) MRBIND_CAT(DETAIL_MB_PB11_USING_NAMESPACES_STEP_, kind_)(d, name_)
+#define DETAIL_MB_PB11_USING_NAMESPACES_STEP_ns(d, name_) d::name_
+#define DETAIL_MB_PB11_USING_NAMESPACES_STEP_cl(d, name_) d
+
 #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
 #define DETAIL_MB_PB11_IF_STATIC_static(x, y) x
 
@@ -985,9 +995,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // Signal to include the original haders.
 #define MB_INCLUDE_ORIGINAL_HEADER 2
 
-#define MB_CLASS(kind_, name_, qualname_, comment_, bases_, members_) \
+#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
     namespace MRBind::detail::pb11 \
     { \
+        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
         template <> \
         struct BindParsedClass<MRBIND_IDENTITY qualname_> \
         { \
@@ -1022,79 +1033,91 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // For namespaces, emit braces with `using namespace`.
 // This helps with name lookup for default arguments (where we can't easily fully qualify the types ourselves).
-#define MB_NAMESPACE(namespace_, inline_, comment_) inline_ namespace namespace_ {
+#define MB_NAMESPACE(namespace_, inline_, ns_stack_, comment_) inline_ namespace namespace_ {
 #define MB_END_NAMESPACE(namespace_) }
 
 // Bind a function.
-#define MB_FUNC(ret_, name_, qualname_, comment_, params_) \
-    static const char MRBIND_UNIQUE_VAR = (MRBind::detail::pb11::GetRegistry().func_entries.push_back([](pybind11::module_ &_pb11_m){\
-        MRBind::detail::pb11::TryAddFunc<\
-            /* Doesn't count as `static` for our purposes. */\
-            false, \
-            /* The function pointer, cast to the correct type to handle overloads. */\
-            static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(*)(DETAIL_MB_PB11_PARAM_TYPES(params_))> qualname_, \
-            /* Return type name. */\
-            MRBIND_STR(MRBIND_IDENTITY ret_) \
-            /* Parameter types. */\
-            DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
-        >( \
-            _pb11_m, true, \
-            /* Simple name */\
-            MRBIND_STR(name_), \
-            /* Full name */\
-            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
-            /* Parameters. */\
-            DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-            /* Comment, if any. */ \
-            MRBIND_PREPEND_COMMA(comment_) \
-        ); \
-    }), 0);
+#define MB_FUNC(ret_, name_, qualname_, ns_stack_, comment_, params_) \
+    static const char MRBIND_UNIQUE_VAR = []{ \
+        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
+        MRBind::detail::pb11::GetRegistry().func_entries.push_back([](pybind11::module_ &_pb11_m){\
+            MRBind::detail::pb11::TryAddFunc<\
+                /* Doesn't count as `static` for our purposes. */\
+                false, \
+                /* The function pointer, cast to the correct type to handle overloads. */\
+                static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(*)(DETAIL_MB_PB11_PARAM_TYPES(params_))> qualname_, \
+                /* Return type name. */\
+                MRBIND_STR(MRBIND_IDENTITY ret_) \
+                /* Parameter types. */\
+                DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
+            >( \
+                _pb11_m, true, \
+                /* Simple name */\
+                MRBIND_STR(name_), \
+                /* Full name */\
+                MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+                /* Parameters. */\
+                DETAIL_MB_PB11_MAKE_PARAMS(params_) \
+                /* Comment, if any. */ \
+                MRBIND_PREPEND_COMMA(comment_) \
+            ); \
+        }); \
+        return 0; \
+    }();
 
 // Bind a enum.
-#define MB_ENUM(kind_, name_, qualname_, type_, comment_, elems_) \
-    static const char MRBIND_UNIQUE_VAR = (MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
-        typeid(MRBIND_IDENTITY qualname_), \
-        MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<MRBIND_IDENTITY qualname_>()), \
-        /* Init lambda. */\
-        [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
-        { \
-            return std::make_unique<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(_pb11_m, _pb11_n); \
-        }, \
-        /* Members lamdba. */\
-        [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
-        { \
-            if (_pb11_second_pass) \
+#define MB_ENUM(kind_, name_, qualname_, ns_stack_, type_, comment_, elems_) \
+    static const char MRBIND_UNIQUE_VAR = []{ \
+        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
+        MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
+            typeid(MRBIND_IDENTITY qualname_), \
+            MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<MRBIND_IDENTITY qualname_>()), \
+            /* Init lambda. */\
+            [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
             { \
-                [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
-                DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
-            } \
-        }, \
-        std::unordered_set<std::type_index>{} \
-    ), 0);
+                return std::make_unique<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(_pb11_m, _pb11_n); \
+            }, \
+            /* Members lamdba. */\
+            [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
+            { \
+                if (_pb11_second_pass) \
+                { \
+                    [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
+                    DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
+                } \
+            }, \
+            std::unordered_set<std::type_index>{} \
+        ); \
+        return 0; \
+    }();
 
 // Bind a class.
-#define MB_CLASS(kind_, name_, qualname_, comment_, bases_, members_) \
-    static const char MRBIND_UNIQUE_VAR = (MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
-        typeid(MRBIND_IDENTITY qualname_), \
-        MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<MRBIND_IDENTITY qualname_>()), \
-        /* Init lambda. */\
-        [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
-        { \
-            using _pb11_C = MRBIND_IDENTITY qualname_; \
-            using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
-            using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
-            return std::make_unique<_pb11_T>(_pb11_B::BindTypeDefault(_pb11_m, _pb11_n)); \
-        }, \
-        /* Members lamdba. */\
-        [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
-        { \
-            using _pb11_C = MRBIND_IDENTITY qualname_; \
-            using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
-            using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
-            _pb11_B::BindMembersDefault(_pb11_m, static_cast<_pb11_T *>(&_pb11_b)->type, _pb11_second_pass); \
-        }, \
-        std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
-    ), 0); \
+#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
+    static const char MRBIND_UNIQUE_VAR = []{ \
+        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
+        MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
+            typeid(MRBIND_IDENTITY qualname_), \
+            MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<MRBIND_IDENTITY qualname_>()), \
+            /* Init lambda. */\
+            [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
+            { \
+                using _pb11_C = MRBIND_IDENTITY qualname_; \
+                using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
+                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
+                return std::make_unique<_pb11_T>(_pb11_B::BindTypeDefault(_pb11_m, _pb11_n)); \
+            }, \
+            /* Members lamdba. */\
+            [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
+            { \
+                using _pb11_C = MRBIND_IDENTITY qualname_; \
+                using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
+                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
+                _pb11_B::BindMembersDefault(_pb11_m, static_cast<_pb11_T *>(&_pb11_b)->type, _pb11_second_pass); \
+            }, \
+            std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
+        ); \
+        return 0; \
+    }(); \
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>
@@ -1109,9 +1132,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 #include <mrbind/helpers/undef_all_macros.h>
 
-#define MB_CLASS(kind_, name_, qualname_, comment_, bases_, members_) \
+#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
     namespace MRBind::detail::pb11 \
     { \
+        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
         template <typename _pb11_C, typename ..._pb11_E> \
         auto BindParsedClass<MRBIND_IDENTITY qualname_>::BindType(pybind11::module_ &_pb11_m, const char *_pb11_n) -> pybind_class_type_for<_pb11_C, _pb11_E...> \
         { \

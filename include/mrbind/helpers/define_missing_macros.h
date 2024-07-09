@@ -24,9 +24,12 @@
 // A namespace begins.
 // `namespace_` - namespace name, or empty if anonymous.
 // `inline_` - either `inline` if this is an inline namespace, or empty otherwise.
+// `ns_stack_` - the enclosing namespace stack, `(...)(...)(...)`, where each entry is `(name_, kind_...)`,
+//   where `name_` is the namespace or class name (but obviously `MB_NAMESPACE` can only be enclosed in other namespaces),
+//   and `kind_...` is is one of: `ns` (namespace), `cl` (class).
 // `comment_` - either a string literal with the comment, or empty if none.
 // The namespace name never contains `::`, for multiple stacked namespaces (`namespace A::B::C`) this is emitted multiple times.
-#define MB_NAMESPACE(namespace_, inline_, comment_)
+#define MB_NAMESPACE(namespace_, inline_, ns_stack_, comment_)
 #endif
 
 #ifndef MB_END_NAMESPACE
@@ -40,13 +43,14 @@
 // `ret_` - parenthesized return type, or empty if void.
 // `name_` - function name as a single word.
 // `qualname_` - fully qualified function name, parenthesized.
+// `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
 // `comment_` - a string literal with the comment, or empty if none.
 // `params_` - a list of parameters `(...)(...)(...)`, or empty if none.
 //     Each parameter is `(type_, name_, default_arg_)`, where:
 //     * `type_` - parenthesized parameter type.
 //     * `name_` - parameter name.
 //     * `default_arg_` - parenthesized default argument, or empty if none.
-#define MB_FUNC(ret_, name_, qualname_, comment_, params_)
+#define MB_FUNC(ret_, name_, qualname_, ns_stack_, comment_, params_)
 #endif
 
 #ifndef MB_CLASS
@@ -54,6 +58,7 @@
 // `kind_` - one of: `struct`, `class`, `union`.
 // `name_` - class name as a single word. Anonymous classes are not emitted at all.
 // `qualname_` - fully qualified class name, parenthesized.
+// `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
 // `comment_` - a string literal with the comment, or empty if none.
 // `bases_` - a list of public base classes `(...)(...)(...)`.
 //     Each base is `(type_, virtual_)`, where:
@@ -83,7 +88,7 @@
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.
 //     * A public conversion operator `(conv_op, ret_, const_, comment_)`, with the same parameter meaning as above.
-#define MB_CLASS(kind_, name_, qualname_, comment_, bases_, members_)
+#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_)
 #endif
 
 #ifndef MB_END_CLASS
@@ -99,6 +104,7 @@
 // `kind_` - empty for unscoped enums, `class` for scoped enums (even if declared using `enum struct`).
 // `name_` - enum name, as a single word.
 // `qualname_` - fully qualified enum name, parenthesized.
+// `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
 // `type_` - the underlying type (even if not manually specified) (spelled as directly as the builtin type, expanding any typedefs).
 // `comment_` - a string literal with the comment, or empty if none.
 // `elems_` - a list of enum elements `(...)(...)(...)`, or empty if none.
@@ -107,5 +113,5 @@
 //     * `value_` - the element value (even if not manually specified) (computed as a `int64_t` or `uint64_t` number, ignoring the original spelling).
 //     * `comment_` - a string literal with the comment, or empty if none.
 //         NOTE: Clang 18 currently has a bug where if an element is missing a comment, the comment from the previous element is reused for it.
-#define MB_ENUM(kind_, name_, qualname_, type_, comment_, elems_)
+#define MB_ENUM(kind_, name_, qualname_, ns_stack_, type_, comment_, elems_)
 #endif
