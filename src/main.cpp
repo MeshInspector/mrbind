@@ -240,8 +240,11 @@ namespace mrbind
 
         auto TemplateArgIsOk = [&](const clang::TemplateArgument &arg)
         {
-            if (arg.getKind() == clang::TemplateArgument::ArgKind::Type && !AccessIsOk(arg.getAsType()->getAsTagDecl()->getAccess()))
-                return false;
+            if (arg.getKind() == clang::TemplateArgument::ArgKind::Type)
+            {
+                if (auto decl = arg.getAsType()->getAsTagDecl(); decl && !AccessIsOk(decl->getAccess()))
+                    return false;
+            }
 
             return true;
         };

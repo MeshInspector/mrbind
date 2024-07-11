@@ -74,6 +74,31 @@ namespace mrbind
                     {
                         bake(e.full_type);
 
+                        for (const ClassMemberVariant &memvar : e.members)
+                        {
+                            std::visit(Overload{
+                                [&](const ClassField &f)
+                                {
+                                    bake(f.type.canonical);
+                                },
+                                [&](const ClassMethod &m)
+                                {
+                                    bake(m.return_type.canonical);
+                                    for (const FuncParam &param : m.params)
+                                        bake(param.type.canonical);
+                                },
+                                [&](const ClassCtor &c)
+                                {
+                                    for (const FuncParam &param : c.params)
+                                        bake(param.type.canonical);
+                                },
+                                [&](const ClassConvOp &o)
+                                {
+                                    bake(o.return_type.canonical);
+                                },
+                            }, memvar);
+                        }
+
                         for (const ClassBase &base : e.bases)
                             bake(base.type.canonical);
 
