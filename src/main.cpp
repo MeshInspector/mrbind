@@ -238,18 +238,50 @@ namespace mrbind
             return ac == clang::AccessSpecifier::AS_public || ac == clang::AccessSpecifier::AS_none;
         };
 
+        auto TemplateArgIsOk = [&](const clang::TemplateArgument &arg)
+        {
+            if (arg.getKind() == clang::TemplateArgument::ArgKind::Type && !AccessIsOk(arg.getAsType()->getAsTagDecl()->getAccess()))
+                return false;
+
+            return true;
+        };
+
         // Strip reference-ness. `Type` (as opposed to `QualType`) apprently can't have cv-qualifiers.
         const clang::Type *fixed_type = &type;
         if (auto ref = llvm::dyn_cast<clang::ReferenceType>(&type))
             fixed_type = ref->getPointeeType().getTypePtr();
 
         // This is based on `clang_getTypeDeclaration()`.
+
         if (auto t = llvm::dyn_cast<clang::TypedefType>(fixed_type))
             return AccessIsOk(t->getDecl()->getAccess());
         if (auto t = llvm::dyn_cast<clang::TagType>(fixed_type))
+        {
+            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(t->getDecl()))
+            {
+                for (const auto &arg : templ->getTemplateArgs().asArray())
+                {
+                    if (!TemplateArgIsOk(arg))
+                        return false;
+                }
+            }
+
             return AccessIsOk(t->getDecl()->getAccess());
+        }
         if (auto t = llvm::dyn_cast<clang::TemplateSpecializationType>(fixed_type))
-            return AccessIsOk(t->getTemplateName().getAsTemplateDecl()->getAccess());
+        {
+            if (!AccessIsOk(t->getTemplateName().getAsTemplateDecl()->getAccess()))
+                return false;
+
+            // Check template arguments. I'm not sure when exactly this can run, class template specializations are processed above.
+            for (const auto &arg : t->template_arguments())
+            {
+                if (!TemplateArgIsOk(arg))
+                    return false;
+            }
+
+            return true;
+        }
         if (auto t = llvm::dyn_cast<clang::DeducedType>(fixed_type))
         {
             if (auto dt = t->getDeducedType().getTypePtrOrNull())
