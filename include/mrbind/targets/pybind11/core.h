@@ -606,7 +606,7 @@ namespace MRBind::detail::pb11
     }
 
     template <int NumDefaultArgs, bool IsExplicit, typename ...P>
-    void TryAddCtor(auto &c, auto &&... data)
+    void TryAddCtor(auto &c, bool second_pass, auto &&... data)
     {
         using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
         if constexpr (std::is_abstract_v<T>)
@@ -615,6 +615,9 @@ namespace MRBind::detail::pb11
             ; // This function has a parameter of a weird type that we can't support.
         else
         {
+            if (!second_pass) // Constructors are loaded in the second pass because of the default arguments.
+                return;
+
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
             {
                 // Note `new` here! Pybind still frees the object automatically.
@@ -648,15 +651,13 @@ PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 template <typename T, MRBind::ConstString Name>
 requires MRBind::detail::pb11::HasCustomTypeBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
-    : public CustomTypeBinding<T>
+    : public CustomTypeBinding<T>, public RegisterTypeWithCustomBinding<T>
 {
     using pybind_type = pybind11::class_<MRBind::detail::pb11::TypedefWrapper<T, Name>>;
 
     [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
 
-    // This causes errors for some reason (our own "T is not yet registered").
-    // Commenting this out doesn't seem to cause any issues, so whatever.
-    // std::unordered_set<std::type_index> base_typeids() const {return {typeid(T)};}
+    static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
 };
 
 template <typename T, MRBind::ConstString Name>
@@ -679,6 +680,8 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
         using U = typename std::remove_reference_t<decltype(c.type)>::type;
         BindParsedClass<T>::template BindMembers<U, T>(m, c.type, second_pass);
     }
+
+    static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
 };
 
 // Module entry point, and more stuff.
@@ -1140,7 +1143,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         auto BindParsedClass<MRBIND_IDENTITY qualname_>::BindType(pybind11::module_ &_pb11_m, const char *_pb11_n) -> pybind_class_type_for<_pb11_C, _pb11_E...> \
         { \
             pybind_class_type_for<_pb11_C, _pb11_E...> _pb11_c(_pb11_m, _pb11_n); \
-            DETAIL_MB_PB11_DISPATCH_INIT_MEMBERS(qualname_, members_) \
             return _pb11_c; \
         } \
         template <typename _pb11_C, typename ..._pb11_E> \
@@ -1172,7 +1174,22 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         MRBIND_PREPEND_COMMA(comment_)\
     );
 
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) // Constructors are generated separately, by `DETAIL_MB_PB11_DISPATCH_INIT_MEMBERS()`.
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, comment_, params_) \
+    MRBind::detail::pb11::TryAddCtor<\
+        /* Default argument counter, to detect converting constructors. */\
+        DETAIL_MB_PB11_NUM_DEF_ARGS(params_),\
+        /* Explicit? */\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_EXPLICIT_, explicit_)()\
+        /* Parameter types. */\
+        DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_)\
+    >( \
+        _pb11_c, _pb11_second_pass \
+        /* Parameters. */\
+        DETAIL_MB_PB11_MAKE_PARAMS(params_) \
+        /* Comment, if any. */\
+        MRBIND_PREPEND_COMMA(comment_) \
+    );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, simplename_, const_, comment_, params_) \
@@ -1224,35 +1241,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     );
-
-
-
-// A helper for `MB_CLASS` that handles different kinds of class members.
-#define DETAIL_MB_PB11_DISPATCH_INIT_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_INIT_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
-#define DETAIL_MB_PB11_DISPATCH_INIT_MEMBERS_BODY(n, d, kind_, ...) \
-    MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_INIT_MEMBER_, kind_)(d, __VA_ARGS__)
-
-// A helper for `DETAIL_MB_PB11_DISPATCH_INIT_MEMBERS` that generates a constructor.
-#define DETAIL_MB_PB11_DISPATCH_INIT_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_INIT_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
-#define DETAIL_MB_PB11_DISPATCH_INIT_MEMBER_ctor_0(qualname_, explicit_, comment_, params_) \
-    MRBind::detail::pb11::TryAddCtor<\
-        /* Default argument counter, to detect converting constructors. */\
-        DETAIL_MB_PB11_NUM_DEF_ARGS(params_),\
-        /* Explicit? */\
-        MRBIND_CAT(DETAIL_MB_PB11_IF_EXPLICIT_, explicit_)()\
-        /* Parameter types. */\
-        DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_)\
-    >( \
-        _pb11_c \
-        /* Parameters. */\
-        DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-        /* Comment, if any. */\
-        MRBIND_PREPEND_COMMA(comment_) \
-    );
-
-#define DETAIL_MB_PB11_DISPATCH_INIT_MEMBER_field(...)
-#define DETAIL_MB_PB11_DISPATCH_INIT_MEMBER_method(...)
-#define DETAIL_MB_PB11_DISPATCH_INIT_MEMBER_conv_op(...)
 
 #include <mrbind/helpers/define_missing_macros.h>
 

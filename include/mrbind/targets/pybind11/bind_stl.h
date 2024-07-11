@@ -2,31 +2,6 @@
 
 #include <future>
 
-namespace MRBind::detail::pb11
-{
-    // Adjust returned futures to shared futures.
-    template <typename T>
-    struct ReturnTypeTraits<std::future<T>>
-    {
-        static std::shared_future<T> Adjust(std::future<T> &&fut) {return fut.share();}
-    };
-
-    // Recursive adjustment:
-
-    // Adjust `std::vector` elementwise. (What about other containers?)
-    template <ReturnTypeNeedsAdjusting T, typename ...P>
-    struct ReturnTypeTraits<std::vector<T, P...>>
-    {
-        static std::vector<typename AdjustedReturnType<T>::type> Adjust(std::vector<T, P...> &&value)
-        {
-            std::vector<typename AdjustedReturnType<T>::type> ret;
-            ret.reserve(value.size());
-            for (auto &elem : value)
-                ret.push_back((AdjustReturnedValue<T>)(std::move(elem)));
-            return ret;
-        }
-    };
-}
 
 // std::vector
 #include <vector>
