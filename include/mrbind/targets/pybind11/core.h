@@ -62,6 +62,94 @@ namespace MRBind::detail::pb11
 
     // ---
 
+    // On MSVC, removes `class` and other unnecessary strings from type names.
+    // Returns the new length.
+    // It's recommended to include the null terminator in `size`, then we also null-terminate the resulting string and include it in the resulting length.
+    constexpr std::size_t CleanUpTypeName(char *buffer, std::size_t size)
+    {
+        #ifndef _MSC_VER
+        (void)buffer;
+        return size;
+        #else
+        std::string_view view(buffer, size); // Yes, with the null at the end.
+
+        auto RemoveTypePrefix = [&](std::string_view to_remove)
+        {
+            std::size_t region_start = 0;
+            std::size_t source_pos = std::size_t(-1);
+            std::size_t target_pos = 0;
+            while (true)
+            {
+                source_pos = view.find(to_remove, source_pos + 1);
+                if (source_pos == std::string_view::npos)
+                    break;
+                if (source_pos == 0 || !chars::IsIdentifierCharStrict(view[source_pos - 1]))
+                {
+                    std::size_t n = source_pos - region_start;
+                    std::copy_n(view.begin() + region_start, n, buffer + target_pos);
+                    target_pos += n;
+                    source_pos += to_remove.size();
+                    region_start = source_pos;
+                }
+            }
+            std::size_t n = view.size() - region_start;
+            std::copy_n(view.begin() + region_start, n, buffer + target_pos);
+            target_pos += n;
+            view = std::string_view(view.data(), target_pos);
+        };
+
+        RemoveTypePrefix("struct ");
+        RemoveTypePrefix("class ");
+        RemoveTypePrefix("union ");
+        RemoveTypePrefix("enum ");
+
+        { // Condense `> >` into `>>`.
+            std::size_t target_pos = 1;
+            for (std::size_t i = 1; i + 1 < size; i++)
+            {
+                if (buffer[i] == ' ' && buffer[i-1] == '>' && buffer[i+1] == '>')
+                    continue;
+                buffer[target_pos++] = buffer[i];
+            }
+            if (size > 0)
+                buffer[target_pos++] = buffer[size-1];
+            view = std::string_view(view.data(), target_pos);
+        }
+
+        return view.size();
+        #endif
+    }
+
+    class Demangler
+    {
+        #ifndef _MSC_VER
+        char *buf_ptr = nullptr;
+        std::size_t buf_size = 0;
+        #else
+        std::string buf;
+        #endif
+
+      public:
+        Demangler() {}
+        Demangler(const Demangler &) = delete;
+        Demangler &operator=(const Demangler &) = delete;
+        ~Demangler();
+
+        // Demangles a name. Keep the demangler alive while using the returned pointer.
+        [[nodiscard]] const char *operator()(const char *name);
+    };
+
+    // Type name from `typeid()`, demangled if necessary.
+    template <typename T>
+    [[nodiscard]] const char *TypeidTypeName()
+    {
+        static Demangler d;
+        static const char *const ret = d(typeid(T).name());
+        return ret;
+    }
+
+    // ---
+
     struct BasicPybindType
     {
         virtual ~BasicPybindType() = default;
@@ -175,7 +263,11 @@ namespace MRBind::detail::pb11
         [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(m, n);}
 
         // The type name for pybind11. Normally don't need to override this.
-        [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(BakedTypeNameOrFallback<T>());}
+        [[nodiscard]] static std::string pybind_type_name()
+        {
+            // Can't use non-typeid type name here, because then we often get name conflicts between TypedefWrapper names and this for the underlying type.
+            return ToPythonName(TypeidTypeName<T>());
+        }
 
         // Which base classes we inherit from. Or in general, which types must be initialized before this one.
         static std::unordered_set<std::type_index> base_typeids() {return {};}
@@ -788,7 +880,30 @@ namespace MRBind::detail::pb11
         return ret;
     }
 
-    [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary)
+    Demangler::~Demangler()
+    {
+        #ifndef _MSC_VER
+        std::free(buf_ptr);
+        #endif
+    }
+
+    const char *Demangler::operator()(const char *name)
+    {
+        #ifndef _MSC_VER
+        int status = -4;
+        buf_ptr = abi::__cxa_demangle(name, buf_ptr, &buf_size, &status);
+        if (status != 0) // -1 = out of memory, -2 = invalid string, -3 = invalid usage
+            return name;
+
+        return buf_ptr;
+        #else
+        buf = name;
+        buf.resize(CleanUpTypeName(buf.data(), buf.size() + 1) - 1);
+        return buf.c_str();
+        #endif
+    }
+
+    const char *AdjustOverloadedOperatorName(const char *name, bool unary)
     {
         std::string_view view = name;
         if (view == "_Plus") return unary ? "__pos__" : "__add__";

@@ -40,20 +40,51 @@ namespace mrbind
 
             std::unordered_set<std::string> visited_types;
 
-            auto bake = [&](const std::string &name)
+            auto bake = [&](std::string_view name)
             {
-                if (visited_types.insert(name).second)
+                auto bake_low = [&](std::string_view name)
                 {
-                    if (first)
+                    if (visited_types.insert(std::string(name)).second)
                     {
-                        first = false;
-                        out <<
-                            "#ifdef MB_WANT_BAKED_TYPE_NAMES\n"
-                            "#undef MB_WANT_BAKED_TYPE_NAMES\n"
-                            "namespace MRBind {template <typename> struct BakedTypeName {};}\n";
-                    }
+                        if (first)
+                        {
+                            first = false;
+                            out <<
+                                "#ifdef MB_WANT_BAKED_TYPE_NAMES\n"
+                                "#undef MB_WANT_BAKED_TYPE_NAMES\n"
+                                "namespace MRBind {template <typename> struct BakedTypeName {};}\n";
+                        }
 
-                    out << "template <> struct MRBind::BakedTypeName<" << name << "> {static constexpr const char *value = " << EscapeQuoteString(name) << ";};\n";
+                        out << "template <> struct MRBind::BakedTypeName<" << name << "> {static constexpr const char *value = " << EscapeQuoteString(name) << ";};\n";
+                    }
+                };
+
+                bake_low(name);
+
+                // Bake different variants:
+                // We don't strictly need it at this point (I think?), but just in case.
+
+                // The order matters, but we only really care about adding the ref-unqualified type, and ptr-cv-ref-unqualified one.
+
+                // Referenced type:
+                if (name.ends_with('&'))
+                {
+                    name = name.substr(0, name.find_last_not_of("& ") + 1);
+                    bake_low(name);
+                }
+
+                // Pointed type.
+                if (name.ends_with('*'))
+                {
+                    name = name.substr(0, name.find_last_not_of("* ") + 1);
+                    bake_low(name);
+                }
+
+                // Const-unqualified type.
+                if (name.starts_with("const "))
+                {
+                    name = name.substr(6);
+                    bake_low(name);
                 }
             };
 
