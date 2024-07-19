@@ -2,6 +2,28 @@
 
 #include <future>
 
+namespace MRBind::detail::pb11
+{
+    // Adjust `std::optional<T>` to `std::unique_ptr<T>`.
+    // This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.
+    template <typename T>
+    requires
+        // Because we need to be able to move the object into `std::unique_ptr`.
+        std::movable<T> &&
+        // Because pybind says that "holder types" (aka smart pointers that transparently pretend to be their element types)
+        // are only supported for "custom types" (aka at least not scalars, strings, etc).
+        (HasCustomTypeBinding<T> || HasParsedClassBinding<T>)
+    struct ReturnTypeTraits<std::optional<T>>
+    {
+        static std::unique_ptr<T> Adjust(std::optional<T> &&value)
+        {
+            if (value)
+                return std::make_unique<T>(std::move(*value));
+            else
+                return nullptr;
+        }
+    };
+}
 
 // std::vector
 #include <vector>
