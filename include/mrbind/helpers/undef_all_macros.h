@@ -10,3 +10,4 @@
 #undef MB_CLASS
 #undef MB_END_CLASS
 #undef MB_ENUM
+#undef MB_TYPEDEF

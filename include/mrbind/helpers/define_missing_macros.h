@@ -42,6 +42,7 @@
 // A non-member function, or a friend function defined inside of a class.
 // `ret_` - parenthesized return type, or empty if void.
 // `name_` - function name as a single word.
+// `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Minus`.
 // `qualname_` - fully qualified function name, parenthesized.
 // `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
 // `comment_` - a string literal with the comment, or empty if none.
@@ -50,7 +51,7 @@
 //     * `type_` - parenthesized parameter type.
 //     * `name_` - parameter name.
 //     * `default_arg_` - parenthesized default argument, or empty if none.
-#define MB_FUNC(ret_, name_, qualname_, ns_stack_, comment_, params_)
+#define MB_FUNC(ret_, name_, simplename_, qualname_, ns_stack_, comment_, params_)
 #endif
 
 #ifndef MB_CLASS
@@ -114,4 +115,14 @@
 //     * `comment_` - a string literal with the comment, or empty if none.
 //         NOTE: Clang 18 currently has a bug where if an element is missing a comment, the comment from the previous element is reused for it.
 #define MB_ENUM(kind_, name_, qualname_, ns_stack_, type_, comment_, elems_)
+#endif
+
+#ifndef MB_TYPEDEF
+// A typedef declaration.
+// `name_` - typedef name, as a single word.
+// `qualname_` - fully qualified typedef name, parenthesized.
+// `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
+// `type_` - the target type, parenthesized.
+// `comment_` - a string literal with the comment, or empty if none.
+#define MB_TYPEDEF(name_, qualname_, ns_stack_, type_, comment_)
 #endif

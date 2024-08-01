@@ -136,6 +136,10 @@ namespace mrbind
                         for (const auto &elem : e.nested)
                             lambda(lambda, elem);
                     },
+                    [&](const TypedefEntity &t)
+                    {
+                        bake(t.type.canonical);
+                    },
                     [&](const NamespaceEntity &e)
                     {
                         for (const auto &elem : e.nested)
@@ -148,19 +152,6 @@ namespace mrbind
 
             if (!first)
                 out << "#endif // MB_WANT_BAKED_TYPE_NAMES\n\n";
-        }
-
-        // Declare the friends.
-        if (!file.friend_declarations.empty())
-        {
-            out <<
-                "#ifdef MB_WANT_FRIEND_DECLS\n"
-                "#undef MB_WANT_FRIEND_DECLS\n";
-
-            for (const auto &elem : file.friend_declarations)
-                out << elem << '\n';
-
-            out << "#endif // MB_WANT_FRIEND_DECLS\n\n";
         }
 
         out << "MB_FILE\n\n";
@@ -250,6 +241,7 @@ namespace mrbind
                         out << "MB_FUNC("
                             << "/*returns*/(" << e.return_type.pretty << "), "
                             << e.name << ", "
+                            << e.simple_name << ", "
                             << "(" << e.full_name << "), "
                             << NsStackToString() << ", "
                             << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/")
@@ -355,6 +347,16 @@ namespace mrbind
                         namespace_stack.pop_back();
 
                         out << "MB_END_CLASS(" << e.name << ")\n";
+                    },
+                    [&](const TypedefEntity &t)
+                    {
+                        out << "MB_TYPEDEF("
+                            << t.name << ", "
+                            << "(" << t.full_name << "), "
+                            << NsStackToString() << ", "
+                            << "(" << t.type.pretty << "), "
+                            << (t.comment ? EscapeQuoteString(*t.comment) : "/*no comment*/")
+                            << ")\n";
                     },
                     [&](const NamespaceEntity &ns)
                     {

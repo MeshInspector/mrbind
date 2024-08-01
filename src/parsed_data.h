@@ -95,6 +95,8 @@ namespace mrbind
     {
         // Name as a single identifier.
         std::string name;
+        // Same, but for overloaded operators this instead contains its name as an identifier.
+        std::string simple_name;
         // Name with all scope qualifiers added.
         std::string full_name;
     };
@@ -159,6 +161,22 @@ namespace mrbind
 
     // ---
 
+    struct TypedefEntity
+    {
+        std::optional<std::string> comment;
+
+        // Name as a single identifier.
+        std::string name;
+
+        // Name with all scope qualifiers added.
+        std::string full_name;
+
+        // Target type.
+        Type type;
+    };
+
+    // ---
+
     struct NamespaceEntity : EntityContainer
     {
         std::optional<std::string> comment;
@@ -171,7 +189,7 @@ namespace mrbind
 
     // ---
 
-    using EntityVariant = std::variant<EnumEntity, FuncEntity, ClassEntity, NamespaceEntity>;
+    using EntityVariant = std::variant<EnumEntity, FuncEntity, ClassEntity, TypedefEntity, NamespaceEntity>;
 
     struct Entity
     {
@@ -190,9 +208,6 @@ namespace mrbind
 
         // The preprocessor definitions from the .cpp file corresponding to the parsed header, or a comment with an error message.
         std::string impl_file_preprocessor_directives;
-
-        // Generated declarations for all friend funcitons, use them if you want to form pointers-to-members to them.
-        std::vector<std::string> friend_declarations;
 
         // ---
 

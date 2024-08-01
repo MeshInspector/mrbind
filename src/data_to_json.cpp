@@ -353,6 +353,7 @@ namespace mrbind
             if constexpr (std::derived_from<T, FuncEntity>)
             {
                 json.WriteField("name", value.name);
+                json.WriteField("simple_name", value.simple_name);
                 json.WriteField("full_name", value.full_name);
             }
 
@@ -488,6 +489,21 @@ namespace mrbind
         };
 
         template <>
+        struct WriteToJsonTraits<TypedefEntity>
+        {
+            void operator()(JsonWriter &json, const TypedefEntity &value)
+            {
+                json.BeginObject();
+                json.WriteField("kind", "typedef");
+                json.WriteField("name", value.name);
+                json.WriteField("full_name", value.full_name);
+                json.WriteField("type", value.type);
+                json.WriteField("comment", value.comment);
+                json.EndObject();
+            }
+        };
+
+        template <>
         struct WriteToJsonTraits<NamespaceEntity>
         {
             void operator()(JsonWriter &json, const NamespaceEntity &value)
@@ -521,7 +537,6 @@ namespace mrbind
         json.WriteField("original_file", file.original_file);
         json.WriteField("guessed_impl_file", file.guessed_impl_file);
         json.WriteField("impl_file_preprocessor_directives", file.impl_file_preprocessor_directives);
-        json.WriteField("friend_declarations", file.friend_declarations);
 
         json.WriteField("segment_index", file.segment_index);
         json.WriteField("num_segments", file.num_segments);

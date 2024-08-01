@@ -1065,6 +1065,18 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define DETAIL_MB_PB11_PARAM_TYPES_BODY(n, d, type_, name_, .../*default_arg_*/) \
     , MRBind::detail::pb11::DecayToTrueParamType<MRBIND_IDENTITY type_>
 
+// A helper that generates function parameter declarations, with placeholder names (to not choke on unnamed parameters), and with no default arguments.
+#define DETAIL_MB_PB11_MAKE_PARAM_DECLS(seq) MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_MAKE_PARAM_DECLS_WITH_LEADING_COMMA(seq))
+#define DETAIL_MB_PB11_MAKE_PARAM_DECLS_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAM_DECLS_BODY, DETAIL_MB_PB11_MAKE_PARAM_DECLS_STEP, SF_NULL, i, seq)
+#define DETAIL_MB_PB11_MAKE_PARAM_DECLS_BODY(n, d, type_, name_, .../*default_arg_*/) , std::type_identity_t<MRBIND_IDENTITY type_> d
+#define DETAIL_MB_PB11_MAKE_PARAM_DECLS_STEP(n, d, ...) MRBIND_CAT(d, i)
+
+// A helper that generates function parameter uses (comma-separated names, forwarded),
+// with the same placeholder names as `DETAIL_MB_PB11_MAKE_PARAM_DECLS`.
+#define DETAIL_MB_PB11_MAKE_PARAM_USES(seq) MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_MAKE_PARAM_USES_WITH_LEADING_COMMA(seq))
+#define DETAIL_MB_PB11_MAKE_PARAM_USES_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAM_USES_BODY, DETAIL_MB_PB11_MAKE_PARAM_DECLS_STEP, SF_NULL, i, seq)
+#define DETAIL_MB_PB11_MAKE_PARAM_USES_BODY(n, d, type_, name_, .../*default_arg_*/) , std::forward<decltype(d)>(d)
+
 // A helper that generates a list of info wrappers about each parameter.
 #define DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_ENTRIES_BODY, SF_NULL, SF_NULL, 1, seq)
 #define DETAIL_MB_PB11_PARAM_ENTRIES_BODY(n, d, type_, name_, .../*default_arg_*/) \
@@ -1088,13 +1100,38 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // Given a namespace stack (see comments on `MB_NAMESPACE` in `define_missing_macros.h`),
 // emits `using namespace`s for every namespace listed in it.
-#define DETAIL_MB_PB11_USING_NAMESPACES(ns_stack) SF_FOR_EACH(DETAIL_MB_PB11_USING_NAMESPACES_BODY, DETAIL_MB_PB11_USING_NAMESPACES_STEP, SF_NULL,, ns_stack)
+#define DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) SF_FOR_EACH(DETAIL_MB_PB11_USING_NAMESPACES_BODY, DETAIL_MB_PB11_USING_NAMESPACES_STEP, SF_NULL,, ns_stack_)
 #define DETAIL_MB_PB11_USING_NAMESPACES_BODY(n, d, name_, kind_) MRBIND_CAT(DETAIL_MB_PB11_USING_NAMESPACES_BODY_, kind_)(d, name_)
 #define DETAIL_MB_PB11_USING_NAMESPACES_BODY_ns(d, name_) using namespace d::name_;
 #define DETAIL_MB_PB11_USING_NAMESPACES_BODY_cl(d, name_)
 #define DETAIL_MB_PB11_USING_NAMESPACES_STEP(n, d, name_, kind_) MRBIND_CAT(DETAIL_MB_PB11_USING_NAMESPACES_STEP_, kind_)(d, name_)
 #define DETAIL_MB_PB11_USING_NAMESPACES_STEP_ns(d, name_) d::name_
 #define DETAIL_MB_PB11_USING_NAMESPACES_STEP_cl(d, name_) d
+
+// Given a namespace stack (see comments on `MB_NAMESPACE` in `define_missing_macros.h`),
+// returns the kind of the most nested entry (`cl` for class, `ns` for namespace). For empty input returns `ns`.
+#define DETAIL_MB_PB11_LAST_SCOPE_KIND(ns_stack_) SF_FOR_EACH(SF_NULL, DETAIL_MB_PB11_LAST_SCOPE_KIND_STEP, SF_STATE, ns, ns_stack_)
+#define DETAIL_MB_PB11_LAST_SCOPE_KIND_STEP(n, d, name_, kind_) kind_
+
+// For a function, provides either a function pointer to call it, or a lambda to do the same.
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
+    MRBIND_CAT(DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_,DETAIL_MB_PB11_LAST_SCOPE_KIND(ns_stack_))(ret_, name_, qualname_, ns_stack_, params_)
+// For namespace-scoped functions, we get a function pointer.
+// Cast it to the correct type to select an overload.
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_ns(ret_, simplename_, qualname_, ns_stack_, params_) \
+    static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(*)(DETAIL_MB_PB11_PARAM_TYPES(params_))> qualname_
+// For class-scoped functions (i.e. friend functions, since methods are handled elsewhere), we generate a lambda that ADL-calls the function.
+// Must use a lambda because friend functions are not callable without ADL unless redeclared separately.
+// We used to redeclare them using codegen, but it's tricky for two reasons:
+// 1. Friends can be templated, and then they must be redeclared as a template (doable, but I haven't figured out, though I didn't try it that much).
+// 2. More importantly, it doesn't play well with our forced template instantiations in the parser (e.g. of classes referred to by typedefs),
+//    because if we generate declarations for their friend functions, those declarations will be rejected when compiling the binding (because the functions
+//    will not exist at that point, and scoped declarations can't be made without an existing function). But we could in theory wrap the declarations =
+//    in namespaces when generating them, instead of qualifying. This could work.
+// So a lambda just looks easier.
+// A lambda generates an extra move per argument, but whatever. I don't think we can call functions with non-movable arguments by value (from python) anyway.
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_cl(ret_, simplename_, qualname_, ns_stack_, params_) \
+    []( DETAIL_MB_PB11_MAKE_PARAM_DECLS(params_) ) -> decltype(auto) {return simplename_( DETAIL_MB_PB11_MAKE_PARAM_USES(params_) );}
 
 #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
 #define DETAIL_MB_PB11_IF_STATIC_static(x, y) x
@@ -1106,7 +1143,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // --------------------------------- STAGE 0 ---------------------------------
 
 #define MB_WANT_BAKED_TYPE_NAMES
-#define MB_WANT_FRIEND_DECLS
 
 #include <mrbind/helpers/undef_all_macros.h>
 
@@ -1155,15 +1191,15 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_END_NAMESPACE(namespace_) }
 
 // Bind a function.
-#define MB_FUNC(ret_, name_, qualname_, ns_stack_, comment_, params_) \
+#define MB_FUNC(ret_, name_, simplename_, qualname_, ns_stack_, comment_, params_) \
     static const char MRBIND_UNIQUE_VAR = []{ \
         DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
         MRBind::detail::pb11::GetRegistry().func_entries.push_back([](pybind11::module_ &_pb11_m){\
             MRBind::detail::pb11::TryAddFunc<\
                 /* Doesn't count as `static` for our purposes. */\
                 false, \
-                /* The function pointer, cast to the correct type to handle overloads. */\
-                static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(*)(DETAIL_MB_PB11_PARAM_TYPES(params_))> qualname_, \
+                /* The function pointer or a lambda. */\
+                DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_), \
                 /* Return type name. */\
                 MRBIND_STR(MRBIND_IDENTITY ret_) \
                 /* Parameter types. */\
@@ -1171,7 +1207,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             >( \
                 _pb11_m, true, \
                 /* Simple name */\
-                MRBIND_STR(name_), \
+                MRBIND_STR(simplename_), \
                 /* Full name */\
                 MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
                 /* Parameters. */\
@@ -1236,6 +1272,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         ); \
         return 0; \
     }(); \
+
+#define MB_TYPEDEF(name_, qualname_, ns_stack_, type_, comment_) \
+    /* Here we just generate the typedef wrapper if needed, and that's all. */\
+    /* Using `std::type_identity` (note, not `..._t`) to avoid constructing the actual type. Can't use a pointer, because the type can be a reference. */\
+    static constexpr std::type_identity<MRBind::detail::pb11::MaybeTypedefWrapper<MRBIND_IDENTITY type_, MRBIND_STR(MRBIND_IDENTITY qualname_)>> MRBIND_UNIQUE_VAR{};
 
 // Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>

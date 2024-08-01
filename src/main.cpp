@@ -233,6 +233,8 @@ namespace mrbind
     // Can have false positives.
     [[nodiscard]] bool TypeLooksAccessible(const clang::Type &type)
     {
+        // TODO should we recursively visit all enclosing classes here? To check all of them.
+
         auto AccessIsOk = [](clang::AccessSpecifier ac)
         {
             return ac == clang::AccessSpecifier::AS_public || ac == clang::AccessSpecifier::AS_none;
@@ -405,7 +407,8 @@ namespace mrbind
                     clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policy);
             }
 
-            new_func.name = GetAdjustedFuncName(*decl);
+            new_func.name = decl->getDeclName().getAsString();
+            new_func.simple_name = GetAdjustedFuncName(*decl);
             new_func.return_type = GetTypeStrings(decl->getReturnType());
             new_func.comment = GetCommentString(*ctx, *decl);
             new_func.params = GetFuncParams(*decl);
@@ -674,6 +677,27 @@ namespace mrbind
             return true;
         }
 
+        bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
+        {
+            if (ShouldRejectDeclaration(*ctx, *decl, params))
+                return true;
+
+            if (auto type = decl->getTypeForDecl()) // For some reason this can be null (for typedefs/aliases, but not for other entities?).
+            {
+                if (!TypeLooksAccessible(*type))
+                    return true; // Inaccessible type.
+            }
+
+            TypedefEntity &new_typedef = params->container_stack.back()->nested.emplace_back().variant.emplace<TypedefEntity>();
+
+            new_typedef.name = decl->getName();
+            new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policy);
+            new_typedef.comment = GetCommentString(*ctx, *decl);
+            new_typedef.type = GetTypeStrings(decl->getUnderlyingType());
+
+            return true;
+        }
+
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
             bool reject = ShouldRejectDeclaration(*ctx, *decl, params);
@@ -700,23 +724,29 @@ namespace mrbind
         }
     };
 
-    // Produces declarations for all friends in this file, so we can form pointers to them.
-    struct ClangAstVisitorFriendDeclDumper : clang::RecursiveASTVisitor<ClangAstVisitorFriendDeclDumper>
+    // Instantiates templates referred to by typedefs.
+    struct ClangAstVisitorInstTypedefs : clang::RecursiveASTVisitor<ClangAstVisitorInstTypedefs>
     {
-        using Base = clang::RecursiveASTVisitor<ClangAstVisitorFriendDeclDumper>;
+        using Base = clang::RecursiveASTVisitor<ClangAstVisitorInstTypedefs>;
 
         clang::ASTContext *ctx = nullptr;
+        clang::CompilerInstance *ci = nullptr;
 
-        clang::PrintingPolicy printing_policy;
+        clang::PrintingPolicy printing_policy_canonical;
 
         const VisitorParams *params = nullptr;
 
-        ClangAstVisitorFriendDeclDumper(clang::ASTContext &ctx, const VisitorParams &params)
-            : ctx(&ctx),
-            printing_policy(ctx.getPrintingPolicy()),
+        // All our programmatic explicit instantiations are duplicated here as manual instantiations.
+        // We need them because otherwise our friend declarations have nothing to refer to.
+        std::string explicit_instantiations;
+
+        ClangAstVisitorInstTypedefs(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
+            : ctx(&ctx), ci(&ci),
+            printing_policy_canonical(ctx.getPrintingPolicy()),
             params(&params)
         {
-            FixPrintingPolicy(printing_policy);
+            FixPrintingPolicy(printing_policy_canonical);
+            printing_policy_canonical.PrintCanonicalTypes = true;
         }
 
         // Visit template specializations almost as if they were normal code.
@@ -725,38 +755,25 @@ namespace mrbind
             return true;
         }
 
-        bool VisitFunctionDecl(const clang::FunctionDecl *decl) // CRTP override
+        bool VisitTypedefNameDecl(clang::TypedefNameDecl *d) // CRTP override
         {
-            if (!(decl->getIdentifierNamespace() & clang::Decl::IDNS_OrdinaryFriend))
-                return true; // This is not a friend.
+            clang::QualType type = ctx->getTypedefType(d);
+            if (!TypeLooksAccessible(*type))
+                return true; // Type is inaccessible.
 
-            if (decl->isCXXClassMember())
-                return true; // Reject member functions.
-            if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
-                return true; // Reject user-defined literals.
+            if (params->rejected_namespace_stack.back())
+                return true; // The namespace is rejected, don't instantiate things here.
 
-            if (ShouldRejectDeclaration(*ctx, *decl, params))
-                return true;
-
-            if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
-                return true; // Inaccessible signature types.
-
-            llvm::raw_string_ostream stream(params->parsed_result.friend_declarations.emplace_back());
-
-            // Print the declaration.
-            // I wanted to use `decl->print()`, but it wants to print the function bodies, and I'm unsure how to disable that.
-
-            std::string qual_name;
-            llvm::raw_string_ostream qual_name_ss(qual_name);
-            decl->printQualifiedName(qual_name_ss, printing_policy);
-
-            if (decl->isConstexpr())
-                stream << "constexpr ";
-            if (decl->isConsteval())
-                stream << "consteval ";
-
-            decl->getType().print(stream, printing_policy, qual_name);
-            stream << ";";
+            if (auto decl = type->getAsTagDecl())
+            {
+                if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
+                {
+                    // Important! Check that it wasn't already instantiated.
+                    // Otherwise Clang will emit a runtime error.
+                    if (!decl->getDefinition())
+                        ci->getSema().InstantiateClassTemplateSpecialization(d->getSourceRange().getBegin(), templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
+                }
+            }
 
             return true;
         }
@@ -814,10 +831,8 @@ namespace mrbind
 
             params->rejected_namespace_stack.push_back(params->blacklisted_entities.contains("::"));
 
-            { // Declare all the friends, to allow us to form pointers to them.
-                ClangAstVisitorFriendDeclDumper friend_decl_dumper(ctx, *params);
-                friend_decl_dumper.TraverseDecl(ctx.getTranslationUnitDecl());
-            }
+            // Instantiate templates referred to by typedefs.
+            ClangAstVisitorInstTypedefs(ctx, *ci, *params).TraverseDecl(ctx.getTranslationUnitDecl());
 
             // Gather the bulk of the information.
 
