@@ -30,7 +30,7 @@
 #include <unordered_set>
 #include <vector>
 
-#if !MRBIND_IS_SECONDARY_FILE
+#if MB_FRAGMENT == 0
 #include <exception> // For `std::terminate()`.
 #include <iostream> // To report errors.
 #endif
@@ -777,7 +777,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
 };
 
 // Module entry point, and more stuff.
-#if !MRBIND_IS_SECONDARY_FILE // Don't duplicate this if we have >1 TU.
+#if MB_FRAGMENT == 0 // Don't duplicate this if we have >1 TU.
 
 namespace MRBind::detail::pb11
 {
@@ -1038,7 +1038,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         elem(m);
 }
 
-#endif
+#endif // MB_FRAGMENT == 0
 
 
 
@@ -1143,6 +1143,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // --------------------------------- STAGE 0 ---------------------------------
 
 #define MB_WANT_BAKED_TYPE_NAMES
+#define MB_IGNORE_FRAGMENTS 1
 
 #include <mrbind/helpers/undef_all_macros.h>
 
@@ -1181,6 +1182,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_AGAIN
 #elif MB_PB11_STAGE == 1 // --------------------------------- STAGE 1 ---------------------------------
 
+#undef MB_IGNORE_FRAGMENTS
+#define MB_IGNORE_FRAGMENTS 0
 
 // Destroy existing macros.
 #include <mrbind/helpers/undef_all_macros.h>
@@ -1287,7 +1290,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_AGAIN
 #elif MB_PB11_STAGE == 2 // --------------------------------- STAGE 2 ---------------------------------
 
-
+#undef MB_IGNORE_FRAGMENTS
+#define MB_IGNORE_FRAGMENTS 1
 
 #include <mrbind/helpers/undef_all_macros.h>
 

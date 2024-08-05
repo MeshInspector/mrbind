@@ -212,9 +212,9 @@ namespace mrbind
         // ---
 
         // When splitting data using `MultiplexData()`, this is the part index.
-        int segment_index = 0;
+        int fragment_index = 0;
         // ...And this is the total number of parts.
-        int num_segments = 1;
+        int num_fragments = 1;
 
         // ---
 

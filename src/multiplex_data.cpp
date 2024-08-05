@@ -20,9 +20,9 @@ namespace mrbind
             ret.reserve(n);
             for (std::size_t i = 0; i < n; i++)
             {
-                ParsedFile &segment = ret.emplace_back(input);
-                segment.segment_index = int(i);
-                segment.num_segments = int(n);
+                ParsedFile &fragment = ret.emplace_back(input);
+                fragment.fragment_index = int(i);
+                fragment.num_fragments = int(n);
             }
 
             input.entities = std::move(entities_backup);

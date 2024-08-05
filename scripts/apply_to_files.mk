@@ -28,7 +28,6 @@ INPUT_GLOBS = *.h *.hpp
 
 # If set to >1, will split the generated binding into several fragments, either to reduce RAM usage when compiling, or to
 NUM_FRAGMENTS := 1
-override NUM_FRAGMENTS := $(filter-out 0 1,$(NUM_FRAGMENTS))
 
 
 # The mrbind command. Can include extra flags.
@@ -51,7 +50,7 @@ LINKER = $(error Must set LINKER=... when linking the bindings)
 LINKER_FLAGS :=
 
 # The output filename for linking.
-LINKER_OUTPUT = $(error Must set LINK_OUTPUT=... when linking the bindings)
+LINKER_OUTPUT = $(error Must set LINKER_OUTPUT=... when linking the bindings)
 
 # ---
 
@@ -100,22 +99,22 @@ $(OUTPUT_DIR)/combined.hpp: $(input_files) | $(OUTPUT_DIR)
 	$(foreach f,$(input_files),$(file >>$@,#include "$f"$(lf)))
 
 # Generate the binding.
-override generated_sources := $(patsubst %,$(OUTPUT_DIR)/%.cpp,$(if $(NUM_FRAGMENTS),$(addprefix binding.,$(call safe_shell,bash -c $(call quote,echo {1..$(strip $(NUM_FRAGMENTS))}))),binding))
 .PHONY: generate
-generate: $(generated_sources)
-$(generated_sources) &: $(OUTPUT_DIR)/combined.hpp
-	@echo $(call quote,[Generating] $(generated_sources))
-	@$(MRBIND) $(call quote,$<) $(foreach x,$(generated_sources),-o $(call quote,$x)) -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
+generate: $(OUTPUT_DIR)/binding.cpp
+$(OUTPUT_DIR)/binding.cpp: $(OUTPUT_DIR)/combined.hpp
+	@echo $(call quote,[Generating] binding.cpp)
+	@$(MRBIND) $(call quote,$<) -o $@ -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
 
 # Compile the binding.
-$(OUTPUT_DIR)/%.o: $(OUTPUT_DIR)/%.cpp
-	@echo $(call quote,[Compiling] $<)
-	@$(COMPILER) $(call quote,$<) -c -o $(call quote,$@) $(COMPILER_FLAGS) $(if $(filter $(firstword $(generated_sources)),$<),,-DMRBIND_IS_SECONDARY_FILE)
+override object_files := $(patsubst %,$(OUTPUT_DIR)/binding.%.o,$(call safe_shell,bash -c $(call quote,echo {0..$(call safe_shell,bash -c 'echo $$(($(strip $(NUM_FRAGMENTS))-1))')})))
+$(OUTPUT_DIR)/binding.%.o: $(OUTPUT_DIR)/binding.cpp
+	@echo $(call quote,[Compiling] $< (fragment $*))
+	@$(COMPILER) $(call quote,$<) -c -o $(call quote,$@) $(COMPILER_FLAGS) -DMB_NUM_FRAGMENTS=$(strip $(NUM_FRAGMENTS)) -DMB_FRAGMENT=$*
 
 # Link the binding.
 .DEFAULT_GOAL := build
 .PHONY: build
 build: $(LINKER_OUTPUT)
-$(LINKER_OUTPUT): $(generated_sources:.cpp=.o)
+$(LINKER_OUTPUT): $(object_files)
 	@echo $(call quote,[Linking] $@)
 	@$(LINKER) $^ -o $(call quote,$@) $(LINKER_FLAGS)

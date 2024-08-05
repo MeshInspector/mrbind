@@ -538,8 +538,8 @@ namespace mrbind
         json.WriteField("guessed_impl_file", file.guessed_impl_file);
         json.WriteField("impl_file_preprocessor_directives", file.impl_file_preprocessor_directives);
 
-        json.WriteField("segment_index", file.segment_index);
-        json.WriteField("num_segments", file.num_segments);
+        json.WriteField("fragment_index", file.fragment_index);
+        json.WriteField("num_fragments", file.num_fragments);
 
         json.BeginField("entities");
         json.BeginArray();
