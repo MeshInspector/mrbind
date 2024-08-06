@@ -186,7 +186,7 @@ namespace MRBind::detail::pb11
     struct TypeEntry
     {
         using InitClass = std::unique_ptr<BasicPybindType> (*)(pybind11::module_ &m, const char *n);
-        using AddClassMembers = void (*)(pybind11::module_ &m, BasicPybindType &c, bool second_pass);
+        using AddClassMembers = void (*)(pybind11::module_ &m, BasicPybindType &c);
 
         std::string pybind_type_name;
 
@@ -272,11 +272,11 @@ namespace MRBind::detail::pb11
         // Which base classes we inherit from. Or in general, which types must be initialized before this one.
         static std::unordered_set<std::type_index> base_typeids() {return {};}
 
-        // Registers all members. Called twice, with `second_pass = false` and then `= true`.
+        // Registers all members.
         // Usually must override this, unless you do something with `pybind_init` (see comment on it above).
-        // Normally you'd do constructors in the first pass, everything else in the second pass. But often you can just dump everything to the second pass.
         // Note, must not use `T` here. Use `using TT = typename std::remove_reference_t<decltype(c.type)>::type;` to support derived classes (i.e. `TypedefWrapper<T, "...">`).
-        static void bind_members(pybind11::module_ &, auto &c, bool second_pass) {(void)c; (void)second_pass;}
+        template <bool InDerivedClass>
+        static void bind_members(pybind11::module_ &, auto &c) {(void)c;}
     };
 
     template <typename T>
@@ -300,9 +300,9 @@ namespace MRBind::detail::pb11
                         m, n
                     );
                 },
-                [](pybind11::module_ &m, pb11::BasicPybindType &b, bool second_pass)
+                [](pybind11::module_ &m, pb11::BasicPybindType &b)
                 {
-                    Traits::bind_members(m, static_cast<TypeStorage &>(b), second_pass);
+                    Traits::template bind_members<false>(m, static_cast<TypeStorage &>(b));
                 },
                 Traits::base_typeids()
             );
@@ -578,12 +578,9 @@ namespace MRBind::detail::pb11
     // ---
 
     template <bool IsStatic, auto Getter>
-    void TryAddMemberVar(auto &c, bool second_pass, const char *name, auto &&... data)
+    void TryAddMemberVar(auto &c, const char *name, auto &&... data)
     {
         // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
-
-        if (!second_pass) // Member variables are loaded in the second pass, though this shouldn't matter in most cases.
-            return;
 
         using ClassType = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
 
@@ -618,15 +615,12 @@ namespace MRBind::detail::pb11
 
     // Member or non-member functions. Non-member functions should pass `IsStatic == false`.
     template <bool IsStatic, auto F, ConstString ReturnTypeName, typename ...P>
-    void TryAddFunc(auto &c, bool second_pass, const char *simplename, const char *fullname, auto &&... data)
+    void TryAddFunc(auto &c, const char *simplename, const char *fullname, auto &&... data)
     {
         if constexpr ((ParamTypeDisablesWholeFunction<typename P::OriginalType> || ...))
             ; // This function has a parameter of a weird type that we can't support.
         else
         {
-            if (!second_pass) // Member function are loaded in the second pass because of the default method arguments.
-                return;
-
             using ReturnType = std::invoke_result_t<decltype(F), typename P::OriginalType &&...>; // `P::OriginalType...` are already unadjusted.
 
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
@@ -720,7 +714,7 @@ namespace MRBind::detail::pb11
     }
 
     template <int NumDefaultArgs, bool IsExplicit, typename ...P>
-    void TryAddCtor(auto &c, bool second_pass, auto &&... data)
+    void TryAddCtor(auto &c, auto &&... data)
     {
         using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
         if constexpr (std::is_abstract_v<T>)
@@ -729,9 +723,6 @@ namespace MRBind::detail::pb11
             ; // This function has a parameter of a weird type that we can't support.
         else
         {
-            if (!second_pass) // Constructors are loaded in the second pass because of the default arguments.
-                return;
-
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
             {
                 // Note `new` here! Pybind still frees the object automatically.
@@ -779,6 +770,12 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
 
     [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
 
+    template <bool InDerivedClass>
+    static void bind_members(pybind11::module_ &m, auto &c)
+    {
+        CustomTypeBinding<T>::template bind_members<true>(m, c);
+    }
+
     static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
 };
 
@@ -797,10 +794,11 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
         return std::make_unique<MRBind::detail::pb11::SpecificPybindType<typename BindParsedClass<T>::template pybind_class_type_for<U, T>>>(BindParsedClass<T>::template BindType<U, T>(m, n));
     }
 
-    static void bind_members(pybind11::module_ &m, auto &c, bool second_pass)
+    template <bool InDerivedClass>
+    static void bind_members(pybind11::module_ &m, auto &c)
     {
         using U = typename std::remove_reference_t<decltype(c.type)>::type;
-        BindParsedClass<T>::template BindMembers<U, T>(m, c.type, second_pass);
+        BindParsedClass<T>::template BindMembers<true, U, T>(m, c.type);
     }
 
     static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
@@ -1050,17 +1048,14 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 throw std::runtime_error(std::string("MRBind pybind11: There's a dependency cycle in the type graph, involving ") + elem.first.name());
         }
 
-        // Load in two (three?) passes.
+        // Load:
 
         // Init.
         for (auto *elem : final_order)
             elem->pybind_type = elem->init(m, elem->pybind_type_name.c_str());
-        // Pass 1.
+        // Actually load.
         for (auto *elem : final_order)
-            elem->load_members(m, *elem->pybind_type, false);
-        // Pass 2.
-        for (auto *elem : final_order)
-            elem->load_members(m, *elem->pybind_type, true);
+            elem->load_members(m, *elem->pybind_type);
     }
 
     // Load the functions.
@@ -1199,9 +1194,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             template <typename T, typename ...E> \
             static pybind_class_type_for<T, E...> BindType(pybind11::module_ &m, const char *n); \
             static pybind_class_type BindTypeDefault(pybind11::module_ &m, const char *n) {return BindType<MRBIND_IDENTITY qualname_ DETAIL_MB_PB11_BASE_TYPES(bases_)>(m, n);} \
-            template <typename U, typename ...E> \
-            static void BindMembers(pybind11::module_ &m, pybind_class_type_for<U, E...> &c, bool second_pass); \
-            static void BindMembersDefault(pybind11::module_ &m, pybind_class_type &c, bool second_pass) {BindMembers(m, c, second_pass);} \
+            template <bool InDerivedClass = false, typename U, typename ...E> \
+            static void BindMembers(pybind11::module_ &m, pybind_class_type_for<U, E...> &c); \
+            static void BindMembersDefault(pybind11::module_ &m, pybind_class_type &c) {BindMembers(m, c);} \
         }; \
     }
 
@@ -1234,7 +1229,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 /* Parameter types. */\
                 DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
             >( \
-                _pb11_m, true, \
+                _pb11_m, \
                 /* Simple name */\
                 MRBIND_STR(simplename_), \
                 /* Full name */\
@@ -1261,13 +1256,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 return std::make_unique<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(_pb11_m, _pb11_n); \
             }, \
             /* Members lamdba. */\
-            [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
+            [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
             { \
-                if (_pb11_second_pass) \
-                { \
-                    [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
-                    DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
-                } \
+                [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
+                DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
             }, \
             std::unordered_set<std::type_index>{} \
         ); \
@@ -1290,12 +1282,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 return std::make_unique<_pb11_T>(_pb11_B::BindTypeDefault(_pb11_m, _pb11_n)); \
             }, \
             /* Members lamdba. */\
-            [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b, [[maybe_unused]] bool _pb11_second_pass) \
+            [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
             { \
                 using _pb11_C = MRBIND_IDENTITY qualname_; \
                 using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
                 using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
-                _pb11_B::BindMembersDefault(_pb11_m, static_cast<_pb11_T *>(&_pb11_b)->type, _pb11_second_pass); \
+                _pb11_B::BindMembersDefault(_pb11_m, static_cast<_pb11_T *>(&_pb11_b)->type); \
             }, \
             std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
         ); \
@@ -1328,8 +1320,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             pybind_class_type_for<_pb11_C, _pb11_E...> _pb11_c(_pb11_m, _pb11_n); \
             return _pb11_c; \
         } \
-        template <typename _pb11_C, typename ..._pb11_E> \
-        void BindParsedClass<MRBIND_IDENTITY qualname_>::BindMembers(pybind11::module_ &_pb11_m, pybind_class_type_for<_pb11_C, _pb11_E...> &_pb11_c, bool _pb11_second_pass) \
+        template <bool _pb11_InDerivedClass, typename _pb11_C, typename ..._pb11_E> \
+        void BindParsedClass<MRBIND_IDENTITY qualname_>::BindMembers(pybind11::module_ &_pb11_m, pybind_class_type_for<_pb11_C, _pb11_E...> &_pb11_c) \
         { \
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
         } \
@@ -1353,13 +1345,14 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, comment_) \
+    if constexpr (!_pb11_InDerivedClass) \
     MRBind::detail::pb11::TryAddMemberVar< \
         /* Static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
         /* Accessor lambda. */\
         [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.name_;}\
     >(\
-        _pb11_c, _pb11_second_pass,\
+        _pb11_c,\
         /* Name. */\
         MRBIND_STR(name_)\
         /* Comment, if any. */\
@@ -1376,7 +1369,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Parameter types. */\
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_)\
     >( \
-        _pb11_c, _pb11_second_pass \
+        _pb11_c \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */\
@@ -1385,6 +1378,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, simplename_, const_, comment_, params_) \
+    if constexpr (!_pb11_InDerivedClass) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddFunc< \
         /* bool: is this function static? */\
@@ -1400,7 +1394,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Normal parameter types. */\
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
     >( \
-        _pb11_c, _pb11_second_pass, \
+        _pb11_c, \
         /* Simple name */\
         MRBIND_STR(simplename_), \
         /* Full name */\
@@ -1413,6 +1407,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, ret_, const_, comment_) \
+    if constexpr (!_pb11_InDerivedClass) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddFunc< \
         /* Not static. */\
@@ -1425,7 +1420,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* The only parameter, which is the class itself. */\
         MRBind::detail::pb11::ParamInfo<_pb11_C &, ""> \
     >( \
-        _pb11_c, _pb11_second_pass, \
+        _pb11_c, \
         /* Simple name */\
         ("_convert_to_" + MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str(), \
         /* Full name */\

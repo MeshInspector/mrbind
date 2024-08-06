@@ -13,28 +13,27 @@ template <typename T, typename U>
 struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
     : public DefaultCustomTypeBinding<tl::expected<T, U>>
 {
-    static void bind_members(pybind11::module_ &, auto &c, bool second_pass)
+    template <bool InDerivedClass>
+    static void bind_members(pybind11::module_ &, auto &c)
     {
         using TT = typename std::remove_reference_t<decltype(c.type)>::type;
 
-        if (!second_pass)
-        {
-            // Construct with the default-constructed valid value.
-            if constexpr (std::default_initializable<T> || std::is_void_v<T>)
-                c.type.def(pybind11::init<>(), "Constructs in the valid state, with the default-constructed value.");
+        // Construct with the default-constructed valid value.
+        if constexpr (std::default_initializable<T> || std::is_void_v<T>)
+            c.type.def(pybind11::init<>(), "Constructs in the valid state, with the default-constructed value.");
 
-            // Construct with the valid value.
-            // `pybind11::detail::is_copy_constructible` gives the "correct" result for types such as `std::vector`.
-            if constexpr (!std::is_void_v<T> && pybind11::detail::is_copy_constructible<T>::value)
-                c.type.def(pybind11::init([](const T &value){return new TT(value);}), "Constructs in the valid state.");
-        }
-        else
-        {
-            // Construct with the unexpected value.
-            // `pybind11::detail::is_copy_constructible` gives the "correct" result for types such as `std::vector`.
-            if constexpr (pybind11::detail::is_copy_constructible<U>::value)
-                c.type.def_static("make_unexpected", [](const U &err){return new TT(tl::unexpect, err);}, "Constructs in the error state.");
+        // Construct with the valid value.
+        // `pybind11::detail::is_copy_constructible` gives the "correct" result for types such as `std::vector`.
+        if constexpr (!std::is_void_v<T> && pybind11::detail::is_copy_constructible<T>::value)
+            c.type.def(pybind11::init([](const T &value){return new TT(value);}), "Constructs in the valid state.");
 
+        // Construct with the unexpected value.
+        // `pybind11::detail::is_copy_constructible` gives the "correct" result for types such as `std::vector`.
+        if constexpr (pybind11::detail::is_copy_constructible<U>::value)
+            c.type.def_static("make_unexpected", [](const U &err){return new TT(tl::unexpect, err);}, "Constructs in the error state.");
+
+        if constexpr (!InDerivedClass)
+        {
             // Check for validity.
             c.type.def("__bool__", [](const TT &e){return e.has_value();}, "Returns true if holds a value, false if holds an error.");
 
