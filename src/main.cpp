@@ -335,12 +335,19 @@ namespace mrbind
 
         const VisitorParams *params = nullptr;
 
+        void RegisterTypeSpelling(const std::string &canonical, const std::string &pretty)
+        {
+            params->parsed_result.alt_type_spellings[canonical].insert(pretty);
+        }
+
         // Returns the string representations of a type.
+        // Also registers a type alias if we haven't seen this spelling before.
         [[nodiscard]] Type GetTypeStrings(const clang::QualType &type)
         {
             Type ret;
             ret.pretty = type.getAsString(printing_policy);
             ret.canonical = type.getAsString(printing_policy_canonical);
+            RegisterTypeSpelling(ret.canonical, ret.pretty);
             return ret;
         }
 
@@ -694,6 +701,7 @@ namespace mrbind
             new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policy);
             new_typedef.comment = GetCommentString(*ctx, *decl);
             new_typedef.type = GetTypeStrings(decl->getUnderlyingType());
+            RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name);
 
             return true;
         }
@@ -840,6 +848,12 @@ namespace mrbind
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
 
             params->rejected_namespace_stack.pop_back();
+
+            { // Remove identities from "alt type spellings".
+                // We intentionally don't remove the empty lists after erasure, because we use this map to know all types we need to bind.
+                for (auto &[type, spellings] : params->parsed_result.alt_type_spellings)
+                    spellings.erase(type);
+            }
 
 
             // Multiplex the output between several files, if needed.

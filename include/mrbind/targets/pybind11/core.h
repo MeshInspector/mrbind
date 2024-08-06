@@ -312,6 +312,11 @@ namespace MRBind::detail::pb11
         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
     };
 
+    template <bool Enable, typename T>
+    struct RegisterTypeWithCustomBindingIfApplicable {};
+    template <HasCustomTypeBinding T>
+    struct RegisterTypeWithCustomBindingIfApplicable<true, T> : RegisterTypeWithCustomBinding<T> {};
+
     // ---
 
     // This is used instead of `T` for class typedefs, to give them a shared type.
@@ -324,8 +329,8 @@ namespace MRBind::detail::pb11
 
     // Given a type, wraps it in `TypedefWrapper`. For pointers and references, it inserted into the most nested level only.
     template <typename T, ConstString Name> struct TypedefWrapperAdder {};
-    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<      T, Name> : RegisterTypeWithCustomBinding<TypedefWrapper<T, Name>> {using type =       TypedefWrapper<T, Name>;};
-    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<const T, Name> : RegisterTypeWithCustomBinding<TypedefWrapper<T, Name>> {using type = const TypedefWrapper<T, Name>;};
+    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<      T, Name> {using type =       TypedefWrapper<T, Name>;};
+    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<const T, Name> {using type = const TypedefWrapper<T, Name>;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T *, Name> {using type = typename TypedefWrapperAdder<T, Name>::type *;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T *const, Name> {using type = typename TypedefWrapperAdder<T, Name>::type *;};
     template <typename T, ConstString Name> struct TypedefWrapperAdder<T &, Name> {using type = typename TypedefWrapperAdder<T, Name>::type &;};
@@ -377,12 +382,29 @@ namespace MRBind::detail::pb11
     // See `MaybeTypedefWrapper` below.
     template <typename T, ConstString Name>
     struct MaybeTypedefWrapperHelper {using type = T;};
-    template <typename T, ConstString Name> requires needs_typedef_wrapper<typename RemoveCvPointersRefs<T>::type, TrimCvPointersRefsFromName<Name>()>
+    template <typename T, ConstString Name> requires needs_typedef_wrapper<T, Name>
     struct MaybeTypedefWrapperHelper<T, Name> {using type = TypedefWrapperAdder<T, TrimCvPointersRefsFromName<Name>()>::type;};
 
     // If `Name` is a canonical name of `T`, returns `T`. Otherwise returns `TypedefWrapper<T, Name>`.
     template <typename T, ConstString Name>
     using MaybeTypedefWrapper = typename MaybeTypedefWrapperHelper<T, Name>::type;
+
+    // ---
+
+    // This is what `MB_ALT_TYPE_SPELLING(...)` expands to.
+    // `ThisFragment` is true for 1/Nth of all entires (given `N` fragments), false otherwise.
+
+    template <bool ThisFragment, typename T, ConstString Name>
+    struct RegisterTypedefWrapperIfNeeded {};
+    template <typename T, ConstString Name> requires HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> && needs_typedef_wrapper<T, Name>
+    struct RegisterTypedefWrapperIfNeeded<true, T, Name>
+        : RegisterTypeWithCustomBinding<typename RemoveCvPointersRefs<MaybeTypedefWrapper<T, Name>>::type>,
+        RegisterTypeWithCustomBinding<typename RemoveCvPointersRefs<T>::type>
+    {};
+    template <bool ThisFragment, typename T, ConstString Name> requires HasParsedClassBinding<typename RemoveCvPointersRefs<T>::type> && needs_typedef_wrapper<T, Name>
+    struct RegisterTypedefWrapperIfNeeded<ThisFragment, T, Name>
+        : RegisterTypeWithCustomBinding<typename RemoveCvPointersRefs<MaybeTypedefWrapper<T, Name>>::type>
+    {};
 
     // ---
 
@@ -734,16 +756,24 @@ namespace MRBind::detail::pb11
 PYBIND11_NAMESPACE_BEGIN(PYBIND11_NAMESPACE)
 namespace detail
 {
+    // Disable the casters for all types for which we provide custom bindings (containers and such).
+    // We no longer do automatic registration here, to save build times. We register manually using `MB_REGISTER_TYPE()`.
     template <typename T>
     requires MRBind::detail::pb11::HasCustomTypeBinding<T>
-    class type_caster<T> : public type_caster_base<T>, MRBind::detail::pb11::RegisterTypeWithCustomBinding<T> {};
+    class type_caster<T> : public type_caster_base<T> /*MRBind::detail::pb11::RegisterTypeWithCustomBinding<T>*/ {};
+
+    // Propagate pybind11's fixed `is_copy_constructible` through `TypedefWrapper`.
+    template <typename T, MRBind::ConstString Name, typename Void>
+    struct is_copy_constructible<MRBind::detail::pb11::TypedefWrapper<T, Name>, Void>
+        : is_copy_constructible<T> // This is `pybind11::detail::is_copy_constructible`.
+    {};
 }
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 
 template <typename T, MRBind::ConstString Name>
 requires MRBind::detail::pb11::HasCustomTypeBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
-    : public CustomTypeBinding<T>, public RegisterTypeWithCustomBinding<T>
+    : public CustomTypeBinding<T>
 {
     using pybind_type = pybind11::class_<MRBind::detail::pb11::TypedefWrapper<T, Name>>;
 
@@ -1143,7 +1173,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // --------------------------------- STAGE 0 ---------------------------------
 
 #define MB_WANT_BAKED_TYPE_NAMES
-#define MB_IGNORE_FRAGMENTS 1
 
 #include <mrbind/helpers/undef_all_macros.h>
 
@@ -1181,9 +1210,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_PB11_STAGE 1
 #define MB_AGAIN
 #elif MB_PB11_STAGE == 1 // --------------------------------- STAGE 1 ---------------------------------
-
-#undef MB_IGNORE_FRAGMENTS
-#define MB_IGNORE_FRAGMENTS 0
 
 // Destroy existing macros.
 #include <mrbind/helpers/undef_all_macros.h>
@@ -1228,7 +1254,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
         MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
             typeid(MRBIND_IDENTITY qualname_), \
-            MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<MRBIND_IDENTITY qualname_>()), \
+            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
             /* Init lambda. */\
             [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
             { \
@@ -1254,7 +1280,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
         MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
             typeid(MRBIND_IDENTITY qualname_), \
-            MRBind::detail::pb11::ToPythonName(MRBind::BakedTypeNameOrFallback<MRBIND_IDENTITY qualname_>()), \
+            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
             /* Init lambda. */\
             [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
             { \
@@ -1290,9 +1316,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_AGAIN
 #elif MB_PB11_STAGE == 2 // --------------------------------- STAGE 2 ---------------------------------
 
-#undef MB_IGNORE_FRAGMENTS
-#define MB_IGNORE_FRAGMENTS 1
-
 #include <mrbind/helpers/undef_all_macros.h>
 
 #define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
@@ -1311,6 +1334,15 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
         } \
     }
+
+
+#define MB_REGISTER_TYPE(i_, ...) \
+    static constexpr MRBind::detail::pb11::RegisterTypeWithCustomBindingIfApplicable<MB_CHECK_FRAGMENT(i_), std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
+
+#define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
+    /* Here we just generate the typedef wrapper if needed, and that's all. */\
+    /* Using `std::type_identity` (note, not `..._t`) to avoid constructing the actual type. Can't use a pointer, because the type can be a reference. */\
+    static constexpr MRBind::detail::pb11::RegisterTypedefWrapperIfNeeded<MB_CHECK_FRAGMENT(i_), MRBIND_IDENTITY type_, MRBIND_STR(MRBIND_IDENTITY spelling_)> MRBIND_UNIQUE_VAR{};
 
 
 

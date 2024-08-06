@@ -552,6 +552,13 @@ namespace mrbind
         json.EndArray();
         json.EndField();
 
+        json.BeginField("alt_type_spellings");
+        json.BeginObject();
+        for (const auto &type : file.alt_type_spellings)
+            json.WriteField(type.first, type.second);
+        json.EndObject();
+        json.EndField();
+
         json.EndObject();
 
         out << '\n';

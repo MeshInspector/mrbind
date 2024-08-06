@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <variant>
 #include <vector>
 
@@ -87,6 +89,9 @@ namespace mrbind
         bool is_signed = false;
 
         std::vector<EnumElem> elems;
+
+        // Alternative names for this class.
+        std::unordered_set<std::string> alt_spellings;
     };
 
     // ---
@@ -157,6 +162,9 @@ namespace mrbind
         std::vector<ClassBase> bases;
 
         std::vector<ClassMemberVariant> members;
+
+        // Alternative names for this class.
+        std::unordered_set<std::string> alt_spellings;
     };
 
     // ---
@@ -220,5 +228,8 @@ namespace mrbind
 
         // The contents of this file.
         EntityContainer entities;
+
+        // Maps the known types to lists of alternativespellings we've seen for them.
+        std::unordered_map<std::string, std::unordered_set<std::string>> alt_type_spellings;
     };
 }

@@ -11,3 +11,5 @@
 #undef MB_END_CLASS
 #undef MB_ENUM
 #undef MB_TYPEDEF
+#undef MB_REGISTER_TYPE
+#undef MB_ALT_TYPE_SPELLING

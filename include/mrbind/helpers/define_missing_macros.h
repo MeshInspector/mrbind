@@ -126,3 +126,15 @@
 // `comment_` - a string literal with the comment, or empty if none.
 #define MB_TYPEDEF(name_, qualname_, ns_stack_, type_, comment_)
 #endif
+
+// This is called once for every type we use.
+// `i_` is the counter for multiplexing binding fragments.
+#ifndef MB_REGISTER_TYPE
+#define MB_REGISTER_TYPE(i_, ...)
+#endif
+
+// Specifies an alternative type spelling `spelling_` for `type_`. Both are parenthesized.
+// `i_` is the counter for multiplexing binding fragments.
+#ifndef MB_ALT_TYPE_SPELLING
+#define MB_ALT_TYPE_SPELLING(i_, type_, spelling_)
+#endif

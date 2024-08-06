@@ -30,7 +30,7 @@ namespace mrbind
             "#if !defined(MB_NUM_FRAGMENTS) || MB_NUM_FRAGMENTS <= 1\n"
             "#define MB_CHECK_FRAGMENT(x) 1\n"
             "#else\n"
-            "#define MB_CHECK_FRAGMENT(x) MB_IGNORE_FRAGMENTS || (x % MB_NUM_FRAGMENTS == MB_FRAGMENT)\n"
+            "#define MB_CHECK_FRAGMENT(x) (x % MB_NUM_FRAGMENTS == MB_FRAGMENT)\n"
             "#endif\n"
             "#endif\n"
             "\n"
@@ -411,9 +411,27 @@ namespace mrbind
             };
             for (const Entity &e : file.entities.nested)
                 lambda(lambda, e);
+
+            // Dump type spellings.
+            if (!file.alt_type_spellings.empty())
+            {
+                out << "\n";
+                for (const auto &type : file.alt_type_spellings)
+                {
+                    out << "MB_REGISTER_TYPE(" << multiplex_counter++ << ", " << type.first << ")\n";
+                    for (const auto &spelling : type.second)
+                    {
+                        out << "MB_ALT_TYPE_SPELLING("
+                            << multiplex_counter++ << ", "
+                            << "(" << type.first << "), "
+                            << "(" << spelling << ")"
+                            << ")\n";
+                    }
+                }
+            }
         }
 
-        out << "\nMB_END_FILE\n";
+        out << "\nMB_END_FILE\n\n";
 
         out <<
             "#ifdef MB_AGAIN\n"
