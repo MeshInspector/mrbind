@@ -894,6 +894,11 @@ namespace MRBind::detail::pb11
                 prev_char_is_special = false;
                 last_good_size = ret.size();
             }
+            else if (ch == '-')
+            {
+                prev_char_is_special = false;
+                ret += "minus";
+            }
             else
             {
                 if (!prev_char_is_special)
