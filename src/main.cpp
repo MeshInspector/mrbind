@@ -554,6 +554,7 @@ namespace mrbind
                 new_field.comment = GetCommentString(*ctx, *field);
                 new_field.is_static = false;
                 new_field.name = field->getName();
+                new_field.full_name = field->getName();
                 new_field.type = GetTypeStrings(field->getType());
             }
 
