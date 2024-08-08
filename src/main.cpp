@@ -125,16 +125,59 @@ namespace mrbind
         std::vector<std::string> output_filenames;
     };
 
+    struct PrintingPolicies
+    {
+        clang::PrintingPolicy normal;
+        clang::PrintingPolicy canonical;
+
+        PrintingPolicies(const clang::PrintingPolicy &base)
+            : normal(base), canonical(base)
+        {
+            for (auto *p : {&normal, &canonical})
+            {
+                // Not adding `PrintCanonicalTypes = true`, because that expands typedefs which prevents the bindings from being portable.
+                p->SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
+                p->FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
+                p->SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
+                p->SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
+                p->MSVCFormatting = false; // Unsure what this changes, just in case.
+                p->PolishForDeclaration = true; // Unsure what this changes, just in case.
+            }
+
+            canonical.PrintCanonicalTypes = true;
+        }
+    };
+
     // Whether we should skip this declaration when traversing the AST.
     // Includes some non-contentious stuff like rejecting header contents, template declarations there weren't instantiated yet, function-local declarations.
     // `params` is optional.
-    [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::NamedDecl &decl, const VisitorParams *params)
+    [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::NamedDecl &decl, const VisitorParams *params, const PrintingPolicies &printing_policies)
     {
         if (decl.isTemplated())
             return true; // This is a template, reject. Specific specializations will be given to us separately.
 
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
+
+        { // Make sure the name doesn't contain unspellable template parameters.
+            std::string name;
+            llvm::raw_string_ostream ss(name);
+            decl.printQualifiedName(ss);
+            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
+                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal);
+            else if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(&decl))
+                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal);
+            else if (auto templ = llvm::dyn_cast<clang::FunctionDecl>(&decl))
+            {
+                if (auto args = templ->getTemplateSpecializationArgs())
+                    clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal);
+            }
+
+            // Reject templates that have lambdas as template arguments, because they can't be spelled properly.
+            // I guess this also covers lambda types used for other purposes.
+            if (name.find("(lambda at ") != name.npos)
+                return true;
+        }
 
         (void)ctx;
         // if (auto t = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl); t && ctx.getFullLoc(t->getPointOfInstantiation()).getFileID() == ctx.getSourceManager().getMainFileID())
@@ -157,18 +200,6 @@ namespace mrbind
         }
 
         return false;
-    }
-
-    // Adjusts a printing policy to make it sane.
-    void FixPrintingPolicy(clang::PrintingPolicy &printing_policy)
-    {
-        // Not adding `PrintCanonicalTypes = true`, because that expands typedefs which prevents the bindings from being portable.
-        printing_policy.SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
-        printing_policy.FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
-        printing_policy.SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
-        printing_policy.SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
-        printing_policy.MSVCFormatting = false; // Unsure what this changes, just in case.
-        printing_policy.PolishForDeclaration = true; // Unsure what this changes, just in case.
     }
 
     // Returns a comment string associated with a declaration, or null if none.
@@ -330,8 +361,7 @@ namespace mrbind
         clang::ASTContext *ctx = nullptr;
         clang::CompilerInstance *ci = nullptr;
 
-        clang::PrintingPolicy printing_policy;
-        clang::PrintingPolicy printing_policy_canonical;
+        PrintingPolicies printing_policies;
 
         const VisitorParams *params = nullptr;
 
@@ -345,8 +375,8 @@ namespace mrbind
         [[nodiscard]] Type GetTypeStrings(const clang::QualType &type)
         {
             Type ret;
-            ret.pretty = type.getAsString(printing_policy);
-            ret.canonical = type.getAsString(printing_policy_canonical);
+            ret.pretty = type.getAsString(printing_policies.normal);
+            ret.canonical = type.getAsString(printing_policies.canonical);
             RegisterTypeSpelling(ret.canonical, ret.pretty);
             return ret;
         }
@@ -359,7 +389,7 @@ namespace mrbind
                 FuncParam &new_param = ret.emplace_back();
                 new_param.name = p->getName();
                 new_param.type = GetTypeStrings(p->getType());
-                new_param.default_argument = GetDefaultArgumentString(*p, printing_policy);
+                new_param.default_argument = GetDefaultArgumentString(*p, printing_policies.normal);
             }
             return ret;
         }
@@ -367,13 +397,10 @@ namespace mrbind
 
         ClangAstVisitor(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
-            printing_policy(ctx.getPrintingPolicy()),
-            printing_policy_canonical(ctx.getPrintingPolicy()),
+            printing_policies(ctx.getPrintingPolicy()),
             params(&params)
         {
-            FixPrintingPolicy(printing_policy);
-            FixPrintingPolicy(printing_policy_canonical);
-            printing_policy_canonical.PrintCanonicalTypes = true;
+            printing_policies.canonical.PrintCanonicalTypes = true;
 
             params.container_stack.push_back(&params.parsed_result.entities);
         }
@@ -396,7 +423,7 @@ namespace mrbind
             if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
                 return true;
 
-            if (ShouldRejectDeclaration(*ctx, *decl, params))
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
                 return true;
 
             if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
@@ -413,10 +440,10 @@ namespace mrbind
 
             { // Full name.
                 llvm::raw_string_ostream qual_name_ss(new_func.full_name);
-                decl->printQualifiedName(qual_name_ss, printing_policy);
+                decl->printQualifiedName(qual_name_ss, printing_policies.normal);
                 // Print template arguments, if any.
                 if (auto template_args = decl->getTemplateSpecializationArgs())
-                    clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policy);
+                    clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policies.normal);
             }
 
             new_func.name = decl->getDeclName().getAsString();
@@ -431,7 +458,7 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
-            if (ShouldRejectDeclaration(*ctx, *decl, params))
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
                 return false;
 
             if (decl->isAnonymousStructOrUnion())
@@ -447,7 +474,7 @@ namespace mrbind
             params->container_stack.push_back(&new_class);
 
             new_class.name = decl->getName();
-            new_class.full_type = ctx->getRecordType(decl).getAsString(printing_policy_canonical);
+            new_class.full_type = ctx->getRecordType(decl).getAsString(printing_policies.canonical);
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
 
@@ -648,7 +675,7 @@ namespace mrbind
             if (!decl->isCompleteDefinition())
                 return true; // Reject enum declarations without the element list.
 
-            if (ShouldRejectDeclaration(*ctx, *decl, params))
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
                 return true;
 
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
@@ -659,8 +686,8 @@ namespace mrbind
             new_enum.name = decl->getName();
             new_enum.is_scoped = decl->isScoped();
             new_enum.comment = GetCommentString(*ctx, *decl);
-            new_enum.full_type = ctx->getEnumType(decl).getAsString(printing_policy_canonical);
-            new_enum.canonical_underlying_type = decl->getIntegerType().getAsString(printing_policy_canonical);
+            new_enum.full_type = ctx->getEnumType(decl).getAsString(printing_policies.canonical);
+            new_enum.canonical_underlying_type = decl->getIntegerType().getAsString(printing_policies.canonical);
             new_enum.is_signed = decl->getIntegerType()->isSignedIntegerType();
 
             for (const clang::EnumConstantDecl *elem : decl->enumerators())
@@ -691,7 +718,7 @@ namespace mrbind
 
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
-            if (ShouldRejectDeclaration(*ctx, *decl, params))
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
                 return true;
 
             if (auto type = decl->getTypeForDecl()) // For some reason this can be null (for typedefs/aliases, but not for other entities?).
@@ -703,7 +730,7 @@ namespace mrbind
             TypedefEntity &new_typedef = params->container_stack.back()->nested.emplace_back().variant.emplace<TypedefEntity>();
 
             new_typedef.name = decl->getName();
-            new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policy);
+            new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
             new_typedef.comment = GetCommentString(*ctx, *decl);
             new_typedef.type = GetTypeStrings(decl->getUnderlyingType());
             RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name);
@@ -713,7 +740,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*ctx, *decl, params);
+            bool reject = ShouldRejectDeclaration(*ctx, *decl, params, printing_policies);
 
             { // Insert the namespace.
                 NamespaceEntity &new_ns = params->container_stack.back()->nested.emplace_back().variant.emplace<NamespaceEntity>();
@@ -745,7 +772,7 @@ namespace mrbind
         clang::ASTContext *ctx = nullptr;
         clang::CompilerInstance *ci = nullptr;
 
-        clang::PrintingPolicy printing_policy_canonical;
+        PrintingPolicies printing_policies;
 
         const VisitorParams *params = nullptr;
 
@@ -755,12 +782,9 @@ namespace mrbind
 
         ClangAstVisitorInstTypedefs(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
-            printing_policy_canonical(ctx.getPrintingPolicy()),
+            printing_policies(ctx.getPrintingPolicy()),
             params(&params)
-        {
-            FixPrintingPolicy(printing_policy_canonical);
-            printing_policy_canonical.PrintCanonicalTypes = true;
-        }
+        {}
 
         // Visit template specializations almost as if they were normal code.
         bool shouldVisitTemplateInstantiations() const // CRTP override
@@ -793,7 +817,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*ctx, *decl, params);
+            bool reject = ShouldRejectDeclaration(*ctx, *decl, params, printing_policies);
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
