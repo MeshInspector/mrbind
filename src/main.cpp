@@ -391,6 +391,11 @@ namespace mrbind
             if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
                 return true; // Reject user-defined literals.
 
+            // Skip deduction guides.
+            // We don't seem to need to check this separately for class members, since they count as non-member functions, just like friend functions.
+            if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
+                return true;
+
             if (ShouldRejectDeclaration(*ctx, *decl, params))
                 return true;
 
