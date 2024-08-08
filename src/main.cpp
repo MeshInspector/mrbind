@@ -148,6 +148,18 @@ namespace mrbind
         }
     };
 
+    // Returns false if the name contains non-machine-readable stuff that shouldn't appear in the bindings,
+    // such as `(lambda at ...)`.
+    bool NameSpellingIsLegal(std::string_view name)
+    {
+        // Reject templates that have lambdas as template arguments, because they can't be spelled properly.
+        // I guess this also covers lambda types used for other purposes.
+        if (name.find("(lambda at ") != name.npos)
+            return false;
+
+        return true;
+    }
+
     // Whether we should skip this declaration when traversing the AST.
     // Includes some non-contentious stuff like rejecting header contents, template declarations there weren't instantiated yet, function-local declarations.
     // `params` is optional.
@@ -159,7 +171,7 @@ namespace mrbind
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
 
-        { // Make sure the name doesn't contain unspellable template parameters.
+        { // Make sure the name doesn't contain unspellable stuff, such as lambda types.
             std::string name;
             llvm::raw_string_ostream ss(name);
             decl.printQualifiedName(ss);
@@ -173,9 +185,7 @@ namespace mrbind
                     clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal);
             }
 
-            // Reject templates that have lambdas as template arguments, because they can't be spelled properly.
-            // I guess this also covers lambda types used for other purposes.
-            if (name.find("(lambda at ") != name.npos)
+            if (!NameSpellingIsLegal(name))
                 return true;
         }
 
@@ -511,10 +521,22 @@ namespace mrbind
                     if (var->getAccess() != clang::AS_public)
                         continue; // Reject non-public members.
 
+                    std::string full_name(var->getName());
+                    // Add template arguments for variable templates to the name.
+                    if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(var))
+                    {
+                        llvm::raw_string_ostream ss(full_name);
+                        clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal);
+
+                        if (!NameSpellingIsLegal(full_name))
+                            continue; // Has unspellable template arguments.
+                    }
+
                     ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
                     new_field.comment = GetCommentString(*ctx, *var);
                     new_field.is_static = true;
                     new_field.name = var->getName();
+                    new_field.full_name = std::move(full_name);
                     new_field.type = GetTypeStrings(var->getType());
                 }
             }

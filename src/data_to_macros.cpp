@@ -327,6 +327,7 @@ namespace mrbind
                                             << (field.is_static ? "static" : "/*non-static*/") << ", "
                                             << "(" << field.type.pretty << "), "
                                             << field.name << ", "
+                                            << "(" << field.full_name << "), "
                                             << (field.comment ? EscapeQuoteString(*field.comment) : "/*no comment*/")
                                             << ")\n";
                                     },

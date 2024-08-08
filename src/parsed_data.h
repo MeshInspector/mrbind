@@ -114,6 +114,8 @@ namespace mrbind
 
         // Name as a single identifier.
         std::string name;
+        // Usually same as `name`, but for variable templates also includes the template arguments.
+        std::string full_name;
 
         Type type;
 

@@ -393,6 +393,7 @@ namespace mrbind
                 json.BeginObject();
                 json.WriteField("member_kind", "field");
                 json.WriteField("name", value.name);
+                json.WriteField("full_name", value.full_name);
                 json.WriteField("type", value.type);
                 json.WriteField("is_static", value.is_static);
                 json.WriteField("comment", value.comment);

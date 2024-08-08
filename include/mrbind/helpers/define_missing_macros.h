@@ -71,6 +71,7 @@
 //         * `static_` - either `static` or nothing if non-static.
 //         * `type_` - parenthesized type.
 //         * `name_` - field name.
+//         * `fullname_` - parenthesized, usually same as `name` but for variable templates includes template arguments.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //     * A public constructor `(ctor, explicit_, comment_, params_)`, where:
 //       * `explicit_` - either `explicit` or empty if not explicit.

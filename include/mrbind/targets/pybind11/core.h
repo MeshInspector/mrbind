@@ -1349,17 +1349,17 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, comment_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
     if constexpr (!_pb11_InDerivedClass) \
     MRBind::detail::pb11::TryAddMemberVar< \
         /* Static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
         /* Accessor lambda. */\
-        [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.name_;}\
+        [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.MRBIND_IDENTITY fullname_;}\
     >(\
         _pb11_c,\
         /* Name. */\
-        MRBIND_STR(name_)\
+        MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullname_)).c_str()\
         /* Comment, if any. */\
         MRBIND_PREPEND_COMMA(comment_)\
     );
