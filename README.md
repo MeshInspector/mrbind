@@ -1,3 +1,5 @@
+Work-in-progress Python (and others) binding generator for C++.
+
 # Building
 
 ## Dependencies
