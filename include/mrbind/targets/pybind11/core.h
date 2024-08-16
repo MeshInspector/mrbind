@@ -354,13 +354,6 @@ namespace MRBind::detail::pb11
     template <typename T> struct RemovePointersRefs<T &> {using type = typename RemovePointersRefs<T>::type;};
     template <typename T> struct RemovePointersRefs<T &&> {using type = typename RemovePointersRefs<T>::type;};
 
-    // Returns true if `Name` is not the canonical name of `T` (if `Name` is empty, always returns false).
-    template <typename T, ConstString Name>
-    constexpr bool needs_typedef_wrapper =
-        !Name.view().empty() &&
-        BakedTypeNameOrFallback<T>() != Name.view() && // Must compare the typename of exactly `T`, because that's what's baked. If we strip cvref-qualifiers/pointers, the stripped version will not be baked.
-        (HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> || HasParsedClassBinding<typename RemoveCvPointersRefs<T>::type>);
-
     // If `Name` starts with `const `, returns the character index after that, otherwise 0.
     template <ConstString Name>
     constexpr std::size_t FindFirstIndexAfterLeadingConst = []{
@@ -389,6 +382,17 @@ namespace MRBind::detail::pb11
         std::copy_n(Name.view().data() + FindFirstIndexAfterLeadingConst<Name>, size, ret.value);
         return ret;
     }
+
+    // Returns true if `Name` is not the canonical name of `T` (if `Name` is empty, always returns false).
+    template <typename T, ConstString Name>
+    constexpr bool needs_typedef_wrapper =
+        !Name.view().empty() &&
+        // This would be better, but it explodes when `T &&` is adjusted to `T` in function parameters.
+        // We want this specific case to count as an exact match (but it wouldn't with the commented line),
+        //   while in all other cases involving adjustedment, we want to return
+        // BakedTypeNameOrFallback<T>() != Name.view() &&
+        BakedTypeNameOrFallback<typename RemoveCvPointersRefs<T>::type>() != TrimCvPointersRefsFromName<Name>().view() &&
+        (HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> || HasParsedClassBinding<typename RemoveCvPointersRefs<T>::type>);
 
     // See `MaybeTypedefWrapper` below.
     template <typename T, ConstString Name>
@@ -743,6 +747,10 @@ namespace MRBind::detail::pb11
             ; // Reject abstract classes.
         else if constexpr ((ParamTypeDisablesWholeFunction<P> || ...))
             ; // This function has a parameter of a weird type that we can't support.
+        else if constexpr (sizeof...(P) == 1 && std::is_base_of_v<typename AdjustedParamType<FirstType<typename P::OriginalType...>>::type, T>)
+            // Reject move constructors. They just appear as a duplicate of the copy constructor in the `help(...)`, and other than that don't do anything.
+            // Note `std::is_base_of` instead of `std::is_same`. This is to catch those constructors in `TypedefWrapper`s as well.
+            ;
         else
         {
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)

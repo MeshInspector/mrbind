@@ -571,12 +571,24 @@ namespace mrbind
                     // e.g. for classes with non-default-constructible fields and no user-declared constructors?).
                 }
 
+                // Similarly, copy/move constructors and assignments.
+                if (cxxdecl->needsImplicitCopyConstructor())
+                    (void)ci->getSema().LookupCopyingConstructor(cxxdecl, clang::Qualifiers::Const);
+                if (cxxdecl->needsImplicitMoveConstructor())
+                    (void)ci->getSema().LookupMovingConstructor(cxxdecl, clang::Qualifiers::Const);
+                if (cxxdecl->needsImplicitCopyAssignment())
+                    (void)ci->getSema().LookupCopyingAssignment(cxxdecl, clang::Qualifiers::Const, false, 0);
+                if (cxxdecl->needsImplicitMoveAssignment())
+                    (void)ci->getSema().LookupMovingAssignment(cxxdecl, clang::Qualifiers::Const, false, 0);
+
                 for (clang::CXXMethodDecl *method : cxxdecl->methods())
                 {
                     if (method->getAccess() != clang::AS_public)
                         continue; // Reject non-public methods.
-                    if (method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator() || llvm::isa<clang::CXXDestructorDecl>(method))
-                        continue; // Reject copy/move assignment operators and destructors. Constructors don't arrive here in the first place.
+                    // if (method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator())
+                    //     continue; // Reject copy/move assignment operators. Constructors don't arrive here in the first place.
+                    if (llvm::isa<clang::CXXDestructorDecl>(method))
+                        continue; // Reject destructors.
                     if (!FuncLooksLikeItHasAccessibleSignatureTypes(*method))
                         continue; // Inaccessible types in the signature.
                     if (method->isDeleted())
@@ -599,8 +611,8 @@ namespace mrbind
 
                     if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
                     {
-                        if (ctor->isCopyOrMoveConstructor())
-                            continue; // Reject copy/move constructors.
+                        // if (ctor->isCopyOrMoveConstructor())
+                        //     continue; // Reject copy/move constructors.
 
                         ClassCtor &new_ctor = new_class.members.emplace_back().emplace<ClassCtor>();
                         new_ctor.is_explicit = ctor->isExplicit();
