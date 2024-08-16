@@ -343,6 +343,13 @@ namespace MRBind::detail::pb11
     template <typename T> struct RemoveCvPointersRefs<T &> {using type = typename RemoveCvPointersRefs<T>::type;};
     template <typename T> struct RemoveCvPointersRefs<T &&> {using type = typename RemoveCvPointersRefs<T>::type;};
 
+    // Removes all pointers and references from a type, but not cv-qualifiers.
+    template <typename T> struct RemovePointersRefs {using type = T;};
+    template <typename T> struct RemovePointersRefs<T *> {using type = typename RemovePointersRefs<T>::type;};
+    template <typename T> struct RemovePointersRefs<T *const> {using type = typename RemovePointersRefs<T>::type;};
+    template <typename T> struct RemovePointersRefs<T &> {using type = typename RemovePointersRefs<T>::type;};
+    template <typename T> struct RemovePointersRefs<T &&> {using type = typename RemovePointersRefs<T>::type;};
+
     // Returns true if `Name` is not the canonical name of `T` (if `Name` is empty, always returns false).
     template <typename T, ConstString Name>
     constexpr bool needs_typedef_wrapper =
@@ -633,10 +640,15 @@ namespace MRBind::detail::pb11
 
             using ReturnTypeAdjustedWrapped = decltype(lambda(std::declval<typename P::WrappedAdjustedType>()...));
 
+            using ReturnTypePtrRefStripped = typename RemovePointersRefs<ReturnTypeAdjustedWrapped>::type;
+
             // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
             // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
             constexpr pybind11::return_value_policy ret_policy =
-                std::is_pointer_v<ReturnTypeAdjustedWrapped> || std::is_reference_v<ReturnTypeAdjustedWrapped>
+                (std::is_pointer_v<ReturnTypeAdjustedWrapped> || std::is_reference_v<ReturnTypeAdjustedWrapped>) &&
+                // This is important. If we return a const reference to a copyable type, we actually COPY it.
+                // Because otherwise pybind11 casts away constness and propagates changes through that reference!
+                (!std::is_const_v<ReturnTypePtrRefStripped>)
                 ? pybind11::return_value_policy::reference
                 : pybind11::return_value_policy::move;
 
