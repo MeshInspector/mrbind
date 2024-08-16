@@ -325,6 +325,10 @@ namespace MRBind::detail::pb11
     {
         template <typename ...P>
         TypedefWrapper(P &&... params) requires std::constructible_from<T, P &&...> : T(std::forward<P>(params)...) {}
+
+        // This little hack is important. Without this, our specialization of `pybind11::detail::is_copy_constructible`
+        // becomes ambiguous with the one in `pybind11/detail/type_caster_base.h` (search for `std::is_copy_constructible<Container>`).
+        using reference = void;
     };
 
     // Given a type, wraps it in `TypedefWrapper`. For pointers and references, it inserted into the most nested level only.
@@ -650,7 +654,13 @@ namespace MRBind::detail::pb11
                 // Because otherwise pybind11 casts away constness and propagates changes through that reference!
                 (!std::is_const_v<ReturnTypePtrRefStripped>)
                 ? pybind11::return_value_policy::reference
+                : std::is_const_v<ReturnTypePtrRefStripped>
+                // This is important too, otherwise pybind11 will const_cast and then move!
+                ? pybind11::return_value_policy::copy
                 : pybind11::return_value_policy::move;
+
+            // Make sure this isn't a hard error. We add our own specializations, and we don't want them to be ambiguous.
+            (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<ReturnTypePtrRefStripped>>::value;
 
             constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
 
@@ -766,8 +776,8 @@ namespace detail
     class type_caster<T> : public type_caster_base<T> /*MRBind::detail::pb11::RegisterTypeWithCustomBinding<T>*/ {};
 
     // Propagate pybind11's fixed `is_copy_constructible` through `TypedefWrapper`.
-    template <typename T, MRBind::ConstString Name, typename Void>
-    struct is_copy_constructible<MRBind::detail::pb11::TypedefWrapper<T, Name>, Void>
+    template <typename T, MRBind::ConstString Name>
+    struct is_copy_constructible<MRBind::detail::pb11::TypedefWrapper<T, Name>>
         : is_copy_constructible<T> // This is `pybind11::detail::is_copy_constructible`.
     {};
 }
