@@ -8,10 +8,45 @@ struct pybind11::detail::is_copy_constructible<tl::expected<T, U>>
     : std::conjunction<pybind11::detail::is_copy_constructible<T>, pybind11::detail::is_copy_constructible<U>>
 {};
 
+// Adjust `tl::expected<T, U>` to `std::unique_ptr<T>` or throw.
+// This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.
+template <typename T, typename U>
+requires
+    // Because we need to be able to move the object into `std::unique_ptr`.
+    std::movable<T> &&
+    // Because pybind says that "holder types" (aka smart pointers that transparently pretend to be their element types)
+    // are only supported for "custom types" (aka at least not scalars, strings, etc).
+    (MRBind::detail::pb11::HasCustomTypeBinding<T> || MRBind::detail::pb11::HasParsedClassBinding<T>)
+struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
+    : RegisterTypeWithCustomBindingIfApplicable<T>,
+    RegisterTypeWithCustomBindingIfApplicable<U>
+{
+    static std::unique_ptr<T> Adjust(tl::expected<T, U> &&value)
+    {
+        if (value)
+        {
+            return std::make_unique<T>(std::move(*value));
+        }
+        else
+        {
+            // If `expected` uses `std::string[_view]` as the failure state, throw it directly as a string.
+            // Because `tl::bad_expected_access` for some reason doesn't display strings in its `.what()`.
+            if constexpr (std::is_same_v<U, std::string>)
+                throw std::runtime_error(value.error());
+            else if constexpr (std::is_same_v<U, std::string_view>)
+                throw std::runtime_error(std::string(value.error()));
+            else
+                throw tl::bad_expected_access<U>(std::move(value.error()));
+        }
+    }
+};
+
 // tl::expected
 template <typename T, typename U>
 struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
-    : public DefaultCustomTypeBinding<tl::expected<T, U>>
+    : DefaultCustomTypeBinding<tl::expected<T, U>>,
+    RegisterTypeWithCustomBindingIfApplicable<T>,
+    RegisterTypeWithCustomBindingIfApplicable<U>
 {
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)

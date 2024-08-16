@@ -313,10 +313,17 @@ namespace MRBind::detail::pb11
         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
     };
 
-    template <bool Enable, typename T>
+    // Like `RegisterTypeWithCustomBinding<T>`, but does nothing if T doesn't have a custom binding for it.
+    template <typename T>
     struct RegisterTypeWithCustomBindingIfApplicable {};
     template <HasCustomTypeBinding T>
-    struct RegisterTypeWithCustomBindingIfApplicable<true, T> : RegisterTypeWithCustomBinding<T> {};
+    struct RegisterTypeWithCustomBindingIfApplicable<T> : RegisterTypeWithCustomBinding<T> {};
+
+    // Like `RegisterTypeWithCustomBindingIfApplicable<T>`, but also does nothing if `Enable` is false.
+    template <bool Enable, typename T>
+    struct RegisterTypeWithCustomBindingIfApplicableCond {};
+    template <typename T>
+    struct RegisterTypeWithCustomBindingIfApplicableCond<true, T> : RegisterTypeWithCustomBindingIfApplicable<T> {};
 
     // ---
 
@@ -1378,7 +1385,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 
 #define MB_REGISTER_TYPE(i_, ...) \
-    static constexpr MRBind::detail::pb11::RegisterTypeWithCustomBindingIfApplicable<MB_CHECK_FRAGMENT(i_), std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
+    static constexpr MRBind::detail::pb11::RegisterTypeWithCustomBindingIfApplicableCond<MB_CHECK_FRAGMENT(i_), std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
 
 #define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
     /* Here we just generate the typedef wrapper if needed, and that's all. */\

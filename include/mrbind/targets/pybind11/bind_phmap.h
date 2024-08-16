@@ -2,9 +2,10 @@
 
 #include <parallel_hashmap/phmap.h>
 // phmap::flat_hash_map
-template <typename ...P>
-struct MRBind::detail::pb11::CustomTypeBinding<phmap::flat_hash_map<P...>>
-    : public DefaultCustomTypeBinding<phmap::flat_hash_map<P...>>
+template <typename T, typename ...P>
+struct MRBind::detail::pb11::CustomTypeBinding<phmap::flat_hash_map<T, P...>>
+    : DefaultCustomTypeBinding<phmap::flat_hash_map<T, P...>>,
+    RegisterTypeWithCustomBindingIfApplicable<T>
 {
     template <typename U, typename ...Q>
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_map<U, Q...>(m, n));}

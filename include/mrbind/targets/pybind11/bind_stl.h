@@ -27,9 +27,10 @@ namespace MRBind::detail::pb11
 
 // std::vector
 #include <vector>
-template <typename ...P>
-struct MRBind::detail::pb11::CustomTypeBinding<std::vector<P...>>
-    : public DefaultCustomTypeBinding<std::vector<P...>>
+template <typename T, typename ...P>
+struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, P...>>
+    : DefaultCustomTypeBinding<std::vector<T, P...>>,
+    RegisterTypeWithCustomBindingIfApplicable<T>
 {
     template <typename U, typename ...Q>
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_vector<U, Q...>(m, n));}
@@ -54,12 +55,14 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<P...>>
 };
 // std::map
 #include <map>
-template <typename ...P>
-struct MRBind::detail::pb11::CustomTypeBinding<std::map<P...>>
-    : public DefaultCustomTypeBinding<std::map<P...>>
+template <typename T, typename U, typename ...P>
+struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, P...>>
+    : DefaultCustomTypeBinding<std::map<T, U, P...>>,
+    RegisterTypeWithCustomBindingIfApplicable<T>,
+    RegisterTypeWithCustomBindingIfApplicable<U>
 {
-    template <typename U, typename ...Q>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_map<U, Q...>(m, n));}
+    template <typename V, typename ...Q>
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::bind_map<V, Q...>(m, n));}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
     template <bool InDerivedClass>
@@ -77,7 +80,8 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<P...>>
 #include <optional>
 template <typename T>
 struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
-    : public DefaultCustomTypeBinding<std::optional<T>>
+    : DefaultCustomTypeBinding<std::optional<T>>,
+    RegisterTypeWithCustomBindingIfApplicable<T>
 {
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)
@@ -112,7 +116,8 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
 #include <variant>
 template <typename ...P>
 struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
-    : public DefaultCustomTypeBinding<std::variant<P...>>
+    : public DefaultCustomTypeBinding<std::variant<P...>>,
+    RegisterTypeWithCustomBindingIfApplicable<P>...
 {
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)
