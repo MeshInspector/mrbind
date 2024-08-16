@@ -22,7 +22,8 @@ namespace MRBind
                 value[i] = new_value[i];
         }
 
-        [[nodiscard]] consteval std::string_view view() const
+        // This would be `consteval`, but Clang 18 complains about it when applying it to a return value of a consteval function (a bug?).
+        [[nodiscard]] constexpr std::string_view view() const
         {
             return {value, N-1};
         }

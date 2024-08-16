@@ -259,7 +259,8 @@ namespace MRBind::detail::pb11
         // This passes the constructor arguments to `pybind_type`.
         // Normally you don't need to override this. Override this for stuff like `pybind11::bind_vector()` or `pybind11::bind_map()`.
         // `U` is either a `pybind_type` or that of a derived class (i.e. `TypedefWrapper<T, "...">`). Use `U` instead of `pybind_type` and `T` here.
-        template <typename U>
+        // `P` is a list of parents. Normally this will be at most one.
+        template <typename U, typename ...Q>
         [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(m, n);}
 
         // The type name for pybind11. Normally don't need to override this.
@@ -507,7 +508,7 @@ namespace MRBind::detail::pb11
 
     // Adjust rvalue references to copyable types to passing by value and then copying. pybind11 doesn't like rvalue references.
     template <typename T>
-    requires std::is_rvalue_reference_v<T>
+    requires std::is_rvalue_reference_v<T> && std::is_copy_constructible_v<std::remove_reference_t<T>>
     struct ParamTraits<T>
     {
         using adjusted_param_type = std::remove_reference_t<T>;
@@ -516,6 +517,13 @@ namespace MRBind::detail::pb11
         {
             return std::move(param);
         }
+    };
+    // Rvalue references and passing by value for noncopyable types disable the whole function.
+    template <typename T>
+    requires ((std::is_rvalue_reference_v<T> || !std::is_reference_v<T>) && !std::is_copy_constructible_v<std::remove_reference_t<T>>)
+    struct ParamTraits<T>
+    {
+        using disables_func = void;
     };
 
     // ---
@@ -745,7 +753,7 @@ namespace MRBind::detail::pb11
         using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
         if constexpr (std::is_abstract_v<T>)
             ; // Reject abstract classes.
-        else if constexpr ((ParamTypeDisablesWholeFunction<P> || ...))
+        else if constexpr ((ParamTypeDisablesWholeFunction<typename P::OriginalType> || ...))
             ; // This function has a parameter of a weird type that we can't support.
         else if constexpr (sizeof...(P) == 1 && std::is_base_of_v<typename AdjustedParamType<FirstType<typename P::OriginalType...>>::type, T>)
             // Reject move constructors. They just appear as a duplicate of the copy constructor in the `help(...)`, and other than that don't do anything.
@@ -796,9 +804,15 @@ requires MRBind::detail::pb11::HasCustomTypeBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
     : public CustomTypeBinding<T>
 {
-    using pybind_type = pybind11::class_<MRBind::detail::pb11::TypedefWrapper<T, Name>>;
+    using pybind_type = pybind11::class_<MRBind::detail::pb11::TypedefWrapper<T, Name>, T>;
 
     [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
+
+    template <typename U> // No `typename ...Q`, we don't expect any parents here.
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n)
+    {
+        return CustomTypeBinding<T>::template pybind_init<U, T>(std::move(f), m, n);
+    }
 
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &m, auto &c)
@@ -818,7 +832,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
 
     [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
 
-    template <typename U>
+    template <typename U> // No `typename ...Q`, we don't expect any parents here.
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n)
     {
         return std::make_unique<MRBind::detail::pb11::SpecificPybindType<typename BindParsedClass<T>::template pybind_class_type_for<U, T>>>(BindParsedClass<T>::template BindType<U, T>(m, n));
