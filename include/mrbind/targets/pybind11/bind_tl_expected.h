@@ -13,10 +13,7 @@ struct pybind11::detail::is_copy_constructible<tl::expected<T, U>>
 template <typename T, typename U>
 requires
     // Because we need to be able to move the object into `std::unique_ptr`.
-    std::movable<T> &&
-    // Because pybind says that "holder types" (aka smart pointers that transparently pretend to be their element types)
-    // are only supported for "custom types" (aka at least not scalars, strings, etc).
-    (MRBind::detail::pb11::HasCustomTypeBinding<T> || MRBind::detail::pb11::HasParsedClassBinding<T>)
+    std::movable<T>
 struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
     : RegisterTypeWithCustomBindingIfApplicable<T>,
     RegisterTypeWithCustomBindingIfApplicable<U>
@@ -25,6 +22,8 @@ struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
     {
         if (value)
         {
+            // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
+            // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
             return std::make_unique<T>(std::move(*value));
         }
         else

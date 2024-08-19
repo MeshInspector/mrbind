@@ -482,9 +482,9 @@ namespace MRBind::detail::pb11
     }
 
     template <typename T>
-    struct AdjustedReturnType {using type = T;};
+    struct AdjustReturnType {using type = T;};
     template <ReturnTypeNeedsAdjusting T>
-    struct AdjustedReturnType<T> {using type = decltype(ReturnTypeTraits<T>::Adjust(std::declval<T &&>()));};
+    struct AdjustReturnType<T> {using type = decltype(ReturnTypeTraits<T>::Adjust(std::declval<T &&>()));};
 
     // ---
 
@@ -590,6 +590,13 @@ namespace MRBind::detail::pb11
     // ---
 
     template <typename T>
+    struct IsUniquePtrToBuiltinType : std::false_type {};
+    template <typename T>
+    struct IsUniquePtrToBuiltinType<std::unique_ptr<T>> : std::bool_constant<!HasCustomTypeBinding<T> && !HasParsedClassBinding<T>> {};
+
+    // ---
+
+    template <typename T>
     struct DeleterOrCrash
     {
         void operator()(T *ptr)
@@ -652,34 +659,53 @@ namespace MRBind::detail::pb11
         else
         {
             using ReturnType = std::invoke_result_t<decltype(F), typename P::OriginalType &&...>; // `P::OriginalType...` are already unadjusted.
+            using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
+
+            constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
 
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
             {
-                if constexpr (std::is_void_v<ReturnType>)
-                    /*------------------------------------------------------------*/std::invoke(F, (UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...);
+                #define INVOKE_FUNC std::invoke(F, (UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...)
+
+                if constexpr (std::is_void_v<ReturnTypeAdjusted>)
+                {
+                    INVOKE_FUNC;
+                }
                 else
-                    return (AdjustAndWrapReturnedValue<ReturnType, ReturnTypeName>)(std::invoke(F, (UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...));
+                {
+                    #define INVOKE_FUNC_R (AdjustAndWrapReturnedValue<ReturnType, ReturnTypeName>)(INVOKE_FUNC)
+
+                    if constexpr (returns_unique_ptr_to_builtin)
+                        return INVOKE_FUNC_R.release(); // `pybind11::return_value_policy::take_ownership` takes ownership of this.
+                    else
+                        return INVOKE_FUNC_R;
+
+                    #undef INVOKE_FUNC_R
+                }
+
+                #undef INVOKE_FUNC
             };
 
-            using ReturnTypeAdjustedWrapped = decltype(lambda(std::declval<typename P::WrappedAdjustedType>()...));
+            using LambdaReturnTypeAdjustedWrapped = decltype(lambda(std::declval<typename P::WrappedAdjustedType>()...));
 
-            using ReturnTypePtrRefStripped = typename RemovePointersRefs<ReturnTypeAdjustedWrapped>::type;
+            using LambdaReturnTypeAdjustedWrapperPtrRefStripped = typename RemovePointersRefs<LambdaReturnTypeAdjustedWrapped>::type;
 
             // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
             // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
             constexpr pybind11::return_value_policy ret_policy =
-                (std::is_pointer_v<ReturnTypeAdjustedWrapped> || std::is_reference_v<ReturnTypeAdjustedWrapped>) &&
+                returns_unique_ptr_to_builtin ?
+                    pybind11::return_value_policy::take_ownership :
+                (std::is_pointer_v<LambdaReturnTypeAdjustedWrapped> || std::is_reference_v<LambdaReturnTypeAdjustedWrapped>) &&
                 // This is important. If we return a const reference to a copyable type, we actually COPY it.
                 // Because otherwise pybind11 casts away constness and propagates changes through that reference!
-                (!std::is_const_v<ReturnTypePtrRefStripped>)
-                ? pybind11::return_value_policy::reference
-                : std::is_const_v<ReturnTypePtrRefStripped>
+                !std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped>
+                    ? pybind11::return_value_policy::reference :
                 // This is important too, otherwise pybind11 will const_cast and then move!
-                ? pybind11::return_value_policy::copy
+                std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? pybind11::return_value_policy::copy
                 : pybind11::return_value_policy::move;
 
             // Make sure this isn't a hard error. We add our own specializations, and we don't want them to be ambiguous.
-            (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<ReturnTypePtrRefStripped>>::value;
+            (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
 
             constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
 

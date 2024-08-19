@@ -9,15 +9,14 @@ namespace MRBind::detail::pb11
     template <typename T>
     requires
         // Because we need to be able to move the object into `std::unique_ptr`.
-        std::movable<T> &&
-        // Because pybind says that "holder types" (aka smart pointers that transparently pretend to be their element types)
-        // are only supported for "custom types" (aka at least not scalars, strings, etc).
-        (HasCustomTypeBinding<T> || HasParsedClassBinding<T>)
+        std::movable<T>
     struct ReturnTypeTraits<std::optional<T>>
     {
         static std::unique_ptr<T> Adjust(std::optional<T> &&value)
         {
             if (value)
+                // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
+                // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
                 return std::make_unique<T>(std::move(*value));
             else
                 return nullptr;
