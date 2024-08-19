@@ -14,9 +14,8 @@ template <typename T, typename U>
 requires
     // Because we need to be able to move the object into `std::unique_ptr`.
     std::movable<T>
-struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
-    : RegisterTypeWithCustomBindingIfApplicable<T>,
-    RegisterTypeWithCustomBindingIfApplicable<U>
+struct MRBind::detail::pb11::ReturnTypeAdjustment<tl::expected<T, U>>
+    : RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
     static std::unique_ptr<T> Adjust(tl::expected<T, U> &&value)
     {
@@ -24,7 +23,7 @@ struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
         {
             // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
             // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
-            return std::make_unique<T>(std::move(*value));
+            return (AdjustReturnedValue<std::unique_ptr<T>>)(std::make_unique<T>(std::move(*value)));
         }
         else
         {
@@ -44,8 +43,7 @@ struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
 template <typename T, typename U>
 struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
     : DefaultCustomTypeBinding<tl::expected<T, U>>,
-    RegisterTypeWithCustomBindingIfApplicable<T>,
-    RegisterTypeWithCustomBindingIfApplicable<U>
+    RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)

@@ -254,7 +254,7 @@ namespace MRBind::detail::pb11
     {
         // The pybind11's description of this type.
         // Can also be a `pybind11::enum_<T>` for enums, and perhaps something else.
-        using pybind_type = pybind11::class_<T>;
+        using pybind_type = pybind11::class_<T, std::shared_ptr<T>>;
 
         // This passes the constructor arguments to `pybind_type`.
         // Normally you don't need to override this. Override this for stuff like `pybind11::bind_vector()` or `pybind11::bind_map()`.
@@ -313,17 +313,42 @@ namespace MRBind::detail::pb11
         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
     };
 
+    // Removes cvref-qualifiers, pointers, smart pointers.
+    template <typename T> struct StripToUnderlyingType {using type = T;};
+    template <typename T> struct StripToUnderlyingType<const T> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<T *> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<T &> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<T &&> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<std::shared_ptr<T>> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T, typename D> struct StripToUnderlyingType<std::unique_ptr<T, D>> {using type = typename StripToUnderlyingType<T>::type;};
+
     // Like `RegisterTypeWithCustomBinding<T>`, but does nothing if T doesn't have a custom binding for it.
+    // Also automatically strips pointers/refs/etc.
     template <typename T>
+    struct RegisterOneTypeWithCustomBindingIfApplicable {};
+    template <typename T> requires HasCustomTypeBinding<typename StripToUnderlyingType<T>::type>
+    struct RegisterOneTypeWithCustomBindingIfApplicable<T> : RegisterTypeWithCustomBinding<typename StripToUnderlyingType<T>::type> {};
+
+    // Like `RegisterOneTypeWithCustomBindingIfApplicable`, but also accepts multiple types.
+    // This is because you might want to inherit from it, and if you try to inherit from several instances,
+    //   and if the template parameters of them happen to match, you'll get a compilation error (repeated direct base class).
+    #ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Winaccessible-base"
+    #endif
+    template <typename ...P>
     struct RegisterTypeWithCustomBindingIfApplicable {};
-    template <HasCustomTypeBinding T>
-    struct RegisterTypeWithCustomBindingIfApplicable<T> : RegisterTypeWithCustomBinding<T> {};
+    template <typename P0, typename ...P>
+    struct RegisterTypeWithCustomBindingIfApplicable<P0, P...> : RegisterOneTypeWithCustomBindingIfApplicable<P0>, RegisterTypeWithCustomBindingIfApplicable<P...> {};
+    #ifdef __clang__
+    #pragma clang diagnostic pop
+    #endif
 
     // Like `RegisterTypeWithCustomBindingIfApplicable<T>`, but also does nothing if `Enable` is false.
     template <bool Enable, typename T>
-    struct RegisterTypeWithCustomBindingIfApplicableCond {};
+    struct RegisterOneTypeWithCustomBindingIfApplicableCond {};
     template <typename T>
-    struct RegisterTypeWithCustomBindingIfApplicableCond<true, T> : RegisterTypeWithCustomBindingIfApplicable<T> {};
+    struct RegisterOneTypeWithCustomBindingIfApplicableCond<true, T> : RegisterOneTypeWithCustomBindingIfApplicable<T> {};
 
     // ---
 
@@ -434,19 +459,20 @@ namespace MRBind::detail::pb11
     // This trait can be used to automatically adjust returned values.
 
     template <typename T>
-    struct ReturnTypeTraits
+    struct ReturnTypeAdjustment
     {
+        // When implementing this, don't forget to recursively call `AdjustReturnedValue()`.
         // static ?? Adjust(T &&);
     };
 
     template <typename T>
-    concept ReturnTypeNeedsAdjusting = requires{ReturnTypeTraits<T>::Adjust(std::declval<T &&>());};
+    concept ReturnTypeNeedsAdjusting = requires{ReturnTypeAdjustment<T>::Adjust(std::declval<T &&>());};
 
     template <typename T>
     [[nodiscard]] decltype(auto) AdjustReturnedValue(std::type_identity_t<T &&> value)
     {
         if constexpr (ReturnTypeNeedsAdjusting<T>)
-            return ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value));
+            return ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value));
         else if constexpr (std::is_rvalue_reference_v<T &&>)
             return std::forward<T &&>(value);
         else
@@ -458,18 +484,18 @@ namespace MRBind::detail::pb11
     {
         if constexpr (ReturnTypeNeedsAdjusting<T>)
         {
-            using R = decltype(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
+            using R = decltype(ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value)));
             if constexpr (!needs_typedef_wrapper<T, Name>)
             {
-                return ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value));
+                return ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value));
             }
             else
             {
                 using W = MaybeTypedefWrapper<R, Name>;
                 if constexpr (std::is_reference_v<W>)
-                    return reinterpret_cast<W>(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
+                    return reinterpret_cast<W>(ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value)));
                 else
-                    return W(ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value)));
+                    return W(ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value)));
             }
         }
         else
@@ -484,7 +510,7 @@ namespace MRBind::detail::pb11
     template <typename T>
     struct AdjustReturnType {using type = T;};
     template <ReturnTypeNeedsAdjusting T>
-    struct AdjustReturnType<T> {using type = decltype(ReturnTypeTraits<T>::Adjust(std::declval<T &&>()));};
+    struct AdjustReturnType<T> {using type = decltype(ReturnTypeAdjustment<T>::Adjust(std::declval<T &&>()));};
 
     // ---
 
@@ -589,28 +615,40 @@ namespace MRBind::detail::pb11
 
     // ---
 
+    template <typename T> struct IsSmartPtr : std::false_type {};
+    template <typename T> struct IsSmartPtr<std::shared_ptr<T>> : std::true_type {};
+    template <typename T, typename D> struct IsSmartPtr<std::unique_ptr<T, D>> : std::true_type {};
+
     template <typename T>
     struct IsUniquePtrToBuiltinType : std::false_type {};
     template <typename T>
-    struct IsUniquePtrToBuiltinType<std::unique_ptr<T>> : std::bool_constant<!HasCustomTypeBinding<T> && !HasParsedClassBinding<T>> {};
+    struct IsUniquePtrToBuiltinType<std::unique_ptr<T>>
+        : std::bool_constant<
+            !HasCustomTypeBinding<T> &&
+            !HasParsedClassBinding<T> &&
+            // We don't want to accept those. Because transforming `std::optional<std::shared_ptr<T>>` to `std::shared_ptr<T> *` is kinda lame.
+            !IsSmartPtr<T>::value
+        >
+    {};
 
     // ---
 
     template <typename T>
-    struct DeleterOrCrash
+    struct CrashingDeleter
     {
         void operator()(T *ptr)
         {
-            if constexpr (std::is_destructible_v<T>)
-            {
-                delete ptr;
-            }
-            else
-            {
-                CriticalError("Trying to delete a type with a private destructor: " + std::string(BakedTypeNameOrFallback<T>()));
-            }
+            CriticalError("Trying to delete a type with a private destructor: " + std::string(BakedTypeNameOrFallback<T>()));
         }
     };
+
+    // Selects an appropriate pybind11 holder type for `T`. We REALLY don't want to use `std::unique_ptr` here,
+    // because if you then try to return a `std::shared_ptr`, pybind will try to steal ownership from it, and then crash with a double-free (better test with ASAN).
+    template <typename T>
+    struct SelectPybindHolder {using type = std::shared_ptr<T>;};
+    // Here we just need some holder that compiles. This one will crash if actually destroyed, so using `std::unique_ptr` here doesn't matter.
+    template <typename T> requires (!std::is_destructible_v<T>)
+    struct SelectPybindHolder<T> {using type = std::unique_ptr<T, CrashingDeleter<T>>;};
 
     // ---
 
@@ -1268,7 +1306,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 /* Type. */\
                 T, \
                 /* Holder. */\
-                std::unique_ptr<T, MRBind::detail::pb11::DeleterOrCrash<T>>,\
+                typename SelectPybindHolder<T>::type,\
                 /* Extra. */\
                 P... \
             >; \
@@ -1411,7 +1449,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 
 #define MB_REGISTER_TYPE(i_, ...) \
-    static constexpr MRBind::detail::pb11::RegisterTypeWithCustomBindingIfApplicableCond<MB_CHECK_FRAGMENT(i_), std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
+    static constexpr MRBind::detail::pb11::RegisterOneTypeWithCustomBindingIfApplicableCond<MB_CHECK_FRAGMENT(i_), std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
 
 #define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
     /* Here we just generate the typedef wrapper if needed, and that's all. */\
