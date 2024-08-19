@@ -461,7 +461,7 @@ namespace MRBind::detail::pb11
     template <typename T>
     struct ReturnTypeAdjustment
     {
-        // When implementing this, don't forget to recursively call `AdjustReturnedValue()`.
+        // When implementing this, don't forget to recursively call `AdjustReturnedValue()`. Unless if you're using `OptionalReturnType`, perhaps.
         // static ?? Adjust(T &&);
     };
 
@@ -511,6 +511,33 @@ namespace MRBind::detail::pb11
     struct AdjustReturnType {using type = T;};
     template <ReturnTypeNeedsAdjusting T>
     struct AdjustReturnType<T> {using type = decltype(ReturnTypeAdjustment<T>::Adjust(std::declval<T &&>()));};
+
+    // ---
+
+    template <typename T> struct IsSmartPtr : std::false_type {};
+    template <typename T> struct IsSmartPtr<std::shared_ptr<T>> : std::true_type {};
+    template <typename T, typename D> struct IsSmartPtr<std::unique_ptr<T, D>> : std::true_type {};
+
+    // A helper for implementing `ReturnTypeAdjustment`, for types like `std::optional` and `tl::expected`.
+    template <typename T>
+    struct OptionalReturnType
+    {
+        using type = std::unique_ptr<T>;
+        [[nodiscard]] static std::unique_ptr<T> make(T &&value)
+        {
+            return std::make_unique<T>(std::move(value));
+        }
+    };
+    // Leave smart pointers as is. We don't want to end up with `std::unique_ptr<std::shared_ptr<...>>`.
+    template <typename T> requires IsSmartPtr<T>::value || std::is_pointer_v<T>
+    struct OptionalReturnType<T>
+    {
+        using type = T;
+        [[nodiscard]] static T make(T &&value)
+        {
+            return std::move(value);
+        }
+    };
 
     // ---
 
@@ -614,10 +641,6 @@ namespace MRBind::detail::pb11
     }
 
     // ---
-
-    template <typename T> struct IsSmartPtr : std::false_type {};
-    template <typename T> struct IsSmartPtr<std::shared_ptr<T>> : std::true_type {};
-    template <typename T, typename D> struct IsSmartPtr<std::unique_ptr<T, D>> : std::true_type {};
 
     template <typename T>
     struct IsUniquePtrToBuiltinType : std::false_type {};
@@ -875,7 +898,15 @@ requires MRBind::detail::pb11::HasCustomTypeBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
     : public CustomTypeBinding<T>
 {
-    using pybind_type = pybind11::class_<MRBind::detail::pb11::TypedefWrapper<T, Name>, T>;
+    using pybind_type = pybind11::class_<
+        // This class.
+        MRBind::detail::pb11::TypedefWrapper<T, Name>,
+        // Base.
+        T,
+        // Holder. You'd think we don't need it here, but otherwise we get:
+        //   ImportError: generic_type: type "X" does not have a non-default holder type while its base "Y" does
+        typename SelectPybindHolder<MRBind::detail::pb11::TypedefWrapper<T, Name>>::type
+    >;
 
     [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
 
@@ -899,7 +930,7 @@ requires MRBind::detail::pb11::HasParsedClassBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
     : public DefaultCustomTypeBinding<T>
 {
-    using pybind_type = BindParsedClass<T>::template pybind_class_type_for<TypedefWrapper<T, Name>, T>;
+    using pybind_type = BindParsedClass<T>::template pybind_class_type_for<TypedefWrapper<T, Name>, T>; // This automatically sets the right holder.
 
     [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
 

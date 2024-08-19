@@ -17,13 +17,13 @@ requires
 struct MRBind::detail::pb11::ReturnTypeAdjustment<tl::expected<T, U>>
     : RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
-    static std::unique_ptr<T> Adjust(tl::expected<T, U> &&value)
+    static OptionalReturnType<T>::type Adjust(tl::expected<T, U> &&value)
     {
         if (value)
         {
             // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
             // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
-            return (AdjustReturnedValue<std::unique_ptr<T>>)(std::make_unique<T>(std::move(*value)));
+            return OptionalReturnType<T>::make(std::move(*value));
         }
         else
         {
