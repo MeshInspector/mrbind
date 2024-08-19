@@ -483,6 +483,7 @@ namespace MRBind::detail::pb11
     template <typename T, typename D>
     struct ReturnTypeAdjustment<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
     // When returning a REFERENCE to `std::unique_ptr`, just replace it with a raw pointer.
+    // This one was necessary for `tl::expected<T,U>` bindings, where if `T` is a `unique_ptr`, `.value()` returns a reference to it.
     template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value
     struct ReturnTypeAdjustment<T> {static auto Adjust(T &&src) {return src.get();}};
 
