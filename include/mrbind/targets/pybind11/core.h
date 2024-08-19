@@ -229,6 +229,17 @@ namespace MRBind::detail::pb11
 
     // ---
 
+    // Some simple type traits:
+
+    template <typename T> struct IsUniquePtr : std::false_type {};
+    template <typename T, typename D> struct IsUniquePtr<std::unique_ptr<T, D>> : std::true_type {};
+
+    template <typename T> struct IsSmartPtr : std::false_type {};
+    template <typename T> struct IsSmartPtr<std::shared_ptr<T>> : std::true_type {};
+    template <typename T, typename D> struct IsSmartPtr<std::unique_ptr<T, D>> : std::true_type {};
+
+    // ---
+
     // This is specialized by `MB_CLASS()` of the stage 0.
     template <typename T>
     struct BindParsedClass
@@ -461,13 +472,24 @@ namespace MRBind::detail::pb11
     template <typename T>
     struct ReturnTypeAdjustment
     {
-        // When implementing this, don't forget to recursively call `AdjustReturnedValue()`. Unless if you're using `OptionalReturnType`, perhaps.
+        using unspecialized = void; // Remove this in specializations.
+
+        // When implementing this, don't forget to recursively call `AdjustReturnedValue()`!
         // static ?? Adjust(T &&);
     };
+    // Adjust `std::unique_ptr` to `std::shared_ptr`, when returning it by value.
+    // For some reason pybind11 crashes when the holder type is set to `shared_ptr` and you return a `unique_ptr`.
+    // (When the reverse happens it also crashes, but in that case no adjustment can help us, so instead we use a `shared_ptr` holder and adjust `unique_ptr`.)
+    template <typename T, typename D>
+    struct ReturnTypeAdjustment<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
+    // When returning a REFERENCE to `std::unique_ptr`, just replace it with a raw pointer.
+    template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value
+    struct ReturnTypeAdjustment<T> {static auto Adjust(T &&src) {return src.get();}};
 
     template <typename T>
-    concept ReturnTypeNeedsAdjusting = requires{ReturnTypeAdjustment<T>::Adjust(std::declval<T &&>());};
+    concept ReturnTypeNeedsAdjusting = !requires{typename ReturnTypeAdjustment<T>::unspecialized;};
 
+    // Using `std::type_identity` to prevent `T` from being deduced, because the behavior for non-reference T and rvalue reference T can be different.
     template <typename T>
     [[nodiscard]] decltype(auto) AdjustReturnedValue(std::type_identity_t<T &&> value)
     {
@@ -514,14 +536,13 @@ namespace MRBind::detail::pb11
 
     // ---
 
-    template <typename T> struct IsSmartPtr : std::false_type {};
-    template <typename T> struct IsSmartPtr<std::shared_ptr<T>> : std::true_type {};
-    template <typename T, typename D> struct IsSmartPtr<std::unique_ptr<T, D>> : std::true_type {};
-
     // A helper for implementing `ReturnTypeAdjustment`, for types like `std::optional` and `tl::expected`.
     template <typename T>
     struct OptionalReturnType
     {
+        // Maybe we should return `std::shared_ptr` here? Since we use `std::shared_ptr` holders for everything,
+        //   and even adjust `std::unique_ptr` to `std::shared_ptr`, since things crash otherwise?
+        // I'll keep this `unique_ptr` for now, the user is supposed to call `AdjustReturnedValue()` anyway.
         using type = std::unique_ptr<T>;
         [[nodiscard]] static std::unique_ptr<T> make(T &&value)
         {

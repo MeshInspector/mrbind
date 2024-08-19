@@ -17,13 +17,13 @@ requires
 struct MRBind::detail::pb11::ReturnTypeAdjustment<tl::expected<T, U>>
     : RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
-    static OptionalReturnType<T>::type Adjust(tl::expected<T, U> &&value)
+    static auto Adjust(tl::expected<T, U> &&value)
     {
         if (value)
         {
             // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
             // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
-            return OptionalReturnType<T>::make(std::move(*value));
+            return AdjustReturnedValue<typename OptionalReturnType<T>::type>(OptionalReturnType<T>::make(std::move(*value)));
         }
         else
         {
@@ -82,7 +82,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
                 }
                 else
                 {
-                    return e.value(); // `.value()` should throw on failure.
+                    return (AdjustReturnedValue<decltype(e.value())>)(e.value()); // `.value()` should throw on failure.
                 }
             }, pybind11::return_value_policy::reference_internal);
 
@@ -92,7 +92,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
                 if (e.has_value())
                     throw std::runtime_error("This `tl::expected` doesn't hold an error.");
                 else
-                    return e.error();
+                    return (AdjustReturnedValue<decltype(e.error())>)(e.error());
             }, pybind11::return_value_policy::reference_internal);
         }
     }

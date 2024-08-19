@@ -12,14 +12,14 @@ namespace MRBind::detail::pb11
         std::movable<T>
     struct ReturnTypeAdjustment<std::optional<T>>
     {
-        static typename OptionalReturnType<T>::type Adjust(std::optional<T> &&value)
+        static auto Adjust(std::optional<T> &&value)
         {
             typename OptionalReturnType<T>::type ret;
             if (value)
                 // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
                 // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
                 ret = OptionalReturnType<T>::make(std::move(*value));
-            return ret;
+            return AdjustReturnedValue<decltype(ret)>(std::move(ret));
         }
     };
 }
