@@ -477,15 +477,6 @@ namespace MRBind::detail::pb11
         // When implementing this, don't forget to recursively call `AdjustReturnedValue()`!
         // static ?? Adjust(T &&);
     };
-    // Adjust `std::unique_ptr` to `std::shared_ptr`, when returning it by value.
-    // For some reason pybind11 crashes when the holder type is set to `shared_ptr` and you return a `unique_ptr`.
-    // (When the reverse happens it also crashes, but in that case no adjustment can help us, so instead we use a `shared_ptr` holder and adjust `unique_ptr`.)
-    template <typename T, typename D>
-    struct ReturnTypeAdjustment<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
-    // When returning a REFERENCE to `std::unique_ptr`, just replace it with a raw pointer.
-    // This one was necessary for `tl::expected<T,U>` bindings, where if `T` is a `unique_ptr`, `.value()` returns a reference to it.
-    template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value
-    struct ReturnTypeAdjustment<T> {static auto Adjust(T &&src) {return src.get();}};
 
     template <typename T>
     concept ReturnTypeNeedsAdjusting = !requires{typename ReturnTypeAdjustment<T>::unspecialized;};
@@ -661,6 +652,20 @@ namespace MRBind::detail::pb11
     {
         return (UnadjustParam<T>)(static_cast<typename AdjustedParamType<T>::type &&>(std::forward<WrappedAdjustedParamType<T, Name>>(param)));
     }
+
+    // ---
+
+    // Some `ReturnTypeAdjustment` specializations:
+
+    // Adjust `std::unique_ptr` to `std::shared_ptr`, when returning it by value.
+    // For some reason pybind11 crashes when the holder type is set to `shared_ptr` and you return a `unique_ptr`.
+    // (When the reverse happens it also crashes, but in that case no adjustment can help us, so instead we use a `shared_ptr` holder and adjust `unique_ptr`.)
+    template <typename T, typename D> requires HasCustomTypeBinding<T> || HasParsedClassBinding<T>
+    struct ReturnTypeAdjustment<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
+    // When returning a REFERENCE to `std::unique_ptr`, just replace it with a raw pointer.
+    // This one was necessary for `tl::expected<T,U>` bindings, where if `T` is a `unique_ptr`, `.value()` returns a reference to it.
+    template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value && (HasCustomTypeBinding<typename std::remove_cvref_t<T>::element_type> || HasParsedClassBinding<typename std::remove_cvref_t<T>::element_type>)
+    struct ReturnTypeAdjustment<T> {static auto Adjust(T &&src) {return src.get();}};
 
     // ---
 
@@ -915,6 +920,7 @@ namespace detail
 }
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 
+// Typedef wrapper for a custom class.
 template <typename T, MRBind::ConstString Name>
 requires MRBind::detail::pb11::HasCustomTypeBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
@@ -947,6 +953,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
     static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
 };
 
+// Typedef wrapper for a parsed class.
 template <typename T, MRBind::ConstString Name>
 requires MRBind::detail::pb11::HasParsedClassBinding<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
