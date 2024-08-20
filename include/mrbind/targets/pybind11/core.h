@@ -60,6 +60,15 @@ namespace MRBind::detail::pb11
     // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
     [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
 
+    template <typename T>
+    [[nodiscard]] std::string GetConversionFuncName(const char *type_name)
+    {
+        if constexpr (std::is_same_v<T, bool>)
+            return "__bool__";
+        else
+            return "_convert_to_" + ToPythonName(type_name);
+    }
+
     // ---
 
     // On MSVC, removes `class` and other unnecessary strings from type names.
@@ -1602,7 +1611,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     >( \
         _pb11_c, \
         /* Simple name */\
-        ("_convert_to_" + MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY ret_))).c_str(), \
+        MRBind::detail::pb11::GetConversionFuncName<MRBIND_IDENTITY ret_>(MRBIND_STR(MRBIND_IDENTITY ret_)).c_str(), \
         /* Full name */\
         nullptr \
         /* Comment, if any. */ \
