@@ -969,6 +969,33 @@ namespace MRBind::detail::pb11
             }
         }
     }
+
+    // If the class has begin/end methods, adds the 'iterable' protocol.
+    template <typename T>
+    void TryMakeIterable(auto &c)
+    {
+        // Could use `std::ranges` here, but using a less fancy approach to hopefully support older standard libraries.
+        using std::begin; // Fallback to `std::begin`/`std::end` on ADL failure.
+        using std::end; // ^
+        if constexpr (
+            requires(const T &t)
+            {
+                requires std::is_same_v<decltype(begin(t)), decltype(end(t))>; // Both iterators exist and have the same type.
+                requires std::is_lvalue_reference_v<decltype(*begin(t))>; // Iterators dereference to lvalue references. Maybe not strictly necessary.
+            }
+        )
+        {
+            c.def(
+                "__iter__",
+                [](T &target)
+                {
+                    return pybind11::make_iterator(begin(target), end(target));
+                },
+                // Keep the container alive as long as iterators exist.
+                pybind11::keep_alive<0, 1>()
+            );
+        }
+    }
 }
 
 PYBIND11_NAMESPACE_BEGIN(PYBIND11_NAMESPACE)
@@ -1570,6 +1597,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         void BindParsedClass<MRBIND_IDENTITY qualname_>::BindMembers(pybind11::module_ &_pb11_m, pybind_class_type_for<_pb11_C, _pb11_E...> &_pb11_c) \
         { \
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+            /* Make this class iterable if necessary. */\
+            (TryMakeIterable<_pb11_C>)(_pb11_c); \
         } \
     }
 
