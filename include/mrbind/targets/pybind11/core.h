@@ -491,10 +491,10 @@ namespace MRBind::detail::pb11
     {
         if constexpr (ReturnTypeNeedsAdjusting<T>)
             return ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value));
-        else if constexpr (std::is_rvalue_reference_v<T &&>)
+        else if constexpr (std::is_reference_v<T>)
             return std::forward<T &&>(value);
         else
-            return value;
+            return T(std::move(value)); // Really want the correct return type, so have to accept an extra move, I guess?
     }
 
     template <typename T, ConstString Name>
@@ -1598,7 +1598,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         { \
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
             /* Make this class iterable if necessary. */\
-            (TryMakeIterable<_pb11_C>)(_pb11_c); \
+            if constexpr (!_pb11_InDerivedClass) \
+                (TryMakeIterable<_pb11_C>)(_pb11_c); \
         } \
     }
 

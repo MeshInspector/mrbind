@@ -12,7 +12,7 @@ namespace MRBind::detail::pb11
         std::movable<T>
     struct ReturnTypeAdjustment<std::optional<T>>
     {
-        static auto Adjust(std::optional<T> &&value)
+        static decltype(auto) Adjust(std::optional<T> &&value)
         {
             typename OptionalReturnType<T>::type ret;
             if (value)
@@ -269,6 +269,63 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, P...>>
     }
     #endif
 };
+// std::array
+#include <array>
+template <typename T, std::size_t N>
+struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
+    : DefaultCustomTypeBinding<std::array<T, N>>,
+    RegisterTypeWithCustomBindingIfApplicable<T>
+{
+    template <bool InDerivedClass>
+    static void bind_members(pybind11::module_ &, auto &c)
+    {
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
+
+        // Default constructor.
+        if constexpr (std::default_initializable<std::array<T, N>>)
+            c.type.def(pybind11::init([]{return std::make_shared<TT>();}));
+
+        // Copy constructor.
+        if constexpr (pybind11::detail::is_copy_constructible<std::array<T, N>>::value)
+        {
+            c.type.def(pybind11::init<const std::array<T, N> &>());
+            if constexpr (InDerivedClass)
+                pybind11::implicitly_convertible<std::array<T, N>, TT>();
+        }
+
+        if constexpr (!InDerivedClass)
+        {
+            // Length.
+            c.type.def("__len__", []{return N;});
+
+            // Indexing operator.
+            TryAddFunc<
+                // Static?
+                false,
+                // Function.
+                [](std::array<T, N> &array, std::size_t i) -> auto &&
+                {
+                    if (i >= N)
+                        throw pybind11::index_error();
+                    return array[i];
+                },
+                // Return type name.
+                //   `""` means "please don't add a typedef wrapper here".
+                "",
+                // Parameters:
+                //   `""` means "please don't add a typedef wrapper here".
+                ParamInfo<std::array<T, N> &, "">, // `this`
+                ParamInfo<std::size_t, "">
+            >(
+                c.type,
+                "__getitem__",
+                "__getitem__"
+            );
+
+            (TryMakeIterable<std::array<T, N>>)(c.type);
+        }
+    }
+};
 // std::optional
 #include <optional>
 template <typename T>
@@ -309,7 +366,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
 
             if constexpr (std::copyable<T>)
             {
-                c.type.def("value", [](const TT &opt) -> const auto & {return opt.value();});
+                c.type.def("value", [](const TT &opt) -> const auto & {return opt.value();}, pybind11::return_value_policy::reference_internal);
             }
         }
     }

@@ -17,7 +17,7 @@ requires
 struct MRBind::detail::pb11::ReturnTypeAdjustment<tl::expected<T, U>>
     : RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
-    static auto Adjust(tl::expected<T, U> &&value)
+    static decltype(auto) Adjust(tl::expected<T, U> &&value)
     {
         if (value)
         {
@@ -95,7 +95,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
             }, pybind11::return_value_policy::reference_internal);
 
             // Get error or throw if none.
-            c.type.def("error", [](const TT &e) -> auto &&
+            c.type.def("error", [](const TT &e) -> decltype(auto)
             {
                 if (e.has_value())
                     throw std::runtime_error("This `tl::expected` doesn't hold an error.");
