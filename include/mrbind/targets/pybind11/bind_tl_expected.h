@@ -54,6 +54,14 @@ struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
         if constexpr (std::default_initializable<T> || std::is_void_v<T>)
             c.type.def(pybind11::init<>(), "Constructs in the valid state, with the default-constructed value.");
 
+        // Copy constructor.
+        if constexpr (pybind11::detail::is_copy_constructible<tl::expected<T, U>>::value)
+        {
+            c.type.def(pybind11::init<const tl::expected<T, U> &>());
+            if constexpr (InDerivedClass)
+                pybind11::implicitly_convertible<tl::expected<T, U>, TT>();
+        }
+
         // Construct with the valid value.
         // `pybind11::detail::is_copy_constructible` gives the "correct" result for types such as `std::vector`.
         if constexpr (!std::is_void_v<T> && pybind11::detail::is_copy_constructible<T>::value)

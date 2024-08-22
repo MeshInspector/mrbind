@@ -48,9 +48,6 @@ namespace pybind11::patched
 
         cl.def(init<>());
 
-        // Register copy constructor (if possible)
-        detail::vector_if_copy_constructible<Vector, Class_>(cl);
-
         // Register comparison-related operators and functions (if possible)
         detail::vector_if_equal_operator<Vector, Class_>(cl);
 
@@ -218,9 +215,18 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, P...>>
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)
     {
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
+
+        // Copy constructor.
+        if constexpr (pybind11::detail::is_copy_constructible<std::vector<T, P...>>::value)
+        {
+            c.type.def(pybind11::init<const std::vector<T, P...> &>());
+            if constexpr (InDerivedClass)
+                pybind11::implicitly_convertible<std::vector<T, P...>, TT>();
+        }
+
         if constexpr (!InDerivedClass)
         {
-            using TT = typename std::remove_reference_t<decltype(c.type)>::type;
             c.type.def("size", [](const TT &v){return v.size();});
             if constexpr (std::copyable<typename TT::value_type>)
             {
@@ -246,9 +252,18 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, P...>>
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)
     {
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
+
+        // Copy constructor.
+        if constexpr (pybind11::detail::is_copy_constructible<std::map<T, U, P...>>::value)
+        {
+            c.type.def(pybind11::init<const std::map<T, U, P...> &>());
+            if constexpr (InDerivedClass)
+                pybind11::implicitly_convertible<std::map<T, U, P...>, TT>();
+        }
+
         if constexpr (!InDerivedClass)
         {
-            using TT = typename std::remove_reference_t<decltype(c.type)>::type;
             c.type.def("size", [](const TT &v){return v.size();});
         }
     }
@@ -266,7 +281,16 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
     {
         using TT = typename std::remove_reference_t<decltype(c.type)>::type;
 
-        c.type.def(pybind11::init<>());
+        if constexpr (std::default_initializable<std::optional<T>>)
+            c.type.def(pybind11::init<>());
+
+        // Copy constructor.
+        if constexpr (pybind11::detail::is_copy_constructible<std::optional<T>>::value)
+        {
+            c.type.def(pybind11::init<const std::optional<T> &>());
+            if constexpr (InDerivedClass)
+                pybind11::implicitly_convertible<std::optional<T>, TT>();
+        }
 
         // Allow constructing from `T`, but only if copyable!
         if constexpr (std::copyable<T>)
@@ -312,6 +336,14 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
 
         if constexpr ((std::default_initializable<P> && ...))
             c.type.def(pybind11::init<>());
+
+        // Copy constructor.
+        if constexpr (pybind11::detail::is_copy_constructible<std::variant<P...>>::value)
+        {
+            c.type.def(pybind11::init<const std::variant<P...> &>());
+            if constexpr (InDerivedClass)
+                pybind11::implicitly_convertible<std::variant<P...>, TT>();
+        }
 
         ([&]{
             // Allow constructing from `P...`.

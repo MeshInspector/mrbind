@@ -14,9 +14,18 @@ struct MRBind::detail::pb11::CustomTypeBinding<phmap::flat_hash_map<T, P...>>
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)
     {
+        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
+
+        // Copy constructor.
+        if constexpr (pybind11::detail::is_copy_constructible<phmap::flat_hash_map<T, P...>>::value)
+        {
+            c.type.def(pybind11::init<const phmap::flat_hash_map<T, P...> &>());
+            if constexpr (InDerivedClass)
+                pybind11::implicitly_convertible<phmap::flat_hash_map<T, P...>, TT>();
+        }
+
         if constexpr (!InDerivedClass)
         {
-            using TT = typename std::remove_reference_t<decltype(c.type)>::type;
             c.type.def("size", [](const TT &v){return v.size();});
         }
     }
