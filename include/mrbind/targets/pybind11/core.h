@@ -812,6 +812,10 @@ namespace MRBind::detail::pb11
             using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
             constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
+            static_assert(
+                IsUniquePtrToBuiltinType<std::remove_cvref_t<ReturnTypeAdjusted>>::value <= returns_unique_ptr_to_builtin,
+                "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
+            );
 
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
             {
@@ -1446,6 +1450,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // --------------------------------- STAGE 0 ---------------------------------
 
 #define MB_WANT_BAKED_TYPE_NAMES
+#undef MB_IGNORE_FRAGMENTS
+#define MB_IGNORE_FRAGMENTS 1 // Important to make sure `HasParsedClassBinding` works across fragments.
 
 #include <mrbind/helpers/undef_all_macros.h>
 
@@ -1486,6 +1492,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // Destroy existing macros.
 #include <mrbind/helpers/undef_all_macros.h>
+
+#undef MB_IGNORE_FRAGMENTS
+#define MB_IGNORE_FRAGMENTS 0
 
 // For namespaces, emit braces with `using namespace`.
 // This helps with name lookup for default arguments (where we can't easily fully qualify the types ourselves).
