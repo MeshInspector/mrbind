@@ -247,6 +247,32 @@ namespace MRBind::detail::pb11
     template <typename T> struct IsSmartPtr<std::shared_ptr<T>> : std::true_type {};
     template <typename T, typename D> struct IsSmartPtr<std::unique_ptr<T, D>> : std::true_type {};
 
+    // This should be equivalent to `!HasCustomTypeBinding<T> && !HasParsedClassBindingInThisFragment<T>`, except that those don't work correctly across fragments,
+    //   because at the moment we don't make `BindParsedClass` specializations' declarations visible outside of their fragment, which makes those concepts
+    //   return false negatives.
+    // This is based on https://github.com/pybind/pybind11/blob/master/docs/advanced/cast/overview.rst.
+    //   We only include types listed in `pybind11.h`, not other pybind headers.
+    // I wonder if we can pull this from pybind directly somehow.
+    template <typename T> struct IsPybindBuiltinType : std::is_arithmetic<T> {};
+    template <typename ...P> struct IsPybindBuiltinType<std::basic_string<P...>> : std::true_type {};
+    template <typename ...P> struct IsPybindBuiltinType<std::basic_string_view<P...>> : std::true_type {};
+    // Those weren't tested much: [
+    template <typename T, typename U> struct IsPybindBuiltinType<std::pair<T, U>> : std::true_type {};
+    template <typename ...P> struct IsPybindBuiltinType<std::tuple<P...>> : std::true_type {};
+    template <typename T> struct IsPybindBuiltinType<std::reference_wrapper<T>> : std::true_type {};
+    // ]
+    // Those shouldn't matter for our purposes, but still a good idea to list them: [
+    template <> struct IsPybindBuiltinType<const char *> : std::true_type {};
+    template <> struct IsPybindBuiltinType<const wchar_t *> : std::true_type {};
+    template <> struct IsPybindBuiltinType<const char16_t *> : std::true_type {};
+    template <> struct IsPybindBuiltinType<const char32_t *> : std::true_type {};
+    // ]
+
+    template <typename T>
+    struct IsUniquePtrToBuiltinType : std::false_type {};
+    template <typename T>
+    struct IsUniquePtrToBuiltinType<std::unique_ptr<T>> : IsPybindBuiltinType<T> {};
+
     // ---
 
     // This is specialized by `MB_CLASS()` of the stage 0.
@@ -256,8 +282,10 @@ namespace MRBind::detail::pb11
         using unspecialized = void;
     };
 
+    // Whether `T` is a class we have a parsed binding for.
+    // !!! IMPORTANT: This currently doesn't work across fragments. For that you might want to use a negated `IsPybindBuiltinType`.
     template <typename T>
-    concept HasParsedClassBinding = !requires{typename BindParsedClass<T>::unspecialized;};
+    concept HasParsedClassBindingInThisFragment = !requires{typename BindParsedClass<T>::unspecialized;};
 
     // ---
 
@@ -437,7 +465,10 @@ namespace MRBind::detail::pb11
     constexpr bool needs_typedef_wrapper =
         !Name.view().empty() &&
         BakedTypeNameOrFallback<T>() != Name.view() &&
-        (HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> || HasParsedClassBinding<typename RemoveCvPointersRefs<T>::type>);
+        std::is_class_v<typename RemoveCvPointersRefs<T>::type> && // For simplicity, only accept classes for now. Nothing stops us from adding enums too?
+        !IsPybindBuiltinType<typename RemoveCvPointersRefs<T>::type>::value;
+        // This isn't a valid replacement for `IsPybindBuiltinType`, because fragments, right?
+        // (HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> || HasParsedClassBindingInThisFragment<typename RemoveCvPointersRefs<T>::type>);
 
     // See `MaybeTypedefWrapper` below.
     template <typename T, ConstString Name, typename CheckedT>
@@ -464,7 +495,7 @@ namespace MRBind::detail::pb11
     struct RegisterAltTypeSpellingIfNeeded<true, T, Name>
         : RegisterOneTypeWithCustomBinding<typename TypedefWrapperAdder<typename RemoveCvPointersRefs<T>::type, TrimCvPointersRefsFromName<Name>()>::type>
     {};
-    template <bool ThisFragment, typename T, ConstString Name> requires HasParsedClassBinding<typename RemoveCvPointersRefs<T>::type> && needs_typedef_wrapper<T, Name>
+    template <bool ThisFragment, typename T, ConstString Name> requires HasParsedClassBindingInThisFragment<typename RemoveCvPointersRefs<T>::type> && needs_typedef_wrapper<T, Name>
     struct RegisterAltTypeSpellingIfNeeded<ThisFragment, T, Name>
         : RegisterOneTypeWithCustomBinding<typename TypedefWrapperAdder<typename RemoveCvPointersRefs<T>::type, TrimCvPointersRefsFromName<Name>()>::type>
     {};
@@ -698,14 +729,14 @@ namespace MRBind::detail::pb11
 
     // Some `ReturnTypeAdjustment` specializations:
 
-    // Adjust `std::unique_ptr` to `std::shared_ptr`, when returning it by value.
+    // Adjust `std::unique_ptr` to `std::shared_ptr`, when returning it by value. Only when it points to a parsed class.
     // For some reason pybind11 crashes when the holder type is set to `shared_ptr` and you return a `unique_ptr`.
     // (When the reverse happens it also crashes, but in that case no adjustment can help us, so instead we use a `shared_ptr` holder and adjust `unique_ptr`.)
-    template <typename T, typename D> requires HasCustomTypeBinding<T> || HasParsedClassBinding<T>
+    template <typename T, typename D> requires (!IsPybindBuiltinType<T>::value)
     struct ReturnTypeAdjustment<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
-    // When returning a REFERENCE to `std::unique_ptr`, just replace it with a raw pointer.
+    // When returning a REFERENCE to `std::unique_ptr` (to a parsed class), just replace it with a raw pointer.
     // This one was necessary for `tl::expected<T,U>` bindings, where if `T` is a `unique_ptr`, `.value()` returns a reference to it.
-    template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value && (HasCustomTypeBinding<typename std::remove_cvref_t<T>::element_type> || HasParsedClassBinding<typename std::remove_cvref_t<T>::element_type>)
+    template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value && (!IsPybindBuiltinType<typename std::remove_cvref_t<T>::element_type>::value)
     struct ReturnTypeAdjustment<T> {static auto Adjust(T &&src) {return src.get();}};
 
     // ---
@@ -726,20 +757,6 @@ namespace MRBind::detail::pb11
             // Could make this conditional to speed up compilation, but it's probably not worth it (export
             typename AdjustReturnType<T>::type,
             typename AdjustedParamType<T>::type
-        >
-    {};
-
-    // ---
-
-    template <typename T>
-    struct IsUniquePtrToBuiltinType : std::false_type {};
-    template <typename T>
-    struct IsUniquePtrToBuiltinType<std::unique_ptr<T>>
-        : std::bool_constant<
-            !HasCustomTypeBinding<T> &&
-            !HasParsedClassBinding<T> &&
-            // We don't want to accept those. Because transforming `std::optional<std::shared_ptr<T>>` to `std::shared_ptr<T> *` is kinda lame.
-            !IsSmartPtr<T>::value
         >
     {};
 
@@ -812,6 +829,10 @@ namespace MRBind::detail::pb11
             using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
             constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
+            static_assert(
+                IsUniquePtrToBuiltinType<std::remove_cvref_t<ReturnTypeAdjusted>>::value <= returns_unique_ptr_to_builtin,
+                "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
+            );
 
             auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
             {
@@ -1049,8 +1070,9 @@ struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrap
 };
 
 // Typedef wrapper for a parsed class.
+// `HasParsedClassBindingInThisFragment` here is a bit sus, but this binding should only be registered by `MB_ALT_TYPE_SPELLING`, so we should be fine?
 template <typename T, MRBind::ConstString Name>
-requires MRBind::detail::pb11::HasParsedClassBinding<T>
+requires MRBind::detail::pb11::HasParsedClassBindingInThisFragment<T>
 struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
     : public DefaultCustomTypeBinding<T>
 {
