@@ -73,6 +73,9 @@ namespace MRBind::detail::pb11
         {
             return std::forward<adjusted_param_type>(wrapper).underlying_func;
         }
+
+        // Prefer to unlock the global interpreter lock. Otherwise calling python lambdas will deadlock.
+        static constexpr GilHandling gil_handling = GilHandling::prefer_unlock;
     };
 
     // ---

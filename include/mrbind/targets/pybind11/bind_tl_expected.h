@@ -7,6 +7,10 @@ template <typename T, typename U>
 struct pybind11::detail::is_copy_constructible<tl::expected<T, U>>
     : std::conjunction<pybind11::detail::is_copy_constructible<T>, pybind11::detail::is_copy_constructible<U>>
 {};
+template <typename T, typename U>
+struct pybind11::detail::is_copy_assignable<tl::expected<T, U>>
+    : std::conjunction<pybind11::detail::is_copy_assignable<T>, pybind11::detail::is_copy_assignable<U>>
+{};
 
 // Adjust `tl::expected<T, U>` to `std::unique_ptr<T>` or throw.
 // This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.

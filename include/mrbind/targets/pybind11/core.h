@@ -594,6 +594,43 @@ namespace MRBind::detail::pb11
 
     // ---
 
+    // How to handle the global interpreter lock.
+    enum class GilHandling
+    {
+        neutral, // Don't care (will usually keep locked).
+        must_keep_locked, // Must keep locked for some reason.
+        prefer_unlock, // Prefer it to be unlocked, but can work with it remaining locked.
+        must_unlock, // Must unlock.
+        invalid, // `CombineGilHandling` returns this when several preferences are not compatible.
+    };
+
+    // Combine together several `GilHandling` values.
+    template <GilHandling ...P> struct CombineGilHandling : std::integral_constant<GilHandling, GilHandling::neutral> {};
+    template <GilHandling P> struct CombineGilHandling<P> : std::integral_constant<GilHandling, P> {};
+    template <GilHandling P, GilHandling Q0, GilHandling ...Q> struct CombineGilHandling<P, Q0, Q...>
+    {
+        static constexpr GilHandling other = CombineGilHandling<Q0, Q...>::value;
+        static constexpr GilHandling value =
+            // Propagate invalid.
+            P == GilHandling::invalid || other == GilHandling::invalid ||
+            // Or conflicting requirements.
+            (P == GilHandling::must_unlock && other == GilHandling::must_keep_locked) ||
+            (P == GilHandling::must_keep_locked && other == GilHandling::must_unlock)
+                ? GilHandling::invalid :
+            // Strong preference.
+            (P == GilHandling::must_unlock || other == GilHandling::must_unlock)
+                ? GilHandling::must_unlock :
+            (P == GilHandling::must_keep_locked || other == GilHandling::must_keep_locked)
+                ? GilHandling::must_keep_locked :
+            // Weak preference.
+            P == GilHandling::prefer_unlock || other == GilHandling::prefer_unlock
+                ? GilHandling::prefer_unlock :
+            // Neutral.
+            GilHandling::neutral;
+    };
+
+    // ---
+
     // This traits lets you adjust ecah passed parameter.
 
     // Specialize `ParamTraitsLow` for your custom types.
@@ -605,11 +642,20 @@ namespace MRBind::detail::pb11
     template <typename T>
     struct ParamTraitsLow
     {
-        // using disables_func = void; // Disable the whole function because of this parameter.
+        // using disables_func = void; // Optional. Disable the whole function because of this parameter.
 
+        // Optional: [
         // using adjusted_param_type = ...; // Replaces the parameter type in the wrapping lambda.
-
         // static T UnadjustParam(adjusted_param_type &&); // Unadjust the parameter type back to the original.
+        // ]
+
+        // Optional. If specified, a default-constructed argument of this type is passed as an extra argument to `UnadjustParam()`.
+        // It's useful to hold temporary objects that must remain alive until the call finishes.
+        // using unadjust_param_extra_param = ...;
+
+        // Optional. Detauls to `GilHandling::neutral`.
+        // What to do about python's global interpreter lock (temporarily unlock or keep locked).
+        // static constexpr GilHandling gil_handling = ...;
     };
 
     template <typename T>
@@ -699,30 +745,54 @@ namespace MRBind::detail::pb11
     template <typename T, ConstString Name>
     using WrappedAdjustedParamType = typename AdjustedParamType<T>::template WrappedType<Name>;
 
+    // Extracts `unadjust_param_extra_param` from the parameter's traits, or `std::nullptr_t` if none.
+    template <typename T>
+    struct ParamUnadjusterExtraParam {using type = std::nullptr_t;};
+    template <typename T> requires requires{typename ParamTraits<T>::unadjust_param_extra_param;}
+    struct ParamUnadjusterExtraParam<T> {using type = typename ParamTraits<T>::unadjust_param_extra_param;};
+
+    // Extract `gil_handling` from parameter's traits, or default to `neutral` if not specified.
+    template <typename T>
+    constexpr GilHandling param_gil_handling = GilHandling::neutral;
+    template <typename T> requires requires{ParamTraits<T>::gil_handling;}
+    constexpr GilHandling param_gil_handling<T> = ParamTraits<T>::gil_handling;
+
     template <typename T, ConstString TypeName>
     struct ParamInfo
     {
-        using OriginalType = DecayToTrueParamType<T>; // Unsure where to decay, probably any
+        using OriginalType = DecayToTrueParamType<T>;
         static constexpr auto name = TypeName;
 
         using WrappedAdjustedType = WrappedAdjustedParamType<T, name>;
+
+        static constexpr GilHandling gil_handling = param_gil_handling<T>;
     };
 
     // Converts from `AdjustedParamType<T>::type` back to `T`.
     template <typename T>
-    [[nodiscard]] T UnadjustParam(typename AdjustedParamType<T>::type &&param)
+    [[nodiscard]] T UnadjustParam(typename AdjustedParamType<T>::type &&param, typename ParamUnadjusterExtraParam<T>::type &&extra = {})
     {
         if constexpr (ParamTypeRequiresAdjustment<T>)
-            return ParamTraits<T>::UnadjustParam(std::forward<typename AdjustedParamType<T>::type>(param));
+        {
+            if constexpr (std::is_null_pointer_v<typename ParamUnadjusterExtraParam<T>::type>)
+                return ParamTraits<T>::UnadjustParam(std::forward<typename AdjustedParamType<T>::type>(param));
+            else
+                return ParamTraits<T>::UnadjustParam(std::forward<typename AdjustedParamType<T>::type>(param), std::move(extra));
+        }
         else
+        {
             return std::forward<T>(param);
+        }
     }
 
     // Converts from `WrappedAdjustedParamType<T>` back to `T`.
     template <typename T, ConstString Name>
-    [[nodiscard]] T UnwrapUnadjustParam(WrappedAdjustedParamType<T, Name> &&param)
+    [[nodiscard]] T UnwrapUnadjustParam(WrappedAdjustedParamType<T, Name> &&param, typename ParamUnadjusterExtraParam<T>::type &&extra = {})
     {
-        return (UnadjustParam<T>)(static_cast<typename AdjustedParamType<T>::type &&>(std::forward<WrappedAdjustedParamType<T, Name>>(param)));
+        if constexpr (std::is_null_pointer_v<typename ParamUnadjusterExtraParam<T>::type>)
+            return (UnadjustParam<T>)(static_cast<typename AdjustedParamType<T>::type &&>(std::forward<WrappedAdjustedParamType<T, Name>>(param)));
+        else
+            return (UnadjustParam<T>)(static_cast<typename AdjustedParamType<T>::type &&>(std::forward<WrappedAdjustedParamType<T, Name>>(param)), std::move(extra));
     }
 
     // ---
@@ -797,9 +867,7 @@ namespace MRBind::detail::pb11
             // If this is a const member (bad!) or a const reference member (also bad).
             std::is_const_v<T> ||
             // Pybind11 will try to assign from `const T &`.
-            !std::is_copy_assignable_v<T> ||
-            // I don't even wanna know what it'll do to assign to a pointer.
-            std::is_pointer_v<T>
+            !pybind11::detail::is_copy_assignable<T>::value
         )
         {
             if constexpr (IsStatic)
@@ -811,9 +879,9 @@ namespace MRBind::detail::pb11
         {
             // Can't use perfect forwarding here, because pybind11 tries to analyze the functor signature, therefore it chokes on templated lambdas.
             if constexpr (IsStatic)
-                c.def_property_static(py_name.c_str(), const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_static(py_name.c_str(), const_getter, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_property(py_name.c_str(), const_getter, [](ClassType &obj, T value){Getter(obj) = std::move(value);}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property(py_name.c_str(), const_getter, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
     }
 
@@ -877,6 +945,7 @@ namespace MRBind::detail::pb11
 
             // Make sure this isn't a hard error. We add our own specializations, and we don't want them to be ambiguous.
             (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
+            (void)pybind11::detail::is_copy_assignable<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
 
             constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
 
@@ -944,16 +1013,29 @@ namespace MRBind::detail::pb11
                 final_name = fullname;
             }
 
+            constexpr GilHandling gil_handling = CombineGilHandling<P::gil_handling...>::value;
+            static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
+
             // The `call_guard<gil_scoped_release>` fixes a deadlock when calling python callbacks from something other than the main thread.
             // The documentation says it's only legal if you "don't access python objects" from the function, which sounds right.
             // When our functions then call python lambdas, those lambdas will automatically take the interpreter lock.
             // And when we call C++ lambdas, a different mechanism is used to force pybind11 to avoid adding code to them to take the interpreter lock.
             // We need this different mechanism as an optimization, because we sometimes invoke C++ lambdas (that were passed through python)
             // in multithreaded contexts, and we don't want them to be locking mutexes unless absolutely necessary.
-            if constexpr (IsStatic)
-                c.def_static(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+            if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+            {
+                if constexpr (IsStatic)
+                    c.def_static(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                else
+                    c.def(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+            }
             else
-                c.def(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+            {
+                if constexpr (IsStatic)
+                    c.def_static(final_name, lambda, ret_policy, decltype(data)(data)...);
+                else
+                    c.def(final_name, lambda, ret_policy, decltype(data)(data)...);
+            }
         }
     }
 
@@ -980,7 +1062,13 @@ namespace MRBind::detail::pb11
                 return new T((UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...);
             };
 
-            c.def(pybind11::init(lambda), decltype(data)(data)...);
+            constexpr GilHandling gil_handling = CombineGilHandling<P::gil_handling...>::value;
+            static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
+
+            if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                c.def(pybind11::init(lambda), decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+            else
+                c.def(pybind11::init(lambda), decltype(data)(data)...);
 
             // Register this ctor as an implicit conversion if it's not explicit, has at least one parameter,
             // and has at most one parameter without a default argument.
@@ -1032,6 +1120,10 @@ namespace detail
     template <typename T, MRBind::ConstString Name>
     struct is_copy_constructible<MRBind::detail::pb11::TypedefWrapper<T, Name>>
         : is_copy_constructible<T> // This is `pybind11::detail::is_copy_constructible`.
+    {};
+    template <typename T, MRBind::ConstString Name>
+    struct is_copy_assignable<MRBind::detail::pb11::TypedefWrapper<T, Name>>
+        : is_copy_assignable<T> // This is `pybind11::detail::is_copy_assignable`.
     {};
 }
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
@@ -1235,7 +1327,7 @@ namespace MRBind::detail::pb11
         std::string_view view = name;
         if (view == "_Plus") return unary ? "__pos__" : "__add__";
         if (view == "_Minus") return unary ? "__neg__" : "__sub__";
-        if (view == "_Star") return "__matmul__";
+        if (view == "_Star") return "__mul__";
         if (view == "_Slash") return "__truediv__";
         if (view == "_Percent") return "__mod__";
         if (view == "_Caret") return "__xor__";

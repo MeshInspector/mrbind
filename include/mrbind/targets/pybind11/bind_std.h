@@ -276,6 +276,12 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
     : DefaultCustomTypeBinding<std::array<T, N>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
+    [[nodiscard]] static std::string pybind_type_name()
+    {
+        // Not using the native name here, because `std::size_t N` ends up being spelled as `42ul`.
+        return ToPythonName(std::string("std::array<") + TypeidTypeName<T>() + ", " + std::to_string(N) + ">");
+    }
+
     template <bool InDerivedClass>
     static void bind_members(pybind11::module_ &, auto &c)
     {
@@ -293,12 +299,36 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
                 pybind11::implicitly_convertible<std::array<T, N>, TT>();
         }
 
+        // Constructor from a range. Mostly copied from `pybind11::detail::vector_modifiers`.
+        if constexpr (pybind11::detail::is_copy_assignable<T>::value || N == 0)
+        {
+            c.type.def(pybind11::init(
+                [](const pybind11::iterable &it)
+                {
+                    std::shared_ptr<TT> ret = std::make_shared<TT>();
+
+                    std::size_t i = 0;
+                    for (pybind11::handle h : it)
+                    {
+                        if (i >= N)
+                            throw std::runtime_error("Too many elements in `std::array` initializer, expected " + std::to_string(N) + ".");
+                        if constexpr (N > 0)
+                            (*ret)[i++] = h.cast<T>();
+                    }
+                    if (i < N)
+                        throw std::runtime_error("Too few elements in `std::array` initializer, expected " + std::to_string(N) + ".");
+
+                    return ret;
+                }
+            ), ("Initialize from a list of " + std::to_string(N) + "elements.").c_str());
+        }
+
         if constexpr (!InDerivedClass)
         {
             // Length.
-            c.type.def("__len__", []{return N;});
+            c.type.def("__len__", [](const std::array<T, N> &){return N;});
 
-            // Indexing operator.
+            // Indexing operator (read).
             TryAddFunc<
                 // Static?
                 false,
@@ -322,7 +352,57 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
                 "__getitem__"
             );
 
+            // Indexing operator (write).
+            if constexpr (pybind11::detail::is_copy_assignable<T>::value)
+            {
+                TryAddFunc<
+                    // Static?
+                    false,
+                    // Function.
+                    [](std::array<T, N> &array, std::size_t i, const T &value)
+                    {
+                        if (i >= N)
+                            throw pybind11::index_error();
+                        array[i] = value;
+                    },
+                    // Return type name.
+                    //   `""` means "please don't add a typedef wrapper here".
+                    "",
+                    // Parameters:
+                    //   `""` means "please don't add a typedef wrapper here".
+                    ParamInfo<std::array<T, N> &, "">, // `this`
+                    ParamInfo<std::size_t, "">,
+                    ParamInfo<const T &, "">
+                >(
+                    c.type,
+                    "__setitem__",
+                    "__setitem__"
+                );
+            }
+
+            // Iteratable.
             (TryMakeIterable<std::array<T, N>>)(c.type);
+
+            // Converting to a string.
+            if constexpr (requires(std::ostream &o, const T &t){o << t;})
+            {
+                c.type.def(
+                    "__repr__",
+                    [name = CustomTypeBinding::pybind_type_name()](const std::array<T, N> &v)
+                    {
+                        std::ostringstream s;
+                        s << name << '[';
+                        for (std::size_t i = 0; i < v.size(); i++)
+                        {
+                            if (i != 0)
+                                s << ", ";
+                            s << v[i];
+                        }
+                        s << ']';
+                        return std::move(s).str();
+                    }
+                );
+            }
         }
     }
 };
