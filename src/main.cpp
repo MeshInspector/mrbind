@@ -840,9 +840,12 @@ namespace mrbind
             {
                 if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
                 {
+                    // Don't try to define if there's no body.
+                    bool body_exists = bool(templ->getSpecializedTemplate()->getTemplatedDecl()->getDefinition());
+
                     // Important! Check that it wasn't already instantiated.
                     // Otherwise Clang will emit a runtime error.
-                    if (!decl->getDefinition())
+                    if (body_exists && !decl->getDefinition())
                         ci->getSema().InstantiateClassTemplateSpecialization(d->getSourceRange().getBegin(), templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
                 }
             }
