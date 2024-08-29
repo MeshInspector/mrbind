@@ -492,6 +492,12 @@ namespace mrbind
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return false; // Inaccessible type.
 
+            // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
+            // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
+            // Without this, this incorrectly prints `E::e2` without `MR::` (REGARDLESS of how the full specialization is spelled!).
+            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
+                templ->setTypeAsWritten(nullptr);
+
             ClassEntity &new_class = params->container_stack.back()->nested.emplace_back().variant.emplace<ClassEntity>();
             params->container_stack.push_back(&new_class);
 
