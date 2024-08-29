@@ -33,6 +33,9 @@ namespace mrbind
             "#define MB_CHECK_FRAGMENT(x) (x % MB_NUM_FRAGMENTS == MB_FRAGMENT)\n"
             "#endif\n"
             "#endif\n"
+            "#ifndef MB_CHECK_FRAGMENT_TYPES\n"
+            "#define MB_CHECK_FRAGMENT_TYPES(x) MB_CHECK_FRAGMENT(x)\n"
+            "#endif\n"
             "\n"
             "#if MB_INCLUDE_ORIGINAL_HEADER\n"
             "#include " << EscapeQuoteString(file.original_file) << "\n"
@@ -210,10 +213,10 @@ namespace mrbind
 
             int multiplex_depth = 0;
             int multiplex_counter = 0;
-            auto BeginMultiplexBlock = [&]
+            auto BeginMultiplexBlock = [&](bool is_type_registration = false)
             {
                 if (multiplex_depth++ == 0)
-                    out << "#if MB_CHECK_FRAGMENT(" << multiplex_counter++ << ")\n";
+                    out << "#if " << (is_type_registration ? "MB_CHECK_FRAGMENT_TYPES" : "MB_CHECK_FRAGMENT") << "(" << multiplex_counter++ << ")\n";
             };
             auto EndMultiplexBlock = [&]
             {
@@ -419,15 +422,19 @@ namespace mrbind
                 out << "\n";
                 for (const auto &type : file.alt_type_spellings)
                 {
-                    out << "MB_REGISTER_TYPE(" << multiplex_counter++ << ", " << type.first << ")\n";
+                    BeginMultiplexBlock(true);
+
+                    out << "MB_REGISTER_TYPE(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
                     for (const auto &spelling : type.second)
                     {
                         out << "MB_ALT_TYPE_SPELLING("
-                            << multiplex_counter++ << ", "
+                            << (multiplex_counter - 1) << ", "
                             << "(" << type.first << "), "
                             << "(" << spelling << ")"
                             << ")\n";
                     }
+
+                    EndMultiplexBlock();
                 }
             }
         }

@@ -128,23 +128,27 @@ namespace mrbind
     struct PrintingPolicies
     {
         clang::PrintingPolicy normal;
-        clang::PrintingPolicy canonical;
 
         PrintingPolicies(const clang::PrintingPolicy &base)
-            : normal(base), canonical(base)
+            : normal(base)
         {
-            for (auto *p : {&normal, &canonical})
+            for (auto *p : {&normal})
             {
                 // Not adding `PrintCanonicalTypes = true`, because that expands typedefs which prevents the bindings from being portable.
                 p->SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
                 p->FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
                 p->SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
                 p->SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
+                p->SuppressDefaultTemplateArgs = true; // Don't print redundant default template arguments.
                 p->MSVCFormatting = false; // Unsure what this changes, just in case.
                 p->PolishForDeclaration = true; // Unsure what this changes, just in case.
-            }
 
-            canonical.PrintCanonicalTypes = true;
+                p->UsePreferredNames = true; // Respect `preferred_name` attribute.
+
+                // We use `.getCanonicalType()` instead of a separate printing policy with this set to true,
+                // because `.getCanonicalType()` doesn't interfere with `SuppressDefaultTemplateArgs` (and other stuff?).
+                p->PrintCanonicalTypes = false;
+            }
         }
     };
 
@@ -176,13 +180,14 @@ namespace mrbind
             llvm::raw_string_ostream ss(name);
             decl.printQualifiedName(ss);
             if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
-                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal);
+                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
             else if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(&decl))
-                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal);
+                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
+            // If you're wondering, no, enums can't be templated, so they're not mentioned here.
             else if (auto templ = llvm::dyn_cast<clang::FunctionDecl>(&decl))
             {
                 if (auto args = templ->getTemplateSpecializationArgs())
-                    clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal);
+                    clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, templ->getPrimaryTemplate()->getTemplateParameters());
             }
 
             if (!NameSpellingIsLegal(name))
@@ -375,6 +380,13 @@ namespace mrbind
 
         const VisitorParams *params = nullptr;
 
+        std::unordered_map<std::string, std::string> types_to_preferred_names;
+
+        [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type)
+        {
+            return type.getCanonicalType().getAsString(printing_policies.normal);
+        }
+
         void RegisterTypeSpelling(const std::string &canonical, const std::string &pretty)
         {
             params->parsed_result.alt_type_spellings[canonical].insert(pretty);
@@ -386,8 +398,10 @@ namespace mrbind
         {
             Type ret;
             ret.pretty = type.getAsString(printing_policies.normal);
-            ret.canonical = type.getAsString(printing_policies.canonical);
+            ret.canonical = GetCanonicalTypeName(type);
+
             RegisterTypeSpelling(ret.canonical, ret.pretty);
+
             return ret;
         }
 
@@ -410,8 +424,6 @@ namespace mrbind
             printing_policies(ctx.getPrintingPolicy()),
             params(&params)
         {
-            printing_policies.canonical.PrintCanonicalTypes = true;
-
             params.container_stack.push_back(&params.parsed_result.entities);
         }
 
@@ -453,7 +465,7 @@ namespace mrbind
                 decl->printQualifiedName(qual_name_ss, printing_policies.normal);
                 // Print template arguments, if any.
                 if (auto template_args = decl->getTemplateSpecializationArgs())
-                    clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policies.normal);
+                    clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policies.normal, decl->getPrimaryTemplate()->getTemplateParameters());
             }
 
             new_func.name = decl->getDeclName().getAsString();
@@ -483,10 +495,14 @@ namespace mrbind
             ClassEntity &new_class = params->container_stack.back()->nested.emplace_back().variant.emplace<ClassEntity>();
             params->container_stack.push_back(&new_class);
 
+            // Register the class type, just in case.
+            (void)GetTypeStrings(ctx->getRecordType(decl));
+
             new_class.name = decl->getName();
-            new_class.full_type = ctx->getRecordType(decl).getAsString(printing_policies.canonical);
+            new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
+
 
             auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl);
 
@@ -526,7 +542,7 @@ namespace mrbind
                     if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(var))
                     {
                         llvm::raw_string_ostream ss(full_name);
-                        clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal);
+                        clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
 
                         if (!NameSpellingIsLegal(full_name))
                             continue; // Has unspellable template arguments.
@@ -721,8 +737,8 @@ namespace mrbind
             new_enum.name = decl->getName();
             new_enum.is_scoped = decl->isScoped();
             new_enum.comment = GetCommentString(*ctx, *decl);
-            new_enum.full_type = ctx->getEnumType(decl).getAsString(printing_policies.canonical);
-            new_enum.canonical_underlying_type = decl->getIntegerType().getAsString(printing_policies.canonical);
+            new_enum.full_type = GetCanonicalTypeName(ctx->getEnumType(decl));
+            new_enum.canonical_underlying_type = GetCanonicalTypeName(decl->getIntegerType());
             new_enum.is_signed = decl->getIntegerType()->isSignedIntegerType();
 
             for (const clang::EnumConstantDecl *elem : decl->enumerators())
@@ -768,7 +784,6 @@ namespace mrbind
             new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
             new_typedef.comment = GetCommentString(*ctx, *decl);
             new_typedef.type = GetTypeStrings(decl->getUnderlyingType());
-            RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name);
 
             return true;
         }

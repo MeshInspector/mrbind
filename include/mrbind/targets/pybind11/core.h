@@ -1,7 +1,5 @@
 // Intentionally no `#pragma once`.
 
-#ifndef MB_PB11_STAGE // --------------------------------- STAGE 0 ---------------------------------
-
 #ifndef MB_PB11_MODULE_NAME
 #error Must define `MB_PB11_MODULE_NAME` to the desired module name (without quotes).
 #endif
@@ -9,7 +7,6 @@
 // Various headers we need:
 
 #include <mrbind/helpers/common.h>
-#include <mrbind/helpers/const_string.h>
 #include <mrbind/helpers/macro_sequence_for.h>
 #include <mrbind/helpers/type_name.h>
 
@@ -59,6 +56,8 @@ namespace MRBind::detail::pb11
 
     // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
     [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
+
+    void RegisterTypeAlias(std::string_view from, std::string_view to);
 
     template <typename T>
     [[nodiscard]] std::string GetConversionFuncName(const char *type_name)
@@ -223,6 +222,7 @@ namespace MRBind::detail::pb11
     struct Registry
     {
         std::unordered_map<std::type_index, TypeEntry> type_entries;
+        std::unordered_map<std::string, std::unordered_set<std::string>> type_aliases;
 
         using LoadFunc = void (*)(pybind11::module_ &m);
         std::vector<LoadFunc> func_entries;
@@ -247,12 +247,8 @@ namespace MRBind::detail::pb11
     template <typename T> struct IsSmartPtr<std::shared_ptr<T>> : std::true_type {};
     template <typename T, typename D> struct IsSmartPtr<std::unique_ptr<T, D>> : std::true_type {};
 
-    // This should be equivalent to `!HasCustomTypeBinding<T> && !HasParsedClassBindingInThisFragment<T>`, except that those don't work correctly across fragments,
-    //   because at the moment we don't make `BindParsedClass` specializations' declarations visible outside of their fragment, which makes those concepts
-    //   return false negatives.
-    // This is based on https://github.com/pybind/pybind11/blob/master/docs/advanced/cast/overview.rst.
-    //   We only include types listed in `pybind11.h`, not other pybind headers.
-    // I wonder if we can pull this from pybind directly somehow.
+    // It would be nice to automatically accept all types except the custom and parsed ones here, but this requires communicating parsed
+    // types across fragments, which is expensive.
     template <typename T> struct IsPybindBuiltinType : std::is_arithmetic<T> {};
     template <typename ...P> struct IsPybindBuiltinType<std::basic_string<P...>> : std::true_type {};
     template <typename ...P> struct IsPybindBuiltinType<std::basic_string_view<P...>> : std::true_type {};
@@ -272,20 +268,6 @@ namespace MRBind::detail::pb11
     struct IsUniquePtrToBuiltinType : std::false_type {};
     template <typename T>
     struct IsUniquePtrToBuiltinType<std::unique_ptr<T>> : IsPybindBuiltinType<T> {};
-
-    // ---
-
-    // This is specialized by `MB_CLASS()` of the stage 0.
-    template <typename T>
-    struct BindParsedClass
-    {
-        using unspecialized = void;
-    };
-
-    // Whether `T` is a class we have a parsed binding for.
-    // !!! IMPORTANT: This currently doesn't work across fragments. For that you might want to use a negated `IsPybindBuiltinType`.
-    template <typename T>
-    concept HasParsedClassBindingInThisFragment = !requires{typename BindParsedClass<T>::unspecialized;};
 
     // ---
 
@@ -396,109 +378,12 @@ namespace MRBind::detail::pb11
 
     // ---
 
-    // This is used instead of `T` for class typedefs, to give them a shared type.
-    template <typename T, ConstString Name> requires std::is_class_v<T>
-    struct TypedefWrapper : T
-    {
-        template <typename ...P>
-        TypedefWrapper(P &&... params) requires std::constructible_from<T, P &&...> : T(std::forward<P>(params)...) {}
-
-        // This little hack is important. Without this, our specialization of `pybind11::detail::is_copy_constructible`
-        // becomes ambiguous with the one in `pybind11/detail/type_caster_base.h` (search for `std::is_copy_constructible<Container>`).
-        using reference = void;
-    };
-
-    // Given a type, wraps it in `TypedefWrapper`. For pointers and references, it inserted into the most nested level only.
-    template <typename T, ConstString Name> struct TypedefWrapperAdder {};
-    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<      T, Name> {using type =       TypedefWrapper<T, Name>;};
-    template <typename T, ConstString Name> requires std::is_class_v<T> struct TypedefWrapperAdder<const T, Name> {using type = const TypedefWrapper<T, Name>;};
-    template <typename T, ConstString Name> struct TypedefWrapperAdder<T *, Name> {using type = typename TypedefWrapperAdder<T, Name>::type *;};
-    template <typename T, ConstString Name> struct TypedefWrapperAdder<T *const, Name> {using type = typename TypedefWrapperAdder<T, Name>::type *;};
-    template <typename T, ConstString Name> struct TypedefWrapperAdder<T &, Name> {using type = typename TypedefWrapperAdder<T, Name>::type &;};
-    template <typename T, ConstString Name> struct TypedefWrapperAdder<T &&, Name> {using type = typename TypedefWrapperAdder<T, Name>::type &&;};
-
-    // Removes all pointers, references, and cv-qualifiers from a type.
-    template <typename T> struct RemoveCvPointersRefs {using type = T;};
-    template <typename T> struct RemoveCvPointersRefs<const T> {using type = typename RemoveCvPointersRefs<T>::type;};
-    template <typename T> struct RemoveCvPointersRefs<T *> {using type = typename RemoveCvPointersRefs<T>::type;};
-    template <typename T> struct RemoveCvPointersRefs<T &> {using type = typename RemoveCvPointersRefs<T>::type;};
-    template <typename T> struct RemoveCvPointersRefs<T &&> {using type = typename RemoveCvPointersRefs<T>::type;};
-
     // Removes all pointers and references from a type, but not cv-qualifiers.
     template <typename T> struct RemovePointersRefs {using type = T;};
     template <typename T> struct RemovePointersRefs<T *> {using type = typename RemovePointersRefs<T>::type;};
     template <typename T> struct RemovePointersRefs<T *const> {using type = typename RemovePointersRefs<T>::type;};
     template <typename T> struct RemovePointersRefs<T &> {using type = typename RemovePointersRefs<T>::type;};
     template <typename T> struct RemovePointersRefs<T &&> {using type = typename RemovePointersRefs<T>::type;};
-
-    // If `Name` starts with `const `, returns the character index after that, otherwise 0.
-    template <ConstString Name>
-    constexpr std::size_t FindFirstIndexAfterLeadingConst = []{
-        std::string_view v = Name.view();
-        while (v.starts_with("const "))
-            v = v.substr(6);
-        return v.data() - Name.view().data();
-    }();
-
-    // If the `Name` starts with `const` and/or ends with `*`, `&`, `&&`, or `const`, removes all that recursively (i.e. possibly more than once),
-    // trimming trailing and leading spaces.
-    template <ConstString Name>
-    [[nodiscard]] consteval auto TrimCvPointersRefsFromName()
-    {
-        constexpr std::size_t size = []{
-            constexpr std::string_view v = Name.view().substr(FindFirstIndexAfterLeadingConst<Name>);
-            auto IsRemovedChar = [](char ch){return ch == '*' || ch == '&' || ch == ' ';};
-            const char *p = v.data();
-            std::size_t n = v.size();
-            bool one_char = false;
-            while (n > 0 && ((one_char = IsRemovedChar(p[n-1])) || (n >= 6 && p[n-5]=='c' && p[n-4]=='o' && p[n-3]=='n' && p[n-2]=='s' && p[n-1]=='t' && IsRemovedChar(p[n-6]))))
-                n -= (one_char ? 1 : 6);
-            return n;
-        }();
-        ConstString<size + 1> ret{};
-        std::copy_n(Name.view().data() + FindFirstIndexAfterLeadingConst<Name>, size, ret.value);
-        return ret;
-    }
-
-    // Returns true if `Name` is not the canonical name of `T` (if `Name` is empty, always returns false).
-    template <typename T, ConstString Name>
-    constexpr bool needs_typedef_wrapper =
-        !Name.view().empty() &&
-        BakedTypeNameOrFallback<T>() != Name.view() &&
-        std::is_class_v<typename RemoveCvPointersRefs<T>::type> && // For simplicity, only accept classes for now. Nothing stops us from adding enums too?
-        !IsPybindBuiltinType<typename RemoveCvPointersRefs<T>::type>::value;
-        // This isn't a valid replacement for `IsPybindBuiltinType`, because fragments, right?
-        // (HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> || HasParsedClassBindingInThisFragment<typename RemoveCvPointersRefs<T>::type>);
-
-    // See `MaybeTypedefWrapper` below.
-    template <typename T, ConstString Name, typename CheckedT>
-    struct MaybeTypedefWrapperHelper {using type = T;};
-    template <typename T, ConstString Name, typename CheckedT> requires needs_typedef_wrapper<CheckedT, Name>
-    struct MaybeTypedefWrapperHelper<T, Name, CheckedT> {using type = TypedefWrapperAdder<T, TrimCvPointersRefsFromName<Name>()>::type;};
-
-    // If `Name` is a canonical name of `CheckedT`, returns `T`. Otherwise returns `TypedefWrapper<T, Name>`.
-    // Often `T` and `CheckedT` will be the same type.
-    template <typename T, ConstString Name, typename CheckedT>
-    using MaybeTypedefWrapper = typename MaybeTypedefWrapperHelper<T, Name, CheckedT>::type;
-
-    // ---
-
-    // This is what `MB_ALT_TYPE_SPELLING(...)` expands to. This registers a `TypedefWrapper` binding.
-    // `ThisFragment` is true for 1/Nth of all entires (given `N` fragments), false otherwise.
-
-    // For custom types, we only register the type if the fragment number matches.
-    // For parsed types, we ignore the fragment number and register the type if we have the binding for the underlying type in this fragment.
-
-    template <bool ThisFragment, typename T, ConstString Name>
-    struct RegisterAltTypeSpellingIfNeeded {};
-    template <typename T, ConstString Name> requires HasCustomTypeBinding<typename RemoveCvPointersRefs<T>::type> && needs_typedef_wrapper<T, Name>
-    struct RegisterAltTypeSpellingIfNeeded<true, T, Name>
-        : RegisterOneTypeWithCustomBinding<typename TypedefWrapperAdder<typename RemoveCvPointersRefs<T>::type, TrimCvPointersRefsFromName<Name>()>::type>
-    {};
-    template <bool ThisFragment, typename T, ConstString Name> requires HasParsedClassBindingInThisFragment<typename RemoveCvPointersRefs<T>::type> && needs_typedef_wrapper<T, Name>
-    struct RegisterAltTypeSpellingIfNeeded<ThisFragment, T, Name>
-        : RegisterOneTypeWithCustomBinding<typename TypedefWrapperAdder<typename RemoveCvPointersRefs<T>::type, TrimCvPointersRefsFromName<Name>()>::type>
-    {};
 
     // ---
 
@@ -526,39 +411,6 @@ namespace MRBind::detail::pb11
             return std::forward<T &&>(value);
         else
             return T(std::move(value)); // Really want the correct return type, so have to accept an extra move, I guess?
-    }
-
-    template <typename T, ConstString Name>
-    [[nodiscard]] decltype(auto) AdjustAndWrapReturnedValue(std::type_identity_t<T &&> value)
-    {
-        if constexpr (ReturnTypeNeedsAdjusting<T>)
-        {
-            // No typedef wrappers here, though we certainly could add them.
-            // We don't add them in adjusted parameters though, so this among other things is for consistency.
-            // Adding them in both places is not viable, because it could cause name conflicts (same name but different types, possibly).
-            // But adding them in one place (e.g. only here) could be alright. Though the difference in naming would likely be confusing.
-
-            // using R = decltype(ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value)));
-            // if constexpr (!needs_typedef_wrapper<T, Name>)
-            // {
-            return ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value));
-            // }
-            // else
-            // {
-            //     using W = MaybeTypedefWrapper<R, Name, T>;
-            //     if constexpr (std::is_reference_v<W>)
-            //         return reinterpret_cast<W>(ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value)));
-            //     else
-            //         return W(ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value)));
-            // }
-        }
-        else
-        {
-            if constexpr (std::is_reference_v<T>)
-                return reinterpret_cast<MaybeTypedefWrapper<T, Name, T> &&>(std::forward<T &&>(value));
-            else
-                return MaybeTypedefWrapper<T, Name, T>(std::move(value));
-        }
     }
 
     template <typename T>
@@ -637,7 +489,6 @@ namespace MRBind::detail::pb11
     //
     // Specialize `ParamTraits` only here in this file, for high-level type groups.
     //   Those aren't allowed to change the parameter type, except for cvref/ptr qualifiers.
-    //   `AdjustedParamType` depends on this, see its specializations for details.
 
     template <typename T>
     struct ParamTraitsLow
@@ -708,42 +559,21 @@ namespace MRBind::detail::pb11
 
     template <typename T>
     concept ParamTypeRequiresAdjustment = requires{typename ParamTraits<T>::adjusted_param_type;};
-    template <typename T>
-    concept ParamTypeRequiresAdjustmentLow = ParamTypeRequiresAdjustment<T> && requires{typename ParamTraitsLow<T>::adjusted_param_type;};
 
     // For our lambda wrapping the original function, the adjusted parameter type.
     template <typename T>
-    struct AdjustedParamType
+    struct AdjustedParamTypeHelper
     {
         // Type after adjustment.
         using type = T;
-
-        // Typedef wrapper if needed.
-        template <ConstString Name>
-        using WrappedType = typename MaybeTypedefWrapperHelper<T, Name, T>::type;
     };
     template <ParamTypeRequiresAdjustment T>
-    struct AdjustedParamType<T>
+    struct AdjustedParamTypeHelper<T>
     {
         using type = typename ParamTraits<T>::adjusted_param_type;
-
-        template <ConstString Name>
-        using WrappedType = typename MaybeTypedefWrapperHelper<type, Name, T>::type;
     };
-    template <ParamTypeRequiresAdjustmentLow T>
-    struct AdjustedParamType<T>
-    {
-        using type = typename ParamTraits<T>::adjusted_param_type;
-
-        // !!! No wrapper here.
-        // We don't want to register typedef wrappers if the type was adjusted to something completely different,
-        //   because it might conflict with wrappers for return values (same name but different types). And also for clarity, though this is debatable.
-        template <ConstString Name>
-        using WrappedType = type;
-    };
-
-    template <typename T, ConstString Name>
-    using WrappedAdjustedParamType = typename AdjustedParamType<T>::template WrappedType<Name>;
+    template <typename T>
+    using AdjustedParamType = typename AdjustedParamTypeHelper<DecayToTrueParamType<T>>::type;
 
     // Extracts `unadjust_param_extra_param` from the parameter's traits, or `std::nullptr_t` if none.
     template <typename T>
@@ -757,42 +587,21 @@ namespace MRBind::detail::pb11
     template <typename T> requires requires{ParamTraits<T>::gil_handling;}
     constexpr GilHandling param_gil_handling<T> = ParamTraits<T>::gil_handling;
 
-    template <typename T, ConstString TypeName>
-    struct ParamInfo
-    {
-        using OriginalType = DecayToTrueParamType<T>;
-        static constexpr auto name = TypeName;
-
-        using WrappedAdjustedType = WrappedAdjustedParamType<T, name>;
-
-        static constexpr GilHandling gil_handling = param_gil_handling<T>;
-    };
-
-    // Converts from `AdjustedParamType<T>::type` back to `T`.
+    // Converts from `AdjustedParamType<T>` back to `T`.
     template <typename T>
-    [[nodiscard]] T UnadjustParam(typename AdjustedParamType<T>::type &&param, typename ParamUnadjusterExtraParam<T>::type &&extra = {})
+    [[nodiscard]] T UnadjustParam(AdjustedParamType<T> &&param, typename ParamUnadjusterExtraParam<T>::type &&extra = {})
     {
         if constexpr (ParamTypeRequiresAdjustment<T>)
         {
             if constexpr (std::is_null_pointer_v<typename ParamUnadjusterExtraParam<T>::type>)
-                return ParamTraits<T>::UnadjustParam(std::forward<typename AdjustedParamType<T>::type>(param));
+                return ParamTraits<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param));
             else
-                return ParamTraits<T>::UnadjustParam(std::forward<typename AdjustedParamType<T>::type>(param), std::move(extra));
+                return ParamTraits<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param), std::move(extra));
         }
         else
         {
             return std::forward<T>(param);
         }
-    }
-
-    // Converts from `WrappedAdjustedParamType<T>` back to `T`.
-    template <typename T, ConstString Name>
-    [[nodiscard]] T UnwrapUnadjustParam(WrappedAdjustedParamType<T, Name> &&param, typename ParamUnadjusterExtraParam<T>::type &&extra = {})
-    {
-        if constexpr (std::is_null_pointer_v<typename ParamUnadjusterExtraParam<T>::type>)
-            return (UnadjustParam<T>)(static_cast<typename AdjustedParamType<T>::type &&>(std::forward<WrappedAdjustedParamType<T, Name>>(param)));
-        else
-            return (UnadjustParam<T>)(static_cast<typename AdjustedParamType<T>::type &&>(std::forward<WrappedAdjustedParamType<T, Name>>(param)), std::move(extra));
     }
 
     // ---
@@ -814,19 +623,19 @@ namespace MRBind::detail::pb11
     // MB_REGISTER_TYPE uses those:
 
     // Like `RegisterTypeWithCustomBindingIfApplicable<T>`, but also does nothing if `Enable` is false.
-    template <bool Enable, typename T>
-    struct RegisterOneTypeWithCustomBindingAndAdjustmentsCond {};
+    template <typename T>
+    struct RegisterOneTypeWithCustomBindingAndAdjustments {};
     template <typename T>
         // Only accept complete types, because otherwise some traits in `AdjustedParamType` below (and maybe somewhere else) blow up.
         // We could guard them specifically, but I believe doing this here is enough.
         requires (sizeof(T) > 0)
-    struct RegisterOneTypeWithCustomBindingAndAdjustmentsCond<true, T>
+    struct RegisterOneTypeWithCustomBindingAndAdjustments<T>
         : RegisterTypeWithCustomBindingIfApplicable<
             T,
             // Also register return and parameter wrappers.
             // Could make this conditional to speed up compilation, but it's probably not worth it (export
             typename AdjustReturnType<T>::type,
-            typename AdjustedParamType<T>::type
+            AdjustedParamType<T>
         >
     {};
 
@@ -886,14 +695,14 @@ namespace MRBind::detail::pb11
     }
 
     // Member or non-member functions. Non-member functions should pass `IsStatic == false`.
-    template <bool IsStatic, auto F, ConstString ReturnTypeName, typename ...P>
+    template <bool IsStatic, auto F, typename ...P>
     void TryAddFunc(auto &c, const char *simplename, const char *fullname, auto &&... data)
     {
-        if constexpr ((ParamTypeDisablesWholeFunction<typename P::OriginalType> || ...))
+        if constexpr ((ParamTypeDisablesWholeFunction<DecayToTrueParamType<P>> || ...))
             ; // This function has a parameter of a weird type that we can't support.
         else
         {
-            using ReturnType = std::invoke_result_t<decltype(F), typename P::OriginalType &&...>; // `P::OriginalType...` are already unadjusted.
+            using ReturnType = std::invoke_result_t<decltype(F), DecayToTrueParamType<P> &&...>; // `DecayToTrueParamType` is not adjusted.
             using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
             constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
@@ -902,9 +711,9 @@ namespace MRBind::detail::pb11
                 "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
             );
 
-            auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
+            auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
             {
-                #define INVOKE_FUNC std::invoke(F, (UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...)
+                #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
 
                 if constexpr (std::is_void_v<ReturnTypeAdjusted>)
                 {
@@ -912,7 +721,7 @@ namespace MRBind::detail::pb11
                 }
                 else
                 {
-                    #define INVOKE_FUNC_R (AdjustAndWrapReturnedValue<ReturnType, ReturnTypeName>)(INVOKE_FUNC)
+                    #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
 
                     if constexpr (returns_unique_ptr_to_builtin)
                         return INVOKE_FUNC_R.release(); // `pybind11::return_value_policy::take_ownership` takes ownership of this.
@@ -925,7 +734,7 @@ namespace MRBind::detail::pb11
                 #undef INVOKE_FUNC
             };
 
-            using LambdaReturnTypeAdjustedWrapped = decltype(lambda(std::declval<typename P::WrappedAdjustedType>()...));
+            using LambdaReturnTypeAdjustedWrapped = decltype(lambda(std::declval<AdjustedParamType<P>>()...));
 
             using LambdaReturnTypeAdjustedWrapperPtrRefStripped = typename RemovePointersRefs<LambdaReturnTypeAdjustedWrapped>::type;
 
@@ -960,7 +769,7 @@ namespace MRBind::detail::pb11
 
                     [&](auto&&, auto &&...trimmed_data)
                     {
-                        using FirstParam = FirstType<typename P::OriginalType...>;
+                        using FirstParam = FirstType<DecayToTrueParamType<P>...>;
 
                         if (auto iter = r.type_entries.find(typeid(FirstParam)); iter != r.type_entries.end())
                         {
@@ -973,11 +782,11 @@ namespace MRBind::detail::pb11
                             // try injecting the reverse form into the type of the second operand.
                             if constexpr (sizeof...(P) == 2)
                             {
-                                using SecondParam = SecondType<typename P::OriginalType...>;
+                                using SecondParam = SecondType<DecayToTrueParamType<P>...>;
                                 if (auto iter = r.type_entries.find(typeid(SecondParam)); iter != r.type_entries.end())
                                 {
                                     // A lambda to swap the order of the two arguments.
-                                    auto symmetric_lambda = [](SecondType<typename P::WrappedAdjustedType...> x, FirstType<typename P::WrappedAdjustedType...> y) -> decltype(auto)
+                                    auto symmetric_lambda = [](SecondType<AdjustedParamType<P>...> x, FirstType<AdjustedParamType<P>...> y) -> decltype(auto)
                                     {
                                         // Using `forward` here to have decent behavior when `x`,`y` are non-references.
                                         return decltype(lambda){}(std::forward<decltype(y)>(y), std::forward<decltype(x)>(x));
@@ -1013,7 +822,7 @@ namespace MRBind::detail::pb11
                 final_name = fullname;
             }
 
-            constexpr GilHandling gil_handling = CombineGilHandling<P::gil_handling...>::value;
+            constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
             // The `call_guard<gil_scoped_release>` fixes a deadlock when calling python callbacks from something other than the main thread.
@@ -1045,24 +854,24 @@ namespace MRBind::detail::pb11
         using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
         if constexpr (std::is_abstract_v<T>)
             ; // Reject abstract classes.
-        else if constexpr ((ParamTypeDisablesWholeFunction<typename P::OriginalType> || ...))
+        else if constexpr ((ParamTypeDisablesWholeFunction<DecayToTrueParamType<P>> || ...))
             ; // This function has a parameter of a weird type that we can't support.
-        else if constexpr (sizeof...(P) == 1 && std::is_base_of_v<typename AdjustedParamType<FirstType<typename P::OriginalType...>>::type, T>)
+        else if constexpr (sizeof...(P) == 1 && std::is_base_of_v<AdjustedParamType<FirstType<P...>>, T>)
             // Reject move constructors. They just appear as a duplicate of the copy constructor in the `help(...)`, and other than that don't do anything.
-            // Note `std::is_base_of` instead of `std::is_same`. This is to catch those constructors in `TypedefWrapper`s as well.
+            // `std::is_base_of` was placed is here instead of `std::is_same` to catch the ol' `TypedefWrapper`s. Might not be necessary anymore.
             ;
         else
         {
-            auto lambda = [](typename P::WrappedAdjustedType ...params) -> decltype(auto)
+            auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
             {
                 // Note `new` here! Pybind still frees the object automatically.
                 // The only effect this causes is eliminating the extra move that otherwise occurs when creating an object.
                 // This extra move only appears when using `.def(pybind11::init([](...){...}))` and not `.def(pybind11::init<...>())`,
                 // but the latter is not an option for us because it prevents us from adjusting the parameter types.
-                return new T((UnwrapUnadjustParam<typename P::OriginalType, P::name>)(std::forward<typename P::WrappedAdjustedType>(params))...);
+                return new T((UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...);
             };
 
-            constexpr GilHandling gil_handling = CombineGilHandling<P::gil_handling...>::value;
+            constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
             if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
@@ -1074,7 +883,7 @@ namespace MRBind::detail::pb11
             // and has at most one parameter without a default argument.
             if constexpr (!IsExplicit && sizeof...(P) > 0 && sizeof...(P) - NumDefaultArgs <= 1)
             {
-                pybind11::implicitly_convertible<std::remove_cvref_t<FirstType<typename P::OriginalType...>>, T>();
+                pybind11::implicitly_convertible<std::remove_cvref_t<FirstType<DecayToTrueParamType<P>...>>, T>();
             }
         }
     }
@@ -1115,78 +924,8 @@ namespace detail
     template <typename T>
     requires MRBind::detail::pb11::HasCustomTypeBinding<T>
     class type_caster<T> : public type_caster_base<T> /*MRBind::detail::pb11::RegisterOneTypeWithCustomBinding<T>*/ {};
-
-    // Propagate pybind11's fixed `is_copy_constructible` through `TypedefWrapper`.
-    template <typename T, MRBind::ConstString Name>
-    struct is_copy_constructible<MRBind::detail::pb11::TypedefWrapper<T, Name>>
-        : is_copy_constructible<T> // This is `pybind11::detail::is_copy_constructible`.
-    {};
-    template <typename T, MRBind::ConstString Name>
-    struct is_copy_assignable<MRBind::detail::pb11::TypedefWrapper<T, Name>>
-        : is_copy_assignable<T> // This is `pybind11::detail::is_copy_assignable`.
-    {};
 }
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
-
-// Typedef wrapper for a custom class.
-template <typename T, MRBind::ConstString Name>
-requires MRBind::detail::pb11::HasCustomTypeBinding<T>
-struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
-    : public CustomTypeBinding<T>
-{
-    using pybind_type = pybind11::class_<
-        // This class.
-        MRBind::detail::pb11::TypedefWrapper<T, Name>,
-        // Base.
-        T,
-        // Holder. You'd think we don't need it here, but otherwise we get:
-        //   ImportError: generic_type: type "X" does not have a non-default holder type while its base "Y" does
-        typename SelectPybindHolder<MRBind::detail::pb11::TypedefWrapper<T, Name>>::type
-    >;
-
-    [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
-
-    template <typename U> // No `typename ...Q`, we don't expect any parents here.
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n)
-    {
-        return CustomTypeBinding<T>::template pybind_init<U, T>(std::move(f), m, n);
-    }
-
-    template <bool InDerivedClass>
-    static void bind_members(pybind11::module_ &m, auto &c)
-    {
-        CustomTypeBinding<T>::template bind_members<true>(m, c);
-    }
-
-    static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
-};
-
-// Typedef wrapper for a parsed class.
-// `HasParsedClassBindingInThisFragment` here is a bit sus, but this binding should only be registered by `MB_ALT_TYPE_SPELLING`, so we should be fine?
-template <typename T, MRBind::ConstString Name>
-requires MRBind::detail::pb11::HasParsedClassBindingInThisFragment<T>
-struct MRBind::detail::pb11::CustomTypeBinding<MRBind::detail::pb11::TypedefWrapper<T, Name>>
-    : public DefaultCustomTypeBinding<T>
-{
-    using pybind_type = BindParsedClass<T>::template pybind_class_type_for<TypedefWrapper<T, Name>, T>; // This automatically sets the right holder.
-
-    [[nodiscard]] static std::string pybind_type_name() {return ToPythonName(Name.view());}
-
-    template <typename U> // No `typename ...Q`, we don't expect any parents here.
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n)
-    {
-        return std::make_unique<MRBind::detail::pb11::SpecificPybindType<typename BindParsedClass<T>::template pybind_class_type_for<U, T>>>(BindParsedClass<T>::template BindType<U, T>(m, n));
-    }
-
-    template <bool InDerivedClass>
-    static void bind_members(pybind11::module_ &m, auto &c)
-    {
-        using U = typename std::remove_reference_t<decltype(c.type)>::type;
-        BindParsedClass<T>::template BindMembers<true, U, T>(m, c.type);
-    }
-
-    static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
-};
 
 // Module entry point, and more stuff.
 #if MB_FRAGMENT == 0 // Don't duplicate this if we have >1 TU.
@@ -1372,6 +1111,22 @@ namespace MRBind::detail::pb11
         // _Call
         // _Subscript
     }
+
+    void RegisterTypeAlias(std::string_view from, std::string_view to)
+    {
+        auto FixType = [](std::string_view &type)
+        {
+            if (type.starts_with("const "))
+                type.remove_prefix(6);
+
+            // We don't need to fix the suffix, `ToPythonName()` will remove it.
+        };
+
+        FixType(from);
+        FixType(to);
+
+        MRBind::detail::pb11::GetRegistry().type_aliases[MRBind::detail::pb11::ToPythonName(to)].insert(MRBind::detail::pb11::ToPythonName(from));
+    }
 }
 
 PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
@@ -1453,6 +1208,28 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     // Load the functions.
     for (const auto &elem : r.func_entries)
         elem(m);
+
+    { // Load the aliases.
+        std::unordered_map<std::string_view, const TypeEntry *> names_to_types;
+        for (const auto &elem : r.type_entries)
+        {
+            bool ok = names_to_types.try_emplace(elem.second.pybind_type_name, &elem.second).second;
+            if (!ok)
+                throw std::runtime_error("Name `" + elem.second.pybind_type_name + "` refers to more than one type.");
+        }
+
+        for (const auto &[type, spellings] : r.type_aliases)
+        {
+            if (spellings.size() > 1)
+                continue; // More than one target name, so this is ambiguous (somehow). Ignore this one.
+
+            auto iter = names_to_types.find(*spellings.begin());
+            if (iter == names_to_types.end())
+                continue; // Don't know this target type, ignore it.
+
+            m.add_object(type.c_str(), iter->second->pybind_type->GetPybindObject());
+        }
+    }
 }
 
 #endif // MB_FRAGMENT == 0
@@ -1497,7 +1274,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // A helper that generates a list of info wrappers about each parameter.
 #define DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_ENTRIES_BODY, SF_NULL, SF_NULL, 1, seq)
 #define DETAIL_MB_PB11_PARAM_ENTRIES_BODY(n, d, type_, name_, .../*default_arg_*/) \
-    , MRBind::detail::pb11::ParamInfo<MRBIND_IDENTITY type_, MRBIND_STR(MRBIND_IDENTITY type_)>
+    , MRBIND_IDENTITY type_
 
 // Returns the number of function parameters with default arguments.
 #define DETAIL_MB_PB11_NUM_DEF_ARGS(seq) 0 SF_FOR_EACH0(DETAIL_MB_PB11_NUM_DEF_ARGS_BODY, SF_NULL, SF_NULL,, seq)
@@ -1557,49 +1334,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define DETAIL_MB_PB11_IF_EXPLICIT_explicit() true
 
 
-// --------------------------------- STAGE 0 ---------------------------------
+// ---
+
+#include <mrbind/helpers/undef_all_macros.h>
 
 #define MB_WANT_BAKED_TYPE_NAMES
-
-#include <mrbind/helpers/undef_all_macros.h>
-
-// Signal to include the original haders.
 #define MB_INCLUDE_ORIGINAL_HEADER 2
-
-#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
-    namespace MRBind::detail::pb11 \
-    { \
-        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
-        template <> \
-        struct BindParsedClass<MRBIND_IDENTITY qualname_> \
-        { \
-            template <typename T, typename ...P> \
-            using pybind_class_type_for = pybind11::class_< \
-                /* Type. */\
-                T, \
-                /* Holder. */\
-                typename SelectPybindHolder<T>::type,\
-                /* Extra. */\
-                P... \
-            >; \
-            using pybind_class_type = pybind_class_type_for<MRBIND_IDENTITY qualname_ DETAIL_MB_PB11_BASE_TYPES(bases_)>; \
-            template <typename T, typename ...E> \
-            static pybind_class_type_for<T, E...> BindType(pybind11::module_ &m, const char *n); \
-            static pybind_class_type BindTypeDefault(pybind11::module_ &m, const char *n) {return BindType<MRBIND_IDENTITY qualname_ DETAIL_MB_PB11_BASE_TYPES(bases_)>(m, n);} \
-            template <bool InDerivedClass = false, typename U, typename ...E> \
-            static void BindMembers(pybind11::module_ &m, pybind_class_type_for<U, E...> &c); \
-            static void BindMembersDefault(pybind11::module_ &m, pybind_class_type &c) {BindMembers(m, c);} \
-        }; \
-    }
-
-#include <mrbind/helpers/define_missing_macros.h>
-
-#define MB_PB11_STAGE 1
-#define MB_AGAIN
-#elif MB_PB11_STAGE == 1 // --------------------------------- STAGE 1 ---------------------------------
-
-// Destroy existing macros.
-#include <mrbind/helpers/undef_all_macros.h>
 
 // For namespaces, emit braces with `using namespace`.
 // This helps with name lookup for default arguments (where we can't easily fully qualify the types ourselves).
@@ -1615,9 +1355,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 /* Doesn't count as `static` for our purposes. */\
                 false, \
                 /* The function pointer or a lambda. */\
-                DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_), \
-                /* Return type name. */\
-                MRBIND_STR(MRBIND_IDENTITY ret_) \
+                DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
                 /* Parameter types. */\
                 DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
             >( \
@@ -1669,63 +1407,22 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
             { \
                 using _pb11_C = MRBIND_IDENTITY qualname_; \
-                using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
-                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
-                return std::make_unique<_pb11_T>(_pb11_B::BindTypeDefault(_pb11_m, _pb11_n)); \
+                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, typename MRBind::detail::pb11::SelectPybindHolder<_pb11_C>::type>>; \
+                return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
             }, \
             /* Members lamdba. */\
             [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
             { \
                 using _pb11_C = MRBIND_IDENTITY qualname_; \
-                using _pb11_B = MRBind::detail::pb11::BindParsedClass<_pb11_C>; \
-                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<_pb11_B::pybind_class_type>; \
-                _pb11_B::BindMembersDefault(_pb11_m, static_cast<_pb11_T *>(&_pb11_b)->type); \
+                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, typename MRBind::detail::pb11::SelectPybindHolder<_pb11_C>::type>>; \
+                auto &_pb11_c = static_cast<_pb11_T *>(&_pb11_b)->type; \
+                DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+                (MRBind::detail::pb11::TryMakeIterable<_pb11_C>)(_pb11_c); \
             }, \
             std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
         ); \
         return 0; \
     }(); \
-
-// Add missing macros.
-#include <mrbind/helpers/define_missing_macros.h>
-
-
-#undef MB_PB11_STAGE
-#define MB_PB11_STAGE 2
-#define MB_AGAIN
-#elif MB_PB11_STAGE == 2 // --------------------------------- STAGE 2 ---------------------------------
-
-#include <mrbind/helpers/undef_all_macros.h>
-
-#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
-    namespace MRBind::detail::pb11 \
-    { \
-        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
-        template <typename _pb11_C, typename ..._pb11_E> \
-        auto BindParsedClass<MRBIND_IDENTITY qualname_>::BindType(pybind11::module_ &_pb11_m, const char *_pb11_n) -> pybind_class_type_for<_pb11_C, _pb11_E...> \
-        { \
-            pybind_class_type_for<_pb11_C, _pb11_E...> _pb11_c(_pb11_m, _pb11_n); \
-            return _pb11_c; \
-        } \
-        template <bool _pb11_InDerivedClass, typename _pb11_C, typename ..._pb11_E> \
-        void BindParsedClass<MRBIND_IDENTITY qualname_>::BindMembers(pybind11::module_ &_pb11_m, pybind_class_type_for<_pb11_C, _pb11_E...> &_pb11_c) \
-        { \
-            DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
-            /* Make this class iterable if necessary. */\
-            if constexpr (!_pb11_InDerivedClass) \
-                (TryMakeIterable<_pb11_C>)(_pb11_c); \
-        } \
-    }
-
-
-#define MB_REGISTER_TYPE(i_, ...) \
-    static constexpr MRBind::detail::pb11::RegisterOneTypeWithCustomBindingAndAdjustmentsCond<MB_CHECK_FRAGMENT(i_), std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
-
-#define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
-    /* Here we just generate the typedef wrapper if needed, and that's all. */\
-    /* Using `std::type_identity` (note, not `..._t`) to avoid constructing the actual type. Can't use a pointer, because the type can be a reference. */\
-    static constexpr MRBind::detail::pb11::RegisterAltTypeSpellingIfNeeded<MB_CHECK_FRAGMENT(i_), MRBIND_IDENTITY type_, MRBIND_STR(MRBIND_IDENTITY spelling_)> MRBIND_UNIQUE_VAR{};
-
 
 
 // A helper for `MB_CLASS` that handles different kinds of class members.
@@ -1735,7 +1432,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
-    if constexpr (!_pb11_InDerivedClass) \
     MRBind::detail::pb11::TryAddMemberVar< \
         /* Static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
@@ -1768,19 +1464,16 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, simplename_, const_, comment_, params_) \
-    if constexpr (!_pb11_InDerivedClass) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddFunc< \
         /* bool: is this function static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(true, false),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_), \
-        /* Return type name. */\
-        MRBIND_STR(MRBIND_IDENTITY ret_) \
+        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) \
         /* Parameter types: */\
         /* Self parameter. */\
-        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() MRBind::detail::pb11::ParamInfo<_pb11_C & MRBIND_COMMA() "">)\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
         /* Normal parameter types. */\
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
     >( \
@@ -1797,7 +1490,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, ret_, const_, comment_) \
-    if constexpr (!_pb11_InDerivedClass) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddFunc< \
         /* Not static. */\
@@ -1805,10 +1497,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
         static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_IDENTITY qualname_::*)() const_>(&MRBIND_IDENTITY qualname_::operator MRBIND_IDENTITY ret_), \
-        /* Return type name. */\
-        MRBIND_STR(MRBIND_IDENTITY ret_), \
         /* The only parameter, which is the class itself. */\
-        MRBind::detail::pb11::ParamInfo<_pb11_C &, ""> \
+        _pb11_C & \
     >( \
         _pb11_c, \
         /* Simple name */\
@@ -1819,8 +1509,16 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         MRBIND_PREPEND_COMMA(comment_) \
     );
 
+#define MB_REGISTER_TYPE(i_, ...) \
+    static constexpr MRBind::detail::pb11::RegisterOneTypeWithCustomBindingAndAdjustments<std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
+
+#define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
+    static const char MRBIND_UNIQUE_VAR = []{ \
+        MRBind::detail::pb11::RegisterTypeAlias(MRBIND_STR(MRBIND_IDENTITY type_), MRBIND_STR(MRBIND_IDENTITY spelling_)); \
+        return 0; \
+    }();
+
+
+
+// Add missing macros.
 #include <mrbind/helpers/define_missing_macros.h>
-
-
-
-#endif // MB_PB11_STAGE == 2

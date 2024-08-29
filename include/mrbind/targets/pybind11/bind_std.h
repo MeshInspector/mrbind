@@ -339,13 +339,8 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
                         throw pybind11::index_error();
                     return array[i];
                 },
-                // Return type name.
-                //   `""` means "please don't add a typedef wrapper here".
-                "",
-                // Parameters:
-                //   `""` means "please don't add a typedef wrapper here".
-                ParamInfo<std::array<T, N> &, "">, // `this`
-                ParamInfo<std::size_t, "">
+                std::array<T, N> &, // `this`
+                std::size_t
             >(
                 c.type,
                 "__getitem__",
@@ -365,14 +360,10 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
                             throw pybind11::index_error();
                         array[i] = value;
                     },
-                    // Return type name.
-                    //   `""` means "please don't add a typedef wrapper here".
-                    "",
                     // Parameters:
-                    //   `""` means "please don't add a typedef wrapper here".
-                    ParamInfo<std::array<T, N> &, "">, // `this`
-                    ParamInfo<std::size_t, "">,
-                    ParamInfo<const T &, "">
+                    std::array<T, N> &, // `this`
+                    std::size_t,
+                    const T &
                 >(
                     c.type,
                     "__setitem__",

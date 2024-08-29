@@ -141,13 +141,8 @@ namespace MRBind::detail::pb11
                     false,
                     // Function.
                     &FuncWrapper<R(P...)>::Call,
-                    // Return type name.
-                    //   `""` means "please don't add a typedef wrapper here".
-                    "",
-                    // Parameters:
-                    //   `""` means "please don't add a typedef wrapper here".
-                    ParamInfo<const FuncWrapper<R(P...)> &, "">, // `this`
-                    ParamInfo<P, "">...
+                    const FuncWrapper<R(P...)> &, // `this`
+                    P...
                 >(
                     c.type,
                     "__call__",
