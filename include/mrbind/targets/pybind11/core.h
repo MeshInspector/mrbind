@@ -900,22 +900,37 @@ namespace MRBind::detail::pb11
         using std::begin; // Fallback to `std::begin`/`std::end` on ADL failure.
         using std::end; // ^
         if constexpr (
-            requires(const T &t)
+            requires(T &t)
             {
-                requires std::is_same_v<decltype(begin(t)), decltype(end(t))>; // Both iterators exist and have the same type.
-                requires std::is_lvalue_reference_v<decltype(*begin(t))>; // Iterators dereference to lvalue references. Maybe not strictly necessary.
+                // Both iterators exist and have the same type. Checking non-const `t`, because we'll be
+                // calling it on a non-const object anyway, since Python doesn't have constness, and we have no reason to artificially add it.
+                requires std::is_same_v<decltype(begin(t)), decltype(end(t))>;
             }
         )
         {
-            c.def(
-                "__iter__",
-                [](T &target)
-                {
-                    return pybind11::make_iterator(begin(target), end(target));
-                },
-                // Keep the container alive as long as iterators exist.
-                pybind11::keep_alive<0, 1>()
-            );
+            if constexpr (std::is_lvalue_reference_v<decltype(*begin(std::declval<T &>()))>)
+            {
+                c.def(
+                    "__iter__",
+                    [](T &target)
+                    {
+                        return pybind11::make_iterator(begin(target), end(target));
+                    },
+                    // Keep the container alive as long as iterators exist. Should be redundant when the policy
+                    // is set to `reference_interal`, which is the default value. But adding it doesn't hurt.
+                    pybind11::keep_alive<0, 1>()
+                );
+            }
+            else
+            {
+                c.def(
+                    "__iter__",
+                    [](T &target)
+                    {
+                        return pybind11::make_iterator<pybind11::return_value_policy::copy>(begin(target), end(target));
+                    }
+                );
+            }
         }
     }
 }
@@ -1091,6 +1106,7 @@ namespace MRBind::detail::pb11
         if (view == "_GreaterGreaterEqual") return "__irshift__";
         if (view == "_EqualEqual") return "__eq__"; // If missing, Python implements this in terms of `is` (basically an address comparison).
         if (view == "_ExclaimEqual") return "__ne__"; // Python automatically implements this in terms of `__eq__` if it's missing, like in C++.
+        if (view == "_Call") return "__call__";
         // We don't handle <,<=,>,>= at the moment. Would need to do something about `<=>` too....
         return name;
         // Unhandled operators: (taken from /usr/lib/llvm-18/include/clang/Basic/OperatorKinds.def)
@@ -1112,8 +1128,7 @@ namespace MRBind::detail::pb11
         // _Comma
         // _ArrowStar
         // _Arrow
-        // _Call
-        // _Subscript
+        // _Subscript  - how to handle both __getelem__ and __setelem__?
     }
 
     void RegisterTypeAliasLow(std::type_index type, std::string_view spelling)
