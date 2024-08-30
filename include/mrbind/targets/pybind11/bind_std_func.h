@@ -98,57 +98,44 @@ namespace MRBind::detail::pb11
             return ret;
         }
 
-        template <bool InDerivedClass>
-        static void bind_members(pybind11::module_ &, auto &c)
+        static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<FuncWrapper<R(P...)>>::pybind_type &c)
         {
-            using TT = typename std::remove_reference_t<decltype(c.type)>::type;
-
             // Default constructor.
-            c.type.def(pybind11::init<>());
+            c.def(pybind11::init<>());
 
             // Construct from None.
-            c.type.def(pybind11::init<std::nullptr_t>());
+            c.def(pybind11::init<std::nullptr_t>());
             pybind11::implicitly_convertible<std::nullptr_t, FuncWrapper<R(P...)>>();
 
             // Copy constructor.
             if constexpr (pybind11::detail::is_copy_constructible<FuncWrapper<R(P...)>>::value)
-            {
-                c.type.def(pybind11::init<const FuncWrapper<R(P...)> &>());
-                if constexpr (InDerivedClass)
-                    pybind11::implicitly_convertible<FuncWrapper<R(P...)>, TT>();
-            }
+                c.def(pybind11::init<const FuncWrapper<R(P...)> &>());
 
             // Conversion from a Python lambda.
             if constexpr (FuncWrapper<R(P...)>::can_be_created_from_python)
             {
-                c.type.def(pybind11::init([](std::function<R(P...)> f){return FuncWrapper<R(P...)>(std::move(f));}));
+                c.def(pybind11::init([](std::function<R(P...)> f){return FuncWrapper<R(P...)>(std::move(f));}));
                 pybind11::implicitly_convertible<std::function<R(P...)>, FuncWrapper<R(P...)>>();
             }
 
-            if constexpr (!InDerivedClass)
-            {
-                pybind11::function x;
+            // Convert to bool.
+            c.def("__bool__", &FuncWrapper<R(P...)>::operator bool);
 
+            c.def("can_be_created_from_python", [](const FuncWrapper<R(P...)> &f){return f.can_be_created_from_python;}, "If false, this function type can't hold a Python function, and can only be created from C++.");
+            c.def("holds_cpp_function", [](const FuncWrapper<R(P...)> &f){return f.holds_cpp_func;}, "Does this object currentlyhold a C++ function? As opposed to a Python one.");
 
-                // Convert to bool.
-                c.type.def("__bool__", &FuncWrapper<R(P...)>::operator bool);
-
-                c.type.def("can_be_created_from_python", [](const FuncWrapper<R(P...)> &f){return f.can_be_created_from_python;}, "If false, this function type can't hold a Python function, and can only be created from C++.");
-                c.type.def("holds_cpp_function", [](const FuncWrapper<R(P...)> &f){return f.holds_cpp_func;}, "Does this object currentlyhold a C++ function? As opposed to a Python one.");
-
-                TryAddFunc<
-                    // Static?
-                    false,
-                    // Function.
-                    &FuncWrapper<R(P...)>::Call,
-                    const FuncWrapper<R(P...)> &, // `this`
-                    P...
-                >(
-                    c.type,
-                    "__call__",
-                    "__call__"
-                );
-            }
+            TryAddFunc<
+                // Static?
+                false,
+                // Function.
+                &FuncWrapper<R(P...)>::Call,
+                const FuncWrapper<R(P...)> &, // `this`
+                P...
+            >(
+                c,
+                "__call__",
+                "__call__"
+            );
         }
     };
 }

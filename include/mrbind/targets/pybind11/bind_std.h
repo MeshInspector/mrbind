@@ -25,9 +25,6 @@ namespace MRBind::detail::pb11
 }
 
 // This holds patched versions of pybind11's `bind_vector`, `bind_map`, etc.
-// We do that for two reasons:
-// * We must set holder types to `shared_ptr<T>`. In theory they provide a template parameter to do that,
-//   but we ALSO need to specify a parent class. We can abuse the holder parameter for the parent class, but we can't have both without patching.
 namespace pybind11::patched
 {
     template <typename Vector, typename... Extras>
@@ -203,69 +200,75 @@ namespace pybind11::patched
 
 // std::vector
 #include <vector>
-template <typename T, typename ...P>
-struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, P...>>
-    : DefaultCustomTypeBinding<std::vector<T, P...>>,
+template <typename T, typename A>
+struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, A>>
+    : DefaultCustomTypeBinding<std::vector<T, A>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
-    template <typename U, typename ...Q>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::patched::bind_vector<U, Q...>(m, n));}
+    [[nodiscard]] static std::string pybind_type_name()
+    {
+        if constexpr (IsStdAllocatorFor<T, A>::value)
+        {
+            // To avoid spelling the allocator. Can't rely on having a complete baked type either.
+            return ToPythonName(std::string("std::vector<") + TypeidTypeName<T>() + ">");
+        }
+        else
+        {
+            return DefaultCustomTypeBinding<std::vector<T, A>>::pybind_type_name();
+        }
+    }
+
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    template <bool InDerivedClass>
-    static void bind_members(pybind11::module_ &, auto &c)
+    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::vector<T, A>>::pybind_type &c)
     {
-        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
-
         // Copy constructor.
-        if constexpr (pybind11::detail::is_copy_constructible<std::vector<T, P...>>::value)
-        {
-            c.type.def(pybind11::init<const std::vector<T, P...> &>());
-            if constexpr (InDerivedClass)
-                pybind11::implicitly_convertible<std::vector<T, P...>, TT>();
-        }
+        if constexpr (pybind11::detail::is_copy_constructible<std::vector<T, A>>::value)
+            c.def(pybind11::init<const std::vector<T, A> &>());
 
-        if constexpr (!InDerivedClass)
+        c.def("size", [](const std::vector<T, A> &v){return v.size();});
+        if constexpr (pybind11::detail::is_copy_constructible<T>::value && pybind11::detail::is_copy_assignable<T>::value)
         {
-            c.type.def("size", [](const TT &v){return v.size();});
-            if constexpr (std::copyable<typename TT::value_type>)
-            {
-                if constexpr (std::is_default_constructible_v<typename TT::value_type>)
-                    c.type.def("resize", [](TT &v, std::size_t n){v.resize(n);});
-                c.type.def("resize", [](TT &v, std::size_t n, const typename TT::value_type &value){v.resize(n, value);});
-            }
+            if constexpr (std::is_default_constructible_v<T>)
+                c.def("resize", [](std::vector<T, A> &v, std::size_t n){v.resize(n);});
+            c.def("resize", [](std::vector<T, A> &v, std::size_t n, const T &value){v.resize(n, value);});
         }
     }
     #endif
 };
 // std::map
 #include <map>
-template <typename T, typename U, typename ...P>
-struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, P...>>
-    : DefaultCustomTypeBinding<std::map<T, U, P...>>,
+template <typename T, typename U, typename Comp, typename A>
+struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
+    : DefaultCustomTypeBinding<std::map<T, U, Comp, A>>,
     RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
-    template <typename V, typename ...Q>
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::patched::bind_map<V, Q...>(m, n));}
+    [[nodiscard]] static std::string pybind_type_name()
+    {
+        if constexpr (IsStdAllocatorFor<T, A>::value)
+        {
+            // To avoid spelling the allocator. Can't rely on having a complete baked type either.
+            return ToPythonName(std::string("std::map<") + TypeidTypeName<T>() + ", " + TypeidTypeName<U>() + ">");
+        }
+        else
+        {
+            return DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::pybind_type_name();
+        }
+    }
+
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    template <bool InDerivedClass>
-    static void bind_members(pybind11::module_ &, auto &c)
+    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::pybind_type &c)
     {
-        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
+        using TT = typename std::remove_reference_t<decltype(c)>::type;
 
         // Copy constructor.
-        if constexpr (pybind11::detail::is_copy_constructible<std::map<T, U, P...>>::value)
-        {
-            c.type.def(pybind11::init<const std::map<T, U, P...> &>());
-            if constexpr (InDerivedClass)
-                pybind11::implicitly_convertible<std::map<T, U, P...>, TT>();
-        }
+        if constexpr (pybind11::detail::is_copy_constructible<std::map<T, U, Comp, A>>::value)
+            c.def(pybind11::init<const std::map<T, U, Comp, A> &>());
 
-        if constexpr (!InDerivedClass)
-        {
-            c.type.def("size", [](const TT &v){return v.size();});
-        }
+        c.def("size", [](const std::map<T, U, Comp, A> &v){return v.size();});
     }
     #endif
 };
@@ -282,30 +285,23 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
         return ToPythonName(std::string("std::array<") + TypeidTypeName<T>() + ", " + std::to_string(N) + ">");
     }
 
-    template <bool InDerivedClass>
-    static void bind_members(pybind11::module_ &, auto &c)
+    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::array<T, N>>::pybind_type &c)
     {
-        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
-
         // Default constructor.
         if constexpr (std::default_initializable<std::array<T, N>>)
-            c.type.def(pybind11::init([]{return std::make_shared<TT>();}));
+            c.def(pybind11::init([]{return std::make_shared<std::array<T, N>>();}));
 
         // Copy constructor.
         if constexpr (pybind11::detail::is_copy_constructible<std::array<T, N>>::value)
-        {
-            c.type.def(pybind11::init<const std::array<T, N> &>());
-            if constexpr (InDerivedClass)
-                pybind11::implicitly_convertible<std::array<T, N>, TT>();
-        }
+            c.def(pybind11::init<const std::array<T, N> &>());
 
         // Constructor from a range. Mostly copied from `pybind11::detail::vector_modifiers`.
         if constexpr (pybind11::detail::is_copy_assignable<T>::value || N == 0)
         {
-            c.type.def(pybind11::init(
+            c.def(pybind11::init(
                 [](const pybind11::iterable &it)
                 {
-                    std::shared_ptr<TT> ret = std::make_shared<TT>();
+                    std::shared_ptr<std::array<T, N>> ret = std::make_shared<std::array<T, N>>();
 
                     std::size_t i = 0;
                     for (pybind11::handle h : it)
@@ -323,77 +319,74 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
             ), ("Initialize from a list of " + std::to_string(N) + "elements.").c_str());
         }
 
-        if constexpr (!InDerivedClass)
-        {
-            // Length.
-            c.type.def("__len__", [](const std::array<T, N> &){return N;});
+        // Length.
+        c.def("__len__", [](const std::array<T, N> &){return N;});
 
-            // Indexing operator (read).
+        // Indexing operator (read).
+        TryAddFunc<
+            // Static?
+            false,
+            // Function.
+            [](std::array<T, N> &array, std::size_t i) -> auto &&
+            {
+                if (i >= N)
+                    throw pybind11::index_error();
+                return array[i];
+            },
+            std::array<T, N> &, // `this`
+            std::size_t
+        >(
+            c,
+            "__getitem__",
+            "__getitem__"
+        );
+
+        // Indexing operator (write).
+        if constexpr (pybind11::detail::is_copy_assignable<T>::value)
+        {
             TryAddFunc<
                 // Static?
                 false,
                 // Function.
-                [](std::array<T, N> &array, std::size_t i) -> auto &&
+                [](std::array<T, N> &array, std::size_t i, const T &value)
                 {
                     if (i >= N)
                         throw pybind11::index_error();
-                    return array[i];
+                    array[i] = value;
                 },
+                // Parameters:
                 std::array<T, N> &, // `this`
-                std::size_t
+                std::size_t,
+                const T &
             >(
-                c.type,
-                "__getitem__",
-                "__getitem__"
+                c,
+                "__setitem__",
+                "__setitem__"
             );
+        }
 
-            // Indexing operator (write).
-            if constexpr (pybind11::detail::is_copy_assignable<T>::value)
-            {
-                TryAddFunc<
-                    // Static?
-                    false,
-                    // Function.
-                    [](std::array<T, N> &array, std::size_t i, const T &value)
+        // Iteratable.
+        (TryMakeIterable<std::array<T, N>>)(c);
+
+        // Converting to a string.
+        if constexpr (requires(std::ostream &o, const T &t){o << t;})
+        {
+            c.def(
+                "__repr__",
+                [name = CustomTypeBinding::pybind_type_name()](const std::array<T, N> &v)
+                {
+                    std::ostringstream s;
+                    s << name << '[';
+                    for (std::size_t i = 0; i < v.size(); i++)
                     {
-                        if (i >= N)
-                            throw pybind11::index_error();
-                        array[i] = value;
-                    },
-                    // Parameters:
-                    std::array<T, N> &, // `this`
-                    std::size_t,
-                    const T &
-                >(
-                    c.type,
-                    "__setitem__",
-                    "__setitem__"
-                );
-            }
-
-            // Iteratable.
-            (TryMakeIterable<std::array<T, N>>)(c.type);
-
-            // Converting to a string.
-            if constexpr (requires(std::ostream &o, const T &t){o << t;})
-            {
-                c.type.def(
-                    "__repr__",
-                    [name = CustomTypeBinding::pybind_type_name()](const std::array<T, N> &v)
-                    {
-                        std::ostringstream s;
-                        s << name << '[';
-                        for (std::size_t i = 0; i < v.size(); i++)
-                        {
-                            if (i != 0)
-                                s << ", ";
-                            s << v[i];
-                        }
-                        s << ']';
-                        return std::move(s).str();
+                        if (i != 0)
+                            s << ", ";
+                        s << v[i];
                     }
-                );
-            }
+                    s << ']';
+                    return std::move(s).str();
+                }
+            );
         }
     }
 };
@@ -404,41 +397,31 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
     : DefaultCustomTypeBinding<std::optional<T>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
-    template <bool InDerivedClass>
-    static void bind_members(pybind11::module_ &, auto &c)
+    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::optional<T>>::pybind_type &c)
     {
-        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
-
         if constexpr (std::default_initializable<std::optional<T>>)
-            c.type.def(pybind11::init<>());
+            c.def(pybind11::init<>());
 
         // Copy constructor.
         if constexpr (pybind11::detail::is_copy_constructible<std::optional<T>>::value)
-        {
-            c.type.def(pybind11::init<const std::optional<T> &>());
-            if constexpr (InDerivedClass)
-                pybind11::implicitly_convertible<std::optional<T>, TT>();
-        }
+            c.def(pybind11::init<const std::optional<T> &>());
 
         // Allow constructing from `T`, but only if copyable!
         if constexpr (std::copyable<T>)
         {
-            c.type.def(pybind11::init<T>());
-            pybind11::implicitly_convertible<T, TT>();
+            c.def(pybind11::init<T>());
+            pybind11::implicitly_convertible<T, std::optional<T>>();
         }
 
         // Allow constructing from `None`.
-        c.type.def(pybind11::init([](std::nullptr_t){return TT{};}));
-        pybind11::implicitly_convertible<std::nullptr_t, TT>();
+        c.def(pybind11::init([](std::nullptr_t){return std::optional<T>{};}));
+        pybind11::implicitly_convertible<std::nullptr_t, std::optional<T>>();
 
-        if constexpr (!InDerivedClass)
+        c.def("__bool__", [](const std::optional<T> &opt){return opt.has_value();});
+
+        if constexpr (std::copyable<T>)
         {
-            c.type.def("__bool__", [](const TT &opt){return opt.has_value();});
-
-            if constexpr (std::copyable<T>)
-            {
-                c.type.def("value", [](const TT &opt) -> const auto & {return opt.value();}, pybind11::return_value_policy::reference_internal);
-            }
+            c.def("value", [](const std::optional<T> &opt) -> const auto & {return opt.value();}, pybind11::return_value_policy::reference_internal);
         }
     }
 };
@@ -449,12 +432,9 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
     : public DefaultCustomTypeBinding<std::variant<P...>>,
     RegisterTypeWithCustomBindingIfApplicable<P...>
 {
-    template <bool InDerivedClass>
-    static void bind_members(pybind11::module_ &, auto &c)
+    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::variant<P...>>::pybind_type &c)
     {
-        using TT = typename std::remove_reference_t<decltype(c.type)>::type;
-
-        static constexpr auto cur_type = [](const TT &var) -> std::string
+        static constexpr auto cur_type = [](const std::variant<P...> &var) -> std::string
         {
             if (var.valueless_by_exception())
                 return "";
@@ -463,30 +443,23 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
         };
 
         if constexpr ((std::default_initializable<P> && ...))
-            c.type.def(pybind11::init<>());
+            c.def(pybind11::init<>());
 
         // Copy constructor.
         if constexpr (pybind11::detail::is_copy_constructible<std::variant<P...>>::value)
-        {
-            c.type.def(pybind11::init<const std::variant<P...> &>());
-            if constexpr (InDerivedClass)
-                pybind11::implicitly_convertible<std::variant<P...>, TT>();
-        }
+            c.def(pybind11::init<const std::variant<P...> &>());
 
         ([&]{
             // Allow constructing from `P...`.
-            c.type.def(pybind11::init<P>());
-            pybind11::implicitly_convertible<P, TT>();
+            c.def(pybind11::init<P>());
+            pybind11::implicitly_convertible<P, std::variant<P...>>();
         }(), ...);
 
-        if constexpr (!InDerivedClass)
-        {
-            c.type.def("current_type", cur_type, "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.");
+        c.def("current_type", cur_type, "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.");
 
-            ([&]{
-                // Allow getting `P...`.
-                c.type.def(("get_" + pb11::ToPythonName(MRBind::TypeName<P>())).c_str(), [](const TT &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
-            }(), ...);
-        }
+        ([&]{
+            // Allow getting `P...`.
+            c.def(("get_" + pb11::ToPythonName(MRBind::TypeName<P>())).c_str(), [](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
+        }(), ...);
     }
 };

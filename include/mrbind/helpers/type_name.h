@@ -131,6 +131,7 @@ namespace MRBind
 
     // ---
 
+    #if 0
     template <typename> struct BakedTypeName; // Codegen defines this when you add `--emit-type-names`.
 
     // If there's a baked type name for `T`, return that. Otherwise return the normal unbaked name.
@@ -142,4 +143,5 @@ namespace MRBind
         else
             return TypeName<T>();
     }
+    #endif
 }

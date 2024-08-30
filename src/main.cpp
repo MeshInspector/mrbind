@@ -492,23 +492,22 @@ namespace mrbind
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return false; // Inaccessible type.
 
-            // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
-            // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
-            // Without this, this incorrectly prints `E::e2` without `MR::` (REGARDLESS of how the full specialization is spelled!).
-            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
-                templ->setTypeAsWritten(nullptr);
-
             ClassEntity &new_class = params->container_stack.back()->nested.emplace_back().variant.emplace<ClassEntity>();
             params->container_stack.push_back(&new_class);
 
-            // Register the class type, just in case.
-            (void)GetTypeStrings(ctx->getRecordType(decl));
-
             new_class.name = decl->getName();
-            new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
+            // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
+            // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
+            // Without this, this incorrectly prints `E::e2` without `MR::` (REGARDLESS of how the full specialization is spelled!).
+            // WARNING: This for some reason seems to crash `GetCommentString()`, so we do it after. Weird but ok.
+            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
+                templ->setTypeAsWritten(nullptr);
+            new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
 
+            // Register the class type, just in case. AFTER `setTypeAsWritten()`.
+            (void)GetTypeStrings(ctx->getRecordType(decl));
 
             auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl);
 
@@ -790,6 +789,7 @@ namespace mrbind
             new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
             new_typedef.comment = GetCommentString(*ctx, *decl);
             new_typedef.type = GetTypeStrings(decl->getUnderlyingType());
+            RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name);
 
             return true;
         }

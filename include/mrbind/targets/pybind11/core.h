@@ -38,13 +38,6 @@
 
 
 
-// Some template helpers.
-
-namespace MRBind
-{
-    template <typename> struct BakedTypeName; // Codegen defines this when you add `--emit-type-names`.
-}
-
 namespace MRBind::detail::pb11
 {
     // Fails the application with a critical error.
@@ -57,7 +50,7 @@ namespace MRBind::detail::pb11
     // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
     [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
 
-    void RegisterTypeAlias(std::string_view from, std::string_view to);
+    void RegisterTypeAliasLow(std::type_index type, std::string_view spelling);
 
     template <typename T>
     [[nodiscard]] std::string GetConversionFuncName(const char *type_name)
@@ -222,7 +215,7 @@ namespace MRBind::detail::pb11
     struct Registry
     {
         std::unordered_map<std::type_index, TypeEntry> type_entries;
-        std::unordered_map<std::string, std::unordered_set<std::string>> type_aliases;
+        std::unordered_map<std::string, std::unordered_set<std::type_index>> type_aliases;
 
         using LoadFunc = void (*)(pybind11::module_ &m);
         std::vector<LoadFunc> func_entries;
@@ -269,6 +262,29 @@ namespace MRBind::detail::pb11
     template <typename T>
     struct IsUniquePtrToBuiltinType<std::unique_ptr<T>> : IsPybindBuiltinType<T> {};
 
+    template <typename T, typename A>
+    struct IsStdAllocatorFor : std::false_type {};
+    template <typename T>
+    struct IsStdAllocatorFor<T, std::allocator<T>> : std::true_type {};
+
+    // Removes cvref-qualifiers, pointers, smart pointers.
+    template <typename T> struct StripToUnderlyingType {using type = T;};
+    template <typename T> struct StripToUnderlyingType<const T> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<T *> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<T &> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<T &&> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T> struct StripToUnderlyingType<std::shared_ptr<T>> {using type = typename StripToUnderlyingType<T>::type;};
+    template <typename T, typename D> struct StripToUnderlyingType<std::unique_ptr<T, D>> {using type = typename StripToUnderlyingType<T>::type;};
+
+    // ---
+
+    template <typename T>
+    void RegisterTypeAlias(std::string_view spelling)
+    {
+        if constexpr (requires{requires sizeof(typename StripToUnderlyingType<T>::type) > 0;}) // If complete.
+            RegisterTypeAliasLow(typeid(typename StripToUnderlyingType<T>::type), spelling);
+    }
+
     // ---
 
     // This is used for manually defining bindings.
@@ -288,9 +304,6 @@ namespace MRBind::detail::pb11
 
         // This passes the constructor arguments to `pybind_type`.
         // Normally you don't need to override this. Override this for stuff like `pybind11::bind_vector()` or `pybind11::bind_map()`.
-        // `U` is either a `pybind_type` or that of a derived class (i.e. `TypedefWrapper<T, "...">`). Use `U` instead of `pybind_type` and `T` here.
-        // `P` is a list of parents. Normally this will be at most one.
-        template <typename U, typename ...Q>
         [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(m, n);}
 
         // The type name for pybind11. Normally don't need to override this.
@@ -305,9 +318,7 @@ namespace MRBind::detail::pb11
 
         // Registers all members.
         // Usually must override this, unless you do something with `pybind_init` (see comment on it above).
-        // Note, must not use `T` here. Use `using TT = typename std::remove_reference_t<decltype(c.type)>::type;` to support derived classes (i.e. `TypedefWrapper<T, "...">`).
-        template <bool InDerivedClass>
-        static void bind_members(pybind11::module_ &, auto &c) {(void)c;}
+        static void bind_members(pybind11::module_ &, pybind_type &c) {(void)c;}
     };
 
     template <typename T>
@@ -323,7 +334,7 @@ namespace MRBind::detail::pb11
                 Traits::pybind_type_name(),
                 [](pybind11::module_ &m, const char *n) -> std::unique_ptr<pb11::BasicPybindType>
                 {
-                    return Traits::template pybind_init<T>(
+                    return Traits::template pybind_init(
                         [&](auto &&... params)
                         {
                             return std::make_unique<TypeStorage>(decltype(params)(params)...);
@@ -333,7 +344,7 @@ namespace MRBind::detail::pb11
                 },
                 [](pybind11::module_ &m, pb11::BasicPybindType &b)
                 {
-                    Traits::template bind_members<false>(m, static_cast<TypeStorage &>(b));
+                    Traits::bind_members(m, static_cast<TypeStorage &>(b).type);
                 },
                 Traits::base_typeids()
             );
@@ -344,15 +355,6 @@ namespace MRBind::detail::pb11
     };
 
     // ---
-
-    // Removes cvref-qualifiers, pointers, smart pointers.
-    template <typename T> struct StripToUnderlyingType {using type = T;};
-    template <typename T> struct StripToUnderlyingType<const T> {using type = typename StripToUnderlyingType<T>::type;};
-    template <typename T> struct StripToUnderlyingType<T *> {using type = typename StripToUnderlyingType<T>::type;};
-    template <typename T> struct StripToUnderlyingType<T &> {using type = typename StripToUnderlyingType<T>::type;};
-    template <typename T> struct StripToUnderlyingType<T &&> {using type = typename StripToUnderlyingType<T>::type;};
-    template <typename T> struct StripToUnderlyingType<std::shared_ptr<T>> {using type = typename StripToUnderlyingType<T>::type;};
-    template <typename T, typename D> struct StripToUnderlyingType<std::unique_ptr<T, D>> {using type = typename StripToUnderlyingType<T>::type;};
 
     // Like `RegisterOneTypeWithCustomBinding<T>`, but does nothing if T doesn't have a custom binding for it.
     // Also automatically strips pointers/refs/etc.
@@ -646,17 +648,19 @@ namespace MRBind::detail::pb11
     {
         void operator()(T *ptr)
         {
-            CriticalError("Trying to delete a type with a private destructor: " + std::string(BakedTypeNameOrFallback<T>()));
+            CriticalError("Trying to delete a type with a private destructor: " + std::string(TypeidTypeName<T>()));
         }
     };
 
     // Selects an appropriate pybind11 holder type for `T`. We REALLY don't want to use `std::unique_ptr` here,
     // because if you then try to return a `std::shared_ptr`, pybind will try to steal ownership from it, and then crash with a double-free (better test with ASAN).
     template <typename T>
-    struct SelectPybindHolder {using type = std::shared_ptr<T>;};
+    struct SelectPybindHolderHelper {using type = std::shared_ptr<T>;};
     // Here we just need some holder that compiles. This one will crash if actually destroyed, so using `std::unique_ptr` here doesn't matter.
     template <typename T> requires (!std::is_destructible_v<T>)
-    struct SelectPybindHolder<T> {using type = std::unique_ptr<T, CrashingDeleter<T>>;};
+    struct SelectPybindHolderHelper<T> {using type = std::unique_ptr<T, CrashingDeleter<T>>;};
+    template <typename T>
+    using SelectPybindHolder = typename SelectPybindHolderHelper<T>::type;
 
     // ---
 
@@ -1112,20 +1116,13 @@ namespace MRBind::detail::pb11
         // _Subscript
     }
 
-    void RegisterTypeAlias(std::string_view from, std::string_view to)
+    void RegisterTypeAliasLow(std::type_index type, std::string_view spelling)
     {
-        auto FixType = [](std::string_view &type)
-        {
-            if (type.starts_with("const "))
-                type.remove_prefix(6);
+        if (spelling.starts_with("const "))
+            spelling.remove_prefix(6);
+        // We don't need to fix the suffix (stripping any `&`,`*`,` `), `ToPythonName()` will remove it.
 
-            // We don't need to fix the suffix, `ToPythonName()` will remove it.
-        };
-
-        FixType(from);
-        FixType(to);
-
-        MRBind::detail::pb11::GetRegistry().type_aliases[MRBind::detail::pb11::ToPythonName(to)].insert(MRBind::detail::pb11::ToPythonName(from));
+        MRBind::detail::pb11::GetRegistry().type_aliases[MRBind::detail::pb11::ToPythonName(spelling)].insert(type);
     }
 }
 
@@ -1218,16 +1215,19 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 throw std::runtime_error("Name `" + elem.second.pybind_type_name + "` refers to more than one type.");
         }
 
-        for (const auto &[type, spellings] : r.type_aliases)
+        for (const auto &[spelling, types] : r.type_aliases)
         {
-            if (spellings.size() > 1)
-                continue; // More than one target name, so this is ambiguous (somehow). Ignore this one.
+            if (types.size() > 1)
+                continue; // More than one target type, so this is ambiguous (somehow). Ignore this one.
 
-            auto iter = names_to_types.find(*spellings.begin());
-            if (iter == names_to_types.end())
+            if (names_to_types.contains(spelling))
+                continue; // The target name is already occupied by a type.
+
+            auto iter = r.type_entries.find(*types.begin());
+            if (iter == r.type_entries.end())
                 continue; // Don't know this target type, ignore it.
 
-            m.add_object(type.c_str(), iter->second->pybind_type->GetPybindObject());
+            m.add_object(spelling.c_str(), iter->second.pybind_type->GetPybindObject());
         }
     }
 }
@@ -1293,16 +1293,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define DETAIL_MB_PB11_BASE_TYPEIDS_BODY(n, d, type_, virtual_) typeid(MRBIND_IDENTITY type_),
 
 // Given a namespace stack (see comments on `MB_NAMESPACE` in `define_missing_macros.h`),
-// emits `using namespace`s for every namespace listed in it.
-#define DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) SF_FOR_EACH(DETAIL_MB_PB11_USING_NAMESPACES_BODY, DETAIL_MB_PB11_USING_NAMESPACES_STEP, SF_NULL,, ns_stack_)
-#define DETAIL_MB_PB11_USING_NAMESPACES_BODY(n, d, name_, kind_) MRBIND_CAT(DETAIL_MB_PB11_USING_NAMESPACES_BODY_, kind_)(d, name_)
-#define DETAIL_MB_PB11_USING_NAMESPACES_BODY_ns(d, name_) using namespace d::name_;
-#define DETAIL_MB_PB11_USING_NAMESPACES_BODY_cl(d, name_)
-#define DETAIL_MB_PB11_USING_NAMESPACES_STEP(n, d, name_, kind_) MRBIND_CAT(DETAIL_MB_PB11_USING_NAMESPACES_STEP_, kind_)(d, name_)
-#define DETAIL_MB_PB11_USING_NAMESPACES_STEP_ns(d, name_) d::name_
-#define DETAIL_MB_PB11_USING_NAMESPACES_STEP_cl(d, name_) d
-
-// Given a namespace stack (see comments on `MB_NAMESPACE` in `define_missing_macros.h`),
 // returns the kind of the most nested entry (`cl` for class, `ns` for namespace). For empty input returns `ns`.
 #define DETAIL_MB_PB11_LAST_SCOPE_KIND(ns_stack_) SF_FOR_EACH(SF_NULL, DETAIL_MB_PB11_LAST_SCOPE_KIND_STEP, SF_STATE, ns, ns_stack_)
 #define DETAIL_MB_PB11_LAST_SCOPE_KIND_STEP(n, d, name_, kind_) kind_
@@ -1338,91 +1328,81 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 #include <mrbind/helpers/undef_all_macros.h>
 
-#define MB_WANT_BAKED_TYPE_NAMES
 #define MB_INCLUDE_ORIGINAL_HEADER 2
+
+#define MB_FILE static const char MRBIND_UNIQUE_VAR = []{
+#define MB_END_FILE return char{}; }();
 
 // For namespaces, emit braces with `using namespace`.
 // This helps with name lookup for default arguments (where we can't easily fully qualify the types ourselves).
-#define MB_NAMESPACE(namespace_, inline_, ns_stack_, comment_) inline_ namespace namespace_ {
+#define MB_NAMESPACE(namespace_, inline_, ns_stack_, comment_) { using namespace namespace_;
 #define MB_END_NAMESPACE(namespace_) }
 
 // Bind a function.
 #define MB_FUNC(ret_, name_, simplename_, qualname_, ns_stack_, comment_, params_) \
-    static const char MRBIND_UNIQUE_VAR = []{ \
-        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
-        MRBind::detail::pb11::GetRegistry().func_entries.push_back([](pybind11::module_ &_pb11_m){\
-            MRBind::detail::pb11::TryAddFunc<\
-                /* Doesn't count as `static` for our purposes. */\
-                false, \
-                /* The function pointer or a lambda. */\
-                DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
-                /* Parameter types. */\
-                DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
-            >( \
-                _pb11_m, \
-                /* Simple name */\
-                MRBIND_STR(simplename_), \
-                /* Full name */\
-                MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
-                /* Parameters. */\
-                DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-                /* Comment, if any. */ \
-                MRBIND_PREPEND_COMMA(comment_) \
-            ); \
-        }); \
-        return 0; \
-    }();
+    MRBind::detail::pb11::GetRegistry().func_entries.push_back([](pybind11::module_ &_pb11_m){\
+        MRBind::detail::pb11::TryAddFunc<\
+            /* Doesn't count as `static` for our purposes. */\
+            false, \
+            /* The function pointer or a lambda. */\
+            DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
+            /* Parameter types. */\
+            DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
+        >( \
+            _pb11_m, \
+            /* Simple name */\
+            MRBIND_STR(simplename_), \
+            /* Full name */\
+            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+            /* Parameters. */\
+            DETAIL_MB_PB11_MAKE_PARAMS(params_) \
+            /* Comment, if any. */ \
+            MRBIND_PREPEND_COMMA(comment_) \
+        ); \
+    });
 
 // Bind a enum.
 #define MB_ENUM(kind_, name_, qualname_, ns_stack_, type_, comment_, elems_) \
-    static const char MRBIND_UNIQUE_VAR = []{ \
-        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
-        MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
-            typeid(MRBIND_IDENTITY qualname_), \
-            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
-            /* Init lambda. */\
-            [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
-            { \
-                return std::make_unique<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(_pb11_m, _pb11_n); \
-            }, \
-            /* Members lamdba. */\
-            [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
-            { \
-                [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
-                DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
-            }, \
-            std::unordered_set<std::type_index>{} \
-        ); \
-        return 0; \
-    }();
+    MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
+        typeid(MRBIND_IDENTITY qualname_), \
+        MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
+        /* Init lambda. */\
+        [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
+        { \
+            return std::make_unique<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(_pb11_m, _pb11_n); \
+        }, \
+        /* Members lamdba. */\
+        [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
+        { \
+            [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
+            DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
+        }, \
+        std::unordered_set<std::type_index>{} \
+    ); \
 
 // Bind a class.
 #define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
-    static const char MRBIND_UNIQUE_VAR = []{ \
-        DETAIL_MB_PB11_USING_NAMESPACES(ns_stack_) \
-        MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
-            typeid(MRBIND_IDENTITY qualname_), \
-            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
-            /* Init lambda. */\
-            [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
-            { \
-                using _pb11_C = MRBIND_IDENTITY qualname_; \
-                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, typename MRBind::detail::pb11::SelectPybindHolder<_pb11_C>::type>>; \
-                return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
-            }, \
-            /* Members lamdba. */\
-            [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
-            { \
-                using _pb11_C = MRBIND_IDENTITY qualname_; \
-                using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, typename MRBind::detail::pb11::SelectPybindHolder<_pb11_C>::type>>; \
-                auto &_pb11_c = static_cast<_pb11_T *>(&_pb11_b)->type; \
-                DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
-                (MRBind::detail::pb11::TryMakeIterable<_pb11_C>)(_pb11_c); \
-            }, \
-            std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
-        ); \
-        return 0; \
-    }(); \
+    MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
+        typeid(MRBIND_IDENTITY qualname_), \
+        MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
+        /* Init lambda. */\
+        [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
+        { \
+            using _pb11_C = MRBIND_IDENTITY qualname_; \
+            using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, MRBind::detail::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>>; \
+            return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
+        }, \
+        /* Members lamdba. */\
+        [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
+        { \
+            using _pb11_C = MRBIND_IDENTITY qualname_; \
+            using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, MRBind::detail::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>>; \
+            auto &_pb11_c = static_cast<_pb11_T *>(&_pb11_b)->type; \
+            DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
+            (MRBind::detail::pb11::TryMakeIterable<_pb11_C>)(_pb11_c); \
+        }, \
+        std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
+    );
 
 
 // A helper for `MB_CLASS` that handles different kinds of class members.
@@ -1510,14 +1490,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     );
 
 #define MB_REGISTER_TYPE(i_, ...) \
-    static constexpr MRBind::detail::pb11::RegisterOneTypeWithCustomBindingAndAdjustments<std::remove_cvref_t<__VA_ARGS__>> MRBIND_UNIQUE_VAR{};
+    (void)MRBind::detail::pb11::RegisterOneTypeWithCustomBindingAndAdjustments<std::remove_cvref_t<__VA_ARGS__>>{}; \
+    /* Just in case, register identity spelling. */\
+    MB_ALT_TYPE_SPELLING(i_, (__VA_ARGS__), (__VA_ARGS__));
 
 #define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
-    static const char MRBIND_UNIQUE_VAR = []{ \
-        MRBind::detail::pb11::RegisterTypeAlias(MRBIND_STR(MRBIND_IDENTITY type_), MRBIND_STR(MRBIND_IDENTITY spelling_)); \
-        return 0; \
-    }();
-
+    MRBind::detail::pb11::RegisterTypeAlias<MRBIND_IDENTITY type_>(MRBIND_STR(MRBIND_IDENTITY spelling_));
 
 
 // Add missing macros.

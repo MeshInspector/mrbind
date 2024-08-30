@@ -62,4 +62,27 @@ namespace MR
         while (std::getline(in, line))
             std::cout << "[" << line << "]\n";
     }
+
+    // ---
+
+    template <typename T, typename U = int> struct my_basic_string;
+    using my_string = my_basic_string<char>;
+    using my_wstring = my_basic_string<wchar_t>;
+    template <typename T, typename U>
+    struct __attribute__((__preferred_name__(my_string)))
+    __attribute__((__preferred_name__(my_wstring))) my_basic_string {};
+    static_assert((void(std ::type_identity<my_basic_string<char>>{}), true));
+    static_assert((void(std ::type_identity<my_basic_string<wchar_t>>{}), true));
+
+    using Y = my_basic_string<wchar_t>;
+    using Z = my_wstring;
+
+    void ah(int, std::type_identity_t<int>) {}
+    void foo(my_string, my_basic_string<char>) {}
+
+    enum class E {e1, e2};
+    template <E> struct X {};
+    template <> struct X<E::e2> {};
+    using F = X<E::e1>;
+    using G = X<E::e2>;
 }
