@@ -194,7 +194,13 @@ namespace MRBind::detail::pb11
         InitClass init = nullptr;
         AddClassMembers load_members = nullptr;
 
+        // Could get it from the typeid, but our parsed names are more pretty (`preferred_name` attributes, no default template args).
+        const char *cpp_type_name = nullptr;
+
+        const char *comment = nullptr;
+
         bool was_processed = false;
+        std::vector<std::string_view> aliases;
 
         // We store this to load the methods after all types.
         std::unique_ptr<BasicPybindType> pybind_type;
@@ -206,8 +212,8 @@ namespace MRBind::detail::pb11
         // Reverse dependencies. Those are populated automatically.
         std::unordered_set<std::type_index> type_rdeps;
 
-        TypeEntry(std::string pybind_type_name, InitClass init, AddClassMembers load_members, std::unordered_set<std::type_index> type_deps = {})
-            : pybind_type_name(std::move(pybind_type_name)), init(init), load_members(load_members), type_deps(std::move(type_deps))
+        TypeEntry(const char *cpp_type_name, const char *comment, std::string pybind_type_name, InitClass init, AddClassMembers load_members, std::unordered_set<std::type_index> type_deps = {})
+            : pybind_type_name(std::move(pybind_type_name)), init(init), load_members(load_members), cpp_type_name(cpp_type_name), comment(comment), type_deps(std::move(type_deps))
         {}
     };
 
@@ -330,6 +336,8 @@ namespace MRBind::detail::pb11
             using PybindType = typename Traits::pybind_type;
             using TypeStorage = pb11::SpecificPybindType<PybindType>;
             pb11::GetRegistry().type_entries.try_emplace(
+                nullptr,
+                nullptr,
                 typeid(T),
                 Traits::pybind_type_name(),
                 [](pybind11::module_ &m, const char *n) -> std::unique_ptr<pb11::BasicPybindType>
@@ -1243,6 +1251,43 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 continue; // Don't know this target type, ignore it.
 
             m.add_object(spelling.c_str(), iter->second.pybind_type->GetPybindObject());
+            iter->second.aliases.push_back(spelling);
+        }
+    }
+
+    { // Generate class documentation. After loading aliases, because they're mentioned in it too.
+        for (auto &[type, entry] : r.type_entries)
+        {
+            std::string doc;
+            if (entry.cpp_type_name)
+            {
+                doc += "Generated from:  ";
+                doc += entry.cpp_type_name;
+                doc += '\n';
+            }
+            if (!entry.aliases.empty())
+            {
+                doc += "Aliases:  ";
+                bool first = true;
+                for (const auto& alias : entry.aliases)
+                {
+                    if (first)
+                        first = false;
+                    else
+                        doc += ", ";
+                    doc += alias;
+                }
+                doc += '\n';
+            }
+            if (entry.comment)
+            {
+                if (!doc.empty())
+                    doc += '\n';
+                doc += entry.comment;
+            }
+
+            if (!doc.empty())
+                entry.pybind_type->GetPybindObject().doc() = std::move(doc);
         }
     }
 }
@@ -1298,7 +1343,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
-    _pb11_e.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ MRBIND_PREPEND_COMMA(comment_));
+    _pb11_t.type.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ MRBIND_PREPEND_COMMA(comment_));
 
 // A helper for `MB_CLASS` that generates the base class list with a leading comma.
 #define DETAIL_MB_PB11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
@@ -1337,6 +1382,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 #define DETAIL_MB_PB11_IF_EXPLICIT_() false
 #define DETAIL_MB_PB11_IF_EXPLICIT_explicit() true
+
+#define DETAIL_MB_COMMENT_PTR(...) MRBIND_CAT(DETAIL_MB_COMMENT_PTR_, __VA_OPT__(1))(__VA_ARGS__)
+#define DETAIL_MB_COMMENT_PTR_(...) nullptr
+#define DETAIL_MB_COMMENT_PTR_1(...) __VA_ARGS__
 
 
 // ---
@@ -1380,6 +1429,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_ENUM(kind_, name_, qualname_, ns_stack_, type_, comment_, elems_) \
     MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
         typeid(MRBIND_IDENTITY qualname_), \
+        MRBIND_STR(MRBIND_IDENTITY qualname_), \
+        DETAIL_MB_COMMENT_PTR(comment_), \
         MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
         /* Init lambda. */\
         [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
@@ -1399,6 +1450,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
     MRBind::detail::pb11::GetRegistry().type_entries.try_emplace( \
         typeid(MRBIND_IDENTITY qualname_), \
+        MRBIND_STR(MRBIND_IDENTITY qualname_), \
+        DETAIL_MB_COMMENT_PTR(comment_), \
         MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
         /* Init lambda. */\
         [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
