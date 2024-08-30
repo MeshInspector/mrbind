@@ -336,9 +336,9 @@ namespace MRBind::detail::pb11
             using PybindType = typename Traits::pybind_type;
             using TypeStorage = pb11::SpecificPybindType<PybindType>;
             pb11::GetRegistry().type_entries.try_emplace(
-                nullptr,
-                nullptr,
                 typeid(T),
+                nullptr,
+                nullptr,
                 Traits::pybind_type_name(),
                 [](pybind11::module_ &m, const char *n) -> std::unique_ptr<pb11::BasicPybindType>
                 {
