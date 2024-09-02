@@ -234,14 +234,38 @@ namespace MRBind::detail::pb11
         {}
     };
 
+    struct FuncEntry
+    {
+        using LoadFunc = void (*)(pybind11::module_ &m, const std::string &name);
+
+        std::string_view cpp_name;
+        std::string_view cpp_name_with_template_args;
+        std::string python_param_types;
+        LoadFunc load = nullptr;
+
+        std::string python_name;
+
+        FuncEntry() {}
+        FuncEntry(
+            std::string_view cpp_name,
+            std::string_view cpp_name_with_template_args,
+            std::string python_param_types,
+            LoadFunc load
+        )
+            : cpp_name(cpp_name),
+            cpp_name_with_template_args(cpp_name_with_template_args),
+            python_param_types(std::move(python_param_types)),
+            load(load)
+        {}
+    };
+
     // Each source file registers itself there.
     struct Registry
     {
         std::unordered_map<std::type_index, TypeEntry> type_entries;
         std::unordered_map<std::string, std::unordered_set<std::type_index>> type_aliases;
 
-        using LoadFunc = void (*)(pybind11::module_ &m);
-        std::vector<LoadFunc> func_entries;
+        std::vector<FuncEntry> func_entries;
 
         bool was_loaded = false;
     };
@@ -1243,9 +1267,35 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             elem->load_members(m, *elem->pybind_type);
     }
 
-    // Load the functions.
-    for (const auto &elem : r.func_entries)
-        elem(m);
+    { // Load the functions.
+        // First pass.
+        // Determine python names and detect ambiguous overloads that need template arguments to be appended to their name.
+        struct OverloadEntry
+        {
+            std::size_t num_overloads = 0;
+            std::unordered_set<std::string_view> signatures;
+        };
+
+        std::unordered_map<std::string_view, OverloadEntry> overloads;
+        for (auto &entry : r.func_entries)
+        {
+            entry.python_name = ToPythonName(entry.cpp_name);
+
+            OverloadEntry &overload = overloads[entry.python_name];
+            overload.num_overloads++;
+            overload.signatures.insert(entry.python_param_types);
+        }
+
+        // Second pass. Actually load the functions.
+        for (const auto &entry : r.func_entries)
+        {
+            const OverloadEntry &overload = overloads.at(entry.python_name);
+
+            // If we have more overloads than signatures, this means we'll get ambiguities, so we must append template argument names to the function names.
+            bool must_disambiguate = overload.num_overloads > overload.signatures.size();
+            entry.load(m, must_disambiguate ? ToPythonName(entry.cpp_name_with_template_args) : entry.python_name);
+        }
+    }
 
     { // Load the aliases.
         std::unordered_map<std::string_view, const TypeEntry *> names_to_types;
@@ -1357,6 +1407,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define DETAIL_MB_PB11_PARAM_ENTRIES_BODY(n, d, type_, name_, .../*default_arg_*/) \
     , MRBIND_IDENTITY type_
 
+// A helper that generates a list of pybind type names corresponding to the C++ parameter types.
+#define DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES(seq) pybind11::detail::concat( pybind11::detail::const_name("|") SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES_BODY, SF_NULL, SF_NULL, 1, seq) )
+#define DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES_BODY(n, d, type_, name_, .../*default_arg_*/) \
+    , pybind11::detail::make_caster<MRBIND_IDENTITY type_>::name, pybind11::detail::const_name("|")
+
 // Returns the number of function parameters with default arguments.
 #define DETAIL_MB_PB11_NUM_DEF_ARGS(seq) 0 SF_FOR_EACH0(DETAIL_MB_PB11_NUM_DEF_ARGS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PB11_NUM_DEF_ARGS_BODY(n, d, type_, name_, .../*default_arg_*/) __VA_OPT__(+1)
@@ -1425,26 +1480,33 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // Bind a function.
 #define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_) \
-    MRBind::detail::pb11::GetRegistry().func_entries.push_back([](pybind11::module_ &_pb11_m){\
-        MRBind::detail::pb11::TryAddFunc<\
-            /* Doesn't count as `static` for our purposes. */\
-            false, \
-            /* The function pointer or a lambda. */\
-            DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
-            /* Parameter types. */\
-            DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
-        >( \
-            _pb11_m, \
-            /* Simple name */\
-            MRBIND_STR(simplename_), \
-            /* Full name */\
-            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullqualname_)).c_str() \
-            /* Parameters. */\
-            DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-            /* Comment, if any. */ \
-            MRBIND_PREPEND_COMMA(comment_) \
-        ); \
-    });
+    MRBind::detail::pb11::GetRegistry().func_entries.emplace_back( \
+        MRBIND_STR(MRBIND_IDENTITY qualname_), \
+        MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
+        /* Pybind type names (to detect overloadable functions). */\
+        DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES(params_).text, \
+        [](pybind11::module_ &_pb11_m, const std::string &name) \
+        {\
+            MRBind::detail::pb11::TryAddFunc<\
+                /* Doesn't count as `static` for our purposes. */\
+                false, \
+                /* The function pointer or a lambda. */\
+                DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
+                /* Parameter types. */\
+                DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
+            >( \
+                _pb11_m, \
+                /* Simple name */\
+                MRBIND_STR(simplename_), \
+                /* Full name */\
+                name.c_str() \
+                /* Parameters. */\
+                DETAIL_MB_PB11_MAKE_PARAMS(params_) \
+                /* Comment, if any. */ \
+                MRBIND_PREPEND_COMMA(comment_) \
+            ); \
+        } \
+    );
 
 // Bind a enum.
 #define MB_ENUM(kind_, name_, qualname_, ns_stack_, type_, comment_, elems_) \

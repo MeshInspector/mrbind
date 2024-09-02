@@ -85,4 +85,21 @@ namespace MR
     template <> struct X<E::e2> {};
     using F = X<E::e1>;
     using G = X<E::e2>;
+
+    // ---
+
+    // Can be overloaded in python.
+    template <typename T> void a(T) {}
+    template void a(int);
+    template void a(float);
+
+    // CAN'T be overloaded in python, because the argument types map to the same python type.
+    template <typename T> void b(T) {}
+    template void b(float);
+    template void b(double);
+
+    // CAN'T be overloaded in python, because the arguments are literally the same.
+    template <typename T> T c() {return {};}
+    template float c();
+    template double c();
 }
