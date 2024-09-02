@@ -54,6 +54,9 @@ namespace pybind11::patched
         // Modifiers require copyable vector value type
         detail::vector_modifiers<Vector, Class_>(cl);
 
+        // Implicit conversion from a python list.
+        pybind11::implicitly_convertible<pybind11::iterable, Vector>();
+
         // Accessor and iterator; return by value if copyable, otherwise we return by ref + keep-alive
         detail::vector_accessor<Vector, Class_>(cl);
 
