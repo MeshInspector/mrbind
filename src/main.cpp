@@ -118,6 +118,10 @@ namespace mrbind
 
         mutable std::vector<char/*bool*/> rejected_namespace_stack;
 
+        // Stores null for rejected classes.
+        // Class addresses are stable because of `std::unique_ptr` in `mrbind::Entity`.
+        mutable std::vector<ClassEntity *> nonrejected_class_stack;
+
         mutable ParsedFile parsed_result;
         mutable std::vector<EntityContainer *> container_stack;
 
@@ -435,8 +439,6 @@ namespace mrbind
 
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
-            if (decl->isCXXClassMember())
-                return true; // Reject member functions.
             if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
                 return true; // Reject user-defined literals.
 
@@ -454,11 +456,98 @@ namespace mrbind
             if (decl->isDeleted())
                 return true; // Skip deleted.
 
+            // Custom handling for class methods.
+            clang::CXXMethodDecl *method = nullptr;
+            if (decl->isCXXClassMember())
+            {
+                // The `nonrejected_class_stack` should never be empty here.
+                if (params->nonrejected_class_stack.empty() || !params->nonrejected_class_stack.back())
+                    return true; // Reject methods of rejected classes.
+
+                if (decl->getAccess() != clang::AS_public)
+                    return true; // Reject non-public methods.
+                if (llvm::isa<clang::CXXDestructorDecl>(decl))
+                    return true; // Reject destructors.
+
+                method = clang::dyn_cast<clang::CXXMethodDecl>(decl);
+                if (!method)
+                    return true; // Unsure when this can happen, but anyway.
+
+                if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
+                    return true; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
+
+                // Check the requires-clause, if any. Why doesn't libclang do this automatically?
+                // I *THINK* we don't need this for non-members?
+                if (method->getTrailingRequiresClause())
+                {
+                    clang::ConstraintSatisfaction sat;
+                    if (ci->getSema().CheckFunctionConstraints(method, sat))
+                        throw std::runtime_error("Unable to evaluate the constraints for the method." );
+                    if (!sat.IsSatisfied)
+                        return true; // Constraints are false.
+                }
+
+                ClassEntity &target_class = *params->nonrejected_class_stack.back();
+
+                BasicFunc *basic_func = nullptr;
+
+                if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
+                {
+                    // if (ctor->isCopyOrMoveConstructor())
+                    //     continue; // Reject copy/move constructors.
+
+                    ClassCtor &new_ctor = target_class.members.emplace_back().emplace<ClassCtor>();
+                    new_ctor.is_explicit = ctor->isExplicit();
+                    basic_func = &new_ctor;
+                }
+                else
+                {
+                    BasicReturningClassFunc *basic_ret_class_func = nullptr;
+
+                    if (llvm::isa<clang::CXXConversionDecl>(method))
+                    {
+                        ClassConvOp &new_conv_op = target_class.members.emplace_back().emplace<ClassConvOp>();
+                        basic_ret_class_func = &new_conv_op;
+                    }
+                    else
+                    {
+                        ClassMethod &new_method = target_class.members.emplace_back().emplace<ClassMethod>();
+                        basic_ret_class_func = &new_method;
+                        new_method.name = method->getDeclName().getAsString();
+                        new_method.simple_name = GetAdjustedFuncName(*method);
+
+                        new_method.full_name = new_method.simple_name;
+                        // Add the template arguments, if any.
+                        if (auto args = method->getTemplateSpecializationArgs())
+                        {
+                            llvm::raw_string_ostream ss(new_method.full_name);
+                            clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, method->getTemplateSpecializationInfo()->getTemplate()->getTemplateParameters());
+                        }
+
+                        new_method.is_static = method->isStatic();
+                    }
+
+                    basic_func = basic_ret_class_func;
+
+                    basic_ret_class_func->is_const = method->isConst();
+
+                    // Force instantiate body to know the true return type rather than `auto`.
+                    if (method->getReturnType()->isUndeducedAutoType())
+                        ci->getSema().InstantiateFunctionDefinition(method->getBeginLoc(), method);
+
+                    basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType());
+                }
+
+                basic_func->comment = GetCommentString(*ctx, *method);
+                basic_func->params = GetFuncParams(*method);
+                return true; // Done processing member function, the rest is for non-members.
+            }
+
             // Force instantiate body to know the true return type rather than `auto`.
             if (decl->getReturnType()->isUndeducedAutoType())
                 ci->getSema().InstantiateFunctionDefinition(decl->getBeginLoc(), decl);
 
-            FuncEntity &new_func = params->container_stack.back()->nested.emplace_back().variant.emplace<FuncEntity>();
+            FuncEntity &new_func = params->container_stack.back()->nested.emplace_back().emplace<FuncEntity>();
 
             { // Full name.
                 llvm::raw_string_ostream qual_name_ss(new_func.full_name);
@@ -480,6 +569,8 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
+            params->nonrejected_class_stack.push_back(nullptr);
+
             if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
                 return false;
 
@@ -492,7 +583,8 @@ namespace mrbind
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return false; // Inaccessible type.
 
-            ClassEntity &new_class = params->container_stack.back()->nested.emplace_back().variant.emplace<ClassEntity>();
+            ClassEntity &new_class = params->container_stack.back()->nested.emplace_back().emplace<ClassEntity>();
+            params->nonrejected_class_stack.back() = &new_class;
             params->container_stack.push_back(&new_class);
 
             new_class.name = decl->getName();
@@ -602,75 +694,8 @@ namespace mrbind
                 if (cxxdecl->needsImplicitMoveAssignment())
                     (void)ci->getSema().LookupMovingAssignment(cxxdecl, clang::Qualifiers::Const, false, 0);
 
-                for (clang::CXXMethodDecl *method : cxxdecl->methods())
-                {
-                    if (method->getAccess() != clang::AS_public)
-                        continue; // Reject non-public methods.
-                    // if (method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator())
-                    //     continue; // Reject copy/move assignment operators. Constructors don't arrive here in the first place.
-                    if (llvm::isa<clang::CXXDestructorDecl>(method))
-                        continue; // Reject destructors.
-                    if (!FuncLooksLikeItHasAccessibleSignatureTypes(*method))
-                        continue; // Inaccessible types in the signature.
-                    if (method->isDeleted())
-                        continue; // Skip deleted.
-
-                    if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
-                        continue; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
-
-                    // Check the requires-clause, if any. Why doesn't libclang do this automatically?
-                    if (method->getTrailingRequiresClause())
-                    {
-                        clang::ConstraintSatisfaction sat;
-                        if (ci->getSema().CheckFunctionConstraints(method, sat))
-                            throw std::runtime_error("Unable to evaluate the constraints for the method." );
-                        if (!sat.IsSatisfied)
-                            continue; // Constraints are false.
-                    }
-
-                    BasicFunc *basic_func = nullptr;
-
-                    if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
-                    {
-                        // if (ctor->isCopyOrMoveConstructor())
-                        //     continue; // Reject copy/move constructors.
-
-                        ClassCtor &new_ctor = new_class.members.emplace_back().emplace<ClassCtor>();
-                        new_ctor.is_explicit = ctor->isExplicit();
-                        basic_func = &new_ctor;
-                    }
-                    else
-                    {
-                        BasicReturningClassFunc *basic_ret_class_func = nullptr;
-
-                        if (llvm::isa<clang::CXXConversionDecl>(method))
-                        {
-                            ClassConvOp &new_conv_op = new_class.members.emplace_back().emplace<ClassConvOp>();
-                            basic_ret_class_func = &new_conv_op;
-                        }
-                        else
-                        {
-                            ClassMethod &new_method = new_class.members.emplace_back().emplace<ClassMethod>();
-                            basic_ret_class_func = &new_method;
-                            new_method.name = method->getDeclName().getAsString();
-                            new_method.simple_name = GetAdjustedFuncName(*method);
-                            new_method.is_static = method->isStatic();
-                        }
-
-                        basic_func = basic_ret_class_func;
-
-                        basic_ret_class_func->is_const = method->isConst();
-
-                        // Force instantiate body to know the true return type rather than `auto`.
-                        if (method->getReturnType()->isUndeducedAutoType())
-                            ci->getSema().InstantiateFunctionDefinition(method->getBeginLoc(), method);
-
-                        basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType());
-                    }
-
-                    basic_func->comment = GetCommentString(*ctx, *method);
-                    basic_func->params = GetFuncParams(*method);
-                }
+                // ... We used to extract methods and constructors here, but we no longer do it, because template instantiations don't arrive here
+                // for some reason?! Instead we do that in `VisitFunctionDecl()`, which does get them. Hmm.
             }
 
             return true;
@@ -681,6 +706,7 @@ namespace mrbind
         {
             (void)decl;
             params->container_stack.pop_back();
+            params->nonrejected_class_stack.pop_back();
         }
 
         bool TraverseRecordDecl(clang::RecordDecl *decl) // CRTP override
@@ -737,7 +763,7 @@ namespace mrbind
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return true; // Inaccessible type.
 
-            EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().variant.emplace<EnumEntity>();
+            EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().emplace<EnumEntity>();
 
             new_enum.name = decl->getName();
             new_enum.is_scoped = decl->isScoped();
@@ -783,7 +809,7 @@ namespace mrbind
                     return true; // Inaccessible type.
             }
 
-            TypedefEntity &new_typedef = params->container_stack.back()->nested.emplace_back().variant.emplace<TypedefEntity>();
+            TypedefEntity &new_typedef = params->container_stack.back()->nested.emplace_back().emplace<TypedefEntity>();
 
             new_typedef.name = decl->getName();
             new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
@@ -799,7 +825,7 @@ namespace mrbind
             bool reject = ShouldRejectDeclaration(*ctx, *decl, params, printing_policies);
 
             { // Insert the namespace.
-                NamespaceEntity &new_ns = params->container_stack.back()->nested.emplace_back().variant.emplace<NamespaceEntity>();
+                NamespaceEntity &new_ns = params->container_stack.back()->nested.emplace_back().emplace<NamespaceEntity>();
                 params->container_stack.push_back(&new_ns);
                 new_ns.name = decl->getName();
                 new_ns.comment = GetCommentString(*ctx, *decl);

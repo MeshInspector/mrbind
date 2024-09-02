@@ -741,7 +741,7 @@ namespace MRBind::detail::pb11
                 "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
             );
 
-            auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
+            static constexpr auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
             {
                 #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
 
@@ -1534,7 +1534,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, simplename_, const_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, fullname_, simplename_, const_, comment_, params_) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddFunc< \
         /* bool: is this function static? */\

@@ -349,8 +349,9 @@ namespace mrbind
             {
                 json.WriteField("name", value.name);
                 json.WriteField("simple_name", value.simple_name);
+                json.WriteField("full_name", value.simple_name);
             }
-            if constexpr (std::derived_from<T, FuncEntity>)
+            if constexpr (std::derived_from<T, FuncEntity>) // The two happen to match at the moment, but this is a coincidence.
             {
                 json.WriteField("name", value.name);
                 json.WriteField("simple_name", value.simple_name);
@@ -524,7 +525,7 @@ namespace mrbind
         {
             void operator()(JsonWriter &json, const Entity &value)
             {
-                std::visit([&](const auto &elem){json.WriteValueLow(elem);}, value.variant);
+                std::visit([&](const auto &elem){json.WriteValueLow(elem);}, *value.variant);
             }
         };
     }

@@ -156,7 +156,7 @@ namespace mrbind
                         for (const auto &elem : e.nested)
                             lambda(lambda, elem);
                     },
-                }, e.variant);
+                }, *e.variant);
             };
             for (const Entity &e : file.entities.nested)
                 lambda(lambda, e);
@@ -350,6 +350,7 @@ namespace mrbind
                                             << (method.is_static ? "static" : "/*non-static*/") << ", "
                                             << "(" << method.return_type.pretty << "), "
                                             << method.name << ", "
+                                            << "(" << method.full_name << "), "
                                             << method.simple_name << ", "
                                             << (method.is_const ? "const" : "/*not const*/") << ", "
                                             << (method.comment ? EscapeQuoteString(*method.comment) : "/*no comment*/") << ", ";
@@ -411,7 +412,7 @@ namespace mrbind
 
                         out << "MB_END_NAMESPACE(" << (ns.name.empty() ? "/*anonymous*/" : ns.name) << ")\n";
                     },
-                }, e.variant);
+                }, *e.variant);
             };
             for (const Entity &e : file.entities.nested)
                 lambda(lambda, e);

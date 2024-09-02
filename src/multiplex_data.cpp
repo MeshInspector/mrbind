@@ -39,7 +39,7 @@ namespace mrbind
             std::visit(Overload{
                 [&](auto &e) // Anything other than a namespace.
                 {
-                    namespace_stacks[target_index].back()->nested.emplace_back().variant = std::move(e);
+                    namespace_stacks[target_index].back()->nested.emplace_back().variant = std::make_unique<EntityVariant>(std::move(e));
                     ++target_index %= n;
                 },
                 [&](NamespaceEntity &ns)
@@ -47,7 +47,7 @@ namespace mrbind
                     auto nested = std::move(ns.nested);
 
                     for (std::size_t i = 0; i < n; i++)
-                        namespace_stacks[i].push_back(&namespace_stacks[i].back()->nested.emplace_back().variant.emplace<NamespaceEntity>(ns));
+                        namespace_stacks[i].push_back(&namespace_stacks[i].back()->nested.emplace_back().emplace<NamespaceEntity>(ns));
 
                     for (Entity &elem : nested)
                         lambda(lambda, elem);
@@ -60,7 +60,7 @@ namespace mrbind
                             namespace_stacks[i].back()->nested.pop_back();
                     }
                 },
-            }, e.variant);
+            }, *e.variant);
         };
 
         for (Entity &e : input.entities.nested)

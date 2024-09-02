@@ -81,10 +81,11 @@
 //           * `type_` - parenthesized parameter type.
 //           * `name_` - parameter name (can be empty).
 //           * `default_arg_` - parenthesized default argument, or empty if none.
-//     * A public method `(method, static_, ret_, name_, simplename_, const_, comment_, params_)`, where:
+//     * A public method `(method, static_, ret_, name_, simplename_, fullname_, const_, comment_, params_)`, where:
 //         * `static_` - either `static` or nothing if non-static.
 //         * `ret_` - parenthesized return type, or empty if void.
 //         * `name_` - method name.
+//         * `fullname_` - `name_` plus template arguments, if any. Parenthesized.
 //         * `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Subscript`.
 //         * `const_` - either `const` or nothing if non-const.
 //         * `comment_` - a string literal with the comment, or empty if none.

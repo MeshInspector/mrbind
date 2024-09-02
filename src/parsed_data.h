@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 #include <optional>
 #include <string>
 #include <unordered_map>
@@ -135,6 +136,8 @@ namespace mrbind
         std::string name;
         // Same, but for overloaded operators this instead contains its name as an identifier.
         std::string simple_name;
+        // Same as `name`, but also includes template arguments, if any.
+        std::string full_name;
     };
 
     struct ClassConvOp : BasicReturningClassFunc {};
@@ -203,7 +206,29 @@ namespace mrbind
 
     struct Entity
     {
-        EntityVariant variant;
+        // Using `unique_ptr` here to stabilize the address.
+        // We need this because we add methods to classes late, because that's how things are.
+        std::unique_ptr<EntityVariant> variant;
+
+        template <typename T, typename ...P>
+        T &emplace(P &&... params)
+        {
+            if (!variant)
+            {
+                variant = std::make_unique<EntityVariant>(std::in_place_type<T>, std::forward<P>(params)...);
+                return std::get<T>(*variant);
+            }
+            else
+            {
+                return variant->emplace<T>(std::forward<P>(params)...);
+            }
+        }
+
+        Entity() = default;
+        Entity(const Entity &other) : variant(std::make_unique<EntityVariant>(*other.variant)) {}
+        Entity(Entity &&other) : variant(std::make_unique<EntityVariant>(std::move(*other.variant))) {}
+        Entity &operator=(const Entity &other) {variant = std::make_unique<EntityVariant>(*other.variant); return *this;}
+        Entity &operator=(Entity &&other) {variant = std::make_unique<EntityVariant>(std::move(*other.variant)); return *this;}
     };
 
     // ---
