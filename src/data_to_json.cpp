@@ -355,7 +355,8 @@ namespace mrbind
             {
                 json.WriteField("name", value.name);
                 json.WriteField("simple_name", value.simple_name);
-                json.WriteField("full_name", value.full_name);
+                json.WriteField("qual_name", value.qual_name);
+                json.WriteField("full_qual_name", value.full_qual_name);
             }
 
             if constexpr (std::derived_from<T, ClassCtor>)

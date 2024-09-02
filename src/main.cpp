@@ -550,9 +550,10 @@ namespace mrbind
             FuncEntity &new_func = params->container_stack.back()->nested.emplace_back().emplace<FuncEntity>();
 
             { // Full name.
-                llvm::raw_string_ostream qual_name_ss(new_func.full_name);
+                llvm::raw_string_ostream qual_name_ss(new_func.full_qual_name);
                 decl->printQualifiedName(qual_name_ss, printing_policies.normal);
-                // Print template arguments, if any.
+                new_func.qual_name = new_func.full_qual_name; // Make a copy before adding template arguments.
+                // Add template arguments, if any.
                 if (auto template_args = decl->getTemplateSpecializationArgs())
                     clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policies.normal, decl->getPrimaryTemplate()->getTemplateParameters());
             }

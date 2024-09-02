@@ -272,7 +272,8 @@ namespace mrbind
                             << "/*returns*/(" << e.return_type.pretty << "), "
                             << e.name << ", "
                             << e.simple_name << ", "
-                            << "(" << e.full_name << "), "
+                            << "(" << e.qual_name << "), "
+                            << "(" << e.full_qual_name << "), "
                             << NsStackToString() << ", "
                             << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/")
                             << ", ";
@@ -350,8 +351,8 @@ namespace mrbind
                                             << (method.is_static ? "static" : "/*non-static*/") << ", "
                                             << "(" << method.return_type.pretty << "), "
                                             << method.name << ", "
-                                            << "(" << method.full_name << "), "
                                             << method.simple_name << ", "
+                                            << "(" << method.full_name << "), "
                                             << (method.is_const ? "const" : "/*not const*/") << ", "
                                             << (method.comment ? EscapeQuoteString(*method.comment) : "/*no comment*/") << ", ";
                                         dump_params(method.params);

@@ -104,7 +104,9 @@ namespace mrbind
         // Same, but for overloaded operators this instead contains its name as an identifier.
         std::string simple_name;
         // Name with all scope qualifiers added.
-        std::string full_name;
+        std::string qual_name;
+        // Name with all scope qualifiers and template arguments added.
+        std::string full_qual_name;
     };
 
     // ---

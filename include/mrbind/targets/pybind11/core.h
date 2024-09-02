@@ -1424,7 +1424,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_END_NAMESPACE(namespace_) }
 
 // Bind a function.
-#define MB_FUNC(ret_, name_, simplename_, qualname_, ns_stack_, comment_, params_) \
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_) \
     MRBind::detail::pb11::GetRegistry().func_entries.push_back([](pybind11::module_ &_pb11_m){\
         MRBind::detail::pb11::TryAddFunc<\
             /* Doesn't count as `static` for our purposes. */\
@@ -1438,7 +1438,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             /* Simple name */\
             MRBIND_STR(simplename_), \
             /* Full name */\
-            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)).c_str() \
+            MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullqualname_)).c_str() \
             /* Parameters. */\
             DETAIL_MB_PB11_MAKE_PARAMS(params_) \
             /* Comment, if any. */ \
@@ -1534,7 +1534,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, fullname_, simplename_, const_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, simplename_, fullname_, const_, comment_, params_) \
     /* `.def` or `.def_static` */\
     MRBind::detail::pb11::TryAddFunc< \
         /* bool: is this function static? */\

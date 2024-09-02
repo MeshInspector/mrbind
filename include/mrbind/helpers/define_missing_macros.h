@@ -44,6 +44,7 @@
 // `name_` - function name as a single word.
 // `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Minus`.
 // `qualname_` - fully qualified function name, parenthesized.
+// `fullqualname_` - same as `qualname_`, but also includes template arguments, if any.
 // `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
 // `comment_` - a string literal with the comment, or empty if none.
 // `params_` - a list of parameters `(...)(...)(...)`, or empty if none.
@@ -51,7 +52,7 @@
 //     * `type_` - parenthesized parameter type.
 //     * `name_` - parameter name.
 //     * `default_arg_` - parenthesized default argument, or empty if none.
-#define MB_FUNC(ret_, name_, simplename_, qualname_, ns_stack_, comment_, params_)
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_)
 #endif
 
 #ifndef MB_CLASS
