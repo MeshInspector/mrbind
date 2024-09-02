@@ -27,7 +27,8 @@
 #include <unordered_set>
 #include <vector>
 
-#if MB_FRAGMENT == 0
+// Enable this macro for only one TU.
+#if MB_DEFINE_IMPLEMENTATION
 #include <exception> // For `std::terminate()`.
 #include <iostream> // To report errors.
 #endif
@@ -196,8 +197,10 @@ namespace MRBind::detail::pb11
 
         // Could get it from the typeid, but our parsed names are more pretty (`preferred_name` attributes, no default template args).
         const char *cpp_type_name = nullptr;
-
         const char *comment = nullptr;
+
+        // If false, don't attempt to write to `.doc()`.
+        bool set_docstring = false;
 
         bool was_processed = false;
         std::vector<std::string_view> aliases;
@@ -212,8 +215,22 @@ namespace MRBind::detail::pb11
         // Reverse dependencies. Those are populated automatically.
         std::unordered_set<std::type_index> type_rdeps;
 
-        TypeEntry(const char *cpp_type_name, const char *comment, std::string pybind_type_name, InitClass init, AddClassMembers load_members, std::unordered_set<std::type_index> type_deps = {})
-            : pybind_type_name(std::move(pybind_type_name)), init(init), load_members(load_members), cpp_type_name(cpp_type_name), comment(comment), type_deps(std::move(type_deps))
+        TypeEntry(
+            const char *cpp_type_name,
+            const char *comment,
+            bool set_docstring,
+            std::string pybind_type_name,
+            InitClass init,
+            AddClassMembers load_members,
+            std::unordered_set<std::type_index> type_deps = {}
+        )
+            : pybind_type_name(std::move(pybind_type_name)),
+            init(init),
+            load_members(load_members),
+            cpp_type_name(cpp_type_name),
+            comment(comment),
+            set_docstring(set_docstring),
+            type_deps(std::move(type_deps))
         {}
     };
 
@@ -339,6 +356,7 @@ namespace MRBind::detail::pb11
                 typeid(T),
                 nullptr,
                 nullptr,
+                true,
                 Traits::pybind_type_name(),
                 [](pybind11::module_ &m, const char *n) -> std::unique_ptr<pb11::BasicPybindType>
                 {
@@ -955,7 +973,7 @@ namespace detail
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 
 // Module entry point, and more stuff.
-#if MB_FRAGMENT == 0 // Don't duplicate this if we have >1 TU.
+#if MB_DEFINE_IMPLEMENTATION // Don't duplicate this if we have >1 TU.
 
 namespace MRBind::detail::pb11
 {
@@ -1258,6 +1276,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     { // Generate class documentation. After loading aliases, because they're mentioned in it too.
         for (auto &[type, entry] : r.type_entries)
         {
+            if (!entry.set_docstring)
+                continue;
+
             std::string doc;
             if (entry.cpp_type_name)
             {
@@ -1292,7 +1313,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     }
 }
 
-#endif // MB_FRAGMENT == 0
+#endif // MB_DEFINE_IMPLEMENTATION
 
 
 
@@ -1343,7 +1364,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
-    _pb11_t.type.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ MRBIND_PREPEND_COMMA(comment_));
+    _pb11_e.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ MRBIND_PREPEND_COMMA(comment_));
 
 // A helper for `MB_CLASS` that generates the base class list with a leading comma.
 #define DETAIL_MB_PB11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
@@ -1431,6 +1452,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         typeid(MRBIND_IDENTITY qualname_), \
         MRBIND_STR(MRBIND_IDENTITY qualname_), \
         DETAIL_MB_COMMENT_PTR(comment_), \
+        false, /* Don't generate docstrings for enums, this crashes for some reason. And passing it to `enum_` below seems to have no effect? Weird. */ \
         MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
         /* Init lambda. */\
         [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \
@@ -1452,6 +1474,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         typeid(MRBIND_IDENTITY qualname_), \
         MRBIND_STR(MRBIND_IDENTITY qualname_), \
         DETAIL_MB_COMMENT_PTR(comment_), \
+        true, \
         MRBind::detail::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY qualname_)), \
         /* Init lambda. */\
         [](pybind11::module_ &_pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::detail::pb11::BasicPybindType> \

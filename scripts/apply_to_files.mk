@@ -21,6 +21,10 @@ INPUT_FILES_BLACKLIST :=
 # Each file has to match both this and not be in the blacklist.
 INPUT_FILES_WHITELIST := %
 
+# A list of .cpp files with additional bindings to generate.
+# Those are processed individually, so don't make too many of them.
+EXTRA_INPUT_SOURCES :=
+
 
 # Input file globs.
 INPUT_GLOBS = *.h *.hpp
@@ -32,7 +36,16 @@ NUM_FRAGMENTS := 1
 
 # The mrbind command. Can include extra flags.
 # You might want to override it to set the full path.
-MRBIND = mrbind
+MRBIND := mrbind
+
+# Flags for the mrbind command.
+MRBIND_FLAGS :=
+# Alternative flags for the mrbind command. If not specified, defaults to `MRBIND_FLAGS`.
+MRBIND_FLAGS_FOR_EXTRA_INPUTS :=
+ifeq ($(origin MRBIND_FLAGS_FOR_EXTRA_INPUTS),file)
+MRBIND_FLAGS_FOR_EXTRA_INPUTS = $(MRBIND_FLAGS)
+endif
+
 
 # The compiler executable, possibly with extra flags.
 COMPILER = $(error Must set COMPILER=... to compile)
@@ -101,15 +114,30 @@ $(OUTPUT_DIR)/combined.hpp: $(input_files) | $(OUTPUT_DIR)
 # Generate the binding.
 .PHONY: generate
 generate: $(OUTPUT_DIR)/binding.cpp
-$(OUTPUT_DIR)/binding.cpp: $(OUTPUT_DIR)/combined.hpp
+$(OUTPUT_DIR)/binding.cpp: $(OUTPUT_DIR)/combined.hpp | $(OUTPUT_DIR)
 	@echo $(call quote,[Generating] binding.cpp)
-	@$(MRBIND) $(call quote,$<) -o $@ -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
+	@$(MRBIND) $(MRBIND_FLAGS) $(call quote,$<) -o $(call quote,$@) -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
 
 # Compile the binding.
 override object_files := $(patsubst %,$(OUTPUT_DIR)/binding.%.o,$(call safe_shell,bash -c $(call quote,echo {0..$(call safe_shell,bash -c 'echo $$(($(strip $(NUM_FRAGMENTS))-1))')})))
-$(OUTPUT_DIR)/binding.%.o: $(OUTPUT_DIR)/binding.cpp
+$(OUTPUT_DIR)/binding.%.o: $(OUTPUT_DIR)/binding.cpp | $(OUTPUT_DIR)
 	@echo $(call quote,[Compiling] $< (fragment $*))
-	@$(COMPILER) $(call quote,$<) -c -o $(call quote,$@) $(COMPILER_FLAGS) -DMB_NUM_FRAGMENTS=$(strip $(NUM_FRAGMENTS)) -DMB_FRAGMENT=$*
+	@$(COMPILER) $(call quote,$<) -c -o $(call quote,$@) $(COMPILER_FLAGS) -DMB_NUM_FRAGMENTS=$(strip $(NUM_FRAGMENTS)) -DMB_FRAGMENT=$* $(if $(filter 0,$*),-DMB_DEFINE_IMPLEMENTATION)
+
+# Generate and compile extra files.
+override define extra_file_snippet =
+$(call var,_generated := $(OUTPUT_DIR)/binding_extra.$(basename $(notdir $1)).cpp)
+$(call var,_object := $(_generated:.cpp=.o))
+$(call var,object_files += $(_object))
+generate: $(_generated)
+$(_generated): $1 | $(OUTPUT_DIR)
+	@echo $(call quote,[Generating] $(notdir $(_generated)))
+	@$(MRBIND) $(MRBIND_FLAGS_FOR_EXTRA_INPUTS) $(call quote,$1) -o $(call quote,$(_generated)) -- $(COMPILER_FLAGS_LIBCLANG) $(COMPILER_FLAGS)
+$(_object): $(_generated) | $(OUTPUT_DIR)
+	@echo $(call quote,[Compiling] $(_generated))
+	@$(COMPILER) $(call quote,$(_generated)) -c -o $(call quote,$(_object)) $(COMPILER_FLAGS)
+endef
+$(foreach s,$(EXTRA_INPUT_SOURCES),$(eval $(call extra_file_snippet,$s)))
 
 # Link the binding.
 .DEFAULT_GOAL := build
