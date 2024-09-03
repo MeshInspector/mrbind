@@ -340,6 +340,28 @@ namespace mrbind
             }
         };
 
+        template <>
+        struct WriteToJsonTraits<CopyMoveKind>
+        {
+            void operator()(JsonWriter &json, const CopyMoveKind &value)
+            {
+                switch (value)
+                {
+                  case CopyMoveKind::none:
+                    json.WriteValueLow("none");
+                    return;
+                  case CopyMoveKind::copy:
+                    json.WriteValueLow("copy");
+                    return;
+                  case CopyMoveKind::move:
+                    json.WriteValueLow("move");
+                    return;
+                }
+
+                assert(false && "Unknown enum!");
+            }
+        };
+
         template <typename T>
         void WriteFuncInfo(JsonWriter &json, const T &value)
         {
@@ -360,9 +382,15 @@ namespace mrbind
             }
 
             if constexpr (std::derived_from<T, ClassCtor>)
+            {
                 json.WriteField("is_explicit", value.is_explicit);
+                json.WriteField("kind", value.kind);
+            }
             if constexpr (std::derived_from<T, ClassMethod>)
+            {
                 json.WriteField("is_static", value.is_static);
+                json.WriteField("assignment_kind", value.assignment_kind);
+            }
 
             if constexpr (std::derived_from<T, BasicReturningFunc>)
                 json.WriteField("return_type", value.return_type);

@@ -125,9 +125,18 @@ namespace mrbind
         bool is_static = false;
     };
 
+    enum class CopyMoveKind
+    {
+        none,
+        copy, // Copy ctor or copy assignment. Copy&swap assignments happens to go here too.
+        move, // Move ctor or move assignment.
+    };
+
     struct ClassCtor : BasicFunc
     {
         bool is_explicit = false;
+
+        CopyMoveKind kind = CopyMoveKind::none;
     };
 
     struct ClassMethod : BasicReturningClassFunc
@@ -140,6 +149,9 @@ namespace mrbind
         std::string simple_name;
         // Same as `name`, but also includes template arguments, if any.
         std::string full_name;
+
+        // This isn't `none` only if this is a copy/move assignment.
+        CopyMoveKind assignment_kind = CopyMoveKind::none;
     };
 
     struct ClassConvOp : BasicReturningClassFunc {};

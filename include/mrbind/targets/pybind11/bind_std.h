@@ -326,7 +326,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
         c.def("__len__", [](const std::array<T, N> &){return N;});
 
         // Indexing operator (read).
-        TryAddFunc<
+        TryAddFuncSimple<
             // Static?
             false,
             // Function.
@@ -340,14 +340,13 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
             std::size_t
         >(
             c,
-            "__getitem__",
             "__getitem__"
         );
 
         // Indexing operator (write).
         if constexpr (pybind11::detail::is_copy_assignable<T>::value)
         {
-            TryAddFunc<
+            TryAddFuncSimple<
                 // Static?
                 false,
                 // Function.
@@ -363,7 +362,6 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
                 const T &
             >(
                 c,
-                "__setitem__",
                 "__setitem__"
             );
         }

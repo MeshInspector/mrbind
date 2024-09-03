@@ -74,16 +74,18 @@
 //         * `name_` - field name.
 //         * `fullname_` - parenthesized, usually same as `name` but for variable templates includes template arguments.
 //         * `comment_` - a string literal with the comment, or empty if none.
-//     * A public constructor `(ctor, explicit_, comment_, params_)`, where:
+//     * A public constructor `(ctor, explicit_, copy_move_kind_, comment_, params_)`, where:
 //       * `explicit_` - either `explicit` or empty if not explicit.
+//       * `copy_move_kind_` - one of: `none`, `copy`, `move` (the latter two represent copy and move constructors respectively).
 //       * `comment_` - a string literal with the comment, or empty if none.
 //       * `params_` - a parameter list `(...)(...)(...)`.
 //           Each parameter is `(type_, name_, default_arg_)`, where:
 //           * `type_` - parenthesized parameter type.
 //           * `name_` - parameter name (can be empty).
 //           * `default_arg_` - parenthesized default argument, or empty if none.
-//     * A public method `(method, static_, ret_, name_, simplename_, fullname_, const_, comment_, params_)`, where:
+//     * A public method `(method, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, comment_, params_)`, where:
 //         * `static_` - either `static` or nothing if non-static.
+//         * `assignment_kind_` one of: `none`, `copy`, `move` (the latter two represent copy and move assignment respectively).
 //         * `ret_` - parenthesized return type, or empty if void.
 //         * `name_` - method name.
 //         * `fullname_` - `name_` plus template arguments, if any. Parenthesized.

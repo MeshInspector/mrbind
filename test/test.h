@@ -88,6 +88,17 @@ namespace MR
 
     // ---
 
+    template <typename T> struct Blah
+    {
+        struct Bleh {}; // Ensure this is instantiated!
+        Bleh foo() {return {};}
+    };
+    using IntBlah = Blah<int>;
+
+    // ---
+
+    // REPEAT this twice, the second time with classes. This can make a difference.
+
     // Can be overloaded in python.
     template <typename T> void a(T) {}
     template void a(int);
@@ -102,4 +113,27 @@ namespace MR
     template <typename T> T c() {return {};}
     template float c();
     template double c();
+
+    struct AA
+    {
+        template <typename T> AA(T) {}
+
+        operator int() {return 42;}
+        operator bool() {return false;}
+
+        // Can be overloaded in python.
+        template <typename T> void a(T) {}
+
+        // CAN'T be overloaded in python, because the argument types map to the same python type.
+        template <typename T> void b(T) {}
+
+        // CAN'T be overloaded in python, because the arguments are literally the same.
+        template <typename T> T c() {return {};}
+    };
+    template void AA::a(int);
+    template void AA::a(float);
+    template void AA::b(float);
+    template void AA::b(double);
+    template float AA::c();
+    template double AA::c();
 }

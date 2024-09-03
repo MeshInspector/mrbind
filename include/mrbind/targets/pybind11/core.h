@@ -18,6 +18,7 @@
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
 #include <optional>
+#include <set>
 #include <string_view>
 #include <string>
 #include <type_traits>
@@ -152,6 +153,55 @@ namespace MRBind::detail::pb11
 
     // ---
 
+    // This mirrors `mrbind::CopyMoveKind` in the parser, the names must match exactly.
+    enum class CopyMoveKind
+    {
+        none,
+        copy,
+        move,
+    };
+
+    // `TryAddFunc()` uses this state to preserve information between the two passes.
+    struct TryAddFuncState
+    {
+        std::string python_name;
+        bool is_overloaded_operator = false;
+    };
+
+    // Use `ToPybindSignatureType` with this.
+    using PybindSignature = std::vector<std::type_index>;
+
+    // `TryAddFunc()` stores overload lists here.
+    // Use one instance per scope (per class; all namespaces can share one).
+    struct TryAddFuncScopeState
+    {
+        struct OverloadEntry
+        {
+            std::size_t num_overloads = 0;
+            std::set<PybindSignature> signatures;
+        };
+
+        std::unordered_map<std::string, OverloadEntry> overloads;
+
+        // This is filled when generating class members. Ignored for namespace scope functions.
+        bool have_default_ctor = false;
+        bool have_copy_ctor = false;
+    };
+
+    struct FuncEntry
+    {
+        using LoadFunc = void (*)(pybind11::module_ &m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, bool is_second_pass);
+        LoadFunc load = nullptr;
+
+        TryAddFuncState state;
+
+        FuncEntry() {}
+        FuncEntry(LoadFunc load)
+            : load(load)
+        {}
+    };
+
+
     struct BasicPybindType
     {
         virtual ~BasicPybindType() = default;
@@ -187,8 +237,25 @@ namespace MRBind::detail::pb11
 
     struct TypeEntry
     {
+        struct AddClassMembersState
+        {
+            TryAddFuncScopeState func_scope_state;
+            std::vector<TryAddFuncState> func_state;
+
+            bool is_second_pass = false;
+            std::size_t i = 0;
+
+            TryAddFuncState &NextFuncState()
+            {
+                if (is_second_pass)
+                    return func_state.at(i++);
+                else
+                    return func_state.emplace_back();
+            }
+        };
+
         using InitClass = std::unique_ptr<BasicPybindType> (*)(pybind11::module_ &m, const char *n);
-        using AddClassMembers = void (*)(pybind11::module_ &m, BasicPybindType &c);
+        using AddClassMembers = void (*)(pybind11::module_ &m, BasicPybindType &c, AddClassMembersState &state);
 
         std::string pybind_type_name;
 
@@ -231,31 +298,6 @@ namespace MRBind::detail::pb11
             comment(comment),
             set_docstring(set_docstring),
             type_deps(std::move(type_deps))
-        {}
-    };
-
-    struct FuncEntry
-    {
-        using LoadFunc = void (*)(pybind11::module_ &m, const std::string &name);
-
-        std::string_view cpp_name;
-        std::string_view cpp_name_with_template_args;
-        std::string python_param_types;
-        LoadFunc load = nullptr;
-
-        std::string python_name;
-
-        FuncEntry() {}
-        FuncEntry(
-            std::string_view cpp_name,
-            std::string_view cpp_name_with_template_args,
-            std::string python_param_types,
-            LoadFunc load
-        )
-            : cpp_name(cpp_name),
-            cpp_name_with_template_args(cpp_name_with_template_args),
-            python_param_types(std::move(python_param_types)),
-            load(load)
         {}
     };
 
@@ -322,6 +364,13 @@ namespace MRBind::detail::pb11
     template <typename T> struct StripToUnderlyingType<T &&> {using type = typename StripToUnderlyingType<T>::type;};
     template <typename T> struct StripToUnderlyingType<std::shared_ptr<T>> {using type = typename StripToUnderlyingType<T>::type;};
     template <typename T, typename D> struct StripToUnderlyingType<std::unique_ptr<T, D>> {using type = typename StripToUnderlyingType<T>::type;};
+
+    // Simplifies the type, merging types that end up as the same python type.
+    // Couldn't find a proper way of doing this, so this is an approximation. (`make_caster<T>::name` looked promising, but for classes it's just `%`, sad.).
+    template <typename T> struct ToPybindSignatureTypeHelper {using type = T;};
+    // The exact types don't really matter, here I'm just matching the Python's names, even though the actual precision is likely different.
+    template <typename T> requires std::is_arithmetic_v<T> struct ToPybindSignatureTypeHelper<T> {using type = std::conditional<std::is_integral_v<T>, int, float>;};
+    template <typename T> using ToPybindSignatureType = typename ToPybindSignatureTypeHelper<typename StripToUnderlyingType<T>::type>::type;
 
     // ---
 
@@ -392,9 +441,10 @@ namespace MRBind::detail::pb11
                         m, n
                     );
                 },
-                [](pybind11::module_ &m, pb11::BasicPybindType &b)
+                [](pybind11::module_ &m, pb11::BasicPybindType &b, TypeEntry::AddClassMembersState &state)
                 {
-                    Traits::bind_members(m, static_cast<TypeStorage &>(b).type);
+                    if (!state.is_second_pass)
+                        Traits::bind_members(m, static_cast<TypeStorage &>(b).type);
                 },
                 Traits::base_typeids()
             );
@@ -749,8 +799,27 @@ namespace MRBind::detail::pb11
     }
 
     // Member or non-member functions. Non-member functions should pass `IsStatic == false`.
+    // Normally is used in two passes, but in simple cases it can be used in a single pass (see `TryAddFuncSimple()`).
     template <bool IsStatic, auto F, typename ...P>
-    void TryAddFunc(auto &c, const char *simplename, const char *fullname, auto &&... data)
+    void TryAddFunc(
+        auto &c,
+        // Only used for overloaded operators, can be null otherwise. Accepts our own operator names, such as `_Plus`.
+        // Only used during the first pass.
+        const char *simplename,
+        // The main name.
+        // Only used during the first pass.
+        const char *fullname,
+        // Same name, but with template arguments added, if any.
+        // Only used during the SECOND pass.
+        const char *fullname_with_template_args,
+        // Opaque string to compare python signatures for equality.
+        // Only used during the first pass.
+        std::initializer_list<std::type_index> python_signature,
+        TryAddFuncState *state,
+        TryAddFuncScopeState *scope_state,
+        bool is_second_pass,
+        auto &&... data
+    )
     {
         if constexpr ((ParamTypeDisablesWholeFunction<DecayToTrueParamType<P>> || ...))
             ; // This function has a parameter of a weird type that we can't support.
@@ -759,7 +828,7 @@ namespace MRBind::detail::pb11
             using ReturnType = std::invoke_result_t<decltype(F), DecayToTrueParamType<P> &&...>; // `DecayToTrueParamType` is not adjusted.
             using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
-            constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
+            static constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
             static_assert(
                 IsUniquePtrToBuiltinType<std::remove_cvref_t<ReturnTypeAdjusted>>::value <= returns_unique_ptr_to_builtin,
                 "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
@@ -812,12 +881,49 @@ namespace MRBind::detail::pb11
 
             constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
 
+            // First pass.
+            if (state && !is_second_pass)
+            {
+                const char *op = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
+                if (op != simplename)
+                {
+                    state->is_overloaded_operator = true;
+                    state->python_name = op;
+                }
+                else
+                {
+                    state->python_name = ToPythonName(fullname);
+
+                    TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
+                    overload.num_overloads++;
+                    overload.signatures.insert(python_signature);
+                }
+                return;
+            }
+
+            // Second pass starts here...
+
+            const char *final_name = state ? state->python_name.c_str() : fullname;
+            std::string final_name_storage;
+
+            { // Fix the python name to avoid ambiguous overloads...
+                if (state && !state->is_overloaded_operator)
+                {
+                    TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
+                    if (overload.num_overloads > overload.signatures.size())
+                    {
+                        // Those overloads are ambiguous, adjust the name.
+                        final_name_storage = ToPythonName(fullname_with_template_args);
+                        final_name = final_name_storage.c_str();
+                    }
+                }
+            }
+
             // If this is an overloaded operator defined outside of a class (or as a `friend`), inject it into
             // the target class, instead of emitting as a global function.
             if constexpr (!is_class_method && sizeof...(P) >= 1)
             {
-                const char *op = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
-                if (op != simplename)
+                if (state->is_overloaded_operator)
                 {
                     auto &r = GetRegistry();
 
@@ -828,7 +934,7 @@ namespace MRBind::detail::pb11
                         if (auto iter = r.type_entries.find(typeid(FirstParam)); iter != r.type_entries.end())
                         {
                             // Try injecting into the type of the first operand.
-                            iter->second.pybind_type->AddExtraMethod(op, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                            iter->second.pybind_type->AddExtraMethod(final_name, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
                         }
                         else
                         {
@@ -847,7 +953,7 @@ namespace MRBind::detail::pb11
                                     };
 
                                     // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
-                                    iter->second.pybind_type->AddExtraMethod(("__r" + std::string(op + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                                    iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
                                 }
                             }
                         }
@@ -857,23 +963,6 @@ namespace MRBind::detail::pb11
                     // Return unconditionally. If we couldn't inject this operator into one of the arguments' types, just drop it.
                     return;
                 }
-            }
-
-            const char *final_name;
-            std::string final_name_storage;
-            if (is_class_method)
-            {
-                final_name = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
-                if (final_name == simplename) // If this is not an overloaded operator, adjust the name.
-                {
-                    final_name_storage = ToPythonName(final_name);
-                    final_name = final_name_storage.c_str();
-                }
-            }
-            else
-            {
-                // This name is already adjusted...
-                final_name = fullname;
             }
 
             constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
@@ -902,18 +991,28 @@ namespace MRBind::detail::pb11
         }
     }
 
-    template <int NumDefaultArgs, bool IsExplicit, typename ...P>
-    void TryAddCtor(auto &c, auto &&... data)
+    // This version doesn't understand overloaded operators (unless you pass the python-style name directly), and doesn't resolve ambiguous overloads.
+    // `fullname` is used as is, make sure it doesn't need adjusting.
+    template <bool IsStatic, auto F, typename ...P>
+    void TryAddFuncSimple(
+        auto &c,
+        const char *fullname,
+        auto &&... data
+    )
+    {
+        (TryAddFunc<IsStatic, F, P...>)(c, nullptr, fullname, nullptr, {}, nullptr, nullptr, false, decltype(data)(data)...);
+    }
+
+    template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, typename ...P>
+    void TryAddCtor(auto &c, TryAddFuncScopeState *scope_state, auto &&... data)
     {
         using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
         if constexpr (std::is_abstract_v<T>)
             ; // Reject abstract classes.
         else if constexpr ((ParamTypeDisablesWholeFunction<DecayToTrueParamType<P>> || ...))
             ; // This function has a parameter of a weird type that we can't support.
-        else if constexpr (sizeof...(P) == 1 && std::is_base_of_v<AdjustedParamType<FirstType<P...>>, T>)
-            // Reject move constructors. They just appear as a duplicate of the copy constructor in the `help(...)`, and other than that don't do anything.
-            // `std::is_base_of` was placed is here instead of `std::is_same` to catch the ol' `TypedefWrapper`s. Might not be necessary anymore.
-            ;
+        else if constexpr (CopyMove == CopyMoveKind::move)
+            ; // Reject move constructors. They just appear as a duplicate of the copy constructor in the `help(...)`, and other than that don't do anything.
         else
         {
             auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
@@ -924,6 +1023,14 @@ namespace MRBind::detail::pb11
                 // but the latter is not an option for us because it prevents us from adjusting the parameter types.
                 return new T((UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...);
             };
+
+            if (scope_state)
+            {
+                if constexpr (sizeof...(P) == NumDefaultArgs)
+                    scope_state->have_default_ctor = true;
+                else if constexpr (CopyMove == CopyMoveKind::copy)
+                    scope_state->have_copy_ctor = true;
+            }
 
             constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
@@ -981,6 +1088,23 @@ namespace MRBind::detail::pb11
                     }
                 );
             }
+        }
+    }
+
+    template <typename T>
+    void FinalizeClass(auto &c, TryAddFuncScopeState &scope_state)
+    {
+        TryMakeIterable<T>(c);
+
+        if (!scope_state.have_default_ctor)
+        {
+            if constexpr (std::default_initializable<T>)
+                c.def(pybind11::init([]{return std::make_shared<T>();}), "Implicit default constructor.");
+        }
+        if (!scope_state.have_copy_ctor)
+        {
+            if constexpr (pybind11::detail::is_copy_constructible<T>::value)
+                c.def(pybind11::init([](const T &other){return std::make_shared<T>(other);}), "Implicit copy constructor.");
         }
     }
 }
@@ -1264,37 +1388,20 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             elem->pybind_type = elem->init(m, elem->pybind_type_name.c_str());
         // Actually load.
         for (auto *elem : final_order)
-            elem->load_members(m, *elem->pybind_type);
+        {
+            MRBind::detail::pb11::TypeEntry::AddClassMembersState state;
+            elem->load_members(m, *elem->pybind_type, state);
+            state.is_second_pass = true;
+            elem->load_members(m, *elem->pybind_type, state); // Second pass!
+        }
     }
 
     { // Load the functions.
-        // First pass.
-        // Determine python names and detect ambiguous overloads that need template arguments to be appended to their name.
-        struct OverloadEntry
-        {
-            std::size_t num_overloads = 0;
-            std::unordered_set<std::string_view> signatures;
-        };
-
-        std::unordered_map<std::string_view, OverloadEntry> overloads;
+        TryAddFuncScopeState scope_state;
         for (auto &entry : r.func_entries)
-        {
-            entry.python_name = ToPythonName(entry.cpp_name);
-
-            OverloadEntry &overload = overloads[entry.python_name];
-            overload.num_overloads++;
-            overload.signatures.insert(entry.python_param_types);
-        }
-
-        // Second pass. Actually load the functions.
-        for (const auto &entry : r.func_entries)
-        {
-            const OverloadEntry &overload = overloads.at(entry.python_name);
-
-            // If we have more overloads than signatures, this means we'll get ambiguities, so we must append template argument names to the function names.
-            bool must_disambiguate = overload.num_overloads > overload.signatures.size();
-            entry.load(m, must_disambiguate ? ToPythonName(entry.cpp_name_with_template_args) : entry.python_name);
-        }
+            entry.load(m, entry.state, scope_state, false);
+        for (auto &entry : r.func_entries)
+            entry.load(m, entry.state, scope_state, true);
     }
 
     { // Load the aliases.
@@ -1408,9 +1515,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     , MRBIND_IDENTITY type_
 
 // A helper that generates a list of pybind type names corresponding to the C++ parameter types.
-#define DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES(seq) pybind11::detail::concat( pybind11::detail::const_name("|") SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES_BODY, SF_NULL, SF_NULL, 1, seq) )
-#define DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES_BODY(n, d, type_, name_, .../*default_arg_*/) \
-    , pybind11::detail::make_caster<MRBIND_IDENTITY type_>::name, pybind11::detail::const_name("|")
+#define DETAIL_MB_PB11_PARAM_PB_SIGNATURE(seq) { SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_PB_SIGNATURE_BODY, SF_NULL, SF_NULL, 1, seq) }
+#define DETAIL_MB_PB11_PARAM_PB_SIGNATURE_BODY(n, d, type_, name_, .../*default_arg_*/) \
+    typeid(MRBind::detail::pb11::ToPybindSignatureType<MRBind::detail::pb11::AdjustedParamType<MRBind::detail::pb11::DecayToTrueParamType<MRBIND_IDENTITY type_>>>),
 
 // Returns the number of function parameters with default arguments.
 #define DETAIL_MB_PB11_NUM_DEF_ARGS(seq) 0 SF_FOR_EACH0(DETAIL_MB_PB11_NUM_DEF_ARGS_BODY, SF_NULL, SF_NULL,, seq)
@@ -1481,11 +1588,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // Bind a function.
 #define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_) \
     MRBind::detail::pb11::GetRegistry().func_entries.emplace_back( \
-        MRBIND_STR(MRBIND_IDENTITY qualname_), \
-        MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
-        /* Pybind type names (to detect overloadable functions). */\
-        DETAIL_MB_PB11_PARAM_PB_TYPE_NAMES(params_).text, \
-        [](pybind11::module_ &_pb11_m, const std::string &name) \
+        [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::TryAddFuncState &_pb11_state, MRBind::detail::pb11::TryAddFuncScopeState &_pb11_scope_state, bool _pb11_is_second_pass) \
         {\
             MRBind::detail::pb11::TryAddFunc<\
                 /* Doesn't count as `static` for our purposes. */\
@@ -1498,8 +1601,14 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 _pb11_m, \
                 /* Simple name */\
                 MRBIND_STR(simplename_), \
-                /* Full name */\
-                name.c_str() \
+                /* Qualified name */\
+                MRBIND_STR(MRBIND_IDENTITY qualname_), \
+                /* Qualified name with template arguments */\
+                MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
+                /* Pybind signature (to detect overloadable functions). */\
+                DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
+                /* Pass information. */\
+                &_pb11_state, &_pb11_scope_state, _pb11_is_second_pass \
                 /* Parameters. */\
                 DETAIL_MB_PB11_MAKE_PARAMS(params_) \
                 /* Comment, if any. */ \
@@ -1522,8 +1631,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             return std::make_unique<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(_pb11_m, _pb11_n); \
         }, \
         /* Members lamdba. */\
-        [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
+        [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b, MRBind::detail::pb11::TypeEntry::AddClassMembersState &_pb11_state) \
         { \
+            if (_pb11_state.is_second_pass) return; /* Only one pass is needed. */\
             [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
             DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
         }, \
@@ -1546,13 +1656,14 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             return std::make_unique<_pb11_T>(_pb11_m, _pb11_n); \
         }, \
         /* Members lamdba. */\
-        [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b) \
+        [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::BasicPybindType &_pb11_b, MRBind::detail::pb11::TypeEntry::AddClassMembersState &_pb11_state) \
         { \
             using _pb11_C = MRBIND_IDENTITY qualname_; \
             using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, MRBind::detail::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>>; \
             auto &_pb11_c = static_cast<_pb11_T *>(&_pb11_b)->type; \
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
-            (MRBind::detail::pb11::TryMakeIterable<_pb11_C>)(_pb11_c); \
+            if (_pb11_state.is_second_pass) \
+                (MRBind::detail::pb11::FinalizeClass<_pb11_C>)(_pb11_c, _pb11_state.func_scope_state); \
         }, \
         std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
     );
@@ -1565,6 +1676,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
+    if (!_pb11_state.is_second_pass) \
     MRBind::detail::pb11::TryAddMemberVar< \
         /* Static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
@@ -1579,8 +1691,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     );
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, comment_, params_) \
+    if (!_pb11_state.is_second_pass) \
     MRBind::detail::pb11::TryAddCtor<\
+        /* Copy/move kind. */\
+        MRBind::detail::pb11::CopyMoveKind::copy_move_kind_, \
         /* Default argument counter, to detect converting constructors. */\
         DETAIL_MB_PB11_NUM_DEF_ARGS(params_),\
         /* Explicit? */\
@@ -1588,7 +1703,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Parameter types. */\
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_)\
     >( \
-        _pb11_c \
+        _pb11_c, \
+        &_pb11_state.func_scope_state \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */\
@@ -1596,8 +1712,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, ret_, name_, simplename_, fullname_, const_, comment_, params_) \
-    /* `.def` or `.def_static` */\
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, comment_, params_) \
     MRBind::detail::pb11::TryAddFunc< \
         /* bool: is this function static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(true, false),\
@@ -1614,7 +1729,13 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Simple name */\
         MRBIND_STR(simplename_), \
         /* Full name */\
-        MRBIND_STR(name_) \
+        MRBIND_STR(name_), \
+        /* Full name with template arguments. */\
+        MRBIND_STR(MRBIND_IDENTITY fullname_), \
+        /* Pybind signature. */\
+        DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
+        /* Overloading state. */\
+        &_pb11_state.NextFuncState(), &_pb11_state.func_scope_state, _pb11_state.is_second_pass \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \
@@ -1623,8 +1744,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, ret_, const_, comment_) \
-    /* `.def` or `.def_static` */\
-    MRBind::detail::pb11::TryAddFunc< \
+    if (!_pb11_state.is_second_pass) \
+    MRBind::detail::pb11::TryAddFuncSimple< \
         /* Not static. */\
         false,\
         /* Member pointer. */\
@@ -1634,10 +1755,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         _pb11_C & \
     >( \
         _pb11_c, \
-        /* Simple name */\
-        MRBind::detail::pb11::GetConversionFuncName<MRBIND_IDENTITY ret_>(MRBIND_STR(MRBIND_IDENTITY ret_)).c_str(), \
-        /* Full name */\
-        nullptr \
+        /* Operator name. */\
+        MRBind::detail::pb11::GetConversionFuncName<MRBIND_IDENTITY ret_>(MRBIND_STR(MRBIND_IDENTITY ret_)).c_str() \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
     );

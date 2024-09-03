@@ -9,6 +9,7 @@
 #include <clang/Frontend/CompilerInstance.h>
 #include <clang/Sema/Sema.h>
 #include <clang/Sema/SemaConcept.h>
+#include <clang/Sema/Template.h>
 #include <clang/Tooling/CommonOptionsParser.h>
 #include <clang/Tooling/Tooling.h>
 #include <llvm/Support/CommandLine.h>
@@ -457,7 +458,6 @@ namespace mrbind
                 return true; // Skip deleted.
 
             // Custom handling for class methods.
-            clang::CXXMethodDecl *method = nullptr;
             if (decl->isCXXClassMember())
             {
                 // The `nonrejected_class_stack` should never be empty here.
@@ -469,7 +469,7 @@ namespace mrbind
                 if (llvm::isa<clang::CXXDestructorDecl>(decl))
                     return true; // Reject destructors.
 
-                method = clang::dyn_cast<clang::CXXMethodDecl>(decl);
+                clang::CXXMethodDecl *method = clang::dyn_cast<clang::CXXMethodDecl>(decl);
                 if (!method)
                     return true; // Unsure when this can happen, but anyway.
 
@@ -493,11 +493,9 @@ namespace mrbind
 
                 if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
                 {
-                    // if (ctor->isCopyOrMoveConstructor())
-                    //     continue; // Reject copy/move constructors.
-
                     ClassCtor &new_ctor = target_class.members.emplace_back().emplace<ClassCtor>();
                     new_ctor.is_explicit = ctor->isExplicit();
+                    new_ctor.kind = ctor->isCopyConstructor() ? CopyMoveKind::copy : ctor->isMoveConstructor() ? CopyMoveKind::move : CopyMoveKind::none;
                     basic_func = &new_ctor;
                 }
                 else
@@ -513,6 +511,8 @@ namespace mrbind
                     {
                         ClassMethod &new_method = target_class.members.emplace_back().emplace<ClassMethod>();
                         basic_ret_class_func = &new_method;
+                        // Copy&swap assignment gets reported as "copy" (and no, `isMoveAssignmentOperator()` returns false for it, I've checked).
+                        new_method.assignment_kind = method->isCopyAssignmentOperator() ? CopyMoveKind::copy : method->isMoveAssignmentOperator() ? CopyMoveKind::move : CopyMoveKind::none;
                         new_method.name = method->getDeclName().getAsString();
                         new_method.simple_name = GetAdjustedFuncName(*method);
 
@@ -579,7 +579,20 @@ namespace mrbind
                 return false; // Reject anonymous structs/unions.
 
             if (!decl->isCompleteDefinition())
-                return false; // Reject forward declarations.
+            {
+                if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
+                {
+                    // This rejects non-templates.
+                    if (auto pat = cxxdecl->getTemplateInstantiationPattern())
+                    {
+                        // This rejects templates that are declared but not defined.
+                        if (pat->isCompleteDefinition())
+                            ci->getSema().InstantiateClass(decl->getSourceRange().getBegin(), cxxdecl, pat, ci->getSema().getTemplateInstantiationArgs(cxxdecl), clang::TSK_ImplicitInstantiation);
+                    }
+                }
+                if (!decl->isCompleteDefinition())
+                    return false; // Reject forward declarations.
+            }
 
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return false; // Inaccessible type.
@@ -673,31 +686,9 @@ namespace mrbind
             }
 
             // -- Constructors and methods.
-            if (cxxdecl)
-            {
-                // Implicitly declare the default constructor if viable.
-                if (cxxdecl->needsImplicitDefaultConstructor())
-                {
-                    // Poking this for some reason generates the implicit default constructor, if it can be generated.
-                    (void)ci->getSema().LookupDefaultConstructor(cxxdecl);
 
-                    // Note: Not using `cxxdecl->hasDefaultConstructor()` because it returns false positives,
-                    // e.g. for classes with non-default-constructible fields and no user-declared constructors?).
-                }
-
-                // Similarly, copy/move constructors and assignments.
-                if (cxxdecl->needsImplicitCopyConstructor())
-                    (void)ci->getSema().LookupCopyingConstructor(cxxdecl, clang::Qualifiers::Const);
-                if (cxxdecl->needsImplicitMoveConstructor())
-                    (void)ci->getSema().LookupMovingConstructor(cxxdecl, clang::Qualifiers::Const);
-                if (cxxdecl->needsImplicitCopyAssignment())
-                    (void)ci->getSema().LookupCopyingAssignment(cxxdecl, clang::Qualifiers::Const, false, 0);
-                if (cxxdecl->needsImplicitMoveAssignment())
-                    (void)ci->getSema().LookupMovingAssignment(cxxdecl, clang::Qualifiers::Const, false, 0);
-
-                // ... We used to extract methods and constructors here, but we no longer do it, because template instantiations don't arrive here
-                // for some reason?! Instead we do that in `VisitFunctionDecl()`, which does get them. Hmm.
-            }
+            // ... We used to extract methods and constructors here, but we no longer do it, because template instantiations don't arrive here
+            // for some reason?! Instead we do that in `VisitFunctionDecl()`, which does get them. Hmm.
 
             return true;
         }
@@ -707,6 +698,12 @@ namespace mrbind
         {
             (void)decl;
             params->container_stack.pop_back();
+        }
+
+        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
+        void FinishRecordEvenIfRejected(clang::RecordDecl *decl)
+        {
+            (void)decl;
             params->nonrejected_class_stack.pop_back();
         }
 
@@ -715,10 +712,10 @@ namespace mrbind
             bool ret = true;
             if (ProcessRecord(decl))
             {
-                bool ret = Base::TraverseRecordDecl(decl);
+                ret = Base::TraverseRecordDecl(decl);
                 FinishRecord(decl);
-                return ret;
             }
+            FinishRecordEvenIfRejected(decl);
             return ret;
         }
 
@@ -730,10 +727,10 @@ namespace mrbind
             bool ret = true;
             if (ProcessRecord(decl))
             {
-                bool ret = Base::TraverseCXXRecordDecl(decl);
+                ret = Base::TraverseCXXRecordDecl(decl);
                 FinishRecord(decl);
-                return ret;
             }
+            FinishRecordEvenIfRejected(decl);
             return ret;
         }
 
@@ -746,10 +743,10 @@ namespace mrbind
             bool ret = true;
             if (ProcessRecord(decl))
             {
-                bool ret = Base::TraverseClassTemplateSpecializationDecl(decl);
+                ret = Base::TraverseClassTemplateSpecializationDecl(decl);
                 FinishRecord(decl);
-                return ret;
             }
+            FinishRecordEvenIfRejected(decl);
             return ret;
         }
 

@@ -124,7 +124,7 @@ namespace MRBind::detail::pb11
             c.def("can_be_created_from_python", [](const FuncWrapper<R(P...)> &f){return f.can_be_created_from_python;}, "If false, this function type can't hold a Python function, and can only be created from C++.");
             c.def("holds_cpp_function", [](const FuncWrapper<R(P...)> &f){return f.holds_cpp_func;}, "Does this object currentlyhold a C++ function? As opposed to a Python one.");
 
-            TryAddFunc<
+            TryAddFuncSimple<
                 // Static?
                 false,
                 // Function.
@@ -133,7 +133,6 @@ namespace MRBind::detail::pb11
                 P...
             >(
                 c,
-                "__call__",
                 "__call__"
             );
         }

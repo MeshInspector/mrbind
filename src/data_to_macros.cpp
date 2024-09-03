@@ -339,7 +339,14 @@ namespace mrbind
                                     {
                                         out
                                             << "    (ctor, "
-                                            << (ctor.is_explicit ? "explicit" : "/*not explicit*/") << ", "
+                                            << (ctor.is_explicit ? "explicit" : "/*not explicit*/") << ", ";
+                                        switch (ctor.kind)
+                                        {
+                                            case CopyMoveKind::none: out << "none"; break;
+                                            case CopyMoveKind::copy: out << "copy"; break;
+                                            case CopyMoveKind::move: out << "move"; break;
+                                        }
+                                        out << ", "
                                             << (ctor.comment ? EscapeQuoteString(*ctor.comment) : "/*no comment*/") << ", ";
                                         dump_params(ctor.params);
                                         out << ")\n";
@@ -348,7 +355,15 @@ namespace mrbind
                                     {
                                         out
                                             << "    (method, "
-                                            << (method.is_static ? "static" : "/*non-static*/") << ", "
+                                            << (method.is_static ? "static" : "/*non-static*/") << ", ";
+                                        switch (method.assignment_kind)
+                                        {
+                                            case CopyMoveKind::none: out << "none"; break;
+                                            case CopyMoveKind::copy: out << "copy"; break;
+                                            case CopyMoveKind::move: out << "move"; break;
+                                        }
+                                        out
+                                            << ", "
                                             << "(" << method.return_type.pretty << "), "
                                             << method.name << ", "
                                             << method.simple_name << ", "
