@@ -90,6 +90,7 @@ namespace MR
 
     template <typename T> struct Blah
     {
+        void a() {}
         struct Bleh {}; // Ensure this is instantiated!
         Bleh foo() {return {};}
     };

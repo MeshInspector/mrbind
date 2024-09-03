@@ -109,13 +109,61 @@ namespace mrbind
         macros,
     };
 
+    class StringFilter
+    {
+        std::set<std::string, std::less<>> exact;
+
+        struct Regex
+        {
+            std::regex regex;
+            std::string value;
+
+            Regex(std::string value) : regex(value.begin(), value.end()), value(std::move(value)) {}
+
+            friend bool operator==(const Regex &a, const Regex &b) {return a.value == b.value;}
+            friend auto operator<=>(const Regex &a, const Regex &b) {return a.value <=> b.value;}
+        };
+        std::set<Regex> regexes;
+
+      public:
+        StringFilter() {}
+
+        void Insert(std::string value)
+        {
+            if (value.size() > 2 && value.starts_with('/') && value.ends_with('/'))
+            {
+                value.pop_back();
+                value.erase(value.begin());
+                regexes.insert(std::move(value));
+            }
+            else
+            {
+                exact.insert(std::move(value));
+            }
+        }
+
+        [[nodiscard]] bool Contains(std::string_view value) const
+        {
+            if (exact.contains(value))
+                return true;
+
+            for (const Regex &r : regexes)
+            {
+                if (std::regex_match(value.begin(), value.end(), r.regex))
+                    return true;
+            }
+
+            return false;
+        }
+    };
+
     struct VisitorParams
     {
-        std::set<std::string> blacklisted_entities;
-        std::set<std::string> whitelisted_entities; // This has priority over the blacklist.
+        StringFilter blacklisted_entities;
+        StringFilter whitelisted_entities;
 
         // Don't list those base classes.
-        std::set<std::string> skipped_bases;
+        StringFilter skipped_bases;
 
         mutable std::vector<char/*bool*/> rejected_namespace_stack;
 
@@ -212,10 +260,10 @@ namespace mrbind
             llvm::raw_string_ostream ss(qual_name_without_template_args);
             decl.printQualifiedName(ss);
 
-            if (params->blacklisted_entities.contains(qual_name_without_template_args))
+            if (params->blacklisted_entities.Contains(qual_name_without_template_args))
                 return true; // This entity is blacklisted.
 
-            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.contains(qual_name_without_template_args))
+            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.Contains(qual_name_without_template_args))
                 return true; // This entity is blacklisted because its enclosing entity is blacklisted, and it itself is not whitelisted.
         }
 
@@ -629,7 +677,7 @@ namespace mrbind
                         std::string qual_name_without_template_args;
                         llvm::raw_string_ostream ss(qual_name_without_template_args);
                         base.getType()->getAsCXXRecordDecl()->printQualifiedName(ss);
-                        if (params->skipped_bases.contains(qual_name_without_template_args))
+                        if (params->skipped_bases.Contains(qual_name_without_template_args))
                             continue; // In the base skip list.
                     }
 
@@ -949,7 +997,7 @@ namespace mrbind
                 }
             }
 
-            params->rejected_namespace_stack.push_back(params->blacklisted_entities.contains("::"));
+            params->rejected_namespace_stack.push_back(params->blacklisted_entities.Contains("::"));
 
             // Instantiate templates referred to by typedefs.
             ClangAstVisitorInstTypedefs(ctx, *ci, *params).TraverseDecl(ctx.getTranslationUnitDecl());
@@ -1155,7 +1203,7 @@ int main(int argc, char **argv)
                             if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
                                 throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
 
-                            params.blacklisted_entities.insert(argv[++i]);
+                            params.blacklisted_entities.Insert(argv[++i]);
                             continue;
                         }
 
@@ -1164,7 +1212,7 @@ int main(int argc, char **argv)
                             if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
                                 throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
 
-                            params.whitelisted_entities.insert(argv[++i]);
+                            params.whitelisted_entities.Insert(argv[++i]);
                             continue;
                         }
 
@@ -1173,7 +1221,7 @@ int main(int argc, char **argv)
                             if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
                                 throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
 
-                            params.skipped_bases.insert(argv[++i]);
+                            params.skipped_bases.Insert(argv[++i]);
                             continue;
                         }
 
@@ -1211,8 +1259,8 @@ int main(int argc, char **argv)
             "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline.\n"
             "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
             "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different Clang version.\n"
-            "  --ignore T                  - Don't emit bindings for a specific entity. Use the flag several times to ban several entities. Use a fully qualified name, but without template arguments after the last name. Use `::` to reject the global namespace.\n"
-            "  --allow T                   - Unban a subentity of something that was banned with `--ignore`, or a template instantiation from a header.\n"
+            "  --ignore T                  - Don't emit bindings for a specific entity. Use the flag several times to ban several entities. Use a fully qualified name, but without template arguments after the last name. Use `::` to reject the global namespace. Enclose in slashes to match a regex.\n"
+            "  --allow T                   - Unban a subentity of something that was banned with `--ignore`.\n"
             "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
             "  --format=json               - Output in JSON format.\n"
             "  --format=macros             - Output in C/C++ macros format.\n"
