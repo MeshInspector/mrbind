@@ -14,7 +14,7 @@ Libclang must be installed (the C++ API of it). It's not included in the officia
 
 * On Linux, if you have more than one version installed, pass e.g. `-DClang_DIR=/usr/lib/cmake/clang-18` to CMake to select the desired version. (Or an env variable with the same name.)
 
-  To install libclang on Windows:
+  To install libclang on Ubuntu:
   ```
   VER=18
   wget https://apt.llvm.org/llvm.sh
