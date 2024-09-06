@@ -86,7 +86,16 @@ namespace MRBind::detail::pb11
                 source_pos = view.find(to_remove, source_pos + 1);
                 if (source_pos == std::string_view::npos)
                     break;
-                if (source_pos == 0 || !chars::IsIdentifierCharStrict(view[source_pos - 1]))
+
+                bool ok = source_pos == 0;
+                if (!ok)
+                {
+                    char ch = view[source_pos - 1];
+                    if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'))
+                        ok = true;
+                }
+
+                if (ok)
                 {
                     std::size_t n = source_pos - region_start;
                     std::copy_n(view.begin() + region_start, n, buffer + target_pos);

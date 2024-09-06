@@ -10,6 +10,10 @@
 #include <mrbind/targets/pybind11/bind_phmap.h>
 #endif
 
+#if __has_include(<expected>)
+#include <mrbind/targets/pybind11/bind_std_expected.h>
+#endif
+
 #if __has_include(<tl/expected.hpp>)
 #include <mrbind/targets/pybind11/bind_tl_expected.h>
 #endif
