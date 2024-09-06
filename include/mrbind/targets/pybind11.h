@@ -11,7 +11,10 @@
 #endif
 
 #if __has_include(<expected>)
+// The second half of the condition is copied from libstdc++'s `<expected>` header. The contents are disable if this is false.
+#if !defined(_GLIBCXX_RELEASE) || (__cplusplus > 202002L && __cpp_concepts >= 202002L)
 #include <mrbind/targets/pybind11/bind_std_expected.h>
+#endif
 #endif
 
 #if __has_include(<tl/expected.hpp>)

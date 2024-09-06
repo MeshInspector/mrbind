@@ -155,9 +155,14 @@ namespace MRBind::detail::pb11
     template <typename T>
     [[nodiscard]] const char *TypeidTypeName()
     {
-        static Demangler d;
-        static const char *const ret = d(typeid(T).name());
-        return ret;
+        if constexpr (std::is_same_v<T, std::string>)
+            return "std::string";
+        else
+        {
+            static Demangler d;
+            static const char *const ret = d(typeid(T).name());
+            return ret;
+        }
     }
 
     // ---
@@ -847,7 +852,7 @@ namespace MRBind::detail::pb11
             {
                 #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
 
-                if constexpr (std::is_void_v<ReturnTypeAdjusted>)
+                if constexpr (std::is_void_v<ReturnType>) // Sic! Not `ReturnTypeAdjusted`. This matters e.g. for `tl::expected<void, ...>`.
                 {
                     INVOKE_FUNC;
                 }

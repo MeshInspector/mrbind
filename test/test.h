@@ -27,6 +27,9 @@ namespace MR
     tl::expected<std::unique_ptr<A>, std::string> foo2() {return std::make_unique<A>();}
     tl::expected<std::unique_ptr<A>, std::string> bar2() {return tl::unexpected(std::string("Blah!"));}
 
+    tl::expected<void, std::string> foo() {return {};}
+    tl::expected<void, std::string> bar() {return tl::unexpected(std::string("Hmm!"));} // Check that this throws!
+
     // Also for unique_ptr.
     std::shared_ptr<std::string> foo() {return std::make_shared<std::string>("foo");}
     std::shared_ptr<std::string> bar() {return {};}

@@ -23,7 +23,7 @@ struct pybind11::detail::is_copy_assignable<tl::expected<T, U>>
 template <typename T, typename U>
 requires
     // Because we need to be able to move the object into `std::unique_ptr`.
-    std::movable<T>
+    std::is_void_v<T> || std::movable<T>
 struct MRBind::detail::pb11::ReturnTypeAdjustment<tl::expected<T, U>>
     : RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
@@ -31,9 +31,12 @@ struct MRBind::detail::pb11::ReturnTypeAdjustment<tl::expected<T, U>>
     {
         if (value)
         {
-            // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
-            // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
-            return AdjustReturnedValue<typename OptionalReturnType<T>::type>(OptionalReturnType<T>::make(std::move(*value)));
+            if constexpr (std::is_void_v<T>)
+                return;
+            else
+                // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
+                // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
+                return AdjustReturnedValue<typename OptionalReturnType<T>::type>(OptionalReturnType<T>::make(std::move(*value)));
         }
         else
         {
@@ -114,3 +117,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
         }, pybind11::return_value_policy::reference_internal);
     }
 };
+
+#if MB_USE_STD_EXPECTED
+#undef tl
+#endif

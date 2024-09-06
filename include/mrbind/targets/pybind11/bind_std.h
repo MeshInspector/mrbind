@@ -231,6 +231,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, A>>
             c.def(pybind11::init<const std::vector<T, A> &>());
 
         c.def("size", [](const std::vector<T, A> &v){return v.size();});
+        c.def("empty", [](const std::vector<T, A> &v){return v.empty();});
         if constexpr (pybind11::detail::is_copy_constructible<T>::value && pybind11::detail::is_copy_assignable<T>::value)
         {
             if constexpr (std::is_default_constructible_v<T>)
