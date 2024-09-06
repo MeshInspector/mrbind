@@ -140,4 +140,8 @@ namespace MR
     template void AA::b(double);
     template float AA::c();
     template double AA::c();
+
+    // ---
+
+    inline void foo(int True, int in) {} // Those must be auto-renamed to `true` and `in_`.
 }

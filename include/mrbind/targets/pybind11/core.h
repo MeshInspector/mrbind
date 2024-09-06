@@ -49,6 +49,9 @@ namespace MRBind::detail::pb11
     // The resulting name is used for the python bindings.
     [[nodiscard]] std::string ToPythonName(std::string_view name);
 
+    // If `name` matches a python keyword, tweaks it to not match. This is a subset of `ToPythonName()`.
+    [[nodiscard]] std::string AdjustPythonKeywords(std::string name);
+
     // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
     [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
 
@@ -64,73 +67,6 @@ namespace MRBind::detail::pb11
     }
 
     // ---
-
-    // On MSVC, removes `class` and other unnecessary strings from type names.
-    // Returns the new length.
-    // It's recommended to include the null terminator in `size`, then we also null-terminate the resulting string and include it in the resulting length.
-    constexpr std::size_t CleanUpTypeName(char *buffer, std::size_t size)
-    {
-        #ifndef _MSC_VER
-        (void)buffer;
-        return size;
-        #else
-        std::string_view view(buffer, size); // Yes, with the null at the end.
-
-        auto RemoveTypePrefix = [&](std::string_view to_remove)
-        {
-            std::size_t region_start = 0;
-            std::size_t source_pos = std::size_t(-1);
-            std::size_t target_pos = 0;
-            while (true)
-            {
-                source_pos = view.find(to_remove, source_pos + 1);
-                if (source_pos == std::string_view::npos)
-                    break;
-
-                bool ok = source_pos == 0;
-                if (!ok)
-                {
-                    char ch = view[source_pos - 1];
-                    if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'))
-                        ok = true;
-                }
-
-                if (ok)
-                {
-                    std::size_t n = source_pos - region_start;
-                    std::copy_n(view.begin() + region_start, n, buffer + target_pos);
-                    target_pos += n;
-                    source_pos += to_remove.size();
-                    region_start = source_pos;
-                }
-            }
-            std::size_t n = view.size() - region_start;
-            std::copy_n(view.begin() + region_start, n, buffer + target_pos);
-            target_pos += n;
-            view = std::string_view(view.data(), target_pos);
-        };
-
-        RemoveTypePrefix("struct ");
-        RemoveTypePrefix("class ");
-        RemoveTypePrefix("union ");
-        RemoveTypePrefix("enum ");
-
-        { // Condense `> >` into `>>`.
-            std::size_t target_pos = 1;
-            for (std::size_t i = 1; i + 1 < size; i++)
-            {
-                if (buffer[i] == ' ' && buffer[i-1] == '>' && buffer[i+1] == '>')
-                    continue;
-                buffer[target_pos++] = buffer[i];
-            }
-            if (size > 0)
-                buffer[target_pos++] = buffer[size-1];
-            view = std::string_view(view.data(), target_pos);
-        }
-
-        return view.size();
-        #endif
-    }
 
     class Demangler
     {
@@ -1145,6 +1081,59 @@ namespace MRBind::detail::pb11
         std::terminate();
     }
 
+    std::string AdjustPythonKeywords(std::string name)
+    {
+        // https://docs.python.org/3/reference/lexical_analysis.html#keywords
+        static const std::unordered_set<std::string> keywords = {
+            "and",
+            "as",
+            "assert",
+            "async",
+            "await",
+            "break",
+            "class",
+            "continue",
+            "def",
+            "del",
+            "elif",
+            "else",
+            "except",
+            "False",
+            "finally",
+            "for",
+            "from",
+            "global",
+            "if",
+            "import",
+            "in",
+            "is",
+            "lambda",
+            "None",
+            "nonlocal",
+            "not",
+            "or",
+            "pass",
+            "raise",
+            "return",
+            "True",
+            "try",
+            "while",
+            "with",
+            "yield",
+        };
+
+        if (keywords.contains(name))
+        {
+            // If the name starts with an uppercase letter, lowercase it. Otherwise add `_` suffix.
+            if (std::isupper((unsigned char)name[0]))
+                name[0] = std::tolower((unsigned char)name[0]);
+            else
+                name += '_';
+        }
+
+        return name;
+    }
+
     std::string ToPythonName(std::string_view name)
     {
         // Read regex replacement rules from `MB_PB11_ADJUST_NAMES`.
@@ -1242,13 +1231,80 @@ namespace MRBind::detail::pb11
         }
         ret.resize(last_good_size); // Trim trailing special characters.
 
-        return ret;
+        return AdjustPythonKeywords(std::move(ret));
     }
 
     Demangler::~Demangler()
     {
         #ifndef _MSC_VER
         std::free(buf_ptr);
+        #endif
+    }
+
+    // On MSVC, removes `class` and other unnecessary strings from type names.
+    // Returns the new length.
+    // It's recommended to include the null terminator in `size`, then we also null-terminate the resulting string and include it in the resulting length.
+    constexpr std::size_t CleanUpTypeName(char *buffer, std::size_t size)
+    {
+        #ifndef _MSC_VER
+        (void)buffer;
+        return size;
+        #else
+        std::string_view view(buffer, size); // Yes, with the null at the end.
+
+        auto RemoveTypePrefix = [&](std::string_view to_remove)
+        {
+            std::size_t region_start = 0;
+            std::size_t source_pos = std::size_t(-1);
+            std::size_t target_pos = 0;
+            while (true)
+            {
+                source_pos = view.find(to_remove, source_pos + 1);
+                if (source_pos == std::string_view::npos)
+                    break;
+
+                bool ok = source_pos == 0;
+                if (!ok)
+                {
+                    char ch = view[source_pos - 1];
+                    if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'))
+                        ok = true;
+                }
+
+                if (ok)
+                {
+                    std::size_t n = source_pos - region_start;
+                    std::copy_n(view.begin() + region_start, n, buffer + target_pos);
+                    target_pos += n;
+                    source_pos += to_remove.size();
+                    region_start = source_pos;
+                }
+            }
+            std::size_t n = view.size() - region_start;
+            std::copy_n(view.begin() + region_start, n, buffer + target_pos);
+            target_pos += n;
+            view = std::string_view(view.data(), target_pos);
+        };
+
+        RemoveTypePrefix("struct ");
+        RemoveTypePrefix("class ");
+        RemoveTypePrefix("union ");
+        RemoveTypePrefix("enum ");
+
+        { // Condense `> >` into `>>`.
+            std::size_t target_pos = 1;
+            for (std::size_t i = 1; i + 1 < size; i++)
+            {
+                if (buffer[i] == ' ' && buffer[i-1] == '>' && buffer[i+1] == '>')
+                    continue;
+                buffer[target_pos++] = buffer[i];
+            }
+            if (size > 0)
+                buffer[target_pos++] = buffer[size-1];
+            view = std::string_view(view.data(), target_pos);
+        }
+
+        return view.size();
         #endif
     }
 
@@ -1501,7 +1557,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // A helper that generates function parameter bindings.
 #define DETAIL_MB_PB11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PB11_MAKE_PARAMS_BODY(n, d, type_, name_, .../*default_arg_*/) \
-    , pybind11::arg(MRBIND_STR(name_)) __VA_OPT__(= __VA_ARGS__)
+    , pybind11::arg(MRBind::detail::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str()) __VA_OPT__(= __VA_ARGS__)
 
 // A helper that generates a list of parameter types.
 // We also decay arrays and functions to pointers here.
