@@ -322,6 +322,10 @@ namespace MRBind::detail::pb11
     template <typename T> requires std::is_arithmetic_v<T> struct ToPybindSignatureTypeHelper<T> {using type = std::conditional<std::is_integral_v<T>, int, float>;};
     template <typename T> using ToPybindSignatureType = typename ToPybindSignatureTypeHelper<typename StripToUnderlyingType<T>::type>::type;
 
+    // Detect `std::initializer_list`.
+    template <typename T> struct IsStdInitializerList : std::false_type {};
+    template <typename T> struct IsStdInitializerList<std::initializer_list<T>> : std::true_type {};
+
     // ---
 
     template <typename T>
@@ -546,6 +550,8 @@ namespace MRBind::detail::pb11
     // Specialize `ParamTraitsLow` only here in this file, for high-level type groups.
     //   Those aren't allowed to change the parameter type, except for cvref/ptr qualifiers.
 
+    // (Do we need this distinction anymore? Consider merging the two...)
+
     template <typename T>
     struct ParamTraits
     {
@@ -604,6 +610,14 @@ namespace MRBind::detail::pb11
     struct ParamTraitsLow<T>
     {
         using disables_func = void;
+    };
+
+    // Ban functions with `std::initializer_list` parameters.
+    // In theory we could support those by constructing those in a non-portable manner.
+    template <typename T> requires IsStdInitializerList<std::remove_cvref_t<T>>::value
+    struct ParamTraitsLow<T>
+    {
+        using disables_func = void; // Disable the whole function because of this parameter.
     };
 
     // ---

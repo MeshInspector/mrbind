@@ -175,4 +175,13 @@ namespace MR
     inline void i_f1() {}
     IGNORE inline void i_f2() {}
     inline void i_f3() {}
+
+    // ---
+
+    // Reject functions accepting `std::initializer_list<T>`.
+    // We could in theory support those, by constructing init_lists at runtime in a non-portable manner.
+
+    void reject_init_list_1(std::initializer_list<int>) {}
+    void reject_init_list_2(const std::initializer_list<int> &) {}
+    void reject_init_list_3(std::initializer_list<int> &&) {}
 }
