@@ -144,4 +144,16 @@ namespace MR
     // ---
 
     inline void foo(int True, int in) {} // Those must be auto-renamed to `true` and `in_`.
+
+    // ---
+
+    #define IGNORE __attribute__((__annotate__("mrbind::ignore")))
+
+    struct IA {};
+    struct IGNORE IB {};
+    struct IC {};
+
+    inline void i_f1() {}
+    IGNORE inline void i_f2() {}
+    inline void i_f3() {}
 }

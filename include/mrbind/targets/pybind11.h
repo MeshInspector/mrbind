@@ -1,4 +1,4 @@
-// Intentionally no pragma once, for `core.h`.
+// Intentionally no pragma once, though currently it doesn't matter (to allow re-including the target file multiple times).
 
 #include <mrbind/targets/pybind11/core.h>
 

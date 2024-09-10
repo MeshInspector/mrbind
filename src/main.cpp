@@ -228,6 +228,12 @@ namespace mrbind
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
 
+        for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
+        {
+            if (attr->getAnnotation() == "mrbind::ignore")
+                return true; // Ignore declarations with attribute `annotate("mrbind::ignore")`.
+        }
+
         { // Make sure the name doesn't contain unspellable stuff, such as lambda types.
             std::string name;
             llvm::raw_string_ostream ss(name);
@@ -1259,7 +1265,12 @@ int main(int argc, char **argv)
             "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline.\n"
             "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
             "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different Clang version.\n"
-            "  --ignore T                  - Don't emit bindings for a specific entity. Use the flag several times to ban several entities. Use a fully qualified name, but without template arguments after the last name. Use `::` to reject the global namespace. Enclose in slashes to match a regex.\n"
+            "  --ignore T                  - Don't emit bindings for a specific entity. "
+                                             "Use the flag several times to ban several entities. "
+                                             "Use a fully qualified name, but without template arguments after the last name. "
+                                             "Use `::` to reject the global namespace. "
+                                             "Enclose in slashes to match a regex. "
+                                             "Also note that you can annotate declarations that you want to ignore with `[[clang::annotate(\"mrbind::ignore\")]]\n"
             "  --allow T                   - Unban a subentity of something that was banned with `--ignore`.\n"
             "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
             "  --format=json               - Output in JSON format.\n"

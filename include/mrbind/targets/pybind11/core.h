@@ -1,4 +1,4 @@
-// Intentionally no `#pragma once`.
+// Intentionally no pragma once, though currently it doesn't matter (to allow re-including the target file multiple times).
 
 #ifndef MB_PB11_MODULE_NAME
 #error Must define `MB_PB11_MODULE_NAME` to the desired module name (without quotes).
