@@ -24,7 +24,7 @@ template <typename T, typename U>
 requires
     // Because we need to be able to move the object into `std::unique_ptr`.
     std::is_void_v<T> || std::movable<T>
-struct MRBind::detail::pb11::ReturnTypeAdjustment<tl::expected<T, U>>
+struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
     : RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
     static decltype(auto) Adjust(tl::expected<T, U> &&value)

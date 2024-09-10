@@ -140,7 +140,7 @@ namespace MRBind::detail::pb11
 
     struct FuncEntry
     {
-        using LoadFunc = void (*)(pybind11::module_ &m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, bool is_second_pass);
+        using LoadFunc = void (*)(pybind11::module_ &m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, int pass_number);
         LoadFunc load = nullptr;
 
         TryAddFuncState state;
@@ -192,15 +192,15 @@ namespace MRBind::detail::pb11
             TryAddFuncScopeState func_scope_state;
             std::vector<TryAddFuncState> func_state;
 
-            bool is_second_pass = false;
+            int pass_number = 0;
             std::size_t i = 0;
 
             TryAddFuncState &NextFuncState()
             {
-                if (is_second_pass)
-                    return func_state.at(i++);
-                else
+                if (pass_number == 0)
                     return func_state.emplace_back();
+                else
+                    return func_state.at(i++);
             }
         };
 
@@ -393,7 +393,7 @@ namespace MRBind::detail::pb11
                 },
                 [](pybind11::module_ &m, pb11::BasicPybindType &b, TypeEntry::AddClassMembersState &state)
                 {
-                    if (!state.is_second_pass)
+                    if (state.pass_number == 0)
                         Traits::bind_members(m, static_cast<TypeStorage &>(b).type);
                 },
                 Traits::base_typeids()
@@ -442,23 +442,27 @@ namespace MRBind::detail::pb11
     // This trait can be used to automatically adjust returned values.
 
     template <typename T>
-    struct ReturnTypeAdjustment
+    struct ReturnTypeTraits
     {
-        using unspecialized = void; // Remove this in specializations.
+        // Remove this when adding `Adjust()`. I don't check for `Adjust()` directly because that could silently fail if you get the signature wrong.
+        using no_adjust = void;
 
-        // When implementing this, don't forget to recursively call `AdjustReturnedValue()`!
+        // Optional. When implementing this, don't forget to recursively call `AdjustReturnedValue()`!
         // static ?? Adjust(T &&);
+
+        // Optional. Disable the whole function because of this return type.
+        // using disables_func = void;
     };
 
     template <typename T>
-    concept ReturnTypeNeedsAdjusting = !requires{typename ReturnTypeAdjustment<T>::unspecialized;};
+    concept ReturnTypeNeedsAdjusting = !requires{typename ReturnTypeTraits<T>::no_adjust;};
 
     // Using `std::type_identity` to prevent `T` from being deduced, because the behavior for non-reference T and rvalue reference T can be different.
     template <typename T>
     [[nodiscard]] decltype(auto) AdjustReturnedValue(std::type_identity_t<T &&> value)
     {
         if constexpr (ReturnTypeNeedsAdjusting<T>)
-            return ReturnTypeAdjustment<T>::Adjust(std::forward<T &&>(value));
+            return ReturnTypeTraits<T>::Adjust(std::forward<T &&>(value));
         else if constexpr (std::is_reference_v<T>)
             return std::forward<T &&>(value);
         else
@@ -468,11 +472,11 @@ namespace MRBind::detail::pb11
     template <typename T>
     struct AdjustReturnType {using type = T;};
     template <ReturnTypeNeedsAdjusting T>
-    struct AdjustReturnType<T> {using type = decltype(ReturnTypeAdjustment<T>::Adjust(std::declval<T &&>()));};
+    struct AdjustReturnType<T> {using type = decltype(ReturnTypeTraits<T>::Adjust(std::declval<T &&>()));};
 
     // ---
 
-    // A helper for implementing `ReturnTypeAdjustment`, for types like `std::optional` and `tl::expected`.
+    // A helper for implementing `ReturnTypeTraits`, for types like `std::optional` and `tl::expected`.
     template <typename T>
     struct OptionalReturnType
     {
@@ -537,15 +541,16 @@ namespace MRBind::detail::pb11
 
     // This traits lets you adjust ecah passed parameter.
 
-    // Specialize `ParamTraitsLow` for your custom types.
+    // Specialize `ParamTraits` for your custom types.
     //
-    // Specialize `ParamTraits` only here in this file, for high-level type groups.
+    // Specialize `ParamTraitsLow` only here in this file, for high-level type groups.
     //   Those aren't allowed to change the parameter type, except for cvref/ptr qualifiers.
 
     template <typename T>
-    struct ParamTraitsLow
+    struct ParamTraits
     {
-        // using disables_func = void; // Optional. Disable the whole function because of this parameter.
+        // Optional. Disable the whole function because of this parameter.
+        // using disables_func = void;
 
         // Optional: [
         // using adjusted_param_type = ...; // Replaces the parameter type in the wrapping lambda.
@@ -559,10 +564,13 @@ namespace MRBind::detail::pb11
         // Optional. Detauls to `GilHandling::neutral`.
         // What to do about python's global interpreter lock (temporarily unlock or keep locked).
         // static constexpr GilHandling gil_handling = ...;
+
+        // Optional. If specified, registers this function late, which gives it less priority during overload resolution.
+        // using register_late = void;
     };
 
     template <typename T>
-    struct ParamTraits : ParamTraitsLow<T>
+    struct ParamTraitsLow : ParamTraits<T>
     {};
 
     // Ban non-const lvalue refs to scalar and array types, since writing to those isn't visible in the caller.
@@ -573,7 +581,7 @@ namespace MRBind::detail::pb11
         !std::is_const_v<std::remove_reference_t<T>> &&
         (std::is_scalar_v<std::remove_reference_t<T>> || std::is_array_v<std::remove_reference_t<T>>)
     )
-    struct ParamTraits<T>
+    struct ParamTraitsLow<T>
     {
         using disables_func = void; // Disable the whole function because of this parameter.
     };
@@ -581,7 +589,7 @@ namespace MRBind::detail::pb11
     // Adjust rvalue references to copyable types to passing by value and then copying. pybind11 doesn't like rvalue references.
     template <typename T>
     requires std::is_rvalue_reference_v<T> && std::is_copy_constructible_v<std::remove_reference_t<T>>
-    struct ParamTraits<T>
+    struct ParamTraitsLow<T>
     {
         using adjusted_param_type = std::remove_reference_t<T>;
 
@@ -593,7 +601,7 @@ namespace MRBind::detail::pb11
     // Rvalue references and passing by value for noncopyable types disable the whole function.
     template <typename T>
     requires ((std::is_rvalue_reference_v<T> || !std::is_reference_v<T>) && !std::is_copy_constructible_v<std::remove_reference_t<T>>)
-    struct ParamTraits<T>
+    struct ParamTraitsLow<T>
     {
         using disables_func = void;
     };
@@ -605,12 +613,8 @@ namespace MRBind::detail::pb11
     template <typename T>
     using DecayToTrueParamType = std::conditional_t<std::is_array_v<T> || std::is_function_v<T>, std::decay_t<T>, T>;
 
-    // Whether having a parameter of type `T` should exclude the whole function from the binding.
     template <typename T>
-    concept ParamTypeDisablesWholeFunction = requires{typename ParamTraits<T>::disables_func;};
-
-    template <typename T>
-    concept ParamTypeRequiresAdjustment = requires{typename ParamTraits<T>::adjusted_param_type;};
+    concept ParamTypeRequiresAdjustment = requires{typename ParamTraitsLow<T>::adjusted_param_type;};
 
     // For our lambda wrapping the original function, the adjusted parameter type.
     template <typename T>
@@ -622,7 +626,7 @@ namespace MRBind::detail::pb11
     template <ParamTypeRequiresAdjustment T>
     struct AdjustedParamTypeHelper<T>
     {
-        using type = typename ParamTraits<T>::adjusted_param_type;
+        using type = typename ParamTraitsLow<T>::adjusted_param_type;
     };
     template <typename T>
     using AdjustedParamType = typename AdjustedParamTypeHelper<DecayToTrueParamType<T>>::type;
@@ -630,14 +634,18 @@ namespace MRBind::detail::pb11
     // Extracts `unadjust_param_extra_param` from the parameter's traits, or `std::nullptr_t` if none.
     template <typename T>
     struct ParamUnadjusterExtraParam {using type = std::nullptr_t;};
-    template <typename T> requires requires{typename ParamTraits<T>::unadjust_param_extra_param;}
-    struct ParamUnadjusterExtraParam<T> {using type = typename ParamTraits<T>::unadjust_param_extra_param;};
+    template <typename T> requires requires{typename ParamTraitsLow<T>::unadjust_param_extra_param;}
+    struct ParamUnadjusterExtraParam<T> {using type = typename ParamTraitsLow<T>::unadjust_param_extra_param;};
 
     // Extract `gil_handling` from parameter's traits, or default to `neutral` if not specified.
     template <typename T>
     constexpr GilHandling param_gil_handling = GilHandling::neutral;
-    template <typename T> requires requires{ParamTraits<T>::gil_handling;}
-    constexpr GilHandling param_gil_handling<T> = ParamTraits<T>::gil_handling;
+    template <typename T> requires requires{ParamTraitsLow<T>::gil_handling;}
+    constexpr GilHandling param_gil_handling<T> = ParamTraitsLow<T>::gil_handling;
+
+    // Whether this parameter type requires that function to be registered late, to give it less priority during overload resolution.
+    template <typename T>
+    concept ParamTypeRequiresLateFuncRegistration = requires{typename ParamTraitsLow<T>::register_late;};
 
     // Converts from `AdjustedParamType<T>` back to `T`.
     template <typename T>
@@ -646,9 +654,9 @@ namespace MRBind::detail::pb11
         if constexpr (ParamTypeRequiresAdjustment<T>)
         {
             if constexpr (std::is_null_pointer_v<typename ParamUnadjusterExtraParam<T>::type>)
-                return ParamTraits<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param));
+                return ParamTraitsLow<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param));
             else
-                return ParamTraits<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param), std::move(extra));
+                return ParamTraitsLow<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param), std::move(extra));
         }
         else
         {
@@ -658,17 +666,27 @@ namespace MRBind::detail::pb11
 
     // ---
 
-    // Some `ReturnTypeAdjustment` specializations:
+    // Whether having a parameter of type `T` should exclude the whole function from the binding.
+    template <typename T>
+    concept ParamTypeDisablesWholeFunction = requires{typename ParamTraitsLow<T>::disables_func;};
+
+    // Whether having the return type `T` should exclude the whole function from the binding.
+    template <typename T>
+    concept ReturnTypeDisablesWholeFunction = requires{typename ReturnTypeTraits<T>::disables_func;};
+
+    // ---
+
+    // Some `ReturnTypeTraits` specializations:
 
     // Adjust `std::unique_ptr` to `std::shared_ptr`, when returning it by value. Only when it points to a parsed class.
     // For some reason pybind11 crashes when the holder type is set to `shared_ptr` and you return a `unique_ptr`.
     // (When the reverse happens it also crashes, but in that case no adjustment can help us, so instead we use a `shared_ptr` holder and adjust `unique_ptr`.)
     template <typename T, typename D> requires (!IsPybindBuiltinType<T>::value)
-    struct ReturnTypeAdjustment<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
+    struct ReturnTypeTraits<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
     // When returning a REFERENCE to `std::unique_ptr` (to a parsed class), just replace it with a raw pointer.
     // This one was necessary for `tl::expected<T,U>` bindings, where if `T` is a `unique_ptr`, `.value()` returns a reference to it.
     template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value && (!IsPybindBuiltinType<typename std::remove_cvref_t<T>::element_type>::value)
-    struct ReturnTypeAdjustment<T> {static auto Adjust(T &&src) {return src.get();}};
+    struct ReturnTypeTraits<T> {static auto Adjust(T &&src) {return src.get();}};
 
     // ---
 
@@ -767,7 +785,7 @@ namespace MRBind::detail::pb11
         std::initializer_list<std::type_index> python_signature,
         TryAddFuncState *state,
         TryAddFuncScopeState *scope_state,
-        bool is_second_pass,
+        int pass_number,
         auto &&... data
     )
     {
@@ -776,167 +794,175 @@ namespace MRBind::detail::pb11
         else
         {
             using ReturnType = std::invoke_result_t<decltype(F), DecayToTrueParamType<P> &&...>; // `DecayToTrueParamType` is not adjusted.
-            using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
-            static constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
-            static_assert(
-                IsUniquePtrToBuiltinType<std::remove_cvref_t<ReturnTypeAdjusted>>::value <= returns_unique_ptr_to_builtin,
-                "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
-            );
-
-            static constexpr auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
+            if constexpr (!ReturnTypeDisablesWholeFunction<ReturnType>)
             {
-                #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
+                using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
-                if constexpr (std::is_void_v<ReturnType>) // Sic! Not `ReturnTypeAdjusted`. This matters e.g. for `tl::expected<void, ...>`.
+                static constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
+                static_assert(
+                    IsUniquePtrToBuiltinType<std::remove_cvref_t<ReturnTypeAdjusted>>::value <= returns_unique_ptr_to_builtin,
+                    "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
+                );
+
+                static constexpr auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
                 {
-                    INVOKE_FUNC;
-                }
-                else
-                {
-                    #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+                    #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
 
-                    if constexpr (returns_unique_ptr_to_builtin)
-                        return INVOKE_FUNC_R.release(); // `pybind11::return_value_policy::take_ownership` takes ownership of this.
-                    else
-                        return INVOKE_FUNC_R;
-
-                    #undef INVOKE_FUNC_R
-                }
-
-                #undef INVOKE_FUNC
-            };
-
-            using LambdaReturnTypeAdjustedWrapped = decltype(lambda(std::declval<AdjustedParamType<P>>()...));
-
-            using LambdaReturnTypeAdjustedWrapperPtrRefStripped = typename RemovePointersRefs<LambdaReturnTypeAdjustedWrapped>::type;
-
-            // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
-            // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
-            constexpr pybind11::return_value_policy ret_policy =
-                returns_unique_ptr_to_builtin ?
-                    pybind11::return_value_policy::take_ownership :
-                (std::is_pointer_v<LambdaReturnTypeAdjustedWrapped> || std::is_reference_v<LambdaReturnTypeAdjustedWrapped>) &&
-                // This is important. If we return a const reference to a copyable type, we actually COPY it.
-                // Because otherwise pybind11 casts away constness and propagates changes through that reference!
-                !std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped>
-                    ? pybind11::return_value_policy::reference :
-                // This is important too, otherwise pybind11 will const_cast and then move!
-                std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? pybind11::return_value_policy::copy
-                : pybind11::return_value_policy::move;
-
-            // Make sure this isn't a hard error. We add our own specializations, and we don't want them to be ambiguous.
-            (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
-            (void)pybind11::detail::is_copy_assignable<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
-
-            constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
-
-            // First pass.
-            if (state && !is_second_pass)
-            {
-                const char *op = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
-                if (op != simplename)
-                {
-                    state->is_overloaded_operator = true;
-                    state->python_name = op;
-                }
-                else
-                {
-                    state->python_name = ToPythonName(fullname);
-
-                    TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
-                    overload.num_overloads++;
-                    overload.signatures.insert(python_signature);
-                }
-                return;
-            }
-
-            // Second pass starts here...
-
-            const char *final_name = state ? state->python_name.c_str() : fullname;
-            std::string final_name_storage;
-
-            { // Fix the python name to avoid ambiguous overloads...
-                if (state && !state->is_overloaded_operator)
-                {
-                    TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
-                    if (overload.num_overloads > overload.signatures.size())
+                    if constexpr (std::is_void_v<ReturnType>) // Sic! Not `ReturnTypeAdjusted`. This matters e.g. for `tl::expected<void, ...>`.
                     {
-                        // Those overloads are ambiguous, adjust the name.
-                        final_name_storage = ToPythonName(fullname_with_template_args);
-                        final_name = final_name_storage.c_str();
+                        INVOKE_FUNC;
+                    }
+                    else
+                    {
+                        #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+
+                        if constexpr (returns_unique_ptr_to_builtin)
+                            return INVOKE_FUNC_R.release(); // `pybind11::return_value_policy::take_ownership` takes ownership of this.
+                        else
+                            return INVOKE_FUNC_R;
+
+                        #undef INVOKE_FUNC_R
+                    }
+
+                    #undef INVOKE_FUNC
+                };
+
+                using LambdaReturnTypeAdjustedWrapped = decltype(lambda(std::declval<AdjustedParamType<P>>()...));
+
+                using LambdaReturnTypeAdjustedWrapperPtrRefStripped = typename RemovePointersRefs<LambdaReturnTypeAdjustedWrapped>::type;
+
+                // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
+                // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
+                constexpr pybind11::return_value_policy ret_policy =
+                    returns_unique_ptr_to_builtin ?
+                        pybind11::return_value_policy::take_ownership :
+                    (std::is_pointer_v<LambdaReturnTypeAdjustedWrapped> || std::is_reference_v<LambdaReturnTypeAdjustedWrapped>) &&
+                    // This is important. If we return a const reference to a copyable type, we actually COPY it.
+                    // Because otherwise pybind11 casts away constness and propagates changes through that reference!
+                    !std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped>
+                        ? pybind11::return_value_policy::reference :
+                    // This is important too, otherwise pybind11 will const_cast and then move!
+                    std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? pybind11::return_value_policy::copy
+                    : pybind11::return_value_policy::move;
+
+                // Make sure this isn't a hard error. We add our own specializations, and we don't want them to be ambiguous.
+                (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
+                (void)pybind11::detail::is_copy_assignable<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
+
+                constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
+
+                // First pass.
+                if (state && pass_number == 0)
+                {
+                    const char *op = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
+                    if (op != simplename)
+                    {
+                        state->is_overloaded_operator = true;
+                        state->python_name = op;
+                    }
+                    else
+                    {
+                        state->python_name = ToPythonName(fullname);
+
+                        TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
+                        overload.num_overloads++;
+                        overload.signatures.insert(python_signature);
+                    }
+                    return;
+                }
+
+                // Second pass starts here...
+
+                static constexpr int desired_pass_number = (ParamTypeRequiresLateFuncRegistration<DecayToTrueParamType<P>> || ...) ? 2 : 1;
+                if (pass_number != desired_pass_number && pass_number >= 0)
+                    return;
+
+                const char *final_name = state ? state->python_name.c_str() : fullname;
+                std::string final_name_storage;
+
+                { // Fix the python name to avoid ambiguous overloads...
+                    if (state && !state->is_overloaded_operator)
+                    {
+                        TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
+                        if (overload.num_overloads > overload.signatures.size())
+                        {
+                            // Those overloads are ambiguous, adjust the name.
+                            final_name_storage = ToPythonName(fullname_with_template_args);
+                            final_name = final_name_storage.c_str();
+                        }
                     }
                 }
-            }
 
-            // If this is an overloaded operator defined outside of a class (or as a `friend`), inject it into
-            // the target class, instead of emitting as a global function.
-            if constexpr (!is_class_method && sizeof...(P) >= 1)
-            {
-                if (state->is_overloaded_operator)
+                // If this is an overloaded operator defined outside of a class (or as a `friend`), inject it into
+                // the target class, instead of emitting as a global function.
+                if constexpr (!is_class_method && sizeof...(P) >= 1)
                 {
-                    auto &r = GetRegistry();
-
-                    [&](auto&&, auto &&...trimmed_data)
+                    if (state->is_overloaded_operator)
                     {
-                        using FirstParam = FirstType<DecayToTrueParamType<P>...>;
+                        auto &r = GetRegistry();
 
-                        if (auto iter = r.type_entries.find(typeid(FirstParam)); iter != r.type_entries.end())
+                        [&](auto&&, auto &&...trimmed_data)
                         {
-                            // Try injecting into the type of the first operand.
-                            iter->second.pybind_type->AddExtraMethod(final_name, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
-                        }
-                        else
-                        {
-                            // If the first operand is not registered AND this is a binary operator,
-                            // try injecting the reverse form into the type of the second operand.
-                            if constexpr (sizeof...(P) == 2)
+                            using FirstParam = FirstType<DecayToTrueParamType<P>...>;
+
+                            if (auto iter = r.type_entries.find(typeid(FirstParam)); iter != r.type_entries.end())
                             {
-                                using SecondParam = SecondType<DecayToTrueParamType<P>...>;
-                                if (auto iter = r.type_entries.find(typeid(SecondParam)); iter != r.type_entries.end())
+                                // Try injecting into the type of the first operand.
+                                iter->second.pybind_type->AddExtraMethod(final_name, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                            }
+                            else
+                            {
+                                // If the first operand is not registered AND this is a binary operator,
+                                // try injecting the reverse form into the type of the second operand.
+                                if constexpr (sizeof...(P) == 2)
                                 {
-                                    // A lambda to swap the order of the two arguments.
-                                    auto symmetric_lambda = [](SecondType<AdjustedParamType<P>...> x, FirstType<AdjustedParamType<P>...> y) -> decltype(auto)
+                                    using SecondParam = SecondType<DecayToTrueParamType<P>...>;
+                                    if (auto iter = r.type_entries.find(typeid(SecondParam)); iter != r.type_entries.end())
                                     {
-                                        // Using `forward` here to have decent behavior when `x`,`y` are non-references.
-                                        return decltype(lambda){}(std::forward<decltype(y)>(y), std::forward<decltype(x)>(x));
-                                    };
+                                        // A lambda to swap the order of the two arguments.
+                                        auto symmetric_lambda = [](SecondType<AdjustedParamType<P>...> x, FirstType<AdjustedParamType<P>...> y) -> decltype(auto)
+                                        {
+                                            // Using `forward` here to have decent behavior when `x`,`y` are non-references.
+                                            return decltype(lambda){}(std::forward<decltype(y)>(y), std::forward<decltype(x)>(x));
+                                        };
 
-                                    // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
-                                    iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                                        // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
+                                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                                    }
                                 }
                             }
                         }
+                        (decltype(data)(data)...);
+
+                        // Return unconditionally. If we couldn't inject this operator into one of the arguments' types, just drop it.
+                        return;
                     }
-                    (decltype(data)(data)...);
-
-                    // Return unconditionally. If we couldn't inject this operator into one of the arguments' types, just drop it.
-                    return;
                 }
-            }
 
-            constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
-            static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
+                constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
+                static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
-            // The `call_guard<gil_scoped_release>` fixes a deadlock when calling python callbacks from something other than the main thread.
-            // The documentation says it's only legal if you "don't access python objects" from the function, which sounds right.
-            // When our functions then call python lambdas, those lambdas will automatically take the interpreter lock.
-            // And when we call C++ lambdas, a different mechanism is used to force pybind11 to avoid adding code to them to take the interpreter lock.
-            // We need this different mechanism as an optimization, because we sometimes invoke C++ lambdas (that were passed through python)
-            // in multithreaded contexts, and we don't want them to be locking mutexes unless absolutely necessary.
-            if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
-            {
-                if constexpr (IsStatic)
-                    c.def_static(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                // The `call_guard<gil_scoped_release>` fixes a deadlock when calling python callbacks from something other than the main thread.
+                // The documentation says it's only legal if you "don't access python objects" from the function, which sounds right.
+                // When our functions then call python lambdas, those lambdas will automatically take the interpreter lock.
+                // And when we call C++ lambdas, a different mechanism is used to force pybind11 to avoid adding code to them to take the interpreter lock.
+                // We need this different mechanism as an optimization, because we sometimes invoke C++ lambdas (that were passed through python)
+                // in multithreaded contexts, and we don't want them to be locking mutexes unless absolutely necessary.
+                if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                {
+                    if constexpr (IsStatic)
+                        c.def_static(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                    else
+                        c.def(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                }
                 else
-                    c.def(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
-            }
-            else
-            {
-                if constexpr (IsStatic)
-                    c.def_static(final_name, lambda, ret_policy, decltype(data)(data)...);
-                else
-                    c.def(final_name, lambda, ret_policy, decltype(data)(data)...);
+                {
+                    if constexpr (IsStatic)
+                        c.def_static(final_name, lambda, ret_policy, decltype(data)(data)...);
+                    else
+                        c.def(final_name, lambda, ret_policy, decltype(data)(data)...);
+                }
             }
         }
     }
@@ -950,11 +976,11 @@ namespace MRBind::detail::pb11
         auto &&... data
     )
     {
-        (TryAddFunc<IsStatic, F, P...>)(c, nullptr, fullname, nullptr, {}, nullptr, nullptr, false, decltype(data)(data)...);
+        (TryAddFunc<IsStatic, F, P...>)(c, nullptr, fullname, nullptr, {}, nullptr, nullptr, -1, decltype(data)(data)...);
     }
 
     template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, typename ...P>
-    void TryAddCtor(auto &c, TryAddFuncScopeState *scope_state, auto &&... data)
+    void TryAddCtor(auto &c, TryAddFuncScopeState *scope_state, int pass_number, auto &&... data)
     {
         using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
         if constexpr (std::is_abstract_v<T>)
@@ -965,6 +991,10 @@ namespace MRBind::detail::pb11
             ; // Reject move constructors. They just appear as a duplicate of the copy constructor in the `help(...)`, and other than that don't do anything.
         else
         {
+            static constexpr int desired_pass_number = (ParamTypeRequiresLateFuncRegistration<DecayToTrueParamType<P>> || ...) ? 2 : 1;
+            if (pass_number != desired_pass_number && pass_number >= 0)
+                return;
+
             auto lambda = [](AdjustedParamType<P> ...params) -> decltype(auto)
             {
                 // Note `new` here! Pybind still frees the object automatically.
@@ -1474,9 +1504,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         for (auto *elem : final_order)
         {
             MRBind::detail::pb11::TypeEntry::AddClassMembersState state;
-            elem->load_members(m, *elem->pybind_type, state);
-            state.is_second_pass = true;
-            elem->load_members(m, *elem->pybind_type, state); // Second pass!
+            elem->load_members(m, *elem->pybind_type, state); // First pass! Collect information about the overloads.
+            state.pass_number = 1;
+            elem->load_members(m, *elem->pybind_type, state); // Second pass! Actually register most functions.
+            state.pass_number = 2;
+            state.i = 0;
+            elem->load_members(m, *elem->pybind_type, state); // Third pass! // Late-register some special overloads. (It would be nice to instead have some priority system here...)
 
             // This two-pass stuff is currently only needed to disambiguate overloads inside of each class, so we don't need a separate loop for it.
         }
@@ -1484,10 +1517,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
     { // Load the functions.
         TryAddFuncScopeState scope_state;
-        for (auto &entry : r.func_entries)
-            entry.load(m, entry.state, scope_state, false);
-        for (auto &entry : r.func_entries)
-            entry.load(m, entry.state, scope_state, true);
+        for (int pass_number : {0, 1, 2}) // See the member loading code above.
+        {
+            for (auto &entry : r.func_entries)
+                entry.load(m, entry.state, scope_state, pass_number);
+        }
     }
 
     { // Load the aliases.
@@ -1674,7 +1708,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // Bind a function.
 #define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_) \
     MRBind::detail::pb11::GetRegistry().func_entries.emplace_back( \
-        [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::TryAddFuncState &_pb11_state, MRBind::detail::pb11::TryAddFuncScopeState &_pb11_scope_state, bool _pb11_is_second_pass) \
+        [](pybind11::module_ &_pb11_m, MRBind::detail::pb11::TryAddFuncState &_pb11_state, MRBind::detail::pb11::TryAddFuncScopeState &_pb11_scope_state, int _pb11_pass_number) \
         {\
             MRBind::detail::pb11::TryAddFunc<\
                 /* Doesn't count as `static` for our purposes. */\
@@ -1694,7 +1728,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 /* Pybind signature (to detect overloadable functions). */\
                 DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
                 /* Pass information. */\
-                &_pb11_state, &_pb11_scope_state, _pb11_is_second_pass \
+                &_pb11_state, &_pb11_scope_state, _pb11_pass_number \
                 /* Parameters. */\
                 DETAIL_MB_PB11_MAKE_PARAMS(params_) \
                 /* Comment, if any. */ \
@@ -1719,7 +1753,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Members lamdba. */\
         [](pybind11::module_ &, MRBind::detail::pb11::BasicPybindType &_pb11_b, MRBind::detail::pb11::TypeEntry::AddClassMembersState &_pb11_state) \
         { \
-            if (_pb11_state.is_second_pass) return; /* Only one pass is needed. */\
+            if (_pb11_state.pass_number != 0) return; /* Only one pass is needed. */\
             [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::detail::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
             DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
         }, \
@@ -1748,7 +1782,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             using _pb11_T = MRBind::detail::pb11::SpecificPybindType<pybind11::class_<_pb11_C, MRBind::detail::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>>; \
             auto &_pb11_c = static_cast<_pb11_T *>(&_pb11_b)->type; \
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
-            if (_pb11_state.is_second_pass) \
+            /* Finalize at the end of pass 1, before adding greedy function overloads accepting `pybind11::object` (like iostreams). */\
+            if (_pb11_state.pass_number == 1) \
                 (MRBind::detail::pb11::FinalizeClass<_pb11_C>)(_pb11_c, _pb11_state.func_scope_state); \
         }, \
         std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
@@ -1762,7 +1797,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
-    if (!_pb11_state.is_second_pass) \
+    if (_pb11_state.pass_number == 0) \
     MRBind::detail::pb11::TryAddMemberVar< \
         /* Static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
@@ -1778,7 +1813,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, comment_, params_) \
-    if (!_pb11_state.is_second_pass) \
     MRBind::detail::pb11::TryAddCtor<\
         /* Copy/move kind. */\
         MRBind::detail::pb11::CopyMoveKind::copy_move_kind_, \
@@ -1790,7 +1824,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_)\
     >( \
         _pb11_c, \
-        &_pb11_state.func_scope_state \
+        &_pb11_state.func_scope_state, _pb11_state.pass_number \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */\
@@ -1821,7 +1855,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Pybind signature. */\
         DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
         /* Overloading state. */\
-        &_pb11_state.NextFuncState(), &_pb11_state.func_scope_state, _pb11_state.is_second_pass \
+        &_pb11_state.NextFuncState(), &_pb11_state.func_scope_state, _pb11_state.pass_number \
         /* Parameters. */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \
@@ -1830,7 +1864,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, ret_, const_, comment_) \
-    if (!_pb11_state.is_second_pass) \
+    if (_pb11_state.pass_number == 0) \
     MRBind::detail::pb11::TryAddFuncSimple< \
         /* Not static. */\
         false,\

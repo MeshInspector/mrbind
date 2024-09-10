@@ -68,6 +68,25 @@ namespace MR
 
     // ---
 
+    // Ensure that iostream overloads are loaded late, after other ones. Otherwise they will greedily accept any argument type...
+
+    inline void foo(int) {std::cout << "1\n";}
+    inline void foo(std::istream &) {std::cout << "2\n";}
+    inline void foo(float) {std::cout << "3\n";}
+
+    struct A
+    {
+        A(int) {std::cout << "1\n";}
+        A(std::istream &) {std::cout << "2\n";}
+        A(float) {std::cout << "3\n";}
+
+        void foo(int) {std::cout << "1\n";}
+        void foo(std::istream &) {std::cout << "2\n";}
+        void foo(float) {std::cout << "3\n";}
+    };
+
+    // ---
+
     template <typename T, typename U = int> struct my_basic_string;
     using my_string = my_basic_string<char>;
     using my_wstring = my_basic_string<wchar_t>;

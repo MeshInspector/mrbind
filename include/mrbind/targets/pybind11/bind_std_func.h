@@ -53,7 +53,7 @@ namespace MRBind::detail::pb11
     // Adjust return values.
     // We don't handle returning lvalue references to functions correctly at the moment. What do we do about those?
     template <typename T> requires IsStdFunc<std::remove_cvref_t<T>>::value
-    struct ReturnTypeAdjustment<T>
+    struct ReturnTypeTraits<T>
     {
         static auto Adjust(T &&value)
         {
@@ -63,7 +63,7 @@ namespace MRBind::detail::pb11
 
     // Adjust parameters.
     template <typename T> requires IsStdFunc<std::remove_cvref_t<T>>::value
-    struct ParamTraitsLow<T>
+    struct ParamTraits<T>
     {
         // Replaces the parameter type in the wrapping lambda.
         using adjusted_param_type = FuncWrapper<typename IsStdFunc<std::remove_cvref_t<T>>::underlying_type>;

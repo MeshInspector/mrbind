@@ -61,10 +61,13 @@ namespace MRBind::detail::pb11
 
     // Adjust parameters.
     template <>
-    struct ParamTraitsLow<std::ostream &>
+    struct ParamTraits<std::ostream &>
     {
         // Can't unlock GIL while doing this stuff.
         static constexpr GilHandling gil_handling = GilHandling::must_keep_locked;
+
+        // Delay registration to have less priority during overload resolution.
+        using register_late = void;
 
         using adjusted_param_type = pybind11::object;
 
@@ -178,8 +181,11 @@ namespace MRBind::detail::pb11
 
     // Adjust parameters.
     template <>
-    struct ParamTraitsLow<std::istream &>
+    struct ParamTraits<std::istream &>
     {
+        // Delay registration to have less priority during overload resolution.
+        using register_late = void;
+
         // Can't unlock GIL while doing this stuff.
         static constexpr GilHandling gil_handling = GilHandling::must_keep_locked;
 

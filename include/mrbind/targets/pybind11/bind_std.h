@@ -10,7 +10,7 @@ namespace MRBind::detail::pb11
     requires
         // Because we need to be able to move the object into `std::unique_ptr`.
         std::movable<T>
-    struct ReturnTypeAdjustment<std::optional<T>>
+    struct ReturnTypeTraits<std::optional<T>>
     {
         static decltype(auto) Adjust(std::optional<T> &&value)
         {
