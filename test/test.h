@@ -66,6 +66,15 @@ namespace MR
             std::cout << "[" << line << "]\n";
     }
 
+    struct IO_A
+    {
+        int x = 42;
+    };
+
+    // Test chaining.
+    inline std::ostream &operator<<(std::ostream &o, const IO_A &a) {return o << a.x << '\n';}
+    inline std::istream &operator>>(std::istream &o, IO_A &a) {return o >> a.x;}
+
     // ---
 
     // Ensure that iostream overloads are loaded late, after other ones. Otherwise they will greedily accept any argument type...

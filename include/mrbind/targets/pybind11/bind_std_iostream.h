@@ -13,7 +13,10 @@ namespace MRBind::detail::pb11
     class OstreamBuf : public std::stringbuf
     {
       public:
-        OstreamBuf(pybind11::object py_file)
+        pybind11::object py_file;
+
+        OstreamBuf(pybind11::object new_py_file)
+            : py_file(std::move(new_py_file))
         {
             if (!pybind11::hasattr(py_file, "write") || !pybind11::hasattr(py_file, "flush"))
                 throw std::runtime_error("This is not a writable file handle.");
@@ -80,12 +83,29 @@ namespace MRBind::detail::pb11
         }
     };
 
+    // Adjust returned values.
+    template <>
+    struct ReturnTypeTraits<std::ostream &>
+    {
+        static pybind11::object Adjust(std::ostream &value)
+        {
+            if (auto ptr = dynamic_cast<OstreamBuf *>(value.rdbuf()))
+                return ptr->py_file;
+            else
+                return pybind11::none();
+        }
+    };
+
+
     // INPUT streams
 
     class IstreamBuf : public std::stringbuf
     {
       public:
-        IstreamBuf(pybind11::object py_file)
+        pybind11::object py_file;
+
+        IstreamBuf(pybind11::object new_py_file)
+            : py_file(std::move(new_py_file))
         {
             if (!pybind11::hasattr(py_file, "seek") || !pybind11::hasattr(py_file, "tell") || !pybind11::hasattr(py_file, "read"))
                 throw std::runtime_error("This is not a readable file handle.");
@@ -95,8 +115,9 @@ namespace MRBind::detail::pb11
             python_read_func = py_file.attr("read");
 
             // Determine the file size.
+            auto old_pos = python_tell_func().cast<std::streamsize>();
             file_size = python_seek_func(0, 2).cast<std::streamsize>();
-            python_seek_func(0);
+            python_seek_func(old_pos); // Preserve the old position.
         }
         IstreamBuf(const IstreamBuf &) = delete;
         IstreamBuf &operator=(const IstreamBuf &) = delete;
@@ -197,6 +218,19 @@ namespace MRBind::detail::pb11
         {
             holder.emplace(std::move(object));
             return holder->stream;
+        }
+    };
+
+    // Adjust returned values.
+    template <>
+    struct ReturnTypeTraits<std::istream &>
+    {
+        static pybind11::object Adjust(std::istream &value)
+        {
+            if (auto ptr = dynamic_cast<IstreamBuf *>(value.rdbuf()))
+                return ptr->py_file;
+            else
+                return pybind11::none();
         }
     };
 }
