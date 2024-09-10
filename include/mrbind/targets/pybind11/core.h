@@ -1398,12 +1398,23 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         // Populate reverse dependencies.
         for (auto &[id, e] : r.type_entries)
         {
-            for (std::type_index dep : e.type_deps)
+            for (auto type_iter = e.type_deps.begin(); type_iter != e.type_deps.end();)
             {
-                auto iter = r.type_entries.find(dep);
-                if (iter == r.type_entries.end())
-                    throw std::runtime_error(std::string("MRBind pybind11: Type `") + dep.name() + "` is a depenency of type `" + id.name() + "`, but the former is not registered.");
-                r.type_entries.at(dep).type_rdeps.insert(id);
+                auto dep_iter = r.type_entries.find(*type_iter);
+
+                // if (dep_iter == r.type_entries.end())
+                //     throw std::runtime_error(std::string("MRBind pybind11: Type `") + dep.name() + "` is a depenency of type `" + id.name() + "`, but the former is not registered.");
+
+                // ^ We no longer do this validation, because `std::vector<T>` now depends on `T`, and we want to silently ignore cases where `T` is a built-in type.
+                // So instead we erase it here.
+                if (dep_iter == r.type_entries.end())
+                {
+                    type_iter = e.type_deps.erase(type_iter);
+                    continue;
+                }
+
+                r.type_entries.at(*type_iter).type_rdeps.insert(id);
+                type_iter++;
             }
         }
 
@@ -1454,6 +1465,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         // Load:
 
         // Init.
+        // This has to be a separate pass! Otherwise when loading functions before their argument or return types are registered,
+        //   they will display non-adjuted C++ names in the help pages.
+        // Not entirely sure if it can cause issues with actually calling them or not.
         for (auto *elem : final_order)
             elem->pybind_type = elem->init(m, elem->pybind_type_name.c_str());
         // Actually load.
@@ -1463,6 +1477,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             elem->load_members(m, *elem->pybind_type, state);
             state.is_second_pass = true;
             elem->load_members(m, *elem->pybind_type, state); // Second pass!
+
+            // This two-pass stuff is currently only needed to disambiguate overloads inside of each class, so we don't need a separate loop for it.
         }
     }
 

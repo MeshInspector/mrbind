@@ -1,7 +1,7 @@
-#include <utility>
+#include <string>
+#include <tl/expected.hpp>
 
 namespace MR
 {
-    struct A : std::integral_constant<int, 1> {};
-    struct B : std::integral_constant<int, -1> {};
+    inline std::vector<std::vector<int>> foo() {return {{1,2,3},{4,5,6}};}
 }
