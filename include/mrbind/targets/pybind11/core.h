@@ -746,6 +746,14 @@ namespace MRBind::detail::pb11
 
     // ---
 
+    // Is `T` const for the purposes of class properties (aka fields).
+    template <typename T>
+    concept PropertyTypeIsConst =
+        // If this is a const member (bad!) or a const reference member (also bad).
+        std::is_const_v<T> ||
+        // Pybind11 will try to assign from `const T &`.
+        !pybind11::detail::is_copy_assignable<T>::value;
+
     template <bool IsStatic, auto Getter>
     void TryAddMemberVar(auto &c, const char *name, auto &&... data)
     {
@@ -753,28 +761,28 @@ namespace MRBind::detail::pb11
 
         using ClassType = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
 
-        auto const_getter = [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));};
-
         std::string py_name = ToPythonName(name);
 
-        using T = std::remove_reference_t<decltype(Getter(std::declval<ClassType &>()))>;
-        if constexpr (
-            // If this is a const member (bad!) or a const reference member (also bad).
-            std::is_const_v<T> ||
-            // Pybind11 will try to assign from `const T &`.
-            !pybind11::detail::is_copy_assignable<T>::value
-        )
+        if constexpr (IsStatic)
         {
-            if constexpr (IsStatic)
+            using T = std::remove_reference_t<decltype(Getter())>;
+
+            // It's weird that pybind requires an extra `object` parameter.
+            auto const_getter = [](const pybind11::object &) -> const auto & {return Getter();};
+
+            if constexpr (PropertyTypeIsConst<T>)
                 c.def_property_readonly_static(py_name.c_str(), const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_property_readonly(py_name.c_str(), const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_static(py_name.c_str(), const_getter, [](const pybind11::object &, const T &value){Getter() = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
         else
         {
-            // Can't use perfect forwarding here, because pybind11 tries to analyze the functor signature, therefore it chokes on templated lambdas.
-            if constexpr (IsStatic)
-                c.def_property_static(py_name.c_str(), const_getter, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            using T = std::remove_reference_t<decltype(Getter(std::declval<ClassType &>()))>;
+
+            auto const_getter = [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));};
+
+            if constexpr (PropertyTypeIsConst<T>)
+                c.def_property_readonly(py_name.c_str(), const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
                 c.def_property(py_name.c_str(), const_getter, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
@@ -1816,7 +1824,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Static? */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
         /* Accessor lambda. */\
-        [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.MRBIND_IDENTITY fullname_;}\
+        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_)\
     >(\
         _pb11_c,\
         /* Name. */\
@@ -1824,6 +1832,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         /* Comment, if any. */\
         MRBIND_PREPEND_COMMA(comment_)\
     );
+
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_(class_qualname_, fullname_) [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.MRBIND_IDENTITY fullname_;}
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_static(class_qualname_, fullname_) []()->auto&&{return MRBIND_IDENTITY class_qualname_::MRBIND_IDENTITY fullname_;}
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, comment_, params_) \

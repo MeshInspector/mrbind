@@ -10,6 +10,19 @@
 
 namespace MR
 {
+    struct Properties
+    {
+        // The const ones should be read-only.
+        // Test that static ones can be accessed through both the class name and an object name.
+
+        int x = 42;
+        const int y = 43;
+        inline static int z = 44;
+        static constexpr int w = 45;
+    };
+
+    // ---
+
     struct A {int x = 42;};
 
     A *f1() {static A a; return &a;}
