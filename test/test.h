@@ -19,6 +19,11 @@ namespace MR
         const int y = 43;
         inline static int z = 44;
         static constexpr int w = 45;
+
+        int &x_ref = x;
+        const int &y_ref = y;
+        inline static int &z_ref = z;
+        static constexpr const int &w_ref = w;
     };
 
     // ---

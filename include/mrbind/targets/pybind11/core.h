@@ -754,7 +754,7 @@ namespace MRBind::detail::pb11
         // Pybind11 will try to assign from `const T &`.
         !pybind11::detail::is_copy_assignable<T>::value;
 
-    template <bool IsStatic, auto Getter>
+    template <auto Getter>
     void TryAddMemberVar(auto &c, const char *name, auto &&... data)
     {
         // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
@@ -763,29 +763,29 @@ namespace MRBind::detail::pb11
 
         std::string py_name = ToPythonName(name);
 
-        if constexpr (IsStatic)
-        {
-            using T = std::remove_reference_t<decltype(Getter())>;
+        using T = std::remove_reference_t<decltype(Getter(std::declval<ClassType &>()))>;
 
-            // It's weird that pybind requires an extra `object` parameter.
-            auto const_getter = [](const pybind11::object &) -> const auto & {return Getter();};
-
-            if constexpr (PropertyTypeIsConst<T>)
-                c.def_property_readonly_static(py_name.c_str(), const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
-            else
-                c.def_property_static(py_name.c_str(), const_getter, [](const pybind11::object &, const T &value){Getter() = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
-        }
+        if constexpr (PropertyTypeIsConst<T>)
+            c.def_property_readonly(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         else
-        {
-            using T = std::remove_reference_t<decltype(Getter(std::declval<ClassType &>()))>;
+            c.def_property(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+    }
 
-            auto const_getter = [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));};
+    template <auto Ptr>
+    void TryAddMemberVarStatic(auto &c, const char *name, auto &&... data)
+    {
+        // Interestingly, passing a lambda getter instead of a pointer to this function leads
+        // to weird linking errors (`relocation refers to a discarded section`, last tested on `clang++-18 -fclang-abi-compat=17` on Ubuntu 22.04,
+        // only happens in the entire MeshLib and not in test programs).
 
-            if constexpr (PropertyTypeIsConst<T>)
-                c.def_property_readonly(py_name.c_str(), const_getter, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
-            else
-                c.def_property(py_name.c_str(), const_getter, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
-        }
+        std::string py_name = ToPythonName(name);
+
+        using T = std::remove_reference_t<decltype(*Ptr)>;
+
+        if constexpr (PropertyTypeIsConst<T>)
+            c.def_readonly_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+        else
+            c.def_readwrite_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
     }
 
     // Member or non-member functions. Non-member functions should pass `IsStatic == false`.
@@ -1820,10 +1820,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
     if (_pb11_state.pass_number == 0) \
-    MRBind::detail::pb11::TryAddMemberVar< \
-        /* Static? */\
-        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(true, false),\
-        /* Accessor lambda. */\
+    MRBind::detail::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+        /* Accessor lambda or pointer. */\
         MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_)\
     >(\
         _pb11_c,\
@@ -1834,7 +1832,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     );
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_(class_qualname_, fullname_) [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.MRBIND_IDENTITY fullname_;}
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_static(class_qualname_, fullname_) []()->auto&&{return MRBIND_IDENTITY class_qualname_::MRBIND_IDENTITY fullname_;}
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_static(class_qualname_, fullname_) &(MRBIND_IDENTITY class_qualname_::MRBIND_IDENTITY fullname_)
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, comment_, params_) \
