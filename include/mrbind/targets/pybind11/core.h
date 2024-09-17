@@ -322,6 +322,40 @@ namespace MRBind::detail::pb11
     template <typename T> struct IsStdInitializerList : std::false_type {};
     template <typename T> struct IsStdInitializerList<std::initializer_list<T>> : std::true_type {};
 
+    // Converts `const T &` and `const T` to just `T`, otherwise leaves it unchanged.
+    template <typename T> struct RemoveConstAndConstRefHelper {using type = T;};
+    template <typename T> struct RemoveConstAndConstRefHelper<const T> {using type = T;};
+    template <typename T> struct RemoveConstAndConstRefHelper<const T &> {using type = T;};
+    template <typename T> using RemoveConstAndConstRef = typename RemoveConstAndConstRefHelper<T>::type;
+
+    // ---
+
+    // Replaces `pybind11::arg_v`.
+    template <typename T>
+    auto ParamWithDefaultArg(const char *name, T &&default_arg, const char *default_arg_str)
+    {
+        // This logic is only needed to emit nicer default argument strings.
+        if constexpr (std::is_pointer_v<RemoveConstAndConstRef<T>> || std::is_null_pointer_v<RemoveConstAndConstRef<T>>)
+        {
+            // For pointers,
+            std::string default_arg_view = default_arg_str;
+            bool is_null = default_arg_view == "'0'" || default_arg_view == "'nullptr'";
+            return pybind11::arg_v(name, std::forward<T>(default_arg), is_null ? "None" : default_arg_str);
+        }
+        else if constexpr (
+            std::is_arithmetic_v<RemoveConstAndConstRef<T>> ||
+            std::is_same_v<RemoveConstAndConstRef<T>, std::string> ||
+            std::is_same_v<RemoveConstAndConstRef<T>, std::string_view>
+        )
+        {
+            return pybind11::arg_v(name, std::forward<T>(default_arg)); // No custom string.
+        }
+        else
+        {
+            return pybind11::arg_v(name, std::forward<T>(default_arg), default_arg_str); // Leave the string as is.
+        }
+    }
+
     // ---
 
     template <typename T>
@@ -1625,7 +1659,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // A helper that generates function parameter bindings.
 #define DETAIL_MB_PB11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PB11_MAKE_PARAMS_BODY(n, d, type_, name_, .../*default_arg_*/) \
-    , pybind11::arg(MRBind::detail::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str()) __VA_OPT__(= __VA_ARGS__)
+    MRBIND_CAT(DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_, __VA_OPT__(0))(name_ __VA_OPT__(,) __VA_ARGS__)
+
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_(name_) \
+    , pybind11::arg(MRBind::detail::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str())
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_0(name_, default_arg_) \
+    , MRBind::detail::pb11::ParamWithDefaultArg(MRBind::detail::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str(), MRBIND_IDENTITY default_arg_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'")
 
 // A helper that generates a list of parameter types.
 // We also decay arrays and functions to pointers here.

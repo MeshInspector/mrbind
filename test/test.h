@@ -211,4 +211,20 @@ namespace MR
     void reject_init_list_1(std::initializer_list<int>) {}
     void reject_init_list_2(const std::initializer_list<int> &) {}
     void reject_init_list_3(std::initializer_list<int> &&) {}
+
+    // ---
+
+    // Default argument spelling.
+
+    // Those appear normally.
+    inline void a(int x = 42, float y = 12.3f) {std::cout << x << ' ' << y << '\n';}
+
+    struct DefArg {int x = 0;};
+
+    // `nullptr` and `0` become `None`, everything else is spelled as is.
+    inline void b(DefArg *x = nullptr, DefArg *y = 0, DefArg *z = ((nullptr))) {std::cout << (std::uintptr_t)x << ' ' << (std::uintptr_t)y << ' ' << (std::uintptr_t)z << '\n';}
+
+    // All those are spelled as is.
+    inline void c(DefArg x = {}, DefArg y = DefArg{42}) {std::cout << x.x << ' ' << y.x << '\n';}
+
 }
