@@ -89,16 +89,12 @@ namespace MRBind::detail::pb11
 
     // Type name from `typeid()`, demangled if necessary.
     template <typename T>
-    [[nodiscard]] const char *TypeidTypeName()
+    [[nodiscard]] std::string TypeidTypeName()
     {
         if constexpr (std::is_same_v<T, std::string>)
             return "std::string";
         else
-        {
-            static Demangler d;
-            static const char *const ret = d(typeid(T).name());
-            return ret;
-        }
+            return Demangler{}(typeid(T).name());
     }
 
     // ---
@@ -759,7 +755,7 @@ namespace MRBind::detail::pb11
     {
         // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
 
-        using ClassType = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
+        using ClassType = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
 
         std::string py_name = ToPythonName(name);
 
@@ -1004,7 +1000,7 @@ namespace MRBind::detail::pb11
     template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, typename ...P>
     void TryAddCtor(auto &c, TryAddFuncScopeState *scope_state, int pass_number, auto &&... data)
     {
-        using T = std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
+        using T = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
         if constexpr (std::is_abstract_v<T>)
             ; // Reject abstract classes.
         else if constexpr ((ParamTypeDisablesWholeFunction<DecayToTrueParamType<P>> || ...))
