@@ -11,8 +11,9 @@
 #endif
 
 #if __has_include(<expected>)
-// The second half of the condition is copied from libstdc++'s `<expected>` header. The contents are disable if this is false.
-#if !defined(_GLIBCXX_RELEASE) || (__cplusplus > 202002L && __cpp_concepts >= 202002L)
+// Libstdc++'s `<expected>` header checks `__cpp_concepts` and disables the class if the value is too small.
+// This makes their `std::expected` unusable on Clang (last tested on Clang 18).
+#if __cplusplus > 202002L && (!defined(_GLIBCXX_RELEASE) || __cpp_concepts >= 202002L)
 #include <mrbind/targets/pybind11/bind_std_expected.h>
 #endif
 #endif
