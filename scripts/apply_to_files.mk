@@ -68,6 +68,7 @@ LINKER_OUTPUT = $(error Must set LINKER_OUTPUT=... when linking the bindings)
 # ---
 
 .DELETE_ON_ERROR: # Delete output on command failure. Otherwise you'll get incomplete bindings.
+.NOTPARALLEL: # Refuse to build in parallel. There's no point in doing so, because if you have enough RAM for that, just reduce `NUM_FRAGMENTS`.
 
 # An LF constant.
 override define lf :=
