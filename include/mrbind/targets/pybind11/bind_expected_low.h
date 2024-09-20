@@ -18,6 +18,14 @@ struct pybind11::detail::is_copy_assignable<tl::expected<T, U>>
     : std::conjunction<pybind11::detail::is_copy_assignable<T>, pybind11::detail::is_copy_assignable<U>>
 {};
 
+// Fixed `equality_comparable` for `std::expected` only, where it's not SFINAE-friendly.
+#if MB_USE_STD_EXPECTED
+template <typename T, typename U>
+struct MRBind::detail::pb11::IsEqualityComparable<tl::expected<T, U>> : std::bool_constant<IsEqualityComparable<T>::value && IsEqualityComparable<U>::value> {};
+template <typename U>
+struct MRBind::detail::pb11::IsEqualityComparable<tl::expected<void, U>> : IsEqualityComparable<U> {};
+#endif
+
 // Adjust `tl::expected<T, U>` to `std::unique_ptr<T>` or throw.
 // This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.
 template <typename T, typename U>

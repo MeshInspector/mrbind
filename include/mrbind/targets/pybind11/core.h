@@ -328,6 +328,9 @@ namespace MRBind::detail::pb11
     template <typename T> struct RemoveConstAndConstRefHelper<const T &> {using type = T;};
     template <typename T> using RemoveConstAndConstRef = typename RemoveConstAndConstRefHelper<T>::type;
 
+    // This replaces `std::equality_comparable`, to correctly handle non-SFINAE-friendly types, such as `std::expected` (why?!).
+    template <typename T> struct IsEqualityComparable : std::bool_constant<std::equality_comparable<T>> {};
+
     // ---
 
     // Replaces `pybind11::arg_v`.

@@ -46,7 +46,8 @@ namespace pybind11::patched
         cl.def(init<>());
 
         // Register comparison-related operators and functions (if possible)
-        detail::vector_if_equal_operator<Vector, Class_>(cl);
+        if constexpr (MRBind::detail::pb11::IsEqualityComparable<typename Vector::value_type>::value)
+            detail::vector_if_equal_operator<Vector, Class_>(cl);
 
         // Register stream insertion operator (if possible)
         detail::vector_if_insertion_operator<Vector, Class_>(cl, name);
