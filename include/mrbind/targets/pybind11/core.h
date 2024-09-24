@@ -1605,6 +1605,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             if (iter == r.type_entries.end())
                 continue; // Don't know this target type, ignore it.
 
+            #if MB_PB11_DEBUG_NAMES
+            std::cout << "mrbind: Registering alias: `" << spelling << "` -> `" << Demangler{}(iter->first.name()) << "`\n";
+            #endif
+
             m.add_object(spelling.c_str(), iter->second.pybind_type->GetPybindObject());
             iter->second.aliases.push_back(spelling);
         }
