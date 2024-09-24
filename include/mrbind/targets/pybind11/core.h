@@ -1503,15 +1503,15 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             }
         }
 
-        std::vector<MRBind::detail::pb11::TypeEntry *> final_order;
+        std::vector<typename decltype(Registry::type_entries)::value_type *> final_order;
 
-        // Find types with no deps and load them immediately.
+        // Find types with no deps.
         std::vector<typename decltype(Registry::type_entries)::value_type *> queue;
         for (auto &elem : r.type_entries)
         {
             if (elem.second.type_deps.empty())
             {
-                final_order.push_back(&elem.second);
+                final_order.push_back(&elem);
                 elem.second.was_processed = true;
                 if (!elem.second.type_rdeps.empty())
                     queue.push_back(&elem);
@@ -1532,7 +1532,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 next_e_iter->second.type_deps.erase(e.first);
                 if (next_e_iter->second.type_deps.empty())
                 {
-                    final_order.push_back(&next_e_iter->second);
+                    final_order.push_back(&*next_e_iter);
                     next_e_iter->second.was_processed = true;
                     if (!next_e_iter->second.type_rdeps.empty())
                         queue.push_back(&*next_e_iter);
@@ -1554,17 +1554,22 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         //   they will display non-adjuted C++ names in the help pages.
         // Not entirely sure if it can cause issues with actually calling them or not.
         for (auto *elem : final_order)
-            elem->pybind_type = elem->init(m, elem->pybind_type_name.c_str());
+        {
+            #if MB_PB11_DEBUG_NAMES
+            std::cout << "mrbind: Registering type names: python=`" << elem->second.pybind_type_name << "`, parsed_cpp=`" << (elem->second.cpp_type_name ? elem->second.cpp_type_name : "") << "`, typeid_cpp=`" << Demangler{}(elem->first.name()) << "`\n";
+            #endif
+            elem->second.pybind_type = elem->second.init(m, elem->second.pybind_type_name.c_str());
+        }
         // Actually load.
         for (auto *elem : final_order)
         {
             MRBind::detail::pb11::TypeEntry::AddClassMembersState state;
-            elem->load_members(m, *elem->pybind_type, state); // First pass! Collect information about the overloads.
+            elem->second.load_members(m, *elem->second.pybind_type, state); // First pass! Collect information about the overloads.
             state.pass_number = 1;
-            elem->load_members(m, *elem->pybind_type, state); // Second pass! Actually register most functions.
+            elem->second.load_members(m, *elem->second.pybind_type, state); // Second pass! Actually register most functions.
             state.pass_number = 2;
             state.i = 0;
-            elem->load_members(m, *elem->pybind_type, state); // Third pass! // Late-register some special overloads. (It would be nice to instead have some priority system here...)
+            elem->second.load_members(m, *elem->second.pybind_type, state); // Third pass! // Late-register some special overloads. (It would be nice to instead have some priority system here...)
 
             // This two-pass stuff is currently only needed to disambiguate overloads inside of each class, so we don't need a separate loop for it.
         }
