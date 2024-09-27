@@ -83,7 +83,7 @@ override rwildcard = $(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(
 override quote = '$(subst ','"'"',$1)'
 
 # Assign to a variable safely, e.g. `$(call var,foo := 42)`.
-override var = $(eval override $(subst #,$$(strip #),$(subst $,$$$$,$1)))
+override var = $(eval override $(subst $,$$$$,$1))
 
 # A string of all single-letter Make flags, without spaces.
 override single_letter_makeflags := $(filter-out -%,$(firstword $(MAKEFLAGS)))
