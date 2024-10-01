@@ -279,7 +279,7 @@ namespace MRBind::pb11
         std::string pybind_type_name_qual;
 
         bool was_processed = false;
-        std::vector<std::string_view> aliases;
+        std::vector<std::string> aliases;
 
         std::type_index parent_namespace_or_class;
         std::map<std::string, std::type_index, std::less<>> nested_types;
@@ -339,7 +339,9 @@ namespace MRBind::pb11
     struct Registry
     {
         std::unordered_map<std::type_index, TypeEntry> type_entries;
-        std::unordered_map<std::string, std::unordered_set<std::type_index>> type_aliases;
+
+        // This maps C++-spelled type alias names to the target types.
+        std::unordered_map<std::string_view, std::unordered_set<std::type_index>> type_aliases;
 
         std::unordered_map<std::type_index, NamespaceEntry> namespace_entries;
 
@@ -371,7 +373,7 @@ namespace MRBind::pb11
     };
     // Removes namespace qualifiers. Returns the namespace/class that they refer to (or the module itself if none), and the remaining unqualified name.
     // If `enter_classes == false`, will only enter namespaces and will stop at the first class (returning the class name as a part of `n`).
-    [[nodiscard]] ApplyNamespacesResult ApplyNamespaces(std::string_view name, bool enter_classes);
+    [[nodiscard]] ApplyNamespacesResult ApplyNamespaces(pybind11::module_ &m, std::string_view name, bool enter_classes);
 
 
     // ---
@@ -471,6 +473,7 @@ namespace MRBind::pb11
 
     // ---
 
+    // `spelling` must permanently remain alive.
     template <typename T>
     void RegisterTypeAlias(std::string_view spelling)
     {
@@ -1622,7 +1625,7 @@ namespace MRBind::pb11
             spelling.remove_prefix(6);
         // We don't need to fix the suffix (stripping any `&`,`*`,` `), `ToPythonName()` will remove it.
 
-        MRBind::pb11::GetRegistry().type_aliases[MRBind::pb11::ToPythonName(spelling)].insert(type);
+        MRBind::pb11::GetRegistry().type_aliases[spelling].insert(type);
     }
 
     std::string NamespaceMarkerToUnqualifiedName(std::type_index marker)
@@ -1974,12 +1977,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     }
 
     { // Load the aliases.
-        std::unordered_map<std::string_view, const TypeEntry *> names_to_types;
+        std::unordered_set<std::string_view> nonalias_python_type_names;
         for (const auto &elem : r.type_entries)
         {
-            bool ok = names_to_types.try_emplace(elem.second.pybind_type_name, &elem.second).second;
+            bool ok = nonalias_python_type_names.insert(elem.second.pybind_type_name_qual).second;
             if (!ok)
-                throw std::runtime_error("Name `" + elem.second.pybind_type_name + "` refers to more than one type.");
+                throw std::runtime_error("Python name `" + elem.second.pybind_type_name + "` refers to more than one type.");
         }
 
         for (const auto &[spelling, types] : r.type_aliases)
@@ -1987,19 +1990,30 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             if (types.size() > 1)
                 continue; // More than one target type, so this is ambiguous (somehow). Ignore this one.
 
-            if (names_to_types.contains(spelling))
-                continue; // The target name is already occupied by a type.
-
             auto iter = r.type_entries.find(*types.begin());
             if (iter == r.type_entries.end())
                 continue; // Don't know this target type, ignore it.
 
+            auto ns = ApplyNamespaces(m, spelling, true);
+            std::string python_unqual_name = ToPythonName(ns.name);
+
+            std::string python_qual_name;
+            if (ns.most_nested_namespace)
+                python_qual_name = ns.most_nested_namespace->pybind_name_qual + "." + python_unqual_name;
+            else if (ns.most_nested_class)
+                python_qual_name = ns.most_nested_class->pybind_type_name_qual + "." + python_unqual_name;
+            else
+                python_qual_name = python_unqual_name;
+
+            if (nonalias_python_type_names.contains(python_qual_name))
+                continue; // The target name is already occupied by a type.
+
             #if MB_PB11_DEBUG_NAMES
-            std::cout << "mrbind: Registering alias: `" << spelling << "` -> `" << Demangler{}(iter->first.name()) << "`\n";
+            std::cout << "mrbind: Registering alias: `" << python_qual_name << "` -> `" << iter->second.pybind_type_name_qual << "`\n";
             #endif
 
-            m.add_object(spelling.c_str(), iter->second.pybind_type->GetPybindObject());
-            iter->second.aliases.push_back(spelling);
+            ns.m.handle->attr(python_unqual_name.c_str()) = iter->second.pybind_type->GetPybindObject();
+            iter->second.aliases.push_back(python_qual_name);
         }
     }
 

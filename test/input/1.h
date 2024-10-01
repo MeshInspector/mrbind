@@ -5,6 +5,8 @@ struct C0
     struct CC0 {};
 };
 
+using C00 = C0;
+
 namespace MR
 {
     inline void f1() {}
