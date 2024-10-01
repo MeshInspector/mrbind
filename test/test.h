@@ -164,6 +164,15 @@ namespace MR
     template float c();
     template double c();
 
+    // CAN be overloaded in python, because the second overload is in a namespace.
+    template <typename T> T d() {return {};}
+    template float d();
+    namespace N1
+    {
+        template <typename T> T d() {return {};}
+        template double d();
+    }
+
     struct AA
     {
         template <typename T> AA(T) {}

@@ -183,14 +183,23 @@ namespace MRBind::pb11
 
     struct FuncEntry
     {
-        using LoadFunc = void (*)(ModuleOrClassRef m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, int pass_number);
+        using LoadFunc = void (*)(ModuleOrClassRef m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, int pass_number, const char *qual_name, const char *qual_name_with_template_args);
         LoadFunc load = nullptr;
+
+        const char *qual_name = nullptr;
+        const char *qual_name_with_template_args = nullptr;
 
         TryAddFuncState state;
 
         FuncEntry() {}
-        FuncEntry(LoadFunc load)
-            : load(load)
+        FuncEntry(
+            const char *qual_name,
+            const char *qual_name_with_template_args,
+            LoadFunc load
+        )
+            : load(load),
+            qual_name(qual_name),
+            qual_name_with_template_args(qual_name_with_template_args)
         {}
     };
 
@@ -1816,7 +1825,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             LoadNamespace(LoadNamespace, id, &e);
     }
 
-    { // Topologically sort the classes (by inheritance), and load them. https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
+    { // Topologically sort the classes and load them. https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
         // Populate reverse dependencies.
         for (auto &[id, e] : r.type_entries)
         {
@@ -1936,11 +1945,31 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     }
 
     { // Load the functions.
-        TryAddFuncScopeState scope_state;
-        for (int pass_number : {0, 1, 2}) // See the member loading code above.
+        struct Func
         {
-            for (auto &entry : r.func_entries)
-                entry.load(m, entry.state, scope_state, pass_number);
+            ModuleOrClassRef m;
+            FuncEntry *entry = nullptr;
+            const char *name = nullptr;
+            const char *name_with_template_args = nullptr;
+        };
+        std::unordered_map<NamespaceEntry *, std::vector<Func>> func_scopes;
+
+        // Split functions by namespace.
+        for (auto &entry : r.func_entries)
+        {
+            auto ns = ApplyNamespaces(m, entry.qual_name, false);
+            func_scopes[ns.most_nested_namespace].emplace_back(ns.m, &entry, ns.name.data(), entry.qual_name_with_template_args + (ns.name.data() - entry.qual_name));
+        }
+
+        // Load the functions.
+        for (auto &scope : func_scopes)
+        {
+            TryAddFuncScopeState scope_state;
+            for (int pass_number : {0, 1, 2}) // Several passes. See the member loading code above.
+            {
+                for (auto &func : scope.second)
+                    func.entry->load(func.m, func.entry->state, scope_state, pass_number, func.name, func.name_with_template_args);
+            }
         }
     }
 
@@ -2169,7 +2198,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 // Bind a function.
 #define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_) \
     MRBind::pb11::GetRegistry().func_entries.emplace_back( \
-        +[](MRBind::pb11::ModuleOrClassRef _pb11_m, MRBind::pb11::TryAddFuncState &_pb11_state, MRBind::pb11::TryAddFuncScopeState &_pb11_scope_state, int _pb11_pass_number) \
+        /* Qualified name */\
+        MRBIND_STR(MRBIND_IDENTITY qualname_), \
+        /* Qualified name with template arguments */\
+        MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
+        +[](MRBind::pb11::ModuleOrClassRef _pb11_m, MRBind::pb11::TryAddFuncState &_pb11_state, MRBind::pb11::TryAddFuncScopeState &_pb11_scope_state, int _pb11_pass_number, const char *_pb11_qual_name, const char *_pb11_qual_name_with_template_args) \
         {\
             MRBind::pb11::TryAddFunc<\
                 MRBind::pb11::FuncKind::namespace_scope, \
@@ -2182,9 +2215,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 /* Simple name */\
                 MRBIND_STR(simplename_), \
                 /* Qualified name */\
-                MRBIND_STR(MRBIND_IDENTITY qualname_), \
+                _pb11_qual_name, \
                 /* Qualified name with template arguments */\
-                MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
+                _pb11_qual_name_with_template_args, \
                 /* Pybind signature (to detect overloadable functions). */\
                 DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
                 /* Pass information. */\
