@@ -500,7 +500,7 @@ namespace MRBind::pb11
 
         // This passes the constructor arguments to `pybind_type`.
         // Normally you don't need to override this. Override this for stuff like `pybind11::bind_vector()` or `pybind11::bind_map()`.
-        [[nodiscard]] static decltype(auto) pybind_init(auto f, ModuleOrClassRef m, const char *n) {return f(m, n);}
+        [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(m, n);}
 
         // The type name for pybind11. Normally don't need to override this.
         [[nodiscard]] static std::string cpp_type_name()
@@ -544,7 +544,7 @@ namespace MRBind::pb11
                         {
                             return std::make_unique<TypeStorage>(decltype(params)(params)...);
                         },
-                        m, n
+                        *m.handle, n
                     );
                 },
                 +[](pb11::BasicPybindType &b, TypeEntry::AddClassMembersState &state)

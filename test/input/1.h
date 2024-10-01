@@ -1,4 +1,4 @@
-// #include <iostream>
+#include <vector>
 
 struct C0
 {
@@ -9,6 +9,8 @@ using C00 = C0;
 
 namespace MR
 {
+    inline std::vector<int> v1() {return {1,2,3};}
+
     inline void f1() {}
     enum class E1 {e1};
     template <typename T>

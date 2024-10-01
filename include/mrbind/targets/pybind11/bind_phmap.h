@@ -9,7 +9,7 @@ struct MRBind::pb11::CustomTypeBinding<phmap::flat_hash_map<T, U, P...>>
     : DefaultCustomTypeBinding<phmap::flat_hash_map<T, U, P...>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::patched::bind_map<phmap::flat_hash_map<T, U, P...>>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<phmap::flat_hash_map<T, U, P...>>(m, n));}
 
     // Make sure the element type is loaded first.
     // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.

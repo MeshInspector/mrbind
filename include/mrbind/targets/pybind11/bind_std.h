@@ -222,7 +222,7 @@ struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
         }
     }
 
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
 
     // Make sure the element type is loaded first.
     // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.
@@ -267,7 +267,7 @@ struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
         }
     }
 
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::module_ &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
+    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
 
     // Make sure the element type is loaded first.
     // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.
