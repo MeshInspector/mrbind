@@ -5,7 +5,7 @@
 #include <parallel_hashmap/phmap.h>
 // phmap::flat_hash_map
 template <typename T, typename U, typename ...P>
-struct MRBind::detail::pb11::CustomTypeBinding<phmap::flat_hash_map<T, U, P...>>
+struct MRBind::pb11::CustomTypeBinding<phmap::flat_hash_map<T, U, P...>>
     : DefaultCustomTypeBinding<phmap::flat_hash_map<T, U, P...>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
@@ -17,7 +17,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<phmap::flat_hash_map<T, U, P...>>
     static std::unordered_set<std::type_index> base_typeids() {return {typeid(T), typeid(U)};}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<phmap::flat_hash_map<T, U, P...>>::pybind_type &c)
+    static void bind_members(typename DefaultCustomTypeBinding<phmap::flat_hash_map<T, U, P...>>::pybind_type &c)
     {
         // Copy constructor.
         if constexpr (pybind11::detail::is_copy_constructible<phmap::flat_hash_map<T, U, P...>>::value)

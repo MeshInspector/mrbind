@@ -6,7 +6,7 @@
 
 // Adjust `std::ostream &` parameters to accept Python file handles instead.
 
-namespace MRBind::detail::pb11
+namespace MRBind::pb11
 {
     // OUTPUT streams
 

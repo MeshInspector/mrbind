@@ -21,9 +21,9 @@ struct pybind11::detail::is_copy_assignable<tl::expected<T, U>>
 // Fixed `equality_comparable` for `std::expected` only, where it's not SFINAE-friendly.
 #if MB_USE_STD_EXPECTED
 template <typename T, typename U>
-struct MRBind::detail::pb11::IsEqualityComparable<tl::expected<T, U>> : std::bool_constant<IsEqualityComparable<T>::value && IsEqualityComparable<U>::value> {};
+struct MRBind::pb11::IsEqualityComparable<tl::expected<T, U>> : std::bool_constant<IsEqualityComparable<T>::value && IsEqualityComparable<U>::value> {};
 template <typename U>
-struct MRBind::detail::pb11::IsEqualityComparable<tl::expected<void, U>> : IsEqualityComparable<U> {};
+struct MRBind::pb11::IsEqualityComparable<tl::expected<void, U>> : IsEqualityComparable<U> {};
 #endif
 
 // Adjust `tl::expected<T, U>` to `std::unique_ptr<T>` or throw.
@@ -32,7 +32,7 @@ template <typename T, typename U>
 requires
     // Because we need to be able to move the object into `std::unique_ptr`.
     std::is_void_v<T> || std::movable<T>
-struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
+struct MRBind::pb11::ReturnTypeTraits<tl::expected<T, U>>
     : RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
     static decltype(auto) Adjust(tl::expected<T, U> &&value)
@@ -62,20 +62,20 @@ struct MRBind::detail::pb11::ReturnTypeTraits<tl::expected<T, U>>
 
 // tl::expected
 template <typename T, typename U>
-struct MRBind::detail::pb11::CustomTypeBinding<tl::expected<T, U>>
+struct MRBind::pb11::CustomTypeBinding<tl::expected<T, U>>
     : DefaultCustomTypeBinding<tl::expected<T, U>>,
     RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
     // If defined, `std::expected` and `tl::expected` both become just `expected`,
     // unifying the interface across platforms using different flavors of `expected`.
     #if MB_PB11_MERGE_STL_TL_EXPECTED
-    [[nodiscard]] static std::string pybind_type_name()
+    [[nodiscard]] static std::string cpp_type_name()
     {
-        return ToPythonName(std::string("expected<") + TypeidTypeName<T>() + ", " + TypeidTypeName<U>() + ">");
+        return std::string("expected<") + TypeidTypeName<T>() + ", " + TypeidTypeName<U>() + ">";
     }
     #endif
 
-    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<tl::expected<T, U>>::pybind_type &c)
+    static void bind_members(typename DefaultCustomTypeBinding<tl::expected<T, U>>::pybind_type &c)
     {
         // Construct with the default-constructed valid value.
         if constexpr (std::default_initializable<T> || std::is_void_v<T>)

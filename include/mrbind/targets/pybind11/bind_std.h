@@ -2,7 +2,7 @@
 
 #include <future>
 
-namespace MRBind::detail::pb11
+namespace MRBind::pb11
 {
     // Adjust `std::optional<T>` to `std::unique_ptr<T>`.
     // This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.
@@ -46,7 +46,7 @@ namespace pybind11::patched
         cl.def(init<>());
 
         // Register comparison-related operators and functions (if possible)
-        if constexpr (MRBind::detail::pb11::IsEqualityComparable<typename Vector::value_type>::value)
+        if constexpr (MRBind::pb11::IsEqualityComparable<typename Vector::value_type>::value)
             detail::vector_if_equal_operator<Vector, Class_>(cl);
 
         // Register stream insertion operator (if possible)
@@ -205,20 +205,20 @@ namespace pybind11::patched
 // std::vector
 #include <vector>
 template <typename T, typename A>
-struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, A>>
+struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
     : DefaultCustomTypeBinding<std::vector<T, A>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
-    [[nodiscard]] static std::string pybind_type_name()
+    [[nodiscard]] static std::string cpp_type_name()
     {
         if constexpr (IsStdAllocatorFor<T, A>::value)
         {
             // To avoid spelling the allocator. Can't rely on having a complete baked type either.
-            return ToPythonName(std::string("std::vector<") + TypeidTypeName<T>() + ">");
+            return std::string("std::vector<") + TypeidTypeName<T>() + ">";
         }
         else
         {
-            return DefaultCustomTypeBinding<std::vector<T, A>>::pybind_type_name();
+            return DefaultCustomTypeBinding<std::vector<T, A>>::cpp_type_name();
         }
     }
 
@@ -230,7 +230,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, A>>
     static std::unordered_set<std::type_index> base_typeids() {return {typeid(T)};}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::vector<T, A>>::pybind_type &c)
+    static void bind_members(typename DefaultCustomTypeBinding<std::vector<T, A>>::pybind_type &c)
     {
         // Copy constructor.
         if constexpr (pybind11::detail::is_copy_constructible<std::vector<T, A>>::value)
@@ -250,20 +250,20 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::vector<T, A>>
 // std::map
 #include <map>
 template <typename T, typename U, typename Comp, typename A>
-struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
+struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
     : DefaultCustomTypeBinding<std::map<T, U, Comp, A>>,
     RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
-    [[nodiscard]] static std::string pybind_type_name()
+    [[nodiscard]] static std::string cpp_type_name()
     {
         if constexpr (IsStdAllocatorFor<T, A>::value)
         {
             // To avoid spelling the allocator. Can't rely on having a complete baked type either.
-            return ToPythonName(std::string("std::map<") + TypeidTypeName<T>() + ", " + TypeidTypeName<U>() + ">");
+            return std::string("std::map<") + TypeidTypeName<T>() + ", " + TypeidTypeName<U>() + ">";
         }
         else
         {
-            return DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::pybind_type_name();
+            return DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::cpp_type_name();
         }
     }
 
@@ -275,7 +275,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
     static std::unordered_set<std::type_index> base_typeids() {return {typeid(T), typeid(U)};}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::pybind_type &c)
+    static void bind_members(typename DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::pybind_type &c)
     {
         using TT = typename std::remove_reference_t<decltype(c)>::type;
 
@@ -290,17 +290,17 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
 // std::array
 #include <array>
 template <typename T, std::size_t N>
-struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
+struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
     : DefaultCustomTypeBinding<std::array<T, N>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
-    [[nodiscard]] static std::string pybind_type_name()
+    [[nodiscard]] static std::string cpp_type_name()
     {
         // Not using the native name here, because `std::size_t N` ends up being spelled as `42ul`.
-        return ToPythonName(std::string("std::array<") + TypeidTypeName<T>() + ", " + std::to_string(N) + ">");
+        return std::string("std::array<") + TypeidTypeName<T>() + ", " + std::to_string(N) + ">";
     }
 
-    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::array<T, N>>::pybind_type &c)
+    static void bind_members(typename DefaultCustomTypeBinding<std::array<T, N>>::pybind_type &c)
     {
         // Default constructor.
         if constexpr (std::default_initializable<std::array<T, N>>)
@@ -339,15 +339,14 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
 
         // Indexing operator (read).
         TryAddFuncSimple<
-            // Static?
-            false,
-            // Function.
+            FuncKind::member_nonstatic,
             [](std::array<T, N> &array, std::size_t i) -> auto &&
             {
                 if (i >= N)
                     throw pybind11::index_error();
                 return array[i];
             },
+            // Parameters:
             std::array<T, N> &, // `this`
             std::size_t
         >(
@@ -359,9 +358,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
         if constexpr (pybind11::detail::is_copy_assignable<T>::value)
         {
             TryAddFuncSimple<
-                // Static?
-                false,
-                // Function.
+                FuncKind::member_nonstatic,
                 [](std::array<T, N> &array, std::size_t i, const T &value)
                 {
                     if (i >= N)
@@ -386,7 +383,7 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
         {
             c.def(
                 "__repr__",
-                [name = CustomTypeBinding::pybind_type_name()](const std::array<T, N> &v)
+                [name = ToPythonName(CustomTypeBinding::cpp_type_name())](const std::array<T, N> &v)
                 {
                     std::ostringstream s;
                     s << name << '[';
@@ -406,11 +403,11 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::array<T, N>>
 // std::optional
 #include <optional>
 template <typename T>
-struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
+struct MRBind::pb11::CustomTypeBinding<std::optional<T>>
     : DefaultCustomTypeBinding<std::optional<T>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
-    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::optional<T>>::pybind_type &c)
+    static void bind_members(typename DefaultCustomTypeBinding<std::optional<T>>::pybind_type &c)
     {
         if constexpr (std::default_initializable<std::optional<T>>)
             c.def(pybind11::init<>());
@@ -441,11 +438,11 @@ struct MRBind::detail::pb11::CustomTypeBinding<std::optional<T>>
 // std::variant
 #include <variant>
 template <typename ...P>
-struct MRBind::detail::pb11::CustomTypeBinding<std::variant<P...>>
+struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
     : public DefaultCustomTypeBinding<std::variant<P...>>,
     RegisterTypeWithCustomBindingIfApplicable<P...>
 {
-    static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<std::variant<P...>>::pybind_type &c)
+    static void bind_members(typename DefaultCustomTypeBinding<std::variant<P...>>::pybind_type &c)
     {
         static constexpr auto cur_type = [](const std::variant<P...> &var) -> std::string
         {

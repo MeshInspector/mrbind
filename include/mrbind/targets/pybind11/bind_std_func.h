@@ -9,7 +9,7 @@
 // To fix this, we wrap `std::function` into our own class, that's convertible FROM Python's lambdas, but can also hold C++ lambdas as is,
 // without pybind11 touching them.
 
-namespace MRBind::detail::pb11
+namespace MRBind::pb11
 {
     template <typename F>
     struct FuncWrapper;
@@ -87,18 +87,19 @@ namespace MRBind::detail::pb11
         : DefaultCustomTypeBinding<FuncWrapper<R(P...)>>,
         RegisterTypeWithCustomBindingIfApplicable<R, P...>
     {
-        [[nodiscard]] static std::string pybind_type_name()
+        [[nodiscard]] static std::string cpp_type_name()
         {
-            std::string ret = "func_" + ToPythonName(TypeidTypeName<R>());
+            std::string ret = "func<" + TypeidTypeName<R>();
             if constexpr (sizeof...(P) > 0)
             {
-                ret += "_from";
-                (void)(void((ret += '_', ret += ToPythonName(TypeidTypeName<P>()))), ...);
+                ret += ",from:";
+                (void)(void((ret += ',', ret += TypeidTypeName<P>())), ...);
             }
+            ret += '>';
             return ret;
         }
 
-        static void bind_members(pybind11::module_ &, typename DefaultCustomTypeBinding<FuncWrapper<R(P...)>>::pybind_type &c)
+        static void bind_members(typename DefaultCustomTypeBinding<FuncWrapper<R(P...)>>::pybind_type &c)
         {
             // Default constructor.
             c.def(pybind11::init<>());
@@ -125,9 +126,7 @@ namespace MRBind::detail::pb11
             c.def("holds_cpp_function", [](const FuncWrapper<R(P...)> &f){return f.holds_cpp_func;}, "Does this object currentlyhold a C++ function? As opposed to a Python one.");
 
             TryAddFuncSimple<
-                // Static?
-                false,
-                // Function.
+                FuncKind::member_nonstatic,
                 &FuncWrapper<R(P...)>::Call,
                 const FuncWrapper<R(P...)> &, // `this`
                 P...

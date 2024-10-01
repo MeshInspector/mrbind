@@ -426,7 +426,10 @@ namespace mrbind
 
                         namespace_stack.pop_back();
 
-                        out << "MB_END_NAMESPACE(" << (ns.name.empty() ? "/*anonymous*/" : ns.name) << ")\n";
+                        out << "MB_END_NAMESPACE("
+                            << (ns.name.empty() ? "/*anonymous*/" : ns.name) << ", "
+                            << (ns.is_inline ? "inline" : "/*not inline*/") << ", "
+                            << NsStackToString() << ")\n";
                     },
                 }, *e.variant);
             };

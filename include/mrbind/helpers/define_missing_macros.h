@@ -34,8 +34,8 @@
 
 #ifndef MB_END_NAMESPACE
 // A namespace ends.
-// `namespace_` - namespace name, or empty if anonymous.
-#define MB_END_NAMESPACE(namespace_)
+// Parameters have the same meaning as in `MB_NAMESPACE(...)`.
+#define MB_END_NAMESPACE(namespace_, inline_, ns_stack_)
 #endif
 
 #ifndef MB_FUNC
@@ -101,7 +101,7 @@
 // A class ends.
 // Member variables and member functions are embedded into the `MB_CLASS(...)` call, and will not appear as standalone macro calls.
 // Except friend function definitions are included as `MB_FUNC()` instead.
-// `name_` - class name.
+// Parameters have the same meaning as in `MB_CLASS(...)`.
 #define MB_END_CLASS(name_)
 #endif
 
