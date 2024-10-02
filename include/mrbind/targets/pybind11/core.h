@@ -19,6 +19,7 @@
 // NOTE: Not including `<pybind11/stl.h>` because that doesn't cooperate with passing containers by reference.
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
+#include <map>
 #include <optional>
 #include <set>
 #include <string_view>
@@ -1042,7 +1043,7 @@ namespace MRBind::pb11
                 (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
                 (void)pybind11::detail::is_copy_assignable<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
 
-                constexpr bool is_class_method = !std::is_same_v<decltype(c), pybind11::module_ &>;
+                constexpr bool is_class_method = !std::is_same_v<decltype(c), ModuleOrClassRef &>;
 
                 // First pass.
                 if (state && pass_number == 0)
