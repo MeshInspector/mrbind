@@ -82,6 +82,8 @@ namespace MRBind::pb11
     // Converts the typeid of a `NsMarker<...::_pb11_ns_marker>` to the unqualified name of the namespace.
     [[nodiscard]] std::string NamespaceMarkerToUnqualifiedName(std::type_index marker);
 
+    [[nodiscard]] const std::set<std::string, std::less<>> &StrippedPythonNamespaces();
+
     // ---
 
     class Demangler
@@ -325,11 +327,18 @@ namespace MRBind::pb11
         std::string name;
         // Python-style qualified name, with `.` separating the scopes.
         std::string pybind_name_qual;
+        // Same, but ignoring the parts that are stripped from the final python names.
+        std::string pybind_name_qual_fixed;
+
+        // If true, this namespace doesn't appear in the final names.
+        bool is_stripped = false;
 
         std::map<std::string, std::type_index, std::less<>> nested_namespaces;
         std::map<std::string, std::type_index, std::less<>> nested_types;
 
         std::unique_ptr<BasicPybindType> (*init_pybind_type)(ModuleOrClassRef m, const char *n) = nullptr;
+
+        // Null if `is_stripped == true`.
         std::unique_ptr<BasicPybindType> pybind_type;
 
         NamespaceEntry(std::type_index parent_namespace) : parent_namespace(parent_namespace) {}
@@ -1644,6 +1653,18 @@ namespace MRBind::pb11
         return std::string(view);
     }
 
+    const std::set<std::string, std::less<>> &StrippedPythonNamespaces()
+    {
+        static const std::set<std::string, std::less<>> ret = {
+            #ifdef MB_PB11_STRIPPED_NAMESPACES
+            // Define this to a list of namespaces that should be stripped, with their contents pasted directly to the global namespace.
+            // This is a list of comma-separated quoted strings, with python-style namespace names in them. E.g.: `"a", "a.b"`.
+            MB_PB11_STRIPPED_NAMESPACES
+            #endif
+        };
+        return ret;
+    }
+
 
     // `name` is a qualified name.
     // `scope` is `(std::string_view segment) -> bool`. It receives every qualifier in order, without `::`. Return false by default.
@@ -1707,12 +1728,16 @@ namespace MRBind::pb11
                 auto &r = GetRegistry();
                 if (!ret.most_nested_namespace && !ret.most_nested_class)
                 {
-                    // We're at the top leve.
+                    // We're at the top level.
 
                     // Enter a namespace.
                     if (auto it = r.top_level_namespaces.find(segment); it != r.top_level_namespaces.end())
                     {
                         ret.most_nested_namespace = &r.namespace_entries.at(it->second);
+
+                        if (ret.most_nested_namespace->is_stripped)
+                            ret.most_nested_namespace = nullptr; // Reject stripped namespace.
+
                         return false;
                     }
 
@@ -1734,6 +1759,10 @@ namespace MRBind::pb11
                     if (auto it = ret.most_nested_namespace->nested_namespaces.find(segment); it != ret.most_nested_namespace->nested_namespaces.end())
                     {
                         ret.most_nested_namespace = &r.namespace_entries.at(it->second);
+
+                        if (ret.most_nested_namespace->is_stripped)
+                            ret.most_nested_namespace = nullptr; // Reject stripped namespace.
+
                         return false;
                     }
 
@@ -1752,7 +1781,7 @@ namespace MRBind::pb11
                 {
                     // We're in a class.
 
-                    if (auto it = ret.most_nested_namespace->nested_types.find(segment); it != ret.most_nested_namespace->nested_types.end())
+                    if (auto it = ret.most_nested_class->nested_types.find(segment); it != ret.most_nested_class->nested_types.end())
                     {
                         ret.most_nested_class = &r.type_entries.at(it->second);
                         return false;
@@ -1816,13 +1845,32 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             if (e->pybind_type)
                 return; // Maybe we somehow got loaded? This shouldn't happen though, namespaces shouldn't have cycles.
 
+            std::string py_name = ToPythonName(e->name);
+
             // Compute the python-style qualified name.
             if (parent)
-                e->pybind_name_qual = parent->pybind_name_qual + "." + e->name;
+                e->pybind_name_qual = parent->pybind_name_qual + "." + py_name;
             else
-                e->pybind_name_qual = e->name;
+                e->pybind_name_qual = py_name;
 
-            e->pybind_type = e->init_pybind_type(parent ? ModuleOrClassRef(parent->pybind_type->GetPybindObject()) : ModuleOrClassRef(m), e->name.c_str());
+            // Should this namespace be stripped from the final binding?
+            e->is_stripped = StrippedPythonNamespaces().contains(e->pybind_name_qual);
+
+            // Compute the python-style qualified name, stripped of unwanted namespaces.
+            if (e->is_stripped)
+                ;// Keep `e->pybind_name_qual_fixed` empty.
+            else if (!parent || parent->is_stripped)
+                e->pybind_name_qual_fixed = py_name;
+            else
+                e->pybind_name_qual_fixed = parent->pybind_name_qual_fixed + "." + py_name;
+
+            // Initialize the type, but only if this namespace is not stripped.
+            if (!e->is_stripped)
+                e->pybind_type = e->init_pybind_type(parent && !parent->is_stripped ? ModuleOrClassRef(parent->pybind_type->GetPybindObject()) : ModuleOrClassRef(m), e->name.c_str());
+
+            // If the parent namespace is stripped, register this as a top-level namespace.
+            if (parent && parent->is_stripped)
+                r.top_level_namespaces.try_emplace(e->name, type);
         };
         for (auto &[id, e] : r.namespace_entries)
             LoadNamespace(LoadNamespace, id, &e);
@@ -1913,7 +1961,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             if (ns.most_nested_namespace)
             {
                 ns.most_nested_namespace->nested_types.try_emplace(std::string(ns.name), elem->first);
-                elem->second.pybind_type_name_qual = ns.most_nested_namespace->pybind_name_qual + "." + elem->second.pybind_type_name;
+                elem->second.pybind_type_name_qual = ns.most_nested_namespace->pybind_name_qual_fixed + "." + elem->second.pybind_type_name;
             }
             else if (ns.most_nested_class)
             {
@@ -1999,7 +2047,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
             std::string python_qual_name;
             if (ns.most_nested_namespace)
-                python_qual_name = ns.most_nested_namespace->pybind_name_qual + "." + python_unqual_name;
+                python_qual_name = ns.most_nested_namespace->pybind_name_qual_fixed + "." + python_unqual_name;
             else if (ns.most_nested_class)
                 python_qual_name = ns.most_nested_class->pybind_type_name_qual + "." + python_unqual_name;
             else
