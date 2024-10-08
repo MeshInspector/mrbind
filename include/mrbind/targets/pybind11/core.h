@@ -1547,7 +1547,7 @@ namespace MRBind::pb11
 
         { // Condense `> >` into `>>`.
             std::size_t target_pos = 1;
-            for (std::size_t i = 1; i + 1 < size; i++)
+            for (std::size_t i = 1; i + 1 < view.size(); i++)
             {
                 if (buffer[i] == ' ' && buffer[i-1] == '>' && buffer[i+1] == '>')
                     continue;
@@ -1651,7 +1651,9 @@ namespace MRBind::pb11
         std::size_t pos = view.find_last_of(':');
         if (pos != std::string_view::npos)
             view = view.substr(pos + 1);
-        return std::string(view);
+        std::string ret(view);
+        ret.resize(CleanUpTypeName(ret.data(), ret.size()));
+        return ret;
     }
 
     const std::set<std::string, std::less<>> &StrippedPythonNamespaces()
@@ -1872,6 +1874,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             // If the parent namespace is stripped, register this as a top-level namespace.
             if (parent && parent->is_stripped)
                 r.top_level_namespaces.try_emplace(e->name, type);
+
+            #if MB_PB11_DEBUG_NAMES
+            std::cout << "mrbind: Registering namespace: `" << e->name << "`, stripped=" << e->is_stripped << ", parent=" << (parent ? "`" + parent->pybind_name_qual + "`" : "none") << '\n';
+            #endif
         };
         for (auto &[id, e] : r.namespace_entries)
             LoadNamespace(LoadNamespace, id, &e);
