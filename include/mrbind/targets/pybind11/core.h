@@ -10,6 +10,7 @@
 
 #include <mrbind/helpers/common.h>
 #include <mrbind/helpers/macro_sequence_for.h>
+#include <mrbind/helpers/map_filter_pack.h>
 #include <mrbind/helpers/type_name.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
@@ -1212,10 +1213,23 @@ namespace MRBind::pb11
             constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
-            if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
-                c.def(pybind11::init(lambda), decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
-            else
-                c.def(pybind11::init(lambda), decltype(data)(data)...);
+            (MapFilterPack<P...>)(
+                [&]<int I, typename U>()
+                {
+                    // Keep alive reference arguments as long as `this` is alive, in case the class stores them.
+                    // This prevents dangling references. Yes, we do it even for const references! (See e.g. `MR::FreeFormDeformer`.)
+                    // Reject references to the same class though, to avoid the copy constructors. (Just in case also reject refs to base classes.)
+                    if constexpr (std::is_lvalue_reference_v<AdjustedParamType<U>> && !std::is_base_of_v<std::remove_cvref_t<AdjustedParamType<U>>, T>)
+                        return pybind11::keep_alive<1, I+2>();
+                },
+                [&](auto &&... keepalives)
+                {
+                    if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                        c.def(pybind11::init(lambda), decltype(data)(data)..., decltype(keepalives)(keepalives)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                    else
+                        c.def(pybind11::init(lambda), decltype(data)(data)..., decltype(keepalives)(keepalives)...);
+                }
+            );
 
             // Register this ctor as an implicit conversion if it's not explicit, has at least one parameter,
             // and has at most one parameter without a default argument.
