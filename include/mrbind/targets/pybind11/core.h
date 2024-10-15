@@ -1509,18 +1509,13 @@ namespace MRBind::pb11
         #endif
     }
 
-    // On MSVC, removes `class` and other unnecessary strings from type names.
-    // Returns the new length.
+    // Cleans up the demangled type name from `typeid(...).name()`. Returns the new length.
     // It's recommended to include the null terminator in `size`, then we also null-terminate the resulting string and include it in the resulting length.
     constexpr std::size_t CleanUpTypeName(char *buffer, std::size_t size)
     {
-        #ifndef _MSC_VER
-        (void)buffer;
-        return size;
-        #else
         std::string_view view(buffer, size); // Yes, with the null at the end.
 
-        auto RemoveTypePrefix = [&](std::string_view to_remove)
+        auto RemoveTypePrefix = [&](std::string_view to_remove, bool starts_at_word_boundary)
         {
             std::size_t region_start = 0;
             std::size_t source_pos = std::size_t(-1);
@@ -1531,11 +1526,11 @@ namespace MRBind::pb11
                 if (source_pos == std::string_view::npos)
                     break;
 
-                bool ok = source_pos == 0;
+                bool ok = !starts_at_word_boundary || source_pos == 0;
                 if (!ok)
                 {
                     char ch = view[source_pos - 1];
-                    if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'))
+                    if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')))
                         ok = true;
                 }
 
@@ -1554,11 +1549,18 @@ namespace MRBind::pb11
             view = std::string_view(view.data(), target_pos);
         };
 
-        RemoveTypePrefix("struct ");
-        RemoveTypePrefix("class ");
-        RemoveTypePrefix("union ");
-        RemoveTypePrefix("enum ");
+        #if defined(_MSC_VER)
+        RemoveTypePrefix("struct ", true);
+        RemoveTypePrefix("class ", true);
+        RemoveTypePrefix("union ", true);
+        RemoveTypePrefix("enum ", true);
+        #elif defined(_LIBCPP_VERSION)
+        RemoveTypePrefix(":__1:", false);
+        #elif defined(__GLIBCXX__)
+        RemoveTypePrefix(":__cxx11:", false);
+        #endif
 
+        #ifndef _LIBCPP_VERSION
         { // Condense `> >` into `>>`.
             std::size_t target_pos = 1;
             for (std::size_t i = 1; i + 1 < view.size(); i++)
@@ -1571,9 +1573,9 @@ namespace MRBind::pb11
                 buffer[target_pos++] = buffer[size-1];
             view = std::string_view(view.data(), target_pos);
         }
+        #endif
 
         return view.size();
-        #endif
     }
 
     const char *Demangler::operator()(const char *name)
@@ -1583,6 +1585,11 @@ namespace MRBind::pb11
         buf_ptr = abi::__cxa_demangle(name, buf_ptr, &buf_size, &status);
         if (status != 0) // -1 = out of memory, -2 = invalid string, -3 = invalid usage
             return name;
+
+        // `buf_size` does include the null-terminator (tested experimentally),
+        // but it also includes the junk after the null-terminator, so we don't update it here.
+        // It's used internally by `__cxa_demangle` to know when to deallocate, so we must not touch it.
+        CleanUpTypeName(buf_ptr, buf_size);
 
         return buf_ptr;
         #else
