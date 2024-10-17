@@ -62,10 +62,13 @@ namespace MRBind::pb11
 
     // Given a qualified C++ name, removes all weird characters from it, replaces `::` with `_`, etc.
     // The resulting name is used for the python bindings.
-    [[nodiscard]] std::string ToPythonName(std::string_view name);
+    [[nodiscard]] std::string ToPythonName(std::string name);
 
     // If `name` matches a python keyword, tweaks it to not match. This is a subset of `ToPythonName()`.
     [[nodiscard]] std::string AdjustPythonKeywords(std::string name);
+
+    // Simplifies a type name by applying some heuristics. This is a subset of `ToPythonName()`.
+    [[nodiscard]] std::string ImproveTypeName(std::string str);
 
     // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
     [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
@@ -419,11 +422,6 @@ namespace MRBind::pb11
     struct IsUniquePtrToBuiltinType : std::false_type {};
     template <typename T>
     struct IsUniquePtrToBuiltinType<std::unique_ptr<T>> : IsPybindBuiltinType<T> {};
-
-    template <typename T, typename A>
-    struct IsStdAllocatorFor : std::false_type {};
-    template <typename T>
-    struct IsStdAllocatorFor<T, std::allocator<T>> : std::true_type {};
 
     // Removes cvref-qualifiers, pointers, smart pointers.
     template <typename T> struct StripToUnderlyingType {using type = T;};
@@ -1402,7 +1400,7 @@ namespace MRBind::pb11
         return name;
     }
 
-    std::string ToPythonName(std::string_view name)
+    std::string ToPythonName(std::string name)
     {
         // Read regex replacement rules from `MB_PB11_ADJUST_NAMES`.
         // This implements a tiny subset of `sed`: a `;`-separated list of `s/../../` or `s/../../g`, where the first `..` is the regex,
@@ -1463,11 +1461,11 @@ namespace MRBind::pb11
             return rules;
         }();
 
-        std::string adjusted_name(name);
         for (const Rule &rule : rules)
-            adjusted_name = std::regex_replace(adjusted_name, rule.regex, rule.replacement, rule.global ? std::regex_constants::format_default : std::regex_constants::format_first_only);
-        name = adjusted_name;
+            name = std::regex_replace(name, rule.regex, rule.replacement, rule.global ? std::regex_constants::format_default : std::regex_constants::format_first_only);
         #endif
+
+        name = ImproveTypeName(std::move(name));
 
         std::string ret;
         ret.reserve(name.size());
@@ -1833,6 +1831,411 @@ namespace MRBind::pb11
 
         return ret;
     }
+
+
+    // Type name simplification:
+
+    struct ForTemplateParametersStackEntry
+    {
+        char brace = '\0';
+        char *begin = nullptr;
+        char *ptr = nullptr;
+        bool erased_part = false;
+        std::size_t arg_stack_pos = 0;
+    };
+    struct ForTemplateParametersArgStackEntry
+    {
+        char *begin = nullptr;
+        char *end = nullptr;
+        char *trimmed_end = nullptr;
+    };
+
+    // This is used to edit identifiers, primarily to erase unwanted template parameters.
+    //
+    // There are following callbacks:
+    // * `push`     - `(char *begin, char *&end) -> void`
+    // * `pop`      - `() -> void`
+    // * `push_arg` - `(char *begin, char *&end) -> void`
+    // * `pop_arg`  - `(char *begin, char *&end) -> void`
+    //
+    // `push` is called when entering a template argument list, and receives the name of the template before the `<`.
+    // `pop` is called when exiting a template argument list.
+    // `push_arg` is called when seeing a template argument.
+    // `pop_arg` is called after seeing all template arguments in a list, in reverse for all arguments in the list.
+    //
+    // In other words, there's a stack of argument lists, and for each element a stack of arguments.
+    // When existing an argument list, all arguments in it are popped.
+    //
+    // At the end of the function, `push_arg` and `pop_arg` are always called with the whole string as input.
+    //
+    // Those callbacks can modify the input strings.
+    // Callbacks that receive end can decrease it to shrink the string.
+    // `pop_arg` has a special case: if you set `end = begin` it not only removes the argument,
+    //   but also removes one of the commas next ot it.
+    //
+    // The pointers you get remain stable until `pop` is called for the current parameter list.
+    void ForTemplateParameters(std::string &str, auto &&push, auto &&pop, auto &&push_arg, auto &&pop_arg)
+    {
+        // A placeholder character used to mark the erased parts of the string.
+        // You can temporarily change it to something printable to debug.
+        // The input string should never contain those.
+        constexpr char clobber_char = '?';
+
+        char *begin = str.data();
+        char *end = str.data() + str.size();
+
+        ForTemplateParametersStackEntry brace_stack[256];
+        std::size_t brace_stack_pos = 0;
+
+        ForTemplateParametersArgStackEntry arg_stack[256];
+        std::size_t arg_stack_pos = 0;
+
+        bool erased_part = false;
+
+        for (char *cur = begin; cur < end; cur++)
+        {
+            char ch = *cur;
+
+            if (brace_stack_pos > 0)
+            {
+                ForTemplateParametersStackEntry &entry = brace_stack[brace_stack_pos - 1];
+
+                auto InsertArg = [&](char *a, char *b)
+                {
+                    if (arg_stack_pos == std::size(arg_stack))
+                        CriticalError("ForTemplateParameters: Argument stack overflow.");
+
+                    arg_stack[arg_stack_pos].begin = a;
+
+                    // Backtrack to remove the erased suffix.
+                    while (b > a && b[-1] == clobber_char)
+                        b--;
+
+                    arg_stack[arg_stack_pos].end = b;
+
+                    // Skip trailing whitespace. MSVC seems to add it sometimes (e.g. in a map allocator, `std::pair<int const ,float>`).
+                    while (b > a && b[-1] == ' ')
+                        b--;
+
+                    push_arg(std::as_const(a), b);
+                    arg_stack[arg_stack_pos].trimmed_end = b;
+
+                    arg_stack_pos++;
+
+                };
+
+                if (ch == entry.brace)
+                {
+                    brace_stack_pos--;
+
+                    if (entry.brace == '>')
+                        InsertArg(entry.ptr, cur);
+
+                    // Reverse argument iteration.
+                    while (arg_stack_pos > entry.arg_stack_pos)
+                    {
+                        ForTemplateParametersArgStackEntry &arg = arg_stack[--arg_stack_pos];
+                        char *new_trimmed_end = arg.trimmed_end;
+                        pop_arg(arg.begin, new_trimmed_end);
+
+                        if (new_trimmed_end < arg.end)
+                        {
+                            entry.erased_part = true;
+
+                            // If we erased the whole argument...
+                            if (arg.begin == new_trimmed_end)
+                            {
+                                // Erase one of the commas, if possible.
+                                if (
+                                    // Try the leading comma:
+                                    // `,`
+                                    (arg.begin > begin && arg.begin[-1] == ',') ||
+                                    // `, `
+                                    (arg.begin > begin+1 && arg.begin[-1] == ' ' && arg.begin[-2] == ',')
+                                )
+                                {
+                                    if (arg.begin[-1] == ' ')
+                                        arg.begin--;
+                                    arg.begin--;
+                                }
+                                else
+                                {
+                                    // Try the trailing comma.
+                                    if (arg.end < end && *arg.end == ',')
+                                    {
+                                        arg.end++;
+                                        if (*arg.end == ' ')
+                                            arg.end++;
+                                    }
+                                }
+
+                                for (char *p = arg.begin; p < arg.end;)
+                                    *p++ = clobber_char;
+                            }
+                            else
+                            {
+                                for (char *p = new_trimmed_end; p < arg.end;)
+                                    *p++ = clobber_char;
+                            }
+                        }
+                    }
+
+                    char *segment_begin = brace_stack_pos == 0 ? begin : brace_stack[brace_stack_pos-1].ptr;
+                    char *segment_end = cur + 1;
+
+                    if (entry.erased_part)
+                    {
+                        segment_end = std::remove(segment_begin, segment_end, clobber_char);
+                        for (char *p = segment_end; p < cur + 1;)
+                            *p++ = clobber_char;
+
+                        if (brace_stack_pos == 0)
+                            erased_part = true;
+                        else
+                            brace_stack[brace_stack_pos-1].erased_part = true;
+                    }
+
+                    if (entry.brace == '>')
+                        pop();
+
+                    continue;
+                }
+
+                if (entry.brace == '>' && ch == ',')
+                {
+                    InsertArg(entry.ptr, cur);
+
+                    entry.ptr = cur + 1;
+
+                    if (entry.ptr < end && *entry.ptr == ' ')
+                        entry.ptr++; // Skip whitespace after `,` template argument separator.
+
+                    continue;
+                }
+            }
+
+            if (brace_stack_pos >= std::size(brace_stack))
+                CriticalError("ForTemplateParameters: Brace stack overflow.");
+
+            char ending_brace = 0;
+
+            if (ch == '(')
+                ending_brace = ')';
+            else if (ch == '{')
+                ending_brace = '}';
+            else if (ch == '[')
+                ending_brace = ']';
+            else if (ch == '<')
+                ending_brace = '>';
+
+            if (ending_brace)
+            {
+                if (ending_brace == '>')
+                {
+                    char *new_cur = cur;
+                    push(std::as_const(brace_stack_pos == 0 ? begin : brace_stack[brace_stack_pos-1].ptr), new_cur);
+                    if (new_cur < cur)
+                    {
+                        while (new_cur < cur)
+                            *new_cur++ = clobber_char;
+
+                        brace_stack[brace_stack_pos].erased_part = true;
+                    }
+                }
+
+                brace_stack[brace_stack_pos].brace = ending_brace;
+                brace_stack[brace_stack_pos].begin = cur + 1;
+                brace_stack[brace_stack_pos].ptr = cur + 1;
+                brace_stack[brace_stack_pos].arg_stack_pos = arg_stack_pos;
+                brace_stack_pos++;
+            }
+
+            // Quotes seem to never appear in the type strings. Even when constexpr strings are involved.
+        }
+
+        if (erased_part)
+            end = std::remove(begin, end, clobber_char);
+
+        push_arg(std::as_const(begin), end);
+        pop_arg(std::as_const(begin), end);
+
+        str.resize(end - begin);
+    }
+
+    // Simplifies a type name by applying some heuristics.
+    std::string ImproveTypeName(std::string str)
+    {
+        struct StackEntry
+        {
+            // Strip defaulted `char_traits`.
+            bool is_basic_string = false;
+            // Strip `std::less<T>`.
+            bool is_ordered_map_like = false;
+            // Strip `std::equal_to<T>`, `std::hash<T>`.
+            bool is_unordered_map_like = false;
+
+            // Same, but also strip some internal phmap stuff. This is for https://github.com/greg7mdp/parallel-hashmap
+            bool is_ordered_phmap_like = false;
+            bool is_unordered_phmap_like = false;
+
+            int arg_counter = 0;
+            std::string_view first_template_arg;
+            std::string_view second_template_arg;
+            bool can_erase_args = true;
+        };
+        StackEntry stack[256];
+        std::size_t pos = 0;
+
+        ForTemplateParameters(
+            str,
+            [&](char *begin, char *&end)
+            {
+                (void)begin;
+                (void)end;
+                if (pos == std::size(stack))
+                    CriticalError("ImproveTypeName: Brace stack overflow.");
+                std::string_view view(begin, end);
+                stack[pos] = {};
+                stack[pos].is_basic_string = view == "std::basic_string";
+                stack[pos].is_ordered_phmap_like = view.starts_with("phmap::") && view.find("btree_") != std::string_view::npos;
+                stack[pos].is_ordered_map_like =
+                    stack[pos].is_ordered_phmap_like ||
+                    view == "std::map" ||
+                    view == "std::set" ||
+                    view == "std::multimap" ||
+                    view == "std::multiset";
+                stack[pos].is_unordered_phmap_like = view.starts_with("phmap::") && view.find("_hash_") != std::string_view::npos;
+                stack[pos].is_unordered_map_like =
+                    stack[pos].is_unordered_phmap_like ||
+                    view == "std::unordered_map" ||
+                    view == "std::unordered_set" ||
+                    view == "std::unordered_multimap" ||
+                    view == "std::unordered_multiset";
+                pos++;
+            },
+            [&]()
+            {
+                pos--;
+            },
+            [&](char *begin, char *&end)
+            {
+                // Simplify some types:
+
+                auto ReplaceString = [&](std::string_view from, std::string_view to)
+                {
+                    if (to.size() > from.size())
+                        CriticalError("Can't make the string longer.");
+
+                    std::string_view view(begin, end);
+
+                    // If `view` is exactly `from` or starts with `from + ':'`...
+                    if (view.starts_with(from) && (view.size() == from.size() || view[from.size() == ':']))
+                    {
+                        std::copy(to.begin(), to.end(), begin);
+                        end = std::rotate(begin + to.size(), begin + from.size(), end);
+                        return true;
+                    }
+                    return false;
+                };
+
+                ReplaceString("std::basic_string<char>", "std::string") ||
+                ReplaceString("std::basic_string<wchar_t>", "std::wstring");
+
+                // Save the first template argument.
+
+                if (pos > 0)
+                {
+                    StackEntry &e = stack[pos-1];
+                    if (e.arg_counter == 0)
+                        e.first_template_arg = {begin, end};
+                    else if (e.arg_counter == 1)
+                        e.second_template_arg = {begin, end};
+                    e.arg_counter++;
+                }
+            },
+            [&](char *begin, char *&end)
+            {
+                if (pos > 0)
+                {
+                    StackEntry &e = stack[pos-1];
+                    e.arg_counter--;
+
+                    if (e.can_erase_args)
+                    {
+                        std::string_view view(begin, end);
+
+                        auto IsTraitsForFirstArg = [&](std::string_view name)
+                        {
+                            if (e.arg_counter == 0)
+                                return false;
+
+                            std::string_view arg = e.first_template_arg;
+                            std::string_view view_copy = view;
+
+                            if (!arg.empty() && view.size() == name.size() + 2 + arg.size() && view.starts_with(name) && view[name.size()] == '<' && view.back() == '>')
+                            {
+                                view_copy.remove_prefix(name.size() + 1);
+                                view_copy.remove_suffix(1);
+                                if (view_copy == arg)
+                                    return true;
+                            }
+
+                            return false;
+                        };
+
+                        if (
+                            IsTraitsForFirstArg("std::allocator") ||
+                            (e.is_basic_string && IsTraitsForFirstArg("std::char_traits")) ||
+                            (e.is_ordered_map_like && IsTraitsForFirstArg("std::less")) ||
+                            (e.is_unordered_map_like && IsTraitsForFirstArg("std::hash")) ||
+                            (e.is_unordered_map_like && IsTraitsForFirstArg("std::equal_to")) ||
+                            (e.is_unordered_phmap_like && view.starts_with("phmap::priv::")) ||
+                            (e.is_unordered_phmap_like && IsTraitsForFirstArg("phmap::Hash")) ||
+                            (e.is_unordered_phmap_like && IsTraitsForFirstArg("phmap::EqualTo")) ||
+                            (e.is_ordered_phmap_like && IsTraitsForFirstArg("phmap::Less"))
+                        )
+                        {
+                            end = begin;
+                            return;
+                        }
+
+                        { // Check for `std::allocator<T const, U>`.
+                            static constexpr std::string_view prefix = "std::allocator<std::pair<";
+                            if (e.arg_counter >= 2 && view.starts_with(prefix) && view.ends_with(">>"))
+                            {
+                                std::string_view view_copy = view;
+                                view_copy.remove_prefix(prefix.size());
+                                view_copy.remove_suffix(2);
+
+                                std::string_view arg1 = e.first_template_arg;
+                                std::string_view arg2 = e.second_template_arg;
+
+                                if (view_copy.starts_with(arg1) && view_copy.ends_with(arg2))
+                                {
+                                    view_copy.remove_prefix(arg1.size());
+                                    view_copy.remove_suffix(arg2.size());
+                                    if (view_copy.starts_with(" const,"))
+                                    {
+                                        view_copy.remove_prefix(7);
+                                        if (view_copy.empty() || view_copy == " ")
+                                        {
+                                            // Success!
+                                            end = begin;
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        e.can_erase_args = false;
+                    }
+                }
+            }
+        );
+
+        return str;
+    }
 }
 
 PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
@@ -1985,7 +2388,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         for (auto *elem : final_order)
         {
             auto ns = ApplyNamespaces(m, elem->second.cpp_type_name, true);
-            elem->second.pybind_type_name = ToPythonName(ns.name);
+            elem->second.pybind_type_name = ToPythonName(std::string(ns.name));
 
             // Register this class in the enclosing class or namespace, for the purposes of name lookup.
             // Also compute the qualified python-style name.
@@ -2073,8 +2476,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             if (iter == r.type_entries.end())
                 continue; // Don't know this target type, ignore it.
 
-            auto ns = ApplyNamespaces(m, spelling, true);
-            std::string python_unqual_name = ToPythonName(ns.name);
+            std::string spelling_fixed = ImproveTypeName(std::string(spelling));
+            auto ns = ApplyNamespaces(m, spelling_fixed, true);
+            std::string python_unqual_name = ToPythonName(std::string(ns.name));
 
             std::string python_qual_name;
             if (ns.most_nested_namespace)

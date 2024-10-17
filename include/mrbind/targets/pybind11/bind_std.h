@@ -209,19 +209,6 @@ struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
     : DefaultCustomTypeBinding<std::vector<T, A>>,
     RegisterTypeWithCustomBindingIfApplicable<T>
 {
-    [[nodiscard]] static std::string cpp_type_name()
-    {
-        if constexpr (IsStdAllocatorFor<T, A>::value)
-        {
-            // To avoid spelling the allocator. Can't rely on having a complete baked type either.
-            return std::string("std::vector<") + TypeidTypeName<T>() + ">";
-        }
-        else
-        {
-            return DefaultCustomTypeBinding<std::vector<T, A>>::cpp_type_name();
-        }
-    }
-
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
 
     // Make sure the element type is loaded first.
@@ -254,19 +241,6 @@ struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
     : DefaultCustomTypeBinding<std::map<T, U, Comp, A>>,
     RegisterTypeWithCustomBindingIfApplicable<T, U>
 {
-    [[nodiscard]] static std::string cpp_type_name()
-    {
-        if constexpr (IsStdAllocatorFor<T, A>::value)
-        {
-            // To avoid spelling the allocator. Can't rely on having a complete baked type either.
-            return std::string("std::map<") + TypeidTypeName<T>() + ", " + TypeidTypeName<U>() + ">";
-        }
-        else
-        {
-            return DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::cpp_type_name();
-        }
-    }
-
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
 
     // Make sure the element type is loaded first.
@@ -449,7 +423,7 @@ struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
             if (var.valueless_by_exception())
                 return "";
             else
-                return std::visit([]<typename T>(const T &){return pb11::ToPythonName(MRBind::TypeName<T>());}, var);
+                return std::visit([]<typename T>(const T &){return pb11::ToPythonName(std::string(MRBind::TypeName<T>()));}, var);
         };
 
         if constexpr ((std::default_initializable<P> && ...))
@@ -469,7 +443,7 @@ struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
 
         ([&]{
             // Allow getting `P...`.
-            c.def(("get_" + pb11::ToPythonName(MRBind::TypeName<P>())).c_str(), [](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
+            c.def(("get_" + pb11::ToPythonName(std::string(MRBind::TypeName<P>()))).c_str(), [](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
         }(), ...);
     }
 };

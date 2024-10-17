@@ -92,7 +92,7 @@ namespace MRBind::pb11
             std::string ret = "func<" + TypeidTypeName<R>();
             if constexpr (sizeof...(P) > 0)
             {
-                ret += ",from:";
+                ret += ",from";
                 (void)(void((ret += ',', ret += TypeidTypeName<P>())), ...);
             }
             ret += '>';
