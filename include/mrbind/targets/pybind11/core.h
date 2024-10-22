@@ -36,6 +36,7 @@
 #if MB_DEFINE_IMPLEMENTATION
 #include <exception> // For `std::terminate()`.
 #include <iostream> // To report errors.
+#include <mrbind/helpers/strings.h>
 #endif
 
 #ifdef MB_PB11_ADJUST_NAMES
@@ -88,6 +89,9 @@ namespace MRBind::pb11
     [[nodiscard]] std::string NamespaceMarkerToUnqualifiedName(std::type_index marker);
 
     [[nodiscard]] const std::set<std::string, std::less<>> &StrippedPythonNamespaces();
+
+    // This can be called manually to add a custom alias to `Registry::custom_aliases`.
+    void RegisterCustomAlias(std::string alias, std::string target);
 
     // ---
 
@@ -365,6 +369,9 @@ namespace MRBind::pb11
         std::map<std::string_view, std::type_index, std::less<>> top_level_types;
 
         std::vector<FuncEntry> func_entries;
+
+        // Those aliases are defined manually. Both strings are Python identifiers and can have embedded `.`s.
+        std::map<std::string, std::string, std::less<>> custom_aliases;
 
         bool was_loaded = false;
     };
@@ -1687,6 +1694,13 @@ namespace MRBind::pb11
         return ret;
     }
 
+    void RegisterCustomAlias(std::string alias, std::string target)
+    {
+        Registry &r = GetRegistry();
+        if (!r.custom_aliases.try_emplace(std::move(alias), std::move(target)).second)
+            CriticalError("Duplicate custom alias: `" + alias + "`."); // If this is reached, `alias` wasn't moved from, so we can safely print it.
+    }
+
 
     // `name` is a qualified name.
     // `scope` is `(std::string_view segment) -> bool`. It receives every qualifier in order, without `::`. Return false by default.
@@ -2240,6 +2254,7 @@ namespace MRBind::pb11
 
 PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 {
+    using namespace MRBind;
     using namespace MRBind::pb11;
 
     auto &r = GetRegistry();
@@ -2458,7 +2473,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         }
     }
 
-    { // Load the aliases.
+    { // Load the type aliases.
         std::unordered_set<std::string_view> nonalias_python_type_names;
         for (const auto &elem : r.type_entries)
         {
@@ -2500,7 +2515,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         }
     }
 
-    { // Generate class documentation. After loading aliases, because they're mentioned in it too.
+    { // Generate class documentation. After loading type aliases, because they're mentioned in it too.
         for (auto &[type, entry] : r.type_entries)
         {
             if (!entry.set_docstring)
@@ -2536,6 +2551,40 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
             if (!doc.empty())
                 entry.pybind_type->GetPybindObject().doc() = std::move(doc);
+        }
+    }
+
+    { // Load custom aliases.
+        auto FindPythonObject = [&](std::string_view name, const char **last_segment = nullptr) -> pybind11::handle
+        {
+            pybind11::handle ret = m;
+            split(name, ".", [&](std::string_view segment)
+            {
+                if (last_segment)
+                {
+                    bool is_last = segment.data() + segment.size() == name.data() + name.size();
+                    if (is_last)
+                    {
+                        *last_segment = segment.data();
+                        return true;
+                    }
+                }
+
+                ret = ret.attr(std::string(segment).c_str());
+                return false;
+            });
+            return ret;
+        };
+
+        for (const auto &[alias, target] : r.custom_aliases)
+        {
+            const char *alias_last = nullptr;
+            // Note that we're doing some juggling here with the last segment of the lhs.
+            // We can't convert the final `.attr()` call of the lhs to `pybind11::handle` because it forces the attribute to be resolved,
+            //   and trips on missing attributes (and the most nested lhs attribute will always be missing).
+            // We could make `FindPythonObject` return `pybind11::detail::str_attr_accessor` or something, but that didn't immediately work for me,
+            //   and also that helper class can dangle the string, so it's easier to do it this way.
+            FindPythonObject(alias, &alias_last).attr(alias_last) = FindPythonObject(target);
         }
     }
 }

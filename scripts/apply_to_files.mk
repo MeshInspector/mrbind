@@ -24,6 +24,8 @@ INPUT_FILES_WHITELIST := %
 # A list of .cpp files with additional bindings to generate.
 # Those are processed individually, so don't make too many of them.
 EXTRA_INPUT_SOURCES :=
+# Same, but those are compiled directly. The generator isn't invoked for those.
+EXTRA_GENERATED_SOURCES :=
 
 
 # Input file globs.
@@ -138,6 +140,16 @@ $(_object): $(_generated) | $(OUTPUT_DIR)
 	@$(COMPILER) $(call quote,$(_generated)) -c -o $(call quote,$(_object)) $(COMPILER_FLAGS)
 endef
 $(foreach s,$(EXTRA_INPUT_SOURCES),$(eval $(call extra_file_snippet,$s)))
+
+# Compile extra pre-generated files.
+override define extra_pregen_file_snippet =
+$(call var,_object := $(OUTPUT_DIR)/$(notdir $(1:.cpp=.o)))
+$(call var,object_files += $(_object))
+$(_object): $1 | $(OUTPUT_DIR)
+	@echo $(call quote,[Compiling] $1)
+	@$(COMPILER) $(call quote,$1) -c -o $(call quote,$(_object)) $(COMPILER_FLAGS)
+endef
+$(foreach s,$(EXTRA_GENERATED_SOURCES),$(eval $(call extra_pregen_file_snippet,$s)))
 
 # Link the binding.
 .DEFAULT_GOAL := build
