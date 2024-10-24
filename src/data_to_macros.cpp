@@ -46,6 +46,7 @@ namespace mrbind
             "#endif\n"
             "\n";
 
+        #if 0 // Currently we don't need the baked typenames for anything.
         { // Bake the type names.
             bool first = true;
 
@@ -164,6 +165,7 @@ namespace mrbind
             if (!first)
                 out << "#endif // MB_WANT_BAKED_TYPE_NAMES\n\n";
         }
+        #endif
 
         out << "MB_FILE\n\n";
 
