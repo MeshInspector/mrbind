@@ -432,6 +432,52 @@ namespace mrbind
         return true;
     }
 
+    // Returns true on success.
+    template <typename Visitor = std::nullptr_t>
+    bool TryInstantiateClass(clang::CompilerInstance &ci, clang::TagDecl *decl, clang::SourceLocation loc)
+    {
+        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
+        {
+            // Don't try to define if there's no body.
+            bool body_exists = bool(templ->getSpecializedTemplate()->getTemplatedDecl()->getDefinition());
+
+            // Important! Check that it wasn't already instantiated.
+            // Otherwise Clang will emit a runtime error.
+            if (body_exists && !decl->getDefinition())
+            {
+                ci.getSema().InstantiateClassTemplateSpecialization(loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
+                // if constexpr (!std::is_null_pointer_v<Visitor>)
+                //     vis->TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
+                return true;
+            }
+        }
+        else
+        {
+            // Alternative instantiation method, unsure when/if this is necessary.
+
+            if (!decl->isCompleteDefinition())
+            {
+                if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
+                {
+                    // This rejects non-templates.
+                    if (auto pat = cxxdecl->getTemplateInstantiationPattern())
+                    {
+                        // This rejects templates that are declared but not defined.
+                        if (pat->isCompleteDefinition())
+                        {
+                            ci.getSema().InstantiateClass(decl->getSourceRange().getBegin(), cxxdecl, pat, ci.getSema().getTemplateInstantiationArgs(cxxdecl), clang::TSK_ImplicitInstantiation);
+                            // if constexpr (!std::is_null_pointer_v<Visitor>)
+                            //     // How do I recurse here?
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     // The main visitor, generates most of our code.
     struct ClangAstVisitor : clang::RecursiveASTVisitor<ClangAstVisitor>
     {
@@ -638,20 +684,7 @@ namespace mrbind
                 return false; // Reject anonymous structs/unions.
 
             if (!decl->isCompleteDefinition())
-            {
-                if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
-                {
-                    // This rejects non-templates.
-                    if (auto pat = cxxdecl->getTemplateInstantiationPattern())
-                    {
-                        // This rejects templates that are declared but not defined.
-                        if (pat->isCompleteDefinition())
-                            ci->getSema().InstantiateClass(decl->getSourceRange().getBegin(), cxxdecl, pat, ci->getSema().getTemplateInstantiationArgs(cxxdecl), clang::TSK_ImplicitInstantiation);
-                    }
-                }
-                if (!decl->isCompleteDefinition())
-                    return false; // Reject forward declarations.
-            }
+                return false;
 
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return false; // Inaccessible type.
@@ -824,17 +857,7 @@ namespace mrbind
                 return true; // Inaccessible type.
 
             if (!decl->isCompleteDefinition())
-            {
-                // This rejects non-templates.
-                if (auto pat = decl->getTemplateInstantiationPattern())
-                {
-                    // This rejects templates that are declared but not defined.
-                    if (pat->isCompleteDefinition())
-                        ci->getSema().InstantiateEnum(decl->getSourceRange().getBegin(), decl, pat, ci->getSema().getTemplateInstantiationArgs(decl), clang::TSK_ImplicitInstantiation);
-                }
-                if (!decl->isCompleteDefinition())
-                    return true; // Reject enum declarations without the element list.
-            }
+                return false;
 
             EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().emplace<EnumEntity>();
 
@@ -920,9 +943,9 @@ namespace mrbind
     };
 
     // Instantiates templates referred to by typedefs.
-    struct ClangAstVisitorInstTypedefs : clang::RecursiveASTVisitor<ClangAstVisitorInstTypedefs>
+    struct ClangAstVisitorInstTypes : clang::RecursiveASTVisitor<ClangAstVisitorInstTypes>
     {
-        using Base = clang::RecursiveASTVisitor<ClangAstVisitorInstTypedefs>;
+        using Base = clang::RecursiveASTVisitor<ClangAstVisitorInstTypes>;
 
         clang::ASTContext *ctx = nullptr;
         clang::CompilerInstance *ci = nullptr;
@@ -931,11 +954,9 @@ namespace mrbind
 
         const VisitorParams *params = nullptr;
 
-        // All our programmatic explicit instantiations are duplicated here as manual instantiations.
-        // We need them because otherwise our friend declarations have nothing to refer to.
-        std::string explicit_instantiations;
+        bool instantiated_some = false;
 
-        ClangAstVisitorInstTypedefs(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
+        ClangAstVisitorInstTypes(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
             printing_policies(ctx.getPrintingPolicy()),
             params(&params)
@@ -958,22 +979,96 @@ namespace mrbind
 
             if (auto decl = type->getAsTagDecl())
             {
-                if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
-                {
-                    // Don't try to define if there's no body.
-                    bool body_exists = bool(templ->getSpecializedTemplate()->getTemplatedDecl()->getDefinition());
+                if (TryInstantiateClass(*ci, decl, d->getSourceRange().getBegin()))
+                    instantiated_some = true;
+            }
 
-                    // Important! Check that it wasn't already instantiated.
-                    // Otherwise Clang will emit a runtime error.
-                    if (body_exists && !decl->getDefinition())
+            return true;
+        }
+
+        bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
+        {
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+                return true;
+
+            if (!TypeLooksAccessible(*decl->getTypeForDecl()))
+                return true; // Inaccessible type.
+
+            if (!decl->isCompleteDefinition())
+            {
+                // This rejects non-templates.
+                if (auto pat = decl->getTemplateInstantiationPattern())
+                {
+                    // This rejects templates that are declared but not defined.
+                    if (pat->isCompleteDefinition())
                     {
-                        ci->getSema().InstantiateClassTemplateSpecialization(d->getSourceRange().getBegin(), templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
-                        TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
+                        ci->getSema().InstantiateEnum(decl->getSourceRange().getBegin(), decl, pat, ci->getSema().getTemplateInstantiationArgs(decl), clang::TSK_ImplicitInstantiation);
+                        instantiated_some = true;
                     }
                 }
             }
 
             return true;
+        }
+
+        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
+        bool ProcessRecord(clang::RecordDecl *decl)
+        {
+            params->nonrejected_class_stack.push_back(nullptr);
+
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+                return false;
+
+            if (decl->isAnonymousStructOrUnion())
+                return false; // Reject anonymous structs/unions.
+
+            if (TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
+                instantiated_some = true;
+
+            params->nonrejected_class_stack.back() = (ClassEntity *)sizeof(ClassEntity); // Push some non-zero pointer to allow boolean testing.
+
+            return true;
+        }
+
+        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
+        void FinishRecordEvenIfRejected(clang::RecordDecl *decl)
+        {
+            (void)decl;
+            params->nonrejected_class_stack.pop_back();
+        }
+
+        bool TraverseRecordDecl(clang::RecordDecl *decl) // CRTP override
+        {
+            bool ret = true;
+            if (ProcessRecord(decl))
+                ret = Base::TraverseRecordDecl(decl);
+            FinishRecordEvenIfRejected(decl);
+            return ret;
+        }
+
+        bool TraverseCXXRecordDecl(clang::CXXRecordDecl *decl) // CRTP override
+        {
+            // Unlike `Visit...`, `Traverse...` only handles exact matches, so we need this in addition to `TraverseRecordDecl()`
+            //   to process classes (including structs in C++ mode).
+
+            bool ret = true;
+            if (ProcessRecord(decl))
+                ret = Base::TraverseCXXRecordDecl(decl);
+            FinishRecordEvenIfRejected(decl);
+            return ret;
+        }
+
+        bool TraverseClassTemplateSpecializationDecl(clang::ClassTemplateSpecializationDecl *decl)
+        {
+            // Unlike `Visit...`, `Traverse...` only handles exact matches, so we need this in addition to `TraverseRecordDecl()`
+            //   to process class template specializations.
+            // There's also a `...PartialSpecializationDecl` version, which we don't care about.
+
+            bool ret = true;
+            if (ProcessRecord(decl))
+                ret = Base::TraverseClassTemplateSpecializationDecl(decl);
+            FinishRecordEvenIfRejected(decl);
+            return ret;
         }
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
@@ -1030,7 +1125,16 @@ namespace mrbind
             params->rejected_namespace_stack.push_back(params->blacklisted_entities.Contains("::"));
 
             // Instantiate templates referred to by typedefs.
-            ClangAstVisitorInstTypedefs(ctx, *ci, *params).TraverseDecl(ctx.getTranslationUnitDecl());
+            for (int i = 0;; i++)
+            {
+                if (i == 1000)
+                    throw std::runtime_error("Too many template instantiation loops.");
+
+                ClangAstVisitorInstTypes vis(ctx, *ci, *params);
+                vis.TraverseDecl(ctx.getTranslationUnitDecl());
+                if (!vis.instantiated_some)
+                    break;
+            }
 
             // Gather the bulk of the information.
 
