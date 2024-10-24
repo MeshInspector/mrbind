@@ -872,6 +872,12 @@ namespace MRBind::pb11
 
     // ---
 
+    // If this is specialized to true, fields with this type will be skipped in the bindings.
+    template <typename T>
+    struct IgnoreFieldType : std::false_type {};
+
+    // ---
+
     // MB_REGISTER_TYPE uses those:
 
     // Like `RegisterTypeWithCustomBindingIfApplicable<T>`, but also does nothing if `Enable` is false.
@@ -922,38 +928,39 @@ namespace MRBind::pb11
         // Pybind11 will try to assign from `const T &`.
         !pybind11::detail::is_copy_assignable<T>::value;
 
-    template <auto Getter>
+    template <auto Getter, typename T>
     void TryAddMemberVar(auto &c, const char *name, auto &&... data)
     {
-        // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
+        if constexpr (!IgnoreFieldType<T>::value)
+        {
+            using ClassType = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
 
-        using ClassType = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
+            std::string py_name = ToPythonName(name);
 
-        std::string py_name = ToPythonName(name);
-
-        using T = std::remove_reference_t<decltype(Getter(std::declval<ClassType &>()))>;
-
-        if constexpr (PropertyTypeIsConst<T>)
-            c.def_property_readonly(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
-        else
-            c.def_property(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
+            if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
+                c.def_property_readonly(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            else
+                c.def_property(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+        }
     }
 
-    template <auto Ptr>
+    template <auto Ptr, typename T>
     void TryAddMemberVarStatic(auto &c, const char *name, auto &&... data)
     {
-        // Interestingly, passing a lambda getter instead of a pointer to this function leads
-        // to weird linking errors (`relocation refers to a discarded section`, last tested on `clang++-18 -fclang-abi-compat=17` on Ubuntu 22.04,
-        // only happens in the entire MeshLib and not in test programs).
+        if constexpr (!IgnoreFieldType<T>::value)
+        {
+            // Interestingly, passing a lambda getter instead of a pointer to this function leads
+            // to weird linking errors (`relocation refers to a discarded section`, last tested on `clang++-18 -fclang-abi-compat=17` on Ubuntu 22.04,
+            // only happens in the entire MeshLib and not in test programs).
 
-        std::string py_name = ToPythonName(name);
+            std::string py_name = ToPythonName(name);
 
-        using T = std::remove_reference_t<decltype(*Ptr)>;
-
-        if constexpr (PropertyTypeIsConst<T>)
-            c.def_readonly_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
-        else
-            c.def_readwrite_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
+                c.def_readonly_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+            else
+                c.def_readwrite_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+        }
     }
 
     enum class FuncKind
@@ -2856,7 +2863,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     if (_pb11_state.pass_number == 0) \
     MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
         /* Accessor lambda or pointer. */\
-        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_)\
+        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_),\
+        /* Type. */\
+        MRBIND_IDENTITY type_ \
     >(\
         _pb11_c,\
         /* Name. */\

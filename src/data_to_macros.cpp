@@ -331,7 +331,7 @@ namespace mrbind
                                         out
                                             << "    (field, "
                                             << (field.is_static ? "static" : "/*non-static*/") << ", "
-                                            << "(" << field.type.pretty << "), "
+                                            << "(" << field.type.canonical << "), " // Pretty types can lack some qualifiers here.
                                             << field.name << ", "
                                             << "(" << field.full_name << "), "
                                             << (field.comment ? EscapeQuoteString(*field.comment) : "/*no comment*/")
