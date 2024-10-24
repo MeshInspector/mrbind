@@ -966,7 +966,10 @@ namespace mrbind
                     // Important! Check that it wasn't already instantiated.
                     // Otherwise Clang will emit a runtime error.
                     if (body_exists && !decl->getDefinition())
+                    {
                         ci->getSema().InstantiateClassTemplateSpecialization(d->getSourceRange().getBegin(), templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
+                        TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
+                    }
                 }
             }
 
