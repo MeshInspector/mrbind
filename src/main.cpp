@@ -217,43 +217,51 @@ namespace mrbind
         return true;
     }
 
+    [[nodiscard]] bool HasIgnoreAttribute(const clang::Decl &decl)
+    {
+        for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
+        {
+            if (attr->getAnnotation() == "mrbind::ignore")
+                return true; // Ignore declarations with attribute `annotate("mrbind::ignore")`.
+        }
+        return false;
+    }
+
     // Whether we should skip this declaration when traversing the AST.
     // Includes some non-contentious stuff like rejecting header contents, template declarations there weren't instantiated yet, function-local declarations.
     // `params` is optional.
     [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::NamedDecl &decl, const VisitorParams *params, const PrintingPolicies &printing_policies)
     {
+        (void)ctx;
+
         if (decl.isTemplated())
             return true; // This is a template, reject. Specific specializations will be given to us separately.
 
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
 
-        for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
+        if (HasIgnoreAttribute(decl))
+            return true; // Ignore declarations with attribute `annotate("mrbind::ignore")`.
+
+        std::string name;
+        llvm::raw_string_ostream ss(name);
+        decl.printQualifiedName(ss);
+        std::string name_without_template_args = name;
+        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
+            clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
+        else if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(&decl))
+            clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
+        // If you're wondering, no, enums can't be templated, so they're not mentioned here.
+        else if (auto templ = llvm::dyn_cast<clang::FunctionDecl>(&decl))
         {
-            if (attr->getAnnotation() == "mrbind::ignore")
-                return true; // Ignore declarations with attribute `annotate("mrbind::ignore")`.
+            if (auto args = templ->getTemplateSpecializationArgs())
+                clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, templ->getPrimaryTemplate()->getTemplateParameters());
         }
 
-        { // Make sure the name doesn't contain unspellable stuff, such as lambda types.
-            std::string name;
-            llvm::raw_string_ostream ss(name);
-            decl.printQualifiedName(ss);
-            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
-                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
-            else if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(&decl))
-                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
-            // If you're wondering, no, enums can't be templated, so they're not mentioned here.
-            else if (auto templ = llvm::dyn_cast<clang::FunctionDecl>(&decl))
-            {
-                if (auto args = templ->getTemplateSpecializationArgs())
-                    clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, templ->getPrimaryTemplate()->getTemplateParameters());
-            }
+        // Make sure the name doesn't contain unspellable stuff, such as lambda types.
+        if (!NameSpellingIsLegal(name))
+            return true;
 
-            if (!NameSpellingIsLegal(name))
-                return true;
-        }
-
-        (void)ctx;
         // if (auto t = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl); t && ctx.getFullLoc(t->getPointOfInstantiation()).getFileID() == ctx.getSourceManager().getMainFileID())
         //     ; // This is instantiated in the main file, accept it.
         // else if (ctx.getFullLoc(decl.getBeginLoc()).getFileID() != ctx.getSourceManager().getMainFileID())
@@ -262,14 +270,11 @@ namespace mrbind
         // Check against the name blacklist.
         if (params)
         {
-            std::string qual_name_without_template_args;
-            llvm::raw_string_ostream ss(qual_name_without_template_args);
-            decl.printQualifiedName(ss);
-
-            if (params->blacklisted_entities.Contains(qual_name_without_template_args))
+            // Check the name both with and without template arguments.
+            if (params->blacklisted_entities.Contains(name_without_template_args) || params->blacklisted_entities.Contains(name))
                 return true; // This entity is blacklisted.
 
-            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.Contains(qual_name_without_template_args))
+            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.Contains(name_without_template_args) && !params->whitelisted_entities.Contains(name))
                 return true; // This entity is blacklisted because its enclosing entity is blacklisted, and it itself is not whitelisted.
         }
 
@@ -702,6 +707,9 @@ namespace mrbind
                     if (var->getAccess() != clang::AS_public)
                         continue; // Reject non-public members.
 
+                    if (HasIgnoreAttribute(*var))
+                        continue; // Reject disabled members.
+
                     std::string full_name(var->getName());
                     // Add template arguments for variable templates to the name.
                     if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(var))
@@ -730,6 +738,9 @@ namespace mrbind
 
                 if (field->getAccess() != clang::AS_public)
                     continue; // Reject non-public fields.
+
+                if (HasIgnoreAttribute(*field))
+                    continue; // Reject disabled fields.
 
                 ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
                 new_field.comment = GetCommentString(*ctx, *field);
