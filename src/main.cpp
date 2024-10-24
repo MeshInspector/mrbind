@@ -815,16 +815,26 @@ namespace mrbind
             return ret;
         }
 
-        bool VisitEnumDecl(const clang::EnumDecl *decl) // CRTP override
+        bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
-            if (!decl->isCompleteDefinition())
-                return true; // Reject enum declarations without the element list.
-
             if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
                 return true;
 
             if (!TypeLooksAccessible(*decl->getTypeForDecl()))
                 return true; // Inaccessible type.
+
+            if (!decl->isCompleteDefinition())
+            {
+                // This rejects non-templates.
+                if (auto pat = decl->getTemplateInstantiationPattern())
+                {
+                    // This rejects templates that are declared but not defined.
+                    if (pat->isCompleteDefinition())
+                        ci->getSema().InstantiateEnum(decl->getSourceRange().getBegin(), decl, pat, ci->getSema().getTemplateInstantiationArgs(decl), clang::TSK_ImplicitInstantiation);
+                }
+                if (!decl->isCompleteDefinition())
+                    return true; // Reject enum declarations without the element list.
+            }
 
             EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().emplace<EnumEntity>();
 
