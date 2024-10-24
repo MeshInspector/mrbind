@@ -848,13 +848,13 @@ namespace MRBind::pb11
 
     // ---
 
+    // If this is specialized to true, functions with this return type will be skipped in the bindings.
+    template <typename T>
+    struct IgnoreFuncsWithReturnType : std::false_type {};
+
     // Whether having a parameter of type `T` should exclude the whole function from the binding.
     template <typename T>
     concept ParamTypeDisablesWholeFunction = requires{typename ParamTraitsLow<T>::disables_func;};
-
-    // Whether having the return type `T` should exclude the whole function from the binding.
-    template <typename T>
-    concept ReturnTypeDisablesWholeFunction = requires{typename ReturnTypeTraits<T>::disables_func;};
 
     // ---
 
@@ -874,7 +874,7 @@ namespace MRBind::pb11
 
     // If this is specialized to true, fields with this type will be skipped in the bindings.
     template <typename T>
-    struct IgnoreFieldType : std::false_type {};
+    struct IgnoreFieldsWithType : std::false_type {};
 
     // ---
 
@@ -931,7 +931,7 @@ namespace MRBind::pb11
     template <auto Getter, typename T>
     void TryAddMemberVar(auto &c, const char *name, auto &&... data)
     {
-        if constexpr (!IgnoreFieldType<T>::value)
+        if constexpr (!IgnoreFieldsWithType<T>::value)
         {
             using ClassType = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
 
@@ -948,7 +948,7 @@ namespace MRBind::pb11
     template <auto Ptr, typename T>
     void TryAddMemberVarStatic(auto &c, const char *name, auto &&... data)
     {
-        if constexpr (!IgnoreFieldType<T>::value)
+        if constexpr (!IgnoreFieldsWithType<T>::value)
         {
             // Interestingly, passing a lambda getter instead of a pointer to this function leads
             // to weird linking errors (`relocation refers to a discarded section`, last tested on `clang++-18 -fclang-abi-compat=17` on Ubuntu 22.04,
@@ -1001,7 +1001,7 @@ namespace MRBind::pb11
         {
             using ReturnType = std::invoke_result_t<decltype(F), DecayToTrueParamType<P> &&...>; // `DecayToTrueParamType` is not adjusted.
 
-            if constexpr (!ReturnTypeDisablesWholeFunction<ReturnType>)
+            if constexpr (!IgnoreFuncsWithReturnType<ReturnType>::value)
             {
                 using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
