@@ -848,7 +848,7 @@ namespace MRBind::pb11
 
     // ---
 
-    // If this is specialized to true, functions with this return type will be skipped in the bindings.
+    // If this is specialized to true, functions with this return type (as determined BEFORE adjustement) will be skipped in the bindings.
     template <typename T>
     struct IgnoreFuncsWithReturnType : std::false_type {};
 
@@ -878,24 +878,17 @@ namespace MRBind::pb11
 
     // ---
 
-    // MB_REGISTER_TYPE uses those:
+    // MB_REGISTER_TYPE_... use those:
 
-    // Like `RegisterTypeWithCustomBindingIfApplicable<T>`, but also does nothing if `Enable` is false.
     template <typename T>
-    struct RegisterOneTypeWithCustomBindingAndAdjustments {};
+    struct RegisterReturnType {};
+    template <typename T> requires (!IgnoreFuncsWithReturnType<T>::value)
+    struct RegisterReturnType<T> : RegisterOneTypeWithCustomBindingIfApplicable<typename AdjustReturnType<T>::type> {};
+
     template <typename T>
-        // Only accept complete types, because otherwise some traits in `AdjustedParamType` below (and maybe somewhere else) blow up.
-        // We could guard them specifically, but I believe doing this here is enough.
-        requires (sizeof(T) > 0)
-    struct RegisterOneTypeWithCustomBindingAndAdjustments<T>
-        : RegisterTypeWithCustomBindingIfApplicable<
-            T,
-            // Also register return and parameter wrappers.
-            // Could make this conditional to speed up compilation, but it's probably not worth it (export
-            typename AdjustReturnType<T>::type,
-            AdjustedParamType<T>
-        >
-    {};
+    struct RegisterParamType {};
+    template <typename T> requires (!ParamTypeDisablesWholeFunction<DecayToTrueParamType<T>>)
+    struct RegisterParamType<T> : RegisterOneTypeWithCustomBindingIfApplicable<AdjustedParamType<T>> {};
 
     // ---
 
@@ -2948,9 +2941,16 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     );
 
 #define MB_REGISTER_TYPE(i_, ...) \
-    (void)MRBind::pb11::RegisterOneTypeWithCustomBindingAndAdjustments<std::remove_cvref_t<__VA_ARGS__>>{}; \
     /* Just in case, register identity spelling. */\
     MB_ALT_TYPE_SPELLING(i_, (__VA_ARGS__), (__VA_ARGS__));
+
+#define MB_REGISTER_TYPE_RETURNED(i_, ...) (void)MRBind::pb11::RegisterReturnType<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_PARAM(i_, ...)    (void)MRBind::pb11::RegisterParamType<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_PARSED(i_, ...)   (void)MRBind::pb11::RegisterOneTypeWithCustomBindingIfApplicable<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_BASE(i_, ...)                  MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, ...) MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, ...)    MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, ...)        MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
 
 #define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
     MRBind::pb11::RegisterTypeAlias<MRBIND_IDENTITY type_>(MRBIND_STR(MRBIND_IDENTITY spelling_));

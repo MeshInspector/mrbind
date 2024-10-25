@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mrbind/helpers/enum_flag_ops.h"
+
 #include <cstdint>
 #include <memory>
 #include <optional>
@@ -245,6 +247,35 @@ namespace mrbind
         Entity &operator=(Entity &&other) {variant = std::make_unique<EntityVariant>(std::move(*other.variant)); return *this;}
     };
 
+    enum class TypeUses
+    {
+        // Some function returns this.
+        returned = 1 << 0,
+        // Some function uses this as a parameter.
+        parameter = 1 << 1,
+        // This is a parsed class or enum.
+        parsed = 1 << 2,
+        // This is a base class.
+        base = 1 << 3,
+        // This is a non-static data member.
+        nonstatic_data_member = 1 << 4,
+        // This is a static data member.
+        static_data_member = 1 << 5,
+        // Some typedef refers to this type.
+        typedef_target = 1 << 6,
+
+        _valid_bits [[maybe_unused]] = (1 << 7) - 1,
+    };
+    MRBIND_FLAG_OPERATORS(TypeUses)
+
+    struct TypeInformation
+    {
+        TypeUses uses{};
+
+        // Alternative names for this type.
+        std::unordered_set<std::string> alt_spellings;
+    };
+
     // ---
 
     struct ParsedFile
@@ -270,7 +301,9 @@ namespace mrbind
         // The contents of this file.
         EntityContainer entities;
 
-        // Maps the known types to lists of alternativespellings we've seen for them.
-        std::unordered_map<std::string, std::unordered_set<std::string>> alt_type_spellings;
+        // ---
+
+        // Information about the types.
+        std::unordered_map<std::string, TypeInformation> type_info;
     };
 }

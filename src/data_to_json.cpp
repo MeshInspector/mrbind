@@ -557,6 +557,46 @@ namespace mrbind
                 std::visit([&](const auto &elem){json.WriteValueLow(elem);}, *value.variant);
             }
         };
+
+        template <>
+        struct WriteToJsonTraits<TypeUses>
+        {
+            void operator()(JsonWriter &json, const TypeUses &value)
+            {
+                json.BeginArray();
+                for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits); bit <<= 1)
+                {
+                    if (bool(bit & value))
+                    {
+                        const char *kind = nullptr;
+                        switch (bit)
+                        {
+                            case TypeUses::returned:              kind = "returned"; break;
+                            case TypeUses::parameter:             kind = "parameter"; break;
+                            case TypeUses::parsed:                kind = "parsed"; break;
+                            case TypeUses::base:                  kind = "base"; break;
+                            case TypeUses::nonstatic_data_member: kind = "nonstatic_data_member"; break;
+                            case TypeUses::static_data_member:    kind = "static_data_member"; break;
+                            case TypeUses::typedef_target:        kind = "typedef_target"; break;
+                        }
+                        json.WriteElem(kind);
+                    }
+                }
+                json.EndArray();
+            }
+        };
+
+        template <>
+        struct WriteToJsonTraits<TypeInformation>
+        {
+            void operator()(JsonWriter &json, const TypeInformation &value)
+            {
+                json.BeginObject();
+                json.WriteField("uses", value.uses);
+                json.WriteField("alt_spellings", value.alt_spellings);
+                json.EndObject();
+            }
+        };
     }
 
     void ParsedFileToJson(const ParsedFile &file, llvm::raw_ostream &out)
@@ -583,9 +623,9 @@ namespace mrbind
         json.EndArray();
         json.EndField();
 
-        json.BeginField("alt_type_spellings");
+        json.BeginField("type_info");
         json.BeginObject();
-        for (const auto &type : file.alt_type_spellings)
+        for (const auto &type : file.type_info)
             json.WriteField(type.first, type.second);
         json.EndObject();
         json.EndField();

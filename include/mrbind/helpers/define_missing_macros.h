@@ -137,6 +137,28 @@
 #ifndef MB_REGISTER_TYPE
 #define MB_REGISTER_TYPE(i_, ...)
 #endif
+// This is additionally called to indicate every known use case of the type.
+#ifndef MB_REGISTER_TYPE_RETURNED
+#define MB_REGISTER_TYPE_RETURNED(i_, ...)
+#endif
+#ifndef MB_REGISTER_TYPE_PARAM
+#define MB_REGISTER_TYPE_PARAM(i_, ...)
+#endif
+#ifndef MB_REGISTER_TYPE_PARSED
+#define MB_REGISTER_TYPE_PARSED(i_, ...)
+#endif
+#ifndef MB_REGISTER_TYPE_BASE
+#define MB_REGISTER_TYPE_BASE(i_, ...)
+#endif
+#ifndef MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER
+#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, ...)
+#endif
+#ifndef MB_REGISTER_TYPE_STATIC_DATA_MEMBER
+#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, ...)
+#endif
+#ifndef MB_REGISTER_TYPE_TYPEDEF_TARGET
+#define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, ...)
+#endif
 
 // Specifies an alternative type spelling `spelling_` for `type_`. Both are parenthesized.
 // `i_` is the counter for multiplexing binding fragments.

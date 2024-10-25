@@ -4,6 +4,7 @@
 #include "string_manip.h"
 
 #include <unordered_set>
+#include <utility>
 
 namespace mrbind
 {
@@ -439,15 +440,36 @@ namespace mrbind
                 lambda(lambda, e);
 
             // Dump type spellings.
-            if (!file.alt_type_spellings.empty())
+            if (!file.type_info.empty())
             {
                 out << "\n";
-                for (const auto &type : file.alt_type_spellings)
+                for (const auto &type : file.type_info)
                 {
                     BeginMultiplexBlock(true);
 
                     out << "MB_REGISTER_TYPE(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
-                    for (const auto &spelling : type.second)
+
+                    for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits); bit <<= 1)
+                    {
+                        if (bool(bit & type.second.uses))
+                        {
+                            const char *kind = nullptr;
+                            switch (bit)
+                            {
+                                case TypeUses::returned:              kind = "RETURNED"; break;
+                                case TypeUses::parameter:             kind = "PARAM"; break;
+                                case TypeUses::parsed:                kind = "PARSED"; break;
+                                case TypeUses::base:                  kind = "BASE"; break;
+                                case TypeUses::nonstatic_data_member: kind = "NONSTATIC_DATA_MEMBER"; break;
+                                case TypeUses::static_data_member:    kind = "STATIC_DATA_MEMBER"; break;
+                                case TypeUses::typedef_target:        kind = "TYPEDEF_TARGET"; break;
+                            }
+
+                            out << "MB_REGISTER_TYPE_" << kind << "(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
+                        }
+                    }
+
+                    for (const auto &spelling : type.second.alt_spellings)
                     {
                         out << "MB_ALT_TYPE_SPELLING("
                             << (multiplex_counter - 1) << ", "

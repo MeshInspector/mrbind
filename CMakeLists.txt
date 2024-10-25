@@ -9,7 +9,7 @@ add_executable(mrbind
     src/multiplex_data.cpp
     src/string_manip.cpp
 )
-set_property(TARGET mrbind PROPERTY CXX_STANDARD 20)
+set_property(TARGET mrbind PROPERTY CXX_STANDARD 23)
 set_property(TARGET mrbind PROPERTY CXX_EXTENSIONS off)
 
 if(NOT MSVC)
@@ -19,6 +19,8 @@ endif()
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_compile_options(mrbind PRIVATE -fstandalone-debug)
 endif()
+
+target_include_directories(mrbind PUBLIC include)
 
 find_package(Clang REQUIRED)
 

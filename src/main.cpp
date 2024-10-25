@@ -497,20 +497,22 @@ namespace mrbind
             return type.getCanonicalType().getAsString(printing_policies.normal);
         }
 
-        void RegisterTypeSpelling(const std::string &canonical, const std::string &pretty)
+        void RegisterTypeSpelling(const std::string &canonical, const std::string &pretty, TypeUses reason)
         {
-            params->parsed_result.alt_type_spellings[canonical].insert(pretty);
+            TypeInformation &info = params->parsed_result.type_info[canonical];
+            info.alt_spellings.insert(pretty);
+            info.uses |= reason;
         }
 
         // Returns the string representations of a type.
         // Also registers a type alias if we haven't seen this spelling before.
-        [[nodiscard]] Type GetTypeStrings(const clang::QualType &type)
+        [[nodiscard]] Type GetTypeStrings(const clang::QualType &type, TypeUses reason)
         {
             Type ret;
             ret.pretty = type.getAsString(printing_policies.normal);
             ret.canonical = GetCanonicalTypeName(type);
 
-            RegisterTypeSpelling(ret.canonical, ret.pretty);
+            RegisterTypeSpelling(ret.canonical, ret.pretty, reason);
 
             return ret;
         }
@@ -522,7 +524,7 @@ namespace mrbind
             {
                 FuncParam &new_param = ret.emplace_back();
                 new_param.name = p->getName();
-                new_param.type = GetTypeStrings(p->getType());
+                new_param.type = GetTypeStrings(p->getType(), TypeUses::parameter);
                 new_param.default_argument = GetDefaultArgumentString(*p, printing_policies.normal);
             }
             return ret;
@@ -640,7 +642,7 @@ namespace mrbind
                     if (method->getReturnType()->isUndeducedAutoType())
                         ci->getSema().InstantiateFunctionDefinition(method->getBeginLoc(), method);
 
-                    basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType());
+                    basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType(), TypeUses::returned);
                 }
 
                 basic_func->comment = GetCommentString(*ctx, *method);
@@ -665,7 +667,7 @@ namespace mrbind
 
             new_func.name = decl->getDeclName().getAsString();
             new_func.simple_name = GetAdjustedFuncName(*decl);
-            new_func.return_type = GetTypeStrings(decl->getReturnType());
+            new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
             new_func.comment = GetCommentString(*ctx, *decl);
             new_func.params = GetFuncParams(*decl);
 
@@ -705,7 +707,7 @@ namespace mrbind
             new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
 
             // Register the class type, just in case. AFTER `setTypeAsWritten()`.
-            (void)GetTypeStrings(ctx->getRecordType(decl));
+            (void)GetTypeStrings(ctx->getRecordType(decl), TypeUses::parsed);
 
             auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl);
 
@@ -726,7 +728,7 @@ namespace mrbind
                     }
 
                     ClassBase &new_base = new_class.bases.emplace_back();
-                    new_base.type = GetTypeStrings(base.getType());
+                    new_base.type = GetTypeStrings(base.getType(), TypeUses::base);
                     new_base.is_virtual = base.isVirtual();
                 }
             }
@@ -759,7 +761,7 @@ namespace mrbind
                     new_field.is_static = true;
                     new_field.name = var->getName();
                     new_field.full_name = std::move(full_name);
-                    new_field.type = GetTypeStrings(var->getType());
+                    new_field.type = GetTypeStrings(var->getType(), TypeUses::static_data_member);
                 }
             }
 
@@ -780,7 +782,7 @@ namespace mrbind
                 new_field.is_static = false;
                 new_field.name = field->getName();
                 new_field.full_name = field->getName();
-                new_field.type = GetTypeStrings(field->getType());
+                new_field.type = GetTypeStrings(field->getType(), TypeUses::nonstatic_data_member);
             }
 
             // -- Constructors and methods.
@@ -861,6 +863,9 @@ namespace mrbind
 
             EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().emplace<EnumEntity>();
 
+            // Register the type, just in case.
+            (void)GetTypeStrings(ctx->getEnumType(decl), TypeUses::parsed);
+
             new_enum.name = decl->getName();
             new_enum.is_scoped = decl->isScoped();
             new_enum.comment = GetCommentString(*ctx, *decl);
@@ -910,8 +915,8 @@ namespace mrbind
             new_typedef.name = decl->getName();
             new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
             new_typedef.comment = GetCommentString(*ctx, *decl);
-            new_typedef.type = GetTypeStrings(decl->getUnderlyingType());
-            RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name);
+            new_typedef.type = GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target);
+            RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name, TypeUses::typedef_target);
 
             return true;
         }
@@ -1145,8 +1150,8 @@ namespace mrbind
 
             { // Remove identities from "alt type spellings".
                 // We intentionally don't remove the empty lists after erasure, because we use this map to know all types we need to bind.
-                for (auto &[type, spellings] : params->parsed_result.alt_type_spellings)
-                    spellings.erase(type);
+                for (auto &[type, info] : params->parsed_result.type_info)
+                    info.alt_spellings.erase(type);
             }
 
 
