@@ -890,6 +890,9 @@ namespace MRBind::pb11
     template <typename T> requires (!ParamTypeDisablesWholeFunction<DecayToTrueParamType<T>>)
     struct RegisterParamType<T> : RegisterOneTypeWithCustomBindingIfApplicable<AdjustedParamType<T>> {};
 
+    template <typename T>
+    struct RegisterFieldType : RegisterReturnType<const T &>, RegisterParamType<const T &> {};
+
     // ---
 
     template <typename T>
@@ -921,10 +924,57 @@ namespace MRBind::pb11
         // Pybind11 will try to assign from `const T &`.
         !pybind11::detail::is_copy_assignable<T>::value;
 
+    // Whether we can bind fields of type `T`.
+    template <typename T>
+    concept IsValidFieldType = \
+        !IgnoreFieldsWithType<T>::value && \
+        !IgnoreFuncsWithReturnType<const T &>::value && \
+        !ParamTypeDisablesWholeFunction<const T &> &&
+        !std::is_void_v<typename AdjustReturnType<const T &>::type>;
+
+    namespace MemberVarDetails
+    {
+        template <typename ClassType, typename T, auto GetterFunc>
+        struct Getter
+        {
+            decltype(auto) operator()(const ClassType &o) const
+            {
+                return (AdjustReturnedValue<const T &>)(GetterFunc(const_cast<ClassType &>(o)));
+            }
+        };
+
+        template <typename T, auto Ptr>
+        struct GetterStatic
+        {
+            decltype(auto) operator()(const pybind11::object &) const
+            {
+                return (AdjustReturnedValue<const T &>)(*Ptr);
+            }
+        };
+
+        template <typename ClassType, typename T, auto GetterFunc>
+        struct Setter
+        {
+            decltype(auto) operator()(ClassType &obj, AdjustedParamType<const T &> value) const
+            {
+                GetterFunc(obj) = (UnadjustParam<const T &>)(std::forward<AdjustedParamType<const T &>>(value));
+            }
+        };
+
+        template <typename T, auto Ptr>
+        struct SetterStatic
+        {
+            decltype(auto) operator()(const pybind11::object &, AdjustedParamType<const T &> value) const
+            {
+                *Ptr = (UnadjustParam<const T &>)(std::forward<AdjustedParamType<const T &>>(value));
+            }
+        };
+    }
+
     template <auto Getter, typename T>
     void TryAddMemberVar(auto &c, const char *name, auto &&... data)
     {
-        if constexpr (!IgnoreFieldsWithType<T>::value)
+        if constexpr (IsValidFieldType<T>)
         {
             using ClassType = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
 
@@ -932,16 +982,16 @@ namespace MRBind::pb11
 
             // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
             if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
-                c.def_property_readonly(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_readonly(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>{}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_property(py_name.c_str(), [](const ClassType &o) -> const auto & {return Getter(const_cast<ClassType &>(o));}, [](ClassType &obj, const T &value){Getter(obj) = value;}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>{}, MemberVarDetails::Setter<ClassType, T, Getter>{}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
     }
 
     template <auto Ptr, typename T>
     void TryAddMemberVarStatic(auto &c, const char *name, auto &&... data)
     {
-        if constexpr (!IgnoreFieldsWithType<T>::value)
+        if constexpr (IsValidFieldType<T>)
         {
             // Interestingly, passing a lambda getter instead of a pointer to this function leads
             // to weird linking errors (`relocation refers to a discarded section`, last tested on `clang++-18 -fclang-abi-compat=17` on Ubuntu 22.04,
@@ -950,9 +1000,9 @@ namespace MRBind::pb11
             std::string py_name = ToPythonName(name);
 
             if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
-                c.def_readonly_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_readonly_static(py_name.c_str(), MemberVarDetails::GetterStatic<T, Ptr>{}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_readwrite_static(py_name.c_str(), Ptr, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_static(py_name.c_str(), MemberVarDetails::GetterStatic<T, Ptr>{}, MemberVarDetails::SetterStatic<T, Ptr>{}, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
     }
 
@@ -2948,8 +2998,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 #define MB_REGISTER_TYPE_PARAM(i_, ...)    (void)MRBind::pb11::RegisterParamType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_PARSED(i_, ...)   (void)MRBind::pb11::RegisterOneTypeWithCustomBindingIfApplicable<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_BASE(i_, ...)                  MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
-#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, ...) MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
-#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, ...)    MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, ...) (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, ...)    (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, ...)        MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
 
 #define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
