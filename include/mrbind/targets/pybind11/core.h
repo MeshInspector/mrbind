@@ -88,6 +88,8 @@ namespace MRBind::pb11
     // Converts the typeid of a `NsMarker<...::_pb11_ns_marker>` to the unqualified name of the namespace.
     [[nodiscard]] std::string NamespaceMarkerToUnqualifiedName(std::type_index marker);
 
+    // Which Python namespaces should be "stripped", i.e. their contents pasted directly into the module.
+    // This is customized via the `MB_PB11_STRIPPED_NAMESPACES` macro (see the definition of this function for details).
     [[nodiscard]] const std::set<std::string, std::less<>> &StrippedPythonNamespaces();
 
     // This can be called manually to add a custom alias to `Registry::custom_aliases`.
@@ -118,10 +120,7 @@ namespace MRBind::pb11
     template <typename T>
     [[nodiscard]] std::string TypeidTypeName()
     {
-        if constexpr (std::is_same_v<T, std::string>)
-            return "std::string";
-        else
-            return Demangler{}(typeid(T).name());
+        return Demangler{}(typeid(T).name());
     }
 
     // ---
@@ -392,7 +391,8 @@ namespace MRBind::pb11
         NamespaceEntry *most_nested_namespace = nullptr;
         TypeEntry *most_nested_class = nullptr; // This can be non-null only if `enter_classes == true`.
     };
-    // Removes namespace qualifiers. Returns the namespace/class that they refer to (or the module itself if none), and the remaining unqualified name.
+    // Removes C++ namespace qualifiers. Returns the namespace/class that they refer to (or the module itself if none),
+    // and the remaining (hopefully unqualified) name.
     // If `enter_classes == false`, will only enter namespaces and will stop at the first class (returning the class name as a part of `n`).
     [[nodiscard]] ApplyNamespacesResult ApplyNamespaces(pybind11::module_ &m, std::string_view name, bool enter_classes);
 
