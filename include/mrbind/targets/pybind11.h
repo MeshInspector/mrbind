@@ -5,6 +5,7 @@
 #include <mrbind/targets/pybind11/bind_std.h>
 #include <mrbind/targets/pybind11/bind_std_func.h>
 #include <mrbind/targets/pybind11/bind_std_iostream.h>
+#include <mrbind/targets/pybind11/bind_std_other.h>
 
 #if __has_include(<parallel_hashmap/phmap.h>)
 #include <mrbind/targets/pybind11/bind_phmap.h>
