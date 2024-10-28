@@ -355,8 +355,9 @@ struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
         {
             c.def(
                 "__repr__",
-                [name = ToPythonName(CustomTypeBinding::cpp_type_name())](const std::array<T, N> &v)
+                [](const std::array<T, N> &v)
                 {
+                    static const std::string name = ToPythonName(CustomTypeBinding::cpp_type_name());
                     std::ostringstream s;
                     s << name << '[';
                     for (std::size_t i = 0; i < v.size(); i++)
@@ -372,6 +373,132 @@ struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
         }
     }
 };
+// Basic set-like.
+namespace MRBind::pb11::detail::BindStd
+{
+    template <typename T>
+    requires std::same_as<typename T::value_type, typename T::key_type> // Basic sanity check.
+    struct BindSetLike
+        : DefaultCustomTypeBinding<T>,
+        RegisterTypeWithCustomBindingIfApplicable<AdjustContainerElemType<typename T::value_type>>
+    {
+        static void bind_members(typename DefaultCustomTypeBinding<T>::pybind_type &c)
+        {
+            MRBind::pb11::TryMakeIterable<T>(c);
+
+            using ValueType = typename T::value_type;
+
+            // This interface is modelled after this: https://docs.python.org/3/library/stdtypes.html#set
+            // I only implemented some basic functions.
+
+            // Size.
+            c.def("__len__", [](const T &s){return s.size();});
+
+            // Check for element.
+            c.def(
+                "__contains__",
+                [](T &s, const ValueType &k) -> bool
+                {
+                    return s.contains(k);
+                }
+            );
+
+            // Add element.
+            if constexpr (std::copyable<T>)
+            {
+                MRBind::pb11::TryAddFuncSimple<
+                    MRBind::pb11::FuncKind::member_nonstatic,
+                    [](T &s, const ValueType &k)
+                    {
+                        s.insert(k);
+                    },
+                    T &, const ValueType &
+                >(
+                    c,
+                    "add"
+                );
+            }
+
+            // Remove element or throw.
+            MRBind::pb11::TryAddFuncSimple<
+                MRBind::pb11::FuncKind::member_nonstatic,
+                [](T &s, const ValueType &k)
+                {
+                    auto it = s.find(k);
+                    if (it == s.end())
+                        throw pybind11::key_error("No such element to `remove()`.");
+                    s.erase(it);
+                },
+                T &, const ValueType &
+            >(
+                c,
+                "remove"
+            );
+
+            // Remove element or do nothing.
+            MRBind::pb11::TryAddFuncSimple<
+                MRBind::pb11::FuncKind::member_nonstatic,
+                [](T &s, const ValueType &k)
+                {
+                    return s.erase(k); // This method returns nothing for Python sets, while we return the number of the erased elements. Why not.
+                },
+                T &, const ValueType &
+            >(
+                c,
+                "discard"
+            );
+
+            // Remove any element or throw.
+            MRBind::pb11::TryAddFuncSimple<
+                MRBind::pb11::FuncKind::member_nonstatic,
+                [](T &s)
+                {
+                    if (s.empty())
+                        throw pybind11::key_error("Can't `pop()` from an empty set.");
+                    s.erase(s.begin());
+                },
+                T &
+            >(
+                c,
+                "pop"
+            );
+
+            // Convert to string.
+            if constexpr (requires(std::ostream &stream, const ValueType &elem){stream << elem;})
+            {
+                c.def(
+                    "__repr__",
+                    [](const T &s)
+                    {
+                        static const std::string name = ToPythonName(BindSetLike::cpp_type_name());
+                        std::ostringstream ss;
+                        ss << name << '{';
+                        bool first = true;
+                        for (const auto &elem : s)
+                        {
+                            if (first)
+                                first = false;
+                            else
+                                ss << ", ";
+                            ss << elem;
+                        }
+                        ss << '}';
+                        return std::move(ss).str();
+                    },
+                    "Return the canonical string representation of this map."
+                );
+            }
+        }
+    };
+}
+// std::set
+#include <set>
+template <typename T, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::set<T, A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::set<T, A>> {};
+// std::unordered_set
+#include <unordered_set>
+template <typename T, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::unordered_set<T, A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::unordered_set<T, A>> {};
 // std::optional
 #include <optional>
 template <typename T>

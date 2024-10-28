@@ -906,6 +906,7 @@ namespace MRBind::pb11
     template <typename T>
     concept ContainerElemTypeNeedsAdjusting = ContainerElemTypeTraits<T>::needs_adjustment;
 
+    // Given a container ELEMENT type (not the whole container!), adjusts it to a better type.
     template <typename T>
     using AdjustContainerElemType = typename ContainerElemTypeTraits<T>::adjusted_type;
 
