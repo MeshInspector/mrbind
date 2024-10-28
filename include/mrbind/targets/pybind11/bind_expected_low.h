@@ -26,6 +26,24 @@ template <typename U>
 struct MRBind::pb11::IsEqualityComparable<tl::expected<void, U>> : IsEqualityComparable<U> {};
 #endif
 
+namespace MRBind::pb11::detail::Expected
+{
+    // `e` is required to be in the error state. Then throws some information about that error.
+    // This is needed for two reasons:
+    // 1. It's not possible to call `.value()` if `T == void` (a SFINAE condition rejects that), and there seems to be no alternative.
+    // 2. The default exception message doesn't seem to include the error message (even if available), and we want it.
+    template <typename T, typename U>
+    [[noreturn]] void ThrowErrorFromExpected(const tl::expected<T, U> &e)
+    {
+        if constexpr (std::is_same_v<U, std::string>)
+            throw std::runtime_error(e.error());
+        else if constexpr (std::is_same_v<U, std::string_view>)
+            throw std::runtime_error(std::string(e.error()));
+        else
+            throw tl::bad_expected_access<U>(std::move(e.error()));
+    }
+}
+
 // Adjust `tl::expected<T, U>` to `std::unique_ptr<T>` or throw.
 // This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.
 template <typename T, typename U>
@@ -48,14 +66,7 @@ struct MRBind::pb11::ReturnTypeTraits<tl::expected<T, U>>
         }
         else
         {
-            // If `expected` uses `std::string[_view]` as the failure state, throw it directly as a string.
-            // Because `tl::bad_expected_access` for some reason doesn't display strings in its `.what()`.
-            if constexpr (std::is_same_v<U, std::string>)
-                throw std::runtime_error(value.error());
-            else if constexpr (std::is_same_v<U, std::string_view>)
-                throw std::runtime_error(std::string(value.error()));
-            else
-                throw tl::bad_expected_access<U>(std::move(value.error()));
+            MRBind::pb11::detail::Expected::ThrowErrorFromExpected(value);
         }
     }
 };
@@ -99,21 +110,21 @@ struct MRBind::pb11::CustomTypeBinding<tl::expected<T, U>>
         c.def("__bool__", [](const tl::expected<T, U> &e){return e.has_value();}, "Returns true if holds a value, false if holds an error.");
 
         // Get value or throw if none.
-        c.def("value", [](const tl::expected<T, U> &e) -> decltype(auto)
-        {
-            if constexpr (std::is_void_v<T>)
+        c.def("value",
+            [](const tl::expected<T, U> &e) -> decltype(auto)
             {
-                // `.value()` has a SFINAE condition that rejects `T == void`, so we have to throw manually?
+                // Throw if no value.
+                // We could use this function only in the `T == void` branch, but since it gives better exception messages, we use it always.
                 if (!e)
-                    throw tl::bad_expected_access<U>(e.error());
+                    MRBind::pb11::detail::Expected::ThrowErrorFromExpected(e);
 
-                return;
-            }
-            else
-            {
-                return (AdjustReturnedValue<decltype(e.value())>)(e.value()); // `.value()` should throw on failure.
-            }
-        }, pybind11::return_value_policy::reference_internal);
+                if constexpr (std::is_void_v<T>)
+                    return;
+                else
+                    return (AdjustReturnedValue<decltype(e.value())>)(e.value());
+            },
+            pybind11::return_value_policy::reference_internal
+        );
 
         // Get error or throw if none.
         c.def("error", [](const tl::expected<T, U> &e) -> decltype(auto)

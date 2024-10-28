@@ -4,6 +4,7 @@
 
 #include <mrbind/targets/pybind11/bind_std.h>
 #include <mrbind/targets/pybind11/bind_std_func.h>
+#include <mrbind/targets/pybind11/bind_std_future.h>
 #include <mrbind/targets/pybind11/bind_std_iostream.h>
 #include <mrbind/targets/pybind11/bind_std_other.h>
 

@@ -11,6 +11,7 @@
 #include <mrbind/helpers/common.h>
 #include <mrbind/helpers/macro_sequence_for.h>
 #include <mrbind/helpers/map_filter_pack.h>
+#include <mrbind/helpers/rebind_container.h>
 #include <mrbind/helpers/type_name.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
@@ -652,13 +653,18 @@ namespace MRBind::pb11
     template <typename T>
     struct OptionalReturnType
     {
-        // Maybe we should return `std::shared_ptr` here? Since we use `std::shared_ptr` holders for everything,
-        //   and even adjust `std::unique_ptr` to `std::shared_ptr`, since things crash otherwise?
-        // I'll keep this `unique_ptr` for now, the user is supposed to call `AdjustReturnedValue()` anyway.
-        using type = std::unique_ptr<T>;
-        [[nodiscard]] static std::unique_ptr<T> make(T &&value)
+        // There's complex logic at play here. Builtin types have to use `std::unique_ptr` because that can be `.release()`d, which we have to do
+        //   because Pybind doesn't like builtin types in holders (I believe?).
+        // Non-builtin types could use `std::unique_ptr` as well, but `std::shared_ptr` is better, because when we adjust a whole container,
+        //   it's nice to be able to have the `std::shared_ptr`s directly as the elements, while for builtin types we have to convert the `std::unique_ptr`s
+        //   to `std::optional`s.
+        using type = std::conditional_t<IsPybindBuiltinType<T>::value, std::unique_ptr<T>, std::shared_ptr<T>>;
+        [[nodiscard]] static type make(T &&value)
         {
-            return std::make_unique<T>(std::move(value));
+            if constexpr (IsPybindBuiltinType<T>::value)
+                return std::make_unique<T>(std::move(value));
+            else
+                return std::make_shared<T>(std::move(value));
         }
     };
     // Leave smart pointers as is. We don't want to end up with `std::unique_ptr<std::shared_ptr<...>>`.
@@ -870,6 +876,81 @@ namespace MRBind::pb11
     template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value && (!IsPybindBuiltinType<typename std::remove_cvref_t<T>::element_type>::value)
     struct ReturnTypeTraits<T> {static auto Adjust(T &&src) {return src.get();}};
 
+    // Some code to adjust containers recursively:
+
+    template <typename T>
+    struct AdjustContainerElemType
+    {
+        using type = typename AdjustReturnType<T>::type;
+        static constexpr bool needs_adjustment = ReturnTypeNeedsAdjusting<T>;
+        static auto Adjust(T &&src) {return AdjustReturnedValue<T>(std::forward<T>(src));}
+    };
+    // Need to convert `std::unique_ptr` to `std::optional`.
+    template <typename T, typename D> requires std::movable<T>
+    struct AdjustContainerElemType<std::unique_ptr<T,D>>
+    {
+        using type = std::optional<T>;
+        static constexpr bool needs_adjustment = true;
+        static std::optional<T> Adjust(T &&src)
+        {
+            std::optional<T> ret;
+            if (src)
+            {
+                ret = std::make_optional(*src);
+                src = {};
+            }
+            return ret;
+        }
+    };
+
+    template <typename T>
+    concept ContainerElemTypeNeedsAdjusting = AdjustContainerElemType<T>::needs_adjustment;
+
+    // Adjust containers recursively:
+
+    // Non-map-like:
+    template <IsRebindableNonMapContainer T> requires ContainerElemTypeNeedsAdjusting<typename T::value_type>
+    struct ReturnTypeTraits<T>
+    {
+        static auto Adjust(T &&src)
+        {
+            RebindContainer<T, typename AdjustContainerElemType<typename T::value_type>::type> ret;
+            if constexpr (requires(std::size_t cap){ret.reserve(cap);})
+                ret.reserve(src.size());
+            for (auto &&elem : src)
+            {
+                if constexpr (requires(typename decltype(ret)::value_type &&p){ret.push_back(std::move(p));})
+                    ret.push_back(AdjustContainerElemType<typename T::value_type>::Adjust(std::move(elem)));
+                else
+                    ret.insert   (AdjustContainerElemType<typename T::value_type>::Adjust(std::move(elem)));
+            }
+            return ret;
+        }
+    };
+    // Map-like.
+    // For now we only touch the mapped type, as opposed to the key type, primarily to avoid dealing the keys being const.
+    // Yes, we could `.extract()` to get a mutable reference to it, but while standard `.extract()` doesn't invalidate other iterators,
+    //   it might invalidate them for non-standard maps, or they might not have such function in the first place.
+    // In any case, we don't seem to need key adjustments for anything right now.
+    template <IsRebindableMapContainer T> requires ContainerElemTypeNeedsAdjusting<typename T::mapped_type>
+    struct ReturnTypeTraits<T>
+    {
+        static auto Adjust(T &&src)
+        {
+            RebindContainer<T, typename T::key_type, typename AdjustContainerElemType<typename T::mapped_type>::type> ret;
+            if constexpr (requires(std::size_t cap){ret.reserve(cap);})
+                ret.reserve(src.size());
+            for (auto &&elem : src)
+            {
+                ret.try_emplace(
+                    elem.first, // Ugh, a copy! See the comment above.
+                    AdjustContainerElemType<typename T::mapped_type>::Adjust(std::move(elem.second))
+                );
+            }
+            return ret;
+        }
+    };
+
     // ---
 
     // If this is specialized to true, fields with this type will be skipped in the bindings.
@@ -1048,6 +1129,8 @@ namespace MRBind::pb11
             {
                 using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
 
+                // In theory we could just check for any `std::unique_ptr` here, because non-builtins should be in a `std::shared_ptr` at this point.
+                // But that might be false in some edge cases, it's better to be safe.
                 static constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
                 static_assert(
                     IsUniquePtrToBuiltinType<std::remove_cvref_t<ReturnTypeAdjusted>>::value <= returns_unique_ptr_to_builtin,
@@ -2638,6 +2721,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         }
     }
 }
+
+// Some sanity checks. On Clang 18 and older those will fail if you forget the `-frelaxed-template-template-args` flag.
+// MSVC is currently not supported, so they should fail always.
+static_assert(std::is_same_v<MRBind::RebindContainer<std::vector<int>, float>, std::vector<float>>);
+static_assert(std::is_same_v<MRBind::RebindContainer<std::map<int, float>, char, double>, std::map<char, double>>);
+static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>, std::array<float, 4>>);
 
 #endif // MB_DEFINE_IMPLEMENTATION
 

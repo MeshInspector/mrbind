@@ -1,7 +1,5 @@
 #pragma once
 
-#include <future>
-
 namespace MRBind::pb11
 {
     // Adjust `std::optional<T>` to `std::unique_ptr<T>`.
