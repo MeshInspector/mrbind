@@ -879,17 +879,17 @@ namespace MRBind::pb11
     // Some code to adjust containers recursively:
 
     template <typename T>
-    struct AdjustContainerElemType
+    struct ContainerElemTypeTraits
     {
-        using type = typename AdjustReturnType<T>::type;
+        using adjusted_type = typename AdjustReturnType<T>::type;
         static constexpr bool needs_adjustment = ReturnTypeNeedsAdjusting<T>;
         static auto Adjust(T &&src) {return AdjustReturnedValue<T>(std::forward<T>(src));}
     };
     // Need to convert `std::unique_ptr` to `std::optional`.
     template <typename T, typename D> requires std::movable<T>
-    struct AdjustContainerElemType<std::unique_ptr<T,D>>
+    struct ContainerElemTypeTraits<std::unique_ptr<T,D>>
     {
-        using type = std::optional<T>;
+        using adjusted_type = std::optional<T>;
         static constexpr bool needs_adjustment = true;
         static std::optional<T> Adjust(T &&src)
         {
@@ -904,7 +904,10 @@ namespace MRBind::pb11
     };
 
     template <typename T>
-    concept ContainerElemTypeNeedsAdjusting = AdjustContainerElemType<T>::needs_adjustment;
+    concept ContainerElemTypeNeedsAdjusting = ContainerElemTypeTraits<T>::needs_adjustment;
+
+    template <typename T>
+    using AdjustContainerElemType = typename ContainerElemTypeTraits<T>::adjusted_type;
 
     // Adjust containers recursively:
 
@@ -914,15 +917,15 @@ namespace MRBind::pb11
     {
         static auto Adjust(T &&src)
         {
-            RebindContainer<T, typename AdjustContainerElemType<typename T::value_type>::type> ret;
+            RebindContainer<T, AdjustContainerElemType<typename T::value_type>> ret;
             if constexpr (requires(std::size_t cap){ret.reserve(cap);})
                 ret.reserve(src.size());
             for (auto &&elem : src)
             {
                 if constexpr (requires(typename decltype(ret)::value_type &&p){ret.push_back(std::move(p));})
-                    ret.push_back(AdjustContainerElemType<typename T::value_type>::Adjust(std::move(elem)));
+                    ret.push_back(ContainerElemTypeTraits<typename T::value_type>::Adjust(std::move(elem)));
                 else
-                    ret.insert   (AdjustContainerElemType<typename T::value_type>::Adjust(std::move(elem)));
+                    ret.insert   (ContainerElemTypeTraits<typename T::value_type>::Adjust(std::move(elem)));
             }
             return ret;
         }
@@ -932,19 +935,21 @@ namespace MRBind::pb11
     // Yes, we could `.extract()` to get a mutable reference to it, but while standard `.extract()` doesn't invalidate other iterators,
     //   it might invalidate them for non-standard maps, or they might not have such function in the first place.
     // In any case, we don't seem to need key adjustments for anything right now.
+    // If you decide to change this, don't forget to go over the custom bindings for all containers,
+    //   and add `AdjustContainerElemType<...>` to the key template parameter of `RegisterTypeWithCustomBindingIfApplicable<...>`.
     template <IsRebindableMapContainer T> requires ContainerElemTypeNeedsAdjusting<typename T::mapped_type>
     struct ReturnTypeTraits<T>
     {
         static auto Adjust(T &&src)
         {
-            RebindContainer<T, typename T::key_type, typename AdjustContainerElemType<typename T::mapped_type>::type> ret;
+            RebindContainer<T, typename T::key_type, AdjustContainerElemType<typename T::mapped_type>> ret;
             if constexpr (requires(std::size_t cap){ret.reserve(cap);})
                 ret.reserve(src.size());
             for (auto &&elem : src)
             {
                 ret.try_emplace(
                     elem.first, // Ugh, a copy! See the comment above.
-                    AdjustContainerElemType<typename T::mapped_type>::Adjust(std::move(elem.second))
+                    ContainerElemTypeTraits<typename T::mapped_type>::Adjust(std::move(elem.second))
                 );
             }
             return ret;

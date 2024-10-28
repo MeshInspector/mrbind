@@ -205,7 +205,7 @@ namespace pybind11::patched
 template <typename T, typename A>
 struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
     : DefaultCustomTypeBinding<std::vector<T, A>>,
-    RegisterTypeWithCustomBindingIfApplicable<T>
+    RegisterTypeWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
 {
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
 
@@ -237,7 +237,7 @@ struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
 template <typename T, typename U, typename Comp, typename A>
 struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
     : DefaultCustomTypeBinding<std::map<T, U, Comp, A>>,
-    RegisterTypeWithCustomBindingIfApplicable<T, U>
+    RegisterTypeWithCustomBindingIfApplicable<T, AdjustContainerElemType<U>>
 {
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
 
@@ -264,7 +264,7 @@ struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
 template <typename T, std::size_t N>
 struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
     : DefaultCustomTypeBinding<std::array<T, N>>,
-    RegisterTypeWithCustomBindingIfApplicable<T>
+    RegisterTypeWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
 {
     [[nodiscard]] static std::string cpp_type_name()
     {

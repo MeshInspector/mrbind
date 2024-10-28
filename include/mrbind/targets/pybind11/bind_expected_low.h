@@ -18,7 +18,7 @@ struct pybind11::detail::is_copy_assignable<tl::expected<T, U>>
     : std::conjunction<pybind11::detail::is_copy_assignable<T>, pybind11::detail::is_copy_assignable<U>>
 {};
 
-// Fixed `equality_comparable` for `std::expected` only, where it's not SFINAE-friendly.
+// Fix `equality_comparable` for `std::expected` only, where it's not SFINAE-friendly.
 #if MB_USE_STD_EXPECTED
 template <typename T, typename U>
 struct MRBind::pb11::IsEqualityComparable<tl::expected<T, U>> : std::bool_constant<IsEqualityComparable<T>::value && IsEqualityComparable<U>::value> {};
@@ -51,18 +51,30 @@ requires
     // Because we need to be able to move the object into `std::unique_ptr`.
     std::is_void_v<T> || std::movable<T>
 struct MRBind::pb11::ReturnTypeTraits<tl::expected<T, U>>
-    : RegisterTypeWithCustomBindingIfApplicable<T, U>
+    : RegisterTypeWithCustomBindingIfApplicable<typename AdjustReturnType<T>::type>
 {
     static decltype(auto) Adjust(tl::expected<T, U> &&value)
     {
         if (value)
         {
             if constexpr (std::is_void_v<T>)
+            {
                 return;
+            }
             else
+            {
+                using TA = typename AdjustReturnType<T>::type;
+
                 // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
                 // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
-                return AdjustReturnedValue<typename OptionalReturnType<T>::type>(OptionalReturnType<T>::make(std::move(*value)));
+                return (AdjustReturnedValue<typename OptionalReturnType<TA>::type>)(
+                    OptionalReturnType<TA>::make(
+                        (AdjustReturnedValue<T>)(
+                            std::move(*value)
+                        )
+                    )
+                );
+            }
         }
         else
         {

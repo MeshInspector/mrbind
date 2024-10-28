@@ -258,4 +258,11 @@ namespace MR
         ret.push_back(std::async(std::launch::async, []{std::this_thread::sleep_for(std::chrono::seconds(2)); return tl::expected<int, std::string>(tl::unexpect, "Blah!");}));
         return ret;
     }
+
+    inline tl::expected<std::vector<std::future<tl::expected<void, std::string>>>, std::string> ff() // This version returns a `tl::expected` of a vector!
+    {
+        std::vector<std::future<tl::expected<void, std::string>>> ret;
+        ret.push_back(std::async(std::launch::async, []{std::this_thread::sleep_for(std::chrono::seconds(2)); return tl::expected<void, std::string>(tl::unexpect, "Blah!");}));
+        return ret;
+    }
 }
