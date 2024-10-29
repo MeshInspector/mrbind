@@ -137,6 +137,8 @@ namespace MRBind::pb11
     // `TryAddFunc()` uses this state to preserve information between the two passes.
     struct TryAddFuncState
     {
+        // This initially receives the function name without template arguments (rewritten in Python style of course),
+        // which during subsequent passes can be changed to include template arguments to resolve ambiguous overloads.
         std::string python_name;
         bool is_overloaded_operator = false;
     };
@@ -165,7 +167,9 @@ namespace MRBind::pb11
     // Provides a generic interface to insert things into them.
     struct ModuleOrClassRef
     {
-        bool is_class = false; // If true, this is a `pybind11::class_<...>` representing a namespace. If false, this is a `pybind11::module_`.
+        // If true, this is a `pybind11::class_<...>` representing a namespace. If false, this is a `pybind11::module_`.
+        bool is_class = false;
+        // It's a bit weird that this is a pointer, but doing it this way allows us to downcast it back to a more specific type legally? Still feels a bit weird though.
         pybind11::handle *handle = nullptr;
 
         ModuleOrClassRef() {}
@@ -192,9 +196,19 @@ namespace MRBind::pb11
         }
     };
 
+    // Each namespace and class gets a copy of this.
+    // It lets you re-register the member functions in a different scope,
+    //   which in turn lets you properly create function aliases (regular Python aliases sometimes cause pybind11-stubgen to choke,
+    //   seemingly when the function is a class member and overloaded, but I'm not 100% sure).
+    struct FuncAliasRegistrationFuncs
+    {
+        // This maps Python-style function names to functions that can be used to register an alias for them.
+        std::unordered_map<std::string, std::function<void(ModuleOrClassRef m, const char *name)>> funcs;
+    };
+
     struct FuncEntry
     {
-        using LoadFunc = void (*)(ModuleOrClassRef m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, int pass_number, const char *qual_name, const char *qual_name_with_template_args);
+        using LoadFunc = void (*)(ModuleOrClassRef m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, int pass_number, const char *qual_name, const char *qual_name_with_template_args, FuncAliasRegistrationFuncs *func_alias_registration_funcs);
         LoadFunc load = nullptr;
 
         const char *qual_name = nullptr;
@@ -268,7 +282,7 @@ namespace MRBind::pb11
         };
 
         using InitClass = std::unique_ptr<BasicPybindType> (*)(ModuleOrClassRef m, const char *n);
-        using AddClassMembers = void (*)(BasicPybindType &c, AddClassMembersState &state);
+        using AddClassMembers = void (*)(BasicPybindType &c, AddClassMembersState &state, FuncAliasRegistrationFuncs *func_alias_registration_funcs);
 
         InitClass init = nullptr;
         AddClassMembers load_members = nullptr;
@@ -304,6 +318,8 @@ namespace MRBind::pb11
 
         // Reverse dependencies. Those are populated automatically.
         std::unordered_set<std::type_index> type_rdeps;
+
+        FuncAliasRegistrationFuncs func_alias_registration_funcs;
 
         TypeEntry(
             bool is_parsed,
@@ -350,6 +366,8 @@ namespace MRBind::pb11
         // Null if `is_stripped == true`.
         std::unique_ptr<BasicPybindType> pybind_type;
 
+        FuncAliasRegistrationFuncs func_alias_registration_funcs;
+
         NamespaceEntry(std::type_index parent_namespace) : parent_namespace(parent_namespace) {}
     };
 
@@ -373,6 +391,8 @@ namespace MRBind::pb11
         // Those aliases are defined manually. Both strings are Python identifiers and can have embedded `.`s.
         std::map<std::string, std::string, std::less<>> custom_aliases;
 
+        FuncAliasRegistrationFuncs top_level_func_alias_registration_funcs;
+
         bool was_loaded = false;
     };
 
@@ -390,12 +410,16 @@ namespace MRBind::pb11
         // At most one of those can be non-null at the same time.
         // Then it points to the same thing as `m`.
         NamespaceEntry *most_nested_namespace = nullptr;
-        TypeEntry *most_nested_class = nullptr; // This can be non-null only if `enter_classes == true`.
+        // This can be non-null only if `enter_classes == true`.
+        TypeEntry *most_nested_class = nullptr;
+
+        // This is true when `name` is non-empty and doesn't contain separators (aka doesn't contain unknown scopes).
+        bool unqualified_name_remains = false;
     };
-    // Removes C++ namespace qualifiers. Returns the namespace/class that they refer to (or the module itself if none),
-    // and the remaining (hopefully unqualified) name.
+    // Removes C++ or Python namespace qualifiers (depending on `python_style_name`).
+    // Returns the namespace/class that they refer to (or the module itself if none), and the remaining (hopefully unqualified) name.
     // If `enter_classes == false`, will only enter namespaces and will stop at the first class (returning the class name as a part of `n`).
-    [[nodiscard]] ApplyNamespacesResult ApplyNamespaces(pybind11::module_ &m, std::string_view name, bool enter_classes);
+    [[nodiscard]] ApplyNamespacesResult ApplyNamespaces(pybind11::module_ &m, bool python_style_name, std::string_view name, bool enter_classes);
 
 
     // ---
@@ -531,7 +555,7 @@ namespace MRBind::pb11
 
         // Registers all members.
         // Usually must override this, unless you do something with `pybind_init` (see comment on it above).
-        static void bind_members(pybind_type &c) {(void)c;}
+        static void bind_members(pybind_type &c /*optional: , FuncAliasRegistrationFuncs *func_alias_registration_funcs*/) {(void)c;}
     };
 
     template <typename T>
@@ -564,10 +588,15 @@ namespace MRBind::pb11
                         *m.handle, n
                     );
                 },
-                +[](pb11::BasicPybindType &b, TypeEntry::AddClassMembersState &state)
+                +[](pb11::BasicPybindType &b, TypeEntry::AddClassMembersState &state, FuncAliasRegistrationFuncs *func_alias_registration_funcs)
                 {
                     if (state.pass_number == 0)
-                        Traits::bind_members(static_cast<TypeStorage &>(b).type);
+                    {
+                        if constexpr (requires{Traits::bind_members(static_cast<TypeStorage &>(b).type, func_alias_registration_funcs);})
+                            Traits::bind_members(static_cast<TypeStorage &>(b).type, func_alias_registration_funcs);
+                        else
+                            Traits::bind_members(static_cast<TypeStorage &>(b).type);
+                    }
                 },
                 Traits::base_typeids()
             );
@@ -1095,16 +1124,21 @@ namespace MRBind::pb11
 
     enum class FuncKind
     {
-        namespace_scope,
-        member_static,
+        nonmember_or_static,
         member_nonstatic,
     };
+
+    // How many passes `TryAddFunc()` needs. Currently there are three passes:
+    // 0. adjust overloaded function names
+    // 1. register most functions
+    // 2. register delayed functions
+    inline constexpr int num_add_func_passes = 3;
 
     // Member or non-member function.
     // Normally is used in two passes, but in simple cases it can be used in a single pass (see `TryAddFuncSimple()`).
     template <FuncKind Kind, auto F, typename ...P>
     void TryAddFunc(
-        // `ModuleOrClassRef` for `Kind == namespace_scope`.
+        // `ModuleOrClassRef` for `Kind == nonmember_or_static`.
         // `class_` otherwise.
         auto &c,
         // Only used for overloaded operators, can be null otherwise. Accepts our own operator names, such as `_Plus`.
@@ -1121,7 +1155,10 @@ namespace MRBind::pb11
         std::initializer_list<std::type_index> python_signature,
         TryAddFuncState *state,
         TryAddFuncScopeState *scope_state,
+        // The pass number, from 0 to `num_add_func_passes-1` inclusive. (Unless `{,scope_}state` is null, then this is ignored.)
         int pass_number,
+        // If non-null, this is populated.
+        FuncAliasRegistrationFuncs *alias_registration_funcs,
         auto &&... data
     )
     {
@@ -1170,11 +1207,11 @@ namespace MRBind::pb11
 
                 using LambdaReturnTypeAdjustedWrapperPtrRefStripped = typename RemovePointersRefs<LambdaReturnTypeAdjustedWrapped>::type;
 
-                constexpr bool is_class_method = !std::is_same_v<decltype(c), ModuleOrClassRef &>;
+                static constexpr bool is_class_method = !std::is_same_v<decltype(c), ModuleOrClassRef &>;
 
                 // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
                 // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
-                constexpr pybind11::return_value_policy ret_policy =
+                static constexpr pybind11::return_value_policy ret_policy =
                     returns_unique_ptr_to_builtin ?
                         pybind11::return_value_policy::take_ownership :
                     (std::is_pointer_v<LambdaReturnTypeAdjustedWrapped> || std::is_reference_v<LambdaReturnTypeAdjustedWrapped>) &&
@@ -1217,7 +1254,6 @@ namespace MRBind::pb11
                     return;
 
                 const char *final_name = state ? state->python_name.c_str() : fullname;
-                std::string final_name_storage;
 
                 { // Fix the python name to avoid ambiguous overloads...
                     if (state && !state->is_overloaded_operator)
@@ -1226,8 +1262,8 @@ namespace MRBind::pb11
                         if (overload.num_overloads > overload.signatures.size())
                         {
                             // Those overloads are ambiguous, adjust the name.
-                            final_name_storage = ToPythonName(fullname_with_template_args);
-                            final_name = final_name_storage.c_str();
+                            state->python_name = ToPythonName(fullname_with_template_args);
+                            final_name = state->python_name.c_str();
                         }
                     }
                 }
@@ -1281,29 +1317,38 @@ namespace MRBind::pb11
                 constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
                 static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
-                // The `call_guard<gil_scoped_release>` fixes a deadlock when calling python callbacks from something other than the main thread.
-                // The documentation says it's only legal if you "don't access python objects" from the function, which sounds right.
-                // When our functions then call python lambdas, those lambdas will automatically take the interpreter lock.
-                // And when we call C++ lambdas, a different mechanism is used to force pybind11 to avoid adding code to them to take the interpreter lock.
-                // We need this different mechanism as an optimization, because we sometimes invoke C++ lambdas (that were passed through python)
-                // in multithreaded contexts, and we don't want them to be locking mutexes unless absolutely necessary.
-                if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                auto registration_lambda = [...data = decltype(data)(data)](ModuleOrClassRef m, const char *name)
                 {
-                    if constexpr (Kind == FuncKind::namespace_scope)
-                        c.AddFunc   (final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
-                    else if constexpr (Kind == FuncKind::member_static)
-                        c.def_static(final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
-                    else // Kind == FuncKind::member_nonstatic
-                        c.def       (final_name, lambda, ret_policy, decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
-                }
-                else
+                    using C = std::remove_reference_t<decltype(c)>;
+
+                    // The `call_guard<gil_scoped_release>` fixes a deadlock when calling python callbacks from something other than the main thread.
+                    // The documentation says it's only legal if you "don't access python objects" from the function, which sounds right.
+                    // When our functions then call python lambdas, those lambdas will automatically take the interpreter lock.
+                    // And when we call C++ lambdas, a different mechanism is used to force pybind11 to avoid adding code to them to take the interpreter lock.
+                    // We need this different mechanism as an optimization, because we sometimes invoke C++ lambdas (that were passed through python)
+                    // in multithreaded contexts, and we don't want them to be locking mutexes unless absolutely necessary.
+                    if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                    {
+                        // Sus downcasts galore!
+                        if constexpr (Kind == FuncKind::member_nonstatic)
+                            static_cast<C *>(m.handle)->def       (name, lambda, ret_policy, data..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                        else
+                            m.                          AddFunc   (name, lambda, ret_policy, data..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                    }
+                    else
+                    {
+                        if constexpr (Kind == FuncKind::member_nonstatic)
+                            static_cast<C *>(m.handle)->def       (name, lambda, ret_policy, data...);
+                        else
+                            m.                          AddFunc   (name, lambda, ret_policy, data...);
+                    }
+                };
+                registration_lambda(c, final_name);
+
+                if (alias_registration_funcs)
                 {
-                    if constexpr (Kind == FuncKind::namespace_scope)
-                        c.AddFunc   (final_name, lambda, ret_policy, decltype(data)(data)...);
-                    else if constexpr (Kind == FuncKind::member_static)
-                        c.def_static(final_name, lambda, ret_policy, decltype(data)(data)...);
-                    else // Kind == FuncKind::member_nonstatic
-                        c.def       (final_name, lambda, ret_policy, decltype(data)(data)...);
+                    if (!alias_registration_funcs->funcs.try_emplace(final_name, registration_lambda).second)
+                        CriticalError("Duplicate function name: `" + std::string(final_name) + "`.");
                 }
             }
         }
@@ -1315,10 +1360,12 @@ namespace MRBind::pb11
     void TryAddFuncSimple(
         auto &c,
         const char *fullname,
+        // Optional:
+        FuncAliasRegistrationFuncs *alias_registration_funcs = nullptr,
         auto &&... data
     )
     {
-        (TryAddFunc<Kind, F, P...>)(c, nullptr, fullname, nullptr, {}, nullptr, nullptr, -1, decltype(data)(data)...);
+        (TryAddFunc<Kind, F, P...>)(c, nullptr, fullname, nullptr, {}, nullptr, nullptr, -1, alias_registration_funcs, decltype(data)(data)...);
     }
 
     template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, typename ...P>
@@ -1841,12 +1888,12 @@ namespace MRBind::pb11
     }
 
 
-    // `name` is a qualified name.
+    // `name` is a qualified name. If `use_dots == false` it should contain `::`, and if `use_dots == true` it should contain Python-style `.` dots.
     // `scope` is `(std::string_view segment) -> bool`. It receives every qualifier in order, without `::`. Return false by default.
     // `unscoped_name` is `(std::string_view segment) -> void`. It then receives the remaining unqualified name.
     // If you return `true` from `scope`, the remaining qualifiers are not processed, and everything starting
     // from the current qualifier (including it!) is passed to `unscoped_name`.
-    void ForScopePrefixes(std::string_view name, auto &&scope, auto &&unscoped_name)
+    void ForScopePrefixes(bool use_dots, std::string_view name, auto &&scope, auto &&unscoped_name)
     {
         std::size_t segment_start = 0;
 
@@ -1859,9 +1906,9 @@ namespace MRBind::pb11
 
             if (brace_stack_pos == 0)
             {
-                if (ch == ':' && i > 0 && name[i - 1] == ':')
+                if (ch == ":."[use_dots] && (use_dots || (i > 0 && name[i - 1] == ':')))
                 {
-                    if (scope(std::string_view(name.data() + segment_start, i - segment_start - 1)))
+                    if (scope(std::string_view(name.data() + segment_start, i - segment_start - !use_dots)))
                         break;
                     i++;
                     segment_start = i;
@@ -1895,11 +1942,13 @@ namespace MRBind::pb11
         unscoped_name(std::string_view(name.data() + segment_start, name.size() - segment_start));
     }
 
-    ApplyNamespacesResult ApplyNamespaces(pybind11::module_ &m, std::string_view name, bool enter_classes)
+    ApplyNamespacesResult ApplyNamespaces(pybind11::module_ &m, bool python_style_name, std::string_view name, bool enter_classes)
     {
         ApplyNamespacesResult ret;
+        ret.unqualified_name_remains = true;
 
         ForScopePrefixes(
+            python_style_name,
             name,
             [&](std::string_view segment) -> bool
             {
@@ -1967,6 +2016,8 @@ namespace MRBind::pb11
                 }
 
                 // We don't know this scope.
+                if (segment.data() + segment.size() != name.data() + name.size())
+                    ret.unqualified_name_remains = false;
                 return true;
             },
             [&](std::string_view segment)
@@ -1981,6 +2032,9 @@ namespace MRBind::pb11
             ret.m = ret.most_nested_class->pybind_type->GetPybindObject();
         else
             ret.m = m;
+
+        if (ret.name.empty())
+            ret.unqualified_name_remains = false;
 
         return ret;
     }
@@ -2541,7 +2595,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         // Not entirely sure if it can cause issues with actually calling them or not.
         for (auto *elem : final_order)
         {
-            auto ns = ApplyNamespaces(m, elem->second.cpp_type_name, true);
+            auto ns = ApplyNamespaces(m, false, elem->second.cpp_type_name, true);
             elem->second.pybind_type_name = ToPythonName(std::string(ns.name));
 
             // Register this class in the enclosing class or namespace, for the purposes of name lookup.
@@ -2572,14 +2626,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         for (auto *elem : final_order)
         {
             MRBind::pb11::TypeEntry::AddClassMembersState state;
-            elem->second.load_members(*elem->second.pybind_type, state); // First pass! Collect information about the overloads.
-            state.pass_number = 1;
-            elem->second.load_members(*elem->second.pybind_type, state); // Second pass! Actually register most functions.
-            state.pass_number = 2;
-            state.i = 0;
-            elem->second.load_members(*elem->second.pybind_type, state); // Third pass! // Late-register some special overloads. (It would be nice to instead have some priority system here...)
-
-            // This two-pass stuff is currently only needed to disambiguate overloads inside of each class, so we don't need a separate loop for it.
+            for (state.pass_number = 0; state.pass_number < num_add_func_passes; state.pass_number++)
+            {
+                state.i = 0;
+                elem->second.load_members(*elem->second.pybind_type, state, &elem->second.func_alias_registration_funcs);
+            }
         }
     }
 
@@ -2590,24 +2641,32 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             FuncEntry *entry = nullptr;
             const char *name = nullptr;
             const char *name_with_template_args = nullptr;
+            FuncAliasRegistrationFuncs *func_alias_registration_funcs = nullptr;
         };
         std::unordered_map<NamespaceEntry *, std::vector<Func>> func_scopes;
 
         // Split functions by namespace.
         for (auto &entry : r.func_entries)
         {
-            auto ns = ApplyNamespaces(m, entry.qual_name, false);
-            func_scopes[ns.most_nested_namespace].emplace_back(ns.m, &entry, ns.name.data(), entry.qual_name_with_template_args + (ns.name.data() - entry.qual_name));
+            auto ns = ApplyNamespaces(m, false, entry.qual_name, false);
+            func_scopes[ns.most_nested_namespace].emplace_back(
+                ns.m,
+                &entry,
+                ns.name.data(),
+                // The qualified name minus the namespace qualifiers.
+                entry.qual_name_with_template_args + (ns.name.data() - entry.qual_name),
+                ns.most_nested_namespace ? &ns.most_nested_namespace->func_alias_registration_funcs : &r.top_level_func_alias_registration_funcs
+            );
         }
 
         // Load the functions.
         for (auto &scope : func_scopes)
         {
             TryAddFuncScopeState scope_state;
-            for (int pass_number : {0, 1, 2}) // Several passes. See the member loading code above.
+            for (int pass_number = 0; pass_number < num_add_func_passes; pass_number++)
             {
                 for (auto &func : scope.second)
-                    func.entry->load(func.m, func.entry->state, scope_state, pass_number, func.name, func.name_with_template_args);
+                    func.entry->load(func.m, func.entry->state, scope_state, pass_number, func.name, func.name_with_template_args, func.func_alias_registration_funcs);
             }
         }
     }
@@ -2631,7 +2690,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 continue; // Don't know this target type, ignore it.
 
             std::string spelling_fixed = ImproveTypeName(std::string(spelling));
-            auto ns = ApplyNamespaces(m, spelling_fixed, true);
+            auto ns = ApplyNamespaces(m, false, spelling_fixed, true);
             std::string python_unqual_name = ToPythonName(std::string(ns.name));
 
             std::string python_qual_name;
@@ -2717,12 +2776,39 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
         for (const auto &[alias, target] : r.custom_aliases)
         {
-            const char *alias_last = nullptr;
+            // We do something special for function aliases here, because in come cases when registering them normally (like all other aliases),
+            //   pybind11-stubgen chokes on them. (If they're static class member functions, AND overloaded? Not 100% sure what the criteria is.)
+            if (auto ns = ApplyNamespaces(m, true, target, true); ns.unqualified_name_remains)
+            {
+                const auto &func_map = (
+                    ns.most_nested_class ? ns.most_nested_class->func_alias_registration_funcs :
+                    ns.most_nested_namespace ? ns.most_nested_namespace->func_alias_registration_funcs :
+                    r.top_level_func_alias_registration_funcs
+                ).funcs;
+
+                if (auto func_iter = func_map.find(std::string(ns.name)); func_iter != func_map.end())
+                {
+                    if (auto nst = ApplyNamespaces(m, true, alias, true); nst.unqualified_name_remains)
+                    {
+                        #if MB_PB11_DEBUG_NAMES
+                        std::cout << "mrbind: Registering custom function alias: `" << alias << "` -> `" << target << "`\n";
+                        #endif
+                        func_iter->second(nst.m, nst.name.data());
+                        continue;
+                    }
+                }
+            }
+
+            #if MB_PB11_DEBUG_NAMES
+            std::cout << "mrbind: Registering custom alias: `" << alias << "` -> `" << target << "`\n";
+            #endif
+
             // Note that we're doing some juggling here with the last segment of the lhs.
             // We can't convert the final `.attr()` call of the lhs to `pybind11::handle` because it forces the attribute to be resolved,
             //   and trips on missing attributes (and the most nested lhs attribute will always be missing).
             // We could make `FindPythonObject` return `pybind11::detail::str_attr_accessor` or something, but that didn't immediately work for me,
             //   and also that helper class can dangle the string, so it's easier to do it this way.
+            const char *alias_last = nullptr;
             FindPythonObject(alias, &alias_last).attr(alias_last) = FindPythonObject(target);
         }
     }
@@ -2893,10 +2979,10 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         MRBIND_STR(MRBIND_IDENTITY qualname_), \
         /* Qualified name with template arguments */\
         MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
-        +[](MRBind::pb11::ModuleOrClassRef _pb11_m, MRBind::pb11::TryAddFuncState &_pb11_state, MRBind::pb11::TryAddFuncScopeState &_pb11_scope_state, int _pb11_pass_number, const char *_pb11_qual_name, const char *_pb11_qual_name_with_template_args) \
+        +[](MRBind::pb11::ModuleOrClassRef _pb11_m, MRBind::pb11::TryAddFuncState &_pb11_state, MRBind::pb11::TryAddFuncScopeState &_pb11_scope_state, int _pb11_pass_number, const char *_pb11_qual_name, const char *_pb11_qual_name_with_template_args, MRBind::pb11::FuncAliasRegistrationFuncs *_pb11_func_alias_registration_funcs) \
         {\
             MRBind::pb11::TryAddFunc<\
-                MRBind::pb11::FuncKind::namespace_scope, \
+                MRBind::pb11::FuncKind::nonmember_or_static, \
                 /* The function pointer or a lambda. */\
                 DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
                 /* Parameter types. */\
@@ -2912,8 +2998,10 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
                 /* Pybind signature (to detect overloadable functions). */\
                 DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
                 /* Pass information. */\
-                &_pb11_state, &_pb11_scope_state, _pb11_pass_number \
-                /* Parameters. */\
+                &_pb11_state, &_pb11_scope_state, _pb11_pass_number, \
+                /* Func alias information. */\
+                _pb11_func_alias_registration_funcs \
+                /* Parameters. ^ NOTE: No trailing comma on the line above! */\
                 DETAIL_MB_PB11_MAKE_PARAMS(params_) \
                 /* Comment, if any. */ \
                 MRBIND_PREPEND_COMMA(comment_) \
@@ -2941,7 +3029,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             return std::make_unique<MRBind::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(*_pb11_m.handle, _pb11_n); \
         }, \
         /* Members lamdba. */\
-        +[](MRBind::pb11::BasicPybindType &_pb11_b, MRBind::pb11::TypeEntry::AddClassMembersState &_pb11_state) \
+        +[](MRBind::pb11::BasicPybindType &_pb11_b, MRBind::pb11::TypeEntry::AddClassMembersState &_pb11_state, FuncAliasRegistrationFuncs *) \
         { \
             if (_pb11_state.pass_number != 0) return; /* Only one pass is needed. */\
             [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
@@ -2972,7 +3060,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             return std::make_unique<_pb11_T>(*_pb11_m.handle, _pb11_n); \
         }, \
         /* Members lamdba. */\
-        +[](MRBind::pb11::BasicPybindType &_pb11_b, MRBind::pb11::TypeEntry::AddClassMembersState &_pb11_state) \
+        +[](MRBind::pb11::BasicPybindType &_pb11_b, MRBind::pb11::TypeEntry::AddClassMembersState &_pb11_state, [[maybe_unused]] MRBind::pb11::FuncAliasRegistrationFuncs *_pb11_func_alias_registration_funcs) \
         { \
             using _pb11_C = MRBIND_IDENTITY qualname_; \
             using _pb11_T = MRBind::pb11::SpecificPybindType<pybind11::class_<_pb11_C, MRBind::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>>; \
@@ -3039,7 +3127,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, comment_, params_) \
     MRBind::pb11::TryAddFunc< \
         /* Is this function static? */\
-        MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(member_static, member_nonstatic),\
+        MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
         static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) \
@@ -3058,9 +3146,11 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         MRBIND_STR(MRBIND_IDENTITY fullname_), \
         /* Pybind signature. */\
         DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
-        /* Overloading state. */\
-        &_pb11_state.NextFuncState(), &_pb11_state.func_scope_state, _pb11_state.pass_number \
-        /* Parameters. */\
+        /* State information. */\
+        &_pb11_state.NextFuncState(), &_pb11_state.func_scope_state, _pb11_state.pass_number, \
+        /* Func alias information. */\
+        _pb11_func_alias_registration_funcs \
+        /* Parameters. ^ NOTE: No trailing comma on the line above! */\
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */ \
         MRBIND_PREPEND_COMMA(comment_) \
