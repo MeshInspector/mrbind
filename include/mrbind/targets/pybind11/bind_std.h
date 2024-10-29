@@ -391,6 +391,24 @@ namespace MRBind::pb11::detail::BindStd
             // This interface is modelled after this: https://docs.python.org/3/library/stdtypes.html#set
             // I only implemented some basic functions.
 
+            // Default constructor.
+            c.def(pybind11::init<>());
+
+            // Constructor from a range. Mostly copied from `pybind11::detail::vector_modifiers`.
+            if constexpr (pybind11::detail::is_copy_assignable<T>::value)
+            {
+                c.def(pybind11::init(
+                    [](const pybind11::iterable &it)
+                    {
+                        std::shared_ptr<T> ret = std::make_shared<T>();
+                        std::size_t i = 0;
+                        for (pybind11::handle h : it)
+                            ret->insert(h.cast<ValueType>());
+                        return ret;
+                    }
+                ));
+            }
+
             // Size.
             c.def("__len__", [](const T &s){return s.size();});
 
