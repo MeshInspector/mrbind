@@ -203,7 +203,7 @@ namespace MRBind::pb11
     struct FuncAliasRegistrationFuncs
     {
         // This maps Python-style function names to functions that can be used to register an alias for them.
-        std::unordered_map<std::string, std::function<void(ModuleOrClassRef m, const char *name)>> funcs;
+        std::unordered_map<std::string, std::vector<std::function<void(ModuleOrClassRef m, const char *name)>>> funcs;
     };
 
     struct FuncEntry
@@ -1128,6 +1128,12 @@ namespace MRBind::pb11
         member_nonstatic,
     };
 
+    // This is the default argument for `TryAddFunc()`'s parameter called `data_func`. See the comment on that for details.
+    struct IdentityDataFunc
+    {
+        void operator()(auto f) const {f();}
+    };
+
     // How many passes `TryAddFunc()` needs. Currently there are three passes:
     // 0. adjust overloaded function names
     // 1. register most functions
@@ -1136,7 +1142,7 @@ namespace MRBind::pb11
 
     // Member or non-member function.
     // Normally is used in two passes, but in simple cases it can be used in a single pass (see `TryAddFuncSimple()`).
-    template <FuncKind Kind, auto F, typename ...P>
+    template <FuncKind Kind, auto F, typename ...P, typename DataFunc>
     void TryAddFunc(
         // `ModuleOrClassRef` for `Kind == nonmember_or_static`.
         // `class_` otherwise.
@@ -1159,7 +1165,13 @@ namespace MRBind::pb11
         int pass_number,
         // If non-null, this is populated.
         FuncAliasRegistrationFuncs *alias_registration_funcs,
-        auto &&... data
+        // This is either `IdentityDataFunc{}` or a lambda `(auto f) -> void`.
+        // The lambda must call `f` exactly once with the additional arguments that you want to pass to Pybind, such as the comment string,
+        //   `pybind11::arg(...)` objects, and so on. The reason why we do this is because we have to store those objects for later use
+        //   (see `FuncAliasRegistrationFuncs` for why we need it), and a lot of this stuff is prone to dangling (e.g. `pybind11::arg` stores
+        //   a pointer to the argument name, or even just the comment string can't be captured by the lambda directly without dangling,
+        //   unless you cast it to `std::string`, and so on).
+        DataFunc &&data_func
     )
     {
         if constexpr ((ParamTypeDisablesWholeFunction<DecayToTrueParamType<P>> || ...))
@@ -1276,7 +1288,7 @@ namespace MRBind::pb11
                     {
                         auto &r = GetRegistry();
 
-                        [&](auto&&, auto &&...trimmed_data)
+                        data_func([&](auto&&, auto &&...trimmed_data)
                         {
                             using FirstParam = FirstType<DecayToTrueParamType<P>...>;
 
@@ -1306,8 +1318,7 @@ namespace MRBind::pb11
                                     }
                                 }
                             }
-                        }
-                        (decltype(data)(data)...);
+                        });
 
                         // Return unconditionally. If we couldn't inject this operator into one of the arguments' types, just drop it.
                         return;
@@ -1317,7 +1328,7 @@ namespace MRBind::pb11
                 constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
                 static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
-                auto registration_lambda = [...data = decltype(data)(data)](ModuleOrClassRef m, const char *name)
+                auto registration_lambda = [data_func = std::move(data_func)](ModuleOrClassRef m, const char *name)
                 {
                     using C = std::remove_reference_t<decltype(c)>;
 
@@ -1331,41 +1342,39 @@ namespace MRBind::pb11
                     {
                         // Sus downcasts galore!
                         if constexpr (Kind == FuncKind::member_nonstatic)
-                            static_cast<C *>(m.handle)->def       (name, lambda, ret_policy, data..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                            data_func([&](auto &&... args){ static_cast<C *>(m.handle)->def       (name, lambda, ret_policy, decltype(args)(args)..., pybind11::call_guard<pybind11::gil_scoped_release>()); });
                         else
-                            m.                          AddFunc   (name, lambda, ret_policy, data..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                            data_func([&](auto &&... args){ m.                          AddFunc   (name, lambda, ret_policy, decltype(args)(args)..., pybind11::call_guard<pybind11::gil_scoped_release>()); });
                     }
                     else
                     {
                         if constexpr (Kind == FuncKind::member_nonstatic)
-                            static_cast<C *>(m.handle)->def       (name, lambda, ret_policy, data...);
+                            data_func([&](auto &&... args){ static_cast<C *>(m.handle)->def       (name, lambda, ret_policy, decltype(args)(args)...); });
                         else
-                            m.                          AddFunc   (name, lambda, ret_policy, data...);
+                            data_func([&](auto &&... args){ m.                          AddFunc   (name, lambda, ret_policy, decltype(args)(args)...); });
                     }
                 };
                 registration_lambda(c, final_name);
 
+                // Register the alias registration func.
                 if (alias_registration_funcs)
-                {
-                    if (!alias_registration_funcs->funcs.try_emplace(final_name, registration_lambda).second)
-                        CriticalError("Duplicate function name: `" + std::string(final_name) + "`.");
-                }
+                    alias_registration_funcs->funcs.try_emplace(final_name).first->second.push_back(registration_lambda);
             }
         }
     }
 
     // This version doesn't understand overloaded operators (unless you pass the python-style name directly), and doesn't resolve ambiguous overloads.
     // `fullname` is used as is, make sure it doesn't need adjusting.
-    template <FuncKind Kind, auto F, typename ...P>
+    template <FuncKind Kind, auto F, typename ...P, typename DataFunc = IdentityDataFunc>
     void TryAddFuncSimple(
         auto &c,
         const char *fullname,
         // Optional:
         FuncAliasRegistrationFuncs *alias_registration_funcs = nullptr,
-        auto &&... data
+        DataFunc &&data_func = {}
     )
     {
-        (TryAddFunc<Kind, F, P...>)(c, nullptr, fullname, nullptr, {}, nullptr, nullptr, -1, alias_registration_funcs, decltype(data)(data)...);
+        (TryAddFunc<Kind, F, P...>)(c, nullptr, fullname, nullptr, {}, nullptr, nullptr, -1, alias_registration_funcs, std::forward<DataFunc>(data_func));
     }
 
     template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, typename ...P>
@@ -2793,7 +2802,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                         #if MB_PB11_DEBUG_NAMES
                         std::cout << "mrbind: Registering custom function alias: `" << alias << "` -> `" << target << "`\n";
                         #endif
-                        func_iter->second(nst.m, nst.name.data());
+                        for (auto &elem : func_iter->second)
+                            elem(nst.m, nst.name.data());
                         continue;
                     }
                 }
@@ -2812,6 +2822,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             FindPythonObject(alias, &alias_last).attr(alias_last) = FindPythonObject(target);
         }
     }
+
+    // Destroy the registry.
+    // This not only saves memory, but also hopefully fix weird destruction order fiasco crashes.
+    r = {};
 }
 
 // Some sanity checks. On Clang 18 and older those will fail if you forget the `-frelaxed-template-template-args` flag.
@@ -3000,11 +3014,14 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
                 /* Pass information. */\
                 &_pb11_state, &_pb11_scope_state, _pb11_pass_number, \
                 /* Func alias information. */\
-                _pb11_func_alias_registration_funcs \
-                /* Parameters. ^ NOTE: No trailing comma on the line above! */\
-                DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-                /* Comment, if any. */ \
-                MRBIND_PREPEND_COMMA(comment_) \
+                _pb11_func_alias_registration_funcs, \
+                /* Pybind extras: */\
+                [](auto _pb11_f){_pb11_f(MRBIND_STRIP_LEADING_COMMA( \
+                    /* Parameters. */\
+                    DETAIL_MB_PB11_MAKE_PARAMS(params_) \
+                    /* Comment, if any. */ \
+                    MRBIND_PREPEND_COMMA(comment_) \
+                ));} \
             ); \
         } \
     );
@@ -3029,7 +3046,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             return std::make_unique<MRBind::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>>>(*_pb11_m.handle, _pb11_n); \
         }, \
         /* Members lamdba. */\
-        +[](MRBind::pb11::BasicPybindType &_pb11_b, MRBind::pb11::TypeEntry::AddClassMembersState &_pb11_state, FuncAliasRegistrationFuncs *) \
+        +[](MRBind::pb11::BasicPybindType &_pb11_b, MRBind::pb11::TypeEntry::AddClassMembersState &_pb11_state, MRBind::pb11::FuncAliasRegistrationFuncs *) \
         { \
             if (_pb11_state.pass_number != 0) return; /* Only one pass is needed. */\
             [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
@@ -3149,11 +3166,14 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* State information. */\
         &_pb11_state.NextFuncState(), &_pb11_state.func_scope_state, _pb11_state.pass_number, \
         /* Func alias information. */\
-        _pb11_func_alias_registration_funcs \
-        /* Parameters. ^ NOTE: No trailing comma on the line above! */\
-        DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-        /* Comment, if any. */ \
-        MRBIND_PREPEND_COMMA(comment_) \
+        _pb11_func_alias_registration_funcs, \
+        /* Pybind extras: */\
+        [](auto _pb11_f){_pb11_f(MRBIND_STRIP_LEADING_COMMA( \
+            /* Parameters. */\
+            DETAIL_MB_PB11_MAKE_PARAMS(params_) \
+            /* Comment, if any. */ \
+            MRBIND_PREPEND_COMMA(comment_) \
+        ));} \
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
@@ -3170,9 +3190,14 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     >( \
         _pb11_c, \
         /* Operator name. */\
-        MRBind::pb11::GetConversionFuncName<MRBIND_IDENTITY ret_>(MRBIND_STR(MRBIND_IDENTITY ret_)).c_str() \
-        /* Comment, if any. */ \
-        MRBIND_PREPEND_COMMA(comment_) \
+        MRBind::pb11::GetConversionFuncName<MRBIND_IDENTITY ret_>(MRBIND_STR(MRBIND_IDENTITY ret_)).c_str(), \
+        /* Func alias information. */\
+        _pb11_func_alias_registration_funcs, \
+        /* Pybind extras: */\
+        [](auto _pb11_f){_pb11_f( \
+            /* Comment, if any. */ \
+            comment_ \
+        );} \
     );
 
 #define MB_REGISTER_TYPE(i_, ...) \

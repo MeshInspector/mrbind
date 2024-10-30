@@ -38,7 +38,8 @@ struct MRBind::pb11::CustomTypeBinding<std::shared_future<T>>
         >(
             c,
             "get",
-            "Retrurns the result. Throws if not `.valid()`. Blocks if not `.ready()` yet."
+            nullptr,
+            [](auto f){f("Retrurns the result. Throws if not `.valid()`. Blocks if not `.ready()` yet.");}
         );
     }
 };
