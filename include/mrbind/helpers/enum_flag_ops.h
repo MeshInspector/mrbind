@@ -21,4 +21,4 @@
     [[nodiscard, maybe_unused]] prefix_ name_ operator<<(name_ a, int b) {return name_(::std::underlying_type_t<name_>(a) << b);} \
     [[nodiscard, maybe_unused]] prefix_ name_ operator>>(name_ a, int b) {return name_(::std::underlying_type_t<name_>(a) >> b);} \
     [[maybe_unused]] prefix_ name_ &operator<<=(name_ &a, int b) {return a = a << b;} \
-    [[maybe_unused]] prefix_ name_ &operator>>=(name_ &a, int b) {return a = a >> b;} \
+    [[maybe_unused]] prefix_ name_ &operator>>=(name_ &a, int b) {return a = a >> b;}

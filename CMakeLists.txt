@@ -9,7 +9,7 @@ add_executable(mrbind
     src/multiplex_data.cpp
     src/string_manip.cpp
 )
-set_property(TARGET mrbind PROPERTY CXX_STANDARD 23)
+set_property(TARGET mrbind PROPERTY CXX_STANDARD 20)
 set_property(TARGET mrbind PROPERTY CXX_EXTENSIONS off)
 
 if(NOT MSVC)
