@@ -217,12 +217,28 @@ namespace mrbind
         return true;
     }
 
+    // This attribute completely removes the entity from the parser output.
     [[nodiscard]] bool HasIgnoreAttribute(const clang::Decl &decl)
     {
         for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
         {
             if (attr->getAnnotation() == "mrbind::ignore")
-                return true; // Ignore declarations with attribute `annotate("mrbind::ignore")`.
+                return true;
+        }
+        return false;
+    }
+
+    // This attribute hides the entity from the parser output, but still emits the types related to it
+    //   (function return type and parameter types, typedef target type (but not the typedef itself), and so on).
+    // This is very rarely needed. Normally to force-instantiate a template you would just `[extern] template class A<...>;` it.
+    // But this doesn't work with classes with custom bindings (such as standard containers).
+    // For those you need this attribute.
+    [[nodiscard]] bool HasInstantiateOnlyAttribute(const clang::Decl &decl)
+    {
+        for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
+        {
+            if (attr->getAnnotation() == "mrbind::instantiate_only")
+                return true;
         }
         return false;
     }
@@ -654,6 +670,14 @@ namespace mrbind
             if (decl->getReturnType()->isUndeducedAutoType())
                 ci->getSema().InstantiateFunctionDefinition(decl->getBeginLoc(), decl);
 
+            if (HasInstantiateOnlyAttribute(*decl))
+            {
+                // Just register the types.
+                (void)GetFuncParams(*decl);
+                (void)GetTypeStrings(decl->getReturnType(), TypeUses::returned);
+                return true;
+            }
+
             FuncEntity &new_func = params->container_stack.back()->nested.emplace_back().emplace<FuncEntity>();
 
             { // Full name.
@@ -834,7 +858,7 @@ namespace mrbind
             return ret;
         }
 
-        bool TraverseClassTemplateSpecializationDecl(clang::ClassTemplateSpecializationDecl *decl)
+        bool TraverseClassTemplateSpecializationDecl(clang::ClassTemplateSpecializationDecl *decl) // CRTP override
         {
             // Unlike `Visit...`, `Traverse...` only handles exact matches, so we need this in addition to `TraverseRecordDecl()`
             //   to process class template specializations.
@@ -908,6 +932,12 @@ namespace mrbind
             {
                 if (!TypeLooksAccessible(*type))
                     return true; // Inaccessible type.
+            }
+
+            if (HasInstantiateOnlyAttribute(*decl))
+            {
+                (void)GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target); // Register the type.
+                return true;
             }
 
             TypedefEntity &new_typedef = params->container_stack.back()->nested.emplace_back().emplace<TypedefEntity>();

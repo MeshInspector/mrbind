@@ -1,19 +1,8 @@
-#include <set>
-#include <unordered_set>
-
-#include <tl/expected.hpp>
+template <typename T> struct A {};
 
 namespace MR
 {
-    // I'm foo! 01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
-    inline std::set<int> foo() {return {1,2,3};}
-    inline std::unordered_set<int> bar() {return {1,2,3};}
-
-    using Set = std::unordered_set<int>;
-
-    struct A
-    {
-        int foo() {return 42;}
-        static int bar() {return 43;}
-    };
+    __attribute__((__annotate__(("mrbind::instantiate_only")))) void foo(A<int>);
+    void bar(A<float>);
+    using B __attribute__((__annotate__(("mrbind::instantiate_only")))) = A<char>;
 }
