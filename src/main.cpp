@@ -1138,7 +1138,11 @@ namespace mrbind
                 ClangAstVisitorInstTypes vis(ctx, *ci, *params);
                 vis.TraverseDecl(ctx.getTranslationUnitDecl());
                 if (!vis.instantiated_some)
+                {
+                    if (i > 1)
+                        llvm::errs() << "mrbind: Used " << i+1 << " iterations to instantiate all templates.\n";
                     break;
+                }
             }
 
             // Gather the bulk of the information.
