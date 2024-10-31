@@ -13,6 +13,7 @@
 #include <mrbind/helpers/map_filter_pack.h>
 #include <mrbind/helpers/rebind_container.h>
 #include <mrbind/helpers/type_name.h>
+#include <mrbind/helpers/type_lists.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
 #include <pybind11/functional.h>
@@ -551,6 +552,7 @@ namespace MRBind::pb11
         }
 
         // Which base classes we inherit from. Or in general, which types must be initialized before this one.
+        // The return value should usually be obtained from calling `MakeBaseTypeids<...>()`.
         static std::unordered_set<std::type_index> base_typeids() {return {};}
 
         // Registers all members.
@@ -558,8 +560,9 @@ namespace MRBind::pb11
         static void bind_members(pybind_type &c /*optional: , FuncAliasRegistrationFuncs *func_alias_registration_funcs*/) {(void)c;}
     };
 
+    // Avoid this version, prefer the ones without `Direct`.
     template <typename T>
-    struct RegisterOneTypeWithCustomBinding
+    struct RegisterOneTypeWithCustomBindingDirect
     {
         inline static const std::nullptr_t register_type = []{
             namespace pb11 = MRBind::pb11;
@@ -570,7 +573,7 @@ namespace MRBind::pb11
                 typeid(T),
                 // Parsed?
                 false,
-                // Parent namespace.
+                // Parent namespace. Currently we just use the global namespace.
                 typeid(::_pb11_this_ns),
                 // Comment.
                 nullptr,
@@ -606,29 +609,53 @@ namespace MRBind::pb11
         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
     };
 
-    // ---
-
-    // Like `RegisterOneTypeWithCustomBinding<T>`, but does nothing if T doesn't have a custom binding for it.
-    // Also automatically strips pointers/refs/etc.
+    // Like `RegisterOneTypeWithCustomBindingDirect<T>`, but does nothing if T doesn't have a custom binding for it.
+    // Avoid this version, prefer the ones without `Direct`.
     template <typename T>
-    struct RegisterOneTypeWithCustomBindingIfApplicable {};
-    template <typename T> requires HasCustomTypeBinding<typename StripToUnderlyingType<T>::type>
-    struct RegisterOneTypeWithCustomBindingIfApplicable<T> : RegisterOneTypeWithCustomBinding<typename StripToUnderlyingType<T>::type> {};
+    struct RegisterOneTypeWithCustomBindingDirectIfApplicable {};
+    template <typename T> requires HasCustomTypeBinding<T>
+    struct RegisterOneTypeWithCustomBindingDirectIfApplicable<T> : RegisterOneTypeWithCustomBindingDirect<T> {};
 
-    // Like `RegisterOneTypeWithCustomBindingIfApplicable`, but also accepts multiple types.
-    // This is because you might want to inherit from it, and if you try to inherit from several instances,
-    //   and if the template parameters of them happen to match, you'll get a compilation error (repeated direct base class).
+    // This one calls `RegisterOneTypeWithCustomBindingDirect<...>` for several types.
+    // Avoid this version, prefer the ones without `Direct`.
     #ifdef __clang__
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Winaccessible-base"
     #endif
     template <typename ...P>
-    struct RegisterTypeWithCustomBindingIfApplicable {};
+    struct RegisterTypesWithCustomBindingDirectIfApplicable {};
     template <typename P0, typename ...P>
-    struct RegisterTypeWithCustomBindingIfApplicable<P0, P...> : RegisterOneTypeWithCustomBindingIfApplicable<P0>, RegisterTypeWithCustomBindingIfApplicable<P...> {};
+    struct RegisterTypesWithCustomBindingDirectIfApplicable<P0, P...> : RegisterOneTypeWithCustomBindingDirectIfApplicable<P0>, RegisterTypesWithCustomBindingDirectIfApplicable<P...> {};
     #ifdef __clang__
     #pragma clang diagnostic pop
     #endif
+
+
+    // This is a customization point.
+    // When something tries to register a custom type binding, this lets you instead attempt to register one or more other types.
+    // This is useful e.g. when something tried to register `std::pair<A, B>`, so you can instead register `A` and `B` separately,
+    //   so that the built-in `std::pair` support can use them. (Though in this case maybe we instead should instead have our own pair?)
+    // When recursing, you should instead call `DecomposeTypeForRegistration`, not this directly.
+    template <typename T>
+    struct CustomizeDecomposingTypeForRegistration {using type = TypeList<T>;};
+
+    // This is not a customization point.
+    // This is the public interface for `CustomizeDecomposingTypeForRegistration`.
+    template <typename T>
+    using DecomposeTypeForRegistration = typename CustomizeDecomposingTypeForRegistration<typename StripToUnderlyingType<T>::type>::type;
+
+    // THIS is the primary version you should be using. This one respects `DecomposeTypeForRegistration`.
+    template <typename ...P>
+    struct RegisterTypesWithCustomBindingIfApplicable : CatTypeLists<DecomposeTypeForRegistration<P>...>::template Apply<RegisterTypesWithCustomBindingDirectIfApplicable> {};
+
+    // A helper for `MakeBaseTypeids()`, see below.
+    template <typename ...P>
+    struct TypeListToTypeidSet {static std::unordered_set<std::type_index> MakeSet() {return {typeid(P)...};}};
+
+    // This is what custom bindings should return from their `base_typeids()`.
+    // This automatically applies `DecomposeTypeForRegistration` to the types.
+    template <typename ...P>
+    [[nodiscard]] std::unordered_set<std::type_index> MakeBaseTypeids() {return CatTypeLists<DecomposeTypeForRegistration<P>...>::template Apply<TypeListToTypeidSet>::MakeSet();}
 
     // ---
 
@@ -966,7 +993,7 @@ namespace MRBind::pb11
     //   it might invalidate them for non-standard maps, or they might not have such function in the first place.
     // In any case, we don't seem to need key adjustments for anything right now.
     // If you decide to change this, don't forget to go over the custom bindings for all containers,
-    //   and add `AdjustContainerElemType<...>` to the key template parameter of `RegisterTypeWithCustomBindingIfApplicable<...>`.
+    //   and add `AdjustContainerElemType<...>` to the key template parameter of `RegisterTypesWithCustomBindingIfApplicable<...>`.
     template <IsRebindableMapContainer T> requires ContainerElemTypeNeedsAdjusting<typename T::mapped_type>
     struct ReturnTypeTraits<T>
     {
@@ -999,12 +1026,12 @@ namespace MRBind::pb11
     template <typename T>
     struct RegisterReturnType {};
     template <typename T> requires (!IgnoreFuncsWithReturnType<T>::value)
-    struct RegisterReturnType<T> : RegisterOneTypeWithCustomBindingIfApplicable<typename AdjustReturnType<T>::type> {};
+    struct RegisterReturnType<T> : RegisterTypesWithCustomBindingIfApplicable<typename AdjustReturnType<T>::type> {};
 
     template <typename T>
     struct RegisterParamType {};
     template <typename T> requires (!ParamTypeDisablesWholeFunction<DecayToTrueParamType<T>>)
-    struct RegisterParamType<T> : RegisterOneTypeWithCustomBindingIfApplicable<AdjustedParamType<T>> {};
+    struct RegisterParamType<T> : RegisterTypesWithCustomBindingIfApplicable<AdjustedParamType<T>> {};
 
     template <typename T>
     struct RegisterFieldType : RegisterReturnType<const T &>, RegisterParamType<const T &> {};
@@ -2903,9 +2930,6 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 // A helper for `MB_CLASS` that generates the base class list with a leading comma.
 #define DETAIL_MB_PB11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PB11_BASE_TYPES_BODY(n, d, type_, virtual_) , MRBIND_IDENTITY type_
-// Same, but emits `typeid`s, and with a trailing comma.
-#define DETAIL_MB_PB11_BASE_TYPEIDS(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPEIDS_BODY, SF_NULL, SF_NULL,, seq)
-#define DETAIL_MB_PB11_BASE_TYPEIDS_BODY(n, d, type_, virtual_) typeid(MRBIND_IDENTITY type_),
 
 // Given a namespace stack (see comments on `MB_NAMESPACE` in `define_missing_macros.h`),
 // returns the kind of the most nested entry (`cl` for class, `ns` for namespace). For empty input returns `ns`.
@@ -3087,7 +3111,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             if (_pb11_state.pass_number == 1) \
                 (MRBind::pb11::FinalizeClass<_pb11_C>)(_pb11_c, _pb11_state.func_scope_state); \
         }, \
-        std::unordered_set<std::type_index>{DETAIL_MB_PB11_BASE_TYPEIDS(bases_)} \
+        MRBind::pb11::MakeBaseTypeids<MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_BASE_TYPES(bases_))>() \
     ); \
     \
     { \
@@ -3206,7 +3230,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 
 #define MB_REGISTER_TYPE_RETURNED(i_, ...) (void)MRBind::pb11::RegisterReturnType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_PARAM(i_, ...)    (void)MRBind::pb11::RegisterParamType<__VA_ARGS__>{};
-#define MB_REGISTER_TYPE_PARSED(i_, ...)   (void)MRBind::pb11::RegisterOneTypeWithCustomBindingIfApplicable<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_PARSED(i_, ...)   (void)MRBind::pb11::RegisterTypesWithCustomBindingIfApplicable<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_BASE(i_, ...)                  MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
 #define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, ...) (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, ...)    (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};

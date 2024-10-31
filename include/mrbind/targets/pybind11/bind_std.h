@@ -1,26 +1,30 @@
 #pragma once
 
-namespace MRBind::pb11
+// Adjust `std::optional<T>` to `std::unique_ptr<T>`.
+// This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.
+template <typename T>
+requires
+    // Because we need to be able to move the object into `std::unique_ptr`.
+    std::movable<T>
+struct MRBind::pb11::ReturnTypeTraits<std::optional<T>>
 {
-    // Adjust `std::optional<T>` to `std::unique_ptr<T>`.
-    // This is purely to make the API nicer, it makes the object appear as `T` or `None` in Python, instead of `std::optional<T>`.
-    template <typename T>
-    requires
-        // Because we need to be able to move the object into `std::unique_ptr`.
-        std::movable<T>
-    struct ReturnTypeTraits<std::optional<T>>
+    static decltype(auto) Adjust(std::optional<T> &&value)
     {
-        static decltype(auto) Adjust(std::optional<T> &&value)
-        {
-            typename OptionalReturnType<T>::type ret;
-            if (value)
-                // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
-                // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
-                ret = OptionalReturnType<T>::make(std::move(*value));
-            return AdjustReturnedValue<decltype(ret)>(std::move(ret));
-        }
-    };
-}
+        typename OptionalReturnType<T>::type ret;
+        if (value)
+            // Note that pybind11 normally doesn't support `unique_ptr` to builtin types ("holders are not supported for non-custom types", or whatever).
+            // But we have code in `TryAddFunc()` that adjusts `unique_ptr`s to builtin types to raw pointers, which works around this.
+            ret = OptionalReturnType<T>::make(std::move(*value));
+        return AdjustReturnedValue<decltype(ret)>(std::move(ret));
+    }
+};
+
+// Propagate type registration through `std::pair`.
+template <typename T, typename U>
+struct MRBind::pb11::CustomizeDecomposingTypeForRegistration<std::pair<T, U>> {using type = CatTypeLists<DecomposeTypeForRegistration<T>, DecomposeTypeForRegistration<U>>;};
+
+
+
 
 // This holds patched versions of pybind11's `bind_vector`, `bind_map`, etc.
 namespace pybind11::patched
@@ -30,13 +34,7 @@ namespace pybind11::patched
     {
         using Class_ = class_<Vector, std::shared_ptr<Vector>, Extras...>;
 
-        // If the value_type is unregistered (e.g. a converting type) or is itself registered
-        // module-local then make the vector binding module-local as well:
-        using vtype = typename Vector::value_type;
-        auto *vtype_info = detail::get_type_info(typeid(vtype));
-        bool local = !vtype_info || vtype_info->module_local;
-
-        Class_ cl(scope, name.c_str(), pybind11::module_local(local) /*, std::forward<Args>(args)...*/);
+        Class_ cl(scope, name.c_str() /*, std::forward<Args>(args)...*/);
 
         // Declare the buffer interface if a buffer_protocol() is passed in
         detail::vector_buffer<Vector, Class_ /*, Args...*/>(cl);
@@ -79,23 +77,13 @@ namespace pybind11::patched
         using ItemsView = detail::items_view<Map>;
         using Class_ = class_<Map, std::shared_ptr<Map>, Extras...>;
 
-        // If either type is a non-module-local bound type then make the map binding non-local as well;
-        // otherwise (e.g. both types are either module-local or converting) the map will be
-        // module-local.
-        auto *tinfo = detail::get_type_info(typeid(MappedType));
-        bool local = !tinfo || tinfo->module_local;
-        if (local) {
-            tinfo = detail::get_type_info(typeid(KeyType));
-            local = !tinfo || tinfo->module_local;
-        }
-
-        Class_ cl(scope, name.c_str(), pybind11::module_local(local) /*, std::forward<Args>(args)...*/);
+        Class_ cl(scope, name.c_str() /*, std::forward<Args>(args)...*/);
         class_<KeysView> keys_view(
-            scope, ("KeysView[" + name + "]").c_str(), pybind11::module_local(local));
+            scope, ("KeysView[" + name + "]").c_str());
         class_<ValuesView> values_view(
-            scope, ("ValuesView[" + name + "]").c_str(), pybind11::module_local(local));
+            scope, ("ValuesView[" + name + "]").c_str());
         class_<ItemsView> items_view(
-            scope, ("ItemsView[" + name + "]").c_str(), pybind11::module_local(local));
+            scope, ("ItemsView[" + name + "]").c_str());
 
         cl.def(init<>());
 
@@ -205,14 +193,14 @@ namespace pybind11::patched
 template <typename T, typename A>
 struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
     : DefaultCustomTypeBinding<std::vector<T, A>>,
-    RegisterTypeWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
+    RegisterTypesWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
 {
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
 
     // Make sure the element type is loaded first.
     // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.
     // We could just avoid doing that here, but it's harder to pull off for `std::map`, which registers SEVERAL different types in the `bind_map` (duh).
-    static std::unordered_set<std::type_index> base_typeids() {return {typeid(typename StripToUnderlyingType<T>::type)};}
+    static std::unordered_set<std::type_index> base_typeids() {return MakeBaseTypeids<T>();}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
     static void bind_members(typename DefaultCustomTypeBinding<std::vector<T, A>>::pybind_type &c)
@@ -237,14 +225,14 @@ struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
 template <typename T, typename U, typename Comp, typename A>
 struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
     : DefaultCustomTypeBinding<std::map<T, U, Comp, A>>,
-    RegisterTypeWithCustomBindingIfApplicable<T, AdjustContainerElemType<U>>
+    RegisterTypesWithCustomBindingIfApplicable<T, AdjustContainerElemType<U>>
 {
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
 
     // Make sure the element type is loaded first.
     // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.
     // We could just avoid doing that for `std::vector`, but it's harder to pull off here, because `bind_map` registers SEVERAL different types (duh).
-    static std::unordered_set<std::type_index> base_typeids() {return {typeid(typename StripToUnderlyingType<T>::type), typeid(typename StripToUnderlyingType<U>::type)};}
+    static std::unordered_set<std::type_index> base_typeids() {return MakeBaseTypeids<T, U>();}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
     static void bind_members(typename DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::pybind_type &c)
@@ -264,7 +252,7 @@ struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
 template <typename T, std::size_t N>
 struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
     : DefaultCustomTypeBinding<std::array<T, N>>,
-    RegisterTypeWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
+    RegisterTypesWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
 {
     [[nodiscard]] static std::string cpp_type_name()
     {
@@ -380,7 +368,7 @@ namespace MRBind::pb11::detail::BindStd
     requires std::same_as<typename T::value_type, typename T::key_type> // Basic sanity check.
     struct BindSetLike
         : DefaultCustomTypeBinding<T>,
-        RegisterTypeWithCustomBindingIfApplicable<AdjustContainerElemType<typename T::value_type>>
+        RegisterTypesWithCustomBindingIfApplicable<AdjustContainerElemType<typename T::value_type>>
     {
         static void bind_members(typename DefaultCustomTypeBinding<T>::pybind_type &c)
         {
@@ -522,7 +510,7 @@ struct MRBind::pb11::CustomTypeBinding<std::unordered_set<T, A>> : MRBind::pb11:
 template <typename T>
 struct MRBind::pb11::CustomTypeBinding<std::optional<T>>
     : DefaultCustomTypeBinding<std::optional<T>>,
-    RegisterTypeWithCustomBindingIfApplicable<T>
+    RegisterTypesWithCustomBindingIfApplicable<T>
 {
     static void bind_members(typename DefaultCustomTypeBinding<std::optional<T>>::pybind_type &c)
     {
@@ -557,7 +545,7 @@ struct MRBind::pb11::CustomTypeBinding<std::optional<T>>
 template <typename ...P>
 struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
     : public DefaultCustomTypeBinding<std::variant<P...>>,
-    RegisterTypeWithCustomBindingIfApplicable<P...>
+    RegisterTypesWithCustomBindingIfApplicable<P...>
 {
     static void bind_members(typename DefaultCustomTypeBinding<std::variant<P...>>::pybind_type &c)
     {

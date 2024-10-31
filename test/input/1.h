@@ -1,8 +1,6 @@
-template <typename T> struct A {};
+#include <vector>
 
 namespace MR
 {
-    __attribute__((__annotate__(("mrbind::instantiate_only")))) void foo(A<int>);
-    void bar(A<float>);
-    using B __attribute__((__annotate__(("mrbind::instantiate_only")))) = A<char>;
+    inline std::pair<std::vector<int> *, std::vector<float>> foo() {return {0, {1,2,3}};}
 }

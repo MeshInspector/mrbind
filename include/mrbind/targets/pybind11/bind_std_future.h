@@ -5,7 +5,7 @@
 template <typename T>
 struct MRBind::pb11::CustomTypeBinding<std::shared_future<T>>
     : DefaultCustomTypeBinding<std::shared_future<T>>,
-    RegisterTypeWithCustomBindingIfApplicable<T>
+    RegisterTypesWithCustomBindingIfApplicable<T>
 {
     [[nodiscard]] static std::string cpp_type_name()
     {
@@ -48,7 +48,7 @@ struct MRBind::pb11::CustomTypeBinding<std::shared_future<T>>
 // This is purely because it has a nicer API (`.get()` can be called multiple times).
 template <typename T>
 struct MRBind::pb11::ReturnTypeTraits<std::future<T>>
-    : RegisterTypeWithCustomBindingIfApplicable<std::shared_future<T>>
+    : RegisterTypesWithCustomBindingIfApplicable<std::shared_future<T>>
 {
     static std::shared_future<T> Adjust(std::future<T> &&value)
     {
