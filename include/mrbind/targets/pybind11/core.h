@@ -1568,6 +1568,8 @@ PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 // Module entry point, and more stuff.
 #if MB_DEFINE_IMPLEMENTATION // Don't duplicate this if we have >1 TU.
 
+#pragma message("MRBind: Pybind internals magic: " PYBIND11_INTERNALS_ID)
+
 namespace MRBind::pb11
 {
     void CriticalError(std::string_view message)
