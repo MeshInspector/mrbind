@@ -238,6 +238,17 @@ namespace MR
 
     // ---
 
+    // Output pointers to scalars get wrapped in classes.
+
+    inline void foo(int &x, float *y)
+    {
+        x = 1;
+        if (y)
+            *y = 1.1f;
+    }
+
+    // ---
+
     // Various forms of `std::future`:
 
     inline std::future<int> fa() {return std::async(std::launch::async, []{std::this_thread::sleep_for(std::chrono::seconds(2)); return 42;});}

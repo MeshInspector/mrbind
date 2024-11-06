@@ -809,14 +809,10 @@ namespace MRBind::pb11
     struct ParamTraitsLow : ParamTraits<T>
     {};
 
-    // Ban non-const lvalue refs to scalar and array types, since writing to those isn't visible in the caller.
-    // Maybe other types are also affected, not sure, need more testing.
+    // Ban refs to array types, since those don't work anyway.
+    // Non-const refs to scalars also don't work, but we don't disable them here, and instead add the support with a hack in `scalar_output_params`.
     template <typename T>
-    requires(
-        std::is_lvalue_reference_v<T> &&
-        !std::is_const_v<std::remove_reference_t<T>> &&
-        (std::is_scalar_v<std::remove_reference_t<T>> || std::is_array_v<std::remove_reference_t<T>>)
-    )
+    requires std::is_reference_v<T> && std::is_array_v<std::remove_reference_t<T>>
     struct ParamTraitsLow<T>
     {
         using disables_func = void; // Disable the whole function because of this parameter.

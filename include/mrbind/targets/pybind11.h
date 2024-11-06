@@ -2,6 +2,7 @@
 
 #include <mrbind/targets/pybind11/core.h>
 
+#include <mrbind/targets/pybind11/scalar_output_params.h>
 #include <mrbind/targets/pybind11/bind_std.h>
 #include <mrbind/targets/pybind11/bind_std_func.h>
 #include <mrbind/targets/pybind11/bind_std_future.h>
