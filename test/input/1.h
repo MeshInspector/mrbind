@@ -2,5 +2,14 @@
 
 namespace MR
 {
-    inline std::pair<std::vector<int> *, std::vector<float>> foo() {return {0, {1,2,3}};}
+    struct X {};
+
+    struct A
+    {
+        using B = X;
+        using C __attribute__((__annotate__("mrbind::ignore"))) = X;
+    };
+
+    inline void foo(A::C) {}
+    inline std::vector<X> bar() {return {};}
 }

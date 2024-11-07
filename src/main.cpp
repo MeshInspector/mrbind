@@ -246,9 +246,14 @@ namespace mrbind
     // Whether we should skip this declaration when traversing the AST.
     // Includes some non-contentious stuff like rejecting header contents, template declarations there weren't instantiated yet, function-local declarations.
     // `params` is optional.
-    [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::NamedDecl &decl, const VisitorParams *params, const PrintingPolicies &printing_policies)
+    // NOTE: If `out_ignore` is specified, will write true to it INSTEAD of the rejecting the declaration ONLY IF the rejection is caused
+    //   by a blacklisted name or the `mrbind::ignore` attribute.
+    [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::NamedDecl &decl, const VisitorParams *params, const PrintingPolicies &printing_policies, bool *out_ignore = nullptr)
     {
         (void)ctx;
+
+        if (out_ignore)
+            *out_ignore = false; // Default to false...
 
         if (decl.isTemplated())
             return true; // This is a template, reject. Specific specializations will be given to us separately.
@@ -257,7 +262,13 @@ namespace mrbind
             return true; // Reject function-local declarations.
 
         if (HasIgnoreAttribute(decl))
-            return true; // Ignore declarations with attribute `annotate("mrbind::ignore")`.
+        {
+            // Ignore declarations with attribute `annotate("mrbind::ignore")`.
+            if (out_ignore)
+                *out_ignore = true;
+            else
+                return true;
+        }
 
         std::string name;
         llvm::raw_string_ostream ss(name);
@@ -288,10 +299,22 @@ namespace mrbind
         {
             // Check the name both with and without template arguments.
             if (params->blacklisted_entities.Contains(name_without_template_args) || params->blacklisted_entities.Contains(name))
-                return true; // This entity is blacklisted.
+            {
+                // This entity is blacklisted.
+                if (out_ignore)
+                    *out_ignore = true;
+                else
+                    return true;
+            }
 
             if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.Contains(name_without_template_args) && !params->whitelisted_entities.Contains(name))
-                return true; // This entity is blacklisted because its enclosing entity is blacklisted, and it itself is not whitelisted.
+            {
+                // This entity is blacklisted because its enclosing entity is blacklisted, and it itself is not whitelisted.
+                if (out_ignore)
+                    *out_ignore = true;
+                else
+                    return true;
+            }
         }
 
         return false;
@@ -513,15 +536,23 @@ namespace mrbind
             return type.getCanonicalType().getAsString(printing_policies.normal);
         }
 
+        // If `reason` is zero, the function does nothing.
         void RegisterTypeSpelling(const std::string &canonical, const std::string &pretty, TypeUses reason)
         {
+            if (reason == TypeUses{})
+                return;
+
             TypeInformation &info = params->parsed_result.type_info[canonical];
-            info.alt_spellings.insert(pretty);
-            info.uses |= reason;
+            info.uses |= reason & ~TypeUses::_poisoned;
+
+            auto &spelling = info.alt_spellings.try_emplace(pretty).first->second;
+            if (bool(reason & TypeUses::_poisoned))
+                spelling.poisoned = true;
         }
 
         // Returns the string representations of a type.
         // Also registers a type alias if we haven't seen this spelling before.
+        // If `reason` zero, doesn't register anything.
         [[nodiscard]] Type GetTypeStrings(const clang::QualType &type, TypeUses reason)
         {
             Type ret;
@@ -925,7 +956,8 @@ namespace mrbind
 
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+            bool should_poison = false;
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies, &should_poison))
                 return true;
 
             if (auto type = decl->getTypeForDecl()) // For some reason this can be null (for typedefs/aliases, but not for other entities?).
@@ -940,12 +972,22 @@ namespace mrbind
                 return true;
             }
 
+            std::string full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
+            // Here we don't register the typedef TARGET TYPE SPELLING if we're going to poison the target type.
+            auto type_strings = GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target * !should_poison);
+            if (should_poison)
+            {
+                // We do register the TYPEDEF SPELLING itself to poison it though.
+                RegisterTypeSpelling(type_strings.canonical, full_name, TypeUses::typedef_target | TypeUses::_poisoned);
+                return true;
+            }
+
             TypedefEntity &new_typedef = params->container_stack.back()->nested.emplace_back().emplace<TypedefEntity>();
 
             new_typedef.name = decl->getName();
-            new_typedef.full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
+            new_typedef.full_name = std::move(full_name);
             new_typedef.comment = GetCommentString(*ctx, *decl);
-            new_typedef.type = GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target);
+            new_typedef.type = std::move(type_strings);
             RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name, TypeUses::typedef_target);
 
             return true;

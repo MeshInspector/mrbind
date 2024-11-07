@@ -463,6 +463,7 @@ namespace mrbind
                                 case TypeUses::nonstatic_data_member: kind = "NONSTATIC_DATA_MEMBER"; break;
                                 case TypeUses::static_data_member:    kind = "STATIC_DATA_MEMBER"; break;
                                 case TypeUses::typedef_target:        kind = "TYPEDEF_TARGET"; break;
+                                case TypeUses::_poisoned:             break; // This should be unreachable.
                             }
 
                             out << "MB_REGISTER_TYPE_" << kind << "(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
@@ -471,10 +472,13 @@ namespace mrbind
 
                     for (const auto &spelling : type.second.alt_spellings)
                     {
+                        if (spelling.second.poisoned)
+                            continue; // Ignore the poisoned spelling.
+
                         out << "MB_ALT_TYPE_SPELLING("
                             << (multiplex_counter - 1) << ", "
                             << "(" << type.first << "), "
-                            << "(" << spelling << ")"
+                            << "(" << spelling.first << ")"
                             << ")\n";
                     }
 

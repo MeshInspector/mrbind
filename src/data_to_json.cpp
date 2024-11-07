@@ -578,6 +578,7 @@ namespace mrbind
                             case TypeUses::nonstatic_data_member: kind = "nonstatic_data_member"; break;
                             case TypeUses::static_data_member:    kind = "static_data_member"; break;
                             case TypeUses::typedef_target:        kind = "typedef_target"; break;
+                            case TypeUses::_poisoned:             break; // Should be unreachable.
                         }
                         json.WriteElem(kind);
                     }
@@ -593,7 +594,23 @@ namespace mrbind
             {
                 json.BeginObject();
                 json.WriteField("uses", value.uses);
-                json.WriteField("alt_spellings", value.alt_spellings);
+                json.BeginField("alt_spellings");
+                json.BeginObject();
+                for (const auto &elem : value.alt_spellings)
+                    json.WriteField(elem.first, elem.second);
+                json.EndObject();
+                json.EndField();
+                json.EndObject();
+            }
+        };
+
+        template <>
+        struct WriteToJsonTraits<TypeAltSpellingInfo>
+        {
+            void operator()(JsonWriter &json, const TypeAltSpellingInfo &value)
+            {
+                json.BeginObject();
+                json.WriteField("poisoned", value.poisoned);
                 json.EndObject();
             }
         };

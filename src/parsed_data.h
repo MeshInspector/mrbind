@@ -265,15 +265,30 @@ namespace mrbind
         typedef_target = 1 << 6,
 
         _valid_bits [[maybe_unused]] = (1 << 7) - 1,
+
+        // Internal stuff:
+
+        // This is used internally but should never be set in the parser output.
+        // Unlike `TypeAltSpellingInfo::poisoned` below, use that instead.
+        _poisoned = 1 << 7,
     };
     MRBIND_FLAG_OPERATORS(TypeUses)
+
+    struct TypeAltSpellingInfo
+    {
+        // If this bit is set, the type won't be emitted.
+        // This is set by typedefs that have the `mrbind::ignore` attribute, to make sure the spelling doesn't get emitted even if
+        //   it later appears in a different context. (E.g. if a function parameter uses this typedef as the spelling, it would normally
+        //   get emitted despite the typedef itself being ignored. But the fact that the typedef sets this bit lets us destroy the unwanted spelling.)
+        bool poisoned = false;
+    };
 
     struct TypeInformation
     {
         TypeUses uses{};
 
         // Alternative names for this type.
-        std::unordered_set<std::string> alt_spellings;
+        std::unordered_map<std::string, TypeAltSpellingInfo> alt_spellings;
     };
 
     // ---
