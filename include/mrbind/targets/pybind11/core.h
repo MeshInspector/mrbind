@@ -12,7 +12,6 @@
 #include <mrbind/helpers/macro_sequence_for.h>
 #include <mrbind/helpers/map_filter_pack.h>
 #include <mrbind/helpers/rebind_container.h>
-#include <mrbind/helpers/type_name.h>
 #include <mrbind/helpers/type_lists.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
@@ -104,8 +103,6 @@ namespace MRBind::pb11
         #ifndef _MSC_VER
         char *buf_ptr = nullptr;
         std::size_t buf_size = 0;
-        #else
-        std::string buf;
         #endif
 
       public:
@@ -114,8 +111,7 @@ namespace MRBind::pb11
         Demangler &operator=(const Demangler &) = delete;
         ~Demangler();
 
-        // Demangles a name. Keep the demangler alive while using the returned pointer.
-        [[nodiscard]] const char *operator()(const char *name);
+        [[nodiscard]] std::string operator()(const char *name);
     };
 
     // Type name from `typeid()`, demangled if necessary.
@@ -1735,75 +1731,117 @@ namespace MRBind::pb11
     }
 
     // Cleans up the demangled type name from `typeid(...).name()`. Returns the new length.
-    // It's recommended to include the null terminator in `size`, then we also null-terminate the resulting string and include it in the resulting length.
-    constexpr std::size_t CleanUpTypeName(char *buffer, std::size_t size)
+    void CleanUpTypeName(std::string &str)
     {
-        std::string_view view(buffer, size); // Yes, with the null at the end.
+        auto IsAlpha = [](char ch){return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == '_';};
 
-        auto RemoveTypePrefix = [&](std::string_view to_remove, bool starts_at_word_boundary)
+        auto RemoveFragment = [&](std::string_view to_remove, bool starts_at_word_boundary, bool ends_at_word_boundary)
         {
             std::size_t region_start = 0;
             std::size_t source_pos = std::size_t(-1);
             std::size_t target_pos = 0;
             while (true)
             {
-                source_pos = view.find(to_remove, source_pos + 1);
+                source_pos = str.find(to_remove, source_pos + 1);
                 if (source_pos == std::string_view::npos)
                     break;
 
-                bool ok = !starts_at_word_boundary || source_pos == 0;
-                if (!ok)
+                bool ok = true;
+                if (ok && starts_at_word_boundary && source_pos != 0)
                 {
-                    char ch = view[source_pos - 1];
-                    if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')))
-                        ok = true;
+                    char ch = str[source_pos - 1];
+                    if (IsAlpha(ch))
+                        ok = false;
+                }
+                if (ok && ends_at_word_boundary && source_pos + to_remove.size() < str.size())
+                {
+                    char ch = str[source_pos + to_remove.size()];
+                    if (IsAlpha(ch))
+                        ok = false;
                 }
 
                 if (ok)
                 {
                     std::size_t n = source_pos - region_start;
-                    std::copy_n(view.begin() + region_start, n, buffer + target_pos);
+                    std::copy_n(str.begin() + region_start, n, str.data() + target_pos);
                     target_pos += n;
                     source_pos += to_remove.size();
                     region_start = source_pos;
                 }
             }
-            std::size_t n = view.size() - region_start;
-            std::copy_n(view.begin() + region_start, n, buffer + target_pos);
+            std::size_t n = str.size() - region_start;
+            std::copy_n(str.begin() + region_start, n, str.data() + target_pos);
             target_pos += n;
-            view = std::string_view(view.data(), target_pos);
+            str.resize(target_pos);
+        };
+        auto ReplaceFragment = [&](std::string_view a, std::string_view b, bool separate_word)
+        {
+            std::string ret;
+
+            std::size_t last_pos = 0;
+
+            std::size_t cur_pos = 0;
+
+            while (true)
+            {
+                cur_pos = str.find(a, cur_pos);
+                if (cur_pos == std::string::npos)
+                    break;
+
+                if (
+                    !separate_word ||
+                    (
+                        (cur_pos == 0 || !IsAlpha(str[cur_pos-1])) &&
+                        (cur_pos + a.size() == str.size() || !IsAlpha(str[cur_pos + a.size()]))
+                    )
+                )
+                {
+                    ret.append(str, last_pos, cur_pos - last_pos);
+                    ret += b;
+                    last_pos = cur_pos + a.size();
+                }
+
+                cur_pos = cur_pos + a.size();
+            }
+
+            ret += str.substr(last_pos);
+            str = std::move(ret);
         };
 
         #if defined(_MSC_VER)
-        RemoveTypePrefix("struct ", true);
-        RemoveTypePrefix("class ", true);
-        RemoveTypePrefix("union ", true);
-        RemoveTypePrefix("enum ", true);
+        RemoveFragment("struct ", true, false);
+        RemoveFragment("class ", true, false);
+        RemoveFragment("union ", true, false);
+        RemoveFragment("enum ", true, false);
+        ReplaceFragment("__int64", "long long", true);
+        #ifdef _WIN64
+        RemoveFragment(" __ptr64", false, true); // `int * __ptr64` -> `int *`. Those are just normal pointers.
+        #else
+        RemoveFragment(" __ptr32", false, true);
+        #endif
         #elif defined(_LIBCPP_VERSION)
-        RemoveTypePrefix(":__1:", false);
+        RemoveFragment(":__1:", false, false);
         #elif defined(__GLIBCXX__)
-        RemoveTypePrefix(":__cxx11:", false);
+        RemoveFragment(":__cxx11:", false, false);
         #endif
 
         #ifndef _LIBCPP_VERSION
         { // Condense `> >` into `>>`.
             std::size_t target_pos = 1;
-            for (std::size_t i = 1; i + 1 < view.size(); i++)
+            for (std::size_t i = 1; i + 1 < str.size(); i++)
             {
-                if (buffer[i] == ' ' && buffer[i-1] == '>' && buffer[i+1] == '>')
+                if (str[i] == ' ' && str[i-1] == '>' && str[i+1] == '>')
                     continue;
-                buffer[target_pos++] = buffer[i];
+                str[target_pos++] = str[i];
             }
-            if (size > 0)
-                buffer[target_pos++] = buffer[size-1];
-            view = std::string_view(view.data(), target_pos);
+            if (!str.empty())
+                str[target_pos++] = str.back();
+            str.resize(target_pos);
         }
         #endif
-
-        return view.size();
     }
 
-    const char *Demangler::operator()(const char *name)
+    std::string Demangler::operator()(const char *name)
     {
         #ifndef _MSC_VER
         int status = -4;
@@ -1811,17 +1849,12 @@ namespace MRBind::pb11
         if (status != 0) // -1 = out of memory, -2 = invalid string, -3 = invalid usage
             return name;
 
-        // `buf_size` does include the null-terminator (tested experimentally),
-        // but it also includes the junk after the null-terminator, so we don't update it here.
-        // It's used internally by `__cxa_demangle` to know when to deallocate, so we must not touch it.
-        CleanUpTypeName(buf_ptr, buf_size);
-
-        return buf_ptr;
+        std::string ret = buf_ptr;
         #else
-        buf = name;
-        buf.resize(CleanUpTypeName(buf.data(), buf.size() + 1) - 1);
-        return buf.c_str();
+        std::string ret = name;
         #endif
+        CleanUpTypeName(ret);
+        return ret;
     }
 
     const char *AdjustOverloadedOperatorName(const char *name, bool unary)
@@ -1898,7 +1931,7 @@ namespace MRBind::pb11
         if (pos != std::string_view::npos)
             view = view.substr(pos + 1);
         std::string ret(view);
-        ret.resize(CleanUpTypeName(ret.data(), ret.size()));
+        CleanUpTypeName(ret);
         return ret;
     }
 

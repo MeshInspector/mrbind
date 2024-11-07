@@ -554,7 +554,7 @@ struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
             if (var.valueless_by_exception())
                 return "";
             else
-                return std::visit([]<typename T>(const T &){return pb11::ToPythonName(std::string(MRBind::TypeName<T>()));}, var);
+                return std::visit([]<typename T>(const T &){return pb11::ToPythonName(TypeidTypeName<T>());}, var);
         };
 
         if constexpr ((std::default_initializable<P> && ...))
@@ -574,7 +574,7 @@ struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
 
         ([&]{
             // Allow getting `P...`.
-            c.def(("get_" + pb11::ToPythonName(std::string(MRBind::TypeName<P>()))).c_str(), [](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
+            c.def(("get_" + pb11::ToPythonName(TypeidTypeName<P>())).c_str(), [](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
         }(), ...);
     }
 };
