@@ -978,7 +978,7 @@ namespace mrbind
             if (should_poison)
             {
                 // We do register the TYPEDEF SPELLING itself to poison it though.
-                RegisterTypeSpelling(type_strings.canonical, full_name, TypeUses::typedef_target | TypeUses::_poisoned);
+                RegisterTypeSpelling(type_strings.canonical, full_name, TypeUses::_poisoned);
                 return true;
             }
 
@@ -1230,17 +1230,12 @@ namespace mrbind
                     info.alt_spellings.erase(type);
             }
 
-            { // Remove types for which all spellings are poisoned.
+            { // Remove types that don't have any "uses" bits set. This can happen if they were poisoned by poisonous typedefs and weren't used elsewhere.
                 std::erase_if(
                     params->parsed_result.type_info,
                     [](const std::pair<const std::string, TypeInformation> &p)
                     {
-                        for (const auto &elem : p.second.alt_spellings)
-                        {
-                            if (!elem.second.poisoned)
-                                return false;
-                        }
-                        return true;
+                        return p.second.uses == TypeUses{};
                     }
                 );
             }
