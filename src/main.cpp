@@ -1230,6 +1230,21 @@ namespace mrbind
                     info.alt_spellings.erase(type);
             }
 
+            { // Remove types for which all spellings are poisoned.
+                std::erase_if(
+                    params->parsed_result.type_info,
+                    [](const std::pair<const std::string, TypeInformation> &p)
+                    {
+                        for (const auto &elem : p.second.alt_spellings)
+                        {
+                            if (!elem.second.poisoned)
+                                return false;
+                        }
+                        return true;
+                    }
+                );
+            }
+
 
             // Multiplex the output between several files, if needed.
             std::vector<ParsedFile> multiplexed_data = MultiplexData(std::move(params->parsed_result), params->output_filenames.size());
