@@ -1238,8 +1238,6 @@ namespace MRBind::pb11
 
                 using LambdaReturnTypeAdjustedWrapperPtrRefStripped = typename RemovePointersRefs<LambdaReturnTypeAdjustedWrapped>::type;
 
-                static constexpr bool is_class_method = !std::is_same_v<decltype(c), ModuleOrClassRef &>;
-
                 // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
                 // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
                 static constexpr pybind11::return_value_policy ret_policy =
@@ -1249,7 +1247,7 @@ namespace MRBind::pb11
                     // This is important. If we return a const reference to a copyable type, we actually COPY it.
                     // Because otherwise pybind11 casts away constness and propagates changes through that reference!
                     !std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped>
-                        ? is_class_method ? pybind11::return_value_policy::reference_internal : pybind11::return_value_policy::reference :
+                        ? Kind == FuncKind::member_nonstatic ? pybind11::return_value_policy::reference_internal : pybind11::return_value_policy::reference :
                     // This is important too, otherwise pybind11 will const_cast and then move!
                     std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? pybind11::return_value_policy::copy
                     : pybind11::return_value_policy::move;
@@ -1298,6 +1296,8 @@ namespace MRBind::pb11
                         }
                     }
                 }
+
+                static constexpr bool is_class_method = !std::is_same_v<decltype(c), ModuleOrClassRef &>;
 
                 // If this is an overloaded operator defined outside of a class (or as a `friend`), inject it into
                 // the target class, instead of emitting as a global function.
