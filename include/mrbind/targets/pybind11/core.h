@@ -1459,6 +1459,15 @@ namespace MRBind::pb11
         }
     }
 
+    template <typename ...P>
+    void TryAddAggregateCtor(auto &c, auto &&... data)
+    {
+        if constexpr ((pybind11::detail::is_copy_constructible<P>::value && ...))
+        {
+            (TryAddCtor<MRBind::pb11::CopyMoveKind::none, 0, true, const P &...>)(c, nullptr, -1, decltype(data)(data)...);
+        }
+    }
+
     // If the class has begin/end methods, adds the 'iterable' protocol.
     template <typename T>
     void TryMakeIterable(auto &c)
@@ -3119,12 +3128,11 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_B_1(...)
 #define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_B_(...) __VA_OPT__(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_C(__VA_ARGS__))
 #define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_C(members_) \
-    (MRBind::pb11::TryAddCtor< \
-        MRBind::pb11::CopyMoveKind::none, 0, true \
-        /* Non-static data member types: (note, no comma before this) */\
-        SF_FOR_EACH1(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY, SF_NULL, SF_NULL,, members_) \
+    (MRBind::pb11::TryAddAggregateCtor< \
+        /* Non-static data member types: */\
+        MRBIND_STRIP_LEADING_COMMA( SF_FOR_EACH1(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY, SF_NULL, SF_NULL,, members_) ) \
     >)( \
-        _pb11_c, nullptr, -1 \
+        _pb11_c \
         /* Non-static data member names: (note, no comma before this) */\
         SF_FOR_EACH1(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY, SF_NULL, SF_NULL,, members_) \
         , "Implicit aggregate constructor." \

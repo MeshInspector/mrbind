@@ -4,20 +4,11 @@ namespace MR
 {
     struct A
     {
-        int x;
-        float y;
-    };
-    struct B : A
-    {
-        int z;
+        float *x = nullptr;
     };
 
-    struct C
-    {
-        int x;
-        C() {}
-    };
+    inline std::vector<int> foo() {return {1,2,3};}
 
-    struct D
-    {};
+    inline void a(int &out) {out = 42;}
+    inline void b(int *out) {out[0] = 1; out[1] = 2; out[2] = 3;}
 }
