@@ -180,6 +180,8 @@ namespace mrbind
         std::vector<ClassBase> bases;
 
         std::vector<ClassMemberVariant> members;
+
+        bool is_aggregate = false;
     };
 
     // ---

@@ -299,6 +299,7 @@ namespace mrbind
                             << e.name << ", "
                             << "(" << e.full_type << "), "
                             << NsStackToString() << ", "
+                            << "/*is aggregate:*/" << int(e.is_aggregate) << ", "
                             << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/") << ",";
 
                         // Bases.

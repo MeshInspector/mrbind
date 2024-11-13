@@ -511,6 +511,7 @@ namespace mrbind
                 json.WriteField("class_kind", value.kind);
                 json.WriteField("name", value.name);
                 json.WriteField("full_type", value.full_type);
+                json.WriteField("is_aggregate", value.is_aggregate);
                 json.WriteField("comment", value.comment);
                 json.WriteField("bases", value.bases);
                 json.WriteField("members", value.members);

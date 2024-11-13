@@ -753,6 +753,7 @@ namespace mrbind
             new_class.name = decl->getName();
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
+            new_class.is_aggregate = ctx->getRecordType(decl)->isAggregateType();
             // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
             // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
             // Without this, this incorrectly prints `E::e2` without `MR::` (REGARDLESS of how the full specialization is spelled!).

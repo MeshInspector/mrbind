@@ -2,14 +2,22 @@
 
 namespace MR
 {
-    struct X {};
-
     struct A
     {
-        using B = X;
-        using C __attribute__((__annotate__("mrbind::ignore"))) = X;
+        int x;
+        float y;
+    };
+    struct B : A
+    {
+        int z;
     };
 
-    inline void foo(A::C) {}
-    inline std::vector<X> bar() {return {};}
+    struct C
+    {
+        int x;
+        C() {}
+    };
+
+    struct D
+    {};
 }

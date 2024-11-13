@@ -1160,7 +1160,7 @@ namespace MRBind::pb11
     inline constexpr int num_add_func_passes = 3;
 
     // Member or non-member function.
-    // Normally is used in two passes, but in simple cases it can be used in a single pass (see `TryAddFuncSimple()`).
+    // Normally is used in several passes, but in simple cases it can be used in a single pass (see `TryAddFuncSimple()`).
     template <FuncKind Kind, auto F, typename ...P, typename DataFunc>
     void TryAddFunc(
         // `ModuleOrClassRef` for `Kind == nonmember_or_static`.
@@ -3110,8 +3110,43 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         std::unordered_set<std::type_index>{} \
     ); \
 
+// This generates the aggregate constructor for a class if needed.
+// First we check if the class is actually an aggregate, and additionally we reject any classes with bases (for simplicity, for now).
+// If all conditions pass, we call `TryAddCtor(...)` with the correct arguments.
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR(is_aggregate_, bases_, members_) MRBIND_CAT(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_A_,is_aggregate_)(members_, bases_)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_A_0(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_A_1(members_, .../*bases_*/) MRBIND_CAT(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_B_,__VA_OPT__(1))(members_)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_B_1(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_B_(...) __VA_OPT__(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_C(__VA_ARGS__))
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_C(members_) \
+    (MRBind::pb11::TryAddCtor< \
+        MRBind::pb11::CopyMoveKind::none, 0, true \
+        /* Non-static data member types: (note, no comma before this) */\
+        SF_FOR_EACH1(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY, SF_NULL, SF_NULL,, members_) \
+    >)( \
+        _pb11_c, nullptr, -1 \
+        /* Non-static data member names: (note, no comma before this) */\
+        SF_FOR_EACH1(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY, SF_NULL, SF_NULL,, members_) \
+        , "Implicit aggregate constructor." \
+    );
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY(n, d, kind_, ...) MRBIND_CAT(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_, kind_)(__VA_ARGS__)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_ctor(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_method(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_conv_op(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_field(static_, type_, name_, fullname_, comment_) MRBIND_CAT(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_field_,static_)(type_)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_field_static(type_)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_TYPE_BODY_field_(type_) , MRBIND_IDENTITY type_
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY(n, d, kind_, ...) MRBIND_CAT(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_, kind_)(__VA_ARGS__)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_ctor(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_method(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_conv_op(...)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_field(static_, type_, name_, fullname_, comment_) MRBIND_CAT(DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_field_,static_)(name_)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_field_static(name_)
+#define DETAIL_MB_PB11_ADD_AGGREGATE_CTOR_NAME_BODY_field_(name_) , pybind11::arg(MRBind::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str())
+
+
 // Bind a class.
-#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_) \
+#define MB_CLASS(kind_, name_, qualname_, ns_stack_, is_aggregate_, comment_, bases_, members_) \
     MRBind::pb11::GetRegistry().type_entries.try_emplace( \
         typeid(MRBIND_IDENTITY qualname_), \
         /* Is parsed? */\
@@ -3140,7 +3175,11 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
             /* Finalize at the end of pass 1, before adding greedy function overloads accepting `pybind11::object` (like iostreams). */\
             if (_pb11_state.pass_number == 1) \
+            { \
                 (MRBind::pb11::FinalizeClass<_pb11_C>)(_pb11_c, _pb11_state.func_scope_state); \
+                /* Add the aggregate constructor if needed. */\
+                DETAIL_MB_PB11_ADD_AGGREGATE_CTOR(is_aggregate_, bases_, members_) \
+            } \
         }, \
         MRBind::pb11::MakeBaseTypeids<MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_BASE_TYPES(bases_))>() \
     ); \

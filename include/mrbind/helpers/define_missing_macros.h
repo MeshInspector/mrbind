@@ -61,6 +61,7 @@
 // `name_` - class name as a single word. Anonymous classes are not emitted at all.
 // `qualname_` - fully qualified class name, parenthesized.
 // `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
+// `is_aggregate_` - `1` if this is an aggregate `0` otherwise.
 // `comment_` - a string literal with the comment, or empty if none.
 // `bases_` - a list of public base classes `(...)(...)(...)`.
 //     Each base is `(type_, virtual_)`, where:
@@ -94,7 +95,7 @@
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.
 //     * A public conversion operator `(conv_op, ret_, const_, comment_)`, with the same parameter meaning as above.
-#define MB_CLASS(kind_, name_, qualname_, ns_stack_, comment_, bases_, members_)
+#define MB_CLASS(kind_, name_, qualname_, ns_stack_, is_aggregate_, comment_, bases_, members_)
 #endif
 
 #ifndef MB_END_CLASS
