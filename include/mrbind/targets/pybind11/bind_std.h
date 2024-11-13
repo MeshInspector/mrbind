@@ -32,6 +32,8 @@ namespace pybind11::patched
     template <typename Vector, typename... Extras>
     class_<Vector, std::shared_ptr<Vector>, Extras...> bind_vector(handle scope, std::string const &name /*, Args &&...args*/)
     {
+        using ValueType = typename Vector::value_type;
+
         using Class_ = class_<Vector, std::shared_ptr<Vector>, Extras...>;
 
         Class_ cl(scope, name.c_str() /*, std::forward<Args>(args)...*/);
@@ -44,9 +46,6 @@ namespace pybind11::patched
         // Register comparison-related operators and functions (if possible)
         if constexpr (MRBind::pb11::IsEqualityComparable<typename Vector::value_type>::value)
             detail::vector_if_equal_operator<Vector, Class_>(cl);
-
-        // Register stream insertion operator (if possible)
-        detail::vector_if_insertion_operator<Vector, Class_>(cl, name);
 
         // Modifiers require copyable vector value type
         detail::vector_modifiers<Vector, Class_>(cl);
@@ -63,6 +62,34 @@ namespace pybind11::patched
             "Check whether the list is nonempty");
 
         cl.def("__len__", &Vector::size);
+
+        // Convert to string.
+        if constexpr (requires(std::ostream &stream, const ValueType &elem){stream << elem;})
+        {
+            cl.def(
+                "__repr__",
+                [name](const Vector &s)
+                {
+                    std::ostringstream ss;
+                    ss << name << '[';
+                    bool first = true;
+                    for (const auto &elem : s)
+                    {
+                        if (first)
+                            first = false;
+                        else
+                            ss << ", ";
+                        if constexpr (std::is_same_v<ValueType, char> || std::is_same_v<ValueType, unsigned char> || std::is_same_v<ValueType, signed char>)
+                            ss << int(elem);
+                        else
+                            ss << elem;
+                    }
+                    ss << ']';
+                    return std::move(ss).str();
+                },
+                "Return the canonical string representation of this map."
+            );
+        }
 
         return cl;
     }

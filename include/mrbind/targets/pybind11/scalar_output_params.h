@@ -14,10 +14,12 @@ namespace MRBind::pb11
     template <ValidTargetForScalarOutputParam T>
     struct ScalarOutputParam
     {
-        std::vector<T> values{};
+        using ElemType = std::conditional_t<std::is_same_v<T, bool>, char, T>;
+
+        std::vector<ElemType> values{};
 
         ScalarOutputParam() : ScalarOutputParam(1) {}
-        ScalarOutputParam(std::size_t size, T value = 0) : values(size, value) {}
+        ScalarOutputParam(std::size_t size, T value = 0) : values(size, ElemType(value)) {}
     };
 
 
@@ -30,7 +32,7 @@ namespace MRBind::pb11
         {
             if (object.values.size() != 1)
                 throw std::runtime_error("Expected the output parameter size to be exactly 1.");
-            return object.values.front();
+            return reinterpret_cast<T &>(object.values.front());
         }
     };
 
@@ -41,7 +43,7 @@ namespace MRBind::pb11
 
         static T *UnadjustParam(adjusted_param_type object)
         {
-            return object ? object->values.data() : nullptr;
+            return object ? reinterpret_cast<T *>(object->values.data()) : nullptr;
         }
     };
     // Const ref to pointer. This can happen in some generated functions such as the constructors created by `TryAddAggregateCtor(...)`.
@@ -53,13 +55,14 @@ namespace MRBind::pb11
 
         static T *const & UnadjustParam(adjusted_param_type object, unadjust_param_extra_param &&extra)
         {
-            return extra = object ? object->values.data() : nullptr;
+            return extra = object ? reinterpret_cast<T *>(object->values.data()) : nullptr;
         }
     };
 
 
     template <typename T>
-    struct CustomTypeBinding<ScalarOutputParam<T>> : DefaultCustomTypeBinding<ScalarOutputParam<T>>, RegisterTypesWithCustomBindingIfApplicable<T>
+    struct CustomTypeBinding<ScalarOutputParam<T>>
+        : DefaultCustomTypeBinding<ScalarOutputParam<T>>, RegisterTypesWithCustomBindingIfApplicable<decltype(ScalarOutputParam<T>::values)>
     {
         [[nodiscard]] static std::string cpp_type_name()
         {
@@ -82,16 +85,21 @@ namespace MRBind::pb11
 
             // And the reverse implicit conversion isn't desired, because we don't want to be able to call `foo(int &)` as `foo(42)`.
 
+            #define BASE_DOC "A helper class containing a list of scalars. This is used for functions with scalar output parameters.\n" \
+                "NOTE: If a function outputs an array, you must manually resize this to the correct size or risk undefined behavior."
+
+            if constexpr (std::is_same_v<T, bool>)
+                c.doc() = BASE_DOC "\nNOTE: This stores booleans. Writing anything other than 0 or 1 to it can cause undefined behavior.";
+            else
+                c.doc() = BASE_DOC;
+
+
             // Bind the member.
             c.def_readwrite("values", &ScalarOutputParam<T>::values);
 
-            c.doc() =
-                "A helper class containing a list of scalars. This is used for functions with scalar output parameters.\n"
-                "NOTE: If a function outputs an array, you must manually resize this to the correct size or risk undefined behavior.";
-
             c.def(
                 "value",
-                [](const ScalarOutputParam<T> &v)
+                [](const ScalarOutputParam<T> &v) -> T
                 {
                     if (v.values.size() != 1)
                         throw std::runtime_error("Expected exactly one value.");
