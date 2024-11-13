@@ -92,9 +92,6 @@ namespace mrbind
         bool is_signed = false;
 
         std::vector<EnumElem> elems;
-
-        // Alternative names for this class.
-        std::unordered_set<std::string> alt_spellings;
     };
 
     // ---
@@ -183,9 +180,6 @@ namespace mrbind
         std::vector<ClassBase> bases;
 
         std::vector<ClassMemberVariant> members;
-
-        // Alternative names for this class.
-        std::unordered_set<std::string> alt_spellings;
     };
 
     // ---
