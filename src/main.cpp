@@ -1046,6 +1046,37 @@ namespace mrbind
             return true;
         }
 
+        bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
+        {
+            // We visit the function declarations to instantiate their default arguments, which apparently doesn't happen otherwise.
+            // This is only needed for free function templates. Something else already instantiates them for the class member functions.
+
+            if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
+                return true; // Reject user-defined literals.
+
+            // Skip deduction guides.
+            // We don't seem to need to check this separately for class members, since they count as non-member functions, just like friend functions.
+            if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
+                return true;
+
+            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+                return true;
+
+            if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
+                return true;
+
+            if (decl->isDeleted())
+                return true; // Skip deleted.
+
+            for (clang::ParmVarDecl *p : decl->parameters())
+            {
+                if (p->hasUninstantiatedDefaultArg())
+                    ci->getSema().InstantiateDefaultArgument(decl->getSourceRange().getBegin(), decl, p);
+            }
+
+            return true;
+        }
+
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *d) // CRTP override
         {
             clang::QualType type = ctx->getTypedefType(d);
