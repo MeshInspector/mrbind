@@ -16,19 +16,19 @@ struct MRBind::pb11::CustomTypeBinding<std::shared_future<T>>
     {
         c.def(pybind11::init<>());
 
-        c.def("__bool__", [](const std::shared_future<T> &f){return f.valid();}, "If this is false, the object is null and `.get()` will throw.");
+        c.def(+"__bool__", +[](const std::shared_future<T> &f){return f.valid();}, +"If this is false, the object is null and `.get()` will throw.");
 
-        c.def("ready",
-            [](const std::shared_future<T> &f) -> bool
+        c.def(+"ready",
+            +[](const std::shared_future<T> &f) -> bool
             {
                 return f.valid() && f.wait_for(std::chrono::seconds(0)) != std::future_status::timeout;
             },
-            "If this returns true, the result is ready and `.get()` will return immediately without blocking."
+            +"If this returns true, the result is ready and `.get()` will return immediately without blocking."
         );
 
-        MRBind::pb11::TryAddFuncSimple<
-            MRBind::pb11::FuncKind::member_nonstatic,
-            [](const std::shared_future<T> &f) -> const auto &
+        TryAddFuncSimple<
+            FuncKind::member_nonstatic,
+            +[](const std::shared_future<T> &f) -> const auto &
             {
                 if (!f.valid())
                     throw std::runtime_error("Called `.get()` on an empty future.");

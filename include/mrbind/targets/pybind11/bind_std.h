@@ -57,17 +57,17 @@ namespace pybind11::patched
         detail::vector_accessor<Vector, Class_>(cl);
 
         cl.def(
-            "__bool__",
-            [](const Vector &v) -> bool { return !v.empty(); },
-            "Check whether the list is nonempty");
+            +"__bool__",
+            +[](const Vector &v) -> bool { return !v.empty(); },
+            +"Check whether the list is nonempty");
 
-        cl.def("__len__", &Vector::size);
+        cl.def(+"__len__", &Vector::size);
 
         // Convert to string.
         if constexpr (requires(std::ostream &stream, const ValueType &elem){stream << elem;})
         {
             cl.def(
-                "__repr__",
+                +"__repr__",
                 [name](const Vector &s)
                 {
                     std::ostringstream ss;
@@ -87,7 +87,7 @@ namespace pybind11::patched
                     ss << ']';
                     return std::move(ss).str();
                 },
-                "Return the canonical string representation of this map."
+                +"Return the canonical string representation of this map."
             );
         }
 
@@ -118,37 +118,37 @@ namespace pybind11::patched
         detail::map_if_insertion_operator<Map, Class_>(cl, name);
 
         cl.def(
-            "__bool__",
-            [](const Map &m) -> bool { return !m.empty(); },
-            "Check whether the map is nonempty");
+            +"__bool__",
+            +[](const Map &m) -> bool { return !m.empty(); },
+            +"Check whether the map is nonempty");
 
         cl.def(
-            "__iter__",
-            [](Map &m) { return make_key_iterator(m.begin(), m.end()); },
+            +"__iter__",
+            +[](Map &m) { return make_key_iterator(m.begin(), m.end()); },
             keep_alive<0, 1>() /* Essential: keep map alive while iterator exists */
         );
 
         cl.def(
-            "keys",
-            [](Map &m) { return KeysView{m}; },
+            +"keys",
+            +[](Map &m) { return KeysView{m}; },
             keep_alive<0, 1>() /* Essential: keep map alive while view exists */
         );
 
         cl.def(
-            "values",
-            [](Map &m) { return ValuesView{m}; },
+            +"values",
+            +[](Map &m) { return ValuesView{m}; },
             keep_alive<0, 1>() /* Essential: keep map alive while view exists */
         );
 
         cl.def(
-            "items",
-            [](Map &m) { return ItemsView{m}; },
+            +"items",
+            +[](Map &m) { return ItemsView{m}; },
             keep_alive<0, 1>() /* Essential: keep map alive while view exists */
         );
 
         cl.def(
-            "__getitem__",
-            [](Map &m, const KeyType &k) -> MappedType & {
+            +"__getitem__",
+            +[](Map &m, const KeyType &k) -> MappedType & {
                 auto it = m.find(k);
                 if (it == m.end()) {
                     throw key_error();
@@ -158,7 +158,7 @@ namespace pybind11::patched
             return_value_policy::reference_internal // ref + keepalive
         );
 
-        cl.def("__contains__", [](Map &m, const KeyType &k) -> bool {
+        cl.def(+"__contains__", +[](Map &m, const KeyType &k) -> bool {
             auto it = m.find(k);
             if (it == m.end()) {
                 return false;
@@ -166,12 +166,12 @@ namespace pybind11::patched
             return true;
         });
         // Fallback for when the object is not of the key type
-        cl.def("__contains__", [](Map &, const object &) -> bool { return false; });
+        cl.def(+"__contains__", +[](Map &, const object &) -> bool { return false; });
 
         // Assignment provided only if the type is copyable
         detail::map_assignment<Map, Class_>(cl);
 
-        cl.def("__delitem__", [](Map &m, const KeyType &k) {
+        cl.def(+"__delitem__", +[](Map &m, const KeyType &k) {
             auto it = m.find(k);
             if (it == m.end()) {
                 throw key_error();
@@ -179,12 +179,12 @@ namespace pybind11::patched
             m.erase(it);
         });
 
-        cl.def("__len__", &Map::size);
+        cl.def(+"__len__", &Map::size);
 
-        keys_view.def("__len__", [](KeysView &view) { return view.map.size(); });
+        keys_view.def(+"__len__", +[](KeysView &view) { return view.map.size(); });
         keys_view.def(
-            "__iter__",
-            [](KeysView &view) { return make_key_iterator(view.map.begin(), view.map.end()); },
+            +"__iter__",
+            +[](KeysView &view) { return make_key_iterator(view.map.begin(), view.map.end()); },
             keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
         );
         keys_view.def("__contains__", [](KeysView &view, const KeyType &k) -> bool {
@@ -195,19 +195,19 @@ namespace pybind11::patched
             return true;
         });
         // Fallback for when the object is not of the key type
-        keys_view.def("__contains__", [](KeysView &, const object &) -> bool { return false; });
+        keys_view.def(+"__contains__", +[](KeysView &, const object &) -> bool { return false; });
 
-        values_view.def("__len__", [](ValuesView &view) { return view.map.size(); });
+        values_view.def(+"__len__", +[](ValuesView &view) { return view.map.size(); });
         values_view.def(
-            "__iter__",
-            [](ValuesView &view) { return make_value_iterator(view.map.begin(), view.map.end()); },
+            +"__iter__",
+            +[](ValuesView &view) { return make_value_iterator(view.map.begin(), view.map.end()); },
             keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
         );
 
-        items_view.def("__len__", [](ItemsView &view) { return view.map.size(); });
+        items_view.def(+"__len__", +[](ItemsView &view) { return view.map.size(); });
         items_view.def(
-            "__iter__",
-            [](ItemsView &view) { return make_iterator(view.map.begin(), view.map.end()); },
+            +"__iter__",
+            +[](ItemsView &view) { return make_iterator(view.map.begin(), view.map.end()); },
             keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
         );
 
@@ -236,13 +236,13 @@ struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
         if constexpr (pybind11::detail::is_copy_constructible<std::vector<T, A>>::value)
             c.def(pybind11::init<const std::vector<T, A> &>());
 
-        c.def("size", [](const std::vector<T, A> &v){return v.size();});
-        c.def("empty", [](const std::vector<T, A> &v){return v.empty();});
+        c.def(+"size", +[](const std::vector<T, A> &v){return v.size();});
+        c.def(+"empty", +[](const std::vector<T, A> &v){return v.empty();});
         if constexpr (pybind11::detail::is_copy_constructible<T>::value && pybind11::detail::is_copy_assignable<T>::value)
         {
             if constexpr (std::is_default_constructible_v<T>)
-                c.def("resize", [](std::vector<T, A> &v, std::size_t n){v.resize(n);});
-            c.def("resize", [](std::vector<T, A> &v, std::size_t n, const T &value){v.resize(n, value);});
+                c.def("resize", +[](std::vector<T, A> &v, std::size_t n){v.resize(n);});
+            c.def("resize", +[](std::vector<T, A> &v, std::size_t n, const T &value){v.resize(n, value);});
         }
     }
     #endif
@@ -270,7 +270,7 @@ struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
         if constexpr (pybind11::detail::is_copy_constructible<std::map<T, U, Comp, A>>::value)
             c.def(pybind11::init<const std::map<T, U, Comp, A> &>());
 
-        c.def("size", [](const std::map<T, U, Comp, A> &v){return v.size();});
+        c.def(+"size", +[](const std::map<T, U, Comp, A> &v){return v.size();});
     }
     #endif
 };
@@ -291,7 +291,7 @@ struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
     {
         // Default constructor.
         if constexpr (std::default_initializable<std::array<T, N>>)
-            c.def(pybind11::init([]{return std::make_shared<std::array<T, N>>();}));
+            c.def(pybind11::init(+[]{return std::make_shared<std::array<T, N>>();}));
 
         // Copy constructor.
         if constexpr (pybind11::detail::is_copy_constructible<std::array<T, N>>::value)
@@ -301,7 +301,7 @@ struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
         if constexpr (pybind11::detail::is_copy_assignable<T>::value || N == 0)
         {
             c.def(pybind11::init(
-                [](const pybind11::iterable &it)
+                +[](const pybind11::iterable &it)
                 {
                     std::shared_ptr<std::array<T, N>> ret = std::make_shared<std::array<T, N>>();
 
@@ -322,12 +322,12 @@ struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
         }
 
         // Length.
-        c.def("__len__", [](const std::array<T, N> &){return N;});
+        c.def(+"__len__", +[](const std::array<T, N> &){return N;});
 
         // Indexing operator (read).
         TryAddFuncSimple<
             FuncKind::member_nonstatic,
-            [](std::array<T, N> &array, std::size_t i) -> auto &&
+            +[](std::array<T, N> &array, std::size_t i) -> auto &&
             {
                 if (i >= N)
                     throw pybind11::index_error();
@@ -346,7 +346,7 @@ struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
         {
             TryAddFuncSimple<
                 FuncKind::member_nonstatic,
-                [](std::array<T, N> &array, std::size_t i, const T &value)
+                +[](std::array<T, N> &array, std::size_t i, const T &value)
                 {
                     if (i >= N)
                         throw pybind11::index_error();
@@ -369,8 +369,8 @@ struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
         if constexpr (requires(std::ostream &o, const T &t){o << t;})
         {
             c.def(
-                "__repr__",
-                [](const std::array<T, N> &v)
+                +"__repr__",
+                +[](const std::array<T, N> &v)
                 {
                     static const std::string name = ToPythonName(CustomTypeBinding::cpp_type_name());
                     std::ostringstream s;
@@ -413,7 +413,7 @@ namespace MRBind::pb11::detail::BindStd
             if constexpr (pybind11::detail::is_copy_assignable<T>::value)
             {
                 c.def(pybind11::init(
-                    [](const pybind11::iterable &it)
+                    +[](const pybind11::iterable &it)
                     {
                         std::shared_ptr<T> ret = std::make_shared<T>();
                         std::size_t i = 0;
@@ -425,12 +425,12 @@ namespace MRBind::pb11::detail::BindStd
             }
 
             // Size.
-            c.def("__len__", [](const T &s){return s.size();});
+            c.def(+"__len__", +[](const T &s){return s.size();});
 
             // Check for element.
             c.def(
-                "__contains__",
-                [](T &s, const ValueType &k) -> bool
+                +"__contains__",
+                +[](T &s, const ValueType &k) -> bool
                 {
                     return s.contains(k);
                 }
@@ -441,7 +441,7 @@ namespace MRBind::pb11::detail::BindStd
             {
                 MRBind::pb11::TryAddFuncSimple<
                     MRBind::pb11::FuncKind::member_nonstatic,
-                    [](T &s, const ValueType &k)
+                    +[](T &s, const ValueType &k)
                     {
                         s.insert(k);
                     },
@@ -455,7 +455,7 @@ namespace MRBind::pb11::detail::BindStd
             // Remove element or throw.
             MRBind::pb11::TryAddFuncSimple<
                 MRBind::pb11::FuncKind::member_nonstatic,
-                [](T &s, const ValueType &k)
+                +[](T &s, const ValueType &k)
                 {
                     auto it = s.find(k);
                     if (it == s.end())
@@ -471,7 +471,7 @@ namespace MRBind::pb11::detail::BindStd
             // Remove element or do nothing.
             MRBind::pb11::TryAddFuncSimple<
                 MRBind::pb11::FuncKind::member_nonstatic,
-                [](T &s, const ValueType &k)
+                +[](T &s, const ValueType &k)
                 {
                     return s.erase(k); // This method returns nothing for Python sets, while we return the number of the erased elements. Why not.
                 },
@@ -484,7 +484,7 @@ namespace MRBind::pb11::detail::BindStd
             // Remove any element or throw.
             MRBind::pb11::TryAddFuncSimple<
                 MRBind::pb11::FuncKind::member_nonstatic,
-                [](T &s)
+                +[](T &s)
                 {
                     if (s.empty())
                         throw pybind11::key_error("Can't `pop()` from an empty set.");
@@ -500,8 +500,8 @@ namespace MRBind::pb11::detail::BindStd
             if constexpr (requires(std::ostream &stream, const ValueType &elem){stream << elem;})
             {
                 c.def(
-                    "__repr__",
-                    [](const T &s)
+                    +"__repr__",
+                    +[](const T &s)
                     {
                         static const std::string name = ToPythonName(BindSetLike::cpp_type_name());
                         std::ostringstream ss;
@@ -556,14 +556,14 @@ struct MRBind::pb11::CustomTypeBinding<std::optional<T>>
         }
 
         // Allow constructing from `None`.
-        c.def(pybind11::init([](std::nullptr_t){return std::optional<T>{};}));
+        c.def(pybind11::init(+[](std::nullptr_t){return std::optional<T>{};}));
         pybind11::implicitly_convertible<std::nullptr_t, std::optional<T>>();
 
-        c.def("__bool__", [](const std::optional<T> &opt){return opt.has_value();});
+        c.def(+"__bool__", +[](const std::optional<T> &opt){return opt.has_value();});
 
         if constexpr (std::copyable<T>)
         {
-            c.def("value", [](const std::optional<T> &opt) -> const auto & {return opt.value();}, pybind11::return_value_policy::reference_internal);
+            c.def(+"value", +[](const std::optional<T> &opt) -> const auto & {return opt.value();}, pybind11::return_value_policy::reference_internal);
         }
     }
 };
@@ -597,11 +597,11 @@ struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
             pybind11::implicitly_convertible<P, std::variant<P...>>();
         }(), ...);
 
-        c.def("current_type", cur_type, "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.");
+        c.def(+"current_type", +cur_type, +"Returns the current type name as a string. Call `get_<TypeName>()` to get the value.");
 
         ([&]{
             // Allow getting `P...`.
-            c.def(("get_" + pb11::ToPythonName(TypeidTypeName<P>())).c_str(), [](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
+            c.def(("get_" + pb11::ToPythonName(TypeidTypeName<P>())).c_str(), +[](const std::variant<P...> &var){return std::get<P>(var);}, "Return this alternative, or throw if it's not active.");
         }(), ...);
     }
 };
