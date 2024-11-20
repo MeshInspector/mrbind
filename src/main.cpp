@@ -6,6 +6,7 @@
 #include "pre_include_clang.h"
 #include <clang/AST/DeclBase.h>
 #include <clang/AST/RecursiveASTVisitor.h>
+#include <clang/Basic/Version.h>
 #include <clang/Frontend/CompilerInstance.h>
 #include <clang/Sema/Sema.h>
 #include <clang/Sema/SemaConcept.h>
