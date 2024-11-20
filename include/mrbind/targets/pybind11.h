@@ -1,6 +1,6 @@
-// Intentionally no pragma once, though currently it doesn't matter (to allow re-including the target file multiple times).
+// Intentionally no pragma once, to allow re-including multiple times with different values of `MB_PB11_STAGE`.
 
-#include <mrbind/targets/pybind11/core.h>
+#include <mrbind/targets/pybind11/macro_stages.h>
 
 #include <mrbind/targets/pybind11/scalar_output_params.h>
 #include <mrbind/targets/pybind11/bind_std.h>
