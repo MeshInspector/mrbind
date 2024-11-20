@@ -18,9 +18,7 @@
 #include <array>
 #include <cstring>
 #include <exception>
-#include <filesystem>
 #include <fstream>
-#include <map>
 #include <regex>
 #include <set>
 #include <stdexcept>
@@ -757,9 +755,15 @@ namespace mrbind
             // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
             // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
             // Without this, this incorrectly prints `E::e2` without `MR::` (REGARDLESS of how the full specialization is spelled!).
-            // WARNING: This for some reason seems to crash `GetCommentString()`, so we do it after. Weird but ok.
+            // WARNING: This for some reason seems to crash `GetCommentString()` (last tested on Clang 18), so we do it after. Weird but ok.
             if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
-                templ->setTypeAsWritten(nullptr);
+            {
+                #if CLANG_VERSION_MAJOR == 18
+                templ->setTypeAsWritten(nullptr); // This function got removed in Clang 19.
+                #else // CLANG_VERSION_MAJOR >= 19
+                templ->setTemplateArgsAsWritten(nullptr);
+                #endif
+            }
             new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
 
             // Register the class type, just in case. AFTER `setTypeAsWritten()`.
