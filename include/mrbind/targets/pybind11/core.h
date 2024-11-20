@@ -579,7 +579,7 @@ namespace MRBind::pb11
                 Traits::cpp_type_name(),
                 +[](ModuleOrClassRef m, const char *n) -> std::unique_ptr<pb11::BasicPybindType>
                 {
-                    return Traits::template pybind_init(
+                    return Traits::pybind_init(
                         [&](auto &&... params)
                         {
                             return std::make_unique<TypeStorage>(decltype(params)(params)...);
@@ -1323,7 +1323,7 @@ namespace MRBind::pb11
                                         };
 
                                         // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
-                                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), +symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
                                     }
                                 }
                             }
@@ -3096,7 +3096,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* Emit docstrings? */\
         false, /* Don't generate docstrings for enums, this crashes for some reason. And passing it to `enum_` below seems to have no effect? Weird. */ \
         /* C++ type name: */\
-        MRBIND_STR(MRBIND_IDENTITY qualname_), \
+        +MRBIND_STR(MRBIND_IDENTITY qualname_), \
         /* Init lambda. */\
         +[](MRBind::pb11::ModuleOrClassRef _pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::pb11::BasicPybindType> \
         { \
@@ -3159,7 +3159,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* Emit docstrings? */\
         true, \
         /* C++ type name: */\
-        MRBIND_STR(MRBIND_IDENTITY qualname_), \
+        +MRBIND_STR(MRBIND_IDENTITY qualname_), \
         /* Init lambda. */\
         +[](MRBind::pb11::ModuleOrClassRef _pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::pb11::BasicPybindType> \
         { \
