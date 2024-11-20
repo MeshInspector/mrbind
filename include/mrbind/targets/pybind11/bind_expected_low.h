@@ -102,7 +102,7 @@ struct MRBind::pb11::CustomTypeBinding<tl::expected<T, U>>
     {
         // Construct with the default-constructed valid value.
         if constexpr (std::default_initializable<T> || std::is_void_v<T>)
-            c.def(pybind11::init<>(), "Constructs in the valid state, with the default-constructed value.");
+            c.def(pybind11::init<>(), +"Constructs in the valid state, with the default-constructed value.");
 
         // Copy constructor.
         if constexpr (pybind11::detail::is_copy_constructible<tl::expected<T, U>>::value)
@@ -111,19 +111,19 @@ struct MRBind::pb11::CustomTypeBinding<tl::expected<T, U>>
         // Construct with the valid value.
         // `pybind11::detail::is_copy_constructible` gives the "correct" result for types such as `std::vector`.
         if constexpr (!std::is_void_v<T> && pybind11::detail::is_copy_constructible<T>::value)
-            c.def(pybind11::init([](const T &value){return new tl::expected<T, U>(value);}), "Constructs in the valid state.");
+            c.def(pybind11::init(+[](const T &value){return new tl::expected<T, U>(value);}), +"Constructs in the valid state.");
 
         // Construct with the unexpected value.
         // `pybind11::detail::is_copy_constructible` gives the "correct" result for types such as `std::vector`.
         if constexpr (pybind11::detail::is_copy_constructible<U>::value)
-            c.def_static("make_unexpected", [](const U &err){return new tl::expected<T, U>(tl::unexpect, err);}, "Constructs in the error state.");
+            c.def_static(+"make_unexpected", +[](const U &err){return new tl::expected<T, U>(tl::unexpect, err);}, +"Constructs in the error state.");
 
         // Check for validity.
-        c.def("__bool__", [](const tl::expected<T, U> &e){return e.has_value();}, "Returns true if holds a value, false if holds an error.");
+        c.def(+"__bool__", +[](const tl::expected<T, U> &e){return e.has_value();}, +"Returns true if holds a value, false if holds an error.");
 
         // Get value or throw if none.
-        c.def("value",
-            [](const tl::expected<T, U> &e) -> decltype(auto)
+        c.def(+"value",
+            +[](const tl::expected<T, U> &e) -> decltype(auto)
             {
                 // Throw if no value.
                 // We could use this function only in the `T == void` branch, but since it gives better exception messages, we use it always.
@@ -139,7 +139,7 @@ struct MRBind::pb11::CustomTypeBinding<tl::expected<T, U>>
         );
 
         // Get error or throw if none.
-        c.def("error", [](const tl::expected<T, U> &e) -> decltype(auto)
+        c.def(+"error", +[](const tl::expected<T, U> &e) -> decltype(auto)
         {
             if (e.has_value())
                 throw std::runtime_error("This `tl::expected` doesn't hold an error.");

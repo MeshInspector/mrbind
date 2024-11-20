@@ -115,19 +115,20 @@ namespace MRBind::pb11
             // Conversion from a Python lambda.
             if constexpr (FuncWrapper<R(P...)>::can_be_created_from_python)
             {
-                c.def(pybind11::init([](std::function<R(P...)> f){return FuncWrapper<R(P...)>(std::move(f));}));
+                c.def(pybind11::init(+[](std::function<R(P...)> f){return FuncWrapper<R(P...)>(std::move(f));}));
                 pybind11::implicitly_convertible<std::function<R(P...)>, FuncWrapper<R(P...)>>();
             }
 
             // Convert to bool.
-            c.def("__bool__", &FuncWrapper<R(P...)>::operator bool);
+            c.def(+"__bool__", &FuncWrapper<R(P...)>::operator bool);
 
-            c.def("can_be_created_from_python", [](const FuncWrapper<R(P...)> &f){return f.can_be_created_from_python;}, "If false, this function type can't hold a Python function, and can only be created from C++.");
-            c.def("holds_cpp_function", [](const FuncWrapper<R(P...)> &f){return f.holds_cpp_func;}, "Does this object currentlyhold a C++ function? As opposed to a Python one.");
+            c.def(+"can_be_created_from_python", +[](const FuncWrapper<R(P...)> &f){return f.can_be_created_from_python;}, +"If false, this function type can't hold a Python function, and can only be created from C++.");
+            c.def(+"holds_cpp_function", +[](const FuncWrapper<R(P...)> &f){return f.holds_cpp_func;}, +"Does this object currentlyhold a C++ function? As opposed to a Python one.");
 
             TryAddFuncSimple<
                 FuncKind::member_nonstatic,
                 &FuncWrapper<R(P...)>::Call,
+                IdentityDataFunc{},
                 const FuncWrapper<R(P...)> &, // `this`
                 P...
             >(

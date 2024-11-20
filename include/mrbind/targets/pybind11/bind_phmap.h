@@ -23,7 +23,7 @@ struct MRBind::pb11::CustomTypeBinding<phmap::flat_hash_map<T, U, P...>>
         if constexpr (pybind11::detail::is_copy_constructible<phmap::flat_hash_map<T, U, P...>>::value)
             c.def(pybind11::init<const phmap::flat_hash_map<T, U, P...> &>());
 
-        c.def("size", [](const phmap::flat_hash_map<T, U, P...> &v){return v.size();});
+        c.def(+"size", +[](const phmap::flat_hash_map<T, U, P...> &v){return v.size();});
     }
     #endif
 };
