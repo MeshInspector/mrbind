@@ -35,6 +35,8 @@
 
 // Enable this macro for only one TU.
 #if MB_DEFINE_IMPLEMENTATION
+#include <cstdio> // To report debug info if enabled.
+#include <cstdlib> // For `getenv` to enable debug logging, also `atoi` to parse the loglevel env variable.
 #include <exception> // For `std::terminate()`.
 #include <iostream> // To report errors.
 #include <mrbind/helpers/strings.h>
@@ -318,6 +320,12 @@ namespace MRBind::pb11
 
         FuncAliasRegistrationFuncs func_alias_registration_funcs;
 
+        #if MRBIND_DEBUG
+        // Increment this manually when inserting non-parsed types into `type_entries`.
+        // We use this to track redundant bindings.
+        int num_redundant_nonparsed_binds = 0;
+        #endif
+
         TypeEntry(
             bool is_parsed,
             std::type_index parent_namespace_or_class,
@@ -328,9 +336,9 @@ namespace MRBind::pb11
             AddClassMembers load_members,
             std::unordered_set<std::type_index> type_deps = {}
         )
-            : is_parsed(is_parsed),
-            init(init),
+            : init(init),
             load_members(load_members),
+            is_parsed(is_parsed),
             cpp_type_name(std::move(cpp_type_name)),
             comment(comment),
             set_docstring(set_docstring),
@@ -556,6 +564,9 @@ namespace MRBind::pb11
         static void bind_members(pybind_type &c /*optional: , FuncAliasRegistrationFuncs *func_alias_registration_funcs*/) {(void)c;}
     };
 
+    #if MRBIND_DEBUG
+    namespace { // Need this to count the duplicate instantiations.
+    #endif
     // Avoid this version, prefer the ones without `Direct`.
     template <typename T>
     struct RegisterOneTypeWithCustomBindingDirect
@@ -598,12 +609,19 @@ namespace MRBind::pb11
                     }
                 },
                 Traits::base_typeids()
-            );
+            )
+            #if MRBIND_DEBUG
+            .first->second.num_redundant_nonparsed_binds++
+            #endif
+            ;
             return nullptr;
         }();
         /* Instantiate `register_type`. */
         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
     };
+    #if MRBIND_DEBUG
+    } // namespace
+    #endif
 
     // Like `RegisterOneTypeWithCustomBindingDirect<T>`, but does nothing if T doesn't have a custom binding for it.
     // Avoid this version, prefer the ones without `Direct`.
@@ -806,7 +824,7 @@ namespace MRBind::pb11
     {};
 
     // Ban refs to array types, since those don't work anyway.
-    // Non-const refs to scalars also don't work, but we don't disable them here, and instead add the support with a hack in `scalar_output_params`.
+    // Non-const refs to builtin types also don't work, but we don't disable them here, and instead add the support with a hack in `output_params_of_builtin_types`.
     template <typename T>
     requires std::is_reference_v<T> && std::is_array_v<std::remove_reference_t<T>>
     struct ParamTraitsLow<T>
@@ -2518,9 +2536,17 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
     auto &r = GetRegistry();
 
-    if (std::exchange(r.was_loaded, true))
+    if (r.was_loaded)
         throw std::runtime_error("Can't load the same module twice.");
 
+    const int debug_loglevel = []{
+        const char *var = std::getenv("MRBIND_DEBUG");
+        if (var)
+            return std::atoi(var); // A quick and dirty option with minimal error checking.
+        return 0;
+    }();
+
+    std::size_t num_nonstripped_namespaces = 0;
     { // Load the namespaces.
         // Fill `nested_namespaces`.
         for (auto &[id, e] : r.namespace_entries)
@@ -2570,15 +2596,17 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
             // Initialize the type, but only if this namespace is not stripped.
             if (!e->is_stripped)
+            {
                 e->pybind_type = e->init_pybind_type(parent && !parent->is_stripped ? ModuleOrClassRef(parent->pybind_type->GetPybindObject()) : ModuleOrClassRef(m), e->name.c_str());
+                num_nonstripped_namespaces++;
+            }
 
             // If the parent namespace is stripped, register this as a top-level namespace.
             if (parent && parent->is_stripped)
                 r.top_level_namespaces.try_emplace(e->name, type);
 
-            #if MB_PB11_DEBUG_NAMES
-            std::cout << "mrbind: Registering namespace: `" << e->name << "`, stripped=" << e->is_stripped << ", parent=" << (parent ? "`" + parent->pybind_name_qual + "`" : "none") << '\n';
-            #endif
+            if (debug_loglevel >= 2)
+                std::cout << "mrbind: Registering namespace: `" << e->name << "`, stripped=" << e->is_stripped << ", parent=" << (parent ? "`" + parent->pybind_name_qual + "`" : "none") << '\n';
         };
         for (auto &[id, e] : r.namespace_entries)
             LoadNamespace(LoadNamespace, id, &e);
@@ -2682,9 +2710,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 elem->second.pybind_type_name_qual = elem->second.pybind_type_name;
             }
 
-            #if MB_PB11_DEBUG_NAMES
-            std::cout << "mrbind: Registering type names: is_parsed=" << elem->second.is_parsed << ", python=`" << elem->second.pybind_type_name_qual << "`, cpp=`" << elem->second.cpp_type_name << "`, typeid_cpp=`" << Demangler{}(elem->first.name()) << "`\n";
-            #endif
+            if (debug_loglevel >= 2)
+                std::cout << "mrbind: Registering type names: is_parsed=" << elem->second.is_parsed << ", python=`" << elem->second.pybind_type_name_qual << "`, cpp=`" << elem->second.cpp_type_name << "`, typeid_cpp=`" << Demangler{}(elem->first.name()) << "`\n";
 
             elem->second.pybind_type = elem->second.init(ns.m, elem->second.pybind_type_name.c_str());
         }
@@ -2737,6 +2764,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         }
     }
 
+    std::size_t num_noncustom_aliases = 0;
     { // Load the type aliases.
         std::unordered_set<std::string_view> nonalias_python_type_names;
         for (const auto &elem : r.type_entries)
@@ -2770,12 +2798,12 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             if (nonalias_python_type_names.contains(python_qual_name))
                 continue; // The target name is already occupied by a type.
 
-            #if MB_PB11_DEBUG_NAMES
-            std::cout << "mrbind: Registering alias: `" << python_qual_name << "` -> `" << iter->second.pybind_type_name_qual << "`\n";
-            #endif
+            if (debug_loglevel >= 2)
+                std::cout << "mrbind: Registering alias: `" << python_qual_name << "` -> `" << iter->second.pybind_type_name_qual << "`\n";
 
             ns.m.handle->attr(python_unqual_name.c_str()) = iter->second.pybind_type->GetPybindObject();
             iter->second.aliases.push_back(python_qual_name);
+            num_noncustom_aliases++;
         }
     }
 
@@ -2856,9 +2884,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 {
                     if (auto nst = ApplyNamespaces(m, true, alias, true); nst.unqualified_name_remains)
                     {
-                        #if MB_PB11_DEBUG_NAMES
-                        std::cout << "mrbind: Registering custom function alias: `" << alias << "` -> `" << target << "`\n";
-                        #endif
+                        if (debug_loglevel >= 2)
+                            std::cout << "mrbind: Registering custom function alias: `" << alias << "` -> `" << target << "`\n";
+
                         for (auto &elem : func_iter->second)
                             elem(nst.m, nst.name.data());
                         continue;
@@ -2866,9 +2894,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 }
             }
 
-            #if MB_PB11_DEBUG_NAMES
-            std::cout << "mrbind: Registering custom alias: `" << alias << "` -> `" << target << "`\n";
-            #endif
+            if (debug_loglevel >= 2)
+                std::cout << "mrbind: Registering custom alias: `" << alias << "` -> `" << target << "`\n";
 
             // Note that we're doing some juggling here with the last segment of the lhs.
             // We can't convert the final `.attr()` call of the lhs to `pybind11::handle` because it forces the attribute to be resolved,
@@ -2880,9 +2907,72 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         }
     }
 
+    // Display debug statistics.
+    if (debug_loglevel >= 1)
+    {
+        std::size_t num_types_nonparsed = 0;
+        std::size_t num_types_nonparsed_redundant = 0;
+        std::size_t num_types_nonparsed_redundant_with_repetitions = 0;
+        std::size_t num_methods = 0;
+        for (auto &[id, e] : r.type_entries)
+        {
+            if (!e.is_parsed)
+            {
+                num_types_nonparsed++;
+                #if MRBIND_DEBUG
+                if (e.num_redundant_nonparsed_binds > 1)
+                    num_types_nonparsed_redundant++;
+                num_types_nonparsed_redundant_with_repetitions += e.num_redundant_nonparsed_binds;
+                #endif
+            }
+
+            num_methods += e.func_alias_registration_funcs.funcs.size();
+        }
+
+        std::printf(
+            "mrbind: Statistics:\n"
+            "mrbind:     Namespaces: %zu\n"
+            "mrbind:         Normal: %zu\n"
+            "mrbind:         Stripped: %zu\n"
+            "mrbind:     Types: %zu\n"
+            "mrbind:         Parsed: %zu\n"
+            "mrbind:         Custom: %zu\n"
+            #if MRBIND_DEBUG
+            "mrbind:             Custom types with duplicated bindings: %zu (total number of redundant bindings: %zu)\n"
+            #endif
+            "mrbind:     Functions: %zu\n"
+            "mrbind:         Free: %zu\n"
+            "mrbind:         Methods: %zu\n"
+            "mrbind:     Aliases: %zu\n"
+            "mrbind:         Automatic: %zu\n"
+            "mrbind:         Custom: %zu\n"
+        ,
+            r.namespace_entries.size(),
+            num_nonstripped_namespaces,
+            r.namespace_entries.size() - num_nonstripped_namespaces,
+
+            r.type_entries.size(),
+            r.type_entries.size() - num_types_nonparsed,
+            num_types_nonparsed,
+            num_types_nonparsed_redundant,
+            #if MRBIND_DEBUG
+            num_types_nonparsed_redundant_with_repetitions - num_types_nonparsed_redundant,
+            #endif
+
+            r.func_entries.size() + num_methods,
+            r.func_entries.size(),
+            num_methods,
+
+            r.custom_aliases.size() + num_noncustom_aliases,
+            num_noncustom_aliases,
+            r.custom_aliases.size()
+        );
+    }
+
     // Destroy the registry.
     // This not only saves memory, but also hopefully fix weird destruction order fiasco crashes.
     r = {};
+    r.was_loaded = true;
 }
 
 // Some sanity checks. On Clang 18 and older those will fail if you forget the `-frelaxed-template-template-args` flag.
