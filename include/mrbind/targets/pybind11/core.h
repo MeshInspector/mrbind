@@ -2711,7 +2711,18 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             }
 
             if (debug_loglevel >= 2)
-                std::cout << "mrbind: Registering type names: is_parsed=" << elem->second.is_parsed << ", python=`" << elem->second.pybind_type_name_qual << "`, cpp=`" << elem->second.cpp_type_name << "`, typeid_cpp=`" << Demangler{}(elem->first.name()) << "`\n";
+            {
+                std::cout << "mrbind: Registering type names:"
+                    " is_parsed=" << elem->second.is_parsed << ","
+                    " python=`" << elem->second.pybind_type_name_qual << "`,"
+                    " cpp=`" << elem->second.cpp_type_name << "`,"
+                    " typeid_cpp=`" << Demangler{}(elem->first.name()) << "`";
+                #if MRBIND_DEBUG
+                if (!elem->second.is_parsed)
+                    std::cout << " num_bindings=" << elem->second.num_redundant_nonparsed_binds;
+                #endif
+                std::cout << '\n';
+            }
 
             elem->second.pybind_type = elem->second.init(ns.m, elem->second.pybind_type_name.c_str());
         }
