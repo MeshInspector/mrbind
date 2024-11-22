@@ -674,7 +674,11 @@ namespace MRBind::pb11
 
     // Use this as an additional base class for your `CustomTypeBinding<...>` specializations.
     template <typename ...P>
+    #if MB_PB11_NO_REGISTER_TYPE_DEPS // Enabling this requires you to manually register the type dependencies of other types, but can improve build times.
+    struct RegisterTypeDependencies {}; // A no-op.
+    #else
     using RegisterTypeDependencies = RegisterTypesWithCustomBindingIfApplicable<P...>;
+    #endif
 
     // ---
 
@@ -2717,7 +2721,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
             if (debug_loglevel >= 2)
             {
-                std::cout << "mrbind: Registering type names:"
+                std::cout << "mrbind: Registering type:"
                     " is_parsed=" << elem->second.is_parsed << ","
                     " python=`" << elem->second.pybind_type_name_qual << "`,"
                     " cpp=`" << elem->second.cpp_type_name << "`,"
@@ -2937,8 +2941,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 num_types_nonparsed++;
                 #if MRBIND_DEBUG
                 if (e.num_redundant_nonparsed_binds > 1)
+                {
                     num_types_nonparsed_redundant++;
-                num_types_nonparsed_redundant_with_repetitions += e.num_redundant_nonparsed_binds;
+                    num_types_nonparsed_redundant_with_repetitions += e.num_redundant_nonparsed_binds - 1;
+                }
                 #endif
             }
 
@@ -2972,7 +2978,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             num_types_nonparsed,
             num_types_nonparsed_redundant,
             #if MRBIND_DEBUG
-            num_types_nonparsed_redundant_with_repetitions - num_types_nonparsed_redundant,
+            num_types_nonparsed_redundant_with_repetitions,
             #endif
 
             r.func_entries.size() + num_methods,

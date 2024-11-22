@@ -1,4 +1,4 @@
-#include "-.h"
+#include "combine_types.h"
 #include "data_to_json.h"
 #include "data_to_macros.h"
 #include "multiplex_data.h"
@@ -1512,10 +1512,10 @@ int main(int argc, char **argv)
                             continue;
                         }
 
-                        const std::string_view -_flag = "--combine-types=";
-                        if (this_arg.starts_with(-_flag))
+                        const std::string_view combine_types_flag = "--combine-types=";
+                        if (this_arg.starts_with(combine_types_flag))
                         {
-                            params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(this_arg.substr(-_flag.size()));
+                            params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(this_arg.substr(combine_types_flag.size()));
                             continue;
                         }
                     }
