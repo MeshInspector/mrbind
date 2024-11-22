@@ -7,7 +7,6 @@
 #include <optional>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <variant>
 #include <vector>
 
@@ -144,7 +143,7 @@ namespace mrbind
 
         // Name as a single identifier.
         std::string name;
-        // Same, but for overloaded operators this instead contains its name as an identifier.
+        // Same, but for overloaded operators this instead contains a placeholder name without punctuation (such as `_Plus` instead of `operator+`).
         std::string simple_name;
         // Same as `name`, but also includes template arguments, if any.
         std::string full_name;
@@ -315,6 +314,8 @@ namespace mrbind
         // ---
 
         // Information about the types.
-        std::unordered_map<std::string, TypeInformation> type_info;
+        // Normally the nested maps only have one key, with the same value as the enclosing key.
+        // This stops being true when similar types are combined, then the outer map will only contain simplified type names, and the inner maps will contain all the original variant spellings of it.
+        std::unordered_map<std::string, std::unordered_map<std::string, TypeInformation>> type_info;
     };
 }

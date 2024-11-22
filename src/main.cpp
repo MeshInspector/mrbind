@@ -1,3 +1,4 @@
+#include "-.h"
 #include "data_to_json.h"
 #include "data_to_macros.h"
 #include "multiplex_data.h"
@@ -175,6 +176,8 @@ namespace mrbind
 
         OutputFormat output_format = OutputFormat::unselected;
         std::vector<std::string> output_filenames;
+
+        AdjustTypeNameFlags adjust_type_name_flags{};
     };
 
     struct PrintingPolicies
@@ -541,7 +544,7 @@ namespace mrbind
             if (reason == TypeUses{})
                 return;
 
-            TypeInformation &info = params->parsed_result.type_info[canonical];
+            TypeInformation &info = params->parsed_result.type_info[canonical][canonical]; // Sic.
             info.uses |= reason & ~TypeUses::_poisoned;
 
             auto &spelling = info.alt_spellings.try_emplace(pretty).first->second;
@@ -1263,18 +1266,29 @@ namespace mrbind
 
             { // Remove identities from "alt type spellings".
                 // We intentionally don't remove the empty lists after erasure, because we use this map to know all types we need to bind.
-                for (auto &[type, info] : params->parsed_result.type_info)
-                    info.alt_spellings.erase(type);
+                for (auto &inner : params->parsed_result.type_info)
+                {
+                    for (auto &[type, info] : inner.second)
+                        info.alt_spellings.erase(type);
+                }
             }
 
             { // Remove types that don't have any "uses" bits set. This can happen if they were poisoned by poisonous typedefs and weren't used elsewhere.
                 std::erase_if(
                     params->parsed_result.type_info,
-                    [](const std::pair<const std::string, TypeInformation> &p)
+                    [](const std::pair<const std::string, std::unordered_map<std::string, TypeInformation>> &p)
                     {
-                        return p.second.uses == TypeUses{};
+                        if (p.second.size() != 1)
+                            throw std::logic_error("Expected exactly one subtype at this point.");
+                        return p.second.begin()->second.uses == TypeUses{};
                     }
                 );
+            }
+
+            // Combine together similar types, if needed.
+            if (bool(params->adjust_type_name_flags))
+            {
+                CombineSimilarTypes(params->parsed_result, MakeAdjustTypeNameFunc(params->adjust_type_name_flags));
             }
 
 
@@ -1497,6 +1511,13 @@ int main(int argc, char **argv)
                             params.output_format = mrbind::OutputFormat::macros;
                             continue;
                         }
+
+                        const std::string_view -_flag = "--combine-types=";
+                        if (this_arg.starts_with(-_flag))
+                        {
+                            params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(this_arg.substr(-_flag.size()));
+                            continue;
+                        }
                     }
                 }
 
@@ -1515,22 +1536,31 @@ int main(int argc, char **argv)
 
         llvm::cl::OptionCategory options_category("Standard Clang tooling options");
         auto option_parser_ex = clang::tooling::CommonOptionsParser::create(argc, const_cast<const char **>(argv), options_category, llvm::cl::OneOrMore,
-            "\n\n"
-            "In addition to the stock Clang options explained below, we also support:\n"
+            "\n"
+            "\n"
+            "Usage:\n"
+            "  mrbind [mrbind_flags]\n"
+            "  mrbind [mrbind_flags] -- [clang_flags]\n"
+            "\n"
+            "`[clang_flags]` are the usual compiler flags. They can be empty, which isn't the same thing as omitting `--` entirely.\n"
+            "If no `--` is passed, the compiler flags are guessed from a `compile_commands.json`.\n"
+            "\n"
+            "`[mrbind_flags]` are following:\n"
             "  -o output.cpp               - Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files which can be compiled in parallel, or sequentally for a lower RAM usage.\n"
-            "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline.\n"
-            "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
-            "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different Clang version.\n"
+            "  --format=...                - The output format, either `json` or `macros`.\n"
             "  --ignore T                  - Don't emit bindings for a specific entity. "
                                              "Use the flag several times to ban several entities. "
-                                             "Use a fully qualified name, but without template arguments after the last name. "
+                                             "Use a fully qualified name. The final template arguments can be omitted, then any arguments match. "
                                              "Use `::` to reject the global namespace. "
                                              "Enclose in slashes to match a regex. "
                                              "Also note that you can annotate declarations that you want to ignore with `[[clang::annotate(\"mrbind::ignore\")]]\n"
-            "  --allow T                   - Unban a subentity of something that was banned with `--ignore`.\n"
+            "  --allow T                   - Unban a subentity of something that was banned with `--ignore`. Same syntax.\n"
             "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
-            "  --format=json               - Output in JSON format.\n"
-            "  --format=macros             - Output in C/C++ macros format.\n"
+            "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
+                                             "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
+            "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.\n"
+            "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
+            "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.\n"
         );
         if (!option_parser_ex)
         {

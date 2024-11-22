@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(mrbind)
 
 add_executable(mrbind
+    src/combine_types.cpp
     src/data_to_json.cpp
     src/data_to_macros.cpp
     src/main.cpp

@@ -644,7 +644,14 @@ namespace mrbind
         json.BeginField("type_info");
         json.BeginObject();
         for (const auto &type : file.type_info)
-            json.WriteField(type.first, type.second);
+        {
+            json.BeginField(type.first);
+            json.BeginObject();
+            for (const auto &subtype : type.second)
+                json.WriteField(subtype.first, subtype.second);
+            json.EndObject();
+            json.EndField();
+        }
         json.EndObject();
         json.EndField();
 

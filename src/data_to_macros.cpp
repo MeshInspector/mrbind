@@ -444,43 +444,46 @@ namespace mrbind
             if (!file.type_info.empty())
             {
                 out << "\n";
-                for (const auto &type : file.type_info)
+                for (const auto &outer_type : file.type_info)
                 {
                     BeginMultiplexBlock(true);
 
-                    out << "MB_REGISTER_TYPE(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
+                    out << "MB_REGISTER_TYPE(" << (multiplex_counter - 1) << ", " << outer_type.first << ")\n";
 
-                    for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits); bit <<= 1)
+                    for (const auto &type : outer_type.second)
                     {
-                        if (bool(bit & type.second.uses))
+                        for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits); bit <<= 1)
                         {
-                            const char *kind = nullptr;
-                            switch (bit)
+                            if (bool(bit & type.second.uses))
                             {
-                                case TypeUses::returned:              kind = "RETURNED"; break;
-                                case TypeUses::parameter:             kind = "PARAM"; break;
-                                case TypeUses::parsed:                kind = "PARSED"; break;
-                                case TypeUses::base:                  kind = "BASE"; break;
-                                case TypeUses::nonstatic_data_member: kind = "NONSTATIC_DATA_MEMBER"; break;
-                                case TypeUses::static_data_member:    kind = "STATIC_DATA_MEMBER"; break;
-                                case TypeUses::typedef_target:        kind = "TYPEDEF_TARGET"; break;
-                                case TypeUses::_poisoned:             break; // This should be unreachable.
+                                const char *kind = nullptr;
+                                switch (bit)
+                                {
+                                    case TypeUses::returned:              kind = "RETURNED"; break;
+                                    case TypeUses::parameter:             kind = "PARAM"; break;
+                                    case TypeUses::parsed:                kind = "PARSED"; break;
+                                    case TypeUses::base:                  kind = "BASE"; break;
+                                    case TypeUses::nonstatic_data_member: kind = "NONSTATIC_DATA_MEMBER"; break;
+                                    case TypeUses::static_data_member:    kind = "STATIC_DATA_MEMBER"; break;
+                                    case TypeUses::typedef_target:        kind = "TYPEDEF_TARGET"; break;
+                                    case TypeUses::_poisoned:             break; // This should be unreachable.
+                                }
+
+                                out << "MB_REGISTER_TYPE_" << kind << "(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
                             }
-
-                            out << "MB_REGISTER_TYPE_" << kind << "(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
                         }
-                    }
 
-                    for (const auto &spelling : type.second.alt_spellings)
-                    {
-                        if (spelling.second.poisoned)
-                            continue; // Ignore the poisoned spelling.
+                        for (const auto &spelling : type.second.alt_spellings)
+                        {
+                            if (spelling.second.poisoned)
+                                continue; // Ignore the poisoned spelling.
 
-                        out << "MB_ALT_TYPE_SPELLING("
-                            << (multiplex_counter - 1) << ", "
-                            << "(" << type.first << "), "
-                            << "(" << spelling.first << ")"
-                            << ")\n";
+                            out << "MB_ALT_TYPE_SPELLING("
+                                << (multiplex_counter - 1) << ", "
+                                << "(" << type.first << "), "
+                                << "(" << spelling.first << ")"
+                                << ")\n";
+                        }
                     }
 
                     EndMultiplexBlock();
