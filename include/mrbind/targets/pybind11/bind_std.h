@@ -220,7 +220,7 @@ namespace pybind11::patched
 template <typename T, typename A>
 struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
     : DefaultCustomTypeBinding<std::vector<T, A>>,
-    RegisterTypesWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
+    RegisterTypeDependencies<AdjustContainerElemType<T>>
 {
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_vector<std::vector<T, A>>(m, n));}
 
@@ -252,7 +252,7 @@ struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
 template <typename T, typename U, typename Comp, typename A>
 struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
     : DefaultCustomTypeBinding<std::map<T, U, Comp, A>>,
-    RegisterTypesWithCustomBindingIfApplicable<T, AdjustContainerElemType<U>>
+    RegisterTypeDependencies<T, AdjustContainerElemType<U>>
 {
     [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
 
@@ -279,7 +279,7 @@ struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
 template <typename T, std::size_t N>
 struct MRBind::pb11::CustomTypeBinding<std::array<T, N>>
     : DefaultCustomTypeBinding<std::array<T, N>>,
-    RegisterTypesWithCustomBindingIfApplicable<AdjustContainerElemType<T>>
+    RegisterTypeDependencies<AdjustContainerElemType<T>>
 {
     [[nodiscard]] static std::string cpp_type_name()
     {
@@ -395,7 +395,7 @@ namespace MRBind::pb11::detail::BindStd
     requires std::same_as<typename T::value_type, typename T::key_type> // Basic sanity check.
     struct BindSetLike
         : DefaultCustomTypeBinding<T>,
-        RegisterTypesWithCustomBindingIfApplicable<AdjustContainerElemType<typename T::value_type>>
+        RegisterTypeDependencies<AdjustContainerElemType<typename T::value_type>>
     {
         static void bind_members(typename DefaultCustomTypeBinding<T>::pybind_type &c)
         {
@@ -537,7 +537,7 @@ struct MRBind::pb11::CustomTypeBinding<std::unordered_set<T, A>> : MRBind::pb11:
 template <typename T>
 struct MRBind::pb11::CustomTypeBinding<std::optional<T>>
     : DefaultCustomTypeBinding<std::optional<T>>,
-    RegisterTypesWithCustomBindingIfApplicable<T>
+    RegisterTypeDependencies<T>
 {
     static void bind_members(typename DefaultCustomTypeBinding<std::optional<T>>::pybind_type &c)
     {
@@ -572,7 +572,7 @@ struct MRBind::pb11::CustomTypeBinding<std::optional<T>>
 template <typename ...P>
 struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
     : public DefaultCustomTypeBinding<std::variant<P...>>,
-    RegisterTypesWithCustomBindingIfApplicable<P...>
+    RegisterTypeDependencies<P...>
 {
     static void bind_members(typename DefaultCustomTypeBinding<std::variant<P...>>::pybind_type &c)
     {

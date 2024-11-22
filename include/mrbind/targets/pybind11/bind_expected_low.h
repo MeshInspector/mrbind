@@ -51,7 +51,7 @@ requires
     // Because we need to be able to move the object into `std::unique_ptr`.
     std::is_void_v<T> || std::movable<T>
 struct MRBind::pb11::ReturnTypeTraits<tl::expected<T, U>>
-    : RegisterTypesWithCustomBindingIfApplicable<typename AdjustReturnType<T>::type>
+    : RegisterTypeDependencies<typename AdjustReturnType<T>::type>
 {
     static decltype(auto) Adjust(tl::expected<T, U> &&value)
     {
@@ -87,7 +87,7 @@ struct MRBind::pb11::ReturnTypeTraits<tl::expected<T, U>>
 template <typename T, typename U>
 struct MRBind::pb11::CustomTypeBinding<tl::expected<T, U>>
     : DefaultCustomTypeBinding<tl::expected<T, U>>,
-    RegisterTypesWithCustomBindingIfApplicable<T, U>
+    RegisterTypeDependencies<T, U>
 {
     // If defined, `std::expected` and `tl::expected` both become just `expected`,
     // unifying the interface across platforms using different flavors of `expected`.

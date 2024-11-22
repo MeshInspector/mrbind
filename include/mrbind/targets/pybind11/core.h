@@ -52,6 +52,12 @@
 #define MB_PB11_EXPORT_TYPE __attribute__((__visibility__("default")))
 #endif
 
+#ifdef __clang__
+#define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winaccessible-base\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
+#else
+#define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...)
+#endif
+
 
 // The global namespace marker. Each parsed namespace gets its own, in `MB_NAMESPACE` below.
 using _pb11_ns_marker = void;
@@ -632,17 +638,12 @@ namespace MRBind::pb11
 
     // This one calls `RegisterOneTypeWithCustomBindingDirect<...>` for several types.
     // Avoid this version, prefer the ones without `Direct`.
-    #ifdef __clang__
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Winaccessible-base"
-    #endif
+    MB_PB11_NO_WARN_ON_DUPLICATE_BASE(
     template <typename ...P>
     struct RegisterTypesWithCustomBindingDirectIfApplicable {};
     template <typename P0, typename ...P>
     struct RegisterTypesWithCustomBindingDirectIfApplicable<P0, P...> : RegisterOneTypeWithCustomBindingDirectIfApplicable<P0>, RegisterTypesWithCustomBindingDirectIfApplicable<P...> {};
-    #ifdef __clang__
-    #pragma clang diagnostic pop
-    #endif
+    )
 
 
     // This is a customization point.
@@ -670,6 +671,10 @@ namespace MRBind::pb11
     // This automatically applies `DecomposeTypeForRegistration` to the types.
     template <typename ...P>
     [[nodiscard]] std::unordered_set<std::type_index> MakeBaseTypeids() {return CatTypeLists<DecomposeTypeForRegistration<P>...>::template Apply<TypeListToTypeidSet>::MakeSet();}
+
+    // Use this as an additional base class for your `CustomTypeBinding<...>` specializations.
+    template <typename ...P>
+    using RegisterTypeDependencies = RegisterTypesWithCustomBindingIfApplicable<P...>;
 
     // ---
 

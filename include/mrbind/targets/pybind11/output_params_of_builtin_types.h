@@ -66,7 +66,7 @@ namespace MRBind::pb11
 
     template <typename T>
     struct CustomTypeBinding<OutputParamOfBuiltinType<T>>
-        : DefaultCustomTypeBinding<OutputParamOfBuiltinType<T>>, RegisterTypesWithCustomBindingIfApplicable<decltype(OutputParamOfBuiltinType<T>::values)>
+        : DefaultCustomTypeBinding<OutputParamOfBuiltinType<T>>, RegisterTypeDependencies<decltype(OutputParamOfBuiltinType<T>::values)>
     {
         [[nodiscard]] static std::string cpp_type_name()
         {

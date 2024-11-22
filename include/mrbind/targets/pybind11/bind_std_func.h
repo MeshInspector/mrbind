@@ -85,7 +85,7 @@ namespace MRBind::pb11
     template <typename R, typename ...P>
     struct CustomTypeBinding<FuncWrapper<R(P...)>>
         : DefaultCustomTypeBinding<FuncWrapper<R(P...)>>,
-        RegisterTypesWithCustomBindingIfApplicable<R, P...>
+        RegisterTypeDependencies<R, P...>
     {
         [[nodiscard]] static std::string cpp_type_name()
         {
