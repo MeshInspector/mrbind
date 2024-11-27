@@ -2976,8 +2976,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             r.type_entries.size(),
             r.type_entries.size() - num_types_nonparsed,
             num_types_nonparsed,
-            num_types_nonparsed_redundant,
             #if MRBIND_DEBUG
+            num_types_nonparsed_redundant,
             num_types_nonparsed_redundant_with_repetitions,
             #endif
 
