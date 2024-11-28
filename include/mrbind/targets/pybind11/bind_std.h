@@ -51,7 +51,12 @@ namespace pybind11::patched
         detail::vector_modifiers<Vector, Class_>(cl);
 
         // Implicit conversion from a python list.
-        pybind11::implicitly_convertible<pybind11::iterable, Vector>();
+        // Putting `pybind11::iterable` there also kinda works, but has a stronger effect of also accepting other C++ containers.
+        // It messes up with overload resolution really badly. For example, if you have a template accepting vectors with two different element types,
+        //   if the overload isn't selected during the first pass (which can happen for any reason, e.g. I believe even `None`->pointer conversion forces
+        //   delaying the overload resolution to the second pass), then during the second pass ANY vector type will match, which makes us sensitive to the order of the overloads,
+        //   which is unworkable.
+        pybind11::implicitly_convertible<pybind11::list, Vector>();
 
         // Accessor and iterator; return by value if copyable, otherwise we return by ref + keep-alive
         detail::vector_accessor<Vector, Class_>(cl);
