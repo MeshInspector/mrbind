@@ -55,7 +55,7 @@
 #ifdef __clang__
 #define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winaccessible-base\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
 #else
-#define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...)
+#define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...) __VA_ARGS__
 #endif
 
 
