@@ -2548,6 +2548,14 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     if (r.was_loaded)
         throw std::runtime_error("Can't load the same module twice.");
 
+    #ifdef MB_PB11_MODULE_DEPS
+    { // Load dependencies (other modules).
+        std::vector<const char *> deps = { MB_PB11_MODULE_DEPS };
+        for (const auto &dep : deps)
+            pybind11::module_::import(dep);
+    }
+    #endif
+
     const int debug_loglevel = []{
         const char *var = std::getenv("MRBIND_DEBUG");
         if (var)
