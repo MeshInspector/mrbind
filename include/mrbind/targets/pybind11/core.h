@@ -315,6 +315,7 @@ namespace MRBind::pb11
         std::map<std::string, std::type_index, std::less<>> nested_types;
 
         // We store this to load the methods after all types.
+        // This and `typeinfo_from_other_module` are mutually exclusive.
         std::unique_ptr<BasicPybindType> pybind_type;
 
         // Other types that must be loaded before this one.
@@ -325,6 +326,10 @@ namespace MRBind::pb11
         std::unordered_set<std::type_index> type_rdeps;
 
         FuncAliasRegistrationFuncs func_alias_registration_funcs;
+
+        // This is set only for custom types that were already loaded in a different module.
+        // For those we don't register a new type, and instead use the stuff from here.
+        pybind11::detail::type_info *typeinfo_from_other_module = nullptr;
 
         #if MRBIND_DEBUG
         // Increment this manually when inserting non-parsed types into `type_entries`.
@@ -2698,6 +2703,19 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 throw std::runtime_error(std::string("MRBind pybind11: There's a dependency cycle in the type graph, involving ") + elem.first.name());
         }
 
+        // If a certain custom class was already loaded in a different module, refuse to load it again (that would cause a pybind error),
+        //   and instead make an alias for it.
+        for (auto it = final_order.begin(); it != final_order.end();)
+        {
+            if (((*it)->second.typeinfo_from_other_module =/*assign*/ pybind11::detail::get_global_type_info((*it)->first)))
+            {
+                r.type_aliases[(*it)->second.cpp_type_name].insert((*it)->first);
+                it = final_order.erase(it);
+                continue;
+            }
+            ++it;
+        }
+
         // Load:
 
         // Init.
@@ -2797,6 +2815,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         std::unordered_set<std::string_view> nonalias_python_type_names;
         for (const auto &elem : r.type_entries)
         {
+            // Skip skipped types. In particular, those are the types that got rejected because they are
+            //   already loaded in a different module, see the `get_global_type_info()` check above.
+            if (elem.second.typeinfo_from_other_module)
+                continue;
+
             bool ok = nonalias_python_type_names.insert(elem.second.pybind_type_name_qual).second;
             if (!ok)
                 throw std::runtime_error("Python name `" + elem.second.pybind_type_name + "` refers to more than one type.");
@@ -2829,7 +2852,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             if (debug_loglevel >= 2)
                 std::cout << "mrbind: Registering alias: `" << python_qual_name << "` -> `" << iter->second.pybind_type_name_qual << "`\n";
 
-            ns.m.handle->attr(python_unqual_name.c_str()) = iter->second.pybind_type->GetPybindObject();
+            if (iter->second.typeinfo_from_other_module)
+                ns.m.handle->attr(python_unqual_name.c_str()) = reinterpret_cast<PyObject *>(iter->second.typeinfo_from_other_module->type);
+            else
+                ns.m.handle->attr(python_unqual_name.c_str()) = iter->second.pybind_type->GetPybindObject();
+
             iter->second.aliases.push_back(python_qual_name);
             num_noncustom_aliases++;
         }
@@ -2838,7 +2865,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     { // Generate class documentation. After loading type aliases, because they're mentioned in it too.
         for (auto &[type, entry] : r.type_entries)
         {
-            if (!entry.set_docstring)
+            if (!entry.set_docstring || !entry.pybind_type)
                 continue;
 
             std::string doc;
