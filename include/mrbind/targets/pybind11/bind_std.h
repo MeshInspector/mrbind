@@ -104,18 +104,41 @@ namespace pybind11::patched
     {
         using KeyType = typename Map::key_type;
         using MappedType = typename Map::mapped_type;
-        using KeysView = detail::keys_view<Map>;
-        using ValuesView = detail::values_view<Map>;
-        using ItemsView = detail::items_view<Map>;
+        using KeysView = detail::keys_view;
+        using ValuesView = detail::values_view;
+        using ItemsView = detail::items_view;
         using Class_ = class_<Map, std::shared_ptr<Map>, Extras...>;
 
         Class_ cl(scope, name.c_str() /*, std::forward<Args>(args)...*/);
-        class_<KeysView> keys_view(
-            scope, ("KeysView[" + name + "]").c_str());
-        class_<ValuesView> values_view(
-            scope, ("ValuesView[" + name + "]").c_str());
-        class_<ItemsView> items_view(
-            scope, ("ItemsView[" + name + "]").c_str());
+
+        // Wrap KeysView if it wasn't already wrapped
+        if (!detail::get_type_info(typeid(KeysView))) {
+            class_<KeysView> keys_view(scope, "KeysView");
+            keys_view.def("__len__", &KeysView::len);
+            keys_view.def("__iter__",
+                          &KeysView::iter,
+                          keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
+            );
+            keys_view.def("__contains__", &KeysView::contains);
+        }
+        // Similarly for ValuesView:
+        if (!detail::get_type_info(typeid(ValuesView))) {
+            class_<ValuesView> values_view(scope, "ValuesView");
+            values_view.def("__len__", &ValuesView::len);
+            values_view.def("__iter__",
+                            &ValuesView::iter,
+                            keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
+            );
+        }
+        // Similarly for ItemsView:
+        if (!detail::get_type_info(typeid(ItemsView))) {
+            class_<ItemsView> items_view(scope, "ItemsView");
+            items_view.def("__len__", &ItemsView::len);
+            items_view.def("__iter__",
+                           &ItemsView::iter,
+                           keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
+            );
+        }
 
         cl.def(init<>());
 
@@ -134,20 +157,20 @@ namespace pybind11::patched
         );
 
         cl.def(
-            +"keys",
-            +[](Map &m) { return KeysView{m}; },
+            "keys",
+            [](Map &m) { return std::unique_ptr<KeysView>(new detail::KeysViewImpl<Map>(m)); },
             keep_alive<0, 1>() /* Essential: keep map alive while view exists */
         );
 
         cl.def(
-            +"values",
-            +[](Map &m) { return ValuesView{m}; },
+            "values",
+            [](Map &m) { return std::unique_ptr<ValuesView>(new detail::ValuesViewImpl<Map>(m)); },
             keep_alive<0, 1>() /* Essential: keep map alive while view exists */
         );
 
         cl.def(
-            +"items",
-            +[](Map &m) { return ItemsView{m}; },
+            "items",
+            [](Map &m) { return std::unique_ptr<ItemsView>(new detail::ItemsViewImpl<Map>(m)); },
             keep_alive<0, 1>() /* Essential: keep map alive while view exists */
         );
 
@@ -185,36 +208,6 @@ namespace pybind11::patched
         });
 
         cl.def(+"__len__", &Map::size);
-
-        keys_view.def(+"__len__", +[](KeysView &view) { return view.map.size(); });
-        keys_view.def(
-            +"__iter__",
-            +[](KeysView &view) { return make_key_iterator(view.map.begin(), view.map.end()); },
-            keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
-        );
-        keys_view.def("__contains__", [](KeysView &view, const KeyType &k) -> bool {
-            auto it = view.map.find(k);
-            if (it == view.map.end()) {
-                return false;
-            }
-            return true;
-        });
-        // Fallback for when the object is not of the key type
-        keys_view.def(+"__contains__", +[](KeysView &, const object &) -> bool { return false; });
-
-        values_view.def(+"__len__", +[](ValuesView &view) { return view.map.size(); });
-        values_view.def(
-            +"__iter__",
-            +[](ValuesView &view) { return make_value_iterator(view.map.begin(), view.map.end()); },
-            keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
-        );
-
-        items_view.def(+"__len__", +[](ItemsView &view) { return view.map.size(); });
-        items_view.def(
-            +"__iter__",
-            +[](ItemsView &view) { return make_iterator(view.map.begin(), view.map.end()); },
-            keep_alive<0, 1>() /* Essential: keep view alive while iterator exists */
-        );
 
         return cl;
     }
