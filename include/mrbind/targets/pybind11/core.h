@@ -1460,8 +1460,14 @@ namespace MRBind::pb11
                     // Keep alive reference arguments as long as `this` is alive, in case the class stores them.
                     // This prevents dangling references. Yes, we do it even for const references! (See e.g. `MR::FreeFormDeformer`.)
                     // Reject references to the same class though, to avoid the copy constructors. (Just in case also reject refs to base classes.)
-                    if constexpr (std::is_lvalue_reference_v<AdjustedParamType<U>> && !std::is_base_of_v<std::remove_cvref_t<AdjustedParamType<U>>, T>)
+                    if constexpr (
+                        (std::is_lvalue_reference_v<AdjustedParamType<U>> && !std::is_base_of_v<std::remove_cvref_t<AdjustedParamType<U>>, T>) ||
+                        // And the same for pointers:
+                        std::is_pointer_v<AdjustedParamType<U>>
+                    )
+                    {
                         return pybind11::keep_alive<1, I+2>();
+                    }
                 },
                 [&](auto &&... keepalives)
                 {
