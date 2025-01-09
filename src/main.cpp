@@ -332,25 +332,33 @@ namespace mrbind
         return comment->getFormattedText(ctx.getSourceManager(), ctx.getDiagnostics());
     }
 
-    // Returns the default argument value as a string, or empty if none.
-    [[nodiscard]] std::string GetDefaultArgumentString(const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
+    // Obtains the default argument value as a string, or empty if none.
+    // `out_arg` is the argument as written, while `out_arg_cpp` is slightly adjusted to be viable as a C++ expression (i.e. `{...}` has a its type prepended to it).
+    void GetDefaultArgumentStrings(std::string &out_arg, std::string &out_arg_cpp, const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
     {
-        auto fixed_printing_policy = printing_policy;
+        out_arg.clear();
+        out_arg_cpp.clear();
 
-        // We need to reset this because otherwise libclang 18 converts `std::size_t(1)` to `unsigned long(1)`, which is illegal (only MSVC accepts this).
-        fixed_printing_policy.PrintCanonicalTypes = false;
-
-        std::string ret;
         if (auto default_arg = param.getDefaultArg())
         {
-            llvm::raw_string_ostream ss(ret);
-            default_arg->printPretty(ss, nullptr, fixed_printing_policy);
+            llvm::raw_string_ostream ss(out_arg);
+            default_arg->printPretty(ss, nullptr, printing_policy);
 
             // Adjust `{...}` to add an explicit type.
-            if (ret.starts_with('{'))
-                ret = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(fixed_printing_policy) + std::move(ret);
+            if (out_arg.starts_with('{'))
+            {
+                auto type = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(printing_policy);
+                bool type_is_simple = std::all_of(type.begin(), type.end(), [](unsigned char ch){return std::isalnum(ch) || ch == '_' || ch == ':';});
+                if (type_is_simple)
+                    out_arg_cpp = type + out_arg;
+                else
+                    out_arg_cpp = "std::type_identity_t<" + type + ">" + out_arg;
+            }
+            else
+            {
+                out_arg_cpp = out_arg;
+            }
         }
-        return ret;
     }
 
     // Returns function name, or a placeholder if it's an overloaded operator.
@@ -574,7 +582,7 @@ namespace mrbind
                 FuncParam &new_param = ret.emplace_back();
                 new_param.name = p->getName();
                 new_param.type = GetTypeStrings(p->getType(), TypeUses::parameter);
-                new_param.default_argument = GetDefaultArgumentString(*p, printing_policies.normal);
+                GetDefaultArgumentStrings(new_param.default_argument, new_param.default_argument_cpp, *p, printing_policies.normal);
             }
             return ret;
         }

@@ -178,8 +178,8 @@ namespace MRBind::pb11
         pybind11::handle *handle = nullptr;
 
         ModuleOrClassRef() {}
-        ModuleOrClassRef(pybind11::module_ &m) : handle(&m), is_class(false) {}
-        ModuleOrClassRef(pybind11::object &o) : handle(&o), is_class(true) {}
+        ModuleOrClassRef(pybind11::module_ &m) : is_class(false), handle(&m) {}
+        ModuleOrClassRef(pybind11::object &o) : is_class(true), handle(&o) {}
 
         // Add a free function (if this is a module) or a static function (if this is a class representing a namespace).
         void AddFunc(const char *name, auto &&f, const auto &... extra)
@@ -1065,7 +1065,7 @@ namespace MRBind::pb11
     template <typename T>
     struct CrashingDeleter
     {
-        void operator()(T *ptr)
+        void operator()(T *)
         {
             CriticalError("Trying to delete a type with a private destructor: " + std::string(TypeidTypeName<T>()));
         }
@@ -1811,7 +1811,7 @@ namespace MRBind::pb11
             target_pos += n;
             str.resize(target_pos);
         };
-        auto ReplaceFragment = [&](std::string_view a, std::string_view b, bool separate_word)
+        [[maybe_unused]] auto ReplaceFragment = [&](std::string_view a, std::string_view b, bool separate_word)
         {
             std::string ret;
 
@@ -2972,8 +2972,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     if (debug_loglevel >= 1)
     {
         std::size_t num_types_nonparsed = 0;
-        std::size_t num_types_nonparsed_redundant = 0;
-        std::size_t num_types_nonparsed_redundant_with_repetitions = 0;
+        [[maybe_unused]] std::size_t num_types_nonparsed_redundant = 0;
+        [[maybe_unused]] std::size_t num_types_nonparsed_redundant_with_repetitions = 0;
         std::size_t num_methods = 0;
         for (auto &[id, e] : r.type_entries)
         {
@@ -3066,47 +3066,47 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 
 // A helper that generates function parameter bindings.
 #define DETAIL_MB_PB11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
-#define DETAIL_MB_PB11_MAKE_PARAMS_BODY(n, d, type_, name_, .../*default_arg_*/) \
-    MRBIND_CAT(DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_, __VA_OPT__(0))(name_ __VA_OPT__(,) __VA_ARGS__)
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY(n, d, type_, name_, default_arg_, .../*default_arg_cpp_*/) \
+    MRBIND_CAT(DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_, __VA_OPT__(0))(name_, default_arg_, __VA_ARGS__)
 
-#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_(name_) \
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_(name_, default_arg, default_arg_cpp_) \
     , pybind11::arg(MRBind::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str())
-#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_0(name_, default_arg_) \
-    , MRBind::pb11::ParamWithDefaultArg(MRBind::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str(), MRBIND_IDENTITY default_arg_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'")
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_0(name_, default_arg_, default_arg_cpp_) \
+    , MRBind::pb11::ParamWithDefaultArg(MRBind::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str(), MRBIND_IDENTITY default_arg_cpp_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'")
 
 // A helper that generates a list of parameter types.
 // We also decay arrays and functions to pointers here.
 // It's easier than doing this in the templates, and easier than trying to figure out how to make libclang do it.
 #define DETAIL_MB_PB11_PARAM_TYPES(seq) MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_PARAM_TYPES_WITH_LEADING_COMMA(seq))
 #define DETAIL_MB_PB11_PARAM_TYPES_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_TYPES_BODY, SF_NULL, SF_NULL, 1, seq)
-#define DETAIL_MB_PB11_PARAM_TYPES_BODY(n, d, type_, name_, .../*default_arg_*/) \
+#define DETAIL_MB_PB11_PARAM_TYPES_BODY(n, d, type_, ...) \
     , MRBind::pb11::DecayToTrueParamType<MRBIND_IDENTITY type_>
 
 // A helper that generates function parameter declarations, with placeholder names (to not choke on unnamed parameters), and with no default arguments.
 #define DETAIL_MB_PB11_MAKE_PARAM_DECLS(seq) MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_MAKE_PARAM_DECLS_WITH_LEADING_COMMA(seq))
 #define DETAIL_MB_PB11_MAKE_PARAM_DECLS_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAM_DECLS_BODY, DETAIL_MB_PB11_MAKE_PARAM_DECLS_STEP, SF_NULL, i, seq)
-#define DETAIL_MB_PB11_MAKE_PARAM_DECLS_BODY(n, d, type_, name_, .../*default_arg_*/) , std::type_identity_t<MRBIND_IDENTITY type_> d
+#define DETAIL_MB_PB11_MAKE_PARAM_DECLS_BODY(n, d, type_, ...) , std::type_identity_t<MRBIND_IDENTITY type_> d
 #define DETAIL_MB_PB11_MAKE_PARAM_DECLS_STEP(n, d, ...) MRBIND_CAT(d, i)
 
 // A helper that generates function parameter uses (comma-separated names, forwarded),
 // with the same placeholder names as `DETAIL_MB_PB11_MAKE_PARAM_DECLS`.
 #define DETAIL_MB_PB11_MAKE_PARAM_USES(seq) MRBIND_STRIP_LEADING_COMMA(DETAIL_MB_PB11_MAKE_PARAM_USES_WITH_LEADING_COMMA(seq))
 #define DETAIL_MB_PB11_MAKE_PARAM_USES_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAM_USES_BODY, DETAIL_MB_PB11_MAKE_PARAM_DECLS_STEP, SF_NULL, i, seq)
-#define DETAIL_MB_PB11_MAKE_PARAM_USES_BODY(n, d, type_, name_, .../*default_arg_*/) , std::forward<decltype(d)>(d)
+#define DETAIL_MB_PB11_MAKE_PARAM_USES_BODY(n, d, ...) , std::forward<decltype(d)>(d)
 
 // A helper that generates a list of info wrappers about each parameter.
 #define DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(seq) SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_ENTRIES_BODY, SF_NULL, SF_NULL, 1, seq)
-#define DETAIL_MB_PB11_PARAM_ENTRIES_BODY(n, d, type_, name_, .../*default_arg_*/) \
+#define DETAIL_MB_PB11_PARAM_ENTRIES_BODY(n, d, type_, ...) \
     , MRBIND_IDENTITY type_
 
 // A helper that generates a list of pybind type names corresponding to the C++ parameter types.
 #define DETAIL_MB_PB11_PARAM_PB_SIGNATURE(seq) { SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_PB_SIGNATURE_BODY, SF_NULL, SF_NULL, 1, seq) }
-#define DETAIL_MB_PB11_PARAM_PB_SIGNATURE_BODY(n, d, type_, name_, .../*default_arg_*/) \
+#define DETAIL_MB_PB11_PARAM_PB_SIGNATURE_BODY(n, d, type_, ...) \
     typeid(MRBind::pb11::ToPybindSignatureType<MRBind::pb11::AdjustedParamType<MRBind::pb11::DecayToTrueParamType<MRBIND_IDENTITY type_>>>),
 
 // Returns the number of function parameters with default arguments.
 #define DETAIL_MB_PB11_NUM_DEF_ARGS(seq) 0 SF_FOR_EACH0(DETAIL_MB_PB11_NUM_DEF_ARGS_BODY, SF_NULL, SF_NULL,, seq)
-#define DETAIL_MB_PB11_NUM_DEF_ARGS_BODY(n, d, type_, name_, .../*default_arg_*/) __VA_OPT__(+1)
+#define DETAIL_MB_PB11_NUM_DEF_ARGS_BODY(n, d, type_, name_, default_arg_, .../*default_arg_cpp_*/) __VA_OPT__(+1)
 
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)

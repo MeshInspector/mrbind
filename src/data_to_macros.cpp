@@ -187,7 +187,8 @@ namespace mrbind
                     out << "    ("
                         << "(" << param.type.pretty << "), "
                         << (param.name.empty() ? "/*unnamed*/" : param.name) << ", "
-                        << (param.default_argument.empty() ? "/*no default argument*/" : "(" + param.default_argument + ")")
+                        << (param.default_argument.empty() ? "/*no default argument*/" : "(" + param.default_argument + ")") << ", "
+                        << (param.default_argument_cpp.empty() ? "/*no default argument*/" : "(" + param.default_argument_cpp + ")")
                         << ")\n";
                 }
 

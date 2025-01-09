@@ -41,6 +41,8 @@ namespace mrbind
 
         // The default argument or empty if none.
         std::string default_argument;
+        // Same, but adjusted to be viable as a C++ expression. (Primarily `{...}` have a type prepended to them.)
+        std::string default_argument_cpp;
     };
 
     struct BasicFunc

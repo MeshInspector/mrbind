@@ -421,7 +421,6 @@ namespace MRBind::pb11::detail::BindStd
                     +[](const pybind11::iterable &it)
                     {
                         std::shared_ptr<T> ret = std::make_shared<T>();
-                        std::size_t i = 0;
                         for (pybind11::handle h : it)
                             ret->insert(h.cast<ValueType>());
                         return ret;

@@ -298,6 +298,7 @@ namespace mrbind
                 json.WriteField("name", StringOrNull{value.name});
                 json.WriteField("type", value.type);
                 json.WriteField("default_argument", StringOrNull{value.default_argument});
+                json.WriteField("default_argument_cpp", StringOrNull{value.default_argument_cpp});
                 json.EndObject();
             }
         };
