@@ -24,7 +24,7 @@ namespace MRBind::pb11
             py_write_func = py_file.attr("write");
             py_flush_func = py_file.attr("flush");
 
-            is_binary = pybind11::isinstance(py_file, pybind11::module_::import("io").attr("BufferedWriter"));
+            is_text = PyObject_IsSubclass((PyObject *)Py_TYPE(py_file.ptr()), pybind11::module_::import("io").attr("TextIOBase").ptr());
         }
         OstreamBuf(const OstreamBuf &) = delete;
         OstreamBuf &operator=(const OstreamBuf &) = delete;
@@ -35,21 +35,21 @@ namespace MRBind::pb11
 
         int sync() override
         {
-            if (is_binary)
+            if (is_text)
             {
-                pybind11::bytes bytes = pybind11::bytes(this->str());
-                py_write_func(bytes);
+                py_write_func(this->str());
             }
             else
             {
-                py_write_func(this->str());
+                pybind11::bytes bytes = pybind11::bytes(this->str());
+                py_write_func(bytes);
             }
             py_flush_func();
             return 0;
         }
 
       private:
-        bool is_binary = false;
+        bool is_text = false;
         pybind11::object py_write_func;
         pybind11::object py_flush_func;
     };
