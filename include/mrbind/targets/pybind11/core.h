@@ -1538,10 +1538,31 @@ namespace MRBind::pb11
         }
     }
 
+    // If the class overloads `<<`, implement printing for it (i.e. `__repr__`) in terms of it.
+    template <typename T>
+    void TryMakePrintable(auto &c)
+    {
+        if constexpr (requires(std::ostream &s, const T &t){s << t;})
+        {
+            static const std::string name = c.attr("__qualname__").template cast<std::string>();
+            c.def(
+                +"__repr__",
+                +[](const T &t)
+                {
+                    std::ostringstream ss;
+                    ss << t;
+
+                    return name + '(' + std::move(ss).str() + ')';
+                }
+            );
+        }
+    }
+
     template <typename T>
     void FinalizeClass(auto &c, TryAddFuncScopeState &scope_state)
     {
         TryMakeIterable<T>(c);
+        TryMakePrintable<T>(c);
 
         if (!scope_state.have_default_ctor)
         {
