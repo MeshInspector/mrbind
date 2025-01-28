@@ -1538,23 +1538,29 @@ namespace MRBind::pb11
         }
     }
 
+    template <typename T>
+    struct AllowAutomaticPrinting : std::true_type {};
+
     // If the class overloads `<<`, implement printing for it (i.e. `__repr__`) in terms of it.
     template <typename T>
     void TryMakePrintable(auto &c)
     {
-        if constexpr (requires(std::ostream &s, const T &t){s << t;})
+        if constexpr (AllowAutomaticPrinting<T>::value)
         {
-            static const std::string name = c.attr("__qualname__").template cast<std::string>();
-            c.def(
-                +"__repr__",
-                +[](const T &t)
-                {
-                    std::ostringstream ss;
-                    ss << t;
+            if constexpr (requires(std::ostream &s, const T &t){s << t;})
+            {
+                static const std::string name = c.attr("__qualname__").template cast<std::string>();
+                c.def(
+                    +"__repr__",
+                    +[](const T &t)
+                    {
+                        std::ostringstream ss;
+                        ss << t;
 
-                    return name + '(' + std::move(ss).str() + ')';
-                }
-            );
+                        return name + '(' + std::move(ss).str() + ')';
+                    }
+                );
+            }
         }
     }
 
