@@ -709,6 +709,9 @@ namespace MRBind::pb11
 
         // Optional. Disable the whole function because of this return type.
         // using disables_func = void;
+
+        // Optional. If added, then the container element adjustment will not sure this specialization.
+        // using ignore_for_container_elems = void;
     };
 
     template <typename T>
@@ -961,9 +964,20 @@ namespace MRBind::pb11
     template <typename T>
     struct ContainerElemTypeTraits
     {
+        using adjusted_type = T;
+        static constexpr bool needs_adjustment = false;
+        static T Adjust(T &&src) {return std::forward<T>(src);} // This can move if we're returning by value, that's intentional.
+    };
+    // Thes specialization applies the normal return type adjustment.
+    // The only reason we have this specialization at all (instead of pasting the contents into the primary template)
+    //   is to be able to disable this behavior when `::ignore_for_container_elems` is defined. We need this e.g. to avoid adjusting `vector<expected<T,U>>`,
+    //   which is bad because it would try to dereference all `expected`s immediately.
+    template <ReturnTypeNeedsAdjusting T> requires(!requires{typename ReturnTypeTraits<T>::ignore_for_container_elems;})
+    struct ContainerElemTypeTraits<T>
+    {
         using adjusted_type = typename AdjustReturnType<T>::type;
-        static constexpr bool needs_adjustment = ReturnTypeNeedsAdjusting<T>;
-        static auto Adjust(T &&src) {return AdjustReturnedValue<T>(std::forward<T>(src));}
+        static constexpr bool needs_adjustment = true;
+        static decltype(auto) Adjust(T &&src) {return AdjustReturnedValue<T>(std::forward<T>(src));}
     };
     // Need to convert `std::unique_ptr` to `std::optional`.
     template <typename T, typename D> requires std::movable<T>

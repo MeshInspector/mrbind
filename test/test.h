@@ -55,6 +55,9 @@ namespace MR
     std::vector<int> foo() {return std::vector<int>{1,2,3};}
     std::vector<int> bar() {return {};}
 
+    // Must not adjust `expected` in container elements.
+    std::vector<tl::expected<std::string, int>> foo() {return {"foo", tl::unexpected(42)};}
+
     // std::array construction from N-element list (more or less throws)
 
     // Assignment to pointer properties (including pointer-to-const)

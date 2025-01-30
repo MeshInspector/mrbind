@@ -53,6 +53,10 @@ requires
 struct MRBind::pb11::ReturnTypeTraits<tl::expected<T, U>>
     : RegisterTypeDependencies<typename AdjustReturnType<T>::type>
 {
+    // Don't adjust `std::vector<tl::expected<T,U>>` to `std::vector<T>`,
+    //   that is wrong when only SOME of the elements are in the failure state.
+    using ignore_for_container_elems = void;
+
     static decltype(auto) Adjust(tl::expected<T, U> &&value)
     {
         if (value)
