@@ -26,4 +26,12 @@ target_include_directories(mrbind PUBLIC include)
 find_package(Clang REQUIRED)
 
 target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
-target_link_libraries(mrbind PRIVATE clangTooling)
+
+if (TARGET clangTooling)
+  target_link_libraries(mrbind PRIVATE clangTooling)
+else()
+  # The only platform where this branch is used (that I know of) is Arch.
+  # Trying this on e.g. Ubuntu causes the following runtime error when you run the resulting application:
+  #   LLVM ERROR: inconsistency in registered CommandLine options
+  target_link_libraries(mrbind PRIVATE clang-cpp LLVMSupport)
+endif()
