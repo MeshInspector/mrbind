@@ -2816,6 +2816,16 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             {
                 state.i = 0;
                 elem->second.load_members(*elem->second.pybind_type, state, &elem->second.func_alias_registration_funcs);
+
+                // Log the registered functions. Would be nicer to do it in real time,
+                //   like we do with non-member functions, but it's easier to do it as a separate step.
+                if (debug_loglevel >= 3 && state.pass_number + 1 == num_add_func_passes)
+                {
+                    for (const auto &func : elem->second.func_alias_registration_funcs.funcs)
+                    {
+                        std::cout << "mrbind: Registering member function: class=`" << elem->second.pybind_type_name_qual << "`, name=`" << func.first << "`\n";
+                    }
+                }
             }
         }
     }
@@ -2852,7 +2862,11 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             for (int pass_number = 0; pass_number < num_add_func_passes; pass_number++)
             {
                 for (auto &func : scope.second)
+                {
                     func.entry->load(func.m, func.entry->state, scope_state, pass_number, func.name, func.name_with_template_args, func.func_alias_registration_funcs);
+                    if (debug_loglevel >= 3 && pass_number + 1 == num_add_func_passes)
+                        std::cout << "mrbind: Registering free function: namespace=`" << (scope.first ? scope.first->pybind_name_qual_fixed : "") << "`, name=`" << func.entry->state.python_name << "`\n";
+                }
             }
         }
     }
