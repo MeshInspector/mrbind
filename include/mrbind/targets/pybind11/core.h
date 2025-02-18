@@ -3503,20 +3503,35 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         );} \
     );
 
-#define MB_REGISTER_TYPE(i_, ...) \
+#define MB_REGISTER_TYPE(i_, name_source_, ...) \
     /* Just in case, register identity spelling. */\
-    MB_ALT_TYPE_SPELLING(i_, (__VA_ARGS__), (__VA_ARGS__));
+    DETAIL_MB_PB11_ALT_SPELLING((__VA_ARGS__), (__VA_ARGS__));
 
-#define MB_REGISTER_TYPE_RETURNED(i_, ...) (void)MRBind::pb11::RegisterReturnType<__VA_ARGS__>{};
-#define MB_REGISTER_TYPE_PARAM(i_, ...)    (void)MRBind::pb11::RegisterParamType<__VA_ARGS__>{};
-#define MB_REGISTER_TYPE_PARSED(i_, ...)   (void)MRBind::pb11::RegisterTypesWithCustomBindingIfApplicable<__VA_ARGS__>{};
-#define MB_REGISTER_TYPE_BASE(i_, ...)                  MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
-#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, ...) (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
-#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, ...)    (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
-#define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, ...)        MB_REGISTER_TYPE_PARSED(i_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_RETURNED(i_, name_source_, ...) (void)MRBind::pb11::RegisterReturnType<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_PARAM(i_, name_source_, ...)    (void)MRBind::pb11::RegisterParamType<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_PARSED(i_, name_source_, ...)   (void)MRBind::pb11::RegisterTypesWithCustomBindingIfApplicable<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_BASE(i_, name_source_, ...)                  MB_REGISTER_TYPE_PARSED(i_, name_source_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, name_source_, ...) (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, name_source_, ...)    (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
+#define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, name_source_, ...)        MB_REGISTER_TYPE_PARSED(i_, name_source_, __VA_ARGS__)
 
-#define MB_ALT_TYPE_SPELLING(i_, type_, spelling_) \
-    MRBind::pb11::RegisterTypeAlias<MRBIND_IDENTITY type_>(MRBIND_STR(MRBIND_IDENTITY spelling_));
+#define MB_ALT_TYPE_SPELLING(i_, name_source_, type_, spelling_) // Base version is empty, we check the specific usecases.
+
+#define MB_ALT_TYPE_SPELLING_RETURNED(i_, name_source_, type_, spelling_)              DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_PARAM(i_, name_source_, type_, spelling_)                 DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_PARSED(i_, name_source_, type_, spelling_)                DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_BASE(i_, name_source_, type_, spelling_)                  DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_NONSTATIC_DATA_MEMBER(i_, name_source_, type_, spelling_) DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_STATIC_DATA_MEMBER(i_, name_source_, type_, spelling_)    DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_TYPEDEF_TARGET(i_, name_source_, type_, spelling_)        DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_TYPEDEF_NAME(i_, name_source_, type_, spelling_)          DETAIL_MB_PB11_ALT_SPELLING              (              type_, spelling_)
+
+// This one registers the spelling only if `name_source_` is empty. Because if it's `custom` instead, it means the canonical name comes from
+// a `preferred_name` attribute, and we don't want to alias that
+#define DETAIL_MB_PB11_ALT_SPELLING(type_, spelling_) MRBind::pb11::RegisterTypeAlias<MRBIND_IDENTITY type_>(MRBIND_STR(MRBIND_IDENTITY spelling_));
+#define DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_) MRBIND_CAT(DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM_, name_source_)(type_, spelling_)
+#define DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM_(type_, spelling_) DETAIL_MB_PB11_ALT_SPELLING(type_, spelling_)
+#define DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM_custom(type_, spelling_)
 
 
 // Add missing macros.

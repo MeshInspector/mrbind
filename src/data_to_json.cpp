@@ -566,7 +566,7 @@ namespace mrbind
             void operator()(JsonWriter &json, const TypeUses &value)
             {
                 json.BeginArray();
-                for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits); bit <<= 1)
+                for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits_spelling); bit <<= 1)
                 {
                     if (bool(bit & value))
                     {
@@ -580,6 +580,7 @@ namespace mrbind
                             case TypeUses::nonstatic_data_member: kind = "nonstatic_data_member"; break;
                             case TypeUses::static_data_member:    kind = "static_data_member"; break;
                             case TypeUses::typedef_target:        kind = "typedef_target"; break;
+                            case TypeUses::typedef_name:          kind = "typedef_name"; break;
                             case TypeUses::_poisoned:             break; // Should be unreachable.
                         }
                         json.WriteElem(kind);
@@ -596,6 +597,7 @@ namespace mrbind
             {
                 json.BeginObject();
                 json.WriteField("uses", value.uses);
+                json.WriteField("has_custom_canonical_name", value.has_custom_canonical_name);
                 json.BeginField("alt_spellings");
                 json.BeginObject();
                 for (const auto &elem : value.alt_spellings)
@@ -612,6 +614,7 @@ namespace mrbind
             void operator()(JsonWriter &json, const TypeAltSpellingInfo &value)
             {
                 json.BeginObject();
+                json.WriteField("uses", value.uses);
                 json.WriteField("poisoned", value.poisoned);
                 json.EndObject();
             }

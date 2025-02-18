@@ -246,6 +246,8 @@ namespace mrbind
 
     enum class TypeUses
     {
+        // Those bits are valid in all cases:
+
         // Some function returns this.
         returned = 1 << 0,
         // Some function uses this as a parameter.
@@ -263,16 +265,26 @@ namespace mrbind
 
         _valid_bits [[maybe_unused]] = (1 << 7) - 1,
 
+        // Those bits are valid only for type SPELLINGS:
+
+        // This spelling is a typedef name (not its target).
+        typedef_name = 1 << 7,
+
+        _valid_bits_spelling [[maybe_unused]] = (1 << 8) - 1,
+
         // Internal stuff:
 
         // This is used internally but should never be set in the parser output.
         // Unlike `TypeAltSpellingInfo::poisoned` below, use that instead.
-        _poisoned = 1 << 7,
+        _poisoned = 1 << 8,
     };
     MRBIND_FLAG_OPERATORS(TypeUses)
 
     struct TypeAltSpellingInfo
     {
+        // This will never contain the `_poisoned` bit.
+        TypeUses uses{};
+
         // If this bit is set, the type won't be emitted.
         // This is set by typedefs that have the `mrbind::ignore` attribute, to make sure the spelling doesn't get emitted even if
         //   it later appears in a different context. (E.g. if a function parameter uses this typedef as the spelling, it would normally
@@ -282,7 +294,12 @@ namespace mrbind
 
     struct TypeInformation
     {
+        // This is an OR of all `alt_spellings[...].uses`. Neither will ever contain the `_poisoned` bit.
         TypeUses uses{};
+
+        // This is a template specialization that got its name from a `preferred_name` attribute.
+        // This has the same value in every submap of `type_info` (which can have more than one element when `--combine-types` is used).
+        bool has_custom_canonical_name = false;
 
         // Alternative names for this type.
         std::unordered_map<std::string, TypeAltSpellingInfo> alt_spellings;

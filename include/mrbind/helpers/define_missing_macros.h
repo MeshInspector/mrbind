@@ -52,6 +52,7 @@
 //     * `type_` - parenthesized parameter type.
 //     * `name_` - parameter name.
 //     * `default_arg_` - parenthesized default argument, or empty if none.
+//     * `default_arg_cpp_` - parenthesized default argument, or empty if none. This one is adjusted to be a valid C++ expression (e.g. `{}` is prepended with a type, etc).
 #define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_)
 #endif
 
@@ -79,11 +80,7 @@
 //       * `explicit_` - either `explicit` or empty if not explicit.
 //       * `copy_move_kind_` - one of: `none`, `copy`, `move` (the latter two represent copy and move constructors respectively).
 //       * `comment_` - a string literal with the comment, or empty if none.
-//       * `params_` - a parameter list `(...)(...)(...)`.
-//           Each parameter is `(type_, name_, default_arg_)`, where:
-//           * `type_` - parenthesized parameter type.
-//           * `name_` - parameter name (can be empty).
-//           * `default_arg_` - parenthesized default argument, or empty if none.
+//       * `params_` - a parameter list, same as for `MB_FUNC(...)`, see above.
 //     * A public method `(method, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, comment_, params_)`, where:
 //         * `static_` - either `static` or nothing if non-static.
 //         * `assignment_kind_` one of: `none`, `copy`, `move` (the latter two represent copy and move assignment respectively).
@@ -135,34 +132,62 @@
 
 // This is called once for every type we use.
 // `i_` is the counter for multiplexing binding fragments.
+// `name_source_` is where we got the canonical type name from. Defaults to empty string, but if this is a template specialization
+//   with a `preferred_name` attribute, this is instead `custom`. This is the same for the entire type.
 #ifndef MB_REGISTER_TYPE
-#define MB_REGISTER_TYPE(i_, ...)
+#define MB_REGISTER_TYPE(i_, name_source_, ...)
 #endif
-// This is additionally called to indicate every known use case of the type.
+// Those additionally called to indicate every known use case of the type.
 #ifndef MB_REGISTER_TYPE_RETURNED
-#define MB_REGISTER_TYPE_RETURNED(i_, ...)
+#define MB_REGISTER_TYPE_RETURNED(i_, name_source_, ...)
 #endif
 #ifndef MB_REGISTER_TYPE_PARAM
-#define MB_REGISTER_TYPE_PARAM(i_, ...)
+#define MB_REGISTER_TYPE_PARAM(i_, name_source_, ...)
 #endif
 #ifndef MB_REGISTER_TYPE_PARSED
-#define MB_REGISTER_TYPE_PARSED(i_, ...)
+#define MB_REGISTER_TYPE_PARSED(i_, name_source_, ...)
 #endif
 #ifndef MB_REGISTER_TYPE_BASE
-#define MB_REGISTER_TYPE_BASE(i_, ...)
+#define MB_REGISTER_TYPE_BASE(i_, name_source_, ...)
 #endif
 #ifndef MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER
-#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, ...)
+#define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, name_source_, ...)
 #endif
 #ifndef MB_REGISTER_TYPE_STATIC_DATA_MEMBER
-#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, ...)
+#define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, name_source_, ...)
 #endif
 #ifndef MB_REGISTER_TYPE_TYPEDEF_TARGET
-#define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, ...)
+#define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, name_source_, ...)
 #endif
 
 // Specifies an alternative type spelling `spelling_` for `type_`. Both are parenthesized.
 // `i_` is the counter for multiplexing binding fragments.
 #ifndef MB_ALT_TYPE_SPELLING
-#define MB_ALT_TYPE_SPELLING(i_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING(i_, name_source_, type_, spelling_)
+#endif
+// Those are additionally called to indicate why this spelling is used:
+// NOTE! This additionally has a `..._TYPEDEF_NAME` overload, unlike `MB_REGISTER_TYPE_...` above.
+#ifndef MB_ALT_TYPE_SPELLING_RETURNED
+#define MB_ALT_TYPE_SPELLING_RETURNED(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_PARAM
+#define MB_ALT_TYPE_SPELLING_PARAM(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_PARSED
+#define MB_ALT_TYPE_SPELLING_PARSED(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_BASE
+#define MB_ALT_TYPE_SPELLING_BASE(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_NONSTATIC_DATA_MEMBER
+#define MB_ALT_TYPE_SPELLING_NONSTATIC_DATA_MEMBER(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_STATIC_DATA_MEMBER
+#define MB_ALT_TYPE_SPELLING_STATIC_DATA_MEMBER(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_TYPEDEF_TARGET
+#define MB_ALT_TYPE_SPELLING_TYPEDEF_TARGET(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_TYPEDEF_NAME
+#define MB_ALT_TYPE_SPELLING_TYPEDEF_NAME(i_, name_source_, ...)
 #endif

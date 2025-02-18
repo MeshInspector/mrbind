@@ -183,11 +183,12 @@ namespace mrbind
     struct PrintingPolicies
     {
         clang::PrintingPolicy normal;
+        clang::PrintingPolicy without_preferred_names;
 
         PrintingPolicies(const clang::PrintingPolicy &base)
-            : normal(base)
+            : normal(base), without_preferred_names(base)
         {
-            for (auto *p : {&normal})
+            for (auto *p : {&normal, &without_preferred_names})
             {
                 // Not adding `PrintCanonicalTypes = true`, because that expands typedefs which prevents the bindings from being portable.
                 p->SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
@@ -198,7 +199,7 @@ namespace mrbind
                 p->MSVCFormatting = false; // Unsure what this changes, just in case.
                 p->PolishForDeclaration = true; // Unsure what this changes, just in case.
 
-                p->UsePreferredNames = true; // Respect `preferred_name` attribute.
+                p->UsePreferredNames = p != &without_preferred_names; // Respect `preferred_name` attribute, but only in the main policy.
 
                 // We use `.getCanonicalType()` instead of a separate printing policy with this set to true,
                 // because `.getCanonicalType()` doesn't interfere with `SuppressDefaultTemplateArgs` (and other stuff?).
@@ -541,23 +542,33 @@ namespace mrbind
 
         std::unordered_map<std::string, std::string> types_to_preferred_names;
 
-        [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type)
+        [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, clang::PrintingPolicy PrintingPolicies::* policy = &PrintingPolicies::normal)
         {
-            return type.getCanonicalType().getAsString(printing_policies.normal);
+            return type.getCanonicalType().getAsString(printing_policies.*policy);
         }
 
         // If `reason` is zero, the function does nothing.
-        void RegisterTypeSpelling(const std::string &canonical, const std::string &pretty, TypeUses reason)
+        void RegisterTypeSpelling(const clang::QualType &type, const std::string &pretty, TypeUses reason)
         {
             if (reason == TypeUses{})
                 return;
 
-            TypeInformation &info = params->parsed_result.type_info[canonical][canonical]; // Sic.
-            info.uses |= reason & ~TypeUses::_poisoned;
+            std::string canonical = GetCanonicalTypeName(type);
+
+            auto &outer_map = params->parsed_result.type_info[canonical];
+            bool is_new_type = outer_map.empty();
+
+            TypeInformation &info = outer_map[canonical]; // Sic! The same key again.
+            info.uses |= reason & TypeUses::_valid_bits;
+
+            if (is_new_type)
+                info.has_custom_canonical_name = canonical != GetCanonicalTypeName(type, &PrintingPolicies::without_preferred_names);
 
             auto &spelling = info.alt_spellings.try_emplace(pretty).first->second;
             if (bool(reason & TypeUses::_poisoned))
                 spelling.poisoned = true;
+
+            spelling.uses |= reason & TypeUses::_valid_bits_spelling;
         }
 
         // Returns the string representations of a type.
@@ -568,8 +579,7 @@ namespace mrbind
             Type ret;
             ret.pretty = type.getAsString(printing_policies.normal);
             ret.canonical = GetCanonicalTypeName(type);
-
-            RegisterTypeSpelling(ret.canonical, ret.pretty, reason);
+            RegisterTypeSpelling(type, ret.pretty, reason);
 
             return ret;
         }
@@ -995,7 +1005,7 @@ namespace mrbind
             if (should_poison)
             {
                 // We do register the TYPEDEF SPELLING itself to poison it though.
-                RegisterTypeSpelling(type_strings.canonical, full_name, TypeUses::_poisoned);
+                RegisterTypeSpelling(decl->getUnderlyingType(), full_name, TypeUses::_poisoned);
                 return true;
             }
 
@@ -1005,7 +1015,7 @@ namespace mrbind
             new_typedef.full_name = std::move(full_name);
             new_typedef.comment = GetCommentString(*ctx, *decl);
             new_typedef.type = std::move(type_strings);
-            RegisterTypeSpelling(new_typedef.type.canonical, new_typedef.full_name, TypeUses::typedef_target);
+            RegisterTypeSpelling(decl->getUnderlyingType(), new_typedef.full_name, TypeUses::typedef_name);
 
             return true;
         }

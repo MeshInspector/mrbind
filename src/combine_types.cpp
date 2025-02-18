@@ -42,6 +42,26 @@ namespace mrbind
             // Failed to move the whole entry. Move the elements individually.
             result.position->second.insert(std::make_move_iterator(result.node.mapped().begin()), std::make_move_iterator(result.node.mapped().end()));
         }
+
+        // Merge (logical or) the `has_custom_canonical_name` in every submap.
+        for (auto &submap : file.type_info)
+        {
+            bool value = false;
+            for (const auto &elem : submap.second)
+            {
+                if (elem.second.has_custom_canonical_name)
+                {
+                    value = true;
+                    break;
+                }
+            }
+
+            if (value)
+            {
+                for (auto &elem : submap.second)
+                    elem.second.has_custom_canonical_name = true;
+            }
+        }
     }
 
     AdjustTypeNameFunc MakeAdjustTypeNameFunc(AdjustTypeNameFlags flags)

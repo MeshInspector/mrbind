@@ -444,35 +444,54 @@ namespace mrbind
             // Dump type spellings.
             if (!file.type_info.empty())
             {
+                // Calls `func` for every set bit in `uses`. `func` is `(TypeUses bit, const char *name) -> void`.
+                auto UsesBitsToStrings = [](TypeUses uses, auto &&func)
+                {
+                    for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits_spelling); bit <<= 1)
+                    {
+                        if (bool(bit & uses))
+                        {
+                            switch (bit)
+                            {
+                                case TypeUses::returned:              func(std::as_const(bit), "RETURNED"); break;
+                                case TypeUses::parameter:             func(std::as_const(bit), "PARAM"); break;
+                                case TypeUses::parsed:                func(std::as_const(bit), "PARSED"); break;
+                                case TypeUses::base:                  func(std::as_const(bit), "BASE"); break;
+                                case TypeUses::nonstatic_data_member: func(std::as_const(bit), "NONSTATIC_DATA_MEMBER"); break;
+                                case TypeUses::static_data_member:    func(std::as_const(bit), "STATIC_DATA_MEMBER"); break;
+                                case TypeUses::typedef_target:        func(std::as_const(bit), "TYPEDEF_TARGET"); break;
+                                case TypeUses::typedef_name:          func(std::as_const(bit), "TYPEDEF_NAME"); break;
+                                case TypeUses::_poisoned:             break; // Should be unreachable.
+                            }
+                        }
+                    }
+                };
+
                 out << "\n";
                 for (const auto &outer_type : file.type_info)
                 {
                     BeginMultiplexBlock(true);
 
-                    out << "MB_REGISTER_TYPE(" << (multiplex_counter - 1) << ", " << outer_type.first << ")\n";
+                    // This is supposed to be the same across the entire submap.
+                    bool has_custom_name = outer_type.second.begin()->second.has_custom_canonical_name;
+                    std::string custom_name_desc;
+                    if (has_custom_name)
+                        custom_name_desc = "/*name source:*/custom";
+                    else
+                        custom_name_desc = "/*name source: auto*/";
+
+                    out << "MB_REGISTER_TYPE(" << (multiplex_counter - 1) << ", " << custom_name_desc << ", " << outer_type.first << ")\n";
 
                     for (const auto &type : outer_type.second)
                     {
-                        for (TypeUses bit = TypeUses(1); bool(bit & TypeUses::_valid_bits); bit <<= 1)
-                        {
-                            if (bool(bit & type.second.uses))
-                            {
-                                const char *kind = nullptr;
-                                switch (bit)
-                                {
-                                    case TypeUses::returned:              kind = "RETURNED"; break;
-                                    case TypeUses::parameter:             kind = "PARAM"; break;
-                                    case TypeUses::parsed:                kind = "PARSED"; break;
-                                    case TypeUses::base:                  kind = "BASE"; break;
-                                    case TypeUses::nonstatic_data_member: kind = "NONSTATIC_DATA_MEMBER"; break;
-                                    case TypeUses::static_data_member:    kind = "STATIC_DATA_MEMBER"; break;
-                                    case TypeUses::typedef_target:        kind = "TYPEDEF_TARGET"; break;
-                                    case TypeUses::_poisoned:             break; // This should be unreachable.
-                                }
+                        if (type.second.has_custom_canonical_name != has_custom_name)
+                            throw std::logic_error("Internal error: inconsistent `has_custom_canonical_name` across the different variations of the same type.");
 
-                                out << "MB_REGISTER_TYPE_" << kind << "(" << (multiplex_counter - 1) << ", " << type.first << ")\n";
-                            }
-                        }
+                        UsesBitsToStrings(type.second.uses, [&](TypeUses bit, const char *name)
+                        {
+                            (void)bit;
+                            out << "MB_REGISTER_TYPE_" << name << "(" << (multiplex_counter - 1) << ", " << custom_name_desc << ", " << type.first << ")\n";
+                        });
 
                         for (const auto &spelling : type.second.alt_spellings)
                         {
@@ -481,9 +500,21 @@ namespace mrbind
 
                             out << "MB_ALT_TYPE_SPELLING("
                                 << (multiplex_counter - 1) << ", "
+                                << custom_name_desc << ", "
                                 << "(" << type.first << "), "
                                 << "(" << spelling.first << ")"
                                 << ")\n";
+
+                            UsesBitsToStrings(spelling.second.uses, [&](TypeUses bit, const char *name)
+                            {
+                                (void)bit;
+                                out << "MB_ALT_TYPE_SPELLING_" << name << "("
+                                    << (multiplex_counter - 1) << ", "
+                                    << custom_name_desc << ", "
+                                    << "(" << type.first << "), "
+                                    << "(" << spelling.first << ")"
+                                    << ")\n";
+                            });
                         }
                     }
 
