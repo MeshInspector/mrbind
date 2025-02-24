@@ -1,6 +1,14 @@
-#include <memory>
+#include <concepts>
 
 namespace MR
 {
-    inline void foo(int, int *p = {}, long long l = {}, int i = {}) {(void)p; (void)l; (void)i;}
+    template <std::floating_point T>
+    struct A {};
+    template <typename T>
+    struct B
+    {
+        void foo(A<T> *) requires std::floating_point<T> {}
+    };
+
+    using B0 = B<int>;
 }

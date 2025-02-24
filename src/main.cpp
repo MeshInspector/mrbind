@@ -297,6 +297,10 @@ namespace mrbind
         // else if (ctx.getFullLoc(decl.getBeginLoc()).getFileID() != ctx.getSourceManager().getMainFileID())
         //     return true; // Reject declarations in the headers.
 
+        // Check if we're inside a blacklisted class.
+        if (!params->nonrejected_class_stack.empty() && !params->nonrejected_class_stack.back())
+            return true;
+
         // Check against the name blacklist.
         if (params)
         {
@@ -483,8 +487,7 @@ namespace mrbind
     }
 
     // Returns true on success.
-    template <typename Visitor = std::nullptr_t>
-    bool TryInstantiateClass(clang::CompilerInstance &ci, clang::TagDecl *decl, clang::SourceLocation loc)
+    [[nodiscard]] bool TryInstantiateClass(clang::CompilerInstance &ci, clang::TagDecl *decl, clang::SourceLocation loc)
     {
         if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
         {
@@ -496,8 +499,7 @@ namespace mrbind
             if (body_exists && !decl->getDefinition())
             {
                 ci.getSema().InstantiateClassTemplateSpecialization(loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
-                // if constexpr (!std::is_null_pointer_v<Visitor>)
-                //     vis->TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
+                // vis->TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
                 return true;
             }
         }
@@ -528,10 +530,143 @@ namespace mrbind
         return false;
     }
 
-    // The main visitor, generates most of our code.
-    struct ClangAstVisitor : clang::RecursiveASTVisitor<ClangAstVisitor>
+    // See `GetUnderlyingClassOrEnumType()`.
+    void GetUnderlyingClassOrEnumType_Low(clang::CompilerInstance &ci, const clang::QualType &type, std::function<void(clang::TagDecl *decl)> func)
     {
-        using Base = clang::RecursiveASTVisitor<ClangAstVisitor>;
+        // I'm not sure if I need to recurisevely canonicalize subtypes. Probably not?
+
+        if (type->isRecordType()) // NOTE! Not `isClassType()`, because that rejects structs and probably something else too.
+        {
+            func(type->getAsRecordDecl());
+        }
+        else if (type->isEnumeralType())
+        {
+            func(llvm::dyn_cast<clang::EnumDecl>(type->getAsTagDecl()));
+        }
+        else if (type->isPointerType())
+        {
+            GetUnderlyingClassOrEnumType_Low(ci, type->getPointeeType(), std::move(func));
+        }
+        else if (type->isReferenceType())
+        {
+            GetUnderlyingClassOrEnumType_Low(ci, type.getNonReferenceType(), std::move(func));
+        }
+        else if (type->isArrayType())
+        {
+            GetUnderlyingClassOrEnumType_Low(ci, llvm::dyn_cast<clang::ArrayType>(type)->getElementType(), std::move(func));
+        }
+    }
+    // Strips cvref/ptr/array-qualifiers from a type, and if that's a type, call `func()` on it. Otherwise do nothing.
+    void GetUnderlyingClassOrEnumType(clang::CompilerInstance &ci, const clang::QualType &type, std::function<void(clang::TagDecl *decl)> func)
+    {
+        return GetUnderlyingClassOrEnumType_Low(ci, type.getCanonicalType(), std::move(func));
+    }
+
+    // If this function returns `auto` that wasn't deduced yet, replace it with the correct return type.
+    [[nodiscard]] bool InstantiateReturnTypeIfNeeded(clang::CompilerInstance &ci, clang::FunctionDecl &decl)
+    {
+        if (decl.getReturnType()->isUndeducedAutoType())
+        {
+            ci.getSema().InstantiateFunctionDefinition(decl.getBeginLoc(), &decl);
+            return true;
+        }
+
+        return false;
+    }
+
+    bool ShouldRejectFunction(const clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams *params, const PrintingPolicies &printing_policies)
+    {
+        if (decl.getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
+            return true; // Reject user-defined literals.
+
+        // Skip deduction guides.
+        // We don't seem to need to check this separately for class members, since they count as non-member functions, just like friend functions.
+        if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
+            return true;
+
+        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies))
+            return true;
+
+        if (!FuncLooksLikeItHasAccessibleSignatureTypes(decl))
+            return true;
+
+        if (decl.isDeleted())
+            return true; // Skip deleted.
+
+        // Check the requires-clause, if any. Why doesn't libclang do this automatically?
+        // We need this for member functions, and for `friend` functions (that are non-member functions).
+        // The rest of non-member functions shouldn't get instantiated automatically, but checking this always doesn't hurt.
+        if (decl.getTrailingRequiresClause())
+        {
+            clang::ConstraintSatisfaction sat;
+            if (ci.getSema().CheckFunctionConstraints(&decl, sat))
+                throw std::runtime_error("Unable to evaluate the constraints for the method." );
+            if (!sat.IsSatisfied)
+                return true; // Constraints are false.
+        }
+
+        // Custom handling for class methods.
+        if (decl.isCXXClassMember())
+        {
+            if (decl.getAccess() != clang::AS_public)
+                return true; // Reject non-public methods.
+            if (llvm::isa<clang::CXXDestructorDecl>(decl))
+                return true; // Reject destructors.
+
+            const clang::CXXMethodDecl *method = clang::dyn_cast<clang::CXXMethodDecl>(&decl);
+            if (!method)
+                return true; // Unsure when this can happen, but anyway.
+
+            if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
+                return true; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
+        }
+
+        return false;
+    }
+
+    bool ShouldRejectRecord(const clang::RecordDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies)
+    {
+        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies))
+            return true;
+
+        if (decl.isAnonymousStructOrUnion())
+            return true; // Reject anonymous structs/unions.
+
+        if (!TypeLooksAccessible(*decl.getTypeForDecl()))
+            return true; // Inaccessible type.
+
+        return false;
+    }
+
+    bool ShouldRejectEnum(const clang::EnumDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies)
+    {
+        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies))
+            return true;
+
+        if (!TypeLooksAccessible(*decl.getTypeForDecl()))
+            return true; // Inaccessible type.
+
+        return false;
+    }
+
+    bool ShouldRejectTypedef(const clang::TypedefNameDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies, bool *should_poison)
+    {
+        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies, should_poison))
+            return true;
+
+        if (auto type = decl.getTypeForDecl()) // For some reason this can be null (for typedefs/aliases, but not for other entities?).
+        {
+            if (!TypeLooksAccessible(*type))
+                return true; // Inaccessible type.
+        }
+
+        return false;
+    }
+
+    // The main visitor, generates most of our code.
+    struct ClangAstVisitor_Final : clang::RecursiveASTVisitor<ClangAstVisitor_Final>
+    {
+        using Base = clang::RecursiveASTVisitor<ClangAstVisitor_Final>;
 
         clang::ASTContext *ctx = nullptr;
         clang::CompilerInstance *ci = nullptr;
@@ -598,7 +733,7 @@ namespace mrbind
         }
 
 
-        ClangAstVisitor(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
+        ClangAstVisitor_Final(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
             printing_policies(ctx.getPrintingPolicy()),
             params(&params)
@@ -614,52 +749,15 @@ namespace mrbind
 
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
-            if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
-                return true; // Reject user-defined literals.
-
-            // Skip deduction guides.
-            // We don't seem to need to check this separately for class members, since they count as non-member functions, just like friend functions.
-            if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
+            if (ShouldRejectFunction(*decl, *ctx, *ci, params, printing_policies))
                 return true;
-
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
-                return true;
-
-            if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
-                return true;
-
-            if (decl->isDeleted())
-                return true; // Skip deleted.
 
             // Custom handling for class methods.
             if (decl->isCXXClassMember())
             {
-                // The `nonrejected_class_stack` should never be empty here.
-                if (params->nonrejected_class_stack.empty() || !params->nonrejected_class_stack.back())
-                    return true; // Reject methods of rejected classes.
-
-                if (decl->getAccess() != clang::AS_public)
-                    return true; // Reject non-public methods.
-                if (llvm::isa<clang::CXXDestructorDecl>(decl))
-                    return true; // Reject destructors.
-
                 clang::CXXMethodDecl *method = clang::dyn_cast<clang::CXXMethodDecl>(decl);
                 if (!method)
                     return true; // Unsure when this can happen, but anyway.
-
-                if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
-                    return true; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
-
-                // Check the requires-clause, if any. Why doesn't libclang do this automatically?
-                // I *THINK* we don't need this for non-members?
-                if (method->getTrailingRequiresClause())
-                {
-                    clang::ConstraintSatisfaction sat;
-                    if (ci->getSema().CheckFunctionConstraints(method, sat))
-                        throw std::runtime_error("Unable to evaluate the constraints for the method." );
-                    if (!sat.IsSatisfied)
-                        return true; // Constraints are false.
-                }
 
                 ClassEntity &target_class = *params->nonrejected_class_stack.back();
 
@@ -706,8 +804,7 @@ namespace mrbind
                     basic_ret_class_func->is_const = method->isConst();
 
                     // Force instantiate body to know the true return type rather than `auto`.
-                    if (method->getReturnType()->isUndeducedAutoType())
-                        ci->getSema().InstantiateFunctionDefinition(method->getBeginLoc(), method);
+                    (void)InstantiateReturnTypeIfNeeded(*ci, *decl);
 
                     basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType(), TypeUses::returned);
                 }
@@ -718,8 +815,7 @@ namespace mrbind
             }
 
             // Force instantiate body to know the true return type rather than `auto`.
-            if (decl->getReturnType()->isUndeducedAutoType())
-                ci->getSema().InstantiateFunctionDefinition(decl->getBeginLoc(), decl);
+            (void)InstantiateReturnTypeIfNeeded(*ci, *decl);
 
             if (HasInstantiateOnlyAttribute(*decl))
             {
@@ -752,22 +848,21 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
-            params->nonrejected_class_stack.push_back(nullptr);
-
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+            if (ShouldRejectRecord(*decl, *ctx, params, printing_policies))
+            {
+                params->nonrejected_class_stack.push_back(nullptr);
                 return false;
+            }
 
-            if (decl->isAnonymousStructOrUnion())
-                return false; // Reject anonymous structs/unions.
-
+            // Reject non-instantiated templates. This is here rather than in `ShouldRejectRecord()` because that is also used by the instantiating visitor.
             if (!decl->isCompleteDefinition())
+            {
+                params->nonrejected_class_stack.push_back(nullptr);
                 return false;
-
-            if (!TypeLooksAccessible(*decl->getTypeForDecl()))
-                return false; // Inaccessible type.
+            }
 
             ClassEntity &new_class = params->container_stack.back()->nested.emplace_back().emplace<ClassEntity>();
-            params->nonrejected_class_stack.back() = &new_class;
+            params->nonrejected_class_stack.push_back(&new_class);
             params->container_stack.push_back(&new_class);
 
             new_class.name = decl->getName();
@@ -882,7 +977,6 @@ namespace mrbind
             params->container_stack.pop_back();
         }
 
-        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         void FinishRecordEvenIfRejected(clang::RecordDecl *decl)
         {
             (void)decl;
@@ -934,14 +1028,12 @@ namespace mrbind
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+            if (ShouldRejectEnum(*decl, *ctx, params, printing_policies))
                 return true;
 
-            if (!TypeLooksAccessible(*decl->getTypeForDecl()))
-                return true; // Inaccessible type.
-
+            // This is not in `ShouldRejectEnum()` because it is false before instantiation.
             if (!decl->isCompleteDefinition())
-                return false;
+                return true;
 
             EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().emplace<EnumEntity>();
 
@@ -984,14 +1076,8 @@ namespace mrbind
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
             bool should_poison = false;
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies, &should_poison))
+            if (ShouldRejectTypedef(*decl, *ctx, params, printing_policies, &should_poison))
                 return true;
-
-            if (auto type = decl->getTypeForDecl()) // For some reason this can be null (for typedefs/aliases, but not for other entities?).
-            {
-                if (!TypeLooksAccessible(*type))
-                    return true; // Inaccessible type.
-            }
 
             if (HasInstantiateOnlyAttribute(*decl))
             {
@@ -1046,10 +1132,10 @@ namespace mrbind
         }
     };
 
-    // Instantiates templates referred to by typedefs.
-    struct ClangAstVisitorInstTypes : clang::RecursiveASTVisitor<ClangAstVisitorInstTypes>
+    // Mark all the classes and enums it sees as needing complete definitions.
+    struct ClangAstVisitor_CollectKnownTypes : clang::RecursiveASTVisitor<ClangAstVisitor_CollectKnownTypes>
     {
-        using Base = clang::RecursiveASTVisitor<ClangAstVisitorInstTypes>;
+        using Base = clang::RecursiveASTVisitor<ClangAstVisitor_CollectKnownTypes>;
 
         clang::ASTContext *ctx = nullptr;
         clang::CompilerInstance *ci = nullptr;
@@ -1058,9 +1144,120 @@ namespace mrbind
 
         const VisitorParams *params = nullptr;
 
-        bool instantiated_some = false;
+        ClangAstVisitor_CollectKnownTypes(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
+            : ctx(&ctx), ci(&ci),
+            printing_policies(ctx.getPrintingPolicy()),
+            params(&params)
+        {}
 
-        ClangAstVisitorInstTypes(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
+        // Visit template specializations almost as if they were normal code.
+        bool shouldVisitTemplateInstantiations() const // CRTP override
+        {
+            return true;
+        }
+
+
+
+        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
+        bool ProcessRecord(clang::RecordDecl *decl)
+        {
+            if (ShouldRejectRecord(*decl, *ctx, params, printing_policies))
+            {
+                params->nonrejected_class_stack.push_back(nullptr);
+                return false;
+            }
+
+            decl->setCompleteDefinitionRequired(true);
+
+            params->nonrejected_class_stack.push_back((ClassEntity *)sizeof(ClassEntity)); // Push some non-zero pointer to allow boolean testing.
+
+            return true;
+        }
+
+        void FinishRecordEvenIfRejected(clang::RecordDecl *decl)
+        {
+            (void)decl;
+            params->nonrejected_class_stack.pop_back();
+        }
+
+        bool TraverseRecordDecl(clang::RecordDecl *decl) // CRTP override
+        {
+            bool ret = true;
+            if (ProcessRecord(decl))
+                ret = Base::TraverseRecordDecl(decl);
+            FinishRecordEvenIfRejected(decl);
+            return ret;
+        }
+
+        bool TraverseCXXRecordDecl(clang::CXXRecordDecl *decl) // CRTP override
+        {
+            // Unlike `Visit...`, `Traverse...` only handles exact matches, so we need this in addition to `TraverseRecordDecl()`
+            //   to process classes (including structs in C++ mode).
+
+            bool ret = true;
+            if (ProcessRecord(decl))
+                ret = Base::TraverseCXXRecordDecl(decl);
+            FinishRecordEvenIfRejected(decl);
+            return ret;
+        }
+
+        bool TraverseClassTemplateSpecializationDecl(clang::ClassTemplateSpecializationDecl *decl)
+        {
+            // Unlike `Visit...`, `Traverse...` only handles exact matches, so we need this in addition to `TraverseRecordDecl()`
+            //   to process class template specializations.
+            // There's also a `...PartialSpecializationDecl` version, which we don't care about.
+
+            bool ret = true;
+            if (ProcessRecord(decl))
+                ret = Base::TraverseClassTemplateSpecializationDecl(decl);
+            FinishRecordEvenIfRejected(decl);
+            return ret;
+        }
+
+        bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
+        {
+            if (ShouldRejectEnum(*decl, *ctx, params, printing_policies))
+                return true;
+
+            // This rejects non-templates.
+            if (auto pat = decl->getTemplateInstantiationPattern())
+            {
+                // This rejects templates that are declared but not defined.
+                if (pat->isCompleteDefinition())
+                    decl->setCompleteDefinitionRequired(true);
+            }
+
+            return true;
+        }
+
+        bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
+        {
+            bool reject = ShouldRejectDeclaration(*ctx, *decl, params, printing_policies);
+
+            params->rejected_namespace_stack.push_back(reject);
+            bool ret = Base::TraverseNamespaceDecl(decl);
+            params->rejected_namespace_stack.pop_back();
+
+            return ret;
+        }
+    };
+
+    // Instantiates templates referred to by typedefs.
+    struct ClangAstVisitor_InstTypesAndCollectNewTypes : clang::RecursiveASTVisitor<ClangAstVisitor_InstTypesAndCollectNewTypes>
+    {
+        using Base = clang::RecursiveASTVisitor<ClangAstVisitor_InstTypesAndCollectNewTypes>;
+
+        clang::ASTContext *ctx = nullptr;
+        clang::CompilerInstance *ci = nullptr;
+
+        PrintingPolicies printing_policies;
+
+        const VisitorParams *params = nullptr;
+
+        // We set this to true when we instantiate something or find a new type.
+        bool need_another_iteration = false;
+
+        ClangAstVisitor_InstTypesAndCollectNewTypes(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
             printing_policies(ctx.getPrintingPolicy()),
             params(&params)
@@ -1077,69 +1274,83 @@ namespace mrbind
             // We visit the function declarations to instantiate their default arguments, which apparently doesn't happen otherwise.
             // This is only needed for free function templates. Something else already instantiates them for the class member functions.
 
-            if (decl->getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
-                return true; // Reject user-defined literals.
-
-            // Skip deduction guides.
-            // We don't seem to need to check this separately for class members, since they count as non-member functions, just like friend functions.
-            if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
+            if (ShouldRejectFunction(*decl, *ctx, *ci, params, printing_policies))
                 return true;
 
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
-                return true;
-
-            if (!FuncLooksLikeItHasAccessibleSignatureTypes(*decl))
-                return true;
-
-            if (decl->isDeleted())
-                return true; // Skip deleted.
-
+            // Instantiate the default arguments and the underlying parameter types.
             for (clang::ParmVarDecl *p : decl->parameters())
             {
                 if (p->hasUninstantiatedDefaultArg())
                     ci->getSema().InstantiateDefaultArgument(decl->getSourceRange().getBegin(), decl, p);
+
+                // Mark the parameter type.
+                GetUnderlyingClassOrEnumType(*ci, p->getType(), [&](clang::TagDecl *subdecl)
+                {
+                    if (!subdecl->isCompleteDefinitionRequired())
+                    {
+                        subdecl->setCompleteDefinitionRequired(true);
+                        need_another_iteration = true;
+                    }
+                });
             }
+
+            // Deduce the return type if it's `auto`.
+            if (InstantiateReturnTypeIfNeeded(*ci, *decl))
+                need_another_iteration = true;
+
+            // Mark the return type.
+            GetUnderlyingClassOrEnumType(*ci, decl->getReturnType(), [&](clang::TagDecl *subdecl)
+            {
+                if (!subdecl->isCompleteDefinitionRequired())
+                {
+                    subdecl->setCompleteDefinitionRequired(true);
+                    need_another_iteration = true;
+                }
+            });
 
             return true;
         }
 
-        bool VisitTypedefNameDecl(clang::TypedefNameDecl *d) // CRTP override
+        bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP overridecle
         {
-            clang::QualType type = ctx->getTypedefType(d);
-            if (!TypeLooksAccessible(*type))
-                return true; // Type is inaccessible.
+            if (ShouldRejectTypedef(*decl, *ctx, params, printing_policies, nullptr))
+                return true;
 
             if (params->rejected_namespace_stack.back())
                 return true; // The namespace is rejected, don't instantiate things here.
 
-            if (auto decl = type->getAsTagDecl())
+            // Mark the target.
+            GetUnderlyingClassOrEnumType(*ci, decl->getUnderlyingType(), [&](clang::TagDecl *subdecl)
             {
-                if (TryInstantiateClass(*ci, decl, d->getSourceRange().getBegin()))
-                    instantiated_some = true;
-            }
+                if (!subdecl->isCompleteDefinitionRequired())
+                {
+                    subdecl->setCompleteDefinitionRequired(true);
+                    need_another_iteration = true;
+                }
+            });
 
             return true;
         }
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+            if (ShouldRejectEnum(*decl, *ctx, params, printing_policies))
                 return true;
 
-            if (!TypeLooksAccessible(*decl->getTypeForDecl()))
-                return true; // Inaccessible type.
-
-            if (!decl->isCompleteDefinition())
+            // This rejects non-templates.
+            if (auto pat = decl->getTemplateInstantiationPattern())
             {
-                // This rejects non-templates.
-                if (auto pat = decl->getTemplateInstantiationPattern())
-                {
+                if (
                     // This rejects templates that are declared but not defined.
-                    if (pat->isCompleteDefinition())
-                    {
-                        ci->getSema().InstantiateEnum(decl->getSourceRange().getBegin(), decl, pat, ci->getSema().getTemplateInstantiationArgs(decl), clang::TSK_ImplicitInstantiation);
-                        instantiated_some = true;
-                    }
+                    pat->isCompleteDefinition() &&
+                    // This rejects templates that WE don't want to instantiate, because they were visited for a useless reason,
+                    //   such as being return types of SFINAE-rejected functions.
+                    decl->isCompleteDefinitionRequired()
+                )
+                {
+                    ci->getSema().InstantiateEnum(decl->getSourceRange().getBegin(), decl, pat, ci->getSema().getTemplateInstantiationArgs(decl), clang::TSK_ImplicitInstantiation);
+                    // DO NOT ask for another iteration, because instantiating this shouldn't give us any new types?
+                    // need_another_iteration = true;
                 }
             }
 
@@ -1149,23 +1360,22 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
-            params->nonrejected_class_stack.push_back(nullptr);
-
-            if (ShouldRejectDeclaration(*ctx, *decl, params, printing_policies))
+            if (ShouldRejectRecord(*decl, *ctx, params, printing_policies))
+            {
+                params->nonrejected_class_stack.push_back(nullptr);
                 return false;
+            }
 
-            if (decl->isAnonymousStructOrUnion())
-                return false; // Reject anonymous structs/unions.
+            // `decl->isCompleteDefinitionRequired()` rejects templates that WE don't want to instantiate, because they were visited for a useless reason,
+            //   such as being return types of SFINAE-rejected functions.
+            if (decl->isCompleteDefinitionRequired() && TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
+                need_another_iteration = true;
 
-            if (TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
-                instantiated_some = true;
-
-            params->nonrejected_class_stack.back() = (ClassEntity *)sizeof(ClassEntity); // Push some non-zero pointer to allow boolean testing.
+            params->nonrejected_class_stack.push_back((ClassEntity *)sizeof(ClassEntity)); // Push some non-zero pointer to allow boolean testing.
 
             return true;
         }
 
-        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         void FinishRecordEvenIfRejected(clang::RecordDecl *decl)
         {
             (void)decl;
@@ -1259,15 +1469,31 @@ namespace mrbind
 
             params->rejected_namespace_stack.push_back(params->blacklisted_entities.Contains("::"));
 
-            // Instantiate templates referred to by typedefs.
+            auto VerifyStacks = [&]
+            {
+                if (params->rejected_namespace_stack.size() != 1)
+                    throw std::logic_error("Internal error: The visitor didn't clean the namespace stack after itself.");
+                if (!params->nonrejected_class_stack.empty())
+                    throw std::logic_error("Internal error: The visitor didn't clean the class stack after itself.");
+            };
+            VerifyStacks();
+
+            { // Collect the initial set of target types.
+                ClangAstVisitor_CollectKnownTypes vis(ctx, *ci, *params);
+                vis.TraverseDecl(ctx.getTranslationUnitDecl());
+                VerifyStacks();
+            }
+
+            // Instantiate templates.
             for (int i = 0;; i++)
             {
                 if (i == 1000)
-                    throw std::runtime_error("Too many template instantiation loops.");
+                    throw std::runtime_error("Too many template instantiation iterations!");
 
-                ClangAstVisitorInstTypes vis(ctx, *ci, *params);
+                ClangAstVisitor_InstTypesAndCollectNewTypes vis(ctx, *ci, *params);
                 vis.TraverseDecl(ctx.getTranslationUnitDecl());
-                if (!vis.instantiated_some)
+                VerifyStacks();
+                if (!vis.need_another_iteration)
                 {
                     if (i > 1)
                         llvm::errs() << "mrbind: Used " << i+1 << " iterations to instantiate all templates.\n";
@@ -1277,8 +1503,9 @@ namespace mrbind
 
             // Gather the bulk of the information.
 
-            ClangAstVisitor vis(ctx, *ci, *params);
+            ClangAstVisitor_Final vis(ctx, *ci, *params);
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
+            VerifyStacks();
 
             params->rejected_namespace_stack.pop_back();
 
