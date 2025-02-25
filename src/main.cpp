@@ -1274,6 +1274,56 @@ namespace mrbind
             // We visit the function declarations to instantiate their default arguments, which apparently doesn't happen otherwise.
             // This is only needed for free function templates. Something else already instantiates them for the class member functions.
 
+            if (auto templ = decl->getDescribedTemplate())
+            {
+                auto functempl = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
+
+                // If all template parameters have default arguments...
+                if (templ->getTemplateParameters()->getMinRequiredArguments() == 0)
+                {
+                    const clang::TemplateParameterList &tparams = *templ->getTemplateParameters();
+
+                    // Cook up a list of all default template arguments.
+                    // Apparently just using an empty list doesn't work. It runs, but then the parser spits out `type-parameter-0-0` instead of the correct type name.
+                    std::vector<clang::TemplateArgument> targs_vec(tparams.size());
+                    for (unsigned i = 0; i < tparams.size(); i++)
+                    {
+                        const clang::NamedDecl *tparam = tparams.getParam(i);
+                        if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
+                            targs_vec[i] = ttp->getDefaultArgument();
+                        else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
+                            targs_vec[i] = nttp->getDefaultArgument();
+                        else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
+                            targs_vec[i] = tetp->getDefaultArgument().getArgument(); // Hmm.
+                        else
+                            throw std::logic_error("What is this template argument?");
+                    }
+
+                    // An empty template argument list.
+                    clang::TemplateArgumentList targs(clang::TemplateArgumentList::OnStack, targs_vec);
+
+                    // Same, but also referencing enclosing template args.
+                    // Copied from `Sema::InstantiateFunctionDeclaration()`.
+                    clang::MultiLevelTemplateArgumentList ml_targs(decl, targs.asArray(), false);
+
+                    // Check if already instantiated...
+                    // There's also `Sema::FindInstantiatedDecl()`, but I coundn't figure out how it's supposed to be used, of it's applicable here at all or not.
+                    // I'm not sure if I should be calling it in `decl` or `templ`, and it never returned null pointers for me, so whatever.
+                    [[maybe_unused]] void *unused_insertion_point = nullptr;
+                    if (!functempl->findSpecialization(targs_vec, unused_insertion_point))
+                    {
+                        // This doesn't crash if already instantiated, and looks like it's a no-op in that case, but I'm not entirely sure.
+                        // It doesn't matter anyway, because it doesn't seem to indicate to the caller whether it's already instantiated or not,
+                        // and we need that information to set `need_another_iteration`.
+                        auto new_decl = ci->getSema().InstantiateFunctionDeclaration(functempl, &targs, decl->getSourceRange().getBegin());
+
+                        // This can be null if the function failed to instantiate because of a SFINAE error.
+                        if (new_decl)
+                            need_another_iteration = true;
+                    }
+                }
+            }
+
             if (ShouldRejectFunction(*decl, *ctx, *ci, params, printing_policies))
                 return true;
 
