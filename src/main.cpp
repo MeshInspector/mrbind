@@ -246,23 +246,36 @@ namespace mrbind
         return false;
     }
 
+    enum class ShouldRejectFlags
+    {
+        // Normally we don't allow templates (only their specific instantiations).
+        // This flag allows the templates too.
+        allow_uninstantiated_templates = 1 << 0,
+    };
+    MRBIND_FLAG_OPERATORS(ShouldRejectFlags)
+
     // Whether we should skip this declaration when traversing the AST.
     // Includes some non-contentious stuff like rejecting header contents, template declarations there weren't instantiated yet, function-local declarations.
     // `params` is optional.
     // NOTE: If `out_ignore` is specified, will write true to it INSTEAD of the rejecting the declaration ONLY IF the rejection is caused
     //   by a blacklisted name or the `mrbind::ignore` attribute.
-    [[nodiscard]] bool ShouldRejectDeclaration(const clang::ASTContext &ctx, const clang::NamedDecl &decl, const VisitorParams *params, const PrintingPolicies &printing_policies, bool *out_ignore = nullptr)
+    [[nodiscard]] bool ShouldRejectDeclaration(const clang::NamedDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {}, bool *out_ignore = nullptr)
     {
         (void)ctx;
 
         if (out_ignore)
             *out_ignore = false; // Default to false...
 
-        if (decl.isTemplated())
+        bool is_templated = decl.isTemplated();
+
+        if (!bool(flags & ShouldRejectFlags::allow_uninstantiated_templates) && is_templated)
             return true; // This is a template, reject. Specific specializations will be given to us separately.
 
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
+
+        if (decl.isOutOfLine())
+            return true; // Reject out-of-line member function definitions, and I assume some other stuff to (out-of-line static variables?).
 
         if (HasIgnoreAttribute(decl))
         {
@@ -273,36 +286,41 @@ namespace mrbind
                 return true;
         }
 
-        std::string name;
-        llvm::raw_string_ostream ss(name);
-        decl.printQualifiedName(ss);
-        std::string name_without_template_args = name;
-        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
-            clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
-        else if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(&decl))
-            clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
-        // If you're wondering, no, enums can't be templated, so they're not mentioned here.
-        else if (auto templ = llvm::dyn_cast<clang::FunctionDecl>(&decl))
-        {
-            if (auto args = templ->getTemplateSpecializationArgs())
-                clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, templ->getPrimaryTemplate()->getTemplateParameters());
-        }
-
-        // Make sure the name doesn't contain unspellable stuff, such as lambda types.
-        if (!NameSpellingIsLegal(name))
+        // Check if we're inside a blacklisted class.
+        if (!params->nonrejected_class_stack.empty() && !params->nonrejected_class_stack.back())
             return true;
+
+        // Check the name (if not templated).
+        std::string name;
+        std::string name_without_template_args;
+        if (!is_templated)
+        {
+            llvm::raw_string_ostream ss(name);
+            decl.printQualifiedName(ss);
+            name_without_template_args = name;
+            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
+                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
+            else if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(&decl))
+                clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
+            // If you're wondering, no, enums can't be templated, so they're not mentioned here.
+            else if (auto templ = llvm::dyn_cast<clang::FunctionDecl>(&decl))
+            {
+                if (auto args = templ->getTemplateSpecializationArgs())
+                    clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, templ->getPrimaryTemplate()->getTemplateParameters());
+            }
+
+            // Make sure the name doesn't contain unspellable stuff, such as lambda types.
+            if (!NameSpellingIsLegal(name))
+                return true;
+        }
 
         // if (auto t = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl); t && ctx.getFullLoc(t->getPointOfInstantiation()).getFileID() == ctx.getSourceManager().getMainFileID())
         //     ; // This is instantiated in the main file, accept it.
         // else if (ctx.getFullLoc(decl.getBeginLoc()).getFileID() != ctx.getSourceManager().getMainFileID())
         //     return true; // Reject declarations in the headers.
 
-        // Check if we're inside a blacklisted class.
-        if (!params->nonrejected_class_stack.empty() && !params->nonrejected_class_stack.back())
-            return true;
-
         // Check against the name blacklist.
-        if (params)
+        if (params && !is_templated)
         {
             // Check the name both with and without template arguments.
             if (params->blacklisted_entities.Contains(name_without_template_args) || params->blacklisted_entities.Contains(name))
@@ -317,6 +335,18 @@ namespace mrbind
             if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.Contains(name_without_template_args) && !params->whitelisted_entities.Contains(name))
             {
                 // This entity is blacklisted because its enclosing entity is blacklisted, and it itself is not whitelisted.
+                if (out_ignore)
+                    *out_ignore = true;
+                else
+                    return true;
+            }
+        }
+        else
+        {
+            if (!params->rejected_namespace_stack.empty())
+            {
+                // This entity is blacklisted because its enclosing entity is blacklisted.
+                // We don't know the name of this entity here, so we can't check the whitelist.
                 if (out_ignore)
                     *out_ignore = true;
                 else
@@ -574,36 +604,27 @@ namespace mrbind
         return false;
     }
 
-    bool ShouldRejectFunction(const clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams *params, const PrintingPolicies &printing_policies)
+    bool ShouldRejectFunction(const clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams *params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {})
     {
         if (decl.getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
             return true; // Reject user-defined literals.
+
+        if (ShouldRejectDeclaration(decl, ctx, params, printing_policies, flags))
+            return true;
 
         // Skip deduction guides.
         // We don't seem to need to check this separately for class members, since they count as non-member functions, just like friend functions.
         if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
             return true;
 
-        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies))
-            return true;
-
-        if (!FuncLooksLikeItHasAccessibleSignatureTypes(decl))
-            return true;
-
         if (decl.isDeleted())
             return true; // Skip deleted.
 
-        // Check the requires-clause, if any. Why doesn't libclang do this automatically?
-        // We need this for member functions, and for `friend` functions (that are non-member functions).
-        // The rest of non-member functions shouldn't get instantiated automatically, but checking this always doesn't hurt.
-        if (decl.getTrailingRequiresClause())
-        {
-            clang::ConstraintSatisfaction sat;
-            if (ci.getSema().CheckFunctionConstraints(&decl, sat))
-                throw std::runtime_error("Unable to evaluate the constraints for the method." );
-            if (!sat.IsSatisfied)
-                return true; // Constraints are false.
-        }
+        // If we reached here and din't stop at `ShouldRejectDeclaration()`, it means `flags` contains `allow_uninstantiated_templates`.
+        bool is_templated = decl.isTemplated();
+
+        if (!is_templated && !FuncLooksLikeItHasAccessibleSignatureTypes(decl))
+            return true;
 
         // Custom handling for class methods.
         if (decl.isCXXClassMember())
@@ -621,12 +642,24 @@ namespace mrbind
                 return true; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
         }
 
+        // Check the requires-clause, if any. Why doesn't libclang do this automatically?
+        // We need this for member functions, and for `friend` functions (that are non-member functions).
+        // The rest of non-member functions shouldn't get instantiated automatically, but checking this always doesn't hurt.
+        if (!is_templated && decl.getTrailingRequiresClause())
+        {
+            clang::ConstraintSatisfaction sat;
+            if (ci.getSema().CheckFunctionConstraints(&decl, sat))
+                throw std::runtime_error("Unable to evaluate the constraints for the method." );
+            if (!sat.IsSatisfied)
+                return true; // Constraints are false.
+        }
+
         return false;
     }
 
     bool ShouldRejectRecord(const clang::RecordDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies)
     {
-        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies))
+        if (ShouldRejectDeclaration(decl, ctx, params, printing_policies))
             return true;
 
         if (decl.isAnonymousStructOrUnion())
@@ -640,7 +673,7 @@ namespace mrbind
 
     bool ShouldRejectEnum(const clang::EnumDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies)
     {
-        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies))
+        if (ShouldRejectDeclaration(decl, ctx, params, printing_policies))
             return true;
 
         if (!TypeLooksAccessible(*decl.getTypeForDecl()))
@@ -651,7 +684,7 @@ namespace mrbind
 
     bool ShouldRejectTypedef(const clang::TypedefNameDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies, bool *should_poison)
     {
-        if (ShouldRejectDeclaration(ctx, decl, params, printing_policies, should_poison))
+        if (ShouldRejectDeclaration(decl, ctx, params, printing_policies, {}, should_poison))
             return true;
 
         if (auto type = decl.getTypeForDecl()) // For some reason this can be null (for typedefs/aliases, but not for other entities?).
@@ -659,6 +692,35 @@ namespace mrbind
             if (!TypeLooksAccessible(*type))
                 return true; // Inaccessible type.
         }
+
+        return false;
+    }
+
+    bool ShouldRejectRecordField(const clang::FieldDecl &decl)
+    {
+        // We don't check `ShouldRejectDeclaration()` here. Should we? I doubt there's anything useful there...
+
+        if (decl.isBitField() || decl.isAnonymousStructOrUnion())
+            return true; // Reject weird stuff.
+
+        if (decl.getAccess() != clang::AS_public)
+            return true; // Reject non-public fields.
+
+        if (HasIgnoreAttribute(decl))
+            return true; // Reject disabled fields.
+
+        return false;
+    }
+
+    bool ShouldRejectRecordStaticDataMember(const clang::VarDecl &decl)
+    {
+        // We don't check `ShouldRejectDeclaration()` here. Should we? I doubt there's anything useful there...
+
+        if (decl.getAccess() != clang::AS_public)
+            return true; // Reject non-public fields.
+
+        if (HasIgnoreAttribute(decl))
+            return true; // Reject disabled fields.
 
         return false;
     }
@@ -916,11 +978,8 @@ namespace mrbind
                 clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
                 for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
                 {
-                    if (var->getAccess() != clang::AS_public)
-                        continue; // Reject non-public members.
-
-                    if (HasIgnoreAttribute(*var))
-                        continue; // Reject disabled members.
+                    if (ShouldRejectRecordStaticDataMember(*var))
+                        continue;
 
                     std::string full_name(var->getName());
                     // Add template arguments for variable templates to the name.
@@ -945,14 +1004,8 @@ namespace mrbind
             // -- Non-static data members.
             for (const clang::FieldDecl *field : decl->fields())
             {
-                if (field->isBitField() || field->isAnonymousStructOrUnion())
-                    continue; // Reject weird stuff.
-
-                if (field->getAccess() != clang::AS_public)
-                    continue; // Reject non-public fields.
-
-                if (HasIgnoreAttribute(*field))
-                    continue; // Reject disabled fields.
+                if (ShouldRejectRecordField(*field))
+                    continue;
 
                 ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
                 new_field.comment = GetCommentString(*ctx, *field);
@@ -1108,7 +1161,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*ctx, *decl, params, printing_policies);
+            bool reject = ShouldRejectDeclaration(*decl, *ctx, params, printing_policies);
 
             { // Insert the namespace.
                 NamespaceEntity &new_ns = params->container_stack.back()->nested.emplace_back().emplace<NamespaceEntity>();
@@ -1232,7 +1285,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*ctx, *decl, params, printing_policies);
+            bool reject = ShouldRejectDeclaration(*decl, *ctx, params, printing_policies);
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
@@ -1271,67 +1324,96 @@ namespace mrbind
 
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
-            // We visit the function declarations to instantiate their default arguments, which apparently doesn't happen otherwise.
-            // This is only needed for free function templates. Something else already instantiates them for the class member functions.
+            if (ShouldRejectFunction(*decl, *ctx, *ci, params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
+                return true;
 
-            if (auto templ = decl->getDescribedTemplate())
+            // If this is a template, try instantiating it.
+            if (decl->isTemplated())
             {
-                auto functempl = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
-
-                // If all template parameters have default arguments...
-                if (templ->getTemplateParameters()->getMinRequiredArguments() == 0)
+                // We visit the function declarations to instantiate their default arguments, which apparently doesn't happen otherwise.
+                // This is only needed for free function templates. Something else already instantiates them for the class member functions.
+                if (auto templ = decl->getDescribedTemplate())
                 {
+                    auto functempl = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
+
                     const clang::TemplateParameterList &tparams = *templ->getTemplateParameters();
 
-                    // Cook up a list of all default template arguments.
-                    // Apparently just using an empty list doesn't work. It runs, but then the parser spits out `type-parameter-0-0` instead of the correct type name.
-                    std::vector<clang::TemplateArgument> targs_vec(tparams.size());
-                    for (unsigned i = 0; i < tparams.size(); i++)
+                    // Can't use `tparams.getMinRequiredArguments()` because that apparently can return 0 when
+                    //   the template arguments are deducible from the function parameters, or something like that.
+                    bool all_params_have_default_args = std::all_of(tparams.begin(), tparams.end(),
+                        [](const clang::NamedDecl *tparam)
+                        {
+                            if (tparam->isParameterPack())
+                                return true;
+                            else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
+                                return ttp->hasDefaultArgument();
+                            else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
+                                return nttp->hasDefaultArgument();
+                            else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
+                                return tetp->hasDefaultArgument();
+                            else
+                                return false;
+                        }
+                    );
+
+                    if (all_params_have_default_args)
                     {
-                        const clang::NamedDecl *tparam = tparams.getParam(i);
-                        if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
-                            targs_vec[i] = ttp->getDefaultArgument();
-                        else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
-                            targs_vec[i] = nttp->getDefaultArgument();
-                        else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
-                            targs_vec[i] = tetp->getDefaultArgument().getArgument(); // Hmm.
-                        else
-                            throw std::logic_error("What is this template argument?");
-                    }
 
-                    // An empty template argument list.
-                    clang::TemplateArgumentList targs(clang::TemplateArgumentList::OnStack, targs_vec);
+                        // Cook up a list of all default template arguments.
+                        // Apparently just using an empty list doesn't work. It runs, but then the parser spits out `type-parameter-0-0` instead of the correct type name.
+                        std::vector<clang::TemplateArgument> targs_vec(tparams.size());
+                        for (unsigned i = 0; i < tparams.size(); i++)
+                        {
+                            const clang::NamedDecl *tparam = tparams.getParam(i);
 
-                    // Same, but also referencing enclosing template args.
-                    // Copied from `Sema::InstantiateFunctionDeclaration()`.
-                    clang::MultiLevelTemplateArgumentList ml_targs(decl, targs.asArray(), false);
+                            if (tparam->isParameterPack())
+                                targs_vec[i] = clang::TemplateArgument::getEmptyPack(); // Empty pack is its own thing!
+                            else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
+                                targs_vec[i] = ttp->getDefaultArgument();
+                            else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
+                                targs_vec[i] = nttp->getDefaultArgument();
+                            else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
+                                targs_vec[i] = tetp->getDefaultArgument().getArgument(); // Hmm.
+                            else
+                                throw std::logic_error("What is this template argument?");
+                        }
 
-                    // Check if already instantiated...
-                    // There's also `Sema::FindInstantiatedDecl()`, but I coundn't figure out how it's supposed to be used, of it's applicable here at all or not.
-                    // I'm not sure if I should be calling it in `decl` or `templ`, and it never returned null pointers for me, so whatever.
-                    [[maybe_unused]] void *unused_insertion_point = nullptr;
-                    if (!functempl->findSpecialization(targs_vec, unused_insertion_point))
-                    {
-                        // This doesn't crash if already instantiated, and looks like it's a no-op in that case, but I'm not entirely sure.
-                        // It doesn't matter anyway, because it doesn't seem to indicate to the caller whether it's already instantiated or not,
-                        // and we need that information to set `need_another_iteration`.
-                        auto new_decl = ci->getSema().InstantiateFunctionDeclaration(functempl, &targs, decl->getSourceRange().getBegin());
+                        // An empty template argument list.
+                        clang::TemplateArgumentList targs(clang::TemplateArgumentList::OnStack, targs_vec);
 
-                        // This can be null if the function failed to instantiate because of a SFINAE error.
-                        if (new_decl)
-                            need_another_iteration = true;
+                        // Same, but also referencing enclosing template args.
+                        // Copied from `Sema::InstantiateFunctionDeclaration()`.
+                        clang::MultiLevelTemplateArgumentList ml_targs(decl, targs.asArray(), false);
+
+                        // Check if already instantiated...
+                        // There's also `Sema::FindInstantiatedDecl()`, but I coundn't figure out how it's supposed to be used, of it's applicable here at all or not.
+                        // I'm not sure if I should be calling it in `decl` or `templ`, and it never returned null pointers for me, so whatever.
+                        [[maybe_unused]] void *unused_insertion_point = nullptr;
+                        if (!functempl->findSpecialization(targs_vec, unused_insertion_point))
+                        {
+                            // This doesn't crash if already instantiated, and looks like it's a no-op in that case, but I'm not entirely sure.
+                            // It doesn't matter anyway, because it doesn't seem to indicate to the caller whether it's already instantiated or not,
+                            // and we need that information to set `need_another_iteration`.
+                            auto new_decl = ci->getSema().InstantiateFunctionDeclaration(functempl, &targs, decl->getSourceRange().getBegin());
+
+                            // This can be null if the function failed to instantiate because of a SFINAE error.
+                            if (new_decl)
+                                need_another_iteration = true;
+                        }
                     }
                 }
             }
 
-            if (ShouldRejectFunction(*decl, *ctx, *ci, params, printing_policies))
-                return true;
-
-            // Instantiate the default arguments and the underlying parameter types.
+            // For each parameter...
             for (clang::ParmVarDecl *p : decl->parameters())
             {
+                // Instantiate the default arguments and the underlying parameter types.
+                //
                 if (p->hasUninstantiatedDefaultArg())
+                {
                     ci->getSema().InstantiateDefaultArgument(decl->getSourceRange().getBegin(), decl, p);
+                    need_another_iteration = true; // Do we need this? Better be safe.
+                }
 
                 // Mark the parameter type.
                 GetUnderlyingClassOrEnumType(*ci, p->getType(), [&](clang::TagDecl *subdecl)
@@ -1391,6 +1473,8 @@ namespace mrbind
             if (auto pat = decl->getTemplateInstantiationPattern())
             {
                 if (
+                    // Make sure we're not already instantiated. Not checking this leads to weird behavior (duplicate enumerators in the output).
+                    !decl->getDefinition() &&
                     // This rejects templates that are declared but not defined.
                     pat->isCompleteDefinition() &&
                     // This rejects templates that WE don't want to instantiate, because they were visited for a useless reason,
@@ -1416,12 +1500,47 @@ namespace mrbind
                 return false;
             }
 
-            // `decl->isCompleteDefinitionRequired()` rejects templates that WE don't want to instantiate, because they were visited for a useless reason,
-            //   such as being return types of SFINAE-rejected functions.
+            params->nonrejected_class_stack.push_back((ClassEntity *)sizeof(ClassEntity)); // Push some non-zero pointer to allow boolean testing.
+
+            // Instantiate this class.
+            // Here `decl->isCompleteDefinitionRequired()` rejects templates that WE don't want to instantiate,
+            //   because they were visited for a useless reason, uch as being return types of SFINAE-rejected functions.
             if (decl->isCompleteDefinitionRequired() && TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
                 need_another_iteration = true;
 
-            params->nonrejected_class_stack.push_back((ClassEntity *)sizeof(ClassEntity)); // Push some non-zero pointer to allow boolean testing.
+            // Mark non-static data members as needing instantiation.
+            // Normally they get instantiated automatically, but not if they are e.g. pointers.
+            for (const clang::FieldDecl *field : decl->fields())
+            {
+                if (ShouldRejectRecordField(*field))
+                    continue;
+
+                GetUnderlyingClassOrEnumType(*ci, field->getType(), [&](clang::TagDecl *subdecl)
+                {
+                    if (!subdecl->isCompleteDefinitionRequired())
+                    {
+                        subdecl->setCompleteDefinitionRequired(true);
+                        need_another_iteration = true;
+                    }
+                });
+            }
+
+            // Same for static data members.
+            clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
+            for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
+            {
+                if (ShouldRejectRecordStaticDataMember(*var))
+                    continue;
+
+                GetUnderlyingClassOrEnumType(*ci, var->getType(), [&](clang::TagDecl *subdecl)
+                {
+                    if (!subdecl->isCompleteDefinitionRequired())
+                    {
+                        subdecl->setCompleteDefinitionRequired(true);
+                        need_another_iteration = true;
+                    }
+                });
+            }
 
             return true;
         }
@@ -1468,7 +1587,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*ctx, *decl, params, printing_policies);
+            bool reject = ShouldRejectDeclaration(*decl, *ctx, params, printing_policies);
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
