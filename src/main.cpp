@@ -274,8 +274,29 @@ namespace mrbind
         if (decl.getParentFunctionOrMethod())
             return true; // Reject function-local declarations.
 
-        if (decl.isOutOfLine())
-            return true; // Reject out-of-line member function definitions, and I assume some other stuff to (out-of-line static variables?).
+        // This is kinda lame, but hear me out.
+        // Class member functions that are defined out-of-line, but in a header, were tripping the parser,
+        //   because when they are visited for the second time (the definition), we're not currently in a class.
+        // This caused a segfault for non-nested classes, so it's hard to miss.
+        // Simply checking `decl.isOutOfLine()` isn't enough, because that also rejects friend functions.
+        // Adding `decl.isCXXInstanceMember()` helps with the friend functions, but it breaks for TEMPLATE member functions
+        //   defined out of line. Because they are for some reason only visited once (only their definition is visited, not the declaration),
+        //   so this was erasing them completely. But also when they are visited, this happens when the recursion is INSIDE the respective class,
+        //   which is good for us, but makes little sense since the definition is actually outside.
+        // I'm not sure what's up with all this crap, but `!func->isTemplateInstantiation()` is the straightforward fix that lets the templates
+        //   through while rejecting the rest.
+        // NOTE: If you decide to simplify this condition, here's your testcase: two classes, one template and another non-template,
+        //   and in each add a friend definition (inside of the class) and a non-static member function (defined outside of the class in the header).
+        // I guess also add member functions defined inside the class, for completeness.
+        if (decl.isOutOfLine() && decl.isCXXInstanceMember())
+        {
+            if (auto func = llvm::dyn_cast<clang::FunctionDecl>(&decl))
+            {
+                if (!func->isTemplateInstantiation())
+                    return true;
+            }
+        }
+        // llvm::dyn_cast<clang::FunctionDecl>(decl).isThisDeclarationInstantiatedFromAFriendDefinition()
 
         if (HasIgnoreAttribute(decl))
         {
@@ -343,7 +364,7 @@ namespace mrbind
         }
         else
         {
-            if (!params->rejected_namespace_stack.empty())
+            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back())
             {
                 // This entity is blacklisted because its enclosing entity is blacklisted.
                 // We don't know the name of this entity here, so we can't check the whitelist.
@@ -598,6 +619,8 @@ namespace mrbind
         if (decl.getReturnType()->isUndeducedAutoType())
         {
             ci.getSema().InstantiateFunctionDefinition(decl.getBeginLoc(), &decl);
+            if (decl.getReturnType()->isUndeducedAutoType())
+                return false; // Instantiation failed? This fixes infinite instantiation loops...
             return true;
         }
 
@@ -1500,12 +1523,26 @@ namespace mrbind
                 return false;
             }
 
+            if (
+                // If nobody asked for this class to be instantiated, reject it. Unless...
+                !decl->isCompleteDefinitionRequired() &&
+                // If we're inside a class that we're instantiating, allow it anyway.
+                !(!params->nonrejected_class_stack.empty() && bool(params->nonrejected_class_stack.back()))
+            )
+            {
+                params->nonrejected_class_stack.push_back(nullptr);
+                return false;
+            }
+
             params->nonrejected_class_stack.push_back((ClassEntity *)sizeof(ClassEntity)); // Push some non-zero pointer to allow boolean testing.
+
+            // This can be false at this point only if we're a member class, and the parent class is marked as having its definition required.
+            decl->setCompleteDefinitionRequired(true);
 
             // Instantiate this class.
             // Here `decl->isCompleteDefinitionRequired()` rejects templates that WE don't want to instantiate,
             //   because they were visited for a useless reason, uch as being return types of SFINAE-rejected functions.
-            if (decl->isCompleteDefinitionRequired() && TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
+            if (TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
                 need_another_iteration = true;
 
             // Mark non-static data members as needing instantiation.
