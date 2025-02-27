@@ -1,14 +1,8 @@
-#include <concepts>
-
 namespace MR
 {
-    template <std::floating_point T>
-    struct A {};
-    template <typename T>
-    struct B
-    {
-        void foo(A<T> *) requires std::floating_point<T> {}
-    };
+    template <typename T> struct __attribute__((__annotate__("mrbind::ignore"))) A {};
+    template <typename T> struct A<T *> {};
 
-    using B0 = B<int>;
+    using A0 = A<int>;
+    using A1 = A<int *>;
 }

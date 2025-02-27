@@ -223,11 +223,30 @@ namespace mrbind
     // This attribute completely removes the entity from the parser output.
     [[nodiscard]] bool HasIgnoreAttribute(const clang::Decl &decl)
     {
+        // Check the actual attributes.
         for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
         {
             if (attr->getAnnotation() == "mrbind::ignore")
                 return true;
         }
+
+        // For typedefs, also check the target type.
+        if (auto tdef = llvm::dyn_cast<clang::TypedefNameDecl>(&decl))
+        {
+            if (auto subdecl = tdef->getUnderlyingType()->getAsTagDecl())
+            {
+                if (HasIgnoreAttribute(*subdecl))
+                    return true;
+            }
+        }
+
+        // For class templates
+        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
+        {
+            if (HasIgnoreAttribute(*templ->getSpecializedTemplate()->getTemplatedDecl()))
+                return true;
+        }
+
         return false;
     }
 
@@ -627,7 +646,8 @@ namespace mrbind
         return false;
     }
 
-    bool ShouldRejectFunction(const clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams *params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {})
+    // Passing non-const decl here because `Sema::CheckInstantiatedFunctionTemplateConstraints()` needs that.
+    bool ShouldRejectFunction(clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams *params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {})
     {
         if (decl.getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
             return true; // Reject user-defined literals.
@@ -666,15 +686,31 @@ namespace mrbind
         }
 
         // Check the requires-clause, if any. Why doesn't libclang do this automatically?
-        // We need this for member functions, and for `friend` functions (that are non-member functions).
-        // The rest of non-member functions shouldn't get instantiated automatically, but checking this always doesn't hurt.
-        if (!is_templated && decl.getTrailingRequiresClause())
+        // Note the condition! It means we're checking it for the INSTANTIATIONS, not for the base template.
+        if (!is_templated)
         {
-            clang::ConstraintSatisfaction sat;
-            if (ci.getSema().CheckFunctionConstraints(&decl, sat))
-                throw std::runtime_error("Unable to evaluate the constraints for the method." );
-            if (!sat.IsSatisfied)
-                return true; // Constraints are false.
+            // We need two calls to check the constraints properly, not entirey sure why. My best guess so far is that the first one is
+            //   for non-template members of templates, and the second is for actual templates.
+
+            // Approach 1.
+            if (decl.getTrailingRequiresClause())
+            {
+                clang::ConstraintSatisfaction sat;
+                if (ci.getSema().CheckFunctionConstraints(&decl, sat))
+                    throw std::runtime_error("Unable to evaluate the constraints for the method." );
+                if (!sat.IsSatisfied)
+                    return true; // Constraints are false.
+            }
+
+            // Approach 2.
+            if (auto args = decl.getTemplateSpecializationArgs())
+            {
+                clang::ConstraintSatisfaction sat;
+                if (ci.getSema().CheckInstantiatedFunctionTemplateConstraints(decl.getSourceRange().getBegin(), &decl, args->asArray(), sat))
+                    throw std::runtime_error("Unable to evaluate the constraints for the function." );
+                if (!sat.IsSatisfied)
+                    return true; // Constraints are false.
+            }
         }
 
         return false;
@@ -1353,11 +1389,12 @@ namespace mrbind
             // If this is a template, try instantiating it.
             if (decl->isTemplated())
             {
-                // We visit the function declarations to instantiate their default arguments, which apparently doesn't happen otherwise.
-                // This is only needed for free function templates. Something else already instantiates them for the class member functions.
+                // Amoong other things, we visit the function declarations to instantiate their default arguments,
+                //   which apparently doesn't happen otherwise. This is only needed for free function templates.
+                // Something else already instantiates them for the class member functions.
                 if (auto templ = decl->getDescribedTemplate())
                 {
-                    auto functempl = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
+                    auto func_templ = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
 
                     const clang::TemplateParameterList &tparams = *templ->getTemplateParameters();
 
@@ -1381,7 +1418,6 @@ namespace mrbind
 
                     if (all_params_have_default_args)
                     {
-
                         // Cook up a list of all default template arguments.
                         // Apparently just using an empty list doesn't work. It runs, but then the parser spits out `type-parameter-0-0` instead of the correct type name.
                         std::vector<clang::TemplateArgument> targs_vec(tparams.size());
@@ -1389,10 +1425,17 @@ namespace mrbind
                         {
                             const clang::NamedDecl *tparam = tparams.getParam(i);
 
+                            // Here we MUST canonicalize the arguments somehow, because `FunctionTemplateDecl::findSpecialization()` returns
+                            //   false negatives if you give it non-canonical types.
+                            // But I can't find where this is documented, and I'm not sure if it's the correct approach to canonicalization,
+                            //   or whether I need to also somehow canonicalize non-type and template-template parameters.
+                            // Failing to do this correctly leads to silent errors where the parser emits multiple equivalent instantiations
+                            //   with different spellings. Beware.
+
                             if (tparam->isParameterPack())
                                 targs_vec[i] = clang::TemplateArgument::getEmptyPack(); // Empty pack is its own thing!
                             else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
-                                targs_vec[i] = ttp->getDefaultArgument();
+                                targs_vec[i] = ttp->getDefaultArgument().getCanonicalType(); // NOTE! This is important. See above.
                             else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
                                 targs_vec[i] = nttp->getDefaultArgument();
                             else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
@@ -1412,14 +1455,17 @@ namespace mrbind
                         // There's also `Sema::FindInstantiatedDecl()`, but I coundn't figure out how it's supposed to be used, of it's applicable here at all or not.
                         // I'm not sure if I should be calling it in `decl` or `templ`, and it never returned null pointers for me, so whatever.
                         [[maybe_unused]] void *unused_insertion_point = nullptr;
-                        if (!functempl->findSpecialization(targs_vec, unused_insertion_point))
+                        if (!func_templ->findSpecialization(targs_vec, unused_insertion_point))
                         {
                             // This doesn't crash if already instantiated, and looks like it's a no-op in that case, but I'm not entirely sure.
                             // It doesn't matter anyway, because it doesn't seem to indicate to the caller whether it's already instantiated or not,
                             // and we need that information to set `need_another_iteration`.
-                            auto new_decl = ci->getSema().InstantiateFunctionDeclaration(functempl, &targs, decl->getSourceRange().getBegin());
+                            auto new_decl = ci->getSema().InstantiateFunctionDeclaration(func_templ, &targs, decl->getSourceRange().getBegin());
 
-                            // This can be null if the function failed to instantiate because of a SFINAE error.
+                            // `new_decl` CAN be null if the function failed to instantiate because of a SFINAE error.
+                            // But this apparently doesn't happen for `requires` constraints?
+                            // NOTE! Even if it's non-null, you must also check `Sema::CheckInstantiatedFunctionTemplateConstraints()`
+                            //   before actually using the function.
                             if (new_decl)
                                 need_another_iteration = true;
                         }
