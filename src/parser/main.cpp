@@ -2,7 +2,7 @@
 #include "data_to_json.h"
 #include "data_to_macros.h"
 #include "multiplex_data.h"
-#include "parsed_data.h"
+#include "common/parsed_data.h"
 
 #include "pre_include_clang.h"
 #include <clang/AST/DeclBase.h>
@@ -410,30 +410,33 @@ namespace mrbind
 
     // Obtains the default argument value as a string, or empty if none.
     // `out_arg` is the argument as written, while `out_arg_cpp` is slightly adjusted to be viable as a C++ expression (i.e. `{...}` has a its type prepended to it).
-    void GetDefaultArgumentStrings(std::string &out_arg, std::string &out_arg_cpp, const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
+    void GetDefaultArgumentStrings(std::optional<DefaultArgument> &out_arg, const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
     {
-        out_arg.clear();
-        out_arg_cpp.clear();
-
         if (auto default_arg = param.getDefaultArg())
         {
-            llvm::raw_string_ostream ss(out_arg);
+            out_arg.emplace();
+
+            llvm::raw_string_ostream ss(out_arg->original_spelling);
             default_arg->printPretty(ss, nullptr, printing_policy);
 
             // Adjust `{...}` to add an explicit type.
-            if (out_arg.starts_with('{'))
+            if (out_arg->original_spelling.starts_with('{'))
             {
                 auto type = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(printing_policy);
                 bool type_is_simple = std::all_of(type.begin(), type.end(), [](unsigned char ch){return std::isalnum(ch) || ch == '_' || ch == ':';});
                 if (type_is_simple)
-                    out_arg_cpp = type + out_arg;
+                    out_arg->as_cpp_expression = type + out_arg->original_spelling;
                 else
-                    out_arg_cpp = "std::type_identity_t<" + type + ">" + out_arg;
+                    out_arg->as_cpp_expression = "std::type_identity_t<" + type + ">" + out_arg->original_spelling;
             }
             else
             {
-                out_arg_cpp = out_arg;
+                out_arg->as_cpp_expression = out_arg->original_spelling;
             }
+        }
+        else
+        {
+            out_arg.reset();
         }
     }
 
@@ -855,7 +858,7 @@ namespace mrbind
                 FuncParam &new_param = ret.emplace_back();
                 new_param.name = p->getName();
                 new_param.type = GetTypeStrings(p->getType(), TypeUses::parameter);
-                GetDefaultArgumentStrings(new_param.default_argument, new_param.default_argument_cpp, *p, printing_policies.normal);
+                GetDefaultArgumentStrings(new_param.default_argument, *p, printing_policies.normal);
             }
             return ret;
         }
@@ -1178,14 +1181,14 @@ namespace mrbind
                     auto opt = elem->getValue().trySExtValue();
                     if (!opt)
                         throw std::runtime_error("Enum element value doesn't fit into 64 bits.");
-                    new_elem.raw_value = std::uint64_t(*opt);
+                    new_elem.unsigned_value = std::uint64_t(*opt);
                 }
                 else
                 {
                     auto opt = elem->getValue().tryZExtValue();
                     if (!opt)
                         throw std::runtime_error("Enum element value doesn't fit into 64 bits.");
-                    new_elem.raw_value = *opt;
+                    new_elem.unsigned_value = *opt;
                 }
             }
 
@@ -1232,7 +1235,8 @@ namespace mrbind
             { // Insert the namespace.
                 NamespaceEntity &new_ns = params->container_stack.back()->nested.emplace_back().emplace<NamespaceEntity>();
                 params->container_stack.push_back(&new_ns);
-                new_ns.name = decl->getName();
+                if (!decl->isAnonymousNamespace())
+                    new_ns.name = decl->getName();
                 new_ns.comment = GetCommentString(*ctx, *decl);
                 new_ns.is_inline = decl->isInlineNamespace();
             }

@@ -3,12 +3,12 @@ cmake_minimum_required(VERSION 3.10)
 project(mrbind)
 
 add_executable(mrbind
-    src/combine_types.cpp
-    src/data_to_json.cpp
-    src/data_to_macros.cpp
-    src/main.cpp
-    src/multiplex_data.cpp
-    src/string_manip.cpp
+    src/parser/combine_types.cpp
+    src/parser/data_to_json.cpp
+    src/parser/data_to_macros.cpp
+    src/parser/main.cpp
+    src/parser/multiplex_data.cpp
+    src/parser/string_manip.cpp
 )
 set_property(TARGET mrbind PROPERTY CXX_STANDARD 20)
 set_property(TARGET mrbind PROPERTY CXX_EXTENSIONS off)
@@ -21,7 +21,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_compile_options(mrbind PRIVATE -fstandalone-debug)
 endif()
 
-target_include_directories(mrbind PUBLIC include)
+target_include_directories(mrbind PUBLIC include src)
 
 find_package(Clang REQUIRED)
 

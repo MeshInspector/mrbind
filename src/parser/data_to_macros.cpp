@@ -186,9 +186,9 @@ namespace mrbind
                         out << "    ";
                     out << "    ("
                         << "(" << param.type.pretty << "), "
-                        << (param.name.empty() ? "/*unnamed*/" : param.name) << ", "
-                        << (param.default_argument.empty() ? "/*no default argument*/" : "(" + param.default_argument + ")") << ", "
-                        << (param.default_argument_cpp.empty() ? "/*no default argument*/" : "(" + param.default_argument_cpp + ")")
+                        << (param.name ? *param.name : "/*unnamed*/") << ", "
+                        << (param.default_argument ? "(" + param.default_argument->original_spelling + ")" : "/*no default argument*/") << ", "
+                        << (param.default_argument ? "(" + param.default_argument->as_cpp_expression + ")" : "/*no default argument*/")
                         << ")\n";
                 }
 
@@ -260,9 +260,9 @@ namespace mrbind
                             {
                                 out << "    (" << elem.name << ", ";
                                 if (e.is_signed)
-                                    out << std::int64_t(elem.raw_value);
+                                    out << std::int64_t(elem.unsigned_value);
                                 else
-                                    out << std::uint64_t(elem.raw_value);
+                                    out << std::uint64_t(elem.unsigned_value);
                                 out << ", " << (elem.comment ? EscapeQuoteString(*elem.comment) : "/*no comment*/") << ")\n";
                             }
                             out << ")\n";
@@ -419,12 +419,12 @@ namespace mrbind
                     [&](const NamespaceEntity &ns)
                     {
                         out << "MB_NAMESPACE("
-                            << (ns.name.empty() ? "/*anonymous*/" : ns.name) << ", "
+                            << (ns.name ? *ns.name : "/*anonymous*/") << ", "
                             << (ns.is_inline ? "inline" : "/*not inline*/") << ", "
                             << NsStackToString() << ", "
                             << (ns.comment ? EscapeQuoteString(*ns.comment) : "/*no comment*/") << ")\n";
 
-                        namespace_stack.push_back("(" + ns.name + ",ns)");
+                        namespace_stack.push_back("(" + ns.name.value_or("") + ",ns)");
 
                         for (const auto &elem : ns.nested)
                             lambda(lambda, elem);
@@ -432,7 +432,7 @@ namespace mrbind
                         namespace_stack.pop_back();
 
                         out << "MB_END_NAMESPACE("
-                            << (ns.name.empty() ? "/*anonymous*/" : ns.name) << ", "
+                            << (ns.name ? *ns.name : "/*anonymous*/") << ", "
                             << (ns.is_inline ? "inline" : "/*not inline*/") << ", "
                             << NsStackToString() << ")\n";
                     },

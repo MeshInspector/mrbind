@@ -1,8 +1,19 @@
 namespace MR
 {
-    template <typename T> struct __attribute__((__annotate__("mrbind::ignore"))) A {};
-    template <typename T> struct A<T *> {};
+    inline int foo(int x, float, double z = {}) {}
 
-    using A0 = A<int>;
-    using A1 = A<int *>;
+    enum E
+    {
+        e1,
+        // I'm e2!
+        e2 = 42,
+    };
+
+    namespace
+    {
+        inline namespace I
+        {
+            struct A {};
+        }
+    }
 }

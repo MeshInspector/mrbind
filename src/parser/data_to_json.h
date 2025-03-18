@@ -1,6 +1,6 @@
 #pragma once
 
-#include "parsed_data.h"
+#include "common/parsed_data.h"
 
 #include "pre_include_clang.h"
 #include <llvm/Support/raw_ostream.h>
