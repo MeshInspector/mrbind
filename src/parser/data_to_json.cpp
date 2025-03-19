@@ -1,5 +1,6 @@
 #include "data_to_json.h"
 
+#include "common/meta.h"
 #include "common/reflection.h"
 
 #include <concepts>
@@ -219,18 +220,12 @@ namespace mrbind
             }
         };
 
-        // Is `T` a 2-tuple-like class with the first element being string-like.
-        template <typename T>
-        concept IsKeyValuePair =
-            std::tuple_size<T>::value == 2 && // Using `::value` because `_v` isn't SFINAE-friendly.
-            std::is_convertible_v<std::tuple_element_t<0, T>, std::string_view>;
-
         template <std::ranges::input_range T> requires(!std::convertible_to<T, std::string_view>)
         struct WriteToJsonTraits<T>
         {
             void operator()(JsonWriter &json, const T &value)
             {
-                if constexpr (IsKeyValuePair<std::ranges::range_value_t<T>>)
+                if constexpr (ContainerIsMapLike<T> && IsKeyValuePair<std::ranges::range_value_t<T>>)
                 {
                     json.BeginObject();
                     for (const auto &elem : value)

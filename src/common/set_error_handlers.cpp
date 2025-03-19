@@ -19,7 +19,7 @@ namespace mrbind
                 }
                 catch (std::exception &e)
                 {
-                    std::cerr << "Program terminated with exception: " << e.what() << '\n';
+                    std::cerr << "Program terminated with exception:\n" << e.what() << '\n';
                 }
                 catch (...)
                 {
