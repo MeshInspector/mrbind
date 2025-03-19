@@ -2,7 +2,9 @@
 #include "data_to_json.h"
 #include "data_to_macros.h"
 #include "multiplex_data.h"
+
 #include "common/parsed_data.h"
+#include "common/set_error_handlers.h"
 
 #include "pre_include_clang.h"
 #include <clang/AST/DeclBase.h>
@@ -1955,217 +1957,206 @@ namespace mrbind
 
 int main(int argc, char **argv)
 {
-    try
-    {
-        #ifdef _WIN32
-        std::setlocale(LC_ALL, ".UTF-8"); // Hopefully enable UTF-8 support for `std::filesystem::path` on Windows.
-        #endif
+    mrbind::SetErrorHandlers();
 
-        std::string dump_command_to_file;
-        bool dump_command_with_null_separators = false;
-        bool remove_pch_flags = false;
+    std::string dump_command_to_file;
+    bool dump_command_with_null_separators = false;
+    bool remove_pch_flags = false;
 
-        mrbind::VisitorParams params;
+    mrbind::VisitorParams params;
 
 
+    { // Extract custom options from argc/argv.
+        int modified_argc = 1;
+        bool seen_double_dash = false;
 
-        { // Extract custom options from argc/argv.
-            int modified_argc = 1;
-            bool seen_double_dash = false;
-
-            for (int i = 1; i < argc; i++)
+        for (int i = 1; i < argc; i++)
+        {
+            if (!seen_double_dash)
             {
+                std::string_view this_arg = argv[i];
+                if (this_arg == "--")
+                    seen_double_dash = true; // Don't continue after `--`, those are Clang options.
+
                 if (!seen_double_dash)
                 {
-                    std::string_view this_arg = argv[i];
-                    if (this_arg == "--")
-                        seen_double_dash = true; // Don't continue after `--`, those are Clang options.
+                    // --dump-command
 
-                    if (!seen_double_dash)
+                    bool dump_command = false;
+                    if (this_arg == "--dump-command")
                     {
-                        // --dump-command
+                        dump_command = true;
+                        dump_command_with_null_separators = false;
+                    }
+                    else if (this_arg == "--dump-command0")
+                    {
+                        dump_command = true;
+                        dump_command_with_null_separators = true;
+                    }
 
-                        bool dump_command = false;
-                        if (this_arg == "--dump-command")
-                        {
-                            dump_command = true;
-                            dump_command_with_null_separators = false;
-                        }
-                        else if (this_arg == "--dump-command0")
-                        {
-                            dump_command = true;
-                            dump_command_with_null_separators = true;
-                        }
+                    if (dump_command)
+                    {
+                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                            throw std::runtime_error("Expected a filename after `" + std::string(this_arg) + "`.");
 
-                        if (dump_command)
-                        {
-                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                                throw std::runtime_error("Expected a filename after `" + std::string(this_arg) + "`.");
+                        dump_command_to_file = argv[++i];
+                        continue;
+                    }
 
-                            dump_command_to_file = argv[++i];
-                            continue;
-                        }
+                    // ----
 
-                        // ----
+                    if (this_arg == "-o")
+                    {
+                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                            throw std::runtime_error("Expected a file name after `" + std::string(this_arg) + "`.");
+                        params.output_filenames.emplace_back(argv[++i]);
+                        continue;
+                    }
 
-                        if (this_arg == "-o")
-                        {
-                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                                throw std::runtime_error("Expected a file name after `" + std::string(this_arg) + "`.");
-                            params.output_filenames.emplace_back(argv[++i]);
-                            continue;
-                        }
+                    if (this_arg == "--ignore-pch-flags")
+                    {
+                        remove_pch_flags = true;
+                        continue;
+                    }
 
-                        if (this_arg == "--ignore-pch-flags")
-                        {
-                            remove_pch_flags = true;
-                            continue;
-                        }
+                    if (this_arg == "--ignore")
+                    {
+                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                            throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
 
-                        if (this_arg == "--ignore")
-                        {
-                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                                throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
+                        params.blacklisted_entities.Insert(argv[++i]);
+                        continue;
+                    }
 
-                            params.blacklisted_entities.Insert(argv[++i]);
-                            continue;
-                        }
+                    if (this_arg == "--allow")
+                    {
+                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                            throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
 
-                        if (this_arg == "--allow")
-                        {
-                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                                throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
+                        params.whitelisted_entities.Insert(argv[++i]);
+                        continue;
+                    }
 
-                            params.whitelisted_entities.Insert(argv[++i]);
-                            continue;
-                        }
+                    if (this_arg == "--skip-base")
+                    {
+                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                            throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
 
-                        if (this_arg == "--skip-base")
-                        {
-                            if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                                throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
+                        params.skipped_bases.Insert(argv[++i]);
+                        continue;
+                    }
 
-                            params.skipped_bases.Insert(argv[++i]);
-                            continue;
-                        }
+                    if (this_arg == "--format=json")
+                    {
+                        params.output_format = mrbind::OutputFormat::json;
+                        continue;
+                    }
+                    if (this_arg == "--format=macros")
+                    {
+                        params.output_format = mrbind::OutputFormat::macros;
+                        continue;
+                    }
 
-                        if (this_arg == "--format=json")
-                        {
-                            params.output_format = mrbind::OutputFormat::json;
-                            continue;
-                        }
-                        if (this_arg == "--format=macros")
-                        {
-                            params.output_format = mrbind::OutputFormat::macros;
-                            continue;
-                        }
-
-                        const std::string_view combine_types_flag = "--combine-types=";
-                        if (this_arg.starts_with(combine_types_flag))
-                        {
-                            params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(this_arg.substr(combine_types_flag.size()));
-                            continue;
-                        }
+                    const std::string_view combine_types_flag = "--combine-types=";
+                    if (this_arg.starts_with(combine_types_flag))
+                    {
+                        params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(this_arg.substr(combine_types_flag.size()));
+                        continue;
                     }
                 }
-
-                argv[modified_argc++] = argv[i];
             }
 
-            if (modified_argc < argc)
-                argv[modified_argc] = nullptr;
-            argc = modified_argc;
-
-            // Adjust the options:
-
-            if (params.output_filenames.empty())
-                params.output_filenames.push_back("-");
+            argv[modified_argc++] = argv[i];
         }
 
-        llvm::cl::OptionCategory options_category("Standard Clang tooling options");
-        auto option_parser_ex = clang::tooling::CommonOptionsParser::create(argc, const_cast<const char **>(argv), options_category, llvm::cl::OneOrMore,
-            "\n"
-            "\n"
-            "Usage:\n"
-            "  mrbind [mrbind_flags]\n"
-            "  mrbind [mrbind_flags] -- [clang_flags]\n"
-            "\n"
-            "`[clang_flags]` are the usual compiler flags. They can be empty, which isn't the same thing as omitting `--` entirely.\n"
-            "If no `--` is passed, the compiler flags are guessed from a `compile_commands.json`.\n"
-            "\n"
-            "`[mrbind_flags]` are following:\n"
-            "  -o output.cpp               - Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files which can be compiled in parallel, or sequentally for a lower RAM usage.\n"
-            "  --format=...                - The output format, either `json` or `macros`.\n"
-            "  --ignore T                  - Don't emit bindings for a specific entity. "
-                                             "Use the flag several times to ban several entities. "
-                                             "Use a fully qualified name. The final template arguments can be omitted, then any arguments match. "
-                                             "Use `::` to reject the global namespace. "
-                                             "Enclose in slashes to match a regex. "
-                                             "Also note that you can annotate declarations that you want to ignore with `[[clang::annotate(\"mrbind::ignore\")]]\n"
-            "  --allow T                   - Unban a subentity of something that was banned with `--ignore`. Same syntax.\n"
-            "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
-            "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
-                                             "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
-            "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.\n"
-            "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
-            "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.\n"
-        );
-        if (!option_parser_ex)
-        {
-            llvm::errs() << option_parser_ex.takeError();
-            return 1;
-        }
+        if (modified_argc < argc)
+            argv[modified_argc] = nullptr;
+        argc = modified_argc;
 
-        clang::tooling::CommonOptionsParser &option_parser = option_parser_ex.get();
-        if (option_parser.getSourcePathList().size() != 1)
-            throw std::runtime_error("Must specify exactly one source file."); // By default libtooling accepts >= 1 files, but I don't want to deal with splitting the output.
+        // Adjust the options:
 
-        mrbind::ClangAdjustedCompilationDatabase adjusted_db(option_parser.getCompilations(), remove_pch_flags);
-
-        // Dump compilation command if requested.
-        if (!dump_command_to_file.empty())
-        {
-            std::ofstream out_file(dump_command_to_file);
-
-            auto commands_vec = adjusted_db.getCompileCommands(option_parser.getSourcePathList().front());
-            if (commands_vec.size() < 1)
-                throw std::runtime_error("Unable to dump the compilation command: Clang doesn't know a command for this source file.");
-            if (commands_vec.size() > 1)
-                throw std::runtime_error("Unable to dump the compilation command: Clang reported multiple commands for this source file.");
-
-            const clang::tooling::CompileCommand &command = commands_vec.front();
-
-            bool first = true;
-            bool found_filename = false;
-            for (const std::string &elem : command.CommandLine)
-            {
-                if (command.Filename == elem)
-                {
-                    found_filename = true;
-                    continue;
-                }
-
-                if (first)
-                    first = false;
-                else
-                    out_file << "\n"[dump_command_with_null_separators];
-
-                out_file << elem;
-            }
-            if (!found_filename)
-                throw std::runtime_error("Unable to dump the compilation command: Tried to strip the input filename from it, but was unable to find it.");
-        }
-
-        clang::tooling::ClangTool tool(adjusted_db, option_parser.getSourcePathList());
-
-        mrbind::ClangFrontendActionFactory factory;
-        factory.params = &params;
-
-        return tool.run(&factory);
+        if (params.output_filenames.empty())
+            params.output_filenames.push_back("-");
     }
-    catch (std::exception &e)
+
+    llvm::cl::OptionCategory options_category("Standard Clang tooling options");
+    auto option_parser_ex = clang::tooling::CommonOptionsParser::create(argc, const_cast<const char **>(argv), options_category, llvm::cl::OneOrMore,
+        "\n"
+        "\n"
+        "Usage:\n"
+        "  mrbind [mrbind_flags]\n"
+        "  mrbind [mrbind_flags] -- [clang_flags]\n"
+        "\n"
+        "`[clang_flags]` are the usual compiler flags. They can be empty, which isn't the same thing as omitting `--` entirely.\n"
+        "If no `--` is passed, the compiler flags are guessed from a `compile_commands.json`.\n"
+        "\n"
+        "`[mrbind_flags]` are following:\n"
+        "  -o output.cpp               - Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files which can be compiled in parallel, or sequentally for a lower RAM usage.\n"
+        "  --format=...                - The output format, either `json` or `macros`.\n"
+        "  --ignore T                  - Don't emit bindings for a specific entity. "
+                                         "Use the flag several times to ban several entities. "
+                                         "Use a fully qualified name. The final template arguments can be omitted, then any arguments match. "
+                                         "Use `::` to reject the global namespace. "
+                                         "Enclose in slashes to match a regex. "
+                                         "Also note that you can annotate declarations that you want to ignore with `[[clang::annotate(\"mrbind::ignore\")]]\n"
+        "  --allow T                   - Unban a subentity of something that was banned with `--ignore`. Same syntax.\n"
+        "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
+        "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
+                                         "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
+        "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.\n"
+        "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
+        "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.\n"
+    );
+    if (!option_parser_ex)
     {
-        llvm::errs() << "Exception: " << e.what() << '\n';
+        llvm::errs() << option_parser_ex.takeError();
         return 1;
     }
+
+    clang::tooling::CommonOptionsParser &option_parser = option_parser_ex.get();
+    if (option_parser.getSourcePathList().size() != 1)
+        throw std::runtime_error("Must specify exactly one source file."); // By default libtooling accepts >= 1 files, but I don't want to deal with splitting the output.
+
+    mrbind::ClangAdjustedCompilationDatabase adjusted_db(option_parser.getCompilations(), remove_pch_flags);
+
+    // Dump compilation command if requested.
+    if (!dump_command_to_file.empty())
+    {
+        std::ofstream out_file(dump_command_to_file);
+
+        auto commands_vec = adjusted_db.getCompileCommands(option_parser.getSourcePathList().front());
+        if (commands_vec.size() < 1)
+            throw std::runtime_error("Unable to dump the compilation command: Clang doesn't know a command for this source file.");
+        if (commands_vec.size() > 1)
+            throw std::runtime_error("Unable to dump the compilation command: Clang reported multiple commands for this source file.");
+
+        const clang::tooling::CompileCommand &command = commands_vec.front();
+
+        bool first = true;
+        bool found_filename = false;
+        for (const std::string &elem : command.CommandLine)
+        {
+            if (command.Filename == elem)
+            {
+                found_filename = true;
+                continue;
+            }
+
+            if (first)
+                first = false;
+            else
+                out_file << "\n"[dump_command_with_null_separators];
+
+            out_file << elem;
+        }
+        if (!found_filename)
+            throw std::runtime_error("Unable to dump the compilation command: Tried to strip the input filename from it, but was unable to find it.");
+    }
+
+    clang::tooling::ClangTool tool(adjusted_db, option_parser.getSourcePathList());
+
+    mrbind::ClangFrontendActionFactory factory;
+    factory.params = &params;
+
+    return tool.run(&factory);
 }
