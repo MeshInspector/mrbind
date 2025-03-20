@@ -149,6 +149,8 @@ namespace mrbind
     template <typename T>
     concept ReflEnum = requires(T t){_refl_for_each_enum_constant(t, detail::dummy_enum_callback);};
 
+    // Calls `func` on every enum constant, which is `(const char *name, T value) -> bool`.
+    // If it returns true, the function stops and also returns true.
     template <ReflEnum T>
     constexpr bool ReflForEachEnumConstant(auto &&func)
     {

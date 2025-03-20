@@ -245,6 +245,8 @@ namespace mrbind
         template <typename T>
         struct WriteToJsonTraits<std::optional<T>>
         {
+            static_assert(!IsStdOptional<T>::value, "Optionals of optionals are not supported.");
+
             void operator()(JsonWriter &json, const std::optional<T> &value)
             {
                 if (value)
@@ -300,8 +302,7 @@ namespace mrbind
         {
             void operator()(JsonWriter &json, const T &value)
             {
-                constexpr bool flag_like = requires(T t){t & t; t | t;};
-                if constexpr (flag_like)
+                if constexpr (IsFlagLike<T>)
                 {
                     json.BeginArray();
 
@@ -309,7 +310,7 @@ namespace mrbind
 
                     ReflForEachEnumConstant<T>([&](const char *this_name, T this_value)
                     {
-                        if ((copy & this_value) == this_value)
+                        if (bool(copy & this_value) && (value & this_value) == this_value)
                         {
                             json.WriteElem(this_name);
                             copy &= ~this_value;

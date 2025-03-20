@@ -107,31 +107,47 @@ namespace mrbind
                     input.remove_prefix(1);
             }
 
-            void ExpectEndOfFile()
+            void ExpectEndOfFileMaybeAfterWhitespace()
             {
                 SkipWhitespace();
                 if (!input.empty())
                     ThrowParseError("Unparsed junk at the end of input.");
             }
 
-            [[nodiscard]] bool TryConsume(char ch)
+            [[nodiscard]] bool TryConsume(std::string_view str)
             {
-                if (input.starts_with(ch))
+                if (input.starts_with(str))
                 {
-                    input.remove_prefix(1);
+                    input.remove_prefix(str.size());
                     return true;
                 }
 
                 return false;
             }
-            void Consume(char ch)
+            void Consume(std::string_view str)
             {
-                if (!TryConsume(ch))
-                    ThrowParseError(std::string("Expected `") + ch + "`.");
+                if (!TryConsume(str))
+                {
+                    std::string error = "Expected `";
+                    error += str;
+                    error += "`.";
+                    ThrowParseError(error);
+                }
             }
 
 
             // Parsing specific types:
+
+            // Bools.
+            void Parse(bool &out)
+            {
+                if (TryConsume("true"))
+                    out = true;
+                else if (TryConsume("false"))
+                    out = false;
+                else
+                    ThrowParseError("Expected `true` or `false`.");
+            }
 
             // Strings.
             void Parse(std::string &out)
@@ -140,7 +156,7 @@ namespace mrbind
 
                 out.clear();
 
-                Consume('"');
+                Consume("\"");
 
                 while (true)
                 {
@@ -150,21 +166,21 @@ namespace mrbind
                         ThrowParseError("Unterminated string literal.");
                     }
 
-                    if (TryConsume('"'))
+                    if (TryConsume("\""))
                         break;
 
-                    if (TryConsume('\\'))
+                    if (TryConsume("\\"))
                     {
-                        if (TryConsume('"')) {out += '"'; continue;}
-                        if (TryConsume('\\')) {out += '\\'; continue;}
-                        if (TryConsume('/')) {out += '/'; continue;}
-                        if (TryConsume('b')) {out += '\b'; continue;}
-                        if (TryConsume('f')) {out += '\f'; continue;}
-                        if (TryConsume('n')) {out += '\n'; continue;}
-                        if (TryConsume('r')) {out += '\r'; continue;}
-                        if (TryConsume('t')) {out += '\t'; continue;}
+                        if (TryConsume("\"")) {out += '"'; continue;}
+                        if (TryConsume("\\")) {out += '\\'; continue;}
+                        if (TryConsume("/")) {out += '/'; continue;}
+                        if (TryConsume("b")) {out += '\b'; continue;}
+                        if (TryConsume("f")) {out += '\f'; continue;}
+                        if (TryConsume("n")) {out += '\n'; continue;}
+                        if (TryConsume("r")) {out += '\r'; continue;}
+                        if (TryConsume("t")) {out += '\t'; continue;}
 
-                        if (!TryConsume('u'))
+                        if (!TryConsume("u"))
                             ThrowParseError("Invalid escape sequence.");
 
                         const std::string_view input_at_hex = input;
@@ -228,7 +244,7 @@ namespace mrbind
             }
 
             // Numbers.
-            template <typename T> requires std::is_arithmetic_v<T>
+            template <typename T> requires(std::is_arithmetic_v<T> && !std::is_same_v<T, bool>)
             void Parse(T &out)
             {
                 const std::string_view input_before_number = input;
@@ -238,12 +254,12 @@ namespace mrbind
                 // Sign.
                 if constexpr (std::is_signed_v<T>)
                 {
-                    if (TryConsume('-'))
+                    if (TryConsume("-"))
                         chars += '-';
                 }
 
                 // Integral part.
-                if (TryConsume('0'))
+                if (TryConsume("0"))
                 {
                     chars += '0';
                 }
@@ -260,7 +276,7 @@ namespace mrbind
                 if constexpr (std::is_floating_point_v<T>)
                 {
                     // Fractional part.
-                    if (TryConsume('.'))
+                    if (TryConsume("."))
                     {
                         chars += '.';
                         while (!input.empty() && input.front() >= '0' && input.front() <= '9')
@@ -271,13 +287,13 @@ namespace mrbind
                     }
 
                     // Exponent.
-                    if (TryConsume('e') || TryConsume('E'))
+                    if (TryConsume("e") || TryConsume("E"))
                     {
                         chars += 'e';
 
-                        if (TryConsume('+'))
+                        if (TryConsume("+"))
                             chars += '+';
-                        else if (TryConsume('-'))
+                        else if (TryConsume("-"))
                             chars += '-';
 
                         while (!input.empty() && input.front() >= '0' && input.front() <= '9')
@@ -329,8 +345,8 @@ namespace mrbind
 
                 constexpr bool is_obj = ContainerIsMapLike<T> && IsKeyValuePair<std::ranges::range_value_t<T>>;
 
-                Consume("[{"[is_obj]);
-                const char end_bracket = "]}"[is_obj];
+                Consume(is_obj ? "{" : "[");
+                const std::string_view end_bracket = is_obj ? "}" : "]";
 
                 SkipWhitespace();
 
@@ -350,7 +366,7 @@ namespace mrbind
                     {
                         Parse(std::get<0>(new_elem));
                         SkipWhitespace();
-                        Consume(':');
+                        Consume(":");
                         SkipWhitespace();
                         Parse(std::get<1>(new_elem));
                     }
@@ -389,7 +405,7 @@ namespace mrbind
 
                     SkipWhitespace();
 
-                    if (TryConsume(','))
+                    if (TryConsume(","))
                     {
                         SkipWhitespace();
                         continue;
@@ -411,15 +427,15 @@ namespace mrbind
             }
 
             // Tuple-like types.
-            template <typename T> requires(!std::ranges::forward_range<T> && requires{std::tuple_size<T>::value;})
+            template <typename T> requires(!std::ranges::forward_range<T> && !ReflNeedsAdjust<T> && requires{std::tuple_size<T>::value;})
             void Parse(T &out)
             {
-                Consume('[');
+                Consume("[");
                 SkipWhitespace();
 
                 if constexpr (std::tuple_size_v<T> == 0)
                 {
-                    Consume(']');
+                    Consume("]");
                 }
                 else
                 {
@@ -429,19 +445,19 @@ namespace mrbind
                         SkipWhitespace();
 
                         ([&]{
-                            Consume(',');
+                            Consume(",");
                             SkipWhitespace();
                             Parse(elems);
                             SkipWhitespace();
                         }(), ...);
                     }, out);
 
-                    Consume(']');
+                    Consume("]");
                 }
             }
 
-            // Reflected structs
-            template <ReflStruct T>
+            // Reflected structs.
+            template <ReflStruct T> requires(!ReflNeedsAdjust<T>)
             void Parse(T &out)
             {
                 static const auto name_to_func = [&]{
@@ -475,17 +491,17 @@ namespace mrbind
 
                 const std::string_view input_before_struct = input;
 
-                Consume('{');
+                Consume("{");
                 SkipWhitespace();
 
                 while (true)
                 {
-                    if (TryConsume('}'))
+                    if (TryConsume("}"))
                         break;
 
                     if (num_parsed > 0)
                     {
-                        Consume(',');
+                        Consume(",");
                         SkipWhitespace();
                     }
 
@@ -494,7 +510,7 @@ namespace mrbind
                     std::string name;
                     Parse(name);
                     SkipWhitespace();
-                    Consume(':');
+                    Consume(":");
                     SkipWhitespace();
 
                     auto it = name_to_func.find(name);
@@ -534,8 +550,128 @@ namespace mrbind
                     ThrowParseError(error);
                 }
             }
-        };
 
+            // Reflected enums.
+            template <ReflEnum T>
+            void Parse(T &out)
+            {
+                static const auto name_to_value = []{
+                    std::unordered_map<std::string, T> ret;
+                    ReflForEachEnumConstant<T>([&](const char *name, T value)
+                    {
+                        if (!ret.try_emplace(name, value).second)
+                            throw std::logic_error(std::string("Internal error: Duplicate enum constant name: ") + name);
+                        return false;
+                    });
+                    return ret;
+                }();
+
+                const std::string_view input_before_enum = input;
+
+                if constexpr (IsFlagLike<T>)
+                {
+                    std::vector<std::string> vec;
+                    Parse(vec);
+
+                    out = {};
+
+                    for (const std::string &elem_name : vec)
+                    {
+                        auto it = name_to_value.find(elem_name);
+                        if (it == name_to_value.end())
+                        {
+                            input = input_before_enum;
+                            throw std::runtime_error("No such constant in the enum.");
+                        }
+                        out |= it->second;
+                    }
+                }
+                else
+                {
+                    std::string str;
+                    Parse(str);
+                    auto it = name_to_value.find(str);
+                    if (it == name_to_value.end())
+                    {
+                        input = input_before_enum;
+                        throw std::runtime_error("No such constant in the enum.");
+                    }
+                    out = it->second;
+                }
+            }
+
+            // Optionals.
+            template <typename T>
+            void Parse(std::optional<T> &out)
+            {
+                static_assert(!IsStdOptional<T>::value, "Optionals of optionals are not supported.");
+
+                if (TryConsume("null"))
+                {
+                    out.reset();
+                }
+                else
+                {
+                    out.emplace();
+                    Parse(*out);
+                }
+            }
+
+            // Variants.
+            template <typename ...P>
+            void Parse(std::variant<P...> &out)
+            {
+                Consume("{");
+                SkipWhitespace();
+                Consume("\"kind\"");
+                SkipWhitespace();
+                Consume(":");
+                SkipWhitespace();
+
+                const std::string_view input_before_name = input;
+
+                std::string kind;
+                Parse(kind);
+
+                const std::unordered_map<std::string, void(*)(JsonParser &, std::variant<P...> &)> name_to_func = {
+                    {
+                        std::string(P::name_in_variant),
+                        +[](JsonParser &self, std::variant<P...> &v)
+                        {
+                            P &elem = v.template emplace<P>();
+                            self.Parse(elem);
+                        }
+                    }...
+                };
+
+                auto it = name_to_func.find(kind);
+                if (it == name_to_func.end())
+                {
+                    input = input_before_name;
+                    ThrowParseError("No such type in the variant.");
+                }
+
+                SkipWhitespace();
+                Consume(",");
+                SkipWhitespace();
+                Consume("\"value\"");
+                SkipWhitespace();
+                Consume(":");
+                SkipWhitespace();
+
+                it->second(*this, out);
+
+                SkipWhitespace();
+                Consume("}");
+            }
+
+            // Adjusted types.
+            template <ReflNeedsAdjust T>
+            void Parse(T &out)
+            {
+                Parse((ReflAdjust)(out));
+            }
+        };
     }
 
     ParsedFile JsonToParsedFile(std::string input_filename_for_errors, std::string_view input)
@@ -544,13 +680,13 @@ namespace mrbind
         parser.input_filename_for_errors = input_filename_for_errors;
         parser.input = parser.original_input = input;
 
-        Type x;
-        parser.Parse(x);
-        std::cout << x.pretty << '\n';
-        std::cout << x.canonical << '\n';
+        parser.SkipWhitespace();
 
-        #error TODO: enums (including bit flags)
+        ParsedFile ret;
+        parser.Parse(ret);
 
-        return {};
+        parser.ExpectEndOfFileMaybeAfterWhitespace();
+
+        return ret;
     }
 }

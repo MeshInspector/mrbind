@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <string_view>
 #include <tuple>
 #include <type_traits>
@@ -20,4 +21,10 @@ namespace mrbind
 
     template <typename T>
     concept ContainerIsMapLike = requires{typename T::key_type;};
+
+    template <typename T>
+    concept IsFlagLike = requires(T t){t & t; t | t;};
+
+    template <typename T> struct IsStdOptional : std::false_type {};
+    template <typename T> struct IsStdOptional<std::optional<T>> : std::true_type {};
 }
