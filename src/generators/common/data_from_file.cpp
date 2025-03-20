@@ -1,5 +1,3 @@
-#pragma once
-
 #include "generators/common/data_from_file.h"
 #include "generators/common/data_from_json.h"
 #include "generators/common/load_file.h"

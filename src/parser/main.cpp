@@ -23,6 +23,7 @@
 #include <array>
 #include <cstring>
 #include <exception>
+#include <filesystem>
 #include <fstream>
 #include <regex>
 #include <set>
@@ -865,6 +866,24 @@ namespace mrbind
             return ret;
         }
 
+        [[nodiscard]] DeclFileName GetDefinitionLocationFile(const clang::Decl &decl)
+        {
+            DeclFileName ret;
+            ret.as_written = ctx->getSourceManager().getFilename(decl.getSourceRange().getBegin());
+
+            #ifdef __GNUC__
+            #pragma GCC diagnostic push
+            #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+            #endif
+            // No good alternative to the deprecated `u8path()`.
+            ret.canonical = (char *)std::filesystem::weakly_canonical(std::filesystem::u8path(ret.as_written)).u8string().c_str();
+            #ifdef __GNUC__
+            #pragma GCC diagnostic pop
+            #endif
+
+            return ret;
+        }
+
 
         ClangAstVisitor_Final(clang::ASTContext &ctx, clang::CompilerInstance &ci, const VisitorParams &params)
             : ctx(&ctx), ci(&ci),
@@ -974,6 +993,7 @@ namespace mrbind
             new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
             new_func.comment = GetCommentString(*ctx, *decl);
             new_func.params = GetFuncParams(*decl);
+            new_func.declared_in_file = GetDefinitionLocationFile(*decl);
 
             return true;
         }
@@ -1002,6 +1022,7 @@ namespace mrbind
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
             new_class.is_aggregate = ctx->getRecordType(decl)->isAggregateType();
+            new_class.declared_in_file = GetDefinitionLocationFile(*decl);
             // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
             // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
             // Without this, this incorrectly prints `E::e2` without `MR::` (REGARDLESS of how the full specialization is spelled!).
@@ -1170,6 +1191,7 @@ namespace mrbind
             new_enum.full_type = GetCanonicalTypeName(ctx->getEnumType(decl));
             new_enum.canonical_underlying_type = GetCanonicalTypeName(decl->getIntegerType());
             new_enum.is_signed = decl->getIntegerType()->isSignedIntegerType();
+            new_enum.declared_in_file = GetDefinitionLocationFile(*decl);
 
             for (const clang::EnumConstantDecl *elem : decl->enumerators())
             {
@@ -1225,6 +1247,7 @@ namespace mrbind
             new_typedef.full_name = std::move(full_name);
             new_typedef.comment = GetCommentString(*ctx, *decl);
             new_typedef.type = std::move(type_strings);
+            new_typedef.declared_in_file = GetDefinitionLocationFile(*decl);
             RegisterTypeSpelling(decl->getUnderlyingType(), new_typedef.full_name, TypeUses::typedef_name);
 
             return true;
@@ -1241,6 +1264,7 @@ namespace mrbind
                     new_ns.name = decl->getName();
                 new_ns.comment = GetCommentString(*ctx, *decl);
                 new_ns.is_inline = decl->isInlineNamespace();
+                new_ns.declared_in_file = GetDefinitionLocationFile(*decl);
             }
 
             params->rejected_namespace_stack.push_back(reject);

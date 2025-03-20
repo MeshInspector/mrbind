@@ -32,6 +32,14 @@ namespace mrbind
         }
     };
 
+    struct DeclFileName
+    {
+        MBREFL_STRUCT(
+            (std::string)(as_written)
+            (std::string)(canonical)
+        )
+    };
+
     // ---
 
     struct Type
@@ -129,6 +137,9 @@ namespace mrbind
             (bool)(is_signed, false)
 
             (std::vector<EnumElem>)(elems)
+
+            // A path to the file where this is defined.
+            (DeclFileName)(declared_in_file)
         )
     };
 
@@ -147,6 +158,9 @@ namespace mrbind
             (std::string)(qual_name)
             // Name with all scope qualifiers and template arguments added.
             (std::string)(full_qual_name)
+
+            // A path to the file where this is defined.
+            (DeclFileName)(declared_in_file)
         , // Bases:
             (BasicReturningFunc)
         )
@@ -257,6 +271,9 @@ namespace mrbind
             (std::vector<ClassMemberVariant>)(members)
 
             (bool)(is_aggregate, false)
+
+            // A path to the file where this is defined.
+            (DeclFileName)(declared_in_file)
         , // Bases:
             (EntityContainer)
         )
@@ -279,6 +296,9 @@ namespace mrbind
 
             // Target type.
             (Type)(type)
+
+            // A path to the file where this is defined.
+            (DeclFileName)(declared_in_file)
         )
     };
 
@@ -295,6 +315,9 @@ namespace mrbind
             (std::optional<std::string>)(name)
 
             (bool)(is_inline, false)
+
+            // A path to the file where this is defined.
+            (DeclFileName)(declared_in_file)
         , // Bases:
             (EntityContainer)
         )
