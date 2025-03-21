@@ -1,5 +1,7 @@
 #include "load_file.h"
 
+#include "common/filesystem.h"
+
 #include <filesystem>
 #include <fstream>
 #include <sstream>
@@ -8,18 +10,8 @@ namespace mrbind
 {
     std::string LoadTextFile(const char *filename)
     {
-        #ifndef _WIN32
-
-        #ifdef __GNUC__
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        #endif
-        // No good alternative to this deprecated function.
-        std::ifstream input(std::filesystem::u8path(filename));
-        #ifdef __GNUC__
-        #pragma GCC diagnostic pop
-        #endif
-
+        #ifdef _WIN32
+        std::ifstream input(MakePath(filename));
         #else
         std::ifstream input(filename);
         #endif

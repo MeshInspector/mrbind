@@ -1,4 +1,5 @@
 #include "combine_types.h"
+#include "common/filesystem.h"
 #include "data_to_json.h"
 #include "data_to_macros.h"
 #include "multiplex_data.h"
@@ -870,17 +871,7 @@ namespace mrbind
         {
             DeclFileName ret;
             ret.as_written = ctx->getSourceManager().getFilename(decl.getSourceRange().getBegin());
-
-            #ifdef __GNUC__
-            #pragma GCC diagnostic push
-            #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-            #endif
-            // No good alternative to the deprecated `u8path()`.
-            ret.canonical = (char *)std::filesystem::weakly_canonical(std::filesystem::u8path(ret.as_written)).u8string().c_str();
-            #ifdef __GNUC__
-            #pragma GCC diagnostic pop
-            #endif
-
+            ret.canonical = PathToString(std::filesystem::weakly_canonical(MakePath(ret.as_written)));
             return ret;
         }
 
