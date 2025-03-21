@@ -34,10 +34,8 @@ namespace mrbind
 
     struct DeclFileName
     {
-        MBREFL_STRUCT(
-            (std::string)(as_written)
-            (std::string)(canonical)
-        )
+        std::string canonical;
+        friend auto &reflect_as(DeclFileName &self) {return self.canonical;}
     };
 
     // ---

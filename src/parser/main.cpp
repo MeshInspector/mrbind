@@ -245,11 +245,21 @@ namespace mrbind
             }
         }
 
-        // For class templates
+        // For class templates, check the primary template.
         if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
         {
             if (HasIgnoreAttribute(*templ->getSpecializedTemplate()->getTemplatedDecl()))
-                return true;
+            return true;
+        }
+
+        // For function templates, check the primary template.
+        if (auto func = llvm::dyn_cast<clang::FunctionDecl>(&decl))
+        {
+            if (auto templ = func->getPrimaryTemplate())
+            {
+                if (HasIgnoreAttribute(*templ))
+                    return true;
+            }
         }
 
         return false;
@@ -867,12 +877,30 @@ namespace mrbind
             return ret;
         }
 
-        [[nodiscard]] DeclFileName GetDefinitionLocationFile(const clang::Decl &decl)
+        [[nodiscard]] DeclFileName GetDefinitionLocationFile(const clang::Decl &decl, const std::string &name_for_errors)
         {
-            DeclFileName ret;
-            ret.as_written = ctx->getSourceManager().getFilename(decl.getSourceRange().getBegin());
-            ret.canonical = PathToString(std::filesystem::weakly_canonical(MakePath(ret.as_written)));
-            return ret;
+            std::string ret;
+
+            const clang::Decl *fixed_decl = &decl;
+
+            // Adjust class and function template specializations to point to the primary template.
+            if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(fixed_decl))
+                fixed_decl = templ->getSpecializedTemplate()->getTemplatedDecl();
+            else if (auto func = llvm::dyn_cast<clang::FunctionDecl>(fixed_decl))
+            {
+                if (auto templ = func->getPrimaryTemplate())
+                    fixed_decl = templ;
+            }
+
+            // `getExpansionLoc` is needed when the declaration is created by a macro expansion. Without it we get an empty string.
+            // It also seems that it canonicalizes the filename. Therefore we canonicalize it ourselves AGAIN
+            //   just in case, and don't preserve the original returned path, because it shouldn't have any important
+            //   differences anyway.
+            ret = ctx->getSourceManager().getFilename(ctx->getSourceManager().getExpansionLoc(fixed_decl->getLocation()));
+            if (ret.empty())
+                throw std::runtime_error("Unable to determine the file path where this was declared: `" + name_for_errors + "`.");
+            ret = PathToString(std::filesystem::weakly_canonical(MakePath(ret)));
+            return {.canonical = ret};
         }
 
 
@@ -984,7 +1012,7 @@ namespace mrbind
             new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
             new_func.comment = GetCommentString(*ctx, *decl);
             new_func.params = GetFuncParams(*decl);
-            new_func.declared_in_file = GetDefinitionLocationFile(*decl);
+            new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 
             return true;
         }
@@ -1013,7 +1041,7 @@ namespace mrbind
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
             new_class.is_aggregate = ctx->getRecordType(decl)->isAggregateType();
-            new_class.declared_in_file = GetDefinitionLocationFile(*decl);
+            new_class.declared_in_file = GetDefinitionLocationFile(*decl, new_class.name);
             // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
             // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
             // Without this, this incorrectly prints `E::e2` without `MR::` (REGARDLESS of how the full specialization is spelled!).
@@ -1182,7 +1210,7 @@ namespace mrbind
             new_enum.full_type = GetCanonicalTypeName(ctx->getEnumType(decl));
             new_enum.canonical_underlying_type = GetCanonicalTypeName(decl->getIntegerType());
             new_enum.is_signed = decl->getIntegerType()->isSignedIntegerType();
-            new_enum.declared_in_file = GetDefinitionLocationFile(*decl);
+            new_enum.declared_in_file = GetDefinitionLocationFile(*decl, new_enum.full_type);
 
             for (const clang::EnumConstantDecl *elem : decl->enumerators())
             {
@@ -1238,7 +1266,7 @@ namespace mrbind
             new_typedef.full_name = std::move(full_name);
             new_typedef.comment = GetCommentString(*ctx, *decl);
             new_typedef.type = std::move(type_strings);
-            new_typedef.declared_in_file = GetDefinitionLocationFile(*decl);
+            new_typedef.declared_in_file = GetDefinitionLocationFile(*decl, new_typedef.full_name);
             RegisterTypeSpelling(decl->getUnderlyingType(), new_typedef.full_name, TypeUses::typedef_name);
 
             return true;
@@ -1255,7 +1283,7 @@ namespace mrbind
                     new_ns.name = decl->getName();
                 new_ns.comment = GetCommentString(*ctx, *decl);
                 new_ns.is_inline = decl->isInlineNamespace();
-                new_ns.declared_in_file = GetDefinitionLocationFile(*decl);
+                new_ns.declared_in_file = GetDefinitionLocationFile(*decl, new_ns.name ? *new_ns.name : "(anonymous namespace)");
             }
 
             params->rejected_namespace_stack.push_back(reject);

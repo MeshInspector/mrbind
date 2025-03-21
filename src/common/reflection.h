@@ -18,7 +18,9 @@
     using _refl_is_struct = void; \
     constexpr bool _refl_for_each_member(auto &&func) \
     { \
-        return false DETAIL_MBREFL_END( DETAIL_MBREFL_STRUCT_BASEFUNC_A __VA_ARGS__ ) DETAIL_MBREFL_END( DETAIL_MBREFL_STRUCT_FUNC_A seq_ ); \
+        /* Here we handle bases after the derived members for the sole reason that it results in better output in our case. */\
+        /* E.g. for namespaces, this causes the name to be printed before the members, which is good. */\
+        return false DETAIL_MBREFL_END( DETAIL_MBREFL_STRUCT_FUNC_A seq_ ) DETAIL_MBREFL_END( DETAIL_MBREFL_STRUCT_BASEFUNC_A __VA_ARGS__ ); \
     }
 
 #define DETAIL_MBREFL_STRUCT_DECL_A(...) std::type_identity_t<__VA_ARGS__> DETAIL_MBREFL_STRUCT_DECL_B
