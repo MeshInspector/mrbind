@@ -18,8 +18,11 @@ namespace mrbind
             // Input: [
             ParsedFile data;
 
-            std::string output_dir;
-            std::filesystem::path output_dir_path;
+            std::string output_header_dir;
+            std::filesystem::path output_header_dir_path;
+
+            std::string output_source_dir;
+            std::filesystem::path output_source_dir_path;
 
             // Keys are canonicalized filenames.
             // We amend this to include all filenames we see.
@@ -30,39 +33,48 @@ namespace mrbind
             // ]
 
             // Constants: [
-            std::string output_extension = ".h";
+            std::string extension_header = ".h";
+            std::string extension_source = ".cpp";
             // ]
-
-            // This caches exactly which input filenames (canonical, as spelled in input) map
-            //   to which output filenames (not necessarily canonical).
-            std::unordered_map<std::string, std::string> filename_mappings_cache;
 
             struct OutputFile
             {
-                std::string contents;
+                // Names of the output files: [
+                std::string header_path_full;
+                std::string source_path_full;
+                // ]
+                std::string header_path_for_inclusion;
+
+                // The identifier of this file. Basically a relative path without an extension.
+                std::string relative_name;
+
+                std::string header_contents;
+                std::string source_contents;
 
                 void Initialize()
                 {
-                    contents += "#pragma once\n\n";
+                    header_contents += "#pragma once\n\n";
+
+                    source_contents += "#include \"" + header_path_for_inclusion + "\"\n\n";
                 }
             };
+            // The keys are canonical input paths.
             std::unordered_map<std::string, OutputFile> outputs;
 
             std::unordered_set<std::filesystem::path> directories_to_create;
 
             [[nodiscard]] OutputFile &GetOutputFile(const DeclFileName &source)
             {
-                auto cache_it = filename_mappings_cache.find(source.canonical);
-                if (cache_it != filename_mappings_cache.end())
-                    return outputs[cache_it->second]; // Cached.
+                auto [iter, is_new] = outputs.try_emplace(source.canonical);
+                OutputFile &file = iter->second;
+                if (!is_new)
+                    return file; // Already exists.
 
-                std::string relative_output_name;
-
-                // Get the filename relative to the output directory.
+                // Get the filename relative to the output directory, without extension.
                 auto prefix_it = path_mappings.find(source.canonical);
                 if (prefix_it != path_mappings.end())
                 {
-                    relative_output_name = prefix_it->second; // Direct match.
+                    file.relative_name = prefix_it->second; // Direct match.
                 }
                 else
                 {
@@ -74,19 +86,18 @@ namespace mrbind
                         auto it = path_mappings.find(source_copy_str);
                         if (it != path_mappings.end())
                         {
-                            relative_output_name = it->second;
-                            relative_output_name += source.canonical.substr(source_copy_str.size());
+                            file.relative_name = it->second;
+                            file.relative_name += source.canonical.substr(source_copy_str.size());
 
                             // Strip some known extensions.
                             for (const auto &ext : known_input_exts_to_strip)
                             {
-                                if (relative_output_name.ends_with(ext))
+                                if (file.relative_name.ends_with(ext))
                                 {
-                                    relative_output_name.resize(relative_output_name.size() - ext.size());
+                                    file.relative_name.resize(file.relative_name.size() - ext.size());
                                     break;
                                 }
                             }
-                            relative_output_name += output_extension;
                             break; // Success.
                         }
 
@@ -98,28 +109,27 @@ namespace mrbind
                     }
                 }
 
-                // Now rewrite it to begin with `output_dir`.
+                std::filesystem::path relative_output_path = MakePath(file.relative_name);
 
-                std::filesystem::path relative_output_path = MakePath(relative_output_name);
-                std::filesystem::path full_output_path = (output_dir_path / relative_output_path).lexically_normal();
+                // Compute the final paths.
+                file.header_path_full = PathToString((output_header_dir_path / relative_output_path).lexically_normal()) + extension_header;
+                file.source_path_full = PathToString((output_source_dir_path / relative_output_path).lexically_normal()) + extension_source;
+                file.header_path_for_inclusion = PathToString(relative_output_path.lexically_normal()) + extension_header;
 
                 { // Decide what directories to create.
-                    std::filesystem::path cur_path = relative_output_path;
+                    std::filesystem::path cur_path = relative_output_path.lexically_normal();
                     while (true)
                     {
                         cur_path = cur_path.parent_path();
                         if (cur_path.empty() || cur_path == ".")
                             break;
-                        directories_to_create.insert((output_dir_path / cur_path).lexically_normal());
+                        directories_to_create.insert((output_header_dir_path / cur_path).lexically_normal());
+                        directories_to_create.insert((output_source_dir_path / cur_path).lexically_normal());
                     }
                 }
 
-                std::string full_output_name = PathToString(full_output_path);
-                filename_mappings_cache.try_emplace(source.canonical, full_output_name);
-
-                OutputFile &ret = outputs[full_output_name];
-                ret.Initialize();
-                return ret;
+                file.Initialize();
+                return file;
             }
 
 
@@ -171,14 +181,18 @@ int main(int raw_argc, char **raw_argv)
     mrbind::CommandLineArgsAsUtf8 args(raw_argc, raw_argv);
 
     std::string input_filename;
-    bool clean_output_dir = false;
+    bool clean_output_dirs = false;
+
+    bool verbose = false;
 
     mrbind::CBindingGenerator generator;
 
     { // Parse arguments.
         bool seen_input_filename = false;
-        bool seen_output_dir = false;
-        bool seen_clean_output_dir = false;
+        bool seen_output_header_dir = false;
+        bool seen_output_source_dir = false;
+        bool seen_clean_output_dirs = false;
+        bool seen_verbose = false;
 
         for (int i = 1; i < args.argc; i++)
         {
@@ -188,11 +202,13 @@ int main(int raw_argc, char **raw_argv)
             {
                 std::cout <<
                     "Usage:\n"
-                    "    --input       <filename.json>   - Input JSON file, as produced by `mrbind --format=json`.\n"
-                    "    --output-dir  <dir>             - Output directory. Must be empty or not exist, unless you pass `--clean-output-dir` too. It's always an error if it exists and is not a directory.\n"
-                    "    --map-path    <from> <to>       - Specifies filename mapping, can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to `--output-dir`. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
-                    "    --clean-output-dir              - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
-                    "    --strip-filename-suffix  <ext>  - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
+                    "    --input              <filename.json>  - Input JSON file, as produced by `mrbind --format=json`.\n"
+                    "    --output-header-dir  <dir>            - Output directory for headers. Must be empty or not exist, unless you pass `--clean-output-dirs` too. It's always an error if it exists and is not a directory.\n"
+                    "    --output-source-dir  <dir>            - Output directory for sources. Same rules are for `--output-header-dir`.\n"
+                    "    --map-path           <from> <to>      - Specifies filename mapping, can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
+                    "    --clean-output-dirs                   - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
+                    "    --strip-filename-suffix  <ext>        - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
+                    "    --verbose                             - Write some logs.\n"
                     ;
                 return 0;
             }
@@ -258,9 +274,11 @@ int main(int raw_argc, char **raw_argv)
 
             if (ConsumeFlagWithStringArg("--input", input_filename, &seen_input_filename))
                 continue;
-            if (ConsumeFlagWithStringArg("--output-dir", generator.output_dir, &seen_output_dir))
+            if (ConsumeFlagWithStringArg("--output-header-dir", generator.output_header_dir, &seen_output_header_dir))
                 continue;
-            if (ConsumeFlagWithNoArgs("--clean-output-dir", clean_output_dir, &seen_clean_output_dir))
+            if (ConsumeFlagWithStringArg("--output-source-dir", generator.output_source_dir, &seen_output_source_dir))
+                continue;
+            if (ConsumeFlagWithNoArgs("--clean-output-dirs", clean_output_dirs, &seen_clean_output_dirs))
                 continue;
             { // --map-path
                 std::string from, to;
@@ -286,42 +304,50 @@ int main(int raw_argc, char **raw_argv)
                 }
             }
 
+            if (ConsumeFlagWithNoArgs("--verbose", verbose, &seen_verbose))
+                continue;
+
             throw std::runtime_error("Unknown argument: `" + std::string(view) + "`. Consult `--help` for usage.");
         }
 
         if (!seen_input_filename)
             throw std::runtime_error("Missing `--input`, consult `--help` for usage.");
-        if (!seen_output_dir)
-            throw std::runtime_error("Missing `--output-dir`, consult `--help` for usage.");
+        if (!seen_output_header_dir)
+            throw std::runtime_error("Missing `--output-header-dir`, consult `--help` for usage.");
+        if (!seen_output_source_dir)
+            throw std::runtime_error("Missing `--output-source-dir`, consult `--help` for usage.");
     }
 
-    generator.output_dir_path = mrbind::MakePath(generator.output_dir);
+    generator.output_header_dir_path = mrbind::MakePath(generator.output_header_dir);
+    generator.output_source_dir_path = mrbind::MakePath(generator.output_source_dir);
 
     // Parse the input file.
     generator.data = mrbind::LoadDataFromFile(input_filename.c_str());
 
-    { // Prepare the output directory.
-        std::filesystem::path output_dir_path = mrbind::MakePath(generator.output_dir);
-        auto stat = std::filesystem::status(output_dir_path);
-
-        // Complain if the output path already exists but isn't a directory.
-        if (stat.type() != std::filesystem::file_type::not_found && stat.type() != std::filesystem::file_type::directory)
-            throw std::runtime_error("Output path `" + generator.output_dir + "` already exists but is not a directory.");
-
-        if (stat.type() == std::filesystem::file_type::not_found)
+    { // Prepare the output directories.
+        for (const auto &path : {&generator.output_header_dir_path, &generator.output_source_dir_path})
         {
-            // Create the missing output directory.
-            std::filesystem::create_directories(output_dir_path);
-        }
-        else
-        {
-            // Destroy everything in the output directory or complain if `--clean-output-dir` isn't specified.
-            for (const std::filesystem::directory_entry &e : std::filesystem::directory_iterator(output_dir_path))
+            auto stat = std::filesystem::status(*path);
+
+            // Complain if the output path already exists but isn't a directory.
+            if (stat.type() != std::filesystem::file_type::not_found && stat.type() != std::filesystem::file_type::directory)
+                throw std::runtime_error("Output path `" + mrbind::PathToString(*path) + "` already exists but is not a directory.");
+
+            if (stat.type() == std::filesystem::file_type::not_found)
             {
-                if (!clean_output_dir)
-                    throw std::runtime_error("Output directory `" + generator.output_dir + "` is not empty, and `--clean-output-dir` wasn't specfied.");
+                // Create the missing output directory.
+                std::filesystem::create_directories(*path);
+            }
+            else
+            {
+                // Destroy everything in the output directory or complain if `--clean-output-dirs` isn't specified.
+                for (const std::filesystem::directory_entry &e : std::filesystem::directory_iterator(*path))
+                {
+                    if (!clean_output_dirs)
+                        throw std::runtime_error("Output directory `" + mrbind::PathToString(*path) + "` is not empty, and `--clean-output-dirs` wasn't specfied.");
 
-                std::filesystem::remove_all(e);
+                    std::filesystem::remove_all(e);
+                }
             }
         }
     }
@@ -336,10 +362,26 @@ int main(int raw_argc, char **raw_argv)
     // Write the generated files.
     for (const auto &elem : generator.outputs)
     {
-        std::ofstream output(mrbind::MakePath(elem.first));
-        if (output)
-            output << elem.second.contents;
-        if (!output)
-            throw std::runtime_error("Failed to write to the output file: `" + elem.first + "`.");
+        { // Write header.
+            if (verbose)
+                std::cerr << "mrbind_gen_c: Writing header: " << elem.second.header_path_full << '\n';
+
+            std::ofstream output(mrbind::MakePath(elem.second.header_path_full));
+            if (output)
+                output << elem.second.header_contents;
+            if (!output)
+                throw std::runtime_error("Failed to write to the output file: `" + elem.second.header_path_full + "`.");
+        }
+
+        { // Write source.
+            if (verbose)
+                std::cerr << "mrbind_gen_c: Writing source: " << elem.second.source_path_full << '\n';
+
+            std::ofstream output(mrbind::MakePath(elem.second.source_path_full));
+            if (output)
+                output << elem.second.source_contents;
+            if (!output)
+                throw std::runtime_error("Failed to write to the output file: `" + elem.second.source_path_full + "`.");
+        }
     }
 }
