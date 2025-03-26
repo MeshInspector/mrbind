@@ -247,7 +247,7 @@ namespace mrbind
                             // Underlying type.
                             << e.canonical_underlying_type << ", "
                             // Comment.
-                            << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/") << ", ";
+                            << (e.comment ? EscapeQuoteString(e.comment->text) : "/*no comment*/") << ", ";
 
                         if (e.elems.empty())
                         {
@@ -263,7 +263,7 @@ namespace mrbind
                                     out << std::int64_t(elem.unsigned_value);
                                 else
                                     out << std::uint64_t(elem.unsigned_value);
-                                out << ", " << (elem.comment ? EscapeQuoteString(*elem.comment) : "/*no comment*/") << ")\n";
+                                out << ", " << (elem.comment ? EscapeQuoteString(elem.comment->text) : "/*no comment*/") << ")\n";
                             }
                             out << ")\n";
                         }
@@ -279,7 +279,7 @@ namespace mrbind
                             << "(" << e.qual_name << "), "
                             << "(" << e.full_qual_name << "), "
                             << NsStackToString() << ", "
-                            << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/")
+                            << (e.comment ? EscapeQuoteString(e.comment->text) : "/*no comment*/")
                             << ", ";
                         dump_params(e.params, false);
                         out << ")\n";
@@ -301,7 +301,7 @@ namespace mrbind
                             << "(" << e.full_type << "), "
                             << NsStackToString() << ", "
                             << "/*is aggregate:*/" << int(e.is_aggregate) << ", "
-                            << (e.comment ? EscapeQuoteString(*e.comment) : "/*no comment*/") << ",";
+                            << (e.comment ? EscapeQuoteString(e.comment->text) : "/*no comment*/") << ",";
 
                         // Bases.
                         if (e.bases.empty())
@@ -337,7 +337,7 @@ namespace mrbind
                                             << "(" << field.type.canonical << "), " // Pretty types can lack some qualifiers here.
                                             << field.name << ", "
                                             << "(" << field.full_name << "), "
-                                            << (field.comment ? EscapeQuoteString(*field.comment) : "/*no comment*/")
+                                            << (field.comment ? EscapeQuoteString(field.comment->text) : "/*no comment*/")
                                             << ")\n";
                                     },
                                     [&](const ClassCtor &ctor)
@@ -352,7 +352,7 @@ namespace mrbind
                                             case CopyMoveKind::move: out << "move"; break;
                                         }
                                         out << ", "
-                                            << (ctor.comment ? EscapeQuoteString(*ctor.comment) : "/*no comment*/") << ", ";
+                                            << (ctor.comment ? EscapeQuoteString(ctor.comment->text) : "/*no comment*/") << ", ";
                                         dump_params(ctor.params);
                                         out << ")\n";
                                     },
@@ -374,7 +374,7 @@ namespace mrbind
                                             << method.simple_name << ", "
                                             << "(" << method.full_name << "), "
                                             << (method.is_const ? "const" : "/*not const*/") << ", "
-                                            << (method.comment ? EscapeQuoteString(*method.comment) : "/*no comment*/") << ", ";
+                                            << (method.comment ? EscapeQuoteString(method.comment->text) : "/*no comment*/") << ", ";
                                         dump_params(method.params);
                                         out << ")\n";
                                     },
@@ -384,7 +384,7 @@ namespace mrbind
                                             << "    (conv_op, "
                                             << "(" << conv_op.return_type.pretty << "), "
                                             << (conv_op.is_const ? "const" : "/*not const*/") << ", "
-                                            << (conv_op.comment ? EscapeQuoteString(*conv_op.comment) : "/*no comment*/")
+                                            << (conv_op.comment ? EscapeQuoteString(conv_op.comment->text) : "/*no comment*/")
                                             << ")\n";
                                     },
                                 }, member);
@@ -412,7 +412,7 @@ namespace mrbind
                             << "(" << t.full_name << "), "
                             << NsStackToString() << ", "
                             << "(" << t.type.pretty << "), "
-                            << (t.comment ? EscapeQuoteString(*t.comment) : "/*no comment*/")
+                            << (t.comment ? EscapeQuoteString(t.comment->text) : "/*no comment*/")
                             << ")\n";
                         EndMultiplexBlock();
                     },
@@ -422,7 +422,7 @@ namespace mrbind
                             << (ns.name ? *ns.name : "/*anonymous*/") << ", "
                             << (ns.is_inline ? "inline" : "/*not inline*/") << ", "
                             << NsStackToString() << ", "
-                            << (ns.comment ? EscapeQuoteString(*ns.comment) : "/*no comment*/") << ")\n";
+                            << (ns.comment ? EscapeQuoteString(ns.comment->text) : "/*no comment*/") << ")\n";
 
                         namespace_stack.push_back("(" + ns.name.value_or("") + ",ns)");
 

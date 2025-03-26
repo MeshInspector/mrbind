@@ -66,6 +66,9 @@ if(MRBIND_BUILD_GENERATOR_C)
     add_executable(mrbind_gen_c
         src/generators/c/main.cpp
     )
+    target_include_directories(mrbind_gen_c PRIVATE
+        deps/cppdecl/include
+    )
     target_link_libraries(mrbind_gen_c PRIVATE
         mrbind_common
         mrbind_gen_common

@@ -1,0 +1,3 @@
+[submodule "deps/cppdecl"]
+	path = deps/cppdecl
+	url = https://github.com/MeshInspector/cppdecl

@@ -62,6 +62,16 @@ namespace mrbind
         )
     };
 
+    struct Comment
+    {
+        MBREFL_STRUCT(
+            // Without leading slashes.
+            (std::string)(text)
+            // With leading slashes, but with whitespace before then stripped.
+            (std::string)(text_with_slashes)
+        )
+    };
+
     struct FuncParam
     {
         MBREFL_STRUCT(
@@ -75,7 +85,7 @@ namespace mrbind
     struct BasicFunc
     {
         MBREFL_STRUCT(
-            (std::optional<std::string>)(comment)
+            (std::optional<Comment>)(comment)
             (std::vector<FuncParam>)(params)
         )
     };
@@ -103,7 +113,7 @@ namespace mrbind
     struct EnumElem
     {
         MBREFL_STRUCT(
-            (std::optional<std::string>)(comment)
+            (std::optional<Comment>)(comment)
 
             // The name, without any scope qualifiers.
             (std::string)(name)
@@ -118,7 +128,7 @@ namespace mrbind
         static constexpr std::string_view name_in_variant = "enum";
 
         MBREFL_STRUCT(
-            (std::optional<std::string>)(comment)
+            (std::optional<Comment>)(comment)
 
             // The name, without any scope qualifiers.
             (std::string)(name)
@@ -171,7 +181,7 @@ namespace mrbind
         static constexpr std::string_view name_in_variant = "field";
 
         MBREFL_STRUCT(
-            (std::optional<std::string>)(comment)
+            (std::optional<Comment>)(comment)
 
             // Name as a single identifier.
             (std::string)(name)
@@ -254,7 +264,7 @@ namespace mrbind
         static constexpr std::string_view name_in_variant = "class";
 
         MBREFL_STRUCT(
-            (std::optional<std::string>)(comment)
+            (std::optional<Comment>)(comment)
 
             (ClassKind)(kind, ClassKind::struct_)
 
@@ -284,7 +294,7 @@ namespace mrbind
         static constexpr std::string_view name_in_variant = "typedef";
 
         MBREFL_STRUCT(
-            (std::optional<std::string>)(comment)
+            (std::optional<Comment>)(comment)
 
             // Name as a single identifier.
             (std::string)(name)
@@ -307,7 +317,7 @@ namespace mrbind
         static constexpr std::string_view name_in_variant = "namespace";
 
         MBREFL_STRUCT(
-            (std::optional<std::string>)(comment)
+            (std::optional<Comment>)(comment)
 
             // Name as a single word. Empty if anonymous.
             (std::optional<std::string>)(name)

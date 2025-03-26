@@ -1,19 +1,18 @@
+#include <iostream>
+
 namespace MR
 {
-    inline int foo(int x, float, double z = {}) {}
-
-    enum E
+    // foo
+    // bar
+    inline void foo()
     {
-        e1,
-        // I'm e2!
-        e2 = 42,
-    };
+        std::cout << "Hello, world!\n";
+    }
 
-    namespace
+    /// foo
+    /// barrr
+    inline float sqr(float x, float y)
     {
-        inline namespace I
-        {
-            struct A {};
-        }
+        return x * y;
     }
 }

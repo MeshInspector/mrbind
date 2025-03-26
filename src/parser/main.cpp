@@ -413,13 +413,37 @@ namespace mrbind
     }
 
     // Returns a comment string associated with a declaration, or null if none.
-    // You might want to process it with `EscapeQuoteString` for output.
-    [[nodiscard]] std::optional<std::string> GetCommentString(const clang::ASTContext &ctx, const clang::Decl &decl)
+    [[nodiscard]] std::optional<Comment> GetCommentString(const clang::ASTContext &ctx, const clang::Decl &decl)
     {
+        // I'd really like to have a bool for documentation comments here, but for some reason everything
+        //   that `getRawCommentForAnyRedecl()` returns has the type set to `merged` (instead of `normal` or `documentation`).
+        // So instead we provide a second string with original slashes preserved. That's better than nothing.
+
         const clang::RawComment *comment = ctx.getRawCommentForAnyRedecl(&decl);
+        std::optional<Comment> ret;
         if (!comment)
-            return {};
-        return comment->getFormattedText(ctx.getSourceManager(), ctx.getDiagnostics());
+            return ret;
+        ret.emplace();
+        ret->text = comment->getFormattedText(ctx.getSourceManager(), ctx.getDiagnostics());
+
+        // Get the raw version with slashes.
+        // But also remove the leading whitespace on each line (before the slashes).
+        std::string raw_text(comment->getRawText(ctx.getSourceManager()));
+        bool beginning_of_line = true; // Not sure if we can get whitespace before the first slashes, but checking doesn't hurt.
+        for (char ch : raw_text)
+        {
+            if (beginning_of_line)
+            {
+                if (ch == ' ' || ch == '\t')
+                    continue;
+                beginning_of_line = false;
+            }
+            ret->text_with_slashes += ch;
+            if (ch == '\n')
+                beginning_of_line = true;
+        }
+
+        return ret;
     }
 
     // Obtains the default argument value as a string, or empty if none.

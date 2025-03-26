@@ -1786,6 +1786,7 @@ namespace MRBind::pb11
             {
                 prev_char_is_special = false;
                 ret += "minus";
+                last_good_size = ret.size();
             }
             else
             {
