@@ -63,6 +63,8 @@ namespace mrbind
                     std::set<std::string> preamble_set;
                     // This is the primary content.
                     std::string contents;
+                    // This is pasted after everything else.
+                    std::string footer;
 
                     void DumpToOstream(std::ostream &out) const
                     {
@@ -74,7 +76,9 @@ namespace mrbind
                                 out << elem << '\n';
                         }
                         if (out)
-                            out << contents;
+                            out << contents << '\n';
+                        if (out)
+                            out << footer;
                     }
                 };
 
@@ -85,6 +89,9 @@ namespace mrbind
                 {
                     header.preamble += "#pragma once\n";
                     source.preamble += "#include \"" + header_path_for_inclusion + "\"\n";
+
+                    header.contents += "#ifdef __cplusplus\nextern \"C\" {\n#endif\n";
+                    header.footer += "#ifdef __cplusplus\n} // extern \"C\"\n#endif\n";
                 }
             };
             // The output file contents. This is what we're generating. The keys are the canonical input paths, as in the input JSON.
@@ -255,8 +262,8 @@ namespace mrbind
                     return
                         // Integers, floating-point types and `void`.
                         type.simple_type.name.IsBuiltInTypeName() &&
-                        // Either non-pointers or any level of pointers.
-                        std::all_of(type.modifiers.begin(), type.modifiers.end(), [](const cppdecl::TypeModifier &m){return m.Is<cppdecl::Pointer>();});
+                        // Any combination of arrays or pointers, or none at all.
+                        std::all_of(type.modifiers.begin(), type.modifiers.end(), [](const cppdecl::TypeModifier &m){return m.Is<cppdecl::Pointer>() || m.Is<cppdecl::Array>();});
                 };
 
                 // Is this a simple C type?
@@ -266,7 +273,7 @@ namespace mrbind
 
                     // For `void` omit `return` for clarity.
                     if (type.AsSingleWord() == "void")
-                        new_type.return_usage->make_return_statement = [](std::string_view expr){return std::string(expr);};
+                        new_type.return_usage->make_return_statement = [](std::string_view expr){return std::string(expr) + ";";};
 
                     return known_cpp_types.try_emplace(type_str, new_type).first->second;
                 }
