@@ -1155,6 +1155,30 @@ namespace mrbind
             // ... We used to extract methods and constructors here, but we no longer do it, because template instantiations don't arrive here
             // for some reason?! Instead we do that in `VisitFunctionDecl()`, which does get them. Hmm.
 
+            // But! We do manually visit the implicit special members here, since otherwise they don't get emitted for some reason.
+            // Last tested on Clang 18. If they get duplicated, remove this code.
+            {
+                // First, instantiate them. This is needed if they are implicitly declared.
+                // This doesn't seem to expose them to the visitor, so we still need the loop below.
+                // We COULD do this earlier in the template instantiation visitor, but why bother? Works here too, and it's nice to keep
+                //   this hack grouped in one place. It's not like this could recursively require any additional instantiations.
+                ci->getSema().ForceDeclarationOfImplicitMembers(cxxdecl);
+
+                // Constructors: default, copy and move.
+                for (clang::CXXConstructorDecl *ctor : cxxdecl->ctors())
+                {
+                    if ((ctor->isDefaultConstructor() || ctor->isCopyOrMoveConstructor()) && ctor->isImplicit())
+                        VisitFunctionDecl(ctor);
+                }
+
+                // Assignment operators.
+                for (clang::CXXMethodDecl *method : cxxdecl->methods())
+                {
+                    if ((method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator()) && method->isImplicit())
+                        VisitFunctionDecl(method);
+                }
+            }
+
             return true;
         }
 

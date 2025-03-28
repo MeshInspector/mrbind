@@ -1584,6 +1584,10 @@ namespace MRBind::pb11
         TryMakeIterable<T>(c);
         TryMakePrintable<T>(c);
 
+
+        // Those shouldn't be necessary anymore, now that we updated the parser to hopefully always emit the implicit constructors.
+        // TODO: remove those?
+
         if (!scope_state.have_default_ctor)
         {
             if constexpr (std::default_initializable<T>)
