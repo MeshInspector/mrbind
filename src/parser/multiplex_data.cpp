@@ -1,6 +1,6 @@
 #include "multiplex_data.h"
 
-#include "meta.h"
+#include "common/meta.h"
 #include "common/parsed_data.h"
 
 namespace mrbind

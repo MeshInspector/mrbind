@@ -1,6 +1,6 @@
 #include "data_to_macros.h"
 
-#include "meta.h"
+#include "common/meta.h"
 #include "string_manip.h"
 
 #include <unordered_set>

@@ -894,7 +894,8 @@ namespace mrbind
             for (const clang::ParmVarDecl *p : decl.parameters())
             {
                 FuncParam &new_param = ret.emplace_back();
-                new_param.name = p->getName();
+                if (auto name = p->getName(); !name.empty())
+                    new_param.name = name; // Since `new_param.name` is optional, we don't want to fill it if the parameter name is empty.
                 new_param.type = GetTypeStrings(p->getType(), TypeUses::parameter);
                 GetDefaultArgumentStrings(new_param.default_argument, *p, printing_policies.normal);
             }

@@ -7,6 +7,11 @@
 
 namespace mrbind
 {
+    template <typename ...P>
+    struct Overload : P... {using P::operator()...;};
+    template <typename ...P>
+    Overload(P...) -> Overload<P...>;
+
     // Is `T` a 2-tuple-like class with the first element being string-like.
     template <typename T>
     concept IsKeyValuePair =
