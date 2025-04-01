@@ -736,8 +736,10 @@ namespace mrbind
                         file.header.contents += '\n';
                     }
 
+                    std::string enum_c_name = StringToCIdentifier(en.full_type);
+
                     file.header.contents += "enum ";
-                    file.header.contents += StringToCIdentifier(en.full_type);
+                    file.header.contents += enum_c_name;
                     file.header.contents += "\n{\n";
 
                     for (const EnumElem &elem : en.elems)
@@ -750,6 +752,8 @@ namespace mrbind
                         }
 
                         file.header.contents += "    ";
+                        file.header.contents += enum_c_name;
+                        file.header.contents += '_';
                         file.header.contents += elem.name;
                         file.header.contents += " = ";
                         file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
