@@ -910,9 +910,13 @@ namespace MRBind::pb11
 
     // Extract `gil_handling` from parameter's traits, or default to `neutral` if not specified.
     template <typename T>
-    constexpr GilHandling param_gil_handling = GilHandling::neutral;
+    struct DefaultParamGilHandling : std::integral_constant<GilHandling, GilHandling::neutral> {};
     template <typename T> requires requires{ParamTraitsLow<T>::gil_handling;}
-    constexpr GilHandling param_gil_handling<T> = ParamTraitsLow<T>::gil_handling;
+    struct DefaultParamGilHandling<T> : std::integral_constant<GilHandling, ParamTraitsLow<T>::gil_handling> {};
+
+    // This is the final GIL handling for this parameter type. This is a customization point!
+    template <typename T>
+    struct ParamGilHandling : DefaultParamGilHandling<T> {};
 
     // Whether this parameter type requires that function to be registered late, to give it less priority during overload resolution.
     template <typename T>
@@ -1380,7 +1384,7 @@ namespace MRBind::pb11
                     }
                 }
 
-                constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
+                constexpr GilHandling gil_handling = CombineGilHandling<ParamGilHandling<P>::value...>::value;
                 static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
                 auto registration_lambda = [](ModuleOrClassRef m, const char *name)
@@ -1465,7 +1469,7 @@ namespace MRBind::pb11
                     scope_state->have_copy_ctor = true;
             }
 
-            constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
+            constexpr GilHandling gil_handling = CombineGilHandling<ParamGilHandling<P>::value...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
             (MapFilterPack<P...>)(
