@@ -243,7 +243,16 @@ namespace mrbind
         )
     };
 
-    using ClassMemberVariant = std::variant<ClassField, ClassCtor, ClassMethod, ClassConvOp>;
+    struct ClassDtor
+    {
+        static constexpr std::string_view name_in_variant = "destructor";
+
+        MBREFL_STRUCT(
+            (std::optional<Comment>)(comment)
+        )
+    };
+
+    using ClassMemberVariant = std::variant<ClassField, ClassCtor, ClassMethod, ClassConvOp, ClassDtor>;
 
     struct ClassBase
     {

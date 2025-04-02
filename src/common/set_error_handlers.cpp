@@ -9,21 +9,45 @@ namespace mrbind
     void SetErrorHandlers()
     {
         std::set_terminate([]{
-            auto e = std::current_exception();
+            auto eptr = std::current_exception();
+            bool first = true;
 
-            if (e)
+            if (eptr)
             {
-                try
+                while (eptr)
                 {
-                    std::rethrow_exception(e);
-                }
-                catch (std::exception &e)
-                {
-                    std::cerr << "Program terminated with exception:\n" << e.what() << '\n';
-                }
-                catch (...)
-                {
-                    std::cerr << "Program terminated with an unknown exception.\n";
+                    try
+                    {
+                        auto eptr_copy = std::move(eptr);
+                        eptr = nullptr;
+
+                        std::rethrow_exception(eptr_copy);
+                    }
+                    catch (std::exception &e)
+                    {
+                        if (first)
+                        {
+                            first = false;
+                            std::cerr << "Program terminated with exception:\n";
+                        }
+                        std::cerr << e.what() << '\n';
+
+                        try
+                        {
+                            std::rethrow_if_nested(e);
+                        }
+                        catch (...)
+                        {
+                            eptr = std::current_exception();
+                        }
+                    }
+                    catch (...)
+                    {
+                        if (first)
+                            std::cerr << "Program terminated with an unknown exception.\n";
+                        else
+                            std::cerr << "Unknown exception.\n";
+                    }
                 }
             }
             else

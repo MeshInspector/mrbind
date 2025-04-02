@@ -387,6 +387,11 @@ namespace mrbind
                                             << (conv_op.comment ? EscapeQuoteString(conv_op.comment->text) : "/*no comment*/")
                                             << ")\n";
                                     },
+                                    [&](const ClassDtor &conv_op)
+                                    {
+                                        // Don't write those to the macros?
+                                        // Because the macro users can check `std::is_destructible_v` directly.
+                                    },
                                 }, member);
                             }
                             out << ")\n";

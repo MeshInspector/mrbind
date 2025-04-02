@@ -716,8 +716,6 @@ namespace mrbind
         {
             if (decl.getAccess() != clang::AS_public)
                 return true; // Reject non-public methods.
-            if (llvm::isa<clang::CXXDestructorDecl>(decl))
-                return true; // Reject destructors.
 
             const clang::CXXMethodDecl *method = clang::dyn_cast<clang::CXXMethodDecl>(&decl);
             if (!method)
@@ -957,6 +955,13 @@ namespace mrbind
 
                 ClassEntity &target_class = *params->nonrejected_class_stack.back();
 
+                if (auto dtor = llvm::dyn_cast<clang::CXXDestructorDecl>(decl))
+                {
+                    ClassDtor &new_dtor = target_class.members.emplace_back().emplace<ClassDtor>();
+                    new_dtor.comment = GetCommentString(*ctx, *method);
+                    return true; // Done processing the destructor. The rest is only for other kinds of members.
+                }
+
                 BasicFunc *basic_func = nullptr;
 
                 if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
@@ -1169,14 +1174,26 @@ namespace mrbind
                 for (clang::CXXConstructorDecl *ctor : cxxdecl->ctors())
                 {
                     if ((ctor->isDefaultConstructor() || ctor->isCopyOrMoveConstructor()) && ctor->isImplicit())
+                    {
                         VisitFunctionDecl(ctor);
+                        continue;
+                    }
                 }
 
                 // Assignment operators.
                 for (clang::CXXMethodDecl *method : cxxdecl->methods())
                 {
                     if ((method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator()) && method->isImplicit())
+                    {
                         VisitFunctionDecl(method);
+                        continue;
+                    }
+
+                    if (auto dtor = llvm::dyn_cast<clang::CXXDestructorDecl>(method); dtor && dtor->isImplicit())
+                    {
+                        VisitFunctionDecl(dtor);
+                        continue;
+                    }
                 }
             }
 

@@ -22,6 +22,12 @@ namespace mrbind
     {
         struct CBindingGenerator
         {
+            CBindingGenerator() {}
+
+            // This needs a stable address, at least because some `forward_declare_or_include_header` callbacks store a pointer to it.
+            CBindingGenerator(const CBindingGenerator &) = delete;
+            CBindingGenerator &operator=(const CBindingGenerator &) = delete;
+
             // Input: [
 
             // We rely on the contents having stable addresses (see `ParsedTypeInfo`), so don't mess with this too much.
@@ -47,6 +53,8 @@ namespace mrbind
             // ]
 
 
+            struct ParsedTypeInfo;
+
             // Describes one header and its source file that we're generating.
             struct OutputFile
             {
@@ -61,50 +69,31 @@ namespace mrbind
 
                 struct SpecificFileContents
                 {
-                    // The contents are pasted in this order:
+                    // The contents are pasted in this order: [
 
                     // This is pasted before the rest of the contents. It's in a separate variable to simplify generation.
                     std::string preamble;
-                    // This is pasted after the preamble. Use it to deduplicate includes. Using a plain `std::set` to get sorting for free.
-                    std::set<std::string> include_set;
+
+                    // The headers from `forward_declarations_and_inclusions` go here.
+
                     // `extern "C" {` goes here (the brace is closed in the footer). Maybe something else.
                     std::string after_includes;
-                    // Those are pasted after the preamble set. Put your forward declarations set.
-                    std::set<std::string> forward_declaration_set;
+
+                    // The forward declarations from `forward_declarations_and_inclusions` go here.
+
                     // This is the primary content.
                     std::string contents;
                     // This is pasted after everything else.
                     std::string footer;
 
-                    void DumpToOstream(std::ostream &out) const
+                    // ]
+
+                    struct ForwardDeclarationOrInclusion
                     {
-                        if (out)
-                            out << preamble << '\n';
-
-                        for (const auto &elem : include_set)
-                        {
-                            if (out)
-                                out << elem << '\n';
-                        }
-                        if (out && !include_set.empty())
-                            out << '\n';
-
-                        if (out)
-                            out << after_includes;
-
-                        for (const auto &elem : forward_declaration_set)
-                        {
-                            if (out)
-                                out << elem << '\n';
-                        }
-                        if (out && !forward_declaration_set.empty())
-                            out << '\n';
-
-                        if (out)
-                            out << contents << '\n';
-                        if (out)
-                            out << footer;
-                    }
+                        // If false we'll just forward-declare.
+                        bool need_header = false;
+                    };
+                    std::unordered_map<std::string, ForwardDeclarationOrInclusion> forward_declarations_and_inclusions;
                 };
 
                 SpecificFileContents header;
@@ -228,14 +217,50 @@ namespace mrbind
             {
                 OutputFile *declared_in_file = nullptr;
 
-                using InputTypeVariant = std::variant<const EnumEntity *>;
+                struct EnumDesc
+                {
+                    const EnumEntity *parsed = nullptr;
+
+                    // Need this for the variant to realize this is default-constructible, because this is a nested class.
+                    EnumDesc() {}
+                };
+
+                struct ClassDesc
+                {
+                    const ClassEntity *parsed = nullptr;
+
+                    // All of those imply destructible.
+                    bool is_default_constructible = false;
+                    bool is_copy_constructible = false;
+                    bool is_move_constructible = false;
+
+                    // Do we have any constructor, possibly not default/copy/move?
+                    bool is_any_constructible = false;
+
+                    // Only set if `IsDefaultCopyOrMoveConstructible()` is true.
+                    // This is a C enum that lets you select between one of the predefined constructors.
+                    std::string predefined_ctor_enum_name;
+
+                    // For consistency with `EnumDesc`. This one doesn't seem to be strictly necessary.
+                    ClassDesc() {}
+
+                    [[nodiscard]] bool IsDefaultCopyOrMoveConstructible() const
+                    {
+                        return is_default_constructible || is_copy_constructible || is_move_constructible;
+                    }
+                };
+
+                using InputTypeVariant = std::variant<EnumDesc, ClassDesc>;
                 InputTypeVariant input_type;
 
-                // Modifies the output file to provide a forward declaration of this type, or includes a header (our C header) that declares it.
-                // This should never be null.
-                std::function<void(OutputFile::SpecificFileContents &)> forward_declare_or_include_header;
+                // The type name for our C bindings.
+                cppdecl::Type c_type;
+                std::string c_type_str;
 
-                [[nodiscard]] bool IsEnum() const {return std::holds_alternative<const EnumEntity *>(input_type);}
+                std::optional<std::string> forward_declaration;
+
+                [[nodiscard]] bool IsEnum() const {return std::holds_alternative<EnumDesc>(input_type);}
+                [[nodiscard]] bool IsClass() const {return std::holds_alternative<ClassDesc>(input_type);}
             };
             // The keys are strings produced by `cppdecl`. Don't feed the input type names to this directly.
             std::unordered_map<std::string, ParsedTypeInfo> parsed_type_info;
@@ -357,6 +382,13 @@ namespace mrbind
 
             struct BindableType
             {
+                struct TypeDependency
+                {
+                    // If false, then will forward-declare this type if possible, instead of including its header.
+                    // If true, will always include the header.
+                    bool need_header = false;
+                };
+
                 struct ParamUsage
                 {
                     struct CParam
@@ -376,9 +408,9 @@ namespace mrbind
                     //   generates the argument for it.
                     std::function<std::string(std::string_view cpp_param_name)> c_params_to_cpp;
 
-                    // Which parsed types do we need to include or forward-declare?
+                    // Which parsed types do we need to include or forward-declare? The keys are C++ type names.
                     // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
-                    std::unordered_set<std::string> parsed_type_dependencies;
+                    std::unordered_map<std::string, TypeDependency> type_dependencies;
 
                     // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                     [[nodiscard]] std::string CParamsToCpp(std::string_view cpp_param_name) const
@@ -403,7 +435,7 @@ namespace mrbind
 
                     // Which parsed types do we need to include or forward-declare?
                     // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
-                    std::unordered_set<std::string> parsed_type_dependencies;
+                    std::unordered_map<std::string, TypeDependency> type_dependencies;
 
                     // Calls `make_return_statement` if not null, otherwise returns `"return "+expr+";"`.
                     [[nodiscard]] std::string MakeReturnStatement(std::string_view expr) const
@@ -456,14 +488,14 @@ namespace mrbind
                         // Not sure which way is better. Doing it lazily sounds a tiny bit more flexible?
 
                         if (new_type.param_usage)
-                            new_type.param_usage->parsed_type_dependencies.insert(str);
+                            new_type.param_usage->type_dependencies.try_emplace(str);
                         if (new_type.return_usage)
-                            new_type.return_usage->parsed_type_dependencies.insert(str);
+                            new_type.return_usage->type_dependencies.try_emplace(str);
                     });
                 };
 
 
-                // Try various type archetypes. The strongest ones first.
+                // Bindable without a cast?
                 if (IsBindableAsIsDirect(type))
                 {
                     auto type_c_style = type;
@@ -480,6 +512,7 @@ namespace mrbind
 
                     return bindable_cpp_types.try_emplace(type_str, new_type).first->second;
                 }
+                // Bindable with a C-style cast?
                 if (IsBindableAsIsDirectCast(type))
                 {
                     auto type_c_style = type;
@@ -488,7 +521,7 @@ namespace mrbind
                     BindableType new_type(type_c_style);
 
                     // Add the casts!
-                    new_type.return_usage->make_return_statement = [type_str](std::string_view expr){return "return (" + type_str + ")" + std::string(expr) + ";";};
+                    new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](std::string_view expr){return "return (" + type_str_c + ")" + std::string(expr) + ";";};
                     new_type.param_usage->c_params_to_cpp = [type_str](std::string_view cpp_param_name){return "(" + type_str + ")" + std::string(cpp_param_name);};
 
                     // Definitely needed here.
@@ -497,6 +530,102 @@ namespace mrbind
                     return bindable_cpp_types.try_emplace(type_str, new_type).first->second;
                 }
                 // Don't test the "indirect" archetypes. We're only interested in stuff that can be passed by value!
+
+
+                // Maybe a class?
+                if (type.modifiers.empty())
+                {
+                    if (auto iter = parsed_type_info.find(type_str); iter != parsed_type_info.end())
+                    {
+                        if (auto class_desc = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
+                        {
+                            if (!class_desc->IsDefaultCopyOrMoveConstructible())
+                                throw std::runtime_error("Can't bind class type `" + type_str + "` by value because it doesn't have a default nor copy nor move constructor, or isn't destructible.");
+
+                            BindableType new_type;
+
+                            BindableType::ParamUsage &param_usage = new_type.param_usage.emplace();
+                            param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
+
+                            param_usage.c_params.emplace_back().c_type = iter->second.c_type;
+                            param_usage.c_params.back().c_type.modifiers.emplace_back(cppdecl::Pointer{}); // This should be the only modifier at this point.
+                            param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(class_desc->predefined_ctor_enum_name);
+                            param_usage.c_params.back().name_suffix = "_pass_by";
+
+                            param_usage.c_params_to_cpp = [
+                                type_str,
+                                pass_by_enum = class_desc->predefined_ctor_enum_name,
+                                is_default_constructible = class_desc->is_default_constructible,
+                                is_copy_constructible = class_desc->is_copy_constructible,
+                                is_move_constructible = class_desc->is_move_constructible
+                            ](std::string_view cpp_param_name)
+                            {
+                                std::string ret;
+
+                                if (is_default_constructible)
+                                {
+                                    bool more = is_copy_constructible || is_move_constructible;
+                                    if (more)
+                                    {
+                                        ret += cpp_param_name;
+                                        ret += "_pass_by == ";
+                                        ret += pass_by_enum;
+                                        ret += "_Default ? ";
+                                    }
+
+                                    ret += "((void)";
+                                    ret += cpp_param_name;
+                                    ret += ", ";
+                                    ret += type_str;
+                                    ret += "{})";
+
+                                    if (more)
+                                        ret += " : ";
+                                }
+
+                                if (is_copy_constructible)
+                                {
+                                    bool more = is_move_constructible;
+                                    if (more)
+                                    {
+                                        ret += cpp_param_name;
+                                        ret += "_pass_by == ";
+                                        ret += pass_by_enum;
+                                        ret += "_Copy ? ";
+                                    }
+
+                                    ret += "*(";
+                                    ret += type_str;
+                                    ret += " *)";
+                                    ret += cpp_param_name;
+
+                                    if (more)
+                                        ret += " : ";
+                                }
+
+                                if (is_move_constructible)
+                                {
+                                    ret += "std::move(*(";
+                                    ret += type_str;
+                                    ret += " *)";
+                                    ret += cpp_param_name;
+                                    ret += ")";
+                                }
+
+                                return ret;
+                            };
+
+                            BindableType::ReturnUsage &return_usage = new_type.return_usage.emplace();
+
+                            return_usage.c_type = iter->second.c_type;
+                            return_usage.c_type.modifiers.emplace_back(cppdecl::Pointer{});
+                            return_usage.type_dependencies.try_emplace(type_str); // Only the forward declaration is needed.
+                            return_usage.make_return_statement = [type_str, type_str_c_style = iter->second.c_type_str](std::string_view expr){return "return (" + type_str_c_style + " *)new " + type_str + "(" + std::string(expr) + ");";};
+
+                            return bindable_cpp_types.try_emplace(type_str, new_type).first->second;
+                        }
+                    }
+                }
 
                 throw std::runtime_error("Don't know how to bind type `" + type_str + "`.");
             }
@@ -607,22 +736,94 @@ namespace mrbind
                 CBindingGenerator &self;
                 VisitorRegisterKnown(CBindingGenerator &self) : self(self) {}
 
+                void Visit(const ClassEntity &cl) override
+                {
+                    cppdecl::Type parsed_type = ParseTypeOrThrow(cl.full_type);
+
+                    auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+                    if (!is_new)
+                        throw std::logic_error("Internal error: Duplicate type in input: " + cl.full_type);
+
+                    ParsedTypeInfo &info = iter->second;
+                    info.declared_in_file = &self.GetOutputFile(cl.declared_in_file);
+
+                    info.c_type = parsed_type;
+                    ReplaceAllNamesInTypeWithCIdentifiers(info.c_type);
+                    info.c_type_str = ToCode(info.c_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    info.forward_declaration = "typedef struct " + info.c_type_str + " " + info.c_type_str + ";";
+
+                    ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();
+                    class_info.parsed = &cl;
+
+                    // Check what constructors we have.
+                    bool found_destructor = false;
+                    for (const auto &member_var : cl.members)
+                    {
+                        std::visit(Overload{
+                            [&](const ClassField &) {},
+                            [&](const ClassCtor &ctor)
+                            {
+                                class_info.is_any_constructible = true;
+                                if (ctor.kind == CopyMoveKind::copy)
+                                    class_info.is_copy_constructible = true;
+                                else if (ctor.kind == CopyMoveKind::move)
+                                    class_info.is_move_constructible = true;
+                                // Do all parameters have default arguments? Having zero parameters satisfies this too.
+                                else if (std::all_of(ctor.params.begin(), ctor.params.end(), [](const FuncParam &param){return bool(param.default_argument);}))
+                                    class_info.is_default_constructible = true;
+                            },
+                            [&](const ClassMethod &) {},
+                            [&](const ClassConvOp &) {},
+                            [&](const ClassDtor &)
+                            {
+                                found_destructor = true;
+                            },
+                        }, member_var);
+                    }
+
+                    // If not destructible, assume we're not constructible either.
+                    if (!found_destructor)
+                    {
+                        class_info.is_default_constructible = false;
+                        class_info.is_copy_constructible = false;
+                        class_info.is_move_constructible = false;
+                    }
+
+
+                    if (class_info.IsDefaultCopyOrMoveConstructible())
+                    {
+                        class_info.predefined_ctor_enum_name = info.c_type_str + "_PassBy";
+                    }
+                }
+
+                // void Visit(const FuncEntity &func) override
+                // {
+
+                // }
+
                 void Visit(const EnumEntity &en) override
                 {
-                    auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(ParseTypeOrThrow(en.full_type), cppdecl::ToCodeFlags::canonical_c_style));
+                    cppdecl::Type parsed_type = ParseTypeOrThrow(en.full_type);
+
+                    auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
                     if (!is_new)
-                        throw std::logic_error("Internal error: Expected this type to not exist in `parsed_type_info` at this point.");
+                        throw std::logic_error("Internal error: Duplicate type in input: " + en.full_type);
 
                     ParsedTypeInfo &info = iter->second;
 
                     info.declared_in_file = &self.GetOutputFile(en.declared_in_file);
-                    info.input_type = &en;
+                    info.c_type = parsed_type;
+                    ReplaceAllNamesInTypeWithCIdentifiers(info.c_type);
+                    info.c_type_str = ToCode(info.c_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-                    info.forward_declare_or_include_header = [header = info.declared_in_file->header_path_for_inclusion](OutputFile::SpecificFileContents &target)
-                    {
-                        target.include_set.insert("#include <" + header + ">");
-                    };
+                    ParsedTypeInfo::EnumDesc &enum_info = info.input_type.emplace<ParsedTypeInfo::EnumDesc>();
+                    enum_info.parsed = &en;
                 }
+
+                // void Visit(const TypedefEntity &td) override
+                // {
+
+                // }
             };
 
             // This actually emits the code for the parsed entities.
@@ -631,102 +832,184 @@ namespace mrbind
                 CBindingGenerator &self;
                 VisitorEmit(CBindingGenerator &self) : self(self) {}
 
-                // void Visit(const ClassEntity &cl) override
-                // {
+                void Visit(const ClassEntity &cl) override
+                {
+                    OutputFile &file = self.GetOutputFile(cl.declared_in_file);
 
-                // }
+                    const std::string type_str = ToCode(ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+
+                    const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
+                    const ParsedTypeInfo::ClassDesc &class_info = std::get<ParsedTypeInfo::ClassDesc>(type_info.input_type);
+
+                    // Forward-declaring in the middle of the file, not in the forward-declarations section.
+                    // Also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
+
+                    // Forward-declare.
+                    file.header.contents += '\n';
+                    if (cl.comment)
+                    {
+                        file.header.contents += cl.comment->text_with_slashes;
+                        file.header.contents += '\n';
+                    }
+                    file.header.contents += type_info.forward_declaration.value();
+                    file.header.contents += '\n';
+
+                    // Constructor selector enum?
+                    if (class_info.IsDefaultCopyOrMoveConstructible())
+                    {
+                        file.header.contents += "enum ";
+                        file.header.contents += class_info.predefined_ctor_enum_name;
+                        file.header.contents += "\n{\n";
+                        if (class_info.is_default_constructible)
+                        {
+                            file.header.contents += "    ";
+                            file.header.contents += class_info.predefined_ctor_enum_name;
+                            file.header.contents += "_Default, // Default-construct this parameter, the associated pointer is ignored.\n";
+                        }
+                        if (class_info.is_copy_constructible)
+                        {
+                            file.header.contents += "    ";
+                            file.header.contents += class_info.predefined_ctor_enum_name;
+                            file.header.contents += "_Copy, // Copy the object into the function.\n";
+                        }
+                        if (class_info.is_move_constructible)
+                        {
+                            file.header.contents += "    ";
+                            file.header.contents += class_info.predefined_ctor_enum_name;
+                            file.header.contents += "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
+                        }
+                        file.header.contents += "};\n";
+                    }
+                }
 
                 void Visit(const FuncEntity &func) override
                 {
-                    OutputFile &file = self.GetOutputFile(func.declared_in_file);
-
-
-                    cppdecl::Function new_func;
-
-                    std::string body = func.full_qual_name + "(";
-
-                    // Assemble the parameter and argument lists.
-                    std::size_t i = 0;
-                    for (const auto &param : func.params)
+                    try
                     {
-                        const BindableType &bindable_param_type = self.FindBindableType(ParseTypeOrThrow(param.type.canonical));
-                        if (!bindable_param_type.param_usage)
-                            throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
+                        OutputFile &file = self.GetOutputFile(func.declared_in_file);
 
-                        // Declare or include type dependencies of the parameter.
-                        for (const auto &dep : bindable_param_type.param_usage->parsed_type_dependencies)
+
+                        cppdecl::Function new_func;
+
+                        std::string body = func.full_qual_name + "(";
+
+                        // Assemble the parameter and argument lists.
+                        std::size_t i = 0;
+                        for (const auto &param : func.params)
                         {
-                            auto iter = self.parsed_type_info.find(dep);
-                            if (iter == self.parsed_type_info.end())
-                                throw std::runtime_error("Using this type as a parameter requires `" + dep + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
+                            try
+                            {
+                                const BindableType &bindable_param_type = self.FindBindableType(ParseTypeOrThrow(param.type.canonical));
+                                if (!bindable_param_type.param_usage)
+                                    throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
-                            iter->second.forward_declare_or_include_header(file.header);
+                                // Declare or include type dependencies of the parameter.
+                                for (const auto &dep : bindable_param_type.param_usage->type_dependencies)
+                                {
+                                    auto iter = self.parsed_type_info.find(dep.first);
+                                    if (iter == self.parsed_type_info.end())
+                                        throw std::runtime_error("Using this type as a parameter requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
+
+                                    if (iter->second.declared_in_file != &file)
+                                    {
+                                        file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+                                    }
+                                }
+
+                                std::string param_name = param.name ? *param.name : "_" + std::to_string(i);
+
+                                for (const auto &param_usage : bindable_param_type.param_usage->c_params)
+                                {
+                                    auto &new_param = new_func.params.emplace_back();
+                                    new_param.type = param_usage.c_type;
+                                    new_param.name.parts.emplace_back(param_name + param_usage.name_suffix);
+                                }
+
+                                if (i > 0)
+                                    body += ',';
+                                body += "\n        ";
+                                body += bindable_param_type.param_usage->CParamsToCpp(param_name);
+
+                                i++;
+                            }
+                            catch (...)
+                            {
+                                std::throw_with_nested(std::runtime_error("While processing parameter " + std::to_string(i) + ":"));
+                            }
+                        }
+                        if (!func.params.empty())
+                            body += '\n';
+                        body += "    )";
+
+
+                        cppdecl::Decl new_decl;
+                        new_decl.name.parts.emplace_back(StringToCIdentifier(func.full_qual_name));
+
+                        new_decl.type.modifiers.emplace_back(std::move(new_func));
+
+                        try
+                        {
+                            // Figure out the return type.
+                            const BindableType &bindable_return_type = self.FindBindableType(ParseTypeOrThrow(func.return_type.canonical));
+                            if (!bindable_return_type.return_usage)
+                                throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
+
+                            // Declare or include the type dependencies of the return type.
+                            for (const auto &dep : bindable_return_type.return_usage->type_dependencies)
+                            {
+                                auto iter = self.parsed_type_info.find(dep.first);
+                                if (iter == self.parsed_type_info.end())
+                                    throw std::runtime_error("Using this type as a return type requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
+
+                                if (iter->second.declared_in_file != &file)
+                                {
+                                    file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+                                }
+                            }
+
+                            new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
+                            body = bindable_return_type.return_usage->MakeReturnStatement(body);
+                        }
+                        catch (...)
+                        {
+                            std::throw_with_nested(std::runtime_error("While processing the return type:"));
                         }
 
-                        std::string param_name = param.name ? *param.name : "_" + std::to_string(i);
 
-                        for (const auto &param_usage : bindable_param_type.param_usage->c_params)
-                        {
-                            auto &new_param = new_func.params.emplace_back();
-                            new_param.type = param_usage.c_type;
-                            new_param.name.parts.emplace_back(param_name + param_usage.name_suffix);
-                        }
+                        std::string new_decl_str = ToCode(new_decl, cppdecl::ToCodeFlags::canonical_c_style);
 
-                        if (i > 0)
-                            body += ", ";
-                        body += bindable_param_type.param_usage->CParamsToCpp(param_name);
+                        file.source.preamble += "#include <";
+                        file.source.preamble += self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file);
+                        file.source.preamble += ">\n";
 
-                        i++;
-                    }
-                    body += ')';
-
-                    // Figure out the return type.
-                    const BindableType &bindable_return_type = self.FindBindableType(ParseTypeOrThrow(func.return_type.canonical));
-                    if (!bindable_return_type.return_usage)
-                        throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
-
-                    // Declare or include the type dependencies of the return type.
-                    for (const auto &dep : bindable_return_type.return_usage->parsed_type_dependencies)
-                    {
-                        auto iter = self.parsed_type_info.find(dep);
-                        if (iter == self.parsed_type_info.end())
-                            throw std::runtime_error("Using this type as a return type requires `" + dep + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
-
-                        iter->second.forward_declare_or_include_header(file.header);
-                    }
-
-                    cppdecl::Decl new_decl;
-                    new_decl.name.parts.emplace_back(StringToCIdentifier(func.full_qual_name));
-
-                    new_decl.type.modifiers.emplace_back(std::move(new_func));
-                    new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
-
-                    body = bindable_return_type.return_usage->MakeReturnStatement(body);
-
-
-                    std::string new_decl_str = ToCode(new_decl, cppdecl::ToCodeFlags::canonical_c_style);
-
-                    file.source.include_set.insert("#include <" + self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file) + ">");
-
-                    file.header.contents += '\n';
-                    if (func.comment)
-                    {
-                        file.header.contents += func.comment->text_with_slashes;
                         file.header.contents += '\n';
-                    }
-                    file.header.contents += new_decl_str;
-                    file.header.contents += ";\n";
+                        if (func.comment)
+                        {
+                            file.header.contents += func.comment->text_with_slashes;
+                            file.header.contents += '\n';
+                        }
+                        file.header.contents += new_decl_str;
+                        file.header.contents += ";\n";
 
-                    file.source.contents += '\n';
-                    file.source.contents += new_decl_str;
-                    file.source.contents += "\n{\n    ";
-                    file.source.contents += body;
-                    file.source.contents += "\n}\n";
+                        file.source.contents += '\n';
+                        file.source.contents += new_decl_str;
+                        file.source.contents += "\n{\n    ";
+                        file.source.contents += body;
+                        file.source.contents += "\n}\n";
+                    }
+                    catch (...)
+                    {
+                        std::throw_with_nested(std::runtime_error("While binding function: " + func.full_qual_name));
+                    }
                 }
 
                 void Visit(const EnumEntity &en) override
                 {
                     OutputFile &file = self.GetOutputFile(en.declared_in_file);
+
+                    const std::string parsed_type_str = ToCode(ParseTypeOrThrow(en.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+
+                    const auto &c_type_str = self.parsed_type_info.at(parsed_type_str).c_type_str;
 
                     file.header.contents += '\n';
 
@@ -736,10 +1019,8 @@ namespace mrbind
                         file.header.contents += '\n';
                     }
 
-                    std::string enum_c_name = StringToCIdentifier(en.full_type);
-
                     file.header.contents += "enum ";
-                    file.header.contents += enum_c_name;
+                    file.header.contents += c_type_str;
                     file.header.contents += "\n{\n";
 
                     for (const EnumElem &elem : en.elems)
@@ -752,7 +1033,7 @@ namespace mrbind
                         }
 
                         file.header.contents += "    ";
-                        file.header.contents += enum_c_name;
+                        file.header.contents += c_type_str;
                         file.header.contents += '_';
                         file.header.contents += elem.name;
                         file.header.contents += " = ";
@@ -780,6 +1061,80 @@ namespace mrbind
                     VisitorEmit v(*this);
                     v.Process(data.entities);
                 }
+            }
+
+
+            void DumpFileToOstream(const OutputFile::SpecificFileContents &file, std::ostream &out)
+            {
+                if (out)
+                    out << file.preamble << '\n';
+
+                // Should we include a header to declare this type, as opposed to forward-declaring it?
+                auto UseHeader = [this](const std::pair<const std::string, OutputFile::SpecificFileContents::ForwardDeclarationOrInclusion> &target)
+                {
+                    return target.second.need_header || !parsed_type_info.at(target.first).forward_declaration;
+                };
+
+                { // Generate and write the list of headers.
+                    std::unordered_set<std::string> headers;
+                    for (const auto &elem : file.forward_declarations_and_inclusions)
+                    {
+                        if (UseHeader(elem))
+                        {
+                            const auto &parsed_type = parsed_type_info.at(elem.first);
+
+                            if (!parsed_type.declared_in_file) // Normally this can't be null.
+                            {
+                                if (elem.second.need_header)
+                                    throw std::runtime_error("Need to include a header for type `" + elem.first + "`, but don't what header to include.");
+                                else
+                                    throw std::runtime_error("Need to include a header or forward-declare type `" + elem.first + "`, but don't know how.");
+                            }
+
+                            headers.insert(parsed_type.declared_in_file->header_path_for_inclusion);
+                        }
+                    }
+
+                    for (const auto &header : headers)
+                    {
+                        if (out)
+                            out << "#include <" << header << ">\n";
+                    }
+                    if (!headers.empty() && out)
+                        out << '\n';
+                }
+
+                if (out && !file.after_includes.empty())
+                    out << file.after_includes << '\n';
+
+                { // Generate and write the list of forward declarations.
+                    std::unordered_set<std::string> fwd_decls;
+                    for (const auto &elem : file.forward_declarations_and_inclusions)
+                    {
+                        if (!UseHeader(elem))
+                        {
+                            const auto &fwd_decl = parsed_type_info.at(elem.first).forward_declaration;
+
+                            if (!fwd_decl)
+                                throw std::runtime_error("Need to forward-declare type `" + elem.first + "`, but don't know how.");
+
+                            fwd_decls.insert(*fwd_decl);
+                        }
+                    }
+
+                    for (const auto &header : fwd_decls)
+                    {
+                        if (out)
+                            out << header << '\n';
+                    }
+                    if (!fwd_decls.empty() && out)
+                        out << '\n';
+                }
+
+                if (out)
+                    out << file.contents << '\n';
+                if (out)
+                    out << file.footer;
             }
         };
     }
@@ -819,11 +1174,11 @@ int main(int raw_argc, char **raw_argv)
                     "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
                     "    --clean-output-dirs                    - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
                     "    --strip-filename-suffix  <ext>         - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
-                    "    --assume-include-dir  <dir>            - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority.\n"
+                    "    --assume-include-dir  <dir>            - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. Probably shouldn't be set to the exact same directory as passed to `--map-path`, but rather to it's parent, or you're risking name conflicts between your C++ and generated C headers, if you've been using the `.h` extension for your C++ headers too.\n"
                     "    --verbose                              - Write some logs.\n"
                     "\n"
                     "A minimal usage might look like this:\n"
-                    "    mrbind_gen_c --input test/build/parsed.json --output-header-dir test/build/include --clean-output-dirs --output-source-dir test/build/source --map-path test/input . --assume-include-dir test/input\n"
+                    "    mrbind_gen_c --input test/build/parsed.json --output-header-dir test/build/include --clean-output-dirs --output-source-dir test/build/source --map-path test/input . --assume-include-dir test\n"
                     "With `--clean-output-dirs` being optional.\n"
                     ;
                 return 0;
@@ -995,7 +1350,7 @@ int main(int raw_argc, char **raw_argv)
 
             std::ofstream output(mrbind::MakePath(elem.second.header_path_full));
             if (output)
-                elem.second.header.DumpToOstream(output);
+                generator.DumpFileToOstream(elem.second.header, output);
             if (!output)
                 throw std::runtime_error("Failed to write to the output file: `" + elem.second.header_path_full + "`.");
         }
@@ -1009,7 +1364,7 @@ int main(int raw_argc, char **raw_argv)
 
             std::ofstream output(mrbind::MakePath(elem.second.source_path_full));
             if (output)
-                elem.second.source.DumpToOstream(output);
+                generator.DumpFileToOstream(elem.second.source, output);
             if (!output)
                 throw std::runtime_error("Failed to write to the output file: `" + elem.second.source_path_full + "`.");
         }
