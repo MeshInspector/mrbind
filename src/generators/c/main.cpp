@@ -237,9 +237,16 @@ namespace mrbind
                     // Do we have any constructor, possibly not default/copy/move?
                     bool is_any_constructible = false;
 
+                    // Currently if this is false, all the other constructors are hidden and set to `false` too.
+                    bool is_destructible = false;
+
                     // Only set if `IsDefaultCopyOrMoveConstructible()` is true.
                     // This is a C enum that lets you select between one of the predefined constructors.
                     std::string predefined_ctor_enum_name;
+
+                    // Only set if `is_destructible`.
+                    // This is the name of the cleanup (destruction) function.
+                    std::string cleanup_func_name;
 
                     // For consistency with `EnumDesc`. This one doesn't seem to be strictly necessary.
                     ClassDesc() {}
@@ -412,6 +419,11 @@ namespace mrbind
                     // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
                     std::unordered_map<std::string, TypeDependency> type_dependencies;
 
+                    // When this type is returned, this string is appended to the comment.
+                    // Don't include line breaks before and after, we add them automatically.
+                    // Do include the leading slashes, normally `///`.
+                    std::string append_to_comment;
+
                     // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                     [[nodiscard]] std::string CParamsToCpp(std::string_view cpp_param_name) const
                     {
@@ -423,6 +435,11 @@ namespace mrbind
                 };
                 // If this is null, this type is unusable as a parameter.
                 std::optional<ParamUsage> param_usage;
+
+                // If this is set, `param_usage` must be set too. This lets you create a different behavior for when there's a default argument.
+                // NOTE: If not set, the plain `param_usage` will be used for parameters with default arguments too!
+                std::optional<ParamUsage> param_usage_with_default_arg;
+
 
                 struct ReturnUsage
                 {
@@ -436,6 +453,11 @@ namespace mrbind
                     // Which parsed types do we need to include or forward-declare?
                     // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
                     std::unordered_map<std::string, TypeDependency> type_dependencies;
+
+                    // When this type is returned, this string is appended to the comment.
+                    // Don't include line breaks before and after, we add them automatically.
+                    // Do include the leading slashes, normally `///`.
+                    std::string append_to_comment;
 
                     // Calls `make_return_statement` if not null, otherwise returns `"return "+expr+";"`.
                     [[nodiscard]] std::string MakeReturnStatement(std::string_view expr) const
@@ -458,7 +480,22 @@ namespace mrbind
                     ParamUsage &param = param_usage.emplace();
                     param.c_params.push_back({.c_type = c_type, .name_suffix = ""});
 
+                    ParamUsage &param_def_arg = param_usage_with_default_arg.emplace();
+                    param_def_arg.c_params.push_back({
+                        .c_type = c_type.AddTopLevelModifier(cppdecl::Pointer{}).AddTopLevelQualifiers(cppdecl::CvQualifiers::const_),
+                        #error why does this crash? visit doesn't work for some reason
+                        #error after you fix this, to add the "default argument" optional param to `c_params_to_cpp`,
+                        #error and that should complete the default arg support!
+                        .name_suffix = "",
+                    });
+                    param_def_arg.append_to_comment = "/// To use the default argument, pass a null pointer.";
+
                     ReturnUsage &ret = return_usage.emplace();
+
+                    // For `void` omit `return` for clarity.
+                    if (c_type.AsSingleWord() == "void")
+                        return_usage->make_return_statement = [](std::string_view expr){return std::string(expr) + ";";};
+
                     ret.c_type = std::move(c_type); // Here we can move the type.
                 }
             };
@@ -489,6 +526,8 @@ namespace mrbind
 
                         if (new_type.param_usage)
                             new_type.param_usage->type_dependencies.try_emplace(str);
+                        if (new_type.param_usage_with_default_arg)
+                            new_type.param_usage_with_default_arg->type_dependencies.try_emplace(str);
                         if (new_type.return_usage)
                             new_type.return_usage->type_dependencies.try_emplace(str);
                     });
@@ -502,10 +541,6 @@ namespace mrbind
                     ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
 
                     BindableType new_type(type_c_style);
-
-                    // For `void` omit `return` for clarity.
-                    if (type.AsSingleWord() == "void")
-                        new_type.return_usage->make_return_statement = [](std::string_view expr){return std::string(expr) + ";";};
 
                     // I THINK this isn't gonna add anything in this case, but just in case.
                     FillDefaultTypeDependencies(new_type);
@@ -522,7 +557,9 @@ namespace mrbind
 
                     // Add the casts!
                     new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](std::string_view expr){return "return (" + type_str_c + ")" + std::string(expr) + ";";};
-                    new_type.param_usage->c_params_to_cpp = [type_str](std::string_view cpp_param_name){return "(" + type_str + ")" + std::string(cpp_param_name);};
+                    new_type.param_usage->c_params_to_cpp
+                        = new_type.param_usage_with_default_arg->c_params_to_cpp
+                        = [type_str](std::string_view cpp_param_name){return "(" + type_str + ")" + std::string(cpp_param_name);};
 
                     // Definitely needed here.
                     FillDefaultTypeDependencies(new_type);
@@ -620,6 +657,9 @@ namespace mrbind
                             return_usage.c_type = iter->second.c_type;
                             return_usage.c_type.modifiers.emplace_back(cppdecl::Pointer{});
                             return_usage.type_dependencies.try_emplace(type_str); // Only the forward declaration is needed.
+                            return_usage.append_to_comment = "/// Returns an instance allocated on the heap! Must call `";
+                            return_usage.append_to_comment += class_desc->cleanup_func_name;
+                            return_usage.append_to_comment += "()` to free it when you're done using it.";
                             return_usage.make_return_statement = [type_str, type_str_c_style = iter->second.c_type_str](std::string_view expr){return "return (" + type_str_c_style + " *)new " + type_str + "(" + std::string(expr) + ");";};
 
                             return bindable_cpp_types.try_emplace(type_str, new_type).first->second;
@@ -756,7 +796,6 @@ namespace mrbind
                     class_info.parsed = &cl;
 
                     // Check what constructors we have.
-                    bool found_destructor = false;
                     for (const auto &member_var : cl.members)
                     {
                         std::visit(Overload{
@@ -776,13 +815,13 @@ namespace mrbind
                             [&](const ClassConvOp &) {},
                             [&](const ClassDtor &)
                             {
-                                found_destructor = true;
+                                class_info.is_destructible = true;
                             },
                         }, member_var);
                     }
 
                     // If not destructible, assume we're not constructible either.
-                    if (!found_destructor)
+                    if (!class_info.is_destructible)
                     {
                         class_info.is_default_constructible = false;
                         class_info.is_copy_constructible = false;
@@ -791,9 +830,10 @@ namespace mrbind
 
 
                     if (class_info.IsDefaultCopyOrMoveConstructible())
-                    {
                         class_info.predefined_ctor_enum_name = info.c_type_str + "_PassBy";
-                    }
+
+                    if (class_info.is_destructible)
+                        class_info.cleanup_func_name = info.c_type_str + "_Destroy";
                 }
 
                 // void Visit(const FuncEntity &func) override
@@ -893,6 +933,13 @@ namespace mrbind
 
                         std::string body = func.full_qual_name + "(";
 
+                        std::string comment;
+                        if (func.comment)
+                        {
+                            comment += func.comment->text_with_slashes;
+                            comment += '\n';
+                        }
+
                         // Assemble the parameter and argument lists.
                         std::size_t i = 0;
                         for (const auto &param : func.params)
@@ -900,11 +947,16 @@ namespace mrbind
                             try
                             {
                                 const BindableType &bindable_param_type = self.FindBindableType(ParseTypeOrThrow(param.type.canonical));
-                                if (!bindable_param_type.param_usage)
+                                const auto &param_usage =
+                                    param.default_argument && bindable_param_type.param_usage_with_default_arg
+                                    ? bindable_param_type.param_usage_with_default_arg
+                                    : bindable_param_type.param_usage;
+
+                                if (!param_usage)
                                     throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
                                 // Declare or include type dependencies of the parameter.
-                                for (const auto &dep : bindable_param_type.param_usage->type_dependencies)
+                                for (const auto &dep : param_usage->type_dependencies)
                                 {
                                     auto iter = self.parsed_type_info.find(dep.first);
                                     if (iter == self.parsed_type_info.end())
@@ -918,7 +970,7 @@ namespace mrbind
 
                                 std::string param_name = param.name ? *param.name : "_" + std::to_string(i);
 
-                                for (const auto &param_usage : bindable_param_type.param_usage->c_params)
+                                for (const auto &param_usage : param_usage->c_params)
                                 {
                                     auto &new_param = new_func.params.emplace_back();
                                     new_param.type = param_usage.c_type;
@@ -928,7 +980,24 @@ namespace mrbind
                                 if (i > 0)
                                     body += ',';
                                 body += "\n        ";
-                                body += bindable_param_type.param_usage->CParamsToCpp(param_name);
+                                body += param_usage->CParamsToCpp(param_name);
+
+                                // Comment about the default argument.
+                                if (param.default_argument)
+                                {
+                                    comment += "/// Parameter `";
+                                    comment += param_name;
+                                    comment += "` has default argument: ";
+                                    comment += param.default_argument->original_spelling;
+                                    comment += '\n';
+                                }
+
+                                // Custom comment?
+                                if (!param_usage->append_to_comment.empty())
+                                {
+                                    comment += param_usage->append_to_comment;
+                                    comment += '\n';
+                                }
 
                                 i++;
                             }
@@ -967,6 +1036,13 @@ namespace mrbind
                                 }
                             }
 
+                            // Custom comment?
+                            if (!bindable_return_type.return_usage->append_to_comment.empty())
+                            {
+                                comment += bindable_return_type.return_usage->append_to_comment;
+                                comment += '\n';
+                            }
+
                             new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
                             body = bindable_return_type.return_usage->MakeReturnStatement(body);
                         }
@@ -983,11 +1059,7 @@ namespace mrbind
                         file.source.preamble += ">\n";
 
                         file.header.contents += '\n';
-                        if (func.comment)
-                        {
-                            file.header.contents += func.comment->text_with_slashes;
-                            file.header.contents += '\n';
-                        }
+                        file.header.contents += comment;
                         file.header.contents += new_decl_str;
                         file.header.contents += ";\n";
 
