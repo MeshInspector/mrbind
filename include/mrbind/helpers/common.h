@@ -1,5 +1,7 @@
 #pragma once
 
+#include <type_traits>
+
 // Some common helpers.
 
 namespace MRBind
@@ -12,6 +14,9 @@ namespace MRBind
     template <typename ...P> using FirstType = typename FirstTypeHelper<P...>::type;
     // Returns the second type of a parameter pack.
     template <typename ...P> using SecondType = typename SecondTypeHelper<P...>::type;
+
+    template <typename T>
+    concept MutableLvalueRef = std::is_lvalue_reference_v<T> && !std::is_const_v<std::remove_reference_t<T>>;
 }
 
 #define MRBIND_NULL(...)
