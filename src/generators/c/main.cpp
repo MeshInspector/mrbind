@@ -67,6 +67,33 @@ namespace mrbind
                 // The identifier of this file. Basically a relative path without an extension.
                 std::string relative_name;
 
+                // This sets `relative_name` and all the fields above.
+                void InitRelativeName(CBindingGenerator &self, std::string new_relative_name, bool is_public)
+                {
+                    relative_name = std::move(new_relative_name);
+
+                    std::filesystem::path relative_output_path = MakePath(relative_name);
+
+                    const auto &header_dir = is_public ? self.output_header_dir_path : self.output_source_dir_path;
+
+                    header_path_full = PathToString((header_dir                  / relative_output_path).lexically_normal()) + self.extension_header;
+                    source_path_full = PathToString((self.output_source_dir_path / relative_output_path).lexically_normal()) + self.extension_source;
+                    header_path_for_inclusion = PathToString(relative_output_path.lexically_normal()) + self.extension_header;
+
+                    { // Decide what directories to create.
+                        std::filesystem::path cur_path = relative_output_path.lexically_normal();
+                        while (true)
+                        {
+                            cur_path = cur_path.parent_path();
+                            if (cur_path.empty() || cur_path == ".")
+                                break;
+                            self.directories_to_create.insert((header_dir                  / cur_path).lexically_normal());
+                            self.directories_to_create.insert((self.output_source_dir_path / cur_path).lexically_normal());
+                        }
+                    }
+                }
+
+
                 struct SpecificFileContents
                 {
                     // The contents are pasted in this order: [
@@ -74,12 +101,17 @@ namespace mrbind
                     // This is pasted before the rest of the contents. It's in a separate variable to simplify generation.
                     std::string preamble;
 
-                    // The headers from `forward_declarations_and_inclusions` go here.
+                    // The headers from `forward_declarations_and_inclusions` are appended to this.
+                    // Prefer that variable instead of adding things here.
+                    // This stores header names without `#include <...>`, which is added automatically.
+                    std::set<std::string> custom_headers;
 
                     // `extern "C" {` goes here (the brace is closed in the footer). Maybe something else.
                     std::string after_includes;
 
-                    // The forward declarations from `forward_declarations_and_inclusions` go here.
+                    // The forward declarations from `forward_declarations_and_inclusions` are appended to this.
+                    // Prefer that variable instead of adding things here.
+                    std::set<std::string> custom_forward_declarations;
 
                     // This is the primary content.
                     std::string contents;
@@ -93,13 +125,14 @@ namespace mrbind
                         // If false we'll just forward-declare.
                         bool need_header = false;
                     };
+                    // Lists all type names that are needed here, and whether we should include headers for them for forward-decare them.
                     std::unordered_map<std::string, ForwardDeclarationOrInclusion> forward_declarations_and_inclusions;
                 };
 
                 SpecificFileContents header;
                 SpecificFileContents source;
 
-                void Initialize()
+                void InitDefaultContents()
                 {
                     header.preamble += "#pragma once\n";
                     source.preamble += "#include \"" + header_path_for_inclusion + "\"\n";
@@ -151,10 +184,11 @@ namespace mrbind
                     return file; // Already exists.
 
                 // Get the filename relative to the output directory, without extension.
+                std::string rel_name;
                 auto prefix_it = path_mappings.find(source.canonical);
                 if (prefix_it != path_mappings.end())
                 {
-                    file.relative_name = prefix_it->second; // Direct match.
+                    rel_name = prefix_it->second; // Direct match.
                 }
                 else
                 {
@@ -166,15 +200,15 @@ namespace mrbind
                         auto it = path_mappings.find(source_copy_str);
                         if (it != path_mappings.end())
                         {
-                            file.relative_name = it->second;
-                            file.relative_name += source.canonical.substr(source_copy_str.size());
+                            rel_name = it->second;
+                            rel_name += source.canonical.substr(source_copy_str.size());
 
                             // Strip some known extensions.
                             for (const auto &ext : known_input_exts_to_strip)
                             {
-                                if (file.relative_name.ends_with(ext))
+                                if (rel_name.ends_with(ext))
                                 {
-                                    file.relative_name.resize(file.relative_name.size() - ext.size());
+                                    rel_name.resize(rel_name.size() - ext.size());
                                     break;
                                 }
                             }
@@ -189,27 +223,32 @@ namespace mrbind
                     }
                 }
 
-                std::filesystem::path relative_output_path = MakePath(file.relative_name);
-
-                // Compute the final paths.
-                file.header_path_full = PathToString((output_header_dir_path / relative_output_path).lexically_normal()) + extension_header;
-                file.source_path_full = PathToString((output_source_dir_path / relative_output_path).lexically_normal()) + extension_source;
-                file.header_path_for_inclusion = PathToString(relative_output_path.lexically_normal()) + extension_header;
-
-                { // Decide what directories to create.
-                    std::filesystem::path cur_path = relative_output_path.lexically_normal();
-                    while (true)
-                    {
-                        cur_path = cur_path.parent_path();
-                        if (cur_path.empty() || cur_path == ".")
-                            break;
-                        directories_to_create.insert((output_header_dir_path / cur_path).lexically_normal());
-                        directories_to_create.insert((output_source_dir_path / cur_path).lexically_normal());
-                    }
-                }
-
-                file.Initialize();
+                file.InitRelativeName(*this, std::move(rel_name), true);
+                file.InitDefaultContents();
                 return file;
+            }
+
+            // Returns a special output file that holds the internal implementation details.
+            // This is created lazily only if this is called.
+            [[nodiscard]] OutputFile &GetInternalDetailsFile()
+            {
+                static const std::string id = "__mrbind_c_details";
+                auto [iter, is_new] = outputs.try_emplace(id);
+                OutputFile &file = iter->second;
+
+                if (!is_new)
+                    return iter->second;
+
+                file.InitRelativeName(*this, id, false);
+                file.InitDefaultContents();
+
+                // Class default arguments.
+                file.header.contents += "#define MRBINDC_CLASSARG_DEFCTOR(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_DefaultConstruct ? (void(param_), cpptype_{}) :\n";
+                file.header.contents += "#define MRBINDC_CLASSARG_COPY(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Copy ? cpptype_(*(cpptype_ *)param_) :\n";
+                file.header.contents += "#define MRBINDC_CLASSARG_MOVE(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Move ? cpptype_(std::move(*(cpptype_ *)param_)) :\n";
+                file.header.contents += "#define MRBINDC_CLASSARG_DEFARG(param_, cpptype_, pass_by_enum_, ...) param_##_pass_by == pass_by_enum_##_DefaultArgument ? cpptype_(__VA_ARGS__) :\n";
+                file.header.contents += "#define MRBINDC_CLASSARG_NO_DEFARG(param_) param_##_pass_by == pass_by_enum_##_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `PassBy_DefaultArgument` was used for it.\") :\n";
+                file.header.contents += "#define MRBINDC_CLASSARG_END(param_) throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\")\n";
             }
 
 
@@ -403,7 +442,8 @@ namespace mrbind
                         cppdecl::Type c_type;
 
                         // This is only needed if `param_usage.size() > 1` (see below). This gets added to the name of the function parameter.
-                        std::string name_suffix;
+                        // Adding `""` to mark this as optional for Clang's designated init.
+                        std::string name_suffix = "";
                     };
 
                     // Must not be empty. Usually this will have size 1.
@@ -411,9 +451,12 @@ namespace mrbind
                     std::vector<CParam> c_params;
 
                     // Defaults to an identity function if null.
-                    // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above),
-                    //   generates the argument for it.
-                    std::function<std::string(std::string_view cpp_param_name)> c_params_to_cpp;
+                    // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
+                    // The `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
+                    //   `type_dependencies` for that purpose.
+                    // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is,
+                    //   this might never receive default arguments.
+                    std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
 
                     // Which parsed types do we need to include or forward-declare? The keys are C++ type names.
                     // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
@@ -422,23 +465,33 @@ namespace mrbind
                     // When this type is returned, this string is appended to the comment.
                     // Don't include line breaks before and after, we add them automatically.
                     // Do include the leading slashes, normally `///`.
-                    std::string append_to_comment;
+                    // This receives a flag on whether we have a default argument or not, but not the default argument itself,
+                    //   because we automatically generate another comment line stating its value, and don't want to accidentally do it here.
+                    std::function<std::string(bool has_default_arg)> append_to_comment;
 
                     // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
-                    [[nodiscard]] std::string CParamsToCpp(std::string_view cpp_param_name) const
+                    // `default_arg` should be empty if there's no default argument.
+                    [[nodiscard]] std::string CParamsToCpp(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg) const
                     {
                         if (c_params_to_cpp)
-                            return c_params_to_cpp(cpp_param_name);
+                            return c_params_to_cpp(file, cpp_param_name, default_arg);
                         else
                             return std::string(cpp_param_name);
                     }
                 };
-                // If this is null, this type is unusable as a parameter.
+
+                // One of those must be non-null for this type to be usable as a parameter: [
+
+                // If only this one is set, the type can't handle default arguments.
+                // If both are set, this one is used when there's no default argument.
+                // Either way, `.c_params_to_cpp` here never receives default arguments.
                 std::optional<ParamUsage> param_usage;
 
-                // If this is set, `param_usage` must be set too. This lets you create a different behavior for when there's a default argument.
-                // NOTE: If not set, the plain `param_usage` will be used for parameters with default arguments too!
+                // If only this one is set, this is used for params both with default arguments and without.
+                // If `param_usage` is also set, then this one handles only the parameters with default arguments.
                 std::optional<ParamUsage> param_usage_with_default_arg;
+
+                // ]
 
 
                 struct ReturnUsage
@@ -475,20 +528,11 @@ namespace mrbind
                 BindableType() {}
 
                 // Sets the default parameters for a simple type that can be passed directly.
+                // This doesn't allow the default arguments by default.
                 explicit BindableType(cppdecl::Type c_type)
                 {
                     ParamUsage &param = param_usage.emplace();
                     param.c_params.push_back({.c_type = c_type, .name_suffix = ""});
-
-                    ParamUsage &param_def_arg = param_usage_with_default_arg.emplace();
-                    param_def_arg.c_params.push_back({
-                        .c_type = c_type.AddTopLevelModifier(cppdecl::Pointer{}).AddTopLevelQualifiers(cppdecl::CvQualifiers::const_),
-                        #error why does this crash? visit doesn't work for some reason
-                        #error after you fix this, to add the "default argument" optional param to `c_params_to_cpp`,
-                        #error and that should complete the default arg support!
-                        .name_suffix = "",
-                    });
-                    param_def_arg.append_to_comment = "/// To use the default argument, pass a null pointer.";
 
                     ReturnUsage &ret = return_usage.emplace();
 
@@ -542,6 +586,25 @@ namespace mrbind
 
                     BindableType new_type(type_c_style);
 
+                    // Allow default arguments via pointers.
+                    auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
+                    param_def_arg.c_params.push_back({
+                        .c_type = type_c_style.AddTopLevelModifier(cppdecl::Pointer{}).AddTopLevelQualifiers(cppdecl::CvQualifiers::const_)
+                    });
+                    param_def_arg.append_to_comment = [](bool){return "/// To use the default argument, pass a null pointer.";};
+                    param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                    {
+                        std::string ret;
+                        ret += cpp_param_name;
+                        ret += " ? *";
+                        ret += cpp_param_name;
+                        ret += " : (";
+                        ret += type_str;
+                        ret += ")";
+                        ret += default_arg;
+                        return ret;
+                    };
+
                     // I THINK this isn't gonna add anything in this case, but just in case.
                     FillDefaultTypeDependencies(new_type);
 
@@ -557,9 +620,32 @@ namespace mrbind
 
                     // Add the casts!
                     new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](std::string_view expr){return "return (" + type_str_c + ")" + std::string(expr) + ";";};
-                    new_type.param_usage->c_params_to_cpp
-                        = new_type.param_usage_with_default_arg->c_params_to_cpp
-                        = [type_str](std::string_view cpp_param_name){return "(" + type_str + ")" + std::string(cpp_param_name);};
+                    new_type.param_usage->c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &, std::string_view cpp_param_name, std::string_view default_arg)
+                    {
+                        return "(" + type_str + ")" + std::string(cpp_param_name);
+                    };
+
+                    // Allow default arguments via pointers.
+                    auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
+                    param_def_arg.c_params.push_back({
+                        .c_type = type_c_style.AddTopLevelModifier(cppdecl::Pointer{}).AddTopLevelQualifiers(cppdecl::CvQualifiers::const_)
+                    });
+                    param_def_arg.append_to_comment = [](bool){return "/// To use the default argument, pass a null pointer.";};
+                    param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                    {
+                        std::string ret;
+                        ret += cpp_param_name;
+                        ret += " ? (";
+                        ret += type_str;
+                        ret += ")*";
+                        ret += cpp_param_name;
+                        ret += " : ";
+                        ret += type_str;
+                        ret += "(";
+                        ret += default_arg;
+                        ret += ")";
+                        return ret;
+                    };
 
                     // Definitely needed here.
                     FillDefaultTypeDependencies(new_type);
@@ -581,7 +667,8 @@ namespace mrbind
 
                             BindableType new_type;
 
-                            BindableType::ParamUsage &param_usage = new_type.param_usage.emplace();
+                            // Here we only fill the `_with_default_arg` version, because that handles both.
+                            BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
                             param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
 
                             param_usage.c_params.emplace_back().c_type = iter->second.c_type;
@@ -590,64 +677,72 @@ namespace mrbind
                             param_usage.c_params.back().name_suffix = "_pass_by";
 
                             param_usage.c_params_to_cpp = [
+                                this,
                                 type_str,
                                 pass_by_enum = class_desc->predefined_ctor_enum_name,
                                 is_default_constructible = class_desc->is_default_constructible,
                                 is_copy_constructible = class_desc->is_copy_constructible,
                                 is_move_constructible = class_desc->is_move_constructible
-                            ](std::string_view cpp_param_name)
+                            ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                             {
                                 std::string ret;
 
+                                // Insert the defails file for the `PassBy` macros.
+                                file.custom_headers.insert(GetInternalDetailsFile().header_path_for_inclusion);
+
                                 if (is_default_constructible)
                                 {
-                                    bool more = is_copy_constructible || is_move_constructible;
-                                    if (more)
-                                    {
-                                        ret += cpp_param_name;
-                                        ret += "_pass_by == ";
-                                        ret += pass_by_enum;
-                                        ret += "_Default ? ";
-                                    }
-
-                                    ret += "((void)";
+                                    ret += "MRBINDC_CLASSARG_DEFCTOR(";
                                     ret += cpp_param_name;
                                     ret += ", ";
                                     ret += type_str;
-                                    ret += "{})";
-
-                                    if (more)
-                                        ret += " : ";
+                                    ret += ", ";
+                                    ret += pass_by_enum;
+                                    ret += ") ";
                                 }
 
                                 if (is_copy_constructible)
                                 {
-                                    bool more = is_move_constructible;
-                                    if (more)
-                                    {
-                                        ret += cpp_param_name;
-                                        ret += "_pass_by == ";
-                                        ret += pass_by_enum;
-                                        ret += "_Copy ? ";
-                                    }
-
-                                    ret += "*(";
-                                    ret += type_str;
-                                    ret += " *)";
+                                    ret += "MRBINDC_CLASSARG_COPY(";
                                     ret += cpp_param_name;
-
-                                    if (more)
-                                        ret += " : ";
+                                    ret += ", ";
+                                    ret += type_str;
+                                    ret += ", ";
+                                    ret += pass_by_enum;
+                                    ret += ") ";
                                 }
 
                                 if (is_move_constructible)
                                 {
-                                    ret += "std::move(*(";
-                                    ret += type_str;
-                                    ret += " *)";
+                                    ret += "MRBINDC_CLASSARG_MOVE(";
                                     ret += cpp_param_name;
-                                    ret += ")";
+                                    ret += ", ";
+                                    ret += type_str;
+                                    ret += ", ";
+                                    ret += pass_by_enum;
+                                    ret += ") ";
                                 }
+
+                                if (default_arg.empty())
+                                {
+                                    ret += "MRBINDC_CLASSARG_NO_DEFARG(";
+                                    ret += cpp_param_name;
+                                    ret += ") ";
+                                }
+                                else
+                                {
+                                    ret += "MRBINDC_CLASSARG_COPY(";
+                                    ret += cpp_param_name;
+                                    ret += ", ";
+                                    ret += type_str;
+                                    ret += ", ";
+                                    ret += pass_by_enum;
+                                    ret += ") ";
+                                }
+
+                                ret += "MRBINDC_CLASSARG_END(";
+                                ret += cpp_param_name;
+                                ret += ") ";
 
                                 return ret;
                             };
@@ -826,6 +921,7 @@ namespace mrbind
                         class_info.is_default_constructible = false;
                         class_info.is_copy_constructible = false;
                         class_info.is_move_constructible = false;
+                        class_info.is_any_constructible = false;
                     }
 
 
@@ -904,7 +1000,7 @@ namespace mrbind
                         {
                             file.header.contents += "    ";
                             file.header.contents += class_info.predefined_ctor_enum_name;
-                            file.header.contents += "_Default, // Default-construct this parameter, the associated pointer is ignored.\n";
+                            file.header.contents += "_DefaultConstruct, // Default-construct this parameter, the associated pointer is ignored.\n";
                         }
                         if (class_info.is_copy_constructible)
                         {
@@ -918,6 +1014,11 @@ namespace mrbind
                             file.header.contents += class_info.predefined_ctor_enum_name;
                             file.header.contents += "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
                         }
+
+                        file.header.contents += "    ";
+                        file.header.contents += class_info.predefined_ctor_enum_name;
+                        file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer is ignored.";
+
                         file.header.contents += "};\n";
                     }
                 }
@@ -947,13 +1048,16 @@ namespace mrbind
                             try
                             {
                                 const BindableType &bindable_param_type = self.FindBindableType(ParseTypeOrThrow(param.type.canonical));
+                                if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
+                                    throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
+                                if (param.default_argument && !bindable_param_type.param_usage_with_default_arg)
+                                    throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
+
                                 const auto &param_usage =
-                                    param.default_argument && bindable_param_type.param_usage_with_default_arg
+                                    param.default_argument || !bindable_param_type.param_usage
                                     ? bindable_param_type.param_usage_with_default_arg
                                     : bindable_param_type.param_usage;
 
-                                if (!param_usage)
-                                    throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
                                 // Declare or include type dependencies of the parameter.
                                 for (const auto &dep : param_usage->type_dependencies)
@@ -980,7 +1084,7 @@ namespace mrbind
                                 if (i > 0)
                                     body += ',';
                                 body += "\n        ";
-                                body += param_usage->CParamsToCpp(param_name);
+                                body += param_usage->CParamsToCpp(file.source, param_name, param.default_argument->as_cpp_expression);
 
                                 // Comment about the default argument.
                                 if (param.default_argument)
@@ -993,9 +1097,9 @@ namespace mrbind
                                 }
 
                                 // Custom comment?
-                                if (!param_usage->append_to_comment.empty())
+                                if (param_usage->append_to_comment)
                                 {
-                                    comment += param_usage->append_to_comment;
+                                    comment += param_usage->append_to_comment(bool(param.default_argument));
                                     comment += '\n';
                                 }
 
@@ -1148,7 +1252,7 @@ namespace mrbind
                 };
 
                 { // Generate and write the list of headers.
-                    std::unordered_set<std::string> headers;
+                    std::set<std::string> headers = file.custom_headers;
                     for (const auto &elem : file.forward_declarations_and_inclusions)
                     {
                         if (UseHeader(elem))
@@ -1180,7 +1284,7 @@ namespace mrbind
                     out << file.after_includes << '\n';
 
                 { // Generate and write the list of forward declarations.
-                    std::unordered_set<std::string> fwd_decls;
+                    std::set<std::string> fwd_decls = file.custom_forward_declarations;
                     for (const auto &elem : file.forward_declarations_and_inclusions)
                     {
                         if (!UseHeader(elem))
