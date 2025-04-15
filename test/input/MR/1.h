@@ -4,9 +4,17 @@
 
 namespace MR
 {
-    void foo(int a, int b = 42);
+    struct A
+    {
+        int x;
+        A() {}
+        A(int) {}
+        A(const A &) = delete;
+    };
 
-    struct A {};
+    enum E {};
 
-    A foo(A);
+    A foo(A x, A y = 42);
+    int bar(int x, int y = 42);
+    E baz(E x, E y = E{});
 }

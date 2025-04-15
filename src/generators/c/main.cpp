@@ -104,7 +104,11 @@ namespace mrbind
                     // The headers from `forward_declarations_and_inclusions` are appended to this.
                     // Prefer that variable instead of adding things here.
                     // This stores header names without `#include <...>`, which is added automatically.
+                    // Harcoded standard library can also go in `preamble`.
                     std::set<std::string> custom_headers;
+
+                    // The header names from the standard library. Those are separate just for the cool looks.
+                    std::set<std::string> stdlib_headers;
 
                     // `extern "C" {` goes here (the brace is closed in the footer). Maybe something else.
                     std::string after_includes;
@@ -240,15 +244,26 @@ namespace mrbind
                     return iter->second;
 
                 file.InitRelativeName(*this, id, false);
-                file.InitDefaultContents();
+                file.header.preamble += "#pragma once\n\n";
+                file.header.stdlib_headers.insert("stdexcept");
 
                 // Class default arguments.
-                file.header.contents += "#define MRBINDC_CLASSARG_DEFCTOR(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_DefaultConstruct ? (void(param_), cpptype_{}) :\n";
-                file.header.contents += "#define MRBINDC_CLASSARG_COPY(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Copy ? cpptype_(*(cpptype_ *)param_) :\n";
-                file.header.contents += "#define MRBINDC_CLASSARG_MOVE(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Move ? cpptype_(std::move(*(cpptype_ *)param_)) :\n";
-                file.header.contents += "#define MRBINDC_CLASSARG_DEFARG(param_, cpptype_, pass_by_enum_, ...) param_##_pass_by == pass_by_enum_##_DefaultArgument ? cpptype_(__VA_ARGS__) :\n";
-                file.header.contents += "#define MRBINDC_CLASSARG_NO_DEFARG(param_) param_##_pass_by == pass_by_enum_##_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `PassBy_DefaultArgument` was used for it.\") :\n";
-                file.header.contents += "#define MRBINDC_CLASSARG_END(param_) throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\")\n";
+                file.header.contents += "namespace mrbindc_details\n";
+                file.header.contents += "{\n";
+                file.header.contents += "    // Those are used to handle by-value arguments of class types,\n";
+                file.header.contents += "    //   which are passed as a pointer plus a enum explaining how to handle it.\n";
+                file.header.contents += "    #define MRBINDC_CLASSARG_DEFCTOR(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultConstruct` was used.\") : cpptype_{}) :\n";
+                file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Copy ? cpptype_(*(cpptype_ *)param_) :\n";
+                file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Move ? cpptype_(std::move(*(cpptype_ *)param_)) :\n";
+                file.header.contents += "    #define MRBINDC_CLASSARG_DEFARG(param_, cpptype_, pass_by_enum_, ...) param_##_pass_by == pass_by_enum_##_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultArgument` was used.\") : cpptype_(__VA_ARGS__)) :\n";
+                file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEFARG(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `PassBy_DefaultArgument` was used for it.\") :\n";
+                file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, cpptype_) true ? throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\") : ::mrbindc_details::declval<cpptype_>() // We need the dumb fallback to `mrbindc_details::declval()` to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
+                file.header.contents += "\n";
+                file.header.contents += "    // Need this instead of `std::declval()` because we actually are going to instantiate it (which `std::declval()` can `static_assert` on).\n";
+                file.header.contents += "    // We rely on the compiler not emitting a reference to it.\n";
+                file.header.contents += "    template <typename T> T declval();\n";
+                file.header.contents += "} // namespace mrbindc_details \n";
+                return file;
             }
 
 
@@ -589,9 +604,9 @@ namespace mrbind
                     // Allow default arguments via pointers.
                     auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
                     param_def_arg.c_params.push_back({
-                        .c_type = type_c_style.AddTopLevelModifier(cppdecl::Pointer{}).AddTopLevelQualifiers(cppdecl::CvQualifiers::const_)
+                        .c_type = type_c_style.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})
                     });
-                    param_def_arg.append_to_comment = [](bool){return "/// To use the default argument, pass a null pointer.";};
+                    param_def_arg.append_to_comment = [](bool){return "///   To use the default argument, pass a null pointer.";};
                     param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                     {
                         std::string ret;
@@ -628,9 +643,9 @@ namespace mrbind
                     // Allow default arguments via pointers.
                     auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
                     param_def_arg.c_params.push_back({
-                        .c_type = type_c_style.AddTopLevelModifier(cppdecl::Pointer{}).AddTopLevelQualifiers(cppdecl::CvQualifiers::const_)
+                        .c_type = type_c_style.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})
                     });
-                    param_def_arg.append_to_comment = [](bool){return "/// To use the default argument, pass a null pointer.";};
+                    param_def_arg.append_to_comment = [](bool){return "///   To use the default argument, pass a null pointer.";};
                     param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                     {
                         std::string ret;
@@ -671,10 +686,10 @@ namespace mrbind
                             BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
                             param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
 
-                            param_usage.c_params.emplace_back().c_type = iter->second.c_type;
-                            param_usage.c_params.back().c_type.modifiers.emplace_back(cppdecl::Pointer{}); // This should be the only modifier at this point.
                             param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(class_desc->predefined_ctor_enum_name);
                             param_usage.c_params.back().name_suffix = "_pass_by";
+                            param_usage.c_params.emplace_back().c_type = iter->second.c_type;
+                            param_usage.c_params.back().c_type.modifiers.emplace_back(cppdecl::Pointer{}); // This should be the only modifier at this point.
 
                             param_usage.c_params_to_cpp = [
                                 this,
@@ -727,23 +742,43 @@ namespace mrbind
                                 {
                                     ret += "MRBINDC_CLASSARG_NO_DEFARG(";
                                     ret += cpp_param_name;
-                                    ret += ") ";
-                                }
-                                else
-                                {
-                                    ret += "MRBINDC_CLASSARG_COPY(";
-                                    ret += cpp_param_name;
                                     ret += ", ";
                                     ret += type_str;
                                     ret += ", ";
                                     ret += pass_by_enum;
                                     ret += ") ";
                                 }
+                                else
+                                {
+                                    ret += "MRBINDC_CLASSARG_DEFARG(";
+                                    ret += cpp_param_name;
+                                    ret += ", ";
+                                    ret += type_str;
+                                    ret += ", ";
+                                    ret += pass_by_enum;
+                                    ret += ", ";
+                                    ret += default_arg;
+                                    ret += ") ";
+                                }
 
                                 ret += "MRBINDC_CLASSARG_END(";
                                 ret += cpp_param_name;
+                                ret += ", ";
+                                ret += type_str;
                                 ret += ") ";
 
+                                return ret;
+                            };
+
+                            param_usage.append_to_comment = [pass_by_enum = class_desc->predefined_ctor_enum_name](bool has_default_arg)
+                            {
+                                std::string ret;
+                                if (has_default_arg)
+                                {
+                                    ret += "///   To use the default argument, pass `";
+                                    ret += pass_by_enum;
+                                    ret += "_DefaultArgument` and a null pointer.";
+                                }
                                 return ret;
                             };
 
@@ -993,14 +1028,14 @@ namespace mrbind
                     // Constructor selector enum?
                     if (class_info.IsDefaultCopyOrMoveConstructible())
                     {
-                        file.header.contents += "enum ";
+                        file.header.contents += "\nenum ";
                         file.header.contents += class_info.predefined_ctor_enum_name;
                         file.header.contents += "\n{\n";
                         if (class_info.is_default_constructible)
                         {
                             file.header.contents += "    ";
                             file.header.contents += class_info.predefined_ctor_enum_name;
-                            file.header.contents += "_DefaultConstruct, // Default-construct this parameter, the associated pointer is ignored.\n";
+                            file.header.contents += "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
                         }
                         if (class_info.is_copy_constructible)
                         {
@@ -1017,7 +1052,7 @@ namespace mrbind
 
                         file.header.contents += "    ";
                         file.header.contents += class_info.predefined_ctor_enum_name;
-                        file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer is ignored.";
+                        file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
 
                         file.header.contents += "};\n";
                     }
@@ -1084,7 +1119,7 @@ namespace mrbind
                                 if (i > 0)
                                     body += ',';
                                 body += "\n        ";
-                                body += param_usage->CParamsToCpp(file.source, param_name, param.default_argument->as_cpp_expression);
+                                body += param_usage->CParamsToCpp(file.source, param_name, param.default_argument ? param.default_argument->as_cpp_expression : "");
 
                                 // Comment about the default argument.
                                 if (param.default_argument)
@@ -1158,9 +1193,7 @@ namespace mrbind
 
                         std::string new_decl_str = ToCode(new_decl, cppdecl::ToCodeFlags::canonical_c_style);
 
-                        file.source.preamble += "#include <";
-                        file.source.preamble += self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file);
-                        file.source.preamble += ">\n";
+                        file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file));
 
                         file.header.contents += '\n';
                         file.header.contents += comment;
@@ -1279,6 +1312,11 @@ namespace mrbind
                     if (!headers.empty() && out)
                         out << '\n';
                 }
+
+                for (const auto &elem : file.stdlib_headers)
+                    out << "#include <" << elem << ">\n";
+                if (out && !file.stdlib_headers.empty())
+                    out << '\n';
 
                 if (out && !file.after_includes.empty())
                     out << file.after_includes << '\n';
