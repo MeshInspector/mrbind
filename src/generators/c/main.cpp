@@ -882,6 +882,222 @@ namespace mrbind
             }
 
 
+            struct EmitFuncParams
+            {
+                // The C name of this function.
+                std::string c_name;
+
+                // The C++ return type. We'll translate it to C automatically.
+                cppdecl::Type cpp_return_type;
+
+                // What function are we calling on the C++ side.
+                // Will usually have a trailing `(`. The arguments are pasted after it.
+                std::string cpp_called_func_begin;
+                // This is pasted after the arguments.
+                std::string cpp_called_func_end = ")";
+
+                // Comment to add on the C side. Do add leading slashes. Don't add the trailing newline.
+                // Leave empty for no comment.
+                std::string c_comment;
+
+                struct Param
+                {
+                    // Empty if unnamed.
+                    std::string name;
+
+                    // We translate this to C types automatically.
+                    cppdecl::Type cpp_type;
+
+                    struct DefaultArg
+                    {
+                        std::string cpp_expr; // Spelled as a C++ expression.
+                        std::string user_friendly; // Spelled in a user-friendly manner.
+                    };
+                    std::optional<DefaultArg> default_arg;
+
+                    // If this is false, this argument will not be added to the call expression in the implementation,
+                    //   and you need to manually use it for something (typically in `.cpp_called_func_begin`).
+                    bool add_to_call = true;
+                };
+                std::vector<Param> params;
+
+                void SetParamsFromParsedFunc(const std::vector<FuncParam> &new_params)
+                {
+                    params.reserve(new_params.size());
+                    for (const FuncParam &new_param : new_params)
+                    {
+                        Param &param = params.emplace_back();
+                        param.name = new_param.name ? *new_param.name : "";
+                        param.cpp_type = ParseTypeOrThrow(new_param.type.canonical);
+
+                        if (new_param.default_argument)
+                        {
+                            Param::DefaultArg &arg = param.default_arg.emplace();
+                            arg.cpp_expr = new_param.default_argument->as_cpp_expression;
+                            arg.user_friendly = new_param.default_argument->original_spelling;
+                        }
+                    }
+                }
+
+                void SetFromParsedFunc(const FuncEntity &new_func)
+                {
+                    SetParamsFromParsedFunc(new_func.params);
+
+                    c_name = StringToCIdentifier(new_func.full_qual_name);
+
+                    cpp_return_type = ParseTypeOrThrow(new_func.return_type.canonical);
+
+                    cpp_called_func_begin = new_func.full_qual_name;
+                    cpp_called_func_begin += '(';
+
+                    if (new_func.comment)
+                        c_comment = new_func.comment->text_with_slashes;
+                }
+            };
+            void EmitFunction(OutputFile &file, const EmitFuncParams &params)
+            {
+                cppdecl::Function new_func;
+
+                std::string body = params.cpp_called_func_begin;
+
+                std::string comment;
+                if (!params.c_comment.empty())
+                {
+                    comment += params.c_comment;
+                    comment += '\n';
+                }
+
+                // Assemble the parameter and argument lists.
+                std::size_t i = 0;
+                for (const auto &param : params.params)
+                {
+                    try
+                    {
+                        const BindableType &bindable_param_type = FindBindableType(param.cpp_type);
+                        if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
+                            throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
+                        if (param.default_arg && !bindable_param_type.param_usage_with_default_arg)
+                            throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
+
+                        const auto &param_usage =
+                            param.default_arg || !bindable_param_type.param_usage
+                            ? bindable_param_type.param_usage_with_default_arg
+                            : bindable_param_type.param_usage;
+
+
+                        // Declare or include type dependencies of the parameter.
+                        for (const auto &dep : param_usage->type_dependencies)
+                        {
+                            auto iter = parsed_type_info.find(dep.first);
+                            if (iter == parsed_type_info.end())
+                                throw std::runtime_error("Using this type as a parameter requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
+
+                            if (iter->second.declared_in_file != &file)
+                            {
+                                file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+                            }
+                        }
+
+                        std::string param_name = !param.name.empty() ? param.name : "_" + std::to_string(i);
+
+                        for (const auto &param_usage : param_usage->c_params)
+                        {
+                            auto &new_param = new_func.params.emplace_back();
+                            new_param.type = param_usage.c_type;
+                            new_param.name.parts.emplace_back(param_name + param_usage.name_suffix);
+                        }
+
+                        if (i > 0)
+                            body += ',';
+                        body += "\n        ";
+                        body += param_usage->CParamsToCpp(file.source, param_name, param.default_arg ? param.default_arg->cpp_expr : "");
+
+                        // Comment about the default argument.
+                        if (param.default_arg)
+                        {
+                            comment += "/// Parameter `";
+                            comment += param_name;
+                            comment += "` has default argument: `";
+                            comment += param.default_arg->user_friendly;
+                            comment += "`.";
+                        }
+
+                        // Custom comment?
+                        if (param_usage->append_to_comment)
+                        {
+                            comment += param_usage->append_to_comment(bool(param.default_arg));
+                            comment += '\n';
+                        }
+
+                        i++;
+                    }
+                    catch (...)
+                    {
+                        std::throw_with_nested(std::runtime_error("While processing parameter " + std::to_string(i) + ":"));
+                    }
+                }
+                if (!params.params.empty())
+                    body += '\n';
+                body += "    ";
+                body += params.cpp_called_func_end;
+
+
+                cppdecl::Decl new_decl;
+                new_decl.name.parts.emplace_back(params.c_name);
+
+                new_decl.type.modifiers.emplace_back(std::move(new_func));
+
+                try
+                {
+                    // Figure out the return type.
+                    const BindableType &bindable_return_type = FindBindableType(params.cpp_return_type);
+                    if (!bindable_return_type.return_usage)
+                        throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
+
+                    // Declare or include the type dependencies of the return type.
+                    for (const auto &dep : bindable_return_type.return_usage->type_dependencies)
+                    {
+                        auto iter = parsed_type_info.find(dep.first);
+                        if (iter == parsed_type_info.end())
+                            throw std::runtime_error("Using this type as a return type requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
+
+                        if (iter->second.declared_in_file != &file)
+                        {
+                            file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+                        }
+                    }
+
+                    // Custom comment?
+                    if (!bindable_return_type.return_usage->append_to_comment.empty())
+                    {
+                        comment += bindable_return_type.return_usage->append_to_comment;
+                        comment += '\n';
+                    }
+
+                    new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
+                    body = bindable_return_type.return_usage->MakeReturnStatement(body);
+                }
+                catch (...)
+                {
+                    std::throw_with_nested(std::runtime_error("While processing the return type:"));
+                }
+
+
+                std::string new_decl_str = ToCode(new_decl, cppdecl::ToCodeFlags::canonical_c_style);
+
+                file.header.contents += '\n';
+                file.header.contents += comment;
+                file.header.contents += new_decl_str;
+                file.header.contents += ";\n";
+
+                file.source.contents += '\n';
+                file.source.contents += new_decl_str;
+                file.source.contents += "\n{\n    ";
+                file.source.contents += body;
+                file.source.contents += "\n}\n";
+            }
+
+
             struct Visitor
             {
                 virtual ~Visitor() = default;
@@ -1064,147 +1280,12 @@ namespace mrbind
                     {
                         OutputFile &file = self.GetOutputFile(func.declared_in_file);
 
-
-                        cppdecl::Function new_func;
-
-                        std::string body = func.full_qual_name + "(";
-
-                        std::string comment;
-                        if (func.comment)
-                        {
-                            comment += func.comment->text_with_slashes;
-                            comment += '\n';
-                        }
-
-                        // Assemble the parameter and argument lists.
-                        std::size_t i = 0;
-                        for (const auto &param : func.params)
-                        {
-                            try
-                            {
-                                const BindableType &bindable_param_type = self.FindBindableType(ParseTypeOrThrow(param.type.canonical));
-                                if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
-                                    throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
-                                if (param.default_argument && !bindable_param_type.param_usage_with_default_arg)
-                                    throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
-
-                                const auto &param_usage =
-                                    param.default_argument || !bindable_param_type.param_usage
-                                    ? bindable_param_type.param_usage_with_default_arg
-                                    : bindable_param_type.param_usage;
-
-
-                                // Declare or include type dependencies of the parameter.
-                                for (const auto &dep : param_usage->type_dependencies)
-                                {
-                                    auto iter = self.parsed_type_info.find(dep.first);
-                                    if (iter == self.parsed_type_info.end())
-                                        throw std::runtime_error("Using this type as a parameter requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
-
-                                    if (iter->second.declared_in_file != &file)
-                                    {
-                                        file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                                    }
-                                }
-
-                                std::string param_name = param.name ? *param.name : "_" + std::to_string(i);
-
-                                for (const auto &param_usage : param_usage->c_params)
-                                {
-                                    auto &new_param = new_func.params.emplace_back();
-                                    new_param.type = param_usage.c_type;
-                                    new_param.name.parts.emplace_back(param_name + param_usage.name_suffix);
-                                }
-
-                                if (i > 0)
-                                    body += ',';
-                                body += "\n        ";
-                                body += param_usage->CParamsToCpp(file.source, param_name, param.default_argument ? param.default_argument->as_cpp_expression : "");
-
-                                // Comment about the default argument.
-                                if (param.default_argument)
-                                {
-                                    comment += "/// Parameter `";
-                                    comment += param_name;
-                                    comment += "` has default argument: ";
-                                    comment += param.default_argument->original_spelling;
-                                    comment += '\n';
-                                }
-
-                                // Custom comment?
-                                if (param_usage->append_to_comment)
-                                {
-                                    comment += param_usage->append_to_comment(bool(param.default_argument));
-                                    comment += '\n';
-                                }
-
-                                i++;
-                            }
-                            catch (...)
-                            {
-                                std::throw_with_nested(std::runtime_error("While processing parameter " + std::to_string(i) + ":"));
-                            }
-                        }
-                        if (!func.params.empty())
-                            body += '\n';
-                        body += "    )";
-
-
-                        cppdecl::Decl new_decl;
-                        new_decl.name.parts.emplace_back(StringToCIdentifier(func.full_qual_name));
-
-                        new_decl.type.modifiers.emplace_back(std::move(new_func));
-
-                        try
-                        {
-                            // Figure out the return type.
-                            const BindableType &bindable_return_type = self.FindBindableType(ParseTypeOrThrow(func.return_type.canonical));
-                            if (!bindable_return_type.return_usage)
-                                throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
-
-                            // Declare or include the type dependencies of the return type.
-                            for (const auto &dep : bindable_return_type.return_usage->type_dependencies)
-                            {
-                                auto iter = self.parsed_type_info.find(dep.first);
-                                if (iter == self.parsed_type_info.end())
-                                    throw std::runtime_error("Using this type as a return type requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
-
-                                if (iter->second.declared_in_file != &file)
-                                {
-                                    file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                                }
-                            }
-
-                            // Custom comment?
-                            if (!bindable_return_type.return_usage->append_to_comment.empty())
-                            {
-                                comment += bindable_return_type.return_usage->append_to_comment;
-                                comment += '\n';
-                            }
-
-                            new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
-                            body = bindable_return_type.return_usage->MakeReturnStatement(body);
-                        }
-                        catch (...)
-                        {
-                            std::throw_with_nested(std::runtime_error("While processing the return type:"));
-                        }
-
-
-                        std::string new_decl_str = ToCode(new_decl, cppdecl::ToCodeFlags::canonical_c_style);
-
+                        // Include the C++ header where this function is declared.
                         file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file));
 
-                        file.header.contents += '\n';
-                        file.header.contents += comment;
-                        file.header.contents += new_decl_str;
-                        file.header.contents += ";\n";
-
-                        file.source.contents += '\n';
-                        file.source.contents += new_decl_str;
-                        file.source.contents += "\n{\n    ";
-                        file.source.contents += body;
-                        file.source.contents += "\n}\n";
+                        EmitFuncParams params;
+                        params.SetFromParsedFunc(func);
+                        self.EmitFunction(self.GetOutputFile(func.declared_in_file), params);
                     }
                     catch (...)
                     {
