@@ -231,13 +231,13 @@ namespace MR
     // Those appear normally.
     inline void a(int x = 42, float y = 12.3f) {std::cout << x << ' ' << y << '\n';}
 
-    struct DefArg {int x = 0;};
+    struct DEF_ARG {int x = 0;};
 
     // `nullptr` and `0` become `None`, everything else is spelled as is.
-    inline void b(DefArg *x = nullptr, DefArg *y = 0, DefArg *z = ((nullptr))) {std::cout << (std::uintptr_t)x << ' ' << (std::uintptr_t)y << ' ' << (std::uintptr_t)z << '\n';}
+    inline void b(DEF_ARG *x = nullptr, DEF_ARG *y = 0, DEF_ARG *z = ((nullptr))) {std::cout << (std::uintptr_t)x << ' ' << (std::uintptr_t)y << ' ' << (std::uintptr_t)z << '\n';}
 
     // All those are spelled as is.
-    inline void c(DefArg x = {}, DefArg y = DefArg{42}) {std::cout << x.x << ' ' << y.x << '\n';}
+    inline void c(DEF_ARG x = {}, DEF_ARG y = DEF_ARG{42}) {std::cout << x.x << ' ' << y.x << '\n';}
 
     // ---
 
