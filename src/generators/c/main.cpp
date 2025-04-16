@@ -323,7 +323,7 @@ namespace mrbind
                 [[nodiscard]] bool IsEnum() const {return std::holds_alternative<EnumDesc>(input_type);}
                 [[nodiscard]] bool IsClass() const {return std::holds_alternative<ClassDesc>(input_type);}
             };
-            // The keys are strings produced by `cppdecl`. Don't feed the input type names to this directly.
+            // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.
             std::unordered_map<std::string, ParsedTypeInfo> parsed_type_info;
 
 
@@ -921,9 +921,11 @@ namespace mrbind
                 };
                 std::vector<Param> params;
 
-                void SetParamsFromParsedFunc(const std::vector<FuncParam> &new_params)
+                // Appends the parsed parameters to this function.
+                // Appends to the existing parameters, doesn't remove them.
+                void AddParamsFromParsedFunc(const std::vector<FuncParam> &new_params)
                 {
-                    params.reserve(new_params.size());
+                    params.reserve(params.size() + new_params.size());
                     for (const FuncParam &new_param : new_params)
                     {
                         Param &param = params.emplace_back();
@@ -941,7 +943,7 @@ namespace mrbind
 
                 void SetFromParsedFunc(const FuncEntity &new_func)
                 {
-                    SetParamsFromParsedFunc(new_func.params);
+                    AddParamsFromParsedFunc(new_func.params);
 
                     c_name = StringToCIdentifier(new_func.full_qual_name);
 
@@ -952,6 +954,26 @@ namespace mrbind
 
                     if (new_func.comment)
                         c_comment = new_func.comment->text_with_slashes;
+                }
+
+                void SetFromParsedClassCtor(const CBindingGenerator &self, const ClassEntity &new_class, const ClassCtor &new_ctor)
+                {
+                    AddParamsFromParsedFunc(new_ctor.params);
+
+                    cppdecl::Type cpp_type = ParseTypeOrThrow(new_class.full_type);
+                    std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
+
+                    c_name = info.c_type_str;
+                    c_name += "_Construct";
+
+                    cpp_return_type = cpp_type;
+
+                    cpp_called_func_begin = cpp_type_str;
+                    cpp_called_func_begin += '(';
+
+                    if (new_ctor.comment)
+                        c_comment = new_ctor.comment->text_with_slashes;
                 }
             };
             void EmitFunction(OutputFile &file, const EmitFuncParams &params)
@@ -1037,8 +1059,7 @@ namespace mrbind
                     }
                 }
                 if (!params.params.empty())
-                    body += '\n';
-                body += "    ";
+                    body += "\n    ";
                 body += params.cpp_called_func_end;
 
 
@@ -1223,6 +1244,9 @@ namespace mrbind
                 {
                     OutputFile &file = self.GetOutputFile(cl.declared_in_file);
 
+                    // Include the C++ header where this class is declared.
+                    file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
+
                     const std::string type_str = ToCode(ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
 
                     const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
@@ -1271,6 +1295,34 @@ namespace mrbind
                         file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
 
                         file.header.contents += "};\n";
+                    }
+
+                    for (const ClassMemberVariant &var : cl.members)
+                    {
+                        std::visit(Overload{
+                            [&](const ClassField &elem)
+                            {
+                                (void)elem;
+                            },
+                            [&](const ClassCtor &elem)
+                            {
+                                EmitFuncParams params;
+                                params.SetFromParsedClassCtor(self, cl, elem);
+                                self.EmitFunction(file, params);
+                            },
+                            [&](const ClassMethod &elem)
+                            {
+                                (void)elem;
+                            },
+                            [&](const ClassConvOp &elem)
+                            {
+                                (void)elem;
+                            },
+                            [&](const ClassDtor &elem)
+                            {
+                                (void)elem;
+                            },
+                        }, var);
                     }
                 }
 
