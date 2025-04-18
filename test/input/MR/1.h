@@ -7,10 +7,17 @@ namespace MR
     struct A
     {
         int x;
-        A() {}
-        A(int) {}
-        A(const A &) = delete;
+        // A() {}
+        // A(int) {}
+        // A(const A &) = delete;
+
+        template <typename T> A(T) {}
     };
+
+    inline void foo()
+    {
+        A a(42);
+    }
 
     enum E {};
 

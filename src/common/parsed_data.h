@@ -207,6 +207,10 @@ namespace mrbind
         MBREFL_STRUCT(
             (bool)(is_explicit, false)
             (CopyMoveKind)(kind, CopyMoveKind::none)
+            // Template argument list including the `<...>`, or null if none.
+            // Other kinds of functions don't have this, because for them we store the name with and without the template arguments,
+            //   and for them you just take a substring on the name with arguments.
+            (std::optional<std::string>)(template_args)
         , // Bases:
             (BasicFunc)
         )
@@ -231,6 +235,18 @@ namespace mrbind
         , // Bases:
             (BasicReturningClassFunc)
         )
+
+        // Do we have template arguments?
+        [[nodiscard]] bool HasTemplateArguments() const
+        {
+            return !TemplateArguments().empty();
+        }
+
+        // Template arguments if any, or empty.
+        [[nodiscard]] std::string_view TemplateArguments() const
+        {
+            return std::string_view(full_name).substr(name.size());
+        }
     };
 
     struct ClassConvOp : BasicReturningClassFunc

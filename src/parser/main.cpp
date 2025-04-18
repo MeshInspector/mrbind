@@ -970,6 +970,13 @@ namespace mrbind
                     new_ctor.is_explicit = ctor->isExplicit();
                     new_ctor.kind = ctor->isCopyConstructor() ? CopyMoveKind::copy : ctor->isMoveConstructor() ? CopyMoveKind::move : CopyMoveKind::none;
                     basic_func = &new_ctor;
+
+                    // Template arguments?
+                    if (auto targs = ctor->getTemplateSpecializationArgs())
+                    {
+                        llvm::raw_string_ostream ss(new_ctor.template_args.emplace());
+                        clang::printTemplateArgumentList(ss, targs->asArray(), printing_policies.normal, method->getTemplateSpecializationInfo()->getTemplate()->getTemplateParameters());
+                    }
                 }
                 else
                 {

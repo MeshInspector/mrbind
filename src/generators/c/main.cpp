@@ -13,6 +13,7 @@
 #include <fstream>
 #include <functional>
 #include <iostream>
+#include <ranges>
 #include <set>
 #include <unordered_set>
 
@@ -882,6 +883,41 @@ namespace mrbind
             }
 
 
+            // Deduplicating overload names: [
+            struct OverloadedName
+            {
+                // The resulting C name. Initially can have duplicates, but we modify it to make the names unique.
+                std::string name;
+
+                // This is the fallback C name. If the original one is ambiguous, we replace `name` with this one and make this empty.
+                // If that fails, we then proceed to adding `params` to the name.
+                std::string fallback_name;
+
+                // How many parameter types we already added to the `name`.
+                std::size_t num_params_consumed = 0;
+
+                struct Param
+                {
+                    // We could use C types here, but C++ types are easier to obtain, and I THINK will look better in the names.
+                    // But who knows, we can change this later.
+                    cppdecl::Type cpp_type;
+                };
+                std::vector<Param> params;
+
+                void AddParams(CBindingGenerator &self, const std::vector<FuncParam> &new_params)
+                {
+                    params.reserve(params.size() + new_params.size());
+
+                    for (const FuncParam &new_param : new_params)
+                        params.push_back({.cpp_type = ParseTypeOrThrow(new_param.type.canonical)});
+                }
+            };
+            // Points to various parsed
+            std::unordered_map<const BasicFunc *, OverloadedName> overloaded_names;
+
+            // ] -- Deduplicating overload names
+
+
             struct EmitFuncParams
             {
                 // The C name of this function.
@@ -941,11 +977,11 @@ namespace mrbind
                     }
                 }
 
-                void SetFromParsedFunc(const FuncEntity &new_func)
+                void SetFromParsedFunc(const CBindingGenerator &self, const FuncEntity &new_func)
                 {
                     AddParamsFromParsedFunc(new_func.params);
 
-                    c_name = StringToCIdentifier(new_func.full_qual_name);
+                    c_name = self.overloaded_names.at(&new_func).name;
 
                     cpp_return_type = ParseTypeOrThrow(new_func.return_type.canonical);
 
@@ -964,7 +1000,7 @@ namespace mrbind
                     std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
                     const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
 
-                    c_name = info.c_type_str;
+                    c_name = self.overloaded_names.at(&new_ctor).name;
                     c_name += "_Construct";
 
                     cpp_return_type = cpp_type;
@@ -1041,7 +1077,7 @@ namespace mrbind
                             comment += param_name;
                             comment += "` has default argument: `";
                             comment += param.default_arg->user_friendly;
-                            comment += "`.";
+                            comment += "`.\n";
                         }
 
                         // Custom comment?
@@ -1138,10 +1174,10 @@ namespace mrbind
             };
 
             // This fills `parsed_type_info` with the knowledge about all parsed types.
-            struct VisitorRegisterKnown : Visitor
+            struct VisitorRegisterKnownTypes : Visitor
             {
                 CBindingGenerator &self;
-                VisitorRegisterKnown(CBindingGenerator &self) : self(self) {}
+                VisitorRegisterKnownTypes(CBindingGenerator &self) : self(self) {}
 
                 void Visit(const ClassEntity &cl) override
                 {
@@ -1233,6 +1269,249 @@ namespace mrbind
 
                 // }
             };
+
+            // This fills `overloaded_names` with the knowledge about all C functions we're planning to produce.
+            struct VisitorRegisterOverloadedNames : Visitor
+            {
+                CBindingGenerator &self;
+                VisitorRegisterOverloadedNames(CBindingGenerator &self) : self(self) {}
+
+                void Visit(const ClassEntity &cl) override
+                {
+                    const std::string c_type_str = self.parsed_type_info.at(ToCode(ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style)).c_type_str;
+
+                    auto AddFunc = [&](const BasicFunc &func, std::string name, std::string fallback_name = "")
+                    {
+                        auto [iter, is_new] = self.overloaded_names.try_emplace(&func);
+                        if (!is_new)
+                            throw std::logic_error("Internal error: Duplicate overloaded function pointer.");
+
+                        OverloadedName &ovl = iter->second;
+                        ovl.name = std::move(name);
+                        ovl.fallback_name = std::move(fallback_name);
+                        ovl.AddParams(self, func.params);
+                    };
+
+                    for (const ClassMemberVariant &var : cl.members)
+                    {
+                        std::visit(Overload{
+                            [&](const ClassField &elem)
+                            {
+                                // Nothing to do.
+                                (void)elem;
+                            },
+                            [&](const ClassCtor &elem)
+                            {
+                                std::string fallback_name;
+                                if (elem.template_args)
+                                    fallback_name = c_type_str + '_' + StringToCIdentifier(*elem.template_args);
+                                AddFunc(elem, c_type_str, std::move(fallback_name));
+                            },
+                            [&](const ClassMethod &elem)
+                            {
+                                std::string fallback_name;
+                                if (elem.HasTemplateArguments())
+                                    fallback_name = c_type_str + '_' + elem.simple_name + '_' + StringToCIdentifier(elem.TemplateArguments());
+                                AddFunc(elem, elem.simple_name, std::move(fallback_name));
+                            },
+                            [&](const ClassConvOp &elem)
+                            {
+                                // Doesn't need registration, we assume the target type will be unique enough.
+                                (void)elem;
+                            },
+                            [&](const ClassDtor &elem)
+                            {
+                                // Nope. And this doesn't inherit from `BasicFunc` anyway.
+                                (void)elem;
+                            },
+                        }, var);
+                    }
+                }
+
+                void Visit(const FuncEntity &func) override
+                {
+                    auto [iter, is_new] = self.overloaded_names.try_emplace(&func);
+                    if (!is_new)
+                        throw std::logic_error("Internal error: duplicate overloaded function pointer.");
+
+                    OverloadedName &ovl = iter->second;
+                    ovl.name = StringToCIdentifier(func.qual_name);
+                    ovl.fallback_name = StringToCIdentifier(func.full_qual_name);
+                    ovl.AddParams(self, func.params);
+                }
+            };
+
+            void ResolveOverloadAmbiguities()
+            {
+                bool already_tried_fallback_names = false;
+                bool already_tried_num_params_suffix = false;
+
+                while (true)
+                {
+                    // All names are added here.
+                    std::unordered_map<std::string, decltype(overloaded_names)::value_type *> all_names;
+                    // Only the ambiguous ones go here (if we find a duplicate when trying to insert into `all_names`).
+                    // The vectors will always have size 2+.
+                    std::unordered_map<std::string, std::vector<decltype(overloaded_names)::value_type *>> ambig_names;
+
+                    // Collect all names that need resolving.
+                    for (auto &elem : overloaded_names)
+                    {
+                        auto [iter, is_new] = all_names.try_emplace(elem.second.name, &elem);
+                        if (!is_new)
+                        {
+                            auto [iter2, is_new2] = ambig_names.try_emplace(elem.second.name);
+
+                            // If this is a new element in `ambig_names`, transfer the first pointer from `all_names`.
+                            if (is_new2)
+                                iter2->second.push_back(iter->second);
+
+                            iter2->second.push_back(&elem);
+                        }
+                    }
+
+                    if (ambig_names.empty())
+                        break; // No ambiguities, nothing else to do.
+
+
+                    // First, try to use the fallback names.
+                    if (!already_tried_fallback_names)
+                    {
+                        already_tried_fallback_names = true;
+                        bool found_any_fallback = false;
+
+                        for (const auto &elem : ambig_names)
+                        {
+                            { // First, see if this step makes sense for this function group.
+                                std::string_view first_fallback_name = elem.second.front()->second.fallback_name;
+                                bool have_different_fallbacks = false;
+                                for (const auto &subelem : elem.second | std::views::drop(1))
+                                {
+                                    if (subelem->second.fallback_name != first_fallback_name)
+                                    {
+                                        have_different_fallbacks = true;
+                                        break;
+                                    }
+                                }
+
+                                // Skip this name group if all fallbacks are the same.
+                                // Note that we're intentionally considering the lack of fallbacks to be different to any other fallbacks here
+                                //   (by not doing any special handling for empty `fallback_name`s above).
+                                if (!have_different_fallbacks)
+                                    continue;
+                            }
+
+                            for (const auto &subelem : elem.second)
+                            {
+                                if (!subelem->second.fallback_name.empty())
+                                {
+                                    subelem->second.name = std::move(subelem->second.fallback_name);
+                                    subelem->second.fallback_name = "";
+                                    found_any_fallback = true;
+                                }
+                            }
+                        }
+
+                        if (found_any_fallback)
+                            continue; // Need another iteration.
+                    }
+
+
+                    // Now try appending the number of parameters.
+                    if (!already_tried_num_params_suffix)
+                    {
+                        already_tried_num_params_suffix = true;
+
+                        for (const auto &elem : ambig_names)
+                        {
+                            { // Check if the sizes are different.
+                                std::size_t first_size = elem.second.front()->second.params.size();
+                                bool have_different_sizes = false;
+                                for (const auto &subelem : elem.second | std::views::drop(1))
+                                {
+                                    if (subelem->second.params.size() != first_size)
+                                    {
+                                        have_different_sizes = true;
+                                        break;
+                                    }
+                                }
+
+                                // If all parameter counts are the same, appending them is useless, so we skip this name group.
+                                if (!have_different_sizes)
+                                    continue;
+                            }
+
+                            for (const auto &subelem : elem.second)
+                            {
+                                subelem->second.name += '_';
+                                subelem->second.name += std::to_string(subelem->second.params.size());
+                            }
+                        }
+
+                        // Need another iteration.
+                        continue;
+                    }
+
+
+                    // Now try appending parameter TYPES.
+                    bool any_progress = false;
+                    for (const auto &elem : ambig_names)
+                    {
+                        auto ParamTypeToString = [&](const cppdecl::Type &type)
+                        {
+                            return cppdecl::ToString(type, cppdecl::ToStringFlags::identifier);
+                        };
+
+                        { // Check if it makes sense for this name group.
+                            std::string first_type_str;
+                            const auto &first_elem = *elem.second.front();
+                            if (first_elem.second.num_params_consumed < first_elem.second.params.size())
+                                first_type_str = ParamTypeToString(first_elem.second.params[first_elem.second.num_params_consumed].cpp_type);
+
+                            bool have_different_types = false;
+                            for (const auto &subelem : elem.second | std::views::drop(1))
+                            {
+                                bool subelem_has_more_params = subelem->second.num_params_consumed < subelem->second.params.size();
+                                if (subelem_has_more_params == first_type_str.empty())
+                                {
+                                    // One string is empty (because no more parameters to consume) and another isn't. This is good enough.
+                                    have_different_types = true;
+                                    break;
+                                }
+
+                                if (
+                                    // At this point `first_type_str.empty()` implies `!first_type_str.empty()`.
+                                    subelem_has_more_params &&
+                                    // Now make sure the strings are different.
+                                    ParamTypeToString(subelem->second.params[subelem->second.num_params_consumed].cpp_type) != first_type_str
+                                )
+                                {
+                                    // Both strings are non-empty and different.
+                                    have_different_types = true;
+                                    break;
+                                }
+                            }
+
+                            if (!have_different_types)
+                                continue; // Nothing to do here.
+                        }
+
+                        for (const auto &subelem : elem.second)
+                        {
+                            if (subelem->second.num_params_consumed < subelem->second.params.size())
+                            {
+                                subelem->second.name += '_';
+                                subelem->second.name += ParamTypeToString(subelem->second.params[subelem->second.num_params_consumed++].cpp_type);
+                                any_progress = true;
+                            }
+                        }
+                    }
+
+                    // Throw if we still have ambiguous names but aren't making any progress.
+                    if (!any_progress)
+                        throw std::runtime_error("Can't come up with unique names for some of the overloaded functions. Currently stuck at: `" + ambig_names.begin()->second.front()->second.name + "`.");
+                }
+            }
 
             // This actually emits the code for the parsed entities.
             struct VisitorEmit : Visitor
@@ -1336,7 +1615,7 @@ namespace mrbind
                         file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file));
 
                         EmitFuncParams params;
-                        params.SetFromParsedFunc(func);
+                        params.SetFromParsedFunc(self, func);
                         self.EmitFunction(self.GetOutputFile(func.declared_in_file), params);
                     }
                     catch (...)
@@ -1395,9 +1674,17 @@ namespace mrbind
             void Generate()
             {
                 { // Register known types.
-                    VisitorRegisterKnown v(*this);
+                    VisitorRegisterKnownTypes v(*this);
                     v.Process(data.entities);
                 }
+
+                { // Collect the names for overloading.
+                    VisitorRegisterOverloadedNames v(*this);
+                    v.Process(data.entities);
+                }
+
+                // Resolve ambiguous function names.
+                ResolveOverloadAmbiguities();
 
                 { // Emit.
                     VisitorEmit v(*this);
