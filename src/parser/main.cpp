@@ -996,7 +996,7 @@ namespace mrbind
                         new_method.name = method->getDeclName().getAsString();
                         new_method.simple_name = GetAdjustedFuncName(*method);
 
-                        new_method.full_name = new_method.simple_name;
+                        new_method.full_name = new_method.name;
                         // Add the template arguments, if any.
                         if (auto args = method->getTemplateSpecializationArgs())
                         {
