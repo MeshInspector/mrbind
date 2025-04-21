@@ -483,7 +483,7 @@ namespace mrbind
                     // Do include the leading slashes, normally `///`.
                     // This receives a flag on whether we have a default argument or not, but not the default argument itself,
                     //   because we automatically generate another comment line stating its value, and don't want to accidentally do it here.
-                    std::function<std::string(bool has_default_arg)> append_to_comment;
+                    std::function<std::string(std::string_view cpp_param_name, bool has_default_arg)> append_to_comment;
 
                     // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                     // `default_arg` should be empty if there's no default argument.
@@ -576,7 +576,6 @@ namespace mrbind
                         return iter->second;
                 }
 
-
                 auto FillDefaultTypeDependencies = [&](BindableType &new_type)
                 {
                     DefaultForEachParsedTypeNeededByType(type, [&](const std::string &str)
@@ -607,7 +606,7 @@ namespace mrbind
                     param_def_arg.c_params.push_back({
                         .c_type = type_c_style.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})
                     });
-                    param_def_arg.append_to_comment = [](bool){return "///   To use the default argument, pass a null pointer.";};
+                    param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
                     param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                     {
                         std::string ret;
@@ -646,7 +645,7 @@ namespace mrbind
                     param_def_arg.c_params.push_back({
                         .c_type = type_c_style.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})
                     });
-                    param_def_arg.append_to_comment = [](bool){return "///   To use the default argument, pass a null pointer.";};
+                    param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
                     param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                     {
                         std::string ret;
@@ -668,7 +667,89 @@ namespace mrbind
 
                     return bindable_cpp_types.try_emplace(type_str, new_type).first->second;
                 }
-                // Don't test the "indirect" archetypes. We're only interested in stuff that can be passed by value!
+
+
+                const bool is_ref = type.Is<cppdecl::Reference>();
+                cppdecl::Type ref_target_type;
+                if (is_ref)
+                    ref_target_type = cppdecl::Type(type).RemoveTopLevelModifier();
+
+                // A reference to `IsBindableAsIsIndirect[Reinterpret]`?
+                if (is_ref)
+                {
+                    const bool without_cast = IsBindableAsIsIndirect(ref_target_type);
+                    const bool with_cast = !without_cast && IsBindableAsIsIndirectReinterpret(ref_target_type);
+
+                    if (without_cast || with_cast)
+                    {
+                        auto type_c_style = type;
+                        ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
+
+                        BindableType new_type(type_c_style);
+
+                        new_type.param_usage_with_default_arg = std::move(new_type.param_usage);
+                        new_type.param_usage.reset();
+
+                        auto &param_def_arg = *new_type.param_usage_with_default_arg;
+
+                        param_def_arg.c_params.front().c_type.modifiers.front().var = cppdecl::Pointer{};
+                        param_def_arg.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg) -> std::string
+                        {
+                            if (has_default_arg)
+                                // Two spaces because this goes after a message about the default argument.
+                                return "///   To use the default argument, pass a null pointer.";
+                            else
+                                return "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
+                        };
+
+                        param_def_arg.c_params_to_cpp = [
+                            type_str,
+                            type_str_noref = ToCode(ref_target_type, cppdecl::ToCodeFlags::canonical_cpp_style),
+                            with_cast
+                        ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                        {
+                            std::string ret;
+                            ret += cpp_param_name;
+                            ret += " ? *";
+                            if (with_cast)
+                            {
+                                file.custom_headers.insert("type_traits");
+                                ret += "reinterpret_cast<std::add_pointer_t<";
+                                ret += type_str_noref;
+                                ret += ">>(";
+                                ret += cpp_param_name;
+                                ret += ")";
+                            }
+                            else
+                            {
+                                ret += cpp_param_name;
+                            }
+                            ret += " : ";
+                            if (default_arg.empty())
+                            {
+                                file.custom_headers.insert("stdexcept");
+                                ret += "throw std::runtime_error(\"Parameter `";
+                                ret += cpp_param_name;
+                                ret += "` can not be null.\")";
+                            }
+                            else
+                            {
+                                ret += "static_cast<";
+                                ret += type_str;
+                                ret += ">(";
+                                ret += default_arg;
+                                ret += ")";
+                            }
+                            return ret;
+                        };
+
+                        FillDefaultTypeDependencies(new_type);
+
+                        return bindable_cpp_types.try_emplace(type_str, new_type).first->second;
+                    }
+                }
+
+
 
 
                 // Maybe a class?
@@ -771,8 +852,9 @@ namespace mrbind
                                 return ret;
                             };
 
-                            param_usage.append_to_comment = [pass_by_enum = class_desc->predefined_ctor_enum_name](bool has_default_arg)
+                            param_usage.append_to_comment = [pass_by_enum = class_desc->predefined_ctor_enum_name](std::string_view cpp_param_name, bool has_default_arg)
                             {
+                                (void)cpp_param_name;
                                 std::string ret;
                                 if (has_default_arg)
                                 {
@@ -936,6 +1018,9 @@ namespace mrbind
                 // Leave empty for no comment.
                 std::string c_comment;
 
+                // The current stack of namespaces to emit as a bunch of `using namespace ...;`.
+                std::span<const NamespaceEntity *const> namespace_stack;
+
                 struct Param
                 {
                     // Empty if unnamed.
@@ -977,7 +1062,7 @@ namespace mrbind
                     }
                 }
 
-                void SetFromParsedFunc(const CBindingGenerator &self, const FuncEntity &new_func)
+                void SetFromParsedFunc(const CBindingGenerator &self, const FuncEntity &new_func, std::span<const NamespaceEntity *const> new_namespace_stack)
                 {
                     AddParamsFromParsedFunc(new_func.params);
 
@@ -990,9 +1075,11 @@ namespace mrbind
 
                     if (new_func.comment)
                         c_comment = new_func.comment->text_with_slashes;
+
+                    namespace_stack = new_namespace_stack;
                 }
 
-                void SetFromParsedClassCtor(const CBindingGenerator &self, const ClassEntity &new_class, const ClassCtor &new_ctor)
+                void SetFromParsedClassCtor(const CBindingGenerator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_namespace_stack)
                 {
                     AddParamsFromParsedFunc(new_ctor.params);
 
@@ -1010,6 +1097,8 @@ namespace mrbind
 
                     if (new_ctor.comment)
                         c_comment = new_ctor.comment->text_with_slashes;
+
+                    namespace_stack = new_namespace_stack;
                 }
             };
             void EmitFunction(OutputFile &file, const EmitFuncParams &params)
@@ -1075,7 +1164,7 @@ namespace mrbind
                         {
                             comment += "/// Parameter `";
                             comment += param_name;
-                            comment += "` has default argument: `";
+                            comment += "` has a default argument: `";
                             comment += param.default_arg->user_friendly;
                             comment += "`.\n";
                         }
@@ -1083,7 +1172,7 @@ namespace mrbind
                         // Custom comment?
                         if (param_usage->append_to_comment)
                         {
-                            comment += param_usage->append_to_comment(bool(param.default_arg));
+                            comment += param_usage->append_to_comment(param.name, bool(param.default_arg));
                             comment += '\n';
                         }
 
@@ -1150,6 +1239,16 @@ namespace mrbind
                 file.source.contents += '\n';
                 file.source.contents += new_decl_str;
                 file.source.contents += "\n{\n    ";
+
+                for (const NamespaceEntity *ns : params.namespace_stack)
+                {
+                    if (!ns->name)
+                        continue; // An anonymous namespace.
+                    file.source.contents += "using namespace ";
+                    file.source.contents += *ns->name;
+                    file.source.contents += ";\n    ";
+                }
+
                 file.source.contents += body;
                 file.source.contents += "\n}\n";
             }
@@ -1164,13 +1263,51 @@ namespace mrbind
                 virtual void Visit(const EnumEntity &en) {(void)en;}
                 virtual void Visit(const TypedefEntity &td) {(void)td;}
 
-                void Process(const ClassEntity &cl) {Visit(cl); Process(static_cast<const mrbind::EntityContainer &>(cl));}
+                void Process(const ClassEntity &cl)
+                {
+                    class_stack.push_back(&cl);
+                    struct Guard
+                    {
+                        Visitor &self;
+                        ~Guard()
+                        {
+                            self.class_stack.pop_back();
+                        }
+                    };
+                    Guard guard{*this};
+
+                    Visit(cl);
+                    Process(static_cast<const mrbind::EntityContainer &>(cl));
+                }
                 void Process(const FuncEntity &func) {Visit(func);}
                 void Process(const EnumEntity &en) {Visit(en);}
                 void Process(const TypedefEntity &td) {Visit(td);}
-                void Process(const NamespaceEntity &ns) {Process(static_cast<const mrbind::EntityContainer &>(ns));}
+                void Process(const NamespaceEntity &ns)
+                {
+                    namespace_stack.push_back(&ns);
+                    struct Guard
+                    {
+                        Visitor &self;
+                        ~Guard()
+                        {
+                            self.namespace_stack.pop_back();
+                        }
+                    };
+                    Guard guard{*this};
+
+                    Process(static_cast<const mrbind::EntityContainer &>(ns));
+                }
                 void Process(const EntityContainer &c) {for (const Entity &e : c.nested) Process(e);}
                 void Process(const Entity &e) {std::visit([&](const auto &elem){Process(elem);}, *e.variant);}
+
+              protected:
+                // Those are "stacked" on top of each other. First the namespace stack gets filled, then the class stack.
+                [[nodiscard]] const std::vector<const NamespaceEntity *> &GetNamespaceStack() const {return namespace_stack;}
+                [[nodiscard]] const std::vector<const ClassEntity *> &GetClassStack() const {return class_stack;}
+
+              private:
+                std::vector<const NamespaceEntity *> namespace_stack;
+                std::vector<const ClassEntity *> class_stack;
             };
 
             // This fills `parsed_type_info` with the knowledge about all parsed types.
@@ -1586,7 +1723,7 @@ namespace mrbind
                             [&](const ClassCtor &elem)
                             {
                                 EmitFuncParams params;
-                                params.SetFromParsedClassCtor(self, cl, elem);
+                                params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
                                 self.EmitFunction(file, params);
                             },
                             [&](const ClassMethod &elem)
@@ -1615,7 +1752,7 @@ namespace mrbind
                         file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file));
 
                         EmitFuncParams params;
-                        params.SetFromParsedFunc(self, func);
+                        params.SetFromParsedFunc(self, func, GetNamespaceStack());
                         self.EmitFunction(self.GetOutputFile(func.declared_in_file), params);
                     }
                     catch (...)

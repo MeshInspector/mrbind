@@ -4,24 +4,14 @@
 
 namespace MR
 {
-    struct A
-    {
-        int x;
-        // A() {}
-        // A(int) {}
-        // A(const A &) = delete;
+    enum E {e1};
 
-        template <typename T> A(T) {}
-    };
+    inline int global;
+    inline E global2;
 
-    inline void foo()
-    {
-        A a(42);
-    }
+    int foo(int a, int b = 42);
+    E foo(E a, E b = E::e1);
 
-    enum E {};
-
-    A foo(A x, A y = 42);
-    int bar(int x, int y = 42);
-    E baz(E x, E y = E{});
+    int bar(int &a, int &b = global);
+    E bar(E &a, E &b = global2);
 }
