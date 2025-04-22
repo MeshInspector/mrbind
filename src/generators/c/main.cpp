@@ -295,7 +295,7 @@ namespace mrbind
                     // Currently if this is false, all the other constructors are hidden and set to `false` too.
                     bool is_destructible = false;
 
-                    // Only set if `IsDefaultCopyOrMoveConstructible()` is true.
+                    // Only set if `IsDefaultOrCopyOrMoveConstructible()` is true.
                     // This is a C enum that lets you select between one of the predefined constructors.
                     std::string predefined_ctor_enum_name;
 
@@ -306,7 +306,7 @@ namespace mrbind
                     // For consistency with `EnumDesc`. This one doesn't seem to be strictly necessary.
                     ClassDesc() {}
 
-                    [[nodiscard]] bool IsDefaultCopyOrMoveConstructible() const
+                    [[nodiscard]] bool IsDefaultOrCopyOrMoveConstructible() const
                     {
                         return is_default_constructible || is_copy_constructible || is_move_constructible;
                     }
@@ -517,7 +517,8 @@ namespace mrbind
                     // Generates a return statement to return a value of this type.
                     // If null, defaults to `"return "+expr+";"`.
                     // You can generate more than one statement here.
-                    std::function<std::string(std::string_view expr)> make_return_statement;
+                    // Providing `file` so you can add some extra headers or whatever.
+                    std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_statement;
 
                     // Which parsed types do we need to include or forward-declare?
                     // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
@@ -529,10 +530,10 @@ namespace mrbind
                     std::string append_to_comment;
 
                     // Calls `make_return_statement` if not null, otherwise returns `"return "+expr+";"`.
-                    [[nodiscard]] std::string MakeReturnStatement(std::string_view expr) const
+                    [[nodiscard]] std::string MakeReturnStatement(OutputFile::SpecificFileContents &file, std::string_view expr) const
                     {
                         if (make_return_statement)
-                            return make_return_statement(expr);
+                            return make_return_statement(file, expr);
                         else
                             return "return " + std::string(expr) + ";";
                     }
@@ -554,7 +555,13 @@ namespace mrbind
 
                     // For `void` omit `return` for clarity.
                     if (c_type.AsSingleWord() == "void")
-                        return_usage->make_return_statement = [](std::string_view expr){return std::string(expr) + ";";};
+                    {
+                        return_usage->make_return_statement = [](OutputFile::SpecificFileContents &file, std::string_view expr)
+                        {
+                            (void)file;
+                            return std::string(expr) + ";";
+                        };
+                    }
 
                     ret.c_type = std::move(c_type); // Here we can move the type.
                 }
@@ -615,8 +622,9 @@ namespace mrbind
                         ret += cpp_param_name;
                         ret += " : (";
                         ret += type_str;
-                        ret += ")";
+                        ret += ")(";
                         ret += default_arg;
+                        ret += ")";
                         return ret;
                     };
 
@@ -634,7 +642,11 @@ namespace mrbind
                     BindableType new_type(type_c_style);
 
                     // Add the casts!
-                    new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](std::string_view expr){return "return (" + type_str_c + ")" + std::string(expr) + ";";};
+                    new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](OutputFile::SpecificFileContents &file, std::string_view expr)
+                    {
+                        (void)file;
+                        return "return (" + type_str_c + ")" + std::string(expr) + ";";
+                    };
                     new_type.param_usage->c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &, std::string_view cpp_param_name, std::string_view default_arg)
                     {
                         return "(" + type_str + ")" + std::string(cpp_param_name);
@@ -654,9 +666,9 @@ namespace mrbind
                         ret += type_str;
                         ret += ")*";
                         ret += cpp_param_name;
-                        ret += " : ";
+                        ret += " : (";
                         ret += type_str;
-                        ret += "(";
+                        ret += ")(";
                         ret += default_arg;
                         ret += ")";
                         return ret;
@@ -671,8 +683,12 @@ namespace mrbind
 
                 const bool is_ref = type.Is<cppdecl::Reference>();
                 cppdecl::Type ref_target_type;
+                std::string ref_target_type_str;
                 if (is_ref)
+                {
                     ref_target_type = cppdecl::Type(type).RemoveTopLevelModifier();
+                    ref_target_type_str = cppdecl::ToCode(ref_target_type, cppdecl::ToCodeFlags::canonical_c_style);
+                }
 
                 // A reference to `IsBindableAsIsIndirect[Reinterpret]`?
                 if (is_ref)
@@ -686,6 +702,35 @@ namespace mrbind
                         ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
 
                         BindableType new_type(type_c_style);
+
+
+                        // Return type:
+
+                        new_type.return_usage->c_type.modifiers.front().var = cppdecl::Pointer{};
+
+                        if (with_cast)
+                        {
+                            // Take the address and cast.
+                            new_type.return_usage->make_return_statement = [
+                                ref_target_type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1)
+                            ](OutputFile::SpecificFileContents &file, std::string_view expr)
+                            {
+                                file.custom_headers.insert("type_traits");
+                                return "return (std::add_pointer_t<" + ref_target_type_str_c + ">)&(" + std::string(expr) + ");";
+                            };
+                        }
+                        else
+                        {
+                            // Just take the address.
+                            new_type.return_usage->make_return_statement = [](OutputFile::SpecificFileContents &file, std::string_view expr)
+                            {
+                                (void)file;
+                                return "return &(" + std::string(expr) + ");";
+                            };
+                        }
+
+
+                        // Params:
 
                         new_type.param_usage_with_default_arg = std::move(new_type.param_usage);
                         new_type.param_usage.reset();
@@ -704,7 +749,7 @@ namespace mrbind
 
                         param_def_arg.c_params_to_cpp = [
                             type_str,
-                            type_str_noref = ToCode(ref_target_type, cppdecl::ToCodeFlags::canonical_cpp_style),
+                            ref_target_type_str,
                             with_cast
                         ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                         {
@@ -714,9 +759,9 @@ namespace mrbind
                             if (with_cast)
                             {
                                 file.custom_headers.insert("type_traits");
-                                ret += "reinterpret_cast<std::add_pointer_t<";
-                                ret += type_str_noref;
-                                ret += ">>(";
+                                ret += "(std::add_pointer_t<";
+                                ret += ref_target_type_str;
+                                ret += ">)(";
                                 ret += cpp_param_name;
                                 ret += ")";
                             }
@@ -759,7 +804,7 @@ namespace mrbind
                     {
                         if (auto class_desc = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
                         {
-                            if (!class_desc->IsDefaultCopyOrMoveConstructible())
+                            if (!class_desc->IsDefaultOrCopyOrMoveConstructible())
                                 throw std::runtime_error("Can't bind class type `" + type_str + "` by value because it doesn't have a default nor copy nor move constructor, or isn't destructible.");
 
                             BindableType new_type;
@@ -873,7 +918,11 @@ namespace mrbind
                             return_usage.append_to_comment = "/// Returns an instance allocated on the heap! Must call `";
                             return_usage.append_to_comment += class_desc->cleanup_func_name;
                             return_usage.append_to_comment += "()` to free it when you're done using it.";
-                            return_usage.make_return_statement = [type_str, type_str_c_style = iter->second.c_type_str](std::string_view expr){return "return (" + type_str_c_style + " *)new " + type_str + "(" + std::string(expr) + ");";};
+                            return_usage.make_return_statement = [type_str, type_str_c_style = iter->second.c_type_str](OutputFile::SpecificFileContents &file, std::string_view expr)
+                            {
+                                (void)file;
+                                return "return (" + type_str_c_style + " *)new " + type_str + "(" + std::string(expr) + ");";
+                            };
 
                             return bindable_cpp_types.try_emplace(type_str, new_type).first->second;
                         }
@@ -882,6 +931,7 @@ namespace mrbind
 
                 throw std::runtime_error("Don't know how to bind type `" + type_str + "`.");
             }
+
 
             // Parses a cppdecl type from `str`, throws on failure or if there was unparsed junk at the end of input.
             // Pass the CANONICAL types to this.
@@ -895,6 +945,7 @@ namespace mrbind
                     throw std::runtime_error("Unable to parse type `" + std::string(orig_str) + "`, junk starting at offset " + std::to_string(str.data() - orig_str.data()) + ".");
                 return std::get<cppdecl::Type>(ret);
             }
+
 
             // Simplies a string to be a valid C identifier.
             [[nodiscard]] static std::string StringToCIdentifier(std::string_view str)
@@ -1032,13 +1083,25 @@ namespace mrbind
                     struct DefaultArg
                     {
                         std::string cpp_expr; // Spelled as a C++ expression.
-                        std::string user_friendly; // Spelled in a user-friendly manner.
+                        std::string original_spelling; // Spelled in a user-friendly manner (as originally written in the C++ source).
                     };
                     std::optional<DefaultArg> default_arg;
 
                     // If this is false, this argument will not be added to the call expression in the implementation,
                     //   and you need to manually use it for something (typically in `.cpp_called_func_begin`).
                     bool add_to_call = true;
+
+                    [[nodiscard]] bool IsPointerWithNullptrDefaultArgument() const
+                    {
+                        return
+                            cpp_type.Is<cppdecl::Pointer>() &&
+                            (
+                                default_arg->original_spelling == "nullptr" ||
+                                default_arg->original_spelling == "NULL" ||
+                                default_arg->original_spelling == "0" ||
+                                default_arg->original_spelling == "{}" // I guess?
+                            );
+                    }
                 };
                 std::vector<Param> params;
 
@@ -1057,7 +1120,7 @@ namespace mrbind
                         {
                             Param::DefaultArg &arg = param.default_arg.emplace();
                             arg.cpp_expr = new_param.default_argument->as_cpp_expression;
-                            arg.user_friendly = new_param.default_argument->original_spelling;
+                            arg.original_spelling = new_param.default_argument->original_spelling;
                         }
                     }
                 }
@@ -1123,11 +1186,15 @@ namespace mrbind
                         const BindableType &bindable_param_type = FindBindableType(param.cpp_type);
                         if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
-                        if (param.default_arg && !bindable_param_type.param_usage_with_default_arg)
+
+                        const bool is_ptr_with_nullptr_default_arg = param.IsPointerWithNullptrDefaultArgument();
+                        const bool has_useful_default_arg = param.default_arg && !is_ptr_with_nullptr_default_arg;
+
+                        if (has_useful_default_arg && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
 
                         const auto &param_usage =
-                            param.default_arg || !bindable_param_type.param_usage
+                            has_useful_default_arg || !bindable_param_type.param_usage
                             ? bindable_param_type.param_usage_with_default_arg
                             : bindable_param_type.param_usage;
 
@@ -1157,23 +1224,33 @@ namespace mrbind
                         if (i > 0)
                             body += ',';
                         body += "\n        ";
-                        body += param_usage->CParamsToCpp(file.source, param_name, param.default_arg ? param.default_arg->cpp_expr : "");
+                        body += param_usage->CParamsToCpp(file.source, param_name, has_useful_default_arg ? param.default_arg->cpp_expr : "");
 
                         // Comment about the default argument.
-                        if (param.default_arg)
+                        if (has_useful_default_arg)
                         {
                             comment += "/// Parameter `";
                             comment += param_name;
                             comment += "` has a default argument: `";
-                            comment += param.default_arg->user_friendly;
+                            comment += param.default_arg->original_spelling;
                             comment += "`.\n";
+                        }
+                        else if (is_ptr_with_nullptr_default_arg)
+                        {
+                            comment += "/// Parameter `";
+                            comment += param_name;
+                            comment += "` defaults to `NULL` in C++.\n";
                         }
 
                         // Custom comment?
                         if (param_usage->append_to_comment)
                         {
-                            comment += param_usage->append_to_comment(param.name, bool(param.default_arg));
-                            comment += '\n';
+                            std::string str = param_usage->append_to_comment(param.name, has_useful_default_arg);
+                            if (!str.empty())
+                            {
+                                comment += str;
+                                comment += '\n';
+                            }
                         }
 
                         i++;
@@ -1221,7 +1298,7 @@ namespace mrbind
                     }
 
                     new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
-                    body = bindable_return_type.return_usage->MakeReturnStatement(body);
+                    body = bindable_return_type.return_usage->MakeReturnStatement(file.source, body);
                 }
                 catch (...)
                 {
@@ -1370,7 +1447,7 @@ namespace mrbind
                     }
 
 
-                    if (class_info.IsDefaultCopyOrMoveConstructible())
+                    if (class_info.IsDefaultOrCopyOrMoveConstructible())
                         class_info.predefined_ctor_enum_name = info.c_type_str + "_PassBy";
 
                     if (class_info.is_destructible)
@@ -1682,7 +1759,7 @@ namespace mrbind
                     file.header.contents += '\n';
 
                     // Constructor selector enum?
-                    if (class_info.IsDefaultCopyOrMoveConstructible())
+                    if (class_info.IsDefaultOrCopyOrMoveConstructible())
                     {
                         file.header.contents += "\nenum ";
                         file.header.contents += class_info.predefined_ctor_enum_name;

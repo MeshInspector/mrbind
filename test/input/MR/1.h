@@ -14,4 +14,11 @@ namespace MR
 
     int bar(int &a, int &b = global);
     E bar(E &a, E &b = global2);
+
+    E bar(int *a, int *b = (int*)1, int *c = nullptr);
+
+    struct A {};
+    inline A global3;
+    A &foo(A &, A & = global3);
+    E &foo2(E &, E & = global2);
 }
