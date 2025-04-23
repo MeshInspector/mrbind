@@ -32,5 +32,8 @@ namespace MR
 
         void foo() {}
         void bar(int) const {}
+        void bar(int) {}
     };
+
+    A &&return_rvalue();
 }

@@ -84,6 +84,13 @@ namespace mrbind
 
     struct BasicFunc
     {
+        BasicFunc() = default;
+        BasicFunc(const BasicFunc &) = default;
+        BasicFunc(BasicFunc &&) = default;
+        BasicFunc &operator=(const BasicFunc &) = default;
+        BasicFunc &operator=(BasicFunc &&) = default;
+        virtual ~BasicFunc() = default; // This is useful.
+
         MBREFL_STRUCT(
             (std::optional<Comment>)(comment)
             (std::vector<FuncParam>)(params)
@@ -114,10 +121,17 @@ namespace mrbind
         )
     };
 
+    MBREFL_ENUM( RefQualifier,
+        (none)
+        (lvalue)
+        (rvalue)
+    )
+
     struct BasicReturningClassFunc : BasicReturningFunc
     {
         MBREFL_STRUCT(
             (bool)(is_const, false)
+            (RefQualifier)(ref_qualifier, RefQualifier::none)
         , // Bases:
             (BasicReturningFunc)
         )
@@ -187,6 +201,11 @@ namespace mrbind
         , // Bases:
             (BasicReturningFunc)
         )
+
+        [[nodiscard]] bool IsOverloadedOperator() const
+        {
+            return name != simple_name;
+        }
     };
 
     // ---
@@ -250,6 +269,11 @@ namespace mrbind
         , // Bases:
             (BasicReturningClassFunc)
         )
+
+        [[nodiscard]] bool IsOverloadedOperator() const
+        {
+            return name != simple_name;
+        }
 
         // Do we have template arguments?
         [[nodiscard]] bool HasTemplateArguments() const

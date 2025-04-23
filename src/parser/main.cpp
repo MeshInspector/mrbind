@@ -721,8 +721,8 @@ namespace mrbind
             if (!method)
                 return true; // Unsure when this can happen, but anyway.
 
-            if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
-                return true; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
+            // if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
+            //     return true; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
         }
 
         // Check the requires-clause, if any. Why doesn't libclang do this automatically?
@@ -1010,6 +1010,12 @@ namespace mrbind
                     basic_func = basic_ret_class_func;
 
                     basic_ret_class_func->is_const = method->isConst();
+                    switch (method->getRefQualifier())
+                    {
+                        case clang::RQ_None:   basic_ret_class_func->ref_qualifier = RefQualifier::none;   break;
+                        case clang::RQ_LValue: basic_ret_class_func->ref_qualifier = RefQualifier::lvalue; break;
+                        case clang::RQ_RValue: basic_ret_class_func->ref_qualifier = RefQualifier::rvalue; break;
+                    }
 
                     // Force instantiate body to know the true return type rather than `auto`.
                     (void)InstantiateReturnTypeIfNeeded(*ci, *decl);

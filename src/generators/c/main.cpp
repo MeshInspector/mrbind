@@ -263,6 +263,9 @@ namespace mrbind
                 file.header.contents += "    // Need this instead of `std::declval()` because we actually are going to instantiate it (which `std::declval()` can `static_assert` on).\n";
                 file.header.contents += "    // We rely on the compiler not emitting a reference to it.\n";
                 file.header.contents += "    template <typename T> T declval();\n";
+                file.header.contents += "\n";
+                file.header.contents += "    // Converts an rvalue to an lvalue.\n";
+                file.header.contents += "    template <typename T> T &unmove(T &&value) {return static_cast<T &>(value);}";
                 file.header.contents += "} // namespace mrbindc_details \n";
                 return file;
             }
@@ -682,6 +685,7 @@ namespace mrbind
 
 
                 const bool is_ref = type.Is<cppdecl::Reference>();
+                const bool is_rvalue_ref = is_ref && type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifiers::rvalue;
                 cppdecl::Type ref_target_type;
                 std::string ref_target_type_str;
                 if (is_ref)
@@ -710,22 +714,48 @@ namespace mrbind
 
                         if (with_cast)
                         {
+                            new_type.return_usage->append_to_comment = "/// The returned pointer is non-owning, do NOT destroy it.";
+                            if (is_rvalue_ref)
+                                new_type.return_usage->append_to_comment += "\n/// In C++ this returns an rvalue reference.";
+
                             // Take the address and cast.
                             new_type.return_usage->make_return_statement = [
-                                ref_target_type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1)
+                                ref_target_type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1),
+                                is_rvalue_ref,
+                                details_file = is_rvalue_ref ? GetInternalDetailsFile().header_path_for_inclusion : std::string{}
                             ](OutputFile::SpecificFileContents &file, std::string_view expr)
                             {
                                 file.custom_headers.insert("type_traits");
-                                return "return (std::add_pointer_t<" + ref_target_type_str_c + ">)&(" + std::string(expr) + ");";
+                                if (!is_rvalue_ref)
+                                {
+                                    return "return (std::add_pointer_t<" + ref_target_type_str_c + ">)&" + std::string(expr) + ";";
+                                }
+                                else
+                                {
+                                    file.custom_headers.insert(details_file); // For `unmove()`.
+                                    return "return (std::add_pointer_t<" + ref_target_type_str_c + ">)&mrbindc_details::unmove(" + std::string(expr) + ");";
+                                }
                             };
                         }
                         else
                         {
                             // Just take the address.
-                            new_type.return_usage->make_return_statement = [](OutputFile::SpecificFileContents &file, std::string_view expr)
+                            // Here we don't need any special handling of rvalue references.
+                            new_type.return_usage->make_return_statement = [
+                                is_rvalue_ref,
+                                details_file = is_rvalue_ref ? GetInternalDetailsFile().header_path_for_inclusion : std::string{}
+                            ](OutputFile::SpecificFileContents &file, std::string_view expr)
                             {
                                 (void)file;
-                                return "return &(" + std::string(expr) + ");";
+                                if (!is_rvalue_ref)
+                                {
+                                    return "return &" + std::string(expr) + ";";
+                                }
+                                else
+                                {
+                                    file.custom_headers.insert(details_file); // For `unmove()`.
+                                    return "return &mrbindc_details::unmove(" + std::string(expr) + ");";
+                                }
                             };
                         }
 
@@ -738,24 +768,45 @@ namespace mrbind
                         auto &param_def_arg = *new_type.param_usage_with_default_arg;
 
                         param_def_arg.c_params.front().c_type.modifiers.front().var = cppdecl::Pointer{};
-                        param_def_arg.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg) -> std::string
+                        param_def_arg.append_to_comment = [
+                            is_rvalue_ref
+                        ](std::string_view cpp_param_name, bool has_default_arg) -> std::string
                         {
+                            std::string ret;
                             if (has_default_arg)
                                 // Two spaces because this goes after a message about the default argument.
-                                return "///   To use the default argument, pass a null pointer.";
+                                ret = "///   To use the default argument, pass a null pointer.";
                             else
-                                return "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
+                                ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
+
+                            if (is_rvalue_ref)
+                            {
+                                ret +=
+                                    "\n"
+                                    "///   In C++ this parameter takes an rvalue reference: it might invalidate the passed object,\n"
+                                    "///     but if your pointer is owning, you must still destroy it manually later.";
+                            }
+
+                            return ret;
                         };
 
                         param_def_arg.c_params_to_cpp = [
                             type_str,
                             ref_target_type_str,
-                            with_cast
+                            with_cast,
+                            is_rvalue_ref
                         ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                         {
                             std::string ret;
+                            if (is_rvalue_ref)
+                            {
+                                file.custom_headers.insert("utility");
+                                // This also moves the default argument, but who cares, right? It shouldn't make any difference.
+                                ret += "std::move(";
+                            }
                             ret += cpp_param_name;
-                            ret += " ? *";
+                            ret += " ? ";
+                            ret += "*";
                             if (with_cast)
                             {
                                 file.custom_headers.insert("type_traits");
@@ -784,6 +835,11 @@ namespace mrbind
                                 ret += ">(";
                                 ret += default_arg;
                                 ret += ")";
+                            }
+
+                            if (is_rvalue_ref)
+                            {
+                                ret += ")"; // Close `std::move(...)`.
                             }
                             return ret;
                         };
@@ -1080,6 +1136,9 @@ namespace mrbind
                 // The current stack of namespaces to emit as a bunch of `using namespace ...;`.
                 std::span<const NamespaceEntity *const> namespace_stack;
 
+                // The extra include files to add to the `.cpp` file.
+                std::unordered_set<std::string> extra_custom_includes_in_impl_file;
+
                 struct Param
                 {
                     // Empty if unnamed.
@@ -1139,6 +1198,12 @@ namespace mrbind
                     param.add_to_call = false;
                     param.cpp_type = self.ParseTypeOrThrow(new_class.full_type);
                     param.cpp_type.AddTopLevelModifier(cppdecl::Pointer{});
+                    param.name = "_this";
+                }
+
+                void SetReturnTypeFromParsedFunc(const CBindingGenerator &self, const BasicReturningFunc &new_func)
+                {
+                    cpp_return_type = self.ParseTypeOrThrow(new_func.return_type.canonical);
                 }
 
                 void SetFromParsedFunc(const CBindingGenerator &self, const FuncEntity &new_func, std::span<const NamespaceEntity *const> new_namespace_stack)
@@ -1147,7 +1212,7 @@ namespace mrbind
 
                     c_name = self.overloaded_names.at(&new_func).name;
 
-                    cpp_return_type = self.ParseTypeOrThrow(new_func.return_type.canonical);
+                    SetReturnTypeFromParsedFunc(self, new_func);
 
                     cpp_called_func_begin = new_func.full_qual_name;
                     cpp_called_func_begin += '(';
@@ -1161,6 +1226,10 @@ namespace mrbind
                 void SetFromParsedClassCtor(const CBindingGenerator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_namespace_stack)
                 {
                     AddParamsFromParsedFunc(self, new_ctor.params);
+
+                    // Fallback parameter name for implicitly generated copy/move assignments.
+                    if (new_ctor.kind != CopyMoveKind::none && params.at(0).name.empty())
+                        params.at(0).name = "_other";
 
                     cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
                     std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
@@ -1181,11 +1250,12 @@ namespace mrbind
 
                 void SetFromParsedClassDtor(const CBindingGenerator &self, const ClassEntity &new_class, const ClassDtor &new_dtor, std::span<const NamespaceEntity *const> new_namespace_stack)
                 {
-                    AddThisParam(self, new_class);
-
                     cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
                     std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
                     const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
+
+                    AddThisParam(self, new_class);
+                    params.front().add_to_call = true; // Force add `this` to the call expression.
 
                     c_name = std::get<ParsedTypeInfo::ClassDesc>(info.input_type).cleanup_func_name;
 
@@ -1196,6 +1266,50 @@ namespace mrbind
 
                     if (new_dtor.comment)
                         c_comment = new_dtor.comment->text_with_slashes;
+
+                    namespace_stack = new_namespace_stack;
+                }
+
+                void SetFromParsedClassMethod(const CBindingGenerator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_namespace_stack)
+                {
+                    cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
+                    std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
+
+                    if (!new_method.is_static)
+                        AddThisParam(self, new_class);
+                    AddParamsFromParsedFunc(self, new_method.params);
+
+                    // Fallback parameter name for implicitly generated assignment operators.
+                    if (new_method.assignment_kind != CopyMoveKind::none && params.at(1).name.empty())
+                        params.at(1).name = "_other";
+
+                    c_name = self.overloaded_names.at(&new_method).name;
+
+                    SetReturnTypeFromParsedFunc(self, new_method);
+
+                    if (!new_method.is_static)
+                    {
+                        if (new_method.ref_qualifier == RefQualifier::rvalue)
+                        {
+                            extra_custom_includes_in_impl_file.insert("utility");
+                            cpp_called_func_begin = "std::move";
+                        }
+                        cpp_called_func_begin += "(*(";
+                        cpp_called_func_begin += cpp_type_str;
+                        cpp_called_func_begin += " *)_this).";
+                    }
+                    else
+                    {
+                        cpp_called_func_begin = cpp_type_str;
+                        cpp_called_func_begin += "::";
+                    }
+
+                    cpp_called_func_begin += new_method.full_name;
+                    cpp_called_func_begin += '(';
+
+                    if (new_method.comment)
+                        c_comment = new_method.comment->text_with_slashes;
 
                     namespace_stack = new_namespace_stack;
                 }
@@ -1215,6 +1329,7 @@ namespace mrbind
 
                 // Assemble the parameter and argument lists.
                 std::size_t i = 0;
+                bool first_arg_in_call_expr = true;
                 for (const auto &param : params.params)
                 {
                     try
@@ -1257,10 +1372,17 @@ namespace mrbind
                             new_param.name.parts.emplace_back(param_name_fixed + param_usage.name_suffix);
                         }
 
-                        if (i > 0)
-                            body += ',';
-                        body += "\n        ";
-                        body += param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? param.default_arg->cpp_expr : "");
+                        // Append the argument to the call, if enabled.
+                        if (param.add_to_call)
+                        {
+                            if (first_arg_in_call_expr)
+                                first_arg_in_call_expr = false;
+                            else
+                                body += ',';
+
+                            body += "\n        ";
+                            body += param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? param.default_arg->cpp_expr : "");
+                        }
 
                         // Comment about the default argument.
                         if (has_useful_default_arg)
@@ -1364,6 +1486,10 @@ namespace mrbind
 
                 file.source.contents += body;
                 file.source.contents += "\n}\n";
+
+
+                // Insert the extra includes.
+                file.source.custom_headers.insert(params.extra_custom_includes_in_impl_file.begin(), params.extra_custom_includes_in_impl_file.end());
             }
 
 
@@ -1554,11 +1680,11 @@ namespace mrbind
                             {
                                 std::string name = c_type_str;
                                 if (elem.kind == CopyMoveKind::copy)
-                                    name += "_ConstructCopy";
+                                    name += "_CopyConstruct";
                                 else if (elem.kind == CopyMoveKind::move)
-                                    name += "_ConstructMove";
+                                    name += "_MoveConstruct";
                                 else if (elem.IsCallableWithNumArgs(0))
-                                    name += "_ConstructDefault";
+                                    name += "_DefaultConstruct";
                                 else
                                     name += "_Construct";
 
@@ -1569,10 +1695,34 @@ namespace mrbind
                             },
                             [&](const ClassMethod &elem)
                             {
+                                std::string name = c_type_str;
+                                name += '_';
+
+                                if (elem.assignment_kind == CopyMoveKind::copy)
+                                {
+                                    name += "CopyAssign";
+                                }
+                                else if (elem.assignment_kind == CopyMoveKind::move)
+                                {
+                                    name += "MoveAssign";
+                                }
+                                else if (elem.IsOverloadedOperator())
+                                {
+                                    std::string_view view = elem.name;
+                                    if (!cppdecl::ConsumeWord(view, "operator"))
+                                        throw std::logic_error("Expected `" + elem.name + "` to begin with the word `operator` since it looks like an overloaded operator, but it doesn't.");
+                                    cppdecl::TrimLeadingWhitespace(view); // Just in case.
+                                    name += cppdecl::TokenToIdentifier(view, true);
+                                }
+                                else
+                                {
+                                    name += elem.name;
+                                }
+
                                 std::string fallback_name;
                                 if (elem.HasTemplateArguments())
-                                    fallback_name = c_type_str + '_' + elem.simple_name + '_' + StringToCIdentifier(elem.TemplateArguments());
-                                AddFunc(elem, elem.simple_name, std::move(fallback_name));
+                                    fallback_name = name + '_' + StringToCIdentifier(elem.TemplateArguments());
+                                AddFunc(elem, std::move(name), std::move(fallback_name));
                             },
                             [&](const ClassConvOp &elem)
                             {
@@ -1604,6 +1754,7 @@ namespace mrbind
             void ResolveOverloadAmbiguities()
             {
                 bool already_tried_fallback_names = false;
+                bool already_tried_member_cvref_quals = false;
                 bool already_tried_num_params_suffix = false;
 
                 while (true)
@@ -1676,11 +1827,78 @@ namespace mrbind
                             continue; // Need another iteration.
                     }
 
+                    // Now try adding cvref-qualifiers for class members.
+                    if (!already_tried_member_cvref_quals)
+                    {
+                        already_tried_member_cvref_quals = true;
+
+                        bool used_any = false;
+
+                        for (const auto &elem : ambig_names)
+                        {
+                            auto CvrefQualsToString = [&](const BasicFunc &func)
+                            {
+                                std::string ret;
+                                if (auto member = dynamic_cast<const BasicReturningClassFunc *>(&func))
+                                {
+                                    if (member->is_const)
+                                        ret = "const";
+
+                                    if (member->ref_qualifier != RefQualifier::none)
+                                    {
+                                        if (!ret.empty())
+                                            ret += '_';
+
+                                        if (member->ref_qualifier == RefQualifier::rvalue)
+                                            ret += "rvalue";
+                                        else
+                                            ret += "lvalue";
+                                    }
+                                }
+                                return ret;
+                            };
+
+                            { // Check if the qualifiers are different.
+                                std::string first_quals = CvrefQualsToString(*elem.second.front()->first);
+                                bool have_different_quals = false;
+                                for (const auto &subelem : elem.second | std::views::drop(1))
+                                {
+                                    if (CvrefQualsToString(*subelem->first) != first_quals)
+                                    {
+                                        have_different_quals = true;
+                                        break;
+                                    }
+                                }
+
+                                // If all qualifiers are the same, then appending them is useless.
+                                if (!have_different_quals)
+                                    continue;
+                            }
+
+                            used_any = true;
+
+                            for (const auto &subelem : elem.second)
+                            {
+                                std::string str = CvrefQualsToString(*subelem->first);
+
+                                if (!str.empty())
+                                {
+                                    subelem->second.name += '_';
+                                    subelem->second.name += str;
+                                }
+                            }
+                        }
+
+                        // Need another iteration.
+                        if (used_any)
+                            continue;
+                    }
 
                     // Now try appending the number of parameters.
                     if (!already_tried_num_params_suffix)
                     {
                         already_tried_num_params_suffix = true;
+                        bool used_any = false;
 
                         for (const auto &elem : ambig_names)
                         {
@@ -1701,6 +1919,8 @@ namespace mrbind
                                     continue;
                             }
 
+                            used_any = true;
+
                             for (const auto &subelem : elem.second)
                             {
                                 subelem->second.name += '_';
@@ -1709,7 +1929,8 @@ namespace mrbind
                         }
 
                         // Need another iteration.
-                        continue;
+                        if (used_any)
+                            continue;
                     }
 
 
@@ -1851,7 +2072,9 @@ namespace mrbind
                             },
                             [&](const ClassMethod &elem)
                             {
-                                (void)elem;
+                                EmitFuncParams params;
+                                params.SetFromParsedClassMethod(self, cl, elem, GetNamespaceStack());
+                                self.EmitFunction(file, params);
                             },
                             [&](const ClassConvOp &elem)
                             {
