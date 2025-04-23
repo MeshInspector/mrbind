@@ -88,6 +88,21 @@ namespace mrbind
             (std::optional<Comment>)(comment)
             (std::vector<FuncParam>)(params)
         )
+
+        // Respecting the default arguments, is this callable with `n` arguments?
+        [[nodiscard]] bool IsCallableWithNumArgs(std::size_t n) const
+        {
+            if (params.size() < n)
+                return false;
+
+            for (std::size_t i = n; i < params.size(); i++)
+            {
+                if (!params[i].default_argument)
+                    return false;
+            }
+
+            return true;
+        }
     };
 
     struct BasicReturningFunc : BasicFunc

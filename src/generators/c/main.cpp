@@ -933,17 +933,25 @@ namespace mrbind
             }
 
 
+            // This acts as a cache when parsing C++ types.
+            mutable std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;
+
             // Parses a cppdecl type from `str`, throws on failure or if there was unparsed junk at the end of input.
             // Pass the CANONICAL types to this.
-            [[nodiscard]] static cppdecl::Type ParseTypeOrThrow(std::string_view str)
+            [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str) const
             {
-                const std::string_view orig_str = str;
-                auto ret = cppdecl::ParseType(str);
+                auto [iter, is_new] = cached_parsed_types.try_emplace(str);
+                if (!is_new)
+                    return iter->second;
+
+                std::string_view view = str;
+                auto ret = cppdecl::ParseType(view);
                 if (auto error = std::get_if<cppdecl::ParseError>(&ret))
-                    throw std::runtime_error("Unable to parse type `" + std::string(orig_str) + "`, error at offset " + std::to_string(str.data() - orig_str.data()) + ": " + error->message);
-                if (!str.empty())
-                    throw std::runtime_error("Unable to parse type `" + std::string(orig_str) + "`, junk starting at offset " + std::to_string(str.data() - orig_str.data()) + ".");
-                return std::get<cppdecl::Type>(ret);
+                    throw std::runtime_error("Unable to parse type `" + str + "`, error at offset " + std::to_string(view.data() - str.data()) + ": " + error->message);
+                if (!view.empty())
+                    throw std::runtime_error("Unable to parse type `" + str + "`, junk starting at offset " + std::to_string(view.data() - str.data()) + ".");
+                iter->second = std::move(std::get<cppdecl::Type>(ret));
+                return iter->second;
             }
 
 
@@ -1042,7 +1050,7 @@ namespace mrbind
                     params.reserve(params.size() + new_params.size());
 
                     for (const FuncParam &new_param : new_params)
-                        params.push_back({.cpp_type = ParseTypeOrThrow(new_param.type.canonical)});
+                        params.push_back({.cpp_type = self.ParseTypeOrThrow(new_param.type.canonical)});
                 }
             };
             // Points to various parsed
@@ -1107,14 +1115,14 @@ namespace mrbind
 
                 // Appends the parsed parameters to this function.
                 // Appends to the existing parameters, doesn't remove them.
-                void AddParamsFromParsedFunc(const std::vector<FuncParam> &new_params)
+                void AddParamsFromParsedFunc(const CBindingGenerator &self, const std::vector<FuncParam> &new_params)
                 {
                     params.reserve(params.size() + new_params.size());
                     for (const FuncParam &new_param : new_params)
                     {
                         Param &param = params.emplace_back();
                         param.name = new_param.name ? *new_param.name : "";
-                        param.cpp_type = ParseTypeOrThrow(new_param.type.canonical);
+                        param.cpp_type = self.ParseTypeOrThrow(new_param.type.canonical);
 
                         if (new_param.default_argument)
                         {
@@ -1125,13 +1133,21 @@ namespace mrbind
                     }
                 }
 
+                void AddThisParam(const CBindingGenerator &self, const ClassEntity &new_class)
+                {
+                    Param &param = params.emplace_back();
+                    param.add_to_call = false;
+                    param.cpp_type = self.ParseTypeOrThrow(new_class.full_type);
+                    param.cpp_type.AddTopLevelModifier(cppdecl::Pointer{});
+                }
+
                 void SetFromParsedFunc(const CBindingGenerator &self, const FuncEntity &new_func, std::span<const NamespaceEntity *const> new_namespace_stack)
                 {
-                    AddParamsFromParsedFunc(new_func.params);
+                    AddParamsFromParsedFunc(self, new_func.params);
 
                     c_name = self.overloaded_names.at(&new_func).name;
 
-                    cpp_return_type = ParseTypeOrThrow(new_func.return_type.canonical);
+                    cpp_return_type = self.ParseTypeOrThrow(new_func.return_type.canonical);
 
                     cpp_called_func_begin = new_func.full_qual_name;
                     cpp_called_func_begin += '(';
@@ -1144,14 +1160,13 @@ namespace mrbind
 
                 void SetFromParsedClassCtor(const CBindingGenerator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_namespace_stack)
                 {
-                    AddParamsFromParsedFunc(new_ctor.params);
+                    AddParamsFromParsedFunc(self, new_ctor.params);
 
-                    cppdecl::Type cpp_type = ParseTypeOrThrow(new_class.full_type);
+                    cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
                     std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
                     const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
 
                     c_name = self.overloaded_names.at(&new_ctor).name;
-                    c_name += "_Construct";
 
                     cpp_return_type = cpp_type;
 
@@ -1160,6 +1175,27 @@ namespace mrbind
 
                     if (new_ctor.comment)
                         c_comment = new_ctor.comment->text_with_slashes;
+
+                    namespace_stack = new_namespace_stack;
+                }
+
+                void SetFromParsedClassDtor(const CBindingGenerator &self, const ClassEntity &new_class, const ClassDtor &new_dtor, std::span<const NamespaceEntity *const> new_namespace_stack)
+                {
+                    AddThisParam(self, new_class);
+
+                    cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
+                    std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
+
+                    c_name = std::get<ParsedTypeInfo::ClassDesc>(info.input_type).cleanup_func_name;
+
+                    cpp_return_type.simple_type.name.parts.emplace_back("void");
+
+                    cpp_called_func_begin = "delete ";
+                    cpp_called_func_end = "";
+
+                    if (new_dtor.comment)
+                        c_comment = new_dtor.comment->text_with_slashes;
 
                     namespace_stack = new_namespace_stack;
                 }
@@ -1212,25 +1248,25 @@ namespace mrbind
                             }
                         }
 
-                        std::string param_name = !param.name.empty() ? param.name : "_" + std::to_string(i);
+                        std::string param_name_fixed = !param.name.empty() ? param.name : "_" + std::to_string(i);
 
                         for (const auto &param_usage : param_usage->c_params)
                         {
                             auto &new_param = new_func.params.emplace_back();
                             new_param.type = param_usage.c_type;
-                            new_param.name.parts.emplace_back(param_name + param_usage.name_suffix);
+                            new_param.name.parts.emplace_back(param_name_fixed + param_usage.name_suffix);
                         }
 
                         if (i > 0)
                             body += ',';
                         body += "\n        ";
-                        body += param_usage->CParamsToCpp(file.source, param_name, has_useful_default_arg ? param.default_arg->cpp_expr : "");
+                        body += param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? param.default_arg->cpp_expr : "");
 
                         // Comment about the default argument.
                         if (has_useful_default_arg)
                         {
                             comment += "/// Parameter `";
-                            comment += param_name;
+                            comment += param_name_fixed;
                             comment += "` has a default argument: `";
                             comment += param.default_arg->original_spelling;
                             comment += "`.\n";
@@ -1238,14 +1274,14 @@ namespace mrbind
                         else if (is_ptr_with_nullptr_default_arg)
                         {
                             comment += "/// Parameter `";
-                            comment += param_name;
+                            comment += param_name_fixed;
                             comment += "` defaults to `NULL` in C++.\n";
                         }
 
                         // Custom comment?
                         if (param_usage->append_to_comment)
                         {
-                            std::string str = param_usage->append_to_comment(param.name, has_useful_default_arg);
+                            std::string str = param_usage->append_to_comment(param_name_fixed, has_useful_default_arg);
                             if (!str.empty())
                             {
                                 comment += str;
@@ -1395,7 +1431,7 @@ namespace mrbind
 
                 void Visit(const ClassEntity &cl) override
                 {
-                    cppdecl::Type parsed_type = ParseTypeOrThrow(cl.full_type);
+                    cppdecl::Type parsed_type = self.ParseTypeOrThrow(cl.full_type);
 
                     auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
                     if (!is_new)
@@ -1461,7 +1497,7 @@ namespace mrbind
 
                 void Visit(const EnumEntity &en) override
                 {
-                    cppdecl::Type parsed_type = ParseTypeOrThrow(en.full_type);
+                    cppdecl::Type parsed_type = self.ParseTypeOrThrow(en.full_type);
 
                     auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
                     if (!is_new)
@@ -1492,7 +1528,7 @@ namespace mrbind
 
                 void Visit(const ClassEntity &cl) override
                 {
-                    const std::string c_type_str = self.parsed_type_info.at(ToCode(ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style)).c_type_str;
+                    const std::string c_type_str = self.parsed_type_info.at(ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style)).c_type_str;
 
                     auto AddFunc = [&](const BasicFunc &func, std::string name, std::string fallback_name = "")
                     {
@@ -1516,10 +1552,20 @@ namespace mrbind
                             },
                             [&](const ClassCtor &elem)
                             {
+                                std::string name = c_type_str;
+                                if (elem.kind == CopyMoveKind::copy)
+                                    name += "_ConstructCopy";
+                                else if (elem.kind == CopyMoveKind::move)
+                                    name += "_ConstructMove";
+                                else if (elem.IsCallableWithNumArgs(0))
+                                    name += "_ConstructDefault";
+                                else
+                                    name += "_Construct";
+
                                 std::string fallback_name;
                                 if (elem.template_args)
-                                    fallback_name = c_type_str + '_' + StringToCIdentifier(*elem.template_args);
-                                AddFunc(elem, c_type_str, std::move(fallback_name));
+                                    fallback_name = name + '_' + StringToCIdentifier(*elem.template_args);
+                                AddFunc(elem, std::move(name), std::move(fallback_name));
                             },
                             [&](const ClassMethod &elem)
                             {
@@ -1740,7 +1786,7 @@ namespace mrbind
                     // Include the C++ header where this class is declared.
                     file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
 
-                    const std::string type_str = ToCode(ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+                    const std::string type_str = ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
 
                     const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
                     const ParsedTypeInfo::ClassDesc &class_info = std::get<ParsedTypeInfo::ClassDesc>(type_info.input_type);
@@ -1813,7 +1859,9 @@ namespace mrbind
                             },
                             [&](const ClassDtor &elem)
                             {
-                                (void)elem;
+                                EmitFuncParams params;
+                                params.SetFromParsedClassDtor(self, cl, elem, GetNamespaceStack());
+                                self.EmitFunction(file, params);
                             },
                         }, var);
                     }
@@ -1842,7 +1890,7 @@ namespace mrbind
                 {
                     OutputFile &file = self.GetOutputFile(en.declared_in_file);
 
-                    const std::string parsed_type_str = ToCode(ParseTypeOrThrow(en.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+                    const std::string parsed_type_str = ToCode(self.ParseTypeOrThrow(en.full_type), cppdecl::ToCodeFlags::canonical_c_style);
 
                     const auto &c_type_str = self.parsed_type_info.at(parsed_type_str).c_type_str;
 
