@@ -1343,6 +1343,62 @@ namespace mrbind
                     namespace_stack = new_namespace_stack;
                 }
 
+                void SetFromParsedClassConvOp(const CBindingGenerator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_namespace_stack)
+                {
+                    cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
+                    std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+
+                    AddThisParam(self, new_class, new_conv_op.is_const);
+
+                    // Check that this is callable with no arguments.
+                    // The actual C++ at the time of writing doesn't allow any parameters at all, even with default arguments,
+                    //   but logically it makes no sense for me to require that, so I don't.
+                    if (!new_conv_op.IsCallableWithNumArgs(0))
+                        throw std::runtime_error("The conversion operator should have no parameters, but the parsed data has some.");
+
+                    SetReturnTypeFromParsedFunc(self, new_conv_op);
+                    const std::string target_cpp_type_str = cppdecl::ToCode(cpp_return_type, cppdecl::ToCodeFlags::canonical_c_style);
+
+                    c_name = self.overloaded_names.at(&new_conv_op).name;
+
+                    if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
+                    {
+                        extra_custom_includes_in_impl_file.insert("utility");
+                        cpp_called_func_begin = "std::move";
+                    }
+
+                    cpp_called_func_begin += '(';
+                    cpp_called_func_begin += target_cpp_type_str;
+                    cpp_called_func_begin += ")(";
+                    if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
+                    {
+                        extra_custom_includes_in_impl_file.insert("utility");
+                        cpp_called_func_begin += "std::move(";
+                    }
+                    cpp_called_func_begin += "*(";
+                    cpp_called_func_begin += cpp_type_str;
+                    cpp_called_func_begin += " *)_this)";
+                    if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
+                    {
+                        cpp_called_func_begin += ")"; // Close `std::move(...)`.
+                    }
+
+                    cpp_called_func_end = "";
+
+                    if (new_conv_op.comment)
+                    {
+                        c_comment = new_conv_op.comment->text_with_slashes;
+                        c_comment += '\n';
+                    }
+                    c_comment += "/// Generated from conversion operator of class `";
+                    c_comment += cpp_type_str;
+                    c_comment += "` to type `";
+                    c_comment += target_cpp_type_str;
+                    c_comment += "`.";
+
+                    namespace_stack = new_namespace_stack;
+                }
+
                 // Makes a const or mutable getter (depending on `is_const`).
                 // Returns false if the getter can't be generated (if it's mutable and the member is read-only).
                 bool SetAsFieldGetter(CBindingGenerator &self, const ClassEntity &new_class, const ClassField &new_field, bool is_const)
@@ -1830,8 +1886,11 @@ namespace mrbind
                             },
                             [&](const ClassConvOp &elem)
                             {
-                                // Doesn't need registration, we assume the target type will be unique enough.
-                                (void)elem;
+                                std::string name = c_type_str;
+                                name += "_ConvertTo_";
+                                name += StringToCIdentifier(cppdecl::ToCode(self.ParseTypeOrThrow(elem.return_type.canonical), cppdecl::ToCodeFlags::canonical_c_style));
+
+                                AddFunc(elem, std::move(name));
                             },
                             [&](const ClassDtor &elem)
                             {
@@ -2205,7 +2264,16 @@ namespace mrbind
                                 },
                                 [&](const ClassConvOp &elem)
                                 {
-                                    (void)elem;
+                                    try
+                                    {
+                                        EmitFuncParams params;
+                                        params.SetFromParsedClassConvOp(self, cl, elem, GetNamespaceStack());
+                                        self.EmitFunction(file, params);
+                                    }
+                                    catch (...)
+                                    {
+                                        std::throw_with_nested(std::runtime_error("While binding conversion operator to `" + elem.return_type.canonical + "`:"));
+                                    }
                                 },
                                 [&](const ClassDtor &elem)
                                 {

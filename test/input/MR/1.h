@@ -39,6 +39,9 @@ namespace MR
         void foo() {}
         void bar(int) const {}
         void bar(int) {}
+
+        operator int() {return 42;}
+        operator auto() const {return 42.f;}
     };
 
     struct B
