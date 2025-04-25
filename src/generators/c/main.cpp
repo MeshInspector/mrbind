@@ -1133,7 +1133,8 @@ namespace mrbind
                 // Leave empty for no comment.
                 std::string c_comment;
 
-                // The current stack of namespaces to emit as a bunch of `using namespace ...;`.
+                // The current stack of namespaces to emit as a bunch of `using namespace ...;` inside of the function body.
+                // This is only useful for default arguments, because I don't know how to canonicalize them to include the full namespace qualifiers.
                 std::span<const NamespaceEntity *const> namespace_stack;
 
                 // The extra include files to add to the `.cpp` file.
@@ -1161,7 +1162,7 @@ namespace mrbind
                     [[nodiscard]] bool IsPointerWithNullptrDefaultArgument() const
                     {
                         return
-                            cpp_type.Is<cppdecl::Pointer>() &&
+                            default_arg && cpp_type.Is<cppdecl::Pointer>() &&
                             (
                                 default_arg->original_spelling == "nullptr" ||
                                 default_arg->original_spelling == "NULL" ||
@@ -1192,11 +1193,13 @@ namespace mrbind
                     }
                 }
 
-                void AddThisParam(const CBindingGenerator &self, const ClassEntity &new_class)
+                void AddThisParam(const CBindingGenerator &self, const ClassEntity &new_class, bool is_const)
                 {
                     Param &param = params.emplace_back();
                     param.add_to_call = false;
                     param.cpp_type = self.ParseTypeOrThrow(new_class.full_type);
+                    if (is_const)
+                        param.cpp_type.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_);
                     param.cpp_type.AddTopLevelModifier(cppdecl::Pointer{});
                     param.name = "_this";
                 }
@@ -1218,7 +1221,13 @@ namespace mrbind
                     cpp_called_func_begin += '(';
 
                     if (new_func.comment)
+                    {
                         c_comment = new_func.comment->text_with_slashes;
+                        c_comment += '\n';
+                    }
+                    c_comment += "/// Generated from function `";
+                    c_comment += new_func.full_qual_name;
+                    c_comment += "`.";
 
                     namespace_stack = new_namespace_stack;
                 }
@@ -1231,8 +1240,8 @@ namespace mrbind
                     if (new_ctor.kind != CopyMoveKind::none && params.at(0).name.empty())
                         params.at(0).name = "_other";
 
-                    cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-                    std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
+                    const std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
                     const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
 
                     c_name = self.overloaded_names.at(&new_ctor).name;
@@ -1243,7 +1252,13 @@ namespace mrbind
                     cpp_called_func_begin += '(';
 
                     if (new_ctor.comment)
+                    {
                         c_comment = new_ctor.comment->text_with_slashes;
+                        c_comment += '\n';
+                    }
+                    c_comment += "/// Generated from constructor of class `";
+                    c_comment += cpp_type_str;
+                    c_comment += "`.";
 
                     namespace_stack = new_namespace_stack;
                 }
@@ -1254,7 +1269,7 @@ namespace mrbind
                     std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
                     const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
 
-                    AddThisParam(self, new_class);
+                    AddThisParam(self, new_class, false);
                     params.front().add_to_call = true; // Force add `this` to the call expression.
 
                     c_name = std::get<ParsedTypeInfo::ClassDesc>(info.input_type).cleanup_func_name;
@@ -1265,7 +1280,13 @@ namespace mrbind
                     cpp_called_func_end = "";
 
                     if (new_dtor.comment)
+                    {
                         c_comment = new_dtor.comment->text_with_slashes;
+                        c_comment += '\n';
+                    }
+                    c_comment += "/// Generated from destructor of class `";
+                    c_comment += cpp_type_str;
+                    c_comment += "`.";
 
                     namespace_stack = new_namespace_stack;
                 }
@@ -1277,7 +1298,7 @@ namespace mrbind
                     const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
 
                     if (!new_method.is_static)
-                        AddThisParam(self, new_class);
+                        AddThisParam(self, new_class, new_method.is_const);
                     AddParamsFromParsedFunc(self, new_method.params);
 
                     // Fallback parameter name for implicitly generated assignment operators.
@@ -1309,9 +1330,78 @@ namespace mrbind
                     cpp_called_func_begin += '(';
 
                     if (new_method.comment)
+                    {
                         c_comment = new_method.comment->text_with_slashes;
+                        c_comment += '\n';
+                    }
+                    c_comment += "/// Generated from method of class `";
+                    c_comment += cpp_type_str;
+                    c_comment += "` named `";
+                    c_comment += new_method.full_name;
+                    c_comment += "`.";
 
                     namespace_stack = new_namespace_stack;
+                }
+
+                // Makes a const or mutable getter (depending on `is_const`).
+                // Returns false if the getter can't be generated (if it's mutable and the member is read-only).
+                bool SetAsFieldGetter(CBindingGenerator &self, const ClassEntity &new_class, const ClassField &new_field, bool is_const)
+                {
+                    cpp_return_type = self.ParseTypeOrThrow(new_field.type.canonical);
+
+                    if (!is_const && cpp_return_type.IsConstOrReference())
+                        return false; // No mutable getter for a const (or reference) field.
+
+                    if (!new_field.is_static)
+                        AddThisParam(self, new_class, is_const);
+
+                    const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+                    c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
+                    c_name += is_const ? "_GetConst_" : "_GetMutable_";
+                    c_name += StringToCIdentifier(new_field.full_name);
+
+
+                    // Make the return type a const reference if not already a reference.
+                    if (!cpp_return_type.Is<cppdecl::Reference>())
+                    {
+                        if (is_const)
+                        {
+                            if (auto quals = cpp_return_type.GetTopLevelQualifiersMut())
+                                *quals |= cppdecl::CvQualifiers::const_;
+                        }
+                        cpp_return_type.AddTopLevelModifier(cppdecl::Reference{});
+                    }
+
+
+                    if (!new_field.is_static)
+                    {
+                        cpp_called_func_begin += "(*(";
+                        cpp_called_func_begin += class_cpp_type_str;
+                        cpp_called_func_begin += " *)_this).";
+                    }
+                    else
+                    {
+                        cpp_called_func_begin = class_cpp_type_str;
+                        cpp_called_func_begin += "::";
+                    }
+                    cpp_called_func_begin += new_field.full_name;
+
+                    cpp_called_func_end = "";
+
+                    if (new_field.comment)
+                    {
+                        c_comment = new_field.comment->text_with_slashes;
+                        c_comment += '\n';
+                    }
+                    c_comment += "/// Generated from member variable of C++ class `";
+                    c_comment += class_cpp_type_str;
+                    c_comment += "` named `";
+                    c_comment += new_field.full_name;
+                    c_comment += "`.";
+
+                    // No namespace stack is needed, because there are no default arguments involved.
+
+                    return true;
                 }
             };
             void EmitFunction(OutputFile &file, const EmitFuncParams &params)
@@ -1418,7 +1508,7 @@ namespace mrbind
                         std::throw_with_nested(std::runtime_error("While processing parameter " + std::to_string(i) + ":"));
                     }
                 }
-                if (!params.params.empty())
+                if (!first_arg_in_call_expr)
                     body += "\n    ";
                 body += params.cpp_called_func_end;
 
@@ -1490,6 +1580,20 @@ namespace mrbind
 
                 // Insert the extra includes.
                 file.source.custom_headers.insert(params.extra_custom_includes_in_impl_file.begin(), params.extra_custom_includes_in_impl_file.end());
+            }
+
+            void EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field)
+            {
+                // At the time or writing, the first condition should always be true.
+                // Only the mutable getter can be omitted (if the field is const or is a reference).
+
+                EmitFuncParams getter;
+                if (getter.SetAsFieldGetter(*this, new_class, new_field, true))
+                    EmitFunction(file, getter);
+
+                EmitFuncParams setter;
+                if (setter.SetAsFieldGetter(*this, new_class, new_field, false))
+                    EmitFunction(file, setter);
             }
 
 
@@ -2002,91 +2106,126 @@ namespace mrbind
 
                 void Visit(const ClassEntity &cl) override
                 {
-                    OutputFile &file = self.GetOutputFile(cl.declared_in_file);
-
-                    // Include the C++ header where this class is declared.
-                    file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
-
-                    const std::string type_str = ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
-
-                    const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
-                    const ParsedTypeInfo::ClassDesc &class_info = std::get<ParsedTypeInfo::ClassDesc>(type_info.input_type);
-
-                    // Forward-declaring in the middle of the file, not in the forward-declarations section.
-                    // Also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
-
-                    // Forward-declare.
-                    file.header.contents += '\n';
-                    if (cl.comment)
+                    try
                     {
-                        file.header.contents += cl.comment->text_with_slashes;
+                        OutputFile &file = self.GetOutputFile(cl.declared_in_file);
+
+                        // Include the C++ header where this class is declared.
+                        file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
+
+                        const std::string type_str = ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+
+                        const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
+                        const ParsedTypeInfo::ClassDesc &class_info = std::get<ParsedTypeInfo::ClassDesc>(type_info.input_type);
+
+                        // Forward-declaring in the middle of the file, not in the forward-declarations section.
+                        // Also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
+
+                        // Forward-declare.
                         file.header.contents += '\n';
+                        if (cl.comment)
+                        {
+                            file.header.contents += cl.comment->text_with_slashes;
+                            file.header.contents += '\n';
+                        }
+                        file.header.contents += type_info.forward_declaration.value();
+                        file.header.contents += '\n';
+
+                        // Constructor selector enum?
+                        if (class_info.IsDefaultOrCopyOrMoveConstructible())
+                        {
+                            file.header.contents += "\nenum ";
+                            file.header.contents += class_info.predefined_ctor_enum_name;
+                            file.header.contents += "\n{\n";
+                            if (class_info.is_default_constructible)
+                            {
+                                file.header.contents += "    ";
+                                file.header.contents += class_info.predefined_ctor_enum_name;
+                                file.header.contents += "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
+                            }
+                            if (class_info.is_copy_constructible)
+                            {
+                                file.header.contents += "    ";
+                                file.header.contents += class_info.predefined_ctor_enum_name;
+                                file.header.contents += "_Copy, // Copy the object into the function.\n";
+                            }
+                            if (class_info.is_move_constructible)
+                            {
+                                file.header.contents += "    ";
+                                file.header.contents += class_info.predefined_ctor_enum_name;
+                                file.header.contents += "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
+                            }
+
+                            file.header.contents += "    ";
+                            file.header.contents += class_info.predefined_ctor_enum_name;
+                            file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
+
+                            file.header.contents += "};\n";
+                        }
+
+                        for (const ClassMemberVariant &var : cl.members)
+                        {
+                            std::visit(Overload{
+                                [&](const ClassField &elem)
+                                {
+                                    try
+                                    {
+                                        self.EmitClassMemberAccessors(file, cl, elem);
+                                    }
+                                    catch (...)
+                                    {
+                                        std::throw_with_nested(std::runtime_error("While binding field `" + elem.full_name + "`:"));
+                                    }
+                                },
+                                [&](const ClassCtor &elem)
+                                {
+                                    try
+                                    {
+                                        EmitFuncParams params;
+                                        params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
+                                        self.EmitFunction(file, params);
+                                    }
+                                    catch (...)
+                                    {
+                                        std::throw_with_nested(std::runtime_error("While binding constructor:"));
+                                    }
+                                },
+                                [&](const ClassMethod &elem)
+                                {
+                                    try
+                                    {
+                                        EmitFuncParams params;
+                                        params.SetFromParsedClassMethod(self, cl, elem, GetNamespaceStack());
+                                        self.EmitFunction(file, params);
+                                    }
+                                    catch (...)
+                                    {
+                                        std::throw_with_nested(std::runtime_error("While binding destructor:"));
+                                    }
+                                },
+                                [&](const ClassConvOp &elem)
+                                {
+                                    (void)elem;
+                                },
+                                [&](const ClassDtor &elem)
+                                {
+                                    try
+                                    {
+                                        EmitFuncParams params;
+                                        params.SetFromParsedClassDtor(self, cl, elem, GetNamespaceStack());
+                                        self.EmitFunction(file, params);
+                                    }
+                                    catch (...)
+                                    {
+                                        std::throw_with_nested(std::runtime_error("While binding destructor:"));
+                                    }
+                                },
+                            }, var);
+                        }
                     }
-                    file.header.contents += type_info.forward_declaration.value();
-                    file.header.contents += '\n';
-
-                    // Constructor selector enum?
-                    if (class_info.IsDefaultOrCopyOrMoveConstructible())
+                    catch (...)
                     {
-                        file.header.contents += "\nenum ";
-                        file.header.contents += class_info.predefined_ctor_enum_name;
-                        file.header.contents += "\n{\n";
-                        if (class_info.is_default_constructible)
-                        {
-                            file.header.contents += "    ";
-                            file.header.contents += class_info.predefined_ctor_enum_name;
-                            file.header.contents += "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
-                        }
-                        if (class_info.is_copy_constructible)
-                        {
-                            file.header.contents += "    ";
-                            file.header.contents += class_info.predefined_ctor_enum_name;
-                            file.header.contents += "_Copy, // Copy the object into the function.\n";
-                        }
-                        if (class_info.is_move_constructible)
-                        {
-                            file.header.contents += "    ";
-                            file.header.contents += class_info.predefined_ctor_enum_name;
-                            file.header.contents += "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
-                        }
-
-                        file.header.contents += "    ";
-                        file.header.contents += class_info.predefined_ctor_enum_name;
-                        file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
-
-                        file.header.contents += "};\n";
-                    }
-
-                    for (const ClassMemberVariant &var : cl.members)
-                    {
-                        std::visit(Overload{
-                            [&](const ClassField &elem)
-                            {
-                                (void)elem;
-                            },
-                            [&](const ClassCtor &elem)
-                            {
-                                EmitFuncParams params;
-                                params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
-                                self.EmitFunction(file, params);
-                            },
-                            [&](const ClassMethod &elem)
-                            {
-                                EmitFuncParams params;
-                                params.SetFromParsedClassMethod(self, cl, elem, GetNamespaceStack());
-                                self.EmitFunction(file, params);
-                            },
-                            [&](const ClassConvOp &elem)
-                            {
-                                (void)elem;
-                            },
-                            [&](const ClassDtor &elem)
-                            {
-                                EmitFuncParams params;
-                                params.SetFromParsedClassDtor(self, cl, elem, GetNamespaceStack());
-                                self.EmitFunction(file, params);
-                            },
-                        }, var);
+                        std::throw_with_nested(std::runtime_error("While binding class `" + cl.full_type + "`:"));
                     }
                 }
 
@@ -2105,7 +2244,7 @@ namespace mrbind
                     }
                     catch (...)
                     {
-                        std::throw_with_nested(std::runtime_error("While binding function: " + func.full_qual_name));
+                        std::throw_with_nested(std::runtime_error("While binding function `" + func.full_qual_name + "`:"));
                     }
                 }
 

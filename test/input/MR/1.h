@@ -25,14 +25,25 @@ namespace MR
     struct A
     {
         int x = 0;
+        int &y = x;
+        const int z = 42;
+
+        inline static int s = 43;
+
+        template <typename T> inline static float ss = 44;
 
         A() = default;
 
-        A(int x) : x(x) {}
+        A(int x) : x(x) {(void)ss<char>;}
 
         void foo() {}
         void bar(int) const {}
         void bar(int) {}
+    };
+
+    struct B
+    {
+        A a;
     };
 
     A &&return_rvalue();
