@@ -49,5 +49,21 @@ namespace MR
         A a;
     };
 
-    A &&return_rvalue();
+    inline void foo(A, A = {}) {}
+
+    struct C
+    {
+        int x, y;
+
+        C() {}
+        C(const C &) {}
+        C(C &&) {}
+        C &operator=(const C &) {return *this;}
+        C &operator=(C &&) {return *this;}
+    };
+    inline void foo(C, C = {}) {}
+
+    struct C2 {};
+
+    inline A &&return_rvalue() {static A a; return (A &&)a;}
 }

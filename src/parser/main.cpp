@@ -23,7 +23,6 @@
 
 #include <array>
 #include <cstring>
-#include <exception>
 #include <filesystem>
 #include <fstream>
 #include <regex>
@@ -959,6 +958,7 @@ namespace mrbind
                 {
                     ClassDtor &new_dtor = target_class.members.emplace_back().emplace<ClassDtor>();
                     new_dtor.comment = GetCommentString(*ctx, *method);
+                    new_dtor.is_trivial = dtor->isTrivial();
                     return true; // Done processing the destructor. The rest is only for other kinds of members.
                 }
 
@@ -968,6 +968,7 @@ namespace mrbind
                 {
                     ClassCtor &new_ctor = target_class.members.emplace_back().emplace<ClassCtor>();
                     new_ctor.is_explicit = ctor->isExplicit();
+                    new_ctor.is_trivial = ctor->isTrivial();
                     new_ctor.kind = ctor->isCopyConstructor() ? CopyMoveKind::copy : ctor->isMoveConstructor() ? CopyMoveKind::move : CopyMoveKind::none;
                     basic_func = &new_ctor;
 
@@ -1005,6 +1006,8 @@ namespace mrbind
                         }
 
                         new_method.is_static = method->isStatic();
+
+                        new_method.is_trivial_assignment = method->isTrivial();
                     }
 
                     basic_func = basic_ret_class_func;

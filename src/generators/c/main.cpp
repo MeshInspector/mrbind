@@ -258,11 +258,7 @@ namespace mrbind
                 file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Move ? cpptype_(std::move(*(cpptype_ *)param_)) :\n";
                 file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, cpptype_, pass_by_enum_, ...) param_##_pass_by == pass_by_enum_##_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultArgument` was used.\") : cpptype_(__VA_ARGS__)) :\n";
                 file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `PassBy_DefaultArgument` was used for it.\") :\n";
-                file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, cpptype_) true ? throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\") : ::mrbindc_details::declval<cpptype_>() // We need the dumb fallback to `mrbindc_details::declval()` to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
-                file.header.contents += "\n";
-                file.header.contents += "    // Need this instead of `std::declval()` because we actually are going to instantiate it (which `std::declval()` can `static_assert` on).\n";
-                file.header.contents += "    // We rely on the compiler not emitting a reference to it.\n";
-                file.header.contents += "    template <typename T> T declval();\n";
+                file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, cpptype_) true ? throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\") : ((cpptype_ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
                 file.header.contents += "\n";
                 file.header.contents += "    // Converts an rvalue to an lvalue.\n";
                 file.header.contents += "    template <typename T> T &unmove(T &&value) {return static_cast<T &>(value);}";
@@ -298,9 +294,22 @@ namespace mrbind
                     // Currently if this is false, all the other constructors are hidden and set to `false` too.
                     bool is_destructible = false;
 
-                    // Only set if `IsDefaultOrCopyOrMoveConstructible()` is true.
+                    // Is this type trivially copy- or move-constructible?
+                    // If this is true, we don't need
+                    bool is_trivially_copy_or_move_constructible = false;
+
+                    bool is_copy_assignable = false;
+                    bool is_move_assignable = false;
+
+                    bool is_trivially_default_constructible = false;
+                    bool is_trivially_copy_constructible = false;
+                    bool is_trivially_move_constructible = false;
+                    bool is_trivially_copy_assignable = false;
+                    bool is_trivially_move_assignable = false;
+
+                    // Only set if `NeedsPassByEnum()` (see below).
                     // This is a C enum that lets you select between one of the predefined constructors.
-                    std::string predefined_ctor_enum_name;
+                    std::string pass_by_enum_name;
 
                     // Only set if `is_destructible`.
                     // This is the name of the cleanup (destruction) function.
@@ -312,6 +321,20 @@ namespace mrbind
                     [[nodiscard]] bool IsDefaultOrCopyOrMoveConstructible() const
                     {
                         return is_default_constructible || is_copy_constructible || is_move_constructible;
+                    }
+
+                    [[nodiscard]] bool NeedsPassByEnum() const
+                    {
+                        return IsDefaultOrCopyOrMoveConstructible() && !is_trivially_copy_or_move_constructible;
+                    }
+
+                    [[nodiscard]] bool UnifyCopyMoveConstructors() const
+                    {
+                        return is_trivially_copy_constructible && is_trivially_move_constructible;
+                    }
+                    [[nodiscard]] bool UnifyCopyMoveAssignments() const
+                    {
+                        return is_trivially_copy_assignable && is_trivially_move_assignable;
                     }
                 };
 
@@ -860,111 +883,184 @@ namespace mrbind
                     {
                         if (auto class_desc = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
                         {
-                            if (!class_desc->IsDefaultOrCopyOrMoveConstructible())
-                                throw std::runtime_error("Can't bind class type `" + type_str + "` by value because it doesn't have a default nor copy nor move constructor, or isn't destructible.");
-
                             BindableType new_type;
 
-                            // Here we only fill the `_with_default_arg` version, because that handles both.
-                            BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
-                            param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
-
-                            param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(class_desc->predefined_ctor_enum_name);
-                            param_usage.c_params.back().name_suffix = "_pass_by";
-                            param_usage.c_params.emplace_back().c_type = iter->second.c_type;
-                            param_usage.c_params.back().c_type.modifiers.emplace_back(cppdecl::Pointer{}); // This should be the only modifier at this point.
-
-                            param_usage.c_params_to_cpp = [
-                                this,
-                                type_str,
-                                pass_by_enum = class_desc->predefined_ctor_enum_name,
-                                is_default_constructible = class_desc->is_default_constructible,
-                                is_copy_constructible = class_desc->is_copy_constructible,
-                                is_move_constructible = class_desc->is_move_constructible
-                            ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                            // Parameter passing strategy.
+                            if (class_desc->is_trivially_copy_or_move_constructible)
                             {
-                                std::string ret;
+                                // For trivialy-copy/move-constructible classes, just pass a pointer.
 
-                                // Insert the defails file for the `PassBy` macros.
-                                file.custom_headers.insert(GetInternalDetailsFile().header_path_for_inclusion);
+                                // Here we only fill the `_with_default_arg` version, because that handles both.
+                                BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
+                                param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
 
-                                if (is_default_constructible)
+                                param_usage.c_params.emplace_back().c_type = iter->second.c_type;
+                                param_usage.c_params.back().c_type.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_);
+                                param_usage.c_params.back().c_type.AddTopLevelModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
+
+                                param_usage.c_params_to_cpp = [
+                                    this,
+                                    type_str,
+                                    only_trivially_move_constructible = class_desc->is_trivially_move_constructible && !class_desc->is_trivially_copy_constructible
+                                ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                                 {
-                                    ret += "MRBINDC_CLASSARG_DEF_CTOR(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
+                                    std::string ret;
 
-                                if (is_copy_constructible)
+                                    ret += cpp_param_name;
+                                    ret += " ? ";
+                                    ret += type_str;
+                                    ret += "(";
+                                    if (only_trivially_move_constructible)
+                                    {
+                                        // A bit jank, and probably rarely useful, but why not.
+                                        file.custom_forward_declarations.insert("utility");
+                                        ret += "std::move(";
+                                    }
+                                    ret += "*(";
+                                    ret += type_str;
+                                    ret += " *)";
+                                    ret += cpp_param_name;
+                                    if (only_trivially_move_constructible)
+                                        ret += ")";
+                                    ret += ")";
+                                    ret += " : ";
+
+                                    if (!default_arg.empty())
+                                    {
+                                        ret += "(";
+                                        ret += type_str;
+                                        ret += ")(";
+                                        ret += default_arg;
+                                        ret += ")";
+                                    }
+                                    else
+                                    {
+                                        file.custom_headers.insert("stdexcept");
+                                        ret += "throw std::runtime_error(\"Parameter `";
+                                        ret += cpp_param_name;
+                                        ret += "` can not be null.\")";
+                                    }
+
+                                    return ret;
+                                };
+
+                                param_usage.append_to_comment = [pass_by_enum = class_desc->pass_by_enum_name](std::string_view cpp_param_name, bool has_default_arg)
                                 {
-                                    ret += "MRBINDC_CLASSARG_COPY(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
-
-                                if (is_move_constructible)
-                                {
-                                    ret += "MRBINDC_CLASSARG_MOVE(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
-
-                                if (default_arg.empty())
-                                {
-                                    ret += "MRBINDC_CLASSARG_NO_DEF_ARG(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
-                                else
-                                {
-                                    ret += "MRBINDC_CLASSARG_DEF_ARG(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ", ";
-                                    ret += default_arg;
-                                    ret += ") ";
-                                }
-
-                                ret += "MRBINDC_CLASSARG_END(";
-                                ret += cpp_param_name;
-                                ret += ", ";
-                                ret += type_str;
-                                ret += ") ";
-
-                                return ret;
-                            };
-
-                            param_usage.append_to_comment = [pass_by_enum = class_desc->predefined_ctor_enum_name](std::string_view cpp_param_name, bool has_default_arg)
+                                    (void)cpp_param_name;
+                                    std::string ret;
+                                    if (has_default_arg)
+                                        // Two spaces because this goes after a message about the default argument.
+                                        ret = "///   To use the default argument, pass a null pointer.";
+                                    else
+                                        ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
+                                    return ret;
+                                };
+                            }
+                            else if (class_desc->IsDefaultOrCopyOrMoveConstructible())
                             {
-                                (void)cpp_param_name;
-                                std::string ret;
-                                if (has_default_arg)
+                                // With the pass-by enum.
+
+                                // Here we only fill the `_with_default_arg` version, because that handles both.
+                                BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
+                                param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
+
+                                param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(class_desc->pass_by_enum_name);
+                                param_usage.c_params.back().name_suffix = "_pass_by";
+                                param_usage.c_params.emplace_back().c_type = iter->second.c_type;
+                                param_usage.c_params.back().c_type.AddTopLevelModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
+
+                                param_usage.c_params_to_cpp = [
+                                    this,
+                                    type_str,
+                                    pass_by_enum = class_desc->pass_by_enum_name,
+                                    is_default_constructible = class_desc->is_default_constructible,
+                                    is_copy_constructible = class_desc->is_copy_constructible,
+                                    is_move_constructible = class_desc->is_move_constructible
+                                ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                                 {
-                                    ret += "///   To use the default argument, pass `";
-                                    ret += pass_by_enum;
-                                    ret += "_DefaultArgument` and a null pointer.";
-                                }
-                                return ret;
-                            };
+                                    std::string ret;
+
+                                    // Insert the defails file for the `PassBy` macros.
+                                    file.custom_headers.insert(GetInternalDetailsFile().header_path_for_inclusion);
+
+                                    if (is_default_constructible)
+                                    {
+                                        ret += "MRBINDC_CLASSARG_DEF_CTOR(";
+                                        ret += cpp_param_name;
+                                        ret += ", ";
+                                        ret += type_str;
+                                        ret += ", ";
+                                        ret += pass_by_enum;
+                                        ret += ") ";
+                                    }
+
+                                    if (is_copy_constructible)
+                                    {
+                                        ret += "MRBINDC_CLASSARG_COPY(";
+                                        ret += cpp_param_name;
+                                        ret += ", ";
+                                        ret += type_str;
+                                        ret += ", ";
+                                        ret += pass_by_enum;
+                                        ret += ") ";
+                                    }
+
+                                    if (is_move_constructible)
+                                    {
+                                        ret += "MRBINDC_CLASSARG_MOVE(";
+                                        ret += cpp_param_name;
+                                        ret += ", ";
+                                        ret += type_str;
+                                        ret += ", ";
+                                        ret += pass_by_enum;
+                                        ret += ") ";
+                                    }
+
+                                    if (default_arg.empty())
+                                    {
+                                        ret += "MRBINDC_CLASSARG_NO_DEF_ARG(";
+                                        ret += cpp_param_name;
+                                        ret += ", ";
+                                        ret += type_str;
+                                        ret += ", ";
+                                        ret += pass_by_enum;
+                                        ret += ") ";
+                                    }
+                                    else
+                                    {
+                                        ret += "MRBINDC_CLASSARG_DEF_ARG(";
+                                        ret += cpp_param_name;
+                                        ret += ", ";
+                                        ret += type_str;
+                                        ret += ", ";
+                                        ret += pass_by_enum;
+                                        ret += ", ";
+                                        ret += default_arg;
+                                        ret += ") ";
+                                    }
+
+                                    ret += "MRBINDC_CLASSARG_END(";
+                                    ret += cpp_param_name;
+                                    ret += ", ";
+                                    ret += type_str;
+                                    ret += ") ";
+
+                                    return ret;
+                                };
+
+                                param_usage.append_to_comment = [pass_by_enum = class_desc->pass_by_enum_name](std::string_view cpp_param_name, bool has_default_arg)
+                                {
+                                    (void)cpp_param_name;
+                                    std::string ret;
+                                    if (has_default_arg)
+                                    {
+                                        ret += "///   To use the default argument, pass `";
+                                        ret += pass_by_enum;
+                                        ret += "_DefaultArgument` and a null pointer.";
+                                    }
+                                    return ret;
+                                };
+                            }
 
                             BindableType::ReturnUsage &return_usage = new_type.return_usage.emplace();
 
@@ -1734,7 +1830,7 @@ namespace mrbind
                     ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();
                     class_info.parsed = &cl;
 
-                    // Check what constructors we have.
+                    // Check what constructors and assignments we have.
                     for (const auto &member_var : cl.members)
                     {
                         std::visit(Overload{
@@ -1743,14 +1839,43 @@ namespace mrbind
                             {
                                 class_info.is_any_constructible = true;
                                 if (ctor.kind == CopyMoveKind::copy)
+                                {
                                     class_info.is_copy_constructible = true;
+                                    if (ctor.is_trivial)
+                                    {
+                                        class_info.is_trivially_copy_constructible = true;
+                                        class_info.is_trivially_copy_or_move_constructible = true;
+                                    }
+                                }
                                 else if (ctor.kind == CopyMoveKind::move)
+                                {
                                     class_info.is_move_constructible = true;
-                                // Do all parameters have default arguments? Having zero parameters satisfies this too.
-                                else if (std::all_of(ctor.params.begin(), ctor.params.end(), [](const FuncParam &param){return bool(param.default_argument);}))
+                                    if (ctor.is_trivial)
+                                    {
+                                        class_info.is_trivially_move_constructible = true;
+                                        class_info.is_trivially_copy_or_move_constructible = true;
+                                    }
+                                }
+                                else if (ctor.IsCallableWithNumArgs(0))
+                                {
                                     class_info.is_default_constructible = true;
+                                }
                             },
-                            [&](const ClassMethod &) {},
+                            [&](const ClassMethod &method)
+                            {
+                                if (method.assignment_kind == CopyMoveKind::copy)
+                                {
+                                    class_info.is_copy_assignable = true;
+                                    if (method.is_trivial_assignment)
+                                        class_info.is_trivially_copy_assignable = true;
+                                }
+                                else if (method.assignment_kind == CopyMoveKind::move)
+                                {
+                                    class_info.is_move_assignable = true;
+                                    if (method.is_trivial_assignment)
+                                        class_info.is_trivially_move_assignable = true;
+                                }
+                            },
                             [&](const ClassConvOp &) {},
                             [&](const ClassDtor &)
                             {
@@ -1759,18 +1884,28 @@ namespace mrbind
                         }, member_var);
                     }
 
-                    // If not destructible, assume we're not constructible either.
+                    // If not destructible, assume we're not constructible/assignable either.
                     if (!class_info.is_destructible)
                     {
                         class_info.is_default_constructible = false;
                         class_info.is_copy_constructible = false;
                         class_info.is_move_constructible = false;
                         class_info.is_any_constructible = false;
+
+                        class_info.is_copy_assignable = false;
+                        class_info.is_move_assignable = false;
+
+                        class_info.is_trivially_copy_or_move_constructible = false;
+                        class_info.is_trivially_default_constructible = false;
+                        class_info.is_trivially_copy_constructible = false;
+                        class_info.is_trivially_move_constructible = false;
+                        class_info.is_trivially_copy_assignable = false;
+                        class_info.is_trivially_move_assignable = false;
                     }
 
 
-                    if (class_info.IsDefaultOrCopyOrMoveConstructible())
-                        class_info.predefined_ctor_enum_name = info.c_type_str + "_PassBy";
+                    if (class_info.NeedsPassByEnum())
+                        class_info.pass_by_enum_name = info.c_type_str + "_PassBy";
 
                     if (class_info.is_destructible)
                         class_info.cleanup_func_name = info.c_type_str + "_Destroy";
@@ -1814,7 +1949,9 @@ namespace mrbind
 
                 void Visit(const ClassEntity &cl) override
                 {
-                    const std::string c_type_str = self.parsed_type_info.at(ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style)).c_type_str;
+                    const auto &info = self.parsed_type_info.at(ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style));
+                    const auto &class_desc = std::get<ParsedTypeInfo::ClassDesc>(info.input_type);
+                    const auto &c_type_str = info.c_type_str;
 
                     auto AddFunc = [&](const BasicFunc &func, std::string name, std::string fallback_name = "")
                     {
@@ -1838,6 +1975,9 @@ namespace mrbind
                             },
                             [&](const ClassCtor &elem)
                             {
+                                if (class_desc.UnifyCopyMoveConstructors() && elem.kind == CopyMoveKind::move)
+                                    return;
+
                                 std::string name = c_type_str;
                                 if (elem.kind == CopyMoveKind::copy)
                                     name += "_CopyConstruct";
@@ -1855,6 +1995,9 @@ namespace mrbind
                             },
                             [&](const ClassMethod &elem)
                             {
+                                if (class_desc.UnifyCopyMoveAssignments() && elem.assignment_kind == CopyMoveKind::move)
+                                    return;
+
                                 std::string name = c_type_str;
                                 name += '_';
 
@@ -2191,32 +2334,32 @@ namespace mrbind
                         file.header.contents += '\n';
 
                         // Constructor selector enum?
-                        if (class_info.IsDefaultOrCopyOrMoveConstructible())
+                        if (class_info.NeedsPassByEnum())
                         {
                             file.header.contents += "\nenum ";
-                            file.header.contents += class_info.predefined_ctor_enum_name;
+                            file.header.contents += class_info.pass_by_enum_name;
                             file.header.contents += "\n{\n";
                             if (class_info.is_default_constructible)
                             {
                                 file.header.contents += "    ";
-                                file.header.contents += class_info.predefined_ctor_enum_name;
+                                file.header.contents += class_info.pass_by_enum_name;
                                 file.header.contents += "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
                             }
                             if (class_info.is_copy_constructible)
                             {
                                 file.header.contents += "    ";
-                                file.header.contents += class_info.predefined_ctor_enum_name;
+                                file.header.contents += class_info.pass_by_enum_name;
                                 file.header.contents += "_Copy, // Copy the object into the function.\n";
                             }
                             if (class_info.is_move_constructible)
                             {
                                 file.header.contents += "    ";
-                                file.header.contents += class_info.predefined_ctor_enum_name;
+                                file.header.contents += class_info.pass_by_enum_name;
                                 file.header.contents += "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
                             }
 
                             file.header.contents += "    ";
-                            file.header.contents += class_info.predefined_ctor_enum_name;
+                            file.header.contents += class_info.pass_by_enum_name;
                             file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
 
                             file.header.contents += "};\n";
@@ -2240,6 +2383,9 @@ namespace mrbind
                                 {
                                     try
                                     {
+                                        if (elem.kind == CopyMoveKind::move && class_info.UnifyCopyMoveConstructors())
+                                            return;
+
                                         EmitFuncParams params;
                                         params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
                                         self.EmitFunction(file, params);
@@ -2253,6 +2399,9 @@ namespace mrbind
                                 {
                                     try
                                     {
+                                        if (elem.assignment_kind == CopyMoveKind::move && class_info.UnifyCopyMoveAssignments())
+                                            return;
+
                                         EmitFuncParams params;
                                         params.SetFromParsedClassMethod(self, cl, elem, GetNamespaceStack());
                                         self.EmitFunction(file, params);

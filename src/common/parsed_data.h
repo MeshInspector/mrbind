@@ -240,6 +240,8 @@ namespace mrbind
 
         MBREFL_STRUCT(
             (bool)(is_explicit, false)
+            // This can only be true for defauly/copy/move constructors.
+            (bool)(is_trivial, false)
             (CopyMoveKind)(kind, CopyMoveKind::none)
             // Template argument list including the `<...>`, or null if none.
             // Other kinds of functions don't have this, because for them we store the name with and without the template arguments,
@@ -266,6 +268,8 @@ namespace mrbind
 
             // This isn't `none` only if this is a copy/move assignment.
             (CopyMoveKind)(assignment_kind, CopyMoveKind::none)
+            // This can only be true for copy/move assignments.
+            (bool)(is_trivial_assignment, false)
         , // Bases:
             (BasicReturningClassFunc)
         )
@@ -304,6 +308,7 @@ namespace mrbind
 
         MBREFL_STRUCT(
             (std::optional<Comment>)(comment)
+            (bool)(is_trivial, false)
         )
     };
 
