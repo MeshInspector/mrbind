@@ -65,6 +65,8 @@ endif()
 if(MRBIND_BUILD_GENERATOR_C)
     add_executable(mrbind_gen_c
         src/generators/c/generator.cpp
+        src/generators/c/main.cpp
+        src/generators/c/module.cpp
     )
     target_include_directories(mrbind_gen_c PRIVATE
         deps/cppdecl/include
