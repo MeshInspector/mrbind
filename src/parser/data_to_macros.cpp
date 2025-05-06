@@ -382,6 +382,7 @@ namespace mrbind
                                     {
                                         out
                                             << "    (conv_op, "
+                                            << (conv_op.is_explicit ? "explicit" : "/*not explicit*/") << ", "
                                             << "(" << conv_op.return_type.pretty << "), "
                                             << (conv_op.is_const ? "const" : "/*not const*/") << ", "
                                             << (conv_op.comment ? EscapeQuoteString(conv_op.comment->text) : "/*no comment*/")

@@ -983,9 +983,11 @@ namespace mrbind
                 {
                     BasicReturningClassFunc *basic_ret_class_func = nullptr;
 
-                    if (llvm::isa<clang::CXXConversionDecl>(method))
+                    if (auto conv_op = llvm::dyn_cast<clang::CXXConversionDecl>(method))
                     {
                         ClassConvOp &new_conv_op = target_class.members.emplace_back().emplace<ClassConvOp>();
+                        new_conv_op.is_explicit = conv_op->isExplicit();
+
                         basic_ret_class_func = &new_conv_op;
                     }
                     else

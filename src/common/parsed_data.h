@@ -297,6 +297,7 @@ namespace mrbind
         static constexpr std::string_view name_in_variant = "conversion_operator";
 
         MBREFL_STRUCT(
+            (bool)(is_explicit, false)
         , // Bases:
             (BasicReturningClassFunc)
         )
