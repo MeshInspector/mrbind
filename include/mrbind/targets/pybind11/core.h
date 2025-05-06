@@ -910,9 +910,13 @@ namespace MRBind::pb11
 
     // Extract `gil_handling` from parameter's traits, or default to `neutral` if not specified.
     template <typename T>
-    constexpr GilHandling param_gil_handling = GilHandling::neutral;
+    struct DefaultParamGilHandling : std::integral_constant<GilHandling, GilHandling::neutral> {};
     template <typename T> requires requires{ParamTraitsLow<T>::gil_handling;}
-    constexpr GilHandling param_gil_handling<T> = ParamTraitsLow<T>::gil_handling;
+    struct DefaultParamGilHandling<T> : std::integral_constant<GilHandling, ParamTraitsLow<T>::gil_handling> {};
+
+    // This is the final GIL handling for this parameter type. This is a customization point!
+    template <typename T>
+    struct ParamGilHandling : DefaultParamGilHandling<T> {};
 
     // Whether this parameter type requires that function to be registered late, to give it less priority during overload resolution.
     template <typename T>
@@ -1380,7 +1384,7 @@ namespace MRBind::pb11
                     }
                 }
 
-                constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
+                constexpr GilHandling gil_handling = CombineGilHandling<ParamGilHandling<P>::value...>::value;
                 static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
                 auto registration_lambda = [](ModuleOrClassRef m, const char *name)
@@ -1465,7 +1469,7 @@ namespace MRBind::pb11
                     scope_state->have_copy_ctor = true;
             }
 
-            constexpr GilHandling gil_handling = CombineGilHandling<param_gil_handling<P>...>::value;
+            constexpr GilHandling gil_handling = CombineGilHandling<ParamGilHandling<P>::value...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
             (MapFilterPack<P...>)(
@@ -1509,6 +1513,41 @@ namespace MRBind::pb11
             (TryAddCtor<MRBind::pb11::CopyMoveKind::none, 0, true, const P &...>)(c, nullptr, -1, decltype(data)(data)...);
         }
     }
+
+    // Python uses two `operator[]` overloads, one for `a[b] = c` (called `__setitem__`) and one for everything else (called `__getitem__`).
+    // Normally we generate `__getitem__` (because `__setitem__` has a different signature, it can't be generated using the normal mechanism).
+    // This function then generates `__setitem__`. The macro calls this for `operator[]`, and then this function internally makes sure
+    //   this is a mutable overload.
+    // Astute readers might notice that this approach can often result in duplicate `__getitem__` overloads (one const and one non-const).
+    // We could work around that somehow, but since this already happens for ALL THE OTHER class functions ANYWAY, do we care? Probably not.
+    template <typename Class, typename IndexType>
+    void TryAddMutableSubscriptOperator(auto &c)
+    {
+        if constexpr (
+            // This version returns a mutable reference.
+            requires{
+                requires MutableLvalueRef<decltype(std::declval<Class &>()[std::declval<IndexType>()])>;
+            }
+        )
+        {
+            using ElemType = std::remove_cvref_t<decltype(std::declval<Class &>()[std::declval<IndexType>()])>;
+
+            TryAddFuncSimple<
+                FuncKind::member_nonstatic,
+                +[](Class &object, IndexType index, ElemType elem)
+                {
+                    object[std::forward<IndexType>(index)] = std::move(elem);
+                },
+                // Parameters:
+                Class &, // `this`
+                IndexType,
+                ElemType
+            >(
+                c,
+                "__setitem__"
+            );
+        }
+    };
 
     // If the class has begin/end methods, adds the 'iterable' protocol.
     template <typename T>
@@ -1967,6 +2006,7 @@ namespace MRBind::pb11
         if (view == "_EqualEqual") return "__eq__"; // If missing, Python implements this in terms of `is` (basically an address comparison).
         if (view == "_ExclaimEqual") return "__ne__"; // Python automatically implements this in terms of `__eq__` if it's missing, like in C++.
         if (view == "_Call") return "__call__";
+        if (view == "_Subscript") return "__getitem__"; // `__setitem__` is generated separately.
         // We don't handle <,<=,>,>= at the moment. Would need to do something about `<=>` too....
         return name;
         // Unhandled operators: (taken from /usr/lib/llvm-18/include/clang/Basic/OperatorKinds.def)
@@ -1988,7 +2028,6 @@ namespace MRBind::pb11
         // _Comma
         // _ArrowStar
         // _Arrow
-        // _Subscript  - how to handle both __getelem__ and __setelem__?
     }
 
     void RegisterTypeAliasLow(std::type_index type, std::string_view spelling)
@@ -3482,7 +3521,19 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             /* Comment, if any. */ \
             MRBIND_PREPEND_COMMA(comment_) \
         ));} \
-    );
+    ); \
+    /* If this is `__getitem__`, also generate `__setitem__`. */\
+    DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT(simplename_, params_, const_)
+
+// `DETAIL_MB_PB11_DISPATCH_MEMBER_method` calls this to generate the assigning overload of `[]`. The normal non-assigning overload is generated the normal way.
+// Only has effect if `simplename_` == `_Subscript`. Then calls `TryAddMutableSubscriptOperator()`.
+#define DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT(simplename_, params_, const_) DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_A(MRBIND_CAT(DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_CHECK, simplename_)())(params_, const_)
+#define DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_CHECK_Subscript() x,
+#define DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_A(...) DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_B(__VA_ARGS__, DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_MAKE, MRBIND_NULL)
+#define DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_B(a, b, c, ...) c
+#define DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT_MAKE(params_, const_) \
+    if (_pb11_state.pass_number == 0) \
+        MRBind::pb11::TryAddMutableSubscriptOperator<_pb11_C const_, DETAIL_MB_PB11_PARAM_TYPES(params_)>(_pb11_c);
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, ret_, const_, comment_) \

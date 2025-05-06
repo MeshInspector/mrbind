@@ -19,6 +19,7 @@ namespace mrbind::CBindings
 {
     Generator::Generator() {}
 
+    Generator::~Generator() {}
 
     void Generator::OutputFile::InitRelativeName(Generator &self, std::string new_relative_name, bool is_public)
     {
@@ -28,9 +29,12 @@ namespace mrbind::CBindings
 
         const auto &header_dir = is_public ? self.output_header_dir_path : self.output_source_dir_path;
 
-        header_path_full = PathToString((header_dir                  / relative_output_path).lexically_normal()) + self.extension_header;
-        source_path_full = PathToString((self.output_source_dir_path / relative_output_path).lexically_normal()) + self.extension_source;
-        header_path_for_inclusion = PathToString(relative_output_path.lexically_normal()) + self.extension_header;
+        header         .full_output_path = PathToString((header_dir                  / relative_output_path).lexically_normal()) + self.extension_header;
+        source         .full_output_path = PathToString((self.output_source_dir_path / relative_output_path).lexically_normal()) + self.extension_source;
+        internal_header.full_output_path = PathToString((self.output_source_dir_path / relative_output_path).lexically_normal()) + self.extension_internal_header;
+
+        header         .path_for_inclusion = PathToString(relative_output_path.lexically_normal()) + self.extension_header;
+        internal_header.path_for_inclusion = PathToString(relative_output_path.lexically_normal()) + self.extension_internal_header;
 
         { // Decide what directories to create.
             std::filesystem::path cur_path = relative_output_path.lexically_normal();
@@ -48,13 +52,17 @@ namespace mrbind::CBindings
     void Generator::OutputFile::InitDefaultContents(InitFlags flags)
     {
         header.preamble += "#pragma once\n";
-        source.preamble += "#include \"" + header_path_for_inclusion + "\"\n";
+        source.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
 
         if (!bool(flags & InitFlags::no_extern_c))
         {
             header.after_includes += "#ifdef __cplusplus\nextern \"C\" {\n#endif\n";
             header.footer += "#ifdef __cplusplus\n} // extern \"C\"\n#endif\n";
         }
+
+
+        internal_header.preamble += "#pragma once\n";
+        internal_header.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
     }
 
     std::string Generator::ParsedFilenameToRelativeNameForInclusion(const DeclFileName &input)
@@ -176,7 +184,7 @@ namespace mrbind::CBindings
         return file;
     }
 
-    std::string Generator::GetExportMacroForFile(OutputFile &target_file)
+    std::string Generator::GetExportMacroForFile(OutputFile &target_file, bool for_internal_header)
     {
         // This function could be changed later to depend on the `target_file` path, e.g. if we want multiple separate export files for multiple libraries in the output.
         // Then we could also use different macro names, and so on.
@@ -184,15 +192,16 @@ namespace mrbind::CBindings
         bool file_is_new = false;
         OutputFile &file = GetPublicHelperFile("exports", &file_is_new, OutputFile::InitFlags::no_extern_c);
 
-        target_file.header.custom_headers.insert(target_file.header_path_for_inclusion);
+        OutputFile::SpecificFileContents &contents = for_internal_header ? target_file.internal_header : target_file.header;
+        contents.custom_headers.insert(file.header.path_for_inclusion);
 
-        std::string macro_name = MakeHelperName("API");
+        std::string macro_name = MakePublicHelperName("API");
 
         if (file_is_new)
         {
             file.header.contents += "#ifndef " + macro_name + "\n";
             file.header.contents += "#  ifdef _WIN32\n";
-            file.header.contents += "#    if " + MakeHelperName("BUILD") + "\n";
+            file.header.contents += "#    if " + MakePublicHelperName("BUILD") + "\n";
             file.header.contents += "#      define " + macro_name + " __declspec(dllexport)\n";
             file.header.contents += "#    else\n";
             file.header.contents += "#      define " + macro_name + " __declspec(dllimport)\n";
@@ -300,6 +309,23 @@ namespace mrbind::CBindings
     // ]
 
 
+    void Generator::ExtraHeaders::InsertToFile(OutputFile &file) const
+    {
+        file.header.stdlib_headers.insert(stdlib_in_header_file.begin(), stdlib_in_header_file.end());
+        file.source.stdlib_headers.insert(stdlib_in_source_file.begin(), stdlib_in_source_file.end());
+
+        std::unordered_set<std::string> header_custom;
+        if (custom_in_header_file)
+            header_custom = custom_in_header_file();
+        file.header.custom_headers.insert(std::make_move_iterator(header_custom.begin()), std::make_move_iterator(header_custom.end()));
+
+        std::unordered_set<std::string> source_custom;
+        if (custom_in_source_file)
+            source_custom = custom_in_source_file();
+        file.source.custom_headers.insert(std::make_move_iterator(source_custom.begin()), std::make_move_iterator(source_custom.end()));
+    }
+
+
     Generator::BindableType::BindableType(cppdecl::Type c_type)
     {
         ParamUsage &param = param_usage.emplace();
@@ -310,9 +336,16 @@ namespace mrbind::CBindings
         // For `void` omit `return` for clarity.
         if (c_type.AsSingleWord() == "void")
         {
-            return_usage->make_return_statement = [](OutputFile::SpecificFileContents &file, std::string_view expr)
+            return_usage->make_return_statement = [](OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
             {
                 (void)file;
+
+                // Don't add the `;` if the expression is empty.
+                // This doesn't happen during normal usage, but some custom functions that have all the code in `cpp_extra_statements`
+                //   and no actual return statement do need this.
+                if (expr.empty())
+                    return "";
+
                 return std::string(expr) + ";";
             };
         }
@@ -347,11 +380,11 @@ namespace mrbind::CBindings
                 // Not sure which way is better. Doing it lazily sounds a tiny bit more flexible?
 
                 if (new_type.param_usage)
-                    new_type.param_usage->type_dependencies.try_emplace(str);
+                    new_type.param_usage->parsed_type_dependencies.try_emplace(str);
                 if (new_type.param_usage_with_default_arg)
-                    new_type.param_usage_with_default_arg->type_dependencies.try_emplace(str);
+                    new_type.param_usage_with_default_arg->parsed_type_dependencies.try_emplace(str);
                 if (new_type.return_usage)
-                    new_type.return_usage->type_dependencies.try_emplace(str);
+                    new_type.return_usage->parsed_type_dependencies.try_emplace(str);
             });
         };
 
@@ -475,7 +508,7 @@ namespace mrbind::CBindings
                     new_type.return_usage->make_return_statement = [
                         ref_target_type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1),
                         is_rvalue_ref,
-                        details_file = is_rvalue_ref ? GetInternalDetailsFile().header_path_for_inclusion : std::string{}
+                        details_file = is_rvalue_ref ? GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](OutputFile::SpecificFileContents &file, std::string_view expr)
                     {
                         file.stdlib_headers.insert("type_traits");
@@ -496,7 +529,7 @@ namespace mrbind::CBindings
                     // Here we don't need any special handling of rvalue references.
                     new_type.return_usage->make_return_statement = [
                         is_rvalue_ref,
-                        details_file = is_rvalue_ref ? GetInternalDetailsFile().header_path_for_inclusion : std::string{}
+                        details_file = is_rvalue_ref ? GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](OutputFile::SpecificFileContents &file, std::string_view expr)
                     {
                         (void)file;
@@ -620,7 +653,7 @@ namespace mrbind::CBindings
 
                         // Here we only fill the `_with_default_arg` version, because that handles both.
                         BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
-                        param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
+                        param_usage.parsed_type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
 
                         param_usage.c_params.emplace_back().c_type = iter->second.c_type;
                         param_usage.c_params.back().c_type.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_);
@@ -690,7 +723,7 @@ namespace mrbind::CBindings
 
                         // Here we only fill the `_with_default_arg` version, because that handles both.
                         BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
-                        param_usage.type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
+                        param_usage.parsed_type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
 
                         param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(class_desc->pass_by_enum_name);
                         param_usage.c_params.back().name_suffix = "_pass_by";
@@ -709,7 +742,7 @@ namespace mrbind::CBindings
                             std::string ret;
 
                             // Insert the defails file for the `PassBy` macros.
-                            file.custom_headers.insert(GetInternalDetailsFile().header_path_for_inclusion);
+                            file.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion);
 
                             if (is_default_constructible)
                             {
@@ -794,7 +827,7 @@ namespace mrbind::CBindings
 
                     return_usage.c_type = iter->second.c_type;
                     return_usage.c_type.modifiers.emplace_back(cppdecl::Pointer{});
-                    return_usage.type_dependencies.try_emplace(type_str); // Only the forward declaration is needed.
+                    return_usage.parsed_type_dependencies.try_emplace(type_str); // Only the forward declaration is needed.
                     return_usage.append_to_comment = "/// Returns an instance allocated on the heap! Must call `";
                     return_usage.append_to_comment += class_desc->cleanup_func_name;
                     return_usage.append_to_comment += "()` to free it when you're done using it.";
@@ -813,7 +846,7 @@ namespace mrbind::CBindings
         // Lastly, ask the modules.
         for (const auto &m : modules)
         {
-            if (auto opt = m->GetBindableType(*this, type))
+            if (auto opt = m->GetBindableType(*this, type, cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style)))
                 return &bindable_cpp_types.try_emplace(type_str, *opt).first->second;
         }
 
@@ -1063,7 +1096,7 @@ namespace mrbind::CBindings
         {
             if (new_method.ref_qualifier == RefQualifier::rvalue)
             {
-                extra_custom_includes_in_impl_file.insert("utility");
+                extra_headers.stdlib_in_source_file.insert("utility");
                 cpp_called_func_begin = "std::move";
             }
             cpp_called_func_begin += "(*(";
@@ -1113,7 +1146,7 @@ namespace mrbind::CBindings
 
         if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
         {
-            extra_custom_includes_in_impl_file.insert("utility");
+            extra_headers.stdlib_in_source_file.insert("utility");
             cpp_called_func_begin = "std::move";
         }
 
@@ -1122,7 +1155,7 @@ namespace mrbind::CBindings
         cpp_called_func_begin += ")(";
         if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
         {
-            extra_custom_includes_in_impl_file.insert("utility");
+            extra_headers.stdlib_in_source_file.insert("utility");
             cpp_called_func_begin += "std::move(";
         }
         cpp_called_func_begin += "*(";
@@ -1219,15 +1252,15 @@ namespace mrbind::CBindings
             comment += '\n';
         }
 
-        std::string body;
+        std::string body_pre;
         if (!params.cpp_extra_statements.empty())
         {
-            body += IndentString(params.cpp_extra_statements, 1, true);
-            body += "\n    ";
+            body_pre += IndentString(params.cpp_extra_statements, 1, false);
         }
 
+        std::string body_return;
         if (!params.cpp_called_func_begin.empty())
-            body += params.cpp_called_func_begin;
+            body_return += params.cpp_called_func_begin;
 
         // Assemble the parameter and argument lists.
         std::size_t i = 0;
@@ -1258,7 +1291,7 @@ namespace mrbind::CBindings
 
 
                     // Declare or include type dependencies of the parameter.
-                    for (const auto &dep : param_usage->type_dependencies)
+                    for (const auto &dep : param_usage->parsed_type_dependencies)
                     {
                         auto iter = parsed_type_info.find(dep.first);
                         if (iter == parsed_type_info.end())
@@ -1306,6 +1339,9 @@ namespace mrbind::CBindings
 
                     if (param.add_to_call)
                         arg_expr = param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? param.default_arg->cpp_expr : "");
+
+                    // Insert the extra includes.
+                    param_usage->extra_headers.InsertToFile(file);
                 }
                 else
                 {
@@ -1314,6 +1350,10 @@ namespace mrbind::CBindings
 
                     if (param.add_to_call)
                         arg_expr = param_name_fixed;
+
+                    auto &new_param = new_func.params.emplace_back();
+                    new_param.type = param.cpp_type;
+                    new_param.name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed);
                 }
 
                 // Append the argument to the call, if enabled.
@@ -1322,10 +1362,10 @@ namespace mrbind::CBindings
                     if (first_arg_in_call_expr)
                         first_arg_in_call_expr = false;
                     else
-                        body += ',';
+                        body_return += ',';
 
-                    body += "\n        ";
-                    body += arg_expr;
+                    body_return += "\n        ";
+                    body_return += arg_expr;
                 }
 
                 i++;
@@ -1338,8 +1378,8 @@ namespace mrbind::CBindings
         if (!params.cpp_called_func_begin.empty())
         {
             if (!first_arg_in_call_expr)
-                body += "\n    ";
-            body += params.cpp_called_func_end;
+                body_return += "\n    ";
+            body_return += params.cpp_called_func_end;
         }
 
 
@@ -1356,7 +1396,7 @@ namespace mrbind::CBindings
                 throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
 
             // Declare or include the type dependencies of the return type.
-            for (const auto &dep : bindable_return_type.return_usage->type_dependencies)
+            for (const auto &dep : bindable_return_type.return_usage->parsed_type_dependencies)
             {
                 auto iter = parsed_type_info.find(dep.first);
                 if (iter == parsed_type_info.end())
@@ -1376,7 +1416,10 @@ namespace mrbind::CBindings
             }
 
             new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
-            body = bindable_return_type.return_usage->MakeReturnStatement(file.source, body);
+            body_return = bindable_return_type.return_usage->MakeReturnStatement(file.source, body_return);
+
+            // Insert the extra includes.
+            bindable_return_type.return_usage->extra_headers.InsertToFile(file);
         }
         catch (...)
         {
@@ -1388,31 +1431,43 @@ namespace mrbind::CBindings
 
         file.header.contents += '\n';
         file.header.contents += comment;
-        file.header.contents += GetExportMacroForFile(file);
+        file.header.contents += GetExportMacroForFile(file, false);
         file.header.contents += ' ';
         file.header.contents += new_decl_str;
         file.header.contents += ";\n";
 
         file.source.contents += '\n';
         file.source.contents += new_decl_str;
-        file.source.contents += "\n{\n    ";
+        file.source.contents += "\n{\n";
 
         for (const NamespaceEntity *ns : params.using_namespace_stack)
         {
             if (!ns->name)
                 continue; // An anonymous namespace.
-            file.source.contents += "using namespace ";
+            file.source.contents += "    using namespace ";
             file.source.contents += *ns->name;
-            file.source.contents += ";\n    ";
+            file.source.contents += ";\n";
         }
 
-        file.source.contents += body;
-        file.source.contents += "\n}\n";
+        if (!body_pre.empty())
+        {
+            file.source.contents += "    ";
+            file.source.contents += body_pre;
+            file.source.contents += "\n";
+        }
+
+        if (!body_return.empty())
+        {
+            file.source.contents += "    ";
+            file.source.contents += body_return;
+            file.source.contents += "\n";
+        }
+
+        file.source.contents += "}\n";
 
 
-        // Insert the extra includes.
-        file.source.custom_headers.insert(params.extra_custom_includes_in_impl_file.begin(), params.extra_custom_includes_in_impl_file.end());
-        file.source.stdlib_headers.insert(params.extra_stdlib_includes_in_impl_file.begin(), params.extra_stdlib_includes_in_impl_file.end());
+        // Insert the function-wide extra includes.
+        params.extra_headers.InsertToFile(file);
     }
 
     void Generator::EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field)
@@ -2157,10 +2212,16 @@ namespace mrbind::CBindings
         }
     }
 
-    void Generator::DumpFileToOstream(const OutputFile::SpecificFileContents &file, std::ostream &out)
+    void Generator::DumpFileToOstream(const OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out)
     {
         if (out)
             out << file.preamble << '\n';
+
+        // If this is the source file and we also have a non-empty internal header, include it.
+        if (out && &file == &context.source && context.internal_header.HasUsefulContents())
+        {
+            out << "#include <" << context.internal_header.path_for_inclusion << ">\n\n";
+        }
 
         // Should we include a header to declare this type, as opposed to forward-declaring it?
         auto UseHeader = [this](const std::pair<const std::string, OutputFile::SpecificFileContents::ForwardDeclarationOrInclusion> &target)
@@ -2184,7 +2245,7 @@ namespace mrbind::CBindings
                             throw std::runtime_error("Need to include a header or forward-declare type `" + elem.first + "`, but don't know how.");
                     }
 
-                    headers.insert(parsed_type.declared_in_file->header_path_for_inclusion);
+                    headers.insert(parsed_type.declared_in_file->header.path_for_inclusion);
                 }
             }
 

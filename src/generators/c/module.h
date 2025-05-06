@@ -17,28 +17,30 @@ namespace mrbind::CBindings
     {
         virtual ~Module() = default;
 
+        virtual void Init(Generator &generator) {(void)generator;}
+
         // If you know this type, return the binding for it. If you don't, return null.
         // You're allowed to call `generator.FindBindableTypeOpt(...)` for any dependent types you need.
         // Probably not a good idea to call the non-`Opt` version though, because throwing from here is a hard error.
-        virtual std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type) = 0;
+        // `type_str` is the string representation of `type` (with `ToCodeFlags::canonical_c_style` like everywhere else`).
+        virtual std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) = 0;
     };
 
-    namespace detail
-    {
-        // Using `std::map` to ensure a consistent ordering. The keys are the type names.
-        using ModuleMap = std::map<std::string_view, std::unique_ptr<Module> (*)()>;
+    // Using `std::map` to ensure a consistent ordering. The keys are the type names.
+    using ModuleMap = std::map<std::string_view, std::unique_ptr<Module> (*)()>;
 
-        [[nodiscard]] ModuleMap &GetRegisteredModules();
-    }
+    [[nodiscard]] ModuleMap &GetRegisteredModules();
 
     // This is a CRTP base.
+    //
     template <typename Derived>
     struct DeriveModule : Module
     {
       private:
         static std::nullptr_t Register()
         {
-            detail::GetRegisteredModules().try_emplace(TypeName<Derived>(), []() -> std::unique_ptr<Module> {return std::make_unique<Derived>();});
+            GetRegisteredModules().try_emplace(TypeName<Derived>(), []() -> std::unique_ptr<Module> {return std::make_unique<Derived>();});
+            return nullptr;
         }
 
         inline static const std::nullptr_t register_me = Register();

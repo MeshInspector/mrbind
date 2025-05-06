@@ -1,6 +1,7 @@
 #include "common/filesystem.h"
 #include "common/set_error_handlers.h"
 #include "generators/c/generator.h"
+#include "generators/c/module.h"
 #include "generators/common/command_line_args_as_utf8.h"
 #include "generators/common/data_from_file.h"
 
@@ -42,7 +43,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --output-source-dir   <dir>            - Output directory for sources. Same rules are for `--output-header-dir`.\n"
                     "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
                     "    --clean-output-dirs                    - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
-                    "    --helper-header-dir  <dir>            - Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.\n"
+                    "    --helper-header-dir  <dir>             - Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.\n"
                     "    --helper-name-prefix  <string>         - This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, possibly followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.\n"
                     "    --strip-filename-suffix  <ext>         - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
                     "    --assume-include-dir  <dir>            - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
@@ -214,6 +215,16 @@ int main(int raw_argc, char **raw_argv)
         }
     }
 
+    { // Load the generator modules.
+        const auto &avail_modules = mrbind::CBindings::GetRegisteredModules();
+        generator.modules.reserve(avail_modules.size());
+        for (const auto &elem : avail_modules)
+        {
+            generator.modules.push_back(elem.second());
+            generator.modules.back()->Init(generator);
+        }
+    }
+
     // Generate all sources, in memory for now.
     generator.Generate();
 
@@ -224,32 +235,20 @@ int main(int raw_argc, char **raw_argv)
     // Write the generated files.
     for (const auto &elem : generator.outputs)
     {
-        if (elem.second.header.contents.empty())
-            continue; // This looks empty, skip. The source file should be empty at this point too, presumably.
+        // Write files.
+        for (auto file : {&elem.second.header, &elem.second.internal_header, &elem.second.source})
+        {
+            if (file->HasUsefulContents())
+            {
+                if (verbose)
+                    std::cerr << "mrbind_gen_c: Writing file: " << file->full_output_path << '\n';
 
-        { // Write header.
-            if (verbose)
-                std::cerr << "mrbind_gen_c: Writing header: " << elem.second.header_path_full << '\n';
-
-            std::ofstream output(mrbind::MakePath(elem.second.header_path_full));
-            if (output)
-                generator.DumpFileToOstream(elem.second.header, output);
-            if (!output)
-                throw std::runtime_error("Failed to write to the output file: `" + elem.second.header_path_full + "`.");
-        }
-
-        if (elem.second.source.contents.empty())
-            continue; // Looks header-only. Write the header but not the source file.
-
-        { // Write source.
-            if (verbose)
-                std::cerr << "mrbind_gen_c: Writing source: " << elem.second.source_path_full << '\n';
-
-            std::ofstream output(mrbind::MakePath(elem.second.source_path_full));
-            if (output)
-                generator.DumpFileToOstream(elem.second.source, output);
-            if (!output)
-                throw std::runtime_error("Failed to write to the output file: `" + elem.second.source_path_full + "`.");
+                std::ofstream output(mrbind::MakePath(file->full_output_path));
+                if (output)
+                    generator.DumpFileToOstream(elem.second, *file, output);
+                if (!output)
+                    throw std::runtime_error("Failed to write to the output file: `" + file->full_output_path + "`.");
+            }
         }
     }
 }

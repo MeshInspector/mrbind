@@ -23,6 +23,9 @@ namespace mrbind::CBindings
         Generator(const Generator &) = delete;
         Generator &operator=(const Generator &) = delete;
 
+        // This needs to be implemented in the `.cpp` because we don't see the definition of `Module` at this point.
+        ~Generator();
+
         // Input: [
 
         // We rely on the contents having stable addresses (see `ParsedTypeInfo`), so don't mess with this too much.
@@ -45,7 +48,7 @@ namespace mrbind::CBindings
         std::filesystem::path helper_header_relative_dir = ".";
 
         // The prefix to add to the names that we generate, as opposed to parsing (since the parsed names naturally use the namespace prefix).
-        // Do not access directly! Use `MakeHelperName()` instead. That throws if this is not specified.
+        // Do not access directly! Use `MakePublicHelperName()` instead. That throws if this is not specified.
         std::string helper_name_prefix_opt;
 
         // ]
@@ -53,6 +56,10 @@ namespace mrbind::CBindings
         // Constants: [
         std::string extension_header = ".h";
         std::string extension_source = ".cpp";
+        std::string extension_internal_header = ".detail.hpp";
+
+        // This is added after `helper_name_prefix_opt` to internal names.
+        std::string detail_helper_name_extra_prefix = "DETAIL_";
         // ]
 
 
@@ -62,9 +69,16 @@ namespace mrbind::CBindings
 
         // Prefixes the name with whatever was passed to `--custom-name-prefix`.
         // This is for the custom names, as opposed to the parsed ones.
-        [[nodiscard]] std::string MakeHelperName(std::string_view name)
+        [[nodiscard]] std::string MakePublicHelperName(std::string_view name)
         {
             std::string ret = helper_name_prefix_opt;
+            ret += name;
+            return ret;
+        }
+        [[nodiscard]] std::string MakeDetailHelperName(std::string_view name)
+        {
+            std::string ret = helper_name_prefix_opt;
+            ret += detail_helper_name_extra_prefix;
             ret += name;
             return ret;
         }
@@ -75,12 +89,6 @@ namespace mrbind::CBindings
         // Describes one header and its source file that we're generating.
         struct OutputFile
         {
-            // Names of the output files: [
-            std::string header_path_full;
-            std::string source_path_full;
-            // ]
-            std::string header_path_for_inclusion;
-
             // The identifier of this file. Basically a relative path without an extension.
             std::string relative_name;
 
@@ -90,6 +98,13 @@ namespace mrbind::CBindings
 
             struct SpecificFileContents
             {
+                // Where the file will be written.
+                std::string full_output_path;
+
+                // If this is a header, this is a file name to be used to include it.
+                // This is empty for `.source` (the source file).
+                std::string path_for_inclusion;
+
                 // The contents are pasted in this order: [
 
                 // This is pasted before the rest of the contents. It's in a separate variable to simplify generation.
@@ -127,10 +142,19 @@ namespace mrbind::CBindings
                 };
                 // Lists all type names that are needed here, and whether we should include headers for them for forward-decare them.
                 std::unordered_map<std::string, ForwardDeclarationOrInclusion> forward_declarations_and_inclusions;
+
+
+                // If this is true, we will write this file.
+                [[nodiscard]] bool HasUsefulContents() const {return !contents.empty();}
             };
 
             SpecificFileContents header;
             SpecificFileContents source;
+
+            // An internal C++ header.
+            // Like all other files, this gets created only if it has non-empty contents.
+            // This is automatically included into `source` only if it's non-empty.
+            SpecificFileContents internal_header;
 
             enum class InitFlags
             {
@@ -171,7 +195,8 @@ namespace mrbind::CBindings
 
         // Returns the appropriate export macro for the specified output file.
         // Also modifies that file to include the header where the macro is declared, and creates that header on the first use too.
-        [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file);
+        // If `for_internal_header` is false, acts on the public C header. If true, acts on the internal C++ header.
+        [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file, bool for_internal_header);
 
 
         struct ParsedTypeInfo
@@ -296,9 +321,23 @@ namespace mrbind::CBindings
         // ]
 
 
+        struct ExtraHeaders
+        {
+            // Separately the entirely custom ones and stdlib ones, which currently is purely decorative.
+
+            std::unordered_set<std::string> stdlib_in_source_file;
+            std::unordered_set<std::string> stdlib_in_header_file;
+
+            // Those are functions to allow them to be lazy (to avoid generating unneeded custom headers).
+            std::function<std::unordered_set<std::string>()> custom_in_source_file;
+            std::function<std::unordered_set<std::string>()> custom_in_header_file;
+
+            void InsertToFile(OutputFile &file) const;
+        };
+
         struct BindableType
         {
-            struct TypeDependency
+            struct ParsedTypeDependency
             {
                 // If false, then will forward-declare this type if possible, instead of including its header.
                 // If true, will always include the header.
@@ -312,6 +351,8 @@ namespace mrbind::CBindings
                     cppdecl::Type c_type;
 
                     // This is only needed if `param_usage.size() > 1` (see below). This gets added to the name of the function parameter.
+                    // Typically this should be empty for at exactly one of the parameters,
+                    //   since e.g. the generated default argument comment will refer to the parameter without the suffix.
                     // Adding `""` to mark this as optional for Clang's designated init.
                     std::string name_suffix = "";
                 };
@@ -322,15 +363,19 @@ namespace mrbind::CBindings
 
                 // Defaults to an identity function if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
-                // The `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
-                //   `type_dependencies` for that purpose.
+                // The source `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
+                //   `parsed_type_dependencies` or `extra_headers` for that purpose.
                 // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is,
                 //   this might never receive default arguments.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
 
                 // Which parsed types do we need to include or forward-declare? The keys are C++ type names.
                 // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
-                std::unordered_map<std::string, TypeDependency> type_dependencies;
+                std::unordered_map<std::string, ParsedTypeDependency> parsed_type_dependencies;
+
+                // The additional headers to include.
+                // This is for custom and stdlib headers, not for those generated from parsing. Use `parsed_type_dependencies` for those.
+                ExtraHeaders extra_headers;
 
                 // When this type is returned, this string is appended to the comment.
                 // Don't include line breaks before and after, we add them automatically.
@@ -371,12 +416,17 @@ namespace mrbind::CBindings
                 // Generates a return statement to return a value of this type.
                 // If null, defaults to `"return "+expr+";"`.
                 // You can generate more than one statement here.
-                // Providing `file` so you can add some extra headers or whatever.
+                // Providing the source `file` so you can add some extra headers or whatever. Note that this is intentionally redundant,
+                //   as we also have `extra_headers` below.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_statement;
 
                 // Which parsed types do we need to include or forward-declare?
                 // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
-                std::unordered_map<std::string, TypeDependency> type_dependencies;
+                std::unordered_map<std::string, ParsedTypeDependency> parsed_type_dependencies;
+
+                // The additional headers to include.
+                // This is for custom and stdlib headers, not for those generated from parsing. Use `parsed_type_dependencies` for those.
+                ExtraHeaders extra_headers;
 
                 // When this type is returned, this string is appended to the comment.
                 // Don't include line breaks before and after, we add them automatically.
@@ -496,10 +546,8 @@ namespace mrbind::CBindings
             // This is only useful for parsed default arguments, because I don't know how to canonicalize them to include the full namespace qualifiers.
             std::span<const NamespaceEntity *const> using_namespace_stack;
 
-            // The extra include files to add to the `.cpp` file.
-            // Separately the entirely custom ones and stdlib ones, which currently is purely decorative.
-            std::unordered_set<std::string> extra_custom_includes_in_impl_file;
-            std::unordered_set<std::string> extra_stdlib_includes_in_impl_file;
+            // The extra header files to include.
+            ExtraHeaders extra_headers;
 
             struct Param
             {
@@ -621,6 +669,6 @@ namespace mrbind::CBindings
         void Generate();
 
 
-        void DumpFileToOstream(const OutputFile::SpecificFileContents &file, std::ostream &out);
+        void DumpFileToOstream(const OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out);
     };
 }

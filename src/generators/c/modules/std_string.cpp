@@ -2,28 +2,30 @@
 
 namespace mrbind::CBindings::Modules
 {
-    struct StdString : Module
+    struct StdString : DeriveModule<StdString>
     {
-        // Those are initialized when `GetPublicHeader_StdString()` is first called: [
-
         // The C struct name for strings.
         std::string c_str_struct;
         // The name of a C function that destroys strings.
         std::string c_str_destroy_func;
+        // The name of the internal C++ function that creates strings.
+        std::string c_str_detail_create_func;
 
-        // ]
+        void Init(Generator &generator) override
+        {
+            c_str_struct = generator.MakePublicHelperName("std_string");
+            c_str_destroy_func = generator.MakePublicHelperName("Destroy_std_string");
+            c_str_detail_create_func = generator.MakeDetailHelperName("Create_std_string");
+        }
 
-        Generator::OutputFile &GetPublicHeader_StdString(Generator &generator)
+        Generator::OutputFile &GetPublicHeader(Generator &generator)
         {
             bool is_new = false;
             Generator::OutputFile &file = generator.GetPublicHelperFile("std_string", &is_new);
 
             if (is_new)
             {
-                c_str_struct = generator.MakeHelperName("std_string");
-                c_str_destroy_func = generator.MakeHelperName("Destroy_std_string");
-
-                file.header.stdlib_headers.insert("stdint.h"); // For `size_t`.
+                file.header.stdlib_headers.insert("stddef.h"); // For `size_t`.
 
                 file.header.contents += "struct ";
                 file.header.contents += c_str_struct;
@@ -47,21 +49,86 @@ namespace mrbind::CBindings::Modules
                     });
                     generator.EmitFunction(file, emit_params);
                 }
+
+                { // Emit the internal C++ header.
+                    file.internal_header.stdlib_headers.insert("string");
+
+                    file.internal_header.contents += "[[nodiscard]] " + generator.GetExportMacroForFile(file, true) + " " + c_str_struct + " " + c_str_detail_create_func + "(std::string str) noexcept;\n";
+
+                    file.source.contents += c_str_struct + " " + c_str_detail_create_func + "(std::string str) noexcept\n";
+                    file.source.contents += "{\n";
+                    file.source.contents += "    std::string *storage = new std::string(std::move(str));\n";
+                    file.source.contents += "    return {.str = storage->data(), .size = storage->size(), ._owner = storage};\n";
+                    file.source.contents += "}\n";
+                }
             }
+
+            return file;
         }
 
-        std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type) override
+        std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
             std::optional<Generator::BindableType> ret;
 
-            if (type.AsSingleWord() == "std::string")
+            if (
+                type_str == "std::string" ||
+                type_str == "std::basic_string<char>" // Hmm!
+                // I don't think I need to spell out the remaining arguments, as libclang doesn't emit them if they match the defaults.
+            )
             {
                 Generator::BindableType &new_type = ret.emplace();
 
                 Generator::BindableType::ReturnUsage &return_usage = new_type.return_usage.emplace();
-                return_usage.
-                #error we need to write all this (return and param usage), but the main question is where do we put the C++ details?
-                #error probably the `OutputFile` needs a new `SpecificFile` for a details header, that we'd call `Foo.mrbind_detail.h`.
+                return_usage.c_type = cppdecl::Type::FromSingleWord(c_str_struct);
+                return_usage.make_return_statement = [this](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
+                {
+                    return "return " + std::string(c_str_detail_create_func) + "(" + std::string(expr) + ");";
+                };
+                return_usage.append_to_comment = "/// The returned string must be freed by calling `" + c_str_destroy_func + "()`.";
+                return_usage.extra_headers.custom_in_header_file = [this, &generator]{return std::unordered_set<std::string>{GetPublicHeader(generator).header.path_for_inclusion};};
+                return_usage.extra_headers.custom_in_source_file = [this, &generator]{return std::unordered_set<std::string>{GetPublicHeader(generator).internal_header.path_for_inclusion};};
+
+                Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
+                auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
+                param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
+                param_usage.c_params.back().name_suffix += "_end";
+                param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                {
+                    file.stdlib_headers.insert("string");
+
+                    std::string ret;
+                    ret += cpp_param_name;
+                    ret += " ? (" + std::string(cpp_param_name) + "_end ? std::string(" + std::string(cpp_param_name) + ", " + std::string(cpp_param_name) + "_end) : std::string(" + std::string(cpp_param_name) + ")) : ";
+
+                    if (default_arg.empty())
+                    {
+                        file.stdlib_headers.insert("stdexcept");
+                        ret += "throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                    }
+                    else
+                    {
+                        ret += "std::string(" + std::string(default_arg) + ")";
+                    }
+
+                    return ret;
+                };
+                param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)
+                {
+                    std::string ret;
+                    if (has_default_arg)
+                    {
+                        // Two spaces because this goes after a message about the default argument.
+                        ret += "///   To use the default argument, pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`.\n";
+                        ret += "/// Non-null `" + std::string(cpp_param_name) + "_end` requires a non-null `" + std::string(cpp_param_name) + "`.\n";
+                    }
+                    else
+                    {
+                        ret += "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.\n";
+                    }
+                    ret += "/// If `" + std::string(cpp_param_name) + "_end` is not null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
+                    return ret;
+                };
             }
 
             return ret;

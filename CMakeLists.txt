@@ -43,10 +43,11 @@ if(MRBIND_BUILD_PARSER)
     if (TARGET clangTooling)
         target_link_libraries(mrbind PRIVATE clangTooling)
     else()
-        # The only platform where this branch is used (that I know of) is Arch.
+        # The only platforms where this branch is used (that I know of) are Arch and Rocky.
+        # The `LLVM` part is only needed on Rocky.
         # Trying this on e.g. Ubuntu causes the following runtime error when you run the resulting application:
         #   LLVM ERROR: inconsistency in registered CommandLine options
-        target_link_libraries(mrbind PRIVATE clang-cpp LLVMSupport)
+        target_link_libraries(mrbind PRIVATE clang-cpp LLVM LLVMSupport)
     endif()
 endif()
 
@@ -67,6 +68,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         src/generators/c/generator.cpp
         src/generators/c/main.cpp
         src/generators/c/module.cpp
+        src/generators/c/modules/std_string.cpp
     )
     target_include_directories(mrbind_gen_c PRIVATE
         deps/cppdecl/include

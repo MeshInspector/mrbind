@@ -2,12 +2,9 @@
 
 namespace mrbind::CBindings
 {
-    namespace detail
+    ModuleMap &GetRegisteredModules()
     {
-        ModuleMap &GetRegisteredModules()
-        {
-            static ModuleMap ret;
-            return ret;
-        }
+        static ModuleMap ret;
+        return ret;
     }
 }

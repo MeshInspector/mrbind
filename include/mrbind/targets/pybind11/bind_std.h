@@ -568,7 +568,7 @@ struct MRBind::pb11::CustomTypeBinding<std::optional<T>>
 #include <variant>
 template <typename ...P>
 struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
-    : public DefaultCustomTypeBinding<std::variant<P...>>,
+    : DefaultCustomTypeBinding<std::variant<P...>>,
     RegisterTypeDependencies<P...>
 {
     static void bind_members(typename DefaultCustomTypeBinding<std::variant<P...>>::pybind_type &c)
@@ -602,3 +602,5 @@ struct MRBind::pb11::CustomTypeBinding<std::variant<P...>>
         }(), ...);
     }
 };
+template <>
+struct MRBind::pb11::CustomTypeBinding<std::monostate> : DefaultCustomTypeBinding<std::monostate> {};
