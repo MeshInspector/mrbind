@@ -91,7 +91,7 @@
 //         * `const_` - either `const` or nothing if non-const.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.
-//     * A public conversion operator `(conv_op, ret_, const_, comment_)`, with the same parameter meaning as above.
+//     * A public conversion operator `(conv_op, explicit_, ret_, const_, comment_)`, with the same parameter meaning as above.
 #define MB_CLASS(kind_, name_, qualname_, ns_stack_, is_aggregate_, comment_, bases_, members_)
 #endif
 

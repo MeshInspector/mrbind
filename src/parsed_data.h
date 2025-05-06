@@ -154,7 +154,10 @@ namespace mrbind
         CopyMoveKind assignment_kind = CopyMoveKind::none;
     };
 
-    struct ClassConvOp : BasicReturningClassFunc {};
+    struct ClassConvOp : BasicReturningClassFunc
+    {
+        bool is_explicit = false;
+    };
 
     using ClassMemberVariant = std::variant<ClassField, ClassCtor, ClassMethod, ClassConvOp>;
 
