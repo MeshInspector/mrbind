@@ -126,7 +126,7 @@ namespace mrbind::CBindings::Modules
                     {
                         ret += "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.\n";
                     }
-                    ret += "/// If `" + std::string(cpp_param_name) + "_end` is not null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
+                    ret += "/// If `" + std::string(cpp_param_name) + "_end` is null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
                     return ret;
                 };
             }
