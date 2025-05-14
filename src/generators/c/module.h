@@ -19,6 +19,11 @@ namespace mrbind::CBindings
 
         virtual void Init(Generator &generator) {(void)generator;}
 
+        // If you know this type, return the information about it.
+        // This function is for types pointers to which can be freely passed between C and C++, perhaps with a cast.
+        // Such are, for example, any classes that are bound as opaque pointers.
+        virtual std::optional<Generator::TypeBindableWithSameAddress> GetTypeBindableWithSameAddress(Generator &generator, const cppdecl::Type &type) = 0;
+
         // If you know this type, return the binding for it. If you don't, return null.
         // You're allowed to call `generator.FindBindableTypeOpt(...)` for any dependent types you need.
         // Probably not a good idea to call the non-`Opt` version though, because throwing from here is a hard error.

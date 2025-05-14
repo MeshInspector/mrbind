@@ -5,6 +5,7 @@
 #include <cppdecl/declarations/data.h>
 
 #include <filesystem>
+#include <functional>
 #include <set>
 #include <span>
 #include <string_view>
@@ -141,6 +142,7 @@ namespace mrbind::CBindings
                     bool need_header = false;
                 };
                 // Lists all type names that are needed here, and whether we should include headers for them for forward-decare them.
+                // Those are keys for `FindTypeBindableWithSameAddress()`.
                 std::unordered_map<std::string, ForwardDeclarationOrInclusion> forward_declarations_and_inclusions;
 
 
@@ -198,11 +200,33 @@ namespace mrbind::CBindings
         // If `for_internal_header` is false, acts on the public C header. If true, acts on the internal C++ header.
         [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file, bool for_internal_header);
 
+        // Returns true if this is a built-in C type.
+        [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name) const;
 
-        struct ParsedTypeInfo
+
+        // All those types are automatically `IsSimplyBindableIndirectReinterpret`. That is, bindable by passing their address, possibly with a cast.
+        // All parsed types (classes and enums) go here, and SOME of the custom types as well.
+        struct TypeBindableWithSameAddress
         {
             OutputFile *declared_in_file = nullptr;
 
+            // If specified, this type can be forward-declared by pasting this string. Otherwise the only option is to include the header `declared_in_file`.
+            std::optional<std::string> forward_declaration;
+        };
+        // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.
+        // This is write-only! This is initially populated with the parsed types, and then the custom types are added lazily by `FindTypeBindableWithSameAddress[Opt]`.
+        // Call that function instead of reading this directly.
+        std::unordered_map<std::string, TypeBindableWithSameAddress> types_bindable_with_same_address;
+
+        // The name must come from `cppdecl::ToCode(..., canonical_cpp_style)`.
+        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const std::string &type_name);
+        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name);
+        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const cppdecl::Type &type);
+        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const cppdecl::Type &type);
+
+
+        struct ParsedTypeInfo
+        {
             struct EnumDesc
             {
                 const EnumEntity *parsed = nullptr;
@@ -277,8 +301,6 @@ namespace mrbind::CBindings
             cppdecl::Type c_type;
             std::string c_type_str;
 
-            std::optional<std::string> forward_declaration;
-
             [[nodiscard]] bool IsEnum() const {return std::holds_alternative<EnumDesc>(input_type);}
             [[nodiscard]] bool IsClass() const {return std::holds_alternative<ClassDesc>(input_type);}
         };
@@ -289,34 +311,34 @@ namespace mrbind::CBindings
         // Given a type, iterates over every non-builtin type dependency that it has (which will have zero modifiers, and no `SimpleTypeFlags`,
         //   so no signedness and such).
         // This is the default behavior, `BindableType` entries can customize it.
-        static void DefaultForEachParsedTypeNeededByType(const cppdecl::Type &type, const std::function<void(const std::string &)> func);
+        void DefaultForEachParsedTypeNeededByType(const cppdecl::Type &type, const std::function<void(const std::string &)> func);
 
 
         // Type classification: [
 
         // The arrows mean implication (they point towards supersets).
         //                                                                                  ---
-        //       IsBindableAsIsIndirectReinterpret   <---   IsBindableAsIsIndirect            Can by passed by pointer.
-        //                    ^                                       ^                     ---
-        //                    |                                       |
-        //                    |                                       |                     ---
-        //       IsBindableAsIsDirectCast            <---   IsBindableAsIsDirect              Can be passed by value (and by pointer).
+        //       IsSimplyBindableIndirectReinterpret   <---   IsSimplyBindableIndirect            Can by passed by pointer.
+        //                    ^                                         ^                   ---
+        //                    |                                         |
+        //                    |                                         |                   ---
+        //       IsSimplyBindableDirectCast            <---   IsSimplyBindableDirect              Can be passed by value (and by pointer).
         //                                                                                  ---
         //
         //    | Passing requires a cast (reinterpret |   | Can be passed without a cast. |
         //    |   or C-style respectively)           |   |                               |
 
         // Pointers and refs to those can be passed freely with only a `reinterpret_cast`.
-        [[nodiscard]] bool IsBindableAsIsIndirectReinterpret(const cppdecl::Type &type);
+        [[nodiscard]] bool IsSimplyBindableIndirectReinterpret(const cppdecl::Type &type);
 
         // Pointers and refs to those can be passed freely.
-        [[nodiscard]] bool IsBindableAsIsIndirect(const cppdecl::Type &type);
+        [[nodiscard]] bool IsSimplyBindableIndirect(const cppdecl::Type &type);
 
         // Those can be passed by value with only a C-style cast.
-        [[nodiscard]] bool IsBindableAsIsDirectCast(const cppdecl::Type &type);
+        [[nodiscard]] bool IsSimplyBindableDirectCast(const cppdecl::Type &type);
 
         // Those can be passed by value with only a `static_cast`.
-        [[nodiscard]] bool IsBindableAsIsDirect(const cppdecl::Type &type);
+        [[nodiscard]] bool IsSimplyBindableDirect(const cppdecl::Type &type);
 
         // ]
 

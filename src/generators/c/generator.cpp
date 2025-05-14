@@ -215,21 +215,54 @@ namespace mrbind::CBindings
         return macro_name;
     }
 
+    bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name) const
+    {
+        return name.IsBuiltInTypeName();
+    }
+
+    Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const std::string &type_name)
+    {
+        if (auto ret = FindTypeBindableWithSameAddressOpt(type_name))
+            return *ret;
+        else
+            throw std::runtime_error("Don't know what to do with type `" + type_name + "`: how to forward-declare it or what header to include.");
+    }
+
+    Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const std::string &type_name)
+    {
+        auto iter = types_bindable_with_same_address.find(type_name);
+        if (iter != types_bindable_with_same_address.end())
+            return &iter->second;
+        else
+            return nullptr;
+    }
+
+    Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::Type &type)
+    {
+        return FindTypeBindableWithSameAddress(cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style));
+    }
+
+    Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const cppdecl::Type &type)
+    {
+        return FindTypeBindableWithSameAddressOpt(cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style));
+    }
+
     void Generator::DefaultForEachParsedTypeNeededByType(const cppdecl::Type &type, const std::function<void(const std::string &)> func)
     {
-        type.VisitEachQualifiedName(
-            cppdecl::VisitEachQualifiedNameFlags::only_types | cppdecl::VisitEachQualifiedNameFlags::no_recurse_into_qualified_names,
+        type.VisitEachComponent<cppdecl::QualifiedName>(
+            cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](const cppdecl::QualifiedName &name)
             {
-                if (!name.IsEmpty() && !name.IsBuiltInTypeName())
+                if (!name.IsEmpty() && !TypeNameIsCBuiltIn(name))
                     func(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
             }
         );
     }
 
-    bool Generator::IsBindableAsIsIndirectReinterpret(const cppdecl::Type &type)
+    bool Generator::IsSimplyBindableIndirectReinterpret(const cppdecl::Type &type)
     {
-        // `type.simple_type` can be anything.
+        if (!FindTypeBindableWithSameAddressOpt(type))
+            return false; // Some weird-ass type that can't be reinterpreted into a C type.
 
         for (const auto &mod : type.modifiers)
         {
@@ -258,7 +291,7 @@ namespace mrbind::CBindings
                     // Trailing return type is fine, because we can just not use it by passing a flag to `ToCode`.
 
                     // Check all parameters.
-                    return std::all_of(elem.params.begin(), elem.params.end(), [&](const auto &param){return IsBindableAsIsDirect(param.type);});
+                    return std::all_of(elem.params.begin(), elem.params.end(), [&](const auto &param){return IsSimplyBindableDirect(param.type);});
                 },
             }, mod.var);
 
@@ -269,15 +302,15 @@ namespace mrbind::CBindings
         return true;
     }
 
-    bool Generator::IsBindableAsIsIndirect(const cppdecl::Type &type)
+    bool Generator::IsSimplyBindableIndirect(const cppdecl::Type &type)
     {
-        return IsBindableAsIsIndirectReinterpret(type) && type.simple_type.name.IsBuiltInTypeName();
+        return IsSimplyBindableIndirectReinterpret(type) && TypeNameIsCBuiltIn(type.simple_type.name);
     }
 
     // Those can be passed by value with only a C-style cast.
-    bool Generator::IsBindableAsIsDirectCast(const cppdecl::Type &type)
+    bool Generator::IsSimplyBindableDirectCast(const cppdecl::Type &type)
     {
-        if (type.Is<cppdecl::Pointer>() && IsBindableAsIsIndirectReinterpret(type))
+        if (type.Is<cppdecl::Pointer>() && IsSimplyBindableIndirectReinterpret(type))
             return true;
 
         if (type.modifiers.empty())
@@ -291,7 +324,7 @@ namespace mrbind::CBindings
             }
 
             // Is a builtin type?
-            if (type.simple_type.name.IsBuiltInTypeName())
+            if (TypeNameIsCBuiltIn(type.simple_type.name))
                 return true;
         }
 
@@ -299,10 +332,10 @@ namespace mrbind::CBindings
     }
 
     // Those can be passed by value with only a `static_cast`.
-    bool Generator::IsBindableAsIsDirect(const cppdecl::Type &type)
+    bool Generator::IsSimplyBindableDirect(const cppdecl::Type &type)
     {
-        bool ret = IsBindableAsIsDirectCast(type) && type.simple_type.name.IsBuiltInTypeName();
-        assert(!ret || IsBindableAsIsIndirect(type)); // This being true should automatically imply `IsBindableAsIsIndirect` in all cases.
+        bool ret = IsSimplyBindableDirectCast(type) && TypeNameIsCBuiltIn(type.simple_type.name);
+        assert(!ret || IsSimplyBindableIndirect(type)); // This being true should automatically imply `IsSimplyBindableIndirect` in all cases.
         return ret;
     }
 
@@ -390,7 +423,7 @@ namespace mrbind::CBindings
 
 
         // Bindable without a cast?
-        if (IsBindableAsIsDirect(type))
+        if (IsSimplyBindableDirect(type))
         {
             auto type_c_style = type;
             ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
@@ -423,7 +456,7 @@ namespace mrbind::CBindings
             return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
         }
         // Bindable with a C-style cast?
-        if (IsBindableAsIsDirectCast(type))
+        if (IsSimplyBindableDirectCast(type))
         {
             auto type_c_style = type;
             ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
@@ -480,11 +513,11 @@ namespace mrbind::CBindings
             ref_target_type_str = cppdecl::ToCode(ref_target_type, cppdecl::ToCodeFlags::canonical_c_style);
         }
 
-        // A reference to `IsBindableAsIsIndirect[Reinterpret]`?
+        // A reference to `IsSimplyBindableIndirect[Reinterpret]`?
         if (is_ref)
         {
-            const bool without_cast = IsBindableAsIsIndirect(ref_target_type);
-            const bool with_cast = !without_cast && IsBindableAsIsIndirectReinterpret(ref_target_type);
+            const bool without_cast = IsSimplyBindableIndirect(ref_target_type);
+            const bool with_cast = !without_cast && IsSimplyBindableIndirectReinterpret(ref_target_type);
 
             if (without_cast || with_cast)
             {
@@ -910,8 +943,8 @@ namespace mrbind::CBindings
     // Not all types should be processed this way, but this is the default behavior,
     void Generator::ReplaceAllNamesInTypeWithCIdentifiers(cppdecl::Type &type)
     {
-        type.VisitEachQualifiedName(
-            cppdecl::VisitEachQualifiedNameFlags::only_types | cppdecl::VisitEachQualifiedNameFlags::no_recurse_into_qualified_names,
+        type.VisitEachComponent<cppdecl::QualifiedName>(
+            cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](cppdecl::QualifiedName &name)
             {
                 std::string str = StringToCIdentifier(ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
@@ -1293,14 +1326,10 @@ namespace mrbind::CBindings
                     // Declare or include type dependencies of the parameter.
                     for (const auto &dep : param_usage->parsed_type_dependencies)
                     {
-                        auto iter = parsed_type_info.find(dep.first);
-                        if (iter == parsed_type_info.end())
-                            throw std::runtime_error("Using this type as a parameter requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
+                        auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
 
-                        if (iter->second.declared_in_file != &file)
-                        {
+                        if (dep_info.declared_in_file != &file)
                             file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                        }
                     }
 
                     for (const auto &param_usage : param_usage->c_params)
@@ -1398,14 +1427,10 @@ namespace mrbind::CBindings
             // Declare or include the type dependencies of the return type.
             for (const auto &dep : bindable_return_type.return_usage->parsed_type_dependencies)
             {
-                auto iter = parsed_type_info.find(dep.first);
-                if (iter == parsed_type_info.end())
-                    throw std::runtime_error("Using this type as a return type requires `" + dep.first + "` to be declared, but I don't know how to forward-declare it or what header to include to get its declaration.");
+                auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
 
-                if (iter->second.declared_in_file != &file)
-                {
+                if (dep_info.declared_in_file != &file)
                     file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                }
             }
 
             // Custom comment?
@@ -1497,15 +1522,23 @@ namespace mrbind::CBindings
 
             auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
             if (!is_new)
-                throw std::logic_error("Internal error: Duplicate type in input: " + cl.full_type);
+                throw std::logic_error("Internal error: Duplicate type in `parsed_type_info`: " + cl.full_type);
 
             ParsedTypeInfo &info = iter->second;
-            info.declared_in_file = &self.GetOutputFile(cl.declared_in_file);
 
             info.c_type = parsed_type;
             ReplaceAllNamesInTypeWithCIdentifiers(info.c_type);
             info.c_type_str = ToCode(info.c_type, cppdecl::ToCodeFlags::canonical_c_style);
-            info.forward_declaration = "typedef struct " + info.c_type_str + " " + info.c_type_str + ";";
+
+            { // Add this type to `types_bindable_with_same_address`.
+                auto [iter2, is_neww] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+                if (!is_neww)
+                    throw std::logic_error("Internal error: Duplicate type in `types_bindable_with_same_address`: " + cl.full_type);
+
+                TypeBindableWithSameAddress &info2 = iter2->second;
+                info2.declared_in_file = &self.GetOutputFile(cl.declared_in_file);
+                info2.forward_declaration = "typedef struct " + info.c_type_str + " " + info.c_type_str + ";";
+            }
 
             ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();
             class_info.parsed = &cl;
@@ -1606,10 +1639,18 @@ namespace mrbind::CBindings
 
             ParsedTypeInfo &info = iter->second;
 
-            info.declared_in_file = &self.GetOutputFile(en.declared_in_file);
             info.c_type = parsed_type;
             ReplaceAllNamesInTypeWithCIdentifiers(info.c_type);
             info.c_type_str = ToCode(info.c_type, cppdecl::ToCodeFlags::canonical_c_style);
+
+            { // Add this type to `types_bindable_with_same_address`.
+                auto [iter2, is_neww] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+                if (!is_neww)
+                    throw std::logic_error("Internal error: Duplicate type in `types_bindable_with_same_address`: " + en.full_type);
+
+                TypeBindableWithSameAddress &info2 = iter2->second;
+                info2.declared_in_file = &self.GetOutputFile(en.declared_in_file);
+            }
 
             ParsedTypeInfo::EnumDesc &enum_info = info.input_type.emplace<ParsedTypeInfo::EnumDesc>();
             enum_info.parsed = &en;
@@ -1997,6 +2038,9 @@ namespace mrbind::CBindings
 
                 const std::string type_str = ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
 
+                // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
+                const TypeBindableWithSameAddress &sa_bindable_info = self.types_bindable_with_same_address.at(type_str);
+
                 const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
                 const ParsedTypeInfo::ClassDesc &class_info = std::get<ParsedTypeInfo::ClassDesc>(type_info.input_type);
 
@@ -2010,7 +2054,7 @@ namespace mrbind::CBindings
                     file.header.contents += cl.comment->text_with_slashes;
                     file.header.contents += '\n';
                 }
-                file.header.contents += type_info.forward_declaration.value();
+                file.header.contents += sa_bindable_info.forward_declaration.value();
                 file.header.contents += '\n';
 
                 // Constructor selector enum?
@@ -2226,7 +2270,7 @@ namespace mrbind::CBindings
         // Should we include a header to declare this type, as opposed to forward-declaring it?
         auto UseHeader = [this](const std::pair<const std::string, OutputFile::SpecificFileContents::ForwardDeclarationOrInclusion> &target)
         {
-            return target.second.need_header || !parsed_type_info.at(target.first).forward_declaration;
+            return target.second.need_header || !FindTypeBindableWithSameAddress(target.first).forward_declaration;
         };
 
         { // Generate and write the list of headers.
@@ -2235,9 +2279,9 @@ namespace mrbind::CBindings
             {
                 if (UseHeader(elem))
                 {
-                    const auto &parsed_type = parsed_type_info.at(elem.first);
+                    const auto &type_info = FindTypeBindableWithSameAddress(elem.first);
 
-                    if (!parsed_type.declared_in_file) // Normally this can't be null.
+                    if (!type_info.declared_in_file) // Normally this can't be null.
                     {
                         if (elem.second.need_header)
                             throw std::runtime_error("Need to include a header for type `" + elem.first + "`, but don't what header to include.");
@@ -2245,7 +2289,7 @@ namespace mrbind::CBindings
                             throw std::runtime_error("Need to include a header or forward-declare type `" + elem.first + "`, but don't know how.");
                     }
 
-                    headers.insert(parsed_type.declared_in_file->header.path_for_inclusion);
+                    headers.insert(type_info.declared_in_file->header.path_for_inclusion);
                 }
             }
 
@@ -2272,7 +2316,7 @@ namespace mrbind::CBindings
             {
                 if (!UseHeader(elem))
                 {
-                    const auto &fwd_decl = parsed_type_info.at(elem.first).forward_declaration;
+                    const auto &fwd_decl = FindTypeBindableWithSameAddress(elem.first).forward_declaration;
 
                     if (!fwd_decl)
                         throw std::runtime_error("Need to forward-declare type `" + elem.first + "`, but don't know how.");

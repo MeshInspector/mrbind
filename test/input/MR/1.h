@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <span>
 #include <string>
 
 namespace MR
@@ -19,4 +20,6 @@ namespace MR
     {
         return "Hello!";
     }
+
+    inline int *foo(int *) {return nullptr;}
 }

@@ -38,6 +38,9 @@ if(MRBIND_BUILD_PARSER)
         mrbind_common
     )
 
+    # Right now we only use this for optional type simplification, so this could be disabled relatively easily.
+    target_include_directories(mrbind PRIVATE deps/cppdecl/include)
+
     target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
 
     if (TARGET clangTooling)
