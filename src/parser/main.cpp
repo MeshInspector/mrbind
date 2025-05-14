@@ -7,6 +7,11 @@
 #include "common/parsed_data.h"
 #include "common/set_error_handlers.h"
 
+#include <cppdecl/declarations/data.h>
+#include <cppdecl/declarations/parse.h>
+#include <cppdecl/declarations/simplify.h>
+#include <cppdecl/declarations/to_string.h>
+
 #include "pre_include_clang.h"
 #include <clang/AST/DeclBase.h>
 #include <clang/AST/RecursiveASTVisitor.h>
@@ -182,6 +187,9 @@ namespace mrbind
         std::vector<std::string> output_filenames;
 
         AdjustTypeNameFlags adjust_type_name_flags{};
+
+        // Simplify canonical type names using our `cppdecl` library.
+        bool simplify_canonical_type_names = true;
     };
 
     struct PrintingPolicies
@@ -839,7 +847,26 @@ namespace mrbind
 
         [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, clang::PrintingPolicy PrintingPolicies::* policy = &PrintingPolicies::normal)
         {
-            return type.getCanonicalType().getAsString(printing_policies.*policy);
+            std::string ret = type.getCanonicalType().getAsString(printing_policies.*policy);
+
+            if (params->simplify_canonical_type_names)
+            {
+                std::string_view input = ret;
+                cppdecl::ParseTypeResult parse_result = cppdecl::ParseType(input);
+                if (auto error = std::get_if<cppdecl::ParseError>(&parse_result))
+                {
+                    throw std::runtime_error("During type simplification, cppdecl failed to parse type `" + ret + "` at position " + std::to_string(input.data() - ret.c_str()) + " with error `" + std::string(error->message) + "`. Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
+                }
+                if (!input.empty())
+                {
+                    throw std::runtime_error("During type simplification, cppdecl didn't consume a part of the type name `" + ret + "` starting from position " + std::to_string(input.data() - ret.c_str()) + ". Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
+                }
+                cppdecl::Type &type = std::get<cppdecl::Type>(parse_result);
+                cppdecl::SimplifyTypeNames(cppdecl::SimplifyTypeNamesFlags::native, type);
+                ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
+            }
+
+            return ret;
         }
 
         // If `reason` is zero, the function does nothing.
@@ -2190,6 +2217,12 @@ int main(int argc, char **argv)
                         params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(this_arg.substr(combine_types_flag.size()));
                         continue;
                     }
+
+                    if (this_arg == "--no-simplify-canonical-type-names")
+                    {
+                        params.simplify_canonical_type_names = false;
+                        continue;
+                    }
                 }
             }
 
@@ -2230,6 +2263,7 @@ int main(int argc, char **argv)
         "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
+        "  --no-simplify-canonical-type-names - Do not attempt to simplify canonical type names using our `cppdecl` library. There's typically no reason to, unless the library ends up being bugged.\n"
         "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.\n"
         "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
         "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.\n"

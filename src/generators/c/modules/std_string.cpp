@@ -70,11 +70,7 @@ namespace mrbind::CBindings::Modules
         {
             std::optional<Generator::BindableType> ret;
 
-            if (
-                type_str == "std::string" ||
-                type_str == "std::basic_string<char>" // Hmm!
-                // I don't think I need to spell out the remaining arguments, as libclang doesn't emit them if they match the defaults.
-            )
+            if (type_str == "std::string")
             {
                 Generator::BindableType &new_type = ret.emplace();
 
