@@ -221,6 +221,9 @@ namespace mrbind::CBindings
 
             // ]
 
+            // This is optional. If null, use the `StringToCIdentifier()` on the original C++ type name.
+            std::string c_type_name;
+
             [[nodiscard]] bool IsBuiltInType() const {return !declared_in_file && !forward_declaration;}
         };
         // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.
@@ -528,9 +531,9 @@ namespace mrbind::CBindings
         // Simplies a string to be a valid C identifier.
         [[nodiscard]] static std::string StringToCIdentifier(std::string_view str);
 
-        // Applies `StringToCIdentifier()` recursively to every name in a type.
-        // Not all types should be processed this way, but this is the default behavior,
-        static void ReplaceAllNamesInTypeWithCIdentifiers(cppdecl::Type &type);
+        // Replaces every `cppdecl::QualifierName` in the type with its C equivalent, by consulting `FindTypeBindableWithSameAddress()`.
+        // Throws if some qualified name is unknown.
+        void ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type);
 
         // Indents a string by the number of `levels` (each is currently 4 whitespaces).
         // Inserts them after each `\n`, and additionally, if `indent_first_line`, at the very beginning.
@@ -634,7 +637,8 @@ namespace mrbind::CBindings
             // Appends to the existing parameters, doesn't remove them.
             void AddParamsFromParsedFunc(const CBindings::Generator &self, const std::vector<FuncParam> &new_params);
 
-            void AddThisParam(const CBindings::Generator &self, const ClassEntity &new_class, bool is_const);
+            void AddThisParam(cppdecl::Type new_class, bool is_const);
+            void AddThisParamFromParsedClass(const CBindings::Generator &self, const ClassEntity &new_class, bool is_const);
 
             void SetReturnTypeFromParsedFunc(const CBindings::Generator &self, const BasicReturningFunc &new_func);
 

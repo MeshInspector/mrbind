@@ -3,6 +3,7 @@
 #include "common/filesystem.h"
 #include "common/meta.h"
 #include "common/parsed_data.h"
+#include "generators/c/binding_helpers.h"
 #include "generators/c/module.h"
 
 #include <cppdecl/declarations/data.h>
@@ -452,7 +453,7 @@ namespace mrbind::CBindings
             if (IsSimplyBindableDirect(type))
             {
                 auto type_c_style = type;
-                ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
+                ReplaceAllNamesInTypeWithCNames(type_c_style);
 
                 BindableType new_type(type_c_style);
 
@@ -486,7 +487,7 @@ namespace mrbind::CBindings
             if (IsSimplyBindableDirectCast(type))
             {
                 auto type_c_style = type;
-                ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
+                ReplaceAllNamesInTypeWithCNames(type_c_style);
 
                 BindableType new_type(type_c_style);
 
@@ -551,7 +552,7 @@ namespace mrbind::CBindings
                 if (without_cast || with_cast)
                 {
                     auto type_c_style = type;
-                    ReplaceAllNamesInTypeWithCIdentifiers(type_c_style);
+                    ReplaceAllNamesInTypeWithCNames(type_c_style);
 
                     BindableType new_type(type_c_style);
 
@@ -884,19 +885,14 @@ namespace mrbind::CBindings
                             };
                         }
 
-                        BindableType::ReturnUsage &return_usage = new_type.return_usage.emplace();
+                        // Return strategy.
 
-                        return_usage.c_type = iter->second.c_type;
-                        return_usage.c_type.modifiers.emplace_back(cppdecl::Pointer{});
-                        return_usage.same_addr_bindable_type_dependencies.try_emplace(type_str); // Only the forward declaration is needed.
-                        return_usage.append_to_comment = "/// Returns an instance allocated on the heap! Must call `";
-                        return_usage.append_to_comment += class_desc->cleanup_func_name;
-                        return_usage.append_to_comment += "()` to free it when you're done using it.";
-                        return_usage.make_return_statement = [type_str, type_str_c_style = iter->second.c_type_str](OutputFile::SpecificFileContents &file, std::string_view expr)
-                        {
-                            (void)file;
-                            return "return (" + type_str_c_style + " *)new " + type_str + "(" + std::string(expr) + ");";
-                        };
+                        ClassBinder class_binder;
+                        class_binder.cpp_type_name = type.simple_type.name;
+                        class_binder.c_type_name = iter->second.c_type_str;
+                        class_binder.c_destroy_func_name = class_desc->cleanup_func_name;
+
+                        new_type.return_usage = class_binder.MakeReturnUsage();
 
                         return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
                     }
@@ -986,15 +982,14 @@ namespace mrbind::CBindings
 
     // Applies `StringToCIdentifier()` recursively to every name in a type.
     // Not all types should be processed this way, but this is the default behavior,
-    void Generator::ReplaceAllNamesInTypeWithCIdentifiers(cppdecl::Type &type)
+    void Generator::ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type)
     {
         type.VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](cppdecl::QualifiedName &name)
             {
-                std::string str = StringToCIdentifier(ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
-                name.parts.clear();
-                name.parts.emplace_back(std::move(str));
+                const auto &info = FindTypeBindableWithSameAddress(name);
+                name = cppdecl::QualifiedName::FromSingleWord(!info.c_type_name.empty() ? info.c_type_name : StringToCIdentifier(ToCode(name, cppdecl::ToCodeFlags::canonical_c_style)));
             }
         );
     }
@@ -1054,7 +1049,18 @@ namespace mrbind::CBindings
         }
     }
 
-    void Generator::EmitFuncParams::AddThisParam(const Generator &self, const ClassEntity &new_class, bool is_const)
+    void Generator::EmitFuncParams::AddThisParam(cppdecl::Type new_class, bool is_const)
+    {
+        Param &param = params.emplace_back();
+        param.add_to_call = false;
+        param.cpp_type = std::move(new_class);
+        if (is_const)
+            param.cpp_type.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_);
+        param.cpp_type.AddTopLevelModifier(cppdecl::Pointer{});
+        param.name = "_this";
+    }
+
+    void Generator::EmitFuncParams::AddThisParamFromParsedClass(const Generator &self, const ClassEntity &new_class, bool is_const)
     {
         Param &param = params.emplace_back();
         param.add_to_call = false;
@@ -1116,7 +1122,7 @@ namespace mrbind::CBindings
             c_comment = new_ctor.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from constructor of class `";
+        c_comment += "/// Generated from a constructor of class `";
         c_comment += cpp_type_str;
         c_comment += "`.";
 
@@ -1129,7 +1135,7 @@ namespace mrbind::CBindings
         std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
         const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
 
-        AddThisParam(self, new_class, false);
+        AddThisParamFromParsedClass(self, new_class, false);
         params.front().add_to_call = true; // Force add `this` to the call expression.
 
         c_name = std::get<ParsedTypeInfo::ClassDesc>(info.input_type).cleanup_func_name;
@@ -1144,9 +1150,7 @@ namespace mrbind::CBindings
             c_comment = new_dtor.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from destructor of class `";
-        c_comment += cpp_type_str;
-        c_comment += "`.";
+        c_comment += "/// Generated from a destructor of class `" + cpp_type_str + "`. Destroys the heap-allocated instances.";
 
         using_namespace_stack = new_using_namespace_stack;
     }
@@ -1157,7 +1161,7 @@ namespace mrbind::CBindings
         std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
 
         if (!new_method.is_static)
-            AddThisParam(self, new_class, new_method.is_const);
+            AddThisParamFromParsedClass(self, new_class, new_method.is_const);
         AddParamsFromParsedFunc(self, new_method.params);
 
         // Fallback parameter name for implicitly generated assignment operators.
@@ -1193,7 +1197,7 @@ namespace mrbind::CBindings
             c_comment = new_method.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from method of class `";
+        c_comment += "/// Generated from a method of class `";
         c_comment += cpp_type_str;
         c_comment += "` named `";
         c_comment += new_method.full_name;
@@ -1207,7 +1211,7 @@ namespace mrbind::CBindings
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-        AddThisParam(self, new_class, new_conv_op.is_const);
+        AddThisParamFromParsedClass(self, new_class, new_conv_op.is_const);
 
         // Check that this is callable with no arguments.
         // The actual C++ at the time of writing doesn't allow any parameters at all, even with default arguments,
@@ -1249,7 +1253,7 @@ namespace mrbind::CBindings
             c_comment = new_conv_op.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from conversion operator of class `";
+        c_comment += "/// Generated from a conversion operator of class `";
         c_comment += cpp_type_str;
         c_comment += "` to type `";
         c_comment += target_cpp_type_str;
@@ -1266,7 +1270,7 @@ namespace mrbind::CBindings
             return false; // No mutable getter for a const (or reference) field.
 
         if (!new_field.is_static)
-            AddThisParam(self, new_class, is_const);
+            AddThisParamFromParsedClass(self, new_class, is_const);
 
         const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
         c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
@@ -1306,7 +1310,7 @@ namespace mrbind::CBindings
             c_comment = new_field.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from member variable of C++ class `";
+        c_comment += "/// Generated from a member variable of C++ class `";
         c_comment += class_cpp_type_str;
         c_comment += "` named `";
         c_comment += new_field.full_name;
@@ -1578,9 +1582,9 @@ namespace mrbind::CBindings
 
             ParsedTypeInfo &info = iter->second;
 
-            info.c_type = parsed_type;
-            ReplaceAllNamesInTypeWithCIdentifiers(info.c_type);
-            info.c_type_str = ToCode(info.c_type, cppdecl::ToCodeFlags::canonical_c_style);
+            // Not using ReplaceAllNamesInTypeWithCNames()` here, because it's an overkill and requires the information that we're about to generate (though we could probably reorder things here).
+            info.c_type_str = StringToCIdentifier(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+            info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
                 auto [iter2, is_new2] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
@@ -1691,9 +1695,9 @@ namespace mrbind::CBindings
 
             ParsedTypeInfo &info = iter->second;
 
-            info.c_type = parsed_type;
-            ReplaceAllNamesInTypeWithCIdentifiers(info.c_type);
-            info.c_type_str = ToCode(info.c_type, cppdecl::ToCodeFlags::canonical_c_style);
+            // Not using ReplaceAllNamesInTypeWithCNames()` here, because it's an overkill and requires the information that we're about to generate (though we could probably reorder things here).
+            info.c_type_str = StringToCIdentifier(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+            info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
                 auto [iter2, is_new2] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));

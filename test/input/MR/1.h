@@ -25,4 +25,5 @@ namespace MR
 
     inline int *foo(int *) {return nullptr;}
     inline void bar(A *) {}
+    inline void bar(std::string *) {}
 }
