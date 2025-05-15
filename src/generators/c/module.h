@@ -19,16 +19,18 @@ namespace mrbind::CBindings
 
         virtual void Init(Generator &generator) {(void)generator;}
 
-        // If you know this type, return the information about it.
-        // This function is for types pointers to which can be freely passed between C and C++, perhaps with a cast.
-        // Such are, for example, any classes that are bound as opaque pointers.
-        virtual std::optional<Generator::TypeBindableWithSameAddress> GetTypeBindableWithSameAddress(Generator &generator, const cppdecl::Type &type) = 0;
-
         // If you know this type, return the binding for it. If you don't, return null.
         // You're allowed to call `generator.FindBindableTypeOpt(...)` for any dependent types you need.
         // Probably not a good idea to call the non-`Opt` version though, because throwing from here is a hard error.
         // `type_str` is the string representation of `type` (with `ToCodeFlags::canonical_c_style` like everywhere else`).
-        virtual std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) = 0;
+        virtual std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) {(void)generator; (void)type; (void)type_str; return {};}
+
+        // Note, this is a subset of `GetBindableType()` that's rarely useful. Prefer that function (set `.bindable_with_same_address` in the return value for the effect equivalent to this).
+        // If you know this type, return the information about it.
+        // This function is for types pointers to which can be freely passed between C and C++, perhaps with a cast.
+        // Such are, for example, any classes that are bound as opaque pointers.
+        // `type_str` is the string representation of `type` (with `ToCodeFlags::canonical_c_style` like everywhere else`).
+        virtual std::optional<Generator::TypeBindableWithSameAddress> GetTypeBindableWithSameAddress(Generator &generator, const cppdecl::QualifiedName &type_name, const std::string &type_name_str) {(void)generator; (void)type_name; (void)type_name_str; return {};}
     };
 
     // Using `std::map` to ensure a consistent ordering. The keys are the type names.

@@ -85,8 +85,6 @@ namespace mrbind::CBindings
         }
 
 
-        struct ParsedTypeInfo;
-
         // Describes one header and its source file that we're generating.
         struct OutputFile
         {
@@ -204,25 +202,37 @@ namespace mrbind::CBindings
         [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name) const;
 
 
-        // All those types are automatically `IsSimplyBindableIndirectReinterpret`. That is, bindable by passing their address, possibly with a cast.
+        // Those types are a subset of `IsSimplyBindableIndirectReinterpret()` for pure qualified names (without cvref/ptr-qualifiers).
+        // That is, thoses are bindable by passing their address, possibly with a cast.
         // All parsed types (classes and enums) go here, and SOME of the custom types as well.
         struct TypeBindableWithSameAddress
         {
-            OutputFile *declared_in_file = nullptr;
+            // At least one of those two must not be null in your custom types.
+            // Both are null only in built-in types, which indicates that they don't need any forward-declarations or headers.
+            // [
+
+            // In what header this type is declared. Can be null if none.
+            // This a function to allow the header be created lazily.
+            std::function<OutputFile &()> declared_in_file;
 
             // If specified, this type can be forward-declared by pasting this string. Otherwise the only option is to include the header `declared_in_file`.
+            // Don't include the trailing newline here.
             std::optional<std::string> forward_declaration;
+
+            // ]
+
+            [[nodiscard]] bool IsBuiltInType() const {return !declared_in_file && !forward_declaration;}
         };
         // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.
         // This is write-only! This is initially populated with the parsed types, and then the custom types are added lazily by `FindTypeBindableWithSameAddress[Opt]`.
         // Call that function instead of reading this directly.
         std::unordered_map<std::string, TypeBindableWithSameAddress> types_bindable_with_same_address;
 
-        // The name must come from `cppdecl::ToCode(..., canonical_cpp_style)`.
-        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const std::string &type_name);
-        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name);
-        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const cppdecl::Type &type);
-        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const cppdecl::Type &type);
+        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name);
+        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name);
+        // The name must come from `cppdecl::ToCode(..., canonical_c_style)`.
+        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const std::string &type_name_str);
+        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name_str);
 
 
         struct ParsedTypeInfo
@@ -311,7 +321,7 @@ namespace mrbind::CBindings
         // Given a type, iterates over every non-builtin type dependency that it has (which will have zero modifiers, and no `SimpleTypeFlags`,
         //   so no signedness and such).
         // This is the default behavior, `BindableType` entries can customize it.
-        void DefaultForEachParsedTypeNeededByType(const cppdecl::Type &type, const std::function<void(const std::string &)> func);
+        void DefaultForEachTypeBindableWithSameAddressNeededByType(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name)> func);
 
 
         // Type classification: [
@@ -359,7 +369,17 @@ namespace mrbind::CBindings
 
         struct BindableType
         {
-            struct ParsedTypeDependency
+            // Only makes sense if the type is a pure qualified name without cvref/ptr-qualifiers.
+            // Setting any field in this to non-null indicates that that pointers to this type can be passed freely between C and C++ with at most a cast.
+            // This is equivalent to inserting this type into `types_bindable_with_same_address`, and indeed it will be automatically inserted there
+            //   the first time `FindTypeBindableWithSameAddress()` is called on it.
+            // Note, this is WRITE-ONLY (because there are other ways of achieving this). Read using `FindTypeBindableWithSameAddress()`.
+            TypeBindableWithSameAddress bindable_with_same_address;
+
+            [[nodiscard]] bool IsBindableWithSameAddress() const {return bindable_with_same_address.declared_in_file || bindable_with_same_address.forward_declaration;}
+
+
+            struct SameAddrBindableTypeDependency
             {
                 // If false, then will forward-declare this type if possible, instead of including its header.
                 // If true, will always include the header.
@@ -386,17 +406,17 @@ namespace mrbind::CBindings
                 // Defaults to an identity function if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
                 // The source `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
-                //   `parsed_type_dependencies` or `extra_headers` for that purpose.
+                //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose.
                 // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is,
                 //   this might never receive default arguments.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
 
-                // Which parsed types do we need to include or forward-declare? The keys are C++ type names.
-                // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
-                std::unordered_map<std::string, ParsedTypeDependency> parsed_type_dependencies;
+                // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
+                // By default you can fill this using `DefaultForEachTypeBindableWithSameAddressNeededByType()`.
+                std::unordered_map<std::string, SameAddrBindableTypeDependency> same_addr_bindable_type_dependencies;
 
                 // The additional headers to include.
-                // This is for custom and stdlib headers, not for those generated from parsing. Use `parsed_type_dependencies` for those.
+                // This is for custom and stdlib headers, not for those generated from parsing. Use `same_addr_bindable_type_dependencies` for those.
                 ExtraHeaders extra_headers;
 
                 // When this type is returned, this string is appended to the comment.
@@ -442,12 +462,12 @@ namespace mrbind::CBindings
                 //   as we also have `extra_headers` below.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_statement;
 
-                // Which parsed types do we need to include or forward-declare?
-                // By default you can fill this using `DefaultForEachParsedTypeNeededByType()`.
-                std::unordered_map<std::string, ParsedTypeDependency> parsed_type_dependencies;
+                // Which types-bindable-with-same-address do we need to include or forward-declare?
+                // By default you can fill this using `DefaultForEachTypeBindableWithSameAddressNeededByType()`.
+                std::unordered_map<std::string, SameAddrBindableTypeDependency> same_addr_bindable_type_dependencies;
 
                 // The additional headers to include.
-                // This is for custom and stdlib headers, not for those generated from parsing. Use `parsed_type_dependencies` for those.
+                // This is for custom and stdlib headers, not for those generated from parsing. Use `same_addr_bindable_type_dependencies` for those.
                 ExtraHeaders extra_headers;
 
                 // When this type is returned, this string is appended to the comment.
@@ -478,11 +498,20 @@ namespace mrbind::CBindings
         // Don't access this directly! Use `FindBindableType` because that will lazily insert the missing types here.
         std::unordered_map<std::string, BindableType> bindable_cpp_types;
 
+        enum class FindBindableTypeFlags
+        {
+            // Primarily for internal use. Refuses to invent new bindable types based on our various heuristics.
+            // Still accepts existing types, and notably also accepts the types reported by modules.
+            // We need this flag to avoid infinite recursion.
+            no_invent_new_types = 1 << 0,
+        };
+        MRBIND_FLAG_OPERATORS_IN_CLASS(FindBindableTypeFlags)
+
         // Finds a type in `bindable_cpp_types`. If no such type,
         //   tries to generate the binding information for it (and inserts it into the map), or throws on failure.
-        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type);
+        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type, FindBindableTypeFlags flags = {});
         // This version returns null on failure.
-        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type);
+        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, FindBindableTypeFlags flags = {});
 
 
         // This acts as a cache when parsing C++ types.
@@ -491,6 +520,9 @@ namespace mrbind::CBindings
         // Parses a cppdecl type from `str`, throws on failure or if there was unparsed junk at the end of input.
         // Pass the CANONICAL types to this.
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str) const;
+
+        mutable std::unordered_map<std::string, cppdecl::QualifiedName> cached_parsed_qual_names;
+        [[nodiscard]] const cppdecl::QualifiedName &ParseQualNameOrThrow(const std::string &str) const;
 
 
         // Simplies a string to be a valid C identifier.
@@ -588,7 +620,7 @@ namespace mrbind::CBindings
                     std::string cpp_expr; // Spelled as a C++ expression.
                     std::string original_spelling; // Spelled in a user-friendly manner (as originally written in the C++ source).
                 };
-                std::optional<DefaultArg> default_arg;
+                std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
 
                 // If this is false, this argument will not be added to the call expression in the implementation,
                 //   and you need to manually use it for something (typically in `.cpp_called_func_begin`).

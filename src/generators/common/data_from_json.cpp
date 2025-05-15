@@ -50,7 +50,7 @@ namespace mrbind
                 return 0;
             }
 
-            T result = raw_result;
+            T result = T(raw_result);
             if (decltype(raw_result)(result) != raw_result) // Check roundtrip conversion.
             {
                 *str_end = str;
@@ -229,11 +229,11 @@ namespace mrbind
                         //     out += char(0b10000000 | ((number >>  6) & 0b00111111));
                         //     out += char(0b10000000 | ( number        & 0b00111111));
                         // }
-                        // else
-                        // {
-                        //     input = input_at_hex;
-                        //     ThrowParseError("Escape sequence is out of range.");
-                        // }
+                        else
+                        {
+                            input = input_at_hex;
+                            ThrowParseError("Escape sequence is out of range.");
+                        }
 
                         continue;
                     }

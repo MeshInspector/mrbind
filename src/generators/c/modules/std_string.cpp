@@ -18,7 +18,7 @@ namespace mrbind::CBindings::Modules
             c_str_detail_create_func = generator.MakeDetailHelperName("Create_std_string");
         }
 
-        Generator::OutputFile &GetPublicHeader(Generator &generator)
+        Generator::OutputFile &GetOutputFile(Generator &generator)
         {
             bool is_new = false;
             Generator::OutputFile &file = generator.GetPublicHelperFile("std_string", &is_new);
@@ -68,21 +68,27 @@ namespace mrbind::CBindings::Modules
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
+            (void)type;
+
             std::optional<Generator::BindableType> ret;
 
             if (type_str == "std::string")
             {
                 Generator::BindableType &new_type = ret.emplace();
 
+                new_type.bindable_with_same_address.declared_in_file = [this, &generator]() -> auto & {return GetOutputFile(generator);};
+                new_type.bindable_with_same_address.forward_declaration = "typedef struct " + c_str_struct + " " + c_str_struct + ";";
+
                 Generator::BindableType::ReturnUsage &return_usage = new_type.return_usage.emplace();
                 return_usage.c_type = cppdecl::Type::FromSingleWord(c_str_struct);
                 return_usage.make_return_statement = [this](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
                 {
+                    (void)file;
                     return "return " + std::string(c_str_detail_create_func) + "(" + std::string(expr) + ");";
                 };
                 return_usage.append_to_comment = "/// The returned string must be freed by calling `" + c_str_destroy_func + "()`.";
-                return_usage.extra_headers.custom_in_header_file = [this, &generator]{return std::unordered_set<std::string>{GetPublicHeader(generator).header.path_for_inclusion};};
-                return_usage.extra_headers.custom_in_source_file = [this, &generator]{return std::unordered_set<std::string>{GetPublicHeader(generator).internal_header.path_for_inclusion};};
+                return_usage.same_addr_bindable_type_dependencies["std::string"].need_header = true; // Don't strictly need a header, but this nicely gives the user the destruction func.
+                return_usage.extra_headers.custom_in_source_file = [this, &generator]{return std::unordered_set<std::string>{GetOutputFile(generator).internal_header.path_for_inclusion};};
 
                 Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
                 auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});

@@ -21,5 +21,8 @@ namespace MR
         return "Hello!";
     }
 
+    struct A {};
+
     inline int *foo(int *) {return nullptr;}
+    inline void bar(A *) {}
 }
