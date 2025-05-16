@@ -12,7 +12,7 @@ namespace mrbind::CBindings::Modules
 
         void Init(Generator &generator) override
         {
-            binder = ClassBinder(generator, cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
+            binder = ClassBinder::ForCustomType(generator, cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
 
             c_str_detail_create_func = generator.MakeDetailHelperName("Create_std_string");
         }
@@ -24,30 +24,92 @@ namespace mrbind::CBindings::Modules
 
             if (is_new)
             {
-                file.header.stdlib_headers.insert("stddef.h"); // For `size_t`.
+                file.header.contents += "/// A heap-allocated string.\n";
+                file.header.contents += binder.MakeForwardDeclaration() + '\n';
 
-                file.header.contents += "struct ";
-                file.header.contents += binder.c_type_name;
-                file.header.contents += "\n{\n";
-                file.header.contents += "    char *str; // Always null-terminated.\n";
-                file.header.contents += "    size_t size;\n";
-                file.header.contents += "    void *_owner; // For internal use.\n";
-                file.header.contents += "};\n";
+                generator.EmitFunction(file, binder.PrepareFuncDefaultCtor());
+                generator.EmitFunction(file, binder.PrepareFuncCopyCtor());
+                generator.EmitFunction(file, binder.PrepareFuncMoveCtor());
+                generator.EmitFunction(file, binder.PrepareFuncCopyAssignment());
+                generator.EmitFunction(file, binder.PrepareFuncMoveAssignment());
+                generator.EmitFunction(file, binder.PrepareFuncDestroy());
 
-                { // Emit the destroy func.
-                    generator.EmitFunction(file, binder.PrepareDestroyFunc());
+                // Some custom functions:
+
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Constructs a string object from a null-termianted string. Copies the contents.";
+                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Construct");
+                    emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+                    emit.cpp_called_func = "std::string";
+                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})});
+                    generator.EmitFunction(file, emit);
                 }
 
-                { // Emit the internal C++ header.
-                    file.internal_header.stdlib_headers.insert("string");
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Constructs a string object from a possibly non-null-terminated string. Copies the contents. The resulting string is always null-terminated.";
+                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_ConstructFromRange");
+                    emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+                    emit.cpp_called_func = "std::string";
+                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})});
+                    emit.params.push_back({.name = "str_end", .cpp_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})});
+                    generator.EmitFunction(file, emit);
+                }
 
-                    file.internal_header.contents += "[[nodiscard]] " + generator.GetExportMacroForFile(file, true) + " " + binder.c_type_name + " " + c_str_detail_create_func + "(std::string str) noexcept;\n";
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The number of characters in the string, excluding the null-terminator.";
+                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Size");
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                    emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->size()";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
 
-                    file.source.contents += binder.c_type_name + " " + c_str_detail_create_func + "(std::string str) noexcept\n";
-                    file.source.contents += "{\n";
-                    file.source.contents += "    std::string *storage = new std::string(std::move(str));\n";
-                    file.source.contents += "    return {.str = storage->data(), .size = storage->size(), ._owner = storage};\n";
-                    file.source.contents += "}\n";
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Returns the string contents, which are always null-terminated.";
+                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Data");
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                    emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->c_str()";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
+
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.";
+                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableData");
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                    emit.cpp_called_func = "reinterpret_cast<std::string *>(_this)->data()";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
+
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator.";
+                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_DataEnd");
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                    emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->c_str() + reinterpret_cast<const std::string *>(_this)->size()";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
+
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.";
+                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableDataEnd");
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                    emit.cpp_called_func = "reinterpret_cast<std::string *>(_this)->data() + reinterpret_cast<std::string *>(_this)->size()";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
                 }
             }
 
@@ -69,7 +131,7 @@ namespace mrbind::CBindings::Modules
                 new_type.bindable_with_same_address.c_type_name = binder.c_type_name;
 
                 new_type.return_usage = binder.MakeReturnUsage();
-                new_type.return_usage->extra_headers.custom_in_source_file = [this, &generator]{return std::unordered_set<std::string>{GetOutputFile(generator).internal_header.path_for_inclusion};};
+                new_type.return_usage->same_addr_bindable_type_dependencies.at("std::string").need_header = true; // Force
 
                 Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
                 auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});

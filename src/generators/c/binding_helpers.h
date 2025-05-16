@@ -9,69 +9,37 @@ namespace mrbind::CBindings
 {
     struct ClassBinder
     {
-        ClassBinder() {}
+        // This class doesn't set this for anything. This is `c_type_name` without the prefix.
+        // You can use this to generate new custom identifiers using `generator.MakePublicHelperName(c_type_name + "...")`.
+        std::string basic_c_name;
 
         cppdecl::QualifiedName cpp_type_name;
         std::string c_type_name;
 
-        std::string c_destroy_func_name;
+        bool returning_by_value_includes_header = false;
 
-        ClassBinder(Generator &generator, cppdecl::QualifiedName new_cpp_type_name)
-            : cpp_type_name(std::move(new_cpp_type_name))
-        {
-            std::string base_c_name = generator.StringToCIdentifier(cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style));
-            c_type_name = generator.MakePublicHelperName(base_c_name);
+        // You don't need to assign to all those if you don't use them.
+        std::string c_func_name_default_ctor;
+        std::string c_func_name_copy_ctor;
+        std::string c_func_name_move_ctor;
+        std::string c_func_name_copy_assign;
+        std::string c_func_name_move_assign;
+        std::string c_func_name_destroy;
 
-            c_destroy_func_name = generator.MakePublicHelperName(base_c_name + "_Destroy");
-        }
+        [[nodiscard]] static ClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name);
 
-        [[nodiscard]] std::string MakeForwardDeclaration() const
-        {
-            return "typedef struct " + c_type_name + " " + c_type_name + ";";
-        }
+        [[nodiscard]] std::string MakeForwardDeclaration() const;
 
-        [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage() const
-        {
-            Generator::BindableType::ReturnUsage ret;
+        [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage() const;
 
-            std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
-
-            ret.c_type = cppdecl::Type::FromSingleWord(c_type_name).AddTopLevelModifier(cppdecl::Pointer{});
-            ret.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str); // Only the forward declaration is needed.
-
-            assert(!c_destroy_func_name.empty());
-            ret.append_to_comment = "/// Returns an instance allocated on the heap! Must call `" + c_destroy_func_name + "()` to free it when you're done using it.";
-
-            ret.make_return_statement = [c_type_name = c_type_name, cpp_type_str = std::move(cpp_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
-            {
-                (void)file;
-                return "return (" + c_type_name + " *)new " + cpp_type_str + "(" + std::string(expr) + ");";
-            };
-
-            return ret;
-        }
-
-        [[nodiscard]] Generator::EmitFuncParams PrepareDestroyFunc() const
-        {
-            assert(!c_destroy_func_name.empty());
-
-            std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
-
-            Generator::EmitFuncParams ret;
-
-            ret.c_name = c_destroy_func_name;
-
-            ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
-            ret.params.front().add_to_call = true; // Force add `this` to the call expression.
-
-            ret.cpp_return_type = cppdecl::Type::FromSingleWord("void");
-
-            ret.cpp_called_func_begin = "delete ";
-            ret.cpp_called_func_end = "";
-
-            ret.c_comment += "/// Destroys a heap-allocated instance of `" + cpp_type_str + "`.";
-
-            return ret;
-        }
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDefaultCtor() const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyCtor() const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncMoveCtor() const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyAssignment() const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncMoveAssignment() const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDestroy() const;
     };
+
+    // Makes a simple direct type binding, such as those used for built-in C types.
+    [[nodiscard]] Generator::BindableType MakeDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type);
 }

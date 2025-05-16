@@ -430,58 +430,13 @@ namespace mrbind::CBindings
         // Invent a new binding.
         if (!bool(flags & FindBindableTypeFlags::no_invent_new_types))
         {
-            auto FillDefaultTypeDependencies = [&](BindableType &new_type)
-            {
-                DefaultForEachTypeBindableWithSameAddressNeededByType(type, [&](const cppdecl::QualifiedName &cpp_type_name)
-                {
-                    // Could validate that the type is known here here, but for now I'd rather do it lazily on use.
-                    // Not sure which way is better. Doing it lazily sounds a tiny bit more flexible?
-
-                    std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
-
-                    if (new_type.param_usage)
-                        new_type.param_usage->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
-                    if (new_type.param_usage_with_default_arg)
-                        new_type.param_usage_with_default_arg->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
-                    if (new_type.return_usage)
-                        new_type.return_usage->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
-                });
-            };
-
-
             // Bindable without a cast?
             if (IsSimplyBindableDirect(type))
             {
                 auto type_c_style = type;
                 ReplaceAllNamesInTypeWithCNames(type_c_style);
 
-                BindableType new_type(type_c_style);
-
-                // Allow default arguments via pointers.
-                auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
-                param_def_arg.c_params.push_back({
-                    .c_type = type_c_style.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})
-                });
-                param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
-                param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
-                {
-                    (void)file;
-                    std::string ret;
-                    ret += cpp_param_name;
-                    ret += " ? *";
-                    ret += cpp_param_name;
-                    ret += " : (";
-                    ret += type_str;
-                    ret += ")(";
-                    ret += default_arg;
-                    ret += ")";
-                    return ret;
-                };
-
-                // I THINK this isn't gonna add anything in this case, but just in case.
-                FillDefaultTypeDependencies(new_type);
-
-                return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
+                return &bindable_cpp_types.try_emplace(type_str, MakeDirectTypeBinding(*this, type, type_c_style)).first->second;
             }
             // Bindable with a C-style cast?
             if (IsSimplyBindableDirectCast(type))
@@ -527,7 +482,7 @@ namespace mrbind::CBindings
                 };
 
                 // Definitely needed here.
-                FillDefaultTypeDependencies(new_type);
+                FillDefaultTypeDependencies(type, new_type);
 
                 return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
             }
@@ -632,8 +587,8 @@ namespace mrbind::CBindings
                         {
                             ret +=
                                 "\n"
-                                "///   In C++ this parameter takes an rvalue reference: it might invalidate the passed object,\n"
-                                "///     but if your pointer is owning, you must still destroy it manually later.";
+                                "/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,\n"
+                                "///   but if your pointer is owning, you must still destroy it manually later.";
                         }
 
                         return ret;
@@ -693,7 +648,7 @@ namespace mrbind::CBindings
                         return ret;
                     };
 
-                    FillDefaultTypeDependencies(new_type);
+                    FillDefaultTypeDependencies(type, new_type);
 
                     return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
                 }
@@ -890,7 +845,7 @@ namespace mrbind::CBindings
                         ClassBinder class_binder;
                         class_binder.cpp_type_name = type.simple_type.name;
                         class_binder.c_type_name = iter->second.c_type_str;
-                        class_binder.c_destroy_func_name = class_desc->cleanup_func_name;
+                        class_binder.c_func_name_destroy = class_desc->cleanup_func_name;
 
                         new_type.return_usage = class_binder.MakeReturnUsage();
 
@@ -910,6 +865,24 @@ namespace mrbind::CBindings
 
         // Don't know how to bind this.
         return nullptr;
+    }
+
+    void Generator::FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target)
+    {
+        DefaultForEachTypeBindableWithSameAddressNeededByType(source, [&](const cppdecl::QualifiedName &cpp_type_name)
+        {
+            // Could validate that the type is known here here, but for now I'd rather do it lazily on use.
+            // Not sure which way is better. Doing it lazily sounds a tiny bit more flexible?
+
+            std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+
+            if (target.param_usage)
+                target.param_usage->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
+            if (target.param_usage_with_default_arg)
+                target.param_usage_with_default_arg->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
+            if (target.return_usage)
+                target.return_usage->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
+        });
     }
 
     const cppdecl::Type &Generator::ParseTypeOrThrow(const std::string &str) const
@@ -1084,8 +1057,7 @@ namespace mrbind::CBindings
 
         SetReturnTypeFromParsedFunc(self, new_func);
 
-        cpp_called_func_begin = new_func.full_qual_name;
-        cpp_called_func_begin += '(';
+        cpp_called_func = new_func.full_qual_name;
 
         if (new_func.comment)
         {
@@ -1114,8 +1086,7 @@ namespace mrbind::CBindings
 
         cpp_return_type = cpp_type;
 
-        cpp_called_func_begin = cpp_type_str;
-        cpp_called_func_begin += '(';
+        cpp_called_func = cpp_type_str;
 
         if (new_ctor.comment)
         {
@@ -1140,10 +1111,8 @@ namespace mrbind::CBindings
 
         c_name = std::get<ParsedTypeInfo::ClassDesc>(info.input_type).cleanup_func_name;
 
-        cpp_return_type.simple_type.name.parts.emplace_back("void");
-
-        cpp_called_func_begin = "delete ";
-        cpp_called_func_end = "";
+        cpp_called_func = "delete";
+        cpp_called_func_parens = {};
 
         if (new_dtor.comment)
         {
@@ -1177,20 +1146,19 @@ namespace mrbind::CBindings
             if (new_method.ref_qualifier == RefQualifier::rvalue)
             {
                 extra_headers.stdlib_in_source_file.insert("utility");
-                cpp_called_func_begin = "std::move";
+                cpp_called_func = "std::move";
             }
-            cpp_called_func_begin += "(*(";
-            cpp_called_func_begin += cpp_type_str;
-            cpp_called_func_begin += " *)_this).";
+            cpp_called_func += "(*(";
+            cpp_called_func += cpp_type_str;
+            cpp_called_func += " *)_this).";
         }
         else
         {
-            cpp_called_func_begin = cpp_type_str;
-            cpp_called_func_begin += "::";
+            cpp_called_func = cpp_type_str;
+            cpp_called_func += "::";
         }
 
-        cpp_called_func_begin += new_method.full_name;
-        cpp_called_func_begin += '(';
+        cpp_called_func += new_method.full_name;
 
         if (new_method.comment)
         {
@@ -1227,26 +1195,26 @@ namespace mrbind::CBindings
         if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
         {
             extra_headers.stdlib_in_source_file.insert("utility");
-            cpp_called_func_begin = "std::move";
+            cpp_called_func = "std::move";
         }
 
-        cpp_called_func_begin += '(';
-        cpp_called_func_begin += target_cpp_type_str;
-        cpp_called_func_begin += ")(";
+        cpp_called_func += '(';
+        cpp_called_func += target_cpp_type_str;
+        cpp_called_func += ")(";
         if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
         {
             extra_headers.stdlib_in_source_file.insert("utility");
-            cpp_called_func_begin += "std::move(";
+            cpp_called_func += "std::move(";
         }
-        cpp_called_func_begin += "*(";
-        cpp_called_func_begin += cpp_type_str;
-        cpp_called_func_begin += " *)_this)";
+        cpp_called_func += "*(";
+        cpp_called_func += cpp_type_str;
+        cpp_called_func += " *)_this)";
         if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
         {
-            cpp_called_func_begin += ")"; // Close `std::move(...)`.
+            cpp_called_func += ")"; // Close `std::move(...)`.
         }
 
-        cpp_called_func_end = "";
+        cpp_called_func_parens = {};
 
         if (new_conv_op.comment)
         {
@@ -1292,18 +1260,16 @@ namespace mrbind::CBindings
 
         if (!new_field.is_static)
         {
-            cpp_called_func_begin += "(*(";
-            cpp_called_func_begin += class_cpp_type_str;
-            cpp_called_func_begin += " *)_this).";
+            cpp_called_func += "(*(";
+            cpp_called_func += class_cpp_type_str;
+            cpp_called_func += " *)_this).";
         }
         else
         {
-            cpp_called_func_begin = class_cpp_type_str;
-            cpp_called_func_begin += "::";
+            cpp_called_func = class_cpp_type_str;
+            cpp_called_func += "::";
         }
-        cpp_called_func_begin += new_field.full_name;
-
-        cpp_called_func_end = "";
+        cpp_called_func += new_field.full_name;
 
         if (new_field.comment)
         {
@@ -1340,8 +1306,16 @@ namespace mrbind::CBindings
         }
 
         std::string body_return;
-        if (!params.cpp_called_func_begin.empty())
-            body_return += params.cpp_called_func_begin;
+        bool need_whitespace_before_first_arg = false;
+        if (!params.cpp_called_func.empty())
+        {
+            body_return += params.cpp_called_func;
+
+            if (params.cpp_called_func_parens.begin.empty() && !body_return.ends_with('(') && !body_return.ends_with('[') && !body_return.ends_with('{'))
+                need_whitespace_before_first_arg = true;
+            else
+                body_return += params.cpp_called_func_parens.begin;
+        }
 
         // Assemble the parameter and argument lists.
         std::size_t i = 0;
@@ -1377,7 +1351,7 @@ namespace mrbind::CBindings
                         auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
 
                         // Adding `!dep.second.need_header` to avoid evaluating the header if it's not needed.
-                        if (!dep.second.need_header || &dep_info.declared_in_file() != &file)
+                        if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
                             file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
                     }
 
@@ -1442,12 +1416,19 @@ namespace mrbind::CBindings
                 }
 
                 // Append the argument to the call, if enabled.
-                if (!params.cpp_called_func_begin.empty() && param.add_to_call)
+                if (!params.cpp_called_func.empty() && param.add_to_call)
                 {
                     if (first_arg_in_call_expr)
+                    {
                         first_arg_in_call_expr = false;
+
+                        if (need_whitespace_before_first_arg)
+                            body_return += ' ';
+                    }
                     else
+                    {
                         body_return += ',';
+                    }
 
                     body_return += "\n        ";
                     body_return += arg_expr;
@@ -1460,11 +1441,11 @@ namespace mrbind::CBindings
                 std::throw_with_nested(std::runtime_error("While processing parameter " + std::to_string(i) + ":"));
             }
         }
-        if (!params.cpp_called_func_begin.empty())
+        if (!params.cpp_called_func.empty())
         {
             if (!first_arg_in_call_expr)
                 body_return += "\n    ";
-            body_return += params.cpp_called_func_end;
+            body_return += params.cpp_called_func_parens.end;
         }
 
 
@@ -1486,7 +1467,7 @@ namespace mrbind::CBindings
                 auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
 
                 // Adding `!dep.second.need_header` to avoid evaluating the header if it's not needed.
-                if (!dep.second.need_header || &dep_info.declared_in_file() != &file)
+                if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
                     file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
             }
 
@@ -2329,6 +2310,9 @@ namespace mrbind::CBindings
             return target.second.need_header || !FindTypeBindableWithSameAddress(target.first).forward_declaration;
         };
 
+        // We're gonna append to this.
+        std::set<std::string> stdlib_headers = file.stdlib_headers;
+
         { // Generate and write the list of headers.
             std::set<std::string> headers = file.custom_headers;
             for (const auto &elem : file.forward_declarations_and_inclusions)
@@ -2337,10 +2321,10 @@ namespace mrbind::CBindings
                 {
                     const auto &type_info = FindTypeBindableWithSameAddress(elem.first);
 
-                    if (type_info.IsBuiltInType())
+                    if (!type_info.KnowHeaderOrForwardDeclaration())
                         continue; // Nothing to do for built-in types.
 
-                    if (!type_info.declared_in_file) // This will rarely be null.
+                    if (!type_info.declared_in_file && !type_info.declared_in_stdlib_file) // This should never happen?
                     {
                         if (elem.second.need_header)
                             throw std::runtime_error("Need to include a header for type `" + elem.first + "`, but don't what header to include.");
@@ -2348,7 +2332,12 @@ namespace mrbind::CBindings
                             throw std::runtime_error("Need to include a header or forward-declare type `" + elem.first + "`, but don't know how.");
                     }
 
-                    headers.insert(type_info.declared_in_file().header.path_for_inclusion);
+                    assert(bool(type_info.declared_in_stdlib_file) + bool(type_info.declared_in_file) == 1 && "Must specify exactly one of the two: a custom header or a standard library header.");
+
+                    if (type_info.declared_in_stdlib_file)
+                        stdlib_headers.insert(*type_info.declared_in_stdlib_file);
+                    else
+                        headers.insert(type_info.declared_in_file().header.path_for_inclusion);
                 }
             }
 
@@ -2361,9 +2350,9 @@ namespace mrbind::CBindings
                 out << '\n';
         }
 
-        for (const auto &elem : file.stdlib_headers)
+        for (const auto &elem : stdlib_headers)
             out << "#include <" << elem << ">\n";
-        if (out && !file.stdlib_headers.empty())
+        if (out && !stdlib_headers.empty())
             out << '\n';
 
         if (out && !file.after_includes.empty())
@@ -2377,7 +2366,7 @@ namespace mrbind::CBindings
                 {
                     const auto &type_info = FindTypeBindableWithSameAddress(elem.first);
 
-                    if (type_info.IsBuiltInType())
+                    if (!type_info.KnowHeaderOrForwardDeclaration())
                         continue; // Nothing to do for built-in types.
 
                     if (!type_info.forward_declaration)

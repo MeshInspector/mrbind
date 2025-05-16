@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <span>
 #include <string>
 
 namespace MR
@@ -21,9 +20,13 @@ namespace MR
         return "Hello!";
     }
 
-    struct A {};
+    inline void WriteToRef(std::string &ref)
+    {
+        ref = "Hello!";
+    }
 
-    inline int *foo(int *) {return nullptr;}
-    inline void bar(A *) {}
-    inline void bar(std::string *) {}
+    inline void WriteToPtr(std::string *ptr)
+    {
+        *ptr = "Hello!";
+    }
 }

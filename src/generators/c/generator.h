@@ -208,12 +208,15 @@ namespace mrbind::CBindings
         struct TypeBindableWithSameAddress
         {
             // At least one of those two must not be null in your custom types.
-            // Both are null only in built-in types, which indicates that they don't need any forward-declarations or headers.
+            // All of those are null only in built-in types, which indicates that they don't need any forward-declarations or headers.
             // [
 
             // In what header this type is declared. Can be null if none.
             // This a function to allow the header be created lazily.
             std::function<OutputFile &()> declared_in_file;
+
+            // An alterantive to `declared_in_file` for standard library types. Don't set both at the same time.
+            std::optional<std::string> declared_in_stdlib_file;
 
             // If specified, this type can be forward-declared by pasting this string. Otherwise the only option is to include the header `declared_in_file`.
             // Don't include the trailing newline here.
@@ -224,7 +227,7 @@ namespace mrbind::CBindings
             // This is optional. If null, use the `StringToCIdentifier()` on the original C++ type name.
             std::string c_type_name;
 
-            [[nodiscard]] bool IsBuiltInType() const {return !declared_in_file && !forward_declaration;}
+            [[nodiscard]] bool KnowHeaderOrForwardDeclaration() const {return declared_in_file || declared_in_stdlib_file || forward_declaration;}
         };
         // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.
         // This is write-only! This is initially populated with the parsed types, and then the custom types are added lazily by `FindTypeBindableWithSameAddress[Opt]`.
@@ -379,7 +382,7 @@ namespace mrbind::CBindings
             // Note, this is WRITE-ONLY (because there are other ways of achieving this). Read using `FindTypeBindableWithSameAddress()`.
             TypeBindableWithSameAddress bindable_with_same_address;
 
-            [[nodiscard]] bool IsBindableWithSameAddress() const {return bindable_with_same_address.declared_in_file || bindable_with_same_address.forward_declaration;}
+            [[nodiscard]] bool IsBindableWithSameAddress() const {return bindable_with_same_address.KnowHeaderOrForwardDeclaration();}
 
 
             struct SameAddrBindableTypeDependency
@@ -516,6 +519,9 @@ namespace mrbind::CBindings
         // This version returns null on failure.
         [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, FindBindableTypeFlags flags = {});
 
+        // Uses `DefaultForEachTypeBindableWithSameAddressNeededByType()` to populate `same_addr_bindable_type_dependencies` in the type.
+        void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);
+
 
         // This acts as a cache when parsing C++ types.
         mutable std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;
@@ -581,19 +587,26 @@ namespace mrbind::CBindings
             std::string c_name;
 
             // The C++ return type. We'll translate it to C automatically.
-            cppdecl::Type cpp_return_type;
+            cppdecl::Type cpp_return_type = cppdecl::Type::FromSingleWord("void");
 
 
             // Additional statements before `return`, if any.
             // Do not add trailing newline. Do not add indentation.
             std::string cpp_extra_statements;
 
-            // What function are we calling on the C++ side.
-            // Will usually have a trailing `(`. The arguments are pasted after it, and then `cpp_called_func_end`.
-            // If this is empty, the return statement isn't generated at all, and `cpp_called_func_end` is ignored.
-            std::string cpp_called_func_begin;
-            // This is pasted after the arguments.
-            std::string cpp_called_func_end = ")";
+            // What function are we calling on the C++ side. Or any arbitrary expression. The arguments are pasted after it, enclosed in `cpp_called_func_parens`.
+            // If this is empty, the return statement isn't generated at all, the arguments are ignored, and `cpp_called_func_parens` is also ignored.
+            // NOTE: Typically this doesn't need a trailing whitespace. It's inserted automatically if `cpp_called_func_parens.begin` is empty and `cpp_extra_statements` doesn't end with an opening bracket.
+            std::string cpp_called_func;
+
+            struct Parens
+            {
+                std::string begin;
+                std::string end;
+            };
+
+            // The arguments are pasted after `cpp_called_func`, enclosed in those. Those can be empty, they are still pasted in that case.
+            Parens cpp_called_func_parens = {"(", ")"};
 
             // Comment to add on the C side. Do add leading slashes. Don't add the trailing newline.
             // Leave empty for no comment.
@@ -626,7 +639,7 @@ namespace mrbind::CBindings
                 std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
 
                 // If this is false, this argument will not be added to the call expression in the implementation,
-                //   and you need to manually use it for something (typically in `.cpp_called_func_begin`).
+                //   and you need to manually use it for something (typically in `.cpp_called_func`).
                 bool add_to_call = true;
 
                 [[nodiscard]] bool IsPointerWithNullptrDefaultArgument() const;
