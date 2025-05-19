@@ -7,14 +7,9 @@ namespace mrbind::CBindings::Modules
     {
         ClassBinder binder;
 
-        // The name of the internal C++ function that creates strings.
-        std::string c_str_detail_create_func;
-
         void Init(Generator &generator) override
         {
             binder = ClassBinder::ForCustomType(generator, cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
-
-            c_str_detail_create_func = generator.MakeDetailHelperName("Create_std_string");
         }
 
         Generator::OutputFile &GetOutputFile(Generator &generator)
@@ -131,7 +126,7 @@ namespace mrbind::CBindings::Modules
                 new_type.bindable_with_same_address.c_type_name = binder.c_type_name;
 
                 new_type.return_usage = binder.MakeReturnUsage();
-                new_type.return_usage->same_addr_bindable_type_dependencies.at("std::string").need_header = true; // Force
+                new_type.return_usage->same_addr_bindable_type_dependencies.at("std::string").need_header = true; // Force our header to be included.
 
                 Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
                 auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
@@ -140,7 +135,7 @@ namespace mrbind::CBindings::Modules
                 param_usage.c_params.back().name_suffix += "_end";
                 param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                 {
-                    file.stdlib_headers.insert("string");
+                    (void)file;
 
                     std::string ret;
                     ret += cpp_param_name;

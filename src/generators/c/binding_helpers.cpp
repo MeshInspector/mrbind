@@ -26,7 +26,7 @@ namespace mrbind::CBindings
 
     std::string ClassBinder::MakeForwardDeclaration() const
     {
-        return "typedef struct " + c_type_name + " " + c_type_name + ";";
+        return MakeStructForwardDeclaration(c_type_name);
     }
 
     Generator::BindableType::ReturnUsage ClassBinder::MakeReturnUsage() const
@@ -177,6 +177,16 @@ namespace mrbind::CBindings
         return ret;
     }
 
+
+    std::string MakeStructForwardDeclaration(std::string_view c_type_name)
+    {
+        std::string ret = "typedef struct ";
+        ret += c_type_name;
+        ret += ' ';
+        ret += c_type_name;
+        ret += ';';
+        return ret;
+    }
 
     Generator::BindableType MakeDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type)
     {

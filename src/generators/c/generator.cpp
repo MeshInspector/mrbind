@@ -1574,7 +1574,7 @@ namespace mrbind::CBindings
 
                 TypeBindableWithSameAddress &info2 = iter2->second;
                 info2.declared_in_file = [&ret = self.GetOutputFile(cl.declared_in_file)]() -> auto & {return ret;}; // No point in being lazy here.
-                info2.forward_declaration = "typedef struct " + info.c_type_str + " " + info.c_type_str + ";";
+                info2.forward_declaration = MakeStructForwardDeclaration(info.c_type_str);
             }
 
             ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();

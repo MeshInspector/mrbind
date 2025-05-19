@@ -40,6 +40,9 @@ namespace mrbind::CBindings
         [[nodiscard]] Generator::EmitFuncParams PrepareFuncDestroy() const;
     };
 
+    // A simple function that returns `typedef struct X X;`, replacing `X` with the given name.
+    [[nodiscard]] std::string MakeStructForwardDeclaration(std::string_view c_type_name);
+
     // Makes a simple direct type binding, such as those used for built-in C types.
     [[nodiscard]] Generator::BindableType MakeDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type);
 }

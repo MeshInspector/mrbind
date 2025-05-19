@@ -5,27 +5,27 @@
 
 namespace MR
 {
-    inline void SetString(std::string s)
+    inline void SetString(std::string_view s)
     {
         std::cout << s << '\n';
     }
 
-    inline void SetStringWithDefault(std::string s = "42")
+    inline void SetStringWithDefault(std::string_view s = "42")
     {
         std::cout << s << '\n';
     }
 
-    inline std::string GetString()
+    inline std::string_view GetString()
     {
         return "Hello!";
     }
 
-    inline void WriteToRef(std::string &ref)
+    inline void WriteToRef(std::string_view &ref)
     {
         ref = "Hello!";
     }
 
-    inline void WriteToPtr(std::string *ptr)
+    inline void WriteToPtr(std::string_view *ptr)
     {
         *ptr = "Hello!";
     }

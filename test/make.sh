@@ -1,4 +1,5 @@
 set -euxo pipefail
+shopt -s nullglob
 
 if [[ "$(uname -o)" == Msys ]]; then
     EXT_SHARED=.dll
