@@ -68,7 +68,7 @@ endif()
 
 if(MRBIND_BUILD_GENERATOR_C)
     add_executable(mrbind_gen_c
-        src/generators/c/binding_helpers.cpp
+        src/generators/c/binding_common.cpp
         src/generators/c/generator.cpp
         src/generators/c/main.cpp
         src/generators/c/module.cpp

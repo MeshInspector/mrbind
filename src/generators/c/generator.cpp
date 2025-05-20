@@ -3,7 +3,7 @@
 #include "common/filesystem.h"
 #include "common/meta.h"
 #include "common/parsed_data.h"
-#include "generators/c/binding_helpers.h"
+#include "generators/c/binding_common.h"
 #include "generators/c/module.h"
 
 #include <cppdecl/declarations/data.h>
