@@ -504,20 +504,11 @@ namespace mrbind::CBindings
         // Don't access this directly! Use `FindBindableType` because that will lazily insert the missing types here.
         std::unordered_map<std::string, BindableType> bindable_cpp_types;
 
-        enum class FindBindableTypeFlags
-        {
-            // Primarily for internal use. Refuses to invent new bindable types based on our various heuristics.
-            // Still accepts existing types, and notably also accepts the types reported by modules.
-            // We need this flag to avoid infinite recursion.
-            no_invent_new_types = 1 << 0,
-        };
-        MRBIND_FLAG_OPERATORS_IN_CLASS(FindBindableTypeFlags)
-
         // Finds a type in `bindable_cpp_types`. If no such type,
         //   tries to generate the binding information for it (and inserts it into the map), or throws on failure.
-        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type, FindBindableTypeFlags flags = {});
+        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type);
         // This version returns null on failure.
-        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, FindBindableTypeFlags flags = {});
+        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type);
 
         // Uses `DefaultForEachTypeBindableWithSameAddressNeededByType()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);

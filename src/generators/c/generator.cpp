@@ -242,7 +242,6 @@ namespace mrbind::CBindings
             return &types_bindable_with_same_address.try_emplace(type_name_str).first->second;
 
         // Try find a regular bindable type, maybe it has the `binding_preserves_address` flag set.
-        // Need `no_invent_new_types` to avoid an infinite recursion here.
         if (auto bindable_type = FindBindableTypeOpt(ParseTypeOrThrow(type_name_str)))
         {
             if (bindable_type->IsBindableWithSameAddress())
@@ -307,7 +306,7 @@ namespace mrbind::CBindings
                 },
                 [&](const cppdecl::Function &elem)
                 {
-                    if (elem.noexcept_ || elem.cv_quals != cppdecl::CvQualifiers{} || elem.ref_quals != cppdecl::RefQualifiers::none)
+                    if (elem.noexcept_ || elem.cv_quals != cppdecl::CvQualifiers{} || elem.ref_qual != cppdecl::RefQualifier::none)
                         return false; // C++-style qualifiers not allowed.
 
                     // Trailing return type is fine, because we can just not use it by passing a flag to `ToCode`.
@@ -408,15 +407,15 @@ namespace mrbind::CBindings
         ret.c_type = std::move(c_type); // Here we can move the type.
     }
 
-    const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, FindBindableTypeFlags flags)
+    const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type)
     {
-        if (auto *ret = FindBindableTypeOpt(type, flags))
+        if (auto *ret = FindBindableTypeOpt(type))
             return *ret;
         else
             throw std::runtime_error("Don't know how to bind type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
     }
 
-    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, FindBindableTypeFlags flags)
+    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type)
     {
         const std::string type_str = ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
 
@@ -427,233 +426,20 @@ namespace mrbind::CBindings
                 return &iter->second;
         }
 
-        // Invent a new binding.
-        if (!bool(flags & FindBindableTypeFlags::no_invent_new_types))
+
+        // Ask the modules first.
+        // We need this to be able to override the default bindings in some cases, for the types otherwise handled by `MakeSimpleTypeBinding()`.
+        for (const auto &m : modules)
         {
-            // Bindable without a cast?
-            if (IsSimplyBindableDirect(type))
-            {
-                auto type_c_style = type;
-                ReplaceAllNamesInTypeWithCNames(type_c_style);
-
-                return &bindable_cpp_types.try_emplace(type_str, MakeDirectTypeBinding(*this, type, type_c_style)).first->second;
-            }
-            // Bindable with a C-style cast?
-            if (IsSimplyBindableDirectCast(type))
-            {
-                auto type_c_style = type;
-                ReplaceAllNamesInTypeWithCNames(type_c_style);
-
-                BindableType new_type(type_c_style);
-
-                // Add the casts!
-                new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](OutputFile::SpecificFileContents &file, std::string_view expr)
-                {
-                    (void)file;
-                    return "return (" + type_str_c + ")" + std::string(expr) + ";";
-                };
-                new_type.param_usage->c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &, std::string_view cpp_param_name, std::string_view default_arg)
-                {
-                    (void)default_arg;
-                    return "(" + type_str + ")" + std::string(cpp_param_name);
-                };
-
-                // Allow default arguments via pointers.
-                auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
-                param_def_arg.c_params.push_back({
-                    .c_type = type_c_style.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})
-                });
-                param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
-                param_def_arg.c_params_to_cpp = [type_str](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
-                {
-                    (void)file;
-                    std::string ret;
-                    ret += cpp_param_name;
-                    ret += " ? (";
-                    ret += type_str;
-                    ret += ")*";
-                    ret += cpp_param_name;
-                    ret += " : (";
-                    ret += type_str;
-                    ret += ")(";
-                    ret += default_arg;
-                    ret += ")";
-                    return ret;
-                };
-
-                // Definitely needed here.
-                FillDefaultTypeDependencies(type, new_type);
-
-                return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
-            }
+            if (auto opt = m->GetBindableType(*this, type, cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style)))
+                return &bindable_cpp_types.try_emplace(type_str, *opt).first->second;
+        }
 
 
-            const bool is_ref = type.Is<cppdecl::Reference>();
-            const bool is_rvalue_ref = is_ref && type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifiers::rvalue;
-            cppdecl::Type ref_target_type;
-            std::string ref_target_type_str;
-            if (is_ref)
-            {
-                ref_target_type = cppdecl::Type(type).RemoveTopLevelModifier();
-                ref_target_type_str = cppdecl::ToCode(ref_target_type, cppdecl::ToCodeFlags::canonical_c_style);
-            }
-
-            // A reference to `IsSimplyBindableIndirect[Reinterpret]`?
-            if (is_ref)
-            {
-                const bool without_cast = IsSimplyBindableIndirect(ref_target_type);
-                const bool with_cast = !without_cast && IsSimplyBindableIndirectReinterpret(ref_target_type);
-
-                if (without_cast || with_cast)
-                {
-                    auto type_c_style = type;
-                    ReplaceAllNamesInTypeWithCNames(type_c_style);
-
-                    BindableType new_type(type_c_style);
-
-
-                    // Return type:
-
-                    new_type.return_usage->c_type.modifiers.front().var = cppdecl::Pointer{};
-
-                    if (with_cast)
-                    {
-                        new_type.return_usage->append_to_comment = "/// The returned pointer is non-owning, do NOT destroy it.";
-                        if (is_rvalue_ref)
-                            new_type.return_usage->append_to_comment += "\n/// In C++ this returns an rvalue reference.";
-
-                        // Take the address and cast.
-                        new_type.return_usage->make_return_statement = [
-                            ref_target_type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1),
-                            is_rvalue_ref,
-                            details_file = is_rvalue_ref ? GetInternalDetailsFile().header.path_for_inclusion : std::string{}
-                        ](OutputFile::SpecificFileContents &file, std::string_view expr)
-                        {
-                            file.stdlib_headers.insert("type_traits");
-                            if (!is_rvalue_ref)
-                            {
-                                return "return (std::add_pointer_t<" + ref_target_type_str_c + ">)&" + std::string(expr) + ";";
-                            }
-                            else
-                            {
-                                file.custom_headers.insert(details_file); // For `unmove()`.
-                                return "return (std::add_pointer_t<" + ref_target_type_str_c + ">)&mrbindc_details::unmove(" + std::string(expr) + ");";
-                            }
-                        };
-                    }
-                    else
-                    {
-                        // Just take the address.
-                        // Here we don't need any special handling of rvalue references.
-                        new_type.return_usage->make_return_statement = [
-                            is_rvalue_ref,
-                            details_file = is_rvalue_ref ? GetInternalDetailsFile().header.path_for_inclusion : std::string{}
-                        ](OutputFile::SpecificFileContents &file, std::string_view expr)
-                        {
-                            (void)file;
-                            if (!is_rvalue_ref)
-                            {
-                                return "return &" + std::string(expr) + ";";
-                            }
-                            else
-                            {
-                                file.custom_headers.insert(details_file); // For `unmove()`.
-                                return "return &mrbindc_details::unmove(" + std::string(expr) + ");";
-                            }
-                        };
-                    }
-
-
-                    // Params:
-
-                    new_type.param_usage_with_default_arg = std::move(new_type.param_usage);
-                    new_type.param_usage.reset();
-
-                    auto &param_def_arg = *new_type.param_usage_with_default_arg;
-
-                    param_def_arg.c_params.front().c_type.modifiers.front().var = cppdecl::Pointer{};
-                    param_def_arg.append_to_comment = [
-                        is_rvalue_ref
-                    ](std::string_view cpp_param_name, bool has_default_arg) -> std::string
-                    {
-                        std::string ret;
-                        if (has_default_arg)
-                            // Two spaces because this goes after a message about the default argument.
-                            ret = "///   To use the default argument, pass a null pointer.";
-                        else
-                            ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
-
-                        if (is_rvalue_ref)
-                        {
-                            ret +=
-                                "\n"
-                                "/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,\n"
-                                "///   but if your pointer is owning, you must still destroy it manually later.";
-                        }
-
-                        return ret;
-                    };
-
-                    param_def_arg.c_params_to_cpp = [
-                        type_str,
-                        ref_target_type_str,
-                        with_cast,
-                        is_rvalue_ref
-                    ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
-                    {
-                        std::string ret;
-                        if (is_rvalue_ref)
-                        {
-                            file.stdlib_headers.insert("utility");
-                            // This also moves the default argument, but who cares, right? It shouldn't make any difference.
-                            ret += "std::move(";
-                        }
-                        ret += cpp_param_name;
-                        ret += " ? ";
-                        ret += "*";
-                        if (with_cast)
-                        {
-                            file.stdlib_headers.insert("type_traits");
-                            ret += "(std::add_pointer_t<";
-                            ret += ref_target_type_str;
-                            ret += ">)(";
-                            ret += cpp_param_name;
-                            ret += ")";
-                        }
-                        else
-                        {
-                            ret += cpp_param_name;
-                        }
-                        ret += " : ";
-                        if (default_arg.empty())
-                        {
-                            file.stdlib_headers.insert("stdexcept");
-                            ret += "throw std::runtime_error(\"Parameter `";
-                            ret += cpp_param_name;
-                            ret += "` can not be null.\")";
-                        }
-                        else
-                        {
-                            ret += "static_cast<";
-                            ret += type_str;
-                            ret += ">(";
-                            ret += default_arg;
-                            ret += ")";
-                        }
-
-                        if (is_rvalue_ref)
-                        {
-                            ret += ")"; // Close `std::move(...)`.
-                        }
-                        return ret;
-                    };
-
-                    FillDefaultTypeDependencies(type, new_type);
-
-                    return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
-                }
-            }
-
+        { // Invent a new binding.
+            // This handles all the `IsSimplyBindable{Direct{,Cast},Indirect{,Reinterpret}}` types.
+            if (auto opt = MakeSimpleTypeBinding(*this, type))
+                return &bindable_cpp_types.try_emplace(type_str, *opt).first->second;
 
             // Maybe a class?
             if (type.modifiers.empty())
@@ -674,8 +460,8 @@ namespace mrbind::CBindings
                             param_usage.same_addr_bindable_type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
 
                             param_usage.c_params.emplace_back().c_type = iter->second.c_type;
-                            param_usage.c_params.back().c_type.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_);
-                            param_usage.c_params.back().c_type.AddTopLevelModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
+                            param_usage.c_params.back().c_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+                            param_usage.c_params.back().c_type.AddModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
 
                             param_usage.c_params_to_cpp = [
                                 type_str,
@@ -745,7 +531,7 @@ namespace mrbind::CBindings
                             param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(class_desc->pass_by_enum_name);
                             param_usage.c_params.back().name_suffix = "_pass_by";
                             param_usage.c_params.emplace_back().c_type = iter->second.c_type;
-                            param_usage.c_params.back().c_type.AddTopLevelModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
+                            param_usage.c_params.back().c_type.AddModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
 
                             param_usage.c_params_to_cpp = [
                                 this,
@@ -855,13 +641,6 @@ namespace mrbind::CBindings
             }
         }
 
-
-        // Lastly, ask the modules.
-        for (const auto &m : modules)
-        {
-            if (auto opt = m->GetBindableType(*this, type, cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style)))
-                return &bindable_cpp_types.try_emplace(type_str, *opt).first->second;
-        }
 
         // Don't know how to bind this.
         return nullptr;
@@ -1028,8 +807,8 @@ namespace mrbind::CBindings
         param.add_to_call = false;
         param.cpp_type = std::move(new_class);
         if (is_const)
-            param.cpp_type.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_);
-        param.cpp_type.AddTopLevelModifier(cppdecl::Pointer{});
+            param.cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+        param.cpp_type.AddModifier(cppdecl::Pointer{});
         param.name = "_this";
     }
 
@@ -1039,8 +818,8 @@ namespace mrbind::CBindings
         param.add_to_call = false;
         param.cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         if (is_const)
-            param.cpp_type.AddTopLevelQualifiers(cppdecl::CvQualifiers::const_);
-        param.cpp_type.AddTopLevelModifier(cppdecl::Pointer{});
+            param.cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+        param.cpp_type.AddModifier(cppdecl::Pointer{});
         param.name = "_this";
     }
 
@@ -1251,10 +1030,10 @@ namespace mrbind::CBindings
         {
             if (is_const)
             {
-                if (auto quals = cpp_return_type.GetTopLevelQualifiersMut())
+                if (auto quals = cpp_return_type.GetQualifiersMut())
                     *quals |= cppdecl::CvQualifiers::const_;
             }
-            cpp_return_type.AddTopLevelModifier(cppdecl::Reference{});
+            cpp_return_type.AddModifier(cppdecl::Reference{});
         }
 
 

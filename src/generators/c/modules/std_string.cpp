@@ -37,7 +37,7 @@ namespace mrbind::CBindings::Modules
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Construct");
                     emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
                     emit.cpp_called_func = "std::string";
-                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})});
+                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})});
                     generator.EmitFunction(file, emit);
                 }
 
@@ -47,8 +47,8 @@ namespace mrbind::CBindings::Modules
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_ConstructFromRange");
                     emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
                     emit.cpp_called_func = "std::string";
-                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})});
-                    emit.params.push_back({.name = "str_end", .cpp_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{})});
+                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})});
+                    emit.params.push_back({.name = "str_end", .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})});
                     generator.EmitFunction(file, emit);
                 }
 
@@ -67,7 +67,7 @@ namespace mrbind::CBindings::Modules
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Data");
-                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->c_str()";
                     emit.cpp_called_func_parens = {};
@@ -78,7 +78,7 @@ namespace mrbind::CBindings::Modules
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableData");
-                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "reinterpret_cast<std::string *>(_this)->data()";
                     emit.cpp_called_func_parens = {};
@@ -89,7 +89,7 @@ namespace mrbind::CBindings::Modules
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_DataEnd");
-                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->c_str() + reinterpret_cast<const std::string *>(_this)->size()";
                     emit.cpp_called_func_parens = {};
@@ -100,7 +100,7 @@ namespace mrbind::CBindings::Modules
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableDataEnd");
-                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddTopLevelModifier(cppdecl::Pointer{});
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "reinterpret_cast<std::string *>(_this)->data() + reinterpret_cast<std::string *>(_this)->size()";
                     emit.cpp_called_func_parens = {};
@@ -117,7 +117,8 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if (type_str == "std::string")
+            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, "std::string"))) {}
+            else if (type_str == "std::string")
             {
                 Generator::BindableType &new_type = ret.emplace();
 
@@ -129,7 +130,7 @@ namespace mrbind::CBindings::Modules
                 new_type.return_usage->same_addr_bindable_type_dependencies.at("std::string").need_header = true; // Force our header to be included.
 
                 Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
-                auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
                 param_usage.c_params.back().name_suffix += "_end";

@@ -20,11 +20,11 @@ namespace mrbind::CBindings::Modules
             if (is_new)
             {
                 file.header.contents += "/// A reference to a string or a part of one, not necessarily null-terminated.\n";
-                file.header.contents += "struct " + c_type_name + "\n";
+                file.header.contents += "typedef struct " + c_type_name + "\n";
                 file.header.contents += "{\n";
                 file.header.contents += "    const char *begin;\n";
                 file.header.contents += "    const char *end;\n";
-                file.header.contents += "};\n";
+                file.header.contents += "} " + c_type_name + ";\n";
             }
 
             return file;
@@ -36,7 +36,8 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if (type_str == "std::string_view")
+            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, "std::string_view"))) {}
+            else if (type_str == "std::string_view")
             {
                 Generator::BindableType &new_type = ret.emplace();
 
@@ -54,7 +55,7 @@ namespace mrbind::CBindings::Modules
                 };
 
                 Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
-                auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddTopLevelQualifiers(cppdecl::CvQualifiers::const_).AddTopLevelModifier(cppdecl::Pointer{});
+                auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
                 param_usage.c_params.back().name_suffix += "_end";

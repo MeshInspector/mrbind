@@ -1,2 +1,4 @@
-#include "MR/1.h"
-#include "MR/2.h"
+#include <input/MR/1.h>
+#include <input/MR/2.h>
+#include <input/MR/test_std_string.h>
+#include <input/MR/test_std_string_view.h>
