@@ -140,7 +140,7 @@ namespace mrbind::CBindings
                     bool need_header = false;
                 };
                 // Lists all type names that are needed here, and whether we should include headers for them for forward-decare them.
-                // Those are keys for `FindTypeBindableWithSameAddress()`.
+                // Those are keys for `FindTypeBindableWithSameAddress()`. That is, C++ types canonicalized by cppdecl.
                 std::unordered_map<std::string, ForwardDeclarationOrInclusion> forward_declarations_and_inclusions;
 
 
@@ -201,6 +201,11 @@ namespace mrbind::CBindings
         // Returns true if this is a built-in C type.
         [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name) const;
 
+        // The destroy function name for parsed and custom classes.
+        [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name) const;
+        // The pass-by enum name for parsed and custom classes.
+        [[nodiscard]] std::string GetClassPassByEnumName(std::string_view c_type_name) const;
+
 
         // Those types are a subset of `IsSimplyBindableIndirectReinterpret()` for pure qualified names (without cvref/ptr-qualifiers).
         // That is, thoses are bindable by passing their address, possibly with a cast.
@@ -224,7 +229,7 @@ namespace mrbind::CBindings
 
             // ]
 
-            // This is optional. If null, use the `StringToCIdentifier()` on the original C++ type name.
+            // This is optional. If null, we instead get the name by applying `cppdecl::ToString(..., cppdecl::ToStringFlags::identifier)` to the original C++ type name.
             std::string c_type_name;
 
             [[nodiscard]] bool KnowHeaderOrForwardDeclaration() const {return declared_in_file || declared_in_stdlib_file || forward_declaration;}
@@ -241,6 +246,134 @@ namespace mrbind::CBindings
         [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name_str);
 
 
+        // Some information about parsed and custom types.
+        struct TypeTraits
+        {
+            // Note that those don't have to 100% match true C++ traits. We can adjust them for our sanity.
+
+            bool is_default_constructible = false;
+            bool is_copy_constructible = false;
+            bool is_move_constructible = false;
+            bool is_copy_assignable = false;
+            bool is_move_assignable = false;
+            bool is_destructible = false;
+
+            // Those require the respective bits above to be set.
+            bool is_trivially_default_constructible = false;
+            bool is_trivially_copy_constructible = false;
+            bool is_trivially_move_constructible = false;
+            bool is_trivially_copy_assignable = false;
+            bool is_trivially_move_assignable = false;
+            bool is_trivially_destructible = false;
+
+            // This includes custom constructors in addition to default/copy/move.
+            bool is_any_constructible = false;
+
+            TypeTraits() {}
+
+            struct SimpleTrivial {explicit SimpleTrivial() = default;};
+            // This is for types that are copyable and have all their operations trivial.
+            TypeTraits(SimpleTrivial)
+            {
+                is_default_constructible = true;
+                is_copy_constructible = true;
+                is_move_constructible = true;
+                is_copy_assignable = true;
+                is_move_assignable = true;
+                is_destructible = true;
+
+                is_trivially_default_constructible = true;
+                is_trivially_copy_constructible = true;
+                is_trivially_move_constructible = true;
+                is_trivially_copy_assignable = true;
+                is_trivially_move_assignable = true;
+                is_trivially_destructible = true;
+
+                is_any_constructible = true;
+            }
+
+            struct CopyableNonTrivial {explicit CopyableNonTrivial() = default;};
+            // This is for copyable types that don't have any trivial operations.
+            TypeTraits(CopyableNonTrivial)
+            {
+                is_default_constructible = true;
+                is_copy_constructible = true;
+                is_move_constructible = true;
+                is_copy_assignable = true;
+                is_move_assignable = true;
+                is_destructible = true;
+
+                is_any_constructible = true;
+            }
+
+            struct CopyableAndTrivialExceptForDefaultCtor {explicit CopyableAndTrivialExceptForDefaultCtor() = default;};
+            // This is for copyable types that are mostly trivial, but don't have a trivial default constructor.
+            TypeTraits(CopyableAndTrivialExceptForDefaultCtor)
+            {
+                is_default_constructible = true;
+                is_copy_constructible = true;
+                is_move_constructible = true;
+                is_copy_assignable = true;
+                is_move_assignable = true;
+                is_destructible = true;
+
+                is_trivially_default_constructible = false; // !!
+                is_trivially_copy_constructible = true;
+                is_trivially_move_constructible = true;
+                is_trivially_copy_assignable = true;
+                is_trivially_move_assignable = true;
+                is_trivially_destructible = true;
+
+                is_any_constructible = true;
+            }
+
+            struct ReferenceType {explicit ReferenceType() = default;};
+            // No idea why would one query this for references, but still have to set it.
+            TypeTraits(ReferenceType, bool const_, bool rvalue_)
+            {
+                is_default_constructible = false; // !!
+                is_copy_constructible = !rvalue_;
+                is_move_constructible = rvalue_ || const_; // Hmm.
+                is_copy_assignable = false; // !! Inconsistent with standard traits, but helps our sanity a lot.
+                is_move_assignable = false; // Same.
+                is_destructible = true;
+
+                is_trivially_default_constructible = false; // Because the respective bit above is false too.
+                is_trivially_copy_constructible = is_copy_constructible;
+                is_trivially_move_constructible = is_move_constructible;
+                is_trivially_copy_assignable = false; // Because the respective bit above is false too.
+                is_trivially_move_assignable = false; // Because the respective bit above is false too.
+                is_trivially_destructible = true;
+
+                is_any_constructible = true;
+            }
+
+            [[nodiscard]] bool IsDefaultOrCopyOrMoveConstructible() const
+            {
+                return is_default_constructible || is_copy_constructible || is_move_constructible;
+            }
+
+            [[nodiscard]] bool IsTriviallyCopyOrMoveConstructible() const
+            {
+                return is_trivially_copy_constructible || is_trivially_move_constructible;
+            }
+
+            [[nodiscard]] bool NeedsPassByEnum() const
+            {
+                return !IsTriviallyCopyOrMoveConstructible() && IsDefaultOrCopyOrMoveConstructible();
+            }
+
+            [[nodiscard]] bool UnifyCopyMoveConstructors() const
+            {
+                return is_trivially_copy_constructible && is_trivially_move_constructible;
+            }
+            [[nodiscard]] bool UnifyCopyMoveAssignments() const
+            {
+                return is_trivially_copy_assignable && is_trivially_move_assignable;
+            }
+        };
+
+
         struct ParsedTypeInfo
         {
             struct EnumDesc
@@ -255,59 +388,10 @@ namespace mrbind::CBindings
             {
                 const ClassEntity *parsed = nullptr;
 
-                // All of those imply destructible.
-                bool is_default_constructible = false;
-                bool is_copy_constructible = false;
-                bool is_move_constructible = false;
-
-                // Do we have any constructor, possibly not default/copy/move?
-                bool is_any_constructible = false;
-
-                // Currently if this is false, all the other constructors are hidden and set to `false` too.
-                bool is_destructible = false;
-
-                // Is this type trivially copy- or move-constructible?
-                // If this is true, we don't need
-                bool is_trivially_copy_or_move_constructible = false;
-
-                bool is_copy_assignable = false;
-                bool is_move_assignable = false;
-
-                bool is_trivially_default_constructible = false;
-                bool is_trivially_copy_constructible = false;
-                bool is_trivially_move_constructible = false;
-                bool is_trivially_copy_assignable = false;
-                bool is_trivially_move_assignable = false;
-
-                // Only set if `NeedsPassByEnum()` (see below).
-                // This is a C enum that lets you select between one of the predefined constructors.
-                std::string pass_by_enum_name;
-
-                // Only set if `is_destructible`.
-                // This is the name of the cleanup (destruction) function.
-                std::string cleanup_func_name;
+                TypeTraits traits;
 
                 // For consistency with `EnumDesc`. This one doesn't seem to be strictly necessary.
                 ClassDesc() {}
-
-                [[nodiscard]] bool IsDefaultOrCopyOrMoveConstructible() const
-                {
-                    return is_default_constructible || is_copy_constructible || is_move_constructible;
-                }
-
-                [[nodiscard]] bool NeedsPassByEnum() const
-                {
-                    return IsDefaultOrCopyOrMoveConstructible() && !is_trivially_copy_or_move_constructible;
-                }
-
-                [[nodiscard]] bool UnifyCopyMoveConstructors() const
-                {
-                    return is_trivially_copy_constructible && is_trivially_move_constructible;
-                }
-                [[nodiscard]] bool UnifyCopyMoveAssignments() const
-                {
-                    return is_trivially_copy_assignable && is_trivially_move_assignable;
-                }
             };
 
             using InputTypeVariant = std::variant<EnumDesc, ClassDesc>;
@@ -316,6 +400,8 @@ namespace mrbind::CBindings
             // The type name for our C bindings.
             cppdecl::Type c_type;
             std::string c_type_str;
+
+            [[nodiscard]] const DeclFileName &GetParsedFileName() const {return std::visit([](const auto &desc) -> auto & {return desc.parsed->declared_in_file;}, input_type);}
 
             [[nodiscard]] bool IsEnum() const {return std::holds_alternative<EnumDesc>(input_type);}
             [[nodiscard]] bool IsClass() const {return std::holds_alternative<ClassDesc>(input_type);}
@@ -327,7 +413,7 @@ namespace mrbind::CBindings
         // Given a type, iterates over every non-builtin type dependency that it has (which will have zero modifiers, and no `SimpleTypeFlags`,
         //   so no signedness and such).
         // This is the default behavior, `BindableType` entries can customize it.
-        void DefaultForEachTypeBindableWithSameAddressNeededByType(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name)> func);
+        void ForEachNonBuiltInQualNameInTypeName(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name)> func);
 
 
         // Type classification: [
@@ -335,9 +421,9 @@ namespace mrbind::CBindings
         // The arrows mean implication (they point towards supersets).
         //                                                                                  ---
         //       IsSimplyBindableIndirectReinterpret   <---   IsSimplyBindableIndirect            Can by passed by pointer.
-        //                    ^                                         ^                   ---
-        //                    |                                         |
-        //                    |                                         |                   ---
+        //                                                              ^                   ---
+        //                                                              |
+        //                                                              |                   ---
         //       IsSimplyBindableDirectCast            <---   IsSimplyBindableDirect              Can be passed by value (and by pointer).
         //                                                                                  ---
         //
@@ -375,8 +461,12 @@ namespace mrbind::CBindings
 
         struct BindableType
         {
-            // Only makes sense if the type is a pure qualified name without cvref/ptr-qualifiers.
-            // Setting any field in this to non-null indicates that that pointers to this type can be passed freely between C and C++ with at most a cast.
+            // This is normally NOT optional. Using `std::optional` here to catch forgetting to set this.
+            // You don't need this if this is a `remove_sugar == true` desugared binding.
+            std::optional<TypeTraits> traits;
+
+            // Only makes sense if the type is a pure qualified name without cvref/ptr-qualifiers and if `remove_sugar == false`.
+            // Setting any field in this to non-null indicates that pointers to this type can be passed freely between C and C++ with at most a cast.
             // This is equivalent to inserting this type into `types_bindable_with_same_address`, and indeed it will be automatically inserted there
             //   the first time `FindTypeBindableWithSameAddress()` is called on it.
             // Note, this is WRITE-ONLY (because there are other ways of achieving this). Read using `FindTypeBindableWithSameAddress()`.
@@ -418,7 +508,7 @@ namespace mrbind::CBindings
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
-                // By default you can fill this using `DefaultForEachTypeBindableWithSameAddressNeededByType()`.
+                // By default you can fill this using `ForEachNonBuiltInQualNameInTypeName()`.
                 std::unordered_map<std::string, SameAddrBindableTypeDependency> same_addr_bindable_type_dependencies;
 
                 // The additional headers to include.
@@ -469,7 +559,7 @@ namespace mrbind::CBindings
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_statement;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare?
-                // By default you can fill this using `DefaultForEachTypeBindableWithSameAddressNeededByType()`.
+                // By default you can fill this using `ForEachNonBuiltInQualNameInTypeName()`.
                 std::unordered_map<std::string, SameAddrBindableTypeDependency> same_addr_bindable_type_dependencies;
 
                 // The additional headers to include.
@@ -503,14 +593,17 @@ namespace mrbind::CBindings
         // The types that we know how to bind.
         // Don't access this directly! Use `FindBindableType` because that will lazily insert the missing types here.
         std::unordered_map<std::string, BindableType> bindable_cpp_types;
+        // An alternative version of the map above for the desugared cases. See `FindBindableType()` and its parameter `remove_sugar`.
+        std::unordered_map<std::string, BindableType> bindable_cpp_types_nosugar;
 
-        // Finds a type in `bindable_cpp_types`. If no such type,
-        //   tries to generate the binding information for it (and inserts it into the map), or throws on failure.
-        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type);
+        // Finds a type in `bindable_cpp_types`. If no such type, tries to generate the binding information for it (and inserts it into the map), or throws on failure.
+        // If `remove_sugar == true`, avoid the fancy rewrites like replacing `const std::string &` with char pointers. This is useful e.g. for `this` parameters.
+        // This among other things disallows passing classes by value.
+        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type, bool remove_sugar = false);
         // This version returns null on failure.
-        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type);
+        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar = false);
 
-        // Uses `DefaultForEachTypeBindableWithSameAddressNeededByType()` to populate `same_addr_bindable_type_dependencies` in the type.
+        // Uses `ForEachNonBuiltInQualNameInTypeName()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);
 
 
@@ -524,9 +617,6 @@ namespace mrbind::CBindings
         mutable std::unordered_map<std::string, cppdecl::QualifiedName> cached_parsed_qual_names;
         [[nodiscard]] const cppdecl::QualifiedName &ParseQualNameOrThrow(const std::string &str) const;
 
-
-        // Simplies a string to be a valid C identifier.
-        [[nodiscard]] static std::string StringToCIdentifier(std::string_view str);
 
         // Replaces every `cppdecl::QualifierName` in the type with its C equivalent, by consulting `FindTypeBindableWithSameAddress()`.
         // Throws if some qualified name is unknown.
@@ -580,6 +670,9 @@ namespace mrbind::CBindings
             // The C++ return type. We'll translate it to C automatically.
             cppdecl::Type cpp_return_type = cppdecl::Type::FromSingleWord("void");
 
+            // If true, disable some clever return type rewrites.
+            // This isn't very useful compared to the `Param::remove_sugar` below. See that for more details.
+            bool remove_return_type_sugar = false;
 
             // Additional statements before `return`, if any.
             // Do not add trailing newline. Do not add indentation.
@@ -615,11 +708,16 @@ namespace mrbind::CBindings
                 // Empty if unnamed.
                 std::string name;
 
+                // If true, disable the fancy rewrites like replacing `std::string` with `const char *` pointers.
+                // This is useful e.g. for `this` parameters. Can't be used when passing class types by value.
+                bool remove_sugar = false;
+
                 // We translate this to C types automatically.
                 cppdecl::Type cpp_type;
 
                 // If true, do not attempt to translate the type to C, paste it as is.
                 // This conflicts with `default_arg` (will trigger an internal error when emitting).
+                // If this is true, `remove_sugar` be ignored.
                 bool emit_as_is = false;
 
                 struct DefaultArg

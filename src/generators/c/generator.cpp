@@ -163,7 +163,7 @@ namespace mrbind::CBindings
         file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, cpptype_) true ? throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\") : ((cpptype_ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
         file.header.contents += "\n";
         file.header.contents += "    // Converts an rvalue to an lvalue.\n";
-        file.header.contents += "    template <typename T> T &unmove(T &&value) {return static_cast<T &>(value);}";
+        file.header.contents += "    template <typename T> T &unmove(T &&value) {return static_cast<T &>(value);}\n";
         file.header.contents += "} // namespace mrbindc_details \n";
         return file;
     }
@@ -221,6 +221,16 @@ namespace mrbind::CBindings
         return name.IsBuiltInTypeName();
     }
 
+    std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name) const
+    {
+        return std::string(c_type_name) + "_Destroy";
+    }
+
+    std::string Generator::GetClassPassByEnumName(std::string_view c_type_name) const
+    {
+        return std::string(c_type_name) + "_PassBy";
+    }
+
     Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name)
     {
         if (auto ret = FindTypeBindableWithSameAddressOpt(type_name))
@@ -268,7 +278,7 @@ namespace mrbind::CBindings
         return FindTypeBindableWithSameAddressOpt(ParseQualNameOrThrow(type_name_str));
     }
 
-    void Generator::DefaultForEachTypeBindableWithSameAddressNeededByType(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name)> func)
+    void Generator::ForEachNonBuiltInQualNameInTypeName(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name)> func)
     {
         type.VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
@@ -336,7 +346,7 @@ namespace mrbind::CBindings
 
         if (type.modifiers.empty())
         {
-            // Is a parsed enum?
+            // A parsed enum?
             if (auto iter = parsed_type_info.find(cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style));
                 iter != parsed_type_info.end() && iter->second.IsEnum()
             )
@@ -344,7 +354,7 @@ namespace mrbind::CBindings
                 return true;
             }
 
-            // Is a builtin type?
+            // A builtin type?
             if (TypeNameIsCBuiltIn(type.simple_type.name))
                 return true;
         }
@@ -407,235 +417,70 @@ namespace mrbind::CBindings
         ret.c_type = std::move(c_type); // Here we can move the type.
     }
 
-    const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type)
+    const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar)
     {
-        if (auto *ret = FindBindableTypeOpt(type))
+        if (auto *ret = FindBindableTypeOpt(type, remove_sugar))
             return *ret;
         else
-            throw std::runtime_error("Don't know how to bind type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
+            throw std::runtime_error("Don't know how to bind type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "`" + (remove_sugar ? " (with syntax sugar removed)" : "") + ".");
     }
 
-    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type)
+    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar)
     {
         const std::string type_str = ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
 
+        auto &map = remove_sugar ? bindable_cpp_types_nosugar : bindable_cpp_types;
+
         { // Find existing type.
             // Here we don't use `.try_emplace()` because we might throw later, and in that case we don't want to insert anything.
-            auto iter = bindable_cpp_types.find(type_str);
-            if (iter != bindable_cpp_types.end())
+            auto iter = map.find(type_str);
+            if (iter != map.end())
                 return &iter->second;
         }
 
 
         // Ask the modules first.
         // We need this to be able to override the default bindings in some cases, for the types otherwise handled by `MakeSimpleTypeBinding()`.
-        for (const auto &m : modules)
+        // For now we don't even ask the modules about desugared types, that seems unnecessary. If one day it turns out to be necessary,
+        //   `Module::GetBindableType()` will need a `bool remove_sugar`, OR alternatively we'd need a second function for that.
+        if (!remove_sugar)
         {
-            if (auto opt = m->GetBindableType(*this, type, cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style)))
-                return &bindable_cpp_types.try_emplace(type_str, *opt).first->second;
+            for (const auto &m : modules)
+            {
+                if (auto opt = m->GetBindableType(*this, type, cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style)))
+                    return &map.try_emplace(type_str, *opt).first->second;
+            }
         }
 
 
         { // Invent a new binding.
             // This handles all the `IsSimplyBindable{Direct{,Cast},Indirect{,Reinterpret}}` types.
             if (auto opt = MakeSimpleTypeBinding(*this, type))
-                return &bindable_cpp_types.try_emplace(type_str, *opt).first->second;
+                return &map.try_emplace(type_str, *opt).first->second;
 
             // Maybe a class?
-            if (type.modifiers.empty())
+            // Here we also don't permit the lack of sugar. I just don't have any idea what desugared passing class BY VALUE would look like.
+            if (!remove_sugar && type.modifiers.empty())
             {
                 if (auto iter = parsed_type_info.find(type_str); iter != parsed_type_info.end())
                 {
                     if (auto class_desc = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
                     {
                         BindableType new_type;
+                        HeapAllocatedClassBinder class_binder;
 
-                        // Parameter passing strategy.
-                        if (class_desc->is_trivially_copy_or_move_constructible)
-                        {
-                            // For trivialy-copy/move-constructible classes, just pass a pointer.
+                        new_type.traits = class_desc->traits;
 
-                            // Here we only fill the `_with_default_arg` version, because that handles both.
-                            BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
-                            param_usage.same_addr_bindable_type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
-
-                            param_usage.c_params.emplace_back().c_type = iter->second.c_type;
-                            param_usage.c_params.back().c_type.AddQualifiers(cppdecl::CvQualifiers::const_);
-                            param_usage.c_params.back().c_type.AddModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
-
-                            param_usage.c_params_to_cpp = [
-                                type_str,
-                                only_trivially_move_constructible = class_desc->is_trivially_move_constructible && !class_desc->is_trivially_copy_constructible
-                            ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
-                            {
-                                std::string ret;
-
-                                ret += cpp_param_name;
-                                ret += " ? ";
-                                ret += type_str;
-                                ret += "(";
-                                if (only_trivially_move_constructible)
-                                {
-                                    // A bit jank, and probably rarely useful, but why not.
-                                    file.custom_forward_declarations.insert("utility");
-                                    ret += "std::move(";
-                                }
-                                ret += "*(";
-                                ret += type_str;
-                                ret += " *)";
-                                ret += cpp_param_name;
-                                if (only_trivially_move_constructible)
-                                    ret += ")";
-                                ret += ")";
-                                ret += " : ";
-
-                                if (!default_arg.empty())
-                                {
-                                    ret += "(";
-                                    ret += type_str;
-                                    ret += ")(";
-                                    ret += default_arg;
-                                    ret += ")";
-                                }
-                                else
-                                {
-                                    file.stdlib_headers.insert("stdexcept");
-                                    ret += "throw std::runtime_error(\"Parameter `";
-                                    ret += cpp_param_name;
-                                    ret += "` can not be null.\")";
-                                }
-
-                                return ret;
-                            };
-
-                            param_usage.append_to_comment = [pass_by_enum = class_desc->pass_by_enum_name](std::string_view cpp_param_name, bool has_default_arg)
-                            {
-                                (void)cpp_param_name;
-                                std::string ret;
-                                if (has_default_arg)
-                                    // Two spaces because this goes after a message about the default argument.
-                                    ret = "///   To use the default argument, pass a null pointer.";
-                                else
-                                    ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
-                                return ret;
-                            };
-                        }
-                        else if (class_desc->IsDefaultOrCopyOrMoveConstructible())
-                        {
-                            // With the pass-by enum.
-
-                            // Here we only fill the `_with_default_arg` version, because that handles both.
-                            BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
-                            param_usage.same_addr_bindable_type_dependencies[type_str].need_header = true; // We need the constructor selection enum.
-
-                            param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(class_desc->pass_by_enum_name);
-                            param_usage.c_params.back().name_suffix = "_pass_by";
-                            param_usage.c_params.emplace_back().c_type = iter->second.c_type;
-                            param_usage.c_params.back().c_type.AddModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
-
-                            param_usage.c_params_to_cpp = [
-                                this,
-                                type_str,
-                                pass_by_enum = class_desc->pass_by_enum_name,
-                                is_default_constructible = class_desc->is_default_constructible,
-                                is_copy_constructible = class_desc->is_copy_constructible,
-                                is_move_constructible = class_desc->is_move_constructible
-                            ](OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
-                            {
-                                std::string ret;
-
-                                // Insert the defails file for the `PassBy` macros.
-                                file.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion);
-
-                                if (is_default_constructible)
-                                {
-                                    ret += "MRBINDC_CLASSARG_DEF_CTOR(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
-
-                                if (is_copy_constructible)
-                                {
-                                    ret += "MRBINDC_CLASSARG_COPY(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
-
-                                if (is_move_constructible)
-                                {
-                                    ret += "MRBINDC_CLASSARG_MOVE(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
-
-                                if (default_arg.empty())
-                                {
-                                    ret += "MRBINDC_CLASSARG_NO_DEF_ARG(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ") ";
-                                }
-                                else
-                                {
-                                    ret += "MRBINDC_CLASSARG_DEF_ARG(";
-                                    ret += cpp_param_name;
-                                    ret += ", ";
-                                    ret += type_str;
-                                    ret += ", ";
-                                    ret += pass_by_enum;
-                                    ret += ", ";
-                                    ret += default_arg;
-                                    ret += ") ";
-                                }
-
-                                ret += "MRBINDC_CLASSARG_END(";
-                                ret += cpp_param_name;
-                                ret += ", ";
-                                ret += type_str;
-                                ret += ") ";
-
-                                return ret;
-                            };
-
-                            param_usage.append_to_comment = [pass_by_enum = class_desc->pass_by_enum_name](std::string_view cpp_param_name, bool has_default_arg)
-                            {
-                                (void)cpp_param_name;
-                                std::string ret;
-                                if (has_default_arg)
-                                {
-                                    ret += "///   To use the default argument, pass `";
-                                    ret += pass_by_enum;
-                                    ret += "_DefaultArgument` and a null pointer.";
-                                }
-                                return ret;
-                            };
-                        }
-
-                        // Return strategy.
-
-                        ClassBinder class_binder;
                         class_binder.cpp_type_name = type.simple_type.name;
                         class_binder.c_type_name = iter->second.c_type_str;
-                        class_binder.c_func_name_destroy = class_desc->cleanup_func_name;
+                        class_binder.c_func_name_destroy = GetClassDestroyFuncName(iter->second.c_type_str);
+
+
+                        new_type.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(*this, class_desc->traits);
 
                         new_type.return_usage = class_binder.MakeReturnUsage();
 
-                        return &bindable_cpp_types.try_emplace(type_str, new_type).first->second;
+                        return &map.try_emplace(type_str, new_type).first->second;
                     }
                 }
             }
@@ -648,7 +493,7 @@ namespace mrbind::CBindings
 
     void Generator::FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target)
     {
-        DefaultForEachTypeBindableWithSameAddressNeededByType(source, [&](const cppdecl::QualifiedName &cpp_type_name)
+        ForEachNonBuiltInQualNameInTypeName(source, [&](const cppdecl::QualifiedName &cpp_type_name)
         {
             // Could validate that the type is known here here, but for now I'd rather do it lazily on use.
             // Not sure which way is better. Doing it lazily sounds a tiny bit more flexible?
@@ -697,43 +542,6 @@ namespace mrbind::CBindings
     }
 
 
-    // Simplies a string to be a valid C identifier.
-    std::string Generator::StringToCIdentifier(std::string_view str)
-    {
-        std::string ret;
-        ret.reserve(str.size());
-        bool prev_char_is_special = false;
-        std::size_t last_good_size = 0;
-        for (char ch : str)
-        {
-            // Somewhat in doubt here. I don't want to treat `_` as a special character, to preserve multiple underscores in input.
-            if (cppdecl::IsIdentifierChar(ch))
-            {
-                ret += ch;
-                prev_char_is_special = false;
-                last_good_size = ret.size();
-            }
-            else if (ch == '-')
-            {
-                prev_char_is_special = false;
-                ret += "minus";
-                last_good_size = ret.size();
-            }
-            else
-            {
-                if (!prev_char_is_special)
-                {
-                    ret += '_';
-                    prev_char_is_special = true;
-                }
-            }
-        }
-        ret.resize(last_good_size); // Trim trailing special characters.
-        return ret;
-    }
-
-    // Applies `StringToCIdentifier()` recursively to every name in a type.
-    // Not all types should be processed this way, but this is the default behavior,
     void Generator::ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type)
     {
         type.VisitEachComponent<cppdecl::QualifiedName>(
@@ -741,7 +549,7 @@ namespace mrbind::CBindings
             [&](cppdecl::QualifiedName &name)
             {
                 const auto &info = FindTypeBindableWithSameAddress(name);
-                name = cppdecl::QualifiedName::FromSingleWord(!info.c_type_name.empty() ? info.c_type_name : StringToCIdentifier(ToCode(name, cppdecl::ToCodeFlags::canonical_c_style)));
+                name = cppdecl::QualifiedName::FromSingleWord(!info.c_type_name.empty() ? info.c_type_name : cppdecl::ToString(name, cppdecl::ToStringFlags::identifier));
             }
         );
     }
@@ -805,6 +613,7 @@ namespace mrbind::CBindings
     {
         Param &param = params.emplace_back();
         param.add_to_call = false;
+        param.remove_sugar = true;
         param.cpp_type = std::move(new_class);
         if (is_const)
             param.cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_);
@@ -816,6 +625,7 @@ namespace mrbind::CBindings
     {
         Param &param = params.emplace_back();
         param.add_to_call = false;
+        param.remove_sugar = true;
         param.cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         if (is_const)
             param.cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_);
@@ -854,6 +664,10 @@ namespace mrbind::CBindings
     {
         AddParamsFromParsedFunc(self, new_ctor.params);
 
+        // Desugar the `other` parameter of copy/move ctors.
+        if (new_ctor.kind != CopyMoveKind::none)
+            params.at(0).remove_sugar = true;
+
         // Fallback parameter name for implicitly generated copy/move assignments.
         if (new_ctor.kind != CopyMoveKind::none && params.at(0).name.empty())
             params.at(0).name = "_other";
@@ -888,7 +702,7 @@ namespace mrbind::CBindings
         AddThisParamFromParsedClass(self, new_class, false);
         params.front().add_to_call = true; // Force add `this` to the call expression.
 
-        c_name = std::get<ParsedTypeInfo::ClassDesc>(info.input_type).cleanup_func_name;
+        c_name = self.GetClassDestroyFuncName(info.c_type_str);
 
         cpp_called_func = "delete";
         cpp_called_func_parens = {};
@@ -911,6 +725,10 @@ namespace mrbind::CBindings
         if (!new_method.is_static)
             AddThisParamFromParsedClass(self, new_class, new_method.is_const);
         AddParamsFromParsedFunc(self, new_method.params);
+
+        // Desugar the `other` parameter of copy/move assignments.
+        if (new_method.assignment_kind != CopyMoveKind::none)
+            params.at(0).remove_sugar = true;
 
         // Fallback parameter name for implicitly generated assignment operators.
         if (new_method.assignment_kind != CopyMoveKind::none && params.at(1).name.empty())
@@ -1022,7 +840,7 @@ namespace mrbind::CBindings
         const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
         c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
         c_name += is_const ? "_GetConst_" : "_GetMutable_";
-        c_name += StringToCIdentifier(new_field.full_name);
+        c_name += cppdecl::ToString(self.ParseQualNameOrThrow(new_field.full_name), cppdecl::ToStringFlags::identifier);
 
 
         // Make the return type a const reference if not already a reference.
@@ -1049,6 +867,8 @@ namespace mrbind::CBindings
             cpp_called_func += "::";
         }
         cpp_called_func += new_field.full_name;
+
+        cpp_called_func_parens = {};
 
         if (new_field.comment)
         {
@@ -1106,9 +926,13 @@ namespace mrbind::CBindings
                 std::string param_name_fixed = !param.name.empty() ? param.name : "_" + std::to_string(i);
                 std::string arg_expr;
 
+                // Remove top-level constness from parameter types, to simplify the rest of the code.
+                // It seems we don't need to decay the params manually, the parser seems to already emit them in the decayed form.
+                const cppdecl::Type param_cpp_type_fixed = cppdecl::Type(param.cpp_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
                 if (!param.emit_as_is)
                 {
-                    const BindableType &bindable_param_type = FindBindableType(param.cpp_type);
+                    const BindableType &bindable_param_type = FindBindableType(param_cpp_type_fixed, param.remove_sugar);
                     if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
                         throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
@@ -1190,7 +1014,7 @@ namespace mrbind::CBindings
                         arg_expr = param_name_fixed;
 
                     auto &new_param = new_func.params.emplace_back();
-                    new_param.type = param.cpp_type;
+                    new_param.type = param_cpp_type_fixed;
                     new_param.name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed);
                 }
 
@@ -1235,8 +1059,11 @@ namespace mrbind::CBindings
 
         try
         {
+            // Remove top-level constness from the return type, to simplify the rest of the code.
+            const cppdecl::Type return_type_fixed = cppdecl::Type(params.cpp_return_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
             // Figure out the return type.
-            const BindableType &bindable_return_type = FindBindableType(params.cpp_return_type);
+            const BindableType &bindable_return_type = FindBindableType(return_type_fixed, params.remove_return_type_sugar);
             if (!bindable_return_type.return_usage)
                 throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
 
@@ -1343,7 +1170,7 @@ namespace mrbind::CBindings
             ParsedTypeInfo &info = iter->second;
 
             // Not using ReplaceAllNamesInTypeWithCNames()` here, because it's an overkill and requires the information that we're about to generate (though we could probably reorder things here).
-            info.c_type_str = StringToCIdentifier(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+            info.c_type_str = cppdecl::ToString(parsed_type, cppdecl::ToStringFlags::identifier);
             info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
@@ -1366,78 +1193,48 @@ namespace mrbind::CBindings
                     [&](const ClassField &) {},
                     [&](const ClassCtor &ctor)
                     {
-                        class_info.is_any_constructible = true;
+                        class_info.traits.is_any_constructible = true;
                         if (ctor.kind == CopyMoveKind::copy)
                         {
-                            class_info.is_copy_constructible = true;
+                            class_info.traits.is_copy_constructible = true;
                             if (ctor.is_trivial)
-                            {
-                                class_info.is_trivially_copy_constructible = true;
-                                class_info.is_trivially_copy_or_move_constructible = true;
-                            }
+                                class_info.traits.is_trivially_copy_constructible = true;
                         }
                         else if (ctor.kind == CopyMoveKind::move)
                         {
-                            class_info.is_move_constructible = true;
+                            class_info.traits.is_move_constructible = true;
                             if (ctor.is_trivial)
-                            {
-                                class_info.is_trivially_move_constructible = true;
-                                class_info.is_trivially_copy_or_move_constructible = true;
-                            }
+                                class_info.traits.is_trivially_move_constructible = true;
                         }
                         else if (ctor.IsCallableWithNumArgs(0))
                         {
-                            class_info.is_default_constructible = true;
+                            class_info.traits.is_default_constructible = true;
                         }
                     },
                     [&](const ClassMethod &method)
                     {
                         if (method.assignment_kind == CopyMoveKind::copy)
                         {
-                            class_info.is_copy_assignable = true;
+                            class_info.traits.is_copy_assignable = true;
                             if (method.is_trivial_assignment)
-                                class_info.is_trivially_copy_assignable = true;
+                                class_info.traits.is_trivially_copy_assignable = true;
                         }
                         else if (method.assignment_kind == CopyMoveKind::move)
                         {
-                            class_info.is_move_assignable = true;
+                            class_info.traits.is_move_assignable = true;
                             if (method.is_trivial_assignment)
-                                class_info.is_trivially_move_assignable = true;
+                                class_info.traits.is_trivially_move_assignable = true;
                         }
                     },
                     [&](const ClassConvOp &) {},
-                    [&](const ClassDtor &)
+                    [&](const ClassDtor &dtor)
                     {
-                        class_info.is_destructible = true;
+                        class_info.traits.is_destructible = true;
+                        if (dtor.is_trivial)
+                            class_info.traits.is_trivially_destructible = true;
                     },
                 }, member_var);
             }
-
-            // If not destructible, assume we're not constructible/assignable either.
-            if (!class_info.is_destructible)
-            {
-                class_info.is_default_constructible = false;
-                class_info.is_copy_constructible = false;
-                class_info.is_move_constructible = false;
-                class_info.is_any_constructible = false;
-
-                class_info.is_copy_assignable = false;
-                class_info.is_move_assignable = false;
-
-                class_info.is_trivially_copy_or_move_constructible = false;
-                class_info.is_trivially_default_constructible = false;
-                class_info.is_trivially_copy_constructible = false;
-                class_info.is_trivially_move_constructible = false;
-                class_info.is_trivially_copy_assignable = false;
-                class_info.is_trivially_move_assignable = false;
-            }
-
-
-            if (class_info.NeedsPassByEnum())
-                class_info.pass_by_enum_name = info.c_type_str + "_PassBy";
-
-            if (class_info.is_destructible)
-                class_info.cleanup_func_name = info.c_type_str + "_Destroy";
         }
 
         // void Visit(const FuncEntity &func) override
@@ -1456,7 +1253,7 @@ namespace mrbind::CBindings
             ParsedTypeInfo &info = iter->second;
 
             // Not using ReplaceAllNamesInTypeWithCNames()` here, because it's an overkill and requires the information that we're about to generate (though we could probably reorder things here).
-            info.c_type_str = StringToCIdentifier(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+            info.c_type_str = cppdecl::ToString(parsed_type, cppdecl::ToStringFlags::identifier);
             info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
@@ -1512,7 +1309,7 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassCtor &elem)
                     {
-                        if (class_desc.UnifyCopyMoveConstructors() && elem.kind == CopyMoveKind::move)
+                        if (class_desc.traits.UnifyCopyMoveConstructors() && elem.kind == CopyMoveKind::move)
                             return;
 
                         std::string name = c_type_str;
@@ -1527,12 +1324,12 @@ namespace mrbind::CBindings
 
                         std::string fallback_name;
                         if (elem.template_args)
-                            fallback_name = name + '_' + StringToCIdentifier(*elem.template_args);
+                            fallback_name = cppdecl::ToString(self.ParseQualNameOrThrow(name + *elem.template_args), cppdecl::ToStringFlags::identifier);
                         AddFunc(elem, std::move(name), std::move(fallback_name));
                     },
                     [&](const ClassMethod &elem)
                     {
-                        if (class_desc.UnifyCopyMoveAssignments() && elem.assignment_kind == CopyMoveKind::move)
+                        if (class_desc.traits.UnifyCopyMoveAssignments() && elem.assignment_kind == CopyMoveKind::move)
                             return;
 
                         std::string name = c_type_str;
@@ -1561,14 +1358,14 @@ namespace mrbind::CBindings
 
                         std::string fallback_name;
                         if (elem.HasTemplateArguments())
-                            fallback_name = name + '_' + StringToCIdentifier(elem.TemplateArguments());
+                            fallback_name = cppdecl::ToString(self.ParseQualNameOrThrow(name + std::string(elem.TemplateArguments())), cppdecl::ToStringFlags::identifier);
                         AddFunc(elem, std::move(name), std::move(fallback_name));
                     },
                     [&](const ClassConvOp &elem)
                     {
                         std::string name = c_type_str;
                         name += "_ConvertTo_";
-                        name += StringToCIdentifier(cppdecl::ToCode(self.ParseTypeOrThrow(elem.return_type.canonical), cppdecl::ToCodeFlags::canonical_c_style));
+                        name += cppdecl::ToString(self.ParseTypeOrThrow(elem.return_type.canonical), cppdecl::ToStringFlags::identifier);
 
                         AddFunc(elem, std::move(name));
                     },
@@ -1588,8 +1385,8 @@ namespace mrbind::CBindings
                 throw std::logic_error("Internal error: duplicate overloaded function pointer.");
 
             OverloadedName &ovl = iter->second;
-            ovl.name = StringToCIdentifier(func.qual_name);
-            ovl.fallback_name = StringToCIdentifier(func.full_qual_name);
+            ovl.name = cppdecl::ToString(self.ParseQualNameOrThrow(func.qual_name), cppdecl::ToStringFlags::identifier);
+            ovl.fallback_name = cppdecl::ToString(self.ParseQualNameOrThrow(func.full_qual_name), cppdecl::ToStringFlags::identifier);
             ovl.AddParams(self, func.params);
         }
     };
@@ -1855,7 +1652,7 @@ namespace mrbind::CBindings
                 const std::string type_str = ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
 
                 // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-                const TypeBindableWithSameAddress &sa_bindable_info = self.types_bindable_with_same_address.at(type_str);
+                const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(type_str);
 
                 const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
                 const ParsedTypeInfo::ClassDesc &class_info = std::get<ParsedTypeInfo::ClassDesc>(type_info.input_type);
@@ -1870,40 +1667,12 @@ namespace mrbind::CBindings
                     file.header.contents += cl.comment->text_with_slashes;
                     file.header.contents += '\n';
                 }
-                file.header.contents += sa_bindable_info.forward_declaration.value();
+                file.header.contents += same_addr_bindable_info.forward_declaration.value();
                 file.header.contents += '\n';
 
                 // Constructor selector enum?
-                if (class_info.NeedsPassByEnum())
-                {
-                    file.header.contents += "\nenum ";
-                    file.header.contents += class_info.pass_by_enum_name;
-                    file.header.contents += "\n{\n";
-                    if (class_info.is_default_constructible)
-                    {
-                        file.header.contents += "    ";
-                        file.header.contents += class_info.pass_by_enum_name;
-                        file.header.contents += "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
-                    }
-                    if (class_info.is_copy_constructible)
-                    {
-                        file.header.contents += "    ";
-                        file.header.contents += class_info.pass_by_enum_name;
-                        file.header.contents += "_Copy, // Copy the object into the function.\n";
-                    }
-                    if (class_info.is_move_constructible)
-                    {
-                        file.header.contents += "    ";
-                        file.header.contents += class_info.pass_by_enum_name;
-                        file.header.contents += "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
-                    }
-
-                    file.header.contents += "    ";
-                    file.header.contents += class_info.pass_by_enum_name;
-                    file.header.contents += "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
-
-                    file.header.contents += "};\n";
-                }
+                if (class_info.traits.NeedsPassByEnum())
+                    MakePassByEnum(self, file, type_info.c_type_str, class_info.traits);
 
                 for (const ClassMemberVariant &var : cl.members)
                 {
@@ -1923,7 +1692,7 @@ namespace mrbind::CBindings
                         {
                             try
                             {
-                                if (elem.kind == CopyMoveKind::move && class_info.UnifyCopyMoveConstructors())
+                                if (elem.kind == CopyMoveKind::move && class_info.traits.UnifyCopyMoveConstructors())
                                     return;
 
                                 EmitFuncParams params;
@@ -1939,7 +1708,7 @@ namespace mrbind::CBindings
                         {
                             try
                             {
-                                if (elem.assignment_kind == CopyMoveKind::move && class_info.UnifyCopyMoveAssignments())
+                                if (elem.assignment_kind == CopyMoveKind::move && class_info.traits.UnifyCopyMoveAssignments())
                                     return;
 
                                 EmitFuncParams params;

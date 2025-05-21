@@ -41,6 +41,8 @@ namespace mrbind::CBindings::Modules
             {
                 Generator::BindableType &new_type = ret.emplace();
 
+                new_type.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{};
+
                 new_type.bindable_with_same_address.declared_in_file = [this, &generator]() -> auto & {return GetOutputFile(generator);};
                 new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclaration(c_type_name);
                 new_type.bindable_with_same_address.c_type_name = c_type_name;

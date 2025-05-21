@@ -5,11 +5,11 @@ namespace mrbind::CBindings::Modules
 {
     struct StdString : DeriveModule<StdString>
     {
-        ClassBinder binder;
+        HeapAllocatedClassBinder binder;
 
         void Init(Generator &generator) override
         {
-            binder = ClassBinder::ForCustomType(generator, cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
+            binder = HeapAllocatedClassBinder::ForCustomType(generator, cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
         }
 
         Generator::OutputFile &GetOutputFile(Generator &generator)
@@ -121,6 +121,8 @@ namespace mrbind::CBindings::Modules
             else if (type_str == "std::string")
             {
                 Generator::BindableType &new_type = ret.emplace();
+
+                new_type.traits = Generator::TypeTraits::CopyableNonTrivial{};
 
                 new_type.bindable_with_same_address.declared_in_file = [this, &generator]() -> auto & {return GetOutputFile(generator);};
                 new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();

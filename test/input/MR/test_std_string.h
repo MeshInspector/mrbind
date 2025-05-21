@@ -5,17 +5,17 @@
 
 namespace MR::StdString
 {
-    inline void SetString(std::string s)
+    inline void Set(std::string s)
     {
         std::cout << s << '\n';
     }
 
-    inline void SetStringWithDefault(std::string s = "42")
+    inline void SetWithDefault(std::string s = "42")
     {
         std::cout << s << '\n';
     }
 
-    inline std::string GetString()
+    inline std::string Get()
     {
         return "Hello!";
     }

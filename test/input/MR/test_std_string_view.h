@@ -5,17 +5,17 @@
 
 namespace MR::StdStringView
 {
-    inline void SetString(std::string_view s)
+    inline void Set(std::string_view s)
     {
         std::cout << s << '\n';
     }
 
-    inline void SetStringWithDefault(std::string_view s = "42")
+    inline void SetWithDefault(std::string_view s = "42")
     {
         std::cout << s << '\n';
     }
 
-    inline std::string_view GetString()
+    inline std::string_view Get()
     {
         return "Hello!";
     }

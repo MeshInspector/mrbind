@@ -69,12 +69,14 @@ endif()
 if(MRBIND_BUILD_GENERATOR_C)
     add_executable(mrbind_gen_c
         src/generators/c/binding_common.cpp
+        src/generators/c/binding_containers.cpp
         src/generators/c/generator.cpp
         src/generators/c/main.cpp
         src/generators/c/module.cpp
         src/generators/c/modules/std_integral_typedefs.cpp
         src/generators/c/modules/std_string_view.cpp
         src/generators/c/modules/std_string.cpp
+        src/generators/c/modules/std_vector.cpp
     )
     target_include_directories(mrbind_gen_c PRIVATE
         deps/cppdecl/include
