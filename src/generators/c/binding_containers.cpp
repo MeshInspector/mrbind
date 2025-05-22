@@ -75,15 +75,213 @@ namespace mrbind::CBindings
 
             // All the custom functions:
 
-            {
+            { // size
                 Generator::EmitFuncParams emit;
                 emit.c_comment = "/// The number of elements.";
                 emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Size");
                 emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
-                emit.cpp_called_func = "@this@.size()";
-                emit.cpp_called_func_parens = {};
+                emit.cpp_called_func = "size";
                 generator.EmitFunction(file, emit);
+            }
+
+            { // empty
+                Generator::EmitFuncParams emit;
+                emit.c_comment = "/// Returns true if the size is zero.";
+                emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_IsEmpty");
+                emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+                emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                emit.cpp_called_func = "empty";
+                generator.EmitFunction(file, emit);
+            }
+
+            if (params.has_resize)
+            {
+                { // resize
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Resizes the container. The new elements if any are zeroed.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Resize");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.params.push_back({
+                        .name = "new_size",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+                    emit.cpp_called_func = "resize";
+                    generator.EmitFunction(file, emit);
+                }
+            }
+
+            { // clear
+                Generator::EmitFuncParams emit;
+                emit.c_comment = "/// Removes all elements from the container.";
+                emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Clear");
+                emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                emit.cpp_called_func = "clear";
+                generator.EmitFunction(file, emit);
+            }
+
+            if (params.has_capacity)
+            {
+                { // capacity
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The memory capacity, measued in the number of elements.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Capacity");
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                    emit.cpp_called_func = "capacity";
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // reserve
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Reserves memory for a certain number of elements. Never shrinks the memory.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Reserve");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.params.push_back({
+                        .name = "new_capacity",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+                    emit.cpp_called_func = "reserve";
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // shrink_to_fit
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Shrinks the capacity to match the size.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_ShrinkToFit");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.cpp_called_func = "shrink_to_fit";
+                    generator.EmitFunction(file, emit);
+                }
+            }
+
+            if (params.has_index_access)
+            {
+                // Here we only bind the throwing versions, i.e. `.at()`.
+                // For no particualr reason. This feels nicer.
+
+                { // [] const
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The element at a specific index, read-only.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_At");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                    emit.params.push_back({
+                        .name = "i",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+                    emit.cpp_called_func = "at";
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // [] mutable
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The element at a specific index, mutable.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_MutableAt");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddModifier(cppdecl::Reference{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.params.push_back({
+                        .name = "i",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+                    emit.cpp_called_func = "at";
+                    generator.EmitFunction(file, emit);
+                }
+            }
+
+            if (params.has_front_back)
+            {
+                { // front const
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The first element or null if empty, read-only.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Front");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                    emit.cpp_called_func = "@this@.empty() ? &@this@.front() : nullptr";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // front mutable
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The first element or null if empty, mutable.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_MutableFront");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.cpp_called_func = "@this@.empty() ? &@this@.front() : nullptr";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // back const
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The last element or null if empty, read-only.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Back");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                    emit.cpp_called_func = "@this@.empty() ? &@this@.back() : nullptr";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // back mutable
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// The last element or null if empty, mutable.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_MutableBack");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.cpp_called_func = "@this@.empty() ? &@this@.back() : nullptr";
+                    emit.cpp_called_func_parens = {};
+                    generator.EmitFunction(file, emit);
+                }
+            }
+
+            if (params.has_data_ptr && elem_traits.same_size_in_c_and_cpp)
+            {
+                { // data const
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, read-only.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Data");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                    emit.cpp_called_func = "data";
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // data mutable
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_MutableData");
+                    emit.cpp_return_type = cppdecl::Type(params.cpp_elem_type).AddModifier(cppdecl::Pointer{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.cpp_called_func = "data";
+                    generator.EmitFunction(file, emit);
+                }
+            }
+
+            if (params.has_push_back)
+            {
+                { // push_back
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Inserts a new element at the end.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_PushBack");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.params.push_back({
+                        .name = "new_elem",
+                        .cpp_type = params.cpp_elem_type
+                    });
+                    emit.cpp_called_func = "push_back";
+                    generator.EmitFunction(file, emit);
+                }
+
+                { // pop_back
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Removes one element from the end.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_PopBack");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.cpp_called_func = "pop_back";
+                    generator.EmitFunction(file, emit);
+                }
             }
         }
 

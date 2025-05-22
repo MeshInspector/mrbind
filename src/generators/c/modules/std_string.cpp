@@ -33,40 +33,37 @@ namespace mrbind::CBindings::Modules
 
                 // Some custom functions:
 
-                {
+                { // size
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// The number of characters in the string, excluding the null-terminator.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Size");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                    emit.cpp_called_func = "size()";
-                    emit.cpp_called_func_parens = {};
+                    emit.cpp_called_func = "size";
                     generator.EmitFunction(file, emit);
                 }
 
-                {
+                { // data
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Data");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                    emit.cpp_called_func = "c_str()";
-                    emit.cpp_called_func_parens = {};
+                    emit.cpp_called_func = "c_str";
                     generator.EmitFunction(file, emit);
                 }
 
-                {
+                { // mutable data
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableData");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
-                    emit.cpp_called_func = "data()";
-                    emit.cpp_called_func_parens = {};
+                    emit.cpp_called_func = "data";
                     generator.EmitFunction(file, emit);
                 }
 
-                {
+                { // data end
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_DataEnd");
@@ -77,7 +74,7 @@ namespace mrbind::CBindings::Modules
                     generator.EmitFunction(file, emit);
                 }
 
-                {
+                { // mutable data end
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.";
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableDataEnd");

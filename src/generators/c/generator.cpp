@@ -217,9 +217,9 @@ namespace mrbind::CBindings
         return macro_name;
     }
 
-    bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name) const
+    bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags) const
     {
-        return name.IsBuiltInTypeName();
+        return name.IsBuiltInTypeName(flags);
     }
 
     std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name) const
@@ -248,8 +248,13 @@ namespace mrbind::CBindings
         if (iter != types_bindable_with_same_address.end())
             return &iter->second;
 
-        // Register built-in types.
-        if (TypeNameIsCBuiltIn(type_name))
+        // Bool.
+        // This intentionally excludes the `_Bool` spelling. We simply don't bind it for now, who needs it anyway?
+        // And the parser should rewrite it to `bool` regardless.
+        if (type_name.AsSingleWord() == "bool")
+            return &types_bindable_with_same_address.try_emplace(type_name_str, TypeBindableWithSameAddress{.declared_in_c_stdlib_file = "stdbool.h"}).first->second;
+        // Built-in types.
+        if (TypeNameIsCBuiltIn(type_name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
             return &types_bindable_with_same_address.try_emplace(type_name_str).first->second;
 
         // Try find a regular bindable type, maybe it has the `binding_preserves_address` flag set.
@@ -285,7 +290,7 @@ namespace mrbind::CBindings
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](const cppdecl::QualifiedName &name)
             {
-                if (!name.IsEmpty() && !TypeNameIsCBuiltIn(name))
+                if (!name.IsEmpty() && !TypeNameIsCBuiltIn(name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
                     func(name);
             }
         );
@@ -1915,7 +1920,7 @@ namespace mrbind::CBindings
                     if (!type_info.KnowHeaderOrForwardDeclaration())
                         continue; // Nothing to do for built-in types.
 
-                    if (!type_info.declared_in_file && !type_info.declared_in_stdlib_file) // This should never happen?
+                    if (!type_info.declared_in_file && !type_info.declared_in_c_stdlib_file) // This should never happen?
                     {
                         if (elem.second.need_header)
                             throw std::runtime_error("Need to include a header for type `" + elem.first + "`, but don't what header to include.");
@@ -1923,10 +1928,10 @@ namespace mrbind::CBindings
                             throw std::runtime_error("Need to include a header or forward-declare type `" + elem.first + "`, but don't know how.");
                     }
 
-                    assert(bool(type_info.declared_in_stdlib_file) + bool(type_info.declared_in_file) == 1 && "Must specify exactly one of the two: a custom header or a standard library header.");
+                    assert(bool(type_info.declared_in_c_stdlib_file) + bool(type_info.declared_in_file) == 1 && "Must specify exactly one of the two: a custom header or a standard library header.");
 
-                    if (type_info.declared_in_stdlib_file)
-                        stdlib_headers.insert(*type_info.declared_in_stdlib_file);
+                    if (type_info.declared_in_c_stdlib_file)
+                        stdlib_headers.insert(*type_info.declared_in_c_stdlib_file);
                     else
                         headers.insert(type_info.declared_in_file().header.path_for_inclusion);
                 }

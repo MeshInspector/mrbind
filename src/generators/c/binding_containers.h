@@ -21,9 +21,16 @@ namespace mrbind::CBindings
             // Leave empty if not needed.
             std::string stdlib_container_header;
 
+            bool has_resize = false;
+            bool has_capacity = false; // Also `reserve()`, `shrink_to_fit()`.
+            bool has_front_back = false;
             bool has_index_access = false;
+
+            // This will be ignored if the element type doesn't have `same_size_in_c_and_cpp == true` in its traits.
+            // So you can set this based solely on the container type, ignoring the element type.
             bool has_data_ptr = false;
-            bool has_reserve_and_capacity = false;
+
+            bool has_push_back = false; // Also `pop_back()`.
         };
 
         ContainerBinder(Generator &generator, Params new_params);

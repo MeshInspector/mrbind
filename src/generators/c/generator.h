@@ -199,7 +199,7 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file, bool for_internal_header);
 
         // Returns true if this is a built-in C type.
-        [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name) const;
+        [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all) const;
 
         // The destroy function name for parsed and custom classes.
         [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name) const;
@@ -218,21 +218,23 @@ namespace mrbind::CBindings
 
             // In what header this type is declared. Can be null if none.
             // This a function to allow the header be created lazily.
-            std::function<OutputFile &()> declared_in_file;
+            // Note, using a redundant initializer here and below to make Clang not warn when skipping members in designated initializers.
+            std::function<OutputFile &()> declared_in_file = nullptr;
 
             // An alterantive to `declared_in_file` for standard library types. Don't set both at the same time.
-            std::optional<std::string> declared_in_stdlib_file;
+            // You can only put the C standard library headers here, not C++ ones, since this will be included in the generated C headers.
+            std::optional<std::string> declared_in_c_stdlib_file{};
 
             // If specified, this type can be forward-declared by pasting this string. Otherwise the only option is to include the header `declared_in_file`.
             // Don't include the trailing newline here.
-            std::optional<std::string> forward_declaration;
+            std::optional<std::string> forward_declaration{};
 
             // ]
 
             // This is optional. If null, we instead get the name by applying `cppdecl::ToString(..., cppdecl::ToStringFlags::identifier)` to the original C++ type name.
-            std::string custom_c_type_name;
+            std::string custom_c_type_name{};
 
-            [[nodiscard]] bool KnowHeaderOrForwardDeclaration() const {return declared_in_file || declared_in_stdlib_file || forward_declaration;}
+            [[nodiscard]] bool KnowHeaderOrForwardDeclaration() const {return declared_in_file || declared_in_c_stdlib_file || forward_declaration;}
         };
         // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.
         // This is write-only! This is initially populated with the parsed types, and then the custom types are added lazily by `FindTypeBindableWithSameAddress[Opt]`.
@@ -272,11 +274,14 @@ namespace mrbind::CBindings
             // If true, the copy constructor has the form `T(T &)` instead of `T(const T &)`.
             bool copy_constructor_takes_nonconst_ref = false;
 
+            // The type size is known in C, and is the same in C and C++.
+            bool same_size_in_c_and_cpp = false;
+
             TypeTraits() {}
 
-            struct SimpleTrivial {explicit SimpleTrivial() = default;};
+            struct TrivialSameInCAndCpp {explicit TrivialSameInCAndCpp() = default;};
             // This is for types that are copyable and have all their operations trivial.
-            TypeTraits(SimpleTrivial)
+            TypeTraits(TrivialSameInCAndCpp)
             {
                 is_default_constructible = true;
                 is_copy_constructible = true;
@@ -293,6 +298,8 @@ namespace mrbind::CBindings
                 is_trivially_destructible = true;
 
                 is_any_constructible = true;
+
+                same_size_in_c_and_cpp = true;
             }
 
             struct CopyableNonTrivial {explicit CopyableNonTrivial() = default;};
@@ -557,6 +564,7 @@ namespace mrbind::CBindings
                 // You can generate more than one statement here.
                 // Providing the source `file` so you can add some extra headers or whatever. Note that this is intentionally redundant,
                 //   as we also have `extra_headers` below.
+                // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_statement;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare?
@@ -573,6 +581,7 @@ namespace mrbind::CBindings
                 std::string append_to_comment;
 
                 // Calls `make_return_statement` if not null, otherwise returns `"return "+expr+";"`.
+                // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
                 [[nodiscard]] std::string MakeReturnStatement(OutputFile::SpecificFileContents &file, std::string_view expr) const
                 {
                     if (make_return_statement)
@@ -712,24 +721,10 @@ namespace mrbind::CBindings
                 // Empty if unnamed.
                 std::string name;
 
-                // If true, disable the fancy rewrites like replacing `std::string` with `const char *` pointers.
-                // This is useful e.g. for `this` parameters. Can't be used when passing class types by value.
-                bool remove_sugar = false;
-
-                // We translate this to C types automatically.
-                cppdecl::Type cpp_type;
-
                 // If true, do not attempt to translate the type to C, paste it as is.
                 // This conflicts with `default_arg` (will trigger an internal error when emitting).
                 // If this is true, `remove_sugar` be ignored.
                 bool emit_as_is = false;
-
-                struct DefaultArg
-                {
-                    std::string cpp_expr; // Spelled as a C++ expression.
-                    std::string original_spelling; // Spelled in a user-friendly manner (as originally written in the C++ source).
-                };
-                std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
 
                 enum class Kind
                 {
@@ -742,6 +737,21 @@ namespace mrbind::CBindings
 
                 // At most one function parameter can have this set to anything other than `normal` and `not_added_to_call`.
                 Kind kind = Kind::normal;
+
+                // If true, disable the fancy rewrites like replacing `std::string` with `const char *` pointers.
+                // This is useful e.g. for `this` parameters. Can't be used when passing class types by value.
+                bool remove_sugar = false;
+
+                // We translate this to C types automatically.
+                cppdecl::Type cpp_type;
+
+
+                struct DefaultArg
+                {
+                    std::string cpp_expr; // Spelled as a C++ expression.
+                    std::string original_spelling; // Spelled in a user-friendly manner (as originally written in the C++ source).
+                };
+                std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
 
                 [[nodiscard]] bool IsPointerWithNullptrDefaultArgument() const;
             };

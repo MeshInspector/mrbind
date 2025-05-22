@@ -18,7 +18,7 @@ namespace mrbind::CBindings::Modules
                 if (type_str == c_name || (type_str.starts_with("std::") && std::string_view(type_str).substr(5) == c_name))
                 {
                     ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(std::string(c_name)));
-                    ret->bindable_with_same_address.declared_in_stdlib_file = header;
+                    ret->bindable_with_same_address.declared_in_c_stdlib_file = header;
                     return true;
                 }
                 else

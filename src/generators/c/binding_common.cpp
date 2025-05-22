@@ -386,7 +386,7 @@ namespace mrbind::CBindings
     {
         Generator::BindableType ret(c_type);
 
-        ret.traits = Generator::TypeTraits::SimpleTrivial{};
+        ret.traits = Generator::TypeTraits::TrivialSameInCAndCpp{};
 
         // Allow default arguments via pointers.
         auto &param_def_arg = ret.param_usage_with_default_arg.emplace();
@@ -435,13 +435,14 @@ namespace mrbind::CBindings
             Generator::BindableType new_type(type_c_style);
 
             // I assume `IsSimplyBindableDirectCast()` is only going to trigger for simple types that are trivial enough for this. This could change later?
-            new_type.traits = Generator::TypeTraits::SimpleTrivial{};
+            new_type.traits = Generator::TypeTraits::TrivialSameInCAndCpp{};
+            new_type.traits->same_size_in_c_and_cpp = false; // Enum size might not match though.
 
             // Add the casts!
             new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
             {
                 (void)file;
-                return "return (" + type_str_c + ")" + std::string(expr) + ";";
+                return "return (" + type_str_c + ")(" + std::string(expr) + ");";
             };
             new_type.param_usage->c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &, std::string_view cpp_param_name, std::string_view default_arg)
             {
@@ -528,7 +529,7 @@ namespace mrbind::CBindings
                     {
                         if (!is_rvalue_ref)
                         {
-                            return "return (" + ref_target_c_type_ptr_str + ")&" + std::string(expr) + ";";
+                            return "return (" + ref_target_c_type_ptr_str + ")&(" + std::string(expr) + ");";
                         }
                         else
                         {
@@ -549,7 +550,7 @@ namespace mrbind::CBindings
                         (void)file;
                         if (!is_rvalue_ref)
                         {
-                            return "return &" + std::string(expr) + ";";
+                            return "return &(" + std::string(expr) + ");";
                         }
                         else
                         {

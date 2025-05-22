@@ -27,9 +27,12 @@ namespace mrbind::CBindings::Modules
                         .cpp_elem_type = *elem_type,
                         .stdlib_container_header = "vector",
 
+                        .has_resize = true,
+                        .has_capacity = true,
+                        .has_front_back = true,
                         .has_index_access = true,
                         .has_data_ptr = true,
-                        .has_reserve_and_capacity = true,
+                        .has_push_back = true,
                     });
                     ret = binder.MakeBinding(generator);
                 }
