@@ -503,8 +503,8 @@ namespace mrbind::CBindings
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
                 // The source `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
                 //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose.
-                // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is,
-                //   this might never receive default arguments.
+                // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is, this might never receive default arguments.
+                // NOTE: This is allowed to produce unparenthesized strings. It's the caller's job to add parentehses if necessary.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
@@ -524,6 +524,7 @@ namespace mrbind::CBindings
 
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                 // `default_arg` should be empty if there's no default argument.
+                // NOTE: This is allowed to produce unparenthesized strings. It's the caller's job to add parentehses if necessary.
                 [[nodiscard]] std::string CParamsToCpp(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg) const
                 {
                     if (c_params_to_cpp)
@@ -680,7 +681,10 @@ namespace mrbind::CBindings
 
             // What function are we calling on the C++ side. Or any arbitrary expression. The arguments are pasted after it, enclosed in `cpp_called_func_parens`.
             // If this is empty, the return statement isn't generated at all, the arguments are ignored, and `cpp_called_func_parens` is also ignored.
-            // NOTE: Typically this doesn't need a trailing whitespace. It's inserted automatically if `cpp_called_func_parens.begin` is empty and `cpp_extra_statements` doesn't end with an opening bracket.
+            // If this is a member function, then the class instance will be prepended to it (with `.` or `::` (for static functions) added automatically). But if `@this@` is mentioned at least once in this string,
+            //   then the class instance isn't prepended, and instead every mention of `@this` is going to be replaced with it. Note that `@this@` does NOT include a trailing `.`/`::`. Spell them manually if you need them.
+            // Note that for non-static functions `@this@` isn't a pointer in our case (to support rvalue-ref-qualified functions).
+            // Note that `@this@` is always correctly parenthesied, so you don't have to do that here.
             std::string cpp_called_func;
 
             struct Parens
@@ -727,9 +731,17 @@ namespace mrbind::CBindings
                 };
                 std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
 
-                // If this is false, this argument will not be added to the call expression in the implementation,
-                //   and you need to manually use it for something (typically in `.cpp_called_func`).
-                bool add_to_call = true;
+                enum class Kind
+                {
+                    normal, // Nothing unusual about this parameter.
+                    not_added_to_call, // This parameter shouldn't be added as an argument to the function call. Typically you'll want to manually mention it in `cpp_called_func`.
+                    lvalue, // This is the a `this` parameter (not ref-qualified nor `&`-qualified). See `cpp_called_func` for how those parameters get used.
+                    rvalue, // This is the a `&&`-qualified `this` parameter.
+                    static_, // This is a static method, and this parameter is only used for its type.
+                };
+
+                // At most one function parameter can have this set to anything other than `normal` and `not_added_to_call`.
+                Kind kind = Kind::normal;
 
                 [[nodiscard]] bool IsPointerWithNullptrDefaultArgument() const;
             };
@@ -739,8 +751,24 @@ namespace mrbind::CBindings
             // Appends to the existing parameters, doesn't remove them.
             void AddParamsFromParsedFunc(const CBindings::Generator &self, const std::vector<FuncParam> &new_params);
 
-            void AddThisParam(cppdecl::Type new_class, bool is_const);
-            void AddThisParamFromParsedClass(const CBindings::Generator &self, const ClassEntity &new_class, bool is_const);
+            // A helper class used as a parameter of `AddThisParam()` below.
+            struct ThisParamKind
+            {
+                bool is_const = false;
+                Param::Kind kind{};
+
+                ThisParamKind(bool is_const, bool is_rvalue = false, bool is_static = false)
+                    : is_const(is_const && !is_static), kind(is_static ? Param::Kind::static_ : is_rvalue ? Param::Kind::rvalue : Param::Kind::lvalue)
+                {}
+
+                struct Static {explicit Static() = default;};
+                ThisParamKind(Static)
+                    : is_const(false), kind(Param::Kind::static_)
+                {}
+            };
+
+            void AddThisParam(cppdecl::Type new_class, ThisParamKind kind);
+            void AddThisParamFromParsedClass(const CBindings::Generator &self, const ClassEntity &new_class, ThisParamKind kind);
 
             void SetReturnTypeFromParsedFunc(const CBindings::Generator &self, const BasicReturningFunc &new_func);
 

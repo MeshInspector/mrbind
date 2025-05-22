@@ -35,7 +35,7 @@ namespace mrbind::CBindings
         // Gotta copy the entire `*this` here because the lambda can outlive this instance (unless we force the user to be very careful about its lifetime, but that sounds too annoying).
         ret.bindable_with_same_address.declared_in_file = [*this, &generator]() -> auto & {return GetImplementationFile(generator);};
         ret.bindable_with_same_address.forward_declaration = class_binder.MakeForwardDeclaration();
-        ret.bindable_with_same_address.custom_c_type_name = class_binder.c_type_name; // Override this just in case.
+        ret.bindable_with_same_address.custom_c_type_name = class_binder.c_type_name;
 
         ret.is_heap_allocated_class = true;
 
@@ -76,7 +76,14 @@ namespace mrbind::CBindings
             // All the custom functions:
 
             {
-
+                Generator::EmitFuncParams emit;
+                emit.c_comment = "/// The number of elements.";
+                emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Size");
+                emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
+                emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                emit.cpp_called_func = "@this@.size()";
+                emit.cpp_called_func_parens = {};
+                generator.EmitFunction(file, emit);
             }
         }
 

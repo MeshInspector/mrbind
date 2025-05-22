@@ -6,20 +6,18 @@
 
 const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this)
 {
-    return (const MR_C_std_string *)&(*(MR::A *)_this).x;
+    return (const MR_C_std_string *)&(*((const MR::A *)_this)).x;
 }
 
 MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)
 {
-    return (MR_C_std_string *)&(*(MR::A *)_this).x;
+    return (MR_C_std_string *)&(*((MR::A *)_this)).x;
 }
 
 void MR_A_Destroy(MR_A *_this)
 {
     using namespace MR;
-    delete 
-        (MR::A *)_this
-    ;
+    delete &(*((MR::A *)_this));
 }
 
 MR_A *MR_A_Construct(void)
@@ -39,7 +37,7 @@ MR_A *MR_A_ConstructFromAnother(MR_A_PassBy _other_pass_by, MR_A *_other)
 MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_A_PassBy _other_pass_by, MR_A *_other)
 {
     using namespace MR;
-    return (MR_A *)&(*(MR::A *)_this).operator=(
+    return (MR_A *)&(*((MR::A *)_this)).operator=(
         MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_COPY(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_MOVE(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_END(_other, MR::A) 
     );
 }

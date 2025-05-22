@@ -23,7 +23,7 @@ namespace mrbind::CBindings
 
             bool has_index_access = false;
             bool has_data_ptr = false;
-            bool has_reserve = false;
+            bool has_reserve_and_capacity = false;
         };
 
         ContainerBinder(Generator &generator, Params new_params);

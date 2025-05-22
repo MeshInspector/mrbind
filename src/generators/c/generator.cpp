@@ -3,6 +3,7 @@
 #include "common/filesystem.h"
 #include "common/meta.h"
 #include "common/parsed_data.h"
+#include "common/strings.h"
 #include "generators/c/binding_common.h"
 #include "generators/c/module.h"
 
@@ -609,25 +610,25 @@ namespace mrbind::CBindings
         }
     }
 
-    void Generator::EmitFuncParams::AddThisParam(cppdecl::Type new_class, bool is_const)
+    void Generator::EmitFuncParams::AddThisParam(cppdecl::Type new_class, ThisParamKind kind)
     {
         Param &param = params.emplace_back();
-        param.add_to_call = false;
+        param.kind = kind.kind;
         param.remove_sugar = true;
         param.cpp_type = std::move(new_class);
-        if (is_const)
+        if (kind.is_const)
             param.cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_);
         param.cpp_type.AddModifier(cppdecl::Pointer{});
         param.name = "_this";
     }
 
-    void Generator::EmitFuncParams::AddThisParamFromParsedClass(const Generator &self, const ClassEntity &new_class, bool is_const)
+    void Generator::EmitFuncParams::AddThisParamFromParsedClass(const Generator &self, const ClassEntity &new_class, ThisParamKind kind)
     {
         Param &param = params.emplace_back();
-        param.add_to_call = false;
+        param.kind = kind.kind;
         param.remove_sugar = true;
         param.cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        if (is_const)
+        if (kind.is_const)
             param.cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_);
         param.cpp_type.AddModifier(cppdecl::Pointer{});
         param.name = "_this";
@@ -713,11 +714,10 @@ namespace mrbind::CBindings
         const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
 
         AddThisParamFromParsedClass(self, new_class, false);
-        params.front().add_to_call = true; // Force add `this` to the call expression.
 
         c_name = self.GetClassDestroyFuncName(info.c_type_str);
 
-        cpp_called_func = "delete";
+        cpp_called_func = "delete &@this@";
         cpp_called_func_parens = {};
 
         if (new_dtor.comment)
@@ -736,7 +736,7 @@ namespace mrbind::CBindings
         std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
 
         if (!new_method.is_static)
-            AddThisParamFromParsedClass(self, new_class, new_method.is_const);
+            AddThisParamFromParsedClass(self, new_class, {new_method.is_const, new_method.ref_qualifier == RefQualifier::rvalue, new_method.is_static});
         AddParamsFromParsedFunc(self, new_method.params);
 
         // A pretty fallback parameter name for copy/move assignments (especially useful if they are generated implicitly, since those don't have a parameter name).
@@ -767,24 +767,7 @@ namespace mrbind::CBindings
 
         SetReturnTypeFromParsedFunc(self, new_method);
 
-        if (!new_method.is_static)
-        {
-            if (new_method.ref_qualifier == RefQualifier::rvalue)
-            {
-                extra_headers.stdlib_in_source_file.insert("utility");
-                cpp_called_func = "std::move";
-            }
-            cpp_called_func += "(*(";
-            cpp_called_func += cpp_type_str;
-            cpp_called_func += " *)_this).";
-        }
-        else
-        {
-            cpp_called_func = cpp_type_str;
-            cpp_called_func += "::";
-        }
-
-        cpp_called_func += new_method.full_name;
+        cpp_called_func = new_method.full_name;
 
         if (new_method.comment)
         {
@@ -805,7 +788,7 @@ namespace mrbind::CBindings
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-        AddThisParamFromParsedClass(self, new_class, new_conv_op.is_const);
+        AddThisParamFromParsedClass(self, new_class, {new_conv_op.is_const, new_conv_op.ref_qualifier == RefQualifier::rvalue});
 
         // Check that this is callable with no arguments.
         // The actual C++ at the time of writing doesn't allow any parameters at all, even with default arguments,
@@ -884,19 +867,7 @@ namespace mrbind::CBindings
         }
 
 
-        if (!new_field.is_static)
-        {
-            cpp_called_func += "(*(";
-            cpp_called_func += class_cpp_type_str;
-            cpp_called_func += " *)_this).";
-        }
-        else
-        {
-            cpp_called_func = class_cpp_type_str;
-            cpp_called_func += "::";
-        }
-        cpp_called_func += new_field.full_name;
-
+        cpp_called_func = new_field.full_name;
         cpp_called_func_parens = {};
 
         if (new_field.comment)
@@ -934,20 +905,16 @@ namespace mrbind::CBindings
         }
 
         std::string body_return;
-        bool need_whitespace_before_first_arg = false;
         if (!params.cpp_called_func.empty())
         {
             body_return += params.cpp_called_func;
-
-            if (params.cpp_called_func_parens.begin.empty() && !body_return.ends_with('(') && !body_return.ends_with('[') && !body_return.ends_with('{'))
-                need_whitespace_before_first_arg = true;
-            else
-                body_return += params.cpp_called_func_parens.begin;
+            body_return += params.cpp_called_func_parens.begin;
         }
 
         // Assemble the parameter and argument lists.
         std::size_t i = 0;
         bool first_arg_in_call_expr = true;
+        bool seen_this_param = false;
         for (const auto &param : params.params)
         {
             try
@@ -1028,7 +995,7 @@ namespace mrbind::CBindings
                         }
                     }
 
-                    if (param.add_to_call)
+                    if (param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
                         arg_expr = param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? param.default_arg->cpp_expr : "");
 
                     // Insert the extra includes.
@@ -1039,7 +1006,7 @@ namespace mrbind::CBindings
                     if (param.default_arg)
                         throw std::logic_error("Internal error: Bad usage: `EmitFuncParams::Param::emit_as_is == true` is incompatible with a non-null `default_arg`.");
 
-                    if (param.add_to_call)
+                    if (param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
                         arg_expr = param_name_fixed;
 
                     auto &new_param = new_func.params.emplace_back();
@@ -1047,23 +1014,56 @@ namespace mrbind::CBindings
                     new_param.name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed);
                 }
 
-                // Append the argument to the call, if enabled.
-                if (!params.cpp_called_func.empty() && param.add_to_call)
+                switch (param.kind)
                 {
-                    if (first_arg_in_call_expr)
-                    {
-                        first_arg_in_call_expr = false;
+                  case EmitFuncParams::Param::Kind::normal:
+                    // Keep `arg_expr` as is.
+                    break;
+                  case EmitFuncParams::Param::Kind::not_added_to_call:
+                    assert(arg_expr.empty());
+                    break;
+                  case EmitFuncParams::Param::Kind::lvalue:
+                    arg_expr = "(*(" + arg_expr + "))";
+                    break;
+                  case EmitFuncParams::Param::Kind::rvalue:
+                    file.source.stdlib_headers.insert("utility");
+                    arg_expr = "std::move(*(" + arg_expr + "))";
+                    break;
+                  case EmitFuncParams::Param::Kind::static_:
+                    assert(arg_expr.empty());
+                    // Emit the type instead.
+                    arg_expr = cppdecl::ToCode(param.cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    break;
+                }
 
-                        if (need_whitespace_before_first_arg)
-                            body_return += ' ';
+                // Append the argument to the call, if enabled.
+                if (!params.cpp_called_func.empty() && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                {
+                    const bool is_this_param = param.kind != EmitFuncParams::Param::Kind::normal;
+                    if (is_this_param)
+                    {
+                        if (seen_this_param)
+                            throw std::runtime_error("Internal error: Bad usage: More than one `this` parameter in the function to emit.");
+                        else
+                            seen_this_param = true;
+
+                        if (params.cpp_called_func.find("@this@") != std::string::npos)
+                            body_return = Strings::Replace(body_return, "@this@", arg_expr);
+                        else if (param.kind == EmitFuncParams::Param::Kind::static_)
+                            body_return = arg_expr + "::" + body_return;
+                        else
+                            body_return = arg_expr + "." + body_return;
                     }
                     else
                     {
-                        body_return += ',';
-                    }
+                        if (first_arg_in_call_expr)
+                            first_arg_in_call_expr = false;
+                        else
+                            body_return += ',';
 
-                    body_return += "\n        ";
-                    body_return += arg_expr;
+                        body_return += "\n        ";
+                        body_return += arg_expr;
+                    }
                 }
 
                 i++;

@@ -300,7 +300,7 @@ namespace mrbind::CBindings
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 
-        ret.cpp_called_func = "reinterpret_cast<" + ToCode(cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}), cppdecl::ToCodeFlags::canonical_c_style) + ">(_this)->operator=";
+        ret.cpp_called_func = "operator=";
 
         ret.params.push_back({
             .name = "other",
@@ -323,9 +323,8 @@ namespace mrbind::CBindings
         ret.c_name = c_func_name_destroy;
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
-        ret.params.front().add_to_call = true; // Force add `this` to the call expression.
 
-        ret.cpp_called_func = "delete";
+        ret.cpp_called_func = "delete &@this@";
         ret.cpp_called_func_parens = {};
 
         ret.c_comment += "/// Destroys a heap-allocated instance of `" + cpp_type_str + "`.";

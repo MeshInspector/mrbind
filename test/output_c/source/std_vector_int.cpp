@@ -19,15 +19,18 @@ MR_C_std_vector_int *MR_C_std_vector_int_ConstructFromAnother(MR_C_std_vector_in
 
 void MR_C_std_vector_int_AssignFromAnother(MR_C_std_vector_int *_this, MR_C_std_vector_int_PassBy other_pass_by, MR_C_std_vector_int *other)
 {
-    reinterpret_cast<std::vector<int>*>(_this)->operator=(
+    (*((std::vector<int>*)_this)).operator=(
         MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>, MR_C_std_vector_int_PassBy) MRBINDC_CLASSARG_COPY(other, std::vector<int>, MR_C_std_vector_int_PassBy) MRBINDC_CLASSARG_MOVE(other, std::vector<int>, MR_C_std_vector_int_PassBy) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>, MR_C_std_vector_int_PassBy) MRBINDC_CLASSARG_END(other, std::vector<int>) 
     );
 }
 
 void MR_C_std_vector_int_Destroy(MR_C_std_vector_int *_this)
 {
-    delete 
-        (std::vector<int>*)_this
-    ;
+    delete &(*((std::vector<int>*)_this));
+}
+
+size_t MR_C_std_vector_int_Size(const MR_C_std_vector_int *_this)
+{
+    return (*((const std::vector<int>*)_this)).size();
 }
 

@@ -39,7 +39,7 @@ namespace mrbind::CBindings::Modules
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Size");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                    emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->size()";
+                    emit.cpp_called_func = "size()";
                     emit.cpp_called_func_parens = {};
                     generator.EmitFunction(file, emit);
                 }
@@ -50,7 +50,7 @@ namespace mrbind::CBindings::Modules
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Data");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                    emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->c_str()";
+                    emit.cpp_called_func = "c_str()";
                     emit.cpp_called_func_parens = {};
                     generator.EmitFunction(file, emit);
                 }
@@ -61,7 +61,7 @@ namespace mrbind::CBindings::Modules
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableData");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
-                    emit.cpp_called_func = "reinterpret_cast<std::string *>(_this)->data()";
+                    emit.cpp_called_func = "data()";
                     emit.cpp_called_func_parens = {};
                     generator.EmitFunction(file, emit);
                 }
@@ -72,7 +72,7 @@ namespace mrbind::CBindings::Modules
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_DataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                    emit.cpp_called_func = "reinterpret_cast<const std::string *>(_this)->c_str() + reinterpret_cast<const std::string *>(_this)->size()";
+                    emit.cpp_called_func = "@this@.c_str() + @this@.size()";
                     emit.cpp_called_func_parens = {};
                     generator.EmitFunction(file, emit);
                 }
@@ -83,7 +83,7 @@ namespace mrbind::CBindings::Modules
                     emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableDataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
-                    emit.cpp_called_func = "reinterpret_cast<std::string *>(_this)->data() + reinterpret_cast<std::string *>(_this)->size()";
+                    emit.cpp_called_func = "@this@.data() + @this@.size()";
                     emit.cpp_called_func_parens = {};
                     generator.EmitFunction(file, emit);
                 }

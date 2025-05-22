@@ -2,6 +2,8 @@
 
 #include <exports.h>
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -30,6 +32,9 @@ MR_C_API void MR_C_std_vector_int_AssignFromAnother(MR_C_std_vector_int *_this, 
 
 /// Destroys a heap-allocated instance of `std::vector<int>`.
 MR_C_API void MR_C_std_vector_int_Destroy(MR_C_std_vector_int *_this);
+
+/// The number of elements.
+MR_C_API size_t MR_C_std_vector_int_Size(const MR_C_std_vector_int *_this);
 
 #ifdef __cplusplus
 } // extern "C"

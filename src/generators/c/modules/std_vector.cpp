@@ -29,7 +29,7 @@ namespace mrbind::CBindings::Modules
 
                         .has_index_access = true,
                         .has_data_ptr = true,
-                        .has_reserve = true,
+                        .has_reserve_and_capacity = true,
                     });
                     ret = binder.MakeBinding(generator);
                 }
