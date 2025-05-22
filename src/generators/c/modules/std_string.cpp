@@ -10,6 +10,7 @@ namespace mrbind::CBindings::Modules
         void Init(Generator &generator) override
         {
             binder = HeapAllocatedClassBinder::ForCustomType(generator, cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
+            binder.traits = Generator::TypeTraits::CopyableNonTrivial{};
         }
 
         Generator::OutputFile &GetOutputFile(Generator &generator)
@@ -20,37 +21,17 @@ namespace mrbind::CBindings::Modules
             if (is_new)
             {
                 file.header.contents += "/// A heap-allocated string.\n";
-                file.header.contents += binder.MakeForwardDeclaration() + '\n';
+                binder.EmitForwardDeclaration(file);
+                binder.EmitPassByEnum(generator, file);
 
                 generator.EmitFunction(file, binder.PrepareFuncDefaultCtor());
-                generator.EmitFunction(file, binder.PrepareFuncCopyCtor());
-                generator.EmitFunction(file, binder.PrepareFuncMoveCtor());
-                generator.EmitFunction(file, binder.PrepareFuncCopyAssignment());
-                generator.EmitFunction(file, binder.PrepareFuncMoveAssignment());
+                generator.EmitFunction(file, binder.PrepareFuncCopyMoveCtor());
+                generator.EmitFunction(file, binder.PrepareFuncCopyMoveCtor(true));
+                generator.EmitFunction(file, binder.PrepareFuncCopyMoveAssignment());
+                generator.EmitFunction(file, binder.PrepareFuncCopyMoveAssignment(true));
                 generator.EmitFunction(file, binder.PrepareFuncDestroy());
 
                 // Some custom functions:
-
-                {
-                    Generator::EmitFuncParams emit;
-                    emit.c_comment = "/// Constructs a string object from a null-termianted string. Copies the contents.";
-                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Construct");
-                    emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
-                    emit.cpp_called_func = "std::string";
-                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})});
-                    generator.EmitFunction(file, emit);
-                }
-
-                {
-                    Generator::EmitFuncParams emit;
-                    emit.c_comment = "/// Constructs a string object from a possibly non-null-terminated string. Copies the contents. The resulting string is always null-terminated.";
-                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_ConstructFromRange");
-                    emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
-                    emit.cpp_called_func = "std::string";
-                    emit.params.push_back({.name = "str", .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})});
-                    emit.params.push_back({.name = "str_end", .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})});
-                    generator.EmitFunction(file, emit);
-                }
 
                 {
                     Generator::EmitFuncParams emit;
@@ -123,10 +104,11 @@ namespace mrbind::CBindings::Modules
                 Generator::BindableType &new_type = ret.emplace();
 
                 new_type.traits = Generator::TypeTraits::CopyableNonTrivial{};
+                new_type.is_heap_allocated_class = true;
 
                 new_type.bindable_with_same_address.declared_in_file = [this, &generator]() -> auto & {return GetOutputFile(generator);};
                 new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
-                new_type.bindable_with_same_address.c_type_name = binder.c_type_name;
+                new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
                 new_type.return_usage = binder.MakeReturnUsage();
                 new_type.return_usage->same_addr_bindable_type_dependencies.at("std::string").need_header = true; // Force our header to be included.

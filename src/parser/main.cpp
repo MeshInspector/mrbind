@@ -1021,8 +1021,21 @@ namespace mrbind
                     {
                         ClassMethod &new_method = target_class.members.emplace_back().emplace<ClassMethod>();
                         basic_ret_class_func = &new_method;
-                        // Copy&swap assignment gets reported as "copy" (and no, `isMoveAssignmentOperator()` returns false for it, I've checked).
-                        new_method.assignment_kind = method->isCopyAssignmentOperator() ? CopyMoveKind::copy : method->isMoveAssignmentOperator() ? CopyMoveKind::move : CopyMoveKind::none;
+
+                        // For a copy&swap assignment, `isCopyAssignmentOperator()` returns true and `isMoveAssignmentOperator()` returns false, for some reason.
+                        new_method.assignment_kind =
+                            method->isCopyAssignmentOperator()
+                            ? (
+                                method->parameters().front()->getType()->isReferenceType()
+                                ? CopyMoveKind::copy
+                                : CopyMoveKind::by_value_assignment
+                            )
+                            : (
+                                method->isMoveAssignmentOperator()
+                                ? CopyMoveKind::move
+                                : CopyMoveKind::none
+                            );
+
                         new_method.name = method->getDeclName().getAsString();
                         new_method.simple_name = GetAdjustedFuncName(*method);
 

@@ -45,7 +45,7 @@ namespace mrbind::CBindings::Modules
 
                 new_type.bindable_with_same_address.declared_in_file = [this, &generator]() -> auto & {return GetOutputFile(generator);};
                 new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclaration(c_type_name);
-                new_type.bindable_with_same_address.c_type_name = c_type_name;
+                new_type.bindable_with_same_address.custom_c_type_name = c_type_name;
 
                 Generator::BindableType::ReturnUsage &return_usage = new_type.return_usage.emplace();
                 return_usage.same_addr_bindable_type_dependencies["std::string_view"].need_header = true; // Force our header to be included.
@@ -63,11 +63,13 @@ namespace mrbind::CBindings::Modules
                 param_usage.c_params.back().name_suffix += "_end";
                 param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
                 {
-                    file.stdlib_headers.insert("string");
+                    file.stdlib_headers.insert("cstddef"); // For `std::size_t` to cast to below.
 
                     std::string ret;
                     ret += cpp_param_name;
-                    ret += " ? (" + std::string(cpp_param_name) + "_end ? std::string_view(" + std::string(cpp_param_name) + ", " + std::string(cpp_param_name) + "_end) : std::string_view(" + std::string(cpp_param_name) + ")) : ";
+                    // Here we're constructing the `std::string_view` from a pointer and a size, instead of two pointers, because two pointers requires C++20.
+                    // Also instantiating the constructor from two iterators may or may not be a bit more expensive?
+                    ret += " ? (" + std::string(cpp_param_name) + "_end ? std::string_view(" + std::string(cpp_param_name) + ", std::size_t(" + std::string(cpp_param_name) + "_end - " + std::string(cpp_param_name) + ")) : std::string_view(" + std::string(cpp_param_name) + ")) : ";
 
                     if (default_arg.empty())
                     {

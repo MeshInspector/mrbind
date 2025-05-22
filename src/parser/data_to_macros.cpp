@@ -350,6 +350,7 @@ namespace mrbind
                                             case CopyMoveKind::none: out << "none"; break;
                                             case CopyMoveKind::copy: out << "copy"; break;
                                             case CopyMoveKind::move: out << "move"; break;
+                                            case CopyMoveKind::by_value_assignment: throw std::logic_error("Internal error: `CopyMoveKind::by_value_assignment` on a constructor");
                                         }
                                         out << ", "
                                             << (ctor.comment ? EscapeQuoteString(ctor.comment->text) : "/*no comment*/") << ", ";
@@ -366,6 +367,7 @@ namespace mrbind
                                             case CopyMoveKind::none: out << "none"; break;
                                             case CopyMoveKind::copy: out << "copy"; break;
                                             case CopyMoveKind::move: out << "move"; break;
+                                            case CopyMoveKind::by_value_assignment: out << "by_value_assignment"; break;
                                         }
                                         out
                                             << ", "

@@ -36,7 +36,6 @@ namespace mrbind::CBindings
       private:
         Params params;
         HeapAllocatedClassBinder class_binder;
-        Generator::TypeTraits container_traits;
         Generator::TypeTraits elem_traits;
 
         std::string basic_output_file_name;

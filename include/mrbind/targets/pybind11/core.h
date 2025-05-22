@@ -142,6 +142,7 @@ namespace MRBind::pb11
         none,
         copy,
         move,
+        by_value_assignment,
     };
 
     // `TryAddFunc()` uses this state to preserve information between the two passes.

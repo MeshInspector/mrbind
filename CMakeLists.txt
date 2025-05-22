@@ -7,6 +7,13 @@ set(CMAKE_CXX_EXTENSIONS off)
 
 if(NOT MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough -Wconversion")
+
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        # Just in case, set the flags for both libstdc++ and libc++.
+        # Not enabling `_GLIBCXX_DEBUG` here, because it causes some weird segfaults. I think this is because libclang is built without it,
+        #   though then it's weird that we get no linker errors, but do get segfaults still.
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIBCXX_ASSERTIONS -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG")
+    endif()
 endif()
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

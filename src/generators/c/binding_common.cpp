@@ -11,11 +11,11 @@ namespace mrbind::CBindings
         ret.basic_c_name = cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier);
         ret.c_type_name = generator.MakePublicHelperName(ret.basic_c_name);
 
-        ret.c_func_name_default_ctor = generator.MakePublicHelperName(ret.basic_c_name + "_DefaultConstruct");
-        ret.c_func_name_copy_ctor = generator.MakePublicHelperName(ret.basic_c_name + "_CopyConstruct");
-        ret.c_func_name_move_ctor = generator.MakePublicHelperName(ret.basic_c_name + "_MoveConstruct");
-        ret.c_func_name_copy_assign = generator.MakePublicHelperName(ret.basic_c_name + "_CopyAssign");
-        ret.c_func_name_move_assign = generator.MakePublicHelperName(ret.basic_c_name + "_MoveAssign");
+        ret.c_func_name_default_ctor             = generator.MakePublicHelperName(ret.basic_c_name + "_DefaultConstruct");
+        ret.c_func_name_copy_move_ctor           = generator.MakePublicHelperName(ret.basic_c_name + "_ConstructFromAnother");
+        ret.c_func_name_copy_move_assign         = generator.MakePublicHelperName(ret.basic_c_name + "_AssignFromAnother");
+        ret.c_func_name_copy_move_ctor_sugared   = generator.MakePublicHelperName(ret.basic_c_name + "_ConstructFrom");
+        ret.c_func_name_copy_move_assign_sugared = generator.MakePublicHelperName(ret.basic_c_name + "_AssignFrom");
         // Inconsistent with the rest. Weird but let's keep it this way for now.
         ret.c_func_name_destroy = generator.GetClassDestroyFuncName(ret.c_type_name); // generator.MakePublicHelperName(ret.basic_c_name + "_Destroy");
 
@@ -51,14 +51,25 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    std::optional<Generator::BindableType::ParamUsage> HeapAllocatedClassBinder::MakeParamUsageSupportingDefaultArg(Generator &generator, const Generator::TypeTraits &traits) const
+    void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator::OutputFile &file) const
+    {
+        file.header.contents += MakeForwardDeclaration();
+        file.header.contents += '\n';
+    }
+
+    void HeapAllocatedClassBinder::EmitPassByEnum(Generator &generator, Generator::OutputFile &file) const
+    {
+        CBindings::EmitPassByEnum(generator, file, c_type_name, traits.value());
+    }
+
+    std::optional<Generator::BindableType::ParamUsage> HeapAllocatedClassBinder::MakeParamUsageSupportingDefaultArg(Generator &generator) const
     {
         std::optional<Generator::BindableType::ParamUsage> ret;
 
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         // Parameter passing strategy.
-        if (traits.IsTriviallyCopyOrMoveConstructible())
+        if (traits.value().IsTriviallyCopyOrMoveConstructible())
         {
             // For trivialy-copy/move-constructible classes, just pass a pointer.
 
@@ -72,7 +83,7 @@ namespace mrbind::CBindings
 
             param_usage.c_params_to_cpp = [
                 cpp_type_str,
-                only_trivially_move_constructible = traits.is_trivially_move_constructible && !traits.is_trivially_copy_constructible
+                only_trivially_move_constructible = traits.value().is_trivially_move_constructible && !traits.value().is_trivially_copy_constructible
             ](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
             {
                 std::string ret;
@@ -127,7 +138,7 @@ namespace mrbind::CBindings
                 return ret;
             };
         }
-        else if (traits.IsDefaultOrCopyOrMoveConstructible())
+        else if (traits.value().IsDefaultOrCopyOrMoveConstructible())
         {
             // With the pass-by enum.
 
@@ -146,9 +157,9 @@ namespace mrbind::CBindings
                 &generator,
                 cpp_type_str,
                 c_enum_name_pass_by = c_enum_name_pass_by,
-                is_default_constructible = traits.is_default_constructible,
-                is_copy_constructible = traits.is_copy_constructible,
-                is_move_constructible = traits.is_move_constructible
+                is_default_constructible = traits.value().is_default_constructible,
+                is_copy_constructible = traits.value().is_copy_constructible,
+                is_move_constructible = traits.value().is_move_constructible
             ](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
             {
                 std::string ret;
@@ -255,22 +266,22 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyCtor() const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveCtor(bool with_param_sugar) const
     {
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_copy_ctor.empty());
-        ret.c_name = c_func_name_copy_ctor;
+        assert(!c_func_name_copy_move_ctor.empty());
+        ret.c_name = with_param_sugar ? c_func_name_copy_move_ctor_sugared : c_func_name_copy_move_ctor;
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.cpp_called_func = cpp_type_str;
 
         ret.params.push_back({
             .name = "other",
-            .remove_sugar = true,
-            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
+            .remove_sugar = !with_param_sugar,
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name),
         });
 
         ret.c_comment = "/// Constructs a copy of another instance. The source remains alive.";
@@ -278,37 +289,14 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncMoveCtor() const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveAssignment(bool with_param_sugar) const
     {
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_move_ctor.empty());
-        ret.c_name = c_func_name_move_ctor;
-
-        ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
-        ret.cpp_called_func = cpp_type_str;
-
-        ret.params.push_back({
-            .name = "other",
-            .remove_sugar = true,
-            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue}),
-        });
-
-        ret.c_comment = "/// Creates a new instance moved from another. The source remains alive.";
-
-        return ret;
-    }
-
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyAssignment() const
-    {
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
-
-        Generator::EmitFuncParams ret;
-
-        assert(!c_func_name_copy_assign.empty());
-        ret.c_name = c_func_name_copy_assign;
+        assert(!c_func_name_copy_move_assign.empty());
+        ret.c_name = with_param_sugar ? c_func_name_copy_move_assign_sugared : c_func_name_copy_move_assign;
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 
@@ -316,32 +304,8 @@ namespace mrbind::CBindings
 
         ret.params.push_back({
             .name = "other",
-            .remove_sugar = true,
-            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
-        });
-
-        ret.c_comment = "/// Assigns the contents from another instance. Both objects remain alive after the call.";
-
-        return ret;
-    }
-
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncMoveAssignment() const
-    {
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
-
-        Generator::EmitFuncParams ret;
-
-        assert(!c_func_name_move_assign.empty());
-        ret.c_name = c_func_name_move_assign;
-
-        ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
-
-        ret.cpp_called_func = "reinterpret_cast<" + ToCode(cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}), cppdecl::ToCodeFlags::canonical_c_style) + ">(_this)->operator=";
-
-        ret.params.push_back({
-            .name = "other",
-            .remove_sugar = true,
-            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue}),
+            .remove_sugar = !with_param_sugar,
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name),
         });
 
         ret.c_comment = "/// Assigns the contents from another instance. Both objects remain alive after the call.";
@@ -380,13 +344,13 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    void MakePassByEnum(Generator &generator, Generator::OutputFile &file, std::string_view c_type_name, const Generator::TypeTraits &traits)
+    void EmitPassByEnum(Generator &generator, Generator::OutputFile &file, std::string_view c_type_name, const Generator::TypeTraits &traits)
     {
         assert(traits.NeedsPassByEnum());
 
         std::string pass_by_enum_name = generator.GetClassPassByEnumName(c_type_name);
 
-        file.header.contents += "\nenum " + pass_by_enum_name + "\n{\n";
+        file.header.contents += "\ntypedef enum " + pass_by_enum_name + "\n{\n";
         if (traits.is_default_constructible)
             file.header.contents += "    " + pass_by_enum_name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
         if (traits.is_copy_constructible)
@@ -396,7 +360,7 @@ namespace mrbind::CBindings
 
         file.header.contents += "    " + pass_by_enum_name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
 
-        file.header.contents += "};\n";
+        file.header.contents += "} " + pass_by_enum_name + ";\n";
     }
 
     void TryIncludeHeadersForCppTypeInSourceFile(Generator &generator, Generator::OutputFile &file, const cppdecl::Type &type)
@@ -688,6 +652,25 @@ namespace mrbind::CBindings
         }
 
         return {};
+    }
+
+    Generator::BindableType MakeByValueClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type, const Generator::TypeTraits &traits)
+    {
+        Generator::BindableType new_type;
+        HeapAllocatedClassBinder class_binder;
+
+        new_type.traits = traits;
+        class_binder.traits = traits;
+
+        class_binder.cpp_type_name = cpp_type;
+        class_binder.c_type_name = c_type;
+        class_binder.c_func_name_destroy = generator.GetClassDestroyFuncName(c_type);
+
+        new_type.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(generator);
+
+        new_type.return_usage = class_binder.MakeReturnUsage();
+
+        return new_type;
     }
 
     std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, std::string_view target_name)

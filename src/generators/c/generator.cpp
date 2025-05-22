@@ -427,7 +427,7 @@ namespace mrbind::CBindings
 
     const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar)
     {
-        const std::string type_str = ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string type_str = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
 
         auto &map = remove_sugar ? bindable_cpp_types_nosugar : bindable_cpp_types;
 
@@ -443,13 +443,18 @@ namespace mrbind::CBindings
         // We need this to be able to override the default bindings in some cases, for the types otherwise handled by `MakeSimpleTypeBinding()`.
         // For now we don't even ask the modules about desugared types, that seems unnecessary. If one day it turns out to be necessary,
         //   `Module::GetBindableType()` will need a `bool remove_sugar`, OR alternatively we'd need a second function for that.
-        if (!remove_sugar)
+        for (const auto &m : modules)
         {
-            for (const auto &m : modules)
+            if (!remove_sugar)
             {
-                if (auto opt = m->GetBindableType(*this, type, cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style)))
+                // Strictly with sugar.
+                if (auto opt = m->GetBindableType(*this, type, type_str))
                     return &map.try_emplace(type_str, *opt).first->second;
             }
+
+            // Maybe without sugar.
+            if (auto opt = m->GetBindableTypeMaybeWithoutSugar(*this, type, type_str, remove_sugar))
+                return &map.try_emplace(type_str, *opt).first->second;
         }
 
 
@@ -459,28 +464,23 @@ namespace mrbind::CBindings
                 return &map.try_emplace(type_str, *opt).first->second;
 
             // Maybe a class?
-            // Here we also don't permit the lack of sugar. I just don't have any idea what desugared passing class BY VALUE would look like.
-            if (!remove_sugar && type.modifiers.empty())
+            // This binds the same way regardless of sugar.
+            if (type.IsOnlyQualifiedName())
             {
+                // A parsed class?
                 if (auto iter = parsed_type_info.find(type_str); iter != parsed_type_info.end())
                 {
                     if (auto class_desc = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
+                        return &map.try_emplace(type_str, MakeByValueClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
+                }
+                // A custom desugared class based on a sugared one?
+                else if (remove_sugar)
+                {
+                    if (auto opt = FindBindableTypeOpt(type); opt && opt->is_heap_allocated_class)
                     {
-                        BindableType new_type;
-                        HeapAllocatedClassBinder class_binder;
-
-                        new_type.traits = class_desc->traits;
-
-                        class_binder.cpp_type_name = type.simple_type.name;
-                        class_binder.c_type_name = iter->second.c_type_str;
-                        class_binder.c_func_name_destroy = GetClassDestroyFuncName(iter->second.c_type_str);
-
-
-                        new_type.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(*this, class_desc->traits);
-
-                        new_type.return_usage = class_binder.MakeReturnUsage();
-
-                        return &map.try_emplace(type_str, new_type).first->second;
+                        cppdecl::Type c_type = type;
+                        ReplaceAllNamesInTypeWithCNames(c_type);
+                        return &map.try_emplace(type_str, MakeByValueClassBinding(*this, type.simple_type.name, cppdecl::ToCode(c_type, cppdecl::ToCodeFlags::canonical_c_style), opt->traits.value())).first->second;
                     }
                 }
             }
@@ -549,7 +549,7 @@ namespace mrbind::CBindings
             [&](cppdecl::QualifiedName &name)
             {
                 const auto &info = FindTypeBindableWithSameAddress(name);
-                name = cppdecl::QualifiedName::FromSingleWord(!info.c_type_name.empty() ? info.c_type_name : cppdecl::ToString(name, cppdecl::ToStringFlags::identifier));
+                name = cppdecl::QualifiedName::FromSingleWord(!info.custom_c_type_name.empty() ? info.custom_c_type_name : cppdecl::ToString(name, cppdecl::ToStringFlags::identifier));
             }
         );
     }
@@ -664,18 +664,31 @@ namespace mrbind::CBindings
     {
         AddParamsFromParsedFunc(self, new_ctor.params);
 
-        // Desugar the `other` parameter of copy/move ctors.
-        if (new_ctor.kind != CopyMoveKind::none)
-            params.at(0).remove_sugar = true;
-
-        // Fallback parameter name for implicitly generated copy/move assignments.
+        // A pretty fallback parameter name for copy/move ctors (especially useful if they are generated implicitly, since those don't have a parameter name).
         if (new_ctor.kind != CopyMoveKind::none && params.at(0).name.empty())
             params.at(0).name = "_other";
 
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-        c_name = self.overloaded_names.at(&new_ctor).name;
+        if (new_ctor.kind != CopyMoveKind::none)
+        {
+            // Special member functions have fixed names.
+
+            // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
+            c_name = cppdecl::ToString(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToStringFlags::identifier);
+            // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
+            c_name += "_ConstructFromAnother";
+
+            // Rewrite the parameter to be a non-reference.
+            assert(params.at(0).cpp_type.Is<cppdecl::Reference>());
+            params.at(0).cpp_type.RemoveModifier();
+            params.at(0).cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_); // Just in case. Normally this should never happen, becuase we emit only the move constructors, not the copy constructors.
+        }
+        else
+        {
+            c_name = self.overloaded_names.at(&new_ctor).name;
+        }
 
         cpp_return_type = cpp_type;
 
@@ -726,15 +739,31 @@ namespace mrbind::CBindings
             AddThisParamFromParsedClass(self, new_class, new_method.is_const);
         AddParamsFromParsedFunc(self, new_method.params);
 
-        // Desugar the `other` parameter of copy/move assignments.
-        if (new_method.assignment_kind != CopyMoveKind::none)
-            params.at(0).remove_sugar = true;
-
-        // Fallback parameter name for implicitly generated assignment operators.
+        // A pretty fallback parameter name for copy/move assignments (especially useful if they are generated implicitly, since those don't have a parameter name).
         if (new_method.assignment_kind != CopyMoveKind::none && params.at(1).name.empty())
             params.at(1).name = "_other";
 
-        c_name = self.overloaded_names.at(&new_method).name;
+        if (new_method.assignment_kind != CopyMoveKind::none)
+        {
+            // Special member functions have fixed names.
+
+            // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
+            c_name = cppdecl::ToString(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToStringFlags::identifier);
+            // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
+            c_name += "_AssignFromAnother";
+
+            // Rewrite the parameter to be a non-reference.
+            // Note that here (unlike in the constructors) this has to be conditional, because assignments take accept parameters by value.
+            if (params.at(0).cpp_type.Is<cppdecl::Reference>())
+            {
+                params.at(0).cpp_type.RemoveModifier();
+                params.at(0).cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_); // Just in case. Normally this should never happen, becuase we emit only the move constructors, not the copy constructors.
+            }
+        }
+        else
+        {
+            c_name = self.overloaded_names.at(&new_method).name;
+        }
 
         SetReturnTypeFromParsedFunc(self, new_method);
 
@@ -1186,6 +1215,8 @@ namespace mrbind::CBindings
             ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();
             class_info.parsed = &cl;
 
+            bool has_by_value_assignment = false;
+
             // Check what constructors and assignments we have.
             for (const auto &member_var : cl.members)
             {
@@ -1225,6 +1256,11 @@ namespace mrbind::CBindings
                             if (method.is_trivial_assignment)
                                 class_info.traits.is_trivially_move_assignable = true;
                         }
+                        else if (method.assignment_kind == CopyMoveKind::by_value_assignment)
+                        {
+                            // Note that those are never trivial.
+                            has_by_value_assignment = true;
+                        }
                     },
                     [&](const ClassConvOp &) {},
                     [&](const ClassDtor &dtor)
@@ -1234,6 +1270,24 @@ namespace mrbind::CBindings
                             class_info.traits.is_trivially_destructible = true;
                     },
                 }, member_var);
+            }
+
+            if (has_by_value_assignment)
+            {
+                // Since this assignment operator in practice causes overload resolution conflicts with any other copy/move assignment, we don't have to be very accurate about overwriting exiting copy/move assignability data.
+                // Here we OR it, but it probably doesn't matter too much.
+
+                if (class_info.traits.is_copy_constructible)
+                {
+                    class_info.traits.is_copy_assignable = true;
+                    class_info.traits.is_trivially_copy_assignable = false; // Because by-value assignments can't be trivial.
+                }
+
+                if (class_info.traits.is_move_constructible)
+                {
+                    class_info.traits.is_move_assignable = true;
+                    class_info.traits.is_trivially_move_assignable = false; // Because by-value assignments can't be trivial.
+                }
             }
         }
 
@@ -1284,7 +1338,6 @@ namespace mrbind::CBindings
         void Visit(const ClassEntity &cl) override
         {
             const auto &info = self.parsed_type_info.at(ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style));
-            const auto &class_desc = std::get<ParsedTypeInfo::ClassDesc>(info.input_type);
             const auto &c_type_str = info.c_type_str;
 
             auto AddFunc = [&](const BasicFunc &func, std::string name, std::string fallback_name = "")
@@ -1309,18 +1362,10 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassCtor &elem)
                     {
-                        if (class_desc.traits.UnifyCopyMoveConstructors() && elem.kind == CopyMoveKind::move)
+                        if (elem.kind != CopyMoveKind::none) // Special member functions have fixed names.
                             return;
 
-                        std::string name = c_type_str;
-                        if (elem.kind == CopyMoveKind::copy)
-                            name += "_CopyConstruct";
-                        else if (elem.kind == CopyMoveKind::move)
-                            name += "_MoveConstruct";
-                        else if (elem.IsCallableWithNumArgs(0))
-                            name += "_DefaultConstruct";
-                        else
-                            name += "_Construct";
+                        std::string name = c_type_str + "_Construct";
 
                         std::string fallback_name;
                         if (elem.template_args)
@@ -1329,21 +1374,13 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassMethod &elem)
                     {
-                        if (class_desc.traits.UnifyCopyMoveAssignments() && elem.assignment_kind == CopyMoveKind::move)
+                        if (elem.assignment_kind != CopyMoveKind::none) // Special member functions have fixed names.
                             return;
 
                         std::string name = c_type_str;
                         name += '_';
 
-                        if (elem.assignment_kind == CopyMoveKind::copy)
-                        {
-                            name += "CopyAssign";
-                        }
-                        else if (elem.assignment_kind == CopyMoveKind::move)
-                        {
-                            name += "MoveAssign";
-                        }
-                        else if (elem.IsOverloadedOperator())
+                        if (elem.IsOverloadedOperator())
                         {
                             std::string_view view = elem.name;
                             if (!cppdecl::ConsumeWord(view, "operator"))
@@ -1672,7 +1709,7 @@ namespace mrbind::CBindings
 
                 // Constructor selector enum?
                 if (class_info.traits.NeedsPassByEnum())
-                    MakePassByEnum(self, file, type_info.c_type_str, class_info.traits);
+                    EmitPassByEnum(self, file, type_info.c_type_str, class_info.traits);
 
                 for (const ClassMemberVariant &var : cl.members)
                 {
@@ -1692,7 +1729,8 @@ namespace mrbind::CBindings
                         {
                             try
                             {
-                                if (elem.kind == CopyMoveKind::move && class_info.traits.UnifyCopyMoveConstructors())
+                                // The copy constructors are not emitted. Instead the move constructors are rewritten as if they were accepting the parameter by value.
+                                if (elem.kind == CopyMoveKind::copy)
                                     return;
 
                                 EmitFuncParams params;
@@ -1708,7 +1746,10 @@ namespace mrbind::CBindings
                         {
                             try
                             {
-                                if (elem.assignment_kind == CopyMoveKind::move && class_info.traits.UnifyCopyMoveAssignments())
+                                // The copy assignments are not emitted. Instead the move assignments are rewritten as if they were accepting the parameter by value.
+                                // We treat the (parsed) by-value assignments exactly the same as move assignments, generating the same code for both.
+                                // We expect at most one of them (move and by-value) to exist, since having both leads to overload resolution errors when calling them anyway.
+                                if (elem.assignment_kind == CopyMoveKind::copy)
                                     return;
 
                                 EmitFuncParams params;

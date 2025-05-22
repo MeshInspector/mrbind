@@ -20,11 +20,13 @@ namespace mrbind::CBindings
 
         // You don't need to assign to all those if you don't use them.
         std::string c_func_name_default_ctor;
-        std::string c_func_name_copy_ctor;
-        std::string c_func_name_move_ctor;
-        std::string c_func_name_copy_assign;
-        std::string c_func_name_move_assign;
+        std::string c_func_name_copy_move_ctor; // We use combined copy-move constructors and assignments.
+        std::string c_func_name_copy_move_assign; // ^
+        std::string c_func_name_copy_move_ctor_sugared; // See `with_param_sugar` below.
+        std::string c_func_name_copy_move_assign_sugared; // ^
         std::string c_func_name_destroy;
+
+        std::optional<Generator::TypeTraits> traits;
 
         [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name);
 
@@ -32,15 +34,23 @@ namespace mrbind::CBindings
 
         [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage() const;
 
+        void EmitForwardDeclaration(Generator::OutputFile &file) const;
+        void EmitPassByEnum(Generator &generator, Generator::OutputFile &file) const;
+
         // This goes to `param_usage_with_default_arg`. `param_usage` should stay empty, since `param_usage_with_default_arg` alone can handle
         //   both parameters with default arguments and without.
-        [[nodiscard]] std::optional<Generator::BindableType::ParamUsage> MakeParamUsageSupportingDefaultArg(Generator &generator, const Generator::TypeTraits &traits) const;
+        [[nodiscard]] std::optional<Generator::BindableType::ParamUsage> MakeParamUsageSupportingDefaultArg(Generator &generator) const;
 
         [[nodiscard]] Generator::EmitFuncParams PrepareFuncDefaultCtor() const;
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyCtor() const;
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncMoveCtor() const;
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyAssignment() const;
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncMoveAssignment() const;
+
+        // We use combined copy-move constructors and assignments.
+        // Making a second version of the constructor with `with_param_sugar == true` only makes sense if your class has custom
+        //   parameter usage (such as `std::string` being rewritten into `const char *` pointers).
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyMoveCtor(bool with_param_sugar = false) const;
+
+        // We use combined copy-move constructors and assignments.
+        // See above for `with_param_sugar`.
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyMoveAssignment(bool with_param_sugar = false) const;
         [[nodiscard]] Generator::EmitFuncParams PrepareFuncDestroy() const;
     };
 
@@ -48,11 +58,14 @@ namespace mrbind::CBindings
     [[nodiscard]] std::string MakeStructForwardDeclaration(std::string_view c_type_name);
 
     // Writes a pass-by enum for this C type to the `file`.
-    void MakePassByEnum(Generator &generator, Generator::OutputFile &file, std::string_view c_type_name, const Generator::TypeTraits &traits);
+    void EmitPassByEnum(Generator &generator, Generator::OutputFile &file, std::string_view c_type_name, const Generator::TypeTraits &traits);
 
     // Tries to include the rights headers in `file.source` to get `type` to work.
     // Will silently skip the type or some of its parts if we don't know what headers they need.
     void TryIncludeHeadersForCppTypeInSourceFile(Generator &generator, Generator::OutputFile &file, const cppdecl::Type &type);
+
+
+    // Predefined bindings: [
 
     // Make a simple direct type binding, such as those used for built-in C types.
     // This trusts you that the type is bindable in this (direct) manner.
@@ -63,8 +76,12 @@ namespace mrbind::CBindings
     // Unlike `MakeSimpleDirectTypeBinding()` this analyzes the type and may refuse to bind it if it doesn't understand what it is and what strategy to apply.
     [[nodiscard]] std::optional<Generator::BindableType> MakeSimpleTypeBinding(Generator &generator, const cppdecl::Type &cpp_type);
 
+    [[nodiscard]] Generator::BindableType MakeByValueClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type, const Generator::TypeTraits &traits);
+
     // If `cpp_type` is one of `target_name {const &, &&, const &&}`, then generates a default binding for them `using `MakeSimpleTypeBinding()`, and then patches the parameter usage to match those of a by-value `target_name`.
     // If `cpp_type` isn't one of the listed types, returns null.
     // If `cpp_type` is one of those types, but the default binding for `cpp_type` couldn't be generated, or if there's no binding for `target_name`, throws.
     [[nodiscard]] std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, std::string_view target_name);
+
+    // ]
 }

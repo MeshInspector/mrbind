@@ -230,7 +230,7 @@ namespace mrbind::CBindings
             // ]
 
             // This is optional. If null, we instead get the name by applying `cppdecl::ToString(..., cppdecl::ToStringFlags::identifier)` to the original C++ type name.
-            std::string c_type_name;
+            std::string custom_c_type_name;
 
             [[nodiscard]] bool KnowHeaderOrForwardDeclaration() const {return declared_in_file || declared_in_stdlib_file || forward_declaration;}
         };
@@ -362,15 +362,6 @@ namespace mrbind::CBindings
             {
                 return !IsTriviallyCopyOrMoveConstructible() && IsDefaultOrCopyOrMoveConstructible();
             }
-
-            [[nodiscard]] bool UnifyCopyMoveConstructors() const
-            {
-                return is_trivially_copy_constructible && is_trivially_move_constructible;
-            }
-            [[nodiscard]] bool UnifyCopyMoveAssignments() const
-            {
-                return is_trivially_copy_assignable && is_trivially_move_assignable;
-            }
         };
 
 
@@ -473,6 +464,12 @@ namespace mrbind::CBindings
             TypeBindableWithSameAddress bindable_with_same_address;
 
             [[nodiscard]] bool IsBindableWithSameAddress() const {return bindable_with_same_address.KnowHeaderOrForwardDeclaration();}
+
+
+            // Setting this to true only makes sense for by-value classes that are stored on the heap.
+            // This automatically generates a binding with `remove_sugar == true` that uses the pass-by enum.
+            // This requires `bindable_with_same_address.c_type_name` to be set.
+            bool is_heap_allocated_class = false;
 
 
             struct SameAddrBindableTypeDependency

@@ -232,6 +232,10 @@ namespace mrbind
         (none)
         (copy) // Copy ctor or copy assignment. Copy&swap assignments happens to go here too.
         (move) // Move ctor or move assignment.
+
+        // Only for assignment. This is when the parameter is a non-reference of the same type. This probably means it's a copy-and-swap assignment.
+        // Note that those can never be trivial.
+        (by_value_assignment)
     )
 
     struct ClassCtor : BasicFunc

@@ -25,6 +25,10 @@ namespace mrbind::CBindings
         // `type_str` is the string representation of `type` (with `ToCodeFlags::canonical_c_style` like everywhere else`).
         virtual std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) {(void)generator; (void)type; (void)type_str; return {};}
 
+        // This is a version of the above that also accepts the cases with `remove_sugar == true`. The normal overload is only called when it's false.
+        // Normally you would overload only one of the two, but both is possible too.
+        virtual std::optional<Generator::BindableType> GetBindableTypeMaybeWithoutSugar(Generator &generator, const cppdecl::Type &type, const std::string &type_str, bool remove_sugar) {(void)generator; (void)type; (void)type_str; (void)remove_sugar; return {};}
+
         // Note, this is a subset of `GetBindableType()` that's rarely useful. Prefer that function (set `.bindable_with_same_address` in the return value for the effect equivalent to this).
         // If you know this type, return the information about it.
         // This function is for types pointers to which can be freely passed between C and C++, perhaps with a cast.
