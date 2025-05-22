@@ -12,7 +12,7 @@ typedef struct MR_C_std_vector_int MR_C_std_vector_int;
 typedef enum MR_C_std_vector_int_PassBy
 {
     MR_C_std_vector_int_PassBy_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.
-    MR_C_std_vector_int_PassBy_Copy, // Copy the object into the function.
+    MR_C_std_vector_int_PassBy_Copy, // Copy the object into the function. That object is not modified, feel free to cast away the constness from it.
     MR_C_std_vector_int_PassBy_Move, // Move the object into the function. You must still manually destroy your copy.
     MR_C_std_vector_int_PassBy_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.
 } MR_C_std_vector_int_PassBy;

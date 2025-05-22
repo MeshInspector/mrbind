@@ -354,7 +354,7 @@ namespace mrbind::CBindings
         if (traits.is_default_constructible)
             file.header.contents += "    " + pass_by_enum_name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
         if (traits.is_copy_constructible)
-            file.header.contents += "    " + pass_by_enum_name + "_Copy, // Copy the object into the function.\n";
+            file.header.contents += "    " + pass_by_enum_name + "_Copy, // Copy the object into the function." + (traits.copy_constructor_takes_nonconst_ref ? "" : " That object is not modified, feel free to cast away the constness from it.") + "\n";
         if (traits.is_move_constructible)
             file.header.contents += "    " + pass_by_enum_name + "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
 

@@ -1230,6 +1230,8 @@ namespace mrbind::CBindings
                             class_info.traits.is_copy_constructible = true;
                             if (ctor.is_trivial)
                                 class_info.traits.is_trivially_copy_constructible = true;
+                            if (!self.ParseTypeOrThrow(ctor.params.at(0).type.canonical).IsConst(1))
+                                class_info.traits.copy_constructor_takes_nonconst_ref = true;
                         }
                         else if (ctor.kind == CopyMoveKind::move)
                         {

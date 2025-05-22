@@ -269,6 +269,9 @@ namespace mrbind::CBindings
             // This includes custom constructors in addition to default/copy/move.
             bool is_any_constructible = false;
 
+            // If true, the copy constructor has the form `T(T &)` instead of `T(const T &)`.
+            bool copy_constructor_takes_nonconst_ref = false;
+
             TypeTraits() {}
 
             struct SimpleTrivial {explicit SimpleTrivial() = default;};
