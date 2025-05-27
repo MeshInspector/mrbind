@@ -102,7 +102,18 @@ namespace pybind11::patched
             [](const Vector &v)
             {
                 return std::uintptr_t(v.data());
-            }
+            },
+            +"Returns the pointer to the contiguous vector contents, as an integer."
+        );
+
+        // The sizeof of the element type.
+        cl.def_property_static(
+            +"element_type_byte_size",
+            [](const pybind11::object &)
+            {
+                return sizeof(ValueType);
+            },
+            +"Returns the size of the element type, in bytes. Use with `data_pointer()`."
         );
 
         return cl;
