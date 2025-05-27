@@ -96,6 +96,15 @@ namespace pybind11::patched
             );
         }
 
+        // The data pointer as an integer.
+        cl.def(
+            +"data_pointer",
+            [](const Vector &v)
+            {
+                return std::uintptr_t(v.data());
+            }
+        );
+
         return cl;
     }
 
