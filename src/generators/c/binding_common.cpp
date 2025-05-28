@@ -57,11 +57,6 @@ namespace mrbind::CBindings
         file.header.contents += '\n';
     }
 
-    void HeapAllocatedClassBinder::EmitPassByEnum(Generator &generator, Generator::OutputFile &file) const
-    {
-        CBindings::EmitPassByEnum(generator, file, c_type_name, traits.value());
-    }
-
     std::optional<Generator::BindableType::ParamUsage> HeapAllocatedClassBinder::MakeParamUsageSupportingDefaultArg(Generator &generator) const
     {
         std::optional<Generator::BindableType::ParamUsage> ret;
@@ -75,7 +70,7 @@ namespace mrbind::CBindings
 
             // Here we only fill the `_with_default_arg` version, because that handles both.
             Generator::BindableType::ParamUsage &param_usage = ret.emplace();
-            param_usage.same_addr_bindable_type_dependencies[cpp_type_str].need_header = true; // We need the constructor selection enum.
+            param_usage.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
 
             param_usage.c_params.emplace_back().c_type = cppdecl::Type::FromSingleWord(c_type_name);
             param_usage.c_params.back().c_type.AddQualifiers(cppdecl::CvQualifiers::const_);
@@ -142,13 +137,12 @@ namespace mrbind::CBindings
         {
             // With the pass-by enum.
 
-            std::string c_enum_name_pass_by = generator.GetClassPassByEnumName(c_type_name);
-
             // Here we only fill the `_with_default_arg` version, because that handles both.
             Generator::BindableType::ParamUsage &param_usage = ret.emplace();
-            param_usage.same_addr_bindable_type_dependencies[cpp_type_str].need_header = true; // We need the constructor selection enum.
+            param_usage.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
+            param_usage.extra_headers.custom_in_header_file = [&generator]{return std::unordered_set{generator.GetPassByFile().header.path_for_inclusion};};
 
-            param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(c_enum_name_pass_by);
+            param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(generator.GetPassByEnumName());
             param_usage.c_params.back().name_suffix = "_pass_by";
             param_usage.c_params.emplace_back().c_type = cppdecl::Type::FromSingleWord(c_type_name);
             param_usage.c_params.back().c_type.AddModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
@@ -156,7 +150,6 @@ namespace mrbind::CBindings
             param_usage.c_params_to_cpp = [
                 &generator,
                 cpp_type_str,
-                c_enum_name_pass_by = c_enum_name_pass_by,
                 is_default_constructible = traits.value().is_default_constructible,
                 is_copy_constructible = traits.value().is_copy_constructible,
                 is_move_constructible = traits.value().is_move_constructible
@@ -173,8 +166,6 @@ namespace mrbind::CBindings
                     ret += cpp_param_name;
                     ret += ", ";
                     ret += cpp_type_str;
-                    ret += ", ";
-                    ret += c_enum_name_pass_by;
                     ret += ") ";
                 }
 
@@ -184,8 +175,6 @@ namespace mrbind::CBindings
                     ret += cpp_param_name;
                     ret += ", ";
                     ret += cpp_type_str;
-                    ret += ", ";
-                    ret += c_enum_name_pass_by;
                     ret += ") ";
                 }
 
@@ -195,8 +184,6 @@ namespace mrbind::CBindings
                     ret += cpp_param_name;
                     ret += ", ";
                     ret += cpp_type_str;
-                    ret += ", ";
-                    ret += c_enum_name_pass_by;
                     ret += ") ";
                 }
 
@@ -206,8 +193,6 @@ namespace mrbind::CBindings
                     ret += cpp_param_name;
                     ret += ", ";
                     ret += cpp_type_str;
-                    ret += ", ";
-                    ret += c_enum_name_pass_by;
                     ret += ") ";
                 }
                 else
@@ -216,8 +201,6 @@ namespace mrbind::CBindings
                     ret += cpp_param_name;
                     ret += ", ";
                     ret += cpp_type_str;
-                    ret += ", ";
-                    ret += c_enum_name_pass_by;
                     ret += ", ";
                     ret += default_arg;
                     ret += ") ";
@@ -232,15 +215,13 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.append_to_comment = [c_enum_name_pass_by = c_enum_name_pass_by](std::string_view cpp_param_name, bool has_default_arg)
+            param_usage.append_to_comment = [pass_by_enum_name = generator.GetPassByEnumName()](std::string_view cpp_param_name, bool has_default_arg)
             {
                 (void)cpp_param_name;
                 std::string ret;
                 if (has_default_arg)
                 {
-                    ret += "///   To use the default argument, pass `";
-                    ret += c_enum_name_pass_by;
-                    ret += "_DefaultArgument` and a null pointer.";
+                    ret += "///   To use the default argument, pass `" + pass_by_enum_name + "_DefaultArgument` and a null pointer.";
                 }
                 return ret;
             };
@@ -341,25 +322,6 @@ namespace mrbind::CBindings
         ret += c_type_name;
         ret += ';';
         return ret;
-    }
-
-    void EmitPassByEnum(Generator &generator, Generator::OutputFile &file, std::string_view c_type_name, const Generator::TypeTraits &traits)
-    {
-        assert(traits.NeedsPassByEnum());
-
-        std::string pass_by_enum_name = generator.GetClassPassByEnumName(c_type_name);
-
-        file.header.contents += "\ntypedef enum " + pass_by_enum_name + "\n{\n";
-        if (traits.is_default_constructible)
-            file.header.contents += "    " + pass_by_enum_name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
-        if (traits.is_copy_constructible)
-            file.header.contents += "    " + pass_by_enum_name + "_Copy, // Copy the object into the function." + (traits.copy_constructor_takes_nonconst_ref ? "" : " That object is not modified, feel free to cast away the constness from it.") + "\n";
-        if (traits.is_move_constructible)
-            file.header.contents += "    " + pass_by_enum_name + "_Move, // Move the object into the function. You must still manually destroy your copy.\n";
-
-        file.header.contents += "    " + pass_by_enum_name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
-
-        file.header.contents += "} " + pass_by_enum_name + ";\n";
     }
 
     void TryIncludeHeadersForCppTypeInSourceFile(Generator &generator, Generator::OutputFile &file, const cppdecl::Type &type)

@@ -2005,7 +2005,7 @@ namespace mrbind
             // Combine together similar types, if needed.
             if (bool(params->adjust_type_name_flags))
             {
-                CombineSimilarTypes(params->parsed_result, MakeAdjustTypeNameFunc(params->adjust_type_name_flags));
+                CombineSimilarTypes(params->parsed_result, params->simplify_canonical_type_names ? MakeAdjustTypeNameFunc(params->adjust_type_name_flags) : MakeAdjustTypeNameFuncLegacyWithoutCppdecl(params->adjust_type_name_flags));
             }
 
 

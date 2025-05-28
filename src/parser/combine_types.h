@@ -23,6 +23,8 @@ namespace mrbind
 
     // Constructs a callback to be used with `CombineSimilarTypes()`.
     [[nodiscard]] AdjustTypeNameFunc MakeAdjustTypeNameFunc(AdjustTypeNameFlags flags);
+    // This version is based on raw string manipulation instead of the `cppdecl` library.
+    [[nodiscard]] AdjustTypeNameFunc MakeAdjustTypeNameFuncLegacyWithoutCppdecl(AdjustTypeNameFlags flags);
 
     // Parses `AdjustTypeNameFlags` from a string, throws on failure.
     [[nodiscard]] AdjustTypeNameFlags ParseAdjustTypeNameFlags(std::string_view view, char sep = ',');

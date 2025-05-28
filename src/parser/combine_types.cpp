@@ -1,4 +1,6 @@
 #include "combine_types.h"
+#include "cppdecl/declarations/parse.h"
+#include "cppdecl/declarations/to_string.h"
 
 #include <string>
 #include <string_view>
@@ -65,6 +67,65 @@ namespace mrbind
     }
 
     AdjustTypeNameFunc MakeAdjustTypeNameFunc(AdjustTypeNameFlags flags)
+    {
+        return [flags](std::string_view name) -> std::string
+        {
+            const std::string_view original_name = name;
+            auto result = cppdecl::ParseType(name);
+            if (auto error = std::get_if<cppdecl::ParseError>(&result))
+                throw std::runtime_error("While combining types, cppdecl failed to parse type `" + std::string(name) + "`, error at offset " + std::to_string(name.data() - original_name.data()) + ": " + error->message + " Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
+            if (!name.empty())
+                throw std::runtime_error("While combining types, cppdecl failed to parse type `" + std::string(name) + "`, junk starting at offset " + std::to_string(name.data() - original_name.data()) + ". Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
+
+            cppdecl::Type &type = std::get<cppdecl::Type>(result);
+
+            while (true)
+            {
+                bool progress = false;
+
+                if (bool(flags & AdjustTypeNameFlags::remove_ptr) && type.Is<cppdecl::Pointer>())
+                {
+                    type.RemoveModifier();
+                    progress = true;
+                }
+
+                if (bool(flags & AdjustTypeNameFlags::remove_ref) && type.Is<cppdecl::Reference>())
+                {
+                    type.RemoveModifier();
+                    progress = true;
+                }
+
+                if (bool(flags & AdjustTypeNameFlags::remove_smart_ptr))
+                {
+                    if (
+                        type.IsOnlyQualifiedName(cppdecl::SingleWordFlags::ignore_template_args) &&
+                        type.simple_type.name.parts.size() == 2 &&
+                        type.simple_type.name.parts.at(0).AsSingleWord() == "std" &&
+                        (
+                            type.simple_type.name.parts.at(1).AsSingleWord(cppdecl::SingleWordFlags::ignore_template_args) == "shared_ptr" ||
+                            type.simple_type.name.parts.at(1).AsSingleWord(cppdecl::SingleWordFlags::ignore_template_args) == "unique_ptr"
+                        ) &&
+                        type.simple_type.name.parts.at(1).template_args &&
+                        type.simple_type.name.parts.at(1).template_args->args.size() >= 1 && // Here we do allow custom deleters by using `>=`. Not entirely sure if we should continue doing so, we probably should.
+                        std::holds_alternative<cppdecl::Type>(type.simple_type.name.parts.at(1).template_args->args.front().var)
+                    )
+                    {
+                        // Move the type into a temporary variable, because moving directly to the parent sounds unsafe.
+                        cppdecl::Type elem_type = std::move(std::get<cppdecl::Type>(type.simple_type.name.parts.at(1).template_args->args.front().var));
+                        type = std::move(elem_type);
+                        progress = true;
+                    }
+                }
+
+                if (!progress)
+                    break;
+            }
+
+            return cppdecl::ToCode(type, {});
+        };
+    }
+
+    AdjustTypeNameFunc MakeAdjustTypeNameFuncLegacyWithoutCppdecl(AdjustTypeNameFlags flags)
     {
         return [flags](std::string_view name) -> std::string
         {

@@ -22,7 +22,6 @@ namespace mrbind::CBindings::Modules
             {
                 file.header.contents += "/// A heap-allocated string.\n";
                 binder.EmitForwardDeclaration(file);
-                binder.EmitPassByEnum(generator, file);
 
                 generator.EmitFunction(file, binder.PrepareFuncDefaultCtor());
                 generator.EmitFunction(file, binder.PrepareFuncCopyMoveCtor());
@@ -108,7 +107,6 @@ namespace mrbind::CBindings::Modules
                 new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
                 new_type.return_usage = binder.MakeReturnUsage();
-                new_type.return_usage->same_addr_bindable_type_dependencies.at("std::string").need_header = true; // Force our header to be included.
 
                 Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
                 auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});

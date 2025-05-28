@@ -35,7 +35,6 @@ namespace mrbind::CBindings
         [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage() const;
 
         void EmitForwardDeclaration(Generator::OutputFile &file) const;
-        void EmitPassByEnum(Generator &generator, Generator::OutputFile &file) const;
 
         // This goes to `param_usage_with_default_arg`. `param_usage` should stay empty, since `param_usage_with_default_arg` alone can handle
         //   both parameters with default arguments and without.
@@ -56,9 +55,6 @@ namespace mrbind::CBindings
 
     // A simple function that returns `typedef struct X X;`, replacing `X` with the given name.
     [[nodiscard]] std::string MakeStructForwardDeclaration(std::string_view c_type_name);
-
-    // Writes a pass-by enum for this C type to the `file`.
-    void EmitPassByEnum(Generator &generator, Generator::OutputFile &file, std::string_view c_type_name, const Generator::TypeTraits &traits);
 
     // Tries to include the rights headers in `file.source` to get `type` to work.
     // Will silently skip the type or some of its parts if we don't know what headers they need.

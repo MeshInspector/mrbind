@@ -15,7 +15,7 @@ namespace mrbind::CBindings::Modules
                 type.IsOnlyQualifiedName() &&
                 type.simple_type.name.parts.size() == 2 &&
                 type.simple_type.name.parts.at(0).AsSingleWord() == "std" &&
-                type.simple_type.name.parts.at(1).AsSingleWordIgnoringTemplateArgs() == "vector" &&
+                type.simple_type.name.parts.at(1).AsSingleWord(cppdecl::SingleWordFlags::ignore_template_args) == "vector" &&
                 type.simple_type.name.parts.at(1).template_args &&
                 type.simple_type.name.parts.at(1).template_args->args.size() >= 1
             )

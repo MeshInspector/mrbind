@@ -151,21 +151,48 @@ namespace mrbind::CBindings
         file.header.preamble += "#pragma once\n\n";
         file.header.stdlib_headers.insert("stdexcept");
 
-        // Class default arguments.
+        std::string pass_by_enum_name = GetPassByEnumName();
+
+        // Class by-value argument helpers.
         file.header.contents += "namespace mrbindc_details\n";
         file.header.contents += "{\n";
         file.header.contents += "    // Those are used to handle by-value arguments of class types,\n";
         file.header.contents += "    //   which are passed as a pointer plus a enum explaining how to handle it.\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultConstruct` was used.\") : cpptype_{}) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Copy ? cpptype_(*(cpptype_ *)param_) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_Move ? cpptype_(std::move(*(cpptype_ *)param_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, cpptype_, pass_by_enum_, ...) param_##_pass_by == pass_by_enum_##_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultArgument` was used.\") : cpptype_(__VA_ARGS__)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, cpptype_, pass_by_enum_) param_##_pass_by == pass_by_enum_##_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `PassBy_DefaultArgument` was used for it.\") :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, cpptype_) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultConstruct` was used.\") : cpptype_{}) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, cpptype_) param_##_pass_by == " + pass_by_enum_name + "_Copy ? cpptype_(*(cpptype_ *)param_) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpptype_) param_##_pass_by == " + pass_by_enum_name + "_Move ? cpptype_(std::move(*(cpptype_ *)param_)) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, cpptype_, ...) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultArgument` was used.\") : cpptype_(__VA_ARGS__)) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, cpptype_) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `PassBy_DefaultArgument` was used for it.\") :\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, cpptype_) true ? throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\") : ((cpptype_ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
         file.header.contents += "\n";
         file.header.contents += "    // Converts an rvalue to an lvalue.\n";
         file.header.contents += "    template <typename T> T &unmove(T &&value) {return static_cast<T &>(value);}\n";
         file.header.contents += "} // namespace mrbindc_details \n";
+        return file;
+    }
+
+    std::string Generator::GetPassByEnumName()
+    {
+        return MakePublicHelperName("PassBy");
+    }
+
+    Generator::OutputFile &Generator::GetPassByFile()
+    {
+        bool is_new = false;
+        OutputFile &file = GetPublicHelperFile("pass_by", &is_new, OutputFile::InitFlags::no_extern_c);
+        if (!is_new)
+            return file;
+
+        std::string name = GetPassByEnumName();
+
+        file.header.contents += "\ntypedef enum " + name + "\n";
+        file.header.contents += "{\n";
+        file.header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
+        file.header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
+        file.header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
+        file.header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
+        file.header.contents += "} " + name + ";\n";
+
         return file;
     }
 
@@ -225,11 +252,6 @@ namespace mrbind::CBindings
     std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name) const
     {
         return std::string(c_type_name) + "_Destroy";
-    }
-
-    std::string Generator::GetClassPassByEnumName(std::string_view c_type_name) const
-    {
-        return std::string(c_type_name) + "_PassBy";
     }
 
     Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name)
@@ -1698,9 +1720,6 @@ namespace mrbind::CBindings
                 // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
                 const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(type_str);
 
-                const ParsedTypeInfo &type_info = self.parsed_type_info.at(type_str);
-                const ParsedTypeInfo::ClassDesc &class_info = std::get<ParsedTypeInfo::ClassDesc>(type_info.input_type);
-
                 // Forward-declaring in the middle of the file, not in the forward-declarations section.
                 // Also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
 
@@ -1713,10 +1732,6 @@ namespace mrbind::CBindings
                 }
                 file.header.contents += same_addr_bindable_info.forward_declaration.value();
                 file.header.contents += '\n';
-
-                // Constructor selector enum?
-                if (class_info.traits.NeedsPassByEnum())
-                    EmitPassByEnum(self, file, type_info.c_type_str, class_info.traits);
 
                 for (const ClassMemberVariant &var : cl.members)
                 {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <exports.h>
+#include <pass_by.h>
 #include <std_vector_int.h>
 
 #ifdef __cplusplus
@@ -9,12 +10,12 @@ extern "C" {
 
 
 /// Generated from function `MR::StdVector::Set`.
-MR_C_API void MR_StdVector_Set(MR_C_std_vector_int_PassBy _0_pass_by, MR_C_std_vector_int *_0);
+MR_C_API void MR_StdVector_Set(MR_C_PassBy _0_pass_by, MR_C_std_vector_int *_0);
 
 /// Generated from function `MR::StdVector::SetWithDefault`.
 /// Parameter `_0` has a default argument: `{1, 2, 3}`.
-///   To use the default argument, pass `MR_C_std_vector_int_PassBy_DefaultArgument` and a null pointer.
-MR_C_API void MR_StdVector_SetWithDefault(MR_C_std_vector_int_PassBy _0_pass_by, MR_C_std_vector_int *_0);
+///   To use the default argument, pass `MR_C_PassBy_DefaultArgument` and a null pointer.
+MR_C_API void MR_StdVector_SetWithDefault(MR_C_PassBy _0_pass_by, MR_C_std_vector_int *_0);
 
 /// Generated from function `MR::StdVector::Get`.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_Destroy()` to free it when you're done using it.

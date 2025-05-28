@@ -188,7 +188,13 @@ namespace mrbind::CBindings
 
         // Returns a special output file that holds the internal implementation details.
         // It is created lazily only if this is called.
+        // It is a C++-only header in the source directory. It doesn't appear in the include directory.
         [[nodiscard]] OutputFile &GetInternalDetailsFile();
+
+        // Returns the C name of the `PassBy` enum, which is used when passing classes to functions by value.
+        [[nodiscard]] std::string GetPassByEnumName();
+        // Returns the public C header that declares the `PassBy` enum.
+        [[nodiscard]] OutputFile &GetPassByFile();
 
         // Returns a public helper header with this name. It gets created on the first use.
         [[nodiscard]] OutputFile &GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {});
@@ -203,8 +209,6 @@ namespace mrbind::CBindings
 
         // The destroy function name for parsed and custom classes.
         [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name) const;
-        // The pass-by enum name for parsed and custom classes.
-        [[nodiscard]] std::string GetClassPassByEnumName(std::string_view c_type_name) const;
 
 
         // Those types are a subset of `IsSimplyBindableIndirectReinterpret()` for pure qualified names (without cvref/ptr-qualifiers).

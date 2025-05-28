@@ -60,7 +60,6 @@ namespace mrbind::CBindings
 
             file.header.contents += "/// Generated from C++ container `" + cppdecl::ToCode(params.cpp_container_type, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
             class_binder.EmitForwardDeclaration(file);
-            class_binder.EmitPassByEnum(generator, file);
 
             // The 6 special member functions:
 

@@ -26,19 +26,19 @@ MR_A *MR_A_Construct(void)
     return (MR_A *)new MR::A(MR::A());
 }
 
-MR_A *MR_A_ConstructFromAnother(MR_A_PassBy _other_pass_by, MR_A *_other)
+MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_other)
 {
     using namespace MR;
     return (MR_A *)new MR::A(MR::A(
-        MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_COPY(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_MOVE(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_END(_other, MR::A) 
+        MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, MR::A) MRBINDC_CLASSARG_MOVE(_other, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR::A) MRBINDC_CLASSARG_END(_other, MR::A) 
     ));
 }
 
-MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_A_PassBy _other_pass_by, MR_A *_other)
+MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other)
 {
     using namespace MR;
     return (MR_A *)&((*((MR::A *)_this)).operator=(
-        MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_COPY(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_MOVE(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR::A, MR_A_PassBy) MRBINDC_CLASSARG_END(_other, MR::A) 
+        MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, MR::A) MRBINDC_CLASSARG_MOVE(_other, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR::A) MRBINDC_CLASSARG_END(_other, MR::A) 
     ));
 }
 
@@ -48,11 +48,11 @@ MR_C_std_vector_MR_A *MR_foo(void)
     return (MR_C_std_vector_MR_A *)new std::vector<MR::A>(MR::foo());
 }
 
-void MR_bar(MR_C_std_vector_MR_A_PassBy _0_pass_by, MR_C_std_vector_MR_A *_0)
+void MR_bar(MR_C_PassBy _0_pass_by, MR_C_std_vector_MR_A *_0)
 {
     using namespace MR;
     MR::bar(
-        MRBINDC_CLASSARG_DEF_CTOR(_0, std::vector<MR::A>, MR_C_std_vector_MR_A_PassBy) MRBINDC_CLASSARG_COPY(_0, std::vector<MR::A>, MR_C_std_vector_MR_A_PassBy) MRBINDC_CLASSARG_MOVE(_0, std::vector<MR::A>, MR_C_std_vector_MR_A_PassBy) MRBINDC_CLASSARG_NO_DEF_ARG(_0, std::vector<MR::A>, MR_C_std_vector_MR_A_PassBy) MRBINDC_CLASSARG_END(_0, std::vector<MR::A>) 
+        MRBINDC_CLASSARG_DEF_CTOR(_0, std::vector<MR::A>) MRBINDC_CLASSARG_COPY(_0, std::vector<MR::A>) MRBINDC_CLASSARG_MOVE(_0, std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_0, std::vector<MR::A>) MRBINDC_CLASSARG_END(_0, std::vector<MR::A>) 
     );
 }
 
