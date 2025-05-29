@@ -26,4 +26,9 @@ namespace MR::StdContainers
     inline std::multiset<int> GetMultiSet() {return {};}
     inline std::unordered_set<int> GetUnorderedSet() {return {};}
     inline std::unordered_multiset<int> GetUnorderedMultiSet() {return {};}
+
+    // For this `std::multiset` specialization, mention all iterators so that they get merged.
+    inline std::multiset<float> GetMultiSetWithMergedIters() {return {};}
+    inline std::multiset<float>::iterator GetMergedIter() {return {};}
+    inline std::multiset<float>::const_iterator GetMergedIterConst() {return {};}
 }

@@ -119,3 +119,24 @@ MR_C_std_unordered_multiset_int *MR_StdContainers_GetUnorderedMultiSet(void)
     return (MR_C_std_unordered_multiset_int *)new std::unordered_multiset<int>(MR::StdContainers::GetUnorderedMultiSet());
 }
 
+MR_C_std_multiset_float *MR_StdContainers_GetMultiSetWithMergedIters(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_multiset_float *)new std::multiset<float>(MR::StdContainers::GetMultiSetWithMergedIters());
+}
+
+MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIter(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(MR::StdContainers::GetMergedIter());
+}
+
+MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(MR::StdContainers::GetMergedIterConst());
+}
+

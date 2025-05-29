@@ -4,7 +4,9 @@
 #include <pass_by.h>
 #include <std_deque_int.h>
 #include <std_list_int.h>
+#include <std_multiset_float.h>
 #include <std_multiset_int.h>
+#include <std_set_float.h>
 #include <std_set_int.h>
 #include <std_unordered_multiset_int.h>
 #include <std_unordered_set_int.h>
@@ -74,6 +76,19 @@ MR_C_API MR_C_std_unordered_set_int *MR_StdContainers_GetUnorderedSet(void);
 /// Generated from function `MR::StdContainers::GetUnorderedMultiSet`.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multiset_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multiset_int *MR_StdContainers_GetUnorderedMultiSet(void);
+
+// For this `std::multiset` specialization, mention all iterators so that they get merged.
+/// Generated from function `MR::StdContainers::GetMultiSetWithMergedIters`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_multiset_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_multiset_float *MR_StdContainers_GetMultiSetWithMergedIters(void);
+
+/// Generated from function `MR::StdContainers::GetMergedIter`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIter(void);
+
+/// Generated from function `MR::StdContainers::GetMergedIterConst`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(void);
 
 #ifdef __cplusplus
 } // extern "C"
