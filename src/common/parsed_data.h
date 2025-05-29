@@ -482,13 +482,13 @@ namespace mrbind
         MBREFL_STRUCT(
             // This will never contain the `_poisoned` bit.
             (TypeUses)(uses)
-
-            // If this bit is set, the type won't be emitted. So you should never see this in the parser output.
-            // This is set by typedefs that have the `mrbind::ignore` attribute, to make sure the spelling doesn't get emitted even if
-            //   it later appears in a different context. (E.g. if a function parameter uses this typedef as the spelling, it would normally
-            //   get emitted despite the typedef itself being ignored. But the fact that the typedef sets this bit lets us destroy the unwanted spelling.)
-            (bool)(poisoned, false)
         )
+
+        // If this bit is set, the type won't be emitted. So you should never see this in the parser output.
+        // This is set by typedefs that have the `mrbind::ignore` attribute, to make sure the spelling doesn't get emitted even if
+        //   it later appears in a different context. (E.g. if a function parameter uses this typedef as the spelling, it would normally
+        //   get emitted despite the typedef itself being ignored. But the fact that the typedef sets this bit lets us destroy the unwanted spelling.)
+        bool poisoned = false;
     };
 
     struct TypeInformation
