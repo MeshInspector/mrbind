@@ -15,6 +15,7 @@ namespace mrbind::CBindings
 
         cppdecl::QualifiedName cpp_type_name;
         std::string c_type_name;
+        std::string c_underlying_type_name;
 
         bool returning_by_value_includes_header = false;
 
@@ -28,7 +29,9 @@ namespace mrbind::CBindings
 
         std::optional<Generator::TypeTraits> traits;
 
-        [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name);
+        // If `underlying_c_type_name` isn't empty, it's used as the true underlying canonical type name in the C code.
+        // It's not used in the method names and such, and not in the user-facing typedef for this type. Only in the struct name.
+        [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_name = "");
 
         [[nodiscard]] std::string MakeForwardDeclaration() const;
 
@@ -53,8 +56,9 @@ namespace mrbind::CBindings
         [[nodiscard]] Generator::EmitFuncParams PrepareFuncDestroy() const;
     };
 
-    // A simple function that returns `typedef struct X X;`, replacing `X` with the given name.
-    [[nodiscard]] std::string MakeStructForwardDeclaration(std::string_view c_type_name);
+    // A simple function that returns `typedef struct c_[underlying_]type_name c_type_name;`.
+    // `c_underlying_type_name` is only used if it's not empty. Otherwise we use `c_type_name`.
+    [[nodiscard]] std::string MakeStructForwardDeclaration(std::string_view c_type_name, std::string_view c_underlying_type_name = "");
 
     // Tries to include the rights headers in `file.source` to get `type` to work.
     // Will silently skip the type or some of its parts if we don't know what headers they need.

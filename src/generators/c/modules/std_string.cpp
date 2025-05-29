@@ -20,7 +20,7 @@ namespace mrbind::CBindings::Modules
 
             if (is_new)
             {
-                file.header.contents += "/// A heap-allocated string.\n";
+                file.header.contents += "\n/// A heap-allocated string.\n";
                 binder.EmitForwardDeclaration(file);
 
                 generator.EmitFunction(file, binder.PrepareFuncDefaultCtor());
@@ -69,7 +69,6 @@ namespace mrbind::CBindings::Modules
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "@this@.c_str() + @this@.size()";
-                    emit.cpp_called_func_parens = {};
                     generator.EmitFunction(file, emit);
                 }
 
@@ -80,7 +79,6 @@ namespace mrbind::CBindings::Modules
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "@this@.data() + @this@.size()";
-                    emit.cpp_called_func_parens = {};
                     generator.EmitFunction(file, emit);
                 }
             }
@@ -113,17 +111,15 @@ namespace mrbind::CBindings::Modules
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
                 param_usage.c_params.back().name_suffix += "_end";
-                param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
                 {
-                    (void)file;
-
-                    std::string ret;
+                    std::string ret = "(";
                     ret += cpp_param_name;
                     ret += " ? (" + std::string(cpp_param_name) + "_end ? std::string(" + std::string(cpp_param_name) + ", " + std::string(cpp_param_name) + "_end) : std::string(" + std::string(cpp_param_name) + ")) : ";
 
                     if (default_arg.empty())
                     {
-                        file.stdlib_headers.insert("stdexcept");
+                        source_file.stdlib_headers.insert("stdexcept");
                         ret += "throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
                     }
                     else
@@ -131,6 +127,7 @@ namespace mrbind::CBindings::Modules
                         ret += "std::string(" + std::string(default_arg) + ")";
                     }
 
+                    ret += ")";
                     return ret;
                 };
                 param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)

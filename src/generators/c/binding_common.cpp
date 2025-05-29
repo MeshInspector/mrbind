@@ -2,7 +2,7 @@
 
 namespace mrbind::CBindings
 {
-    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name)
+    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_name)
     {
         HeapAllocatedClassBinder ret;
 
@@ -10,6 +10,7 @@ namespace mrbind::CBindings
 
         ret.basic_c_name = cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier);
         ret.c_type_name = generator.MakePublicHelperName(ret.basic_c_name);
+        ret.c_underlying_type_name = !new_underlying_c_type_name.empty() ? generator.MakePublicHelperName(new_underlying_c_type_name) : ret.c_type_name;
 
         ret.c_func_name_default_ctor             = generator.MakePublicHelperName(ret.basic_c_name + "_DefaultConstruct");
         ret.c_func_name_copy_move_ctor           = generator.MakePublicHelperName(ret.basic_c_name + "_ConstructFromAnother");
@@ -27,7 +28,7 @@ namespace mrbind::CBindings
 
     std::string HeapAllocatedClassBinder::MakeForwardDeclaration() const
     {
-        return MakeStructForwardDeclaration(c_type_name);
+        return MakeStructForwardDeclaration(c_type_name, c_underlying_type_name);
     }
 
     Generator::BindableType::ReturnUsage HeapAllocatedClassBinder::MakeReturnUsage() const
@@ -64,7 +65,7 @@ namespace mrbind::CBindings
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         // Parameter passing strategy.
-        if (traits.value().IsTriviallyCopyOrMoveConstructible())
+        if (traits.value().UnconditionallyCopyOnPassByValue())
         {
             // For trivialy-copy/move-constructible classes, just pass a pointer.
 
@@ -79,9 +80,9 @@ namespace mrbind::CBindings
             param_usage.c_params_to_cpp = [
                 cpp_type_str,
                 only_trivially_move_constructible = traits.value().is_trivially_move_constructible && !traits.value().is_trivially_copy_constructible
-            ](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+            ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
             {
-                std::string ret;
+                std::string ret = "(";
 
                 ret += cpp_param_name;
                 ret += " ? ";
@@ -90,7 +91,7 @@ namespace mrbind::CBindings
                 if (only_trivially_move_constructible)
                 {
                     // A bit jank, and probably rarely useful, but why not.
-                    file.custom_forward_declarations.insert("utility");
+                    source_file.custom_forward_declarations.insert("utility");
                     ret += "std::move(";
                 }
                 ret += "*(";
@@ -112,12 +113,13 @@ namespace mrbind::CBindings
                 }
                 else
                 {
-                    file.stdlib_headers.insert("stdexcept");
+                    source_file.stdlib_headers.insert("stdexcept");
                     ret += "throw std::runtime_error(\"Parameter `";
                     ret += cpp_param_name;
                     ret += "` can not be null.\")";
                 }
 
+                ret += ")";
                 return ret;
             };
 
@@ -153,12 +155,12 @@ namespace mrbind::CBindings
                 is_default_constructible = traits.value().is_default_constructible,
                 is_copy_constructible = traits.value().is_copy_constructible,
                 is_move_constructible = traits.value().is_move_constructible
-            ](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+            ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
             {
-                std::string ret;
+                std::string ret = "(";
 
                 // Insert the defails file for the `PassBy` macros.
-                file.custom_headers.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
+                source_file.custom_headers.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
 
                 if (is_default_constructible)
                 {
@@ -210,8 +212,9 @@ namespace mrbind::CBindings
                 ret += cpp_param_name;
                 ret += ", ";
                 ret += cpp_type_str;
-                ret += ") ";
+                ret += ")";
 
+                ret += ")";
                 return ret;
             };
 
@@ -306,7 +309,6 @@ namespace mrbind::CBindings
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 
         ret.cpp_called_func = "delete &@this@";
-        ret.cpp_called_func_parens = {};
 
         ret.c_comment += "/// Destroys a heap-allocated instance of `" + cpp_type_str + "`.";
 
@@ -314,10 +316,10 @@ namespace mrbind::CBindings
     }
 
 
-    std::string MakeStructForwardDeclaration(std::string_view c_type_name)
+    std::string MakeStructForwardDeclaration(std::string_view c_type_name, std::string_view c_underlying_type_name)
     {
         std::string ret = "typedef struct ";
-        ret += c_type_name;
+        ret += !c_underlying_type_name.empty() ? c_underlying_type_name : c_type_name;
         ret += ' ';
         ret += c_type_name;
         ret += ';';
@@ -348,7 +350,7 @@ namespace mrbind::CBindings
     {
         Generator::BindableType ret(c_type);
 
-        ret.traits = Generator::TypeTraits::TrivialSameInCAndCpp{};
+        ret.traits = Generator::TypeTraits::TrivialAndSameSizeInCAndCpp{};
 
         // Allow default arguments via pointers.
         auto &param_def_arg = ret.param_usage_with_default_arg.emplace();
@@ -356,9 +358,9 @@ namespace mrbind::CBindings
             .c_type = cppdecl::Type(c_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
         });
         param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
-        param_def_arg.c_params_to_cpp = [type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+        param_def_arg.c_params_to_cpp = [type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
         {
-            (void)file;
+            (void)source_file;
             std::string ret;
             ret += cpp_param_name;
             ret += " ? *";
@@ -397,8 +399,8 @@ namespace mrbind::CBindings
             Generator::BindableType new_type(type_c_style);
 
             // I assume `IsSimplyBindableDirectCast()` is only going to trigger for simple types that are trivial enough for this. This could change later?
-            new_type.traits = Generator::TypeTraits::TrivialSameInCAndCpp{};
-            new_type.traits->same_size_in_c_and_cpp = false; // Enum size might not match though.
+            // Must assume different size in C and C++ because of enums (with custom underlying types).
+            new_type.traits = Generator::TypeTraits::TrivialButDifferentSizeInCAndCpp{};
 
             // Add the casts!
             new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
@@ -406,10 +408,11 @@ namespace mrbind::CBindings
                 (void)file;
                 return "return (" + type_str_c + ")(" + std::string(expr) + ");";
             };
-            new_type.param_usage->c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &, std::string_view cpp_param_name, std::string_view default_arg)
+            new_type.param_usage->c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
             {
+                (void)source_file;
                 (void)default_arg;
-                return "(" + cpp_type_str + ")" + std::string(cpp_param_name);
+                return "((" + cpp_type_str + ")" + std::string(cpp_param_name) + ")";
             };
 
             // Allow default arguments via pointers.
@@ -418,9 +421,9 @@ namespace mrbind::CBindings
                 .c_type = type_c_style.AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
             });
             param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
-            param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+            param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
             {
-                (void)file;
+                (void)source_file;
                 std::string ret;
                 ret += cpp_param_name;
                 ret += " ? (";
@@ -470,12 +473,12 @@ namespace mrbind::CBindings
                 // Return type:
 
                 new_type.return_usage->c_type.modifiers.front().var = cppdecl::Pointer{};
+                new_type.return_usage->append_to_comment = "/// The returned pointer will never be null. It is non-owning, do NOT destroy it.";
+                if (is_rvalue_ref)
+                    new_type.return_usage->append_to_comment += "\n/// In C++ this returns an rvalue reference.";
 
                 if (with_cast)
                 {
-                    new_type.return_usage->append_to_comment = "/// The returned pointer is non-owning, do NOT destroy it.";
-                    if (is_rvalue_ref)
-                        new_type.return_usage->append_to_comment += "\n/// In C++ this returns an rvalue reference.";
 
                     auto ptr_type_c_style = type_c_style;
                     assert(ptr_type_c_style.Is<cppdecl::Reference>());
@@ -559,15 +562,16 @@ namespace mrbind::CBindings
                     cpp_ptr_type_str = cppdecl::ToCode(cppdecl::Type(ref_target_type).AddModifier(cppdecl::Pointer{}), cppdecl::ToCodeFlags::canonical_c_style),
                     with_cast,
                     is_rvalue_ref
-                ](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
                 {
                     std::string ret;
                     if (is_rvalue_ref)
                     {
-                        file.stdlib_headers.insert("utility");
+                        source_file.stdlib_headers.insert("utility");
                         // This also moves the default argument, but who cares, right? It shouldn't make any difference.
-                        ret += "std::move(";
+                        ret = "std::move";
                     }
+                    ret += "(";
                     ret += cpp_param_name;
                     ret += " ? ";
                     ret += "*";
@@ -586,7 +590,7 @@ namespace mrbind::CBindings
                     ret += " : ";
                     if (default_arg.empty())
                     {
-                        file.stdlib_headers.insert("stdexcept");
+                        source_file.stdlib_headers.insert("stdexcept");
                         ret += "throw std::runtime_error(\"Parameter `";
                         ret += cpp_param_name;
                         ret += "` can not be null.\")";
@@ -600,10 +604,7 @@ namespace mrbind::CBindings
                         ret += ")";
                     }
 
-                    if (is_rvalue_ref)
-                    {
-                        ret += ")"; // Close `std::move(...)`.
-                    }
+                    ret += ")";
                     return ret;
                 };
 

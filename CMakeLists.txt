@@ -83,7 +83,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         src/generators/c/modules/std_integral_typedefs.cpp
         src/generators/c/modules/std_string_view.cpp
         src/generators/c/modules/std_string.cpp
-        src/generators/c/modules/std_vector.cpp
+        src/generators/c/modules/std_containers.cpp
     )
     target_include_directories(mrbind_gen_c PRIVATE
         deps/cppdecl/include

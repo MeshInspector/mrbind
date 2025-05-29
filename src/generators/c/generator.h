@@ -64,7 +64,13 @@ namespace mrbind::CBindings
         // ]
 
 
-        // The extra modules that we load.
+        // This is based on the information in `data`.
+        // Maps known type names in the input file to their canonical forms as reported by libclang.
+        // The keys are roundtripped through `cppdecl::ToCode(..., canonical_c_style)`.
+        std::unordered_map<std::string, cppdecl::Type> type_alt_spelling_to_canonical;
+
+
+        // The extra modules that were loaded.
         std::vector<std::unique_ptr<Module>> modules;
 
 
@@ -281,11 +287,15 @@ namespace mrbind::CBindings
             // The type size is known in C, and is the same in C and C++.
             bool same_size_in_c_and_cpp = false;
 
+            // Set to true to indicate that the pass-by-value is dirt cheap and should always copy, instead of offering the pass-by enum.
+            // This already happens by default if `is_trivially_copy_constructible || is_trivially_move_constructible`, and this variable is a way to explicitly opt into this despite not being trivial.
+            bool assume_copying_is_cheap = false;
+
             TypeTraits() {}
 
-            struct TrivialSameInCAndCpp {explicit TrivialSameInCAndCpp() = default;};
+            struct TrivialAndSameSizeInCAndCpp {explicit TrivialAndSameSizeInCAndCpp() = default;};
             // This is for types that are copyable and have all their operations trivial.
-            TypeTraits(TrivialSameInCAndCpp)
+            TypeTraits(TrivialAndSameSizeInCAndCpp) : TypeTraits(TrivialButDifferentSizeInCAndCpp{})
             {
                 is_default_constructible = true;
                 is_copy_constructible = true;
@@ -306,6 +316,27 @@ namespace mrbind::CBindings
                 same_size_in_c_and_cpp = true;
             }
 
+            struct TrivialButDifferentSizeInCAndCpp {explicit TrivialButDifferentSizeInCAndCpp() = default;};
+            // This is for types that are copyable and have all their operations trivial.
+            TypeTraits(TrivialButDifferentSizeInCAndCpp)
+            {
+                is_default_constructible = true;
+                is_copy_constructible = true;
+                is_move_constructible = true;
+                is_copy_assignable = true;
+                is_move_assignable = true;
+                is_destructible = true;
+
+                is_trivially_default_constructible = true;
+                is_trivially_copy_constructible = true;
+                is_trivially_move_constructible = true;
+                is_trivially_copy_assignable = true;
+                is_trivially_move_assignable = true;
+                is_trivially_destructible = true;
+
+                is_any_constructible = true;
+            }
+
             struct CopyableNonTrivial {explicit CopyableNonTrivial() = default;};
             // This is for copyable types that don't have any trivial operations.
             TypeTraits(CopyableNonTrivial)
@@ -318,6 +349,22 @@ namespace mrbind::CBindings
                 is_destructible = true;
 
                 is_any_constructible = true;
+            }
+
+            struct CopyableNonTrivialButCheap {explicit CopyableNonTrivialButCheap() = default;};
+            // This is for copyable types that don't have any trivial operations.
+            TypeTraits(CopyableNonTrivialButCheap)
+            {
+                is_default_constructible = true;
+                is_copy_constructible = true;
+                is_move_constructible = true;
+                is_copy_assignable = true;
+                is_move_assignable = true;
+                is_destructible = true;
+
+                is_any_constructible = true;
+
+                assume_copying_is_cheap = true;
             }
 
             struct CopyableAndTrivialExceptForDefaultCtor {explicit CopyableAndTrivialExceptForDefaultCtor() = default;};
@@ -367,14 +414,15 @@ namespace mrbind::CBindings
                 return is_default_constructible || is_copy_constructible || is_move_constructible;
             }
 
-            [[nodiscard]] bool IsTriviallyCopyOrMoveConstructible() const
+            // If true, passing by value should always copy, instead of offering the pass-by enum.
+            [[nodiscard]] bool UnconditionallyCopyOnPassByValue() const
             {
-                return is_trivially_copy_constructible || is_trivially_move_constructible;
+                return is_trivially_copy_constructible || is_trivially_move_constructible || assume_copying_is_cheap;
             }
 
             [[nodiscard]] bool NeedsPassByEnum() const
             {
-                return !IsTriviallyCopyOrMoveConstructible() && IsDefaultOrCopyOrMoveConstructible();
+                return !UnconditionallyCopyOnPassByValue() && IsDefaultOrCopyOrMoveConstructible();
             }
         };
 
@@ -512,11 +560,11 @@ namespace mrbind::CBindings
 
                 // Defaults to an identity function if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
-                // The source `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
+                // The implementation .cpp `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
                 //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose.
                 // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is, this might never receive default arguments.
-                // NOTE: This is allowed to produce unparenthesized strings. It's the caller's job to add parentehses if necessary.
-                std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
+                // NOTE: The return value must be correctly parenthesized if needed.
+                std::function<std::string(OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
                 // By default you can fill this using `ForEachNonBuiltInQualNameInTypeName()`.
@@ -535,7 +583,7 @@ namespace mrbind::CBindings
 
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                 // `default_arg` should be empty if there's no default argument.
-                // NOTE: This is allowed to produce unparenthesized strings. It's the caller's job to add parentehses if necessary.
+                // NOTE: This will always produce correctly parenthesized strings. If the custom `c_params_to_cpp` is specified, it's its job to ensure that the result is correctly parenthesized.
                 [[nodiscard]] std::string CParamsToCpp(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg) const
                 {
                     if (c_params_to_cpp)
@@ -692,12 +740,15 @@ namespace mrbind::CBindings
             // Do not add trailing newline. Do not add indentation.
             std::string cpp_extra_statements;
 
-            // What function are we calling on the C++ side. Or any arbitrary expression. The arguments are pasted after it, enclosed in `cpp_called_func_parens`.
+            // What function are we calling on the C++ side. Or any arbitrary expression.
             // If this is empty, the return statement isn't generated at all, the arguments are ignored, and `cpp_called_func_parens` is also ignored.
-            // If this is a member function, then the class instance will be prepended to it (with `.` or `::` (for static functions) added automatically). But if `@this@` is mentioned at least once in this string,
-            //   then the class instance isn't prepended, and instead every mention of `@this` is going to be replaced with it. Note that `@this@` does NOT include a trailing `.`/`::`. Spell them manually if you need them.
-            // Note that for non-static functions `@this@` isn't a pointer in our case (to support rvalue-ref-qualified functions).
-            // Note that `@this@` is always correctly parenthesied, so you don't have to do that here.
+            // The arguments are typically pasted after this, enclosed in `cpp_called_func_parens`.
+            // But if this string contains a placeholder for this argument: `@1@`, `@2@`, etc, or `@this@` for the `this` argument if any (which a reference rather than a pointer, to support rvalues),
+            //   then all instances of the placeholder are replaced with the argument, instead of adding it to the parenthesized list at the end.
+            // If all arguments use placeholders (and there is at least one placeholder), then the empty `cpp_called_func_parens` are NOT appended after the call.
+            //   But if there were no arguments and no placeholders, they are still appended.
+            // If this is a member function and `@this@` placeholder wasn't used, then the `this` argument are prepended to the call, with `.` (or `::` for static functions) added automatically.
+            //   But when the `@this@` placeholder IS used, the `.` and `::` are NOT inserted automatically.
             std::string cpp_called_func;
 
             struct Parens
@@ -734,9 +785,8 @@ namespace mrbind::CBindings
                 {
                     normal, // Nothing unusual about this parameter.
                     not_added_to_call, // This parameter shouldn't be added as an argument to the function call. Typically you'll want to manually mention it in `cpp_called_func`.
-                    lvalue, // This is the a `this` parameter (not ref-qualified nor `&`-qualified). See `cpp_called_func` for how those parameters get used.
-                    rvalue, // This is the a `&&`-qualified `this` parameter.
-                    static_, // This is a static method, and this parameter is only used for its type.
+                    this_ref, // This is the a `*this` parameter. Must be a reference (possibly rvalue). See `cpp_called_func` for how those parameters get used.
+                    static_, // This is a static method, and this C++ parameter is only used for its type. The C parameter isn't emitted at all.
                 };
 
                 // At most one function parameter can have this set to anything other than `normal` and `not_added_to_call`.
@@ -769,15 +819,16 @@ namespace mrbind::CBindings
             struct ThisParamKind
             {
                 bool is_const = false;
+                bool is_rvalue = false;
                 Param::Kind kind{};
 
                 ThisParamKind(bool is_const, bool is_rvalue = false, bool is_static = false)
-                    : is_const(is_const && !is_static), kind(is_static ? Param::Kind::static_ : is_rvalue ? Param::Kind::rvalue : Param::Kind::lvalue)
+                    : is_const(is_const && !is_static), is_rvalue(is_rvalue && !is_static), kind(is_static ? Param::Kind::static_ : Param::Kind::this_ref)
                 {}
 
                 struct Static {explicit Static() = default;};
                 ThisParamKind(Static)
-                    : is_const(false), kind(Param::Kind::static_)
+                    : kind(Param::Kind::static_)
                 {}
             };
 

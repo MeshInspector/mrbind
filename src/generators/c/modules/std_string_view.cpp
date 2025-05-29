@@ -19,7 +19,7 @@ namespace mrbind::CBindings::Modules
 
             if (is_new)
             {
-                file.header.contents += "/// A reference to a string or a part of one, not necessarily null-terminated.\n";
+                file.header.contents += "\n/// A reference to a string or a part of one, not necessarily null-terminated.\n";
                 file.header.contents += "typedef struct " + c_type_name + "\n";
                 file.header.contents += "{\n";
                 file.header.contents += "    const char *begin;\n";
@@ -61,11 +61,11 @@ namespace mrbind::CBindings::Modules
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
                 param_usage.c_params.back().name_suffix += "_end";
-                param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg)
+                param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
                 {
-                    file.stdlib_headers.insert("cstddef"); // For `std::size_t` to cast to below.
+                    source_file.stdlib_headers.insert("cstddef"); // For `std::size_t` to cast to below.
 
-                    std::string ret;
+                    std::string ret = "(";
                     ret += cpp_param_name;
                     // Here we're constructing the `std::string_view` from a pointer and a size, instead of two pointers, because two pointers requires C++20.
                     // Also instantiating the constructor from two iterators may or may not be a bit more expensive?
@@ -73,7 +73,7 @@ namespace mrbind::CBindings::Modules
 
                     if (default_arg.empty())
                     {
-                        file.stdlib_headers.insert("stdexcept");
+                        source_file.stdlib_headers.insert("stdexcept");
                         ret += "throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
                     }
                     else
@@ -81,6 +81,7 @@ namespace mrbind::CBindings::Modules
                         ret += "std::string_view(" + std::string(default_arg) + ")";
                     }
 
+                    ret += ")";
                     return ret;
                 };
                 param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)

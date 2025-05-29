@@ -4,6 +4,7 @@
 extern "C" {
 #endif
 
+
 /// A reference to a string or a part of one, not necessarily null-terminated.
 typedef struct MR_C_std_string_view
 {

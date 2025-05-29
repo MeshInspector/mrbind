@@ -1990,6 +1990,21 @@ namespace mrbind
                 }
             }
 
+            { // Remove the spellings with the `poisoned` bool set.
+                // I intentionally don't remove the empty lists after erasure, but I'm not sure if can even in this case at all.
+                // And if it can, not sure if the empty lists should be erased or not.
+                for (auto &inner : params->parsed_result.type_info)
+                {
+                    for (auto &info : inner.second)
+                    {
+                        std::erase_if(info.second.alt_spellings, [](const auto &elem)
+                        {
+                            return elem.second.poisoned;
+                        });
+                    }
+                }
+            }
+
             { // Remove types that don't have any "uses" bits set. This can happen if they were poisoned by poisonous typedefs and weren't used elsewhere.
                 std::erase_if(
                     params->parsed_result.type_info,
