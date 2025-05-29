@@ -128,40 +128,40 @@ MR_C_API void MR_C_std_vector_MR_A_InsertAtIter(MR_C_std_vector_MR_A *_this, con
 /// Parameter `position` can not be null.
 MR_C_API void MR_C_std_vector_MR_A_EraseAtIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position);
 
-/// The begin iterator, read-only.
+/// The begin iterator, const.
 /// Parameter `_this` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_Begin(const MR_C_std_vector_MR_A *_this);
+
+/// Tests whether a const iterator is the begin iterator.
+/// Parameter `_this` can not be null.
+/// Parameter `iter` can not be null.
+MR_C_API bool MR_C_std_vector_MR_A_IsBegin(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_MutableBegin(MR_C_std_vector_MR_A *_this);
 
-/// Tests whether a read-only iterator is the begin iterator.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
-MR_C_API bool MR_C_std_vector_MR_A_IsBegin(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
-
 /// Tests whether a mutable iterator is the begin iterator.
 /// Parameter `_this` can not be null.
 /// Parameter `iter` can not be null.
 MR_C_API bool MR_C_std_vector_MR_A_IsMutableBegin(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter);
 
-/// The end iterator, read-only.
+/// The end iterator, const.
 /// Parameter `_this` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_End(const MR_C_std_vector_MR_A *_this);
+
+/// Tests whether a const iterator is the end iterator.
+/// Parameter `_this` can not be null.
+/// Parameter `iter` can not be null.
+MR_C_API bool MR_C_std_vector_MR_A_IsEnd(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_MutableEnd(MR_C_std_vector_MR_A *_this);
-
-/// Tests whether a read-only iterator is the end iterator.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
-MR_C_API bool MR_C_std_vector_MR_A_IsEnd(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
 
 /// Tests whether a mutable iterator is the end iterator.
 /// Parameter `_this` can not be null.

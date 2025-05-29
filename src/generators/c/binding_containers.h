@@ -23,10 +23,6 @@ namespace mrbind::CBindings
 
         struct Params
         {
-            // The header where the container template itself is declared, e.g. `vector` for `std::vector`.
-            // Leave empty if not needed.
-            std::string stdlib_container_header;
-
             IteratorCategory iter_category{};
 
             bool has_mutable_iterators = false; // This is false for sets.
@@ -35,9 +31,12 @@ namespace mrbind::CBindings
             bool has_front_back = false;
 
             bool has_push_back = false; // Also `pop_back()`.
+            bool has_push_front = false; // Also `pop_front()`.
+            bool has_insert_without_iter = false;
         };
 
-        ContainerBinder(Generator &generator, cppdecl::QualifiedName new_cpp_container_type, cppdecl::Type new_cpp_elem_type, Params new_params);
+        // `new_stdlib_container_header` is the header where the container template itself is declared, e.g. `vector` for `std::vector`. Leave empty if not needed.
+        ContainerBinder(Generator &generator, cppdecl::QualifiedName new_cpp_container_type, cppdecl::Type new_cpp_elem_type, std::string new_stdlib_container_header, Params new_params);
 
         [[nodiscard]] Generator::BindableType MakeBinding(Generator &generator);
         [[nodiscard]] Generator::BindableType MakeIteratorBinding(Generator &generator, bool is_const);
@@ -48,6 +47,7 @@ namespace mrbind::CBindings
       private:
         cppdecl::QualifiedName cpp_container_type;
         cppdecl::Type cpp_elem_type;
+        std::string stdlib_container_header;
         Params params;
         HeapAllocatedClassBinder class_binder;
         Generator::TypeTraits elem_traits;
@@ -60,8 +60,17 @@ namespace mrbind::CBindings
     // Creates `ContainerBinder`s with different element types as needed.
     struct MetaContainerBinder
     {
-        // The container name, without the trailing template arguments.
-        cppdecl::QualifiedName generic_cpp_container_name;
+        struct Target
+        {
+            // The container name, without the trailing template arguments.
+            cppdecl::QualifiedName generic_cpp_container_name;
+
+            // The header where the container template itself is declared, e.g. `vector` for `std::vector`. Leave empty if not needed.
+            std::string stdlib_container_header;
+        };
+
+        // Need at least one.
+        std::vector<Target> targets;
 
         ContainerBinder::Params params;
 

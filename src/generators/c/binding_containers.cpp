@@ -2,9 +2,10 @@
 
 namespace mrbind::CBindings
 {
-    ContainerBinder::ContainerBinder(Generator &generator, cppdecl::QualifiedName new_cpp_container_type, cppdecl::Type new_cpp_elem_type, Params new_params)
+    ContainerBinder::ContainerBinder(Generator &generator, cppdecl::QualifiedName new_cpp_container_type, cppdecl::Type new_cpp_elem_type, std::string stdlib_container_header, Params new_params)
         : cpp_container_type(std::move(new_cpp_container_type)),
         cpp_elem_type(std::move(new_cpp_elem_type)),
+        stdlib_container_header(stdlib_container_header),
         params(std::move(new_params))
     {
         const auto &bindable_elem_type = generator.FindBindableType(cpp_elem_type);
@@ -90,7 +91,8 @@ namespace mrbind::CBindings
 
         if (is_new)
         {
-            file.source.stdlib_headers.insert(params.stdlib_container_header);
+            if (!stdlib_container_header.empty())
+                file.source.stdlib_headers.insert(stdlib_container_header);
 
             TryIncludeHeadersForCppTypeInSourceFile(generator, file, cppdecl::Type::FromQualifiedName(cpp_container_type));
 
@@ -98,10 +100,13 @@ namespace mrbind::CBindings
             class_binder.EmitForwardDeclaration(file);
             file.header.contents += "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n";
             iterator_binder_const.EmitForwardDeclaration(file);
-            file.header.contents += "\n/// Mutable iterator for `" + class_binder.c_type_name + "`.\n";
-            iterator_binder_mutable.EmitForwardDeclaration(file);
+            if (params.has_mutable_iterators)
+            {
+                file.header.contents += "\n/// Mutable iterator for `" + class_binder.c_type_name + "`.\n";
+                iterator_binder_mutable.EmitForwardDeclaration(file);
+            }
 
-            // The 6 special member functions:
+            // The special member functions:
 
             if (class_binder.traits.value().is_default_constructible)
                 generator.EmitFunction(file, class_binder.PrepareFuncDefaultCtor());
@@ -295,29 +300,52 @@ namespace mrbind::CBindings
                     }
                 }
 
-                if (params.has_push_back)
+                // `{push,pop}_{back,front}`
+                for (bool is_front : {false, true})
                 {
-                    { // push_back
+                    if (!(is_front ? params.has_push_front : params.has_push_back))
+                        continue;
+
+                    const std::string end_or_beginning = is_front ? "beginning" : "end";
+                    const std::string back_or_front_in_c_name = is_front ? "Front" : "Back";
+                    const std::string back_or_front_in_cpp_name = is_front ? "front" : "back";
+
+                    { // push_back, push_front
                         Generator::EmitFuncParams emit;
-                        emit.c_comment = "/// Inserts a new element at the end.";
-                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_PushBack");
+                        emit.c_comment = "/// Inserts a new element at the " + end_or_beginning + ".";
+                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Push" + back_or_front_in_c_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "new_elem",
                             .cpp_type = cpp_elem_type,
                         });
-                        emit.cpp_called_func = "push_back";
+                        emit.cpp_called_func = "push_" + back_or_front_in_cpp_name;
                         generator.EmitFunction(file, emit);
                     }
 
-                    { // pop_back
+                    { // pop_back, pop_front
                         Generator::EmitFuncParams emit;
-                        emit.c_comment = "/// Removes one element from the end.";
-                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_PopBack");
+                        emit.c_comment = "/// Removes one element from the " + end_or_beginning + ".";
+                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Pop" + back_or_front_in_c_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
-                        emit.cpp_called_func = "pop_back";
+                        emit.cpp_called_func = "pop_" + back_or_front_in_cpp_name;
                         generator.EmitFunction(file, emit);
                     }
+                }
+
+                // insert, without the iterator parameter
+                if (params.has_insert_without_iter)
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Inserts a new element.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Insert");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.params.push_back({
+                        .name = "new_elem",
+                        .cpp_type = cpp_elem_type,
+                    });
+                    emit.cpp_called_func = "insert";
+                    generator.EmitFunction(file, emit);
                 }
 
                 // insert and erase at index
@@ -403,56 +431,37 @@ namespace mrbind::CBindings
                     std::string begin_or_end_str = is_end ? "end" : "begin";
                     std::string begin_or_end_method_name = is_end ? "End" : "Begin";
 
-                    { // get const
-                        Generator::EmitFuncParams emit;
-                        emit.c_comment = "/// The " + begin_or_end_str + " iterator, read-only.";
-                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_" + begin_or_end_method_name);
-                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_const.cpp_type_name);
-                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
-                        emit.cpp_called_func = "c" + begin_or_end_str;
-                        generator.EmitFunction(file, emit);
-                    }
-
-                    // get mutable
-                    if (params.has_mutable_iterators)
+                    for (bool is_const_iter : {true, false})
                     {
-                        Generator::EmitFuncParams emit;
-                        emit.c_comment = "/// The " + begin_or_end_str + " iterator, mutable.";
-                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Mutable" + begin_or_end_method_name);
-                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_mutable.cpp_type_name);
-                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
-                        emit.cpp_called_func = begin_or_end_str;
-                        generator.EmitFunction(file, emit);
-                    }
+                        if (!is_const_iter && !params.has_mutable_iterators)
+                            continue;
 
-                    if (params.has_mutable_iterators)
-                    {
-                        { // compare, const
+                        const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
+                        const std::string mut_or_const_name = is_const_iter ? "" : "Mutable";
+                        const std::string c_or_empty = is_const_iter ? "c" : "";
+                        auto &this_iter_binder = is_const_iter ? iterator_binder_const : iterator_binder_mutable;
+
+                        { // get
                             Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// Tests whether a read-only iterator is the " + begin_or_end_str + " iterator.";
-                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Is" + begin_or_end_method_name);
-                            emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
-                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
-                            emit.params.push_back({
-                                .name = "iter",
-                                .cpp_type = cppdecl::Type::FromQualifiedName(iterator_binder_const.cpp_type_name).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
-                            });
-                            emit.cpp_called_func = "@this@.c" + begin_or_end_str + "() == @1@";
+                            emit.c_comment = "/// The " + begin_or_end_str + " iterator, " + mut_or_const_str + ".";
+                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_" + mut_or_const_name + begin_or_end_method_name);
+                            emit.cpp_return_type = cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name);
+                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), is_const_iter);
+                            emit.cpp_called_func = c_or_empty + begin_or_end_str;
                             generator.EmitFunction(file, emit);
                         }
 
-                        // compare, mutable
-                        {
+                        { // compare
                             Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// Tests whether a mutable iterator is the " + begin_or_end_str + " iterator.";
-                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_IsMutable" + begin_or_end_method_name);
+                            emit.c_comment = "/// Tests whether a " + mut_or_const_str + " iterator is the " + begin_or_end_str + " iterator.";
+                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Is" + mut_or_const_name + begin_or_end_method_name);
                             emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
-                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), is_const_iter);
                             emit.params.push_back({
                                 .name = "iter",
-                                .cpp_type = cppdecl::Type::FromQualifiedName(iterator_binder_mutable.cpp_type_name).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
+                                .cpp_type = cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
                             });
-                            emit.cpp_called_func = "@this@." + begin_or_end_str + "() == @1@";
+                            emit.cpp_called_func = "@this@." + c_or_empty + begin_or_end_str + "() == @1@";
                             generator.EmitFunction(file, emit);
                         }
                     }
@@ -597,40 +606,48 @@ namespace mrbind::CBindings
         if (!type_to_bind.IsOnlyQualifiedName())
             return {};
 
-        if (!type_to_bind.simple_type.name.Equals(generic_cpp_container_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target | cppdecl::QualifiedName::EqualsFlags::allow_shorter_target))
-            return {};
-
-        const bool is_container  =                                                                    type_to_bind.simple_type.name.parts.size() == generic_cpp_container_name.parts.size();
-        const bool is_const_iter = !is_container &&                                                   type_to_bind.simple_type.name.parts.size() == generic_cpp_container_name.parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "const_iterator";
-        const bool is_mut_iter   = !is_container && !is_const_iter && params.has_mutable_iterators && type_to_bind.simple_type.name.parts.size() == generic_cpp_container_name.parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "iterator";
-
-        if (!is_container && !is_const_iter && !is_mut_iter)
-            return {}; // This is some member type of our container, but not an iterator, so we don't know what to do with it.
-
-        // Figure out the container type.
-        const cppdecl::QualifiedName *container_name = nullptr;
-        cppdecl::QualifiedName container_name_storage;
-        if (is_container)
+        // Try all known names.
+        // The first matching one is used.
+        for (const Target &target : targets)
         {
-            container_name = &type_to_bind.simple_type.name;
+            if (!type_to_bind.simple_type.name.Equals(target.generic_cpp_container_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target | cppdecl::QualifiedName::EqualsFlags::allow_shorter_target))
+                continue;
+
+            const bool is_container  =                                                                    type_to_bind.simple_type.name.parts.size() == target.generic_cpp_container_name.parts.size();
+            const bool is_const_iter = !is_container &&                                                   type_to_bind.simple_type.name.parts.size() == target.generic_cpp_container_name.parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "const_iterator";
+            const bool is_mut_iter   = !is_container && !is_const_iter && params.has_mutable_iterators && type_to_bind.simple_type.name.parts.size() == target.generic_cpp_container_name.parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "iterator";
+
+            if (!is_container && !is_const_iter && !is_mut_iter)
+                return {}; // This is some member type of our container, but not an iterator, so we don't know what to do with it.
+
+            // Figure out the container type.
+            const cppdecl::QualifiedName *container_name = nullptr;
+            cppdecl::QualifiedName container_name_storage;
+            if (is_container)
+            {
+                container_name = &type_to_bind.simple_type.name;
+            }
+            else
+            {
+                // Remove the unwanted trailing parts from `type_to_bind` to leave only the container name.
+                container_name_storage = type_to_bind.simple_type.name;
+                container_name_storage.parts.resize(target.generic_cpp_container_name.parts.size());
+                container_name = &container_name_storage;
+            }
+
+            // Figure out the element type.
+            // This can throw if the element type fails to parse as a type and instead parses as the pseudo-expression. Throwing here is fine by me.
+            const cppdecl::Type &elem_type = std::get<cppdecl::Type>(container_name->parts.back().template_args.value().args.front().var);
+
+            ContainerBinder binder(generator, *container_name, elem_type, target.stdlib_container_header, params);
+
+            if (is_container)
+                return binder.MakeBinding(generator);
+            else
+                return binder.MakeIteratorBinding(generator, is_const_iter);
         }
-        else
-        {
-            // Remove the unwanted trailing parts from `type_to_bind` to leave only the container name.
-            container_name_storage = type_to_bind.simple_type.name;
-            container_name_storage.parts.resize(generic_cpp_container_name.parts.size());
-            container_name = &container_name_storage;
-        }
 
-        // Figure out the element type.
-        // This can throw if the element type fails to parse as a type and instead parses as the pseudo-expression. Throwing here is fine by me.
-        const cppdecl::Type &elem_type = std::get<cppdecl::Type>(container_name->parts.back().template_args.value().args.front().var);
-
-        ContainerBinder binder(generator, *container_name, elem_type, params);
-
-        if (is_container)
-            return binder.MakeBinding(generator);
-        else
-            return binder.MakeIteratorBinding(generator, is_const_iter);
+        // No names matched.
+        return {};
     }
 }

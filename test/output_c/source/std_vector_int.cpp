@@ -170,14 +170,14 @@ MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_Begin(const MR_C_std_vec
     return (MR_C_std_vector_int_const_iterator *)new std::vector<int>::const_iterator((_this ? *(const std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cbegin());
 }
 
-MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableBegin(MR_C_std_vector_int *_this)
-{
-    return (MR_C_std_vector_int_iterator *)new std::vector<int>::iterator((_this ? *(std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).begin());
-}
-
 bool MR_C_std_vector_int_IsBegin(const MR_C_std_vector_int *_this, const MR_C_std_vector_int_const_iterator *iter)
 {
     return (_this ? *(const std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cbegin() == (iter ? *(const std::vector<int>::const_iterator *)(iter) : throw std::runtime_error("Parameter `iter` can not be null."));
+}
+
+MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableBegin(MR_C_std_vector_int *_this)
+{
+    return (MR_C_std_vector_int_iterator *)new std::vector<int>::iterator((_this ? *(std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).begin());
 }
 
 bool MR_C_std_vector_int_IsMutableBegin(MR_C_std_vector_int *_this, const MR_C_std_vector_int_iterator *iter)
@@ -190,14 +190,14 @@ MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_End(const MR_C_std_vecto
     return (MR_C_std_vector_int_const_iterator *)new std::vector<int>::const_iterator((_this ? *(const std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cend());
 }
 
-MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableEnd(MR_C_std_vector_int *_this)
-{
-    return (MR_C_std_vector_int_iterator *)new std::vector<int>::iterator((_this ? *(std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).end());
-}
-
 bool MR_C_std_vector_int_IsEnd(const MR_C_std_vector_int *_this, const MR_C_std_vector_int_const_iterator *iter)
 {
     return (_this ? *(const std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cend() == (iter ? *(const std::vector<int>::const_iterator *)(iter) : throw std::runtime_error("Parameter `iter` can not be null."));
+}
+
+MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableEnd(MR_C_std_vector_int *_this)
+{
+    return (MR_C_std_vector_int_iterator *)new std::vector<int>::iterator((_this ? *(std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).end());
 }
 
 bool MR_C_std_vector_int_IsMutableEnd(MR_C_std_vector_int *_this, const MR_C_std_vector_int_iterator *iter)
