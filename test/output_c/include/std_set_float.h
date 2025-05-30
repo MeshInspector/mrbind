@@ -45,19 +45,20 @@ MR_C_API bool MR_C_std_set_float_IsEmpty(const MR_C_std_set_float *_this);
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_set_float_Clear(MR_C_std_set_float *_this);
 
+/// Checks if the contain contains this key.
+/// Parameter `_this` can not be null.
+/// Parameter `key` can not be null.
+MR_C_API bool MR_C_std_set_float_Contains(const MR_C_std_set_float *_this, const float *key);
+
+/// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
+/// Parameter `_this` can not be null.
+/// Parameter `key` can not be null.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_Find(const MR_C_std_set_float *_this, const float *key);
+
 /// Inserts a new element.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_set_float_Insert(MR_C_std_set_float *_this, float new_elem);
-
-/// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
-/// Parameter `_this` can not be null.
-/// Parameter `position` can not be null.
-MR_C_API void MR_C_std_set_float_InsertAtIter(MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *position, float new_elem);
-
-/// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
-/// Parameter `_this` can not be null.
-/// Parameter `position` can not be null.
-MR_C_API void MR_C_std_set_float_EraseAtIter(MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *position);
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null.

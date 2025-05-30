@@ -25,6 +25,10 @@ namespace mrbind::CBindings
         {
             IteratorCategory iter_category{};
 
+            bool is_map = false;
+            bool is_set = false;
+            bool is_multi = false; // A multimap or a multiset. Needs either `is_map` or `is_set` to be set.
+
             bool has_mutable_iterators = false; // This is false for sets.
             bool has_resize = false;
             bool has_capacity = false; // Also `reserve()`, `shrink_to_fit()`.
@@ -32,11 +36,18 @@ namespace mrbind::CBindings
 
             bool has_push_back = false; // Also `pop_back()`.
             bool has_push_front = false; // Also `pop_front()`.
-            bool has_insert_without_iter = false;
         };
 
+        // `new_cpp_mapped_elem_type` should only be non-empty for maps. It's the mapped type, while `new_cpp_elem_type` is the key type.
         // `new_stdlib_container_header` is the header where the container template itself is declared, e.g. `vector` for `std::vector`. Leave empty if not needed.
-        ContainerBinder(Generator &generator, cppdecl::QualifiedName new_cpp_container_type, cppdecl::Type new_cpp_elem_type, std::string new_stdlib_container_header, Params new_params);
+        ContainerBinder(
+            Generator &generator,
+            cppdecl::QualifiedName new_cpp_container_type,
+            cppdecl::Type new_cpp_elem_type,
+            cppdecl::Type new_cpp_mapped_elem_type,
+            std::string new_stdlib_container_header,
+            Params new_params
+        );
 
         [[nodiscard]] Generator::BindableType MakeBinding(Generator &generator);
         [[nodiscard]] Generator::BindableType MakeIteratorBinding(Generator &generator, bool is_const);
@@ -47,10 +58,12 @@ namespace mrbind::CBindings
       private:
         cppdecl::QualifiedName cpp_container_type;
         cppdecl::Type cpp_elem_type;
+        cppdecl::Type cpp_mapped_elem_type; // Empty for non-maps. The mapped type of maps, and then `cpp_elem_type` is the key type.
         std::string stdlib_container_header;
         Params params;
         HeapAllocatedClassBinder class_binder;
         Generator::TypeTraits elem_traits;
+        Generator::TypeTraits mapped_elem_traits;
         std::string basic_output_file_name;
 
         HeapAllocatedClassBinder iterator_binder_mutable;

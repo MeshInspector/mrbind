@@ -21,7 +21,7 @@ void MR_StdContainers_SetWithDefault(MR_C_PassBy _1_pass_by, MR_C_std_vector_int
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::SetWithDefault(
-        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int>) MRBINDC_CLASSARG_COPY(_1, std::vector<int>) MRBINDC_CLASSARG_MOVE(_1, std::vector<int>) MRBINDC_CLASSARG_DEF_ARG(_1, std::vector<int>, std::type_identity_t<std::vector<int>>{1, 2, 3}) MRBINDC_CLASSARG_END(_1, std::vector<int>))
+        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int>) MRBINDC_CLASSARG_COPY(_1, std::vector<int>) MRBINDC_CLASSARG_MOVE(_1, std::vector<int>) MRBINDC_CLASSARG_DEF_ARG(_1, (std::type_identity_t<std::vector<int>>{1, 2, 3}), std::vector<int>) MRBINDC_CLASSARG_END(_1, std::vector<int>))
     );
 }
 
@@ -117,6 +117,34 @@ MR_C_std_unordered_multiset_int *MR_StdContainers_GetUnorderedMultiSet(void)
     using namespace MR;
     using namespace StdContainers;
     return (MR_C_std_unordered_multiset_int *)new std::unordered_multiset<int>(MR::StdContainers::GetUnorderedMultiSet());
+}
+
+MR_C_std_map_int_float *MR_StdContainers_GetMap(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_map_int_float *)new std::map<int, float>(MR::StdContainers::GetMap());
+}
+
+MR_C_std_multimap_int_float *MR_StdContainers_GetMultiMap(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_multimap_int_float *)new std::multimap<int, float>(MR::StdContainers::GetMultiMap());
+}
+
+MR_C_std_unordered_map_int_float *MR_StdContainers_GetUnorderedMap(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_unordered_map_int_float *)new std::unordered_map<int, float>(MR::StdContainers::GetUnorderedMap());
+}
+
+MR_C_std_unordered_multimap_int_float *MR_StdContainers_GetUnorderedMultiMap(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_unordered_multimap_int_float *)new std::unordered_multimap<int, float>(MR::StdContainers::GetUnorderedMultiMap());
 }
 
 MR_C_std_multiset_float *MR_StdContainers_GetMultiSetWithMergedIters(void)

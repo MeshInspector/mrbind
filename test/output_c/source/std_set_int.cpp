@@ -45,25 +45,24 @@ void MR_C_std_set_int_Clear(MR_C_std_set_int *_this)
     (_this ? *(std::set<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).clear();
 }
 
+bool MR_C_std_set_int_Contains(const MR_C_std_set_int *_this, const int *key)
+{
+    return (_this ? *(const std::set<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).contains(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    );
+}
+
+MR_C_std_set_int_const_iterator *MR_C_std_set_int_Find(const MR_C_std_set_int *_this, const int *key)
+{
+    return (MR_C_std_set_int_const_iterator *)new std::set<int>::const_iterator((_this ? *(const std::set<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    ));
+}
+
 void MR_C_std_set_int_Insert(MR_C_std_set_int *_this, int new_elem)
 {
     (_this ? *(std::set<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
         new_elem
-    );
-}
-
-void MR_C_std_set_int_InsertAtIter(MR_C_std_set_int *_this, const MR_C_std_set_int_const_iterator *position, int new_elem)
-{
-    (_this ? *(std::set<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
-        (position ? std::set<int>::const_iterator(*(std::set<int>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null.")),
-        new_elem
-    );
-}
-
-void MR_C_std_set_int_EraseAtIter(MR_C_std_set_int *_this, const MR_C_std_set_int_const_iterator *position)
-{
-    (_this ? *(std::set<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).erase(
-        (position ? std::set<int>::const_iterator(*(std::set<int>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null."))
     );
 }
 

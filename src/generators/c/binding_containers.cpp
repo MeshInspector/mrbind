@@ -1,28 +1,46 @@
 #include "binding_containers.h"
 
+#include <stdexcept>
+
 namespace mrbind::CBindings
 {
-    ContainerBinder::ContainerBinder(Generator &generator, cppdecl::QualifiedName new_cpp_container_type, cppdecl::Type new_cpp_elem_type, std::string stdlib_container_header, Params new_params)
+    ContainerBinder::ContainerBinder(
+        Generator &generator,
+        cppdecl::QualifiedName new_cpp_container_type,
+        cppdecl::Type new_cpp_elem_type,
+        cppdecl::Type new_cpp_mapped_elem_type,
+        std::string stdlib_container_header,
+        Params new_params
+    )
         : cpp_container_type(std::move(new_cpp_container_type)),
         cpp_elem_type(std::move(new_cpp_elem_type)),
+        cpp_mapped_elem_type(std::move(new_cpp_mapped_elem_type)),
         stdlib_container_header(stdlib_container_header),
         params(std::move(new_params))
     {
-        const auto &bindable_elem_type = generator.FindBindableType(cpp_elem_type);
+        if (params.is_map > !cpp_mapped_elem_type.IsEmpty())
+            throw std::logic_error("Internal error: Bad usage: Trying to bind a map-like container, but the mapped type is not specified.");
+        if (params.is_map < !cpp_mapped_elem_type.IsEmpty())
+            throw std::logic_error("Internal error: Bad usage: Trying to bind a non-map-like container, but the mapped type is still specified.");
+        if (params.is_set && params.is_map)
+            throw std::logic_error("Internal error: Bad usage: Binding a container that has both `is_set` and `is_map` flags set.");
+        if (params.is_multi && !params.is_set && !params.is_map)
+            throw std::logic_error("Internal error: Bad usage: Binding a container that has the `is_multi` flag set, but no `is_set` and no `is_map`.");
 
         class_binder = HeapAllocatedClassBinder::ForCustomType(generator, cpp_container_type);
 
         // `bindable_elem_type.traits` is required to never be null, so if `.value()` throws here, this is an internal error.
-        elem_traits = bindable_elem_type.traits.value();
+        elem_traits = generator.FindBindableType(cpp_elem_type).traits.value();
+        mapped_elem_traits = params.is_map ? generator.FindBindableType(cpp_mapped_elem_type).traits.value() : elem_traits;
 
         class_binder.traits.emplace();
         class_binder.traits->is_default_constructible = true;
-        class_binder.traits->is_copy_constructible = elem_traits.is_copy_constructible;
+        class_binder.traits->is_copy_constructible = elem_traits.is_copy_constructible && mapped_elem_traits.is_copy_constructible;
         class_binder.traits->is_move_constructible = true;
-        class_binder.traits->is_copy_assignable = elem_traits.is_copy_assignable;
+        class_binder.traits->is_copy_assignable = elem_traits.is_copy_assignable && mapped_elem_traits.is_copy_assignable;
         class_binder.traits->is_move_assignable = true;
         class_binder.traits->is_destructible = true;
-        // All `containter_traits.is_trivial_...` are false.
+        // All `is_trivial_...` traits are false.
         class_binder.traits->is_any_constructible = true;
 
         basic_output_file_name = cppdecl::ToString(cpp_container_type, cppdecl::ToStringFlags::identifier);
@@ -30,7 +48,7 @@ namespace mrbind::CBindings
 
         // Create the iterator binders.
         // Notably different standard containers can have overlapping iterator types, so we have to be really careful here.
-        // What we do is we force specific underlying type name for the iterators, if their normal name is known to be an alternative spelling of something else.
+        // What we do is we force specific underlying type name for the iterators, IF their normal name is known to be an alternative spelling of something else.
         // If not, then we let the underlying name match the public one.
         cppdecl::QualifiedName iterator_name = cpp_container_type;
         iterator_name.parts.emplace_back("iterator");
@@ -140,20 +158,19 @@ namespace mrbind::CBindings
                     generator.EmitFunction(file, emit);
                 }
 
+                // resize
                 if (params.has_resize)
                 {
-                    { // resize
-                        Generator::EmitFuncParams emit;
-                        emit.c_comment = "/// Resizes the container. The new elements if any are zeroed.";
-                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Resize");
-                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
-                        emit.params.push_back({
-                            .name = "new_size",
-                            .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
-                        });
-                        emit.cpp_called_func = "resize";
-                        generator.EmitFunction(file, emit);
-                    }
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Resizes the container. The new elements if any are zeroed.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Resize");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.params.push_back({
+                        .name = "new_size",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+                    emit.cpp_called_func = "resize";
+                    generator.EmitFunction(file, emit);
                 }
 
                 { // clear
@@ -165,6 +182,7 @@ namespace mrbind::CBindings
                     generator.EmitFunction(file, emit);
                 }
 
+                // Capacity-related functions.
                 if (params.has_capacity)
                 {
                     { // capacity
@@ -200,6 +218,7 @@ namespace mrbind::CBindings
                     }
                 }
 
+                // Index access.
                 if (params.iter_category >= IteratorCategory::random_access)
                 {
                     // Here we only bind the throwing versions, i.e. `.at()`.
@@ -234,6 +253,71 @@ namespace mrbind::CBindings
                     }
                 }
 
+                // Map element access. Note that multimaps don't have a subscript operator.
+                if (params.is_map && !params.is_multi)
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Returns the element with the specific key. If it doesn't exist, creates it first. Acts like map's `operator[]` in C++.";
+                    emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_FindOrConstructElem");
+                    emit.cpp_return_type = cppdecl::Type(cpp_mapped_elem_type).AddModifier(cppdecl::Reference{});
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                    emit.params.push_back({
+                        .name = "key",
+                        .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
+                    });
+                    emit.cpp_called_func = "@this@[@1@]";
+                    generator.EmitFunction(file, emit);
+                }
+
+                // Common map and set operations.
+                if (params.is_map || params.is_set)
+                {
+                    { // contains or count
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Checks if the contain contains this key.";
+                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + (params.is_multi ? "_Count" : "_Contains"));
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord(params.is_multi ? "size_t" : "bool");
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                        emit.params.push_back({
+                            .name = "key",
+                            .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
+                        });
+                        emit.cpp_called_func = params.is_multi ? "count" : "contains";
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // find, const
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.";
+                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Find");
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_const.cpp_type_name);
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
+                        emit.params.push_back({
+                            .name = "key",
+                            .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
+                        });
+                        emit.cpp_called_func = "find";
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    // find, mutable
+                    if (params.has_mutable_iterators)
+                    {
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.";
+                        emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_FindMutable");
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_mutable.cpp_type_name);
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                        emit.params.push_back({
+                            .name = "key",
+                            .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
+                        });
+                        emit.cpp_called_func = "find";
+                        generator.EmitFunction(file, emit);
+                    }
+                }
+
+                // Front and back accessors.
                 if (params.has_front_back)
                 {
                     { // front const
@@ -277,7 +361,8 @@ namespace mrbind::CBindings
                     }
                 }
 
-                if (params.iter_category >= IteratorCategory::contiguous && elem_traits.same_size_in_c_and_cpp)
+                // The data pointer.
+                if (params.iter_category >= IteratorCategory::contiguous && (!params.is_map && elem_traits.same_size_in_c_and_cpp))
                 {
                     { // data const
                         Generator::EmitFuncParams emit;
@@ -334,7 +419,7 @@ namespace mrbind::CBindings
                 }
 
                 // insert, without the iterator parameter
-                if (params.has_insert_without_iter)
+                if (params.is_set && !params.is_map)
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Inserts a new element.";
@@ -382,21 +467,26 @@ namespace mrbind::CBindings
                     }
                 }
 
-                { // insert and erase at iterator (we could omit those when dealing with random-access containers, but let's keep them for consistency with other containers)
+                // insert and erase at iterator
+                // We could omit those when dealing with random-access containers, but let's keep them for consistency with other containers.
+                // We also disable them for maps, because for maps we hide the underlying pairs.
+                // And we also disable them for sets, because there the iterator acts merely as an insertion hint, and we don't expose those hints to C.
+                if (!params.is_set && !params.is_map)
+                {
                     for (bool is_const_iter : {false, true})
                     {
                         if (!is_const_iter && !params.has_mutable_iterators)
                             continue;
 
                         const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
-                        const std::string at_str = is_const_iter ? "AtIter" : "AtMutableIter";
+                        const std::string at_str = is_const_iter ? "Iter" : "MutableIter";
                         const std::string constness_disclaimer = is_const_iter ? " This version takes the position in form of a const iterator, that's the only difference." : "";
                         auto &this_iter_binder = is_const_iter ? iterator_binder_const : iterator_binder_mutable;
 
                         { // insert
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Inserts a new element right before the specified position." + constness_disclaimer;
-                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Insert" + at_str);
+                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_InsertAt" + at_str);
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                             emit.params.push_back({
                                 .name = "position",
@@ -413,7 +503,7 @@ namespace mrbind::CBindings
                         { // erase
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Erases the element at the specified position." + constness_disclaimer;
-                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_Erase" + at_str);
+                            emit.c_name = generator.MakePublicHelperName(class_binder.basic_c_name + "_EraseAt" + at_str);
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                             emit.params.push_back({
                                 .name = "position",
@@ -531,7 +621,9 @@ namespace mrbind::CBindings
                     auto &this_iter_binder = is_const_iter ? iterator_binder_const : iterator_binder_mutable;
 
 
-                    { // dereference
+                    // dereference
+                    if (!params.is_map)
+                    {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Dereferences a " + mut_or_const_str + " iterator.";
                         emit.c_name = generator.MakePublicHelperName(this_iter_binder.basic_c_name + "_Deref");
@@ -539,6 +631,30 @@ namespace mrbind::CBindings
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), true);
                         emit.cpp_called_func = "*@this@";
                         generator.EmitFunction(file, emit);
+                    }
+
+                    // dereference, separately to a key and a value
+                    if (params.is_map)
+                    {
+                        { // key
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// Dereferences a " + mut_or_const_str + " iterator, returning the key.";
+                            emit.c_name = generator.MakePublicHelperName(this_iter_binder.basic_c_name + "_DerefKey");
+                            emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
+                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), true);
+                            emit.cpp_called_func = "@this@->first";
+                            generator.EmitFunction(file, emit);
+                        }
+
+                        { // value
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// Dereferences a " + mut_or_const_str + " iterator, returning the mapped value.";
+                            emit.c_name = generator.MakePublicHelperName(this_iter_binder.basic_c_name + "_DerefValue");
+                            emit.cpp_return_type = cppdecl::Type(cpp_mapped_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Reference{});
+                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), true);
+                            emit.cpp_called_func = "@this@->second";
+                            generator.EmitFunction(file, emit);
+                        }
                     }
 
                     { // increment
@@ -637,9 +753,10 @@ namespace mrbind::CBindings
 
             // Figure out the element type.
             // This can throw if the element type fails to parse as a type and instead parses as the pseudo-expression. Throwing here is fine by me.
-            const cppdecl::Type &elem_type = std::get<cppdecl::Type>(container_name->parts.back().template_args.value().args.front().var);
+            const cppdecl::Type &elem_type = std::get<cppdecl::Type>(container_name->parts.back().template_args.value().args.at(0).var);
+            const cppdecl::Type *mapped_elem_type = params.is_map ? &std::get<cppdecl::Type>(container_name->parts.back().template_args.value().args.at(1).var) : nullptr;
 
-            ContainerBinder binder(generator, *container_name, elem_type, target.stdlib_container_header, params);
+            ContainerBinder binder(generator, *container_name, elem_type, mapped_elem_type ? *mapped_elem_type : cppdecl::Type{}, target.stdlib_container_header, params);
 
             if (is_container)
                 return binder.MakeBinding(generator);

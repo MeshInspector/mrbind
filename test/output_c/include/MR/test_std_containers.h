@@ -4,10 +4,14 @@
 #include <pass_by.h>
 #include <std_deque_int.h>
 #include <std_list_int.h>
+#include <std_map_int_float.h>
+#include <std_multimap_int_float.h>
 #include <std_multiset_float.h>
 #include <std_multiset_int.h>
 #include <std_set_float.h>
 #include <std_set_int.h>
+#include <std_unordered_map_int_float.h>
+#include <std_unordered_multimap_int_float.h>
 #include <std_unordered_multiset_int.h>
 #include <std_unordered_set_int.h>
 #include <std_vector_int.h>
@@ -76,6 +80,22 @@ MR_C_API MR_C_std_unordered_set_int *MR_StdContainers_GetUnorderedSet(void);
 /// Generated from function `MR::StdContainers::GetUnorderedMultiSet`.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multiset_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multiset_int *MR_StdContainers_GetUnorderedMultiSet(void);
+
+/// Generated from function `MR::StdContainers::GetMap`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_map_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_map_int_float *MR_StdContainers_GetMap(void);
+
+/// Generated from function `MR::StdContainers::GetMultiMap`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_multimap_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_multimap_int_float *MR_StdContainers_GetMultiMap(void);
+
+/// Generated from function `MR::StdContainers::GetUnorderedMap`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_map_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_unordered_map_int_float *MR_StdContainers_GetUnorderedMap(void);
+
+/// Generated from function `MR::StdContainers::GetUnorderedMultiMap`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_unordered_multimap_int_float *MR_StdContainers_GetUnorderedMultiMap(void);
 
 // For this `std::multiset` specialization, mention all iterators so that they get merged.
 /// Generated from function `MR::StdContainers::GetMultiSetWithMergedIters`.

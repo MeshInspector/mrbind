@@ -201,10 +201,10 @@ namespace mrbind::CBindings
                 {
                     ret += "MRBINDC_CLASSARG_DEF_ARG(";
                     ret += cpp_param_name;
-                    ret += ", ";
-                    ret += cpp_type_str;
-                    ret += ", ";
+                    ret += ", (";
                     ret += default_arg;
+                    ret += "), ";
+                    ret += cpp_type_str;
                     ret += ") ";
                 }
 

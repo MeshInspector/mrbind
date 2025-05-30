@@ -63,6 +63,15 @@ namespace mrbind::CBindings::Modules
                     .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("set"),
                     .stdlib_container_header = "set",
                 },
+            },
+            .params = {
+                .iter_category = ContainerBinder::IteratorCategory::bidirectional,
+                .is_set = true,
+            },
+        };
+
+        MetaContainerBinder binder_multiset = {
+            .targets = {
                 {
                     .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("multiset"),
                     .stdlib_container_header = "set",
@@ -70,7 +79,8 @@ namespace mrbind::CBindings::Modules
             },
             .params = {
                 .iter_category = ContainerBinder::IteratorCategory::bidirectional,
-                .has_insert_without_iter = true,
+                .is_set = true,
+                .is_multi = true,
             },
         };
 
@@ -80,6 +90,15 @@ namespace mrbind::CBindings::Modules
                     .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_set"),
                     .stdlib_container_header = "unordered_set",
                 },
+            },
+            .params = {
+                .iter_category = ContainerBinder::IteratorCategory::forward, // Unordered sets have forward iterators, while the normal sets have bidirectional ones. Interesting!
+                .is_set = true,
+            },
+        };
+
+        MetaContainerBinder binder_unordered_multiset = {
+            .targets = {
                 {
                     .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_multiset"),
                     .stdlib_container_header = "unordered_set",
@@ -87,23 +106,83 @@ namespace mrbind::CBindings::Modules
             },
             .params = {
                 .iter_category = ContainerBinder::IteratorCategory::forward, // Unordered sets have forward iterators, while the normal sets have bidirectional ones. Interesting!
-                .has_insert_without_iter = true,
+                .is_set = true,
+                .is_multi = true,
+            },
+        };
+
+        MetaContainerBinder binder_map = {
+            .targets = {
+                {
+                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("map"),
+                    .stdlib_container_header = "map",
+                },
+            },
+            .params = {
+                .iter_category = ContainerBinder::IteratorCategory::bidirectional,
+                .is_map = true,
+                .has_mutable_iterators = true,
+            },
+        };
+
+        MetaContainerBinder binder_multimap = {
+            .targets = {
+                {
+                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("multimap"),
+                    .stdlib_container_header = "map",
+                },
+            },
+            .params = {
+                .iter_category = ContainerBinder::IteratorCategory::bidirectional,
+                .is_map = true,
+                .is_multi = true,
+                .has_mutable_iterators = true,
+            },
+        };
+
+        MetaContainerBinder binder_unordered_map = {
+            .targets = {
+                {
+                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_map"),
+                    .stdlib_container_header = "unordered_map",
+                },
+            },
+            .params = {
+                .iter_category = ContainerBinder::IteratorCategory::forward,
+                .is_map = true,
+                .has_mutable_iterators = true,
+            },
+        };
+
+        MetaContainerBinder binder_unordered_multimap = {
+            .targets = {
+                {
+                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_multimap"),
+                    .stdlib_container_header = "unordered_map",
+                },
+            },
+            .params = {
+                .iter_category = ContainerBinder::IteratorCategory::forward,
+                .is_map = true,
+                .is_multi = true,
+                .has_mutable_iterators = true,
             },
         };
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
             (void)type_str;
-            if (auto ret = binder_vector.MakeBinding(generator, type))
-                return ret;
-            if (auto ret = binder_deque.MakeBinding(generator, type))
-                return ret;
-            if (auto ret = binder_list.MakeBinding(generator, type))
-                return ret;
-            if (auto ret = binder_set.MakeBinding(generator, type))
-                return ret;
-            if (auto ret = binder_unordered_set.MakeBinding(generator, type))
-                return ret;
+            if (auto ret = binder_vector            .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_deque             .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_list              .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_set               .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_multiset          .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_unordered_set     .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_unordered_multiset.MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_map               .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_multimap          .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_unordered_map     .MakeBinding(generator, type)) return ret;
+            if (auto ret = binder_unordered_multimap.MakeBinding(generator, type)) return ret;
 
             return {};
         }

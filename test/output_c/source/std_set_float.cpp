@@ -45,25 +45,24 @@ void MR_C_std_set_float_Clear(MR_C_std_set_float *_this)
     (_this ? *(std::set<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).clear();
 }
 
+bool MR_C_std_set_float_Contains(const MR_C_std_set_float *_this, const float *key)
+{
+    return (_this ? *(const std::set<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).contains(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    );
+}
+
+MR_C_std_set_float_const_iterator *MR_C_std_set_float_Find(const MR_C_std_set_float *_this, const float *key)
+{
+    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator((_this ? *(const std::set<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    ));
+}
+
 void MR_C_std_set_float_Insert(MR_C_std_set_float *_this, float new_elem)
 {
     (_this ? *(std::set<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
         new_elem
-    );
-}
-
-void MR_C_std_set_float_InsertAtIter(MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *position, float new_elem)
-{
-    (_this ? *(std::set<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
-        (position ? std::set<float>::const_iterator(*(std::set<float>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null.")),
-        new_elem
-    );
-}
-
-void MR_C_std_set_float_EraseAtIter(MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *position)
-{
-    (_this ? *(std::set<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).erase(
-        (position ? std::set<float>::const_iterator(*(std::set<float>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null."))
     );
 }
 

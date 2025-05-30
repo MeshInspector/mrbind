@@ -45,25 +45,24 @@ void MR_C_std_multiset_float_Clear(MR_C_std_multiset_float *_this)
     (_this ? *(std::multiset<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).clear();
 }
 
+size_t MR_C_std_multiset_float_Count(const MR_C_std_multiset_float *_this, const float *key)
+{
+    return (_this ? *(const std::multiset<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).count(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    );
+}
+
+MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_Find(const MR_C_std_multiset_float *_this, const float *key)
+{
+    return (MR_C_std_multiset_float_const_iterator *)new std::multiset<float>::const_iterator((_this ? *(const std::multiset<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    ));
+}
+
 void MR_C_std_multiset_float_Insert(MR_C_std_multiset_float *_this, float new_elem)
 {
     (_this ? *(std::multiset<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
         new_elem
-    );
-}
-
-void MR_C_std_multiset_float_InsertAtIter(MR_C_std_multiset_float *_this, const MR_C_std_multiset_float_const_iterator *position, float new_elem)
-{
-    (_this ? *(std::multiset<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
-        (position ? std::multiset<float>::const_iterator(*(std::multiset<float>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null.")),
-        new_elem
-    );
-}
-
-void MR_C_std_multiset_float_EraseAtIter(MR_C_std_multiset_float *_this, const MR_C_std_multiset_float_const_iterator *position)
-{
-    (_this ? *(std::multiset<float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).erase(
-        (position ? std::multiset<float>::const_iterator(*(std::multiset<float>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null."))
     );
 }
 

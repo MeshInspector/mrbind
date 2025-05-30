@@ -45,25 +45,24 @@ void MR_C_std_multiset_int_Clear(MR_C_std_multiset_int *_this)
     (_this ? *(std::multiset<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).clear();
 }
 
+size_t MR_C_std_multiset_int_Count(const MR_C_std_multiset_int *_this, const int *key)
+{
+    return (_this ? *(const std::multiset<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).count(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    );
+}
+
+MR_C_std_multiset_int_const_iterator *MR_C_std_multiset_int_Find(const MR_C_std_multiset_int *_this, const int *key)
+{
+    return (MR_C_std_multiset_int_const_iterator *)new std::multiset<int>::const_iterator((_this ? *(const std::multiset<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
+    ));
+}
+
 void MR_C_std_multiset_int_Insert(MR_C_std_multiset_int *_this, int new_elem)
 {
     (_this ? *(std::multiset<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
         new_elem
-    );
-}
-
-void MR_C_std_multiset_int_InsertAtIter(MR_C_std_multiset_int *_this, const MR_C_std_multiset_int_const_iterator *position, int new_elem)
-{
-    (_this ? *(std::multiset<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
-        (position ? std::multiset<int>::const_iterator(*(std::multiset<int>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null.")),
-        new_elem
-    );
-}
-
-void MR_C_std_multiset_int_EraseAtIter(MR_C_std_multiset_int *_this, const MR_C_std_multiset_int_const_iterator *position)
-{
-    (_this ? *(std::multiset<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).erase(
-        (position ? std::multiset<int>::const_iterator(*(std::multiset<int>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null."))
     );
 }
 

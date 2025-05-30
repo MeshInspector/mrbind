@@ -2,7 +2,9 @@
 
 #include <deque>
 #include <list>
+#include <map>
 #include <set>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -26,6 +28,10 @@ namespace MR::StdContainers
     inline std::multiset<int> GetMultiSet() {return {};}
     inline std::unordered_set<int> GetUnorderedSet() {return {};}
     inline std::unordered_multiset<int> GetUnorderedMultiSet() {return {};}
+    inline std::map<int, float> GetMap() {return {};}
+    inline std::multimap<int, float> GetMultiMap() {return {};}
+    inline std::unordered_map<int, float> GetUnorderedMap() {return {};}
+    inline std::unordered_multimap<int, float> GetUnorderedMultiMap() {return {};}
 
     // For this `std::multiset` specialization, mention all iterators so that they get merged.
     inline std::multiset<float> GetMultiSetWithMergedIters() {return {};}
