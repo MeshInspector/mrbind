@@ -107,7 +107,7 @@ namespace pybind11::patched
         );
 
         // The sizeof of the element type.
-        cl.def_property_static(
+        cl.def_property_readonly_static(
             +"element_type_byte_size",
             [](const pybind11::object &)
             {
