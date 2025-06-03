@@ -862,7 +862,7 @@ namespace mrbind
                     throw std::runtime_error("During type simplification, cppdecl didn't consume a part of the type name `" + ret + "` starting from position " + std::to_string(input.data() - ret.c_str()) + ". Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
                 }
                 cppdecl::Type &type = std::get<cppdecl::Type>(parse_result);
-                cppdecl::SimplifyTypeNames(cppdecl::SimplifyTypeNamesFlags::native, type);
+                cppdecl::Simplify(cppdecl::SimplifyFlags::native, type);
                 ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
             }
 
