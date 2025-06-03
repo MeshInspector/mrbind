@@ -2,6 +2,7 @@
 
 #include <exports.h>
 #include <pass_by.h>
+#include <std_array_int_42.h>
 #include <std_deque_int.h>
 #include <std_list_int.h>
 #include <std_map_int_float.h>
@@ -96,6 +97,10 @@ MR_C_API MR_C_std_unordered_map_int_float *MR_StdContainers_GetUnorderedMap(void
 /// Generated from function `MR::StdContainers::GetUnorderedMultiMap`.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float *MR_StdContainers_GetUnorderedMultiMap(void);
+
+/// Generated from function `MR::StdContainers::GetStdArray`.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_array_int_42_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_array_int_42 *MR_StdContainers_GetStdArray(void);
 
 // For this `std::multiset` specialization, mention all iterators so that they get merged.
 /// Generated from function `MR::StdContainers::GetMultiSetWithMergedIters`.

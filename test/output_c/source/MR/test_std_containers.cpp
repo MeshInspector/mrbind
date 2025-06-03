@@ -147,6 +147,13 @@ MR_C_std_unordered_multimap_int_float *MR_StdContainers_GetUnorderedMultiMap(voi
     return (MR_C_std_unordered_multimap_int_float *)new std::unordered_multimap<int, float>(MR::StdContainers::GetUnorderedMultiMap());
 }
 
+MR_C_std_array_int_42 *MR_StdContainers_GetStdArray(void)
+{
+    using namespace MR;
+    using namespace StdContainers;
+    return (MR_C_std_array_int_42 *)new std::array<int, 42>(MR::StdContainers::GetStdArray());
+}
+
 MR_C_std_multiset_float *MR_StdContainers_GetMultiSetWithMergedIters(void)
 {
     using namespace MR;

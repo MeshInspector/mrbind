@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <deque>
 #include <list>
 #include <map>
@@ -32,6 +33,7 @@ namespace MR::StdContainers
     inline std::multimap<int, float> GetMultiMap() {return {};}
     inline std::unordered_map<int, float> GetUnorderedMap() {return {};}
     inline std::unordered_multimap<int, float> GetUnorderedMultiMap() {return {};}
+    inline std::array<int, 42> GetStdArray() {return {};}
 
     // For this `std::multiset` specialization, mention all iterators so that they get merged.
     inline std::multiset<float> GetMultiSetWithMergedIters() {return {};}

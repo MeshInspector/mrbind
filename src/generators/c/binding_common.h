@@ -78,9 +78,11 @@ namespace mrbind::CBindings
 
     [[nodiscard]] Generator::BindableType MakeByValueClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type, const Generator::TypeTraits &traits);
 
-    // If `cpp_type` is one of `target_name {const &, &&, const &&}`, then generates a default binding for them `using `MakeSimpleTypeBinding()`, and then patches the parameter usage to match those of a by-value `target_name`.
+    // If `cpp_type` is one of `target_name {const &, &&, const &&}`, then generates a default binding for them `using `MakeSimpleTypeBinding()`, and then patches the parameter usage to match that of a by-value `target_name`.
     // If `cpp_type` isn't one of the listed types, returns null.
     // If `cpp_type` is one of those types, but the default binding for `cpp_type` couldn't be generated, or if there's no binding for `target_name`, throws.
+    // The intent behind this is to propagate fancy custom parameter usage to those reference parameters.
+    // This is only necessary if the custom parameter usage exists in the first place.
     [[nodiscard]] std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, std::string_view target_name);
 
     // ]
