@@ -21,14 +21,9 @@ namespace mrbind::CBindings::Modules
             if (is_new)
             {
                 file.header.contents += "\n/// A heap-allocated string.\n";
-                binder.EmitForwardDeclaration(file);
+                binder.EmitForwardDeclaration(generator, file);
 
-                generator.EmitFunction(file, binder.PrepareFuncDefaultCtor());
-                generator.EmitFunction(file, binder.PrepareFuncCopyMoveCtor());
-                generator.EmitFunction(file, binder.PrepareFuncCopyMoveCtor(true));
-                generator.EmitFunction(file, binder.PrepareFuncCopyMoveAssignment());
-                generator.EmitFunction(file, binder.PrepareFuncCopyMoveAssignment(true));
-                generator.EmitFunction(file, binder.PrepareFuncDestroy());
+                binder.EmitSpecialMemberFunctions(generator, file, true);
 
                 // Some custom functions:
 

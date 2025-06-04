@@ -115,25 +115,17 @@ namespace mrbind::CBindings
             TryIncludeHeadersForCppTypeInSourceFile(generator, file, cppdecl::Type::FromQualifiedName(cpp_container_type));
 
             file.header.contents += "\n/// Generated from C++ container `" + cppdecl::ToCode(cpp_container_type, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
-            class_binder.EmitForwardDeclaration(file);
+            class_binder.EmitForwardDeclaration(generator, file);
             file.header.contents += "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n";
-            iterator_binder_const.EmitForwardDeclaration(file);
+            iterator_binder_const.EmitForwardDeclaration(generator, file);
             if (params.has_mutable_iterators)
             {
                 file.header.contents += "\n/// Mutable iterator for `" + class_binder.c_type_name + "`.\n";
-                iterator_binder_mutable.EmitForwardDeclaration(file);
+                iterator_binder_mutable.EmitForwardDeclaration(generator, file);
             }
 
             // The special member functions:
-
-            if (class_binder.traits.value().is_default_constructible)
-                generator.EmitFunction(file, class_binder.PrepareFuncDefaultCtor());
-            if (class_binder.traits.value().is_move_constructible)
-                generator.EmitFunction(file, class_binder.PrepareFuncCopyMoveCtor());
-            if (class_binder.traits.value().is_move_assignable)
-                generator.EmitFunction(file, class_binder.PrepareFuncCopyMoveAssignment());
-            if (class_binder.traits.value().is_destructible)
-                generator.EmitFunction(file, class_binder.PrepareFuncDestroy());
+            class_binder.EmitSpecialMemberFunctions(generator, file);
 
             // All the custom functions:
 
@@ -584,11 +576,7 @@ namespace mrbind::CBindings
             }
 
             { // Iterators
-                // const_iterator ctors
-                generator.EmitFunction(file, iterator_binder_const.PrepareFuncDefaultCtor());
-                generator.EmitFunction(file, iterator_binder_const.PrepareFuncCopyMoveCtor());
-                generator.EmitFunction(file, iterator_binder_const.PrepareFuncCopyMoveAssignment());
-                generator.EmitFunction(file, iterator_binder_const.PrepareFuncDestroy());
+                iterator_binder_const.EmitSpecialMemberFunctions(generator, file);
 
                 if (params.has_mutable_iterators)
                 {
@@ -605,11 +593,7 @@ namespace mrbind::CBindings
                         generator.EmitFunction(file, emit);
                     }
 
-                    // mutable iterator ctors
-                    generator.EmitFunction(file, iterator_binder_mutable.PrepareFuncDefaultCtor());
-                    generator.EmitFunction(file, iterator_binder_mutable.PrepareFuncCopyMoveCtor());
-                    generator.EmitFunction(file, iterator_binder_mutable.PrepareFuncCopyMoveAssignment());
-                    generator.EmitFunction(file, iterator_binder_mutable.PrepareFuncDestroy());
+                    iterator_binder_mutable.EmitSpecialMemberFunctions(generator, file);
                 }
 
                 for (bool is_const_iter : {true, false})

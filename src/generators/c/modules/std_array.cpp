@@ -19,7 +19,7 @@ namespace mrbind::CBindings::Modules
             // `std::array`
             if (type.simple_type.name.parts.size() == base_name.parts.size())
             {
-                // This can throw if `type` has wrong template parameters, we don't mind. I'm not sure how it could be possible on valid C++ code in the first place.
+                // This can throw if `type` has wrong template parameters, we don't mind. I'm not sure how it could be possible in valid C++ code in the first place.
                 const cppdecl::Type &cpp_elem_type = std::get<cppdecl::Type>(type.simple_type.name.parts.back().template_args.value().args.at(0).var);
                 const cppdecl::PseudoExpr &array_size = std::get<cppdecl::PseudoExpr>(type.simple_type.name.parts.back().template_args.value().args.at(1).var);
 
@@ -44,18 +44,10 @@ namespace mrbind::CBindings::Modules
                         file.source.stdlib_headers.insert("array");
 
                         file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + array_size_str + ".\n";
-                        binder.EmitForwardDeclaration(file);
+                        binder.EmitForwardDeclaration(generator, file);
 
                         // The special member functions:
-
-                        if (binder.traits.value().is_default_constructible)
-                            generator.EmitFunction(file, binder.PrepareFuncDefaultCtor());
-                        if (binder.traits.value().is_move_constructible)
-                            generator.EmitFunction(file, binder.PrepareFuncCopyMoveCtor());
-                        if (binder.traits.value().is_move_assignable)
-                            generator.EmitFunction(file, binder.PrepareFuncCopyMoveAssignment());
-                        if (binder.traits.value().is_destructible)
-                            generator.EmitFunction(file, binder.PrepareFuncDestroy());
+                        binder.EmitSpecialMemberFunctions(generator, file);
 
                         // Some custom functions:
 

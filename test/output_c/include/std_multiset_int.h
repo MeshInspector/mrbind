@@ -12,9 +12,11 @@ extern "C" {
 
 
 /// Generated from C++ container `std::multiset<int>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_multiset_int MR_C_std_multiset_int;
 
 /// Read-only iterator for `MR_C_std_multiset_int`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_multiset_int_const_iterator MR_C_std_multiset_int_const_iterator;
 
 /// Constructs an empty (default-constructed) instance.

@@ -52,8 +52,27 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator::OutputFile &file) const
+    void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const
     {
+        { // Make a comment with supported pass-by modes.
+            std::string enum_name = generator.GetPassByEnumName();
+
+            file.header.contents += "/// Supported `" + enum_name + "` modes: ";
+            if (traits.value().is_default_constructible)
+                file.header.contents += '`' + enum_name + "_DefaultConstruct`, ";
+            if (traits.value().is_copy_constructible)
+            {
+                file.header.contents += '`' + enum_name + "_Copy`";
+                if (traits.value().copy_constructor_takes_nonconst_ref)
+                    file.header.contents += " (for this type may modify the source object)";
+                file.header.contents += ", ";
+            }
+            if (traits.value().is_move_constructible)
+                file.header.contents += '`' + enum_name + "_Move`, ";
+
+            file.header.contents += '`' + enum_name + "_DefaultArgument` (if supported by the callee).\n";
+        }
+
         file.header.contents += MakeForwardDeclaration();
         file.header.contents += '\n';
     }
@@ -231,6 +250,29 @@ namespace mrbind::CBindings
         }
 
         return ret;
+    }
+
+    void HeapAllocatedClassBinder::EmitSpecialMemberFunctions(Generator &generator, Generator::OutputFile &file, bool with_param_sugar) const
+    {
+        if (traits.value().is_default_constructible)
+            generator.EmitFunction(file, PrepareFuncDefaultCtor());
+
+        if (traits.value().is_move_constructible)
+        {
+            generator.EmitFunction(file, PrepareFuncCopyMoveCtor());
+            if (with_param_sugar)
+                generator.EmitFunction(file, PrepareFuncCopyMoveCtor(true));
+        }
+
+        if (traits.value().is_move_assignable)
+        {
+            generator.EmitFunction(file, PrepareFuncCopyMoveAssignment());
+            if (with_param_sugar)
+                generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(true));
+        }
+
+        if (traits.value().is_destructible)
+            generator.EmitFunction(file, PrepareFuncDestroy());
     }
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor() const

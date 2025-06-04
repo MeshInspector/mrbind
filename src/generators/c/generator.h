@@ -291,6 +291,9 @@ namespace mrbind::CBindings
             // This already happens by default if `is_trivially_copy_constructible || is_trivially_move_constructible`, and this variable is a way to explicitly opt into this despite not being trivial.
             bool assume_copying_is_cheap = false;
 
+            // If you add new fields here, you might need to update `CombineCommonProperties()`.
+
+
             TypeTraits() {}
 
             struct TrivialAndSameSizeInCAndCpp {explicit TrivialAndSameSizeInCAndCpp() = default;};
@@ -423,6 +426,34 @@ namespace mrbind::CBindings
             [[nodiscard]] bool NeedsPassByEnum() const
             {
                 return !UnconditionallyCopyOnPassByValue() && IsDefaultOrCopyOrMoveConstructible();
+            }
+
+
+            // Merges some properties of `other` with `this`, mostly via AND (such as constructability, destructability, assignability, etc).
+            // This is intended for `std::pair`, `std::tuple`, etc. Start with `CopyableNonTrivialButCheap{}` and stack the member traits on top.
+            void CombineCommonProperties(const TypeTraits &other)
+            {
+                #define DETAIL_MRBIND_MERGE_TRAIT_AND(name_) name_ &= other.name_;
+                #define DETAIL_MRBIND_MERGE_TRAIT_OR(name_) name_ |= other.name_;
+
+                #define DETAIL_MRBIND_MERGE_SMF_TRAIT(name_) \
+                    is_##name_ &= other.is_##name_; \
+                    is_trivially_##name_ &= other.is_trivially_##name_ && is_##name_; /* Note, this gets zeroed if the base non-trivial set became false. */
+
+                DETAIL_MRBIND_MERGE_SMF_TRAIT(default_constructible)
+                DETAIL_MRBIND_MERGE_SMF_TRAIT(copy_constructible)
+                DETAIL_MRBIND_MERGE_SMF_TRAIT(move_constructible)
+                DETAIL_MRBIND_MERGE_SMF_TRAIT(copy_assignable)
+                DETAIL_MRBIND_MERGE_SMF_TRAIT(move_assignable)
+                DETAIL_MRBIND_MERGE_SMF_TRAIT(destructible)
+
+                DETAIL_MRBIND_MERGE_TRAIT_AND(is_any_constructible)
+                DETAIL_MRBIND_MERGE_TRAIT_OR(copy_constructor_takes_nonconst_ref)
+                DETAIL_MRBIND_MERGE_TRAIT_AND(assume_copying_is_cheap)
+
+                #undef DETAIL_MRBIND_MERGE_TRAIT_AND
+                #undef DETAIL_MRBIND_MERGE_TRAIT_OR
+                #undef DETAIL_MRBIND_MERGE_SMF_TRAIT
             }
         };
 

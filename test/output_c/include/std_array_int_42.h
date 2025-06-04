@@ -11,6 +11,7 @@ extern "C" {
 
 
 /// A fixed-size array of `int` of size 42.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_array_int_42 MR_C_std_array_int_42;
 
 /// Constructs an empty (default-constructed) instance.

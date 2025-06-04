@@ -11,6 +11,7 @@ extern "C" {
 
 
 /// A heap-allocated string.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_string MR_C_std_string;
 
 /// Constructs an empty (default-constructed) instance.

@@ -12,12 +12,15 @@ extern "C" {
 
 
 /// Generated from C++ container `std::deque<int>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_deque_int MR_C_std_deque_int;
 
 /// Read-only iterator for `MR_C_std_deque_int`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_deque_int_const_iterator MR_C_std_deque_int_const_iterator;
 
 /// Mutable iterator for `MR_C_std_deque_int`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_deque_int_iterator MR_C_std_deque_int_iterator;
 
 /// Constructs an empty (default-constructed) instance.

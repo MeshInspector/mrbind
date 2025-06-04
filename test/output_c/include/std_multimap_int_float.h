@@ -12,12 +12,15 @@ extern "C" {
 
 
 /// Generated from C++ container `std::multimap<int, float>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_multimap_int_float MR_C_std_multimap_int_float;
 
 /// Read-only iterator for `MR_C_std_multimap_int_float`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_multimap_int_float_const_iterator MR_C_std_multimap_int_float_const_iterator;
 
 /// Mutable iterator for `MR_C_std_multimap_int_float`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_multimap_int_float_iterator MR_C_std_multimap_int_float_iterator;
 
 /// Constructs an empty (default-constructed) instance.

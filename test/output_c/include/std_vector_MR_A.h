@@ -14,12 +14,15 @@ typedef struct MR_A MR_A;
 
 
 /// Generated from C++ container `std::vector<MR::A>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_vector_MR_A MR_C_std_vector_MR_A;
 
 /// Read-only iterator for `MR_C_std_vector_MR_A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_vector_MR_A_const_iterator MR_C_std_vector_MR_A_const_iterator;
 
 /// Mutable iterator for `MR_C_std_vector_MR_A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
 typedef struct MR_C_std_vector_MR_A_iterator MR_C_std_vector_MR_A_iterator;
 
 /// Constructs an empty (default-constructed) instance.
