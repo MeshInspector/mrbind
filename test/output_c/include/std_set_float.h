@@ -31,7 +31,7 @@ MR_C_API MR_C_std_set_float *MR_C_std_set_float_ConstructFromAnother(MR_C_PassBy
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_set_float_AssignFromAnother(MR_C_std_set_float *_this, MR_C_PassBy other_pass_by, MR_C_std_set_float *other);
 
-/// Destroys a heap-allocated instance of `std::set<float>`.
+/// Destroys a heap-allocated instance of `MR_C_std_set_float`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_set_float_Destroy(MR_C_std_set_float *_this);
 
@@ -94,7 +94,7 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_Co
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_set_float_const_iterator_AssignFromAnother(MR_C_std_set_float_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_set_float_const_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::set<float>::const_iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_set_float_const_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_set_float_const_iterator_Destroy(MR_C_std_set_float_const_iterator *_this);
 

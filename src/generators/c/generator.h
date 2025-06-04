@@ -429,6 +429,14 @@ namespace mrbind::CBindings
             }
 
 
+            void MakeNonAssignable()
+            {
+                is_copy_assignable = false;
+                is_move_assignable = false;
+                is_trivially_copy_assignable = false;
+                is_trivially_move_assignable = false;
+            }
+
             // Merges some properties of `other` with `this`, mostly via AND (such as constructability, destructability, assignability, etc).
             // This is intended for `std::pair`, `std::tuple`, etc. Start with `CopyableNonTrivialButCheap{}` and stack the member traits on top.
             void CombineCommonProperties(const TypeTraits &other)

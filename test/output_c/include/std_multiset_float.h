@@ -31,7 +31,7 @@ MR_C_API MR_C_std_multiset_float *MR_C_std_multiset_float_ConstructFromAnother(M
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_multiset_float_AssignFromAnother(MR_C_std_multiset_float *_this, MR_C_PassBy other_pass_by, MR_C_std_multiset_float *other);
 
-/// Destroys a heap-allocated instance of `std::multiset<float>`.
+/// Destroys a heap-allocated instance of `MR_C_std_multiset_float`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_multiset_float_Destroy(MR_C_std_multiset_float *_this);
 
@@ -94,7 +94,7 @@ MR_C_API MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_i
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_multiset_float_const_iterator_AssignFromAnother(MR_C_std_multiset_float_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_multiset_float_const_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::multiset<float>::const_iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_multiset_float_const_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_multiset_float_const_iterator_Destroy(MR_C_std_multiset_float_const_iterator *_this);
 

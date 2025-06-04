@@ -35,7 +35,7 @@ MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_AssignFromAnother(MR_C_std_unordered_multimap_int_float *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_multimap_int_float *other);
 
-/// Destroys a heap-allocated instance of `std::unordered_multimap<int, float>`.
+/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_Destroy(MR_C_std_unordered_multimap_int_float *_this);
 
@@ -120,7 +120,7 @@ MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordere
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_const_iterator_AssignFromAnother(MR_C_std_unordered_multimap_int_float_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_multimap_int_float_const_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::unordered_multimap<int, float>::const_iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float_const_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_const_iterator_Destroy(MR_C_std_unordered_multimap_int_float_const_iterator *_this);
 
@@ -141,7 +141,7 @@ MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_mult
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_iterator_AssignFromAnother(MR_C_std_unordered_multimap_int_float_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_multimap_int_float_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::unordered_multimap<int, float>::iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_iterator_Destroy(MR_C_std_unordered_multimap_int_float_iterator *_this);
 

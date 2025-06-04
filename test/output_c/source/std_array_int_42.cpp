@@ -1,7 +1,5 @@
 #include "std_array_int_42.h"
 
-#include <__mrbind_c_details.h>
-
 #include <array>
 #include <stdexcept>
 
@@ -11,17 +9,17 @@ MR_C_std_array_int_42 *MR_C_std_array_int_42_DefaultConstruct(void)
     return (MR_C_std_array_int_42 *)new std::array<int, 42>(std::array<int, 42>());
 }
 
-MR_C_std_array_int_42 *MR_C_std_array_int_42_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_array_int_42 *other)
+MR_C_std_array_int_42 *MR_C_std_array_int_42_ConstructFromAnother(const MR_C_std_array_int_42 *other)
 {
     return (MR_C_std_array_int_42 *)new std::array<int, 42>(std::array<int, 42>(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::array<int, 42>) MRBINDC_CLASSARG_COPY(other, std::array<int, 42>) MRBINDC_CLASSARG_MOVE(other, std::array<int, 42>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::array<int, 42>) MRBINDC_CLASSARG_END(other, std::array<int, 42>))
+        (other ? std::array<int, 42>(*(std::array<int, 42> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 
-void MR_C_std_array_int_42_AssignFromAnother(MR_C_std_array_int_42 *_this, MR_C_PassBy other_pass_by, MR_C_std_array_int_42 *other)
+void MR_C_std_array_int_42_AssignFromAnother(MR_C_std_array_int_42 *_this, const MR_C_std_array_int_42 *other)
 {
     (_this ? *(std::array<int, 42>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::array<int, 42>) MRBINDC_CLASSARG_COPY(other, std::array<int, 42>) MRBINDC_CLASSARG_MOVE(other, std::array<int, 42>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::array<int, 42>) MRBINDC_CLASSARG_END(other, std::array<int, 42>))
+        (other ? std::array<int, 42>(*(std::array<int, 42> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     );
 }
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <exports.h>
-#include <pass_by.h>
 
 #include <stddef.h>
 
@@ -19,14 +18,16 @@ typedef struct MR_C_std_array_int_42 MR_C_std_array_int_42;
 MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_DefaultConstruct(void);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// Parameter `other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_array_int_42_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_array_int_42 *other);
+MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_ConstructFromAnother(const MR_C_std_array_int_42 *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_array_int_42_AssignFromAnother(MR_C_std_array_int_42 *_this, MR_C_PassBy other_pass_by, MR_C_std_array_int_42 *other);
+/// Parameter `other` can not be null.
+MR_C_API void MR_C_std_array_int_42_AssignFromAnother(MR_C_std_array_int_42 *_this, const MR_C_std_array_int_42 *other);
 
-/// Destroys a heap-allocated instance of `std::array<int, 42>`.
+/// Destroys a heap-allocated instance of `MR_C_std_array_int_42`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_array_int_42_Destroy(MR_C_std_array_int_42 *_this);
 

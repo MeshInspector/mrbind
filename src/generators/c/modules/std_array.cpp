@@ -42,6 +42,7 @@ namespace mrbind::CBindings::Modules
                     if (is_new)
                     {
                         file.source.stdlib_headers.insert("array");
+                        TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
 
                         file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + array_size_str + ".\n";
                         binder.EmitForwardDeclaration(generator, file);
@@ -105,14 +106,12 @@ namespace mrbind::CBindings::Modules
 
                 Generator::BindableType &new_type = ret.emplace();
 
-                new_type.traits = Generator::TypeTraits::CopyableNonTrivial{};
+                new_type.traits = binder.traits;
                 new_type.is_heap_allocated_class = true;
 
                 new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
                 new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
                 new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
-
-                new_type.is_heap_allocated_class = true;
 
                 new_type.param_usage_with_default_arg = binder.MakeParamUsageSupportingDefaultArg(generator);
                 new_type.return_usage = binder.MakeReturnUsage();

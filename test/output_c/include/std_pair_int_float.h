@@ -24,7 +24,7 @@ MR_C_API MR_C_std_pair_int_float *MR_C_std_pair_int_float_ConstructFromAnother(M
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_pair_int_float_AssignFromAnother(MR_C_std_pair_int_float *_this, MR_C_PassBy other_pass_by, MR_C_std_pair_int_float *other);
 
-/// Destroys a heap-allocated instance of `std::pair<int, float>`.
+/// Destroys a heap-allocated instance of `MR_C_std_pair_int_float`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_pair_int_float_Destroy(MR_C_std_pair_int_float *_this);
 

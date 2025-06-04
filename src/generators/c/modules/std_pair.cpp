@@ -39,6 +39,7 @@ namespace mrbind::CBindings::Modules
                 if (is_new)
                 {
                     file.source.stdlib_headers.insert("utility"); // For `std::pair`.
+                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
 
                     file.header.contents += "\n/// Stores two objects: `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "` and `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
                     binder.EmitForwardDeclaration(generator, file);
@@ -48,21 +49,33 @@ namespace mrbind::CBindings::Modules
 
                     // Some custom functions:
 
+                    auto MakeReturnType = [](cppdecl::Type type, bool is_const) -> cppdecl::Type
+                    {
+                        if (type.Is<cppdecl::Reference>())
+                            return type;
+                        if (is_const)
+                            type.AddQualifiers(cppdecl::CvQualifiers::const_);
+                        type.AddModifier(cppdecl::Reference{});
+                        return type;
+                    };
+
                     { // first, const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, read-only.";
                         emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_First");
-                        emit.cpp_return_type = cppdecl::Type(cpp_elem_type_a).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
+                        emit.cpp_return_type = MakeReturnType(cpp_elem_type_a, true);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                         emit.cpp_called_func = "@this@.first";
                         generator.EmitFunction(file, emit);
                     }
 
-                    { // first, mutable
+                    // first, mutable
+                    if (!cpp_elem_type_a.IsConstOrReference())
+                    {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, mutable.";
                         emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableFirst");
-                        emit.cpp_return_type = cppdecl::Type(cpp_elem_type_a).AddModifier(cppdecl::Reference{});
+                        emit.cpp_return_type = MakeReturnType(cpp_elem_type_a, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.first";
                         generator.EmitFunction(file, emit);
@@ -72,17 +85,19 @@ namespace mrbind::CBindings::Modules
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, read-only.";
                         emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Second");
-                        emit.cpp_return_type = cppdecl::Type(cpp_elem_type_b).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
+                        emit.cpp_return_type = MakeReturnType(cpp_elem_type_b, true);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                         emit.cpp_called_func = "@this@.second";
                         generator.EmitFunction(file, emit);
                     }
 
-                    { // second, mutable
+                    // second, mutable
+                    if (!cpp_elem_type_b.IsConstOrReference())
+                    {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, mutable.";
                         emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableSecond");
-                        emit.cpp_return_type = cppdecl::Type(cpp_elem_type_b).AddModifier(cppdecl::Reference{});
+                        emit.cpp_return_type = MakeReturnType(cpp_elem_type_b, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.second";
                         generator.EmitFunction(file, emit);
@@ -94,14 +109,12 @@ namespace mrbind::CBindings::Modules
 
             Generator::BindableType &new_type = ret.emplace();
 
-            new_type.traits = Generator::TypeTraits::CopyableNonTrivial{};
+            new_type.traits = binder.traits;
             new_type.is_heap_allocated_class = true;
 
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
             new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
             new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
-
-            new_type.is_heap_allocated_class = true;
 
             new_type.param_usage_with_default_arg = binder.MakeParamUsageSupportingDefaultArg(generator);
             new_type.return_usage = binder.MakeReturnUsage();

@@ -38,7 +38,7 @@ MR_C_API void MR_C_std_string_AssignFromAnother(MR_C_std_string *_this, MR_C_Pas
 /// If `other_end` is null, then `other` is assumed to be null-terminated.
 MR_C_API void MR_C_std_string_AssignFrom(MR_C_std_string *_this, const char *other, const char *other_end);
 
-/// Destroys a heap-allocated instance of `std::string`.
+/// Destroys a heap-allocated instance of `MR_C_std_string`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_string_Destroy(MR_C_std_string *_this);
 

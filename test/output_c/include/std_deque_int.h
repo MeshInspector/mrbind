@@ -35,7 +35,7 @@ MR_C_API MR_C_std_deque_int *MR_C_std_deque_int_ConstructFromAnother(MR_C_PassBy
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_deque_int_AssignFromAnother(MR_C_std_deque_int *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int *other);
 
-/// Destroys a heap-allocated instance of `std::deque<int>`.
+/// Destroys a heap-allocated instance of `MR_C_std_deque_int`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_deque_int_Destroy(MR_C_std_deque_int *_this);
 
@@ -187,7 +187,7 @@ MR_C_API MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_Co
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_deque_int_const_iterator_AssignFromAnother(MR_C_std_deque_int_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int_const_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::deque<int>::const_iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_deque_int_const_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_deque_int_const_iterator_Destroy(MR_C_std_deque_int_const_iterator *_this);
 
@@ -208,7 +208,7 @@ MR_C_API MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_ConstructFromA
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_deque_int_iterator_AssignFromAnother(MR_C_std_deque_int_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::deque<int>::iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_deque_int_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_deque_int_iterator_Destroy(MR_C_std_deque_int_iterator *_this);
 

@@ -37,7 +37,7 @@ MR_C_API MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_ConstructFromAnother(MR_C_Pa
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_MR_A_AssignFromAnother(MR_C_std_vector_MR_A *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_A *other);
 
-/// Destroys a heap-allocated instance of `std::vector<MR::A>`.
+/// Destroys a heap-allocated instance of `MR_C_std_vector_MR_A`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_MR_A_Destroy(MR_C_std_vector_MR_A *_this);
 
@@ -193,7 +193,7 @@ MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterato
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_MR_A_const_iterator_AssignFromAnother(MR_C_std_vector_MR_A_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_A_const_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::vector<MR::A>::const_iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_vector_MR_A_const_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_MR_A_const_iterator_Destroy(MR_C_std_vector_MR_A_const_iterator *_this);
 
@@ -214,7 +214,7 @@ MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_ConstructF
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_MR_A_iterator_AssignFromAnother(MR_C_std_vector_MR_A_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_A_iterator *other);
 
-/// Destroys a heap-allocated instance of `std::vector<MR::A>::iterator`.
+/// Destroys a heap-allocated instance of `MR_C_std_vector_MR_A_iterator`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_MR_A_iterator_Destroy(MR_C_std_vector_MR_A_iterator *_this);
 

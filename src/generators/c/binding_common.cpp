@@ -341,8 +341,6 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDestroy() const
     {
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
-
         Generator::EmitFuncParams ret;
 
         assert(!c_func_name_destroy.empty());
@@ -352,7 +350,7 @@ namespace mrbind::CBindings
 
         ret.cpp_called_func = "delete &@this@";
 
-        ret.c_comment += "/// Destroys a heap-allocated instance of `" + cpp_type_str + "`.";
+        ret.c_comment += "/// Destroys a heap-allocated instance of `" + c_type_name + "`.";
 
         return ret;
     }
@@ -393,6 +391,8 @@ namespace mrbind::CBindings
         Generator::BindableType ret(c_type);
 
         ret.traits = Generator::TypeTraits::TrivialAndSameSizeInCAndCpp{};
+        if (cpp_type.IsConstOrReference())
+            ret.traits->MakeNonAssignable();
 
         // Allow default arguments via pointers.
         auto &param_def_arg = ret.param_usage_with_default_arg.emplace();
