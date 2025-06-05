@@ -8,7 +8,7 @@
 #include <std_pair_int_float.h>
 #include <std_pair_int_ref_float_ref.h>
 #include <std_pair_int_rvalue_ref_float_rvalue_ref.h>
-#include <std_tuple_.h>
+#include <std_tuple.h>
 #include <std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref.h>
 #include <std_tuple_float_double_int_int.h>
 #include <std_tuple_int_float.h>
@@ -57,8 +57,8 @@ MR_C_API MR_C_std_tuple_int_float *MR_StdTupleLike_GetTuple(void);
 MR_C_API MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *MR_StdTupleLike_GetTuple2(void);
 
 /// Generated from function `MR::StdTupleLike::GetTuple7`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_tuple__Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_tuple_ *MR_StdTupleLike_GetTuple7(void);
+/// Returns an instance allocated on the heap! Must call `MR_C_std_tuple_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple *MR_StdTupleLike_GetTuple7(void);
 
 /// Generated from function `MR::StdTupleLike::GetTuple8`.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_tuple_float_double_int_int_Destroy()` to free it when you're done using it.

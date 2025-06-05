@@ -30,6 +30,16 @@ void MR_C_std_tuple_float_double_int_int_Destroy(MR_C_std_tuple_float_double_int
     delete &(_this ? *(std::tuple<float, double, int, int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
 }
 
+MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_Construct(float _0, double _1, int _2, int _3)
+{
+    return (MR_C_std_tuple_float_double_int_int *)new std::tuple<float, double, int, int>(std::tuple<float, double, int, int>(
+        _0,
+        _1,
+        _2,
+        _3
+    ));
+}
+
 const float *MR_C_std_tuple_float_double_int_int_Get_float(const MR_C_std_tuple_float_double_int_int *_this)
 {
     return &(std::get<0>((_this ? *(const std::tuple<float, double, int, int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));

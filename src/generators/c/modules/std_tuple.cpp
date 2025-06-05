@@ -45,7 +45,7 @@ namespace mrbind::CBindings::Modules
                     file.source.stdlib_headers.insert("tuple"); // For `std::tuple`.
                     TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
 
-                    file.header.contents += "\n/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + ": ";
+                    file.header.contents += "\n/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
                         if (first)
@@ -62,6 +62,25 @@ namespace mrbind::CBindings::Modules
 
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);
+
+                    // Elementwise constructor.
+                    if (elem_types.size() > 0)
+                    {
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Constructs the tuple elementwise.";
+                        emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Construct");
+                        emit.cpp_return_type = type;
+                        for (std::size_t i = 0; i < elem_types.size(); i++)
+                        {
+                            emit.params.push_back({
+                                .name = "_" + std::to_string(i), // This is almost exactly the same as what the automatically selected names would be, but the difference is that this is zero-based, to match (the optional indices in) the getters below.
+                                .cpp_type = elem_types[i], // `EmitFunction` removes the top-level constness (if any) from this automatically.
+                            });
+                        }
+
+                        emit.cpp_called_func = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
+                        generator.EmitFunction(file, emit);
+                    }
 
                     // Some custom functions:
 

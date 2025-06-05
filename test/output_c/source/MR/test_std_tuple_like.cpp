@@ -78,11 +78,11 @@ MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float
     return (MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *)new std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&>(MR::StdTupleLike::GetTuple2());
 }
 
-MR_C_std_tuple_ *MR_StdTupleLike_GetTuple7(void)
+MR_C_std_tuple *MR_StdTupleLike_GetTuple7(void)
 {
     using namespace MR;
     using namespace StdTupleLike;
-    return (MR_C_std_tuple_ *)new std::tuple<>(MR::StdTupleLike::GetTuple7());
+    return (MR_C_std_tuple *)new std::tuple<>(MR::StdTupleLike::GetTuple7());
 }
 
 MR_C_std_tuple_float_double_int_int *MR_StdTupleLike_GetTuple8(void)

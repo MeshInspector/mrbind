@@ -20,6 +20,16 @@ MR_C_API MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int_rvalue
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy(MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *_this);
 
+/// Constructs the pair elementwise.
+/// Parameter `first` can not be null.
+/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+///   but if your pointer is owning, you must still destroy it manually later.
+/// Parameter `second` can not be null.
+/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+///   but if your pointer is owning, you must still destroy it manually later.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
+
 /// The first of the two elements, read-only.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

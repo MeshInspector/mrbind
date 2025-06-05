@@ -47,6 +47,24 @@ namespace mrbind::CBindings::Modules
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);
 
+                    { // Elementwise constructor.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Constructs the pair elementwise.";
+                        emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Construct");
+                        emit.cpp_return_type = type;
+                        emit.params.push_back({
+                            .name = "first",
+                            .cpp_type = cpp_elem_type_a, // `EmitFunction` removes the top-level constness (if any) from this automatically.
+                        });
+                        emit.params.push_back({
+                            .name = "second",
+                            .cpp_type = cpp_elem_type_b, // `EmitFunction` removes the top-level constness (if any) from this automatically.
+                        });
+
+                        emit.cpp_called_func = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
+                        generator.EmitFunction(file, emit);
+                    }
+
                     // Some custom functions:
 
                     auto MakeReturnType = [](cppdecl::Type type, bool is_const) -> cppdecl::Type

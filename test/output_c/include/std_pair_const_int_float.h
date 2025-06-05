@@ -24,6 +24,10 @@ MR_C_API MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_ConstructF
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_pair_const_int_float_Destroy(MR_C_std_pair_const_int_float *_this);
 
+/// Constructs the pair elementwise.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_Construct(int first, float second);
+
 /// The first of the two elements, read-only.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

@@ -28,6 +28,10 @@ MR_C_API void MR_C_std_tuple_int_float_AssignFromAnother(MR_C_std_tuple_int_floa
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_tuple_int_float_Destroy(MR_C_std_tuple_int_float *_this);
 
+/// Constructs the tuple elementwise.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_int_float *MR_C_std_tuple_int_float_Construct(int _0, float _1);
+
 /// The element 0, of type `int`, read-only.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

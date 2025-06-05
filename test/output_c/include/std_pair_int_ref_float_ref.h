@@ -15,6 +15,12 @@ typedef struct MR_C_std_pair_int_ref_float_ref MR_C_std_pair_int_ref_float_ref;
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_pair_int_ref_float_ref_Destroy(MR_C_std_pair_int_ref_float_ref *_this);
 
+/// Constructs the pair elementwise.
+/// Parameter `first` can not be null.
+/// Parameter `second` can not be null.
+/// Returns an instance allocated on the heap! Must call `MR_C_std_pair_int_ref_float_ref_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_pair_int_ref_float_ref *MR_C_std_pair_int_ref_float_ref_Construct(int *first, float *second);
+
 /// The first of the two elements, read-only.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
