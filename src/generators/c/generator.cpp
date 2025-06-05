@@ -1055,7 +1055,7 @@ namespace mrbind::CBindings
                     }
 
                     // Append the argument to the call, if enabled.
-                    if (!params.cpp_called_func.empty() && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                    if (param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
                     {
                         if (is_this_param)
                         {
@@ -1069,31 +1069,35 @@ namespace mrbind::CBindings
 
                         std::string placeholder = is_this_param ? "@this@" : "@" + std::to_string(i) + "@";
 
-                        if (params.cpp_called_func.find(placeholder) != std::string::npos)
+                        if (params.cpp_called_func.find(placeholder) != std::string::npos || body_pre.find(placeholder) != std::string::npos)
                         {
                             body_return = Strings::Replace(body_return, placeholder, arg_expr);
+                            body_pre = Strings::Replace(body_pre, placeholder, arg_expr);
                             seen_any_placeholders = true;
                         }
-                        else if (param.kind == EmitFuncParams::Param::Kind::static_)
+                        else if (!params.cpp_called_func.empty())
                         {
-                            body_return = arg_expr + "::" + body_return;
-                        }
-                        else if (param.kind == EmitFuncParams::Param::Kind::this_ref)
-                        {
-                            body_return = arg_expr + "." + body_return;
-                        }
-                        else
-                        {
-                            if (first_arg_in_call_expr)
+                            if (param.kind == EmitFuncParams::Param::Kind::static_)
                             {
-                                first_arg_in_call_expr = false;
-                                body_return += params.cpp_called_func_parens.begin;
+                                body_return = arg_expr + "::" + body_return;
+                            }
+                            else if (param.kind == EmitFuncParams::Param::Kind::this_ref)
+                            {
+                                body_return = arg_expr + "." + body_return;
                             }
                             else
-                                body_return += ',';
+                            {
+                                if (first_arg_in_call_expr)
+                                {
+                                    first_arg_in_call_expr = false;
+                                    body_return += params.cpp_called_func_parens.begin;
+                                }
+                                else
+                                    body_return += ',';
 
-                            body_return += "\n        ";
-                            body_return += arg_expr;
+                                body_return += "\n        ";
+                                body_return += arg_expr;
+                            }
                         }
                     }
 

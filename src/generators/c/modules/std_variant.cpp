@@ -6,9 +6,9 @@
 
 namespace mrbind::CBindings::Modules
 {
-    struct StdTuple : DeriveModule<StdTuple>
+    struct StdVariant : DeriveModule<StdVariant>
     {
-        cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("tuple");
+        cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("variant");
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
@@ -30,6 +30,9 @@ namespace mrbind::CBindings::Modules
             binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // Maybe not actually trivial, but we don't care. (The strictly correct tag would be `CopyableNonTrivialButCheap{}`, but I don't think it would change anything here.)
             for (const auto &elem_type : elem_types)
                 binder.traits->CombineCommonProperties(generator.FindBindableType(elem_type).traits.value());
+            // Except the default constructability of the whole variant depends only on that of the first member.
+            if (!elem_types.empty())
+                binder.traits->is_default_constructible = generator.FindBindableType(elem_types.front()).traits.value().is_default_constructible;
 
             auto get_output_file = [
                 type,
@@ -42,10 +45,10 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("tuple");
+                    file.source.stdlib_headers.insert("variant");
                     TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
 
-                    file.header.contents += "\n/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
+                    file.header.contents += "\n/// Stores one of " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
                         if (first)
@@ -63,28 +66,19 @@ namespace mrbind::CBindings::Modules
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);
 
-                    // Elementwise constructor.
-                    if (elem_types.size() > 0)
-                    {
-                        Generator::EmitFuncParams emit;
-                        emit.c_comment = "/// Constructs the tuple elementwise.";
-                        emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Construct");
-                        emit.cpp_return_type = type;
-                        for (std::size_t i = 0; i < elem_types.size(); i++)
-                        {
-                            emit.params.push_back({
-                                .name = "_" + std::to_string(i), // This is almost exactly the same as what the automatically selected names would be, but the difference is that this is zero-based, to match (the optional indices in) the getters below.
-                                .cpp_type = elem_types[i], // `EmitFunction` removes the top-level constness (if any) from this automatically.
-                            });
-                        }
+                    // Some common functions:
 
-                        emit.cpp_called_func = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
+                    { // index
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Returns the index of the stored element type. In rare cases may return -1 if this variant is \"valueless by exception\".";
+                        emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Index");
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
+                        emit.AddThisParam(type, true);
+                        emit.cpp_called_func = "index";
                         generator.EmitFunction(file, emit);
                     }
 
-                    // Some custom functions:
-
-                    { // Element getters.
+                    { // Per-element functions and constructors:
                         // Get the identifier spellings of every types. Also find the duplicates if any, we'll need to disambiguate them.
                         std::vector<std::string> type_identifiers;
                         std::unordered_map<std::string, bool> type_identifier_dupes;
@@ -95,6 +89,48 @@ namespace mrbind::CBindings::Modules
                             auto [iter, is_new] = type_identifier_dupes.try_emplace(type_identifiers.back());
                             if (!is_new)
                                 iter->second = true;
+                        }
+
+                        for (std::size_t i = 0; i < type_identifiers.size(); i++)
+                        {
+                            std::string &ident = type_identifiers[i];
+                            if (type_identifier_dupes.at(ident))
+                                ident += "_" + std::to_string(i);
+                        }
+
+                        // Construct with the specified element.
+                        for (std::size_t i = 0; i < elem_types.size(); i++)
+                        {
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// Constructs the variant storing the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`.";
+                            emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_ConstructAs_" + type_identifiers[i]);
+                            emit.cpp_return_type = type;
+                            emit.params.push_back({
+                                .name = "value",
+                                .cpp_type = elem_types[i],
+                            });
+                            emit.cpp_called_func = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "(std::in_place_index<" + std::to_string(i) + ">, @1@)";
+                            generator.EmitFunction(file, emit);
+                        }
+
+                        // Assign with the specified element.
+                        for (std::size_t i = 0; i < elem_types.size(); i++)
+                        {
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// Assigns to the variant, making it store the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`.";
+                            emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_AssignAs_" + type_identifiers[i]);
+                            emit.AddThisParam(type, false);
+                            emit.params.push_back({
+                                .name = "value",
+                                .cpp_type = elem_types[i],
+                            });
+                            emit.cpp_extra_statements =
+                                "auto &self = @this@;\n" // To reduce duplication in the generated code.
+                                "if (self.index() == " + std::to_string(i) + ")\n"
+                                "    std::get<" + std::to_string(i) + ">(self) = @1@;\n"
+                                "else\n"
+                                "    self.emplace<" + std::to_string(i) + ">(@1@);";
+                            generator.EmitFunction(file, emit);
                         }
 
                         for (std::size_t i = 0; i < elem_types.size(); i++)
@@ -110,26 +146,18 @@ namespace mrbind::CBindings::Modules
                                 name += "_";
                                 name += type_identifiers[i];
 
-                                // Add a disambiguating suffix if the type is ambiguous.
-                                if (type_identifier_dupes.at(type_identifiers[i]))
-                                {
-                                    name += "_";
-                                    name += std::to_string(i);
-                                }
-
                                 Generator::EmitFuncParams emit;
-                                emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_const ? "read-only" : "mutable") + ".";
+                                emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
                                 emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_" + name);
+
+                                // Those types are never references, so we're free to do this.
                                 emit.cpp_return_type = elem_types[i];
-                                if (!emit.cpp_return_type.Is<cppdecl::Reference>())
-                                {
-                                    if (is_const)
-                                        emit.cpp_return_type.AddQualifiers(cppdecl::CvQualifiers::const_);
-                                    emit.cpp_return_type.AddModifier(cppdecl::Reference{});
-                                }
+                                if (is_const)
+                                    emit.cpp_return_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+                                emit.cpp_return_type.AddModifier(cppdecl::Pointer{});
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);
-                                emit.cpp_called_func = "std::get<" + std::to_string(i) + ">(@this@)";
+                                emit.cpp_called_func = "std::get_if<" + std::to_string(i) + ">(&@this@)";
                                 generator.EmitFunction(file, emit);
                             }
                         }

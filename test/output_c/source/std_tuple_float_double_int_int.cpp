@@ -1,7 +1,5 @@
 #include "std_tuple_float_double_int_int.h"
 
-#include <__mrbind_c_details.h>
-
 #include <stdexcept>
 #include <tuple>
 
@@ -11,17 +9,17 @@ MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_Default
     return (MR_C_std_tuple_float_double_int_int *)new std::tuple<float, double, int, int>(std::tuple<float, double, int, int>());
 }
 
-MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_tuple_float_double_int_int *other)
+MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_ConstructFromAnother(const MR_C_std_tuple_float_double_int_int *other)
 {
     return (MR_C_std_tuple_float_double_int_int *)new std::tuple<float, double, int, int>(std::tuple<float, double, int, int>(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_COPY(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_MOVE(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_END(other, std::tuple<float, double, int, int>))
+        (other ? std::tuple<float, double, int, int>(*(std::tuple<float, double, int, int> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 
-void MR_C_std_tuple_float_double_int_int_AssignFromAnother(MR_C_std_tuple_float_double_int_int *_this, MR_C_PassBy other_pass_by, MR_C_std_tuple_float_double_int_int *other)
+void MR_C_std_tuple_float_double_int_int_AssignFromAnother(MR_C_std_tuple_float_double_int_int *_this, const MR_C_std_tuple_float_double_int_int *other)
 {
     (_this ? *(std::tuple<float, double, int, int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_COPY(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_MOVE(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::tuple<float, double, int, int>) MRBINDC_CLASSARG_END(other, std::tuple<float, double, int, int>))
+        (other ? std::tuple<float, double, int, int>(*(std::tuple<float, double, int, int> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     );
 }
 

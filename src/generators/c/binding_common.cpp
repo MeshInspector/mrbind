@@ -110,7 +110,7 @@ namespace mrbind::CBindings
                 if (only_trivially_move_constructible)
                 {
                     // A bit jank, and probably rarely useful, but why not.
-                    source_file.custom_forward_declarations.insert("utility");
+                    source_file.stdlib_headers.insert("utility");
                     ret += "std::move(";
                 }
                 ret += "*(";

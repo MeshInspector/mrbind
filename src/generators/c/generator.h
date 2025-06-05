@@ -271,6 +271,7 @@ namespace mrbind::CBindings
             bool is_destructible = false;
 
             // Those require the respective bits above to be set.
+            // We sometimes set this to true even if the operation isn't formally trivial, but is effectively trivial in practice.
             bool is_trivially_default_constructible = false;
             bool is_trivially_copy_constructible = false;
             bool is_trivially_move_constructible = false;
@@ -457,7 +458,12 @@ namespace mrbind::CBindings
 
                 DETAIL_MRBIND_MERGE_TRAIT_AND(is_any_constructible)
                 DETAIL_MRBIND_MERGE_TRAIT_OR(copy_constructor_takes_nonconst_ref)
-                DETAIL_MRBIND_MERGE_TRAIT_AND(assume_copying_is_cheap)
+
+                // Note this trick.
+                // This is important, because naively `&`-ing just the `assume_copying_is_cheap` causes issues in some cases.
+                // E.g. if you start with `CopyableNonTrivialButCheap{}` and then `Combine` a trivial trait on top of it (that has `assume_copying_is_cheap == false`, because it's not needed when copying/moving is trivial),
+                //   then doing this naively would cause BOTH triviality and `assume_copying_is_cheap` be false, so `UnconditionallyCopyOnPassByValue()` would incorrectly return false in the resulting traits, which isn't what we want.
+                assume_copying_is_cheap &= other.UnconditionallyCopyOnPassByValue();
 
                 #undef DETAIL_MRBIND_MERGE_TRAIT_AND
                 #undef DETAIL_MRBIND_MERGE_TRAIT_OR
@@ -775,7 +781,7 @@ namespace mrbind::CBindings
             // This isn't very useful compared to the `Param::remove_sugar` below. See that for more details.
             bool remove_return_type_sugar = false;
 
-            // Additional statements before `return`, if any.
+            // Additional statements before `return`, if any. Accepts the same placeholders as `cpp_called_func`.
             // Do not add trailing newline. Do not add indentation.
             std::string cpp_extra_statements;
 
@@ -797,6 +803,7 @@ namespace mrbind::CBindings
             };
 
             // The arguments are pasted after `cpp_called_func`, enclosed in those. Those can be empty, they are still pasted in that case.
+            // It's almost never necessary to adjust those. Most things that you might want to do can be done via the careful use of placeholders in `cpp_called_func` (and sometimes in `cpp_extra_statements`).
             Parens cpp_called_func_parens = {"(", ")"};
 
             // Comment to add on the C side. Do add leading slashes. Don't add the trailing newline.

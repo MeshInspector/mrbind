@@ -1,7 +1,6 @@
 #pragma once
 
 #include <exports.h>
-#include <pass_by.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,8 +12,9 @@ extern "C" {
 typedef struct MR_C_std_pair_const_int_ref_const_float_ref MR_C_std_pair_const_int_ref_const_float_ref;
 
 /// Constructs a copy of another instance. The source remains alive.
+/// Parameter `other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int_ref_const_float_ref_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_ref_const_float_ref_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_pair_const_int_ref_const_float_ref *other);
+MR_C_API MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_ref_const_float_ref_ConstructFromAnother(const MR_C_std_pair_const_int_ref_const_float_ref *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_pair_const_int_ref_const_float_ref`.
 /// Parameter `_this` can not be null.

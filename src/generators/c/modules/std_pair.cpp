@@ -22,7 +22,7 @@ namespace mrbind::CBindings::Modules
 
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
 
-            binder.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{}; // The cheap-ness is adjusted by `CombineCommonProperties()` below.
+            binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // Maybe not actually trivial, but we don't care. (The strictly correct tag would be `CopyableNonTrivialButCheap{}`, but I don't think it would change anything here.)
             binder.traits->CombineCommonProperties(generator.FindBindableType(cpp_elem_type_a).traits.value());
             binder.traits->CombineCommonProperties(generator.FindBindableType(cpp_elem_type_b).traits.value());
 

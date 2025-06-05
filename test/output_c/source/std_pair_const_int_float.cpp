@@ -1,7 +1,5 @@
 #include "std_pair_const_int_float.h"
 
-#include <__mrbind_c_details.h>
-
 #include <stdexcept>
 #include <utility>
 
@@ -11,10 +9,10 @@ MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_DefaultConstruct(vo
     return (MR_C_std_pair_const_int_float *)new std::pair<const int, float>(std::pair<const int, float>());
 }
 
-MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_pair_const_int_float *other)
+MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_ConstructFromAnother(const MR_C_std_pair_const_int_float *other)
 {
     return (MR_C_std_pair_const_int_float *)new std::pair<const int, float>(std::pair<const int, float>(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::pair<const int, float>) MRBINDC_CLASSARG_COPY(other, std::pair<const int, float>) MRBINDC_CLASSARG_MOVE(other, std::pair<const int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::pair<const int, float>) MRBINDC_CLASSARG_END(other, std::pair<const int, float>))
+        (other ? std::pair<const int, float>(*(std::pair<const int, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 

@@ -1,15 +1,16 @@
 #include "MR/test_std_tuple_like.h"
 
-#include <__mrbind_c_details.h>
 #include <input/MR/test_std_tuple_like.h>
 
+#include <stdexcept>
 
-void MR_StdTupleLike_SetPair(MR_C_PassBy _1_pass_by, MR_C_std_pair_int_float *_1)
+
+void MR_StdTupleLike_SetPair(const MR_C_std_pair_int_float *_1)
 {
     using namespace MR;
     using namespace StdTupleLike;
     MR::StdTupleLike::SetPair(
-        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::pair<int, float>) MRBINDC_CLASSARG_COPY(_1, std::pair<int, float>) MRBINDC_CLASSARG_MOVE(_1, std::pair<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, std::pair<int, float>) MRBINDC_CLASSARG_END(_1, std::pair<int, float>))
+        (_1 ? std::pair<int, float>(*(std::pair<int, float> *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 
@@ -55,12 +56,12 @@ MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_StdTupleLike_GetPa
     return (MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *)new std::pair<const int &&, const float &&>(MR::StdTupleLike::GetPair6());
 }
 
-void MR_StdTupleLike_SetTuple(MR_C_PassBy _1_pass_by, MR_C_std_tuple_int_float *_1)
+void MR_StdTupleLike_SetTuple(const MR_C_std_tuple_int_float *_1)
 {
     using namespace MR;
     using namespace StdTupleLike;
     MR::StdTupleLike::SetTuple(
-        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::tuple<int, float>) MRBINDC_CLASSARG_COPY(_1, std::tuple<int, float>) MRBINDC_CLASSARG_MOVE(_1, std::tuple<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, std::tuple<int, float>) MRBINDC_CLASSARG_END(_1, std::tuple<int, float>))
+        (_1 ? std::tuple<int, float>(*(std::tuple<int, float> *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 

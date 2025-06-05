@@ -6,10 +6,10 @@
 #include <utility>
 
 
-MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *other)
+MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_ConstructFromAnother(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *other)
 {
     return (MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *)new std::pair<const int &&, const float &&>(std::pair<const int &&, const float &&>(
-        (MRBINDC_CLASSARG_MOVE(other, std::pair<const int &&, const float &&>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::pair<const int &&, const float &&>) MRBINDC_CLASSARG_END(other, std::pair<const int &&, const float &&>))
+        (other ? std::pair<const int &&, const float &&>(std::move(*(std::pair<const int &&, const float &&> *)other)) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 
