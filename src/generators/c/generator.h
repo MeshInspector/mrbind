@@ -600,15 +600,15 @@ namespace mrbind::CBindings
                 };
 
                 // Must not be empty. Usually this will have size 1.
-                // If this has more than one element, then the C function must have MORE THAN ONE parameter per this one C++ type.
+                // If this has more than one element, then the C function will have MORE THAN ONE parameter per this single C++ parameter.
                 std::vector<CParam> c_params;
 
                 // Defaults to an identity function if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
                 // The implementation .cpp `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
-                //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose.
+                //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose. This parameter is convenient if your includes are conditional, depending on the presence of the default arg, for example.
                 // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is, this might never receive default arguments.
-                // NOTE: The return value must be correctly parenthesized if needed.
+                // NOTE: The return value must be correctly parenthesized if necessary (so that e.g. `"&" + result` compiles correctly).
                 std::function<std::string(OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
@@ -641,8 +641,8 @@ namespace mrbind::CBindings
             // One of those must be non-null for this type to be usable as a parameter: [
 
             // If only this one is set, the type can't handle default arguments.
-            // If both are set, this one is used when there's no default argument.
-            // Either way, `.c_params_to_cpp` here never receives default arguments.
+            // If both are set, this one is used only when there's no default argument.
+            // Either way, `.c_params_to_cpp` in this one never receives the default arguments.
             std::optional<ParamUsage> param_usage;
 
             // If only this one is set, this is used for params both with default arguments and without.
@@ -657,10 +657,9 @@ namespace mrbind::CBindings
                 cppdecl::Type c_type;
 
                 // Generates a return statement to return a value of this type.
-                // If null, defaults to `"return "+expr+";"`.
+                // If null, defaults to `"return " + expr + ";"`.
                 // You can generate more than one statement here.
-                // Providing the source `file` so you can add some extra headers or whatever. Note that this is intentionally redundant,
-                //   as we also have `extra_headers` below.
+                // Providing the source `file` so you can add some extra headers or whatever. Note that this is intentionally redundant, as we also have `extra_headers` below.
                 // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_statement;
 

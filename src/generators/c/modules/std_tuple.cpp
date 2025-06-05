@@ -27,7 +27,7 @@ namespace mrbind::CBindings::Modules
 
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
 
-            binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // Maybe not actually trivial, but we don't care. (The strictly correct tag would be `CopyableNonTrivialButCheap{}`, but I don't think it would change anything here.)
+            binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // The triviality can get reset by the `CombineCommonProperties()` below if necessary.
             for (const auto &elem_type : elem_types)
                 binder.traits->CombineCommonProperties(generator.FindBindableType(elem_type).traits.value());
 

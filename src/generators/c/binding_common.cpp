@@ -88,7 +88,6 @@ namespace mrbind::CBindings
         {
             // For trivialy-copy/move-constructible classes, just pass a pointer.
 
-            // Here we only fill the `_with_default_arg` version, because that handles both.
             Generator::BindableType::ParamUsage &param_usage = ret.emplace();
             param_usage.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
 
@@ -109,7 +108,7 @@ namespace mrbind::CBindings
                 ret += "(";
                 if (only_trivially_move_constructible)
                 {
-                    // A bit jank, and probably rarely useful, but why not.
+                    // This is rarely useful, but triggers e.g. for `std::pair<int &&, int &&>`.
                     source_file.stdlib_headers.insert("utility");
                     ret += "std::move(";
                 }
