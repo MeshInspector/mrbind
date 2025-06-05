@@ -14,8 +14,7 @@ extern "C" {
 MR_C_API void MR_StdString_Set(const char *s, const char *s_end);
 
 /// Generated from function `MR::StdString::SetWithDefault`.
-/// Parameter `s` has a default argument: `"42"`.
-///   To use the default argument, pass a null pointer to both it and `s_end`.
+/// Parameter `s` has default argument: `"42"`, pass a null pointer to both it and `s_end` to use it.
 /// Non-null `s_end` requires a non-null `s`.
 /// If `s_end` is null, then `s` is assumed to be null-terminated.
 MR_C_API void MR_StdString_SetWithDefault(const char *s, const char *s_end);

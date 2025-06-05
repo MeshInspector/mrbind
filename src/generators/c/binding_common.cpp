@@ -1,4 +1,5 @@
 #include "binding_common.h"
+#include "common/meta.h"
 
 namespace mrbind::CBindings
 {
@@ -98,7 +99,7 @@ namespace mrbind::CBindings
             param_usage.c_params_to_cpp = [
                 cpp_type_str,
                 only_trivially_move_constructible = traits.value().is_trivially_move_constructible && !traits.value().is_trivially_copy_constructible
-            ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
+            ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 std::string ret = "(";
 
@@ -117,41 +118,46 @@ namespace mrbind::CBindings
                 ret += " *)";
                 ret += cpp_param_name;
                 if (only_trivially_move_constructible)
-                    ret += ")";
+                    ret += ")"; // Close `std::move()`.
                 ret += ")";
                 ret += " : ";
 
-                if (!default_arg.empty())
-                {
-                    ret += "(";
-                    ret += cpp_type_str;
-                    ret += ")(";
-                    ret += default_arg;
-                    ret += ")";
-                }
-                else
-                {
-                    source_file.stdlib_headers.insert("stdexcept");
-                    ret += "throw std::runtime_error(\"Parameter `";
-                    ret += cpp_param_name;
-                    ret += "` can not be null.\")";
-                }
+                std::visit(Overload{
+                    [&](Generator::BindableType::ParamUsage::DefaultArgNone)
+                    {
+                        source_file.stdlib_headers.insert("stdexcept");
+                        ret += "throw std::runtime_error(\"Parameter `";
+                        ret += cpp_param_name;
+                        ret += "` can not be null.\")";
+                    },
+                    [&](std::string_view default_arg)
+                    {
+                        ret += "static_cast<";
+                        ret += cpp_type_str;
+                        ret += ">(";
+                        ret += default_arg;
+                        ret += ")";
+                    },
+                    [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
+                    {
+                        ret += wrapper.wrapper_null;
+                    }
+                }, default_arg);
 
-                ret += ")";
+                ret += ")"; // Close `( ? : )` (default argument vs no default argument).
                 return ret;
             };
 
             param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)
             {
-                (void)cpp_param_name;
+                (void)has_default_arg;
                 std::string ret;
-                if (has_default_arg)
-                    // Two spaces because this goes after a message about the default argument.
-                    ret = "///   To use the default argument, pass a null pointer.";
-                else
+                if (!has_default_arg)
                     ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
                 return ret;
             };
+
+            param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
         }
         else if (traits.value().IsDefaultOrCopyOrMoveConstructible())
         {
@@ -173,19 +179,23 @@ namespace mrbind::CBindings
                 is_default_constructible = traits.value().is_default_constructible,
                 is_copy_constructible = traits.value().is_copy_constructible,
                 is_move_constructible = traits.value().is_move_constructible
-            ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
+            ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 std::string ret = "(";
 
-                // Insert the defails file for the `PassBy` macros.
+                // Insert the defails file for the `MRBINDC_CLASSARG_...()` macros.
                 source_file.custom_headers.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
+
+                const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
+                std::string_view cpp_type_or_wrapper_str = wrapper ? wrapper->wrapper_cpp_type : cpp_type_str;
 
                 if (is_default_constructible)
                 {
                     ret += "MRBINDC_CLASSARG_DEF_CTOR(";
                     ret += cpp_param_name;
                     ret += ", ";
-                    ret += cpp_type_str;
+                    ret += cpp_type_or_wrapper_str;
                     ret += ") ";
                 }
 
@@ -193,8 +203,10 @@ namespace mrbind::CBindings
                 {
                     ret += "MRBINDC_CLASSARG_COPY(";
                     ret += cpp_param_name;
-                    ret += ", ";
+                    ret += ", (";
                     ret += cpp_type_str;
+                    ret += "), ";
+                    ret += cpp_type_or_wrapper_str;
                     ret += ") ";
                 }
 
@@ -202,17 +214,19 @@ namespace mrbind::CBindings
                 {
                     ret += "MRBINDC_CLASSARG_MOVE(";
                     ret += cpp_param_name;
-                    ret += ", ";
+                    ret += ", (";
                     ret += cpp_type_str;
+                    ret += "), ";
+                    ret += cpp_type_or_wrapper_str;
                     ret += ") ";
                 }
 
-                if (default_arg.empty())
+                if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
                 {
                     ret += "MRBINDC_CLASSARG_NO_DEF_ARG(";
                     ret += cpp_param_name;
                     ret += ", ";
-                    ret += cpp_type_str;
+                    ret += cpp_type_or_wrapper_str;
                     ret += ") ";
                 }
                 else
@@ -220,32 +234,37 @@ namespace mrbind::CBindings
                     ret += "MRBINDC_CLASSARG_DEF_ARG(";
                     ret += cpp_param_name;
                     ret += ", (";
-                    ret += default_arg;
+                    ret += std::visit(Overload{
+                        [](Generator::BindableType::ParamUsage::DefaultArgNone) -> std::string_view
+                        {
+                            assert(false); // Unreachable.
+                            return "";
+                        },
+                        [](std::string_view default_arg)
+                        {
+                            return default_arg;
+                        },
+                        [](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper) -> std::string_view
+                        {
+                            return wrapper.wrapper_null;
+                        },
+                    }, default_arg);
                     ret += "), ";
-                    ret += cpp_type_str;
+                    ret += cpp_type_or_wrapper_str;
                     ret += ") ";
                 }
 
                 ret += "MRBINDC_CLASSARG_END(";
                 ret += cpp_param_name;
                 ret += ", ";
-                ret += cpp_type_str;
+                ret += cpp_type_or_wrapper_str;
                 ret += ")";
 
                 ret += ")";
                 return ret;
             };
 
-            param_usage.append_to_comment = [pass_by_enum_name = generator.GetPassByEnumName()](std::string_view cpp_param_name, bool has_default_arg)
-            {
-                (void)cpp_param_name;
-                std::string ret;
-                if (has_default_arg)
-                {
-                    ret += "///   To use the default argument, pass `" + pass_by_enum_name + "_DefaultArgument` and a null pointer.";
-                }
-                return ret;
-            };
+            param_usage.explanation_how_to_use_default_arg = [&generator](std::string_view cpp_param_name){(void)cpp_param_name; return "pass `" + generator.GetPassByEnumName() + "_DefaultArgument` and a null pointer";};
         }
 
         return ret;
@@ -398,19 +417,48 @@ namespace mrbind::CBindings
         param_def_arg.c_params.push_back({
             .c_type = cppdecl::Type(c_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
         });
-        param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
-        param_def_arg.c_params_to_cpp = [type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
+        param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+        param_def_arg.c_params_to_cpp = [cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
         {
             (void)source_file;
-            std::string ret;
+            std::string ret = "(";
             ret += cpp_param_name;
-            ret += " ? *";
+            ret += " ? ";
+
+            const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
+            if (wrapper)
+                ret += wrapper->wrapper_cpp_type + "(";
+
+            ret += "*";
             ret += cpp_param_name;
-            ret += " : (";
-            ret += type_str;
-            ret += ")(";
-            ret += default_arg;
-            ret += ")";
+
+            if (wrapper)
+                ret += ")";
+
+            ret += " : ";
+
+            // The default argument begins...
+            std::visit(Overload{
+                [&](Generator::BindableType::ParamUsage::DefaultArgNone)
+                {
+                    assert(false); // Unreachable.
+                },
+                [&](std::string_view default_arg)
+                {
+                    ret += "static_cast<";
+                    ret += cpp_type_str;
+                    ret += ">(";
+                    ret += default_arg;
+                    ret += ")";
+                },
+                [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
+                {
+                    ret += wrapper.wrapper_null;
+                }
+            }, default_arg);
+
+            ret += ")"; // Close `( ? : )` (default argument vs no default argument).
             return ret;
         };
 
@@ -449,7 +497,7 @@ namespace mrbind::CBindings
                 (void)file;
                 return "return (" + type_str_c + ")(" + std::string(expr) + ");";
             };
-            new_type.param_usage->c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
+            new_type.param_usage->c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
                 (void)default_arg;
@@ -461,21 +509,51 @@ namespace mrbind::CBindings
             param_def_arg.c_params.push_back({
                 .c_type = type_c_style.AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
             });
-            param_def_arg.append_to_comment = [](auto &&...){return "///   To use the default argument, pass a null pointer.";};
-            param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
+            param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+            param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
-                std::string ret;
+                std::string ret = "(";
                 ret += cpp_param_name;
-                ret += " ? (";
+                ret += " ? ";
+
+                const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
+                if (wrapper)
+                    ret += wrapper->wrapper_cpp_type + "(";
+
+                ret += "("; // Need those parentheses because `cpp_type_str` can be a pointer.
                 ret += cpp_type_str;
-                ret += ")*";
+                ret += ")(*";
                 ret += cpp_param_name;
-                ret += " : (";
-                ret += cpp_type_str;
-                ret += ")(";
-                ret += default_arg;
                 ret += ")";
+
+                if (wrapper)
+                    ret += ")";
+
+                ret += " : ";
+
+                // The default argument begins...
+                std::visit(Overload{
+                    [&](Generator::BindableType::ParamUsage::DefaultArgNone)
+                    {
+                        // Unreachable.
+                    },
+                    [&](std::string_view default_arg)
+                    {
+                        ret += "static_cast<";
+                        ret += cpp_type_str;
+                        ret += ">(";
+                        ret += default_arg;
+                        ret += ")";
+                    },
+                    [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
+                    {
+                        ret += wrapper.wrapper_null;
+                    }
+                }, default_arg);
+
+                ret += ")"; // Close `( ? : )` (default argument vs no default argument).
                 return ret;
             };
 
@@ -580,10 +658,7 @@ namespace mrbind::CBindings
                 ](std::string_view cpp_param_name, bool has_default_arg) -> std::string
                 {
                     std::string ret;
-                    if (has_default_arg)
-                        // Two spaces because this goes after a message about the default argument.
-                        ret = "///   To use the default argument, pass a null pointer.";
-                    else
+                    if (!has_default_arg)
                         ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
 
                     if (is_rvalue_ref)
@@ -596,6 +671,7 @@ namespace mrbind::CBindings
 
                     return ret;
                 };
+                param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
 
                 param_def_arg.c_params_to_cpp = [
                     cpp_type_str,
@@ -603,18 +679,25 @@ namespace mrbind::CBindings
                     cpp_ptr_type_str = cppdecl::ToCode(cppdecl::Type(ref_target_type).AddModifier(cppdecl::Pointer{}), cppdecl::ToCodeFlags::canonical_c_style),
                     with_cast,
                     is_rvalue_ref
-                ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)
+                ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
                 {
                     std::string ret;
-                    if (is_rvalue_ref)
-                    {
-                        source_file.stdlib_headers.insert("utility");
-                        // This also moves the default argument, but who cares, right? It shouldn't make any difference.
-                        ret = "std::move";
-                    }
+
                     ret += "(";
                     ret += cpp_param_name;
                     ret += " ? ";
+
+                    const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
+                    if (wrapper)
+                        ret += wrapper->wrapper_cpp_type + "(";
+
+                    if (is_rvalue_ref)
+                    {
+                        source_file.stdlib_headers.insert("utility");
+                        ret += "std::move(";
+                    }
+
                     ret += "*";
                     if (with_cast)
                     {
@@ -628,24 +711,37 @@ namespace mrbind::CBindings
                     {
                         ret += cpp_param_name;
                     }
-                    ret += " : ";
-                    if (default_arg.empty())
-                    {
-                        source_file.stdlib_headers.insert("stdexcept");
-                        ret += "throw std::runtime_error(\"Parameter `";
-                        ret += cpp_param_name;
-                        ret += "` can not be null.\")";
-                    }
-                    else
-                    {
-                        ret += "static_cast<";
-                        ret += cpp_type_str;
-                        ret += ">(";
-                        ret += default_arg;
-                        ret += ")";
-                    }
 
-                    ret += ")";
+                    if (is_rvalue_ref)
+                        ret += ")"; // Close `std::move()`.
+
+                    if (wrapper)
+                        ret += ")"; // Close wrapper.
+
+                    ret += " : ";
+
+                    // The default argument begins...
+                    std::visit(Overload{
+                        [&](Generator::BindableType::ParamUsage::DefaultArgNone)
+                        {
+                            source_file.stdlib_headers.insert("stdexcept");
+                            ret += "throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                        },
+                        [&](std::string_view default_arg)
+                        {
+                            ret += "static_cast<";
+                            ret += cpp_type_str;
+                            ret += ">(";
+                            ret += default_arg;
+                            ret += ")";
+                        },
+                        [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
+                        {
+                            ret += wrapper.wrapper_null;
+                        }
+                    }, default_arg);
+
+                    ret += ")"; // Close `( ? : )` (default argument vs no default argument).
                     return ret;
                 };
 

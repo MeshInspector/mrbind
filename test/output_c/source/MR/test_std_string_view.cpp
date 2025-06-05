@@ -2,7 +2,6 @@
 
 #include <input/MR/test_std_string_view.h>
 
-#include <cstddef>
 #include <stdexcept>
 
 

@@ -14,14 +14,14 @@ MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_Def
 MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_variant_int_float_std_string *other)
 {
     return (MR_C_std_variant_int_float_std_string *)new std::variant<int, float, std::string>(std::variant<int, float, std::string>(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_COPY(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_MOVE(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_END(other, std::variant<int, float, std::string>))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_COPY(other, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_END(other, std::variant<int, float, std::string>))
     ));
 }
 
 void MR_C_std_variant_int_float_std_string_AssignFromAnother(MR_C_std_variant_int_float_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_variant_int_float_std_string *other)
 {
     (_this ? *(std::variant<int, float, std::string>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_COPY(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_MOVE(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_END(other, std::variant<int, float, std::string>))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_COPY(other, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::variant<int, float, std::string>) MRBINDC_CLASSARG_END(other, std::variant<int, float, std::string>))
     );
 }
 

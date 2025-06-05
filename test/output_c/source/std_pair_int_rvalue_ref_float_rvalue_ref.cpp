@@ -21,8 +21,8 @@ void MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy(MR_C_std_pair_int_rva
 MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second)
 {
     return (MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *)new std::pair<int &&, float &&>(std::pair<int &&, float &&>(
-        std::move(first ? *first : throw std::runtime_error("Parameter `first` can not be null.")),
-        std::move(second ? *second : throw std::runtime_error("Parameter `second` can not be null."))
+        (first ? std::move(*first) : throw std::runtime_error("Parameter `first` can not be null.")),
+        (second ? std::move(*second) : throw std::runtime_error("Parameter `second` can not be null."))
     ));
 }
 

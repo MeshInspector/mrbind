@@ -603,13 +603,29 @@ namespace mrbind::CBindings
                 // If this has more than one element, then the C function will have MORE THAN ONE parameter per this single C++ parameter.
                 std::vector<CParam> c_params;
 
+
+                struct DefaultArgNone {};
+                struct DefaultArgWrapper
+                {
+                    std::string wrapper_cpp_type;
+                    std::string wrapper_null;
+                };
+                // See `.c_params_to_cpp` below for the explanation.
+                using DefaultArgVar = std::variant<DefaultArgNone, std::string_view, DefaultArgWrapper>;
+
                 // Defaults to an identity function if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
+                // NOTE: The return value must be correctly parenthesized if necessary (so that e.g. `"&" + result` compiles correctly).
                 // The implementation .cpp `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
                 //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose. This parameter is convenient if your includes are conditional, depending on the presence of the default arg, for example.
-                // `default_arg` is the default argument or empty if none. Note that depending on where this `ParamUsage` is, this might never receive default arguments.
-                // NOTE: The return value must be correctly parenthesized if necessary (so that e.g. `"&" + result` compiles correctly).
-                std::function<std::string(OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, std::string_view default_arg)> c_params_to_cpp;
+                // `default_arg` is the default argument or empty if any.
+                //   Note that if this `ParamUsage` is `BindableType::param_usage` as opposed to `BindableType::param_usage_with_default_arg`, then you'll never receive default arguments (will always receive `DefaultArgNone{}`).
+                //   If this is `DefaultArgNone`, there is no default argument.
+                //   If this is `std::string_view`, then that's your default argument. Don't forget to cast it to your type, just in case.
+                //   `DefaultArgWrapper` is a special case. You're expected to produce an expression of type `.wrapper_cpp_type` instead of just `T`. And instead of the default argument, you must produce `.wrapper_null`.
+                //   This is typically used for `std::optional`, where `.wrapper_cpp_type` would be `std::optional<T>` and `.wrapper_null` would be `std::nullopt`.
+                //   (Note that you MUST NOT need to include `<optional>` yourself here, because firstly it's done automatically, and secondly this isn't only for optionals.)
+                std::function<std::string(OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, DefaultArgVar default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
                 // By default you can fill this using `ForEachNonBuiltInQualNameInTypeName()`.
@@ -624,12 +640,22 @@ namespace mrbind::CBindings
                 // Do include the leading slashes, normally `///`.
                 // This receives a flag on whether we have a default argument or not, but not the default argument itself,
                 //   because we automatically generate another comment line stating its value, and don't want to accidentally do it here.
+                // NOTE: DON'T explain how to trigger the default argument here. Use `explanation_how_to_use_default_arg` for that.
+                //   But the flag is passed here because it's sometimes useful to add additional remarks that depend on the presence of the default argument.
                 std::function<std::string(std::string_view cpp_param_name, bool has_default_arg)> append_to_comment;
+
+                // This will be used if we have a default argument.
+                // You only need to set this if you support default arguments (if this is in `BindableType::param_usage_with_default_arg` as opposed to `BindableType::param_usage`).
+                // This MUST start with a lowercase letter, and MUST NOT end with a period. E.g. `pass a null pointer`.
+                // This will be inserted into a comment along the lines of `To use the default argument, X.` or `Blah blah, X to use the default argument.`
+                // Most of the time you SHOULD NOT use `cpp_param_name` in the returned string. It's only useful if `c_params.size() > 1`,
+                //   in which case you migth return e.g. `"pass null both to it and to `" + cpp_param_name + "_end`"`, where `_end` would match your non-empty `CParam::name_suffix`.
+                std::function<std::string(std::string_view cpp_param_name)> explanation_how_to_use_default_arg;
 
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                 // `default_arg` should be empty if there's no default argument.
                 // NOTE: This will always produce correctly parenthesized strings. If the custom `c_params_to_cpp` is specified, it's its job to ensure that the result is correctly parenthesized.
-                [[nodiscard]] std::string CParamsToCpp(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, std::string_view default_arg) const
+                [[nodiscard]] std::string CParamsToCpp(OutputFile::SpecificFileContents &file, std::string_view cpp_param_name, DefaultArgVar default_arg) const
                 {
                     if (c_params_to_cpp)
                         return c_params_to_cpp(file, cpp_param_name, default_arg);

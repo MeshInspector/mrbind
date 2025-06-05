@@ -14,14 +14,14 @@ MR_C_std_vector_int *MR_C_std_vector_int_DefaultConstruct(void)
 MR_C_std_vector_int *MR_C_std_vector_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int *other)
 {
     return (MR_C_std_vector_int *)new std::vector<int>(std::vector<int>(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>) MRBINDC_CLASSARG_COPY(other, std::vector<int>) MRBINDC_CLASSARG_MOVE(other, std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>) MRBINDC_CLASSARG_END(other, std::vector<int>))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>) MRBINDC_CLASSARG_COPY(other, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>) MRBINDC_CLASSARG_END(other, std::vector<int>))
     ));
 }
 
 void MR_C_std_vector_int_AssignFromAnother(MR_C_std_vector_int *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_int *other)
 {
     (_this ? *(std::vector<int>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>) MRBINDC_CLASSARG_COPY(other, std::vector<int>) MRBINDC_CLASSARG_MOVE(other, std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>) MRBINDC_CLASSARG_END(other, std::vector<int>))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>) MRBINDC_CLASSARG_COPY(other, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>) MRBINDC_CLASSARG_END(other, std::vector<int>))
     );
 }
 
@@ -223,14 +223,14 @@ MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_DefaultCo
 MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int_const_iterator *other)
 {
     return (MR_C_std_vector_int_const_iterator *)new std::vector<int>::const_iterator(std::vector<int>::const_iterator(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::const_iterator))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::const_iterator))
     ));
 }
 
 void MR_C_std_vector_int_const_iterator_AssignFromAnother(MR_C_std_vector_int_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_int_const_iterator *other)
 {
     (_this ? *(std::vector<int>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::const_iterator))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::const_iterator))
     );
 }
 
@@ -254,14 +254,14 @@ MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_DefaultConstruct(void
 MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int_iterator *other)
 {
     return (MR_C_std_vector_int_iterator *)new std::vector<int>::iterator(std::vector<int>::iterator(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::iterator) MRBINDC_CLASSARG_COPY(other, std::vector<int>::iterator) MRBINDC_CLASSARG_MOVE(other, std::vector<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::iterator))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::iterator))
     ));
 }
 
 void MR_C_std_vector_int_iterator_AssignFromAnother(MR_C_std_vector_int_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_int_iterator *other)
 {
     (_this ? *(std::vector<int>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::iterator) MRBINDC_CLASSARG_COPY(other, std::vector<int>::iterator) MRBINDC_CLASSARG_MOVE(other, std::vector<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::iterator))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::iterator))
     );
 }
 

@@ -94,7 +94,7 @@ namespace mrbind::CBindings
 
         ret.is_heap_allocated_class = true;
 
-        ret.param_usage_with_default_arg = binder.MakeParamUsageSupportingDefaultArg(generator);;
+        ret.param_usage_with_default_arg = binder.MakeParamUsageSupportingDefaultArg(generator);
         ret.return_usage = binder.MakeReturnUsage();
 
         return ret;

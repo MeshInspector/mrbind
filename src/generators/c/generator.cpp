@@ -157,14 +157,16 @@ namespace mrbind::CBindings
         // Class by-value argument helpers.
         file.header.contents += "namespace mrbindc_details\n";
         file.header.contents += "{\n";
-        file.header.contents += "    // Those are used to handle by-value arguments of class types,\n";
-        file.header.contents += "    //   which are passed as a pointer plus a enum explaining how to handle it.\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Copy ? __VA_ARGS__(*(__VA_ARGS__ *)param_) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Move ? __VA_ARGS__(std::move(*(__VA_ARGS__ *)param_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, default_arg_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `PassBy_DefaultArgument` was used.\") : __VA_ARGS__(default_arg_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `PassBy_DefaultArgument` was used for it.\") :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `PassBy` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
+        file.header.contents += "    #define MRBINDC_IDENTITY(...) __VA_ARGS__\n";
+        file.header.contents += "    \n";
+        file.header.contents += "    // Those are used to handle by-value arguments of class types, which are passed as a pointer plus a enum explaining how to handle it.\n";
+        file.header.contents += "    // The `cpp_type_without_wrapper_` vs `cpp_type_` are different for optionals: `cpp_type_` is either `T` or `std::optional<T>`, while `cpp_type_without_wrapper_` is always the `T` itself.\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Copy ? __VA_ARGS__(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Move ? __VA_ARGS__(std::move(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_)) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, default_arg_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultArgument` was used.\") : __VA_ARGS__(default_arg_)) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `" + pass_by_enum_name + "_DefaultArgument` was used for it.\") :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
         file.header.contents += "\n";
         file.header.contents += "    // Converts an rvalue to an lvalue.\n";
         file.header.contents += "    template <typename T> T &unmove(T &&value) {return static_cast<T &>(value);}\n";
@@ -995,9 +997,13 @@ namespace mrbind::CBindings
                         {
                             comment += "/// Parameter `";
                             comment += param_name_fixed;
-                            comment += "` has a default argument: `";
+                            comment += "` has default argument: `";
                             comment += param.default_arg->original_spelling;
-                            comment += "`.\n";
+                            comment += "`, ";
+                            if (!param_usage->explanation_how_to_use_default_arg)
+                                throw std::logic_error("Internal error: Bad usage: `ParamUsage::explanation_how_to_use_default_arg` is not set.");
+                            comment += param_usage->explanation_how_to_use_default_arg(param_name_fixed);
+                            comment += " to use it.\n";
                         }
                         else if (is_ptr_with_nullptr_default_arg)
                         {
@@ -1018,7 +1024,7 @@ namespace mrbind::CBindings
                         }
 
                         if (param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
-                            arg_expr = param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? param.default_arg->cpp_expr : "");
+                            arg_expr = param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
 
                         // Insert the extra includes.
                         param_usage->extra_headers.InsertToFile(file);
@@ -1874,9 +1880,8 @@ namespace mrbind::CBindings
                 file.header.contents += '\n';
             }
 
-            file.header.contents += "enum ";
-            file.header.contents += c_type_str;
-            file.header.contents += "\n{\n";
+            file.header.contents += "typedef enum " + c_type_str + "\n";
+            file.header.contents += "{\n";
 
             for (const EnumElem &elem : en.elems)
             {
@@ -1895,7 +1900,7 @@ namespace mrbind::CBindings
                 file.header.contents += ",\n";
             }
 
-            file.header.contents += "};\n";
+            file.header.contents += "} " + c_type_str + ";\n";
         }
 
         // void Visit(const TypedefEntity &td) override

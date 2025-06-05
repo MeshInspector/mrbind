@@ -21,10 +21,10 @@ MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float
         (_3 ? *_3 : throw std::runtime_error("Parameter `_3` can not be null.")),
         (_4 ? *_4 : throw std::runtime_error("Parameter `_4` can not be null.")),
         (_5 ? *_5 : throw std::runtime_error("Parameter `_5` can not be null.")),
-        std::move(_6 ? *_6 : throw std::runtime_error("Parameter `_6` can not be null.")),
-        std::move(_7 ? *_7 : throw std::runtime_error("Parameter `_7` can not be null.")),
-        std::move(_8 ? *_8 : throw std::runtime_error("Parameter `_8` can not be null.")),
-        std::move(_9 ? *_9 : throw std::runtime_error("Parameter `_9` can not be null."))
+        (_6 ? std::move(*_6) : throw std::runtime_error("Parameter `_6` can not be null.")),
+        (_7 ? std::move(*_7) : throw std::runtime_error("Parameter `_7` can not be null.")),
+        (_8 ? std::move(*_8) : throw std::runtime_error("Parameter `_8` can not be null.")),
+        (_9 ? std::move(*_9) : throw std::runtime_error("Parameter `_9` can not be null."))
     ));
 }
 
