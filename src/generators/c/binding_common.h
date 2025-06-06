@@ -50,7 +50,7 @@ namespace mrbind::CBindings
 
         // This goes to `param_usage_with_default_arg`. `param_usage` should stay empty, since `param_usage_with_default_arg` alone can handle
         //   both parameters with default arguments and without.
-        [[nodiscard]] std::optional<Generator::BindableType::ParamUsage> MakeParamUsageSupportingDefaultArg(Generator &generator) const;
+        [[nodiscard]] std::optional<Generator::BindableType::ParamUsageWithDefaultArg> MakeParamUsageSupportingDefaultArg(Generator &generator) const;
 
         // ]
 
