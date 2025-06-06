@@ -27,6 +27,44 @@ namespace mrbind::CBindings
         return ret;
     }
 
+    void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const
+    {
+        { // Make a comment with supported pass-by modes.
+            std::string enum_name = generator.GetPassByEnumName();
+
+            file.header.contents += "/// Supported `" + enum_name + "` modes: ";
+            if (traits.value().is_default_constructible)
+                file.header.contents += '`' + enum_name + "_DefaultConstruct`, ";
+            if (traits.value().is_copy_constructible)
+            {
+                file.header.contents += '`' + enum_name + "_Copy`";
+                if (traits.value().copy_constructor_takes_nonconst_ref)
+                    file.header.contents += " (for this type may modify the source object)";
+                file.header.contents += ", ";
+            }
+            if (traits.value().is_move_constructible)
+                file.header.contents += '`' + enum_name + "_Move`, ";
+
+            file.header.contents += '`' + enum_name + "_DefaultArgument` (if supported by the callee).\n";
+        }
+
+        file.header.contents += MakeForwardDeclaration();
+        file.header.contents += '\n';
+    }
+
+    void HeapAllocatedClassBinder::FillCommonParams(Generator &generator, Generator::BindableType &type)
+    {
+        type.traits = traits;
+
+        type.is_heap_allocated_class = true;
+
+        type.bindable_with_same_address.forward_declaration = MakeForwardDeclaration();
+        type.bindable_with_same_address.custom_c_type_name = c_type_name;
+
+        type.param_usage_with_default_arg = MakeParamUsageSupportingDefaultArg(generator);
+        type.return_usage = MakeReturnUsage();
+    }
+
     std::string HeapAllocatedClassBinder::MakeForwardDeclaration() const
     {
         return MakeStructForwardDeclaration(c_type_name, c_underlying_type_name);
@@ -51,31 +89,6 @@ namespace mrbind::CBindings
         };
 
         return ret;
-    }
-
-    void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const
-    {
-        { // Make a comment with supported pass-by modes.
-            std::string enum_name = generator.GetPassByEnumName();
-
-            file.header.contents += "/// Supported `" + enum_name + "` modes: ";
-            if (traits.value().is_default_constructible)
-                file.header.contents += '`' + enum_name + "_DefaultConstruct`, ";
-            if (traits.value().is_copy_constructible)
-            {
-                file.header.contents += '`' + enum_name + "_Copy`";
-                if (traits.value().copy_constructor_takes_nonconst_ref)
-                    file.header.contents += " (for this type may modify the source object)";
-                file.header.contents += ", ";
-            }
-            if (traits.value().is_move_constructible)
-                file.header.contents += '`' + enum_name + "_Move`, ";
-
-            file.header.contents += '`' + enum_name + "_DefaultArgument` (if supported by the callee).\n";
-        }
-
-        file.header.contents += MakeForwardDeclaration();
-        file.header.contents += '\n';
     }
 
     std::optional<Generator::BindableType::ParamUsage> HeapAllocatedClassBinder::MakeParamUsageSupportingDefaultArg(Generator &generator) const

@@ -152,12 +152,14 @@ MR_C_API bool MR_C_std_list_int_IsMutableEnd(MR_C_std_list_int *_this, const MR_
 MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_DefaultConstruct(void);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// Parameter `other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_list_int_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_list_int_const_iterator *other);
+MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_ConstructFromAnother(const MR_C_std_list_int_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_list_int_const_iterator_AssignFromAnother(MR_C_std_list_int_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_list_int_const_iterator *other);
+/// Parameter `other` can not be null.
+MR_C_API void MR_C_std_list_int_const_iterator_AssignFromAnother(MR_C_std_list_int_const_iterator *_this, const MR_C_std_list_int_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_list_int_const_iterator`.
 /// Parameter `_this` can not be null.
@@ -173,12 +175,14 @@ MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_From
 MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_DefaultConstruct(void);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// Parameter `other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_list_int_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_list_int_iterator *other);
+MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_ConstructFromAnother(const MR_C_std_list_int_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_list_int_iterator_AssignFromAnother(MR_C_std_list_int_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_list_int_iterator *other);
+/// Parameter `other` can not be null.
+MR_C_API void MR_C_std_list_int_iterator_AssignFromAnother(MR_C_std_list_int_iterator *_this, const MR_C_std_list_int_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_list_int_iterator`.
 /// Parameter `_this` can not be null.

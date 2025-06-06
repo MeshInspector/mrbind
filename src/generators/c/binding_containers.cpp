@@ -64,18 +64,10 @@ namespace mrbind::CBindings
     Generator::BindableType ContainerBinder::MakeBinding(Generator &generator)
     {
         Generator::BindableType ret;
-
-        ret.traits = class_binder.traits;
+        class_binder.FillCommonParams(generator, ret);
 
         // Gotta copy the entire `*this` here because the lambda can outlive this instance (unless we force the user to be very careful about its lifetime, but that sounds too annoying).
         ret.bindable_with_same_address.declared_in_file = [*this, &generator]() -> auto & {return GetImplementationFile(generator);};
-        ret.bindable_with_same_address.forward_declaration = class_binder.MakeForwardDeclaration();
-        ret.bindable_with_same_address.custom_c_type_name = class_binder.c_type_name;
-
-        ret.is_heap_allocated_class = true;
-
-        ret.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(generator);
-        ret.return_usage = class_binder.MakeReturnUsage();
 
         return ret;
     }
@@ -84,18 +76,10 @@ namespace mrbind::CBindings
     {
         Generator::BindableType ret;
 
-        ret.traits = Generator::TypeTraits::CopyableNonTrivial{};
-
         auto &binder = is_const ? iterator_binder_const : iterator_binder_mutable;
+        binder.FillCommonParams(generator, ret);
 
         ret.bindable_with_same_address.declared_in_file = [*this, &generator]() -> auto & {return GetImplementationFile(generator);};
-        ret.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
-        ret.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
-
-        ret.is_heap_allocated_class = true;
-
-        ret.param_usage_with_default_arg = binder.MakeParamUsageSupportingDefaultArg(generator);
-        ret.return_usage = binder.MakeReturnUsage();
 
         return ret;
     }

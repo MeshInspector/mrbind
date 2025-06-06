@@ -119,12 +119,14 @@ MR_C_API bool MR_C_std_unordered_map_int_float_IsMutableEnd(MR_C_std_unordered_m
 MR_C_API MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_DefaultConstruct(void);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// Parameter `other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_map_int_float_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_unordered_map_int_float_const_iterator *other);
+MR_C_API MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_ConstructFromAnother(const MR_C_std_unordered_map_int_float_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_unordered_map_int_float_const_iterator_AssignFromAnother(MR_C_std_unordered_map_int_float_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_map_int_float_const_iterator *other);
+/// Parameter `other` can not be null.
+MR_C_API void MR_C_std_unordered_map_int_float_const_iterator_AssignFromAnother(MR_C_std_unordered_map_int_float_const_iterator *_this, const MR_C_std_unordered_map_int_float_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_unordered_map_int_float_const_iterator`.
 /// Parameter `_this` can not be null.
@@ -140,12 +142,14 @@ MR_C_API MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map
 MR_C_API MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_DefaultConstruct(void);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// Parameter `other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_map_int_float_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_unordered_map_int_float_iterator *other);
+MR_C_API MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_ConstructFromAnother(const MR_C_std_unordered_map_int_float_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_unordered_map_int_float_iterator_AssignFromAnother(MR_C_std_unordered_map_int_float_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_map_int_float_iterator *other);
+/// Parameter `other` can not be null.
+MR_C_API void MR_C_std_unordered_map_int_float_iterator_AssignFromAnother(MR_C_std_unordered_map_int_float_iterator *_this, const MR_C_std_unordered_map_int_float_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_unordered_map_int_float_iterator`.
 /// Parameter `_this` can not be null.

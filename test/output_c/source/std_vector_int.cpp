@@ -220,17 +220,17 @@ MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_DefaultCo
     return (MR_C_std_vector_int_const_iterator *)new std::vector<int>::const_iterator(std::vector<int>::const_iterator());
 }
 
-MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int_const_iterator *other)
+MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_ConstructFromAnother(const MR_C_std_vector_int_const_iterator *other)
 {
     return (MR_C_std_vector_int_const_iterator *)new std::vector<int>::const_iterator(std::vector<int>::const_iterator(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::const_iterator))
+        (other ? std::vector<int>::const_iterator(*(std::vector<int>::const_iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 
-void MR_C_std_vector_int_const_iterator_AssignFromAnother(MR_C_std_vector_int_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_int_const_iterator *other)
+void MR_C_std_vector_int_const_iterator_AssignFromAnother(MR_C_std_vector_int_const_iterator *_this, const MR_C_std_vector_int_const_iterator *other)
 {
     (_this ? *(std::vector<int>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::const_iterator), std::vector<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::const_iterator))
+        (other ? std::vector<int>::const_iterator(*(std::vector<int>::const_iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     );
 }
 
@@ -251,17 +251,17 @@ MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_DefaultConstruct(void
     return (MR_C_std_vector_int_iterator *)new std::vector<int>::iterator(std::vector<int>::iterator());
 }
 
-MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int_iterator *other)
+MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_ConstructFromAnother(const MR_C_std_vector_int_iterator *other)
 {
     return (MR_C_std_vector_int_iterator *)new std::vector<int>::iterator(std::vector<int>::iterator(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::iterator))
+        (other ? std::vector<int>::iterator(*(std::vector<int>::iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 
-void MR_C_std_vector_int_iterator_AssignFromAnother(MR_C_std_vector_int_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_int_iterator *other)
+void MR_C_std_vector_int_iterator_AssignFromAnother(MR_C_std_vector_int_iterator *_this, const MR_C_std_vector_int_iterator *other)
 {
     (_this ? *(std::vector<int>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int>::iterator) MRBINDC_CLASSARG_COPY(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_MOVE(other, (std::vector<int>::iterator), std::vector<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::vector<int>::iterator) MRBINDC_CLASSARG_END(other, std::vector<int>::iterator))
+        (other ? std::vector<int>::iterator(*(std::vector<int>::iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     );
 }
 

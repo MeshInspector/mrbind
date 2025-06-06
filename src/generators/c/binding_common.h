@@ -35,15 +35,24 @@ namespace mrbind::CBindings
         // Don't forget to set `traits` after this, some functionality requires it.
         [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_name = "");
 
+        void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const;
+
+        // Fills most of the contents that `type` needs to have.
+        // The only thing that you need to set manually in addition to this is `.bindable_with_same_address.declared_in_file`, to a lambda generating your file.
+        void FillCommonParams(Generator &generator, Generator::BindableType &type);
+
+        // Those are used internally by `FillCommonParams()`, but you can call them manually too:
+        // [
+
         [[nodiscard]] std::string MakeForwardDeclaration() const;
 
         [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage() const;
 
-        void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const;
-
         // This goes to `param_usage_with_default_arg`. `param_usage` should stay empty, since `param_usage_with_default_arg` alone can handle
         //   both parameters with default arguments and without.
         [[nodiscard]] std::optional<Generator::BindableType::ParamUsage> MakeParamUsageSupportingDefaultArg(Generator &generator) const;
+
+        // ]
 
         // Emit all the member functions enabled in `traits`.
         // If you pass `with_param_sugar == true`, will additionally emit the versions of the combined copy/move ctor and assignment with the sugared parameters.

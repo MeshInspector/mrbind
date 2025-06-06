@@ -205,17 +205,17 @@ MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_DefaultCons
     return (MR_C_std_deque_int_const_iterator *)new std::deque<int>::const_iterator(std::deque<int>::const_iterator());
 }
 
-MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_deque_int_const_iterator *other)
+MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_ConstructFromAnother(const MR_C_std_deque_int_const_iterator *other)
 {
     return (MR_C_std_deque_int_const_iterator *)new std::deque<int>::const_iterator(std::deque<int>::const_iterator(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, (std::deque<int>::const_iterator), std::deque<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, (std::deque<int>::const_iterator), std::deque<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::deque<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::deque<int>::const_iterator))
+        (other ? std::deque<int>::const_iterator(*(std::deque<int>::const_iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 
-void MR_C_std_deque_int_const_iterator_AssignFromAnother(MR_C_std_deque_int_const_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int_const_iterator *other)
+void MR_C_std_deque_int_const_iterator_AssignFromAnother(MR_C_std_deque_int_const_iterator *_this, const MR_C_std_deque_int_const_iterator *other)
 {
     (_this ? *(std::deque<int>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int>::const_iterator) MRBINDC_CLASSARG_COPY(other, (std::deque<int>::const_iterator), std::deque<int>::const_iterator) MRBINDC_CLASSARG_MOVE(other, (std::deque<int>::const_iterator), std::deque<int>::const_iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::deque<int>::const_iterator) MRBINDC_CLASSARG_END(other, std::deque<int>::const_iterator))
+        (other ? std::deque<int>::const_iterator(*(std::deque<int>::const_iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     );
 }
 
@@ -236,17 +236,17 @@ MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_DefaultConstruct(void)
     return (MR_C_std_deque_int_iterator *)new std::deque<int>::iterator(std::deque<int>::iterator());
 }
 
-MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_deque_int_iterator *other)
+MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_ConstructFromAnother(const MR_C_std_deque_int_iterator *other)
 {
     return (MR_C_std_deque_int_iterator *)new std::deque<int>::iterator(std::deque<int>::iterator(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int>::iterator) MRBINDC_CLASSARG_COPY(other, (std::deque<int>::iterator), std::deque<int>::iterator) MRBINDC_CLASSARG_MOVE(other, (std::deque<int>::iterator), std::deque<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::deque<int>::iterator) MRBINDC_CLASSARG_END(other, std::deque<int>::iterator))
+        (other ? std::deque<int>::iterator(*(std::deque<int>::iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     ));
 }
 
-void MR_C_std_deque_int_iterator_AssignFromAnother(MR_C_std_deque_int_iterator *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int_iterator *other)
+void MR_C_std_deque_int_iterator_AssignFromAnother(MR_C_std_deque_int_iterator *_this, const MR_C_std_deque_int_iterator *other)
 {
     (_this ? *(std::deque<int>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int>::iterator) MRBINDC_CLASSARG_COPY(other, (std::deque<int>::iterator), std::deque<int>::iterator) MRBINDC_CLASSARG_MOVE(other, (std::deque<int>::iterator), std::deque<int>::iterator) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::deque<int>::iterator) MRBINDC_CLASSARG_END(other, std::deque<int>::iterator))
+        (other ? std::deque<int>::iterator(*(std::deque<int>::iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     );
 }
 

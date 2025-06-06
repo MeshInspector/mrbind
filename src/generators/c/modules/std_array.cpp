@@ -105,16 +105,8 @@ namespace mrbind::CBindings::Modules
                 };
 
                 Generator::BindableType &new_type = ret.emplace();
-
-                new_type.traits = binder.traits;
-                new_type.is_heap_allocated_class = true;
-
+                binder.FillCommonParams(generator, new_type);
                 new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
-                new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
-                new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
-
-                new_type.param_usage_with_default_arg = binder.MakeParamUsageSupportingDefaultArg(generator);
-                new_type.return_usage = binder.MakeReturnUsage();
             }
 
             // `std::array::[const_]iterator` isn't handled yet.
