@@ -28,7 +28,7 @@ MR_C_API void MR_TestSimpleTypes_SetIntPtr(int *_1);
 MR_C_API void MR_TestSimpleTypes_SetIntPtrDef(int *const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetIntPtrDefNull`.
-/// Parameter `_1` defaults to `NULL` in C++.
+/// Parameter `_1` defaults to a null pointer in C++.
 MR_C_API void MR_TestSimpleTypes_SetIntPtrDefNull(int *_1);
 
 /// Generated from function `MR::TestSimpleTypes::GetIntRef`.
@@ -69,7 +69,7 @@ MR_C_API void MR_TestSimpleTypes_SetEnumPtr(MR_TestSimpleTypes_E *_1);
 MR_C_API void MR_TestSimpleTypes_SetEnumPtrDef(MR_TestSimpleTypes_E *const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnumPtrDefNull`.
-/// Parameter `_1` defaults to `NULL` in C++.
+/// Parameter `_1` defaults to a null pointer in C++.
 MR_C_API void MR_TestSimpleTypes_SetEnumPtrDefNull(MR_TestSimpleTypes_E *_1);
 
 /// Generated from function `MR::TestSimpleTypes::GetEnumRef`.

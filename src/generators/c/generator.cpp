@@ -610,18 +610,6 @@ namespace mrbind::CBindings
     }
 
 
-    bool Generator::EmitFuncParams::Param::IsPointerWithNullptrDefaultArgument() const
-    {
-        return
-            default_arg && cpp_type.Is<cppdecl::Pointer>() &&
-            (
-                default_arg->original_spelling == "nullptr" ||
-                default_arg->original_spelling == "NULL" ||
-                default_arg->original_spelling == "0" ||
-                default_arg->original_spelling == "{}" // I guess?
-            );
-    }
-
     void Generator::EmitFuncParams::AddParamsFromParsedFunc(const Generator &self, const std::vector<FuncParam> &new_params)
     {
         params.reserve(params.size() + new_params.size());
@@ -956,8 +944,8 @@ namespace mrbind::CBindings
                         if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
-                        const bool is_ptr_with_nullptr_default_arg = param.IsPointerWithNullptrDefaultArgument();
-                        const bool has_useful_default_arg = param.default_arg && !is_ptr_with_nullptr_default_arg;
+                        const std::string useless_default_arg_message = param.default_arg && bindable_param_type.is_useless_default_argument ? bindable_param_type.is_useless_default_argument(param.default_arg->original_spelling) : "";
+                        const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
 
                         if (has_useful_default_arg && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
@@ -1005,11 +993,9 @@ namespace mrbind::CBindings
                             comment += param_usage->explanation_how_to_use_default_arg(param_name_fixed);
                             comment += " to use it.\n";
                         }
-                        else if (is_ptr_with_nullptr_default_arg)
+                        else if (!useless_default_arg_message.empty())
                         {
-                            comment += "/// Parameter `";
-                            comment += param_name_fixed;
-                            comment += "` defaults to `NULL` in C++.\n";
+                            comment += "/// Parameter `" + param_name_fixed + "` defaults to " + useless_default_arg_message + " in C++.\n";
                         }
 
                         // Custom comment?

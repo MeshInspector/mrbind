@@ -404,6 +404,21 @@ namespace mrbind::CBindings
         );
     }
 
+    std::string CheckPointerDefaultArgumentForNullptr(std::string_view default_arg)
+    {
+        if (
+            default_arg == "nullptr" ||
+            default_arg == "NULL" ||
+            default_arg == "0" ||
+            default_arg == "{}"
+        )
+        {
+            return "a null pointer";
+        }
+
+        return "";
+    }
+
     Generator::BindableType MakeSimpleDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type)
     {
         Generator::BindableType ret(c_type);
@@ -461,6 +476,10 @@ namespace mrbind::CBindings
             ret += ")"; // Close `( ? : )` (default argument vs no default argument).
             return ret;
         };
+
+        // Ignore nullptr default arguments on pointers. This produces nicer interfaces.
+        if (cpp_type.Is<cppdecl::Pointer>())
+            ret.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
         generator.FillDefaultTypeDependencies(cpp_type, ret);
 
@@ -556,6 +575,10 @@ namespace mrbind::CBindings
                 ret += ")"; // Close `( ? : )` (default argument vs no default argument).
                 return ret;
             };
+
+            // Ignore nullptr default arguments on pointers. This produces nicer interfaces.
+            if (cpp_type.Is<cppdecl::Pointer>())
+                new_type.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
             // Definitely needed here.
             generator.FillDefaultTypeDependencies(cpp_type, new_type);

@@ -677,6 +677,11 @@ namespace mrbind::CBindings
 
             // ]
 
+            // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
+            // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
+            //   and DOES NOT end with a period.
+            std::function<std::string(std::string_view default_arg)> is_useless_default_argument;
+
 
             struct ReturnUsage
             {
@@ -877,8 +882,6 @@ namespace mrbind::CBindings
                     std::string original_spelling; // Spelled in a user-friendly manner (as originally written in the C++ source).
                 };
                 std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
-
-                [[nodiscard]] bool IsPointerWithNullptrDefaultArgument() const;
             };
             std::vector<Param> params;
 
