@@ -195,7 +195,15 @@ namespace mrbind
                 p->SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
                 p->FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
                 p->SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
-                p->SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
+                p->SuppressInlineNamespace = // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
+                    #if CLANG_VERSION_MAJOR >= 20
+                    // This became a enum in commit:  https://github.com/llvm/llvm-project/commit/bd12729a828c653da53f7182dda29982123913db
+                    // This specific enum constant has the value `1`, which matches the old behavior of `true`, likely for compatibility.
+                    // But we're still switching to a enum, because it shows the intent better.
+                    clang::PrintingPolicy::Redundant;
+                    #else
+                    true;
+                    #endif
                 p->SuppressDefaultTemplateArgs = true; // Don't print redundant default template arguments.
                 p->MSVCFormatting = false; // Unsure what this changes, just in case.
                 p->PolishForDeclaration = true; // Unsure what this changes, just in case.
