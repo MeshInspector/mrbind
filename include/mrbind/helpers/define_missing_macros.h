@@ -86,8 +86,8 @@
 //         * `assignment_kind_` one of: `none`, `copy`, `move` (the latter two represent copy and move assignment respectively).
 //         * `ret_` - parenthesized return type, or empty if void.
 //         * `name_` - method name.
-//         * `fullname_` - `name_` plus template arguments, if any. Parenthesized.
 //         * `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Subscript`.
+//         * `fullname_` - `name_` plus template arguments, if any. Parenthesized.
 //         * `const_` - either `const` or nothing if non-const.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.

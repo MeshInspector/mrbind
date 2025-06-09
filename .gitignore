@@ -1,7 +1,9 @@
 /build
 /compile_commands.json
-/.cache
+.cache
 /.vscode/launch.json
 /.vscode/_current_mode.txt
 /.vscode/_settings.src
-/test/build
+/test/**/*.json
+/test/**/*.so
+/test/**/*.dll

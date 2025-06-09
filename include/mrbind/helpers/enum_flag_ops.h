@@ -1,6 +1,6 @@
 #pragma once
 
-#include <type_traits>
+#include <type_traits> // IWYU pragma: keep
 
 // Synthesizes operators for a enum of flags: `&`, `|`, and `~`. Also multiplication by a bool.
 #define MRBIND_FLAG_OPERATORS(name_) MRBIND_FLAG_OPERATORS_CUSTOM(static, name_)

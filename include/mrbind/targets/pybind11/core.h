@@ -150,6 +150,7 @@ namespace MRBind::pb11
         none,
         copy,
         move,
+        by_value_assignment,
     };
 
     // `TryAddFunc()` uses this state to preserve information between the two passes.
@@ -1699,6 +1700,10 @@ namespace MRBind::pb11
         TryMakeIterable<T>(c);
         TryMakePrintable<T>(c);
 
+
+        // Those shouldn't be necessary anymore, now that we updated the parser to hopefully always emit the implicit constructors.
+        // TODO: remove those?
+
         if (!scope_state.have_default_ctor)
         {
             if constexpr (std::default_initializable<T>)
@@ -1901,6 +1906,7 @@ namespace MRBind::pb11
             {
                 prev_char_is_special = false;
                 ret += "minus";
+                last_good_size = ret.size();
             }
             else
             {
