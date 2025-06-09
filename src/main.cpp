@@ -569,7 +569,20 @@ namespace mrbind
             // Otherwise Clang will emit a runtime error.
             if (body_exists && !decl->getDefinition())
             {
-                ci.getSema().InstantiateClassTemplateSpecialization(loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
+                ci.getSema().InstantiateClassTemplateSpecialization(
+                    loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation
+                #if CLANG_VERSION_MAJOR >= 20
+                    ,
+                    // Compain = true, I guess?
+                    true,
+                    // This one is weird, but I think it only needs to be `true` in some rare internal contexts.
+                    // Consult:
+                    //   https://github.com/llvm/llvm-project/commit/28ad8978ee2054298d4198bf10c8cb68730af037
+                    //   https://github.com/llvm/llvm-project/commit/c94d930a212248d7102822ca7d0e37e72fd38cb3
+                    //   https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p3310r5.html
+                    false
+                #endif
+                );
                 // vis->TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
                 return true;
             }
