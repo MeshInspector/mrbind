@@ -614,54 +614,86 @@ namespace mrbind
     }
 
     // Returns true on success.
-    [[nodiscard]] bool TryInstantiateClass(clang::CompilerInstance &ci, clang::TagDecl *decl, clang::SourceLocation loc)
+    [[nodiscard]] bool TryInstantiateClass(clang::CompilerInstance &ci, clang::CXXRecordDecl &decl, clang::SourceLocation loc)
     {
-        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
+        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
         {
             // Don't try to define if there's no body.
-            bool body_exists = bool(templ->getSpecializedTemplate()->getTemplatedDecl()->getDefinition());
 
-            // Important! Check that it wasn't already instantiated.
-            // Otherwise Clang will emit a runtime error.
-            if (body_exists && !decl->getDefinition())
+            // This rejects templates that are declared but not defined.
+            bool body_exists = false;
+            if (auto pat = decl.getTemplateInstantiationPattern())
+                body_exists = pat->isCompleteDefinition();
+            else
+                body_exists = true; // ??? This is to catch the nested template usecase below. I have no idea why it is like this, looks busted.
+
+            // This version has worked decently for a long time, but it chokes on this example, incorrectly returning `false` for the inner class `AA`.
+            //     template <typename T>
+            //     struct A
+            //     {
+            //         template <typename TT> struct AA {};
+            //     };
+            //     using A0 = A<int>::AA<float>;
+            // bool body_exists = bool(templ->getSpecializedTemplate()->getTemplatedDecl()->getDefinition());
+
+            if (body_exists)
             {
-                ci.getSema().InstantiateClassTemplateSpecialization(
-                    loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation
-                #if CLANG_VERSION_MAJOR >= 20
-                    ,
-                    // Compain = true, I guess?
-                    true,
-                    // This one is weird, but I think it only needs to be `true` in some rare internal contexts.
-                    // Consult:
-                    //   https://github.com/llvm/llvm-project/commit/28ad8978ee2054298d4198bf10c8cb68730af037
-                    //   https://github.com/llvm/llvm-project/commit/c94d930a212248d7102822ca7d0e37e72fd38cb3
-                    //   https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p3310r5.html
-                    false
-                #endif
-                );
+                bool any_instantiated = false;
+
+                // Important! Check that it wasn't already instantiated.
+                // Otherwise Clang will emit a runtime error.
+                if (!decl.getDefinition())
+                {
+                    any_instantiated = true;
+
+                    ci.getSema().InstantiateClassTemplateSpecialization(
+                        loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation
+                    #if CLANG_VERSION_MAJOR >= 20
+                        ,
+                        // Compain = true, I guess?
+                        true,
+                        // This one is weird, but I think it only needs to be `true` in some rare internal contexts.
+                        // Consult:
+                        //   https://github.com/llvm/llvm-project/commit/28ad8978ee2054298d4198bf10c8cb68730af037
+                        //   https://github.com/llvm/llvm-project/commit/c94d930a212248d7102822ca7d0e37e72fd38cb3
+                        //   https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p3310r5.html
+                        false
+                    #endif
+                    );
+                }
                 // vis->TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
-                return true;
+
+                for (auto &subdecl : decl.decls())
+                {
+                    if (auto record = llvm::dyn_cast<clang::CXXRecordDecl>(subdecl))
+                    {
+                        if (record->isInjectedClassName() || record->getPreviousDecl() || record->isLambda())
+                            continue; // Straight from: https://github.com/llvm/llvm-project/blob/95b5b6801ce4c08e1bc92616321cd4127e7c0957/clang/lib/Sema/SemaTemplateInstantiate.cpp#L4317C6-L4319C18
+
+                        if (TryInstantiateClass(ci, *record, loc))
+                            any_instantiated = true;
+                    }
+                }
+
+                return any_instantiated;
             }
         }
         else
         {
             // Alternative instantiation method, unsure when/if this is necessary.
 
-            if (!decl->isCompleteDefinition())
+            if (!decl.isCompleteDefinition())
             {
-                if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
+                // This rejects non-templates.
+                if (auto pat = decl.getTemplateInstantiationPattern())
                 {
-                    // This rejects non-templates.
-                    if (auto pat = cxxdecl->getTemplateInstantiationPattern())
+                    // This rejects templates that are declared but not defined.
+                    if (pat->isCompleteDefinition())
                     {
-                        // This rejects templates that are declared but not defined.
-                        if (pat->isCompleteDefinition())
-                        {
-                            ci.getSema().InstantiateClass(decl->getSourceRange().getBegin(), cxxdecl, pat, ci.getSema().getTemplateInstantiationArgs(cxxdecl), clang::TSK_ImplicitInstantiation);
-                            // if constexpr (!std::is_null_pointer_v<Visitor>)
-                            //     // How do I recurse here?
-                            return true;
-                        }
+                        ci.getSema().InstantiateClass(decl.getSourceRange().getBegin(), &decl, pat, ci.getSema().getTemplateInstantiationArgs(&decl), clang::TSK_ImplicitInstantiation);
+                        // if constexpr (!std::is_null_pointer_v<Visitor>)
+                        //     // How do I recurse here?
+                        return true;
                     }
                 }
             }
@@ -1829,8 +1861,11 @@ namespace mrbind
             // Instantiate this class.
             // Here `decl->isCompleteDefinitionRequired()` rejects templates that WE don't want to instantiate,
             //   because they were visited for a useless reason, uch as being return types of SFINAE-rejected functions.
-            if (TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
-                need_another_iteration = true;
+            if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
+            {
+                if (TryInstantiateClass(*ci, *cxxdecl, decl->getSourceRange().getBegin()))
+                    need_another_iteration = true;
+            }
 
             // Mark non-static data members as needing instantiation.
             // Normally they get instantiated automatically, but not if they are e.g. pointers.
