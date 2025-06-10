@@ -4,16 +4,18 @@
 #include "reflection.h"
 
 #include <cstdint>
+#include <functional>
+#include <map>
 #include <memory>
 #include <optional>
 #include <string>
-#include <unordered_map>
 #include <variant>
 #include <vector>
 
 namespace mrbind
 {
     struct Entity;
+    struct Type;
 
     // A base class for classes and namespaces, as those can have nested things in them.
     struct EntityContainer
@@ -21,6 +23,18 @@ namespace mrbind
         MBREFL_STRUCT(
             (std::vector<Entity>)(nested,) // Empty initializer to avoid a Clang error.
         )
+
+        // Argh! And those have to be defined out of line too!
+        EntityContainer();
+        EntityContainer(const EntityContainer &);
+        EntityContainer(EntityContainer &&);
+        EntityContainer &operator=(const EntityContainer &);
+        EntityContainer &operator=(EntityContainer &&);
+        virtual ~EntityContainer();
+
+        // Must define this out of line, after `Entity` is defined.
+        // Note `Virtual`! We need to override this in `ClassEntity`.
+        virtual void VisitTypes(const std::function<void(Type &type)> &func);
     };
 
     // Similar to `EntityContainer`, but reflects directly to a vector, to look nicer in the JSON.
@@ -80,6 +94,11 @@ namespace mrbind
             (Type)(type)
             (std::optional<DefaultArgument>)(default_argument)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            func(type);
+        }
     };
 
     struct BasicFunc
@@ -110,6 +129,12 @@ namespace mrbind
 
             return true;
         }
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            for (FuncParam &param : params)
+                param.VisitTypes(func);
+        }
     };
 
     struct BasicReturningFunc : BasicFunc
@@ -119,6 +144,12 @@ namespace mrbind
         , // Bases:
             (BasicFunc)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            BasicFunc::VisitTypes(func);
+            func(return_type);
+        }
     };
 
     MBREFL_ENUM( RefQualifier,
@@ -178,6 +209,13 @@ namespace mrbind
             // A path to the file where this is defined.
             (DeclFileName)(declared_in_file)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            (void)func;
+
+            // Not visiting `canonical_underlying_type` right now. Since it'll always be a boring-ass integral type, it's probably fine?
+        }
     };
 
     // ---
@@ -226,6 +264,11 @@ namespace mrbind
 
             (bool)(is_static, false)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            func(type);
+        }
     };
 
     MBREFL_ENUM( CopyMoveKind,
@@ -315,6 +358,11 @@ namespace mrbind
             (std::optional<Comment>)(comment)
             (bool)(is_trivial, false)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            (void)func;
+        }
     };
 
     using ClassMemberVariant = std::variant<ClassField, ClassCtor, ClassMethod, ClassConvOp, ClassDtor>;
@@ -325,6 +373,11 @@ namespace mrbind
             (Type)(type)
             (bool)(is_virtual, false)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            func(type);
+        }
     };
 
     MBREFL_ENUM( ClassKind,
@@ -359,6 +412,17 @@ namespace mrbind
         , // Bases:
             (EntityContainer)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func) override
+        {
+            EntityContainer::VisitTypes(func);
+
+            for (auto &base : bases)
+                base.VisitTypes(func);
+
+            for (auto &member : members)
+                std::visit([&](auto &elem){elem.VisitTypes(func);}, member);
+        }
     };
 
     // ---
@@ -382,6 +446,11 @@ namespace mrbind
             // A path to the file where this is defined.
             (DeclFileName)(declared_in_file)
         )
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            func(type);
+        }
     };
 
     // ---
@@ -441,6 +510,12 @@ namespace mrbind
         Entity(Entity &&other) : variant(std::make_unique<EntityVariant>(std::move(*other.variant))) {}
         Entity &operator=(const Entity &other) {variant = std::make_unique<EntityVariant>(*other.variant); return *this;}
         Entity &operator=(Entity &&other) {variant = std::make_unique<EntityVariant>(std::move(*other.variant)); return *this;}
+
+        void VisitTypes(const std::function<void(Type &type)> &func)
+        {
+            if (variant)
+                std::visit([&](auto &elem){elem.VisitTypes(func);}, *variant);
+        }
     };
 
     MBREFL_ENUM( TypeUses,
@@ -502,7 +577,8 @@ namespace mrbind
             (bool)(has_custom_canonical_name, false)
 
             // Alternative names for this type.
-            (std::unordered_map<std::string, TypeAltSpellingInfo>)(alt_spellings)
+            // Using the regular `std::map` to ensure a consistent order.
+            (std::map<std::string, TypeAltSpellingInfo>)(alt_spellings)
         )
     };
 
@@ -535,9 +611,26 @@ namespace mrbind
             // ---
 
             // Information about the types.
+            // Using the regular `std::map` to ensure a consistent order.
             // Normally the nested maps only have one key, with the same value as the enclosing key.
             // This stops being true when similar types are combined, then the outer map will only contain simplified type names, and the inner maps will contain all the original variant spellings of it.
-            (std::unordered_map<std::string, std::unordered_map<std::string, TypeInformation>>)(type_info)
+            (std::map<std::string, std::map<std::string, TypeInformation>>)(type_info)
         )
     };
+
+
+    // --- Definitions:
+
+    inline EntityContainer::EntityContainer() = default;
+    inline EntityContainer::EntityContainer(const EntityContainer &) = default;
+    inline EntityContainer::EntityContainer(EntityContainer &&) = default;
+    inline EntityContainer &EntityContainer::operator=(const EntityContainer &) = default;
+    inline EntityContainer &EntityContainer::operator=(EntityContainer &&) = default;
+    inline EntityContainer::~EntityContainer() = default;
+
+    inline void EntityContainer::VisitTypes(const std::function<void(Type &type)> &func)
+    {
+        for (Entity &e : nested)
+            e.VisitTypes(func);
+    }
 }

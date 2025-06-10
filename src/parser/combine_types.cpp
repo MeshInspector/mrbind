@@ -73,9 +73,9 @@ namespace mrbind
             const std::string_view original_name = name;
             auto result = cppdecl::ParseType(name);
             if (auto error = std::get_if<cppdecl::ParseError>(&result))
-                throw std::runtime_error("While combining types, cppdecl failed to parse type `" + std::string(name) + "`, error at offset " + std::to_string(name.data() - original_name.data()) + ": " + error->message + " Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
+                throw std::runtime_error("While combining types, cppdecl failed to parse type `" + std::string(name) + "`, error at offset " + std::to_string(name.data() - original_name.data()) + ": " + error->message + " Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-cppdecl` to disable the simplification to work around this.");
             if (!name.empty())
-                throw std::runtime_error("While combining types, cppdecl failed to parse type `" + std::string(name) + "`, junk starting at offset " + std::to_string(name.data() - original_name.data()) + ". Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
+                throw std::runtime_error("While combining types, cppdecl failed to parse type `" + std::string(name) + "`, junk starting at offset " + std::to_string(name.data() - original_name.data()) + ". Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-cppdecl` to disable the simplification to work around this.");
 
             cppdecl::Type &type = std::get<cppdecl::Type>(result);
 
