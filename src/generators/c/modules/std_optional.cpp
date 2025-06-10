@@ -81,7 +81,7 @@ namespace mrbind::CBindings::Modules
                                 emit.cpp_return_type.AddQualifiers(cppdecl::CvQualifiers::const_);
                             emit.cpp_return_type.AddModifier(cppdecl::Pointer{});
                         }
-                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);
                         emit.cpp_extra_statements = "auto &self = @this@;";
                         emit.cpp_called_func = "self ? &*self : nullptr";
                         generator.EmitFunction(file, emit);

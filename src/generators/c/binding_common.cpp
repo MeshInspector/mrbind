@@ -114,10 +114,19 @@ namespace mrbind::CBindings
                 only_trivially_move_constructible = traits.value().is_trivially_move_constructible && !traits.value().is_trivially_copy_constructible
             ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
+                const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
                 std::string ret = "(";
 
                 ret += cpp_param_name;
                 ret += " ? ";
+
+                if (wrapper)
+                {
+                    ret += wrapper->wrapper_cpp_type;
+                    ret += "(";
+                }
+
                 ret += cpp_type_str;
                 ret += "(";
                 if (only_trivially_move_constructible)
@@ -132,7 +141,9 @@ namespace mrbind::CBindings
                 ret += cpp_param_name;
                 if (only_trivially_move_constructible)
                     ret += ")"; // Close `std::move()`.
-                ret += ")";
+                ret += ")"; // Close `cpp_type_str(...)` constructor call.
+                if (wrapper)
+                    ret += ")"; // Close wrapper construction.
                 ret += " : ";
 
                 std::visit(Overload{
@@ -237,7 +248,7 @@ namespace mrbind::CBindings
                     ret += ") ";
                 }
 
-                if (no_def_arg || wrapper->actual_default_arg.empty())
+                if (wrapper ? wrapper->actual_default_arg.empty() : no_def_arg)
                 {
                     ret += "MRBINDC_CLASSARG_NO_DEF_ARG(";
                     ret += cpp_param_name;
@@ -274,7 +285,7 @@ namespace mrbind::CBindings
                 {
                     ret += "MRBINDC_CLASSARG_DEF_ARG(";
                     ret += cpp_param_name;
-                    ret += ", (";
+                    ret += ", ";
                     ret += pass_by_nullopt;
                     ret += ", (";
                     ret += wrapper->wrapper_null;
