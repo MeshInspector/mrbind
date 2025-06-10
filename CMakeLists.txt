@@ -21,6 +21,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 endif()
 
 include_directories(include src)
+include_directories(deps/cppdecl/include)
 
 
 add_library(mrbind_common STATIC
@@ -34,6 +35,7 @@ if(MRBIND_BUILD_PARSER)
 
     add_executable(mrbind
         src/parser/combine_types.cpp
+        src/parser/cppdecl_helpers.cpp
         src/parser/data_to_json.cpp
         src/parser/data_to_macros.cpp
         src/parser/main.cpp
@@ -44,9 +46,6 @@ if(MRBIND_BUILD_PARSER)
     target_link_libraries(mrbind PRIVATE
         mrbind_common
     )
-
-    # Right now we only use this for optional type simplification, so this could be disabled relatively easily.
-    target_include_directories(mrbind PRIVATE deps/cppdecl/include)
 
     target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
 

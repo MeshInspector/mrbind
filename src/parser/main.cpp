@@ -1,11 +1,11 @@
-#include "combine_types.h"
 #include "common/filesystem.h"
-#include "data_to_json.h"
-#include "data_to_macros.h"
-#include "multiplex_data.h"
-
 #include "common/parsed_data.h"
 #include "common/set_error_handlers.h"
+#include "parser/combine_types.h"
+#include "parser/cppdecl_helpers.h"
+#include "parser/data_to_json.h"
+#include "parser/data_to_macros.h"
+#include "parser/multiplex_data.h"
 
 #include <cppdecl/declarations/data.h>
 #include <cppdecl/declarations/parse.h>
@@ -35,6 +35,7 @@
 #include <stdexcept>
 #include <string_view>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace mrbind
@@ -189,7 +190,7 @@ namespace mrbind
         AdjustTypeNameFlags adjust_type_name_flags{};
 
         // Simplify canonical type names using our `cppdecl` library.
-        bool simplify_canonical_type_names = true;
+        bool enable_cppdecl_processing = true;
     };
 
     struct PrintingPolicies
@@ -206,7 +207,15 @@ namespace mrbind
                 p->SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
                 p->FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
                 p->SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
-                p->SuppressInlineNamespace = true; // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
+                p->SuppressInlineNamespace = // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
+                    #if CLANG_VERSION_MAJOR >= 20
+                    // This became a enum in commit:  https://github.com/llvm/llvm-project/commit/bd12729a828c653da53f7182dda29982123913db
+                    // This specific enum constant has the value `1`, which matches the old behavior of `true`, likely for compatibility.
+                    // But we're still switching to a enum, because it shows the intent better.
+                    clang::PrintingPolicy::Redundant;
+                    #else
+                    true;
+                    #endif
                 p->SuppressDefaultTemplateArgs = true; // Don't print redundant default template arguments.
                 p->MSVCFormatting = false; // Unsure what this changes, just in case.
                 p->PolishForDeclaration = true; // Unsure what this changes, just in case.
@@ -606,41 +615,86 @@ namespace mrbind
     }
 
     // Returns true on success.
-    [[nodiscard]] bool TryInstantiateClass(clang::CompilerInstance &ci, clang::TagDecl *decl, clang::SourceLocation loc)
+    [[nodiscard]] bool TryInstantiateClass(clang::CompilerInstance &ci, clang::CXXRecordDecl &decl, clang::SourceLocation loc)
     {
-        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl))
+        if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl))
         {
             // Don't try to define if there's no body.
-            bool body_exists = bool(templ->getSpecializedTemplate()->getTemplatedDecl()->getDefinition());
 
-            // Important! Check that it wasn't already instantiated.
-            // Otherwise Clang will emit a runtime error.
-            if (body_exists && !decl->getDefinition())
+            // This rejects templates that are declared but not defined.
+            bool body_exists = false;
+            if (auto pat = decl.getTemplateInstantiationPattern())
+                body_exists = pat->isCompleteDefinition();
+            else
+                body_exists = true; // ??? This is to catch the nested template usecase below. I have no idea why it is like this, looks busted.
+
+            // This version has worked decently for a long time, but it chokes on this example, incorrectly returning `false` for the inner class `AA`.
+            //     template <typename T>
+            //     struct A
+            //     {
+            //         template <typename TT> struct AA {};
+            //     };
+            //     using A0 = A<int>::AA<float>;
+            // bool body_exists = bool(templ->getSpecializedTemplate()->getTemplatedDecl()->getDefinition());
+
+            if (body_exists)
             {
-                ci.getSema().InstantiateClassTemplateSpecialization(loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation);
+                bool any_instantiated = false;
+
+                // Important! Check that it wasn't already instantiated.
+                // Otherwise Clang will emit a runtime error.
+                if (!decl.getDefinition())
+                {
+                    any_instantiated = true;
+
+                    ci.getSema().InstantiateClassTemplateSpecialization(
+                        loc, templ, clang::TemplateSpecializationKind::TSK_ImplicitInstantiation
+                    #if CLANG_VERSION_MAJOR >= 20
+                        ,
+                        // Compain = true, I guess?
+                        true,
+                        // This one is weird, but I think it only needs to be `true` in some rare internal contexts.
+                        // Consult:
+                        //   https://github.com/llvm/llvm-project/commit/28ad8978ee2054298d4198bf10c8cb68730af037
+                        //   https://github.com/llvm/llvm-project/commit/c94d930a212248d7102822ca7d0e37e72fd38cb3
+                        //   https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p3310r5.html
+                        false
+                    #endif
+                    );
+                }
                 // vis->TraverseClassTemplateSpecializationDecl(templ); // Recurse into this template.
-                return true;
+
+                for (auto &subdecl : decl.decls())
+                {
+                    if (auto record = llvm::dyn_cast<clang::CXXRecordDecl>(subdecl))
+                    {
+                        if (record->isInjectedClassName() || record->getPreviousDecl() || record->isLambda())
+                            continue; // Straight from: https://github.com/llvm/llvm-project/blob/95b5b6801ce4c08e1bc92616321cd4127e7c0957/clang/lib/Sema/SemaTemplateInstantiate.cpp#L4317C6-L4319C18
+
+                        if (TryInstantiateClass(ci, *record, loc))
+                            any_instantiated = true;
+                    }
+                }
+
+                return any_instantiated;
             }
         }
         else
         {
             // Alternative instantiation method, unsure when/if this is necessary.
 
-            if (!decl->isCompleteDefinition())
+            if (!decl.isCompleteDefinition())
             {
-                if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
+                // This rejects non-templates.
+                if (auto pat = decl.getTemplateInstantiationPattern())
                 {
-                    // This rejects non-templates.
-                    if (auto pat = cxxdecl->getTemplateInstantiationPattern())
+                    // This rejects templates that are declared but not defined.
+                    if (pat->isCompleteDefinition())
                     {
-                        // This rejects templates that are declared but not defined.
-                        if (pat->isCompleteDefinition())
-                        {
-                            ci.getSema().InstantiateClass(decl->getSourceRange().getBegin(), cxxdecl, pat, ci.getSema().getTemplateInstantiationArgs(cxxdecl), clang::TSK_ImplicitInstantiation);
-                            // if constexpr (!std::is_null_pointer_v<Visitor>)
-                            //     // How do I recurse here?
-                            return true;
-                        }
+                        ci.getSema().InstantiateClass(decl.getSourceRange().getBegin(), &decl, pat, ci.getSema().getTemplateInstantiationArgs(&decl), clang::TSK_ImplicitInstantiation);
+                        // if constexpr (!std::is_null_pointer_v<Visitor>)
+                        //     // How do I recurse here?
+                        return true;
                     }
                 }
             }
@@ -845,23 +899,32 @@ namespace mrbind
 
         std::unordered_map<std::string, std::string> types_to_preferred_names;
 
+        // This roundtrips the type name through cppdecl.
+        // We need this because we'll end up adjusting SOME of them anyway (e.g. to fix the stuff in `test_typedefs_in_templates.h`), and we want the consistent style everywhere, e.g. to avoid redundant type registration.
+        // Note that `GetCanonicalTypeName()` does this automatically.
+        [[nodiscard]] std::string RoundtripTypeNameThroughCppdecl(std::string name)
+        {
+            if (params->enable_cppdecl_processing)
+                return cppdecl::ToCode(ParseTypeWithCppdecl(name), {}); // No canonicalization here.
+            else
+                return name;
+        }
+        // Same, but for qualified names.
+        [[nodiscard]] std::string RoundtripQualifiedNameThroughCppdecl(std::string name)
+        {
+            if (params->enable_cppdecl_processing)
+                return cppdecl::ToCode(ParseQualifiedNameWithCppdecl(name), {}); // No canonicalization here.
+            else
+                return name;
+        }
+
         [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, clang::PrintingPolicy PrintingPolicies::* policy = &PrintingPolicies::normal)
         {
             std::string ret = type.getCanonicalType().getAsString(printing_policies.*policy);
 
-            if (params->simplify_canonical_type_names)
+            if (params->enable_cppdecl_processing)
             {
-                std::string_view input = ret;
-                cppdecl::ParseTypeResult parse_result = cppdecl::ParseType(input);
-                if (auto error = std::get_if<cppdecl::ParseError>(&parse_result))
-                {
-                    throw std::runtime_error("During type simplification, cppdecl failed to parse type `" + ret + "` at position " + std::to_string(input.data() - ret.c_str()) + " with error `" + std::string(error->message) + "`. Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
-                }
-                if (!input.empty())
-                {
-                    throw std::runtime_error("During type simplification, cppdecl didn't consume a part of the type name `" + ret + "` starting from position " + std::to_string(input.data() - ret.c_str()) + ". Please report a bug to `https://github.com/MeshInspector/cppdecl` with this type name. Pass `--no-simplify-canonical-type-names` to disable the simplification to work around this.");
-                }
-                cppdecl::Type &type = std::get<cppdecl::Type>(parse_result);
+                cppdecl::Type type = ParseTypeWithCppdecl(ret);
                 cppdecl::Simplify(cppdecl::SimplifyFlags::native, type);
                 ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
             }
@@ -899,13 +962,26 @@ namespace mrbind
         [[nodiscard]] Type GetTypeStrings(const clang::QualType &type, TypeUses reason)
         {
             Type ret;
-            ret.pretty = type.getAsString(printing_policies.normal);
+
+            // Here the roundtrip is handled by `GetCanonicalTypeName`.
             ret.canonical = GetCanonicalTypeName(type);
 
+            ret.pretty = type.getAsString(printing_policies.normal);
             // If the type is spelled with `decltype`, force replace it with the canonical.
             // This is needed if we e.g. `decltype` the function parameters.
             if (ret.pretty.find("decltype(") != std::string::npos)
+            {
                 ret.pretty = ret.canonical;
+            }
+            else
+            {
+                // Only roundtrip if we DIDN't replace the type with the canonical.
+                // Because at the moment `cppdecl` chokes on `decltype(...)`, and as an optimization too.
+
+                ret.pretty = RoundtripTypeNameThroughCppdecl(std::move(ret.pretty));
+                if (params->enable_cppdecl_processing)
+                    ret.pretty = cppdecl::ToCode(ParseTypeWithCppdecl(ret.pretty), {}); // No canonicalization flags here.
+            }
 
             RegisterTypeSpelling(type, ret.pretty, reason);
 
@@ -1045,6 +1121,8 @@ namespace mrbind
                         {
                             llvm::raw_string_ostream ss(new_method.full_name);
                             clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, method->getTemplateSpecializationInfo()->getTemplate()->getTemplateParameters());
+
+                            new_method.full_name = RoundtripQualifiedNameThroughCppdecl(std::move(new_method.full_name));
                         }
 
                         new_method.is_static = method->isStatic();
@@ -1089,10 +1167,13 @@ namespace mrbind
             { // Full name.
                 llvm::raw_string_ostream qual_name_ss(new_func.full_qual_name);
                 decl->printQualifiedName(qual_name_ss, printing_policies.normal);
-                new_func.qual_name = new_func.full_qual_name; // Make a copy before adding template arguments.
+                new_func.qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name); // Make a copy before adding template arguments.
                 // Add template arguments, if any.
                 if (auto template_args = decl->getTemplateSpecializationArgs())
+                {
                     clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policies.normal, decl->getPrimaryTemplate()->getTemplateParameters());
+                    new_func.full_qual_name = RoundtripQualifiedNameThroughCppdecl(std::move(new_func.full_qual_name));
+                }
             }
 
             new_func.name = decl->getDeclName().getAsString();
@@ -1189,6 +1270,8 @@ namespace mrbind
 
                         if (!NameSpellingIsLegal(full_name))
                             continue; // Has unspellable template arguments.
+
+                        full_name = RoundtripQualifiedNameThroughCppdecl(std::move(full_name));
                     }
 
                     ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
@@ -1258,10 +1341,124 @@ namespace mrbind
             return true;
         }
 
-        // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
+        // Note, this is not a CRTP override.
         void FinishRecord(clang::RecordDecl *decl)
         {
             (void)decl;
+
+            // Fix up broken typedef names in the members of this class. See `test_typedefs_in_templates.h` for the context.
+            if (params->enable_cppdecl_processing)
+            {
+                EntityContainer *container = params->container_stack.back();
+
+                std::vector<cppdecl::QualifiedName> typedef_names;
+
+                for (Entity &e : container->nested)
+                {
+                    // If we have a typedef at the top level...
+                    // Note that it only seems to be necessary to visit top-level typedefs.
+                    // Those buggy typedefs don't affect things outside of their directly enclosing classes, or so it seems.
+                    if (auto tdef = std::get_if<TypedefEntity>(&*e.variant))
+                        typedef_names.push_back(ParseQualifiedNameWithCppdecl(tdef->full_name));
+                }
+
+                // Now if we have at least one typedef, visit every name in the enclosing class recursively.
+                if (!typedef_names.empty())
+                {
+                    std::unordered_map<std::string, std::string> type_name_replacements;
+
+                    container->VisitTypes([&](Type &visited_type_struct)
+                    {
+                        // Should we process the `pretty` types too? I think we should.
+                        for (std::string *visited_type_string : {&visited_type_struct.canonical, &visited_type_struct.pretty})
+                        {
+                            cppdecl::Type visited_type = ParseTypeWithCppdecl(*visited_type_string);
+                            bool any_type_changes = false;
+
+                            visited_type.VisitEachComponent<cppdecl::QualifiedName>({}, [&](cppdecl::QualifiedName &visited_name)
+                            {
+                                for (const cppdecl::QualifiedName &typedef_name : typedef_names)
+                                {
+                                    if (typedef_name.parts.size() > visited_name.parts.size())
+                                        continue; // The visited name is too short, it can't possibly match.
+
+                                    bool match = true;
+                                    bool any_missing_targs = false;
+
+                                    for (std::size_t i = 0; i < typedef_name.parts.size(); i++)
+                                    {
+                                        const auto &typedef_part = typedef_name.parts[i];
+                                        const auto &visited_part = visited_name.parts[i];
+
+                                        if (!typedef_part.Equals(visited_part, cppdecl::UnqualifiedName::EqualsFlags::allow_missing_template_args_in_target))
+                                        {
+                                            match = false;
+                                            break;
+                                        }
+
+                                        if (typedef_part.template_args && !visited_part.template_args)
+                                            any_missing_targs = true;
+                                    }
+
+                                    // If we're sure this name is bugged...
+                                    if (match && any_missing_targs)
+                                    {
+                                        any_type_changes = true;
+
+                                        for (std::size_t i = 0; i < typedef_name.parts.size(); i++)
+                                        {
+                                            const auto &typedef_part = typedef_name.parts[i];
+                                            auto &visited_part = visited_name.parts[i];
+
+                                            if (typedef_part.template_args && !visited_part.template_args)
+                                                visited_part.template_args = typedef_part.template_args;
+                                        }
+
+                                        // We don't search for more matches in this name, it should be impossible.
+                                        // Note that the other recursive branches might still find something interesting.
+                                        break;
+                                    }
+                                }
+
+                                return false;
+                            });
+
+                            // If we've made any changes to the type, re-serialzie it.
+                            if (any_type_changes)
+                            {
+                                std::string new_name = cppdecl::ToCode(visited_type, {});
+                                type_name_replacements.try_emplace(*visited_type_string, new_name);
+                                *visited_type_string = std::move(new_name);
+                            }
+                        }
+                    });
+
+                    // Now adjust the names in the type registration list.
+                    // We're doing this a bit backwards, because of iterator stability difficulties in loops.
+                    for (const auto &replacement : type_name_replacements)
+                    {
+                        // Adjust the outer name.
+                        if (auto iter = params->parsed_result.type_info.find(replacement.first); iter != params->parsed_result.type_info.end())
+                        {
+                            auto node = params->parsed_result.type_info.extract(iter);
+                            node.key() = replacement.second;
+                            params->parsed_result.type_info.insert(std::move(node));
+                        }
+
+                        for (auto &elem : params->parsed_result.type_info)
+                        {
+                            // Adjust the inner name.
+                            if (auto iter = elem.second.find(replacement.first); iter != elem.second.end())
+                            {
+                                auto node = elem.second.extract(iter);
+                                node.key() = replacement.second;
+                                elem.second.insert(std::move(node));
+                            }
+                        }
+                    }
+                }
+            }
+
             params->container_stack.pop_back();
         }
 
@@ -1374,7 +1571,7 @@ namespace mrbind
                 return true;
             }
 
-            std::string full_name = ctx->getTypedefType(decl).getAsString(printing_policies.normal);
+            std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(decl).getAsString(printing_policies.normal));
             // Here we don't register the typedef TARGET TYPE SPELLING if we're going to poison the target type.
             auto type_strings = GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target * !should_poison);
             if (should_poison)
@@ -1808,8 +2005,11 @@ namespace mrbind
             // Instantiate this class.
             // Here `decl->isCompleteDefinitionRequired()` rejects templates that WE don't want to instantiate,
             //   because they were visited for a useless reason, uch as being return types of SFINAE-rejected functions.
-            if (TryInstantiateClass(*ci, decl, decl->getSourceRange().getBegin()))
-                need_another_iteration = true;
+            if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
+            {
+                if (TryInstantiateClass(*ci, *cxxdecl, decl->getSourceRange().getBegin()))
+                    need_another_iteration = true;
+            }
 
             // Mark non-static data members as needing instantiation.
             // Normally they get instantiated automatically, but not if they are e.g. pointers.
@@ -2008,7 +2208,7 @@ namespace mrbind
             { // Remove types that don't have any "uses" bits set. This can happen if they were poisoned by poisonous typedefs and weren't used elsewhere.
                 std::erase_if(
                     params->parsed_result.type_info,
-                    [](const std::pair<const std::string, std::unordered_map<std::string, TypeInformation>> &p)
+                    [](const std::pair<const std::string, std::map<std::string, TypeInformation>> &p)
                     {
                         if (p.second.size() != 1)
                             throw std::logic_error("Expected exactly one subtype at this point.");
@@ -2020,7 +2220,7 @@ namespace mrbind
             // Combine together similar types, if needed.
             if (bool(params->adjust_type_name_flags))
             {
-                CombineSimilarTypes(params->parsed_result, params->simplify_canonical_type_names ? MakeAdjustTypeNameFunc(params->adjust_type_name_flags) : MakeAdjustTypeNameFuncLegacyWithoutCppdecl(params->adjust_type_name_flags));
+                CombineSimilarTypes(params->parsed_result, params->enable_cppdecl_processing ? MakeAdjustTypeNameFunc(params->adjust_type_name_flags) : MakeAdjustTypeNameFuncLegacyWithoutCppdecl(params->adjust_type_name_flags));
             }
 
 
@@ -2246,9 +2446,9 @@ int main(int argc, char **argv)
                         continue;
                     }
 
-                    if (this_arg == "--no-simplify-canonical-type-names")
+                    if (this_arg == "--no-cppdecl")
                     {
-                        params.simplify_canonical_type_names = false;
+                        params.enable_cppdecl_processing = false;
                         continue;
                     }
                 }
@@ -2291,7 +2491,7 @@ int main(int argc, char **argv)
         "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
-        "  --no-simplify-canonical-type-names - Do not attempt to simplify canonical type names using our `cppdecl` library. There's typically no reason to, unless the library ends up being bugged.\n"
+        "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This can break many non-trivial usecases.\n"
         "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.\n"
         "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
         "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.\n"

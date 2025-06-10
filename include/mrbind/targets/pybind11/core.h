@@ -22,6 +22,7 @@
 // NOTE: Not including `<pybind11/stl.h>` because that doesn't cooperate with passing containers by reference.
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
+#include <cstddef>
 #include <map>
 #include <optional>
 #include <set>
@@ -57,6 +58,13 @@
 #define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winaccessible-base\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
 #else
 #define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...) __VA_ARGS__
+#endif
+
+// Like `offsetof(...)`, but with dumb warnings disabled.
+#ifdef __GNUC__
+#define MB_PB11_OFFSETOF(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"") offsetof(__VA_ARGS__) _Pragma("GCC diagnostic pop")
+#else
+#define MB_PB11_OFFSETOF(...) offsetof(__VA_ARGS__)
 #endif
 
 
@@ -3523,21 +3531,30 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
     if (_pb11_state.pass_number == 0) \
-    MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
-        /* Accessor lambda or pointer. */\
-        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_),\
-        /* Type. */\
-        MRBIND_IDENTITY type_ \
-    >(\
-        _pb11_c,\
-        /* Name. */\
-        MRBind::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullname_)).c_str()\
-        /* Comment, if any. */\
-        DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_)\
-    );
+    { \
+        MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
+            /* Accessor lambda or pointer. */\
+            MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_),\
+            /* Type. */\
+            MRBIND_IDENTITY type_ \
+        >(\
+            _pb11_c,\
+            /* Name. */\
+            MRBind::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullname_)).c_str()\
+            /* Comment, if any. */\
+            DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_)\
+        ); \
+        /* Add `offsetof` static variables. */\
+        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_,static_)(qualname_, name_) \
+    }
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_(class_qualname_, fullname_) [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.MRBIND_IDENTITY fullname_;}
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_static(class_qualname_, fullname_) &(MRBIND_IDENTITY class_qualname_::MRBIND_IDENTITY fullname_)
+
+// Add an `_offsetof_X` static variable for every non-static data member.
+// Note, `using _self` is here to allow commas in `class_qualname_`.
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_(class_qualname_, name_) _pb11_c.def_property_readonly_static(+"_offsetof_" #name_, +[](const pybind11::object &){using _self = MRBIND_IDENTITY class_qualname_; return MB_PB11_OFFSETOF(_self, name_);});
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_static(class_qualname_, name_)
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, comment_, params_) \
