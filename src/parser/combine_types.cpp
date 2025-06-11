@@ -1,6 +1,7 @@
 #include "combine_types.h"
-#include "cppdecl/declarations/parse.h"
-#include "cppdecl/declarations/to_string.h"
+
+#include <cppdecl/declarations/parse.h>
+#include <cppdecl/declarations/to_string.h>
 
 #include <string>
 #include <string_view>
