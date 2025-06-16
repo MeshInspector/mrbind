@@ -23,6 +23,7 @@ MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_
 MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_optional_MR_StdOptional_B *other);
 
 /// Constructs a new instance.
+/// Parameter `other` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_ConstructFrom(MR_C_PassBy other_pass_by, MR_StdOptional_B *other);
 
@@ -32,6 +33,7 @@ MR_C_API void MR_C_std_optional_MR_StdOptional_B_AssignFromAnother(MR_C_std_opti
 
 /// Assigns the contents.
 /// Parameter `_this` can not be null.
+/// Parameter `other` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
 MR_C_API void MR_C_std_optional_MR_StdOptional_B_AssignFrom(MR_C_std_optional_MR_StdOptional_B *_this, MR_C_PassBy other_pass_by, MR_StdOptional_B *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_optional_MR_StdOptional_B`.

@@ -84,6 +84,9 @@ MR_C_API int MR_TypedefsInTemplates_B_int_BB_float_foo(MR_TypedefsInTemplates_B_
 /// Parameter `_this` can not be null.
 MR_C_API int MR_TypedefsInTemplates_B_int_BB_float_foo2(MR_TypedefsInTemplates_B_int_BB_float *_this);
 
+/// Generated from function `MR::TypedefsInTemplates::bar`.
+MR_C_API void MR_TypedefsInTemplates_bar(int _1);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

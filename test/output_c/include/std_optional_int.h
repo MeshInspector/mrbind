@@ -21,6 +21,7 @@ MR_C_API MR_C_std_optional_int *MR_C_std_optional_int_DefaultConstruct(void);
 MR_C_API MR_C_std_optional_int *MR_C_std_optional_int_ConstructFromAnother(const MR_C_std_optional_int *other);
 
 /// Constructs a new instance.
+/// Parameter `other` is optional. To keep it empty, pass a null pointer.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_optional_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_int *MR_C_std_optional_int_ConstructFrom(const int *other);
 
@@ -31,6 +32,7 @@ MR_C_API void MR_C_std_optional_int_AssignFromAnother(MR_C_std_optional_int *_th
 
 /// Assigns the contents.
 /// Parameter `_this` can not be null.
+/// Parameter `other` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_C_std_optional_int_AssignFrom(MR_C_std_optional_int *_this, const int *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_optional_int`.

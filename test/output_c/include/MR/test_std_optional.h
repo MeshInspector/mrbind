@@ -19,10 +19,12 @@ typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_str
 MR_C_API MR_C_std_optional_int *MR_StdOptional_GetInt(void);
 
 /// Generated from function `MR::StdOptional::SetInt`.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetInt(const int *_1);
 
 /// Generated from function `MR::StdOptional::SetIntDefTrivial`.
-/// Parameter `_1` defaults to null in C++.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
+/// Parameter `_1` defaults to empty in C++.
 MR_C_API void MR_StdOptional_SetIntDefTrivial(const int *_1);
 
 /// Generated from function `MR::StdOptional::SetIntDef`.
@@ -39,10 +41,12 @@ typedef enum MR_StdOptional_E
 MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_StdOptional_GetEnum(void);
 
 /// Generated from function `MR::StdOptional::SetEnum`.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetEnum(const MR_StdOptional_E *_1);
 
 /// Generated from function `MR::StdOptional::SetEnumDefTrivial`.
-/// Parameter `_1` defaults to null in C++.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
+/// Parameter `_1` defaults to empty in C++.
 MR_C_API void MR_StdOptional_SetEnumDefTrivial(const MR_StdOptional_E *_1);
 
 /// Generated from function `MR::StdOptional::SetEnumDef`.
@@ -85,12 +89,12 @@ MR_C_API MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *
 MR_C_API MR_C_std_optional_MR_StdOptional_A *MR_StdOptional_GetClass(void);
 
 /// Generated from function `MR::StdOptional::SetClass`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetClass(const MR_StdOptional_A *_1);
 
 /// Generated from function `MR::StdOptional::SetClassDefTrivial`.
-/// Parameter `_1` defaults to null in C++.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
+/// Parameter `_1` defaults to empty in C++.
 MR_C_API void MR_StdOptional_SetClassDefTrivial(const MR_StdOptional_A *_1);
 
 /// Generated from function `MR::StdOptional::SetClassDef`.
@@ -131,13 +135,16 @@ MR_C_API void MR_StdOptional_B_Destroy(MR_StdOptional_B *_this);
 MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_StdOptional_GetClass2(void);
 
 /// Generated from function `MR::StdOptional::SetClass2`.
+/// Parameter `_1` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
 MR_C_API void MR_StdOptional_SetClass2(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1);
 
 /// Generated from function `MR::StdOptional::SetClass2DefTrivial`.
-/// Parameter `_1` defaults to null in C++.
+/// Parameter `_1` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
+/// Parameter `_1` defaults to empty in C++.
 MR_C_API void MR_StdOptional_SetClass2DefTrivial(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1);
 
 /// Generated from function `MR::StdOptional::SetClass2Def`.
+/// Parameter `_1` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
 /// Parameter `_1` has default argument: `MR::StdOptional::B{"blah"}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdOptional_SetClass2Def(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1);
 

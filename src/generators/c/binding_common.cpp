@@ -178,7 +178,7 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+            param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
         }
         else if (traits.value().IsDefaultOrCopyOrMoveConstructible())
         {
@@ -301,7 +301,11 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.explanation_how_to_use_default_arg = [&generator](std::string_view cpp_param_name){(void)cpp_param_name; return "pass `" + generator.GetPassByEnumName() + "_DefaultArgument` and a null pointer";};
+            param_usage.explanation_how_to_use_default_arg = [&generator](std::string_view cpp_param_name, bool use_wrapper)
+            {
+                (void)cpp_param_name;
+                return "pass `" + generator.GetPassByEnumName() + (use_wrapper ? "_NoObject" : "_DefaultArgument") + "` and a null pointer";
+            };
 
             param_usage.supports_default_arguments_in_wrappers = true; // !!
         }
@@ -477,7 +481,7 @@ namespace mrbind::CBindings
         param_def_arg.c_params.push_back({
             .c_type = cppdecl::Type(c_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
         });
-        param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+        param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
         param_def_arg.c_params_to_cpp = [cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
         {
             (void)source_file;
@@ -573,7 +577,7 @@ namespace mrbind::CBindings
             param_def_arg.c_params.push_back({
                 .c_type = type_c_style.AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
             });
-            param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+            param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
             param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
@@ -740,7 +744,7 @@ namespace mrbind::CBindings
 
                     return ret;
                 };
-                param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+                param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
 
                 param_def_arg.c_params_to_cpp = [
                     cpp_type_str,

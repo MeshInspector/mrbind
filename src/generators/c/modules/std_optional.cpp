@@ -111,7 +111,7 @@ namespace mrbind::CBindings::Modules
                 throw std::runtime_error("Binding `std::optional` requires that the binding for the element type supports default arguments, but this type doesn't. Fix its binding to support them.");
 
             // Param usage WITHOUT the default argument is same as the usage of the element type WITH the default argument.
-            // All we need to do is to adjust the callback a bit, to pass `std::optional<T>` as the wrapper.
+            // All we need to do is to adjust the callbacks a bit, in particular to pass `std::optional<T>` as the wrapper.
             auto &param_usage = new_type.param_usage.emplace();
             param_usage = elem_type_binding.param_usage_with_default_arg.value();
             param_usage.c_params_to_cpp =
@@ -124,6 +124,27 @@ namespace mrbind::CBindings::Modules
                     assert(std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg)); // Since we're in `param_usage` (not `param_usage_with_default_arg`), this should always be null.
                     return next(source_file, cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgWrapper{.wrapper_cpp_type = cpp_type_str, .wrapper_null = "std::nullopt", .actual_default_arg = ""});
                 };
+            // Force the comment generation callback to think that we have a default argument.
+            if (param_usage.append_to_comment)
+                param_usage.append_to_comment = [next = std::move(param_usage.append_to_comment)](std::string_view cpp_param_name, bool has_default_arg){(void)has_default_arg; return next(cpp_param_name, true);};
+            // And also add some custom comments!
+            param_usage.append_to_comment = [
+                next = std::move(param_usage.append_to_comment),
+                explain_defarg = elem_type_binding.param_usage_with_default_arg.value().explanation_how_to_use_default_arg
+            ](std::string_view cpp_param_name, bool has_default_arg)
+            {
+                std::string ret;
+                if (next)
+                {
+                    // Should I call this before or after adding the custom text? I'm not sure. Before sounds better to me now.
+                    ret = next(cpp_param_name, has_default_arg);
+                    if (!ret.empty())
+                        ret += '\n';
+                }
+                ret += "/// Parameter `" + std::string(cpp_param_name) + "` is optional. To keep it empty, " + explain_defarg(cpp_param_name, true) + ".";
+
+                return ret;
+            };
 
 
             // Param usage WITH the default argument gets a bit weird. If this is a class that uses the `PassBy` enum (as indicated by its `supports_default_arguments_in_wrappers == true`),
@@ -149,6 +170,25 @@ namespace mrbind::CBindings::Modules
 
                         return next(source_file, cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgWrapper{.wrapper_cpp_type = cpp_type_str, .wrapper_null = "std::nullopt", .actual_default_arg = actual_default_arg});
                     };
+
+                // Explain how to pass a null optional.
+                param_usage_defarg.append_to_comment = [
+                    next = std::move(param_usage_defarg.append_to_comment),
+                    explain_defarg = elem_type_binding.param_usage_with_default_arg.value().explanation_how_to_use_default_arg
+                ](std::string_view cpp_param_name, bool has_default_arg)
+                {
+                    std::string ret;
+                    if (next)
+                    {
+                        // Should I call this before or after adding the custom text? I'm not sure. Before sounds better to me now.
+                        ret = next(cpp_param_name, has_default_arg);
+                        if (!ret.empty())
+                            ret += '\n';
+                    }
+                    ret += "/// Parameter `" + std::string(cpp_param_name) + "` is optional. To keep it empty, " + explain_defarg(cpp_param_name, true) + ".";
+
+                    return ret;
+                };
             }
             else
             {
@@ -169,7 +209,7 @@ namespace mrbind::CBindings::Modules
                         // Could also list `std::optional<T>{}` here, but that requires a whitespace-insensitive comparison function.
                     )
                     {
-                        return "null"; // I guess?
+                        return "empty"; // I guess? For consistency with "Parameter X is optional, to keep it empty do Y.".
                     }
 
                     return "";

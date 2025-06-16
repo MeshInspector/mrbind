@@ -122,3 +122,12 @@ int MR_TypedefsInTemplates_B_int_BB_float_foo2(MR_TypedefsInTemplates_B_int_BB_f
     return (_this ? *(MR::TypedefsInTemplates::B<int>::BB<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo2();
 }
 
+void MR_TypedefsInTemplates_bar(int _1)
+{
+    using namespace MR;
+    using namespace TypedefsInTemplates;
+    MR::TypedefsInTemplates::bar(
+        _1
+    );
+}
+

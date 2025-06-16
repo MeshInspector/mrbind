@@ -955,14 +955,11 @@ namespace mrbind::CBindings
 
                         const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
 
-                        const auto &param_usage =
-                            has_useful_default_arg || !bindable_param_type.param_usage
-                            ? bindable_param_type.param_usage_with_default_arg
-                            : bindable_param_type.param_usage;
-
+                        const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
+                        const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
 
                         // Declare or include type dependencies of the parameter.
-                        for (const auto &dep : param_usage->same_addr_bindable_type_dependencies)
+                        for (const auto &dep : param_usage.same_addr_bindable_type_dependencies)
                         {
                             auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
 
@@ -971,7 +968,7 @@ namespace mrbind::CBindings
                                 file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
                         }
 
-                        for (const auto &c_param : param_usage->c_params)
+                        for (const auto &c_param : param_usage.c_params)
                         {
                             auto &new_param = new_func.params.emplace_back();
                             new_param.type = c_param.c_type;
@@ -981,8 +978,20 @@ namespace mrbind::CBindings
                             new_param_decl.type = c_param.c_type;
                             // Skip the parameter name in the declarator if it's unnamed in the input AND it doesn't correspond to multiple parameters in the output.
                             // The latter requirement is solely for our sanity, as otherwise it becomes difficult to understand what the multiple parameters are doing in there.
-                            if (!param.name.empty() || param_usage->c_params.size() > 1)
+                            if (!param.name.empty() || param_usage.c_params.size() > 1)
                                 new_param_decl.name = new_param.name;
+                        }
+
+                        // Custom comment?
+                        // This seems to look better when inserted before the explanation about the default argument.
+                        if (param_usage.append_to_comment)
+                        {
+                            std::string str = param_usage.append_to_comment(param_name_fixed, has_useful_default_arg);
+                            if (!str.empty())
+                            {
+                                comment += str;
+                                comment += '\n';
+                            }
                         }
 
                         // Comment about the default argument.
@@ -993,9 +1002,9 @@ namespace mrbind::CBindings
                             comment += "` has default argument: `";
                             comment += param.default_arg->original_spelling;
                             comment += "`, ";
-                            if (!param_usage->explanation_how_to_use_default_arg)
-                                throw std::logic_error("Internal error: Bad usage: `ParamUsage::explanation_how_to_use_default_arg` is not set.");
-                            comment += param_usage->explanation_how_to_use_default_arg(param_name_fixed);
+                            if (!param_usage_defarg->explanation_how_to_use_default_arg)
+                                throw std::logic_error("Internal error: Bad usage: `ParamUsageWithDefaultArg::explanation_how_to_use_default_arg` is not set.");
+                            comment += param_usage_defarg->explanation_how_to_use_default_arg(param_name_fixed, false); // Always passing `use_wrapper = false` here. It's the wrapper's job to pass something else when wrapping the callback.
                             comment += " to use it.\n";
                         }
                         else if (!useless_default_arg_message.empty())
@@ -1003,22 +1012,11 @@ namespace mrbind::CBindings
                             comment += "/// Parameter `" + param_name_fixed + "` defaults to " + useless_default_arg_message + " in C++.\n";
                         }
 
-                        // Custom comment?
-                        if (param_usage->append_to_comment)
-                        {
-                            std::string str = param_usage->append_to_comment(param_name_fixed, has_useful_default_arg);
-                            if (!str.empty())
-                            {
-                                comment += str;
-                                comment += '\n';
-                            }
-                        }
-
                         if (param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
-                            arg_expr = param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
+                            arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
 
                         // Insert the extra includes.
-                        param_usage->extra_headers.InsertToFile(file);
+                        param_usage.extra_headers.InsertToFile(file);
                     }
                     else
                     {

@@ -649,14 +649,6 @@ namespace mrbind::CBindings
                 //   But the flag is passed here because it's sometimes useful to add additional remarks that depend on the presence of the default argument.
                 std::function<std::string(std::string_view cpp_param_name, bool has_default_arg)> append_to_comment;
 
-                // This will be used if we have a default argument.
-                // You only need to set this if you support default arguments (if this is in `BindableType::param_usage_with_default_arg` as opposed to `BindableType::param_usage`).
-                // This MUST start with a lowercase letter, and MUST NOT end with a period. E.g. `pass a null pointer`.
-                // This will be inserted into a comment along the lines of `To use the default argument, X.` or `Blah blah, X to use the default argument.`
-                // Most of the time you SHOULD NOT use `cpp_param_name` in the returned string. It's only useful if `c_params.size() > 1`,
-                //   in which case you migth return e.g. `"pass null both to it and to `" + cpp_param_name + "_end`"`, where `_end` would match your non-empty `CParam::name_suffix`.
-                std::function<std::string(std::string_view cpp_param_name)> explanation_how_to_use_default_arg;
-
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                 // `default_arg` should be empty if there's no default argument.
                 // NOTE: This will always produce correctly parenthesized strings. If the custom `c_params_to_cpp` is specified, it's its job to ensure that the result is correctly parenthesized.
@@ -672,6 +664,16 @@ namespace mrbind::CBindings
             struct ParamUsageWithDefaultArg : ParamUsage
             {
                 // Additional default argument settings:
+
+                // This is mandatory.
+                // This MUST start with a lowercase letter, and MUST NOT end with a period. E.g. `pass a null pointer`.
+                // This will be inserted into a comment along the lines of `To use the default argument, X.` or `Blah blah, X to use the default argument.`
+                // Most of the time you SHOULD NOT use `cpp_param_name` in the returned string. It's only useful if `c_params.size() > 1`,
+                //   in which case you migth return e.g. `"pass null both to it and to `" + cpp_param_name + "_end`"`, where `_end` would match your non-empty `CParam::name_suffix`.
+                // `use_wrapper` will be true if this is not a real default argument, but a wrapper (typically `std::optional`) being generated.
+                //   Typically `use_wrapper == true` corresponds to using `PassBy_NoObject` instead of `Pass_DefaultArgument`.
+                //   If you didn't enable `supports_default_arguments_in_wrappers, then you most likely should ignore `use_wrapper`.
+                std::function<std::string(std::string_view cpp_param_name, bool use_wrapper)> explanation_how_to_use_default_arg;
 
                 // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
                 // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
