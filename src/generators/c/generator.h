@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/parsed_data.h"
+#include "common/polyfill/std_filesystem_path_hash.h" // IWYU pragma: keep
 
 #include <cppdecl/declarations/data.h>
 

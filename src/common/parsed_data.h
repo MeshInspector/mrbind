@@ -564,6 +564,12 @@ namespace mrbind
         //   it later appears in a different context. (E.g. if a function parameter uses this typedef as the spelling, it would normally
         //   get emitted despite the typedef itself being ignored. But the fact that the typedef sets this bit lets us destroy the unwanted spelling.)
         bool poisoned = false;
+
+        void MergeFrom(TypeAltSpellingInfo &&other)
+        {
+            uses |= other.uses;
+            poisoned |= other.poisoned;
+        }
     };
 
     struct TypeInformation
@@ -578,8 +584,22 @@ namespace mrbind
 
             // Alternative names for this type.
             // Using the regular `std::map` to ensure a consistent order.
-            (std::map<std::string, TypeAltSpellingInfo>)(alt_spellings)
+            (std::map<std::string, TypeAltSpellingInfo, std::less<>>)(alt_spellings)
         )
+
+        void MergeFrom(TypeInformation &&other)
+        {
+            uses |= other.uses;
+            has_custom_canonical_name |= other.has_custom_canonical_name; // Hmm.
+
+            alt_spellings.merge(std::move(other.alt_spellings));
+
+            // Merge the remaining alt spellings:
+            for (auto &other_elem : other.alt_spellings)
+            {
+                alt_spellings.at(other_elem.first).MergeFrom(std::move(other_elem.second));
+            }
+        }
     };
 
     // ---
@@ -614,7 +634,7 @@ namespace mrbind
             // Using the regular `std::map` to ensure a consistent order.
             // Normally the nested maps only have one key, with the same value as the enclosing key.
             // This stops being true when similar types are combined, then the outer map will only contain simplified type names, and the inner maps will contain all the original variant spellings of it.
-            (std::map<std::string, std::map<std::string, TypeInformation>>)(type_info)
+            (std::map<std::string, std::map<std::string, TypeInformation, std::less<>>, std::less<>>)(type_info)
         )
     };
 

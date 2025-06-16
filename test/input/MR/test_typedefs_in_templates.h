@@ -31,4 +31,6 @@ namespace MR::TypedefsInTemplates
         // BB<float> foo(); // Works fine.
     };
     using B0 = B<int>::BB<float>;
+
+    void bar(A0::U);
 }

@@ -749,6 +749,61 @@ namespace mrbind
         return false;
     }
 
+
+    // This has to be called after mass-renaming some type in the parse tree.
+    // Then this applies the same rename to the type info map (`params->parsed_result.type_info`).
+    void MergeTypeRegistrationInfo(const VisitorParams *params, std::string_view from, std::string_view to)
+    {
+        auto MergeMap = [&](std::map<std::string, TypeInformation, std::less<>> &&from, std::map<std::string, TypeInformation, std::less<>> &to)
+        {
+            to.merge(std::move(from));
+
+            // Now merge the remaining elements in the source, in case the keys conflict.
+            for (auto it = from.begin(); it != from.end(); it++)
+                to.at(it->first).MergeFrom(std::move(it->second));
+        };
+
+        // Adjust the outer name.
+        if (auto iter = params->parsed_result.type_info.find(from); iter != params->parsed_result.type_info.end())
+        {
+            auto node = params->parsed_result.type_info.extract(iter);
+            node.key() = to;
+            auto result = params->parsed_result.type_info.insert(std::move(node));
+            if (!result.inserted)
+                MergeMap(std::move(result.node.mapped()), result.position->second);
+        }
+
+        // Adjust the inner names.
+        for (auto &elem : params->parsed_result.type_info)
+        {
+            if (auto iter = elem.second.find(from); iter != elem.second.end())
+            {
+                auto node = elem.second.extract(iter);
+                node.key() = to;
+                auto result = elem.second.insert(std::move(node));
+                if (!result.inserted)
+                    result.position->second.MergeFrom(std::move(result.node.mapped()));
+            }
+        }
+
+        // Adjust the alt spellings.
+        for (auto &elem : params->parsed_result.type_info)
+        {
+            for (auto &subelem : elem.second)
+            {
+                auto iter = subelem.second.alt_spellings.find(from);
+                if (iter != subelem.second.alt_spellings.end())
+                {
+                    auto node = subelem.second.alt_spellings.extract(iter);
+                    node.key() = to;
+                    auto result = subelem.second.alt_spellings.insert(std::move(node));
+                    if (!result.inserted)
+                        result.position->second.MergeFrom(std::move(result.node.mapped()));
+                }
+            }
+        }
+    }
+
     // Passing non-const decl here because `Sema::CheckInstantiatedFunctionTemplateConstraints()` needs that.
     bool ShouldRejectFunction(clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams *params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {})
     {
@@ -1436,26 +1491,7 @@ namespace mrbind
                     // Now adjust the names in the type registration list.
                     // We're doing this a bit backwards, because of iterator stability difficulties in loops.
                     for (const auto &replacement : type_name_replacements)
-                    {
-                        // Adjust the outer name.
-                        if (auto iter = params->parsed_result.type_info.find(replacement.first); iter != params->parsed_result.type_info.end())
-                        {
-                            auto node = params->parsed_result.type_info.extract(iter);
-                            node.key() = replacement.second;
-                            params->parsed_result.type_info.insert(std::move(node));
-                        }
-
-                        for (auto &elem : params->parsed_result.type_info)
-                        {
-                            // Adjust the inner name.
-                            if (auto iter = elem.second.find(replacement.first); iter != elem.second.end())
-                            {
-                                auto node = elem.second.extract(iter);
-                                node.key() = replacement.second;
-                                elem.second.insert(std::move(node));
-                            }
-                        }
-                    }
+                        MergeTypeRegistrationInfo(params, replacement.first, replacement.second);
                 }
             }
 
@@ -1928,7 +1964,7 @@ namespace mrbind
             return true;
         }
 
-        bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP overridecle
+        bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
             if (ShouldRejectTypedef(*decl, *ctx, params, printing_policies, nullptr))
                 return true;
@@ -2208,7 +2244,7 @@ namespace mrbind
             { // Remove types that don't have any "uses" bits set. This can happen if they were poisoned by poisonous typedefs and weren't used elsewhere.
                 std::erase_if(
                     params->parsed_result.type_info,
-                    [](const std::pair<const std::string, std::map<std::string, TypeInformation>> &p)
+                    [](const std::pair<const std::string, std::map<std::string, TypeInformation, std::less<>>> &p)
                     {
                         if (p.second.size() != 1)
                             throw std::logic_error("Expected exactly one subtype at this point.");
