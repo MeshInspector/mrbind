@@ -1,20 +1,21 @@
 #pragma once
 
 #include <exports.h>
-#include <std_pair_const_int_float.h>
-#include <std_pair_const_int_ref_const_float_ref.h>
-#include <std_pair_const_int_rvalue_ref_const_float_rvalue_ref.h>
-#include <std_pair_int_float.h>
-#include <std_pair_int_ref_float_ref.h>
-#include <std_pair_int_rvalue_ref_float_rvalue_ref.h>
-#include <std_tuple.h>
-#include <std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref.h>
-#include <std_tuple_float_double_int_int.h>
-#include <std_tuple_int_float.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct MR_C_std_pair_const_int_float MR_C_std_pair_const_int_float; // Defined in `#include <std_pair_const_int_float.h>`.
+typedef struct MR_C_std_pair_const_int_ref_const_float_ref MR_C_std_pair_const_int_ref_const_float_ref; // Defined in `#include <std_pair_const_int_ref_const_float_ref.h>`.
+typedef struct MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref; // Defined in `#include <std_pair_const_int_rvalue_ref_const_float_rvalue_ref.h>`.
+typedef struct MR_C_std_pair_int_float MR_C_std_pair_int_float; // Defined in `#include <std_pair_int_float.h>`.
+typedef struct MR_C_std_pair_int_ref_float_ref MR_C_std_pair_int_ref_float_ref; // Defined in `#include <std_pair_int_ref_float_ref.h>`.
+typedef struct MR_C_std_pair_int_rvalue_ref_float_rvalue_ref MR_C_std_pair_int_rvalue_ref_float_rvalue_ref; // Defined in `#include <std_pair_int_rvalue_ref_float_rvalue_ref.h>`.
+typedef struct MR_C_std_tuple MR_C_std_tuple; // Defined in `#include <std_tuple.h>`.
+typedef struct MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref; // Defined in `#include <std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref.h>`.
+typedef struct MR_C_std_tuple_float_double_int_int MR_C_std_tuple_float_double_int_int; // Defined in `#include <std_tuple_float_double_int_int.h>`.
+typedef struct MR_C_std_tuple_int_float MR_C_std_tuple_int_float; // Defined in `#include <std_tuple_int_float.h>`.
 
 
 /// Generated from function `MR::StdTupleLike::SetPair`.

@@ -11,7 +11,7 @@ extern "C" {
 
 
 /// A heap-allocated string.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_string MR_C_std_string;
 
 /// Constructs an empty (default-constructed) instance.
@@ -22,7 +22,7 @@ MR_C_API MR_C_std_string *MR_C_std_string_DefaultConstruct(void);
 /// Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string *MR_C_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_string *other);
 
-/// Constructs a copy of another instance. The source remains alive.
+/// Constructs a new instance.
 /// Parameter `other` can not be null.
 /// If `other_end` is null, then `other` is assumed to be null-terminated.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
@@ -32,7 +32,7 @@ MR_C_API MR_C_std_string *MR_C_std_string_ConstructFrom(const char *other, const
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_string_AssignFromAnother(MR_C_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_string *other);
 
-/// Assigns the contents from another instance. Both objects remain alive after the call.
+/// Assigns the contents.
 /// Parameter `_this` can not be null.
 /// Parameter `other` can not be null.
 /// If `other_end` is null, then `other` is assumed to be null-terminated.

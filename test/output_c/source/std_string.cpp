@@ -13,7 +13,7 @@ MR_C_std_string *MR_C_std_string_DefaultConstruct(void)
 MR_C_std_string *MR_C_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_string *other)
 {
     return (MR_C_std_string *)new std::string(std::string(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::string) MRBINDC_CLASSARG_COPY(other, (std::string), std::string) MRBINDC_CLASSARG_MOVE(other, (std::string), std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::string) MRBINDC_CLASSARG_END(other, std::string))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::string) MRBINDC_CLASSARG_COPY(other, (std::string), std::string) MRBINDC_CLASSARG_MOVE(other, (std::string), std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::string) MRBINDC_CLASSARG_END(other, std::string))
     ));
 }
 
@@ -27,7 +27,7 @@ MR_C_std_string *MR_C_std_string_ConstructFrom(const char *other, const char *ot
 void MR_C_std_string_AssignFromAnother(MR_C_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_string *other)
 {
     (_this ? *(std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::string) MRBINDC_CLASSARG_COPY(other, (std::string), std::string) MRBINDC_CLASSARG_MOVE(other, (std::string), std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, std::string) MRBINDC_CLASSARG_END(other, std::string))
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::string) MRBINDC_CLASSARG_COPY(other, (std::string), std::string) MRBINDC_CLASSARG_MOVE(other, (std::string), std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::string) MRBINDC_CLASSARG_END(other, std::string))
     );
 }
 

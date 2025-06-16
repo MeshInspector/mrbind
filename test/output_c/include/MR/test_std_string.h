@@ -1,11 +1,12 @@
 #pragma once
 
 #include <exports.h>
-#include <std_string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 
 
 /// Generated from function `MR::StdString::Set`.

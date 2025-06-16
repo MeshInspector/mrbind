@@ -18,14 +18,14 @@ MR_C_std_tuple_int_float *MR_C_std_tuple_int_float_ConstructFromAnother(const MR
 
 void MR_C_std_tuple_int_float_AssignFromAnother(MR_C_std_tuple_int_float *_this, const MR_C_std_tuple_int_float *other)
 {
-    (_this ? *(std::tuple<int, float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    (_this ? *(std::tuple<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (other ? std::tuple<int, float>(*(std::tuple<int, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
     );
 }
 
 void MR_C_std_tuple_int_float_Destroy(MR_C_std_tuple_int_float *_this)
 {
-    delete &(_this ? *(std::tuple<int, float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete &(_this ? *(std::tuple<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
 }
 
 MR_C_std_tuple_int_float *MR_C_std_tuple_int_float_Construct(int _0, float _1)
@@ -38,21 +38,21 @@ MR_C_std_tuple_int_float *MR_C_std_tuple_int_float_Construct(int _0, float _1)
 
 const int *MR_C_std_tuple_int_float_Get_int(const MR_C_std_tuple_int_float *_this)
 {
-    return &(std::get<0>((_this ? *(const std::tuple<int, float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<0>((_this ? *(const std::tuple<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 int *MR_C_std_tuple_int_float_GetMutable_int(MR_C_std_tuple_int_float *_this)
 {
-    return &(std::get<0>((_this ? *(std::tuple<int, float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<0>((_this ? *(std::tuple<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 const float *MR_C_std_tuple_int_float_Get_float(const MR_C_std_tuple_int_float *_this)
 {
-    return &(std::get<1>((_this ? *(const std::tuple<int, float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<1>((_this ? *(const std::tuple<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 float *MR_C_std_tuple_int_float_GetMutable_float(MR_C_std_tuple_int_float *_this)
 {
-    return &(std::get<1>((_this ? *(std::tuple<int, float>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<1>((_this ? *(std::tuple<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 

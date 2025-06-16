@@ -6,7 +6,7 @@
 
 void MR_C_std_pair_int_ref_float_ref_Destroy(MR_C_std_pair_int_ref_float_ref *_this)
 {
-    delete &(_this ? *(std::pair<int &, float &>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete &(_this ? *(std::pair<int &, float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
 }
 
 MR_C_std_pair_int_ref_float_ref *MR_C_std_pair_int_ref_float_ref_Construct(int *first, float *second)
@@ -19,11 +19,11 @@ MR_C_std_pair_int_ref_float_ref *MR_C_std_pair_int_ref_float_ref_Construct(int *
 
 int *MR_C_std_pair_int_ref_float_ref_First(const MR_C_std_pair_int_ref_float_ref *_this)
 {
-    return &((_this ? *(const std::pair<int &, float &>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
+    return &((_this ? *(const std::pair<int &, float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
 }
 
 float *MR_C_std_pair_int_ref_float_ref_Second(const MR_C_std_pair_int_ref_float_ref *_this)
 {
-    return &((_this ? *(const std::pair<int &, float &>*)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).second);
+    return &((_this ? *(const std::pair<int &, float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).second);
 }
 

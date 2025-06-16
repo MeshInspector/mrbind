@@ -164,8 +164,8 @@ namespace mrbind::CBindings
         file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Copy ? __VA_ARGS__(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_) :\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Move ? __VA_ARGS__(std::move(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, default_arg_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultArgument` was used.\") : __VA_ARGS__(default_arg_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `" + pass_by_enum_name + "_DefaultArgument` was used for it.\") :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `\" #enum_constant_ \"` was used.\") : __VA_ARGS__(default_arg_)) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? throw std::runtime_error(\"Function parameter `\" #param_ \" doesn't support `\" #enum_constant_ \"`.\") :\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
         file.header.contents += "\n";
         file.header.contents += "    // Converts an rvalue to an lvalue.\n";
@@ -194,6 +194,7 @@ namespace mrbind::CBindings
         file.header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
         file.header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
         file.header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
+        file.header.contents += "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n";
         file.header.contents += "} " + name + ";\n";
 
         return file;
@@ -944,11 +945,15 @@ namespace mrbind::CBindings
                         if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
-                        const std::string useless_default_arg_message = param.default_arg && bindable_param_type.is_useless_default_argument ? bindable_param_type.is_useless_default_argument(param.default_arg->original_spelling) : "";
-                        const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
-
-                        if (has_useful_default_arg && !bindable_param_type.param_usage_with_default_arg)
+                        if (param.default_arg && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
+
+                        const std::string useless_default_arg_message =
+                            param.default_arg && bindable_param_type.param_usage_with_default_arg->is_useless_default_argument
+                            ? bindable_param_type.param_usage_with_default_arg->is_useless_default_argument(param.default_arg->original_spelling)
+                            : "";
+
+                        const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
 
                         const auto &param_usage =
                             has_useful_default_arg || !bindable_param_type.param_usage
@@ -2012,7 +2017,11 @@ namespace mrbind::CBindings
                     if (!type_info.forward_declaration)
                         throw std::runtime_error("Need to forward-declare type `" + elem.first + "`, but don't know how.");
 
-                    fwd_decls.insert(*type_info.forward_declaration);
+                    std::string fwd_decl = *type_info.forward_declaration;
+                    if (type_info.declared_in_file)
+                        fwd_decl += " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
+
+                    fwd_decls.insert(std::move(fwd_decl));
                 }
             }
 

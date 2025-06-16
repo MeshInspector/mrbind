@@ -607,13 +607,14 @@ namespace mrbind::CBindings
                 struct DefaultArgNone {};
                 struct DefaultArgWrapper
                 {
-                    std::string wrapper_cpp_type;
-                    std::string wrapper_null;
+                    std::string_view wrapper_cpp_type;
+                    std::string_view wrapper_null;
+                    std::string_view actual_default_arg;
                 };
                 // See `.c_params_to_cpp` below for the explanation.
                 using DefaultArgVar = std::variant<DefaultArgNone, std::string_view, DefaultArgWrapper>;
 
-                // Defaults to an identity function if null.
+                // Defaults to returning `cpp_param_name` if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
                 // NOTE: The return value must be correctly parenthesized if necessary (so that e.g. `"&" + result` compiles correctly).
                 // The implementation .cpp `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
@@ -625,6 +626,9 @@ namespace mrbind::CBindings
                 //   `DefaultArgWrapper` is a special case. You're expected to produce an expression of type `.wrapper_cpp_type` instead of just `T`. And instead of the default argument, you must produce `.wrapper_null`.
                 //   This is typically used for `std::optional`, where `.wrapper_cpp_type` would be `std::optional<T>` and `.wrapper_null` would be `std::nullopt`.
                 //   (Note that you MUST NOT need to include `<optional>` yourself here, because firstly it's done automatically, and secondly this isn't only for optionals.)
+                //   If you're using the pass-by enum for your type, then you must switch to `PassBy_NoObject` for wrappers, as opposed to the `PassBy_DefaultArgument` that you'd normally use for default arguments.
+                //   `actual_default_arg` can only be non-empty if you opted in via `BindableType::supports_default_arguments_in_wrappers = true`.
+                //     If you opted in and got a non-empty `actual_default_arg`, you must handle BOTH `PassBy_NoObject` (return `wrapper_null` as usual) AND `PassBy_DefaultArg` (return `actual_default_arg`).
                 std::function<std::string(OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, DefaultArgVar default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
@@ -664,6 +668,25 @@ namespace mrbind::CBindings
                 }
             };
 
+            struct ParamUsageWithDefaultArg : ParamUsage
+            {
+                // Additional default argument settings:
+
+                // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
+                // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
+                //   and DOES NOT end with a period.
+                std::function<std::string(std::string_view default_arg)> is_useless_default_argument;
+
+                // Typically should be false. Set this to true if you're using the `PassBy` enum, which gives you two different ways of passing default arguments: `PassBy_DefaultArgument` and `PassBy_NoObject`.
+                // Opting in by setting this to true means you're able to handle both in your `ParamUsage::c_params_to_cpp`, with different behavior.
+                // When not opted in, we assume you only have ONE syntax for default arguments, so we'll find an alternative syntax for the second variant.
+                bool supports_default_arguments_in_wrappers = false;
+
+                // Make Clang happy (otherwise `std::optional<ParamUsageWithDefaultArg>` below bakes `is_default_constructible == false`).
+                // We aren't gonna designated-initialize this anyway.
+                ParamUsageWithDefaultArg() {}
+            };
+
             // One of those must be non-null for this type to be usable as a parameter: [
 
             // If only this one is set, the type can't handle default arguments.
@@ -673,14 +696,8 @@ namespace mrbind::CBindings
 
             // If only this one is set, this is used for params both with default arguments and without.
             // If `param_usage` is also set, then this one handles only the parameters with default arguments.
-            std::optional<ParamUsage> param_usage_with_default_arg;
-
+            std::optional<ParamUsageWithDefaultArg> param_usage_with_default_arg;
             // ]
-
-            // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
-            // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
-            //   and DOES NOT end with a period.
-            std::function<std::string(std::string_view default_arg)> is_useless_default_argument;
 
 
             struct ReturnUsage

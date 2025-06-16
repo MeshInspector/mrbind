@@ -27,7 +27,7 @@ void MR_StdVariant_baz(MR_C_PassBy _1_pass_by, MR_C_std_variant_int_float_std_st
     using namespace MR;
     using namespace StdVariant;
     MR::StdVariant::baz(
-        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::variant<int, float, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, std::variant<int, float, std::string>) MRBINDC_CLASSARG_END(_1, std::variant<int, float, std::string>))
+        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::variant<int, float, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::variant<int, float, std::string>) MRBINDC_CLASSARG_END(_1, std::variant<int, float, std::string>))
     );
 }
 

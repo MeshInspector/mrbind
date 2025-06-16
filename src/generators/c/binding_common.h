@@ -17,8 +17,6 @@ namespace mrbind::CBindings
         std::string c_type_name;
         std::string c_underlying_type_name;
 
-        bool returning_by_value_includes_header = false;
-
         // You don't need to assign to all those if you don't use them.
         std::string c_func_name_default_ctor;
         std::string c_func_name_copy_move_ctor; // We use combined copy-move constructors and assignments.
@@ -50,7 +48,7 @@ namespace mrbind::CBindings
 
         // This goes to `param_usage_with_default_arg`. `param_usage` should stay empty, since `param_usage_with_default_arg` alone can handle
         //   both parameters with default arguments and without.
-        [[nodiscard]] std::optional<Generator::BindableType::ParamUsage> MakeParamUsageSupportingDefaultArg(Generator &generator) const;
+        [[nodiscard]] std::optional<Generator::BindableType::ParamUsageWithDefaultArg> MakeParamUsageSupportingDefaultArg(Generator &generator) const;
 
         // ]
 
