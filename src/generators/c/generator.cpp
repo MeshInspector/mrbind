@@ -1338,6 +1338,8 @@ namespace mrbind::CBindings
             info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
+                // Note that this IS legal for enums, because if they have a custom underlying type, we make their name a typedef for that type, instead of binding directly (and risking getting a different size).
+
                 auto [iter2, is_new2] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
                 if (!is_new2)
                     throw std::logic_error("Internal error: Duplicate type in `types_bindable_with_same_address`: " + en.full_type);
@@ -1916,27 +1918,53 @@ namespace mrbind::CBindings
                 file.header.contents += '\n';
             }
 
-            file.header.contents += "typedef enum " + c_type_str + "\n";
-            file.header.contents += "{\n";
+            const bool is_default_underlying_type = en.canonical_underlying_type == "int";
 
-            for (const EnumElem &elem : en.elems)
+            if (is_default_underlying_type)
             {
-                if (elem.comment)
-                {
-                    file.header.contents += IndentString(elem.comment->text_with_slashes, 1, true);
-                    file.header.contents += '\n';
-                }
+                file.header.contents += "typedef enum " + c_type_str + "\n";
+            }
+            else
+            {
+                // If the underlying type isn't `int`, we need special care to keep the type size same in C and C++.
 
-                file.header.contents += "    ";
-                file.header.contents += c_type_str;
-                file.header.contents += '_';
-                file.header.contents += elem.name;
-                file.header.contents += " = ";
-                file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
-                file.header.contents += ",\n";
+                file.header.contents += "typedef " + en.canonical_underlying_type + " " + c_type_str + ";\n";
+                file.header.contents += "enum // " + c_type_str + "\n";
             }
 
-            file.header.contents += "} " + c_type_str + ";\n";
+            file.header.contents += "{\n";
+
+            if (en.elems.empty())
+            {
+                // No empty enums in C, so we need a placeholder element.
+                file.header.contents += "    ";
+                file.header.contents += c_type_str;
+                file.header.contents += "_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.\n";
+            }
+            else
+            {
+                for (const EnumElem &elem : en.elems)
+                {
+                    if (elem.comment)
+                    {
+                        file.header.contents += IndentString(elem.comment->text_with_slashes, 1, true);
+                        file.header.contents += '\n';
+                    }
+
+                    file.header.contents += "    ";
+                    file.header.contents += c_type_str;
+                    file.header.contents += '_';
+                    file.header.contents += elem.name;
+                    file.header.contents += " = ";
+                    file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
+                    file.header.contents += ",\n";
+                }
+            }
+
+            if (is_default_underlying_type)
+                file.header.contents += "} " + c_type_str + ";\n";
+            else
+                file.header.contents += "};\n";
         }
 
         // void Visit(const TypedefEntity &td) override

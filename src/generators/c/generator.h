@@ -524,14 +524,17 @@ namespace mrbind::CBindings
         // The arrows mean implication (they point towards supersets).
         //                                                                                  ---
         //       IsSimplyBindableIndirectReinterpret   <---   IsSimplyBindableIndirect            Can by passed by pointer.
-        //                                                              ^                   ---
-        //                                                              |
-        //                                                              |                   ---
+        //                    ^                                         ^                   ---
+        //                    : ?                                        |
+        //                    :                                         |                   ---
         //       IsSimplyBindableDirectCast            <---   IsSimplyBindableDirect              Can be passed by value (and by pointer).
         //                                                                                  ---
         //
         //    | Passing requires a cast (reinterpret |   | Can be passed without a cast. |
         //    |   or C-style respectively)           |   |                               |
+        //
+        // Here technically you could imagine a type that is `IsSimplyBindableDirectCast()` but not `IsSimplyBindableIndirectReinterpret()` (e.g. a enum that has different sizes in C and C++).
+        // But we avoid having to worry about that by replacing those weird enums with typedefs for their underlying types. So this problem should never come up.
 
         // Pointers and refs to those can be passed freely with only a `reinterpret_cast`.
         [[nodiscard]] bool IsSimplyBindableIndirectReinterpret(const cppdecl::Type &type);

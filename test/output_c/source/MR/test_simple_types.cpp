@@ -173,3 +173,87 @@ void MR_TestSimpleTypes_SetEnumRefDef(MR_TestSimpleTypes_E *_1)
     );
 }
 
+int MR_TestSimpleTypes_GetEnum2(void)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    return MR::TestSimpleTypes::GetEnum2();
+}
+
+void MR_TestSimpleTypes_SetEnum2(MR_TestSimpleTypes_E2 _1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetEnum2(
+        ((MR::TestSimpleTypes::E2)_1)
+    );
+}
+
+void MR_TestSimpleTypes_SetEnum2Def(const MR_TestSimpleTypes_E2 *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetEnum2Def(
+        (_1 ? (MR::TestSimpleTypes::E2)(*_1) : static_cast<MR::TestSimpleTypes::E2>(E2::e1))
+    );
+}
+
+MR_TestSimpleTypes_E2 *MR_TestSimpleTypes_GetEnum2Ptr(void)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    return (MR_TestSimpleTypes_E2 *)(MR::TestSimpleTypes::GetEnum2Ptr());
+}
+
+void MR_TestSimpleTypes_SetEnum2Ptr(MR_TestSimpleTypes_E2 *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetEnum2Ptr(
+        ((MR::TestSimpleTypes::E2 *)_1)
+    );
+}
+
+void MR_TestSimpleTypes_SetEnum2PtrDef(MR_TestSimpleTypes_E2 *const *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetEnum2PtrDef(
+        (_1 ? (MR::TestSimpleTypes::E2 *)(*_1) : static_cast<MR::TestSimpleTypes::E2 *>(&global_enum2))
+    );
+}
+
+void MR_TestSimpleTypes_SetEnum2PtrDefNull(MR_TestSimpleTypes_E2 *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetEnum2PtrDefNull(
+        ((MR::TestSimpleTypes::E2 *)_1)
+    );
+}
+
+MR_TestSimpleTypes_E2 *MR_TestSimpleTypes_GetEnum2Ref(void)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    return (MR_TestSimpleTypes_E2 *)&(MR::TestSimpleTypes::GetEnum2Ref());
+}
+
+void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetEnum2Ref(
+        (_1 ? *(MR::TestSimpleTypes::E2 *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+    );
+}
+
+void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetEnum2RefDef(
+        (_1 ? *(MR::TestSimpleTypes::E2 *)(_1) : static_cast<MR::TestSimpleTypes::E2 &>(global_enum2))
+    );
+}
+
