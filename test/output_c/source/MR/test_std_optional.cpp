@@ -22,6 +22,15 @@ void MR_StdOptional_SetInt(const int *_1)
     );
 }
 
+void MR_StdOptional_SetIntConstRef(const int *_1)
+{
+    using namespace MR;
+    using namespace StdOptional;
+    MR::StdOptional::SetIntConstRef(
+        (_1 ? std::optional<int>(*_1) : std::nullopt)
+    );
+}
+
 void MR_StdOptional_SetIntDefTrivial(const int *_1)
 {
     using namespace MR;
@@ -52,6 +61,15 @@ void MR_StdOptional_SetEnum(const MR_StdOptional_E *_1)
     using namespace MR;
     using namespace StdOptional;
     MR::StdOptional::SetEnum(
+        (_1 ? std::optional<MR::StdOptional::E>((MR::StdOptional::E)(*_1)) : std::nullopt)
+    );
+}
+
+void MR_StdOptional_SetEnumConstRef(const MR_StdOptional_E *_1)
+{
+    using namespace MR;
+    using namespace StdOptional;
+    MR::StdOptional::SetEnumConstRef(
         (_1 ? std::optional<MR::StdOptional::E>((MR::StdOptional::E)(*_1)) : std::nullopt)
     );
 }
@@ -148,6 +166,15 @@ void MR_StdOptional_SetClass(const MR_StdOptional_A *_1)
     );
 }
 
+void MR_StdOptional_SetClassConstRef(const MR_StdOptional_A *_1)
+{
+    using namespace MR;
+    using namespace StdOptional;
+    MR::StdOptional::SetClassConstRef(
+        (_1 ? std::optional<MR::StdOptional::A>(MR::StdOptional::A(*(MR::StdOptional::A *)_1)) : std::nullopt)
+    );
+}
+
 void MR_StdOptional_SetClassDefTrivial(const MR_StdOptional_A *_1)
 {
     using namespace MR;
@@ -236,6 +263,15 @@ void MR_StdOptional_SetClass2(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
     using namespace MR;
     using namespace StdOptional;
     MR::StdOptional::SetClass2(
+        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_COPY(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_MOVE(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_END(_1, std::optional<MR::StdOptional::B>))
+    );
+}
+
+void MR_StdOptional_SetClass2ConstRef(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
+{
+    using namespace MR;
+    using namespace StdOptional;
+    MR::StdOptional::SetClass2ConstRef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_COPY(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_MOVE(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_END(_1, std::optional<MR::StdOptional::B>))
     );
 }

@@ -921,18 +921,21 @@ namespace mrbind::CBindings
         return new_type;
     }
 
-    std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, std::string_view target_name)
+    std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags)
     {
+        if (cpp_type.modifiers.size() != 1)
+            return {}; // Need exactly one modifier (a reference).
+
         const cppdecl::Reference *ref = cpp_type.As<cppdecl::Reference>();
         if (!ref)
-            return {};
+            return {}; // Not a reference.
 
         bool is_const = cpp_type.IsConst(1);
 
         if (ref->kind == cppdecl::RefQualifier::lvalue && !is_const)
             return {}; // Reject non-const lvalue references.
 
-        if (cppdecl::ToCode(cpp_type, {}, 1, cppdecl::CvQualifiers::const_) != target_name)
+        if (!cpp_type.simple_type.name.Equals(target_name, comparison_flags))
             return {}; // Type name mismatch.
 
         // This is non-`Opt`. We throw if this fails.

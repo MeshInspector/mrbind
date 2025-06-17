@@ -6,6 +6,8 @@ namespace mrbind::CBindings::Modules
 {
     struct StdString : DeriveModule<StdString>
     {
+        cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("string");
+
         HeapAllocatedClassBinder binder;
 
         void Init(Generator &generator) override
@@ -88,7 +90,7 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, "std::string"))) {}
+            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, base_name))) {}
             else if (type_str == "std::string")
             {
                 Generator::BindableType &new_type = ret.emplace();

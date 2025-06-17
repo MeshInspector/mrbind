@@ -24,6 +24,10 @@ MR_C_API MR_C_std_optional_int *MR_StdOptional_GetInt(void);
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetInt(const int *_1);
 
+/// Generated from function `MR::StdOptional::SetIntConstRef`.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
+MR_C_API void MR_StdOptional_SetIntConstRef(const int *_1);
+
 /// Generated from function `MR::StdOptional::SetIntDefTrivial`.
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 /// Parameter `_1` defaults to empty in C++.
@@ -45,6 +49,10 @@ MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_StdOptional_GetEnum(void);
 /// Generated from function `MR::StdOptional::SetEnum`.
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetEnum(const MR_StdOptional_E *_1);
+
+/// Generated from function `MR::StdOptional::SetEnumConstRef`.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
+MR_C_API void MR_StdOptional_SetEnumConstRef(const MR_StdOptional_E *_1);
 
 /// Generated from function `MR::StdOptional::SetEnumDefTrivial`.
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
@@ -107,6 +115,10 @@ MR_C_API MR_C_std_optional_MR_StdOptional_A *MR_StdOptional_GetClass(void);
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetClass(const MR_StdOptional_A *_1);
 
+/// Generated from function `MR::StdOptional::SetClassConstRef`.
+/// Parameter `_1` is optional. To keep it empty, pass a null pointer.
+MR_C_API void MR_StdOptional_SetClassConstRef(const MR_StdOptional_A *_1);
+
 /// Generated from function `MR::StdOptional::SetClassDefTrivial`.
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 /// Parameter `_1` defaults to empty in C++.
@@ -165,6 +177,10 @@ MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_StdOptional_GetClass2(void);
 /// Generated from function `MR::StdOptional::SetClass2`.
 /// Parameter `_1` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
 MR_C_API void MR_StdOptional_SetClass2(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1);
+
+/// Generated from function `MR::StdOptional::SetClass2ConstRef`.
+/// Parameter `_1` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
+MR_C_API void MR_StdOptional_SetClass2ConstRef(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1);
 
 /// Generated from function `MR::StdOptional::SetClass2DefTrivial`.
 /// Parameter `_1` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.

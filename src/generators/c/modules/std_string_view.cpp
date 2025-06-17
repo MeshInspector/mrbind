@@ -6,6 +6,8 @@ namespace mrbind::CBindings::Modules
 {
     struct StdStringView : DeriveModule<StdStringView>
     {
+        cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("string_view");
+
         std::string c_type_name;
 
         void Init(Generator &generator) override
@@ -37,7 +39,7 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, "std::string_view"))) {}
+            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, base_name))) {}
             else if (type_str == "std::string_view")
             {
                 Generator::BindableType &new_type = ret.emplace();

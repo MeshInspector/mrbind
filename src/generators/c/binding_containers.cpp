@@ -694,7 +694,7 @@ namespace mrbind::CBindings
         // The first matching one is used.
         for (const Target &target : targets)
         {
-            if (!type_to_bind.simple_type.name.Equals(target.generic_cpp_container_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target | cppdecl::QualifiedName::EqualsFlags::allow_shorter_target))
+            if (!type_to_bind.simple_type.name.Equals(target.generic_cpp_container_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target | cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target))
                 continue;
 
             const bool is_container  =                                                                    type_to_bind.simple_type.name.parts.size() == target.generic_cpp_container_name.parts.size();

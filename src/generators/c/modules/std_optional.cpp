@@ -8,7 +8,6 @@ namespace mrbind::CBindings::Modules
         // I tried to add support for `std::optional<T &>`, in the hopes that it would eventually be added to the language.
         // I hope that I got it right, but it's obviously untested.
 
-
         cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("optional");
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
@@ -16,6 +15,9 @@ namespace mrbind::CBindings::Modules
             (void)type_str;
 
             std::optional<Generator::BindableType> ret;
+
+            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target)))
+                return ret;
 
             if (!type.IsOnlyQualifiedName() || !type.simple_type.name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
                 return ret;
