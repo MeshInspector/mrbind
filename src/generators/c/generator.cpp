@@ -253,9 +253,14 @@ namespace mrbind::CBindings
         return name.IsBuiltInTypeName(flags);
     }
 
-    std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name) const
+    std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name, bool is_array) const
     {
-        return std::string(c_type_name) + "_Destroy";
+        return std::string(c_type_name) + (is_array ? "_DestroyArray" : "_Destroy");
+    }
+
+    std::string Generator::GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const
+    {
+        return std::string(c_type_name) + (is_const ? "_OffsetPtr" : "_OffsetMutablePtr");
     }
 
     Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name)
@@ -722,29 +727,6 @@ namespace mrbind::CBindings
         c_comment += "/// Generated from a constructor of class `";
         c_comment += cpp_type_str;
         c_comment += "`.";
-
-        using_namespace_stack = new_using_namespace_stack;
-    }
-
-    void Generator::EmitFuncParams::SetFromParsedClassDtor(const Generator &self, const ClassEntity &new_class, const ClassDtor &new_dtor, std::span<const NamespaceEntity *const> new_using_namespace_stack)
-    {
-        cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
-        const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
-
-        AddThisParamFromParsedClass(self, new_class, false);
-
-        c_name = self.GetClassDestroyFuncName(info.c_type_str);
-
-        cpp_called_func = "delete &@this@";
-        cpp_called_func_parens = {};
-
-        if (new_dtor.comment)
-        {
-            c_comment = new_dtor.comment->text_with_slashes;
-            c_comment += '\n';
-        }
-        c_comment += "/// Generated from a destructor of class `" + cpp_type_str + "`. Destroys the heap-allocated instances.";
 
         using_namespace_stack = new_using_namespace_stack;
     }
@@ -1407,7 +1389,10 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassCtor &elem)
                     {
-                        if (elem.kind != CopyMoveKind::none) // Special member functions have fixed names.
+                        // Special member functions have fixed names.
+                        // Note that the same goes for the default constructors. But here we intentionally only handle the ones with actually zero parameters, and not the ones with all arguments defaulted.
+                        // Note that this logic must be synced with how the default constructors are emitted.
+                        if (elem.kind != CopyMoveKind::none || elem.params.empty())
                             return;
 
                         std::string name = c_type_str + "_Construct";
@@ -1731,10 +1716,13 @@ namespace mrbind::CBindings
                 // Include the C++ header where this class is declared.
                 file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
 
-                const std::string type_str = ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+                const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
+                const std::string cpp_class_name_str = ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
 
                 // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-                const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(type_str);
+                const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(cpp_class_name_str);
+
+                const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
 
                 // Forward-declaring in the middle of the file, not in the forward-declarations section.
                 // Also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
@@ -1748,6 +1736,33 @@ namespace mrbind::CBindings
                 }
                 file.header.contents += same_addr_bindable_info.forward_declaration.value();
                 file.header.contents += '\n';
+
+
+                auto MakeBinder = [&]
+                {
+                    HeapAllocatedClassBinder binder;
+                    binder.cpp_type_name = cpp_class_name;
+                    binder.c_type_name = parsed_type_info.c_type_str;
+                    return binder;
+                };
+
+
+                // We need to do stuff on the first default ctor emitted (there can be multiple such ctors, because of default arguments).
+                bool emitted_any_default_ctor = false;
+
+                bool emitted_misc_functions = false;
+                // This emits pointer offsetting functions. Repeated calls have no effect.
+                auto EmitMiscFunctionsOnce = [&]
+                {
+                    if (emitted_misc_functions)
+                        return;
+
+                    emitted_misc_functions = true;
+
+                    auto binder = MakeBinder();
+                    self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, true));
+                    self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, false));
+                };
 
                 for (const ClassMemberVariant &var : cl.members)
                 {
@@ -1771,9 +1786,36 @@ namespace mrbind::CBindings
                                 if (elem.kind == CopyMoveKind::copy)
                                     return;
 
-                                EmitFuncParams params;
-                                params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
-                                self.EmitFunction(file, params);
+                                // Custom behavior for default constructors.
+                                // Note that here we intentionally only handle the ones with actually zero parameters, and not the ones with all arguments defaulted.
+                                // This logic must be synced with how the overloaded names are collected.
+                                if (elem.params.empty())
+                                {
+                                    HeapAllocatedClassBinder binder = MakeBinder();
+                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtor(self));
+                                }
+                                else
+                                {
+                                    // Any other constructor.
+
+                                    EmitFuncParams params;
+                                    params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
+                                    self.EmitFunction(file, params);
+                                }
+
+                                // When seeing a default constructor for the first time, emit the array constructor too.
+                                // This time respecting the constructors with all arguments defaulted, in case there are no true default constructors in this class.
+                                if (!emitted_any_default_ctor && elem.IsCallableWithNumArgs(0))
+                                {
+                                    emitted_any_default_ctor = true;
+
+                                    HeapAllocatedClassBinder binder = MakeBinder();
+                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtorArray(self));
+                                }
+
+                                // Try to emit those next to the default ctor if possible.
+                                // If not, we'll emit them later, after all the members.
+                                EmitMiscFunctionsOnce();
                             }
                             catch (...)
                             {
@@ -1814,11 +1856,13 @@ namespace mrbind::CBindings
                         },
                         [&](const ClassDtor &elem)
                         {
+                            (void)elem;
+
                             try
                             {
-                                EmitFuncParams params;
-                                params.SetFromParsedClassDtor(self, cl, elem, GetNamespaceStack());
-                                self.EmitFunction(file, params);
+                                HeapAllocatedClassBinder binder = MakeBinder();
+                                self.EmitFunction(file, binder.PrepareFuncDestroy(self));
+                                self.EmitFunction(file, binder.PrepareFuncDestroyArray(self));
                             }
                             catch (...)
                             {
@@ -1827,6 +1871,9 @@ namespace mrbind::CBindings
                         },
                     }, var);
                 }
+
+                // If didn't emit those earlier, do it now.
+                EmitMiscFunctionsOnce();
             }
             catch (...)
             {

@@ -10,6 +10,11 @@ MR_C_std_string *MR_C_std_string_DefaultConstruct(void)
     return (MR_C_std_string *)new std::string(std::string());
 }
 
+MR_C_std_string *MR_C_std_string_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_string *)(new std::string[num_elems]{});
+}
+
 MR_C_std_string *MR_C_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_string *other)
 {
     return (MR_C_std_string *)new std::string(std::string(
@@ -40,7 +45,22 @@ void MR_C_std_string_AssignFrom(MR_C_std_string *_this, const char *other, const
 
 void MR_C_std_string_Destroy(MR_C_std_string *_this)
 {
-    delete &(_this ? *(std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::string *)_this);
+}
+
+void MR_C_std_string_DestroyArray(MR_C_std_string *_this)
+{
+    delete[] ((std::string *)_this);
+}
+
+const MR_C_std_string *MR_C_std_string_OffsetPtr(const MR_C_std_string *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_string *)(((const std::string *)ptr) + i);
+}
+
+MR_C_std_string *MR_C_std_string_OffsetMutablePtr(MR_C_std_string *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_string *)(((std::string *)ptr) + i);
 }
 
 size_t MR_C_std_string_Size(const MR_C_std_string *_this)

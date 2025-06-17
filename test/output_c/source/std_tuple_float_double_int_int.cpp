@@ -9,6 +9,11 @@ MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_Default
     return (MR_C_std_tuple_float_double_int_int *)new std::tuple<float, double, int, int>(std::tuple<float, double, int, int>());
 }
 
+MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_tuple_float_double_int_int *)(new std::tuple<float, double, int, int>[num_elems]{});
+}
+
 MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_ConstructFromAnother(const MR_C_std_tuple_float_double_int_int *other)
 {
     return (MR_C_std_tuple_float_double_int_int *)new std::tuple<float, double, int, int>(std::tuple<float, double, int, int>(
@@ -25,7 +30,22 @@ void MR_C_std_tuple_float_double_int_int_AssignFromAnother(MR_C_std_tuple_float_
 
 void MR_C_std_tuple_float_double_int_int_Destroy(MR_C_std_tuple_float_double_int_int *_this)
 {
-    delete &(_this ? *(std::tuple<float, double, int, int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::tuple<float, double, int, int> *)_this);
+}
+
+void MR_C_std_tuple_float_double_int_int_DestroyArray(MR_C_std_tuple_float_double_int_int *_this)
+{
+    delete[] ((std::tuple<float, double, int, int> *)_this);
+}
+
+const MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_OffsetPtr(const MR_C_std_tuple_float_double_int_int *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_tuple_float_double_int_int *)(((const std::tuple<float, double, int, int> *)ptr) + i);
+}
+
+MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_OffsetMutablePtr(MR_C_std_tuple_float_double_int_int *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_tuple_float_double_int_int *)(((std::tuple<float, double, int, int> *)ptr) + i);
 }
 
 MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_Construct(float _0, double _1, int _2, int _3)

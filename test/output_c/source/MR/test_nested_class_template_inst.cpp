@@ -5,11 +5,24 @@
 #include <stdexcept>
 
 
-MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_Construct(void)
+MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_DefaultConstruct(void)
 {
-    using namespace MR;
-    using namespace NestedTemplateInst;
     return (MR_NestedTemplateInst_A_int *)new MR::NestedTemplateInst::A<int>(MR::NestedTemplateInst::A<int>());
+}
+
+MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_NestedTemplateInst_A_int *)(new MR::NestedTemplateInst::A<int>[num_elems]{});
+}
+
+const MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_OffsetPtr(const MR_NestedTemplateInst_A_int *ptr, ptrdiff_t i)
+{
+    return (const MR_NestedTemplateInst_A_int *)(((const MR::NestedTemplateInst::A<int> *)ptr) + i);
+}
+
+MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_OffsetMutablePtr(MR_NestedTemplateInst_A_int *ptr, ptrdiff_t i)
+{
+    return (MR_NestedTemplateInst_A_int *)(((MR::NestedTemplateInst::A<int> *)ptr) + i);
 }
 
 MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_ConstructFromAnother(const MR_NestedTemplateInst_A_int *_other)
@@ -32,16 +45,32 @@ MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_AssignFromAnother(MR_Ne
 
 void MR_NestedTemplateInst_A_int_Destroy(MR_NestedTemplateInst_A_int *_this)
 {
-    using namespace MR;
-    using namespace NestedTemplateInst;
-    delete &(_this ? *(MR::NestedTemplateInst::A<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((MR::NestedTemplateInst::A<int> *)_this);
 }
 
-MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_Construct(void)
+void MR_NestedTemplateInst_A_int_DestroyArray(MR_NestedTemplateInst_A_int *_this)
 {
-    using namespace MR;
-    using namespace NestedTemplateInst;
+    delete[] ((MR::NestedTemplateInst::A<int> *)_this);
+}
+
+MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct(void)
+{
     return (MR_NestedTemplateInst_A_int_AA_float *)new MR::NestedTemplateInst::A<int>::AA<float>(MR::NestedTemplateInst::A<int>::AA<float>());
+}
+
+MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_NestedTemplateInst_A_int_AA_float *)(new MR::NestedTemplateInst::A<int>::AA<float>[num_elems]{});
+}
+
+const MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_OffsetPtr(const MR_NestedTemplateInst_A_int_AA_float *ptr, ptrdiff_t i)
+{
+    return (const MR_NestedTemplateInst_A_int_AA_float *)(((const MR::NestedTemplateInst::A<int>::AA<float> *)ptr) + i);
+}
+
+MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_OffsetMutablePtr(MR_NestedTemplateInst_A_int_AA_float *ptr, ptrdiff_t i)
+{
+    return (MR_NestedTemplateInst_A_int_AA_float *)(((MR::NestedTemplateInst::A<int>::AA<float> *)ptr) + i);
 }
 
 MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(const MR_NestedTemplateInst_A_int_AA_float *_other)
@@ -64,8 +93,11 @@ MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_Assig
 
 void MR_NestedTemplateInst_A_int_AA_float_Destroy(MR_NestedTemplateInst_A_int_AA_float *_this)
 {
-    using namespace MR;
-    using namespace NestedTemplateInst;
-    delete &(_this ? *(MR::NestedTemplateInst::A<int>::AA<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((MR::NestedTemplateInst::A<int>::AA<float> *)_this);
+}
+
+void MR_NestedTemplateInst_A_int_AA_float_DestroyArray(MR_NestedTemplateInst_A_int_AA_float *_this)
+{
+    delete[] ((MR::NestedTemplateInst::A<int>::AA<float> *)_this);
 }
 

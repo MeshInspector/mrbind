@@ -11,6 +11,11 @@ MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_DefaultCo
     return (MR_C_std_optional_MR_StdOptional_E *)new std::optional<MR::StdOptional::E>(std::optional<MR::StdOptional::E>());
 }
 
+MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_optional_MR_StdOptional_E *)(new std::optional<MR::StdOptional::E>[num_elems]{});
+}
+
 MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(const MR_C_std_optional_MR_StdOptional_E *other)
 {
     return (MR_C_std_optional_MR_StdOptional_E *)new std::optional<MR::StdOptional::E>(std::optional<MR::StdOptional::E>(
@@ -41,7 +46,22 @@ void MR_C_std_optional_MR_StdOptional_E_AssignFrom(MR_C_std_optional_MR_StdOptio
 
 void MR_C_std_optional_MR_StdOptional_E_Destroy(MR_C_std_optional_MR_StdOptional_E *_this)
 {
-    delete &(_this ? *(std::optional<MR::StdOptional::E> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::optional<MR::StdOptional::E> *)_this);
+}
+
+void MR_C_std_optional_MR_StdOptional_E_DestroyArray(MR_C_std_optional_MR_StdOptional_E *_this)
+{
+    delete[] ((std::optional<MR::StdOptional::E> *)_this);
+}
+
+const MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_OffsetPtr(const MR_C_std_optional_MR_StdOptional_E *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_optional_MR_StdOptional_E *)(((const std::optional<MR::StdOptional::E> *)ptr) + i);
+}
+
+MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_OffsetMutablePtr(MR_C_std_optional_MR_StdOptional_E *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_optional_MR_StdOptional_E *)(((std::optional<MR::StdOptional::E> *)ptr) + i);
 }
 
 const MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_Value(const MR_C_std_optional_MR_StdOptional_E *_this)

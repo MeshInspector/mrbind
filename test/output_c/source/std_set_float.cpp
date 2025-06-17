@@ -11,6 +11,11 @@ MR_C_std_set_float *MR_C_std_set_float_DefaultConstruct(void)
     return (MR_C_std_set_float *)new std::set<float>(std::set<float>());
 }
 
+MR_C_std_set_float *MR_C_std_set_float_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_set_float *)(new std::set<float>[num_elems]{});
+}
+
 MR_C_std_set_float *MR_C_std_set_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_set_float *other)
 {
     return (MR_C_std_set_float *)new std::set<float>(std::set<float>(
@@ -27,7 +32,22 @@ void MR_C_std_set_float_AssignFromAnother(MR_C_std_set_float *_this, MR_C_PassBy
 
 void MR_C_std_set_float_Destroy(MR_C_std_set_float *_this)
 {
-    delete &(_this ? *(std::set<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::set<float> *)_this);
+}
+
+void MR_C_std_set_float_DestroyArray(MR_C_std_set_float *_this)
+{
+    delete[] ((std::set<float> *)_this);
+}
+
+const MR_C_std_set_float *MR_C_std_set_float_OffsetPtr(const MR_C_std_set_float *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_set_float *)(((const std::set<float> *)ptr) + i);
+}
+
+MR_C_std_set_float *MR_C_std_set_float_OffsetMutablePtr(MR_C_std_set_float *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_set_float *)(((std::set<float> *)ptr) + i);
 }
 
 size_t MR_C_std_set_float_Size(const MR_C_std_set_float *_this)
@@ -91,6 +111,11 @@ MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_DefaultCons
     return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(std::set<float>::const_iterator());
 }
 
+MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_set_float_const_iterator *)(new std::set<float>::const_iterator[num_elems]{});
+}
+
 MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_ConstructFromAnother(const MR_C_std_set_float_const_iterator *other)
 {
     return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(std::set<float>::const_iterator(
@@ -107,7 +132,22 @@ void MR_C_std_set_float_const_iterator_AssignFromAnother(MR_C_std_set_float_cons
 
 void MR_C_std_set_float_const_iterator_Destroy(MR_C_std_set_float_const_iterator *_this)
 {
-    delete &(_this ? *(std::set<float>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::set<float>::const_iterator *)_this);
+}
+
+void MR_C_std_set_float_const_iterator_DestroyArray(MR_C_std_set_float_const_iterator *_this)
+{
+    delete[] ((std::set<float>::const_iterator *)_this);
+}
+
+const MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_OffsetPtr(const MR_C_std_set_float_const_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_set_float_const_iterator *)(((const std::set<float>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_OffsetMutablePtr(MR_C_std_set_float_const_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_set_float_const_iterator *)(((std::set<float>::const_iterator *)ptr) + i);
 }
 
 const float *MR_C_std_set_float_const_iterator_Deref(const MR_C_std_set_float_const_iterator *_this)

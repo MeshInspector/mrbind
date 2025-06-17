@@ -214,8 +214,12 @@ namespace mrbind::CBindings
         // Returns true if this is a built-in C type.
         [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all) const;
 
-        // The destroy function name for parsed and custom classes.
-        [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name) const;
+        // The destroy function name for parsed and custom classes. It calls `delete`.
+        // We have a separate function for destroying arrays (`is_array == true`) which corresponds to C++'s `delete[]`.
+        [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name, bool is_array = false) const;
+
+        // The name for the functions that add an offset to a pointer. We need this because the pointers themselves are typically opaque on the C side.
+        [[nodiscard]] std::string GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const;
 
 
         // Those types are a subset of `IsSimplyBindableIndirectReinterpret()` for pure qualified names (without cvref/ptr-qualifiers).
@@ -933,7 +937,6 @@ namespace mrbind::CBindings
 
             void SetFromParsedFunc(const CBindings::Generator &self, const FuncEntity &new_func, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassCtor(const CBindings::Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
-            void SetFromParsedClassDtor(const CBindings::Generator &self, const ClassEntity &new_class, const ClassDtor &new_dtor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassMethod(const CBindings::Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassConvOp(const CBindings::Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack);
 

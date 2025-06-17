@@ -9,29 +9,24 @@ namespace mrbind::CBindings
 {
     struct HeapAllocatedClassBinder
     {
-        // This class doesn't set this for anything. This is `c_type_name` without the prefix.
-        // You can use this to generate new custom identifiers using `generator.MakePublicHelperName(c_type_name + "...")`.
-        std::string basic_c_name;
-
         cppdecl::QualifiedName cpp_type_name;
-        std::string c_type_name;
-        std::string c_underlying_type_name;
 
-        // You don't need to assign to all those if you don't use them.
-        std::string c_func_name_default_ctor;
-        std::string c_func_name_copy_move_ctor; // We use combined copy-move constructors and assignments.
-        std::string c_func_name_copy_move_assign; // ^
-        std::string c_func_name_copy_move_ctor_sugared; // See `with_param_sugar` below.
-        std::string c_func_name_copy_move_assign_sugared; // ^
-        std::string c_func_name_destroy;
+        // The user-facing type name.
+        std::string c_type_name;
+
+        // If not empty, then `c_type_name` becomes a typedef to a struct with this name, instead of a struct with the same name as `c_type_name`.
+        std::string c_underlying_type_name;
 
         // This is required by a lot of things. Making it `std::optional` solely to make it easier to catch forgetting to set it.
         std::optional<Generator::TypeTraits> traits;
 
-        // If `underlying_c_type_name` isn't empty, it's used as the true underlying canonical type name in the C code.
+        // If `new_underlying_c_type_base_name` isn't empty, it's used as the true underlying canonical type name in the C code (the prefix is added automatically, don't call `MakePublicHelperName()` yourself).
         // It's not used in the method names and such, and not in the user-facing typedef for this type. Only in the struct name.
         // Don't forget to set `traits` after this, some functionality requires it.
-        [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_name = "");
+        [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_base_name = "");
+
+        // Does `c_type_name + "_" + name`. Use this to generate all the member function names.
+        [[nodiscard]] std::string MakeMemberFuncName(std::string_view name) const;
 
         void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const;
 
@@ -44,7 +39,7 @@ namespace mrbind::CBindings
 
         [[nodiscard]] std::string MakeForwardDeclaration() const;
 
-        [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage() const;
+        [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage(Generator &generator) const;
 
         // This goes to `param_usage_with_default_arg`. `param_usage` should stay empty, since `param_usage_with_default_arg` alone can handle
         //   both parameters with default arguments and without.
@@ -60,17 +55,28 @@ namespace mrbind::CBindings
         // Those are used internally by `EmitSpecialMemberFunctions()`, but you can call them manually too:
         // [
 
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDefaultCtor() const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDefaultCtor(Generator &generator) const;
+
+        // This `new`s an array of a runtime size.
+        // This exists solely for consistence with array delete, which we need to support `std::unique_ptr<T[]>`.
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDefaultCtorArray(Generator &generator) const;
 
         // We use combined copy-move constructors and assignments.
         // Making a second version of the constructor with `with_param_sugar == true` only makes sense if your class has custom
         //   parameter usage (such as `std::string` being rewritten into `const char *` pointers).
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyMoveCtor(bool with_param_sugar = false) const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyMoveCtor(Generator &generator, bool with_param_sugar = false) const;
 
         // We use combined copy-move constructors and assignments.
         // See above for `with_param_sugar`.
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyMoveAssignment(bool with_param_sugar = false) const;
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDestroy() const;
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncCopyMoveAssignment(Generator &generator, bool with_param_sugar = false) const;
+
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDestroy(Generator &generator) const;
+
+        // This `delete[]`s an array of objects.
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDestroyArray(Generator &generator) const;
+
+        // Adds an offset to a `T *` pointer.
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncOffsetPtr(Generator &generator, bool is_const) const;
 
         // ]
     };

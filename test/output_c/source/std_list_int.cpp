@@ -11,6 +11,11 @@ MR_C_std_list_int *MR_C_std_list_int_DefaultConstruct(void)
     return (MR_C_std_list_int *)new std::list<int>(std::list<int>());
 }
 
+MR_C_std_list_int *MR_C_std_list_int_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_list_int *)(new std::list<int>[num_elems]{});
+}
+
 MR_C_std_list_int *MR_C_std_list_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_list_int *other)
 {
     return (MR_C_std_list_int *)new std::list<int>(std::list<int>(
@@ -27,7 +32,22 @@ void MR_C_std_list_int_AssignFromAnother(MR_C_std_list_int *_this, MR_C_PassBy o
 
 void MR_C_std_list_int_Destroy(MR_C_std_list_int *_this)
 {
-    delete &(_this ? *(std::list<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::list<int> *)_this);
+}
+
+void MR_C_std_list_int_DestroyArray(MR_C_std_list_int *_this)
+{
+    delete[] ((std::list<int> *)_this);
+}
+
+const MR_C_std_list_int *MR_C_std_list_int_OffsetPtr(const MR_C_std_list_int *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_list_int *)(((const std::list<int> *)ptr) + i);
+}
+
+MR_C_std_list_int *MR_C_std_list_int_OffsetMutablePtr(MR_C_std_list_int *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_list_int *)(((std::list<int> *)ptr) + i);
 }
 
 size_t MR_C_std_list_int_Size(const MR_C_std_list_int *_this)
@@ -171,6 +191,11 @@ MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_DefaultConstr
     return (MR_C_std_list_int_const_iterator *)new std::list<int>::const_iterator(std::list<int>::const_iterator());
 }
 
+MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_list_int_const_iterator *)(new std::list<int>::const_iterator[num_elems]{});
+}
+
 MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_ConstructFromAnother(const MR_C_std_list_int_const_iterator *other)
 {
     return (MR_C_std_list_int_const_iterator *)new std::list<int>::const_iterator(std::list<int>::const_iterator(
@@ -187,7 +212,22 @@ void MR_C_std_list_int_const_iterator_AssignFromAnother(MR_C_std_list_int_const_
 
 void MR_C_std_list_int_const_iterator_Destroy(MR_C_std_list_int_const_iterator *_this)
 {
-    delete &(_this ? *(std::list<int>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::list<int>::const_iterator *)_this);
+}
+
+void MR_C_std_list_int_const_iterator_DestroyArray(MR_C_std_list_int_const_iterator *_this)
+{
+    delete[] ((std::list<int>::const_iterator *)_this);
+}
+
+const MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_OffsetPtr(const MR_C_std_list_int_const_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_list_int_const_iterator *)(((const std::list<int>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_OffsetMutablePtr(MR_C_std_list_int_const_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_list_int_const_iterator *)(((std::list<int>::const_iterator *)ptr) + i);
 }
 
 MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_FromMutable(const MR_C_std_list_int_iterator *iter)
@@ -200,6 +240,11 @@ MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_FromMutable(c
 MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_DefaultConstruct(void)
 {
     return (MR_C_std_list_int_iterator *)new std::list<int>::iterator(std::list<int>::iterator());
+}
+
+MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_list_int_iterator *)(new std::list<int>::iterator[num_elems]{});
 }
 
 MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_ConstructFromAnother(const MR_C_std_list_int_iterator *other)
@@ -218,7 +263,22 @@ void MR_C_std_list_int_iterator_AssignFromAnother(MR_C_std_list_int_iterator *_t
 
 void MR_C_std_list_int_iterator_Destroy(MR_C_std_list_int_iterator *_this)
 {
-    delete &(_this ? *(std::list<int>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::list<int>::iterator *)_this);
+}
+
+void MR_C_std_list_int_iterator_DestroyArray(MR_C_std_list_int_iterator *_this)
+{
+    delete[] ((std::list<int>::iterator *)_this);
+}
+
+const MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_OffsetPtr(const MR_C_std_list_int_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_list_int_iterator *)(((const std::list<int>::iterator *)ptr) + i);
+}
+
+MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_OffsetMutablePtr(MR_C_std_list_int_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_list_int_iterator *)(((std::list<int>::iterator *)ptr) + i);
 }
 
 const int *MR_C_std_list_int_const_iterator_Deref(const MR_C_std_list_int_const_iterator *_this)

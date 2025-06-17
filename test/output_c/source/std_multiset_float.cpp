@@ -11,6 +11,11 @@ MR_C_std_multiset_float *MR_C_std_multiset_float_DefaultConstruct(void)
     return (MR_C_std_multiset_float *)new std::multiset<float>(std::multiset<float>());
 }
 
+MR_C_std_multiset_float *MR_C_std_multiset_float_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_multiset_float *)(new std::multiset<float>[num_elems]{});
+}
+
 MR_C_std_multiset_float *MR_C_std_multiset_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_multiset_float *other)
 {
     return (MR_C_std_multiset_float *)new std::multiset<float>(std::multiset<float>(
@@ -27,7 +32,22 @@ void MR_C_std_multiset_float_AssignFromAnother(MR_C_std_multiset_float *_this, M
 
 void MR_C_std_multiset_float_Destroy(MR_C_std_multiset_float *_this)
 {
-    delete &(_this ? *(std::multiset<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::multiset<float> *)_this);
+}
+
+void MR_C_std_multiset_float_DestroyArray(MR_C_std_multiset_float *_this)
+{
+    delete[] ((std::multiset<float> *)_this);
+}
+
+const MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetPtr(const MR_C_std_multiset_float *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_multiset_float *)(((const std::multiset<float> *)ptr) + i);
+}
+
+MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetMutablePtr(MR_C_std_multiset_float *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_multiset_float *)(((std::multiset<float> *)ptr) + i);
 }
 
 size_t MR_C_std_multiset_float_Size(const MR_C_std_multiset_float *_this)
@@ -91,6 +111,11 @@ MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_D
     return (MR_C_std_multiset_float_const_iterator *)new std::multiset<float>::const_iterator(std::multiset<float>::const_iterator());
 }
 
+MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_multiset_float_const_iterator *)(new std::multiset<float>::const_iterator[num_elems]{});
+}
+
 MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_ConstructFromAnother(const MR_C_std_multiset_float_const_iterator *other)
 {
     return (MR_C_std_multiset_float_const_iterator *)new std::multiset<float>::const_iterator(std::multiset<float>::const_iterator(
@@ -107,7 +132,22 @@ void MR_C_std_multiset_float_const_iterator_AssignFromAnother(MR_C_std_multiset_
 
 void MR_C_std_multiset_float_const_iterator_Destroy(MR_C_std_multiset_float_const_iterator *_this)
 {
-    delete &(_this ? *(std::multiset<float>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::multiset<float>::const_iterator *)_this);
+}
+
+void MR_C_std_multiset_float_const_iterator_DestroyArray(MR_C_std_multiset_float_const_iterator *_this)
+{
+    delete[] ((std::multiset<float>::const_iterator *)_this);
+}
+
+const MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_OffsetPtr(const MR_C_std_multiset_float_const_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_multiset_float_const_iterator *)(((const std::multiset<float>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_OffsetMutablePtr(MR_C_std_multiset_float_const_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_multiset_float_const_iterator *)(((std::multiset<float>::const_iterator *)ptr) + i);
 }
 
 const float *MR_C_std_multiset_float_const_iterator_Deref(const MR_C_std_multiset_float_const_iterator *_this)

@@ -3,6 +3,8 @@
 #include <exports.h>
 #include <pass_by.h>
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -23,13 +25,26 @@ MR_C_API const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);
 
-/// Generated from a destructor of class `MR::A`. Destroys the heap-allocated instances.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_A`. Does nothing if the pointer is null.
 MR_C_API void MR_A_Destroy(MR_A *_this);
 
-/// Generated from a constructor of class `MR::A`.
+/// Destroys a heap-allocated array of `MR_A`. Does nothing if the pointer is null.
+MR_C_API void MR_A_DestroyArray(MR_A *_this);
+
+/// Constructs an empty (default-constructed) instance.
 /// Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.
-MR_C_API MR_A *MR_A_Construct(void);
+MR_C_API MR_A *MR_A_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_A_DestroyArray()`.
+/// Use `MR_A_OffsetMutablePtr()` and `MR_A_OffsetPtr()` to access the array elements.
+MR_C_API MR_A *MR_A_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+MR_C_API const MR_A *MR_A_OffsetPtr(const MR_A *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+MR_C_API MR_A *MR_A_OffsetMutablePtr(MR_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::A`.
 /// Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.

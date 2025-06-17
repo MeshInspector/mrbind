@@ -11,6 +11,11 @@ MR_C_std_unordered_map_int_float *MR_C_std_unordered_map_int_float_DefaultConstr
     return (MR_C_std_unordered_map_int_float *)new std::unordered_map<int, float>(std::unordered_map<int, float>());
 }
 
+MR_C_std_unordered_map_int_float *MR_C_std_unordered_map_int_float_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_unordered_map_int_float *)(new std::unordered_map<int, float>[num_elems]{});
+}
+
 MR_C_std_unordered_map_int_float *MR_C_std_unordered_map_int_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_unordered_map_int_float *other)
 {
     return (MR_C_std_unordered_map_int_float *)new std::unordered_map<int, float>(std::unordered_map<int, float>(
@@ -27,7 +32,22 @@ void MR_C_std_unordered_map_int_float_AssignFromAnother(MR_C_std_unordered_map_i
 
 void MR_C_std_unordered_map_int_float_Destroy(MR_C_std_unordered_map_int_float *_this)
 {
-    delete &(_this ? *(std::unordered_map<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::unordered_map<int, float> *)_this);
+}
+
+void MR_C_std_unordered_map_int_float_DestroyArray(MR_C_std_unordered_map_int_float *_this)
+{
+    delete[] ((std::unordered_map<int, float> *)_this);
+}
+
+const MR_C_std_unordered_map_int_float *MR_C_std_unordered_map_int_float_OffsetPtr(const MR_C_std_unordered_map_int_float *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_unordered_map_int_float *)(((const std::unordered_map<int, float> *)ptr) + i);
+}
+
+MR_C_std_unordered_map_int_float *MR_C_std_unordered_map_int_float_OffsetMutablePtr(MR_C_std_unordered_map_int_float *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_unordered_map_int_float *)(((std::unordered_map<int, float> *)ptr) + i);
 }
 
 size_t MR_C_std_unordered_map_int_float_Size(const MR_C_std_unordered_map_int_float *_this)
@@ -116,6 +136,11 @@ MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_floa
     return (MR_C_std_unordered_map_int_float_const_iterator *)new std::unordered_map<int, float>::const_iterator(std::unordered_map<int, float>::const_iterator());
 }
 
+MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_unordered_map_int_float_const_iterator *)(new std::unordered_map<int, float>::const_iterator[num_elems]{});
+}
+
 MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_ConstructFromAnother(const MR_C_std_unordered_map_int_float_const_iterator *other)
 {
     return (MR_C_std_unordered_map_int_float_const_iterator *)new std::unordered_map<int, float>::const_iterator(std::unordered_map<int, float>::const_iterator(
@@ -132,7 +157,22 @@ void MR_C_std_unordered_map_int_float_const_iterator_AssignFromAnother(MR_C_std_
 
 void MR_C_std_unordered_map_int_float_const_iterator_Destroy(MR_C_std_unordered_map_int_float_const_iterator *_this)
 {
-    delete &(_this ? *(std::unordered_map<int, float>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::unordered_map<int, float>::const_iterator *)_this);
+}
+
+void MR_C_std_unordered_map_int_float_const_iterator_DestroyArray(MR_C_std_unordered_map_int_float_const_iterator *_this)
+{
+    delete[] ((std::unordered_map<int, float>::const_iterator *)_this);
+}
+
+const MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_OffsetPtr(const MR_C_std_unordered_map_int_float_const_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_unordered_map_int_float_const_iterator *)(((const std::unordered_map<int, float>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_OffsetMutablePtr(MR_C_std_unordered_map_int_float_const_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_unordered_map_int_float_const_iterator *)(((std::unordered_map<int, float>::const_iterator *)ptr) + i);
 }
 
 MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_float_const_iterator_FromMutable(const MR_C_std_unordered_map_int_float_iterator *iter)
@@ -145,6 +185,11 @@ MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map_int_floa
 MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_DefaultConstruct(void)
 {
     return (MR_C_std_unordered_map_int_float_iterator *)new std::unordered_map<int, float>::iterator(std::unordered_map<int, float>::iterator());
+}
+
+MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_unordered_map_int_float_iterator *)(new std::unordered_map<int, float>::iterator[num_elems]{});
 }
 
 MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_ConstructFromAnother(const MR_C_std_unordered_map_int_float_iterator *other)
@@ -163,7 +208,22 @@ void MR_C_std_unordered_map_int_float_iterator_AssignFromAnother(MR_C_std_unorde
 
 void MR_C_std_unordered_map_int_float_iterator_Destroy(MR_C_std_unordered_map_int_float_iterator *_this)
 {
-    delete &(_this ? *(std::unordered_map<int, float>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::unordered_map<int, float>::iterator *)_this);
+}
+
+void MR_C_std_unordered_map_int_float_iterator_DestroyArray(MR_C_std_unordered_map_int_float_iterator *_this)
+{
+    delete[] ((std::unordered_map<int, float>::iterator *)_this);
+}
+
+const MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_OffsetPtr(const MR_C_std_unordered_map_int_float_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_unordered_map_int_float_iterator *)(((const std::unordered_map<int, float>::iterator *)ptr) + i);
+}
+
+MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_iterator_OffsetMutablePtr(MR_C_std_unordered_map_int_float_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_unordered_map_int_float_iterator *)(((std::unordered_map<int, float>::iterator *)ptr) + i);
 }
 
 const int *MR_C_std_unordered_map_int_float_const_iterator_DerefKey(const MR_C_std_unordered_map_int_float_const_iterator *_this)

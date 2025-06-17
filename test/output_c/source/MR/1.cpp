@@ -18,14 +18,32 @@ MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)
 
 void MR_A_Destroy(MR_A *_this)
 {
-    using namespace MR;
-    delete &(_this ? *(MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((MR::A *)_this);
 }
 
-MR_A *MR_A_Construct(void)
+void MR_A_DestroyArray(MR_A *_this)
 {
-    using namespace MR;
+    delete[] ((MR::A *)_this);
+}
+
+MR_A *MR_A_DefaultConstruct(void)
+{
     return (MR_A *)new MR::A(MR::A());
+}
+
+MR_A *MR_A_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_A *)(new MR::A[num_elems]{});
+}
+
+const MR_A *MR_A_OffsetPtr(const MR_A *ptr, ptrdiff_t i)
+{
+    return (const MR_A *)(((const MR::A *)ptr) + i);
+}
+
+MR_A *MR_A_OffsetMutablePtr(MR_A *ptr, ptrdiff_t i)
+{
+    return (MR_A *)(((MR::A *)ptr) + i);
 }
 
 MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_other)

@@ -67,7 +67,7 @@ namespace mrbind::CBindings::Modules
 
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The stored element or null if none, " + std::string(is_const ? "read-only" : "mutable") + ".";
-                        emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_" + (is_const ? "" : "Mutable") + "Value");
+                        emit.c_name = binder.MakeMemberFuncName(std::string(is_const ? "" : "Mutable") + "Value");
                         emit.cpp_return_type = cpp_elem_type;
                         if (emit.cpp_return_type.Is<cppdecl::Reference>())
                         {
@@ -101,7 +101,7 @@ namespace mrbind::CBindings::Modules
             new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
             new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
-            new_type.return_usage = binder.MakeReturnUsage();
+            new_type.return_usage = binder.MakeReturnUsage(generator);
 
 
             // Parameter usage:

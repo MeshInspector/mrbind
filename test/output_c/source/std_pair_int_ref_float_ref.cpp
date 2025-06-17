@@ -6,7 +6,22 @@
 
 void MR_C_std_pair_int_ref_float_ref_Destroy(MR_C_std_pair_int_ref_float_ref *_this)
 {
-    delete &(_this ? *(std::pair<int &, float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::pair<int &, float &> *)_this);
+}
+
+void MR_C_std_pair_int_ref_float_ref_DestroyArray(MR_C_std_pair_int_ref_float_ref *_this)
+{
+    delete[] ((std::pair<int &, float &> *)_this);
+}
+
+const MR_C_std_pair_int_ref_float_ref *MR_C_std_pair_int_ref_float_ref_OffsetPtr(const MR_C_std_pair_int_ref_float_ref *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_pair_int_ref_float_ref *)(((const std::pair<int &, float &> *)ptr) + i);
+}
+
+MR_C_std_pair_int_ref_float_ref *MR_C_std_pair_int_ref_float_ref_OffsetMutablePtr(MR_C_std_pair_int_ref_float_ref *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_pair_int_ref_float_ref *)(((std::pair<int &, float &> *)ptr) + i);
 }
 
 MR_C_std_pair_int_ref_float_ref *MR_C_std_pair_int_ref_float_ref_Construct(int *first, float *second)

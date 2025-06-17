@@ -9,6 +9,11 @@ MR_C_std_variant_int_float_float *MR_C_std_variant_int_float_float_DefaultConstr
     return (MR_C_std_variant_int_float_float *)new std::variant<int, float, float>(std::variant<int, float, float>());
 }
 
+MR_C_std_variant_int_float_float *MR_C_std_variant_int_float_float_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_variant_int_float_float *)(new std::variant<int, float, float>[num_elems]{});
+}
+
 MR_C_std_variant_int_float_float *MR_C_std_variant_int_float_float_ConstructFromAnother(const MR_C_std_variant_int_float_float *other)
 {
     return (MR_C_std_variant_int_float_float *)new std::variant<int, float, float>(std::variant<int, float, float>(
@@ -25,7 +30,22 @@ void MR_C_std_variant_int_float_float_AssignFromAnother(MR_C_std_variant_int_flo
 
 void MR_C_std_variant_int_float_float_Destroy(MR_C_std_variant_int_float_float *_this)
 {
-    delete &(_this ? *(std::variant<int, float, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::variant<int, float, float> *)_this);
+}
+
+void MR_C_std_variant_int_float_float_DestroyArray(MR_C_std_variant_int_float_float *_this)
+{
+    delete[] ((std::variant<int, float, float> *)_this);
+}
+
+const MR_C_std_variant_int_float_float *MR_C_std_variant_int_float_float_OffsetPtr(const MR_C_std_variant_int_float_float *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_variant_int_float_float *)(((const std::variant<int, float, float> *)ptr) + i);
+}
+
+MR_C_std_variant_int_float_float *MR_C_std_variant_int_float_float_OffsetMutablePtr(MR_C_std_variant_int_float_float *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_variant_int_float_float *)(((std::variant<int, float, float> *)ptr) + i);
 }
 
 size_t MR_C_std_variant_int_float_float_Index(const MR_C_std_variant_int_float_float *_this)

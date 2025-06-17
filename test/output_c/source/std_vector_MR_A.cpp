@@ -12,6 +12,11 @@ MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_DefaultConstruct(void)
     return (MR_C_std_vector_MR_A *)new std::vector<MR::A>(std::vector<MR::A>());
 }
 
+MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_vector_MR_A *)(new std::vector<MR::A>[num_elems]{});
+}
+
 MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_MR_A *other)
 {
     return (MR_C_std_vector_MR_A *)new std::vector<MR::A>(std::vector<MR::A>(
@@ -28,7 +33,22 @@ void MR_C_std_vector_MR_A_AssignFromAnother(MR_C_std_vector_MR_A *_this, MR_C_Pa
 
 void MR_C_std_vector_MR_A_Destroy(MR_C_std_vector_MR_A *_this)
 {
-    delete &(_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::vector<MR::A> *)_this);
+}
+
+void MR_C_std_vector_MR_A_DestroyArray(MR_C_std_vector_MR_A *_this)
+{
+    delete[] ((std::vector<MR::A> *)_this);
+}
+
+const MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_OffsetPtr(const MR_C_std_vector_MR_A *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_vector_MR_A *)(((const std::vector<MR::A> *)ptr) + i);
+}
+
+MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_OffsetMutablePtr(MR_C_std_vector_MR_A *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_vector_MR_A *)(((std::vector<MR::A> *)ptr) + i);
 }
 
 size_t MR_C_std_vector_MR_A_Size(const MR_C_std_vector_MR_A *_this)
@@ -211,6 +231,11 @@ MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_Default
     return (MR_C_std_vector_MR_A_const_iterator *)new std::vector<MR::A>::const_iterator(std::vector<MR::A>::const_iterator());
 }
 
+MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_vector_MR_A_const_iterator *)(new std::vector<MR::A>::const_iterator[num_elems]{});
+}
+
 MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_ConstructFromAnother(const MR_C_std_vector_MR_A_const_iterator *other)
 {
     return (MR_C_std_vector_MR_A_const_iterator *)new std::vector<MR::A>::const_iterator(std::vector<MR::A>::const_iterator(
@@ -227,7 +252,22 @@ void MR_C_std_vector_MR_A_const_iterator_AssignFromAnother(MR_C_std_vector_MR_A_
 
 void MR_C_std_vector_MR_A_const_iterator_Destroy(MR_C_std_vector_MR_A_const_iterator *_this)
 {
-    delete &(_this ? *(std::vector<MR::A>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::vector<MR::A>::const_iterator *)_this);
+}
+
+void MR_C_std_vector_MR_A_const_iterator_DestroyArray(MR_C_std_vector_MR_A_const_iterator *_this)
+{
+    delete[] ((std::vector<MR::A>::const_iterator *)_this);
+}
+
+const MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_OffsetPtr(const MR_C_std_vector_MR_A_const_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_vector_MR_A_const_iterator *)(((const std::vector<MR::A>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_OffsetMutablePtr(MR_C_std_vector_MR_A_const_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_vector_MR_A_const_iterator *)(((std::vector<MR::A>::const_iterator *)ptr) + i);
 }
 
 MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_FromMutable(const MR_C_std_vector_MR_A_iterator *iter)
@@ -240,6 +280,11 @@ MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_FromMut
 MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_DefaultConstruct(void)
 {
     return (MR_C_std_vector_MR_A_iterator *)new std::vector<MR::A>::iterator(std::vector<MR::A>::iterator());
+}
+
+MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_vector_MR_A_iterator *)(new std::vector<MR::A>::iterator[num_elems]{});
 }
 
 MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_ConstructFromAnother(const MR_C_std_vector_MR_A_iterator *other)
@@ -258,7 +303,22 @@ void MR_C_std_vector_MR_A_iterator_AssignFromAnother(MR_C_std_vector_MR_A_iterat
 
 void MR_C_std_vector_MR_A_iterator_Destroy(MR_C_std_vector_MR_A_iterator *_this)
 {
-    delete &(_this ? *(std::vector<MR::A>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::vector<MR::A>::iterator *)_this);
+}
+
+void MR_C_std_vector_MR_A_iterator_DestroyArray(MR_C_std_vector_MR_A_iterator *_this)
+{
+    delete[] ((std::vector<MR::A>::iterator *)_this);
+}
+
+const MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_OffsetPtr(const MR_C_std_vector_MR_A_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_vector_MR_A_iterator *)(((const std::vector<MR::A>::iterator *)ptr) + i);
+}
+
+MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_OffsetMutablePtr(MR_C_std_vector_MR_A_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_vector_MR_A_iterator *)(((std::vector<MR::A>::iterator *)ptr) + i);
 }
 
 const MR_A *MR_C_std_vector_MR_A_const_iterator_Deref(const MR_C_std_vector_MR_A_const_iterator *_this)

@@ -3,25 +3,21 @@
 
 namespace mrbind::CBindings
 {
-    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_name)
+    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_base_name)
     {
         HeapAllocatedClassBinder ret;
 
         ret.cpp_type_name = std::move(new_cpp_type_name);
 
-        ret.basic_c_name = cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier);
-        ret.c_type_name = generator.MakePublicHelperName(ret.basic_c_name);
-        ret.c_underlying_type_name = !new_underlying_c_type_name.empty() ? generator.MakePublicHelperName(new_underlying_c_type_name) : ret.c_type_name;
-
-        ret.c_func_name_default_ctor             = generator.MakePublicHelperName(ret.basic_c_name + "_DefaultConstruct");
-        ret.c_func_name_copy_move_ctor           = generator.MakePublicHelperName(ret.basic_c_name + "_ConstructFromAnother");
-        ret.c_func_name_copy_move_assign         = generator.MakePublicHelperName(ret.basic_c_name + "_AssignFromAnother");
-        ret.c_func_name_copy_move_ctor_sugared   = generator.MakePublicHelperName(ret.basic_c_name + "_ConstructFrom");
-        ret.c_func_name_copy_move_assign_sugared = generator.MakePublicHelperName(ret.basic_c_name + "_AssignFrom");
-        // Inconsistent with the rest. Weird but let's keep it this way for now.
-        ret.c_func_name_destroy = generator.GetClassDestroyFuncName(ret.c_type_name); // generator.MakePublicHelperName(ret.basic_c_name + "_Destroy");
+        ret.c_type_name = generator.MakePublicHelperName(cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier));
+        ret.c_underlying_type_name = !new_underlying_c_type_base_name.empty() ? generator.MakePublicHelperName(new_underlying_c_type_base_name) : "";
 
         return ret;
+    }
+
+    std::string HeapAllocatedClassBinder::MakeMemberFuncName(std::string_view name) const
+    {
+        return c_type_name + '_' + std::string(name);
     }
 
     void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const
@@ -59,7 +55,7 @@ namespace mrbind::CBindings
         type.bindable_with_same_address.custom_c_type_name = c_type_name;
 
         type.param_usage_with_default_arg = MakeParamUsageSupportingDefaultArg(generator);
-        type.return_usage = MakeReturnUsage();
+        type.return_usage = MakeReturnUsage(generator);
     }
 
     std::string HeapAllocatedClassBinder::MakeForwardDeclaration() const
@@ -67,7 +63,7 @@ namespace mrbind::CBindings
         return MakeStructForwardDeclaration(c_type_name, c_underlying_type_name);
     }
 
-    Generator::BindableType::ReturnUsage HeapAllocatedClassBinder::MakeReturnUsage() const
+    Generator::BindableType::ReturnUsage HeapAllocatedClassBinder::MakeReturnUsage(Generator &generator) const
     {
         Generator::BindableType::ReturnUsage ret;
 
@@ -76,8 +72,7 @@ namespace mrbind::CBindings
         ret.c_type = cppdecl::Type::FromSingleWord(c_type_name).AddModifier(cppdecl::Pointer{});
         ret.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
 
-        assert(!c_func_name_destroy.empty());
-        ret.append_to_comment = "/// Returns an instance allocated on the heap! Must call `" + c_func_name_destroy + "()` to free it when you're done using it.";
+        ret.append_to_comment = "/// Returns an instance allocated on the heap! Must call `" + generator.GetClassDestroyFuncName(c_type_name) + "()` to free it when you're done using it.";
 
         ret.make_return_statement = [c_type_name = c_type_name, cpp_type_str = std::move(cpp_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
         {
@@ -316,34 +311,45 @@ namespace mrbind::CBindings
     void HeapAllocatedClassBinder::EmitSpecialMemberFunctions(Generator &generator, Generator::OutputFile &file, bool with_param_sugar) const
     {
         if (traits.value().is_default_constructible)
-            generator.EmitFunction(file, PrepareFuncDefaultCtor());
+        {
+            generator.EmitFunction(file, PrepareFuncDefaultCtor(generator));
+            generator.EmitFunction(file, PrepareFuncDefaultCtorArray(generator));
+        }
 
         if (traits.value().is_move_constructible)
         {
-            generator.EmitFunction(file, PrepareFuncCopyMoveCtor());
+            generator.EmitFunction(file, PrepareFuncCopyMoveCtor(generator));
             if (with_param_sugar)
-                generator.EmitFunction(file, PrepareFuncCopyMoveCtor(true));
+                generator.EmitFunction(file, PrepareFuncCopyMoveCtor(generator, true));
         }
 
         if (traits.value().is_move_assignable)
         {
-            generator.EmitFunction(file, PrepareFuncCopyMoveAssignment());
+            generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(generator));
             if (with_param_sugar)
-                generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(true));
+                generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(generator, true));
         }
 
         if (traits.value().is_destructible)
-            generator.EmitFunction(file, PrepareFuncDestroy());
+        {
+            generator.EmitFunction(file, PrepareFuncDestroy(generator));
+            generator.EmitFunction(file, PrepareFuncDestroyArray(generator));
+        }
+
+        // Functors to offset pointers:
+        generator.EmitFunction(file, PrepareFuncOffsetPtr(generator, true));
+        generator.EmitFunction(file, PrepareFuncOffsetPtr(generator, false));
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor() const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor(Generator &generator) const
     {
+        (void)generator;
+
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_default_ctor.empty());
-        ret.c_name = c_func_name_default_ctor;
+        ret.c_name = MakeMemberFuncName("DefaultConstruct");
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.cpp_called_func = cpp_type_str;
@@ -353,14 +359,40 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveCtor(bool with_param_sugar) const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtorArray(Generator &generator) const
     {
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_copy_move_ctor.empty());
-        ret.c_name = with_param_sugar ? c_func_name_copy_move_ctor_sugared : c_func_name_copy_move_ctor;
+        ret.c_name = MakeMemberFuncName("DefaultConstructArray");
+
+        ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{});
+
+        ret.params.push_back({
+            .name = "num_elems",
+            .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+        });
+
+        ret.cpp_called_func = "new " + cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style) + "[@1@]{}"; // Right now we're zeroing the array. That sounds like a good idea.
+
+        ret.c_comment =
+            "/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.\n"
+            "/// The array must be destroyed using `" + generator.GetClassDestroyFuncName(c_type_name, true) + "()`.\n"
+            "/// Use `" + generator.GetClassPtrOffsetFuncName(c_type_name, false) + "()` and `" + generator.GetClassPtrOffsetFuncName(c_type_name, true) + "()` to access the array elements.";
+
+        return ret;
+    }
+
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveCtor(Generator &generator, bool with_param_sugar) const
+    {
+        (void)generator;
+
+        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+
+        Generator::EmitFuncParams ret;
+
+        ret.c_name = MakeMemberFuncName((with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"));
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.cpp_called_func = cpp_type_str;
@@ -379,14 +411,15 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveAssignment(bool with_param_sugar) const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveAssignment(Generator &generator, bool with_param_sugar) const
     {
+        (void)generator;
+
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_copy_move_assign.empty());
-        ret.c_name = with_param_sugar ? c_func_name_copy_move_assign_sugared : c_func_name_copy_move_assign;
+        ret.c_name = MakeMemberFuncName((with_param_sugar ? "AssignFrom" : "AssignFromAnother"));
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 
@@ -406,22 +439,65 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDestroy() const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDestroy(Generator &generator) const
     {
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_destroy.empty());
-        ret.c_name = c_func_name_destroy;
+        ret.c_name = generator.GetClassDestroyFuncName(c_type_name);
 
-        ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
+        ret.params.push_back({
+            .name = "_this",
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}),
+        });
 
-        ret.cpp_called_func = "delete &@this@";
+        ret.cpp_called_func = "delete @1@";
 
-        ret.c_comment += "/// Destroys a heap-allocated instance of `" + c_type_name + "`.";
+        ret.c_comment += "/// Destroys a heap-allocated instance of `" + c_type_name + "`. Does nothing if the pointer is null.";
 
         return ret;
     }
 
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDestroyArray(Generator &generator) const
+    {
+        Generator::EmitFuncParams ret;
+
+        ret.c_name = generator.GetClassDestroyFuncName(c_type_name, true);
+
+        ret.params.push_back({
+            .name = "_this",
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}),
+        });
+
+        ret.cpp_called_func = "delete[] @1@";
+
+        ret.c_comment += "/// Destroys a heap-allocated array of `" + c_type_name + "`. Does nothing if the pointer is null.";
+
+        return ret;
+    }
+
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncOffsetPtr(Generator &generator, bool is_const) const
+    {
+        Generator::EmitFuncParams ret;
+
+        ret.c_name = generator.GetClassPtrOffsetFuncName(c_type_name, is_const);
+
+        ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+
+        ret.params.push_back({
+            .name = "ptr",
+            .cpp_type = ret.cpp_return_type,
+        });
+        ret.params.push_back({
+            .name = "i",
+            .cpp_type = cppdecl::Type::FromSingleWord("ptrdiff_t"),
+        });
+
+        ret.cpp_called_func = "@1@ + @2@";
+
+        ret.c_comment += "/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.";
+
+        return ret;
+    }
 
     std::string MakeStructForwardDeclaration(std::string_view c_type_name, std::string_view c_underlying_type_name)
     {
@@ -833,15 +909,14 @@ namespace mrbind::CBindings
         HeapAllocatedClassBinder class_binder;
 
         new_type.traits = traits;
-        class_binder.traits = traits;
 
+        class_binder.traits = traits;
         class_binder.cpp_type_name = cpp_type;
         class_binder.c_type_name = c_type;
-        class_binder.c_func_name_destroy = generator.GetClassDestroyFuncName(c_type);
 
         new_type.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(generator);
 
-        new_type.return_usage = class_binder.MakeReturnUsage();
+        new_type.return_usage = class_binder.MakeReturnUsage(generator);
 
         return new_type;
     }

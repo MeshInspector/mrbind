@@ -3,6 +3,8 @@
 #include <exports.h>
 #include <pass_by.h>
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -65,18 +67,31 @@ MR_C_API const int *MR_StdOptional_A_GetConst_x(const MR_StdOptional_A *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this);
 
-/// Generated from a constructor of class `MR::StdOptional::A`.
+/// Constructs an empty (default-constructed) instance.
 /// Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
-MR_C_API MR_StdOptional_A *MR_StdOptional_A_Construct(void);
+MR_C_API MR_StdOptional_A *MR_StdOptional_A_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_StdOptional_A_DestroyArray()`.
+/// Use `MR_StdOptional_A_OffsetMutablePtr()` and `MR_StdOptional_A_OffsetPtr()` to access the array elements.
+MR_C_API MR_StdOptional_A *MR_StdOptional_A_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+MR_C_API const MR_StdOptional_A *MR_StdOptional_A_OffsetPtr(const MR_StdOptional_A *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+MR_C_API MR_StdOptional_A *MR_StdOptional_A_OffsetMutablePtr(MR_StdOptional_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::StdOptional::A`.
 /// Parameter `_other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_ConstructFromAnother(const MR_StdOptional_A *_other);
 
-/// Generated from a destructor of class `MR::StdOptional::A`. Destroys the heap-allocated instances.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_StdOptional_A`. Does nothing if the pointer is null.
 MR_C_API void MR_StdOptional_A_Destroy(MR_StdOptional_A *_this);
+
+/// Destroys a heap-allocated array of `MR_StdOptional_A`. Does nothing if the pointer is null.
+MR_C_API void MR_StdOptional_A_DestroyArray(MR_StdOptional_A *_this);
 
 /// Generated from a method of class `MR::StdOptional::A` named `operator=`.
 /// Parameter `_this` can not be null.
@@ -117,18 +132,31 @@ MR_C_API MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this)
 /// Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other);
 
-/// Generated from a constructor of class `MR::StdOptional::B`.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+MR_C_API const MR_StdOptional_B *MR_StdOptional_B_OffsetPtr(const MR_StdOptional_B *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+MR_C_API MR_StdOptional_B *MR_StdOptional_B_OffsetMutablePtr(MR_StdOptional_B *ptr, ptrdiff_t i);
+
+/// Constructs an empty (default-constructed) instance.
 /// Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
-MR_C_API MR_StdOptional_B *MR_StdOptional_B_Construct(void);
+MR_C_API MR_StdOptional_B *MR_StdOptional_B_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_StdOptional_B_DestroyArray()`.
+/// Use `MR_StdOptional_B_OffsetMutablePtr()` and `MR_StdOptional_B_OffsetPtr()` to access the array elements.
+MR_C_API MR_StdOptional_B *MR_StdOptional_B_DefaultConstructArray(size_t num_elems);
 
 /// Generated from a method of class `MR::StdOptional::B` named `operator=`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other);
 
-/// Generated from a destructor of class `MR::StdOptional::B`. Destroys the heap-allocated instances.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_StdOptional_B`. Does nothing if the pointer is null.
 MR_C_API void MR_StdOptional_B_Destroy(MR_StdOptional_B *_this);
+
+/// Destroys a heap-allocated array of `MR_StdOptional_B`. Does nothing if the pointer is null.
+MR_C_API void MR_StdOptional_B_DestroyArray(MR_StdOptional_B *_this);
 
 /// Generated from function `MR::StdOptional::GetClass2`.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_B_Destroy()` to free it when you're done using it.

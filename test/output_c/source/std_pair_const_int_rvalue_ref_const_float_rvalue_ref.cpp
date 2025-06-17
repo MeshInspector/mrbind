@@ -15,7 +15,22 @@ MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_i
 
 void MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_Destroy(MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    delete &(_this ? *(std::pair<const int &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::pair<const int &&, const float &&> *)_this);
+}
+
+void MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_DestroyArray(MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
+{
+    delete[] ((std::pair<const int &&, const float &&> *)_this);
+}
+
+const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_OffsetPtr(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *)(((const std::pair<const int &&, const float &&> *)ptr) + i);
+}
+
+MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_OffsetMutablePtr(MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *)(((std::pair<const int &&, const float &&> *)ptr) + i);
 }
 
 MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_Construct(const int *first, const float *second)

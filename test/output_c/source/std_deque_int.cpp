@@ -11,6 +11,11 @@ MR_C_std_deque_int *MR_C_std_deque_int_DefaultConstruct(void)
     return (MR_C_std_deque_int *)new std::deque<int>(std::deque<int>());
 }
 
+MR_C_std_deque_int *MR_C_std_deque_int_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_deque_int *)(new std::deque<int>[num_elems]{});
+}
+
 MR_C_std_deque_int *MR_C_std_deque_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_deque_int *other)
 {
     return (MR_C_std_deque_int *)new std::deque<int>(std::deque<int>(
@@ -27,7 +32,22 @@ void MR_C_std_deque_int_AssignFromAnother(MR_C_std_deque_int *_this, MR_C_PassBy
 
 void MR_C_std_deque_int_Destroy(MR_C_std_deque_int *_this)
 {
-    delete &(_this ? *(std::deque<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::deque<int> *)_this);
+}
+
+void MR_C_std_deque_int_DestroyArray(MR_C_std_deque_int *_this)
+{
+    delete[] ((std::deque<int> *)_this);
+}
+
+const MR_C_std_deque_int *MR_C_std_deque_int_OffsetPtr(const MR_C_std_deque_int *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_deque_int *)(((const std::deque<int> *)ptr) + i);
+}
+
+MR_C_std_deque_int *MR_C_std_deque_int_OffsetMutablePtr(MR_C_std_deque_int *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_deque_int *)(((std::deque<int> *)ptr) + i);
 }
 
 size_t MR_C_std_deque_int_Size(const MR_C_std_deque_int *_this)
@@ -205,6 +225,11 @@ MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_DefaultCons
     return (MR_C_std_deque_int_const_iterator *)new std::deque<int>::const_iterator(std::deque<int>::const_iterator());
 }
 
+MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_deque_int_const_iterator *)(new std::deque<int>::const_iterator[num_elems]{});
+}
+
 MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_ConstructFromAnother(const MR_C_std_deque_int_const_iterator *other)
 {
     return (MR_C_std_deque_int_const_iterator *)new std::deque<int>::const_iterator(std::deque<int>::const_iterator(
@@ -221,7 +246,22 @@ void MR_C_std_deque_int_const_iterator_AssignFromAnother(MR_C_std_deque_int_cons
 
 void MR_C_std_deque_int_const_iterator_Destroy(MR_C_std_deque_int_const_iterator *_this)
 {
-    delete &(_this ? *(std::deque<int>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::deque<int>::const_iterator *)_this);
+}
+
+void MR_C_std_deque_int_const_iterator_DestroyArray(MR_C_std_deque_int_const_iterator *_this)
+{
+    delete[] ((std::deque<int>::const_iterator *)_this);
+}
+
+const MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_OffsetPtr(const MR_C_std_deque_int_const_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_deque_int_const_iterator *)(((const std::deque<int>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_OffsetMutablePtr(MR_C_std_deque_int_const_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_deque_int_const_iterator *)(((std::deque<int>::const_iterator *)ptr) + i);
 }
 
 MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_FromMutable(const MR_C_std_deque_int_iterator *iter)
@@ -234,6 +274,11 @@ MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_FromMutable
 MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_DefaultConstruct(void)
 {
     return (MR_C_std_deque_int_iterator *)new std::deque<int>::iterator(std::deque<int>::iterator());
+}
+
+MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_deque_int_iterator *)(new std::deque<int>::iterator[num_elems]{});
 }
 
 MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_ConstructFromAnother(const MR_C_std_deque_int_iterator *other)
@@ -252,7 +297,22 @@ void MR_C_std_deque_int_iterator_AssignFromAnother(MR_C_std_deque_int_iterator *
 
 void MR_C_std_deque_int_iterator_Destroy(MR_C_std_deque_int_iterator *_this)
 {
-    delete &(_this ? *(std::deque<int>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((std::deque<int>::iterator *)_this);
+}
+
+void MR_C_std_deque_int_iterator_DestroyArray(MR_C_std_deque_int_iterator *_this)
+{
+    delete[] ((std::deque<int>::iterator *)_this);
+}
+
+const MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_OffsetPtr(const MR_C_std_deque_int_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_deque_int_iterator *)(((const std::deque<int>::iterator *)ptr) + i);
+}
+
+MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_OffsetMutablePtr(MR_C_std_deque_int_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_deque_int_iterator *)(((std::deque<int>::iterator *)ptr) + i);
 }
 
 const int *MR_C_std_deque_int_const_iterator_Deref(const MR_C_std_deque_int_const_iterator *_this)

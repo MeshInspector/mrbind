@@ -84,11 +84,24 @@ int *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this)
     return &((_this ? *(MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
-MR_StdOptional_A *MR_StdOptional_A_Construct(void)
+MR_StdOptional_A *MR_StdOptional_A_DefaultConstruct(void)
 {
-    using namespace MR;
-    using namespace StdOptional;
     return (MR_StdOptional_A *)new MR::StdOptional::A(MR::StdOptional::A());
+}
+
+MR_StdOptional_A *MR_StdOptional_A_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_StdOptional_A *)(new MR::StdOptional::A[num_elems]{});
+}
+
+const MR_StdOptional_A *MR_StdOptional_A_OffsetPtr(const MR_StdOptional_A *ptr, ptrdiff_t i)
+{
+    return (const MR_StdOptional_A *)(((const MR::StdOptional::A *)ptr) + i);
+}
+
+MR_StdOptional_A *MR_StdOptional_A_OffsetMutablePtr(MR_StdOptional_A *ptr, ptrdiff_t i)
+{
+    return (MR_StdOptional_A *)(((MR::StdOptional::A *)ptr) + i);
 }
 
 MR_StdOptional_A *MR_StdOptional_A_ConstructFromAnother(const MR_StdOptional_A *_other)
@@ -102,9 +115,12 @@ MR_StdOptional_A *MR_StdOptional_A_ConstructFromAnother(const MR_StdOptional_A *
 
 void MR_StdOptional_A_Destroy(MR_StdOptional_A *_this)
 {
-    using namespace MR;
-    using namespace StdOptional;
-    delete &(_this ? *(MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((MR::StdOptional::A *)_this);
+}
+
+void MR_StdOptional_A_DestroyArray(MR_StdOptional_A *_this)
+{
+    delete[] ((MR::StdOptional::A *)_this);
 }
 
 MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *_this, const MR_StdOptional_A *_other)
@@ -169,11 +185,24 @@ MR_StdOptional_B *MR_StdOptional_B_ConstructFromAnother(MR_C_PassBy _other_pass_
     ));
 }
 
-MR_StdOptional_B *MR_StdOptional_B_Construct(void)
+const MR_StdOptional_B *MR_StdOptional_B_OffsetPtr(const MR_StdOptional_B *ptr, ptrdiff_t i)
 {
-    using namespace MR;
-    using namespace StdOptional;
+    return (const MR_StdOptional_B *)(((const MR::StdOptional::B *)ptr) + i);
+}
+
+MR_StdOptional_B *MR_StdOptional_B_OffsetMutablePtr(MR_StdOptional_B *ptr, ptrdiff_t i)
+{
+    return (MR_StdOptional_B *)(((MR::StdOptional::B *)ptr) + i);
+}
+
+MR_StdOptional_B *MR_StdOptional_B_DefaultConstruct(void)
+{
     return (MR_StdOptional_B *)new MR::StdOptional::B(MR::StdOptional::B());
+}
+
+MR_StdOptional_B *MR_StdOptional_B_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_StdOptional_B *)(new MR::StdOptional::B[num_elems]{});
 }
 
 MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other)
@@ -187,9 +216,12 @@ MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR
 
 void MR_StdOptional_B_Destroy(MR_StdOptional_B *_this)
 {
-    using namespace MR;
-    using namespace StdOptional;
-    delete &(_this ? *(MR::StdOptional::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((MR::StdOptional::B *)_this);
+}
+
+void MR_StdOptional_B_DestroyArray(MR_StdOptional_B *_this)
+{
+    delete[] ((MR::StdOptional::B *)_this);
 }
 
 MR_C_std_optional_MR_StdOptional_B *MR_StdOptional_GetClass2(void)
