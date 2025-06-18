@@ -17,7 +17,7 @@ namespace mrbind::CBindings::Modules
             std::optional<Generator::BindableType> ret;
 
             // It's not immediately obvious if this is correct if the reference is const and the class uses a pass-by enum. But I think it's still correct.
-            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target)))
+            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target)))
                 return ret;
 
             if (!type.IsOnlyQualifiedName() || !type.simple_type.name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))

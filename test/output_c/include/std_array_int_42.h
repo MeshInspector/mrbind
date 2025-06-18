@@ -38,10 +38,10 @@ MR_C_API void MR_C_std_array_int_42_Destroy(MR_C_std_array_int_42 *_this);
 /// Destroys a heap-allocated array of `MR_C_std_array_int_42`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_array_int_42_DestroyArray(MR_C_std_array_int_42 *_this);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_array_int_42 *MR_C_std_array_int_42_OffsetPtr(const MR_C_std_array_int_42 *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_OffsetMutablePtr(MR_C_std_array_int_42 *ptr, ptrdiff_t i);
 
 /// The element at a specific index, read-only.

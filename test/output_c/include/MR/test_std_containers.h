@@ -1,7 +1,7 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
-#include <pass_by.h>
 
 #ifdef __cplusplus
 extern "C" {

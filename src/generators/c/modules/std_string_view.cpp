@@ -39,7 +39,7 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, base_name))) {}
+            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, base_name))) {}
             else if (type_str == "std::string_view")
             {
                 Generator::BindableType &new_type = ret.emplace();

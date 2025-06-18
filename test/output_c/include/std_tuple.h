@@ -38,10 +38,10 @@ MR_C_API void MR_C_std_tuple_Destroy(MR_C_std_tuple *_this);
 /// Destroys a heap-allocated array of `MR_C_std_tuple`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_tuple_DestroyArray(MR_C_std_tuple *_this);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_tuple *MR_C_std_tuple_OffsetPtr(const MR_C_std_tuple *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_tuple *MR_C_std_tuple_OffsetMutablePtr(MR_C_std_tuple *ptr, ptrdiff_t i);
 
 #ifdef __cplusplus

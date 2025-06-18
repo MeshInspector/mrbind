@@ -22,10 +22,10 @@ MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_DefaultConst
 /// Use `MR_TypedefsInTemplates_A_int_OffsetMutablePtr()` and `MR_TypedefsInTemplates_A_int_OffsetPtr()` to access the array elements.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_DefaultConstructArray(size_t num_elems);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_OffsetPtr(const MR_TypedefsInTemplates_A_int *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_OffsetMutablePtr(MR_TypedefsInTemplates_A_int *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::TypedefsInTemplates::A<int>`.
@@ -60,10 +60,10 @@ MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_DefaultConst
 /// Use `MR_TypedefsInTemplates_B_int_OffsetMutablePtr()` and `MR_TypedefsInTemplates_B_int_OffsetPtr()` to access the array elements.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_DefaultConstructArray(size_t num_elems);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_OffsetPtr(const MR_TypedefsInTemplates_B_int *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_OffsetMutablePtr(MR_TypedefsInTemplates_B_int *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::TypedefsInTemplates::B<int>`.
@@ -94,10 +94,10 @@ MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_
 /// Use `MR_TypedefsInTemplates_B_int_BB_float_OffsetMutablePtr()` and `MR_TypedefsInTemplates_B_int_BB_float_OffsetPtr()` to access the array elements.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_DefaultConstructArray(size_t num_elems);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_OffsetPtr(const MR_TypedefsInTemplates_B_int_BB_float *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_OffsetMutablePtr(MR_TypedefsInTemplates_B_int_BB_float *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::TypedefsInTemplates::B<int>::BB<float>`.

@@ -1,7 +1,7 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
-#include <pass_by.h>
 
 #include <stddef.h>
 
@@ -40,10 +40,10 @@ MR_C_API MR_A *MR_A_DefaultConstruct(void);
 /// Use `MR_A_OffsetMutablePtr()` and `MR_A_OffsetPtr()` to access the array elements.
 MR_C_API MR_A *MR_A_DefaultConstructArray(size_t num_elems);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_A *MR_A_OffsetPtr(const MR_A *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_A *MR_A_OffsetMutablePtr(MR_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::A`.

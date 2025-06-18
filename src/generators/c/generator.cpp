@@ -179,23 +179,91 @@ namespace mrbind::CBindings
         return MakePublicHelperName("PassBy");
     }
 
-    Generator::OutputFile &Generator::GetPassByFile()
+    std::string Generator::GetMemoryDeallocFuncName(bool is_array, OutputFile *file)
+    {
+        if (file)
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile().header.path_for_inclusion);
+        return MakePublicHelperName(is_array ? "FreeArray" : "Free");
+    }
+
+    std::string Generator::GetMemoryAllocFuncName(bool is_array, OutputFile *file)
+    {
+        if (file)
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile().header.path_for_inclusion);
+        return MakePublicHelperName(is_array ? "AllocArray" : "Alloc");
+    }
+
+    Generator::OutputFile &Generator::GetCommonPublicHelpersFile()
     {
         bool is_new = false;
-        OutputFile &file = GetPublicHelperFile("pass_by", &is_new, OutputFile::InitFlags::no_extern_c);
+        OutputFile &file = GetPublicHelperFile("common", &is_new, OutputFile::InitFlags::no_extern_c);
         if (!is_new)
             return file;
 
-        std::string name = GetPassByEnumName();
+        { // The pass-by enum.
+            std::string name = GetPassByEnumName();
 
-        file.header.contents += "\ntypedef enum " + name + "\n";
-        file.header.contents += "{\n";
-        file.header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
-        file.header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
-        file.header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
-        file.header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
-        file.header.contents += "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n";
-        file.header.contents += "} " + name + ";\n";
+            file.header.contents += "\ntypedef enum " + name + "\n";
+            file.header.contents += "{\n";
+            file.header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
+            file.header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
+            file.header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
+            file.header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
+            file.header.contents += "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n";
+            file.header.contents += "} " + name + ";\n";
+        }
+
+        { // Memory management functions.
+            for (bool is_array : {false, true})
+            {
+                { // Allocate.
+                    EmitFuncParams emit;
+
+                    emit.c_comment = "/// Allocates `n` bytes of memory, which can then be freed using `" + GetMemoryDeallocFuncName(is_array, nullptr) + "()`.";
+                    if (is_array)
+                    {
+                        emit.c_comment +=
+                            "\n/// For all purposes this is equivalent to `" + GetMemoryAllocFuncName(false, nullptr) + "()` and `" + GetMemoryDeallocFuncName(false, nullptr) + "()`, but the deallocation functions are not interchangable."
+                            "\n/// This is a bit weird, but we have to have separate deallocation functions for arrays and non-arrays, because ASAN complains otherwise."
+                            "\n/// So the allocation functions must be provided separately for both too.";
+                    }
+
+                    emit.c_name = GetMemoryAllocFuncName(is_array, nullptr);
+
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
+
+                    emit.params.push_back({
+                        .name = "num_bytes",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+
+                    emit.cpp_called_func = "operator new";
+                    if (is_array)
+                        emit.cpp_called_func += "[]";
+
+                    EmitFunction(file, emit);
+                }
+
+                { // Deallocate.
+                    EmitFuncParams emit;
+
+                    emit.c_comment = "/// Deallocates memory that was previously allocated with `" + GetMemoryAllocFuncName(is_array, nullptr) + "()`. Does nothing if the pointer is null.";
+
+                    emit.c_name = GetMemoryDeallocFuncName(is_array, nullptr);
+
+                    emit.params.push_back({
+                        .name = "ptr",
+                        .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                    });
+
+                    emit.cpp_called_func = "operator delete";
+                    if (is_array)
+                        emit.cpp_called_func += "[]";
+
+                    EmitFunction(file, emit);
+                }
+            }
+        }
 
         return file;
     }
@@ -426,34 +494,6 @@ namespace mrbind::CBindings
         file.source.custom_headers.insert(std::make_move_iterator(source_custom.begin()), std::make_move_iterator(source_custom.end()));
     }
 
-
-    Generator::BindableType::BindableType(cppdecl::Type c_type)
-    {
-        ParamUsage &param = param_usage.emplace();
-        param.c_params.push_back({.c_type = c_type, .name_suffix = ""});
-
-        ReturnUsage &ret = return_usage.emplace();
-
-        // For `void` omit `return` for clarity.
-        if (c_type.AsSingleWord() == "void")
-        {
-            return_usage->make_return_statement = [](OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
-            {
-                (void)file;
-
-                // Don't add the `;` if the expression is empty.
-                // This doesn't happen during normal usage, but some custom functions that have all the code in `cpp_extra_statements`
-                //   and no actual return statement do need this.
-                if (expr.empty())
-                    return "";
-
-                return std::string(expr) + ";";
-            };
-        }
-
-        ret.c_type = std::move(c_type); // Here we can move the type.
-    }
-
     const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar)
     {
         if (auto *ret = FindBindableTypeOpt(type, remove_sugar))
@@ -578,6 +618,26 @@ namespace mrbind::CBindings
         return iter->second;
     }
 
+    std::string Generator::CppTypeNameToCTypeName(const cppdecl::QualifiedName &cpp_name)
+    {
+        if (auto ret = CppTypeNameToCTypeNameOpt(cpp_name))
+            return std::move(*ret);
+        else
+            throw std::runtime_error("Unable to translate C++ type name to C, this type isn't known: `" + cppdecl::ToCode(cpp_name, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
+    }
+
+    std::optional<std::string> Generator::CppTypeNameToCTypeNameOpt(const cppdecl::QualifiedName &cpp_name)
+    {
+        const auto *info = FindTypeBindableWithSameAddressOpt(cpp_name);
+        if (!info)
+            return {};
+
+        if (info->custom_c_type_name.empty())
+            return cppdecl::ToString(cpp_name, cppdecl::ToStringFlags::identifier);
+        else
+            return info->custom_c_type_name;
+    }
+
 
     void Generator::ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type)
     {
@@ -585,8 +645,7 @@ namespace mrbind::CBindings
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](cppdecl::QualifiedName &name)
             {
-                const auto &info = FindTypeBindableWithSameAddress(name);
-                name = cppdecl::QualifiedName::FromSingleWord(!info.custom_c_type_name.empty() ? info.custom_c_type_name : cppdecl::ToString(name, cppdecl::ToStringFlags::identifier));
+                name = cppdecl::QualifiedName::FromSingleWord(CppTypeNameToCTypeName(name));
             }
         );
     }
@@ -885,6 +944,18 @@ namespace mrbind::CBindings
     {
         try
         {
+            auto ApplyTypeDependencies = [this, &file](const std::unordered_map<std::string, BindableType::SameAddrBindableTypeDependency> &deps)
+            {
+                for (const auto &dep : deps)
+                {
+                    auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
+
+                    // Calling `declared_in_file()` might create the file that defines this type, which is a good thing.
+                    if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
+                        file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+                }
+            };
+
             cppdecl::Function new_func;
             cppdecl::Function new_func_decl;
 
@@ -941,14 +1012,7 @@ namespace mrbind::CBindings
                         const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
 
                         // Declare or include type dependencies of the parameter.
-                        for (const auto &dep : param_usage.same_addr_bindable_type_dependencies)
-                        {
-                            auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
-
-                            // Adding `!dep.second.need_header` to avoid evaluating the header if it's not needed.
-                            if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
-                                file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                        }
+                        ApplyTypeDependencies(param_usage.same_addr_bindable_type_dependencies);
 
                         for (const auto &c_param : param_usage.c_params)
                         {
@@ -1116,14 +1180,7 @@ namespace mrbind::CBindings
                     throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
 
                 // Declare or include the type dependencies of the return type.
-                for (const auto &dep : bindable_return_type.return_usage->same_addr_bindable_type_dependencies)
-                {
-                    auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
-
-                    // Adding `!dep.second.need_header` to avoid evaluating the header if it's not needed.
-                    if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
-                        file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                }
+                ApplyTypeDependencies(bindable_return_type.return_usage->same_addr_bindable_type_dependencies);
 
                 // Custom comment?
                 if (!bindable_return_type.return_usage->append_to_comment.empty())
@@ -1140,7 +1197,6 @@ namespace mrbind::CBindings
             }
             catch (...)
             {
-                std::cerr << "###\n";
                 std::throw_with_nested(std::runtime_error("While processing the return type:"));
             }
 

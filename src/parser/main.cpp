@@ -225,6 +225,11 @@ namespace mrbind
                 // We use `.getCanonicalType()` instead of a separate printing policy with this set to true,
                 // because `.getCanonicalType()` doesn't interfere with `SuppressDefaultTemplateArgs` (and other stuff?).
                 p->PrintCanonicalTypes = false;
+
+                // This almost never comes up.
+                // In default arguments, when there's a lambda, this disables SOME OF the newlines that get inserted automatically.
+                // Not all of them though, we still need to remove the remaining ones manually.
+                p->IncludeNewlines = false;
             }
         }
     };
@@ -472,6 +477,41 @@ namespace mrbind
 
             llvm::raw_string_ostream ss(out_arg->original_spelling);
             default_arg->printPretty(ss, nullptr, printing_policy);
+
+            // Remove the newlines! They come up if the default argument is a lambda, even despite us setting `clang::PrintingPolicy::IncludeNewlines = false`.
+            if (out_arg->original_spelling.find('\n') != std::string::npos)
+            {
+                std::string new_str;
+                new_str.reserve(out_arg->original_spelling.size());
+
+                bool skip_whitespace = false;
+
+                for (char ch : out_arg->original_spelling)
+                {
+                    if (skip_whitespace)
+                    {
+                        if (cppdecl::IsWhitespace(ch))
+                            continue;
+                        skip_whitespace = false;
+                        if (!new_str.empty() && cppdecl::IsIdentifierChar(new_str.back()) && cppdecl::IsIdentifierChar(ch))
+                            new_str = ' '; // Insert a single separating whitespace if necessary.
+                    }
+
+                    if (ch == '\n')
+                    {
+                        while (!new_str.empty() && cppdecl::IsIdentifierChar(new_str.back()))
+                            new_str.pop_back();
+
+                        skip_whitespace = true; // Skip any whitespace after this too.
+
+                        continue;
+                    }
+
+                    new_str += ch;
+                }
+
+                out_arg->original_spelling = std::move(new_str);
+            }
 
             // Adjust `{...}` to add an explicit type.
             if (out_arg->original_spelling.starts_with('{'))

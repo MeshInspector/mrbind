@@ -26,6 +26,7 @@ namespace mrbind::CBindings
         [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_base_name = "");
 
         // Does `c_type_name + "_" + name`. Use this to generate all the member function names.
+        // This is fine for "static" member functions too.
         [[nodiscard]] std::string MakeMemberFuncName(std::string_view name) const;
 
         void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const;
@@ -106,6 +107,10 @@ namespace mrbind::CBindings
     // Unlike `MakeSimpleDirectTypeBinding()` this analyzes the type and may refuse to bind it if it doesn't understand what it is and what strategy to apply.
     [[nodiscard]] std::optional<Generator::BindableType> MakeSimpleTypeBinding(Generator &generator, const cppdecl::Type &cpp_type);
 
+    // This isn't very useful for user-written bindings. Prefer `HeapAllocatedClassBinder::FillCommonParams()` instead.
+    // Maybe we should destroy this function altogether and leave only the `FillCommonParams()`.
+    // The only difference is that `FillCommonParams()` also fills `.bindable_with_same_address`, which this one doesn't need to do,
+    //   because it's for parsed classes only, and they populate `Generator::types_bindable_with_same_address` directly.
     [[nodiscard]] Generator::BindableType MakeByValueClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type, const Generator::TypeTraits &traits);
 
     // If `cpp_type` is one of `target_name {const &, &&, const &&}`, then generates a default binding for them `using `MakeSimpleTypeBinding()`, and then patches the parameter usage to match that of a by-value `target_name`.
@@ -113,7 +118,10 @@ namespace mrbind::CBindings
     // If `cpp_type` is one of those types, but the default binding for `cpp_type` couldn't be generated, or if there's no binding for `target_name`, throws.
     // The intent behind this is to propagate fancy custom parameter usage to those reference parameters.
     // This is only necessary if the custom parameter usage exists in the first place.
-    [[nodiscard]] std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags = {});
+    [[nodiscard]] std::optional<Generator::BindableType> BindNonConstOrRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags = {});
+
+    // Same, but only acts on rvalue reference parameters, never on lvalue ones.
+    [[nodiscard]] std::optional<Generator::BindableType> BindRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags = {});
 
     // ]
 }

@@ -182,7 +182,7 @@ namespace mrbind::CBindings
             // Here we only fill the `_with_default_arg` version, because that handles both.
             Generator::BindableType::ParamUsageWithDefaultArg &param_usage = ret.emplace();
             param_usage.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
-            param_usage.extra_headers.custom_in_header_file = [&generator]{return std::unordered_set{generator.GetPassByFile().header.path_for_inclusion};};
+            param_usage.extra_headers.custom_in_header_file = [&generator]{return std::unordered_set{generator.GetCommonPublicHelpersFile().header.path_for_inclusion};};
 
             param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(generator.GetPassByEnumName());
             param_usage.c_params.back().name_suffix = "_pass_by";
@@ -352,6 +352,8 @@ namespace mrbind::CBindings
         ret.c_name = MakeMemberFuncName("DefaultConstruct");
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
+        ret.remove_return_type_sugar = true;
+
         ret.cpp_called_func = cpp_type_str;
 
         ret.c_comment = "/// Constructs an empty (default-constructed) instance.";
@@ -368,6 +370,7 @@ namespace mrbind::CBindings
         ret.c_name = MakeMemberFuncName("DefaultConstructArray");
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{});
+        ret.remove_return_type_sugar = true;
 
         ret.params.push_back({
             .name = "num_elems",
@@ -395,6 +398,8 @@ namespace mrbind::CBindings
         ret.c_name = MakeMemberFuncName((with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"));
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
+        ret.remove_return_type_sugar = true;
+
         ret.cpp_called_func = cpp_type_str;
 
         ret.params.push_back({
@@ -494,7 +499,7 @@ namespace mrbind::CBindings
 
         ret.cpp_called_func = "@1@ + @2@";
 
-        ret.c_comment += "/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.";
+        ret.c_comment += "/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.";
 
         return ret;
     }
@@ -546,11 +551,42 @@ namespace mrbind::CBindings
 
     Generator::BindableType MakeSimpleDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type)
     {
-        Generator::BindableType ret(c_type);
+        Generator::BindableType ret;
 
         ret.traits = Generator::TypeTraits::TrivialAndSameSizeInCAndCpp{};
+
+        // Custom handling for `void`.
+        if (cpp_type.AsSingleWord() == "void")
+        {
+            // Only fill the return usage.
+
+            auto &ret_usage = ret.return_usage.emplace();
+            ret_usage.c_type = c_type;
+
+            // Omit `return` for clarity.
+            ret_usage.make_return_statement = [](Generator::OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
+            {
+                (void)file;
+
+                // Don't add the `;` if the expression is empty.
+                // This doesn't happen during normal usage, but some custom functions that have all the code in `cpp_extra_statements`
+                //   and no actual return statement do need this.
+                if (expr.empty())
+                    return "";
+
+                return std::string(expr) + ";";
+            };
+
+            return ret;
+        }
+
         if (cpp_type.IsConstOrReference())
             ret.traits->MakeNonAssignable();
+
+        auto &param = ret.param_usage.emplace();
+        param.c_params.push_back({
+            .c_type = cppdecl::Type(c_type),
+        });
 
         // Allow default arguments via pointers.
         auto &param_def_arg = ret.param_usage_with_default_arg.emplace();
@@ -606,6 +642,9 @@ namespace mrbind::CBindings
         if (cpp_type.Is<cppdecl::Pointer>())
             param_def_arg.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
+        // Return usage is trivial:
+        ret.return_usage.emplace().c_type = c_type;
+
         generator.FillDefaultTypeDependencies(cpp_type, ret);
 
         return ret;
@@ -629,19 +668,27 @@ namespace mrbind::CBindings
             auto type_c_style = cpp_type;
             generator.ReplaceAllNamesInTypeWithCNames(type_c_style);
 
-            Generator::BindableType new_type(type_c_style);
+            Generator::BindableType new_type;
 
             // I assume `IsSimplyBindableDirectCast()` is only going to trigger for simple types that are trivial enough for this. This could change later?
             // Must assume different size in C and C++ because of enums (with custom underlying types).
             new_type.traits = Generator::TypeTraits::TrivialButDifferentSizeInCAndCpp{};
 
+            auto &ret_usage = new_type.return_usage.emplace();
+            ret_usage.c_type = type_c_style;
+
+            auto &param = new_type.param_usage.emplace();
+            param.c_params.push_back({
+                .c_type = type_c_style,
+            });
+
             // Add the casts!
-            new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
+            ret_usage.make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
             {
                 (void)file;
                 return "return (" + type_str_c + ")(" + std::string(expr) + ");";
             };
-            new_type.param_usage->c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
+            param.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
                 (void)default_arg;
@@ -733,26 +780,29 @@ namespace mrbind::CBindings
                 auto type_c_style = cpp_type;
                 generator.ReplaceAllNamesInTypeWithCNames(type_c_style);
 
-                Generator::BindableType new_type(type_c_style);
+                Generator::BindableType new_type;
 
                 new_type.traits = Generator::TypeTraits(Generator::TypeTraits::ReferenceType{}, ref_target_type.IsConst(), is_rvalue_ref);
 
+                auto type_c_style_ptr = type_c_style;
+                type_c_style_ptr.modifiers.front().var = cppdecl::Pointer{};
+
                 // Return type:
 
-                new_type.return_usage->c_type.modifiers.front().var = cppdecl::Pointer{};
-                new_type.return_usage->append_to_comment = "/// The returned pointer will never be null. It is non-owning, do NOT destroy it.";
+                auto &ret_usage = new_type.return_usage.emplace();
+                ret_usage.c_type = type_c_style_ptr;
+                ret_usage.append_to_comment = "/// The returned pointer will never be null. It is non-owning, do NOT destroy it.";
                 if (is_rvalue_ref)
-                    new_type.return_usage->append_to_comment += "\n/// In C++ this returns an rvalue reference.";
+                    ret_usage.append_to_comment += "\n/// In C++ this returns an rvalue reference.";
 
                 if (with_cast)
                 {
-
                     auto ptr_type_c_style = type_c_style;
                     assert(ptr_type_c_style.Is<cppdecl::Reference>());
                     ptr_type_c_style.modifiers.at(0).var = cppdecl::Pointer{};
 
                     // Take the address and cast.
-                    new_type.return_usage->make_return_statement = [
+                    ret_usage.make_return_statement = [
                         ref_target_c_type_str = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1),
                         ref_target_c_type_ptr_str = ToCode(ptr_type_c_style, cppdecl::ToCodeFlags::canonical_c_style),
                         is_rvalue_ref,
@@ -774,7 +824,7 @@ namespace mrbind::CBindings
                 {
                     // Just take the address.
                     // Here we don't need any special handling of rvalue references.
-                    new_type.return_usage->make_return_statement = [
+                    ret_usage.make_return_statement = [
                         is_rvalue_ref,
                         details_file = is_rvalue_ref ? generator.GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
@@ -794,14 +844,11 @@ namespace mrbind::CBindings
 
 
                 // Params:
+                auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
+                param_def_arg.c_params.push_back({
+                    .c_type = type_c_style_ptr,
+                });
 
-                new_type.param_usage_with_default_arg.emplace();
-                new_type.param_usage_with_default_arg->ParamUsage::operator=(std::move(new_type.param_usage.value()));
-                new_type.param_usage.reset();
-
-                auto &param_def_arg = *new_type.param_usage_with_default_arg;
-
-                param_def_arg.c_params.front().c_type.modifiers.front().var = cppdecl::Pointer{};
                 param_def_arg.append_to_comment = [
                     is_rvalue_ref
                 ](std::string_view cpp_param_name, bool has_default_arg) -> std::string
@@ -921,7 +968,7 @@ namespace mrbind::CBindings
         return new_type;
     }
 
-    std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags)
+    std::optional<Generator::BindableType> BindNonConstOrRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags)
     {
         if (cpp_type.modifiers.size() != 1)
             return {}; // Need exactly one modifier (a reference).
@@ -934,6 +981,30 @@ namespace mrbind::CBindings
 
         if (ref->kind == cppdecl::RefQualifier::lvalue && !is_const)
             return {}; // Reject non-const lvalue references.
+
+        if (!cpp_type.simple_type.name.Equals(target_name, comparison_flags))
+            return {}; // Type name mismatch.
+
+        // This is non-`Opt`. We throw if this fails.
+        const Generator::BindableType &by_value_binding = generator.FindBindableType(cppdecl::Type(cpp_type).RemoveModifier().RemoveQualifiers(cppdecl::CvQualifiers::const_));
+
+        // We throw if this fails.
+        Generator::BindableType ret = MakeSimpleTypeBinding(generator, cpp_type).value();
+
+        ret.param_usage = by_value_binding.param_usage;
+        ret.param_usage_with_default_arg = by_value_binding.param_usage_with_default_arg;
+
+        return ret;
+    }
+
+    std::optional<Generator::BindableType> BindRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags)
+    {
+        if (cpp_type.modifiers.size() != 1)
+            return {}; // Need exactly one modifier (a reference).
+
+        const cppdecl::Reference *ref = cpp_type.As<cppdecl::Reference>();
+        if (!ref || ref->kind != cppdecl::RefQualifier::rvalue)
+            return {}; // Not an rvalue reference.
 
         if (!cpp_type.simple_type.name.Equals(target_name, comparison_flags))
             return {}; // Type name mismatch.

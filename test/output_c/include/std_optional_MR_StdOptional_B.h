@@ -1,7 +1,7 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
-#include <pass_by.h>
 
 #include <stddef.h>
 
@@ -49,10 +49,10 @@ MR_C_API void MR_C_std_optional_MR_StdOptional_B_Destroy(MR_C_std_optional_MR_St
 /// Destroys a heap-allocated array of `MR_C_std_optional_MR_StdOptional_B`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_optional_MR_StdOptional_B_DestroyArray(MR_C_std_optional_MR_StdOptional_B *_this);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_OffsetPtr(const MR_C_std_optional_MR_StdOptional_B *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_OffsetMutablePtr(MR_C_std_optional_MR_StdOptional_B *ptr, ptrdiff_t i);
 
 /// The stored element or null if none, read-only.

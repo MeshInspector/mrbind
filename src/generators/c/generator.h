@@ -200,8 +200,18 @@ namespace mrbind::CBindings
 
         // Returns the C name of the `PassBy` enum, which is used when passing classes to functions by value.
         [[nodiscard]] std::string GetPassByEnumName();
-        // Returns the public C header that declares the `PassBy` enum.
-        [[nodiscard]] OutputFile &GetPassByFile();
+
+        // Returns the C name of a function that's used to free memory without calling destructors.
+        // There is a separate version for arrays because ASAN complains about alloc-dealloc mismatch otherwise.
+        // `file` is optional. If specific, the include gets added to it that declares this function.
+        [[nodiscard]] std::string GetMemoryDeallocFuncName(bool is_array, OutputFile *file);
+        // Returns the C name of a function that's used to allocate memory without calling constructors.
+        // Not particualry useful by itself, but added for consistency with `GetMemoryDeallocFuncName()`.
+        // `file` is optional. If specific, the include gets added to it that declares this function.
+        [[nodiscard]] std::string GetMemoryAllocFuncName(bool is_array, OutputFile *file);
+
+        // Returns the public C header that declares the `PassBy` enum, and some other public helpers.
+        [[nodiscard]] OutputFile &GetCommonPublicHelpersFile();
 
         // Returns a public helper header with this name. It gets created on the first use.
         [[nodiscard]] OutputFile &GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {});
@@ -393,6 +403,23 @@ namespace mrbind::CBindings
                 is_trivially_copy_assignable = true;
                 is_trivially_move_assignable = true;
                 is_trivially_destructible = true;
+
+                is_any_constructible = true;
+            }
+
+            struct MoveOnlyAndTrivialExceptForDefaultCtorAndDtor {explicit MoveOnlyAndTrivialExceptForDefaultCtorAndDtor() = default;};
+            // E.g. `std::unique_ptr` goes here, even if not technically trivial.
+            TypeTraits(MoveOnlyAndTrivialExceptForDefaultCtorAndDtor)
+            {
+                is_default_constructible = true;
+                is_move_constructible = true;
+                is_move_assignable = true;
+                is_destructible = true;
+
+                is_trivially_default_constructible = false; // !!
+                is_trivially_move_constructible = true;
+                is_trivially_move_assignable = true;
+                is_trivially_destructible = false; // !!
 
                 is_any_constructible = true;
             }
@@ -607,7 +634,7 @@ namespace mrbind::CBindings
                     std::string name_suffix = "";
                 };
 
-                // Must not be empty. Usually this will have size 1.
+                // Should not be empty. Usually this will have size 1.
                 // If this has more than one element, then the C function will have MORE THAN ONE parameter per this single C++ parameter.
                 std::vector<CParam> c_params;
 
@@ -625,9 +652,9 @@ namespace mrbind::CBindings
                 // Defaults to returning `cpp_param_name` if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
                 // NOTE: The return value must be correctly parenthesized if necessary (so that e.g. `"&" + result` compiles correctly).
-                // The implementation .cpp `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
+                // The implementation .cpp file (`source_file`) is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
                 //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose. This parameter is convenient if your includes are conditional, depending on the presence of the default arg, for example.
-                // `default_arg` is the default argument or empty if any.
+                // `default_arg` is the default argument if any.
                 //   Note that if this `ParamUsage` is `BindableType::param_usage` as opposed to `BindableType::param_usage_with_default_arg`, then you'll never receive default arguments (will always receive `DefaultArgNone{}`).
                 //   If this is `DefaultArgNone`, there is no default argument.
                 //   If this is `std::string_view`, then that's your default argument. Don't forget to cast it to your type, just in case.
@@ -749,10 +776,6 @@ namespace mrbind::CBindings
 
 
             BindableType() {}
-
-            // Sets the default parameters for a simple type that can be passed directly.
-            // This doesn't allow the default arguments by default.
-            explicit BindableType(cppdecl::Type c_type);
         };
         // The types that we know how to bind.
         // Don't access this directly! Use `FindBindableType` because that will lazily insert the missing types here.
@@ -781,9 +804,15 @@ namespace mrbind::CBindings
         mutable std::unordered_map<std::string, cppdecl::QualifiedName> cached_parsed_qual_names;
         [[nodiscard]] const cppdecl::QualifiedName &ParseQualNameOrThrow(const std::string &str) const;
 
+        // Maps a C++ type name to a C type name, by consulting `FindTypeBindableWithSameAddress()`.
+        // This only handles the types that are already known. DON'T use when writing new bindings.
+        // Throws if the type is unknown.
+        [[nodiscard]] std::string CppTypeNameToCTypeName(const cppdecl::QualifiedName &cpp_name);
+        // Same, but returns null on failure instead of throwing.
+        [[nodiscard]] std::optional<std::string> CppTypeNameToCTypeNameOpt(const cppdecl::QualifiedName &cpp_name);
 
-        // Replaces every `cppdecl::QualifierName` in the type with its C equivalent, by consulting `FindTypeBindableWithSameAddress()`.
-        // Throws if some qualified name is unknown.
+        // Replaces every `cppdecl::QualifierName` in the type with its C equivalent, by applying `CppTypeNameToCTypeName()` recursively.
+        // Throws if some qualified name in the input is unknown.
         void ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type);
 
         // Indents a string by the number of `levels` (each is currently 4 whitespaces).

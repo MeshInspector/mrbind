@@ -1,7 +1,7 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
-#include <pass_by.h>
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -42,10 +42,10 @@ MR_C_API void MR_C_std_multiset_float_Destroy(MR_C_std_multiset_float *_this);
 /// Destroys a heap-allocated array of `MR_C_std_multiset_float`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_multiset_float_DestroyArray(MR_C_std_multiset_float *_this);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetPtr(const MR_C_std_multiset_float *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetMutablePtr(MR_C_std_multiset_float *ptr, ptrdiff_t i);
 
 /// The number of elements.
@@ -120,10 +120,10 @@ MR_C_API void MR_C_std_multiset_float_const_iterator_Destroy(MR_C_std_multiset_f
 /// Destroys a heap-allocated array of `MR_C_std_multiset_float_const_iterator`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_multiset_float_const_iterator_DestroyArray(MR_C_std_multiset_float_const_iterator *_this);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_OffsetPtr(const MR_C_std_multiset_float_const_iterator *ptr, ptrdiff_t i);
 
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array.
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_OffsetMutablePtr(MR_C_std_multiset_float_const_iterator *ptr, ptrdiff_t i);
 
 /// Dereferences a const iterator.
