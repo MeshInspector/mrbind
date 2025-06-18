@@ -144,7 +144,10 @@ namespace mrbind::CBindings::Modules
                     // We don't provide an `operator bool` check because the dereferencing function (that returns a pointer) already acts as one.
                     // We don't provide "set value" and "reset" functions because the sugared copy/move constructor and assignment already do the same thing.
 
-                    { // Get pointer. Doesn't propagate const, like in `std::unique_ptr`.
+                    // NOTE: We don't wrap `std::make_unique()`, because the sugared constructor and assignment above can already be used to achieve the same thing,
+                    //   by manually calling the right allocation functions, and passing the pointers returned from them.
+
+                    { // Get pointer. Doesn't propagate const, since `std::unique_ptr` doesn't too.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the stored pointer, possibly null.";
                         emit.c_name = binder.MakeMemberFuncName("Get");
@@ -158,7 +161,7 @@ namespace mrbind::CBindings::Modules
                         generator.EmitFunction(file, emit);
                     }
 
-                    // Indexing, if this is an array. Doesn't propagate const, like in `std::unique_ptr`.
+                    // Indexing, if this is an array. Doesn't propagate const, since `std::unique_ptr` doesn't too.
                     if (is_array_of_unknown_bound)
                     {
                         Generator::EmitFuncParams emit;

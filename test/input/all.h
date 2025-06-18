@@ -4,8 +4,10 @@
 #include <input/MR/test_simple_types.h>
 #include <input/MR/test_std_containers.h>
 #include <input/MR/test_std_optional.h>
+#include <input/MR/test_std_shared_ptr.h>
 #include <input/MR/test_std_string.h>
 #include <input/MR/test_std_string_view.h>
 #include <input/MR/test_std_tuple_like.h>
+#include <input/MR/test_std_unique_ptr.h>
 #include <input/MR/test_typedefs_in_templates.h>
 #include <input/MR/test_variant.h>
