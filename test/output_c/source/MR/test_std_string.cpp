@@ -3,6 +3,7 @@
 #include <input/MR/test_std_string.h>
 
 #include <stdexcept>
+#include <utility>
 
 
 void MR_StdString_Set(const char *s, const char *s_end)
@@ -48,30 +49,30 @@ void MR_StdString_WriteToPtr(MR_C_std_string *ptr)
     );
 }
 
-void MR_StdString_ConstRef(const char *s, const char *s_end)
+void MR_StdString_ConstRef(const MR_C_std_string *s)
 {
     using namespace MR;
     using namespace StdString;
     MR::StdString::ConstRef(
-        (s ? (s_end ? std::string(s, s_end) : std::string(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        (s ? *(const std::string *)(s) : throw std::runtime_error("Parameter `s` can not be null."))
     );
 }
 
-void MR_StdString_RvalueRef(const char *s, const char *s_end)
+void MR_StdString_RvalueRef(MR_C_std_string *s)
 {
     using namespace MR;
     using namespace StdString;
     MR::StdString::RvalueRef(
-        (s ? (s_end ? std::string(s, s_end) : std::string(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        (s ? std::move(*(std::string *)(s)) : throw std::runtime_error("Parameter `s` can not be null."))
     );
 }
 
-void MR_StdString_ConstRvalueRef(const char *s, const char *s_end)
+void MR_StdString_ConstRvalueRef(const MR_C_std_string *s)
 {
     using namespace MR;
     using namespace StdString;
     MR::StdString::ConstRvalueRef(
-        (s ? (s_end ? std::string(s, s_end) : std::string(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        (s ? std::move(*(const std::string *)(s)) : throw std::runtime_error("Parameter `s` can not be null."))
     );
 }
 

@@ -6,24 +6,30 @@ namespace mrbind::CBindings::Modules
 {
     struct StdString : DeriveModule<StdString>
     {
-        cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("string");
+        cppdecl::QualifiedName target_name_stdstring = cppdecl::QualifiedName{}.AddPart("std").AddPart("string");
+        cppdecl::QualifiedName target_name_stdstringview = cppdecl::QualifiedName{}.AddPart("std").AddPart("string_view");
 
-        HeapAllocatedClassBinder binder;
+        HeapAllocatedClassBinder binder_stdstring;
+        HeapAllocatedClassBinder binder_stdstringview;
 
         void Init(Generator &generator) override
         {
-            binder = HeapAllocatedClassBinder::ForCustomType(generator, cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
-            binder.traits = Generator::TypeTraits::CopyableNonTrivial{};
+            binder_stdstring = HeapAllocatedClassBinder::ForCustomType(generator, target_name_stdstring);
+            binder_stdstringview = HeapAllocatedClassBinder::ForCustomType(generator, target_name_stdstringview);
+            binder_stdstring.traits = Generator::TypeTraits::CopyableNonTrivial{};
+            binder_stdstringview.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{};
         }
 
-        Generator::OutputFile &GetOutputFile(Generator &generator)
+        Generator::OutputFile &GetOutputFile(Generator &generator, bool is_view)
         {
             bool is_new = false;
-            Generator::OutputFile &file = generator.GetPublicHelperFile("std_string", &is_new);
+            Generator::OutputFile &file = generator.GetPublicHelperFile(is_view ? "std_string_view" : "std_string", &is_new);
 
             if (is_new)
             {
-                file.header.contents += "\n/// A heap-allocated string.\n";
+                auto &binder = is_view ? binder_stdstringview : binder_stdstring;
+
+                file.header.contents += is_view ? "\n/// A non-owning string view. Not necessarily null-terminated.\n" : "\n/// A heap-allocated null-terminated string.\n";
                 binder.EmitForwardDeclaration(generator, file);
 
                 binder.EmitSpecialMemberFunctions(generator, file, true);
@@ -32,7 +38,7 @@ namespace mrbind::CBindings::Modules
 
                 { // size
                     Generator::EmitFuncParams emit;
-                    emit.c_comment = "/// The number of characters in the string, excluding the null-terminator.";
+                    emit.c_comment = is_view ? "/// The number of characters in the string." : "/// The number of characters in the string, excluding the null-terminator.";
                     emit.c_name = binder.MakeMemberFuncName("Size");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -42,15 +48,17 @@ namespace mrbind::CBindings::Modules
 
                 { // data
                     Generator::EmitFuncParams emit;
-                    emit.c_comment = "/// Returns the string contents, which are always null-terminated.";
+                    emit.c_comment = is_view ? "/// Returns the string contents, NOT necessarily null-terminated." : "/// Returns the string contents, which are always null-terminated.";
                     emit.c_name = binder.MakeMemberFuncName("Data");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                    emit.cpp_called_func = "c_str";
+                    emit.cpp_called_func = "data";
                     generator.EmitFunction(file, emit);
                 }
 
-                { // mutable data
+                // mutable data
+                if (!is_view)
+                {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.";
                     emit.c_name = binder.MakeMemberFuncName("MutableData");
@@ -62,15 +70,17 @@ namespace mrbind::CBindings::Modules
 
                 { // data end
                     Generator::EmitFuncParams emit;
-                    emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator.";
+                    emit.c_comment = is_view ? "/// Returns a pointer to the end of string. Not dereferencable." : "/// Returns a pointer to the end of string, to its null-terminator.";
                     emit.c_name = binder.MakeMemberFuncName("DataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                    emit.cpp_called_func = "@this@.c_str() + @this@.size()";
+                    emit.cpp_called_func = "@this@.data() + @this@.size()";
                     generator.EmitFunction(file, emit);
                 }
 
-                { // mutable data end
+                // mutable data end
+                if (!is_view)
+                {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.";
                     emit.c_name = binder.MakeMemberFuncName("MutableDataEnd");
@@ -90,15 +100,20 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, base_name))) {}
-            else if (type_str == "std::string")
+            bool is_view = false;
+
+            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, target_name_stdstring))) {}
+            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, target_name_stdstringview))) {}
+            else if (type_str == "std::string" || (is_view = type_str == "std::string_view"))
             {
                 Generator::BindableType &new_type = ret.emplace();
+
+                auto &binder = is_view ? binder_stdstringview : binder_stdstring;
 
                 new_type.traits = Generator::TypeTraits::CopyableNonTrivial{};
                 new_type.is_heap_allocated_class = true;
 
-                new_type.bindable_with_same_address.declared_in_file = [this, &generator]() -> auto & {return GetOutputFile(generator);};
+                new_type.bindable_with_same_address.declared_in_file = [this, &generator, is_view]() -> auto & {return GetOutputFile(generator, is_view);};
                 new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
                 new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
@@ -109,7 +124,9 @@ namespace mrbind::CBindings::Modules
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
                 param_usage.c_params.back().name_suffix += "_end";
-                param_usage.c_params_to_cpp = [](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
+                param_usage.c_params_to_cpp = [
+                    type_str = std::string(type_str) // Casting just in case, to avoid dangling in the future, if the parameter type changes to `std::string_view`.
+                ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
                 {
                     std::string ret = "(";
                     ret += cpp_param_name;
@@ -119,7 +136,7 @@ namespace mrbind::CBindings::Modules
                     if (wrapper)
                         ret += wrapper->wrapper_cpp_type;
 
-                    ret += "(" + std::string(cpp_param_name) + "_end ? std::string(" + std::string(cpp_param_name) + ", " + std::string(cpp_param_name) + "_end) : std::string(" + std::string(cpp_param_name) + ")) : ";
+                    ret += "(" + std::string(cpp_param_name) + "_end ? " + type_str + "(" + std::string(cpp_param_name) + ", " + std::string(cpp_param_name) + "_end) : " + type_str + "(" + std::string(cpp_param_name) + ")) : ";
 
                     std::visit(Overload{
                         [&](Generator::BindableType::ParamUsage::DefaultArgNone)
@@ -131,7 +148,7 @@ namespace mrbind::CBindings::Modules
                         },
                         [&](std::string_view default_arg)
                         {
-                            ret += "std::string(";
+                            ret += type_str + "(";
                             ret += default_arg;
                             ret += ")";
                         },

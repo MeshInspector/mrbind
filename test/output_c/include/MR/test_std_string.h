@@ -33,18 +33,19 @@ MR_C_API void MR_StdString_WriteToPtr(MR_C_std_string *ptr);
 
 /// Generated from function `MR::StdString::ConstRef`.
 /// Parameter `s` can not be null.
-/// If `s_end` is null, then `s` is assumed to be null-terminated.
-MR_C_API void MR_StdString_ConstRef(const char *s, const char *s_end);
+MR_C_API void MR_StdString_ConstRef(const MR_C_std_string *s);
 
 /// Generated from function `MR::StdString::RvalueRef`.
 /// Parameter `s` can not be null.
-/// If `s_end` is null, then `s` is assumed to be null-terminated.
-MR_C_API void MR_StdString_RvalueRef(const char *s, const char *s_end);
+/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+///   but if your pointer is owning, you must still destroy it manually later.
+MR_C_API void MR_StdString_RvalueRef(MR_C_std_string *s);
 
 /// Generated from function `MR::StdString::ConstRvalueRef`.
 /// Parameter `s` can not be null.
-/// If `s_end` is null, then `s` is assumed to be null-terminated.
-MR_C_API void MR_StdString_ConstRvalueRef(const char *s, const char *s_end);
+/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+///   but if your pointer is owning, you must still destroy it manually later.
+MR_C_API void MR_StdString_ConstRvalueRef(const MR_C_std_string *s);
 
 #ifdef __cplusplus
 } // extern "C"

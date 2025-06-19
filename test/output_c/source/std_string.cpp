@@ -70,7 +70,7 @@ size_t MR_C_std_string_Size(const MR_C_std_string *_this)
 
 const char *MR_C_std_string_Data(const MR_C_std_string *_this)
 {
-    return (_this ? *(const std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).c_str();
+    return (_this ? *(const std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data();
 }
 
 const char *MR_C_std_string_MutableData(MR_C_std_string *_this)
@@ -80,7 +80,7 @@ const char *MR_C_std_string_MutableData(MR_C_std_string *_this)
 
 const char *MR_C_std_string_DataEnd(const MR_C_std_string *_this)
 {
-    return (_this ? *(const std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).c_str() + (_this ? *(const std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();
+    return (_this ? *(const std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data() + (_this ? *(const std::string *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();
 }
 
 char *MR_C_std_string_MutableDataEnd(MR_C_std_string *_this)
