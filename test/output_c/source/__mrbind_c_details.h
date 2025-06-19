@@ -6,13 +6,13 @@
 namespace mrbindc_details
 {
     #define MRBINDC_IDENTITY(...) __VA_ARGS__
-    
+
     #if defined(_MSC_VER) && !defined(__clang__)
     #define MRBINDC_IGNORE_DEPRECATION(...) _Pragma("warning(push)") _Pragma("warning(disable: 4996)") __VA_ARGS__ _Pragma("warning(pop)")
     #else
     #define MRBINDC_IGNORE_DEPRECATION(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
     #endif
-    
+
     // Those are used to handle by-value arguments of class types, which are passed as a pointer plus a enum explaining how to handle it.
     // The `cpp_type_without_wrapper_` vs `cpp_type_` are different for optionals: `cpp_type_` is either `T` or `std::optional<T>`, while `cpp_type_without_wrapper_` is always the `T` itself.
     #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == MR_C_PassBy_DefaultConstruct ? (param_ ? throw std::runtime_error("Expected a null pointer to be passed to `" #param_ " because `MR_C_PassBy_DefaultConstruct` was used.") : __VA_ARGS__{}) :

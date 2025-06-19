@@ -79,6 +79,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         src/generators/c/generator.cpp
         src/generators/c/main.cpp
         src/generators/c/module.cpp
+        src/generators/c/modules/std_and_tl_expected.cpp
         src/generators/c/modules/std_array.cpp
         src/generators/c/modules/std_containers.cpp
         src/generators/c/modules/std_filesystem.cpp

@@ -3,6 +3,7 @@
 #include <input/MR/test_nested_class_template_inst.h>
 #include <input/MR/test_simple_types.h>
 #include <input/MR/test_std_containers.h>
+#include <input/MR/test_std_expected.h>
 #include <input/MR/test_std_filesystem.h>
 #include <input/MR/test_std_optional.h>
 #include <input/MR/test_std_shared_ptr.h>
