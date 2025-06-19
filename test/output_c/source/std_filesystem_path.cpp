@@ -64,7 +64,7 @@ MR_C_std_filesystem_path *MR_C_std_filesystem_path_OffsetMutablePtr(MR_C_std_fil
     return (MR_C_std_filesystem_path *)(((std::filesystem::path *)ptr) + i);
 }
 
-MR_C_std_string *GetString(const MR_C_std_filesystem_path *_this)
+MR_C_std_string *MR_C_std_filesystem_path_GetString(const MR_C_std_filesystem_path *_this)
 {
     auto ret = (_this ? *(const std::filesystem::path *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).u8string();
     return (MR_C_std_string *)new std::string(std::string(reinterpret_cast<const char *>(ret.c_str()), ret.size()));
