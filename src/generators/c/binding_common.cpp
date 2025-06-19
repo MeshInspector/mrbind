@@ -1020,4 +1020,83 @@ namespace mrbind::CBindings
 
         return ret;
     }
+
+    Generator::BindableType::ParamUsageWithDefaultArg MakeStringLikeParamUsageSupportingDefaultArg(
+        std::string_view cpp_type_name,
+        std::function<std::string(std::string_view begin)> from_one_pointer,
+        std::function<std::string(std::string_view begin, std::string_view end)> from_two_pointers
+    )
+    {
+        Generator::BindableType::ParamUsageWithDefaultArg ret;
+
+        auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+        ret.c_params.emplace_back().c_type = const_char_ptr_type;
+        ret.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
+        ret.c_params.back().name_suffix += "_end";
+        ret.c_params_to_cpp = [
+            cpp_type_name = std::string(cpp_type_name), // Capture a copy of the string
+            from_one_pointer,
+            from_two_pointers
+        ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
+        {
+            std::string ret = "(";
+            ret += cpp_param_name;
+            ret += " ? ";
+
+            const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+            if (wrapper)
+                ret += wrapper->wrapper_cpp_type;
+
+            ret += "(" + std::string(cpp_param_name) + "_end ? ";
+            if (from_two_pointers)
+                ret += from_two_pointers(cpp_param_name, std::string(cpp_param_name) + "_end");
+            else
+                ret += cpp_type_name + "(" + std::string(cpp_param_name) + ", " + std::string(cpp_param_name) + "_end)";
+
+            ret += " : ";
+
+            if (from_one_pointer)
+                ret += from_one_pointer(cpp_param_name);
+            else
+                ret += cpp_type_name + "(" + std::string(cpp_param_name) + ")";
+
+            ret += ") : ";
+
+            std::visit(Overload{
+                [&](Generator::BindableType::ParamUsage::DefaultArgNone)
+                {
+                    source_file.stdlib_headers.insert("stdexcept");
+                    ret += "throw std::runtime_error(\"Parameter `";
+                    ret += cpp_param_name;
+                    ret += "` can not be null.\")";
+                },
+                [&](std::string_view default_arg)
+                {
+                    ret += cpp_type_name + "(";
+                    ret += default_arg;
+                    ret += ")";
+                },
+                [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
+                {
+                    ret += wrapper.wrapper_null;
+                }
+            }, default_arg);
+
+            ret += ")"; // Close `( ? : )` (default argument vs no default argument).
+            return ret;
+        };
+        ret.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)
+        {
+            std::string ret;
+            if (!has_default_arg)
+                ret += "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.\n";
+            ret += "/// If `" + std::string(cpp_param_name) + "_end` is null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
+            if (has_default_arg)
+                ret += "\n/// Non-null `" + std::string(cpp_param_name) + "_end` requires a non-null `" + std::string(cpp_param_name) + "`.";
+            return ret;
+        };
+        ret.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)use_wrapper; return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";};
+
+        return ret;
+    }
 }

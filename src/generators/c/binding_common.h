@@ -123,5 +123,13 @@ namespace mrbind::CBindings
     // Same, but only acts on rvalue reference parameters, never on lvalue ones.
     [[nodiscard]] std::optional<Generator::BindableType> BindRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags = {});
 
+    // Create a parameter usage in the style of `std::string` and `std::string_view`.
+    // If `from_one_pointer` and/or `from_two_pointers` are provided, they are used instead of calling the constructor of `cpp_type_name` with one and two pointers respectively.
+    [[nodiscard]] Generator::BindableType::ParamUsageWithDefaultArg MakeStringLikeParamUsageSupportingDefaultArg(
+        std::string_view cpp_type_name,
+        std::function<std::string(std::string_view begin)> from_one_pointer = nullptr,
+        std::function<std::string(std::string_view begin, std::string_view end)> from_two_pointers = nullptr
+    );
+
     // ]
 }

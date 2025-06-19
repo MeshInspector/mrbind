@@ -27,7 +27,7 @@ typedef struct MR_C_std_vector_int MR_C_std_vector_int; // Defined in `#include 
 MR_C_API void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int *_1);
 
 /// Generated from function `MR::StdContainers::SetWithDefault`.
-/// Parameter `_1` has default argument: `{1, 2, 3}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `{1, 2, 3}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdContainers_SetWithDefault(MR_C_PassBy _1_pass_by, MR_C_std_vector_int *_1);
 
 /// Generated from function `MR::StdContainers::Get`.

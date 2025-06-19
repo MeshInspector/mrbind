@@ -29,11 +29,11 @@ MR_C_API void MR_StdSharedPtr_SetInt(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr
 MR_C_API void MR_StdSharedPtr_SetIntConstRef(const MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntDefTrivial`.
-/// Parameter `_1` has default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetIntDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntDef`.
-/// Parameter `_1` has default argument: `std::make_unique<int>(42)`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<int>(42)`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetIntDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntLvalueRef`.
@@ -64,11 +64,11 @@ MR_C_API MR_C_std_shared_ptr_int_array *MR_StdSharedPtr_GetIntArr(void);
 MR_C_API void MR_StdSharedPtr_SetIntArr(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntArrDefTrivial`.
-/// Parameter `_1` has default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetIntArrDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntArrDef`.
-/// Parameter `_1` has default argument: `std::make_unique<int[]>(42)`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<int[]>(42)`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetIntArrDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::GetIntArr42`.
@@ -79,11 +79,11 @@ MR_C_API MR_C_std_shared_ptr_int_array_42 *MR_StdSharedPtr_GetIntArr42(void);
 MR_C_API void MR_StdSharedPtr_SetIntArr42(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array_42 *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntArr42DefTrivial`.
-/// Parameter `_1` has default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetIntArr42DefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array_42 *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntArr42Def`.
-/// Parameter `_1` has default argument: `std::make_shared<int[42]>()`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_shared<int[42]>()`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetIntArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array_42 *_1);
 
 // Now with a class:
@@ -133,11 +133,11 @@ MR_C_API void MR_StdSharedPtr_SetClass(MR_C_PassBy _1_pass_by, MR_C_std_shared_p
 MR_C_API void MR_StdSharedPtr_SetClassConstRef(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassDefTrivial`.
-/// Parameter `_1` has default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetClassDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassDef`.
-/// Parameter `_1` has default argument: `std::make_unique<MR::StdSharedPtr::A>(MR::StdSharedPtr::A{})`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<MR::StdSharedPtr::A>(MR::StdSharedPtr::A{})`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetClassDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassLvalueRef`.
@@ -168,11 +168,11 @@ MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *MR_StdSharedPtr_GetClassAr
 MR_C_API void MR_StdSharedPtr_SetClassArr(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassArrDefTrivial`.
-/// Parameter `_1` has default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetClassArrDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassArrDef`.
-/// Parameter `_1` has default argument: `std::make_unique<MR::StdSharedPtr::A[]>(42)`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<MR::StdSharedPtr::A[]>(42)`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetClassArrDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::GetClassArr42`.
@@ -183,11 +183,11 @@ MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *MR_StdSharedPtr_GetClas
 MR_C_API void MR_StdSharedPtr_SetClassArr42(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassArr42DefTrivial`.
-/// Parameter `_1` has default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `{}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetClassArr42DefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassArr42Def`.
-/// Parameter `_1` has default argument: `std::make_shared<MR::StdSharedPtr::A[42]>()`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_shared<MR::StdSharedPtr::A[42]>()`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetClassArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *_1);
 
 #ifdef __cplusplus

@@ -81,11 +81,11 @@ if(MRBIND_BUILD_GENERATOR_C)
         src/generators/c/module.cpp
         src/generators/c/modules/std_array.cpp
         src/generators/c/modules/std_containers.cpp
+        src/generators/c/modules/std_filesystem.cpp
         src/generators/c/modules/std_integral_typedefs.cpp
         src/generators/c/modules/std_optional.cpp
         src/generators/c/modules/std_pair.cpp
         src/generators/c/modules/std_shared_ptr.cpp
-        src/generators/c/modules/std_string_view.cpp
         src/generators/c/modules/std_string.cpp
         src/generators/c/modules/std_tuple.cpp
         src/generators/c/modules/std_unique_ptr.cpp

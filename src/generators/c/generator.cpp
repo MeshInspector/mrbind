@@ -159,6 +159,12 @@ namespace mrbind::CBindings
         file.header.contents += "{\n";
         file.header.contents += "    #define MRBINDC_IDENTITY(...) __VA_ARGS__\n";
         file.header.contents += "    \n";
+        file.header.contents += "    #if defined(_MSC_VER) && !defined(__clang__)\n";
+        file.header.contents += "    #define MRBINDC_IGNORE_DEPRECATION(...) _Pragma(\"warning(push)\") _Pragma(\"warning(disable: 4996)\") __VA_ARGS__ _Pragma(\"warning(pop)\")\n";
+        file.header.contents += "    #else\n";
+        file.header.contents += "    #define MRBINDC_IGNORE_DEPRECATION(...) _Pragma(\"GCC diagnostic push\") _Pragma(\"GCC diagnostic ignored \\\"-Wdeprecated-declarations\\\"\") __VA_ARGS__ _Pragma(\"GCC diagnostic pop\")\n";
+        file.header.contents += "    #endif\n";
+        file.header.contents += "    \n";
         file.header.contents += "    // Those are used to handle by-value arguments of class types, which are passed as a pointer plus a enum explaining how to handle it.\n";
         file.header.contents += "    // The `cpp_type_without_wrapper_` vs `cpp_type_` are different for optionals: `cpp_type_` is either `T` or `std::optional<T>`, while `cpp_type_without_wrapper_` is always the `T` itself.\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n";
@@ -1045,7 +1051,7 @@ namespace mrbind::CBindings
                         {
                             comment += "/// Parameter `";
                             comment += param_name_fixed;
-                            comment += "` has default argument: `";
+                            comment += "` has a default argument: `";
                             comment += param.default_arg->original_spelling;
                             comment += "`, ";
                             if (!param_usage_defarg->explanation_how_to_use_default_arg)

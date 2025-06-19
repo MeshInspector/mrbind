@@ -36,7 +36,7 @@ MR_C_API void MR_StdUniquePtr_SetIntDefTrivial(int *_1);
 /// Generated from function `MR::StdUniquePtr::SetIntDef`.
 /// Parameter `_1` (after dereferencing) should point to a single object rather than to an array.
 /// Parameter `_1` takes ownership of the (deferenced) passed pointer (if not null), and will later call `MR_C_Free()` on it automatically.
-/// Parameter `_1` has default argument: `std::make_unique<int>(42)`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<int>(42)`, pass a null pointer to use it.
 MR_C_API void MR_StdUniquePtr_SetIntDef(int *const *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetIntLvalueRef`.
@@ -75,7 +75,7 @@ MR_C_API void MR_StdUniquePtr_SetIntArrDefTrivial(int *_1);
 /// Generated from function `MR::StdUniquePtr::SetIntArrDef`.
 /// Parameter `_1` (after dereferencing) can point to an array.
 /// Parameter `_1` takes ownership of the (deferenced) passed pointer (if not null), and will later call `MR_C_FreeArray()` on it automatically.
-/// Parameter `_1` has default argument: `std::make_unique<int[]>(42)`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<int[]>(42)`, pass a null pointer to use it.
 MR_C_API void MR_StdUniquePtr_SetIntArrDef(int *const *_1);
 
 // Now with a class:
@@ -135,7 +135,7 @@ MR_C_API void MR_StdUniquePtr_SetClassDefTrivial(MR_StdUniquePtr_A *_1);
 /// Generated from function `MR::StdUniquePtr::SetClassDef`.
 /// Parameter `_1` (after dereferencing) should point to a single object rather than to an array.
 /// Parameter `_1` takes ownership of the (deferenced) passed pointer (if not null), and will later call `MR_StdUniquePtr_A_Destroy()` on it automatically.
-/// Parameter `_1` has default argument: `std::make_unique<MR::StdUniquePtr::A>(MR::StdUniquePtr::A{})`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<MR::StdUniquePtr::A>(MR::StdUniquePtr::A{})`, pass a null pointer to use it.
 MR_C_API void MR_StdUniquePtr_SetClassDef(MR_StdUniquePtr_A *const *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetClassLvalueRef`.
@@ -174,7 +174,7 @@ MR_C_API void MR_StdUniquePtr_SetClassArrDefTrivial(MR_StdUniquePtr_A *_1);
 /// Generated from function `MR::StdUniquePtr::SetClassArrDef`.
 /// Parameter `_1` (after dereferencing) can point to an array.
 /// Parameter `_1` takes ownership of the (deferenced) passed pointer (if not null), and will later call `MR_StdUniquePtr_A_DestroyArray()` on it automatically.
-/// Parameter `_1` has default argument: `std::make_unique<MR::StdUniquePtr::A[]>(42)`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `std::make_unique<MR::StdUniquePtr::A[]>(42)`, pass a null pointer to use it.
 MR_C_API void MR_StdUniquePtr_SetClassArrDef(MR_StdUniquePtr_A *const *_1);
 
 // Here `std::unique_ptr<float>` never gets emitted as an actual type (since we don't have non-null default arguments), so its header should not be emitted.
