@@ -13,6 +13,9 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
+            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, target_name)))
+                return ret;
+
             if (!type.IsOnlyQualifiedName() || type.simple_type.name != target_name)
                 return ret;
 

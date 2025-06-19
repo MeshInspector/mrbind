@@ -22,12 +22,12 @@ void MR_StdFilesystem_SetPath(const char *_1, const char *_1_end)
     );
 }
 
-void MR_StdFilesystem_SetPathConstRef(const MR_C_std_filesystem_path *_1)
+void MR_StdFilesystem_SetPathConstRef(const char *_1, const char *_1_end)
 {
     using namespace MR;
     using namespace StdFilesystem;
     MR::StdFilesystem::SetPathConstRef(
-        (_1 ? *(const std::filesystem::path *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        (_1 ? (_1_end ? MRBINDC_IGNORE_DEPRECATION(std::filesystem::u8path(_1, _1_end)) : MRBINDC_IGNORE_DEPRECATION(std::filesystem::u8path(_1))) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 

@@ -20,8 +20,10 @@ MR_C_API MR_C_std_filesystem_path *MR_StdFilesystem_GetPath(void);
 MR_C_API void MR_StdFilesystem_SetPath(const char *_1, const char *_1_end);
 
 /// Generated from function `MR::StdFilesystem::SetPathConstRef`.
+/// Parameter `_1` is a UTF-8 encoded filesystem path.
 /// Parameter `_1` can not be null.
-MR_C_API void MR_StdFilesystem_SetPathConstRef(const MR_C_std_filesystem_path *_1);
+/// If `_1_end` is null, then `_1` is assumed to be null-terminated.
+MR_C_API void MR_StdFilesystem_SetPathConstRef(const char *_1, const char *_1_end);
 
 /// Generated from function `MR::StdFilesystem::SetPathDefTrivial`.
 /// Parameter `_1` is a UTF-8 encoded filesystem path.
