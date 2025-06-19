@@ -1,6 +1,117 @@
-Work-in-progress Python (and others) binding generator for C++.
+# mrbind
 
-# Building
+MRBind generates Python and C bindings for C++.
+
+* The input C++ headers are parsed using Clang (the C++ libtooling API). The parse results can be dumped for reflection purposes (either as JSON or as C macros).
+
+* The Python backend is based on [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle the standard types.
+
+* The C backend is our own.
+
+Our selling points are:
+
+* No separate interface description files (as in SWIG). Any annotations (such as excluding certain functions/classes for the bindings) are done in the headers themselves.
+
+* Proper support for most containers/classes from the C++ standard library.
+
+* Proper support for templates. MRBind aggressively instantiates most class templates it sees, and annotations can be added to instantiate class/function templates for specific template arguments.
+
+MRBind is used in production in https://github.com/MeshInspector/MeshLib
+
+## Compiling MRBind
+
+MRBind is written in C++ and needs to be compiled before use. There are no binary releases.
+
+MRBind depends on Clang's libraries, which you have to install. Clang 18 or newer is required.
+
+### Installing Clang libraries
+
+* **On Ubuntu**:
+
+  Clang provides [binary packages](https://apt.llvm.org/llvm.sh), so you can install an up-to-date Clang even on an outdated Ubuntu.,
+
+  ```cpp
+  CLANG_VER=20
+  wget https://apt.llvm.org/llvm.sh
+  chmod +x llvm.sh
+  sudo ./llvm.sh $CLANG_VER
+  sudo apt install clang-tools-$CLANG_VER libclang-$CLANG_VER-dev llvm-$CLANG_VER-dev
+  ```
+
+* **On Windows**:
+
+  The official LLVM/Clang installer doesn't include the C++ libraries.
+
+  You could install LLVM in Vcpkg, but that would build it from source.
+
+  I recommend installing it in MSYS2, as they provide prebuilt packages. Yes, even if you're not planning to use MinGW. MSYS2 Clang can operate in MSVC-compatible mode.
+
+  I recommend using MSYS2 CLANG64 environment, but any of them should work. Install the required packages like this this:
+
+  ```sh
+  pacman -S $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,cmake} procps-ng
+  ```
+  Notice that we're installing MSYS2's own CMake, since it will find the compilers and libraries installed in MSYS2 by default, which is helpful.
+
+  I've thrown in `procps-ng` for the `nproc` utility, but this is optional.
+
+* **On Mac**: install LLVM in Brew.
+
+### Building MRBind itself
+
+Ensure the Git submodules are cloned: `git submodule update --recursive --init`
+
+Then build with CMake. Use the same Clang compiler that provides the parsing libraries. Other compilers may work, but that is not supported.
+
+* **On Ubuntu:**
+  ```sh
+  CC=clang-$CLANG_VER CXX=clang++-$CLANG_VER cmake -B build -DClang_DIR=/usr/lib/cmake/clang-$CLANG_VER
+  cmake --build build -j$(nproc)
+  ```
+
+  Notice the `-DClang_DIR=...` flag. It forces a specific version of Clang's libraries to be used. Without it, an arbitrary installed version will be picked, and not necessarily the most recent one.
+
+* **On other OSes:**
+
+  Just `cmake -B build && cmake --build build -j$(nproc)` as usual.
+
+## Running the parser
+
+The first step to generating the bindings (regardless of the target language) is parsing your headers with MRBind's parser, which will generate the list of all functions/classes to bind.
+
+It's recommended to prepare one big header file that includes all C++ headers you want to bind, as the parser accepts one header at a time. In theory you can parse all your headers individually, but that's a lot slower.
+
+The parser is built at `build/mrbind`. The usage is as follows: `mrbind <mrbind_flags> -- <clang_flags>`.
+
+`<mrbind_flags>` are our own flags (see `--help` for the full list). The minimal flags to test the parser are `YourHeader.h -o parse_result.json --format=json --ignore :: --allow YourNamespace`. Some additional flags might be needed here depending on the target language, more on that below.
+
+Notice `--ignore :: --allow YourNamespace`, which limits the parser output to your namespace (replace `YourNamespace` with your library's namespace name). Not excluding the standard library like this is not supported. You can additionally `--ignore` more namespaces here, such as `--ignore YourLibrary::detail`.
+
+`<clang_flags>` are the normal Clang/GCC-style compiler flags. Any `-I`, `-D`, `-std=c++??` go here. Other useful flags that can be added here are:
+
+* `-xc++-header` — if your input header has the `.h` extension, add this flag to treat it as a C++ header rather than a C one.
+* `-resource-dir=...` — on most OSes this is necessary for Clang to find its own internal headers. Skipping this can lead to cryptic errors. Get the `...` by running `clang -print-resource-dir` (or `clang-$CLANG_VER -print-resource-dir` on Ubuntu, use the same version as you installed above).
+* `-fparse-all-comments` — preserve all comments in the bindings, not only Doxygen-style ones.
+* `--target=x86_64-pc-windows-msvc -rtlib=platform -D_DLL -D_MT` — if you're on Windows, using Clang from MSYS2, but the rest of the project uses MSVC, use this to switch Clang to a MSVC-compatible mode (which will make it use MSVC's standard library, among other things).
+
+Notice that omitting `--` (and the subsequent flags) altogether will make Clang extract the flags the `compile_commands.json` if available. So `--` with nothing after it isn't the same thing as omitting it entirely.
+
+On success, `parse_result.json` will be generated. Now you're ready to generate the bindings for a specific language.
+
+## Generating Python bindings
+
+[pybind11](https://github.com/pybind/pybind11) needs to be downloaded. It's a header-only library, so just clone the repo.
+
+It's recommended to use a specific Pybind11 commit, currently `741d86f2e3527b667ba85d273a5eea19a0978ef5`. Use later versions on your own risk.
+
+The parser needs to be ran with `--format=macros -o parse_result.cpp --combine-types=cv,ref,ptr,smart_ptr` instead of `--format=json -o parse_result.json`. (`--combine-type` is optional, it speeds up the compilation times of the resulting bindings).
+
+
+(TODO)
+
+---
+
+
 
 ## Dependencies
 
@@ -15,13 +126,7 @@ Libclang must be installed (the C++ API of it). It's not included in the officia
 * On Linux, if you have more than one version installed, pass e.g. `-DClang_DIR=/usr/lib/cmake/clang-18` to CMake to select the desired version. (Or an env variable with the same name.)
 
   To install libclang on Ubuntu:
-  ```
-  VER=18
-  wget https://apt.llvm.org/llvm.sh
-  chmod +x llvm.sh
-  sudo ./llvm.sh $VER
-  sudo apt install clang-tools-$VER libclang-$VER-dev llvm-$VER-dev
-  ```
+
 
 # Running
 

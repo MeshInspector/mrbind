@@ -1,11 +1,12 @@
 #pragma once
 
 #include <exports.h>
-#include <std_string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 
 
 /// Generated from function `MR::StdString::Set`.
@@ -14,9 +15,9 @@ extern "C" {
 MR_C_API void MR_StdString_Set(const char *s, const char *s_end);
 
 /// Generated from function `MR::StdString::SetWithDefault`.
-/// Parameter `s` has default argument: `"42"`, pass a null pointer to both it and `s_end` to use it.
 /// Non-null `s_end` requires a non-null `s`.
 /// If `s_end` is null, then `s` is assumed to be null-terminated.
+/// Parameter `s` has default argument: `"42"`, pass a null pointer to both it and `s_end` to use it.
 MR_C_API void MR_StdString_SetWithDefault(const char *s, const char *s_end);
 
 /// Generated from function `MR::StdString::Get`.

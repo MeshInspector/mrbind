@@ -6,6 +6,8 @@ namespace mrbind::CBindings::Modules
 {
     struct StdString : DeriveModule<StdString>
     {
+        cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("string");
+
         HeapAllocatedClassBinder binder;
 
         void Init(Generator &generator) override
@@ -31,7 +33,7 @@ namespace mrbind::CBindings::Modules
                 { // size
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// The number of characters in the string, excluding the null-terminator.";
-                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Size");
+                    emit.c_name = binder.MakeMemberFuncName("Size");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "size";
@@ -41,7 +43,7 @@ namespace mrbind::CBindings::Modules
                 { // data
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated.";
-                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Data");
+                    emit.c_name = binder.MakeMemberFuncName("Data");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "c_str";
@@ -51,7 +53,7 @@ namespace mrbind::CBindings::Modules
                 { // mutable data
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.";
-                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableData");
+                    emit.c_name = binder.MakeMemberFuncName("MutableData");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "data";
@@ -61,7 +63,7 @@ namespace mrbind::CBindings::Modules
                 { // data end
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator.";
-                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_DataEnd");
+                    emit.c_name = binder.MakeMemberFuncName("DataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "@this@.c_str() + @this@.size()";
@@ -71,7 +73,7 @@ namespace mrbind::CBindings::Modules
                 { // mutable data end
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.";
-                    emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_MutableDataEnd");
+                    emit.c_name = binder.MakeMemberFuncName("MutableDataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "@this@.data() + @this@.size()";
@@ -88,7 +90,7 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, "std::string"))) {}
+            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, base_name))) {}
             else if (type_str == "std::string")
             {
                 Generator::BindableType &new_type = ret.emplace();
@@ -100,9 +102,9 @@ namespace mrbind::CBindings::Modules
                 new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
                 new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
-                new_type.return_usage = binder.MakeReturnUsage();
+                new_type.return_usage = binder.MakeReturnUsage(generator);
 
-                Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
+                Generator::BindableType::ParamUsageWithDefaultArg &param_usage = new_type.param_usage_with_default_arg.emplace();
                 auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
@@ -152,7 +154,7 @@ namespace mrbind::CBindings::Modules
                     ret += "/// If `" + std::string(cpp_param_name) + "_end` is null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
                     return ret;
                 };
-                param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";};
+                param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)use_wrapper; return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";};
             }
 
             return ret;

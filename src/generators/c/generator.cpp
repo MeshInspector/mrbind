@@ -164,8 +164,8 @@ namespace mrbind::CBindings
         file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Copy ? __VA_ARGS__(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_) :\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Move ? __VA_ARGS__(std::move(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, default_arg_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultArgument` was used.\") : __VA_ARGS__(default_arg_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultArgument ? throw std::runtime_error(\"Function parameter `\" #param_ \" has no default argument, yet `" + pass_by_enum_name + "_DefaultArgument` was used for it.\") :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `\" #enum_constant_ \"` was used.\") : __VA_ARGS__(default_arg_)) :\n";
+        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? throw std::runtime_error(\"Function parameter `\" #param_ \" doesn't support `\" #enum_constant_ \"`.\") :\n";
         file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
         file.header.contents += "\n";
         file.header.contents += "    // Converts an rvalue to an lvalue.\n";
@@ -179,22 +179,91 @@ namespace mrbind::CBindings
         return MakePublicHelperName("PassBy");
     }
 
-    Generator::OutputFile &Generator::GetPassByFile()
+    std::string Generator::GetMemoryDeallocFuncName(bool is_array, OutputFile *file)
+    {
+        if (file)
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile().header.path_for_inclusion);
+        return MakePublicHelperName(is_array ? "FreeArray" : "Free");
+    }
+
+    std::string Generator::GetMemoryAllocFuncName(bool is_array, OutputFile *file)
+    {
+        if (file)
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile().header.path_for_inclusion);
+        return MakePublicHelperName(is_array ? "AllocArray" : "Alloc");
+    }
+
+    Generator::OutputFile &Generator::GetCommonPublicHelpersFile()
     {
         bool is_new = false;
-        OutputFile &file = GetPublicHelperFile("pass_by", &is_new, OutputFile::InitFlags::no_extern_c);
+        OutputFile &file = GetPublicHelperFile("common", &is_new, OutputFile::InitFlags::no_extern_c);
         if (!is_new)
             return file;
 
-        std::string name = GetPassByEnumName();
+        { // The pass-by enum.
+            std::string name = GetPassByEnumName();
 
-        file.header.contents += "\ntypedef enum " + name + "\n";
-        file.header.contents += "{\n";
-        file.header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
-        file.header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
-        file.header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
-        file.header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
-        file.header.contents += "} " + name + ";\n";
+            file.header.contents += "\ntypedef enum " + name + "\n";
+            file.header.contents += "{\n";
+            file.header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
+            file.header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
+            file.header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
+            file.header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
+            file.header.contents += "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n";
+            file.header.contents += "} " + name + ";\n";
+        }
+
+        { // Memory management functions.
+            for (bool is_array : {false, true})
+            {
+                { // Allocate.
+                    EmitFuncParams emit;
+
+                    emit.c_comment = "/// Allocates `n` bytes of memory, which can then be freed using `" + GetMemoryDeallocFuncName(is_array, nullptr) + "()`.";
+                    if (is_array)
+                    {
+                        emit.c_comment +=
+                            "\n/// For all purposes this is equivalent to `" + GetMemoryAllocFuncName(false, nullptr) + "()` and `" + GetMemoryDeallocFuncName(false, nullptr) + "()`, but the deallocation functions are not interchangable."
+                            "\n/// This is a bit weird, but we have to have separate deallocation functions for arrays and non-arrays, because ASAN complains otherwise."
+                            "\n/// So the allocation functions must be provided separately for both too.";
+                    }
+
+                    emit.c_name = GetMemoryAllocFuncName(is_array, nullptr);
+
+                    emit.cpp_return_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
+
+                    emit.params.push_back({
+                        .name = "num_bytes",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+
+                    emit.cpp_called_func = "operator new";
+                    if (is_array)
+                        emit.cpp_called_func += "[]";
+
+                    EmitFunction(file, emit);
+                }
+
+                { // Deallocate.
+                    EmitFuncParams emit;
+
+                    emit.c_comment = "/// Deallocates memory that was previously allocated with `" + GetMemoryAllocFuncName(is_array, nullptr) + "()`. Does nothing if the pointer is null.";
+
+                    emit.c_name = GetMemoryDeallocFuncName(is_array, nullptr);
+
+                    emit.params.push_back({
+                        .name = "ptr",
+                        .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                    });
+
+                    emit.cpp_called_func = "operator delete";
+                    if (is_array)
+                        emit.cpp_called_func += "[]";
+
+                    EmitFunction(file, emit);
+                }
+            }
+        }
 
         return file;
     }
@@ -252,9 +321,14 @@ namespace mrbind::CBindings
         return name.IsBuiltInTypeName(flags);
     }
 
-    std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name) const
+    std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name, bool is_array) const
     {
-        return std::string(c_type_name) + "_Destroy";
+        return std::string(c_type_name) + (is_array ? "_DestroyArray" : "_Destroy");
+    }
+
+    std::string Generator::GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const
+    {
+        return std::string(c_type_name) + (is_const ? "_OffsetPtr" : "_OffsetMutablePtr");
     }
 
     Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name)
@@ -420,34 +494,6 @@ namespace mrbind::CBindings
         file.source.custom_headers.insert(std::make_move_iterator(source_custom.begin()), std::make_move_iterator(source_custom.end()));
     }
 
-
-    Generator::BindableType::BindableType(cppdecl::Type c_type)
-    {
-        ParamUsage &param = param_usage.emplace();
-        param.c_params.push_back({.c_type = c_type, .name_suffix = ""});
-
-        ReturnUsage &ret = return_usage.emplace();
-
-        // For `void` omit `return` for clarity.
-        if (c_type.AsSingleWord() == "void")
-        {
-            return_usage->make_return_statement = [](OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
-            {
-                (void)file;
-
-                // Don't add the `;` if the expression is empty.
-                // This doesn't happen during normal usage, but some custom functions that have all the code in `cpp_extra_statements`
-                //   and no actual return statement do need this.
-                if (expr.empty())
-                    return "";
-
-                return std::string(expr) + ";";
-            };
-        }
-
-        ret.c_type = std::move(c_type); // Here we can move the type.
-    }
-
     const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar)
     {
         if (auto *ret = FindBindableTypeOpt(type, remove_sugar))
@@ -572,6 +618,26 @@ namespace mrbind::CBindings
         return iter->second;
     }
 
+    std::string Generator::CppTypeNameToCTypeName(const cppdecl::QualifiedName &cpp_name)
+    {
+        if (auto ret = CppTypeNameToCTypeNameOpt(cpp_name))
+            return std::move(*ret);
+        else
+            throw std::runtime_error("Unable to translate C++ type name to C, this type isn't known: `" + cppdecl::ToCode(cpp_name, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
+    }
+
+    std::optional<std::string> Generator::CppTypeNameToCTypeNameOpt(const cppdecl::QualifiedName &cpp_name)
+    {
+        const auto *info = FindTypeBindableWithSameAddressOpt(cpp_name);
+        if (!info)
+            return {};
+
+        if (info->custom_c_type_name.empty())
+            return cppdecl::ToString(cpp_name, cppdecl::ToStringFlags::identifier);
+        else
+            return info->custom_c_type_name;
+    }
+
 
     void Generator::ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type)
     {
@@ -579,8 +645,7 @@ namespace mrbind::CBindings
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](cppdecl::QualifiedName &name)
             {
-                const auto &info = FindTypeBindableWithSameAddress(name);
-                name = cppdecl::QualifiedName::FromSingleWord(!info.custom_c_type_name.empty() ? info.custom_c_type_name : cppdecl::ToString(name, cppdecl::ToStringFlags::identifier));
+                name = cppdecl::QualifiedName::FromSingleWord(CppTypeNameToCTypeName(name));
             }
         );
     }
@@ -721,29 +786,6 @@ namespace mrbind::CBindings
         c_comment += "/// Generated from a constructor of class `";
         c_comment += cpp_type_str;
         c_comment += "`.";
-
-        using_namespace_stack = new_using_namespace_stack;
-    }
-
-    void Generator::EmitFuncParams::SetFromParsedClassDtor(const Generator &self, const ClassEntity &new_class, const ClassDtor &new_dtor, std::span<const NamespaceEntity *const> new_using_namespace_stack)
-    {
-        cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
-        const ParsedTypeInfo &info = self.parsed_type_info.at(cpp_type_str);
-
-        AddThisParamFromParsedClass(self, new_class, false);
-
-        c_name = self.GetClassDestroyFuncName(info.c_type_str);
-
-        cpp_called_func = "delete &@this@";
-        cpp_called_func_parens = {};
-
-        if (new_dtor.comment)
-        {
-            c_comment = new_dtor.comment->text_with_slashes;
-            c_comment += '\n';
-        }
-        c_comment += "/// Generated from a destructor of class `" + cpp_type_str + "`. Destroys the heap-allocated instances.";
 
         using_namespace_stack = new_using_namespace_stack;
     }
@@ -902,6 +944,18 @@ namespace mrbind::CBindings
     {
         try
         {
+            auto ApplyTypeDependencies = [this, &file](const std::unordered_map<std::string, BindableType::SameAddrBindableTypeDependency> &deps)
+            {
+                for (const auto &dep : deps)
+                {
+                    auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
+
+                    // Calling `declared_in_file()` might create the file that defines this type, which is a good thing.
+                    if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
+                        file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+                }
+            };
+
             cppdecl::Function new_func;
             cppdecl::Function new_func_decl;
 
@@ -944,29 +998,23 @@ namespace mrbind::CBindings
                         if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
-                        const std::string useless_default_arg_message = param.default_arg && bindable_param_type.is_useless_default_argument ? bindable_param_type.is_useless_default_argument(param.default_arg->original_spelling) : "";
-                        const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
-
-                        if (has_useful_default_arg && !bindable_param_type.param_usage_with_default_arg)
+                        if (param.default_arg && !bindable_param_type.param_usage_with_default_arg)
                             throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
 
-                        const auto &param_usage =
-                            has_useful_default_arg || !bindable_param_type.param_usage
-                            ? bindable_param_type.param_usage_with_default_arg
-                            : bindable_param_type.param_usage;
+                        const std::string useless_default_arg_message =
+                            param.default_arg && bindable_param_type.param_usage_with_default_arg->is_useless_default_argument
+                            ? bindable_param_type.param_usage_with_default_arg->is_useless_default_argument(param.default_arg->original_spelling)
+                            : "";
 
+                        const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
+
+                        const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
+                        const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
 
                         // Declare or include type dependencies of the parameter.
-                        for (const auto &dep : param_usage->same_addr_bindable_type_dependencies)
-                        {
-                            auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
+                        ApplyTypeDependencies(param_usage.same_addr_bindable_type_dependencies);
 
-                            // Adding `!dep.second.need_header` to avoid evaluating the header if it's not needed.
-                            if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
-                                file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                        }
-
-                        for (const auto &c_param : param_usage->c_params)
+                        for (const auto &c_param : param_usage.c_params)
                         {
                             auto &new_param = new_func.params.emplace_back();
                             new_param.type = c_param.c_type;
@@ -976,8 +1024,20 @@ namespace mrbind::CBindings
                             new_param_decl.type = c_param.c_type;
                             // Skip the parameter name in the declarator if it's unnamed in the input AND it doesn't correspond to multiple parameters in the output.
                             // The latter requirement is solely for our sanity, as otherwise it becomes difficult to understand what the multiple parameters are doing in there.
-                            if (!param.name.empty() || param_usage->c_params.size() > 1)
+                            if (!param.name.empty() || param_usage.c_params.size() > 1)
                                 new_param_decl.name = new_param.name;
+                        }
+
+                        // Custom comment?
+                        // This seems to look better when inserted before the explanation about the default argument.
+                        if (param_usage.append_to_comment)
+                        {
+                            std::string str = param_usage.append_to_comment(param_name_fixed, has_useful_default_arg);
+                            if (!str.empty())
+                            {
+                                comment += str;
+                                comment += '\n';
+                            }
                         }
 
                         // Comment about the default argument.
@@ -988,9 +1048,9 @@ namespace mrbind::CBindings
                             comment += "` has default argument: `";
                             comment += param.default_arg->original_spelling;
                             comment += "`, ";
-                            if (!param_usage->explanation_how_to_use_default_arg)
-                                throw std::logic_error("Internal error: Bad usage: `ParamUsage::explanation_how_to_use_default_arg` is not set.");
-                            comment += param_usage->explanation_how_to_use_default_arg(param_name_fixed);
+                            if (!param_usage_defarg->explanation_how_to_use_default_arg)
+                                throw std::logic_error("Internal error: Bad usage: `ParamUsageWithDefaultArg::explanation_how_to_use_default_arg` is not set.");
+                            comment += param_usage_defarg->explanation_how_to_use_default_arg(param_name_fixed, false); // Always passing `use_wrapper = false` here. It's the wrapper's job to pass something else when wrapping the callback.
                             comment += " to use it.\n";
                         }
                         else if (!useless_default_arg_message.empty())
@@ -998,22 +1058,11 @@ namespace mrbind::CBindings
                             comment += "/// Parameter `" + param_name_fixed + "` defaults to " + useless_default_arg_message + " in C++.\n";
                         }
 
-                        // Custom comment?
-                        if (param_usage->append_to_comment)
-                        {
-                            std::string str = param_usage->append_to_comment(param_name_fixed, has_useful_default_arg);
-                            if (!str.empty())
-                            {
-                                comment += str;
-                                comment += '\n';
-                            }
-                        }
-
                         if (param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
-                            arg_expr = param_usage->CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
+                            arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
 
                         // Insert the extra includes.
-                        param_usage->extra_headers.InsertToFile(file);
+                        param_usage.extra_headers.InsertToFile(file);
                     }
                     else
                     {
@@ -1131,14 +1180,7 @@ namespace mrbind::CBindings
                     throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
 
                 // Declare or include the type dependencies of the return type.
-                for (const auto &dep : bindable_return_type.return_usage->same_addr_bindable_type_dependencies)
-                {
-                    auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
-
-                    // Adding `!dep.second.need_header` to avoid evaluating the header if it's not needed.
-                    if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
-                        file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                }
+                ApplyTypeDependencies(bindable_return_type.return_usage->same_addr_bindable_type_dependencies);
 
                 // Custom comment?
                 if (!bindable_return_type.return_usage->append_to_comment.empty())
@@ -1155,7 +1197,6 @@ namespace mrbind::CBindings
             }
             catch (...)
             {
-                std::cerr << "###\n";
                 std::throw_with_nested(std::runtime_error("While processing the return type:"));
             }
 
@@ -1353,6 +1394,8 @@ namespace mrbind::CBindings
             info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
+                // Note that this IS legal for enums, because if they have a custom underlying type, we make their name a typedef for that type, instead of binding directly (and risking getting a different size).
+
                 auto [iter2, is_new2] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
                 if (!is_new2)
                     throw std::logic_error("Internal error: Duplicate type in `types_bindable_with_same_address`: " + en.full_type);
@@ -1404,7 +1447,10 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassCtor &elem)
                     {
-                        if (elem.kind != CopyMoveKind::none) // Special member functions have fixed names.
+                        // Special member functions have fixed names.
+                        // Note that the same goes for the default constructors. But here we intentionally only handle the ones with actually zero parameters, and not the ones with all arguments defaulted.
+                        // Note that this logic must be synced with how the default constructors are emitted.
+                        if (elem.kind != CopyMoveKind::none || elem.params.empty())
                             return;
 
                         std::string name = c_type_str + "_Construct";
@@ -1728,10 +1774,13 @@ namespace mrbind::CBindings
                 // Include the C++ header where this class is declared.
                 file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
 
-                const std::string type_str = ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+                const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
+                const std::string cpp_class_name_str = ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
 
                 // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-                const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(type_str);
+                const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(cpp_class_name_str);
+
+                const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
 
                 // Forward-declaring in the middle of the file, not in the forward-declarations section.
                 // Also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
@@ -1745,6 +1794,33 @@ namespace mrbind::CBindings
                 }
                 file.header.contents += same_addr_bindable_info.forward_declaration.value();
                 file.header.contents += '\n';
+
+
+                auto MakeBinder = [&]
+                {
+                    HeapAllocatedClassBinder binder;
+                    binder.cpp_type_name = cpp_class_name;
+                    binder.c_type_name = parsed_type_info.c_type_str;
+                    return binder;
+                };
+
+
+                // We need to do stuff on the first default ctor emitted (there can be multiple such ctors, because of default arguments).
+                bool emitted_any_default_ctor = false;
+
+                bool emitted_misc_functions = false;
+                // This emits pointer offsetting functions. Repeated calls have no effect.
+                auto EmitMiscFunctionsOnce = [&]
+                {
+                    if (emitted_misc_functions)
+                        return;
+
+                    emitted_misc_functions = true;
+
+                    auto binder = MakeBinder();
+                    self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, true));
+                    self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, false));
+                };
 
                 for (const ClassMemberVariant &var : cl.members)
                 {
@@ -1768,9 +1844,36 @@ namespace mrbind::CBindings
                                 if (elem.kind == CopyMoveKind::copy)
                                     return;
 
-                                EmitFuncParams params;
-                                params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
-                                self.EmitFunction(file, params);
+                                // Custom behavior for default constructors.
+                                // Note that here we intentionally only handle the ones with actually zero parameters, and not the ones with all arguments defaulted.
+                                // This logic must be synced with how the overloaded names are collected.
+                                if (elem.params.empty())
+                                {
+                                    HeapAllocatedClassBinder binder = MakeBinder();
+                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtor(self));
+                                }
+                                else
+                                {
+                                    // Any other constructor.
+
+                                    EmitFuncParams params;
+                                    params.SetFromParsedClassCtor(self, cl, elem, GetNamespaceStack());
+                                    self.EmitFunction(file, params);
+                                }
+
+                                // When seeing a default constructor for the first time, emit the array constructor too.
+                                // This time respecting the constructors with all arguments defaulted, in case there are no true default constructors in this class.
+                                if (!emitted_any_default_ctor && elem.IsCallableWithNumArgs(0))
+                                {
+                                    emitted_any_default_ctor = true;
+
+                                    HeapAllocatedClassBinder binder = MakeBinder();
+                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtorArray(self));
+                                }
+
+                                // Try to emit those next to the default ctor if possible.
+                                // If not, we'll emit them later, after all the members.
+                                EmitMiscFunctionsOnce();
                             }
                             catch (...)
                             {
@@ -1811,11 +1914,13 @@ namespace mrbind::CBindings
                         },
                         [&](const ClassDtor &elem)
                         {
+                            (void)elem;
+
                             try
                             {
-                                EmitFuncParams params;
-                                params.SetFromParsedClassDtor(self, cl, elem, GetNamespaceStack());
-                                self.EmitFunction(file, params);
+                                HeapAllocatedClassBinder binder = MakeBinder();
+                                self.EmitFunction(file, binder.PrepareFuncDestroy(self));
+                                self.EmitFunction(file, binder.PrepareFuncDestroyArray(self));
                             }
                             catch (...)
                             {
@@ -1824,6 +1929,9 @@ namespace mrbind::CBindings
                         },
                     }, var);
                 }
+
+                // If didn't emit those earlier, do it now.
+                EmitMiscFunctionsOnce();
             }
             catch (...)
             {
@@ -1866,27 +1974,53 @@ namespace mrbind::CBindings
                 file.header.contents += '\n';
             }
 
-            file.header.contents += "typedef enum " + c_type_str + "\n";
-            file.header.contents += "{\n";
+            const bool is_default_underlying_type = en.canonical_underlying_type == "int";
 
-            for (const EnumElem &elem : en.elems)
+            if (is_default_underlying_type)
             {
-                if (elem.comment)
-                {
-                    file.header.contents += IndentString(elem.comment->text_with_slashes, 1, true);
-                    file.header.contents += '\n';
-                }
+                file.header.contents += "typedef enum " + c_type_str + "\n";
+            }
+            else
+            {
+                // If the underlying type isn't `int`, we need special care to keep the type size same in C and C++.
 
-                file.header.contents += "    ";
-                file.header.contents += c_type_str;
-                file.header.contents += '_';
-                file.header.contents += elem.name;
-                file.header.contents += " = ";
-                file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
-                file.header.contents += ",\n";
+                file.header.contents += "typedef " + en.canonical_underlying_type + " " + c_type_str + ";\n";
+                file.header.contents += "enum // " + c_type_str + "\n";
             }
 
-            file.header.contents += "} " + c_type_str + ";\n";
+            file.header.contents += "{\n";
+
+            if (en.elems.empty())
+            {
+                // No empty enums in C, so we need a placeholder element.
+                file.header.contents += "    ";
+                file.header.contents += c_type_str;
+                file.header.contents += "_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.\n";
+            }
+            else
+            {
+                for (const EnumElem &elem : en.elems)
+                {
+                    if (elem.comment)
+                    {
+                        file.header.contents += IndentString(elem.comment->text_with_slashes, 1, true);
+                        file.header.contents += '\n';
+                    }
+
+                    file.header.contents += "    ";
+                    file.header.contents += c_type_str;
+                    file.header.contents += '_';
+                    file.header.contents += elem.name;
+                    file.header.contents += " = ";
+                    file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
+                    file.header.contents += ",\n";
+                }
+            }
+
+            if (is_default_underlying_type)
+                file.header.contents += "} " + c_type_str + ";\n";
+            else
+                file.header.contents += "};\n";
         }
 
         // void Visit(const TypedefEntity &td) override
@@ -2012,7 +2146,11 @@ namespace mrbind::CBindings
                     if (!type_info.forward_declaration)
                         throw std::runtime_error("Need to forward-declare type `" + elem.first + "`, but don't know how.");
 
-                    fwd_decls.insert(*type_info.forward_declaration);
+                    std::string fwd_decl = *type_info.forward_declaration;
+                    if (type_info.declared_in_file)
+                        fwd_decl += " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
+
+                    fwd_decls.insert(std::move(fwd_decl));
                 }
             }
 

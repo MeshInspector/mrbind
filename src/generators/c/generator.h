@@ -200,8 +200,18 @@ namespace mrbind::CBindings
 
         // Returns the C name of the `PassBy` enum, which is used when passing classes to functions by value.
         [[nodiscard]] std::string GetPassByEnumName();
-        // Returns the public C header that declares the `PassBy` enum.
-        [[nodiscard]] OutputFile &GetPassByFile();
+
+        // Returns the C name of a function that's used to free memory without calling destructors.
+        // There is a separate version for arrays because ASAN complains about alloc-dealloc mismatch otherwise.
+        // `file` is optional. If specific, the include gets added to it that declares this function.
+        [[nodiscard]] std::string GetMemoryDeallocFuncName(bool is_array, OutputFile *file);
+        // Returns the C name of a function that's used to allocate memory without calling constructors.
+        // Not particualry useful by itself, but added for consistency with `GetMemoryDeallocFuncName()`.
+        // `file` is optional. If specific, the include gets added to it that declares this function.
+        [[nodiscard]] std::string GetMemoryAllocFuncName(bool is_array, OutputFile *file);
+
+        // Returns the public C header that declares the `PassBy` enum, and some other public helpers.
+        [[nodiscard]] OutputFile &GetCommonPublicHelpersFile();
 
         // Returns a public helper header with this name. It gets created on the first use.
         [[nodiscard]] OutputFile &GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {});
@@ -214,8 +224,12 @@ namespace mrbind::CBindings
         // Returns true if this is a built-in C type.
         [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all) const;
 
-        // The destroy function name for parsed and custom classes.
-        [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name) const;
+        // The destroy function name for parsed and custom classes. It calls `delete`.
+        // We have a separate function for destroying arrays (`is_array == true`) which corresponds to C++'s `delete[]`.
+        [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name, bool is_array = false) const;
+
+        // The name for the functions that add an offset to a pointer. We need this because the pointers themselves are typically opaque on the C side.
+        [[nodiscard]] std::string GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const;
 
 
         // Those types are a subset of `IsSimplyBindableIndirectReinterpret()` for pure qualified names (without cvref/ptr-qualifiers).
@@ -393,6 +407,23 @@ namespace mrbind::CBindings
                 is_any_constructible = true;
             }
 
+            struct MoveOnlyAndTrivialExceptForDefaultCtorAndDtor {explicit MoveOnlyAndTrivialExceptForDefaultCtorAndDtor() = default;};
+            // E.g. `std::unique_ptr` goes here, even if not technically trivial.
+            TypeTraits(MoveOnlyAndTrivialExceptForDefaultCtorAndDtor)
+            {
+                is_default_constructible = true;
+                is_move_constructible = true;
+                is_move_assignable = true;
+                is_destructible = true;
+
+                is_trivially_default_constructible = false; // !!
+                is_trivially_move_constructible = true;
+                is_trivially_move_assignable = true;
+                is_trivially_destructible = false; // !!
+
+                is_any_constructible = true;
+            }
+
             struct ReferenceType {explicit ReferenceType() = default;};
             // No idea why would one query this for references, but still have to set it.
             TypeTraits(ReferenceType, bool const_, bool rvalue_)
@@ -520,14 +551,17 @@ namespace mrbind::CBindings
         // The arrows mean implication (they point towards supersets).
         //                                                                                  ---
         //       IsSimplyBindableIndirectReinterpret   <---   IsSimplyBindableIndirect            Can by passed by pointer.
-        //                                                              ^                   ---
-        //                                                              |
-        //                                                              |                   ---
+        //                    ^                                         ^                   ---
+        //                    : ?                                        |
+        //                    :                                         |                   ---
         //       IsSimplyBindableDirectCast            <---   IsSimplyBindableDirect              Can be passed by value (and by pointer).
         //                                                                                  ---
         //
         //    | Passing requires a cast (reinterpret |   | Can be passed without a cast. |
         //    |   or C-style respectively)           |   |                               |
+        //
+        // Here technically you could imagine a type that is `IsSimplyBindableDirectCast()` but not `IsSimplyBindableIndirectReinterpret()` (e.g. a enum that has different sizes in C and C++).
+        // But we avoid having to worry about that by replacing those weird enums with typedefs for their underlying types. So this problem should never come up.
 
         // Pointers and refs to those can be passed freely with only a `reinterpret_cast`.
         [[nodiscard]] bool IsSimplyBindableIndirectReinterpret(const cppdecl::Type &type);
@@ -600,7 +634,7 @@ namespace mrbind::CBindings
                     std::string name_suffix = "";
                 };
 
-                // Must not be empty. Usually this will have size 1.
+                // Should not be empty. Usually this will have size 1.
                 // If this has more than one element, then the C function will have MORE THAN ONE parameter per this single C++ parameter.
                 std::vector<CParam> c_params;
 
@@ -608,24 +642,28 @@ namespace mrbind::CBindings
                 struct DefaultArgNone {};
                 struct DefaultArgWrapper
                 {
-                    std::string wrapper_cpp_type;
-                    std::string wrapper_null;
+                    std::string_view wrapper_cpp_type;
+                    std::string_view wrapper_null;
+                    std::string_view actual_default_arg;
                 };
                 // See `.c_params_to_cpp` below for the explanation.
                 using DefaultArgVar = std::variant<DefaultArgNone, std::string_view, DefaultArgWrapper>;
 
-                // Defaults to an identity function if null.
+                // Defaults to returning `cpp_param_name` if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
                 // NOTE: The return value must be correctly parenthesized if necessary (so that e.g. `"&" + result` compiles correctly).
-                // The implementation .cpp `file` is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
+                // The implementation .cpp file (`source_file`) is also provided to allow inserting additional includes and what not, but normally you shouldn't touch it. Prefer
                 //   `same_addr_bindable_type_dependencies` or `extra_headers` for that purpose. This parameter is convenient if your includes are conditional, depending on the presence of the default arg, for example.
-                // `default_arg` is the default argument or empty if any.
+                // `default_arg` is the default argument if any.
                 //   Note that if this `ParamUsage` is `BindableType::param_usage` as opposed to `BindableType::param_usage_with_default_arg`, then you'll never receive default arguments (will always receive `DefaultArgNone{}`).
                 //   If this is `DefaultArgNone`, there is no default argument.
                 //   If this is `std::string_view`, then that's your default argument. Don't forget to cast it to your type, just in case.
                 //   `DefaultArgWrapper` is a special case. You're expected to produce an expression of type `.wrapper_cpp_type` instead of just `T`. And instead of the default argument, you must produce `.wrapper_null`.
                 //   This is typically used for `std::optional`, where `.wrapper_cpp_type` would be `std::optional<T>` and `.wrapper_null` would be `std::nullopt`.
                 //   (Note that you MUST NOT need to include `<optional>` yourself here, because firstly it's done automatically, and secondly this isn't only for optionals.)
+                //   If you're using the pass-by enum for your type, then you must switch to `PassBy_NoObject` for wrappers, as opposed to the `PassBy_DefaultArgument` that you'd normally use for default arguments.
+                //   `actual_default_arg` can only be non-empty if you opted in via `BindableType::supports_default_arguments_in_wrappers = true`.
+                //     If you opted in and got a non-empty `actual_default_arg`, you must handle BOTH `PassBy_NoObject` (return `wrapper_null` as usual) AND `PassBy_DefaultArg` (return `actual_default_arg`).
                 std::function<std::string(OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, DefaultArgVar default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
@@ -645,14 +683,6 @@ namespace mrbind::CBindings
                 //   But the flag is passed here because it's sometimes useful to add additional remarks that depend on the presence of the default argument.
                 std::function<std::string(std::string_view cpp_param_name, bool has_default_arg)> append_to_comment;
 
-                // This will be used if we have a default argument.
-                // You only need to set this if you support default arguments (if this is in `BindableType::param_usage_with_default_arg` as opposed to `BindableType::param_usage`).
-                // This MUST start with a lowercase letter, and MUST NOT end with a period. E.g. `pass a null pointer`.
-                // This will be inserted into a comment along the lines of `To use the default argument, X.` or `Blah blah, X to use the default argument.`
-                // Most of the time you SHOULD NOT use `cpp_param_name` in the returned string. It's only useful if `c_params.size() > 1`,
-                //   in which case you migth return e.g. `"pass null both to it and to `" + cpp_param_name + "_end`"`, where `_end` would match your non-empty `CParam::name_suffix`.
-                std::function<std::string(std::string_view cpp_param_name)> explanation_how_to_use_default_arg;
-
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                 // `default_arg` should be empty if there's no default argument.
                 // NOTE: This will always produce correctly parenthesized strings. If the custom `c_params_to_cpp` is specified, it's its job to ensure that the result is correctly parenthesized.
@@ -665,6 +695,35 @@ namespace mrbind::CBindings
                 }
             };
 
+            struct ParamUsageWithDefaultArg : ParamUsage
+            {
+                // Additional default argument settings:
+
+                // This is mandatory.
+                // This MUST start with a lowercase letter, and MUST NOT end with a period. E.g. `pass a null pointer`.
+                // This will be inserted into a comment along the lines of `To use the default argument, X.` or `Blah blah, X to use the default argument.`
+                // Most of the time you SHOULD NOT use `cpp_param_name` in the returned string. It's only useful if `c_params.size() > 1`,
+                //   in which case you migth return e.g. `"pass null both to it and to `" + cpp_param_name + "_end`"`, where `_end` would match your non-empty `CParam::name_suffix`.
+                // `use_wrapper` will be true if this is not a real default argument, but a wrapper (typically `std::optional`) being generated.
+                //   Typically `use_wrapper == true` corresponds to using `PassBy_NoObject` instead of `Pass_DefaultArgument`.
+                //   If you didn't enable `supports_default_arguments_in_wrappers, then you most likely should ignore `use_wrapper`.
+                std::function<std::string(std::string_view cpp_param_name, bool use_wrapper)> explanation_how_to_use_default_arg;
+
+                // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
+                // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
+                //   and DOES NOT end with a period.
+                std::function<std::string(std::string_view default_arg)> is_useless_default_argument;
+
+                // Typically should be false. Set this to true if you're using the `PassBy` enum, which gives you two different ways of passing default arguments: `PassBy_DefaultArgument` and `PassBy_NoObject`.
+                // Opting in by setting this to true means you're able to handle both in your `ParamUsage::c_params_to_cpp`, with different behavior.
+                // When not opted in, we assume you only have ONE syntax for default arguments, so we'll find an alternative syntax for the second variant.
+                bool supports_default_arguments_in_wrappers = false;
+
+                // Make Clang happy (otherwise `std::optional<ParamUsageWithDefaultArg>` below bakes `is_default_constructible == false`).
+                // We aren't gonna designated-initialize this anyway.
+                ParamUsageWithDefaultArg() {}
+            };
+
             // One of those must be non-null for this type to be usable as a parameter: [
 
             // If only this one is set, the type can't handle default arguments.
@@ -674,14 +733,8 @@ namespace mrbind::CBindings
 
             // If only this one is set, this is used for params both with default arguments and without.
             // If `param_usage` is also set, then this one handles only the parameters with default arguments.
-            std::optional<ParamUsage> param_usage_with_default_arg;
-
+            std::optional<ParamUsageWithDefaultArg> param_usage_with_default_arg;
             // ]
-
-            // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
-            // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
-            //   and DOES NOT end with a period.
-            std::function<std::string(std::string_view default_arg)> is_useless_default_argument;
 
 
             struct ReturnUsage
@@ -723,10 +776,6 @@ namespace mrbind::CBindings
 
 
             BindableType() {}
-
-            // Sets the default parameters for a simple type that can be passed directly.
-            // This doesn't allow the default arguments by default.
-            explicit BindableType(cppdecl::Type c_type);
         };
         // The types that we know how to bind.
         // Don't access this directly! Use `FindBindableType` because that will lazily insert the missing types here.
@@ -755,9 +804,15 @@ namespace mrbind::CBindings
         mutable std::unordered_map<std::string, cppdecl::QualifiedName> cached_parsed_qual_names;
         [[nodiscard]] const cppdecl::QualifiedName &ParseQualNameOrThrow(const std::string &str) const;
 
+        // Maps a C++ type name to a C type name, by consulting `FindTypeBindableWithSameAddress()`.
+        // This only handles the types that are already known. DON'T use when writing new bindings.
+        // Throws if the type is unknown.
+        [[nodiscard]] std::string CppTypeNameToCTypeName(const cppdecl::QualifiedName &cpp_name);
+        // Same, but returns null on failure instead of throwing.
+        [[nodiscard]] std::optional<std::string> CppTypeNameToCTypeNameOpt(const cppdecl::QualifiedName &cpp_name);
 
-        // Replaces every `cppdecl::QualifierName` in the type with its C equivalent, by consulting `FindTypeBindableWithSameAddress()`.
-        // Throws if some qualified name is unknown.
+        // Replaces every `cppdecl::QualifierName` in the type with its C equivalent, by applying `CppTypeNameToCTypeName()` recursively.
+        // Throws if some qualified name in the input is unknown.
         void ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type);
 
         // Indents a string by the number of `levels` (each is currently 4 whitespaces).
@@ -914,7 +969,6 @@ namespace mrbind::CBindings
 
             void SetFromParsedFunc(const CBindings::Generator &self, const FuncEntity &new_func, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassCtor(const CBindings::Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
-            void SetFromParsedClassDtor(const CBindings::Generator &self, const ClassEntity &new_class, const ClassDtor &new_dtor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassMethod(const CBindings::Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassConvOp(const CBindings::Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack);
 

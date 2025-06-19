@@ -14,9 +14,9 @@ extern "C" {
 MR_C_API void MR_StdStringView_Set(const char *s, const char *s_end);
 
 /// Generated from function `MR::StdStringView::SetWithDefault`.
-/// Parameter `s` has default argument: `"42"`, pass a null pointer to both it and `s_end` to use it.
 /// Non-null `s_end` requires a non-null `s`.
 /// If `s_end` is null, then `s` is assumed to be null-terminated.
+/// Parameter `s` has default argument: `"42"`, pass a null pointer to both it and `s_end` to use it.
 MR_C_API void MR_StdStringView_SetWithDefault(const char *s, const char *s_end);
 
 /// Generated from function `MR::StdStringView::Get`.

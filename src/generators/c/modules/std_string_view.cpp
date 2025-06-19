@@ -6,6 +6,8 @@ namespace mrbind::CBindings::Modules
 {
     struct StdStringView : DeriveModule<StdStringView>
     {
+        cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("string_view");
+
         std::string c_type_name;
 
         void Init(Generator &generator) override
@@ -37,7 +39,7 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if ((ret = BindRefParamsExceptNonConstLvalueSameAsNonRef(generator, type, "std::string_view"))) {}
+            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, base_name))) {}
             else if (type_str == "std::string_view")
             {
                 Generator::BindableType &new_type = ret.emplace();
@@ -57,7 +59,7 @@ namespace mrbind::CBindings::Modules
                     return "auto _ret = " + std::string(expr) + "; return {_ret.data(), _ret.data() + _ret.size()};";
                 };
 
-                Generator::BindableType::ParamUsage &param_usage = new_type.param_usage_with_default_arg.emplace();
+                Generator::BindableType::ParamUsageWithDefaultArg &param_usage = new_type.param_usage_with_default_arg.emplace();
                 auto const_char_ptr_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type;
                 param_usage.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
@@ -109,7 +111,7 @@ namespace mrbind::CBindings::Modules
                     ret += "/// If `" + std::string(cpp_param_name) + "_end` is null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
                     return ret;
                 };
-                param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";};
+                param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)use_wrapper; return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";};
             }
 
             return ret;

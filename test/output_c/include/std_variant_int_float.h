@@ -10,12 +10,17 @@ extern "C" {
 
 
 /// Stores one of 2 objects: `int`, `float`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_variant_int_float MR_C_std_variant_int_float;
 
 /// Constructs an empty (default-constructed) instance.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_C_std_variant_int_float_DestroyArray()`.
+/// Use `MR_C_std_variant_int_float_OffsetMutablePtr()` and `MR_C_std_variant_int_float_OffsetPtr()` to access the array elements.
+MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
@@ -27,9 +32,17 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructFromAno
 /// Parameter `other` can not be null.
 MR_C_API void MR_C_std_variant_int_float_AssignFromAnother(MR_C_std_variant_int_float *_this, const MR_C_std_variant_int_float *other);
 
-/// Destroys a heap-allocated instance of `MR_C_std_variant_int_float`.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_C_std_variant_int_float`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_variant_int_float_Destroy(MR_C_std_variant_int_float *_this);
+
+/// Destroys a heap-allocated array of `MR_C_std_variant_int_float`. Does nothing if the pointer is null.
+MR_C_API void MR_C_std_variant_int_float_DestroyArray(MR_C_std_variant_int_float *_this);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_C_std_variant_int_float *MR_C_std_variant_int_float_OffsetPtr(const MR_C_std_variant_int_float *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_OffsetMutablePtr(MR_C_std_variant_int_float *ptr, ptrdiff_t i);
 
 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
 /// Parameter `_this` can not be null.

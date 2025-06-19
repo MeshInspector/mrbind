@@ -1,15 +1,15 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
-#include <pass_by.h>
-#include <std_variant_int_float.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct MR_C_std_variant_int_float_float MR_C_std_variant_int_float_float;
-typedef struct MR_C_std_variant_int_float_std_string MR_C_std_variant_int_float_std_string;
+typedef struct MR_C_std_variant_int_float MR_C_std_variant_int_float; // Defined in `#include <std_variant_int_float.h>`.
+typedef struct MR_C_std_variant_int_float_float MR_C_std_variant_int_float_float; // Defined in `#include <std_variant_int_float_float.h>`.
+typedef struct MR_C_std_variant_int_float_std_string MR_C_std_variant_int_float_std_string; // Defined in `#include <std_variant_int_float_std_string.h>`.
 
 
 /// Generated from function `MR::StdVariant::foo`.

@@ -18,21 +18,39 @@ MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)
 
 void MR_A_Destroy(MR_A *_this)
 {
-    using namespace MR;
-    delete &(_this ? *(MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    delete ((MR::A *)_this);
 }
 
-MR_A *MR_A_Construct(void)
+void MR_A_DestroyArray(MR_A *_this)
 {
-    using namespace MR;
+    delete[] ((MR::A *)_this);
+}
+
+MR_A *MR_A_DefaultConstruct(void)
+{
     return (MR_A *)new MR::A(MR::A());
+}
+
+MR_A *MR_A_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_A *)(new MR::A[num_elems]{});
+}
+
+const MR_A *MR_A_OffsetPtr(const MR_A *ptr, ptrdiff_t i)
+{
+    return (const MR_A *)(((const MR::A *)ptr) + i);
+}
+
+MR_A *MR_A_OffsetMutablePtr(MR_A *ptr, ptrdiff_t i)
+{
+    return (MR_A *)(((MR::A *)ptr) + i);
 }
 
 MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_other)
 {
     using namespace MR;
     return (MR_A *)new MR::A(MR::A(
-        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(_other, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR::A) MRBINDC_CLASSARG_END(_other, MR::A))
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(_other, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(_other, MR::A))
     ));
 }
 
@@ -40,7 +58,7 @@ MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_oth
 {
     using namespace MR;
     return (MR_A *)&((_this ? *(MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(_other, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR::A) MRBINDC_CLASSARG_END(_other, MR::A))
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(_other, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(_other, MR::A))
     ));
 }
 
@@ -54,7 +72,7 @@ void MR_bar(MR_C_PassBy _1_pass_by, MR_C_std_vector_MR_A *_1)
 {
     using namespace MR;
     MR::bar(
-        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<MR::A>) MRBINDC_CLASSARG_COPY(_1, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, std::vector<MR::A>) MRBINDC_CLASSARG_END(_1, std::vector<MR::A>))
+        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<MR::A>) MRBINDC_CLASSARG_COPY(_1, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<MR::A>) MRBINDC_CLASSARG_END(_1, std::vector<MR::A>))
     );
 }
 

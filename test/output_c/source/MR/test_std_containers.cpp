@@ -12,7 +12,7 @@ void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int *_1)
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::Set(
-        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int>) MRBINDC_CLASSARG_COPY(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, std::vector<int>) MRBINDC_CLASSARG_END(_1, std::vector<int>))
+        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int>) MRBINDC_CLASSARG_COPY(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<int>) MRBINDC_CLASSARG_END(_1, std::vector<int>))
     );
 }
 
@@ -21,7 +21,7 @@ void MR_StdContainers_SetWithDefault(MR_C_PassBy _1_pass_by, MR_C_std_vector_int
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::SetWithDefault(
-        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int>) MRBINDC_CLASSARG_COPY(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_DEF_ARG(_1, (std::type_identity_t<std::vector<int>>{1, 2, 3}), std::vector<int>) MRBINDC_CLASSARG_END(_1, std::vector<int>))
+        (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int>) MRBINDC_CLASSARG_COPY(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<int>), std::vector<int>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::vector<int>>{1, 2, 3}), std::vector<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<int>) MRBINDC_CLASSARG_END(_1, std::vector<int>))
     );
 }
 
@@ -37,7 +37,7 @@ void MR_StdContainers_WriteToRef(MR_C_std_vector_int *_1)
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::WriteToRef(
-        (_1 ? *(std::vector<int>*)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        (_1 ? *(std::vector<int> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 
@@ -46,7 +46,7 @@ void MR_StdContainers_WriteToPtr(MR_C_std_vector_int *_1)
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::WriteToPtr(
-        ((std::vector<int>*)_1)
+        ((std::vector<int> *)_1)
     );
 }
 
@@ -55,7 +55,7 @@ void MR_StdContainers_ConstRef(const MR_C_std_vector_int *_1)
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::ConstRef(
-        (_1 ? *(const std::vector<int>*)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        (_1 ? *(const std::vector<int> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 
@@ -64,7 +64,7 @@ void MR_StdContainers_RvalueRef(MR_C_std_vector_int *_1)
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::RvalueRef(
-        (_1 ? std::move(*(std::vector<int>*)(_1)) : throw std::runtime_error("Parameter `_1` can not be null."))
+        (_1 ? std::move(*(std::vector<int> *)(_1)) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 
@@ -73,7 +73,7 @@ void MR_StdContainers_ConstRvalueRef(const MR_C_std_vector_int *_1)
     using namespace MR;
     using namespace StdContainers;
     MR::StdContainers::ConstRvalueRef(
-        (_1 ? std::move(*(const std::vector<int>*)(_1)) : throw std::runtime_error("Parameter `_1` can not be null."))
+        (_1 ? std::move(*(const std::vector<int> *)(_1)) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 

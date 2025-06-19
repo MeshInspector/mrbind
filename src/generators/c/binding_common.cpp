@@ -3,28 +3,21 @@
 
 namespace mrbind::CBindings
 {
-    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_name)
+    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_base_name)
     {
         HeapAllocatedClassBinder ret;
 
         ret.cpp_type_name = std::move(new_cpp_type_name);
 
-        ret.basic_c_name = cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier);
-        ret.c_type_name = generator.MakePublicHelperName(ret.basic_c_name);
-        ret.c_underlying_type_name = !new_underlying_c_type_name.empty() ? generator.MakePublicHelperName(new_underlying_c_type_name) : ret.c_type_name;
-
-        ret.c_func_name_default_ctor             = generator.MakePublicHelperName(ret.basic_c_name + "_DefaultConstruct");
-        ret.c_func_name_copy_move_ctor           = generator.MakePublicHelperName(ret.basic_c_name + "_ConstructFromAnother");
-        ret.c_func_name_copy_move_assign         = generator.MakePublicHelperName(ret.basic_c_name + "_AssignFromAnother");
-        ret.c_func_name_copy_move_ctor_sugared   = generator.MakePublicHelperName(ret.basic_c_name + "_ConstructFrom");
-        ret.c_func_name_copy_move_assign_sugared = generator.MakePublicHelperName(ret.basic_c_name + "_AssignFrom");
-        // Inconsistent with the rest. Weird but let's keep it this way for now.
-        ret.c_func_name_destroy = generator.GetClassDestroyFuncName(ret.c_type_name); // generator.MakePublicHelperName(ret.basic_c_name + "_Destroy");
-
-        // Not strictly necessary, but this makes things more sane.
-        ret.returning_by_value_includes_header = true;
+        ret.c_type_name = generator.MakePublicHelperName(cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier));
+        ret.c_underlying_type_name = !new_underlying_c_type_base_name.empty() ? generator.MakePublicHelperName(new_underlying_c_type_base_name) : "";
 
         return ret;
+    }
+
+    std::string HeapAllocatedClassBinder::MakeMemberFuncName(std::string_view name) const
+    {
+        return c_type_name + '_' + std::string(name);
     }
 
     void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const
@@ -45,7 +38,7 @@ namespace mrbind::CBindings
             if (traits.value().is_move_constructible)
                 file.header.contents += '`' + enum_name + "_Move`, ";
 
-            file.header.contents += '`' + enum_name + "_DefaultArgument` (if supported by the callee).\n";
+            file.header.contents += "(and `" + enum_name + "_DefaultArgument` and `" + enum_name + "_NoObject` if supported by the callee).\n";
         }
 
         file.header.contents += MakeForwardDeclaration();
@@ -54,7 +47,7 @@ namespace mrbind::CBindings
 
     void HeapAllocatedClassBinder::FillCommonParams(Generator &generator, Generator::BindableType &type)
     {
-        type.traits = traits;
+        type.traits = traits.value(); // `type.traits` isn't actually optional (despite having that type), see the comment on it for details.
 
         type.is_heap_allocated_class = true;
 
@@ -62,7 +55,7 @@ namespace mrbind::CBindings
         type.bindable_with_same_address.custom_c_type_name = c_type_name;
 
         type.param_usage_with_default_arg = MakeParamUsageSupportingDefaultArg(generator);
-        type.return_usage = MakeReturnUsage();
+        type.return_usage = MakeReturnUsage(generator);
     }
 
     std::string HeapAllocatedClassBinder::MakeForwardDeclaration() const
@@ -70,17 +63,16 @@ namespace mrbind::CBindings
         return MakeStructForwardDeclaration(c_type_name, c_underlying_type_name);
     }
 
-    Generator::BindableType::ReturnUsage HeapAllocatedClassBinder::MakeReturnUsage() const
+    Generator::BindableType::ReturnUsage HeapAllocatedClassBinder::MakeReturnUsage(Generator &generator) const
     {
         Generator::BindableType::ReturnUsage ret;
 
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         ret.c_type = cppdecl::Type::FromSingleWord(c_type_name).AddModifier(cppdecl::Pointer{});
-        ret.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str).first->second.need_header = returning_by_value_includes_header;
+        ret.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
 
-        assert(!c_func_name_destroy.empty());
-        ret.append_to_comment = "/// Returns an instance allocated on the heap! Must call `" + c_func_name_destroy + "()` to free it when you're done using it.";
+        ret.append_to_comment = "/// Returns an instance allocated on the heap! Must call `" + generator.GetClassDestroyFuncName(c_type_name) + "()` to free it when you're done using it.";
 
         ret.make_return_statement = [c_type_name = c_type_name, cpp_type_str = std::move(cpp_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
         {
@@ -91,9 +83,9 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    std::optional<Generator::BindableType::ParamUsage> HeapAllocatedClassBinder::MakeParamUsageSupportingDefaultArg(Generator &generator) const
+    std::optional<Generator::BindableType::ParamUsageWithDefaultArg> HeapAllocatedClassBinder::MakeParamUsageSupportingDefaultArg(Generator &generator) const
     {
-        std::optional<Generator::BindableType::ParamUsage> ret;
+        std::optional<Generator::BindableType::ParamUsageWithDefaultArg> ret;
 
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
@@ -102,7 +94,7 @@ namespace mrbind::CBindings
         {
             // For trivialy-copy/move-constructible classes, just pass a pointer.
 
-            Generator::BindableType::ParamUsage &param_usage = ret.emplace();
+            Generator::BindableType::ParamUsageWithDefaultArg &param_usage = ret.emplace();
             param_usage.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
 
             param_usage.c_params.emplace_back().c_type = cppdecl::Type::FromSingleWord(c_type_name);
@@ -114,10 +106,19 @@ namespace mrbind::CBindings
                 only_trivially_move_constructible = traits.value().is_trivially_move_constructible && !traits.value().is_trivially_copy_constructible
             ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
+                const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
                 std::string ret = "(";
 
                 ret += cpp_param_name;
                 ret += " ? ";
+
+                if (wrapper)
+                {
+                    ret += wrapper->wrapper_cpp_type;
+                    ret += "(";
+                }
+
                 ret += cpp_type_str;
                 ret += "(";
                 if (only_trivially_move_constructible)
@@ -132,7 +133,9 @@ namespace mrbind::CBindings
                 ret += cpp_param_name;
                 if (only_trivially_move_constructible)
                     ret += ")"; // Close `std::move()`.
-                ret += ")";
+                ret += ")"; // Close `cpp_type_str(...)` constructor call.
+                if (wrapper)
+                    ret += ")"; // Close wrapper construction.
                 ret += " : ";
 
                 std::visit(Overload{
@@ -170,16 +173,16 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+            param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
         }
         else if (traits.value().IsDefaultOrCopyOrMoveConstructible())
         {
             // With the pass-by enum.
 
             // Here we only fill the `_with_default_arg` version, because that handles both.
-            Generator::BindableType::ParamUsage &param_usage = ret.emplace();
+            Generator::BindableType::ParamUsageWithDefaultArg &param_usage = ret.emplace();
             param_usage.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
-            param_usage.extra_headers.custom_in_header_file = [&generator]{return std::unordered_set{generator.GetPassByFile().header.path_for_inclusion};};
+            param_usage.extra_headers.custom_in_header_file = [&generator]{return std::unordered_set{generator.GetCommonPublicHelpersFile().header.path_for_inclusion};};
 
             param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(generator.GetPassByEnumName());
             param_usage.c_params.back().name_suffix = "_pass_by";
@@ -191,7 +194,9 @@ namespace mrbind::CBindings
                 cpp_type_str,
                 is_default_constructible = traits.value().is_default_constructible,
                 is_copy_constructible = traits.value().is_copy_constructible,
-                is_move_constructible = traits.value().is_move_constructible
+                is_move_constructible = traits.value().is_move_constructible,
+                pass_by_defarg = generator.GetPassByEnumName() + "_DefaultArgument",
+                pass_by_nullopt = generator.GetPassByEnumName() + "_NoObject"
             ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 std::string ret = "(";
@@ -199,6 +204,7 @@ namespace mrbind::CBindings
                 // Insert the defails file for the `MRBINDC_CLASSARG_...()` macros.
                 source_file.custom_headers.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
 
+                const bool no_def_arg = std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg);
                 const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
 
                 std::string_view cpp_type_or_wrapper_str = wrapper ? wrapper->wrapper_cpp_type : cpp_type_str;
@@ -234,10 +240,12 @@ namespace mrbind::CBindings
                     ret += ") ";
                 }
 
-                if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
+                if (wrapper ? wrapper->actual_default_arg.empty() : no_def_arg)
                 {
                     ret += "MRBINDC_CLASSARG_NO_DEF_ARG(";
                     ret += cpp_param_name;
+                    ret += ", ";
+                    ret += pass_by_defarg;
                     ret += ", ";
                     ret += cpp_type_or_wrapper_str;
                     ret += ") ";
@@ -247,21 +255,32 @@ namespace mrbind::CBindings
                     ret += "MRBINDC_CLASSARG_DEF_ARG(";
                     ret += cpp_param_name;
                     ret += ", (";
-                    ret += std::visit(Overload{
-                        [](Generator::BindableType::ParamUsage::DefaultArgNone) -> std::string_view
-                        {
-                            assert(false); // Unreachable.
-                            return "";
-                        },
-                        [](std::string_view default_arg)
-                        {
-                            return default_arg;
-                        },
-                        [](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper) -> std::string_view
-                        {
-                            return wrapper.wrapper_null;
-                        },
-                    }, default_arg);
+                    ret += pass_by_defarg;
+                    ret += "), (";
+                    ret += wrapper ? wrapper->actual_default_arg : std::get<std::string_view>(default_arg);
+                    ret += "), ";
+                    ret += cpp_type_or_wrapper_str;
+                    ret += ") ";
+                }
+
+                if (!wrapper)
+                {
+                    ret += "MRBINDC_CLASSARG_NO_DEF_ARG(";
+                    ret += cpp_param_name;
+                    ret += ", ";
+                    ret += pass_by_nullopt;
+                    ret += ", ";
+                    ret += cpp_type_or_wrapper_str;
+                    ret += ") ";
+                }
+                else
+                {
+                    ret += "MRBINDC_CLASSARG_DEF_ARG(";
+                    ret += cpp_param_name;
+                    ret += ", ";
+                    ret += pass_by_nullopt;
+                    ret += ", (";
+                    ret += wrapper->wrapper_null;
                     ret += "), ";
                     ret += cpp_type_or_wrapper_str;
                     ret += ") ";
@@ -277,7 +296,13 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.explanation_how_to_use_default_arg = [&generator](std::string_view cpp_param_name){(void)cpp_param_name; return "pass `" + generator.GetPassByEnumName() + "_DefaultArgument` and a null pointer";};
+            param_usage.explanation_how_to_use_default_arg = [&generator](std::string_view cpp_param_name, bool use_wrapper)
+            {
+                (void)cpp_param_name;
+                return "pass `" + generator.GetPassByEnumName() + (use_wrapper ? "_NoObject" : "_DefaultArgument") + "` and a null pointer";
+            };
+
+            param_usage.supports_default_arguments_in_wrappers = true; // !!
         }
 
         return ret;
@@ -286,36 +311,49 @@ namespace mrbind::CBindings
     void HeapAllocatedClassBinder::EmitSpecialMemberFunctions(Generator &generator, Generator::OutputFile &file, bool with_param_sugar) const
     {
         if (traits.value().is_default_constructible)
-            generator.EmitFunction(file, PrepareFuncDefaultCtor());
+        {
+            generator.EmitFunction(file, PrepareFuncDefaultCtor(generator));
+            generator.EmitFunction(file, PrepareFuncDefaultCtorArray(generator));
+        }
 
         if (traits.value().is_move_constructible)
         {
-            generator.EmitFunction(file, PrepareFuncCopyMoveCtor());
+            generator.EmitFunction(file, PrepareFuncCopyMoveCtor(generator));
             if (with_param_sugar)
-                generator.EmitFunction(file, PrepareFuncCopyMoveCtor(true));
+                generator.EmitFunction(file, PrepareFuncCopyMoveCtor(generator, true));
         }
 
         if (traits.value().is_move_assignable)
         {
-            generator.EmitFunction(file, PrepareFuncCopyMoveAssignment());
+            generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(generator));
             if (with_param_sugar)
-                generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(true));
+                generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(generator, true));
         }
 
         if (traits.value().is_destructible)
-            generator.EmitFunction(file, PrepareFuncDestroy());
+        {
+            generator.EmitFunction(file, PrepareFuncDestroy(generator));
+            generator.EmitFunction(file, PrepareFuncDestroyArray(generator));
+        }
+
+        // Functors to offset pointers:
+        generator.EmitFunction(file, PrepareFuncOffsetPtr(generator, true));
+        generator.EmitFunction(file, PrepareFuncOffsetPtr(generator, false));
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor() const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor(Generator &generator) const
     {
+        (void)generator;
+
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_default_ctor.empty());
-        ret.c_name = c_func_name_default_ctor;
+        ret.c_name = MakeMemberFuncName("DefaultConstruct");
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
+        ret.remove_return_type_sugar = true;
+
         ret.cpp_called_func = cpp_type_str;
 
         ret.c_comment = "/// Constructs an empty (default-constructed) instance.";
@@ -323,16 +361,45 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveCtor(bool with_param_sugar) const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtorArray(Generator &generator) const
     {
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_copy_move_ctor.empty());
-        ret.c_name = with_param_sugar ? c_func_name_copy_move_ctor_sugared : c_func_name_copy_move_ctor;
+        ret.c_name = MakeMemberFuncName("DefaultConstructArray");
+
+        ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{});
+        ret.remove_return_type_sugar = true;
+
+        ret.params.push_back({
+            .name = "num_elems",
+            .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+        });
+
+        ret.cpp_called_func = "new " + cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style) + "[@1@]{}"; // Right now we're zeroing the array. That sounds like a good idea.
+
+        ret.c_comment =
+            "/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.\n"
+            "/// The array must be destroyed using `" + generator.GetClassDestroyFuncName(c_type_name, true) + "()`.\n"
+            "/// Use `" + generator.GetClassPtrOffsetFuncName(c_type_name, false) + "()` and `" + generator.GetClassPtrOffsetFuncName(c_type_name, true) + "()` to access the array elements.";
+
+        return ret;
+    }
+
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveCtor(Generator &generator, bool with_param_sugar) const
+    {
+        (void)generator;
+
+        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+
+        Generator::EmitFuncParams ret;
+
+        ret.c_name = MakeMemberFuncName((with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"));
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
+        ret.remove_return_type_sugar = true;
+
         ret.cpp_called_func = cpp_type_str;
 
         ret.params.push_back({
@@ -341,19 +408,23 @@ namespace mrbind::CBindings
             .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name),
         });
 
-        ret.c_comment = "/// Constructs a copy of another instance. The source remains alive.";
+        if (with_param_sugar)
+            ret.c_comment = "/// Constructs a new instance.";
+        else
+            ret.c_comment = "/// Constructs a copy of another instance. The source remains alive.";
 
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveAssignment(bool with_param_sugar) const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveAssignment(Generator &generator, bool with_param_sugar) const
     {
+        (void)generator;
+
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_copy_move_assign.empty());
-        ret.c_name = with_param_sugar ? c_func_name_copy_move_assign_sugared : c_func_name_copy_move_assign;
+        ret.c_name = MakeMemberFuncName((with_param_sugar ? "AssignFrom" : "AssignFromAnother"));
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 
@@ -365,27 +436,73 @@ namespace mrbind::CBindings
             .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name),
         });
 
-        ret.c_comment = "/// Assigns the contents from another instance. Both objects remain alive after the call.";
+        if (with_param_sugar)
+            ret.c_comment = "/// Assigns the contents.";
+        else
+            ret.c_comment = "/// Assigns the contents from another instance. Both objects remain alive after the call.";
 
         return ret;
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDestroy() const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDestroy(Generator &generator) const
     {
         Generator::EmitFuncParams ret;
 
-        assert(!c_func_name_destroy.empty());
-        ret.c_name = c_func_name_destroy;
+        ret.c_name = generator.GetClassDestroyFuncName(c_type_name);
 
-        ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
+        ret.params.push_back({
+            .name = "_this",
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}),
+        });
 
-        ret.cpp_called_func = "delete &@this@";
+        ret.cpp_called_func = "delete @1@";
 
-        ret.c_comment += "/// Destroys a heap-allocated instance of `" + c_type_name + "`.";
+        ret.c_comment += "/// Destroys a heap-allocated instance of `" + c_type_name + "`. Does nothing if the pointer is null.";
 
         return ret;
     }
 
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDestroyArray(Generator &generator) const
+    {
+        Generator::EmitFuncParams ret;
+
+        ret.c_name = generator.GetClassDestroyFuncName(c_type_name, true);
+
+        ret.params.push_back({
+            .name = "_this",
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}),
+        });
+
+        ret.cpp_called_func = "delete[] @1@";
+
+        ret.c_comment += "/// Destroys a heap-allocated array of `" + c_type_name + "`. Does nothing if the pointer is null.";
+
+        return ret;
+    }
+
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncOffsetPtr(Generator &generator, bool is_const) const
+    {
+        Generator::EmitFuncParams ret;
+
+        ret.c_name = generator.GetClassPtrOffsetFuncName(c_type_name, is_const);
+
+        ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+
+        ret.params.push_back({
+            .name = "ptr",
+            .cpp_type = ret.cpp_return_type,
+        });
+        ret.params.push_back({
+            .name = "i",
+            .cpp_type = cppdecl::Type::FromSingleWord("ptrdiff_t"),
+        });
+
+        ret.cpp_called_func = "@1@ + @2@";
+
+        ret.c_comment += "/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.";
+
+        return ret;
+    }
 
     std::string MakeStructForwardDeclaration(std::string_view c_type_name, std::string_view c_underlying_type_name)
     {
@@ -434,18 +551,49 @@ namespace mrbind::CBindings
 
     Generator::BindableType MakeSimpleDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type)
     {
-        Generator::BindableType ret(c_type);
+        Generator::BindableType ret;
 
         ret.traits = Generator::TypeTraits::TrivialAndSameSizeInCAndCpp{};
+
+        // Custom handling for `void`.
+        if (cpp_type.AsSingleWord() == "void")
+        {
+            // Only fill the return usage.
+
+            auto &ret_usage = ret.return_usage.emplace();
+            ret_usage.c_type = c_type;
+
+            // Omit `return` for clarity.
+            ret_usage.make_return_statement = [](Generator::OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
+            {
+                (void)file;
+
+                // Don't add the `;` if the expression is empty.
+                // This doesn't happen during normal usage, but some custom functions that have all the code in `cpp_extra_statements`
+                //   and no actual return statement do need this.
+                if (expr.empty())
+                    return "";
+
+                return std::string(expr) + ";";
+            };
+
+            return ret;
+        }
+
         if (cpp_type.IsConstOrReference())
             ret.traits->MakeNonAssignable();
+
+        auto &param = ret.param_usage.emplace();
+        param.c_params.push_back({
+            .c_type = cppdecl::Type(c_type),
+        });
 
         // Allow default arguments via pointers.
         auto &param_def_arg = ret.param_usage_with_default_arg.emplace();
         param_def_arg.c_params.push_back({
             .c_type = cppdecl::Type(c_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
         });
-        param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+        param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
         param_def_arg.c_params_to_cpp = [cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
         {
             (void)source_file;
@@ -456,7 +604,7 @@ namespace mrbind::CBindings
             const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
 
             if (wrapper)
-                ret += wrapper->wrapper_cpp_type + "(";
+                ret += std::string(wrapper->wrapper_cpp_type) + "(";
 
             ret += "*";
             ret += cpp_param_name;
@@ -492,7 +640,10 @@ namespace mrbind::CBindings
 
         // Ignore nullptr default arguments on pointers. This produces nicer interfaces.
         if (cpp_type.Is<cppdecl::Pointer>())
-            ret.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
+            param_def_arg.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
+
+        // Return usage is trivial:
+        ret.return_usage.emplace().c_type = c_type;
 
         generator.FillDefaultTypeDependencies(cpp_type, ret);
 
@@ -517,19 +668,27 @@ namespace mrbind::CBindings
             auto type_c_style = cpp_type;
             generator.ReplaceAllNamesInTypeWithCNames(type_c_style);
 
-            Generator::BindableType new_type(type_c_style);
+            Generator::BindableType new_type;
 
             // I assume `IsSimplyBindableDirectCast()` is only going to trigger for simple types that are trivial enough for this. This could change later?
             // Must assume different size in C and C++ because of enums (with custom underlying types).
             new_type.traits = Generator::TypeTraits::TrivialButDifferentSizeInCAndCpp{};
 
+            auto &ret_usage = new_type.return_usage.emplace();
+            ret_usage.c_type = type_c_style;
+
+            auto &param = new_type.param_usage.emplace();
+            param.c_params.push_back({
+                .c_type = type_c_style,
+            });
+
             // Add the casts!
-            new_type.return_usage->make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
+            ret_usage.make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
             {
                 (void)file;
                 return "return (" + type_str_c + ")(" + std::string(expr) + ");";
             };
-            new_type.param_usage->c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
+            param.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
                 (void)default_arg;
@@ -541,7 +700,7 @@ namespace mrbind::CBindings
             param_def_arg.c_params.push_back({
                 .c_type = type_c_style.AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
             });
-            param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+            param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
             param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
@@ -552,7 +711,7 @@ namespace mrbind::CBindings
                 const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
 
                 if (wrapper)
-                    ret += wrapper->wrapper_cpp_type + "(";
+                    ret += std::string(wrapper->wrapper_cpp_type) + "(";
 
                 ret += "("; // Need those parentheses because `cpp_type_str` can be a pointer.
                 ret += cpp_type_str;
@@ -591,7 +750,7 @@ namespace mrbind::CBindings
 
             // Ignore nullptr default arguments on pointers. This produces nicer interfaces.
             if (cpp_type.Is<cppdecl::Pointer>())
-                new_type.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
+                param_def_arg.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
             // Definitely needed here.
             generator.FillDefaultTypeDependencies(cpp_type, new_type);
@@ -621,26 +780,29 @@ namespace mrbind::CBindings
                 auto type_c_style = cpp_type;
                 generator.ReplaceAllNamesInTypeWithCNames(type_c_style);
 
-                Generator::BindableType new_type(type_c_style);
+                Generator::BindableType new_type;
 
                 new_type.traits = Generator::TypeTraits(Generator::TypeTraits::ReferenceType{}, ref_target_type.IsConst(), is_rvalue_ref);
 
+                auto type_c_style_ptr = type_c_style;
+                type_c_style_ptr.modifiers.front().var = cppdecl::Pointer{};
+
                 // Return type:
 
-                new_type.return_usage->c_type.modifiers.front().var = cppdecl::Pointer{};
-                new_type.return_usage->append_to_comment = "/// The returned pointer will never be null. It is non-owning, do NOT destroy it.";
+                auto &ret_usage = new_type.return_usage.emplace();
+                ret_usage.c_type = type_c_style_ptr;
+                ret_usage.append_to_comment = "/// The returned pointer will never be null. It is non-owning, do NOT destroy it.";
                 if (is_rvalue_ref)
-                    new_type.return_usage->append_to_comment += "\n/// In C++ this returns an rvalue reference.";
+                    ret_usage.append_to_comment += "\n/// In C++ this returns an rvalue reference.";
 
                 if (with_cast)
                 {
-
                     auto ptr_type_c_style = type_c_style;
                     assert(ptr_type_c_style.Is<cppdecl::Reference>());
                     ptr_type_c_style.modifiers.at(0).var = cppdecl::Pointer{};
 
                     // Take the address and cast.
-                    new_type.return_usage->make_return_statement = [
+                    ret_usage.make_return_statement = [
                         ref_target_c_type_str = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1),
                         ref_target_c_type_ptr_str = ToCode(ptr_type_c_style, cppdecl::ToCodeFlags::canonical_c_style),
                         is_rvalue_ref,
@@ -662,7 +824,7 @@ namespace mrbind::CBindings
                 {
                     // Just take the address.
                     // Here we don't need any special handling of rvalue references.
-                    new_type.return_usage->make_return_statement = [
+                    ret_usage.make_return_statement = [
                         is_rvalue_ref,
                         details_file = is_rvalue_ref ? generator.GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
@@ -682,13 +844,11 @@ namespace mrbind::CBindings
 
 
                 // Params:
+                auto &param_def_arg = new_type.param_usage_with_default_arg.emplace();
+                param_def_arg.c_params.push_back({
+                    .c_type = type_c_style_ptr,
+                });
 
-                new_type.param_usage_with_default_arg = std::move(new_type.param_usage);
-                new_type.param_usage.reset();
-
-                auto &param_def_arg = *new_type.param_usage_with_default_arg;
-
-                param_def_arg.c_params.front().c_type.modifiers.front().var = cppdecl::Pointer{};
                 param_def_arg.append_to_comment = [
                     is_rvalue_ref
                 ](std::string_view cpp_param_name, bool has_default_arg) -> std::string
@@ -707,7 +867,7 @@ namespace mrbind::CBindings
 
                     return ret;
                 };
-                param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name){(void)cpp_param_name; return "pass a null pointer";};
+                param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
 
                 param_def_arg.c_params_to_cpp = [
                     cpp_type_str,
@@ -726,7 +886,7 @@ namespace mrbind::CBindings
                     const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
 
                     if (wrapper)
-                        ret += wrapper->wrapper_cpp_type + "(";
+                        ret += std::string(wrapper->wrapper_cpp_type) + "(";
 
                     if (is_rvalue_ref)
                     {
@@ -796,31 +956,57 @@ namespace mrbind::CBindings
         HeapAllocatedClassBinder class_binder;
 
         new_type.traits = traits;
-        class_binder.traits = traits;
 
+        class_binder.traits = traits;
         class_binder.cpp_type_name = cpp_type;
         class_binder.c_type_name = c_type;
-        class_binder.c_func_name_destroy = generator.GetClassDestroyFuncName(c_type);
 
         new_type.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(generator);
 
-        new_type.return_usage = class_binder.MakeReturnUsage();
+        new_type.return_usage = class_binder.MakeReturnUsage(generator);
 
         return new_type;
     }
 
-    std::optional<Generator::BindableType> BindRefParamsExceptNonConstLvalueSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, std::string_view target_name)
+    std::optional<Generator::BindableType> BindNonConstOrRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags)
     {
+        if (cpp_type.modifiers.size() != 1)
+            return {}; // Need exactly one modifier (a reference).
+
         const cppdecl::Reference *ref = cpp_type.As<cppdecl::Reference>();
         if (!ref)
-            return {};
+            return {}; // Not a reference.
 
         bool is_const = cpp_type.IsConst(1);
 
         if (ref->kind == cppdecl::RefQualifier::lvalue && !is_const)
             return {}; // Reject non-const lvalue references.
 
-        if (cppdecl::ToCode(cpp_type, {}, 1, cppdecl::CvQualifiers::const_) != target_name)
+        if (!cpp_type.simple_type.name.Equals(target_name, comparison_flags))
+            return {}; // Type name mismatch.
+
+        // This is non-`Opt`. We throw if this fails.
+        const Generator::BindableType &by_value_binding = generator.FindBindableType(cppdecl::Type(cpp_type).RemoveModifier().RemoveQualifiers(cppdecl::CvQualifiers::const_));
+
+        // We throw if this fails.
+        Generator::BindableType ret = MakeSimpleTypeBinding(generator, cpp_type).value();
+
+        ret.param_usage = by_value_binding.param_usage;
+        ret.param_usage_with_default_arg = by_value_binding.param_usage_with_default_arg;
+
+        return ret;
+    }
+
+    std::optional<Generator::BindableType> BindRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags)
+    {
+        if (cpp_type.modifiers.size() != 1)
+            return {}; // Need exactly one modifier (a reference).
+
+        const cppdecl::Reference *ref = cpp_type.As<cppdecl::Reference>();
+        if (!ref || ref->kind != cppdecl::RefQualifier::rvalue)
+            return {}; // Not an rvalue reference.
+
+        if (!cpp_type.simple_type.name.Equals(target_name, comparison_flags))
             return {}; // Type name mismatch.
 
         // This is non-`Opt`. We throw if this fails.

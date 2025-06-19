@@ -33,4 +33,26 @@ namespace MR::TestSimpleTypes
     inline E &GetEnumRef() {return global_enum;}
     inline void SetEnumRef(E &) {}
     inline void SetEnumRefDef(E & = global_enum) {}
+
+
+    // This enum has a custom underlying type.
+    enum class E2 : short {e1};
+    inline E2 global_enum2;
+
+    inline int GetEnum2() {return 42;}
+    inline void SetEnum2(E2) {}
+    inline void SetEnum2Def(E2 = E2::e1) {}
+
+    inline E2 *GetEnum2Ptr() {return nullptr;}
+    inline void SetEnum2Ptr(E2 *) {}
+    inline void SetEnum2PtrDef(E2 * = &global_enum2) {}
+    inline void SetEnum2PtrDefNull(E2 * = nullptr) {}
+
+    inline E2 &GetEnum2Ref() {return global_enum2;}
+    inline void SetEnum2Ref(E2 &) {}
+    inline void SetEnum2RefDef(E2 & = global_enum2) {}
+
+
+    // This enum has no constants.
+    enum class E3 {};
 }

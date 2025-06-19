@@ -68,7 +68,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Constructs the tuple elementwise.";
-                        emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_Construct");
+                        emit.c_name = binder.MakeMemberFuncName("Construct");
                         emit.cpp_return_type = type;
                         for (std::size_t i = 0; i < elem_types.size(); i++)
                         {
@@ -119,7 +119,7 @@ namespace mrbind::CBindings::Modules
 
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_const ? "read-only" : "mutable") + ".";
-                                emit.c_name = generator.MakePublicHelperName(binder.basic_c_name + "_" + name);
+                                emit.c_name = binder.MakeMemberFuncName(name);
                                 emit.cpp_return_type = elem_types[i];
                                 if (!emit.cpp_return_type.Is<cppdecl::Reference>())
                                 {

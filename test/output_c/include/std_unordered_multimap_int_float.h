@@ -1,7 +1,7 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
-#include <pass_by.h>
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -12,20 +12,25 @@ extern "C" {
 
 
 /// Generated from C++ container `std::unordered_multimap<int, float>`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_unordered_multimap_int_float MR_C_std_unordered_multimap_int_float;
 
 /// Read-only iterator for `MR_C_std_unordered_multimap_int_float`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_unordered_multimap_int_float_const_iterator MR_C_std_unordered_multimap_int_float_const_iterator;
 
 /// Mutable iterator for `MR_C_std_unordered_multimap_int_float`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_unordered_multimap_int_float_iterator MR_C_std_unordered_multimap_int_float_iterator;
 
 /// Constructs an empty (default-constructed) instance.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_C_std_unordered_multimap_int_float_DestroyArray()`.
+/// Use `MR_C_std_unordered_multimap_int_float_OffsetMutablePtr()` and `MR_C_std_unordered_multimap_int_float_OffsetPtr()` to access the array elements.
+MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
@@ -35,9 +40,17 @@ MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_AssignFromAnother(MR_C_std_unordered_multimap_int_float *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_multimap_int_float *other);
 
-/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float`.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_Destroy(MR_C_std_unordered_multimap_int_float *_this);
+
+/// Destroys a heap-allocated array of `MR_C_std_unordered_multimap_int_float`. Does nothing if the pointer is null.
+MR_C_API void MR_C_std_unordered_multimap_int_float_DestroyArray(MR_C_std_unordered_multimap_int_float *_this);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_OffsetPtr(const MR_C_std_unordered_multimap_int_float *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_OffsetMutablePtr(MR_C_std_unordered_multimap_int_float *ptr, ptrdiff_t i);
 
 /// The number of elements.
 /// Parameter `_this` can not be null.
@@ -112,6 +125,11 @@ MR_C_API bool MR_C_std_unordered_multimap_int_float_IsMutableEnd(MR_C_std_unorde
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_DefaultConstruct(void);
 
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_C_std_unordered_multimap_int_float_const_iterator_DestroyArray()`.
+/// Use `MR_C_std_unordered_multimap_int_float_const_iterator_OffsetMutablePtr()` and `MR_C_std_unordered_multimap_int_float_const_iterator_OffsetPtr()` to access the array elements.
+MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_DefaultConstructArray(size_t num_elems);
+
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
@@ -122,9 +140,17 @@ MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordere
 /// Parameter `other` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_const_iterator_AssignFromAnother(MR_C_std_unordered_multimap_int_float_const_iterator *_this, const MR_C_std_unordered_multimap_int_float_const_iterator *other);
 
-/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float_const_iterator`.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float_const_iterator`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_const_iterator_Destroy(MR_C_std_unordered_multimap_int_float_const_iterator *_this);
+
+/// Destroys a heap-allocated array of `MR_C_std_unordered_multimap_int_float_const_iterator`. Does nothing if the pointer is null.
+MR_C_API void MR_C_std_unordered_multimap_int_float_const_iterator_DestroyArray(MR_C_std_unordered_multimap_int_float_const_iterator *_this);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_OffsetPtr(const MR_C_std_unordered_multimap_int_float_const_iterator *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_OffsetMutablePtr(MR_C_std_unordered_multimap_int_float_const_iterator *ptr, ptrdiff_t i);
 
 /// Makes a const iterator from a mutable one.
 /// Parameter `iter` can not be null.
@@ -134,6 +160,11 @@ MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordere
 /// Constructs an empty (default-constructed) instance.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_iterator_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_C_std_unordered_multimap_int_float_iterator_DestroyArray()`.
+/// Use `MR_C_std_unordered_multimap_int_float_iterator_OffsetMutablePtr()` and `MR_C_std_unordered_multimap_int_float_iterator_OffsetPtr()` to access the array elements.
+MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_iterator_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
@@ -145,9 +176,17 @@ MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_mult
 /// Parameter `other` can not be null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_iterator_AssignFromAnother(MR_C_std_unordered_multimap_int_float_iterator *_this, const MR_C_std_unordered_multimap_int_float_iterator *other);
 
-/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float_iterator`.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_C_std_unordered_multimap_int_float_iterator`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_unordered_multimap_int_float_iterator_Destroy(MR_C_std_unordered_multimap_int_float_iterator *_this);
+
+/// Destroys a heap-allocated array of `MR_C_std_unordered_multimap_int_float_iterator`. Does nothing if the pointer is null.
+MR_C_API void MR_C_std_unordered_multimap_int_float_iterator_DestroyArray(MR_C_std_unordered_multimap_int_float_iterator *_this);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_iterator_OffsetPtr(const MR_C_std_unordered_multimap_int_float_iterator *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_iterator_OffsetMutablePtr(MR_C_std_unordered_multimap_int_float_iterator *ptr, ptrdiff_t i);
 
 /// Dereferences a const iterator, returning the key.
 /// Parameter `_this` can not be null.

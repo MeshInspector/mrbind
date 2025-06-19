@@ -10,12 +10,17 @@ extern "C" {
 
 
 /// A fixed-size array of `int` of size 42.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, `MR_C_PassBy_DefaultArgument` (if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_array_int_42 MR_C_std_array_int_42;
 
 /// Constructs an empty (default-constructed) instance.
 /// Returns an instance allocated on the heap! Must call `MR_C_std_array_int_42_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_C_std_array_int_42_DestroyArray()`.
+/// Use `MR_C_std_array_int_42_OffsetMutablePtr()` and `MR_C_std_array_int_42_OffsetPtr()` to access the array elements.
+MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
@@ -27,9 +32,17 @@ MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_ConstructFromAnother(const
 /// Parameter `other` can not be null.
 MR_C_API void MR_C_std_array_int_42_AssignFromAnother(MR_C_std_array_int_42 *_this, const MR_C_std_array_int_42 *other);
 
-/// Destroys a heap-allocated instance of `MR_C_std_array_int_42`.
-/// Parameter `_this` can not be null.
+/// Destroys a heap-allocated instance of `MR_C_std_array_int_42`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_array_int_42_Destroy(MR_C_std_array_int_42 *_this);
+
+/// Destroys a heap-allocated array of `MR_C_std_array_int_42`. Does nothing if the pointer is null.
+MR_C_API void MR_C_std_array_int_42_DestroyArray(MR_C_std_array_int_42 *_this);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_C_std_array_int_42 *MR_C_std_array_int_42_OffsetPtr(const MR_C_std_array_int_42 *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_C_std_array_int_42 *MR_C_std_array_int_42_OffsetMutablePtr(MR_C_std_array_int_42 *ptr, ptrdiff_t i);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null.

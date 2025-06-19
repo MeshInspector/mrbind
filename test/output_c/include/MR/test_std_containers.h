@@ -1,25 +1,26 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
-#include <pass_by.h>
-#include <std_array_int_42.h>
-#include <std_deque_int.h>
-#include <std_list_int.h>
-#include <std_map_int_float.h>
-#include <std_multimap_int_float.h>
-#include <std_multiset_float.h>
-#include <std_multiset_int.h>
-#include <std_set_float.h>
-#include <std_set_int.h>
-#include <std_unordered_map_int_float.h>
-#include <std_unordered_multimap_int_float.h>
-#include <std_unordered_multiset_int.h>
-#include <std_unordered_set_int.h>
-#include <std_vector_int.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct MR_C_std_array_int_42 MR_C_std_array_int_42; // Defined in `#include <std_array_int_42.h>`.
+typedef struct MR_C_std_deque_int MR_C_std_deque_int; // Defined in `#include <std_deque_int.h>`.
+typedef struct MR_C_std_list_int MR_C_std_list_int; // Defined in `#include <std_list_int.h>`.
+typedef struct MR_C_std_map_int_float MR_C_std_map_int_float; // Defined in `#include <std_map_int_float.h>`.
+typedef struct MR_C_std_multimap_int_float MR_C_std_multimap_int_float; // Defined in `#include <std_multimap_int_float.h>`.
+typedef struct MR_C_std_multiset_float MR_C_std_multiset_float; // Defined in `#include <std_multiset_float.h>`.
+typedef struct MR_C_std_multiset_int MR_C_std_multiset_int; // Defined in `#include <std_multiset_int.h>`.
+typedef struct MR_C_std_set_float_const_iterator MR_C_std_set_float_const_iterator; // Defined in `#include <std_set_float.h>`.
+typedef struct MR_C_std_set_int MR_C_std_set_int; // Defined in `#include <std_set_int.h>`.
+typedef struct MR_C_std_unordered_map_int_float MR_C_std_unordered_map_int_float; // Defined in `#include <std_unordered_map_int_float.h>`.
+typedef struct MR_C_std_unordered_multimap_int_float MR_C_std_unordered_multimap_int_float; // Defined in `#include <std_unordered_multimap_int_float.h>`.
+typedef struct MR_C_std_unordered_multiset_int MR_C_std_unordered_multiset_int; // Defined in `#include <std_unordered_multiset_int.h>`.
+typedef struct MR_C_std_unordered_set_int MR_C_std_unordered_set_int; // Defined in `#include <std_unordered_set_int.h>`.
+typedef struct MR_C_std_vector_int MR_C_std_vector_int; // Defined in `#include <std_vector_int.h>`.
 
 
 /// Generated from function `MR::StdContainers::Set`.
