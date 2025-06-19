@@ -15,7 +15,11 @@ namespace MR::StdTupleLike
 
     inline void SetTuple(std::tuple<int, float>) {}
     inline std::tuple<int, float> GetTuple() {return {};}
-    inline std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> GetTuple2() {static int a; static float b; return {a, b, a, b, a, b, std::move(a), std::move(b), std::move(a), std::move(b)};}
+
+    // Three separate tuples to avoid generating file paths that are too long, as those cause issues on some filesystems apparently.
+    inline std::tuple<const int, const float, int &, float &> GetTuple2() {static int a; static float b; return {a, b, a, b};}
+    inline std::tuple<const int &, const float &, int &&, float &&> GetTuple3() {static int a; static float b; return {a, b, std::move(a), std::move(b)};}
+    inline std::tuple<const int &&, const float &&> GetTuple4() {static int a; static float b; return {std::move(a), std::move(b)};}
 
     inline std::tuple<> GetTuple7() {return {};}
     inline std::tuple<float, double, int, int> GetTuple8() {return {};}
