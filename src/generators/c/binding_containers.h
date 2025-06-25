@@ -39,13 +39,13 @@ namespace mrbind::CBindings
         };
 
         // `new_cpp_mapped_elem_type` should only be non-empty for maps. It's the mapped type, while `new_cpp_elem_type` is the key type.
-        // `new_stdlib_container_header` is the header where the container template itself is declared, e.g. `vector` for `std::vector`. Leave empty if not needed.
+        // `new_container_library_header` is the header where the container template itself is declared, e.g. `vector` for `std::vector`. Leave empty if not needed.
         ContainerBinder(
             Generator &generator,
             cppdecl::QualifiedName new_cpp_container_type,
             cppdecl::Type new_cpp_elem_type,
             cppdecl::Type new_cpp_mapped_elem_type,
-            std::string new_stdlib_container_header,
+            std::string new_container_library_header,
             Params new_params
         );
 
@@ -76,7 +76,7 @@ namespace mrbind::CBindings
         struct Target
         {
             // The container name, without the trailing template arguments.
-            cppdecl::QualifiedName generic_cpp_container_name;
+            std::vector<cppdecl::QualifiedName> generic_cpp_container_names;
 
             // The header where the container template itself is declared, e.g. `vector` for `std::vector`. Leave empty if not needed.
             std::string stdlib_container_header;
@@ -87,7 +87,7 @@ namespace mrbind::CBindings
 
         ContainerBinder::Params params;
 
-        // Binds any specialization of `generic_cpp_container_name`, and also its mutable and const iterator types.
+        // Binds any specialization of any of `generic_cpp_container_names`, and also its mutable and const iterator types.
         [[nodiscard]] std::optional<Generator::BindableType> MakeBinding(Generator &generator, const cppdecl::Type &type_to_bind);
     };
 }

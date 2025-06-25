@@ -694,12 +694,21 @@ namespace mrbind::CBindings
         // The first matching one is used.
         for (const Target &target : targets)
         {
-            if (!type_to_bind.simple_type.name.Equals(target.generic_cpp_container_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target | cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target))
+            const cppdecl::QualifiedName *target_name = nullptr;
+            for (const cppdecl::QualifiedName &possible_target_name : target.generic_cpp_container_names)
+            {
+                if (type_to_bind.simple_type.name.Equals(possible_target_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target | cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target))
+                {
+                    target_name = &possible_target_name;
+                    break;
+                }
+            }
+            if (!target_name)
                 continue;
 
-            const bool is_container  =                                                                    type_to_bind.simple_type.name.parts.size() == target.generic_cpp_container_name.parts.size();
-            const bool is_const_iter = !is_container &&                                                   type_to_bind.simple_type.name.parts.size() == target.generic_cpp_container_name.parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "const_iterator";
-            const bool is_mut_iter   = !is_container && !is_const_iter && params.has_mutable_iterators && type_to_bind.simple_type.name.parts.size() == target.generic_cpp_container_name.parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "iterator";
+            const bool is_container  =                                                                    type_to_bind.simple_type.name.parts.size() == target_name->parts.size();
+            const bool is_const_iter = !is_container &&                                                   type_to_bind.simple_type.name.parts.size() == target_name->parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "const_iterator";
+            const bool is_mut_iter   = !is_container && !is_const_iter && params.has_mutable_iterators && type_to_bind.simple_type.name.parts.size() == target_name->parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "iterator";
 
             if (!is_container && !is_const_iter && !is_mut_iter)
                 return {}; // This is some member type of our container, but not an iterator, so we don't know what to do with it.
@@ -715,7 +724,7 @@ namespace mrbind::CBindings
             {
                 // Remove the unwanted trailing parts from `type_to_bind` to leave only the container name.
                 container_name_storage = type_to_bind.simple_type.name;
-                container_name_storage.parts.resize(target.generic_cpp_container_name.parts.size());
+                container_name_storage.parts.resize(target_name->parts.size());
                 container_name = &container_name_storage;
             }
 

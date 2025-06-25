@@ -1,6 +1,7 @@
 #include <input/MR/1.h>
 #include <input/MR/2.h>
 #include <input/MR/test_nested_class_template_inst.h>
+#include <input/MR/test_phmap.h>
 #include <input/MR/test_simple_types.h>
 #include <input/MR/test_std_containers.h>
 #include <input/MR/test_std_expected.h>

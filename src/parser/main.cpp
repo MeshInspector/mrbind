@@ -9,6 +9,7 @@
 
 #include <cppdecl/declarations/data.h>
 #include <cppdecl/declarations/parse.h>
+#include <cppdecl/declarations/simplify_modules/all.h>
 #include <cppdecl/declarations/simplify.h>
 #include <cppdecl/declarations/to_string.h>
 
@@ -1020,7 +1021,7 @@ namespace mrbind
             if (params->enable_cppdecl_processing)
             {
                 cppdecl::Type type = ParseTypeWithCppdecl(ret);
-                cppdecl::Simplify(cppdecl::SimplifyFlags::native, type);
+                cppdecl::Simplify(cppdecl::SimplifyFlags::native, type, cppdecl::FullSimplifyTraits{});
                 ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
             }
 

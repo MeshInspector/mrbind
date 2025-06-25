@@ -8,7 +8,7 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_vector = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("vector"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("vector")},
                     .stdlib_container_header = "vector",
                 },
             },
@@ -25,7 +25,7 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_deque = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("deque"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("deque")},
                     .stdlib_container_header = "deque",
                 },
             },
@@ -43,7 +43,7 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_list = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("list"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("list")},
                     .stdlib_container_header = "list",
                 },
             },
@@ -60,8 +60,14 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_set = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("set"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("set")},
                     .stdlib_container_header = "set",
+                },
+                {
+                    .generic_cpp_container_names = {
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("btree_set"),
+                    },
+                    .stdlib_container_header = "parallel_hashmap/btree.h", // Don't have a separate category for third-party headers yet, so this goes into the standard headers. Oh well.
                 },
             },
             .params = {
@@ -73,8 +79,14 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_multiset = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("multiset"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("multiset")},
                     .stdlib_container_header = "set",
+                },
+                {
+                    .generic_cpp_container_names = {
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("btree_multiset"),
+                    },
+                    .stdlib_container_header = "parallel_hashmap/btree.h", // Don't have a separate category for third-party headers yet, so this goes into the standard headers. Oh well.
                 },
             },
             .params = {
@@ -87,8 +99,17 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_unordered_set = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_set"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_set")},
                     .stdlib_container_header = "unordered_set",
+                },
+                {
+                    .generic_cpp_container_names = {
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("flat_hash_set"),
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("node_hash_set"),
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("parallel_flat_hash_set"),
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("parallel_node_hash_set"),
+                    },
+                    .stdlib_container_header = "parallel_hashmap/phmap.h", // Don't have a separate category for third-party headers yet, so this goes into the standard headers. Oh well.
                 },
             },
             .params = {
@@ -100,7 +121,7 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_unordered_multiset = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_multiset"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_multiset")},
                     .stdlib_container_header = "unordered_set",
                 },
             },
@@ -114,8 +135,14 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_map = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("map"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("map")},
                     .stdlib_container_header = "map",
+                },
+                {
+                    .generic_cpp_container_names = {
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("btree_map"),
+                    },
+                    .stdlib_container_header = "parallel_hashmap/btree.h", // Don't have a separate category for third-party headers yet, so this goes into the standard headers. Oh well.
                 },
             },
             .params = {
@@ -128,8 +155,14 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_multimap = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("multimap"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("multimap")},
                     .stdlib_container_header = "map",
+                },
+                {
+                    .generic_cpp_container_names = {
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("btree_multimap"),
+                    },
+                    .stdlib_container_header = "parallel_hashmap/btree.h", // Don't have a separate category for third-party headers yet, so this goes into the standard headers. Oh well.
                 },
             },
             .params = {
@@ -143,8 +176,17 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_unordered_map = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_map"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_map")},
                     .stdlib_container_header = "unordered_map",
+                },
+                {
+                    .generic_cpp_container_names = {
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("flat_hash_map"),
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("node_hash_map"),
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("parallel_flat_hash_map"),
+                        cppdecl::QualifiedName{}.AddPart("phmap").AddPart("parallel_node_hash_map"),
+                    },
+                    .stdlib_container_header = "parallel_hashmap/phmap.h", // Don't have a separate category for third-party headers yet, so this goes into the standard headers. Oh well.
                 },
             },
             .params = {
@@ -157,7 +199,7 @@ namespace mrbind::CBindings::Modules
         MetaContainerBinder binder_unordered_multimap = {
             .targets = {
                 {
-                    .generic_cpp_container_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_multimap"),
+                    .generic_cpp_container_names = {cppdecl::QualifiedName{}.AddPart("std").AddPart("unordered_multimap")},
                     .stdlib_container_header = "unordered_map",
                 },
             },
