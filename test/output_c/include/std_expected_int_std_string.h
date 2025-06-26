@@ -17,7 +17,7 @@ typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_str
 typedef struct MR_C_std_expected_int_std_string MR_C_std_expected_int_std_string;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -26,11 +26,11 @@ MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_Defa
 MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other);
 
 /// Constructs a new instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_ConstructFrom(MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.

@@ -12,7 +12,7 @@ typedef struct MR_C_std_expected_void_float MR_C_std_expected_void_float; // Def
 
 
 /// Generated from function `MR::StdExpected::GetExp`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_int_std_string *MR_StdExpected_GetExp(void);
 
 /// Generated from function `MR::StdExpected::SetExp`.
@@ -31,7 +31,7 @@ MR_C_API void MR_StdExpected_SetExpDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_e
 MR_C_API void MR_StdExpected_SetExpDef(MR_C_PassBy _1_pass_by, MR_C_std_expected_int_std_string *_1);
 
 /// Generated from function `MR::StdExpected::GetExpVoid`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_void_float *MR_StdExpected_GetExpVoid(void);
 
 /// Generated from function `MR::StdExpected::SetExpVoid`.

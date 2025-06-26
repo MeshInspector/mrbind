@@ -28,7 +28,7 @@ MR_C_API MR_C_std_tuple_const_int_const_float_int_ref_float_ref *MR_C_std_tuple_
 /// Constructs the tuple elementwise.
 /// Parameter `_2` can not be null.
 /// Parameter `_3` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int_const_float_int_ref_float_ref_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int_const_float_int_ref_float_ref_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_tuple_const_int_const_float_int_ref_float_ref *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_Construct(int _0, float _1, int *_2, float *_3);
 
 /// The element 0, of type `const int`, read-only.

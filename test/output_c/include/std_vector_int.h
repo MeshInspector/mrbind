@@ -24,7 +24,7 @@ typedef struct MR_C_std_vector_int_const_iterator MR_C_std_vector_int_const_iter
 typedef struct MR_C_std_vector_int_iterator MR_C_std_vector_int_iterator;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -33,7 +33,7 @@ MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_DefaultConstruct(void);
 MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -152,7 +152,7 @@ MR_C_API void MR_C_std_vector_int_EraseAtIter(MR_C_std_vector_int *_this, const 
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_Begin(const MR_C_std_vector_int *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -162,7 +162,7 @@ MR_C_API bool MR_C_std_vector_int_IsBegin(const MR_C_std_vector_int *_this, cons
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableBegin(MR_C_std_vector_int *_this);
 
 /// Tests whether a mutable iterator is the begin iterator.
@@ -172,7 +172,7 @@ MR_C_API bool MR_C_std_vector_int_IsMutableBegin(MR_C_std_vector_int *_this, con
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_End(const MR_C_std_vector_int *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -182,7 +182,7 @@ MR_C_API bool MR_C_std_vector_int_IsEnd(const MR_C_std_vector_int *_this, const 
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableEnd(MR_C_std_vector_int *_this);
 
 /// Tests whether a mutable iterator is the end iterator.
@@ -201,7 +201,7 @@ MR_C_API ptrdiff_t MR_C_std_vector_int_ToIndex(const MR_C_std_vector_int *_this,
 MR_C_API ptrdiff_t MR_C_std_vector_int_MutableToIndex(const MR_C_std_vector_int *_this, const MR_C_std_vector_int_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -211,7 +211,7 @@ MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_ConstructFromAnother(const MR_C_std_vector_int_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -233,11 +233,11 @@ MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_
 
 /// Makes a const iterator from a mutable one.
 /// Parameter `iter` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_FromMutable(const MR_C_std_vector_int_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -247,7 +247,7 @@ MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_DefaultConst
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_ConstructFromAnother(const MR_C_std_vector_int_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.

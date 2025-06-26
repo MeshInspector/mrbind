@@ -15,7 +15,7 @@ typedef struct MR_C_std_pair_const_int_ref_const_float_ref MR_C_std_pair_const_i
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int_ref_const_float_ref_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int_ref_const_float_ref_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_ref_const_float_ref_ConstructFromAnother(const MR_C_std_pair_const_int_ref_const_float_ref *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_pair_const_int_ref_const_float_ref`. Does nothing if the pointer is null.
@@ -33,7 +33,7 @@ MR_C_API MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_re
 /// Constructs the pair elementwise.
 /// Parameter `first` can not be null.
 /// Parameter `second` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int_ref_const_float_ref_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int_ref_const_float_ref_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_ref_const_float_ref_Construct(const int *first, const float *second);
 
 /// The first of the two elements, read-only.

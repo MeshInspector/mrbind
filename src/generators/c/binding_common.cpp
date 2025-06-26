@@ -3,13 +3,13 @@
 
 namespace mrbind::CBindings
 {
-    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_base_name)
+    HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string_view new_c_type_name_base, std::string new_underlying_c_type_base_name)
     {
         HeapAllocatedClassBinder ret;
 
         ret.cpp_type_name = std::move(new_cpp_type_name);
 
-        ret.c_type_name = generator.MakePublicHelperName(cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier));
+        ret.c_type_name = generator.MakePublicHelperName(new_c_type_name_base.empty() ? cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier) : new_c_type_name_base);
         ret.c_underlying_type_name = !new_underlying_c_type_base_name.empty() ? generator.MakePublicHelperName(new_underlying_c_type_base_name) : "";
 
         return ret;
@@ -72,12 +72,18 @@ namespace mrbind::CBindings
         ret.c_type = cppdecl::Type::FromSingleWord(c_type_name).AddModifier(cppdecl::Pointer{});
         ret.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
 
-        ret.append_to_comment = "/// Returns an instance allocated on the heap! Must call `" + generator.GetClassDestroyFuncName(c_type_name) + "()` to free it when you're done using it.";
+        ret.append_to_comment = [destroy_func_name = generator.GetClassDestroyFuncName(c_type_name)](std::string_view callback_param_name) -> std::string
+        {
+            if (callback_param_name.empty())
+                return "/// Never returns null. Returns an instance allocated on the heap! Must call `" + destroy_func_name + "()` to free it when you're done using it.";
+            else
+                return "/// Callback parameter `" + std::string(callback_param_name) + "` is never null. It is an instance allocated on the heap! Must call `" + destroy_func_name + "()` to free it when you're done using it.";
+        };
 
-        ret.make_return_statement = [c_type_name = c_type_name, cpp_type_str = std::move(cpp_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
+        ret.make_return_expr = [c_type_name = c_type_name, cpp_type_str = std::move(cpp_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
         {
             (void)file;
-            return "return (" + c_type_name + " *)new " + cpp_type_str + "(" + std::string(expr) + ");";
+            return "(" + c_type_name + " *)new " + cpp_type_str + "(" + std::string(expr) + ")";
         };
 
         return ret;
@@ -164,13 +170,13 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)
+            param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg) -> std::string
             {
-                (void)has_default_arg;
-                std::string ret;
-                if (!has_default_arg)
-                    ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
-                return ret;
+                if (cpp_param_name.empty())
+                    return "/// Callback return value can not be null.";
+                else if (!has_default_arg)
+                    return "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
+                else return "";
             };
 
             param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
@@ -563,20 +569,6 @@ namespace mrbind::CBindings
             auto &ret_usage = ret.return_usage.emplace();
             ret_usage.c_type = c_type;
 
-            // Omit `return` for clarity.
-            ret_usage.make_return_statement = [](Generator::OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
-            {
-                (void)file;
-
-                // Don't add the `;` if the expression is empty.
-                // This doesn't happen during normal usage, but some custom functions that have all the code in `cpp_extra_statements`
-                //   and no actual return statement do need this.
-                if (expr.empty())
-                    return "";
-
-                return std::string(expr) + ";";
-            };
-
             return ret;
         }
 
@@ -683,10 +675,10 @@ namespace mrbind::CBindings
             });
 
             // Add the casts!
-            ret_usage.make_return_statement = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
+            ret_usage.make_return_expr = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
             {
                 (void)file;
-                return "return (" + type_str_c + ")(" + std::string(expr) + ");";
+                return "(" + type_str_c + ")(" + std::string(expr) + ")";
             };
             param.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
@@ -791,9 +783,23 @@ namespace mrbind::CBindings
 
                 auto &ret_usage = new_type.return_usage.emplace();
                 ret_usage.c_type = type_c_style_ptr;
-                ret_usage.append_to_comment = "/// The returned pointer will never be null. It is non-owning, do NOT destroy it.";
-                if (is_rvalue_ref)
-                    ret_usage.append_to_comment += "\n/// In C++ this returns an rvalue reference.";
+                ret_usage.append_to_comment = [is_rvalue_ref](std::string_view callback_param_name) -> std::string
+                {
+                    std::string ret;
+                    if (callback_param_name.empty())
+                    {
+                        ret = "/// The returned pointer will never be null. It is non-owning, do NOT destroy it.";
+                        if (is_rvalue_ref)
+                            ret += "\n/// In C++ returns an rvalue reference.";
+                    }
+                    else
+                    {
+                        ret = "/// Callback parameter `" + std::string(callback_param_name) + "` will never be null. It is non-owning, do NOT destroy it.";
+                        if (is_rvalue_ref)
+                            ret += "\n/// In C++ that parameter is an rvalue reference.";
+                    }
+                    return ret;
+                };
 
                 if (with_cast)
                 {
@@ -802,7 +808,7 @@ namespace mrbind::CBindings
                     ptr_type_c_style.modifiers.at(0).var = cppdecl::Pointer{};
 
                     // Take the address and cast.
-                    ret_usage.make_return_statement = [
+                    ret_usage.make_return_expr = [
                         ref_target_c_type_str = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1),
                         ref_target_c_type_ptr_str = ToCode(ptr_type_c_style, cppdecl::ToCodeFlags::canonical_c_style),
                         is_rvalue_ref,
@@ -811,12 +817,12 @@ namespace mrbind::CBindings
                     {
                         if (!is_rvalue_ref)
                         {
-                            return "return (" + ref_target_c_type_ptr_str + ")&(" + std::string(expr) + ");";
+                            return "(" + ref_target_c_type_ptr_str + ")&(" + std::string(expr) + ")";
                         }
                         else
                         {
                             file.custom_headers.insert(details_file); // For `unmove()`.
-                            return "return (" + ref_target_c_type_ptr_str + ")&mrbindc_details::unmove(" + std::string(expr) + ");";
+                            return "(" + ref_target_c_type_ptr_str + ")&mrbindc_details::unmove(" + std::string(expr) + ")";
                         }
                     };
                 }
@@ -824,7 +830,7 @@ namespace mrbind::CBindings
                 {
                     // Just take the address.
                     // Here we don't need any special handling of rvalue references.
-                    ret_usage.make_return_statement = [
+                    ret_usage.make_return_expr = [
                         is_rvalue_ref,
                         details_file = is_rvalue_ref ? generator.GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
@@ -832,12 +838,12 @@ namespace mrbind::CBindings
                         (void)file;
                         if (!is_rvalue_ref)
                         {
-                            return "return &(" + std::string(expr) + ");";
+                            return "&(" + std::string(expr) + ")";
                         }
                         else
                         {
                             file.custom_headers.insert(details_file); // For `unmove()`.
-                            return "return &mrbindc_details::unmove(" + std::string(expr) + ");";
+                            return "&mrbindc_details::unmove(" + std::string(expr) + ")";
                         }
                     };
                 }
@@ -854,15 +860,30 @@ namespace mrbind::CBindings
                 ](std::string_view cpp_param_name, bool has_default_arg) -> std::string
                 {
                     std::string ret;
-                    if (!has_default_arg)
-                        ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
 
-                    if (is_rvalue_ref)
+                    if (cpp_param_name.empty())
                     {
-                        ret +=
-                            "\n"
-                            "/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,\n"
-                            "///   but if your pointer is owning, you must still destroy it manually later.";
+                        ret = "/// Callback return value can not be null.";
+                        if (is_rvalue_ref)
+                        {
+                            ret +=
+                                "\n"
+                                "/// In C++ the callback returns an rvalue reference: it might invalidate the returned object,\n"
+                                "///   but if your pointer is owning, you must still destroy it manually later.";
+                        }
+                    }
+                    else
+                    {
+                        if (!has_default_arg)
+                            ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
+
+                        if (is_rvalue_ref)
+                        {
+                            ret +=
+                                "\n"
+                                "/// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,\n"
+                                "///   but if your pointer is owning, you must still destroy it manually later.";
+                        }
                     }
 
                     return ret;
@@ -1087,6 +1108,10 @@ namespace mrbind::CBindings
         };
         ret.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)
         {
+            // No handling empty `cpp_param_name`, because this usage only makes sense in sugared parameters.
+            if (cpp_param_name.empty())
+                throw std::logic_error("Internal error: Bad usage: String-like parameter usage is sugared, so its `.append_to_comment` callback is not supposed to receive an empty `cpp_param_name`. You might want to set `.is_heap_allocated_class = true` for this type.");
+
             std::string ret;
             if (!has_default_arg)
                 ret += "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.\n";

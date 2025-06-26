@@ -17,7 +17,7 @@ typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A; // Defined in `#include <MR/
 typedef struct MR_C_std_unique_ptr_MR_StdUniquePtr_A_array MR_C_std_unique_ptr_MR_StdUniquePtr_A_array;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -27,13 +27,13 @@ MR_C_API MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_Std
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFromAnother(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *other);
 
 /// Constructs a new instance.
 /// Parameter `other` can point to an array.
 /// Parameter `other` takes ownership of the passed pointer (if not null), and will later call `MR_StdUniquePtr_A_DestroyArray()` on it automatically.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFrom(MR_StdUniquePtr_A *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.

@@ -14,7 +14,7 @@ extern "C" {
 typedef struct MR_TypedefsInTemplates_A_int MR_TypedefsInTemplates_A_int;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -30,7 +30,7 @@ MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_OffsetMutabl
 
 /// Generated from a constructor of class `MR::TypedefsInTemplates::A<int>`.
 /// Parameter `_other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_ConstructFromAnother(const MR_TypedefsInTemplates_A_int *_other);
 
 /// Generated from a method of class `MR::TypedefsInTemplates::A<int>` named `operator=`.
@@ -52,7 +52,7 @@ MR_C_API int MR_TypedefsInTemplates_A_int_foo(MR_TypedefsInTemplates_A_int *_thi
 typedef struct MR_TypedefsInTemplates_B_int MR_TypedefsInTemplates_B_int;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -68,7 +68,7 @@ MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_OffsetMutabl
 
 /// Generated from a constructor of class `MR::TypedefsInTemplates::B<int>`.
 /// Parameter `_other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_ConstructFromAnother(const MR_TypedefsInTemplates_B_int *_other);
 
 /// Generated from a method of class `MR::TypedefsInTemplates::B<int>` named `operator=`.
@@ -86,7 +86,7 @@ MR_C_API void MR_TypedefsInTemplates_B_int_DestroyArray(MR_TypedefsInTemplates_B
 typedef struct MR_TypedefsInTemplates_B_int_BB_float MR_TypedefsInTemplates_B_int_BB_float;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_BB_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_BB_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -102,7 +102,7 @@ MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_
 
 /// Generated from a constructor of class `MR::TypedefsInTemplates::B<int>::BB<float>`.
 /// Parameter `_other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_BB_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_BB_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(const MR_TypedefsInTemplates_B_int_BB_float *_other);
 
 /// Generated from a method of class `MR::TypedefsInTemplates::B<int>::BB<float>` named `operator=`.

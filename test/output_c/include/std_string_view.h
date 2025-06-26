@@ -14,7 +14,7 @@ extern "C" {
 typedef struct MR_C_std_string_view MR_C_std_string_view;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string_view *MR_C_std_string_view_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -24,13 +24,13 @@ MR_C_API MR_C_std_string_view *MR_C_std_string_view_DefaultConstructArray(size_t
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string_view *MR_C_std_string_view_ConstructFromAnother(const MR_C_std_string_view *other);
 
 /// Constructs a new instance.
 /// Parameter `other` can not be null.
 /// If `other_end` is null, then `other` is assumed to be null-terminated.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string_view *MR_C_std_string_view_ConstructFrom(const char *other, const char *other_end);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.

@@ -136,6 +136,10 @@ namespace mrbind::CBindings::Modules
                 explain_defarg = elem_type_binding.param_usage_with_default_arg.value().explanation_how_to_use_default_arg
             ](std::string_view cpp_param_name, bool has_default_arg)
             {
+                // No handling empty `cpp_param_name`, because this usage is only for sugared parameters.
+                if (cpp_param_name.empty())
+                    throw std::logic_error("Internal error: Bad usage: the parameter usage of `std::optional` received an empty `cpp_param_name`, but this is not supposed to happen to sugared parameter usages.");
+
                 std::string ret;
                 if (next)
                 {
@@ -180,6 +184,10 @@ namespace mrbind::CBindings::Modules
                     explain_defarg = elem_type_binding.param_usage_with_default_arg.value().explanation_how_to_use_default_arg
                 ](std::string_view cpp_param_name, bool has_default_arg)
                 {
+                    // No handling empty `cpp_param_name`, because this doesn't apply when we have default arguments.
+                    if (cpp_param_name.empty())
+                        throw std::logic_error("Internal error: Bad usage: parameter usages with default arguments are not supposed to receive non-empty `cpp_param_name`.");
+
                     std::string ret;
                     if (next)
                     {

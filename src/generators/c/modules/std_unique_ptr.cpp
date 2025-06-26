@@ -229,10 +229,18 @@ namespace mrbind::CBindings::Modules
                 auto param_append_to_comment =
                     [func_name_destroy_released_ptr, is_array_of_unknown_bound](std::string_view cpp_param_name, bool has_default_arg) -> std::string
                     {
-                        (void)has_default_arg;
-                        return
-                            "/// Parameter `" + std::string(cpp_param_name) + "`" + (has_default_arg ? " (after dereferencing)" : "") + " " + (is_array_of_unknown_bound ? "can point to an array" : "should point to a single object rather than to an array") + ".\n"
-                            "/// Parameter `" + std::string(cpp_param_name) + "` takes ownership of the" + (has_default_arg ? " (deferenced)" : "") + " passed pointer (if not null), and will later call `" + func_name_destroy_released_ptr + "()` on it automatically.";
+                        if (cpp_param_name.empty())
+                        {
+                            return
+                                "/// Callback return value " + std::string(is_array_of_unknown_bound ? "can point to an array" : "should point to a single object rather than to an array") + ".\n"
+                                "/// It takes ownership of the returned pointer (if not null), and will later call `" + func_name_destroy_released_ptr + "()` on it automatically.";
+                        }
+                        else
+                        {
+                            return
+                                "/// Parameter `" + std::string(cpp_param_name) + "`" + (has_default_arg ? " (after dereferencing)" : "") + " " + (is_array_of_unknown_bound ? "can point to an array" : "should point to a single object rather than to an array") + ".\n"
+                                "/// Parameter `" + std::string(cpp_param_name) + "` takes ownership of the" + (has_default_arg ? " (deferenced)" : "") + " passed pointer (if not null), and will later call `" + func_name_destroy_released_ptr + "()` on it automatically.";
+                        }
                     };
 
                 auto &param_usage = new_type.param_usage.emplace();
@@ -339,7 +347,7 @@ namespace mrbind::CBindings::Modules
                 auto &ret_usage = new_type.return_usage.emplace();
                 ret_usage.c_type = underlying_c_ptr_type;
 
-                new_type.return_usage->make_return_statement =
+                new_type.return_usage->make_return_expr =
                     [
                         pointer_needs_cast,
                         underlying_c_ptr_type_str = cppdecl::ToCode(underlying_c_ptr_type, cppdecl::ToCodeFlags::canonical_c_style)
@@ -347,17 +355,23 @@ namespace mrbind::CBindings::Modules
                     {
                         (void)file;
 
-                        std::string ret = "return ";
+                        std::string ret;
                         if (pointer_needs_cast)
                             ret += "(" + underlying_c_ptr_type_str + ")"; // Cast to the right pointer type.
 
                         ret += "(";
                         ret += expr;
-                        ret += ").release();";
+                        ret += ").release()";
                         return ret;
                     };
 
-                new_type.return_usage->append_to_comment = "/// The returned pointer is owning! It must be deallocated using `" + func_name_destroy_released_ptr + "().";
+                new_type.return_usage->append_to_comment = [func_name_destroy_released_ptr](std::string_view callback_param_name) -> std::string
+                {
+                    if (callback_param_name.empty())
+                        return "/// The returned pointer is owning! If not null, it must be deallocated using `" + func_name_destroy_released_ptr + "().";
+                    else
+                        return "/// Callback parameter `" + std::string(callback_param_name) + "` is owning! If not null, it must be deallocated using `" + func_name_destroy_released_ptr + "().";
+                };
 
 
                 // Fill the type deps.

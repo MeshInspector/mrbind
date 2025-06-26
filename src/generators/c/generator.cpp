@@ -337,7 +337,19 @@ namespace mrbind::CBindings
         return std::string(c_type_name) + (is_const ? "_OffsetPtr" : "_OffsetMutablePtr");
     }
 
-    Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name)
+    const Generator::TypeBindableWithSameAddress &Generator::AddNewTypeBindableWithSameAddress(const cppdecl::QualifiedName &cpp_type_name, TypeBindableWithSameAddress desc)
+    {
+        // We used to have some extra logic here, but now this just inserts into the map, and checks for duplicates.
+
+        std::string cpp_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        auto [iter, is_new] = types_bindable_with_same_address.try_emplace(std::move(cpp_str), std::move(desc));
+        if (!is_new)
+            throw std::runtime_error("Duplicate type-bindable-with-same_address: " + cpp_str); // The key is not moved on failure.
+
+        return iter->second;
+    }
+
+    const Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name)
     {
         if (auto ret = FindTypeBindableWithSameAddressOpt(type_name))
             return *ret;
@@ -345,7 +357,7 @@ namespace mrbind::CBindings
             throw std::runtime_error("Don't know what to do with type `" + cppdecl::ToCode(type_name, cppdecl::ToCodeFlags::canonical_c_style) + "`: how to forward-declare it or what header to include.");
     }
 
-    Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name)
+    const Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name)
     {
         std::string type_name_str = cppdecl::ToCode(type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
@@ -357,34 +369,34 @@ namespace mrbind::CBindings
         // This intentionally excludes the `_Bool` spelling. We simply don't bind it for now, who needs it anyway?
         // And the parser should rewrite it to `bool` regardless.
         if (type_name.AsSingleWord() == "bool")
-            return &types_bindable_with_same_address.try_emplace(type_name_str, TypeBindableWithSameAddress{.declared_in_c_stdlib_file = "stdbool.h"}).first->second;
+            return &AddNewTypeBindableWithSameAddress(type_name, TypeBindableWithSameAddress{.declared_in_c_stdlib_file = "stdbool.h"});
         // Built-in types.
         if (TypeNameIsCBuiltIn(type_name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
-            return &types_bindable_with_same_address.try_emplace(type_name_str).first->second;
+            return &AddNewTypeBindableWithSameAddress(type_name, {});
 
         // Try find a regular bindable type, maybe it has the `binding_preserves_address` flag set.
         if (auto bindable_type = FindBindableTypeOpt(ParseTypeOrThrow(type_name_str)))
         {
             if (bindable_type->IsBindableWithSameAddress())
-                return &types_bindable_with_same_address.try_emplace(type_name_str, bindable_type->bindable_with_same_address).first->second;
+                return &AddNewTypeBindableWithSameAddress(type_name, bindable_type->bindable_with_same_address);
         }
 
         // Ask the modules.
         for (const auto &m : modules)
         {
             if (auto opt = m->GetTypeBindableWithSameAddress(*this, type_name, type_name_str))
-                return &types_bindable_with_same_address.try_emplace(type_name_str, *opt).first->second;
+                return &AddNewTypeBindableWithSameAddress(type_name, *opt);
         }
 
         return nullptr;
     }
 
-    Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const std::string &type_name_str)
+    const Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const std::string &type_name_str)
     {
         return FindTypeBindableWithSameAddress(ParseQualNameOrThrow(type_name_str));
     }
 
-    Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const std::string &type_name_str)
+    const Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const std::string &type_name_str)
     {
         return FindTypeBindableWithSameAddressOpt(ParseQualNameOrThrow(type_name_str));
     }
@@ -433,7 +445,11 @@ namespace mrbind::CBindings
                     // Trailing return type is fine, because we can just not use it by passing a flag to `ToCode`.
 
                     // Check all parameters.
-                    return std::all_of(elem.params.begin(), elem.params.end(), [&](const auto &param){return IsSimplyBindableDirect(param.type);});
+                    return std::all_of(elem.params.begin(), elem.params.end(), [&](const auto &param)
+                    {
+                        // Some trivially bindable type?
+                        return IsSimplyBindableDirect(param.type);
+                    });
                 },
             }, mod.var);
 
@@ -498,6 +514,30 @@ namespace mrbind::CBindings
         if (custom_in_source_file)
             source_custom = custom_in_source_file();
         file.source.custom_headers.insert(std::make_move_iterator(source_custom.begin()), std::make_move_iterator(source_custom.end()));
+    }
+
+    void Generator::ExtraHeaders::MergeFrom(const ExtraHeaders &other)
+    {
+        stdlib_in_header_file.insert(other.stdlib_in_header_file.begin(), other.stdlib_in_header_file.end());
+        stdlib_in_source_file.insert(other.stdlib_in_source_file.begin(), other.stdlib_in_source_file.end());
+
+        for (auto m : {&ExtraHeaders::custom_in_header_file, &ExtraHeaders::custom_in_source_file})
+        {
+            if (!(this->*m))
+            {
+                this->*m = other.*m;
+            }
+            else
+            {
+                this->*m = [n1 = std::move(this->*m), n2 = std::move(other.*m)]
+                {
+                    auto ret = n1();
+                    auto extra = n2();
+                    ret.insert(std::make_move_iterator(extra.begin()), std::make_move_iterator(extra.end()));
+                    return ret;
+                };
+            }
+        }
     }
 
     const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar)
@@ -590,6 +630,18 @@ namespace mrbind::CBindings
             if (target.return_usage)
                 target.return_usage->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
         });
+    }
+
+    void Generator::ApplyTypeDependenciesToFile(OutputFile &file, const std::unordered_map<std::string, BindableType::SameAddrBindableTypeDependency> &deps)
+    {
+        for (const auto &dep : deps)
+        {
+            auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
+
+            // Calling `declared_in_file()` might create the file that defines this type, which is a good thing.
+            if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
+                file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+        }
     }
 
     const cppdecl::Type &Generator::ParseTypeOrThrow(const std::string &str) const
@@ -946,271 +998,327 @@ namespace mrbind::CBindings
         return true;
     }
 
-    void Generator::EmitFunction(OutputFile &file, const EmitFuncParams &params)
+    Generator::EmittedFunctionStrings Generator::EmitFunctionAsStrings(OutputFile &file, const EmitFuncParams &params)
     {
-        try
+        EmittedFunctionStrings ret;
+
+        cppdecl::Function new_func;
+        cppdecl::Function new_func_decl;
+
+        if (!params.c_comment.empty())
         {
-            auto ApplyTypeDependencies = [this, &file](const std::unordered_map<std::string, BindableType::SameAddrBindableTypeDependency> &deps)
-            {
-                for (const auto &dep : deps)
-                {
-                    auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
+            ret.comment += params.c_comment;
+            ret.comment += '\n';
+        }
 
-                    // Calling `declared_in_file()` might create the file that defines this type, which is a good thing.
-                    if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
-                        file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
-                }
-            };
+        std::string body_pre;
+        if (!params.cpp_extra_statements.empty())
+        {
+            body_pre += IndentString(params.cpp_extra_statements, 1, false);
+        }
 
-            cppdecl::Function new_func;
-            cppdecl::Function new_func_decl;
+        std::string body_return = params.cpp_called_func;
 
-            std::string comment;
-            if (!params.c_comment.empty())
-            {
-                comment += params.c_comment;
-                comment += '\n';
-            }
-
-            std::string body_pre;
-            if (!params.cpp_extra_statements.empty())
-            {
-                body_pre += IndentString(params.cpp_extra_statements, 1, false);
-            }
-
-            std::string body_return = params.cpp_called_func;
-
-            // Assemble the parameter and argument lists.
-            std::size_t i = 1; // This counter doesn't increment on `this` parameters. It is 1-based for user-friendliness.
-            bool first_arg_in_call_expr = true;
-            bool seen_this_param = false;
-            bool seen_any_placeholders = false;
-            for (const auto &param : params.params)
-            {
-                const bool is_this_param = param.kind != EmitFuncParams::Param::Kind::normal;
-
-                try
-                {
-                    std::string param_name_fixed = !param.name.empty() ? param.name : is_this_param ? "_this" : "_" + std::to_string(i);
-                    std::string arg_expr;
-
-                    // Remove top-level constness from parameter types, to simplify the rest of the code.
-                    // It seems we don't need to decay the params manually, the parser seems to already emit them in the decayed form.
-                    const cppdecl::Type param_cpp_type_fixed = cppdecl::Type(param.cpp_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
-
-                    if (!param.emit_as_is)
-                    {
-                        const BindableType &bindable_param_type = FindBindableType(param_cpp_type_fixed, param.remove_sugar);
-                        if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
-                            throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
-
-                        if (param.default_arg && !bindable_param_type.param_usage_with_default_arg)
-                            throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
-
-                        const std::string useless_default_arg_message =
-                            param.default_arg && bindable_param_type.param_usage_with_default_arg->is_useless_default_argument
-                            ? bindable_param_type.param_usage_with_default_arg->is_useless_default_argument(param.default_arg->original_spelling)
-                            : "";
-
-                        const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
-
-                        const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
-                        const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
-
-                        // Declare or include type dependencies of the parameter.
-                        ApplyTypeDependencies(param_usage.same_addr_bindable_type_dependencies);
-
-                        for (const auto &c_param : param_usage.c_params)
-                        {
-                            auto &new_param = new_func.params.emplace_back();
-                            new_param.type = c_param.c_type;
-                            new_param.name.parts.emplace_back(param_name_fixed + c_param.name_suffix);
-
-                            auto &new_param_decl = new_func_decl.params.emplace_back();
-                            new_param_decl.type = c_param.c_type;
-                            // Skip the parameter name in the declarator if it's unnamed in the input AND it doesn't correspond to multiple parameters in the output.
-                            // The latter requirement is solely for our sanity, as otherwise it becomes difficult to understand what the multiple parameters are doing in there.
-                            if (!param.name.empty() || param_usage.c_params.size() > 1)
-                                new_param_decl.name = new_param.name;
-                        }
-
-                        // Custom comment?
-                        // This seems to look better when inserted before the explanation about the default argument.
-                        if (param_usage.append_to_comment)
-                        {
-                            std::string str = param_usage.append_to_comment(param_name_fixed, has_useful_default_arg);
-                            if (!str.empty())
-                            {
-                                comment += str;
-                                comment += '\n';
-                            }
-                        }
-
-                        // Comment about the default argument.
-                        if (has_useful_default_arg)
-                        {
-                            comment += "/// Parameter `";
-                            comment += param_name_fixed;
-                            comment += "` has a default argument: `";
-                            comment += param.default_arg->original_spelling;
-                            comment += "`, ";
-                            if (!param_usage_defarg->explanation_how_to_use_default_arg)
-                                throw std::logic_error("Internal error: Bad usage: `ParamUsageWithDefaultArg::explanation_how_to_use_default_arg` is not set.");
-                            comment += param_usage_defarg->explanation_how_to_use_default_arg(param_name_fixed, false); // Always passing `use_wrapper = false` here. It's the wrapper's job to pass something else when wrapping the callback.
-                            comment += " to use it.\n";
-                        }
-                        else if (!useless_default_arg_message.empty())
-                        {
-                            comment += "/// Parameter `" + param_name_fixed + "` defaults to " + useless_default_arg_message + " in C++.\n";
-                        }
-
-                        if (param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
-                            arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
-
-                        // Insert the extra includes.
-                        param_usage.extra_headers.InsertToFile(file);
-                    }
-                    else
-                    {
-                        if (param.default_arg)
-                            throw std::logic_error("Internal error: Bad usage: `EmitFuncParams::Param::emit_as_is == true` is incompatible with a non-null `default_arg`.");
-
-                        if (param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
-                            arg_expr = param_name_fixed;
-
-                        auto &new_param = new_func.params.emplace_back();
-                        new_param.type = param_cpp_type_fixed;
-                        new_param.name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed);
-                    }
-
-                    switch (param.kind)
-                    {
-                      case EmitFuncParams::Param::Kind::normal:
-                        // Keep `arg_expr` as is.
-                        break;
-                      case EmitFuncParams::Param::Kind::not_added_to_call:
-                        assert(arg_expr.empty());
-                        break;
-                      case EmitFuncParams::Param::Kind::this_ref:
-                        assert(!arg_expr.empty());
-                        break;
-                      case EmitFuncParams::Param::Kind::static_:
-                        assert(arg_expr.empty());
-                        // Emit the type instead.
-                        arg_expr = cppdecl::ToCode(param.cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
-                        break;
-                    }
-
-                    // Append the argument to the call, if enabled.
-                    if (param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
-                    {
-                        if (is_this_param)
-                        {
-                            if (seen_this_param)
-                                throw std::logic_error("Internal error: Bad usage: More than one `this` parameter in the function to emit.");
-                            else if (i > 1)
-                                throw std::logic_error("Internal error: Bad usage: `this` parameter must be the first parameter in the function to emit.");
-                            else
-                                seen_this_param = true;
-                        }
-
-                        std::string placeholder = is_this_param ? "@this@" : "@" + std::to_string(i) + "@";
-
-                        if (params.cpp_called_func.find(placeholder) != std::string::npos || body_pre.find(placeholder) != std::string::npos)
-                        {
-                            body_return = Strings::Replace(body_return, placeholder, arg_expr);
-                            body_pre = Strings::Replace(body_pre, placeholder, arg_expr);
-                            seen_any_placeholders = true;
-                        }
-                        else if (!params.cpp_called_func.empty())
-                        {
-                            if (param.kind == EmitFuncParams::Param::Kind::static_)
-                            {
-                                body_return = arg_expr + "::" + body_return;
-                            }
-                            else if (param.kind == EmitFuncParams::Param::Kind::this_ref)
-                            {
-                                body_return = arg_expr + "." + body_return;
-                            }
-                            else
-                            {
-                                if (first_arg_in_call_expr)
-                                {
-                                    first_arg_in_call_expr = false;
-                                    body_return += params.cpp_called_func_parens.begin;
-                                }
-                                else
-                                    body_return += ',';
-
-                                body_return += "\n        ";
-                                body_return += arg_expr;
-                            }
-                        }
-                    }
-
-                    if (!is_this_param)
-                        i++; // Don't count the this parameter.
-                }
-                catch (...)
-                {
-                    std::throw_with_nested(std::runtime_error("While processing parameter " + (is_this_param ? "`this`" : std::to_string(i) + (seen_this_param ? " (not counting `this`)" : "")) + ":"));
-                }
-            }
-            if (
-                !params.cpp_called_func.empty() &&
-                // If every argument uses a placeholder, and there is at least one placeholder, don't bother adding the `()` at the end.
-                (!seen_any_placeholders || !first_arg_in_call_expr)
-            )
-            {
-                if (first_arg_in_call_expr)
-                    body_return += params.cpp_called_func_parens.begin;
-                else
-                    body_return += "\n    ";
-                body_return += params.cpp_called_func_parens.end;
-            }
-
-
-            cppdecl::Decl new_decl;
-            new_decl.name.parts.emplace_back(params.c_name);
-
-            new_decl.type.modifiers.emplace_back(std::move(new_func));
+        // Assemble the parameter and argument lists.
+        std::size_t i = 1; // This counter doesn't increment on `this` parameters. It is 1-based for user-friendliness.
+        bool first_arg_in_call_expr = true;
+        bool seen_this_param = false;
+        bool seen_any_placeholders = false;
+        for (const auto &param : params.params)
+        {
+            const bool is_this_param = param.kind != EmitFuncParams::Param::Kind::normal;
 
             try
             {
+                std::string param_name_fixed = !param.name.empty() ? param.name : is_this_param ? "_this" : "_" + std::to_string(i);
+
+                std::string arg_expr;
+                if (param.custom_argument_spelling)
+                    arg_expr = param.custom_argument_spelling(param_name_fixed);
+
+                // Remove top-level constness from parameter types, to simplify the rest of the code.
+                // It seems we don't need to decay the params manually, the parser seems to already emit them in the decayed form.
+                const cppdecl::Type param_cpp_type_fixed = cppdecl::Type(param.cpp_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                if (!param.use_type_as_is)
+                {
+                    const BindableType &bindable_param_type = FindBindableType(param_cpp_type_fixed, param.remove_sugar);
+                    if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
+                        throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
+
+                    if (param.default_arg && !bindable_param_type.param_usage_with_default_arg)
+                        throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
+
+                    const std::string useless_default_arg_message =
+                        param.default_arg && bindable_param_type.param_usage_with_default_arg->is_useless_default_argument
+                        ? bindable_param_type.param_usage_with_default_arg->is_useless_default_argument(param.default_arg->original_spelling)
+                        : "";
+
+                    const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
+
+                    const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
+                    const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
+
+                    // Declare or include type dependencies of the parameter.
+                    ApplyTypeDependenciesToFile(file, param_usage.same_addr_bindable_type_dependencies);
+
+                    for (const auto &c_param : param_usage.c_params)
+                    {
+                        auto &new_param = new_func.params.emplace_back();
+                        new_param.type = c_param.c_type;
+                        new_param.name.parts.emplace_back(param_name_fixed + c_param.name_suffix);
+
+                        auto &new_param_decl = new_func_decl.params.emplace_back();
+                        new_param_decl.type = c_param.c_type;
+                        // Skip the parameter name in the declarator if it's unnamed in the input AND it doesn't correspond to multiple parameters in the output.
+                        // The latter requirement is solely for our sanity, as otherwise it becomes difficult to understand what the multiple parameters are doing in there.
+                        if (!param.name.empty() || param_usage.c_params.size() > 1)
+                            new_param_decl.name = new_param.name;
+                    }
+
+                    // Custom comment?
+                    // This seems to look better when inserted before the explanation about the default argument.
+                    if (param_usage.append_to_comment)
+                    {
+                        std::string str = param_usage.append_to_comment(param_name_fixed, has_useful_default_arg);
+                        if (!str.empty())
+                        {
+                            ret.comment += str;
+                            ret.comment += '\n';
+                        }
+                    }
+
+                    // Comment about the default argument.
+                    if (has_useful_default_arg)
+                    {
+                        ret.comment += "/// Parameter `";
+                        ret.comment += param_name_fixed;
+                        ret.comment += "` has a default argument: `";
+                        ret.comment += param.default_arg->original_spelling;
+                        ret.comment += "`, ";
+                        if (!param_usage_defarg->explanation_how_to_use_default_arg)
+                            throw std::logic_error("Internal error: Bad usage: `ParamUsageWithDefaultArg::explanation_how_to_use_default_arg` is not set.");
+                        ret.comment += param_usage_defarg->explanation_how_to_use_default_arg(param_name_fixed, false); // Always passing `use_wrapper = false` here. It's the wrapper's job to pass something else when wrapping the callback.
+                        ret.comment += " to use it.\n";
+                    }
+                    else if (!useless_default_arg_message.empty())
+                    {
+                        ret.comment += "/// Parameter `" + param_name_fixed + "` defaults to " + useless_default_arg_message + " in C++.\n";
+                    }
+
+                    if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                        arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
+
+                    // Insert the extra includes.
+                    param_usage.extra_headers.InsertToFile(file);
+                }
+                else
+                {
+                    if (param.default_arg)
+                        throw std::logic_error("Internal error: Bad usage: `EmitFuncParams::Param::use_type_as_is == true` is incompatible with a non-null `default_arg`.");
+
+                    if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                        arg_expr = param_name_fixed;
+
+                    auto &new_param = new_func.params.emplace_back();
+                    new_param.type = param_cpp_type_fixed;
+                    new_param.name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed);
+                }
+
+                switch (param.kind)
+                {
+                  case EmitFuncParams::Param::Kind::normal:
+                    // Keep `arg_expr` as is.
+                    break;
+                  case EmitFuncParams::Param::Kind::not_added_to_call:
+                    assert(arg_expr.empty());
+                    break;
+                  case EmitFuncParams::Param::Kind::this_ref:
+                    assert(!arg_expr.empty());
+                    break;
+                  case EmitFuncParams::Param::Kind::static_:
+                    assert(arg_expr.empty());
+                    // Emit the type instead.
+                    arg_expr = cppdecl::ToCode(param.cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    break;
+                }
+
+                // Append the argument to the call, if enabled.
+                if (param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                {
+                    if (is_this_param)
+                    {
+                        if (seen_this_param)
+                            throw std::logic_error("Internal error: Bad usage: More than one `this` parameter in the function to emit.");
+                        else if (i > 1)
+                            throw std::logic_error("Internal error: Bad usage: `this` parameter must be the first parameter in the function to emit.");
+                        else
+                            seen_this_param = true;
+                    }
+
+                    std::string placeholder = is_this_param ? "@this@" : "@" + std::to_string(i) + "@";
+
+                    if (params.cpp_called_func.find(placeholder) != std::string::npos || body_pre.find(placeholder) != std::string::npos)
+                    {
+                        body_return = Strings::Replace(body_return, placeholder, arg_expr);
+                        body_pre = Strings::Replace(body_pre, placeholder, arg_expr);
+                        seen_any_placeholders = true;
+                    }
+                    else if (!params.cpp_called_func.empty())
+                    {
+                        if (param.kind == EmitFuncParams::Param::Kind::static_)
+                        {
+                            body_return = arg_expr + "::" + body_return;
+                        }
+                        else if (param.kind == EmitFuncParams::Param::Kind::this_ref)
+                        {
+                            body_return = arg_expr + "." + body_return;
+                        }
+                        else
+                        {
+                            if (first_arg_in_call_expr)
+                            {
+                                first_arg_in_call_expr = false;
+                                body_return += params.cpp_called_func_parens.begin;
+                            }
+                            else
+                                body_return += ',';
+
+                            body_return += "\n        ";
+                            body_return += arg_expr;
+                        }
+                    }
+                }
+
+                if (!is_this_param)
+                    i++; // Don't count the this parameter.
+            }
+            catch (...)
+            {
+                std::throw_with_nested(std::runtime_error("While processing parameter " + (is_this_param ? "`this`" : std::to_string(i) + (seen_this_param ? " (not counting `this`)" : "")) + ":"));
+            }
+        }
+        if (
+            !params.cpp_called_func.empty() &&
+            // If every argument uses a placeholder, and there is at least one placeholder, don't bother adding the `()` at the end.
+            (!seen_any_placeholders || !first_arg_in_call_expr)
+        )
+        {
+            if (first_arg_in_call_expr)
+                body_return += params.cpp_called_func_parens.begin;
+            else
+                body_return += "\n    ";
+            body_return += params.cpp_called_func_parens.end;
+        }
+
+
+        ret.decl.name.parts.emplace_back(params.c_name);
+        ret.decl.type.modifiers.emplace_back(std::move(new_func));
+
+        try
+        {
+            cppdecl::Type c_return_type;
+
+            if (!params.use_return_type_as_is)
+            {
                 // Remove top-level constness from the return type, to simplify the rest of the code.
-                const cppdecl::Type return_type_fixed = cppdecl::Type(params.cpp_return_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                const cppdecl::Type cpp_return_type_fixed = cppdecl::Type(params.cpp_return_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
                 // Figure out the return type.
-                const BindableType &bindable_return_type = FindBindableType(return_type_fixed, params.remove_return_type_sugar);
+                const BindableType &bindable_return_type = FindBindableType(cpp_return_type_fixed, params.remove_return_type_sugar);
                 if (!bindable_return_type.return_usage)
                     throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
 
                 // Declare or include the type dependencies of the return type.
-                ApplyTypeDependencies(bindable_return_type.return_usage->same_addr_bindable_type_dependencies);
+                ApplyTypeDependenciesToFile(file, bindable_return_type.return_usage->same_addr_bindable_type_dependencies);
 
                 // Custom comment?
-                if (!bindable_return_type.return_usage->append_to_comment.empty())
+                if (bindable_return_type.return_usage->append_to_comment)
                 {
-                    comment += bindable_return_type.return_usage->append_to_comment;
-                    comment += '\n';
+                    ret.comment += bindable_return_type.return_usage->append_to_comment(""); // This is not a callback, so we pass an empty string.
+                    ret.comment += '\n';
                 }
 
-                new_decl.type.AppendType(bindable_return_type.return_usage->c_type);
-                body_return = bindable_return_type.return_usage->MakeReturnStatement(file.source, body_return);
+                body_return = bindable_return_type.return_usage->MakeReturnExpr(file.source, body_return);
+
+                c_return_type = bindable_return_type.return_usage->c_type;
 
                 // Insert the extra includes.
                 bindable_return_type.return_usage->extra_headers.InsertToFile(file);
             }
-            catch (...)
+            else
             {
-                std::throw_with_nested(std::runtime_error("While processing the return type:"));
+                c_return_type = params.cpp_return_type;
+
+                // Remove top-level constness from the return type, to simplify the rest of the code.
+                c_return_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
             }
 
+            ret.decl.type.AppendType(c_return_type);
 
-            std::string new_decl_str = ToCode(new_decl, cppdecl::ToCodeFlags::canonical_c_style);
+            if (params.make_return_expr)
+            {
+                body_return = params.make_return_expr(body_return);
+            }
+            else if (!body_return.empty())
+            {
+                if (c_return_type.AsSingleWord() != "void")
+                    body_return = "return " + body_return; // The `return` is optional only for clarity. We could make unconditional.
+
+                body_return += ';';
+            }
+        }
+        catch (...)
+        {
+            std::throw_with_nested(std::runtime_error("While processing the return type:"));
+        }
+
+        // Insert the function-wide extra includes.
+        params.extra_headers.InsertToFile(file);
+
+
+        { // Assemble the returned body.
+            ret.body += "{\n";
+
+            for (const NamespaceEntity *ns : params.using_namespace_stack)
+            {
+                if (!ns->name)
+                    continue; // An anonymous namespace.
+                ret.body += "    using namespace ";
+                ret.body += *ns->name;
+                ret.body += ";\n";
+            }
+
+            if (!body_pre.empty())
+            {
+                ret.body += "    ";
+                ret.body += body_pre;
+                ret.body += "\n";
+            }
+
+            if (!body_return.empty())
+            {
+                ret.body += "    ";
+                ret.body += body_return;
+                ret.body += "\n";
+            }
+
+            ret.body += "}";
+        }
+
+        return ret;
+    }
+
+    void Generator::EmitFunction(OutputFile &file, const EmitFuncParams &params)
+    {
+        try
+        {
+            EmittedFunctionStrings strings = EmitFunctionAsStrings(file, params);
+
+            std::string new_decl_str = ToCode(strings.decl, cppdecl::ToCodeFlags::canonical_c_style);
 
             file.header.contents += '\n';
-            file.header.contents += comment;
+            file.header.contents += strings.comment;
             file.header.contents += GetExportMacroForFile(file, false);
             file.header.contents += ' ';
             file.header.contents += new_decl_str;
@@ -1218,36 +1326,9 @@ namespace mrbind::CBindings
 
             file.source.contents += '\n';
             file.source.contents += new_decl_str;
-            file.source.contents += "\n{\n";
-
-            for (const NamespaceEntity *ns : params.using_namespace_stack)
-            {
-                if (!ns->name)
-                    continue; // An anonymous namespace.
-                file.source.contents += "    using namespace ";
-                file.source.contents += *ns->name;
-                file.source.contents += ";\n";
-            }
-
-            if (!body_pre.empty())
-            {
-                file.source.contents += "    ";
-                file.source.contents += body_pre;
-                file.source.contents += "\n";
-            }
-
-            if (!body_return.empty())
-            {
-                file.source.contents += "    ";
-                file.source.contents += body_return;
-                file.source.contents += "\n";
-            }
-
-            file.source.contents += "}\n";
-
-
-            // Insert the function-wide extra includes.
-            params.extra_headers.InsertToFile(file);
+            file.source.contents += '\n';
+            file.source.contents += strings.body;
+            file.source.contents += '\n';
         }
         catch (std::exception &e)
         {
@@ -1290,13 +1371,13 @@ namespace mrbind::CBindings
             info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
-                auto [iter2, is_new2] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
-                if (!is_new2)
-                    throw std::logic_error("Internal error: Duplicate type in `types_bindable_with_same_address`: " + cl.full_type);
+                if (!parsed_type.IsOnlyQualifiedName())
+                    throw std::runtime_error("Expected a parsed class type name to be only a qualified name, but got: `" + cl.full_type + "`.");
 
-                TypeBindableWithSameAddress &info2 = iter2->second;
-                info2.declared_in_file = [&ret = self.GetOutputFile(cl.declared_in_file)]() -> auto & {return ret;}; // No point in being lazy here.
-                info2.forward_declaration = MakeStructForwardDeclaration(info.c_type_str);
+                self.AddNewTypeBindableWithSameAddress(parsed_type.simple_type.name, {
+                    .declared_in_file = [&ret = self.GetOutputFile(cl.declared_in_file)]() -> auto & {return ret;}, // No point in being lazy here.
+                    .forward_declaration = MakeStructForwardDeclaration(info.c_type_str),
+                });
             }
 
             ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();
@@ -1402,12 +1483,12 @@ namespace mrbind::CBindings
             { // Add this type to `types_bindable_with_same_address`.
                 // Note that this IS legal for enums, because if they have a custom underlying type, we make their name a typedef for that type, instead of binding directly (and risking getting a different size).
 
-                auto [iter2, is_new2] = self.types_bindable_with_same_address.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
-                if (!is_new2)
-                    throw std::logic_error("Internal error: Duplicate type in `types_bindable_with_same_address`: " + en.full_type);
+                if (!parsed_type.IsOnlyQualifiedName())
+                    throw std::runtime_error("Expected a parsed enum type name to be only a qualified name, but got: `" + en.full_type + "`.");
 
-                TypeBindableWithSameAddress &info2 = iter2->second;
-                info2.declared_in_file = [&ret = self.GetOutputFile(en.declared_in_file)]() -> auto & {return ret;}; // No point in being lazy here.
+                self.AddNewTypeBindableWithSameAddress(parsed_type.simple_type.name, {
+                    .declared_in_file = [&ret = self.GetOutputFile(en.declared_in_file)]() -> auto & {return ret;}, // No point in being lazy here.
+                });
             }
 
             ParsedTypeInfo::EnumDesc &enum_info = info.input_type.emplace<ParsedTypeInfo::EnumDesc>();

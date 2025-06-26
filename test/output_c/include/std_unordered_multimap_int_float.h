@@ -24,7 +24,7 @@ typedef struct MR_C_std_unordered_multimap_int_float_const_iterator MR_C_std_uno
 typedef struct MR_C_std_unordered_multimap_int_float_iterator MR_C_std_unordered_multimap_int_float_iterator;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -33,7 +33,7 @@ MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_
 MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_unordered_multimap_int_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -72,18 +72,18 @@ MR_C_API size_t MR_C_std_unordered_multimap_int_float_Count(const MR_C_std_unord
 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
 /// Parameter `_this` can not be null.
 /// Parameter `key` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_Find(const MR_C_std_unordered_multimap_int_float *_this, const int *key);
 
 /// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
 /// Parameter `_this` can not be null.
 /// Parameter `key` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_FindMutable(MR_C_std_unordered_multimap_int_float *_this, const int *key);
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_Begin(const MR_C_std_unordered_multimap_int_float *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -93,7 +93,7 @@ MR_C_API bool MR_C_std_unordered_multimap_int_float_IsBegin(const MR_C_std_unord
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_MutableBegin(MR_C_std_unordered_multimap_int_float *_this);
 
 /// Tests whether a mutable iterator is the begin iterator.
@@ -103,7 +103,7 @@ MR_C_API bool MR_C_std_unordered_multimap_int_float_IsMutableBegin(MR_C_std_unor
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_End(const MR_C_std_unordered_multimap_int_float *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -113,7 +113,7 @@ MR_C_API bool MR_C_std_unordered_multimap_int_float_IsEnd(const MR_C_std_unorder
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_MutableEnd(MR_C_std_unordered_multimap_int_float *_this);
 
 /// Tests whether a mutable iterator is the end iterator.
@@ -122,7 +122,7 @@ MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_mult
 MR_C_API bool MR_C_std_unordered_multimap_int_float_IsMutableEnd(MR_C_std_unordered_multimap_int_float *_this, const MR_C_std_unordered_multimap_int_float_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -132,7 +132,7 @@ MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordere
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother(const MR_C_std_unordered_multimap_int_float_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -154,11 +154,11 @@ MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordere
 
 /// Makes a const iterator from a mutable one.
 /// Parameter `iter` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_FromMutable(const MR_C_std_unordered_multimap_int_float_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_iterator_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -168,7 +168,7 @@ MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_mult
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother(const MR_C_std_unordered_multimap_int_float_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.

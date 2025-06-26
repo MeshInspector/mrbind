@@ -262,15 +262,21 @@ namespace mrbind::CBindings
             [[nodiscard]] bool KnowHeaderOrForwardDeclaration() const {return declared_in_file || declared_in_c_stdlib_file || forward_declaration;}
         };
         // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.
-        // This is write-only! This is initially populated with the parsed types, and then the custom types are added lazily by `FindTypeBindableWithSameAddress[Opt]`.
+        // This is initially populated with the parsed types, and then the custom types are added lazily by `FindTypeBindableWithSameAddress[Opt]`.
         // Call that function instead of reading this directly.
+        // NOTE: Must not read/write this directly. Use the functions below.
         std::unordered_map<std::string, TypeBindableWithSameAddress> types_bindable_with_same_address;
 
-        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name);
-        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name);
+        // Add a new type to `types_bindable_with_same_address{,_c_to_cpp}`. Throws if the name is already used.
+        // Returns the freshly inserted binding. (Not making it non-const, in case we'll decide to add some extra logic based on `desc`,
+        //   which requires it to be completely filled right when passed.)
+        const TypeBindableWithSameAddress &AddNewTypeBindableWithSameAddress(const cppdecl::QualifiedName &cpp_type_name, TypeBindableWithSameAddress desc);
+
+        [[nodiscard]] const TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name);
+        [[nodiscard]] const TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name);
         // The name must come from `cppdecl::ToCode(..., canonical_c_style)`.
-        [[nodiscard]] TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const std::string &type_name_str);
-        [[nodiscard]] TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name_str);
+        [[nodiscard]] const TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const std::string &type_name_str);
+        [[nodiscard]] const TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name_str);
 
 
         // Some information about parsed and custom types.
@@ -590,6 +596,8 @@ namespace mrbind::CBindings
             std::function<std::unordered_set<std::string>()> custom_in_header_file;
 
             void InsertToFile(OutputFile &file) const;
+
+            void MergeFrom(const ExtraHeaders &other);
         };
 
         struct BindableType
@@ -681,6 +689,9 @@ namespace mrbind::CBindings
                 //   because we automatically generate another comment line stating its value, and don't want to accidentally do it here.
                 // NOTE: DON'T explain how to trigger the default argument here. Use `explanation_how_to_use_default_arg` for that.
                 //   But the flag is passed here because it's sometimes useful to add additional remarks that depend on the presence of the default argument.
+                // NOTE: If `cpp_param_name` is empty, you must instead talk about the "callback return value". This is used when binding C callbacks.
+                //   In that case `has_default_arg` will always be null.
+                //   Note that you'll never receive empty `cpp_param_name` in sugared parameters (that is, if `.is_heap_allocated_class == true`).
                 std::function<std::string(std::string_view cpp_param_name, bool has_default_arg)> append_to_comment;
 
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
@@ -729,6 +740,8 @@ namespace mrbind::CBindings
             // If only this one is set, the type can't handle default arguments.
             // If both are set, this one is used only when there's no default argument.
             // Either way, `.c_params_to_cpp` in this one never receives the default arguments.
+            // (Note that this selection logic is used not only in the generator itself, but also in the binding of `std::function`,
+            //   so if this logic changes, don't forget to update that.)
             std::optional<ParamUsage> param_usage;
 
             // If only this one is set, this is used for params both with default arguments and without.
@@ -746,7 +759,7 @@ namespace mrbind::CBindings
                 // You can generate more than one statement here.
                 // Providing the source `file` so you can add some extra headers or whatever. Note that this is intentionally redundant, as we also have `extra_headers` below.
                 // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
-                std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_statement;
+                std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_expr;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare?
                 // By default you can fill this using `ForEachNonBuiltInQualNameInTypeName()`.
@@ -759,16 +772,18 @@ namespace mrbind::CBindings
                 // When this type is returned, this string is appended to the comment.
                 // Don't include line breaks before and after, we add them automatically.
                 // Do include the leading slashes, normally `///`.
-                std::string append_to_comment;
+                // `param_name` is typically empty. If it's not empty, your message must talk about a "callback parameter" with this name, as opposed to a return value.
+                //   This is when binding C callbacks, for their parameters.
+                std::function<std::string(std::string_view callback_param_name)> append_to_comment;
 
-                // Calls `make_return_statement` if not null, otherwise returns `"return "+expr+";"`.
+                // Calls `make_return_expr` if not null, otherwise returns just `expr`.
                 // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
-                [[nodiscard]] std::string MakeReturnStatement(OutputFile::SpecificFileContents &file, std::string_view expr) const
+                [[nodiscard]] std::string MakeReturnExpr(OutputFile::SpecificFileContents &file, std::string_view expr) const
                 {
-                    if (make_return_statement)
-                        return make_return_statement(file, expr);
+                    if (make_return_expr)
+                        return make_return_expr(file, expr);
                     else
-                        return "return " + std::string(expr) + ";";
+                        return std::string(expr);
                 }
             };
             // If this is null, this type is unusable as a return type.
@@ -792,6 +807,10 @@ namespace mrbind::CBindings
 
         // Uses `ForEachNonBuiltInQualNameInTypeName()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);
+
+        // This is for `BindableType::{Return,Param}Usage::same_addr_bindable_type_dependencies`.
+        // Applies all headers and/or forward declarations from it to the specified file.
+        void ApplyTypeDependenciesToFile(OutputFile &file, const std::unordered_map<std::string, BindableType::SameAddrBindableTypeDependency> &deps);
 
 
         // This acts as a cache when parsing C++ types.
@@ -867,6 +886,14 @@ namespace mrbind::CBindings
             // This isn't very useful compared to the `Param::remove_sugar` below. See that for more details.
             bool remove_return_type_sugar = false;
 
+            // Use the return type as is, don't attempt to translate it from C++ to C.
+            bool use_return_type_as_is = false;
+
+            // Most often this will be null.
+            // If null, this defaults to `"return "+expr+";"`, except that for `void` the `return ` is omitted by default.
+            std::function<std::string(std::string_view expr)> make_return_expr = nullptr;
+
+
             // Additional statements before `return`, if any. Accepts the same placeholders as `cpp_called_func`.
             // Do not add trailing newline. Do not add indentation.
             std::string cpp_extra_statements;
@@ -908,10 +935,10 @@ namespace mrbind::CBindings
                 // Empty if unnamed.
                 std::string name;
 
-                // If true, do not attempt to translate the type to C, paste it as is.
-                // This conflicts with `default_arg` (will trigger an internal error when emitting).
-                // If this is true, `remove_sugar` be ignored.
-                bool emit_as_is = false;
+                // Normally null. If non-null, this is used to generate the argument spelling instead of the normall process.
+                // This works even with `use_type_as_is`.
+                // The parameter name has to be a parameter because it receives a proper adjusted name even if `.name` in this struct is empty.
+                std::function<std::string(std::string_view param_name)> custom_argument_spelling = nullptr;
 
                 enum class Kind
                 {
@@ -930,6 +957,11 @@ namespace mrbind::CBindings
 
                 // We translate this to C types automatically.
                 cppdecl::Type cpp_type;
+
+                // If true, do not attempt to translate the type to C, paste it as is.
+                // This conflicts with `default_arg` (will trigger an internal error when emitting).
+                // If this is true, `remove_sugar` be ignored.
+                bool use_type_as_is = false;
 
 
                 struct DefaultArg
@@ -977,6 +1009,21 @@ namespace mrbind::CBindings
             bool SetAsFieldGetter(CBindings::Generator &self, const ClassEntity &new_class, const ClassField &new_field, bool is_const);
         };
         void EmitFunction(OutputFile &file, const EmitFuncParams &params);
+
+        struct EmittedFunctionStrings
+        {
+            // With leading backslashes. This one unusually has a trailing newline.
+            std::string comment;
+
+            // The function declaration (C style, of course).
+            cppdecl::Decl decl;
+
+            // Wrapped in braces. No trailing newline.
+            std::string body;
+        };
+        // Like `EmitFunction()`, but doesn't write the function directly to the file. Instead returns the strings composing it.
+        // But the includes and such get written directly to the file.
+        [[nodiscard]] EmittedFunctionStrings EmitFunctionAsStrings(OutputFile &file, const EmitFuncParams &params);
 
         void EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field);
 

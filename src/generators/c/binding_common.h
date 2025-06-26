@@ -20,10 +20,11 @@ namespace mrbind::CBindings
         // This is required by a lot of things. Making it `std::optional` solely to make it easier to catch forgetting to set it.
         std::optional<Generator::TypeTraits> traits;
 
+        // If `new_c_type_name_base` isn't empty, it's used as the C type name (the prefix is added automatically, don't call `MakePublicHelperName()` yourself).
         // If `new_underlying_c_type_base_name` isn't empty, it's used as the true underlying canonical type name in the C code (the prefix is added automatically, don't call `MakePublicHelperName()` yourself).
         // It's not used in the method names and such, and not in the user-facing typedef for this type. Only in the struct name.
         // Don't forget to set `traits` after this, some functionality requires it.
-        [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string new_underlying_c_type_base_name = "");
+        [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string_view new_c_type_name_base = "", std::string new_underlying_c_type_base_name = "");
 
         // Does `c_type_name + "_" + name`. Use this to generate all the member function names.
         // This is fine for "static" member functions too.

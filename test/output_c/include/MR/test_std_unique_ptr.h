@@ -15,7 +15,7 @@ typedef struct MR_C_std_unique_ptr_int_array MR_C_std_unique_ptr_int_array; // D
 
 
 /// Generated from function `MR::StdUniquePtr::GetInt`.
-/// The returned pointer is owning! It must be deallocated using `MR_C_Free().
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_C_Free().
 MR_C_API int *MR_StdUniquePtr_GetInt(void);
 
 /// Generated from function `MR::StdUniquePtr::SetInt`.
@@ -58,7 +58,7 @@ MR_C_API void MR_StdUniquePtr_SetIntRvalueRef(int *_1);
 MR_C_API void MR_StdUniquePtr_SetIntRvalueConstRef(int *_1);
 
 /// Generated from function `MR::StdUniquePtr::GetIntArr`.
-/// The returned pointer is owning! It must be deallocated using `MR_C_FreeArray().
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_C_FreeArray().
 MR_C_API int *MR_StdUniquePtr_GetIntArr(void);
 
 /// Generated from function `MR::StdUniquePtr::SetIntArr`.
@@ -82,7 +82,7 @@ MR_C_API void MR_StdUniquePtr_SetIntArrDef(int *const *_1);
 typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_StdUniquePtr_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdUniquePtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -98,7 +98,7 @@ MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_OffsetMutablePtr(MR_StdUniquePtr_A
 
 /// Generated from a constructor of class `MR::StdUniquePtr::A`.
 /// Parameter `_other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_StdUniquePtr_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdUniquePtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_ConstructFromAnother(const MR_StdUniquePtr_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdUniquePtr_A`. Does nothing if the pointer is null.
@@ -114,7 +114,7 @@ MR_C_API void MR_StdUniquePtr_A_DestroyArray(MR_StdUniquePtr_A *_this);
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_AssignFromAnother(MR_StdUniquePtr_A *_this, const MR_StdUniquePtr_A *_other);
 
 /// Generated from function `MR::StdUniquePtr::GetClass`.
-/// The returned pointer is owning! It must be deallocated using `MR_StdUniquePtr_A_Destroy().
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_StdUniquePtr_A_Destroy().
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_GetClass(void);
 
 /// Generated from function `MR::StdUniquePtr::SetClass`.
@@ -157,7 +157,7 @@ MR_C_API void MR_StdUniquePtr_SetClassRvalueRef(MR_StdUniquePtr_A *_1);
 MR_C_API void MR_StdUniquePtr_SetClassRvalueConstRef(MR_StdUniquePtr_A *_1);
 
 /// Generated from function `MR::StdUniquePtr::GetClassArr`.
-/// The returned pointer is owning! It must be deallocated using `MR_StdUniquePtr_A_DestroyArray().
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_StdUniquePtr_A_DestroyArray().
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_GetClassArr(void);
 
 /// Generated from function `MR::StdUniquePtr::SetClassArr`.
@@ -179,7 +179,7 @@ MR_C_API void MR_StdUniquePtr_SetClassArrDef(MR_StdUniquePtr_A *const *_1);
 
 // Here `std::unique_ptr<float>` never gets emitted as an actual type (since we don't have non-null default arguments), so its header should not be emitted.
 /// Generated from function `MR::StdUniquePtr::GetFloat`.
-/// The returned pointer is owning! It must be deallocated using `MR_C_Free().
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_C_Free().
 MR_C_API float *MR_StdUniquePtr_GetFloat(void);
 
 /// Generated from function `MR::StdUniquePtr::SetFloat`.

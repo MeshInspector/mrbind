@@ -17,7 +17,7 @@ typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_str
 typedef struct MR_C_std_variant_int_float_std_string MR_C_std_variant_int_float_std_string;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -26,7 +26,7 @@ MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_s
 MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_variant_int_float_std_string *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -50,17 +50,17 @@ MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_s
 MR_C_API size_t MR_C_std_variant_int_float_std_string_Index(const MR_C_std_variant_int_float_std_string *_this);
 
 /// Constructs the variant storing the element 0, of type `int`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_ConstructAs_int(int value);
 
 /// Constructs the variant storing the element 1, of type `float`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_ConstructAs_float(float value);
 
 /// Constructs the variant storing the element 2, of type `std::string`.
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_ConstructAs_std_string(const char *value, const char *value_end);
 
 /// Assigns to the variant, making it store the element 0, of type `int`.

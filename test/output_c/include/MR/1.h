@@ -32,7 +32,7 @@ MR_C_API void MR_A_Destroy(MR_A *_this);
 MR_C_API void MR_A_DestroyArray(MR_A *_this);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_A *MR_A_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -47,7 +47,7 @@ MR_C_API const MR_A *MR_A_OffsetPtr(const MR_A *ptr, ptrdiff_t i);
 MR_C_API MR_A *MR_A_OffsetMutablePtr(MR_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::A`.
-/// Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_other);
 
 /// Generated from a method of class `MR::A` named `operator=`.
@@ -56,7 +56,7 @@ MR_C_API MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_othe
 MR_C_API MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other);
 
 /// Generated from function `MR::foo`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_A *MR_foo(void);
 
 /// Generated from function `MR::bar`.

@@ -13,7 +13,7 @@ typedef struct MR_C_std_variant_int_float_std_string MR_C_std_variant_int_float_
 
 
 /// Generated from function `MR::StdVariant::foo`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float *MR_StdVariant_foo(void);
 
 /// Generated from function `MR::StdVariant::bar`.

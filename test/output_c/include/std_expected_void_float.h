@@ -15,7 +15,7 @@ extern "C" {
 typedef struct MR_C_std_expected_void_float MR_C_std_expected_void_float;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_void_float *MR_C_std_expected_void_float_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -25,12 +25,12 @@ MR_C_API MR_C_std_expected_void_float *MR_C_std_expected_void_float_DefaultConst
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_void_float *MR_C_std_expected_void_float_ConstructFromAnother(const MR_C_std_expected_void_float *other);
 
 /// Constructs a new instance.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_void_float *MR_C_std_expected_void_float_ConstructFrom(const MR_C_std_expected_void_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.

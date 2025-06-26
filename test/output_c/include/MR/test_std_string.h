@@ -21,7 +21,7 @@ MR_C_API void MR_StdString_Set(const char *s, const char *s_end);
 MR_C_API void MR_StdString_SetWithDefault(const char *s, const char *s_end);
 
 /// Generated from function `MR::StdString::Get`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string *MR_StdString_Get(void);
 
 /// Generated from function `MR::StdString::WriteToRef`.

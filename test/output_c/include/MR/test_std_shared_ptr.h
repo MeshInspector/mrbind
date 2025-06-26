@@ -18,7 +18,7 @@ typedef struct MR_C_std_shared_ptr_int_array_42 MR_C_std_shared_ptr_int_array_42
 
 
 /// Generated from function `MR::StdSharedPtr::GetInt`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_int *MR_StdSharedPtr_GetInt(void);
 
 /// Generated from function `MR::StdSharedPtr::SetInt`.
@@ -57,7 +57,7 @@ MR_C_API void MR_StdSharedPtr_SetIntRvalueRef(MR_C_std_shared_ptr_int *_1);
 MR_C_API void MR_StdSharedPtr_SetIntRvalueConstRef(const MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::GetIntArr`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_array_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_array_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_int_array *MR_StdSharedPtr_GetIntArr(void);
 
 /// Generated from function `MR::StdSharedPtr::SetIntArr`.
@@ -72,7 +72,7 @@ MR_C_API void MR_StdSharedPtr_SetIntArrDefTrivial(MR_C_PassBy _1_pass_by, MR_C_s
 MR_C_API void MR_StdSharedPtr_SetIntArrDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::GetIntArr42`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_array_42_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_array_42_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_int_array_42 *MR_StdSharedPtr_GetIntArr42(void);
 
 /// Generated from function `MR::StdSharedPtr::SetIntArr42`.
@@ -90,7 +90,7 @@ MR_C_API void MR_StdSharedPtr_SetIntArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_sh
 typedef struct MR_StdSharedPtr_A MR_StdSharedPtr_A;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -106,7 +106,7 @@ MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_OffsetMutablePtr(MR_StdSharedPtr_A
 
 /// Generated from a constructor of class `MR::StdSharedPtr::A`.
 /// Parameter `_other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_ConstructFromAnother(const MR_StdSharedPtr_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdSharedPtr_A`. Does nothing if the pointer is null.
@@ -122,7 +122,7 @@ MR_C_API void MR_StdSharedPtr_A_DestroyArray(MR_StdSharedPtr_A *_this);
 MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_AssignFromAnother(MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *_other);
 
 /// Generated from function `MR::StdSharedPtr::GetClass`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_StdSharedPtr_GetClass(void);
 
 /// Generated from function `MR::StdSharedPtr::SetClass`.
@@ -161,7 +161,7 @@ MR_C_API void MR_StdSharedPtr_SetClassRvalueRef(MR_C_std_shared_ptr_MR_StdShared
 MR_C_API void MR_StdSharedPtr_SetClassRvalueConstRef(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::GetClassArr`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *MR_StdSharedPtr_GetClassArr(void);
 
 /// Generated from function `MR::StdSharedPtr::SetClassArr`.
@@ -176,7 +176,7 @@ MR_C_API void MR_StdSharedPtr_SetClassArrDefTrivial(MR_C_PassBy _1_pass_by, MR_C
 MR_C_API void MR_StdSharedPtr_SetClassArrDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_1);
 
 /// Generated from function `MR::StdSharedPtr::GetClassArr42`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *MR_StdSharedPtr_GetClassArr42(void);
 
 /// Generated from function `MR::StdSharedPtr::SetClassArr42`.

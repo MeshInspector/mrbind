@@ -6,6 +6,7 @@
 #include <input/MR/test_std_containers.h>
 #include <input/MR/test_std_expected.h>
 #include <input/MR/test_std_filesystem.h>
+#include <input/MR/test_std_function.h>
 #include <input/MR/test_std_optional.h>
 #include <input/MR/test_std_shared_ptr.h>
 #include <input/MR/test_std_string.h>

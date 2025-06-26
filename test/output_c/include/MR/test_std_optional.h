@@ -17,7 +17,7 @@ typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_str
 
 
 /// Generated from function `MR::StdOptional::GetInt`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_optional_int_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_int *MR_StdOptional_GetInt(void);
 
 /// Generated from function `MR::StdOptional::SetInt`.
@@ -43,7 +43,7 @@ typedef enum MR_StdOptional_E
 } MR_StdOptional_E;
 
 /// Generated from function `MR::StdOptional::GetEnum`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_E_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_StdOptional_GetEnum(void);
 
 /// Generated from function `MR::StdOptional::SetEnum`.
@@ -76,7 +76,7 @@ MR_C_API const int *MR_StdOptional_A_GetConst_x(const MR_StdOptional_A *_this);
 MR_C_API int *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -92,7 +92,7 @@ MR_C_API MR_StdOptional_A *MR_StdOptional_A_OffsetMutablePtr(MR_StdOptional_A *p
 
 /// Generated from a constructor of class `MR::StdOptional::A`.
 /// Parameter `_other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_ConstructFromAnother(const MR_StdOptional_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdOptional_A`. Does nothing if the pointer is null.
@@ -108,7 +108,7 @@ MR_C_API void MR_StdOptional_A_DestroyArray(MR_StdOptional_A *_this);
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *_this, const MR_StdOptional_A *_other);
 
 /// Generated from function `MR::StdOptional::GetClass`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_A_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_MR_StdOptional_A *MR_StdOptional_GetClass(void);
 
 /// Generated from function `MR::StdOptional::SetClass`.
@@ -141,7 +141,7 @@ MR_C_API const MR_C_std_string *MR_StdOptional_B_GetConst_s(const MR_StdOptional
 MR_C_API MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this);
 
 /// Generated from a constructor of class `MR::StdOptional::B`.
-/// Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -151,7 +151,7 @@ MR_C_API const MR_StdOptional_B *MR_StdOptional_B_OffsetPtr(const MR_StdOptional
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_OffsetMutablePtr(MR_StdOptional_B *ptr, ptrdiff_t i);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -171,7 +171,7 @@ MR_C_API void MR_StdOptional_B_Destroy(MR_StdOptional_B *_this);
 MR_C_API void MR_StdOptional_B_DestroyArray(MR_StdOptional_B *_this);
 
 /// Generated from function `MR::StdOptional::GetClass2`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_B_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_StdOptional_GetClass2(void);
 
 /// Generated from function `MR::StdOptional::SetClass2`.

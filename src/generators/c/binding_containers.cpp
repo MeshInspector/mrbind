@@ -53,11 +53,11 @@ namespace mrbind::CBindings
         cppdecl::QualifiedName iterator_name = cpp_container_type;
         iterator_name.parts.emplace_back("iterator");
         auto iter = generator.type_alt_spelling_to_canonical.find(cppdecl::ToCode(iterator_name, cppdecl::ToCodeFlags::canonical_c_style));
-        iterator_binder_mutable = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
+        iterator_binder_mutable = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
         iterator_binder_mutable.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
         iterator_name.parts.back().var = "const_iterator";
         iter = generator.type_alt_spelling_to_canonical.find(cppdecl::ToCode(iterator_name, cppdecl::ToCodeFlags::canonical_c_style));
-        iterator_binder_const = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
+        iterator_binder_const = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
         iterator_binder_const.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
     }
 

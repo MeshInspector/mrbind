@@ -98,7 +98,12 @@ namespace mrbind::CBindings::Modules
             new_type.param_usage_with_default_arg->append_to_comment =
                 [next = std::move(new_type.param_usage_with_default_arg->append_to_comment)](std::string_view cpp_param_name, bool has_default_arg) -> std::string
                 {
-                    std::string ret = "/// Parameter `" + std::string(cpp_param_name) + "` is a UTF-8 encoded filesystem path.";
+                    std::string ret;
+
+                    if (cpp_param_name.empty())
+                        return "/// Callback return value is a UTF-8 encoded filesystem path.";
+                    else
+                        return "/// Parameter `" + std::string(cpp_param_name) + "` is a UTF-8 encoded filesystem path.";
 
                     if (next)
                     {

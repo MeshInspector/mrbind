@@ -21,7 +21,7 @@ MR_C_API void MR_StdStringView_Set(const char *s, const char *s_end);
 MR_C_API void MR_StdStringView_SetWithDefault(const char *s, const char *s_end);
 
 /// Generated from function `MR::StdStringView::Get`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string_view *MR_StdStringView_Get(void);
 
 /// Generated from function `MR::StdStringView::WriteToRef`.

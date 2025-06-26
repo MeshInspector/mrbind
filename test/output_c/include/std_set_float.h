@@ -20,7 +20,7 @@ typedef struct MR_C_std_set_float MR_C_std_set_float;
 typedef struct MR_C_std_set_float_const_iterator MR_C_std_set_float_const_iterator;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float *MR_C_std_set_float_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -29,7 +29,7 @@ MR_C_API MR_C_std_set_float *MR_C_std_set_float_DefaultConstruct(void);
 MR_C_API MR_C_std_set_float *MR_C_std_set_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float *MR_C_std_set_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_set_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -68,7 +68,7 @@ MR_C_API bool MR_C_std_set_float_Contains(const MR_C_std_set_float *_this, const
 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
 /// Parameter `_this` can not be null.
 /// Parameter `key` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_Find(const MR_C_std_set_float *_this, const float *key);
 
 /// Inserts a new element.
@@ -77,7 +77,7 @@ MR_C_API void MR_C_std_set_float_Insert(MR_C_std_set_float *_this, float new_ele
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_Begin(const MR_C_std_set_float *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -87,7 +87,7 @@ MR_C_API bool MR_C_std_set_float_IsBegin(const MR_C_std_set_float *_this, const 
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_End(const MR_C_std_set_float *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -96,7 +96,7 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_End(const MR_C_st
 MR_C_API bool MR_C_std_set_float_IsEnd(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -106,7 +106,7 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_De
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_ConstructFromAnother(const MR_C_std_set_float_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.

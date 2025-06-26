@@ -14,7 +14,7 @@ extern "C" {
 typedef struct MR_C_std_variant_int_float MR_C_std_variant_int_float;
 
 /// Constructs an empty (default-constructed) instance.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstruct(void);
 
 /// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
@@ -24,7 +24,7 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstruct
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructFromAnother(const MR_C_std_variant_int_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -49,11 +49,11 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_OffsetMutablePtr
 MR_C_API size_t MR_C_std_variant_int_float_Index(const MR_C_std_variant_int_float *_this);
 
 /// Constructs the variant storing the element 0, of type `int`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_int(int value);
 
 /// Constructs the variant storing the element 1, of type `float`.
-/// Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_float(float value);
 
 /// Assigns to the variant, making it store the element 0, of type `int`.
