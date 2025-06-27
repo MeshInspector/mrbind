@@ -116,8 +116,8 @@ namespace mrbind::CBindings::Modules
                             }
                             else
                             {
-                                emit.cpp_extra_statements = "auto &self = @this@;";
-                                emit.cpp_called_func = "self ? &*self : nullptr";
+                                emit.cpp_extra_statements = "auto &_self = @this@;";
+                                emit.cpp_called_func = "_self ? &*_self : nullptr";
                             }
 
                             generator.EmitFunction(file, emit);
@@ -140,8 +140,8 @@ namespace mrbind::CBindings::Modules
 
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);
 
-                            emit.cpp_extra_statements = "auto &self = @this@;";
-                            emit.cpp_called_func = "self ? nullptr : &self.error()";
+                            emit.cpp_extra_statements = "auto &_self = @this@;";
+                            emit.cpp_called_func = "_self ? nullptr : &_self.error()";
 
                             generator.EmitFunction(file, emit);
                         }

@@ -65,20 +65,20 @@ MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_float(float v
 
 void MR_C_std_variant_int_float_AssignAs_int(MR_C_std_variant_int_float *_this, int value)
 {
-    auto &self = (_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    if (self.index() == 0)
-        std::get<0>(self) = value;
+    auto &_self = (_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    if (_self.index() == 0)
+        std::get<0>(_self) = value;
     else
-        self.emplace<0>(value);
+        _self.emplace<0>(value);
 }
 
 void MR_C_std_variant_int_float_AssignAs_float(MR_C_std_variant_int_float *_this, float value)
 {
-    auto &self = (_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    if (self.index() == 1)
-        std::get<1>(self) = value;
+    auto &_self = (_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    if (_self.index() == 1)
+        std::get<1>(_self) = value;
     else
-        self.emplace<1>(value);
+        _self.emplace<1>(value);
 }
 
 const int *MR_C_std_variant_int_float_Get_int(const MR_C_std_variant_int_float *_this)

@@ -85,8 +85,8 @@ namespace mrbind::CBindings::Modules
                             emit.cpp_return_type.AddModifier(cppdecl::Pointer{});
                         }
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);
-                        emit.cpp_extra_statements = "auto &self = @this@;";
-                        emit.cpp_called_func = "self ? &*self : nullptr";
+                        emit.cpp_extra_statements = "auto &_self = @this@;";
+                        emit.cpp_called_func = "_self ? &*_self : nullptr";
                         generator.EmitFunction(file, emit);
                     }
                 }
@@ -129,26 +129,26 @@ namespace mrbind::CBindings::Modules
                 };
             // Force the comment generation callback to think that we have a default argument.
             if (param_usage.append_to_comment)
-                param_usage.append_to_comment = [next = std::move(param_usage.append_to_comment)](std::string_view cpp_param_name, bool has_default_arg){(void)has_default_arg; return next(cpp_param_name, true);};
+                param_usage.append_to_comment = [next = std::move(param_usage.append_to_comment)](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param){(void)has_default_arg; return next(cpp_param_name, true, is_output_param);};
             // And also add some custom comments!
             param_usage.append_to_comment = [
                 next = std::move(param_usage.append_to_comment),
                 explain_defarg = elem_type_binding.param_usage_with_default_arg.value().explanation_how_to_use_default_arg
-            ](std::string_view cpp_param_name, bool has_default_arg)
+            ](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param)
             {
-                // No handling empty `cpp_param_name`, because this usage is only for sugared parameters.
-                if (cpp_param_name.empty())
-                    throw std::logic_error("Internal error: Bad usage: the parameter usage of `std::optional` received an empty `cpp_param_name`, but this is not supposed to happen to sugared parameter usages.");
-
                 std::string ret;
                 if (next)
                 {
                     // Should I call this before or after adding the custom text? I'm not sure. Before sounds better to me now.
-                    ret = next(cpp_param_name, has_default_arg);
+                    ret = next(cpp_param_name, has_default_arg, is_output_param);
                     if (!ret.empty())
                         ret += '\n';
                 }
-                ret += "/// Parameter `" + std::string(cpp_param_name) + "` is optional. To keep it empty, " + explain_defarg(cpp_param_name, true) + ".";
+
+                if (is_output_param)
+                    ret += "/// Callback return value is optional. To keep it empty, " + explain_defarg(cpp_param_name, true, is_output_param) + ".";
+                else
+                    ret += "/// Parameter `" + std::string(cpp_param_name) + "` is optional. To keep it empty, " + explain_defarg(cpp_param_name, true, is_output_param) + ".";
 
                 return ret;
             };
@@ -182,21 +182,21 @@ namespace mrbind::CBindings::Modules
                 param_usage_defarg.append_to_comment = [
                     next = std::move(param_usage_defarg.append_to_comment),
                     explain_defarg = elem_type_binding.param_usage_with_default_arg.value().explanation_how_to_use_default_arg
-                ](std::string_view cpp_param_name, bool has_default_arg)
+                ](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param)
                 {
-                    // No handling empty `cpp_param_name`, because this doesn't apply when we have default arguments.
-                    if (cpp_param_name.empty())
-                        throw std::logic_error("Internal error: Bad usage: parameter usages with default arguments are not supposed to receive non-empty `cpp_param_name`.");
-
                     std::string ret;
                     if (next)
                     {
                         // Should I call this before or after adding the custom text? I'm not sure. Before sounds better to me now.
-                        ret = next(cpp_param_name, has_default_arg);
+                        ret = next(cpp_param_name, has_default_arg, is_output_param);
                         if (!ret.empty())
                             ret += '\n';
                     }
-                    ret += "/// Parameter `" + std::string(cpp_param_name) + "` is optional. To keep it empty, " + explain_defarg(cpp_param_name, true) + ".";
+
+                    if (is_output_param)
+                        ret += "/// Callback return value is optional. To keep it empty, " + explain_defarg(cpp_param_name, true, is_output_param) + ".";
+                    else
+                        ret += "/// Parameter `" + std::string(cpp_param_name) + "` is optional. To keep it empty, " + explain_defarg(cpp_param_name, true, is_output_param) + ".";
 
                     return ret;
                 };

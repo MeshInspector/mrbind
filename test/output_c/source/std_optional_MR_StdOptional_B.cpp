@@ -67,13 +67,13 @@ MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_OffsetMut
 
 const MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_Value(const MR_C_std_optional_MR_StdOptional_B *_this)
 {
-    auto &self = (_this ? *(const std::optional<MR::StdOptional::B> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    return (const MR_StdOptional_B *)(self ? &*self : nullptr);
+    auto &_self = (_this ? *(const std::optional<MR::StdOptional::B> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    return (const MR_StdOptional_B *)(_self ? &*_self : nullptr);
 }
 
 MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_MutableValue(MR_C_std_optional_MR_StdOptional_B *_this)
 {
-    auto &self = (_this ? *(std::optional<MR::StdOptional::B> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    return (MR_StdOptional_B *)(self ? &*self : nullptr);
+    auto &_self = (_this ? *(std::optional<MR::StdOptional::B> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    return (MR_StdOptional_B *)(_self ? &*_self : nullptr);
 }
 

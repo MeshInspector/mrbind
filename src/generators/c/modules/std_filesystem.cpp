@@ -96,18 +96,18 @@ namespace mrbind::CBindings::Modules
                 };
             // Expand the comment to say that this is a UTF-8 encoded path.
             new_type.param_usage_with_default_arg->append_to_comment =
-                [next = std::move(new_type.param_usage_with_default_arg->append_to_comment)](std::string_view cpp_param_name, bool has_default_arg) -> std::string
+                [next = std::move(new_type.param_usage_with_default_arg->append_to_comment)](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param) -> std::string
                 {
                     std::string ret;
 
-                    if (cpp_param_name.empty())
+                    if (is_output_param)
                         return "/// Callback return value is a UTF-8 encoded filesystem path.";
                     else
                         return "/// Parameter `" + std::string(cpp_param_name) + "` is a UTF-8 encoded filesystem path.";
 
                     if (next)
                     {
-                        std::string next_str = next(cpp_param_name, has_default_arg);
+                        std::string next_str = next(cpp_param_name, has_default_arg, is_output_param);
                         if (!next_str.empty())
                         {
                             ret += '\n';

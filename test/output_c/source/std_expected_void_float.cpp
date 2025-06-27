@@ -69,13 +69,13 @@ bool MR_C_std_expected_void_float_GetValue(const MR_C_std_expected_void_float *_
 
 const float *MR_C_std_expected_void_float_GetError(const MR_C_std_expected_void_float *_this)
 {
-    auto &self = (_this ? *(const std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    return self ? nullptr : &self.error();
+    auto &_self = (_this ? *(const std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    return _self ? nullptr : &_self.error();
 }
 
 float *MR_C_std_expected_void_float_GetMutableError(MR_C_std_expected_void_float *_this)
 {
-    auto &self = (_this ? *(std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    return self ? nullptr : &self.error();
+    auto &_self = (_this ? *(std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    return _self ? nullptr : &_self.error();
 }
 

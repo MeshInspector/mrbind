@@ -170,16 +170,20 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg) -> std::string
+            param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param) -> std::string
             {
-                if (cpp_param_name.empty())
+                if (is_output_param)
                     return "/// Callback return value can not be null.";
                 else if (!has_default_arg)
                     return "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
                 else return "";
             };
 
-            param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
+            param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback)
+            {
+                (void)cpp_param_name; (void)use_wrapper;
+                return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";
+            };
         }
         else if (traits.value().IsDefaultOrCopyOrMoveConstructible())
         {
@@ -302,10 +306,16 @@ namespace mrbind::CBindings
                 return ret;
             };
 
-            param_usage.explanation_how_to_use_default_arg = [&generator](std::string_view cpp_param_name, bool use_wrapper)
+            param_usage.explanation_how_to_use_default_arg = [&generator](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback)
             {
                 (void)cpp_param_name;
-                return "pass `" + generator.GetPassByEnumName() + (use_wrapper ? "_NoObject" : "_DefaultArgument") + "` and a null pointer";
+
+                std::string enum_value = generator.GetPassByEnumName() + (use_wrapper ? "_NoObject" : "_DefaultArgument");
+
+                if (is_returned_from_callback)
+                    return "return a null pointer and write `" + enum_value + "` to `*" + std::string(cpp_param_name) + "_pass_by`";
+                else
+                    return "pass `" + enum_value + "` and a null pointer";
             };
 
             param_usage.supports_default_arguments_in_wrappers = true; // !!
@@ -585,7 +595,7 @@ namespace mrbind::CBindings
         param_def_arg.c_params.push_back({
             .c_type = cppdecl::Type(c_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
         });
-        param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
+        param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
         param_def_arg.c_params_to_cpp = [cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
         {
             (void)source_file;
@@ -692,7 +702,7 @@ namespace mrbind::CBindings
             param_def_arg.c_params.push_back({
                 .c_type = type_c_style.AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
             });
-            param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
+            param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
             param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
@@ -857,11 +867,11 @@ namespace mrbind::CBindings
 
                 param_def_arg.append_to_comment = [
                     is_rvalue_ref
-                ](std::string_view cpp_param_name, bool has_default_arg) -> std::string
+                ](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param) -> std::string
                 {
                     std::string ret;
 
-                    if (cpp_param_name.empty())
+                    if (is_output_param)
                     {
                         ret = "/// Callback return value can not be null.";
                         if (is_rvalue_ref)
@@ -888,7 +898,7 @@ namespace mrbind::CBindings
 
                     return ret;
                 };
-                param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
+                param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
 
                 param_def_arg.c_params_to_cpp = [
                     cpp_type_str,
@@ -1106,21 +1116,34 @@ namespace mrbind::CBindings
             ret += ")"; // Close `( ? : )` (default argument vs no default argument).
             return ret;
         };
-        ret.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg)
+        ret.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param)
         {
-            // No handling empty `cpp_param_name`, because this usage only makes sense in sugared parameters.
-            if (cpp_param_name.empty())
-                throw std::logic_error("Internal error: Bad usage: String-like parameter usage is sugared, so its `.append_to_comment` callback is not supposed to receive an empty `cpp_param_name`. You might want to set `.is_heap_allocated_class = true` for this type.");
-
             std::string ret;
             if (!has_default_arg)
-                ret += "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.\n";
-            ret += "/// If `" + std::string(cpp_param_name) + "_end` is null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
+            {
+                if (is_output_param)
+                    ret += "/// Callback return value can not be null.\n";
+                else
+                    ret += "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.\n";
+            }
+
+            if (is_output_param)
+                ret += "/// If `*" + std::string(cpp_param_name) + "_end` is kept null, then the callback return value is assumed to be null-terminated.";
+            else
+                ret += "/// If `" + std::string(cpp_param_name) + "_end` is null, then `" + std::string(cpp_param_name) + "` is assumed to be null-terminated.";
+
             if (has_default_arg)
                 ret += "\n/// Non-null `" + std::string(cpp_param_name) + "_end` requires a non-null `" + std::string(cpp_param_name) + "`.";
             return ret;
         };
-        ret.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)use_wrapper; return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";};
+        ret.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback)
+        {
+            (void)use_wrapper;
+            if (is_returned_from_callback)
+                return "return a null pointer and leave `" + std::string(cpp_param_name) + "_end` as is"; // Leave as is because it defaults to null anyway.
+            else
+                return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";
+        };
 
         return ret;
     }

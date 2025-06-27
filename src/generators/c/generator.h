@@ -689,10 +689,13 @@ namespace mrbind::CBindings
                 //   because we automatically generate another comment line stating its value, and don't want to accidentally do it here.
                 // NOTE: DON'T explain how to trigger the default argument here. Use `explanation_how_to_use_default_arg` for that.
                 //   But the flag is passed here because it's sometimes useful to add additional remarks that depend on the presence of the default argument.
-                // NOTE: If `cpp_param_name` is empty, you must instead talk about the "callback return value". This is used when binding C callbacks.
-                //   In that case `has_default_arg` will always be null.
-                //   Note that you'll never receive empty `cpp_param_name` in sugared parameters (that is, if `.is_heap_allocated_class == true`).
-                std::function<std::string(std::string_view cpp_param_name, bool has_default_arg)> append_to_comment;
+                // NOTE: If `is_output_param` is true, you must adjust your wording to talk about the "callback return value" instead of a parameter.
+                //   This is used when binding C callbacks. In that case `has_default_arg` will always be null.
+                //   In that case you'd typically ignore `cpp_param_name`. Except that when you `.c_params` has more than one element.
+                //   In that case all those C parameters with a non-empty `name_suffix` must be documented mostly as usual, using `cpp_param_name`,
+                //     but call them "callback output parameters". Only the main C parameter with the empty suffix must be called the return value.
+                //     Also when referring to them, prepend `*` to their names, because they are pointer output parameters.
+                std::function<std::string(std::string_view cpp_param_name, bool has_default_arg, bool is_output_param)> append_to_comment;
 
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                 // `default_arg` should be empty if there's no default argument.
@@ -718,7 +721,9 @@ namespace mrbind::CBindings
                 // `use_wrapper` will be true if this is not a real default argument, but a wrapper (typically `std::optional`) being generated.
                 //   Typically `use_wrapper == true` corresponds to using `PassBy_NoObject` instead of `Pass_DefaultArgument`.
                 //   If you didn't enable `supports_default_arguments_in_wrappers, then you most likely should ignore `use_wrapper`.
-                std::function<std::string(std::string_view cpp_param_name, bool use_wrapper)> explanation_how_to_use_default_arg;
+                // If `is_output_param == true`, say "return" instead of "pass". This is for callback return values (which use parameter-like bindings).
+                //   Note that in callbacks, only the suffix-less parameter from `c_params` is returned. The rest are used as output parameters.
+                std::function<std::string(std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback)> explanation_how_to_use_default_arg;
 
                 // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
                 // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
@@ -919,9 +924,17 @@ namespace mrbind::CBindings
             // It's almost never necessary to adjust those. Most things that you might want to do can be done via the careful use of placeholders in `cpp_called_func` (and sometimes in `cpp_extra_statements`).
             Parens cpp_called_func_parens = {"(", ")"};
 
-            // Comment to add on the C side. Do add leading slashes. Don't add the trailing newline.
+            // Additional arguments to pass to the `cpp_called_func`, before and after the regular ones.
+            std::vector<std::string> extra_args_before;
+            std::vector<std::string> extra_args_after;
+
+            // Comment to add on the C side. This is added before the generated part of the comment.
+            // Do add leading slashes. Don't add the trailing newline.
             // Leave empty for no comment.
             std::string c_comment;
+
+            // Like `c_comment`, but added after the generated part of the comment, not before.
+            std::string c_comment_trailing;
 
             // The current stack of namespaces to emit as a bunch of `using namespace ...;` inside of the function body.
             // This is only useful for parsed default arguments, because I don't know how to canonicalize them to include the full namespace qualifiers.

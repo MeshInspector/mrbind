@@ -227,9 +227,9 @@ namespace mrbind::CBindings::Modules
                 generator.ReplaceAllNamesInTypeWithCNames(underlying_c_ptr_type);
 
                 auto param_append_to_comment =
-                    [func_name_destroy_released_ptr, is_array_of_unknown_bound](std::string_view cpp_param_name, bool has_default_arg) -> std::string
+                    [func_name_destroy_released_ptr, is_array_of_unknown_bound](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param) -> std::string
                     {
-                        if (cpp_param_name.empty())
+                        if (is_output_param)
                         {
                             return
                                 "/// Callback return value " + std::string(is_array_of_unknown_bound ? "can point to an array" : "should point to a single object rather than to an array") + ".\n"
@@ -337,7 +337,7 @@ namespace mrbind::CBindings::Modules
                         return ret;
                     };
 
-                param_usage_defarg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper){(void)cpp_param_name; (void)use_wrapper; return "pass a null pointer";};
+                param_usage_defarg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
                 param_usage_defarg.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
 

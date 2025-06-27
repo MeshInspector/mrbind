@@ -125,11 +125,11 @@ namespace mrbind::CBindings::Modules
                                 .cpp_type = elem_types[i],
                             });
                             emit.cpp_extra_statements =
-                                "auto &self = @this@;\n" // To reduce duplication in the generated code.
-                                "if (self.index() == " + std::to_string(i) + ")\n"
-                                "    std::get<" + std::to_string(i) + ">(self) = @1@;\n"
+                                "auto &_self = @this@;\n" // To reduce duplication in the generated code.
+                                "if (_self.index() == " + std::to_string(i) + ")\n"
+                                "    std::get<" + std::to_string(i) + ">(_self) = @1@;\n"
                                 "else\n"
-                                "    self.emplace<" + std::to_string(i) + ">(@1@);";
+                                "    _self.emplace<" + std::to_string(i) + ">(@1@);";
                             generator.EmitFunction(file, emit);
                         }
 

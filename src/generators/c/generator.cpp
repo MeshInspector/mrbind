@@ -1024,6 +1024,25 @@ namespace mrbind::CBindings
         bool first_arg_in_call_expr = true;
         bool seen_this_param = false;
         bool seen_any_placeholders = false;
+
+        auto AppendArgument = [&](std::string_view arg_expr)
+        {
+            if (first_arg_in_call_expr)
+            {
+                first_arg_in_call_expr = false;
+                body_return += params.cpp_called_func_parens.begin;
+            }
+            else
+                body_return += ',';
+
+            body_return += "\n        ";
+            body_return += arg_expr;
+        };
+
+        // Extra args before.
+        for (const auto &arg : params.extra_args_before)
+            AppendArgument(arg);
+
         for (const auto &param : params.params)
         {
             const bool is_this_param = param.kind != EmitFuncParams::Param::Kind::normal;
@@ -1080,7 +1099,7 @@ namespace mrbind::CBindings
                     // This seems to look better when inserted before the explanation about the default argument.
                     if (param_usage.append_to_comment)
                     {
-                        std::string str = param_usage.append_to_comment(param_name_fixed, has_useful_default_arg);
+                        std::string str = param_usage.append_to_comment(param_name_fixed, has_useful_default_arg, false);
                         if (!str.empty())
                         {
                             ret.comment += str;
@@ -1098,7 +1117,7 @@ namespace mrbind::CBindings
                         ret.comment += "`, ";
                         if (!param_usage_defarg->explanation_how_to_use_default_arg)
                             throw std::logic_error("Internal error: Bad usage: `ParamUsageWithDefaultArg::explanation_how_to_use_default_arg` is not set.");
-                        ret.comment += param_usage_defarg->explanation_how_to_use_default_arg(param_name_fixed, false); // Always passing `use_wrapper = false` here. It's the wrapper's job to pass something else when wrapping the callback.
+                        ret.comment += param_usage_defarg->explanation_how_to_use_default_arg(param_name_fixed, false, false); // Always passing `use_wrapper = false, is_returned_from_callback = false` here. Something else can be passed by wrappers, or something else.
                         ret.comment += " to use it.\n";
                     }
                     else if (!useless_default_arg_message.empty())
@@ -1176,16 +1195,7 @@ namespace mrbind::CBindings
                         }
                         else
                         {
-                            if (first_arg_in_call_expr)
-                            {
-                                first_arg_in_call_expr = false;
-                                body_return += params.cpp_called_func_parens.begin;
-                            }
-                            else
-                                body_return += ',';
-
-                            body_return += "\n        ";
-                            body_return += arg_expr;
+                            AppendArgument(arg_expr);
                         }
                     }
                 }
@@ -1198,6 +1208,12 @@ namespace mrbind::CBindings
                 std::throw_with_nested(std::runtime_error("While processing parameter " + (is_this_param ? "`this`" : std::to_string(i) + (seen_this_param ? " (not counting `this`)" : "")) + ":"));
             }
         }
+
+        // Extra args after.
+        for (const auto &arg : params.extra_args_after)
+            AppendArgument(arg);
+
+        // Finalize arguments.
         if (
             !params.cpp_called_func.empty() &&
             // If every argument uses a placeholder, and there is at least one placeholder, don't bother adding the `()` at the end.
@@ -1271,6 +1287,13 @@ namespace mrbind::CBindings
         catch (...)
         {
             std::throw_with_nested(std::runtime_error("While processing the return type:"));
+        }
+
+        // The trailing custom comment, if any.
+        if (!params.c_comment_trailing.empty())
+        {
+            ret.comment += params.c_comment_trailing;
+            ret.comment += '\n';
         }
 
         // Insert the function-wide extra includes.

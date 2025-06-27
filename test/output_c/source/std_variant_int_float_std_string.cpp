@@ -72,29 +72,29 @@ MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_Con
 
 void MR_C_std_variant_int_float_std_string_AssignAs_int(MR_C_std_variant_int_float_std_string *_this, int value)
 {
-    auto &self = (_this ? *(std::variant<int, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    if (self.index() == 0)
-        std::get<0>(self) = value;
+    auto &_self = (_this ? *(std::variant<int, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    if (_self.index() == 0)
+        std::get<0>(_self) = value;
     else
-        self.emplace<0>(value);
+        _self.emplace<0>(value);
 }
 
 void MR_C_std_variant_int_float_std_string_AssignAs_float(MR_C_std_variant_int_float_std_string *_this, float value)
 {
-    auto &self = (_this ? *(std::variant<int, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    if (self.index() == 1)
-        std::get<1>(self) = value;
+    auto &_self = (_this ? *(std::variant<int, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    if (_self.index() == 1)
+        std::get<1>(_self) = value;
     else
-        self.emplace<1>(value);
+        _self.emplace<1>(value);
 }
 
 void MR_C_std_variant_int_float_std_string_AssignAs_std_string(MR_C_std_variant_int_float_std_string *_this, const char *value, const char *value_end)
 {
-    auto &self = (_this ? *(std::variant<int, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    if (self.index() == 2)
-        std::get<2>(self) = (value ? (value_end ? std::string(value, value_end) : std::string(value)) : throw std::runtime_error("Parameter `value` can not be null."));
+    auto &_self = (_this ? *(std::variant<int, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    if (_self.index() == 2)
+        std::get<2>(_self) = (value ? (value_end ? std::string(value, value_end) : std::string(value)) : throw std::runtime_error("Parameter `value` can not be null."));
     else
-        self.emplace<2>((value ? (value_end ? std::string(value, value_end) : std::string(value)) : throw std::runtime_error("Parameter `value` can not be null.")));
+        _self.emplace<2>((value ? (value_end ? std::string(value, value_end) : std::string(value)) : throw std::runtime_error("Parameter `value` can not be null.")));
 }
 
 const int *MR_C_std_variant_int_float_std_string_Get_int(const MR_C_std_variant_int_float_std_string *_this)
