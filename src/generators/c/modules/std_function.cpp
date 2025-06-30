@@ -87,9 +87,15 @@ namespace mrbind::CBindings::Modules
             callback_param_usages.reserve(cpp_elem_type.As<cppdecl::Function>()->params.size());
             for (const auto &param : cpp_elem_type.As<cppdecl::Function>()->params)
             {
-                const Generator::BindableType &param_type_binding = generator.FindBindableType(param.type);
+                // Adjust the type by replacing non-references with rvalue references, but only if they are not built-in C types.
+                // This adds the weird comments, but at least the callback no longer needs to deallocate heap objects all the time. This is too dumb otherwise.
+                cppdecl::Type fixed_type = param.type;
+                if (!fixed_type.Is<cppdecl::Reference>() && !generator.IsSimplyBindableDirect(fixed_type))
+                    fixed_type.AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue});
+
+                const Generator::BindableType &param_type_binding = generator.FindBindableType(fixed_type);
                 if (!param_type_binding.return_usage)
-                    throw std::runtime_error("A parameter type of `std::function`, a `" + cppdecl::ToCode(param.type, cppdecl::ToCodeFlags::canonical_c_style) + "`, doesn't have a return usage.");
+                    throw std::runtime_error("A parameter type of `std::function`, a `" + cppdecl::ToCode(fixed_type, cppdecl::ToCodeFlags::canonical_c_style) + "`, doesn't have a return usage.");
                 callback_param_usages.push_back(&param_type_binding.return_usage.value());
             }
 

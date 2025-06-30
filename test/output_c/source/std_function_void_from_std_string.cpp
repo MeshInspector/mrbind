@@ -61,7 +61,7 @@ void MR_C_std_function_void_from_std_string_Assign(MR_C_std_function_void_from_s
     _self = [_f = func](std::string _1) -> void
     {
         _f(
-            (MR_C_std_string *)new std::string(_1)
+            (MR_C_std_string *)&mrbindc_details::unmove(_1)
         );
     };
 }
@@ -133,7 +133,7 @@ void MR_C_std_function_void_from_std_string_AssignWithDataPtr(MR_C_std_function_
         auto operator()(std::string _1) -> void
         {
             _func(
-                (MR_C_std_string *)new std::string(_1),
+                (MR_C_std_string *)&mrbindc_details::unmove(_1),
                 _userdata
             );
         }

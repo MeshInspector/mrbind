@@ -47,13 +47,15 @@ MR_C_API MR_C_std_function_void_from_MR_StdFunction_A *MR_C_std_function_void_fr
 
 /// Assign a stateless function.
 /// Parameter `_this` can not be null.
-/// Callback parameter `_1` is never null. It is an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
+/// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
+/// In C++ that parameter is an rvalue reference.
 MR_C_API void MR_C_std_function_void_from_MR_StdFunction_A_Assign(MR_C_std_function_void_from_MR_StdFunction_A *_this, void (*func)(MR_StdFunction_A *_1));
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 /// Parameter `_this` can not be null.
-/// Callback parameter `_1` is never null. It is an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
+/// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
+/// In C++ that parameter is an rvalue reference.
 /// How to use `userdata_callback`:
 ///   The `_this_userdata` parameter will never be null.
 ///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.
