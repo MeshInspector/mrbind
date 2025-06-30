@@ -43,6 +43,48 @@ MR_C_API void MR_TestSimpleTypes_SetIntRef(int *_1);
 /// Parameter `_1` has a default argument: `global_int`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetIntRefDef(int *_1);
 
+/// Generated from function `MR::TestSimpleTypes::GetVoidPtr`.
+MR_C_API void *MR_TestSimpleTypes_GetVoidPtr(void);
+
+/// Generated from function `MR::TestSimpleTypes::SetVoidPtr`.
+MR_C_API void MR_TestSimpleTypes_SetVoidPtr(void *_1);
+
+/// Generated from function `MR::TestSimpleTypes::SetVoidPtrDef`.
+/// Parameter `_1` has a default argument: `&global_int`, pass a null pointer to use it.
+MR_C_API void MR_TestSimpleTypes_SetVoidPtrDef(void *const *_1);
+
+/// Generated from function `MR::TestSimpleTypes::SetVoidPtrDefNull`.
+/// Parameter `_1` defaults to a null pointer in C++.
+MR_C_API void MR_TestSimpleTypes_SetVoidPtrDefNull(void *_1);
+
+/// Generated from function `MR::TestSimpleTypes::GetConstVoidPtr`.
+MR_C_API const void *MR_TestSimpleTypes_GetConstVoidPtr(void);
+
+/// Generated from function `MR::TestSimpleTypes::SetConstVoidPtr`.
+MR_C_API void MR_TestSimpleTypes_SetConstVoidPtr(const void *_1);
+
+/// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDef`.
+/// Parameter `_1` has a default argument: `&global_int`, pass a null pointer to use it.
+MR_C_API void MR_TestSimpleTypes_SetConstVoidPtrDef(const void *const *_1);
+
+/// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDefNull`.
+/// Parameter `_1` defaults to a null pointer in C++.
+MR_C_API void MR_TestSimpleTypes_SetConstVoidPtrDefNull(const void *_1);
+
+/// Generated from function `MR::TestSimpleTypes::GetVoidPtrPtr`.
+MR_C_API void **MR_TestSimpleTypes_GetVoidPtrPtr(void);
+
+/// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtr`.
+MR_C_API void MR_TestSimpleTypes_SetVoidPtrPtr(void **_1);
+
+/// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDef`.
+/// Parameter `_1` has a default argument: `&global_void_ptr`, pass a null pointer to use it.
+MR_C_API void MR_TestSimpleTypes_SetVoidPtrPtrDef(void **const *_1);
+
+/// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDefNull`.
+/// Parameter `_1` defaults to a null pointer in C++.
+MR_C_API void MR_TestSimpleTypes_SetVoidPtrPtrDefNull(void **_1);
+
 typedef enum MR_TestSimpleTypes_E
 {
     MR_TestSimpleTypes_E_e1 = 0,

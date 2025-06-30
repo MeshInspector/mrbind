@@ -17,6 +17,23 @@ namespace MR::TestSimpleTypes
     inline void SetIntRef(int &) {}
     inline void SetIntRefDef(int & = global_int) {}
 
+    inline void *GetVoidPtr() {return nullptr;}
+    inline void SetVoidPtr(void *) {}
+    inline void SetVoidPtrDef(void * = &global_int) {}
+    inline void SetVoidPtrDefNull(void * = nullptr) {}
+
+    inline void *global_void_ptr;
+
+    inline const void *GetConstVoidPtr() {return nullptr;}
+    inline void SetConstVoidPtr(const void *) {}
+    inline void SetConstVoidPtrDef(const void * = &global_int) {}
+    inline void SetConstVoidPtrDefNull(const void * = nullptr) {}
+
+    inline void **GetVoidPtrPtr() {return nullptr;}
+    inline void SetVoidPtrPtr(void **) {}
+    inline void SetVoidPtrPtrDef(void ** = &global_void_ptr) {}
+    inline void SetVoidPtrPtrDefNull(void ** = nullptr) {}
+
 
     enum class E {e1};
     inline E global_enum;

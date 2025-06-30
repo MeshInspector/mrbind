@@ -89,6 +89,108 @@ void MR_TestSimpleTypes_SetIntRefDef(int *_1)
     );
 }
 
+void *MR_TestSimpleTypes_GetVoidPtr(void)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    return MR::TestSimpleTypes::GetVoidPtr();
+}
+
+void MR_TestSimpleTypes_SetVoidPtr(void *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetVoidPtr(
+        _1
+    );
+}
+
+void MR_TestSimpleTypes_SetVoidPtrDef(void *const *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetVoidPtrDef(
+        (_1 ? *_1 : static_cast<void *>(&global_int))
+    );
+}
+
+void MR_TestSimpleTypes_SetVoidPtrDefNull(void *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetVoidPtrDefNull(
+        _1
+    );
+}
+
+const void *MR_TestSimpleTypes_GetConstVoidPtr(void)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    return MR::TestSimpleTypes::GetConstVoidPtr();
+}
+
+void MR_TestSimpleTypes_SetConstVoidPtr(const void *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetConstVoidPtr(
+        _1
+    );
+}
+
+void MR_TestSimpleTypes_SetConstVoidPtrDef(const void *const *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetConstVoidPtrDef(
+        (_1 ? *_1 : static_cast<const void *>(&global_int))
+    );
+}
+
+void MR_TestSimpleTypes_SetConstVoidPtrDefNull(const void *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetConstVoidPtrDefNull(
+        _1
+    );
+}
+
+void **MR_TestSimpleTypes_GetVoidPtrPtr(void)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    return MR::TestSimpleTypes::GetVoidPtrPtr();
+}
+
+void MR_TestSimpleTypes_SetVoidPtrPtr(void **_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetVoidPtrPtr(
+        _1
+    );
+}
+
+void MR_TestSimpleTypes_SetVoidPtrPtrDef(void **const *_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetVoidPtrPtrDef(
+        (_1 ? *_1 : static_cast<void **>(&global_void_ptr))
+    );
+}
+
+void MR_TestSimpleTypes_SetVoidPtrPtrDefNull(void **_1)
+{
+    using namespace MR;
+    using namespace TestSimpleTypes;
+    MR::TestSimpleTypes::SetVoidPtrPtrDefNull(
+        _1
+    );
+}
+
 int MR_TestSimpleTypes_GetEnum(void)
 {
     using namespace MR;
