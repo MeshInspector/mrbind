@@ -85,6 +85,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         src/generators/c/modules/std_filesystem.cpp
         src/generators/c/modules/std_function.cpp
         src/generators/c/modules/std_integral_typedefs.cpp
+        src/generators/c/modules/std_iostream.cpp
         src/generators/c/modules/std_optional.cpp
         src/generators/c/modules/std_pair.cpp
         src/generators/c/modules/std_shared_ptr.cpp

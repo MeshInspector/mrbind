@@ -27,8 +27,6 @@ MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_OffsetMutablePtr(MR_T
 
 MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_ConstructFromAnother(const MR_TypedefsInTemplates_A_int *_other)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (MR_TypedefsInTemplates_A_int *)new MR::TypedefsInTemplates::A<int>(MR::TypedefsInTemplates::A<int>(
         (_other ? MR::TypedefsInTemplates::A<int>(*(MR::TypedefsInTemplates::A<int> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
@@ -36,8 +34,6 @@ MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_ConstructFromAnother(
 
 MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_AssignFromAnother(MR_TypedefsInTemplates_A_int *_this, const MR_TypedefsInTemplates_A_int *_other)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (MR_TypedefsInTemplates_A_int *)&((_this ? *(MR::TypedefsInTemplates::A<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (_other ? MR::TypedefsInTemplates::A<int>(*(MR::TypedefsInTemplates::A<int> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
@@ -55,8 +51,6 @@ void MR_TypedefsInTemplates_A_int_DestroyArray(MR_TypedefsInTemplates_A_int *_th
 
 int MR_TypedefsInTemplates_A_int_foo(MR_TypedefsInTemplates_A_int *_this)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (_this ? *(MR::TypedefsInTemplates::A<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo();
 }
 
@@ -82,8 +76,6 @@ MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_OffsetMutablePtr(MR_T
 
 MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_ConstructFromAnother(const MR_TypedefsInTemplates_B_int *_other)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (MR_TypedefsInTemplates_B_int *)new MR::TypedefsInTemplates::B<int>(MR::TypedefsInTemplates::B<int>(
         (_other ? MR::TypedefsInTemplates::B<int>(*(MR::TypedefsInTemplates::B<int> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
@@ -91,8 +83,6 @@ MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_ConstructFromAnother(
 
 MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_AssignFromAnother(MR_TypedefsInTemplates_B_int *_this, const MR_TypedefsInTemplates_B_int *_other)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (MR_TypedefsInTemplates_B_int *)&((_this ? *(MR::TypedefsInTemplates::B<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (_other ? MR::TypedefsInTemplates::B<int>(*(MR::TypedefsInTemplates::B<int> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
@@ -130,8 +120,6 @@ MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_Off
 
 MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(const MR_TypedefsInTemplates_B_int_BB_float *_other)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (MR_TypedefsInTemplates_B_int_BB_float *)new MR::TypedefsInTemplates::B<int>::BB<float>(MR::TypedefsInTemplates::B<int>::BB<float>(
         (_other ? MR::TypedefsInTemplates::B<int>::BB<float>(*(MR::TypedefsInTemplates::B<int>::BB<float> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
@@ -139,8 +127,6 @@ MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_Con
 
 MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(MR_TypedefsInTemplates_B_int_BB_float *_this, const MR_TypedefsInTemplates_B_int_BB_float *_other)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (MR_TypedefsInTemplates_B_int_BB_float *)&((_this ? *(MR::TypedefsInTemplates::B<int>::BB<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (_other ? MR::TypedefsInTemplates::B<int>::BB<float>(*(MR::TypedefsInTemplates::B<int>::BB<float> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
@@ -158,23 +144,17 @@ void MR_TypedefsInTemplates_B_int_BB_float_DestroyArray(MR_TypedefsInTemplates_B
 
 int MR_TypedefsInTemplates_B_int_BB_float_foo(MR_TypedefsInTemplates_B_int_BB_float *_this)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (_this ? *(MR::TypedefsInTemplates::B<int>::BB<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo();
 }
 
 int MR_TypedefsInTemplates_B_int_BB_float_foo2(MR_TypedefsInTemplates_B_int_BB_float *_this)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
     return (_this ? *(MR::TypedefsInTemplates::B<int>::BB<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo2();
 }
 
 void MR_TypedefsInTemplates_bar(int _1)
 {
-    using namespace MR;
-    using namespace TypedefsInTemplates;
-    MR::TypedefsInTemplates::bar(
+    ::MR::TypedefsInTemplates::bar(
         _1
     );
 }

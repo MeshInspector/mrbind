@@ -1012,7 +1012,7 @@ namespace mrbind::CBindings
 
             void SetReturnTypeFromParsedFunc(const CBindings::Generator &self, const BasicReturningFunc &new_func);
 
-            void SetFromParsedFunc(const CBindings::Generator &self, const FuncEntity &new_func, std::span<const NamespaceEntity *const> new_using_namespace_stack);
+            void SetFromParsedFunc(const CBindings::Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassCtor(const CBindings::Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassMethod(const CBindings::Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassConvOp(const CBindings::Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack);

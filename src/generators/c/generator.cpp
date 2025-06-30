@@ -780,7 +780,7 @@ namespace mrbind::CBindings
         cpp_return_type = self.ParseTypeOrThrow(new_func.return_type.canonical);
     }
 
-    void Generator::EmitFuncParams::SetFromParsedFunc(const Generator &self, const FuncEntity &new_func, std::span<const NamespaceEntity *const> new_using_namespace_stack)
+    void Generator::EmitFuncParams::SetFromParsedFunc(const Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         AddParamsFromParsedFunc(self, new_func.params);
 
@@ -788,7 +788,10 @@ namespace mrbind::CBindings
 
         SetReturnTypeFromParsedFunc(self, new_func);
 
-        cpp_called_func = new_func.full_qual_name;
+        if (is_class_friend)
+            cpp_called_func = new_func.name; // Do we need the template arguments here? I assume not, in the sane cases.
+        else
+            cpp_called_func = "::" + new_func.full_qual_name; // Adding leading `::` to avoid ADL, just in case.
 
         if (new_func.comment)
         {
@@ -1043,6 +1046,10 @@ namespace mrbind::CBindings
         for (const auto &arg : params.extra_args_before)
             AppendArgument(arg);
 
+        // At least one default C++ argument, not counting the ones we skip because of being trivial (null pointers and such).
+        bool has_any_useful_default_args = false;
+
+        // For each C++ parameter...
         for (const auto &param : params.params)
         {
             const bool is_this_param = param.kind != EmitFuncParams::Param::Kind::normal;
@@ -1074,6 +1081,8 @@ namespace mrbind::CBindings
                         : "";
 
                     const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
+                    if (has_useful_default_arg)
+                        has_any_useful_default_args = true;
 
                     const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
                     const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
@@ -1303,13 +1312,17 @@ namespace mrbind::CBindings
         { // Assemble the returned body.
             ret.body += "{\n";
 
-            for (const NamespaceEntity *ns : params.using_namespace_stack)
+            // Add the `using namespace`s, just in case the default arguments miss some qualifiers. (Can this still happen?)
+            if (has_any_useful_default_args)
             {
-                if (!ns->name)
-                    continue; // An anonymous namespace.
-                ret.body += "    using namespace ";
-                ret.body += *ns->name;
-                ret.body += ";\n";
+                for (const NamespaceEntity *ns : params.using_namespace_stack)
+                {
+                    if (!ns->name)
+                        continue; // An anonymous namespace.
+                    ret.body += "    using namespace ";
+                    ret.body += *ns->name;
+                    ret.body += ";\n";
+                }
             }
 
             if (!body_pre.empty())
@@ -2059,7 +2072,7 @@ namespace mrbind::CBindings
                 file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file));
 
                 EmitFuncParams params;
-                params.SetFromParsedFunc(self, func, GetNamespaceStack());
+                params.SetFromParsedFunc(self, func, GetClassStack().size() > 0, GetNamespaceStack());
                 self.EmitFunction(self.GetOutputFile(func.declared_in_file), params);
             }
             catch (...)
