@@ -8,6 +8,7 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_optional_MR_StdOptional_A MR_C_std_optional_MR_StdOptional_A; // Defined below in this file.
 typedef struct MR_StdOptional_A MR_StdOptional_A; // Defined in `#include <MR/test_std_optional.h>`.
 
 

@@ -12,6 +12,7 @@ typedef struct MR_C_std_unique_ptr_MR_StdUniquePtr_A MR_C_std_unique_ptr_MR_StdU
 typedef struct MR_C_std_unique_ptr_MR_StdUniquePtr_A_array MR_C_std_unique_ptr_MR_StdUniquePtr_A_array; // Defined in `#include <std_unique_ptr_MR_StdUniquePtr_A_array.h>`.
 typedef struct MR_C_std_unique_ptr_int MR_C_std_unique_ptr_int; // Defined in `#include <std_unique_ptr_int.h>`.
 typedef struct MR_C_std_unique_ptr_int_array MR_C_std_unique_ptr_int_array; // Defined in `#include <std_unique_ptr_int_array.h>`.
+typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A; // Defined below in this file.
 
 
 /// Generated from function `MR::StdUniquePtr::GetInt`.
@@ -79,6 +80,7 @@ MR_C_API void MR_StdUniquePtr_SetIntArrDefTrivial(int *_1);
 MR_C_API void MR_StdUniquePtr_SetIntArrDef(int *const *_1);
 
 // Now with a class:
+/// Generated from class `MR::StdUniquePtr::A`.
 typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A;
 
 /// Constructs an empty (default-constructed) instance.

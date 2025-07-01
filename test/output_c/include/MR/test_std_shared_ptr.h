@@ -15,6 +15,7 @@ typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 MR_C_std_shared_pt
 typedef struct MR_C_std_shared_ptr_int MR_C_std_shared_ptr_int; // Defined in `#include <std_shared_ptr_int.h>`.
 typedef struct MR_C_std_shared_ptr_int_array MR_C_std_shared_ptr_int_array; // Defined in `#include <std_shared_ptr_int_array.h>`.
 typedef struct MR_C_std_shared_ptr_int_array_42 MR_C_std_shared_ptr_int_array_42; // Defined in `#include <std_shared_ptr_int_array_42.h>`.
+typedef struct MR_StdSharedPtr_A MR_StdSharedPtr_A; // Defined below in this file.
 
 
 /// Generated from function `MR::StdSharedPtr::GetInt`.
@@ -87,6 +88,7 @@ MR_C_API void MR_StdSharedPtr_SetIntArr42DefTrivial(MR_C_PassBy _1_pass_by, MR_C
 MR_C_API void MR_StdSharedPtr_SetIntArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array_42 *_1);
 
 // Now with a class:
+/// Generated from class `MR::StdSharedPtr::A`.
 typedef struct MR_StdSharedPtr_A MR_StdSharedPtr_A;
 
 /// Constructs an empty (default-constructed) instance.

@@ -8,9 +8,14 @@
 extern "C" {
 #endif
 
+typedef struct MR_TypedefsInTemplates_A_int MR_TypedefsInTemplates_A_int; // Defined below in this file.
+typedef struct MR_TypedefsInTemplates_B_int MR_TypedefsInTemplates_B_int; // Defined below in this file.
+typedef struct MR_TypedefsInTemplates_B_int_BB_float MR_TypedefsInTemplates_B_int_BB_float; // Defined below in this file.
+
 
 // This tests a specific Clang bug/quirk.
 // Certain typedefs in templates get their names printed without the template arguments of the enclosing class template, breaking our code generation.
+/// Generated from class `MR::TypedefsInTemplates::A<int>`.
 typedef struct MR_TypedefsInTemplates_A_int MR_TypedefsInTemplates_A_int;
 
 /// Constructs an empty (default-constructed) instance.
@@ -49,6 +54,7 @@ MR_C_API void MR_TypedefsInTemplates_A_int_DestroyArray(MR_TypedefsInTemplates_A
 /// Parameter `_this` can not be null.
 MR_C_API int MR_TypedefsInTemplates_A_int_foo(MR_TypedefsInTemplates_A_int *_this);
 
+/// Generated from class `MR::TypedefsInTemplates::B<int>`.
 typedef struct MR_TypedefsInTemplates_B_int MR_TypedefsInTemplates_B_int;
 
 /// Constructs an empty (default-constructed) instance.
@@ -83,6 +89,7 @@ MR_C_API void MR_TypedefsInTemplates_B_int_Destroy(MR_TypedefsInTemplates_B_int 
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_B_int`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_B_int_DestroyArray(MR_TypedefsInTemplates_B_int *_this);
 
+/// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
 typedef struct MR_TypedefsInTemplates_B_int_BB_float MR_TypedefsInTemplates_B_int_BB_float;
 
 /// Constructs an empty (default-constructed) instance.

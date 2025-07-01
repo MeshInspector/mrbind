@@ -8,6 +8,8 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_pair_int_ref_float_ref MR_C_std_pair_int_ref_float_ref; // Defined below in this file.
+
 
 /// Stores two objects: `int &` and `int &`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

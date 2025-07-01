@@ -9,6 +9,7 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A MR_C_std_shared_ptr_MR_StdSharedPtr_A; // Defined below in this file.
 typedef struct MR_StdSharedPtr_A MR_StdSharedPtr_A; // Defined in `#include <MR/test_std_shared_ptr.h>`.
 
 

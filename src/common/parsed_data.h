@@ -407,6 +407,8 @@ namespace mrbind
 
             (bool)(is_aggregate, false)
 
+            (bool)(is_polymorphic, false)
+
             // A path to the file where this is defined.
             (DeclFileName)(declared_in_file)
         , // Bases:

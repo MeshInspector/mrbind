@@ -10,6 +10,9 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_unordered_set_int MR_C_std_unordered_set_int; // Defined below in this file.
+typedef struct MR_C_std_unordered_set_int_const_iterator MR_C_std_unordered_set_int_const_iterator; // Defined below in this file.
+
 
 /// Generated from C++ container `std::unordered_set<int>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

@@ -8,6 +8,8 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_tuple_const_int_const_float_int_ref_float_ref MR_C_std_tuple_const_int_const_float_int_ref_float_ref; // Defined below in this file.
+
 
 /// Stores 4 objects: `const int`, `const float`, `int &`, `float &`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

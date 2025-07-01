@@ -10,8 +10,10 @@ extern "C" {
 
 typedef struct MR_C_std_istream MR_C_std_istream; // Defined in `#include <iostream.h>`.
 typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined in `#include <iostream.h>`.
+typedef struct MR_IOStream_A MR_IOStream_A; // Defined below in this file.
 
 
+/// Generated from class `MR::IOStream::A`.
 typedef struct MR_IOStream_A MR_IOStream_A;
 
 /// Constructs an empty (default-constructed) instance.

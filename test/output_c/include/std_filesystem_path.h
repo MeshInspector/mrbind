@@ -9,6 +9,7 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_filesystem_path MR_C_std_filesystem_path; // Defined below in this file.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 
 

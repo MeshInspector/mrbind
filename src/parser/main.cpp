@@ -1326,6 +1326,9 @@ namespace mrbind
 
             auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl);
 
+            if (cxxdecl)
+                new_class.is_polymorphic = cxxdecl->isPolymorphic();
+
             // Bases.
             if (cxxdecl)
             {

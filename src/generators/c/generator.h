@@ -7,6 +7,7 @@
 
 #include <filesystem>
 #include <functional>
+#include <map>
 #include <set>
 #include <span>
 #include <string_view>
@@ -69,6 +70,41 @@ namespace mrbind::CBindings
         // Maps known type names in the input file to their canonical forms as reported by libclang.
         // The keys are roundtripped through `cppdecl::ToCode(..., canonical_c_style)`.
         std::unordered_map<std::string, cppdecl::Type> type_alt_spelling_to_canonical;
+
+
+        struct InheritanceInfo
+        {
+            enum class Kind
+            {
+                non_virt, // Non-virtual, possibly indirect.
+                virt, // Either virtual, or indirect through a virtual base.
+                ambiguous,
+            };
+
+            // Using ordered containers to sort everything automatically.
+            // All strings here are pre-baked with `cppdecl`.
+
+            std::set<std::string> bases_direct_nonvirtual;
+            // The reverse mapping for `bases_direct_nonvirtual`.
+            std::set<std::string> derived_direct_nonvirtual;
+
+            // Both direct and indirect. The virtual bases are always in a flat list.
+            std::set<std::string> bases_indirect_virtual;
+
+            // Both direct and indirect. `true` means this base is ambiguous.
+            std::map<std::string, bool> bases_indirect_nonvirtual;
+
+            // Both direct and indirect.
+            std::map<std::string, Kind, std::less<>> bases_indirect;
+            // The reverse mapping for `bases_indirect`.
+            std::map<std::string, Kind, std::less<>> derived_indirect;
+
+            // Queries `bases_indirect` or `derived_indirect`, returns true if we have at least one base/derived with the specified `kind`.
+            [[nodiscard]] bool HaveAny(bool derived, Kind kind) const;
+        };
+        // Inheritance information for parsed classes.
+        // The map keys are pre-baked with `cppdecl`, and so are all strings inside.
+        std::map<std::string, InheritanceInfo, std::less<>> parsed_class_inheritance_info;
 
 
         // The extra modules that were loaded.
@@ -145,6 +181,10 @@ namespace mrbind::CBindings
                 {
                     // If false we'll just forward-declare.
                     bool need_header = false;
+
+                    // If true, the type is declared in this very file.
+                    // If true, we ignore `need_header`.
+                    bool declared_in_same_file = false;
                 };
                 // Lists all type names that are needed here, and whether we should include headers for them for forward-decare them.
                 // Those are keys for `FindTypeBindableWithSameAddress()`. That is, C++ types canonicalized by cppdecl.
@@ -525,6 +565,8 @@ namespace mrbind::CBindings
                 const ClassEntity *parsed = nullptr;
 
                 TypeTraits traits;
+
+                bool is_polymorphic = false;
 
                 // For consistency with `EnumDesc`. This one doesn't seem to be strictly necessary.
                 ClassDesc() {}
@@ -1099,6 +1141,8 @@ namespace mrbind::CBindings
 
         // This fills `parsed_type_info` with the knowledge about all parsed types.
         struct VisitorRegisterKnownTypes;
+
+        void ConstructInheritanceGraph();
 
         // This fills `overloaded_names` with the knowledge about all C functions we're planning to produce.
         struct VisitorRegisterOverloadedNames;

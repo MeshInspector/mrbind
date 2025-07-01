@@ -6,6 +6,9 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_istream MR_C_std_istream; // Defined below in this file.
+typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined below in this file.
+
 
 /// A C++ output stream.
 typedef struct MR_C_std_ostream MR_C_std_ostream;

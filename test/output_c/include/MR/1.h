@@ -9,18 +9,20 @@
 extern "C" {
 #endif
 
+typedef struct MR_A MR_A; // Defined below in this file.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 typedef struct MR_C_std_vector_MR_A MR_C_std_vector_MR_A; // Defined in `#include <std_vector_MR_A.h>`.
 
 
+/// Generated from class `MR::A`.
 typedef struct MR_A MR_A;
 
-/// Generated from a member variable of C++ class `MR::A` named `x`.
+/// Generated from a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this);
 
-/// Generated from a member variable of C++ class `MR::A` named `x`.
+/// Generated from a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);

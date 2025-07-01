@@ -68,6 +68,12 @@ namespace mrbind::CBindings
         internal_header.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
     }
 
+    bool Generator::InheritanceInfo::HaveAny(bool derived, Kind kind) const
+    {
+        const auto &map = derived ? derived_indirect : bases_indirect;
+        return std::any_of(map.begin(), map.end(), [&](const auto &elem){return elem.second == kind;});
+    }
+
     std::string Generator::ParsedFilenameToRelativeNameForInclusion(const DeclFileName &input)
     {
         std::filesystem::path input_path = std::filesystem::weakly_canonical(MakePath(input.canonical));
@@ -639,8 +645,13 @@ namespace mrbind::CBindings
             auto &dep_info = FindTypeBindableWithSameAddress(dep.first);
 
             // Calling `declared_in_file()` might create the file that defines this type, which is a good thing.
-            if (!dep_info.declared_in_file || &dep_info.declared_in_file() != &file)
-                file.header.forward_declarations_and_inclusions[dep.first].need_header |= dep.second.need_header;
+            if (dep_info.declared_in_file)
+                (void)dep_info.declared_in_file();
+
+            auto [iter, is_new] = file.header.forward_declarations_and_inclusions.try_emplace(dep.first);
+            iter->second.need_header |= dep.second.need_header;
+            if (is_new)
+                iter->second.declared_in_same_file = dep_info.declared_in_file && &dep_info.declared_in_file() == &file;
         }
     }
 
@@ -990,7 +1001,7 @@ namespace mrbind::CBindings
             c_comment = new_field.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from a member variable of C++ class `";
+        c_comment += "/// Generated from a member variable of class `";
         c_comment += class_cpp_type_str;
         c_comment += "` named `";
         c_comment += new_field.full_name;
@@ -1395,8 +1406,9 @@ namespace mrbind::CBindings
         void Visit(const ClassEntity &cl) override
         {
             cppdecl::Type parsed_type = self.ParseTypeOrThrow(cl.full_type);
+            const std::string cpp_type_name = cppdecl::ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-            auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+            auto [iter, is_new] = self.parsed_type_info.try_emplace(cpp_type_name);
             if (!is_new)
                 throw std::logic_error("Internal error: Duplicate type in `parsed_type_info`: " + cl.full_type);
 
@@ -1418,6 +1430,7 @@ namespace mrbind::CBindings
 
             ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();
             class_info.parsed = &cl;
+            class_info.is_polymorphic = cl.is_polymorphic;
 
             bool has_by_value_assignment = false;
 
@@ -1495,6 +1508,18 @@ namespace mrbind::CBindings
                     class_info.traits.is_trivially_move_assignable = false; // Because by-value assignments can't be trivial.
                 }
             }
+
+            { // Collect inheritance information.
+                auto [iter, is_new] = self.parsed_class_inheritance_info.try_emplace(cpp_type_name);
+                if (!is_new)
+                    throw std::logic_error("Internal error: Duplicate class in `parsed_class_inheritance_info`: `" + cpp_type_name + "`.");
+
+                for (const ClassBase &parsed_base : cl.bases)
+                {
+                    auto &set = parsed_base.is_virtual ? iter->second.bases_indirect_virtual : iter->second.bases_direct_nonvirtual;
+                    set.insert(cppdecl::ToCode(self.ParseTypeOrThrow(parsed_base.type.canonical), cppdecl::ToCodeFlags::canonical_c_style));
+                }
+            }
         }
 
         // void Visit(const FuncEntity &func) override
@@ -1536,6 +1561,76 @@ namespace mrbind::CBindings
 
         // }
     };
+
+    void Generator::ConstructInheritanceGraph()
+    {
+        for (auto &info : parsed_class_inheritance_info)
+        {
+            // Fill the reverse direct non-virtual mapping:
+            for (const auto &base : info.second.bases_direct_nonvirtual)
+            {
+                auto base_info_iter = parsed_class_inheritance_info.find(base);
+                if (base_info_iter == parsed_class_inheritance_info.end())
+                    throw std::runtime_error("Parsed class `" + info.first + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-base`.");
+
+                base_info_iter->second.derived_direct_nonvirtual.insert(info.first);
+            }
+
+            // Fill indirect non-virtual bases.
+
+            auto lambda = [&](auto &lambda, const std::string &derived, const std::string &base) -> void
+            {
+                auto [iter, is_new] = info.second.bases_indirect_nonvirtual.try_emplace(base);
+                if (!is_new)
+                {
+                    iter->second = true; // An ambiguous base.
+                    return;
+                }
+
+                auto base_info_iter = parsed_class_inheritance_info.find(base);
+                if (base_info_iter == parsed_class_inheritance_info.end())
+                    throw std::runtime_error("Parsed class `" + derived + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-base`.");
+
+                // Recurse.
+                for (const auto &base_of_base : base_info_iter->second.bases_direct_nonvirtual)
+                    lambda(lambda, base, base_of_base);
+            };
+            for (const auto &base : info.second.bases_direct_nonvirtual)
+                lambda(lambda, info.first, base);
+
+            // Copy that information to the combined virtual/non-virtual list.
+            for (const auto &elem : info.second.bases_indirect_nonvirtual)
+                info.second.bases_indirect.try_emplace(elem.first, elem.second ? Generator::InheritanceInfo::Kind::ambiguous : Generator::InheritanceInfo::Kind::non_virt);
+
+            // Add the virtual bases.
+            for (auto &base : info.second.bases_indirect_virtual)
+            {
+                auto [iter, is_new] = info.second.bases_indirect.try_emplace(base, Generator::InheritanceInfo::Kind::virt);
+                if (!is_new)
+                    iter->second = InheritanceInfo::Kind::ambiguous;
+            }
+
+            // For each virtual base, add its indirect non-virtual bases.
+            for (auto &base : info.second.bases_indirect_virtual)
+            {
+                // At this point `.at()` should never throw, because the loop above did the necessary validation.
+                for (const auto &base_of_base : parsed_class_inheritance_info.at(base).bases_indirect_nonvirtual)
+                {
+                    auto [iter, is_new] = info.second.bases_indirect.try_emplace(base_of_base.first, base_of_base.second ? Generator::InheritanceInfo::Kind::ambiguous : Generator::InheritanceInfo::Kind::virt);
+                    if (!is_new)
+                        iter->second = InheritanceInfo::Kind::ambiguous;
+                }
+            }
+
+            // Fill the reverse mapping (list the derived classes).
+            for (const auto &base : info.second.bases_indirect)
+            {
+                auto &target_map = parsed_class_inheritance_info.at(base.first).derived_indirect;
+
+                target_map.try_emplace(info.first, base.second);
+            }
+        }
+    }
 
     // This fills `overloaded_names` with the knowledge about all C functions we're planning to produce.
     struct Generator::VisitorRegisterOverloadedNames : Visitor
@@ -1898,25 +1993,97 @@ namespace mrbind::CBindings
                 file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
 
                 const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
-                const std::string cpp_class_name_str = ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
+                const std::string cpp_class_name_str = cppdecl::ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
 
                 // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
                 const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(cpp_class_name_str);
 
                 const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
+                const ParsedTypeInfo::ClassDesc &parsed_class_info = std::get<ParsedTypeInfo::ClassDesc>(parsed_type_info.input_type);
+
 
                 // Forward-declaring in the middle of the file, not in the forward-declarations section.
-                // Also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
+                // Firstly it looks better. But also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
 
-                // Forward-declare.
+                // The comment on the forward-declaration.
                 file.header.contents += '\n';
                 if (cl.comment)
                 {
                     file.header.contents += cl.comment->text_with_slashes;
                     file.header.contents += '\n';
                 }
-                file.header.contents += same_addr_bindable_info.forward_declaration.value();
-                file.header.contents += '\n';
+                file.header.contents += "/// Generated from class `" + cpp_class_name_str + "`.\n";
+
+                const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
+
+                { // The part of the comment explaning the inheritance graph.
+                    auto iter = self.parsed_class_inheritance_info.find(cpp_class_name_str);
+                    if (iter == self.parsed_class_inheritance_info.end())
+                        throw std::logic_error("Internal error: The parsed class `" + cpp_class_name_str + "` is missing from the `.parsed_class_inheritance_info`.");
+
+                    auto PrintBasesOrDerived = [&](bool print_derived)
+                    {
+                        const auto &indirect_map = (print_derived ? iter->second.derived_indirect : iter->second.bases_indirect);
+                        const auto &direct_nonvirtual_map = (print_derived ? iter->second.derived_direct_nonvirtual : iter->second.bases_direct_nonvirtual);
+
+                        if (!indirect_map.empty())
+                        {
+                            file.header.contents += (print_derived ? "/// Classes derived from this:\n" : "/// Inherits from:\n");
+
+                            if (iter->second.HaveAny(print_derived, InheritanceInfo::Kind::virt))
+                            {
+                                file.header.contents += "///   Virtually:\n";
+
+                                for (const auto &other : indirect_map)
+                                {
+                                    if (other.second != InheritanceInfo::Kind::virt)
+                                        continue;
+                                    file.header.contents += "///     `" + other.first + "`\n";
+                                }
+                            }
+
+                            if (iter->second.HaveAny(print_derived, InheritanceInfo::Kind::non_virt))
+                            {
+                                std::string dir;
+                                std::string indir;
+
+                                for (const auto &other : indirect_map)
+                                {
+                                    if (other.second != InheritanceInfo::Kind::non_virt)
+                                        continue;
+
+                                    std::string &str = direct_nonvirtual_map.contains(other.first) ? dir : indir;
+
+                                    str += "///     `" + other.first + "`\n";
+                                }
+
+                                if (!dir.empty())
+                                    file.header.contents += "///   Directly: (non-virtually)\n" + dir;
+                                if (!indir.empty())
+                                    file.header.contents += "///   Indirectly: (non-virtually)\n" + indir;
+                            }
+
+                            if (iter->second.HaveAny(print_derived, InheritanceInfo::Kind::ambiguous))
+                            {
+                                file.header.contents += "///   Ambiguously:\n";
+
+                                for (const auto &other : indirect_map)
+                                {
+                                    if (other.second != InheritanceInfo::Kind::ambiguous)
+                                        continue;
+
+                                    file.header.contents += "///     `" + other.first + "`\n";
+                                }
+                            }
+                        }
+                    };
+
+                    PrintBasesOrDerived(false);
+                    PrintBasesOrDerived(true);
+                }
+
+                // The forward-declaration itself.
+                file.header.contents += same_addr_bindable_info.forward_declaration.value() + '\n';
 
 
                 auto MakeBinder = [&]
@@ -1932,7 +2099,8 @@ namespace mrbind::CBindings
                 bool emitted_any_default_ctor = false;
 
                 bool emitted_misc_functions = false;
-                // This emits pointer offsetting functions. Repeated calls have no effect.
+
+                // This emits some additional functions. Repeated calls have no effect.
                 auto EmitMiscFunctionsOnce = [&]
                 {
                     if (emitted_misc_functions)
@@ -1941,8 +2109,110 @@ namespace mrbind::CBindings
                     emitted_misc_functions = true;
 
                     auto binder = MakeBinder();
-                    self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, true));
-                    self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, false));
+
+                    { // Pointer offsetting.
+                        self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, true));
+                        self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, false));
+                    }
+
+                    { // Upcasts and downcasts.
+                        for (bool is_downcast : {false, true})
+                        {
+                            for (const auto &target : is_downcast ? inheritance_info.derived_indirect : inheritance_info.bases_indirect)
+                            {
+                                if (target.second == InheritanceInfo::Kind::ambiguous)
+                                    continue;
+
+                                // The C type name of the target.
+                                const cppdecl::QualifiedName target_cpp_qual_name = self.ParseQualNameOrThrow(target.first);
+                                const std::string target_c_name = self.CppTypeNameToCTypeName(target_cpp_qual_name);
+
+                                // Do not reorder, because we stop on the first successfully generated upcast, and the static one should have precedence.
+                                for (bool is_dynamic : {false, true})
+                                {
+                                    // Virtual downcasts must be dynamic.
+                                    if (is_downcast && !is_dynamic && target.second == InheritanceInfo::Kind::virt)
+                                        continue;
+
+                                    // If this is a dynamic cast, then the source type must be polymorphic.
+                                    // Note that the target type doesn't have to be polymorphic.
+                                    if (is_dynamic && !parsed_class_info.is_polymorphic)
+                                        continue;
+
+                                    // Do not reorder, because we stop on the first successfully generated upcast, and the ptr one should have precedence.
+                                    for (bool acts_on_ref : {false, true})
+                                    {
+                                        if (acts_on_ref && !is_dynamic)
+                                            continue; // Only dynamic casts need a separate version that acts on references.
+
+                                        for (bool is_const : {true, false})
+                                        {
+                                            Generator::EmitFuncParams emit;
+
+                                            emit.c_comment = "/// " + std::string(is_downcast ? "Downcasts" : "Upcasts") + " an instance of `" + cpp_class_name_str + "` to " + (is_downcast ? "a derived class" : "its base class") + " `" + target.first + "`.";
+                                            if (is_downcast)
+                                            {
+                                                if (is_dynamic)
+                                                {
+                                                    if (acts_on_ref)
+                                                        emit.c_comment += "\n/// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.";
+                                                    else
+                                                        emit.c_comment += "\n/// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.";
+                                                }
+                                                else
+                                                {
+                                                    emit.c_comment += "\n/// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.";
+                                                }
+                                            }
+
+                                            if (is_const)
+                                                emit.c_comment += "\n/// This version is acting on mutable pointers.";
+
+                                            // The upcasts don't need the static-vs-dynamic part in the name, because there is always at most one anyway.
+                                            emit.c_name = binder.MakeMemberFuncName(
+                                                std::string(is_const ? "" : "Mutable") +
+                                                (!is_downcast ? "UpcastTo" : is_downcast ? "DynamicDowncastTo" : "StaticDowncastTo") +
+                                                "_" +
+                                                target_c_name
+                                            );
+
+                                            // Will add a pointer or a reference later.
+                                            emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);
+
+                                            // This is not a `this` parameter, because for some of the casts it's a nullable pointer,
+                                            //   and our `this` params are intended to be non-nullable.
+                                            // And also because it's passed as a cast argument, not prepended as `this->` on the left.
+                                            emit.params.push_back({
+                                                .name = "object",
+                                                // Will add a pointer or a reference later.
+                                                .cpp_type = cppdecl::Type::FromQualifiedName(cpp_class_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_),
+                                            });
+
+                                            if (acts_on_ref)
+                                            {
+                                                emit.cpp_return_type.AddModifier(cppdecl::Reference{});
+                                                emit.params.back().cpp_type.AddModifier(cppdecl::Reference{});
+                                            }
+                                            else
+                                            {
+                                                emit.cpp_return_type.AddModifier(cppdecl::Pointer{});
+                                                emit.params.back().cpp_type.AddModifier(cppdecl::Pointer{});
+                                            }
+
+                                            emit.cpp_called_func = std::string(is_dynamic ? "dynamic_cast" : "static_cast") + "<" + cppdecl::ToCode(emit.cpp_return_type, cppdecl::ToCodeFlags::canonical_c_style) + ">";
+                                            self.EmitFunction(file, emit);
+                                        }
+
+                                        // Don't need more than one valid upcast.
+                                        // Among other things, this means that a dynamic upcast acting on references (as opposed to pointers)
+                                        //   will never be generated.
+                                        if (!is_downcast)
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 };
 
                 for (const ClassMemberVariant &var : cl.members)
@@ -2176,6 +2446,9 @@ namespace mrbind::CBindings
             v.Process(data.entities);
         }
 
+        // Construct the full inheritance graph.
+        ConstructInheritanceGraph();
+
         { // Collect the names for overloading.
             VisitorRegisterOverloadedNames v(*this);
             v.Process(data.entities);
@@ -2204,7 +2477,7 @@ namespace mrbind::CBindings
         // Should we include a header to declare this type, as opposed to forward-declaring it?
         auto UseHeader = [this](const std::pair<const std::string, OutputFile::SpecificFileContents::ForwardDeclarationOrInclusion> &target)
         {
-            return target.second.need_header || !FindTypeBindableWithSameAddress(target.first).forward_declaration;
+            return !target.second.declared_in_same_file && (target.second.need_header || !FindTypeBindableWithSameAddress(target.first).forward_declaration);
         };
 
         // We're gonna append to this.
@@ -2263,6 +2536,12 @@ namespace mrbind::CBindings
                 {
                     const auto &type_info = FindTypeBindableWithSameAddress(elem.first);
 
+                    // We can't forward-declare this, but it's declared in the same file anyway. This happens for enums, we don't mind.
+                    // We need the forward-declarations for things defined in the same file only for classes, because those can reference
+                    //   classes defined below themselves, in their upcast/downcast functions.
+                    if (elem.second.declared_in_same_file && !type_info.forward_declaration)
+                        continue;
+
                     if (!type_info.KnowHeaderOrForwardDeclaration())
                         continue; // Nothing to do for built-in types.
 
@@ -2270,7 +2549,9 @@ namespace mrbind::CBindings
                         throw std::runtime_error("Need to forward-declare type `" + elem.first + "`, but don't know how.");
 
                     std::string fwd_decl = *type_info.forward_declaration;
-                    if (type_info.declared_in_file)
+                    if (elem.second.declared_in_same_file)
+                        fwd_decl += " // Defined below in this file.";
+                    else if (type_info.declared_in_file)
                         fwd_decl += " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
 
                     fwd_decls.insert(std::move(fwd_decl));

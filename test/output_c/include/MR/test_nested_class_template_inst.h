@@ -8,7 +8,11 @@
 extern "C" {
 #endif
 
+typedef struct MR_NestedTemplateInst_A_int MR_NestedTemplateInst_A_int; // Defined below in this file.
+typedef struct MR_NestedTemplateInst_A_int_AA_float MR_NestedTemplateInst_A_int_AA_float; // Defined below in this file.
 
+
+/// Generated from class `MR::NestedTemplateInst::A<int>`.
 typedef struct MR_NestedTemplateInst_A_int MR_NestedTemplateInst_A_int;
 
 /// Constructs an empty (default-constructed) instance.
@@ -44,6 +48,7 @@ MR_C_API void MR_NestedTemplateInst_A_int_Destroy(MR_NestedTemplateInst_A_int *_
 MR_C_API void MR_NestedTemplateInst_A_int_DestroyArray(MR_NestedTemplateInst_A_int *_this);
 
 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
+/// Generated from class `MR::NestedTemplateInst::A<int>::AA<float>`.
 typedef struct MR_NestedTemplateInst_A_int_AA_float MR_NestedTemplateInst_A_int_AA_float;
 
 /// Constructs an empty (default-constructed) instance.
