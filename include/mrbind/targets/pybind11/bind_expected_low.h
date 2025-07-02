@@ -1,5 +1,7 @@
 // Intentionally no pragma once, because this header is used twice: for `std::expected` and for `tl::expected`.
 
+#include "bind_expected_common.h"
+
 #if MB_USE_STD_EXPECTED
 #include <expected>
 #define tl std
@@ -7,8 +9,10 @@
 #include <tl/expected.hpp>
 #endif
 
+#include <type_traits>
 
-// Fixed `is_copy_constructible` for `tl::expected` (to correctly recurse into stuff with bad SFINAE, such as `std::vector`).
+
+// Fix `is_copy_constructible` for `tl::expected` (to correctly recurse into stuff with bad SFINAE, such as `std::vector`).
 template <typename T, typename U>
 struct pybind11::detail::is_copy_constructible<tl::expected<T, U>>
     : std::conjunction<pybind11::detail::is_copy_constructible<T>, pybind11::detail::is_copy_constructible<U>>
@@ -35,12 +39,11 @@ namespace MRBind::pb11::detail::Expected
     template <typename T, typename U>
     [[noreturn]] void ThrowErrorFromExpected(const tl::expected<T, U> &e)
     {
-        if constexpr (std::is_same_v<U, std::string>)
-            throw std::runtime_error(e.error());
-        else if constexpr (std::is_same_v<U, std::string_view>)
-            throw std::runtime_error(std::string(e.error()));
+        using Traits = ExpectedErrorToString<std::remove_cvref_t<U>>;
+        if constexpr (requires{Traits{}(e.error());})
+            throw std::runtime_error(Traits{}(e.error()));
         else
-            throw tl::bad_expected_access<U>(std::move(e.error()));
+            throw tl::bad_expected_access<U>(e.error());
     }
 }
 
