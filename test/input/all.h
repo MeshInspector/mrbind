@@ -3,6 +3,7 @@
 #include <input/MR/test_bases.h>
 #include <input/MR/test_iostream.h>
 #include <input/MR/test_nested_class_template_inst.h>
+#include <input/MR/test_overloads.h>
 #include <input/MR/test_phmap.h>
 #include <input/MR/test_simple_types.h>
 #include <input/MR/test_std_containers.h>

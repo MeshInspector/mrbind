@@ -1926,13 +1926,13 @@ namespace mrbind::CBindings
                     return cppdecl::ToString(type, cppdecl::ToStringFlags::identifier);
                 };
 
+                bool have_different_types = false;
                 { // Check if it makes sense for this name group.
                     std::string first_type_str;
                     const auto &first_elem = *elem.second.front();
                     if (first_elem.second.num_params_consumed < first_elem.second.params.size())
                         first_type_str = ParamTypeToString(first_elem.second.params[first_elem.second.num_params_consumed].cpp_type);
 
-                    bool have_different_types = false;
                     for (const auto &subelem : elem.second | std::views::drop(1))
                     {
                         bool subelem_has_more_params = subelem->second.num_params_consumed < subelem->second.params.size();
@@ -1956,18 +1956,22 @@ namespace mrbind::CBindings
                         }
                     }
 
-                    if (!have_different_types)
-                        continue; // Nothing to do here.
+                    // Can't `continue;` here yet even if `have_different_types == false`. We still need to increment `num_params_consumed` below.
                 }
 
                 for (const auto &subelem : elem.second)
                 {
                     if (subelem->second.num_params_consumed < subelem->second.params.size())
                     {
-                        subelem->second.name += '_';
-                        subelem->second.name += ParamTypeToString(subelem->second.params[subelem->second.num_params_consumed++].cpp_type);
+                        if (have_different_types)
+                        {
+                            subelem->second.name += '_';
+                            subelem->second.name += ParamTypeToString(subelem->second.params[subelem->second.num_params_consumed].cpp_type);
+                        }
                         any_progress = true;
                     }
+
+                    subelem->second.num_params_consumed++;
                 }
             }
 

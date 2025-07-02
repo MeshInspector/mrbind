@@ -1,5 +1,9 @@
 #pragma once
 
+// Libstdc++'s `<expected>` header checks `__cpp_concepts` and disables the class if the value is too small.
+// This makes their `std::expected` unusable on Clang 18. Works on Clang 20 though.
+#if __has_include(<expected>) && __cplusplus > 202002L && (!defined(_GLIBCXX_RELEASE) || __cpp_concepts >= 202002L)
+
 #include <expected>
 #include <string>
 
@@ -17,3 +21,5 @@ namespace MR::StdExpected
     inline void SetExpVoidDefTrivial(std::expected<void, float> = {}) {}
     inline void SetExpVoidDef(std::expected<void, float> = std::expected<void, float>{}) {}
 }
+
+#endif
