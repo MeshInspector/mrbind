@@ -421,7 +421,7 @@ namespace mrbind::CBindings
 
     bool Generator::IsSimplyBindableIndirectReinterpret(const cppdecl::Type &type)
     {
-        if (type.IsOnlyQualifiedName() && !FindTypeBindableWithSameAddressOpt(type.simple_type.name))
+        if (!type.IsOnlyQualifiedName() && !FindTypeBindableWithSameAddressOpt(type.simple_type.name))
             return false; // Some weird-ass type that can't be reinterpreted into a C type.
 
         for (const auto &mod : type.modifiers)
@@ -1083,15 +1083,16 @@ namespace mrbind::CBindings
                     if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
                         throw std::runtime_error("Unable to bind this function because this type can't be bound as a parameter.");
 
-                    if (param.default_arg && !bindable_param_type.param_usage_with_default_arg)
-                        throw std::runtime_error("Unable to bind this function because this parameter type does't support default arguments.");
+                    const std::optional<std::string> useless_default_arg_message =
+                        param.default_arg && bindable_param_type.is_useless_default_argument
+                        ? bindable_param_type.is_useless_default_argument(param.default_arg->original_spelling)
+                        : std::nullopt;
 
-                    const std::string useless_default_arg_message =
-                        param.default_arg && bindable_param_type.param_usage_with_default_arg->is_useless_default_argument
-                        ? bindable_param_type.param_usage_with_default_arg->is_useless_default_argument(param.default_arg->original_spelling)
-                        : "";
+                    const bool has_useful_default_arg = param.default_arg && !useless_default_arg_message;
 
-                    const bool has_useful_default_arg = param.default_arg && useless_default_arg_message.empty();
+                    if (has_useful_default_arg && !bindable_param_type.param_usage_with_default_arg)
+                        throw std::runtime_error("Unable to bind this function because this parameter has a default argument, but the binding for its type doesn't support default arguments.");
+
                     if (has_useful_default_arg)
                         has_any_useful_default_args = true;
 
@@ -1140,9 +1141,11 @@ namespace mrbind::CBindings
                         ret.comment += param_usage_defarg->explanation_how_to_use_default_arg(param_name_fixed, false, false); // Always passing `use_wrapper = false, is_returned_from_callback = false` here. Something else can be passed by wrappers, or something else.
                         ret.comment += " to use it.\n";
                     }
-                    else if (!useless_default_arg_message.empty())
+                    else if (useless_default_arg_message && !useless_default_arg_message->empty())
                     {
-                        ret.comment += "/// Parameter `" + param_name_fixed + "` defaults to " + useless_default_arg_message + " in C++.\n";
+                        // Note, this isn't printed if `useless_default_arg_message()` returns an empty string, which is a legal way to indicate
+                        //   a useless default argument (as opposed to an empty optional, which marks the default argument as useful instead).
+                        ret.comment += "/// Parameter `" + param_name_fixed + "` defaults to " + *useless_default_arg_message + " in C++.\n";
                     }
 
                     if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)

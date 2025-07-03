@@ -94,7 +94,7 @@ namespace mrbind::CBindings
 
     // This goes into the `BindableType::is_useless_default_argument` callback, to reject nullptr default arguments.
     // As that callback requires, returns the string describing the default argument if it wants to reject it.
-    [[nodiscard]] std::string CheckPointerDefaultArgumentForNullptr(std::string_view default_arg);
+    [[nodiscard]] std::optional<std::string> CheckPointerDefaultArgumentForNullptr(std::string_view default_arg);
 
 
     // Predefined bindings: [

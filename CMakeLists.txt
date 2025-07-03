@@ -93,6 +93,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         src/generators/c/modules/std_tuple.cpp
         src/generators/c/modules/std_unique_ptr.cpp
         src/generators/c/modules/std_variant.cpp
+        src/generators/c/modules/tags.cpp
     )
     target_include_directories(mrbind_gen_c PRIVATE
         deps/cppdecl/include

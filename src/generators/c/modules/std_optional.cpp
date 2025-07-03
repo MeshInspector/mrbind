@@ -210,22 +210,19 @@ namespace mrbind::CBindings::Modules
             }
 
             // Filter out the null default arguments.
-            if (new_type.param_usage_with_default_arg)
+            new_type.is_useless_default_argument = [](std::string_view default_arg) -> std::optional<std::string>
             {
-                new_type.param_usage_with_default_arg->is_useless_default_argument = [](std::string_view default_arg) -> std::string
+                if (
+                    default_arg == "std::nullopt" ||
+                    default_arg == "{}"
+                    // Could also list `std::optional<T>{}` here, but that requires a whitespace-insensitive comparison function.
+                )
                 {
-                    if (
-                        default_arg == "std::nullopt" ||
-                        default_arg == "{}"
-                        // Could also list `std::optional<T>{}` here, but that requires a whitespace-insensitive comparison function.
-                    )
-                    {
-                        return "empty"; // I guess? For consistency with "Parameter X is optional, to keep it empty do Y.".
-                    }
+                    return "empty"; // I guess? For consistency with "Parameter X is optional, to keep it empty do Y.".
+                }
 
-                    return "";
-                };
-            }
+                return {};
+            };
 
             return ret;
         }

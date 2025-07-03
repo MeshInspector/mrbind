@@ -16,5 +16,6 @@
 #include <input/MR/test_std_string_view.h>
 #include <input/MR/test_std_tuple_like.h>
 #include <input/MR/test_std_unique_ptr.h>
+#include <input/MR/test_tags.h>
 #include <input/MR/test_typedefs_in_templates.h>
 #include <input/MR/test_variant.h>

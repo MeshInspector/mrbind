@@ -767,11 +767,6 @@ namespace mrbind::CBindings
                 //   Note that in callbacks, only the suffix-less parameter from `c_params` is returned. The rest are used as output parameters.
                 std::function<std::string(std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback)> explanation_how_to_use_default_arg;
 
-                // Optional. If set, all default arguments are checked with this function, and if it returns a non-empty string, that default argument is ignored.
-                // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
-                //   and DOES NOT end with a period.
-                std::function<std::string(std::string_view default_arg)> is_useless_default_argument;
-
                 // Typically should be false. Set this to true if you're using the `PassBy` enum, which gives you two different ways of passing default arguments: `PassBy_DefaultArgument` and `PassBy_NoObject`.
                 // Opting in by setting this to true means you're able to handle both in your `ParamUsage::c_params_to_cpp`, with different behavior.
                 // When not opted in, we assume you only have ONE syntax for default arguments, so we'll find an alternative syntax for the second variant.
@@ -795,6 +790,14 @@ namespace mrbind::CBindings
             // If `param_usage` is also set, then this one handles only the parameters with default arguments.
             std::optional<ParamUsageWithDefaultArg> param_usage_with_default_arg;
             // ]
+
+            // Optional. If set, all default arguments are checked with this function, and if it returns non-null, that default argument is ignored.
+            // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
+            //   and DOES NOT end with a period.
+            // You can return an empty string too, then the default is ignored, but no comment is added.
+            // NOTE: This sits here instead of in `param_usage_with_default_arg`, because in some cases we might not support any ACTUAL default arguments,
+            //   but still support the useless ones, which detected by this callback, while `param_usage_with_default_arg` would be null.
+            std::function<std::optional<std::string>(std::string_view default_arg)> is_useless_default_argument;
 
 
             struct ReturnUsage

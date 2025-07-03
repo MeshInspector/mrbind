@@ -338,7 +338,7 @@ namespace mrbind::CBindings::Modules
                     };
 
                 param_usage_defarg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
-                param_usage_defarg.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
+                new_type.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
 
                 // Return usage:

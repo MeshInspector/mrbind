@@ -1857,6 +1857,7 @@ namespace mrbind
 
                     // Can't use `tparams.getMinRequiredArguments()` because that apparently can return 0 when
                     //   the template arguments are deducible from the function parameters, or something like that.
+                    // Added later: Uhh, really need a testcase. Not sure what this could possibly mean. :P
                     bool all_params_have_default_args = std::all_of(tparams.begin(), tparams.end(),
                         [](const clang::NamedDecl *tparam)
                         {
@@ -1973,7 +1974,6 @@ namespace mrbind
             for (clang::ParmVarDecl *p : decl->parameters())
             {
                 // Instantiate the default arguments and the underlying parameter types.
-                //
                 if (p->hasUninstantiatedDefaultArg())
                 {
                     ci->getSema().InstantiateDefaultArgument(decl->getSourceRange().getBegin(), decl, p);
