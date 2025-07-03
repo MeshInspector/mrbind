@@ -41,14 +41,14 @@ void MR_C_std_string_view_AssignFrom(MR_C_std_string_view *_this, const char *ot
     );
 }
 
-void MR_C_std_string_view_Destroy(MR_C_std_string_view *_this)
+void MR_C_std_string_view_Destroy(const MR_C_std_string_view *_this)
 {
-    delete ((std::string_view *)_this);
+    delete ((const std::string_view *)_this);
 }
 
-void MR_C_std_string_view_DestroyArray(MR_C_std_string_view *_this)
+void MR_C_std_string_view_DestroyArray(const MR_C_std_string_view *_this)
 {
-    delete[] ((std::string_view *)_this);
+    delete[] ((const std::string_view *)_this);
 }
 
 const MR_C_std_string_view *MR_C_std_string_view_OffsetPtr(const MR_C_std_string_view *ptr, ptrdiff_t i)

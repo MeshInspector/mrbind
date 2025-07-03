@@ -46,10 +46,10 @@ MR_C_API void MR_C_std_optional_MR_StdOptional_E_AssignFromAnother(MR_C_std_opti
 MR_C_API void MR_C_std_optional_MR_StdOptional_E_AssignFrom(MR_C_std_optional_MR_StdOptional_E *_this, const MR_StdOptional_E *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_optional_MR_StdOptional_E`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_optional_MR_StdOptional_E_Destroy(MR_C_std_optional_MR_StdOptional_E *_this);
+MR_C_API void MR_C_std_optional_MR_StdOptional_E_Destroy(const MR_C_std_optional_MR_StdOptional_E *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_optional_MR_StdOptional_E`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_optional_MR_StdOptional_E_DestroyArray(MR_C_std_optional_MR_StdOptional_E *_this);
+MR_C_API void MR_C_std_optional_MR_StdOptional_E_DestroyArray(const MR_C_std_optional_MR_StdOptional_E *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_OffsetPtr(const MR_C_std_optional_MR_StdOptional_E *ptr, ptrdiff_t i);

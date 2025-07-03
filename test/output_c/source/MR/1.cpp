@@ -16,14 +16,14 @@ MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)
     return (MR_C_std_string *)&((_this ? *(MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
-void MR_A_Destroy(MR_A *_this)
+void MR_A_Destroy(const MR_A *_this)
 {
-    delete ((MR::A *)_this);
+    delete ((const MR::A *)_this);
 }
 
-void MR_A_DestroyArray(MR_A *_this)
+void MR_A_DestroyArray(const MR_A *_this)
 {
-    delete[] ((MR::A *)_this);
+    delete[] ((const MR::A *)_this);
 }
 
 MR_A *MR_A_DefaultConstruct(void)

@@ -468,7 +468,9 @@ namespace mrbind::CBindings
 
         ret.params.push_back({
             .name = "_this",
-            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}),
+            // Note that this actually takes `const T *`. It seems that C++'s `delete` removes the constness automatically.
+            // And we need this parameter to be `const T *` to support `std::unique_ptr<const T>` properly.
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}),
         });
 
         ret.cpp_called_func = "delete @1@";
@@ -486,7 +488,9 @@ namespace mrbind::CBindings
 
         ret.params.push_back({
             .name = "_this",
-            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{}),
+            // Note that this actually takes `const T *`. It seems that C++'s `delete` removes the constness automatically.
+            // And we need this parameter to be `const T *` to support `std::unique_ptr<const T[]>` properly.
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}),
         });
 
         ret.cpp_called_func = "delete[] @1@";

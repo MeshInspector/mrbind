@@ -39,14 +39,14 @@ MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_AssignFromAnother(MR_
     ));
 }
 
-void MR_TypedefsInTemplates_A_int_Destroy(MR_TypedefsInTemplates_A_int *_this)
+void MR_TypedefsInTemplates_A_int_Destroy(const MR_TypedefsInTemplates_A_int *_this)
 {
-    delete ((MR::TypedefsInTemplates::A<int> *)_this);
+    delete ((const MR::TypedefsInTemplates::A<int> *)_this);
 }
 
-void MR_TypedefsInTemplates_A_int_DestroyArray(MR_TypedefsInTemplates_A_int *_this)
+void MR_TypedefsInTemplates_A_int_DestroyArray(const MR_TypedefsInTemplates_A_int *_this)
 {
-    delete[] ((MR::TypedefsInTemplates::A<int> *)_this);
+    delete[] ((const MR::TypedefsInTemplates::A<int> *)_this);
 }
 
 int MR_TypedefsInTemplates_A_int_foo(MR_TypedefsInTemplates_A_int *_this)
@@ -88,14 +88,14 @@ MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_AssignFromAnother(MR_
     ));
 }
 
-void MR_TypedefsInTemplates_B_int_Destroy(MR_TypedefsInTemplates_B_int *_this)
+void MR_TypedefsInTemplates_B_int_Destroy(const MR_TypedefsInTemplates_B_int *_this)
 {
-    delete ((MR::TypedefsInTemplates::B<int> *)_this);
+    delete ((const MR::TypedefsInTemplates::B<int> *)_this);
 }
 
-void MR_TypedefsInTemplates_B_int_DestroyArray(MR_TypedefsInTemplates_B_int *_this)
+void MR_TypedefsInTemplates_B_int_DestroyArray(const MR_TypedefsInTemplates_B_int *_this)
 {
-    delete[] ((MR::TypedefsInTemplates::B<int> *)_this);
+    delete[] ((const MR::TypedefsInTemplates::B<int> *)_this);
 }
 
 MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct(void)
@@ -132,14 +132,14 @@ MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_Ass
     ));
 }
 
-void MR_TypedefsInTemplates_B_int_BB_float_Destroy(MR_TypedefsInTemplates_B_int_BB_float *_this)
+void MR_TypedefsInTemplates_B_int_BB_float_Destroy(const MR_TypedefsInTemplates_B_int_BB_float *_this)
 {
-    delete ((MR::TypedefsInTemplates::B<int>::BB<float> *)_this);
+    delete ((const MR::TypedefsInTemplates::B<int>::BB<float> *)_this);
 }
 
-void MR_TypedefsInTemplates_B_int_BB_float_DestroyArray(MR_TypedefsInTemplates_B_int_BB_float *_this)
+void MR_TypedefsInTemplates_B_int_BB_float_DestroyArray(const MR_TypedefsInTemplates_B_int_BB_float *_this)
 {
-    delete[] ((MR::TypedefsInTemplates::B<int>::BB<float> *)_this);
+    delete[] ((const MR::TypedefsInTemplates::B<int>::BB<float> *)_this);
 }
 
 int MR_TypedefsInTemplates_B_int_BB_float_foo(MR_TypedefsInTemplates_B_int_BB_float *_this)

@@ -42,14 +42,14 @@ void MR_C_std_optional_int_AssignFrom(MR_C_std_optional_int *_this, const int *o
     );
 }
 
-void MR_C_std_optional_int_Destroy(MR_C_std_optional_int *_this)
+void MR_C_std_optional_int_Destroy(const MR_C_std_optional_int *_this)
 {
-    delete ((std::optional<int> *)_this);
+    delete ((const std::optional<int> *)_this);
 }
 
-void MR_C_std_optional_int_DestroyArray(MR_C_std_optional_int *_this)
+void MR_C_std_optional_int_DestroyArray(const MR_C_std_optional_int *_this)
 {
-    delete[] ((std::optional<int> *)_this);
+    delete[] ((const std::optional<int> *)_this);
 }
 
 const MR_C_std_optional_int *MR_C_std_optional_int_OffsetPtr(const MR_C_std_optional_int *ptr, ptrdiff_t i)

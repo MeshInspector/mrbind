@@ -41,14 +41,14 @@ MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilte
     ));
 }
 
-void MR_SignatureFilters_A_Destroy(MR_SignatureFilters_A *_this)
+void MR_SignatureFilters_A_Destroy(const MR_SignatureFilters_A *_this)
 {
-    delete ((MR::SignatureFilters::A *)_this);
+    delete ((const MR::SignatureFilters::A *)_this);
 }
 
-void MR_SignatureFilters_A_DestroyArray(MR_SignatureFilters_A *_this)
+void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this)
 {
-    delete[] ((MR::SignatureFilters::A *)_this);
+    delete[] ((const MR::SignatureFilters::A *)_this);
 }
 
 void MR_SignatureFilters_foo_1(const MR_SignatureFilters_A *_1)
@@ -155,13 +155,13 @@ MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_Signatur
     ));
 }
 
-void MR_SignatureFilters_Blah_Destroy(MR_SignatureFilters_Blah *_this)
+void MR_SignatureFilters_Blah_Destroy(const MR_SignatureFilters_Blah *_this)
 {
-    delete ((MR::SignatureFilters::Blah *)_this);
+    delete ((const MR::SignatureFilters::Blah *)_this);
 }
 
-void MR_SignatureFilters_Blah_DestroyArray(MR_SignatureFilters_Blah *_this)
+void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this)
 {
-    delete[] ((MR::SignatureFilters::Blah *)_this);
+    delete[] ((const MR::SignatureFilters::Blah *)_this);
 }
 

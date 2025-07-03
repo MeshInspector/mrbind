@@ -42,10 +42,10 @@ MR_C_API MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_ConstructFromA
 MR_C_API MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_AssignFromAnother(MR_NestedTemplateInst_A_int *_this, const MR_NestedTemplateInst_A_int *_other);
 
 /// Destroys a heap-allocated instance of `MR_NestedTemplateInst_A_int`. Does nothing if the pointer is null.
-MR_C_API void MR_NestedTemplateInst_A_int_Destroy(MR_NestedTemplateInst_A_int *_this);
+MR_C_API void MR_NestedTemplateInst_A_int_Destroy(const MR_NestedTemplateInst_A_int *_this);
 
 /// Destroys a heap-allocated array of `MR_NestedTemplateInst_A_int`. Does nothing if the pointer is null.
-MR_C_API void MR_NestedTemplateInst_A_int_DestroyArray(MR_NestedTemplateInst_A_int *_this);
+MR_C_API void MR_NestedTemplateInst_A_int_DestroyArray(const MR_NestedTemplateInst_A_int *_this);
 
 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
 /// Generated from class `MR::NestedTemplateInst::A<int>::AA<float>`.
@@ -78,10 +78,10 @@ MR_C_API MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_fl
 MR_C_API MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(MR_NestedTemplateInst_A_int_AA_float *_this, const MR_NestedTemplateInst_A_int_AA_float *_other);
 
 /// Destroys a heap-allocated instance of `MR_NestedTemplateInst_A_int_AA_float`. Does nothing if the pointer is null.
-MR_C_API void MR_NestedTemplateInst_A_int_AA_float_Destroy(MR_NestedTemplateInst_A_int_AA_float *_this);
+MR_C_API void MR_NestedTemplateInst_A_int_AA_float_Destroy(const MR_NestedTemplateInst_A_int_AA_float *_this);
 
 /// Destroys a heap-allocated array of `MR_NestedTemplateInst_A_int_AA_float`. Does nothing if the pointer is null.
-MR_C_API void MR_NestedTemplateInst_A_int_AA_float_DestroyArray(MR_NestedTemplateInst_A_int_AA_float *_this);
+MR_C_API void MR_NestedTemplateInst_A_int_AA_float_DestroyArray(const MR_NestedTemplateInst_A_int_AA_float *_this);
 
 #ifdef __cplusplus
 } // extern "C"

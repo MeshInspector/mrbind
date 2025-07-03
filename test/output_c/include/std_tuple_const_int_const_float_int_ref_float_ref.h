@@ -16,10 +16,10 @@ typedef struct MR_C_std_tuple_const_int_const_float_int_ref_float_ref MR_C_std_t
 typedef struct MR_C_std_tuple_const_int_const_float_int_ref_float_ref MR_C_std_tuple_const_int_const_float_int_ref_float_ref;
 
 /// Destroys a heap-allocated instance of `MR_C_std_tuple_const_int_const_float_int_ref_float_ref`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_Destroy(MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this);
+MR_C_API void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_Destroy(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_tuple_const_int_const_float_int_ref_float_ref`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_DestroyArray(MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this);
+MR_C_API void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_DestroyArray(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_OffsetPtr(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *ptr, ptrdiff_t i);

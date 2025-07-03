@@ -28,14 +28,14 @@ void MR_C_std_tuple_AssignFromAnother(MR_C_std_tuple *_this, const MR_C_std_tupl
     );
 }
 
-void MR_C_std_tuple_Destroy(MR_C_std_tuple *_this)
+void MR_C_std_tuple_Destroy(const MR_C_std_tuple *_this)
 {
-    delete ((std::tuple<> *)_this);
+    delete ((const std::tuple<> *)_this);
 }
 
-void MR_C_std_tuple_DestroyArray(MR_C_std_tuple *_this)
+void MR_C_std_tuple_DestroyArray(const MR_C_std_tuple *_this)
 {
-    delete[] ((std::tuple<> *)_this);
+    delete[] ((const std::tuple<> *)_this);
 }
 
 const MR_C_std_tuple *MR_C_std_tuple_OffsetPtr(const MR_C_std_tuple *ptr, ptrdiff_t i)

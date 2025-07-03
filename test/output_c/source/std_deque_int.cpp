@@ -30,14 +30,14 @@ void MR_C_std_deque_int_AssignFromAnother(MR_C_std_deque_int *_this, MR_C_PassBy
     );
 }
 
-void MR_C_std_deque_int_Destroy(MR_C_std_deque_int *_this)
+void MR_C_std_deque_int_Destroy(const MR_C_std_deque_int *_this)
 {
-    delete ((std::deque<int> *)_this);
+    delete ((const std::deque<int> *)_this);
 }
 
-void MR_C_std_deque_int_DestroyArray(MR_C_std_deque_int *_this)
+void MR_C_std_deque_int_DestroyArray(const MR_C_std_deque_int *_this)
 {
-    delete[] ((std::deque<int> *)_this);
+    delete[] ((const std::deque<int> *)_this);
 }
 
 const MR_C_std_deque_int *MR_C_std_deque_int_OffsetPtr(const MR_C_std_deque_int *ptr, ptrdiff_t i)
@@ -244,14 +244,14 @@ void MR_C_std_deque_int_const_iterator_AssignFromAnother(MR_C_std_deque_int_cons
     );
 }
 
-void MR_C_std_deque_int_const_iterator_Destroy(MR_C_std_deque_int_const_iterator *_this)
+void MR_C_std_deque_int_const_iterator_Destroy(const MR_C_std_deque_int_const_iterator *_this)
 {
-    delete ((std::deque<int>::const_iterator *)_this);
+    delete ((const std::deque<int>::const_iterator *)_this);
 }
 
-void MR_C_std_deque_int_const_iterator_DestroyArray(MR_C_std_deque_int_const_iterator *_this)
+void MR_C_std_deque_int_const_iterator_DestroyArray(const MR_C_std_deque_int_const_iterator *_this)
 {
-    delete[] ((std::deque<int>::const_iterator *)_this);
+    delete[] ((const std::deque<int>::const_iterator *)_this);
 }
 
 const MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_OffsetPtr(const MR_C_std_deque_int_const_iterator *ptr, ptrdiff_t i)
@@ -295,14 +295,14 @@ void MR_C_std_deque_int_iterator_AssignFromAnother(MR_C_std_deque_int_iterator *
     );
 }
 
-void MR_C_std_deque_int_iterator_Destroy(MR_C_std_deque_int_iterator *_this)
+void MR_C_std_deque_int_iterator_Destroy(const MR_C_std_deque_int_iterator *_this)
 {
-    delete ((std::deque<int>::iterator *)_this);
+    delete ((const std::deque<int>::iterator *)_this);
 }
 
-void MR_C_std_deque_int_iterator_DestroyArray(MR_C_std_deque_int_iterator *_this)
+void MR_C_std_deque_int_iterator_DestroyArray(const MR_C_std_deque_int_iterator *_this)
 {
-    delete[] ((std::deque<int>::iterator *)_this);
+    delete[] ((const std::deque<int>::iterator *)_this);
 }
 
 const MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_OffsetPtr(const MR_C_std_deque_int_iterator *ptr, ptrdiff_t i)

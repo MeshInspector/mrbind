@@ -39,14 +39,14 @@ MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_AssignFromAnother(MR_Ne
     ));
 }
 
-void MR_NestedTemplateInst_A_int_Destroy(MR_NestedTemplateInst_A_int *_this)
+void MR_NestedTemplateInst_A_int_Destroy(const MR_NestedTemplateInst_A_int *_this)
 {
-    delete ((MR::NestedTemplateInst::A<int> *)_this);
+    delete ((const MR::NestedTemplateInst::A<int> *)_this);
 }
 
-void MR_NestedTemplateInst_A_int_DestroyArray(MR_NestedTemplateInst_A_int *_this)
+void MR_NestedTemplateInst_A_int_DestroyArray(const MR_NestedTemplateInst_A_int *_this)
 {
-    delete[] ((MR::NestedTemplateInst::A<int> *)_this);
+    delete[] ((const MR::NestedTemplateInst::A<int> *)_this);
 }
 
 MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct(void)
@@ -83,13 +83,13 @@ MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_Assig
     ));
 }
 
-void MR_NestedTemplateInst_A_int_AA_float_Destroy(MR_NestedTemplateInst_A_int_AA_float *_this)
+void MR_NestedTemplateInst_A_int_AA_float_Destroy(const MR_NestedTemplateInst_A_int_AA_float *_this)
 {
-    delete ((MR::NestedTemplateInst::A<int>::AA<float> *)_this);
+    delete ((const MR::NestedTemplateInst::A<int>::AA<float> *)_this);
 }
 
-void MR_NestedTemplateInst_A_int_AA_float_DestroyArray(MR_NestedTemplateInst_A_int_AA_float *_this)
+void MR_NestedTemplateInst_A_int_AA_float_DestroyArray(const MR_NestedTemplateInst_A_int_AA_float *_this)
 {
-    delete[] ((MR::NestedTemplateInst::A<int>::AA<float> *)_this);
+    delete[] ((const MR::NestedTemplateInst::A<int>::AA<float> *)_this);
 }
 

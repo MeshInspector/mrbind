@@ -104,10 +104,10 @@ MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_OffsetMutablePtr(MR_StdUniquePtr_A
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_ConstructFromAnother(const MR_StdUniquePtr_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdUniquePtr_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdUniquePtr_A_Destroy(MR_StdUniquePtr_A *_this);
+MR_C_API void MR_StdUniquePtr_A_Destroy(const MR_StdUniquePtr_A *_this);
 
 /// Destroys a heap-allocated array of `MR_StdUniquePtr_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdUniquePtr_A_DestroyArray(MR_StdUniquePtr_A *_this);
+MR_C_API void MR_StdUniquePtr_A_DestroyArray(const MR_StdUniquePtr_A *_this);
 
 /// Generated from a method of class `MR::StdUniquePtr::A` named `operator=`.
 /// Parameter `_this` can not be null.
@@ -178,6 +178,23 @@ MR_C_API void MR_StdUniquePtr_SetClassArrDefTrivial(MR_StdUniquePtr_A *_1);
 /// Parameter `_1` takes ownership of the (deferenced) passed pointer (if not null), and will later call `MR_StdUniquePtr_A_DestroyArray()` on it automatically.
 /// Parameter `_1` has a default argument: `std::make_unique<MR::StdUniquePtr::A[]>(42)`, pass a null pointer to use it.
 MR_C_API void MR_StdUniquePtr_SetClassArrDef(MR_StdUniquePtr_A *const *_1);
+
+// Try const element types:
+/// Generated from function `MR::StdUniquePtr::GetConstInt`.
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_C_Free().
+MR_C_API const int *MR_StdUniquePtr_GetConstInt(void);
+
+/// Generated from function `MR::StdUniquePtr::GetConstIntArr`.
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_C_FreeArray().
+MR_C_API const int *MR_StdUniquePtr_GetConstIntArr(void);
+
+/// Generated from function `MR::StdUniquePtr::GetConstClass`.
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_StdUniquePtr_A_Destroy().
+MR_C_API const MR_StdUniquePtr_A *MR_StdUniquePtr_GetConstClass(void);
+
+/// Generated from function `MR::StdUniquePtr::GetConstClassArr`.
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_StdUniquePtr_A_DestroyArray().
+MR_C_API const MR_StdUniquePtr_A *MR_StdUniquePtr_GetConstClassArr(void);
 
 // Here `std::unique_ptr<float>` never gets emitted as an actual type (since we don't have non-null default arguments), so its header should not be emitted.
 /// Generated from function `MR::StdUniquePtr::GetFloat`.

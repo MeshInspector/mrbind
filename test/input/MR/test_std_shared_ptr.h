@@ -52,4 +52,14 @@ namespace MR::StdSharedPtr
     inline void SetClassArr42(std::shared_ptr<A[42]>) {}
     inline void SetClassArr42DefTrivial(std::shared_ptr<A[42]> = {}) {}
     inline void SetClassArr42Def(std::shared_ptr<A[42]> = std::make_shared<A[42]>()) {}
+
+
+    // With constness:
+    // Try const element types:
+    inline std::shared_ptr<const int> GetConstInt() {return {};}
+    inline std::shared_ptr<const int[]> GetConstIntArr() {return {};}
+    inline std::shared_ptr<const int[42]> GetConstIntArr42() {return {};}
+    inline std::shared_ptr<const A> GetConstClass() {return {};}
+    inline std::shared_ptr<const A[]> GetConstClassArr() {return {};}
+    inline std::shared_ptr<const A[42]> GetConstClassArr42() {return {};}
 }

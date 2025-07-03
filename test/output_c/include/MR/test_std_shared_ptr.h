@@ -12,6 +12,12 @@ extern "C" {
 typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A MR_C_std_shared_ptr_MR_StdSharedPtr_A; // Defined in `#include <std_shared_ptr_MR_StdSharedPtr_A.h>`.
 typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A_array MR_C_std_shared_ptr_MR_StdSharedPtr_A_array; // Defined in `#include <std_shared_ptr_MR_StdSharedPtr_A_array.h>`.
 typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42; // Defined in `#include <std_shared_ptr_MR_StdSharedPtr_A_array_42.h>`.
+typedef struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A MR_C_std_shared_ptr_const_MR_StdSharedPtr_A; // Defined in `#include <std_shared_ptr_const_MR_StdSharedPtr_A.h>`.
+typedef struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array; // Defined in `#include <std_shared_ptr_const_MR_StdSharedPtr_A_array.h>`.
+typedef struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42; // Defined in `#include <std_shared_ptr_const_MR_StdSharedPtr_A_array_42.h>`.
+typedef struct MR_C_std_shared_ptr_const_int MR_C_std_shared_ptr_const_int; // Defined in `#include <std_shared_ptr_const_int.h>`.
+typedef struct MR_C_std_shared_ptr_const_int_array MR_C_std_shared_ptr_const_int_array; // Defined in `#include <std_shared_ptr_const_int_array.h>`.
+typedef struct MR_C_std_shared_ptr_const_int_array_42 MR_C_std_shared_ptr_const_int_array_42; // Defined in `#include <std_shared_ptr_const_int_array_42.h>`.
 typedef struct MR_C_std_shared_ptr_int MR_C_std_shared_ptr_int; // Defined in `#include <std_shared_ptr_int.h>`.
 typedef struct MR_C_std_shared_ptr_int_array MR_C_std_shared_ptr_int_array; // Defined in `#include <std_shared_ptr_int_array.h>`.
 typedef struct MR_C_std_shared_ptr_int_array_42 MR_C_std_shared_ptr_int_array_42; // Defined in `#include <std_shared_ptr_int_array_42.h>`.
@@ -112,10 +118,10 @@ MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_OffsetMutablePtr(MR_StdSharedPtr_A
 MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_ConstructFromAnother(const MR_StdSharedPtr_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdSharedPtr_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdSharedPtr_A_Destroy(MR_StdSharedPtr_A *_this);
+MR_C_API void MR_StdSharedPtr_A_Destroy(const MR_StdSharedPtr_A *_this);
 
 /// Destroys a heap-allocated array of `MR_StdSharedPtr_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdSharedPtr_A_DestroyArray(MR_StdSharedPtr_A *_this);
+MR_C_API void MR_StdSharedPtr_A_DestroyArray(const MR_StdSharedPtr_A *_this);
 
 /// Generated from a method of class `MR::StdSharedPtr::A` named `operator=`.
 /// Parameter `_this` can not be null.
@@ -191,6 +197,32 @@ MR_C_API void MR_StdSharedPtr_SetClassArr42DefTrivial(MR_C_PassBy _1_pass_by, MR
 /// Generated from function `MR::StdSharedPtr::SetClassArr42Def`.
 /// Parameter `_1` has a default argument: `std::make_shared<MR::StdSharedPtr::A[42]>()`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 MR_C_API void MR_StdSharedPtr_SetClassArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *_1);
+
+// With constness:
+// Try const element types:
+/// Generated from function `MR::StdSharedPtr::GetConstInt`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_int_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_int *MR_StdSharedPtr_GetConstInt(void);
+
+/// Generated from function `MR::StdSharedPtr::GetConstIntArr`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_int_array_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_int_array *MR_StdSharedPtr_GetConstIntArr(void);
+
+/// Generated from function `MR::StdSharedPtr::GetConstIntArr42`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_int_array_42_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_int_array_42 *MR_StdSharedPtr_GetConstIntArr42(void);
+
+/// Generated from function `MR::StdSharedPtr::GetConstClass`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_StdSharedPtr_GetConstClass(void);
+
+/// Generated from function `MR::StdSharedPtr::GetConstClassArr`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array *MR_StdSharedPtr_GetConstClassArr(void);
+
+/// Generated from function `MR::StdSharedPtr::GetConstClassArr42`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *MR_StdSharedPtr_GetConstClassArr42(void);
 
 #ifdef __cplusplus
 } // extern "C"

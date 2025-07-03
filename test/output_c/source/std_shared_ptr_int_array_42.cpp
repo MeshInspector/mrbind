@@ -30,14 +30,14 @@ void MR_C_std_shared_ptr_int_array_42_AssignFromAnother(MR_C_std_shared_ptr_int_
     );
 }
 
-void MR_C_std_shared_ptr_int_array_42_Destroy(MR_C_std_shared_ptr_int_array_42 *_this)
+void MR_C_std_shared_ptr_int_array_42_Destroy(const MR_C_std_shared_ptr_int_array_42 *_this)
 {
-    delete ((std::shared_ptr<int[42]> *)_this);
+    delete ((const std::shared_ptr<int[42]> *)_this);
 }
 
-void MR_C_std_shared_ptr_int_array_42_DestroyArray(MR_C_std_shared_ptr_int_array_42 *_this)
+void MR_C_std_shared_ptr_int_array_42_DestroyArray(const MR_C_std_shared_ptr_int_array_42 *_this)
 {
-    delete[] ((std::shared_ptr<int[42]> *)_this);
+    delete[] ((const std::shared_ptr<int[42]> *)_this);
 }
 
 const MR_C_std_shared_ptr_int_array_42 *MR_C_std_shared_ptr_int_array_42_OffsetPtr(const MR_C_std_shared_ptr_int_array_42 *ptr, ptrdiff_t i)

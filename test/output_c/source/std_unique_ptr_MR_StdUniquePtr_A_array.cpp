@@ -45,14 +45,14 @@ void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFrom(MR_C_std_unique_ptr_
     );
 }
 
-void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
+void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Destroy(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
 {
-    delete ((std::unique_ptr<MR::StdUniquePtr::A[]> *)_this);
+    delete ((const std::unique_ptr<MR::StdUniquePtr::A[]> *)_this);
 }
 
-void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_DestroyArray(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
+void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_DestroyArray(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
 {
-    delete[] ((std::unique_ptr<MR::StdUniquePtr::A[]> *)_this);
+    delete[] ((const std::unique_ptr<MR::StdUniquePtr::A[]> *)_this);
 }
 
 const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_OffsetPtr(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *ptr, ptrdiff_t i)

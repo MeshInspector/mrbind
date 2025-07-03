@@ -47,10 +47,10 @@ MR_C_API void MR_C_std_string_view_AssignFromAnother(MR_C_std_string_view *_this
 MR_C_API void MR_C_std_string_view_AssignFrom(MR_C_std_string_view *_this, const char *other, const char *other_end);
 
 /// Destroys a heap-allocated instance of `MR_C_std_string_view`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_string_view_Destroy(MR_C_std_string_view *_this);
+MR_C_API void MR_C_std_string_view_Destroy(const MR_C_std_string_view *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_string_view`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_string_view_DestroyArray(MR_C_std_string_view *_this);
+MR_C_API void MR_C_std_string_view_DestroyArray(const MR_C_std_string_view *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_string_view *MR_C_std_string_view_OffsetPtr(const MR_C_std_string_view *ptr, ptrdiff_t i);

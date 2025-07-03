@@ -92,14 +92,14 @@ MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR
     ));
 }
 
-void MR_StdFunction_A_Destroy(MR_StdFunction_A *_this)
+void MR_StdFunction_A_Destroy(const MR_StdFunction_A *_this)
 {
-    delete ((MR::StdFunction::A *)_this);
+    delete ((const MR::StdFunction::A *)_this);
 }
 
-void MR_StdFunction_A_DestroyArray(MR_StdFunction_A *_this)
+void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this)
 {
-    delete[] ((MR::StdFunction::A *)_this);
+    delete[] ((const MR::StdFunction::A *)_this);
 }
 
 void MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR_C_PassBy _1_pass_by, MR_C_std_function_void_from_MR_StdFunction_A *_1)

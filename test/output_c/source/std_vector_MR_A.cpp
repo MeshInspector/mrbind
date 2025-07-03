@@ -31,14 +31,14 @@ void MR_C_std_vector_MR_A_AssignFromAnother(MR_C_std_vector_MR_A *_this, MR_C_Pa
     );
 }
 
-void MR_C_std_vector_MR_A_Destroy(MR_C_std_vector_MR_A *_this)
+void MR_C_std_vector_MR_A_Destroy(const MR_C_std_vector_MR_A *_this)
 {
-    delete ((std::vector<MR::A> *)_this);
+    delete ((const std::vector<MR::A> *)_this);
 }
 
-void MR_C_std_vector_MR_A_DestroyArray(MR_C_std_vector_MR_A *_this)
+void MR_C_std_vector_MR_A_DestroyArray(const MR_C_std_vector_MR_A *_this)
 {
-    delete[] ((std::vector<MR::A> *)_this);
+    delete[] ((const std::vector<MR::A> *)_this);
 }
 
 const MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_OffsetPtr(const MR_C_std_vector_MR_A *ptr, ptrdiff_t i)
@@ -250,14 +250,14 @@ void MR_C_std_vector_MR_A_const_iterator_AssignFromAnother(MR_C_std_vector_MR_A_
     );
 }
 
-void MR_C_std_vector_MR_A_const_iterator_Destroy(MR_C_std_vector_MR_A_const_iterator *_this)
+void MR_C_std_vector_MR_A_const_iterator_Destroy(const MR_C_std_vector_MR_A_const_iterator *_this)
 {
-    delete ((std::vector<MR::A>::const_iterator *)_this);
+    delete ((const std::vector<MR::A>::const_iterator *)_this);
 }
 
-void MR_C_std_vector_MR_A_const_iterator_DestroyArray(MR_C_std_vector_MR_A_const_iterator *_this)
+void MR_C_std_vector_MR_A_const_iterator_DestroyArray(const MR_C_std_vector_MR_A_const_iterator *_this)
 {
-    delete[] ((std::vector<MR::A>::const_iterator *)_this);
+    delete[] ((const std::vector<MR::A>::const_iterator *)_this);
 }
 
 const MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_OffsetPtr(const MR_C_std_vector_MR_A_const_iterator *ptr, ptrdiff_t i)
@@ -301,14 +301,14 @@ void MR_C_std_vector_MR_A_iterator_AssignFromAnother(MR_C_std_vector_MR_A_iterat
     );
 }
 
-void MR_C_std_vector_MR_A_iterator_Destroy(MR_C_std_vector_MR_A_iterator *_this)
+void MR_C_std_vector_MR_A_iterator_Destroy(const MR_C_std_vector_MR_A_iterator *_this)
 {
-    delete ((std::vector<MR::A>::iterator *)_this);
+    delete ((const std::vector<MR::A>::iterator *)_this);
 }
 
-void MR_C_std_vector_MR_A_iterator_DestroyArray(MR_C_std_vector_MR_A_iterator *_this)
+void MR_C_std_vector_MR_A_iterator_DestroyArray(const MR_C_std_vector_MR_A_iterator *_this)
 {
-    delete[] ((std::vector<MR::A>::iterator *)_this);
+    delete[] ((const std::vector<MR::A>::iterator *)_this);
 }
 
 const MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_OffsetPtr(const MR_C_std_vector_MR_A_iterator *ptr, ptrdiff_t i)

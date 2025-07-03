@@ -30,14 +30,14 @@ void MR_C_std_variant_int_float_std_string_AssignFromAnother(MR_C_std_variant_in
     );
 }
 
-void MR_C_std_variant_int_float_std_string_Destroy(MR_C_std_variant_int_float_std_string *_this)
+void MR_C_std_variant_int_float_std_string_Destroy(const MR_C_std_variant_int_float_std_string *_this)
 {
-    delete ((std::variant<int, float, std::string> *)_this);
+    delete ((const std::variant<int, float, std::string> *)_this);
 }
 
-void MR_C_std_variant_int_float_std_string_DestroyArray(MR_C_std_variant_int_float_std_string *_this)
+void MR_C_std_variant_int_float_std_string_DestroyArray(const MR_C_std_variant_int_float_std_string *_this)
 {
-    delete[] ((std::variant<int, float, std::string> *)_this);
+    delete[] ((const std::variant<int, float, std::string> *)_this);
 }
 
 const MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_OffsetPtr(const MR_C_std_variant_int_float_std_string *ptr, ptrdiff_t i)

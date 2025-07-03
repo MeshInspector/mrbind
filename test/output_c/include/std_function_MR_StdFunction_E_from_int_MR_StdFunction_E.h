@@ -35,10 +35,10 @@ MR_C_API MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_
 MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this);
+MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy(const MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DestroyArray(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this);
+MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DestroyArray(const MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_OffsetPtr(const MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *ptr, ptrdiff_t i);

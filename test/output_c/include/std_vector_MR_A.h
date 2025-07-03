@@ -46,10 +46,10 @@ MR_C_API MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_ConstructFromAnother(MR_C_Pa
 MR_C_API void MR_C_std_vector_MR_A_AssignFromAnother(MR_C_std_vector_MR_A *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_A *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_MR_A`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_vector_MR_A_Destroy(MR_C_std_vector_MR_A *_this);
+MR_C_API void MR_C_std_vector_MR_A_Destroy(const MR_C_std_vector_MR_A *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_vector_MR_A`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_vector_MR_A_DestroyArray(MR_C_std_vector_MR_A *_this);
+MR_C_API void MR_C_std_vector_MR_A_DestroyArray(const MR_C_std_vector_MR_A *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_OffsetPtr(const MR_C_std_vector_MR_A *ptr, ptrdiff_t i);
@@ -217,10 +217,10 @@ MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterato
 MR_C_API void MR_C_std_vector_MR_A_const_iterator_AssignFromAnother(MR_C_std_vector_MR_A_const_iterator *_this, const MR_C_std_vector_MR_A_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_MR_A_const_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_vector_MR_A_const_iterator_Destroy(MR_C_std_vector_MR_A_const_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_const_iterator_Destroy(const MR_C_std_vector_MR_A_const_iterator *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_vector_MR_A_const_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_vector_MR_A_const_iterator_DestroyArray(MR_C_std_vector_MR_A_const_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_const_iterator_DestroyArray(const MR_C_std_vector_MR_A_const_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_OffsetPtr(const MR_C_std_vector_MR_A_const_iterator *ptr, ptrdiff_t i);
@@ -253,10 +253,10 @@ MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_ConstructF
 MR_C_API void MR_C_std_vector_MR_A_iterator_AssignFromAnother(MR_C_std_vector_MR_A_iterator *_this, const MR_C_std_vector_MR_A_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_MR_A_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_vector_MR_A_iterator_Destroy(MR_C_std_vector_MR_A_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_iterator_Destroy(const MR_C_std_vector_MR_A_iterator *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_vector_MR_A_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_vector_MR_A_iterator_DestroyArray(MR_C_std_vector_MR_A_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_iterator_DestroyArray(const MR_C_std_vector_MR_A_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_OffsetPtr(const MR_C_std_vector_MR_A_iterator *ptr, ptrdiff_t i);

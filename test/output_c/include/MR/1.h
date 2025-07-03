@@ -28,10 +28,10 @@ MR_C_API const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this);
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);
 
 /// Destroys a heap-allocated instance of `MR_A`. Does nothing if the pointer is null.
-MR_C_API void MR_A_Destroy(MR_A *_this);
+MR_C_API void MR_A_Destroy(const MR_A *_this);
 
 /// Destroys a heap-allocated array of `MR_A`. Does nothing if the pointer is null.
-MR_C_API void MR_A_DestroyArray(MR_A *_this);
+MR_C_API void MR_A_DestroyArray(const MR_A *_this);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.

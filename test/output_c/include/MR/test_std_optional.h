@@ -99,10 +99,10 @@ MR_C_API MR_StdOptional_A *MR_StdOptional_A_OffsetMutablePtr(MR_StdOptional_A *p
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_ConstructFromAnother(const MR_StdOptional_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdOptional_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdOptional_A_Destroy(MR_StdOptional_A *_this);
+MR_C_API void MR_StdOptional_A_Destroy(const MR_StdOptional_A *_this);
 
 /// Destroys a heap-allocated array of `MR_StdOptional_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdOptional_A_DestroyArray(MR_StdOptional_A *_this);
+MR_C_API void MR_StdOptional_A_DestroyArray(const MR_StdOptional_A *_this);
 
 /// Generated from a method of class `MR::StdOptional::A` named `operator=`.
 /// Parameter `_this` can not be null.
@@ -169,10 +169,10 @@ MR_C_API MR_StdOptional_B *MR_StdOptional_B_DefaultConstructArray(size_t num_ele
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdOptional_B`. Does nothing if the pointer is null.
-MR_C_API void MR_StdOptional_B_Destroy(MR_StdOptional_B *_this);
+MR_C_API void MR_StdOptional_B_Destroy(const MR_StdOptional_B *_this);
 
 /// Destroys a heap-allocated array of `MR_StdOptional_B`. Does nothing if the pointer is null.
-MR_C_API void MR_StdOptional_B_DestroyArray(MR_StdOptional_B *_this);
+MR_C_API void MR_StdOptional_B_DestroyArray(const MR_StdOptional_B *_this);
 
 /// Generated from function `MR::StdOptional::GetClass2`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_B_Destroy()` to free it when you're done using it.

@@ -45,14 +45,14 @@ void MR_C_std_optional_MR_StdOptional_B_AssignFrom(MR_C_std_optional_MR_StdOptio
     );
 }
 
-void MR_C_std_optional_MR_StdOptional_B_Destroy(MR_C_std_optional_MR_StdOptional_B *_this)
+void MR_C_std_optional_MR_StdOptional_B_Destroy(const MR_C_std_optional_MR_StdOptional_B *_this)
 {
-    delete ((std::optional<MR::StdOptional::B> *)_this);
+    delete ((const std::optional<MR::StdOptional::B> *)_this);
 }
 
-void MR_C_std_optional_MR_StdOptional_B_DestroyArray(MR_C_std_optional_MR_StdOptional_B *_this)
+void MR_C_std_optional_MR_StdOptional_B_DestroyArray(const MR_C_std_optional_MR_StdOptional_B *_this)
 {
-    delete[] ((std::optional<MR::StdOptional::B> *)_this);
+    delete[] ((const std::optional<MR::StdOptional::B> *)_this);
 }
 
 const MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_OffsetPtr(const MR_C_std_optional_MR_StdOptional_B *ptr, ptrdiff_t i)

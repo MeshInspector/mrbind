@@ -35,10 +35,10 @@ MR_C_API MR_C_std_variant_int_float_float *MR_C_std_variant_int_float_float_Cons
 MR_C_API void MR_C_std_variant_int_float_float_AssignFromAnother(MR_C_std_variant_int_float_float *_this, const MR_C_std_variant_int_float_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_variant_int_float_float`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_variant_int_float_float_Destroy(MR_C_std_variant_int_float_float *_this);
+MR_C_API void MR_C_std_variant_int_float_float_Destroy(const MR_C_std_variant_int_float_float *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_variant_int_float_float`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_variant_int_float_float_DestroyArray(MR_C_std_variant_int_float_float *_this);
+MR_C_API void MR_C_std_variant_int_float_float_DestroyArray(const MR_C_std_variant_int_float_float *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_variant_int_float_float *MR_C_std_variant_int_float_float_OffsetPtr(const MR_C_std_variant_int_float_float *ptr, ptrdiff_t i);

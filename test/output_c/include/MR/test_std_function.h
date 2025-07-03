@@ -83,10 +83,10 @@ MR_C_API MR_StdFunction_A *MR_StdFunction_A_DefaultConstructArray(size_t num_ele
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdFunction_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdFunction_A_Destroy(MR_StdFunction_A *_this);
+MR_C_API void MR_StdFunction_A_Destroy(const MR_StdFunction_A *_this);
 
 /// Destroys a heap-allocated array of `MR_StdFunction_A`. Does nothing if the pointer is null.
-MR_C_API void MR_StdFunction_A_DestroyArray(MR_StdFunction_A *_this);
+MR_C_API void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this);
 
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR_C_PassBy _1_pass_by, MR_C_std_function_void_from_MR_StdFunction_A *_1);

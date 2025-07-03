@@ -159,14 +159,14 @@ MR_StdSharedPtr_A *MR_StdSharedPtr_A_ConstructFromAnother(const MR_StdSharedPtr_
     ));
 }
 
-void MR_StdSharedPtr_A_Destroy(MR_StdSharedPtr_A *_this)
+void MR_StdSharedPtr_A_Destroy(const MR_StdSharedPtr_A *_this)
 {
-    delete ((MR::StdSharedPtr::A *)_this);
+    delete ((const MR::StdSharedPtr::A *)_this);
 }
 
-void MR_StdSharedPtr_A_DestroyArray(MR_StdSharedPtr_A *_this)
+void MR_StdSharedPtr_A_DestroyArray(const MR_StdSharedPtr_A *_this)
 {
-    delete[] ((MR::StdSharedPtr::A *)_this);
+    delete[] ((const MR::StdSharedPtr::A *)_this);
 }
 
 MR_StdSharedPtr_A *MR_StdSharedPtr_A_AssignFromAnother(MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *_other)
@@ -299,5 +299,35 @@ void MR_StdSharedPtr_SetClassArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_shared_pt
     ::MR::StdSharedPtr::SetClassArr42Def(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::make_shared<MR::StdSharedPtr::A[42]>()), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>))
     );
+}
+
+MR_C_std_shared_ptr_const_int *MR_StdSharedPtr_GetConstInt(void)
+{
+    return (MR_C_std_shared_ptr_const_int *)new std::shared_ptr<const int>(::MR::StdSharedPtr::GetConstInt());
+}
+
+MR_C_std_shared_ptr_const_int_array *MR_StdSharedPtr_GetConstIntArr(void)
+{
+    return (MR_C_std_shared_ptr_const_int_array *)new std::shared_ptr<const int[]>(::MR::StdSharedPtr::GetConstIntArr());
+}
+
+MR_C_std_shared_ptr_const_int_array_42 *MR_StdSharedPtr_GetConstIntArr42(void)
+{
+    return (MR_C_std_shared_ptr_const_int_array_42 *)new std::shared_ptr<const int[42]>(::MR::StdSharedPtr::GetConstIntArr42());
+}
+
+MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_StdSharedPtr_GetConstClass(void)
+{
+    return (MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *)new std::shared_ptr<const MR::StdSharedPtr::A>(::MR::StdSharedPtr::GetConstClass());
+}
+
+MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array *MR_StdSharedPtr_GetConstClassArr(void)
+{
+    return (MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array *)new std::shared_ptr<const MR::StdSharedPtr::A[]>(::MR::StdSharedPtr::GetConstClassArr());
+}
+
+MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *MR_StdSharedPtr_GetConstClassArr42(void)
+{
+    return (MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *)new std::shared_ptr<const MR::StdSharedPtr::A[42]>(::MR::StdSharedPtr::GetConstClassArr42());
 }
 

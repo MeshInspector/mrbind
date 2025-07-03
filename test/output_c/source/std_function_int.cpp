@@ -30,14 +30,14 @@ void MR_C_std_function_int_AssignFromAnother(MR_C_std_function_int *_this, MR_C_
     );
 }
 
-void MR_C_std_function_int_Destroy(MR_C_std_function_int *_this)
+void MR_C_std_function_int_Destroy(const MR_C_std_function_int *_this)
 {
-    delete ((std::function<int(void)> *)_this);
+    delete ((const std::function<int(void)> *)_this);
 }
 
-void MR_C_std_function_int_DestroyArray(MR_C_std_function_int *_this)
+void MR_C_std_function_int_DestroyArray(const MR_C_std_function_int *_this)
 {
-    delete[] ((std::function<int(void)> *)_this);
+    delete[] ((const std::function<int(void)> *)_this);
 }
 
 const MR_C_std_function_int *MR_C_std_function_int_OffsetPtr(const MR_C_std_function_int *ptr, ptrdiff_t i)

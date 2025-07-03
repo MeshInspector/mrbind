@@ -35,10 +35,10 @@ MR_C_API MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_ConstructF
 MR_C_API void MR_C_std_shared_ptr_int_array_AssignFromAnother(MR_C_std_shared_ptr_int_array *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_int_array *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_shared_ptr_int_array`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_shared_ptr_int_array_Destroy(MR_C_std_shared_ptr_int_array *_this);
+MR_C_API void MR_C_std_shared_ptr_int_array_Destroy(const MR_C_std_shared_ptr_int_array *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_shared_ptr_int_array`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_shared_ptr_int_array_DestroyArray(MR_C_std_shared_ptr_int_array *_this);
+MR_C_API void MR_C_std_shared_ptr_int_array_DestroyArray(const MR_C_std_shared_ptr_int_array *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_OffsetPtr(const MR_C_std_shared_ptr_int_array *ptr, ptrdiff_t i);

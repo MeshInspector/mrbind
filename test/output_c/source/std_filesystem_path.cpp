@@ -44,14 +44,14 @@ void MR_C_std_filesystem_path_AssignFrom(MR_C_std_filesystem_path *_this, const 
     );
 }
 
-void MR_C_std_filesystem_path_Destroy(MR_C_std_filesystem_path *_this)
+void MR_C_std_filesystem_path_Destroy(const MR_C_std_filesystem_path *_this)
 {
-    delete ((std::filesystem::path *)_this);
+    delete ((const std::filesystem::path *)_this);
 }
 
-void MR_C_std_filesystem_path_DestroyArray(MR_C_std_filesystem_path *_this)
+void MR_C_std_filesystem_path_DestroyArray(const MR_C_std_filesystem_path *_this)
 {
-    delete[] ((std::filesystem::path *)_this);
+    delete[] ((const std::filesystem::path *)_this);
 }
 
 const MR_C_std_filesystem_path *MR_C_std_filesystem_path_OffsetPtr(const MR_C_std_filesystem_path *ptr, ptrdiff_t i)

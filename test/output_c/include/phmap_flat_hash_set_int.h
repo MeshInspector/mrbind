@@ -40,10 +40,10 @@ MR_C_API MR_C_phmap_flat_hash_set_int *MR_C_phmap_flat_hash_set_int_ConstructFro
 MR_C_API void MR_C_phmap_flat_hash_set_int_AssignFromAnother(MR_C_phmap_flat_hash_set_int *_this, MR_C_PassBy other_pass_by, MR_C_phmap_flat_hash_set_int *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_flat_hash_set_int`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_flat_hash_set_int_Destroy(MR_C_phmap_flat_hash_set_int *_this);
+MR_C_API void MR_C_phmap_flat_hash_set_int_Destroy(const MR_C_phmap_flat_hash_set_int *_this);
 
 /// Destroys a heap-allocated array of `MR_C_phmap_flat_hash_set_int`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_flat_hash_set_int_DestroyArray(MR_C_phmap_flat_hash_set_int *_this);
+MR_C_API void MR_C_phmap_flat_hash_set_int_DestroyArray(const MR_C_phmap_flat_hash_set_int *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_phmap_flat_hash_set_int *MR_C_phmap_flat_hash_set_int_OffsetPtr(const MR_C_phmap_flat_hash_set_int *ptr, ptrdiff_t i);
@@ -118,10 +118,10 @@ MR_C_API MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_i
 MR_C_API void MR_C_phmap_flat_hash_set_int_const_iterator_AssignFromAnother(MR_C_phmap_flat_hash_set_int_const_iterator *_this, const MR_C_phmap_flat_hash_set_int_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_flat_hash_set_int_const_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_flat_hash_set_int_const_iterator_Destroy(MR_C_phmap_flat_hash_set_int_const_iterator *_this);
+MR_C_API void MR_C_phmap_flat_hash_set_int_const_iterator_Destroy(const MR_C_phmap_flat_hash_set_int_const_iterator *_this);
 
 /// Destroys a heap-allocated array of `MR_C_phmap_flat_hash_set_int_const_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_flat_hash_set_int_const_iterator_DestroyArray(MR_C_phmap_flat_hash_set_int_const_iterator *_this);
+MR_C_API void MR_C_phmap_flat_hash_set_int_const_iterator_DestroyArray(const MR_C_phmap_flat_hash_set_int_const_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_int_const_iterator_OffsetPtr(const MR_C_phmap_flat_hash_set_int_const_iterator *ptr, ptrdiff_t i);

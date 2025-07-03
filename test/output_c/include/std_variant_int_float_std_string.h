@@ -35,10 +35,10 @@ MR_C_API MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_s
 MR_C_API void MR_C_std_variant_int_float_std_string_AssignFromAnother(MR_C_std_variant_int_float_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_variant_int_float_std_string *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_variant_int_float_std_string`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_variant_int_float_std_string_Destroy(MR_C_std_variant_int_float_std_string *_this);
+MR_C_API void MR_C_std_variant_int_float_std_string_Destroy(const MR_C_std_variant_int_float_std_string *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_variant_int_float_std_string`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_variant_int_float_std_string_DestroyArray(MR_C_std_variant_int_float_std_string *_this);
+MR_C_API void MR_C_std_variant_int_float_std_string_DestroyArray(const MR_C_std_variant_int_float_std_string *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_variant_int_float_std_string *MR_C_std_variant_int_float_std_string_OffsetPtr(const MR_C_std_variant_int_float_std_string *ptr, ptrdiff_t i);

@@ -42,10 +42,10 @@ MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_ConstructFromAnother(const
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_SignatureFilters_A`. Does nothing if the pointer is null.
-MR_C_API void MR_SignatureFilters_A_Destroy(MR_SignatureFilters_A *_this);
+MR_C_API void MR_SignatureFilters_A_Destroy(const MR_SignatureFilters_A *_this);
 
 /// Destroys a heap-allocated array of `MR_SignatureFilters_A`. Does nothing if the pointer is null.
-MR_C_API void MR_SignatureFilters_A_DestroyArray(MR_SignatureFilters_A *_this);
+MR_C_API void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this);
 
 /// Generated from function `MR::SignatureFilters::foo`.
 /// Parameter `_1` can not be null.
@@ -133,10 +133,10 @@ MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_ConstructFromAnother
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other);
 
 /// Destroys a heap-allocated instance of `MR_SignatureFilters_Blah`. Does nothing if the pointer is null.
-MR_C_API void MR_SignatureFilters_Blah_Destroy(MR_SignatureFilters_Blah *_this);
+MR_C_API void MR_SignatureFilters_Blah_Destroy(const MR_SignatureFilters_Blah *_this);
 
 /// Destroys a heap-allocated array of `MR_SignatureFilters_Blah`. Does nothing if the pointer is null.
-MR_C_API void MR_SignatureFilters_Blah_DestroyArray(MR_SignatureFilters_Blah *_this);
+MR_C_API void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this);
 
 #ifdef __cplusplus
 } // extern "C"

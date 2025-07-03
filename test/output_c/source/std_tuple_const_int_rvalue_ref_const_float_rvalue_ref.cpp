@@ -14,14 +14,14 @@ MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_tuple_const
     ));
 }
 
-void MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref_Destroy(MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *_this)
+void MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref_Destroy(const MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    delete ((std::tuple<const int &&, const float &&> *)_this);
+    delete ((const std::tuple<const int &&, const float &&> *)_this);
 }
 
-void MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref_DestroyArray(MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *_this)
+void MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref_DestroyArray(const MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    delete[] ((std::tuple<const int &&, const float &&> *)_this);
+    delete[] ((const std::tuple<const int &&, const float &&> *)_this);
 }
 
 const MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref_OffsetPtr(const MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *ptr, ptrdiff_t i)

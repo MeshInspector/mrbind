@@ -28,14 +28,14 @@ void MR_C_std_tuple_float_double_int_int_AssignFromAnother(MR_C_std_tuple_float_
     );
 }
 
-void MR_C_std_tuple_float_double_int_int_Destroy(MR_C_std_tuple_float_double_int_int *_this)
+void MR_C_std_tuple_float_double_int_int_Destroy(const MR_C_std_tuple_float_double_int_int *_this)
 {
-    delete ((std::tuple<float, double, int, int> *)_this);
+    delete ((const std::tuple<float, double, int, int> *)_this);
 }
 
-void MR_C_std_tuple_float_double_int_int_DestroyArray(MR_C_std_tuple_float_double_int_int *_this)
+void MR_C_std_tuple_float_double_int_int_DestroyArray(const MR_C_std_tuple_float_double_int_int *_this)
 {
-    delete[] ((std::tuple<float, double, int, int> *)_this);
+    delete[] ((const std::tuple<float, double, int, int> *)_this);
 }
 
 const MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_int_OffsetPtr(const MR_C_std_tuple_float_double_int_int *ptr, ptrdiff_t i)

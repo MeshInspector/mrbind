@@ -28,14 +28,14 @@ void MR_C_std_array_int_42_AssignFromAnother(MR_C_std_array_int_42 *_this, const
     );
 }
 
-void MR_C_std_array_int_42_Destroy(MR_C_std_array_int_42 *_this)
+void MR_C_std_array_int_42_Destroy(const MR_C_std_array_int_42 *_this)
 {
-    delete ((std::array<int, 42> *)_this);
+    delete ((const std::array<int, 42> *)_this);
 }
 
-void MR_C_std_array_int_42_DestroyArray(MR_C_std_array_int_42 *_this)
+void MR_C_std_array_int_42_DestroyArray(const MR_C_std_array_int_42 *_this)
 {
-    delete[] ((std::array<int, 42> *)_this);
+    delete[] ((const std::array<int, 42> *)_this);
 }
 
 const MR_C_std_array_int_42 *MR_C_std_array_int_42_OffsetPtr(const MR_C_std_array_int_42 *ptr, ptrdiff_t i)

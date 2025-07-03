@@ -21,10 +21,10 @@ typedef struct MR_C_std_pair_int_rvalue_ref_float_rvalue_ref MR_C_std_pair_int_r
 MR_C_API MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(const MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_pair_int_rvalue_ref_float_rvalue_ref`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy(MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *_this);
+MR_C_API void MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy(const MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_pair_int_rvalue_ref_float_rvalue_ref`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_DestroyArray(MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *_this);
+MR_C_API void MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_DestroyArray(const MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_OffsetPtr(const MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *ptr, ptrdiff_t i);

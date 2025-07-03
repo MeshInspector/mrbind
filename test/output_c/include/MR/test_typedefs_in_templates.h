@@ -45,10 +45,10 @@ MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_ConstructFro
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_AssignFromAnother(MR_TypedefsInTemplates_A_int *_this, const MR_TypedefsInTemplates_A_int *_other);
 
 /// Destroys a heap-allocated instance of `MR_TypedefsInTemplates_A_int`. Does nothing if the pointer is null.
-MR_C_API void MR_TypedefsInTemplates_A_int_Destroy(MR_TypedefsInTemplates_A_int *_this);
+MR_C_API void MR_TypedefsInTemplates_A_int_Destroy(const MR_TypedefsInTemplates_A_int *_this);
 
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_A_int`. Does nothing if the pointer is null.
-MR_C_API void MR_TypedefsInTemplates_A_int_DestroyArray(MR_TypedefsInTemplates_A_int *_this);
+MR_C_API void MR_TypedefsInTemplates_A_int_DestroyArray(const MR_TypedefsInTemplates_A_int *_this);
 
 /// Generated from a method of class `MR::TypedefsInTemplates::A<int>` named `foo`.
 /// Parameter `_this` can not be null.
@@ -84,10 +84,10 @@ MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_ConstructFro
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_AssignFromAnother(MR_TypedefsInTemplates_B_int *_this, const MR_TypedefsInTemplates_B_int *_other);
 
 /// Destroys a heap-allocated instance of `MR_TypedefsInTemplates_B_int`. Does nothing if the pointer is null.
-MR_C_API void MR_TypedefsInTemplates_B_int_Destroy(MR_TypedefsInTemplates_B_int *_this);
+MR_C_API void MR_TypedefsInTemplates_B_int_Destroy(const MR_TypedefsInTemplates_B_int *_this);
 
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_B_int`. Does nothing if the pointer is null.
-MR_C_API void MR_TypedefsInTemplates_B_int_DestroyArray(MR_TypedefsInTemplates_B_int *_this);
+MR_C_API void MR_TypedefsInTemplates_B_int_DestroyArray(const MR_TypedefsInTemplates_B_int *_this);
 
 /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
 typedef struct MR_TypedefsInTemplates_B_int_BB_float MR_TypedefsInTemplates_B_int_BB_float;
@@ -119,10 +119,10 @@ MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(MR_TypedefsInTemplates_B_int_BB_float *_this, const MR_TypedefsInTemplates_B_int_BB_float *_other);
 
 /// Destroys a heap-allocated instance of `MR_TypedefsInTemplates_B_int_BB_float`. Does nothing if the pointer is null.
-MR_C_API void MR_TypedefsInTemplates_B_int_BB_float_Destroy(MR_TypedefsInTemplates_B_int_BB_float *_this);
+MR_C_API void MR_TypedefsInTemplates_B_int_BB_float_Destroy(const MR_TypedefsInTemplates_B_int_BB_float *_this);
 
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_B_int_BB_float`. Does nothing if the pointer is null.
-MR_C_API void MR_TypedefsInTemplates_B_int_BB_float_DestroyArray(MR_TypedefsInTemplates_B_int_BB_float *_this);
+MR_C_API void MR_TypedefsInTemplates_B_int_BB_float_DestroyArray(const MR_TypedefsInTemplates_B_int_BB_float *_this);
 
 /// Generated from a method of class `MR::TypedefsInTemplates::B<int>::BB<float>` named `foo`.
 /// Parameter `_this` can not be null.

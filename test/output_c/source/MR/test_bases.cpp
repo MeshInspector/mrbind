@@ -96,14 +96,14 @@ MR_Bases_A *MR_Bases_A_AssignFromAnother(MR_Bases_A *_this, const MR_Bases_A *_o
     ));
 }
 
-void MR_Bases_A_Destroy(MR_Bases_A *_this)
+void MR_Bases_A_Destroy(const MR_Bases_A *_this)
 {
-    delete ((MR::Bases::A *)_this);
+    delete ((const MR::Bases::A *)_this);
 }
 
-void MR_Bases_A_DestroyArray(MR_Bases_A *_this)
+void MR_Bases_A_DestroyArray(const MR_Bases_A *_this)
 {
-    delete[] ((MR::Bases::A *)_this);
+    delete[] ((const MR::Bases::A *)_this);
 }
 
 MR_Bases_B *MR_Bases_B_DefaultConstruct(void)
@@ -210,14 +210,14 @@ MR_Bases_B *MR_Bases_B_AssignFromAnother(MR_Bases_B *_this, const MR_Bases_B *_o
     ));
 }
 
-void MR_Bases_B_Destroy(MR_Bases_B *_this)
+void MR_Bases_B_Destroy(const MR_Bases_B *_this)
 {
-    delete ((MR::Bases::B *)_this);
+    delete ((const MR::Bases::B *)_this);
 }
 
-void MR_Bases_B_DestroyArray(MR_Bases_B *_this)
+void MR_Bases_B_DestroyArray(const MR_Bases_B *_this)
 {
-    delete[] ((MR::Bases::B *)_this);
+    delete[] ((const MR::Bases::B *)_this);
 }
 
 MR_Bases_B2 *MR_Bases_B2_DefaultConstruct(void)
@@ -282,14 +282,14 @@ MR_Bases_B2 *MR_Bases_B2_AssignFromAnother(MR_Bases_B2 *_this, const MR_Bases_B2
     ));
 }
 
-void MR_Bases_B2_Destroy(MR_Bases_B2 *_this)
+void MR_Bases_B2_Destroy(const MR_Bases_B2 *_this)
 {
-    delete ((MR::Bases::B2 *)_this);
+    delete ((const MR::Bases::B2 *)_this);
 }
 
-void MR_Bases_B2_DestroyArray(MR_Bases_B2 *_this)
+void MR_Bases_B2_DestroyArray(const MR_Bases_B2 *_this)
 {
-    delete[] ((MR::Bases::B2 *)_this);
+    delete[] ((const MR::Bases::B2 *)_this);
 }
 
 MR_Bases_C *MR_Bases_C_DefaultConstruct(void)
@@ -354,14 +354,14 @@ MR_Bases_C *MR_Bases_C_AssignFromAnother(MR_Bases_C *_this, const MR_Bases_C *_o
     ));
 }
 
-void MR_Bases_C_Destroy(MR_Bases_C *_this)
+void MR_Bases_C_Destroy(const MR_Bases_C *_this)
 {
-    delete ((MR::Bases::C *)_this);
+    delete ((const MR::Bases::C *)_this);
 }
 
-void MR_Bases_C_DestroyArray(MR_Bases_C *_this)
+void MR_Bases_C_DestroyArray(const MR_Bases_C *_this)
 {
-    delete[] ((MR::Bases::C *)_this);
+    delete[] ((const MR::Bases::C *)_this);
 }
 
 MR_Bases_D *MR_Bases_D_DefaultConstruct(void)
@@ -426,14 +426,14 @@ MR_Bases_D *MR_Bases_D_AssignFromAnother(MR_Bases_D *_this, const MR_Bases_D *_o
     ));
 }
 
-void MR_Bases_D_Destroy(MR_Bases_D *_this)
+void MR_Bases_D_Destroy(const MR_Bases_D *_this)
 {
-    delete ((MR::Bases::D *)_this);
+    delete ((const MR::Bases::D *)_this);
 }
 
-void MR_Bases_D_DestroyArray(MR_Bases_D *_this)
+void MR_Bases_D_DestroyArray(const MR_Bases_D *_this)
 {
-    delete[] ((MR::Bases::D *)_this);
+    delete[] ((const MR::Bases::D *)_this);
 }
 
 MR_Bases_D2 *MR_Bases_D2_DefaultConstruct(void)
@@ -484,14 +484,14 @@ MR_Bases_D2 *MR_Bases_D2_AssignFromAnother(MR_Bases_D2 *_this, const MR_Bases_D2
     ));
 }
 
-void MR_Bases_D2_Destroy(MR_Bases_D2 *_this)
+void MR_Bases_D2_Destroy(const MR_Bases_D2 *_this)
 {
-    delete ((MR::Bases::D2 *)_this);
+    delete ((const MR::Bases::D2 *)_this);
 }
 
-void MR_Bases_D2_DestroyArray(MR_Bases_D2 *_this)
+void MR_Bases_D2_DestroyArray(const MR_Bases_D2 *_this)
 {
-    delete[] ((MR::Bases::D2 *)_this);
+    delete[] ((const MR::Bases::D2 *)_this);
 }
 
 MR_Bases_D3 *MR_Bases_D3_DefaultConstruct(void)
@@ -542,14 +542,14 @@ MR_Bases_D3 *MR_Bases_D3_AssignFromAnother(MR_Bases_D3 *_this, const MR_Bases_D3
     ));
 }
 
-void MR_Bases_D3_Destroy(MR_Bases_D3 *_this)
+void MR_Bases_D3_Destroy(const MR_Bases_D3 *_this)
 {
-    delete ((MR::Bases::D3 *)_this);
+    delete ((const MR::Bases::D3 *)_this);
 }
 
-void MR_Bases_D3_DestroyArray(MR_Bases_D3 *_this)
+void MR_Bases_D3_DestroyArray(const MR_Bases_D3 *_this)
 {
-    delete[] ((MR::Bases::D3 *)_this);
+    delete[] ((const MR::Bases::D3 *)_this);
 }
 
 MR_Bases_E *MR_Bases_E_DefaultConstruct(void)
@@ -600,14 +600,14 @@ MR_Bases_E *MR_Bases_E_AssignFromAnother(MR_Bases_E *_this, const MR_Bases_E *_o
     ));
 }
 
-void MR_Bases_E_Destroy(MR_Bases_E *_this)
+void MR_Bases_E_Destroy(const MR_Bases_E *_this)
 {
-    delete ((MR::Bases::E *)_this);
+    delete ((const MR::Bases::E *)_this);
 }
 
-void MR_Bases_E_DestroyArray(MR_Bases_E *_this)
+void MR_Bases_E_DestroyArray(const MR_Bases_E *_this)
 {
-    delete[] ((MR::Bases::E *)_this);
+    delete[] ((const MR::Bases::E *)_this);
 }
 
 MR_Bases_F *MR_Bases_F_DefaultConstruct(void)
@@ -658,14 +658,14 @@ MR_Bases_F *MR_Bases_F_AssignFromAnother(MR_Bases_F *_this, const MR_Bases_F *_o
     ));
 }
 
-void MR_Bases_F_Destroy(MR_Bases_F *_this)
+void MR_Bases_F_Destroy(const MR_Bases_F *_this)
 {
-    delete ((MR::Bases::F *)_this);
+    delete ((const MR::Bases::F *)_this);
 }
 
-void MR_Bases_F_DestroyArray(MR_Bases_F *_this)
+void MR_Bases_F_DestroyArray(const MR_Bases_F *_this)
 {
-    delete[] ((MR::Bases::F *)_this);
+    delete[] ((const MR::Bases::F *)_this);
 }
 
 MR_Bases_G *MR_Bases_G_DefaultConstruct(void)
@@ -730,14 +730,14 @@ MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_p
     ));
 }
 
-void MR_Bases_G_Destroy(MR_Bases_G *_this)
+void MR_Bases_G_Destroy(const MR_Bases_G *_this)
 {
-    delete ((MR::Bases::G *)_this);
+    delete ((const MR::Bases::G *)_this);
 }
 
-void MR_Bases_G_DestroyArray(MR_Bases_G *_this)
+void MR_Bases_G_DestroyArray(const MR_Bases_G *_this)
 {
-    delete[] ((MR::Bases::G *)_this);
+    delete[] ((const MR::Bases::G *)_this);
 }
 
 MR_Bases_H *MR_Bases_H_DefaultConstruct(void)
@@ -816,14 +816,14 @@ MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_p
     ));
 }
 
-void MR_Bases_H_Destroy(MR_Bases_H *_this)
+void MR_Bases_H_Destroy(const MR_Bases_H *_this)
 {
-    delete ((MR::Bases::H *)_this);
+    delete ((const MR::Bases::H *)_this);
 }
 
-void MR_Bases_H_DestroyArray(MR_Bases_H *_this)
+void MR_Bases_H_DestroyArray(const MR_Bases_H *_this)
 {
-    delete[] ((MR::Bases::H *)_this);
+    delete[] ((const MR::Bases::H *)_this);
 }
 
 MR_Bases_I *MR_Bases_I_DefaultConstruct(void)
@@ -902,13 +902,13 @@ MR_Bases_I *MR_Bases_I_AssignFromAnother(MR_Bases_I *_this, MR_C_PassBy _other_p
     ));
 }
 
-void MR_Bases_I_Destroy(MR_Bases_I *_this)
+void MR_Bases_I_Destroy(const MR_Bases_I *_this)
 {
-    delete ((MR::Bases::I *)_this);
+    delete ((const MR::Bases::I *)_this);
 }
 
-void MR_Bases_I_DestroyArray(MR_Bases_I *_this)
+void MR_Bases_I_DestroyArray(const MR_Bases_I *_this)
 {
-    delete[] ((MR::Bases::I *)_this);
+    delete[] ((const MR::Bases::I *)_this);
 }
 

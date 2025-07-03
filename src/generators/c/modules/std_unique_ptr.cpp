@@ -33,6 +33,7 @@ namespace mrbind::CBindings::Modules
             const bool is_array_of_unknown_bound = cpp_elem_type.Is<cppdecl::Array>() && cpp_elem_type.As<cppdecl::Array>()->size.IsEmpty();
 
             const cppdecl::Type cpp_elem_type_minus_array = is_array_of_unknown_bound ? cppdecl::Type(cpp_elem_type).RemoveModifier() : cpp_elem_type;
+            const cppdecl::Type cpp_elem_type_minus_array_unqual = cppdecl::Type(cpp_elem_type_minus_array).RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
 
             // The underlying plain pointer type.
@@ -49,15 +50,15 @@ namespace mrbind::CBindings::Modules
             std::string func_name_destroy_released_ptr;
             if (!has_custom_deleter)
             {
-                const bool is_qual_name_only = cpp_elem_type_minus_array.IsOnlyQualifiedName();
+                const bool is_qual_name_only = cpp_elem_type_minus_array_unqual.IsOnlyQualifiedName();
 
                 std::optional<std::string> c_name;
                 if (is_qual_name_only)
                 {
-                    if (auto opt = generator.FindTypeBindableWithSameAddressOpt(cpp_elem_type_minus_array.simple_type.name); opt && opt->declared_in_file)
+                    if (auto opt = generator.FindTypeBindableWithSameAddressOpt(cpp_elem_type_minus_array_unqual.simple_type.name); opt && opt->declared_in_file)
                     {
                         // This shouldn't fail at this point.
-                        c_name = generator.CppTypeNameToCTypeName(cpp_elem_type_minus_array.simple_type.name);
+                        c_name = generator.CppTypeNameToCTypeName(cpp_elem_type_minus_array_unqual.simple_type.name);
 
                         // Might as well force-generate the file for the deleter function.
                         (void)opt->declared_in_file();
@@ -70,8 +71,8 @@ namespace mrbind::CBindings::Modules
 
                     // Make sure it's destructible, because otherwise there will be no deallocation function.
                     // This will also throw if `FindBindableType` doesn't find anything, which is fine, and I don't see how it could possibly happen anyway.
-                    if (!generator.FindBindableType(cpp_elem_type_minus_array).traits.value().is_destructible)
-                        throw std::runtime_error("Type `" + cppdecl::ToCode(cpp_elem_type_minus_array, cppdecl::ToCodeFlags::canonical_c_style) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
+                    if (!generator.FindBindableType(cpp_elem_type_minus_array_unqual).traits.value().is_destructible)
+                        throw std::runtime_error("Type `" + cppdecl::ToCode(cpp_elem_type_minus_array_unqual, cppdecl::ToCodeFlags::canonical_c_style) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
 
                     func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound);
                 }
@@ -80,10 +81,10 @@ namespace mrbind::CBindings::Modules
                     // If this fails, or comes up in some other place too, we probably need to add a specialized function to `cppdecl::Type`.
                     // Might name it `IsScalar()` or something, since all those types seem to be scalars. (Need to decide where to handle `std::nullptr_t`, since it's a scalar type,
                     //   but isn't handled by `IsBuiltInTypeName()`, because it isn't, well, built-in.)
-                    cpp_elem_type_minus_array.Is<cppdecl::Pointer>() ||
+                    cpp_elem_type_minus_array_unqual.Is<cppdecl::Pointer>() ||
                     (
-                        cpp_elem_type_minus_array.IsOnlyQualifiedName() &&
-                        cpp_elem_type_minus_array.simple_type.name.IsBuiltInTypeName(cppdecl::IsBuiltInTypeNameFlags::allow_arithmetic)
+                        cpp_elem_type_minus_array_unqual.IsOnlyQualifiedName() &&
+                        cpp_elem_type_minus_array_unqual.simple_type.name.IsBuiltInTypeName(cppdecl::IsBuiltInTypeNameFlags::allow_arithmetic)
                     )
                 )
                 {
@@ -94,7 +95,7 @@ namespace mrbind::CBindings::Modules
                 }
                 else
                 {
-                    throw std::runtime_error("Not sure what deallocation function to use for this `std::unique_ptr` element type: `" + cppdecl::ToCode(cpp_elem_type_minus_array, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
+                    throw std::runtime_error("Not sure what deallocation function to use for this `std::unique_ptr` element type: `" + cppdecl::ToCode(cpp_elem_type_minus_array_unqual, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
                 }
             }
 

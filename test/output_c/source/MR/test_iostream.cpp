@@ -39,14 +39,14 @@ MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IO
     ));
 }
 
-void MR_IOStream_A_Destroy(MR_IOStream_A *_this)
+void MR_IOStream_A_Destroy(const MR_IOStream_A *_this)
 {
-    delete ((MR::IOStream::A *)_this);
+    delete ((const MR::IOStream::A *)_this);
 }
 
-void MR_IOStream_A_DestroyArray(MR_IOStream_A *_this)
+void MR_IOStream_A_DestroyArray(const MR_IOStream_A *_this)
 {
-    delete[] ((MR::IOStream::A *)_this);
+    delete[] ((const MR::IOStream::A *)_this);
 }
 
 void MR_IOStream_operator_lshift(MR_C_std_ostream *_1, const MR_IOStream_A *_2)

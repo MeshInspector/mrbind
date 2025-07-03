@@ -31,14 +31,14 @@ void MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignFromAnother(MR_C_std_shar
     );
 }
 
-void MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy(MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
+void MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
 {
-    delete ((std::shared_ptr<MR::StdSharedPtr::A[]> *)_this);
+    delete ((const std::shared_ptr<MR::StdSharedPtr::A[]> *)_this);
 }
 
-void MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DestroyArray(MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
+void MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DestroyArray(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
 {
-    delete[] ((std::shared_ptr<MR::StdSharedPtr::A[]> *)_this);
+    delete[] ((const std::shared_ptr<MR::StdSharedPtr::A[]> *)_this);
 }
 
 const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_OffsetPtr(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *ptr, ptrdiff_t i)

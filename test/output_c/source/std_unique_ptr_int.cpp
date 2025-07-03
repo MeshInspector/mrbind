@@ -45,14 +45,14 @@ void MR_C_std_unique_ptr_int_AssignFrom(MR_C_std_unique_ptr_int *_this, int *oth
     );
 }
 
-void MR_C_std_unique_ptr_int_Destroy(MR_C_std_unique_ptr_int *_this)
+void MR_C_std_unique_ptr_int_Destroy(const MR_C_std_unique_ptr_int *_this)
 {
-    delete ((std::unique_ptr<int> *)_this);
+    delete ((const std::unique_ptr<int> *)_this);
 }
 
-void MR_C_std_unique_ptr_int_DestroyArray(MR_C_std_unique_ptr_int *_this)
+void MR_C_std_unique_ptr_int_DestroyArray(const MR_C_std_unique_ptr_int *_this)
 {
-    delete[] ((std::unique_ptr<int> *)_this);
+    delete[] ((const std::unique_ptr<int> *)_this);
 }
 
 const MR_C_std_unique_ptr_int *MR_C_std_unique_ptr_int_OffsetPtr(const MR_C_std_unique_ptr_int *ptr, ptrdiff_t i)

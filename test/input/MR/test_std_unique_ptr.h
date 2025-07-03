@@ -44,6 +44,13 @@ namespace MR::StdUniquePtr
     inline void SetClassArrDef(std::unique_ptr<A[]> = std::make_unique<A[]>(42)) {}
 
 
+    // Try const element types:
+    inline std::unique_ptr<const int> GetConstInt() {return {};}
+    inline std::unique_ptr<const int[]> GetConstIntArr() {return {};}
+    inline std::unique_ptr<const A> GetConstClass() {return {};}
+    inline std::unique_ptr<const A[]> GetConstClassArr() {return {};}
+
+
     // Here `std::unique_ptr<float>` never gets emitted as an actual type (since we don't have non-null default arguments), so its header should not be emitted.
     inline std::unique_ptr<float> GetFloat() {return {};}
     inline void SetFloat(std::unique_ptr<float>) {}

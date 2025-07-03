@@ -45,10 +45,10 @@ MR_C_API MR_C_phmap_parallel_node_hash_map_int_float *MR_C_phmap_parallel_node_h
 MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_AssignFromAnother(MR_C_phmap_parallel_node_hash_map_int_float *_this, MR_C_PassBy other_pass_by, MR_C_phmap_parallel_node_hash_map_int_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_parallel_node_hash_map_int_float`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_Destroy(MR_C_phmap_parallel_node_hash_map_int_float *_this);
+MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_Destroy(const MR_C_phmap_parallel_node_hash_map_int_float *_this);
 
 /// Destroys a heap-allocated array of `MR_C_phmap_parallel_node_hash_map_int_float`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_DestroyArray(MR_C_phmap_parallel_node_hash_map_int_float *_this);
+MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_DestroyArray(const MR_C_phmap_parallel_node_hash_map_int_float *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_phmap_parallel_node_hash_map_int_float *MR_C_phmap_parallel_node_hash_map_int_float_OffsetPtr(const MR_C_phmap_parallel_node_hash_map_int_float *ptr, ptrdiff_t i);
@@ -151,10 +151,10 @@ MR_C_API MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_
 MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_AssignFromAnother(MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this, const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_parallel_node_hash_map_int_float_const_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_Destroy(MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this);
+MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_Destroy(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this);
 
 /// Destroys a heap-allocated array of `MR_C_phmap_parallel_node_hash_map_int_float_const_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_DestroyArray(MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this);
+MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_DestroyArray(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_OffsetPtr(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *ptr, ptrdiff_t i);
@@ -187,10 +187,10 @@ MR_C_API MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parall
 MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_iterator_AssignFromAnother(MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this, const MR_C_phmap_parallel_node_hash_map_int_float_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_parallel_node_hash_map_int_float_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_iterator_Destroy(MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this);
+MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_iterator_Destroy(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this);
 
 /// Destroys a heap-allocated array of `MR_C_phmap_parallel_node_hash_map_int_float_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_iterator_DestroyArray(MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this);
+MR_C_API void MR_C_phmap_parallel_node_hash_map_int_float_iterator_DestroyArray(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_hash_map_int_float_iterator_OffsetPtr(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *ptr, ptrdiff_t i);

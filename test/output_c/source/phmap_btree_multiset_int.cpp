@@ -30,14 +30,14 @@ void MR_C_phmap_btree_multiset_int_AssignFromAnother(MR_C_phmap_btree_multiset_i
     );
 }
 
-void MR_C_phmap_btree_multiset_int_Destroy(MR_C_phmap_btree_multiset_int *_this)
+void MR_C_phmap_btree_multiset_int_Destroy(const MR_C_phmap_btree_multiset_int *_this)
 {
-    delete ((phmap::btree_multiset<int> *)_this);
+    delete ((const phmap::btree_multiset<int> *)_this);
 }
 
-void MR_C_phmap_btree_multiset_int_DestroyArray(MR_C_phmap_btree_multiset_int *_this)
+void MR_C_phmap_btree_multiset_int_DestroyArray(const MR_C_phmap_btree_multiset_int *_this)
 {
-    delete[] ((phmap::btree_multiset<int> *)_this);
+    delete[] ((const phmap::btree_multiset<int> *)_this);
 }
 
 const MR_C_phmap_btree_multiset_int *MR_C_phmap_btree_multiset_int_OffsetPtr(const MR_C_phmap_btree_multiset_int *ptr, ptrdiff_t i)
@@ -130,14 +130,14 @@ void MR_C_phmap_btree_multiset_int_const_iterator_AssignFromAnother(MR_C_phmap_b
     );
 }
 
-void MR_C_phmap_btree_multiset_int_const_iterator_Destroy(MR_C_phmap_btree_multiset_int_const_iterator *_this)
+void MR_C_phmap_btree_multiset_int_const_iterator_Destroy(const MR_C_phmap_btree_multiset_int_const_iterator *_this)
 {
-    delete ((phmap::btree_multiset<int>::const_iterator *)_this);
+    delete ((const phmap::btree_multiset<int>::const_iterator *)_this);
 }
 
-void MR_C_phmap_btree_multiset_int_const_iterator_DestroyArray(MR_C_phmap_btree_multiset_int_const_iterator *_this)
+void MR_C_phmap_btree_multiset_int_const_iterator_DestroyArray(const MR_C_phmap_btree_multiset_int_const_iterator *_this)
 {
-    delete[] ((phmap::btree_multiset<int>::const_iterator *)_this);
+    delete[] ((const phmap::btree_multiset<int>::const_iterator *)_this);
 }
 
 const MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_const_iterator_OffsetPtr(const MR_C_phmap_btree_multiset_int_const_iterator *ptr, ptrdiff_t i)

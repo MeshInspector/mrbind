@@ -13,14 +13,14 @@ MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_i
     ));
 }
 
-void MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_Destroy(MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
+void MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_Destroy(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    delete ((std::pair<const int &&, const float &&> *)_this);
+    delete ((const std::pair<const int &&, const float &&> *)_this);
 }
 
-void MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_DestroyArray(MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
+void MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_DestroyArray(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    delete[] ((std::pair<const int &&, const float &&> *)_this);
+    delete[] ((const std::pair<const int &&, const float &&> *)_this);
 }
 
 const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_OffsetPtr(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *ptr, ptrdiff_t i)

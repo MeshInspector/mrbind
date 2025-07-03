@@ -43,10 +43,10 @@ MR_C_API MR_IOStream_A *MR_IOStream_A_ConstructFromAnother(const MR_IOStream_A *
 MR_C_API MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IOStream_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_IOStream_A`. Does nothing if the pointer is null.
-MR_C_API void MR_IOStream_A_Destroy(MR_IOStream_A *_this);
+MR_C_API void MR_IOStream_A_Destroy(const MR_IOStream_A *_this);
 
 /// Destroys a heap-allocated array of `MR_IOStream_A`. Does nothing if the pointer is null.
-MR_C_API void MR_IOStream_A_DestroyArray(MR_IOStream_A *_this);
+MR_C_API void MR_IOStream_A_DestroyArray(const MR_IOStream_A *_this);
 
 /// Generated from function `MR::IOStream::operator<<`.
 /// Parameter `_1` can not be null.

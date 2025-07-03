@@ -21,14 +21,14 @@ MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_ConstructFromAnothe
     ));
 }
 
-void MR_C_std_pair_const_int_float_Destroy(MR_C_std_pair_const_int_float *_this)
+void MR_C_std_pair_const_int_float_Destroy(const MR_C_std_pair_const_int_float *_this)
 {
-    delete ((std::pair<const int, float> *)_this);
+    delete ((const std::pair<const int, float> *)_this);
 }
 
-void MR_C_std_pair_const_int_float_DestroyArray(MR_C_std_pair_const_int_float *_this)
+void MR_C_std_pair_const_int_float_DestroyArray(const MR_C_std_pair_const_int_float *_this)
 {
-    delete[] ((std::pair<const int, float> *)_this);
+    delete[] ((const std::pair<const int, float> *)_this);
 }
 
 const MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_OffsetPtr(const MR_C_std_pair_const_int_float *ptr, ptrdiff_t i)

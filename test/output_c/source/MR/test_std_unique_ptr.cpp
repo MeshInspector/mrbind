@@ -123,14 +123,14 @@ MR_StdUniquePtr_A *MR_StdUniquePtr_A_ConstructFromAnother(const MR_StdUniquePtr_
     ));
 }
 
-void MR_StdUniquePtr_A_Destroy(MR_StdUniquePtr_A *_this)
+void MR_StdUniquePtr_A_Destroy(const MR_StdUniquePtr_A *_this)
 {
-    delete ((MR::StdUniquePtr::A *)_this);
+    delete ((const MR::StdUniquePtr::A *)_this);
 }
 
-void MR_StdUniquePtr_A_DestroyArray(MR_StdUniquePtr_A *_this)
+void MR_StdUniquePtr_A_DestroyArray(const MR_StdUniquePtr_A *_this)
 {
-    delete[] ((MR::StdUniquePtr::A *)_this);
+    delete[] ((const MR::StdUniquePtr::A *)_this);
 }
 
 MR_StdUniquePtr_A *MR_StdUniquePtr_A_AssignFromAnother(MR_StdUniquePtr_A *_this, const MR_StdUniquePtr_A *_other)
@@ -229,6 +229,26 @@ void MR_StdUniquePtr_SetClassArrDef(MR_StdUniquePtr_A *const *_1)
     ::MR::StdUniquePtr::SetClassArrDef(
         (_1 ? std::unique_ptr<MR::StdUniquePtr::A[]>((MR::StdUniquePtr::A *)*_1) : static_cast<std::unique_ptr<MR::StdUniquePtr::A[]>>(std::make_unique<MR::StdUniquePtr::A[]>(42)))
     );
+}
+
+const int *MR_StdUniquePtr_GetConstInt(void)
+{
+    return (::MR::StdUniquePtr::GetConstInt()).release();
+}
+
+const int *MR_StdUniquePtr_GetConstIntArr(void)
+{
+    return (::MR::StdUniquePtr::GetConstIntArr()).release();
+}
+
+const MR_StdUniquePtr_A *MR_StdUniquePtr_GetConstClass(void)
+{
+    return (const MR_StdUniquePtr_A *)(::MR::StdUniquePtr::GetConstClass()).release();
+}
+
+const MR_StdUniquePtr_A *MR_StdUniquePtr_GetConstClassArr(void)
+{
+    return (const MR_StdUniquePtr_A *)(::MR::StdUniquePtr::GetConstClassArr()).release();
 }
 
 float *MR_StdUniquePtr_GetFloat(void)

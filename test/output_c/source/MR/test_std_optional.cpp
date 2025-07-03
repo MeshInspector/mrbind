@@ -113,14 +113,14 @@ MR_StdOptional_A *MR_StdOptional_A_ConstructFromAnother(const MR_StdOptional_A *
     ));
 }
 
-void MR_StdOptional_A_Destroy(MR_StdOptional_A *_this)
+void MR_StdOptional_A_Destroy(const MR_StdOptional_A *_this)
 {
-    delete ((MR::StdOptional::A *)_this);
+    delete ((const MR::StdOptional::A *)_this);
 }
 
-void MR_StdOptional_A_DestroyArray(MR_StdOptional_A *_this)
+void MR_StdOptional_A_DestroyArray(const MR_StdOptional_A *_this)
 {
-    delete[] ((MR::StdOptional::A *)_this);
+    delete[] ((const MR::StdOptional::A *)_this);
 }
 
 MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *_this, const MR_StdOptional_A *_other)
@@ -209,14 +209,14 @@ MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR
     ));
 }
 
-void MR_StdOptional_B_Destroy(MR_StdOptional_B *_this)
+void MR_StdOptional_B_Destroy(const MR_StdOptional_B *_this)
 {
-    delete ((MR::StdOptional::B *)_this);
+    delete ((const MR::StdOptional::B *)_this);
 }
 
-void MR_StdOptional_B_DestroyArray(MR_StdOptional_B *_this)
+void MR_StdOptional_B_DestroyArray(const MR_StdOptional_B *_this)
 {
-    delete[] ((MR::StdOptional::B *)_this);
+    delete[] ((const MR::StdOptional::B *)_this);
 }
 
 MR_C_std_optional_MR_StdOptional_B *MR_StdOptional_GetClass2(void)

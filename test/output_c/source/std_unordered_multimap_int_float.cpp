@@ -30,14 +30,14 @@ void MR_C_std_unordered_multimap_int_float_AssignFromAnother(MR_C_std_unordered_
     );
 }
 
-void MR_C_std_unordered_multimap_int_float_Destroy(MR_C_std_unordered_multimap_int_float *_this)
+void MR_C_std_unordered_multimap_int_float_Destroy(const MR_C_std_unordered_multimap_int_float *_this)
 {
-    delete ((std::unordered_multimap<int, float> *)_this);
+    delete ((const std::unordered_multimap<int, float> *)_this);
 }
 
-void MR_C_std_unordered_multimap_int_float_DestroyArray(MR_C_std_unordered_multimap_int_float *_this)
+void MR_C_std_unordered_multimap_int_float_DestroyArray(const MR_C_std_unordered_multimap_int_float *_this)
 {
-    delete[] ((std::unordered_multimap<int, float> *)_this);
+    delete[] ((const std::unordered_multimap<int, float> *)_this);
 }
 
 const MR_C_std_unordered_multimap_int_float *MR_C_std_unordered_multimap_int_float_OffsetPtr(const MR_C_std_unordered_multimap_int_float *ptr, ptrdiff_t i)
@@ -150,14 +150,14 @@ void MR_C_std_unordered_multimap_int_float_const_iterator_AssignFromAnother(MR_C
     );
 }
 
-void MR_C_std_unordered_multimap_int_float_const_iterator_Destroy(MR_C_std_unordered_multimap_int_float_const_iterator *_this)
+void MR_C_std_unordered_multimap_int_float_const_iterator_Destroy(const MR_C_std_unordered_multimap_int_float_const_iterator *_this)
 {
-    delete ((std::unordered_multimap<int, float>::const_iterator *)_this);
+    delete ((const std::unordered_multimap<int, float>::const_iterator *)_this);
 }
 
-void MR_C_std_unordered_multimap_int_float_const_iterator_DestroyArray(MR_C_std_unordered_multimap_int_float_const_iterator *_this)
+void MR_C_std_unordered_multimap_int_float_const_iterator_DestroyArray(const MR_C_std_unordered_multimap_int_float_const_iterator *_this)
 {
-    delete[] ((std::unordered_multimap<int, float>::const_iterator *)_this);
+    delete[] ((const std::unordered_multimap<int, float>::const_iterator *)_this);
 }
 
 const MR_C_std_unordered_multimap_int_float_const_iterator *MR_C_std_unordered_multimap_int_float_const_iterator_OffsetPtr(const MR_C_std_unordered_multimap_int_float_const_iterator *ptr, ptrdiff_t i)
@@ -201,14 +201,14 @@ void MR_C_std_unordered_multimap_int_float_iterator_AssignFromAnother(MR_C_std_u
     );
 }
 
-void MR_C_std_unordered_multimap_int_float_iterator_Destroy(MR_C_std_unordered_multimap_int_float_iterator *_this)
+void MR_C_std_unordered_multimap_int_float_iterator_Destroy(const MR_C_std_unordered_multimap_int_float_iterator *_this)
 {
-    delete ((std::unordered_multimap<int, float>::iterator *)_this);
+    delete ((const std::unordered_multimap<int, float>::iterator *)_this);
 }
 
-void MR_C_std_unordered_multimap_int_float_iterator_DestroyArray(MR_C_std_unordered_multimap_int_float_iterator *_this)
+void MR_C_std_unordered_multimap_int_float_iterator_DestroyArray(const MR_C_std_unordered_multimap_int_float_iterator *_this)
 {
-    delete[] ((std::unordered_multimap<int, float>::iterator *)_this);
+    delete[] ((const std::unordered_multimap<int, float>::iterator *)_this);
 }
 
 const MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_float_iterator_OffsetPtr(const MR_C_std_unordered_multimap_int_float_iterator *ptr, ptrdiff_t i)

@@ -102,10 +102,10 @@ MR_C_API MR_Bases_A *MR_Bases_A_ConstructFromAnother(const MR_Bases_A *_other);
 MR_C_API MR_Bases_A *MR_Bases_A_AssignFromAnother(MR_Bases_A *_this, const MR_Bases_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_A`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_A_Destroy(MR_Bases_A *_this);
+MR_C_API void MR_Bases_A_Destroy(const MR_Bases_A *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_A`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_A_DestroyArray(MR_Bases_A *_this);
+MR_C_API void MR_Bases_A_DestroyArray(const MR_Bases_A *_this);
 
 /// Generated from class `MR::Bases::B`.
 /// Inherits from:
@@ -189,10 +189,10 @@ MR_C_API MR_Bases_B *MR_Bases_B_ConstructFromAnother(const MR_Bases_B *_other);
 MR_C_API MR_Bases_B *MR_Bases_B_AssignFromAnother(MR_Bases_B *_this, const MR_Bases_B *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_B`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_B_Destroy(MR_Bases_B *_this);
+MR_C_API void MR_Bases_B_Destroy(const MR_Bases_B *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_B`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_B_DestroyArray(MR_Bases_B *_this);
+MR_C_API void MR_Bases_B_DestroyArray(const MR_Bases_B *_this);
 
 /// Generated from class `MR::Bases::B2`.
 /// Inherits from:
@@ -243,10 +243,10 @@ MR_C_API MR_Bases_B2 *MR_Bases_B2_ConstructFromAnother(const MR_Bases_B2 *_other
 MR_C_API MR_Bases_B2 *MR_Bases_B2_AssignFromAnother(MR_Bases_B2 *_this, const MR_Bases_B2 *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_B2`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_B2_Destroy(MR_Bases_B2 *_this);
+MR_C_API void MR_Bases_B2_Destroy(const MR_Bases_B2 *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_B2`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_B2_DestroyArray(MR_Bases_B2 *_this);
+MR_C_API void MR_Bases_B2_DestroyArray(const MR_Bases_B2 *_this);
 
 /// Generated from class `MR::Bases::C`.
 /// Inherits from:
@@ -300,10 +300,10 @@ MR_C_API MR_Bases_C *MR_Bases_C_ConstructFromAnother(const MR_Bases_C *_other);
 MR_C_API MR_Bases_C *MR_Bases_C_AssignFromAnother(MR_Bases_C *_this, const MR_Bases_C *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_C`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_C_Destroy(MR_Bases_C *_this);
+MR_C_API void MR_Bases_C_Destroy(const MR_Bases_C *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_C`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_C_DestroyArray(MR_Bases_C *_this);
+MR_C_API void MR_Bases_C_DestroyArray(const MR_Bases_C *_this);
 
 /// Generated from class `MR::Bases::D`.
 /// Inherits from:
@@ -355,10 +355,10 @@ MR_C_API MR_Bases_D *MR_Bases_D_ConstructFromAnother(const MR_Bases_D *_other);
 MR_C_API MR_Bases_D *MR_Bases_D_AssignFromAnother(MR_Bases_D *_this, const MR_Bases_D *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_D`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_D_Destroy(MR_Bases_D *_this);
+MR_C_API void MR_Bases_D_Destroy(const MR_Bases_D *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_D`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_D_DestroyArray(MR_Bases_D *_this);
+MR_C_API void MR_Bases_D_DestroyArray(const MR_Bases_D *_this);
 
 /// Generated from class `MR::Bases::D2`.
 /// Inherits from:
@@ -402,10 +402,10 @@ MR_C_API MR_Bases_D2 *MR_Bases_D2_ConstructFromAnother(const MR_Bases_D2 *_other
 MR_C_API MR_Bases_D2 *MR_Bases_D2_AssignFromAnother(MR_Bases_D2 *_this, const MR_Bases_D2 *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_D2`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_D2_Destroy(MR_Bases_D2 *_this);
+MR_C_API void MR_Bases_D2_Destroy(const MR_Bases_D2 *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_D2`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_D2_DestroyArray(MR_Bases_D2 *_this);
+MR_C_API void MR_Bases_D2_DestroyArray(const MR_Bases_D2 *_this);
 
 /// Generated from class `MR::Bases::D3`.
 /// Inherits from:
@@ -449,10 +449,10 @@ MR_C_API MR_Bases_D3 *MR_Bases_D3_ConstructFromAnother(const MR_Bases_D3 *_other
 MR_C_API MR_Bases_D3 *MR_Bases_D3_AssignFromAnother(MR_Bases_D3 *_this, const MR_Bases_D3 *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_D3`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_D3_Destroy(MR_Bases_D3 *_this);
+MR_C_API void MR_Bases_D3_Destroy(const MR_Bases_D3 *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_D3`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_D3_DestroyArray(MR_Bases_D3 *_this);
+MR_C_API void MR_Bases_D3_DestroyArray(const MR_Bases_D3 *_this);
 
 /// Generated from class `MR::Bases::E`.
 /// Classes derived from this:
@@ -500,10 +500,10 @@ MR_C_API MR_Bases_E *MR_Bases_E_ConstructFromAnother(const MR_Bases_E *_other);
 MR_C_API MR_Bases_E *MR_Bases_E_AssignFromAnother(MR_Bases_E *_this, const MR_Bases_E *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_E`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_E_Destroy(MR_Bases_E *_this);
+MR_C_API void MR_Bases_E_Destroy(const MR_Bases_E *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_E`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_E_DestroyArray(MR_Bases_E *_this);
+MR_C_API void MR_Bases_E_DestroyArray(const MR_Bases_E *_this);
 
 /// Generated from class `MR::Bases::F`.
 /// Inherits from:
@@ -550,10 +550,10 @@ MR_C_API MR_Bases_F *MR_Bases_F_ConstructFromAnother(const MR_Bases_F *_other);
 MR_C_API MR_Bases_F *MR_Bases_F_AssignFromAnother(MR_Bases_F *_this, const MR_Bases_F *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_F`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_F_Destroy(MR_Bases_F *_this);
+MR_C_API void MR_Bases_F_Destroy(const MR_Bases_F *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_F`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_F_DestroyArray(MR_Bases_F *_this);
+MR_C_API void MR_Bases_F_DestroyArray(const MR_Bases_F *_this);
 
 /// Generated from class `MR::Bases::G`.
 /// Inherits from:
@@ -601,10 +601,10 @@ MR_C_API MR_Bases_G *MR_Bases_G_ConstructFromAnother(MR_C_PassBy _other_pass_by,
 MR_C_API MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_pass_by, MR_Bases_G *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_G`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_G_Destroy(MR_Bases_G *_this);
+MR_C_API void MR_Bases_G_Destroy(const MR_Bases_G *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_G`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_G_DestroyArray(MR_Bases_G *_this);
+MR_C_API void MR_Bases_G_DestroyArray(const MR_Bases_G *_this);
 
 /// Generated from class `MR::Bases::H`.
 /// Inherits from:
@@ -661,10 +661,10 @@ MR_C_API MR_Bases_H *MR_Bases_H_ConstructFromAnother(MR_C_PassBy _other_pass_by,
 MR_C_API MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_pass_by, MR_Bases_H *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_H`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_H_Destroy(MR_Bases_H *_this);
+MR_C_API void MR_Bases_H_Destroy(const MR_Bases_H *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_H`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_H_DestroyArray(MR_Bases_H *_this);
+MR_C_API void MR_Bases_H_DestroyArray(const MR_Bases_H *_this);
 
 /// Generated from class `MR::Bases::I`.
 /// Inherits from:
@@ -720,10 +720,10 @@ MR_C_API MR_Bases_I *MR_Bases_I_ConstructFromAnother(MR_C_PassBy _other_pass_by,
 MR_C_API MR_Bases_I *MR_Bases_I_AssignFromAnother(MR_Bases_I *_this, MR_C_PassBy _other_pass_by, MR_Bases_I *_other);
 
 /// Destroys a heap-allocated instance of `MR_Bases_I`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_I_Destroy(MR_Bases_I *_this);
+MR_C_API void MR_Bases_I_Destroy(const MR_Bases_I *_this);
 
 /// Destroys a heap-allocated array of `MR_Bases_I`. Does nothing if the pointer is null.
-MR_C_API void MR_Bases_I_DestroyArray(MR_Bases_I *_this);
+MR_C_API void MR_Bases_I_DestroyArray(const MR_Bases_I *_this);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -45,10 +45,10 @@ MR_C_API void MR_C_std_filesystem_path_AssignFromAnother(MR_C_std_filesystem_pat
 MR_C_API void MR_C_std_filesystem_path_AssignFrom(MR_C_std_filesystem_path *_this, const char *other, const char *other_end);
 
 /// Destroys a heap-allocated instance of `MR_C_std_filesystem_path`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_filesystem_path_Destroy(MR_C_std_filesystem_path *_this);
+MR_C_API void MR_C_std_filesystem_path_Destroy(const MR_C_std_filesystem_path *_this);
 
 /// Destroys a heap-allocated array of `MR_C_std_filesystem_path`. Does nothing if the pointer is null.
-MR_C_API void MR_C_std_filesystem_path_DestroyArray(MR_C_std_filesystem_path *_this);
+MR_C_API void MR_C_std_filesystem_path_DestroyArray(const MR_C_std_filesystem_path *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_C_std_filesystem_path *MR_C_std_filesystem_path_OffsetPtr(const MR_C_std_filesystem_path *ptr, ptrdiff_t i);

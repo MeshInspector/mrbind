@@ -4,14 +4,14 @@
 #include <tuple>
 
 
-void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_Destroy(MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this)
+void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_Destroy(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this)
 {
-    delete ((std::tuple<const int, const float, int &, float &> *)_this);
+    delete ((const std::tuple<const int, const float, int &, float &> *)_this);
 }
 
-void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_DestroyArray(MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this)
+void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_DestroyArray(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *_this)
 {
-    delete[] ((std::tuple<const int, const float, int &, float &> *)_this);
+    delete[] ((const std::tuple<const int, const float, int &, float &> *)_this);
 }
 
 const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_OffsetPtr(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref *ptr, ptrdiff_t i)

@@ -30,14 +30,14 @@ void MR_C_phmap_parallel_node_hash_set_int_AssignFromAnother(MR_C_phmap_parallel
     );
 }
 
-void MR_C_phmap_parallel_node_hash_set_int_Destroy(MR_C_phmap_parallel_node_hash_set_int *_this)
+void MR_C_phmap_parallel_node_hash_set_int_Destroy(const MR_C_phmap_parallel_node_hash_set_int *_this)
 {
-    delete ((phmap::parallel_node_hash_set<int> *)_this);
+    delete ((const phmap::parallel_node_hash_set<int> *)_this);
 }
 
-void MR_C_phmap_parallel_node_hash_set_int_DestroyArray(MR_C_phmap_parallel_node_hash_set_int *_this)
+void MR_C_phmap_parallel_node_hash_set_int_DestroyArray(const MR_C_phmap_parallel_node_hash_set_int *_this)
 {
-    delete[] ((phmap::parallel_node_hash_set<int> *)_this);
+    delete[] ((const phmap::parallel_node_hash_set<int> *)_this);
 }
 
 const MR_C_phmap_parallel_node_hash_set_int *MR_C_phmap_parallel_node_hash_set_int_OffsetPtr(const MR_C_phmap_parallel_node_hash_set_int *ptr, ptrdiff_t i)
@@ -130,14 +130,14 @@ void MR_C_phmap_parallel_node_hash_set_int_const_iterator_AssignFromAnother(MR_C
     );
 }
 
-void MR_C_phmap_parallel_node_hash_set_int_const_iterator_Destroy(MR_C_phmap_parallel_node_hash_set_int_const_iterator *_this)
+void MR_C_phmap_parallel_node_hash_set_int_const_iterator_Destroy(const MR_C_phmap_parallel_node_hash_set_int_const_iterator *_this)
 {
-    delete ((phmap::parallel_node_hash_set<int>::const_iterator *)_this);
+    delete ((const phmap::parallel_node_hash_set<int>::const_iterator *)_this);
 }
 
-void MR_C_phmap_parallel_node_hash_set_int_const_iterator_DestroyArray(MR_C_phmap_parallel_node_hash_set_int_const_iterator *_this)
+void MR_C_phmap_parallel_node_hash_set_int_const_iterator_DestroyArray(const MR_C_phmap_parallel_node_hash_set_int_const_iterator *_this)
 {
-    delete[] ((phmap::parallel_node_hash_set<int>::const_iterator *)_this);
+    delete[] ((const phmap::parallel_node_hash_set<int>::const_iterator *)_this);
 }
 
 const MR_C_phmap_parallel_node_hash_set_int_const_iterator *MR_C_phmap_parallel_node_hash_set_int_const_iterator_OffsetPtr(const MR_C_phmap_parallel_node_hash_set_int_const_iterator *ptr, ptrdiff_t i)

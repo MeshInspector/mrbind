@@ -30,14 +30,14 @@ void MR_C_phmap_flat_hash_set_int_AssignFromAnother(MR_C_phmap_flat_hash_set_int
     );
 }
 
-void MR_C_phmap_flat_hash_set_int_Destroy(MR_C_phmap_flat_hash_set_int *_this)
+void MR_C_phmap_flat_hash_set_int_Destroy(const MR_C_phmap_flat_hash_set_int *_this)
 {
-    delete ((phmap::flat_hash_set<int> *)_this);
+    delete ((const phmap::flat_hash_set<int> *)_this);
 }
 
-void MR_C_phmap_flat_hash_set_int_DestroyArray(MR_C_phmap_flat_hash_set_int *_this)
+void MR_C_phmap_flat_hash_set_int_DestroyArray(const MR_C_phmap_flat_hash_set_int *_this)
 {
-    delete[] ((phmap::flat_hash_set<int> *)_this);
+    delete[] ((const phmap::flat_hash_set<int> *)_this);
 }
 
 const MR_C_phmap_flat_hash_set_int *MR_C_phmap_flat_hash_set_int_OffsetPtr(const MR_C_phmap_flat_hash_set_int *ptr, ptrdiff_t i)
@@ -130,14 +130,14 @@ void MR_C_phmap_flat_hash_set_int_const_iterator_AssignFromAnother(MR_C_phmap_fl
     );
 }
 
-void MR_C_phmap_flat_hash_set_int_const_iterator_Destroy(MR_C_phmap_flat_hash_set_int_const_iterator *_this)
+void MR_C_phmap_flat_hash_set_int_const_iterator_Destroy(const MR_C_phmap_flat_hash_set_int_const_iterator *_this)
 {
-    delete ((phmap::flat_hash_set<int>::const_iterator *)_this);
+    delete ((const phmap::flat_hash_set<int>::const_iterator *)_this);
 }
 
-void MR_C_phmap_flat_hash_set_int_const_iterator_DestroyArray(MR_C_phmap_flat_hash_set_int_const_iterator *_this)
+void MR_C_phmap_flat_hash_set_int_const_iterator_DestroyArray(const MR_C_phmap_flat_hash_set_int_const_iterator *_this)
 {
-    delete[] ((phmap::flat_hash_set<int>::const_iterator *)_this);
+    delete[] ((const phmap::flat_hash_set<int>::const_iterator *)_this);
 }
 
 const MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_int_const_iterator_OffsetPtr(const MR_C_phmap_flat_hash_set_int_const_iterator *ptr, ptrdiff_t i)

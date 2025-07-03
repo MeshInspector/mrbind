@@ -30,14 +30,14 @@ void MR_C_std_set_float_AssignFromAnother(MR_C_std_set_float *_this, MR_C_PassBy
     );
 }
 
-void MR_C_std_set_float_Destroy(MR_C_std_set_float *_this)
+void MR_C_std_set_float_Destroy(const MR_C_std_set_float *_this)
 {
-    delete ((std::set<float> *)_this);
+    delete ((const std::set<float> *)_this);
 }
 
-void MR_C_std_set_float_DestroyArray(MR_C_std_set_float *_this)
+void MR_C_std_set_float_DestroyArray(const MR_C_std_set_float *_this)
 {
-    delete[] ((std::set<float> *)_this);
+    delete[] ((const std::set<float> *)_this);
 }
 
 const MR_C_std_set_float *MR_C_std_set_float_OffsetPtr(const MR_C_std_set_float *ptr, ptrdiff_t i)
@@ -130,14 +130,14 @@ void MR_C_std_set_float_const_iterator_AssignFromAnother(MR_C_std_set_float_cons
     );
 }
 
-void MR_C_std_set_float_const_iterator_Destroy(MR_C_std_set_float_const_iterator *_this)
+void MR_C_std_set_float_const_iterator_Destroy(const MR_C_std_set_float_const_iterator *_this)
 {
-    delete ((std::set<float>::const_iterator *)_this);
+    delete ((const std::set<float>::const_iterator *)_this);
 }
 
-void MR_C_std_set_float_const_iterator_DestroyArray(MR_C_std_set_float_const_iterator *_this)
+void MR_C_std_set_float_const_iterator_DestroyArray(const MR_C_std_set_float_const_iterator *_this)
 {
-    delete[] ((std::set<float>::const_iterator *)_this);
+    delete[] ((const std::set<float>::const_iterator *)_this);
 }
 
 const MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_OffsetPtr(const MR_C_std_set_float_const_iterator *ptr, ptrdiff_t i)
