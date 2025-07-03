@@ -173,6 +173,10 @@ namespace mrbind
         StringFilter blacklisted_entities;
         StringFilter whitelisted_entities;
 
+        // We reject functions if any of their return or parameter types match this.
+        // We also reject class members if they have this type.
+        StringFilter blacklisted_mentioned_types;
+
         // Don't list those base classes.
         StringFilter skipped_bases;
 
@@ -302,6 +306,74 @@ namespace mrbind
         return false;
     }
 
+
+    [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, const VisitorParams &params, const clang::PrintingPolicy &printing_policy, bool strip_cvref_if_cppdecl_is_enabled)
+    {
+        std::string ret = type.getCanonicalType().getAsString(printing_policy);
+
+        if (params.enable_cppdecl_processing)
+        {
+            cppdecl::Type type = ParseTypeWithCppdecl(ret);
+            if (strip_cvref_if_cppdecl_is_enabled)
+            {
+                if (type.Is<cppdecl::Reference>())
+                    type.RemoveModifier();
+                type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+            }
+            cppdecl::Simplify(cppdecl::SimplifyFlags::native, type, cppdecl::FullSimplifyTraits{});
+            ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
+        }
+
+        return ret;
+    }
+
+    // This roundtrips the type name through cppdecl.
+    // We need this because we'll end up adjusting SOME of them anyway (e.g. to fix the stuff in `test_typedefs_in_templates.h`), and we want the consistent style everywhere, e.g. to avoid redundant type registration.
+    // Note that `GetCanonicalTypeName()` does this automatically.
+    [[nodiscard]] std::string RoundtripTypeNameThroughCppdecl(std::string name, const VisitorParams &params)
+    {
+        if (params.enable_cppdecl_processing)
+            return cppdecl::ToCode(ParseTypeWithCppdecl(name), {}); // No canonicalization here.
+        else
+            return name;
+    }
+    // Same, but for qualified names.
+    [[nodiscard]] std::string RoundtripQualifiedNameThroughCppdecl(std::string name, const VisitorParams &params)
+    {
+        if (params.enable_cppdecl_processing)
+            return cppdecl::ToCode(ParseQualifiedNameWithCppdecl(name), {}); // No canonicalization here.
+        else
+            return name;
+    }
+
+    [[nodiscard]] Type GetTypeStringsWithoutRegistration(const clang::QualType &type, const VisitorParams &params, const PrintingPolicies &printing_policies)
+    {
+        Type ret;
+
+        // Here the roundtrip is handled by `GetCanonicalTypeName`.
+        ret.canonical = GetCanonicalTypeName(type, params, printing_policies.normal, false);
+
+        ret.pretty = type.getAsString(printing_policies.normal);
+        // If the type is spelled with `decltype`, force replace it with the canonical.
+        // This is needed if we e.g. `decltype` the function parameters.
+        if (ret.pretty.find("decltype(") != std::string::npos)
+        {
+            ret.pretty = ret.canonical;
+        }
+        else
+        {
+            // Only roundtrip if we DIDN't replace the type with the canonical.
+            // Because at the moment `cppdecl` chokes on `decltype(...)`, and as an optimization too.
+
+            ret.pretty = RoundtripTypeNameThroughCppdecl(std::move(ret.pretty), params);
+            if (params.enable_cppdecl_processing)
+                ret.pretty = cppdecl::ToCode(ParseTypeWithCppdecl(ret.pretty), {}); // No canonicalization flags here.
+        }
+
+        return ret;
+    }
+
+
     enum class ShouldRejectFlags
     {
         // Normally we don't allow templates (only their specific instantiations).
@@ -315,7 +387,7 @@ namespace mrbind
     // `params` is optional.
     // NOTE: If `out_ignore` is specified, will write true to it INSTEAD of the rejecting the declaration ONLY IF the rejection is caused
     //   by a blacklisted name or the `mrbind::ignore` attribute.
-    [[nodiscard]] bool ShouldRejectDeclaration(const clang::NamedDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {}, bool *out_ignore = nullptr)
+    [[nodiscard]] bool ShouldRejectDeclaration(const clang::NamedDecl &decl, const clang::ASTContext &ctx, const VisitorParams &params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {}, bool *out_ignore = nullptr)
     {
         (void)ctx;
 
@@ -364,7 +436,7 @@ namespace mrbind
         }
 
         // Check if we're inside a blacklisted class.
-        if (!params->nonrejected_class_stack.empty() && !params->nonrejected_class_stack.back())
+        if (!params.nonrejected_class_stack.empty() && !params.nonrejected_class_stack.back())
             return true;
 
         // Check the name (if not templated).
@@ -397,10 +469,10 @@ namespace mrbind
         //     return true; // Reject declarations in the headers.
 
         // Check against the name blacklist.
-        if (params && !is_templated)
+        if (!is_templated)
         {
             // Check the name both with and without template arguments.
-            if (params->blacklisted_entities.Contains(name_without_template_args) || params->blacklisted_entities.Contains(name))
+            if (params.blacklisted_entities.Contains(name_without_template_args) || params.blacklisted_entities.Contains(name))
             {
                 // This entity is blacklisted.
                 if (out_ignore)
@@ -409,7 +481,7 @@ namespace mrbind
                     return true;
             }
 
-            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back() && !params->whitelisted_entities.Contains(name_without_template_args) && !params->whitelisted_entities.Contains(name))
+            if (!params.rejected_namespace_stack.empty() && params.rejected_namespace_stack.back() && !params.whitelisted_entities.Contains(name_without_template_args) && !params.whitelisted_entities.Contains(name))
             {
                 // This entity is blacklisted because its enclosing entity is blacklisted, and it itself is not whitelisted.
                 if (out_ignore)
@@ -420,7 +492,7 @@ namespace mrbind
         }
         else
         {
-            if (!params->rejected_namespace_stack.empty() && params->rejected_namespace_stack.back())
+            if (!params.rejected_namespace_stack.empty() && params.rejected_namespace_stack.back())
             {
                 // This entity is blacklisted because its enclosing entity is blacklisted.
                 // We don't know the name of this entity here, so we can't check the whitelist.
@@ -845,8 +917,14 @@ namespace mrbind
         }
     }
 
+    // Whether we should reject functions with this type in the signature, or class members of this type.
+    [[nodiscard]] bool ShouldRejectMentionsOfType(const clang::QualType &type, const VisitorParams &params, const PrintingPolicies &printing_policies)
+    {
+        return params.blacklisted_mentioned_types.Contains(GetCanonicalTypeName(type, params, printing_policies.normal, true));
+    }
+
     // Passing non-const decl here because `Sema::CheckInstantiatedFunctionTemplateConstraints()` needs that.
-    bool ShouldRejectFunction(clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams *params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {})
+    [[nodiscard]] bool ShouldRejectFunction(clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams &params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {})
     {
         if (decl.getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
             return true; // Reject user-defined literals.
@@ -910,10 +988,25 @@ namespace mrbind
             }
         }
 
+        // Check the return and parameter types. This should be last, because this is relatively expensive.
+        if (!is_templated)
+        {
+            // Check return type, except in ctors, which don't have one.
+            if (!llvm::isa<clang::CXXConstructorDecl>(decl) && ShouldRejectMentionsOfType(decl.getReturnType(), params, printing_policies))
+                return true;
+
+            // Check parameters.
+            for (const clang::ParmVarDecl *p : decl.parameters())
+            {
+                if (ShouldRejectMentionsOfType(p->getType(), params, printing_policies))
+                    return true;
+            }
+        }
+
         return false;
     }
 
-    bool ShouldRejectRecord(const clang::RecordDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies)
+    bool ShouldRejectRecord(const clang::RecordDecl &decl, const clang::ASTContext &ctx, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
         if (ShouldRejectDeclaration(decl, ctx, params, printing_policies))
             return true;
@@ -927,7 +1020,7 @@ namespace mrbind
         return false;
     }
 
-    bool ShouldRejectEnum(const clang::EnumDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies)
+    bool ShouldRejectEnum(const clang::EnumDecl &decl, const clang::ASTContext &ctx, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
         if (ShouldRejectDeclaration(decl, ctx, params, printing_policies))
             return true;
@@ -938,7 +1031,7 @@ namespace mrbind
         return false;
     }
 
-    bool ShouldRejectTypedef(const clang::TypedefNameDecl &decl, const clang::ASTContext &ctx, const VisitorParams *params, const PrintingPolicies &printing_policies, bool *should_poison)
+    bool ShouldRejectTypedef(const clang::TypedefNameDecl &decl, const clang::ASTContext &ctx, const VisitorParams &params, const PrintingPolicies &printing_policies, bool *should_poison)
     {
         if (ShouldRejectDeclaration(decl, ctx, params, printing_policies, {}, should_poison))
             return true;
@@ -952,7 +1045,7 @@ namespace mrbind
         return false;
     }
 
-    bool ShouldRejectRecordField(const clang::FieldDecl &decl)
+    bool ShouldRejectRecordField(const clang::FieldDecl &decl, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
         // We don't check `ShouldRejectDeclaration()` here. Should we? I doubt there's anything useful there...
 
@@ -965,10 +1058,14 @@ namespace mrbind
         if (HasIgnoreAttribute(decl))
             return true; // Reject disabled fields.
 
+        // Check if the type is blacklisted. This should be last because it can be expensive.
+        if (ShouldRejectMentionsOfType(decl.getType(), params, printing_policies))
+            return true;
+
         return false;
     }
 
-    bool ShouldRejectRecordStaticDataMember(const clang::VarDecl &decl)
+    bool ShouldRejectRecordStaticDataMember(const clang::VarDecl &decl, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
         // We don't check `ShouldRejectDeclaration()` here. Should we? I doubt there's anything useful there...
 
@@ -977,6 +1074,10 @@ namespace mrbind
 
         if (HasIgnoreAttribute(decl))
             return true; // Reject disabled fields.
+
+        // Check if the type is blacklisted. This should be last because it can be expensive.
+        if (ShouldRejectMentionsOfType(decl.getType(), params, printing_policies))
+            return true;
 
         return false;
     }
@@ -995,37 +1096,10 @@ namespace mrbind
 
         std::unordered_map<std::string, std::string> types_to_preferred_names;
 
-        // This roundtrips the type name through cppdecl.
-        // We need this because we'll end up adjusting SOME of them anyway (e.g. to fix the stuff in `test_typedefs_in_templates.h`), and we want the consistent style everywhere, e.g. to avoid redundant type registration.
-        // Note that `GetCanonicalTypeName()` does this automatically.
-        [[nodiscard]] std::string RoundtripTypeNameThroughCppdecl(std::string name)
-        {
-            if (params->enable_cppdecl_processing)
-                return cppdecl::ToCode(ParseTypeWithCppdecl(name), {}); // No canonicalization here.
-            else
-                return name;
-        }
-        // Same, but for qualified names.
-        [[nodiscard]] std::string RoundtripQualifiedNameThroughCppdecl(std::string name)
-        {
-            if (params->enable_cppdecl_processing)
-                return cppdecl::ToCode(ParseQualifiedNameWithCppdecl(name), {}); // No canonicalization here.
-            else
-                return name;
-        }
-
+        // Wrap the non-member function for a nicer call syntax.
         [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, clang::PrintingPolicy PrintingPolicies::* policy = &PrintingPolicies::normal)
         {
-            std::string ret = type.getCanonicalType().getAsString(printing_policies.*policy);
-
-            if (params->enable_cppdecl_processing)
-            {
-                cppdecl::Type type = ParseTypeWithCppdecl(ret);
-                cppdecl::Simplify(cppdecl::SimplifyFlags::native, type, cppdecl::FullSimplifyTraits{});
-                ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
-            }
-
-            return ret;
+            return mrbind::GetCanonicalTypeName(type, *params, printing_policies.*policy, false);
         }
 
         // If `reason` is zero, the function does nothing.
@@ -1057,30 +1131,8 @@ namespace mrbind
         // If `reason` zero, doesn't register anything.
         [[nodiscard]] Type GetTypeStrings(const clang::QualType &type, TypeUses reason)
         {
-            Type ret;
-
-            // Here the roundtrip is handled by `GetCanonicalTypeName`.
-            ret.canonical = GetCanonicalTypeName(type);
-
-            ret.pretty = type.getAsString(printing_policies.normal);
-            // If the type is spelled with `decltype`, force replace it with the canonical.
-            // This is needed if we e.g. `decltype` the function parameters.
-            if (ret.pretty.find("decltype(") != std::string::npos)
-            {
-                ret.pretty = ret.canonical;
-            }
-            else
-            {
-                // Only roundtrip if we DIDN't replace the type with the canonical.
-                // Because at the moment `cppdecl` chokes on `decltype(...)`, and as an optimization too.
-
-                ret.pretty = RoundtripTypeNameThroughCppdecl(std::move(ret.pretty));
-                if (params->enable_cppdecl_processing)
-                    ret.pretty = cppdecl::ToCode(ParseTypeWithCppdecl(ret.pretty), {}); // No canonicalization flags here.
-            }
-
+            Type ret = GetTypeStringsWithoutRegistration(type, *params, printing_policies);
             RegisterTypeSpelling(type, ret.pretty, reason);
-
             return ret;
         }
 
@@ -1141,7 +1193,7 @@ namespace mrbind
 
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
-            if (ShouldRejectFunction(*decl, *ctx, *ci, params, printing_policies))
+            if (ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies))
                 return true;
 
             // Custom handling for class methods.
@@ -1218,7 +1270,7 @@ namespace mrbind
                             llvm::raw_string_ostream ss(new_method.full_name);
                             clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, method->getTemplateSpecializationInfo()->getTemplate()->getTemplateParameters());
 
-                            new_method.full_name = RoundtripQualifiedNameThroughCppdecl(std::move(new_method.full_name));
+                            new_method.full_name = RoundtripQualifiedNameThroughCppdecl(std::move(new_method.full_name), *params);
                         }
 
                         new_method.is_static = method->isStatic();
@@ -1263,12 +1315,12 @@ namespace mrbind
             { // Full name.
                 llvm::raw_string_ostream qual_name_ss(new_func.full_qual_name);
                 decl->printQualifiedName(qual_name_ss, printing_policies.normal);
-                new_func.qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name); // Make a copy before adding template arguments.
+                new_func.qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name, *params); // Make a copy before adding template arguments.
                 // Add template arguments, if any.
                 if (auto template_args = decl->getTemplateSpecializationArgs())
                 {
                     clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policies.normal, decl->getPrimaryTemplate()->getTemplateParameters());
-                    new_func.full_qual_name = RoundtripQualifiedNameThroughCppdecl(std::move(new_func.full_qual_name));
+                    new_func.full_qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name, *params);
                 }
             }
 
@@ -1285,7 +1337,7 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
-            if (ShouldRejectRecord(*decl, *ctx, params, printing_policies))
+            if (ShouldRejectRecord(*decl, *ctx, *params, printing_policies))
             {
                 params->nonrejected_class_stack.push_back(nullptr);
                 return false;
@@ -1357,7 +1409,7 @@ namespace mrbind
                 clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
                 for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
                 {
-                    if (ShouldRejectRecordStaticDataMember(*var))
+                    if (ShouldRejectRecordStaticDataMember(*var, *params, printing_policies))
                         continue;
 
                     std::string full_name(var->getName());
@@ -1370,7 +1422,7 @@ namespace mrbind
                         if (!NameSpellingIsLegal(full_name))
                             continue; // Has unspellable template arguments.
 
-                        full_name = RoundtripQualifiedNameThroughCppdecl(std::move(full_name));
+                        full_name = RoundtripQualifiedNameThroughCppdecl(std::move(full_name), *params);
                     }
 
                     ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
@@ -1385,7 +1437,7 @@ namespace mrbind
             // -- Non-static data members.
             for (const clang::FieldDecl *field : decl->fields())
             {
-                if (ShouldRejectRecordField(*field))
+                if (ShouldRejectRecordField(*field, *params, printing_policies))
                     continue;
 
                 ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
@@ -1593,7 +1645,7 @@ namespace mrbind
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
-            if (ShouldRejectEnum(*decl, *ctx, params, printing_policies))
+            if (ShouldRejectEnum(*decl, *ctx, *params, printing_policies))
                 return true;
 
             // This is not in `ShouldRejectEnum()` because it is false before instantiation.
@@ -1642,7 +1694,7 @@ namespace mrbind
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
             bool should_poison = false;
-            if (ShouldRejectTypedef(*decl, *ctx, params, printing_policies, &should_poison))
+            if (ShouldRejectTypedef(*decl, *ctx, *params, printing_policies, &should_poison))
                 return true;
 
             if (HasInstantiateOnlyAttribute(*decl))
@@ -1651,7 +1703,7 @@ namespace mrbind
                 return true;
             }
 
-            std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(decl).getAsString(printing_policies.normal));
+            std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(decl).getAsString(printing_policies.normal), *params);
             // Here we don't register the typedef TARGET TYPE SPELLING if we're going to poison the target type.
             auto type_strings = GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target * !should_poison);
             if (should_poison)
@@ -1675,7 +1727,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*decl, *ctx, params, printing_policies);
+            bool reject = ShouldRejectDeclaration(*decl, *ctx, *params, printing_policies);
 
             { // Insert the namespace.
                 NamespaceEntity &new_ns = params->container_stack.back()->nested.emplace_back().emplace<NamespaceEntity>();
@@ -1730,7 +1782,7 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
-            if (ShouldRejectRecord(*decl, *ctx, params, printing_policies))
+            if (ShouldRejectRecord(*decl, *ctx, *params, printing_policies))
             {
                 params->nonrejected_class_stack.push_back(nullptr);
                 return false;
@@ -1785,7 +1837,7 @@ namespace mrbind
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
-            if (ShouldRejectEnum(*decl, *ctx, params, printing_policies))
+            if (ShouldRejectEnum(*decl, *ctx, *params, printing_policies))
                 return true;
 
             // This rejects non-templates.
@@ -1801,7 +1853,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*decl, *ctx, params, printing_policies);
+            bool reject = ShouldRejectDeclaration(*decl, *ctx, *params, printing_policies);
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
@@ -1840,7 +1892,7 @@ namespace mrbind
 
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
-            if (ShouldRejectFunction(*decl, *ctx, *ci, params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
+            if (ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
                 return true;
 
             // If this is a template, try instantiating it.
@@ -2010,7 +2062,7 @@ namespace mrbind
 
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
-            if (ShouldRejectTypedef(*decl, *ctx, params, printing_policies, nullptr))
+            if (ShouldRejectTypedef(*decl, *ctx, *params, printing_policies, nullptr))
                 return true;
 
             if (params->rejected_namespace_stack.back())
@@ -2031,7 +2083,7 @@ namespace mrbind
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
-            if (ShouldRejectEnum(*decl, *ctx, params, printing_policies))
+            if (ShouldRejectEnum(*decl, *ctx, *params, printing_policies))
                 return true;
 
             // This rejects non-templates.
@@ -2060,7 +2112,7 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
-            if (ShouldRejectRecord(*decl, *ctx, params, printing_policies))
+            if (ShouldRejectRecord(*decl, *ctx, *params, printing_policies))
             {
                 params->nonrejected_class_stack.push_back(nullptr);
                 return false;
@@ -2095,7 +2147,7 @@ namespace mrbind
             // Normally they get instantiated automatically, but not if they are e.g. pointers.
             for (const clang::FieldDecl *field : decl->fields())
             {
-                if (ShouldRejectRecordField(*field))
+                if (ShouldRejectRecordField(*field, *params, printing_policies))
                     continue;
 
                 GetUnderlyingClassOrEnumType(*ci, field->getType(), [&](clang::TagDecl *subdecl)
@@ -2112,7 +2164,7 @@ namespace mrbind
             clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
             for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
             {
-                if (ShouldRejectRecordStaticDataMember(*var))
+                if (ShouldRejectRecordStaticDataMember(*var, *params, printing_policies))
                     continue;
 
                 GetUnderlyingClassOrEnumType(*ci, var->getType(), [&](clang::TagDecl *subdecl)
@@ -2170,7 +2222,7 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
-            bool reject = ShouldRejectDeclaration(*decl, *ctx, params, printing_policies);
+            bool reject = ShouldRejectDeclaration(*decl, *ctx, *params, printing_policies);
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
@@ -2508,6 +2560,15 @@ int main(int argc, char **argv)
                         continue;
                     }
 
+                    if (this_arg == "--skip-mentions-of")
+                    {
+                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                            throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
+
+                        params.blacklisted_mentioned_types.Insert(argv[++i]);
+                        continue;
+                    }
+
                     if (this_arg == "--format=json")
                     {
                         params.output_format = mrbind::OutputFormat::json;
@@ -2569,9 +2630,10 @@ int main(int argc, char **argv)
                                          "Also note that you can annotate declarations that you want to ignore with `[[clang::annotate(\"mrbind::ignore\")]]\n"
         "  --allow T                   - Unban a subentity of something that was banned with `--ignore`. Same syntax.\n"
         "  --skip-base T               - Don't show that classes inherits from `T`. You might also want to `--ignore T`.\n"
+        "  --skip-mentions-of T        - Skip any data members of type `T`, and any functions that have type `T` either as the return type or as a parameter type. `T` must be cvref-unqualified, as those qualifiers are ignored automatically (unless `--no-cppdecl` is passed). Like in `--ignore`, the type can be enclosed in slashes to act as a regex. You might want to pass the same type to `--ignore` too.\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
-        "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This can break many non-trivial usecases.\n"
+        "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.\n"
         "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.\n"
         "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
         "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.\n"

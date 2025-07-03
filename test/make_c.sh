@@ -15,7 +15,24 @@ fi
 echo test/input/MR/*.h | perl -pe 's|[\s\n]*test/([^\s\n]+)[\s\n]*|#include <\1>\n|g' >test/input/all.h
 
 mkdir -p test/output_c
-build/mrbind test/input/all.h --format=json --ignore :: --allow MR -o test/output_c/parsed.json --combine-types=cv,ref,ptr,smart_ptr -- -xc++-header -std=c++23 -Wall -Wextra -pedantic-errors -fparse-all-comments -Itest -isystemtest/input/parallel-hashmap
+build/mrbind \
+    test/input/all.h \
+    --format=json \
+    --ignore :: \
+    --allow MR \
+    -o test/output_c/parsed.json \
+    --combine-types=cv,ref,ptr,smart_ptr \
+    --ignore MR::SignatureFilters::B --skip-mentions-of MR::SignatureFilters::B \
+    --ignore MR::SignatureFilters::AA --skip-mentions-of '/MR::SignatureFilters::AA<.*>/' \
+    -- \
+    -xc++-header \
+    -std=c++23 \
+    -Wall \
+    -Wextra \
+    -pedantic-errors \
+    -fparse-all-comments \
+    -Itest \
+    -isystemtest/input/parallel-hashmap
 
 build/mrbind_gen_c --input test/output_c/parsed.json --output-header-dir test/output_c/include --output-source-dir test/output_c/source --map-path test/input . --assume-include-dir test --clean-output-dirs --helper-name-prefix MR_C_
 
