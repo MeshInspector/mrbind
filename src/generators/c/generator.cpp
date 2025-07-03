@@ -529,7 +529,11 @@ namespace mrbind::CBindings
 
         for (auto m : {&ExtraHeaders::custom_in_header_file, &ExtraHeaders::custom_in_source_file})
         {
-            if (!(this->*m))
+            if (!(other.*m))
+            {
+                // Nothing.
+            }
+            else if (!(this->*m))
             {
                 this->*m = other.*m;
             }
