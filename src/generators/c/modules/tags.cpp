@@ -11,8 +11,12 @@ namespace mrbind::CBindings::Modules
         // This binds certain types as "tags". Meaning they get mapped to zero parameters when used as a parameter (a default-constructed copy
         //   is passed instead), and to `void` when used as a return type. They don't get C headers, since they don't exist on the C side at all.
         // References to those get the same treatment (but only in parameters, they don't have a return usage).
+        // Pointers to those get replaced with `bool`s when returned, and don't support being passed by parameters.
+        //
+        // Note that we assume that all tag types are trivial and copyable, at least now. We can make that customizable later, it's simple.
 
         std::vector<cppdecl::QualifiedName> base_names = {
+            cppdecl::QualifiedName{}.AddPart("std").AddPart("monostate"),
             cppdecl::QualifiedName{}.AddPart("std").AddPart("less"),
             cppdecl::QualifiedName{}.AddPart("std").AddPart("greater"),
         };
@@ -32,12 +36,18 @@ namespace mrbind::CBindings::Modules
                         type.modifiers.size() == 0 ||
                         (
                             type.modifiers.size() == 1 &&
-                            type.Is<cppdecl::Reference>() &&
                             (
-                                // Only accept const or rvalue references.
-                                // Because non-const lvalue references don't accept default-constructed rvalues (what else would we do with them?).
-                                type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue ||
-                                bool(type.simple_type.quals & cppdecl::CvQualifiers::const_)
+                                (
+                                    type.Is<cppdecl::Reference>() &&
+                                    (
+                                        // Only accept const or rvalue references.
+                                        // Because non-const lvalue references don't accept default-constructed rvalues (what else would we do with them?).
+                                        type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue ||
+                                        bool(type.simple_type.quals & cppdecl::CvQualifiers::const_)
+                                    )
+                                ) ||
+                                // Pointers get some limited bindings too (get returned as bools, and that's all).
+                                type.Is<cppdecl::Pointer>()
                             )
                         )
                     )
@@ -50,7 +60,22 @@ namespace mrbind::CBindings::Modules
                     return ret; // Not a matching type.
             }
 
+
             Generator::BindableType &binding = ret.emplace();
+
+            binding.traits = Generator::TypeTraits::TrivialButDifferentSizeInCAndCpp{};
+
+
+            // Entirely custom logic for pointers.
+            // They get replaced with `bool` when returned, and don't support being passed as parameters.
+            if (type.Is<cppdecl::Pointer>())
+            {
+                Generator::BindableType::ReturnUsage &return_usage = binding.return_usage.emplace();
+                return_usage.c_type = cppdecl::Type::FromSingleWord("bool");
+                return_usage.extra_headers.stdlib_in_header_file = {"stdbool.h"};
+                return ret; // That's all.
+            }
+
 
             if (!type.Is<cppdecl::Reference>())
             {

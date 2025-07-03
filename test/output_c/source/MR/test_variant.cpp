@@ -25,3 +25,8 @@ void MR_StdVariant_baz(MR_C_PassBy _1_pass_by, MR_C_std_variant_int_float_std_st
     );
 }
 
+MR_C_std_variant_std_monostate_int_float *MR_StdVariant_blah(void)
+{
+    return (MR_C_std_variant_std_monostate_int_float *)new std::variant<std::monostate, int, float>(::MR::StdVariant::blah());
+}
+

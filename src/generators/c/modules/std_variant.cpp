@@ -140,21 +140,33 @@ namespace mrbind::CBindings::Modules
                                 if (!is_const && elem_types[i].IsConstOrReference())
                                     continue;
 
-                                std::string name = "Get";
-                                if (!is_const)
-                                    name += "Mutable";
-                                name += "_";
-                                name += type_identifiers[i];
-
                                 Generator::EmitFuncParams emit;
-                                emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
-                                emit.c_name = binder.MakeMemberFuncName(name);
 
                                 // Those types are never references, so we're free to do this.
                                 emit.cpp_return_type = elem_types[i];
                                 if (is_const)
                                     emit.cpp_return_type.AddQualifiers(cppdecl::CvQualifiers::const_);
                                 emit.cpp_return_type.AddModifier(cppdecl::Pointer{});
+
+                                // If our `emit.cpp_return_type` return type binds to a `bool` (as is the case for tag/empty types, see `src/generators/c/modules/tags.cpp`),
+                                //   then don't emit the non-const overload, because that's just gonna give us another bool.
+                                // Note that we silently ignore the condition if the type isn't bindable (at all, or has no return usage),
+                                //   because that'll fail in `EmitFunction()` anyway, with a better error than what we could produce here.
+                                if (!is_const)
+                                {
+                                    if (auto opt = generator.FindBindableTypeOpt(emit.cpp_return_type); opt && opt->return_usage && opt->return_usage->c_type.AsSingleWord() == "bool")
+                                        continue;
+                                }
+
+                                std::string name = "Get";
+                                if (!is_const)
+                                    name += "Mutable";
+                                name += "_";
+                                name += type_identifiers[i];
+
+                                emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
+                                emit.c_name = binder.MakeMemberFuncName(name);
+
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);
                                 emit.cpp_called_func = "std::get_if<" + std::to_string(i) + ">(&@this@)";

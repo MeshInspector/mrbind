@@ -8,4 +8,6 @@ namespace MR::StdVariant
     std::variant<int, float> foo();
     void bar(std::variant<int, float, float>);
     void baz(std::variant<int, float, std::string>);
+
+    std::variant<std::monostate, int, float> blah();
 }
