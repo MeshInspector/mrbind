@@ -1250,6 +1250,7 @@ namespace mrbind
                     ClassDtor &new_dtor = target_class.members.emplace_back().emplace<ClassDtor>();
                     new_dtor.comment = GetCommentString(*ctx, *method);
                     new_dtor.is_trivial = dtor->isTrivial();
+                    new_dtor.is_virtual = dtor->isVirtual();
                     return true; // Done processing the destructor. The rest is only for other kinds of members.
                 }
 
@@ -1419,7 +1420,10 @@ namespace mrbind
             auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl);
 
             if (cxxdecl)
+            {
                 new_class.is_polymorphic = cxxdecl->isPolymorphic();
+                new_class.is_abstract = cxxdecl->isAbstract();
+            }
 
             // Bases.
             if (cxxdecl)

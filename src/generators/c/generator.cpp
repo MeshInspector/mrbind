@@ -1442,6 +1442,7 @@ namespace mrbind::CBindings
             ParsedTypeInfo::ClassDesc &class_info = info.input_type.emplace<ParsedTypeInfo::ClassDesc>();
             class_info.parsed = &cl;
             class_info.is_polymorphic = cl.is_polymorphic;
+            class_info.is_abstract = cl.is_abstract;
 
             bool has_by_value_assignment = false;
 
@@ -1452,6 +1453,9 @@ namespace mrbind::CBindings
                     [&](const ClassField &) {},
                     [&](const ClassCtor &ctor)
                     {
+                        if (class_info.is_abstract)
+                            return; // Abstract classes always count as non-constructible.
+
                         class_info.traits.is_any_constructible = true;
                         if (ctor.kind == CopyMoveKind::copy)
                         {
@@ -1495,6 +1499,9 @@ namespace mrbind::CBindings
                     [&](const ClassConvOp &) {},
                     [&](const ClassDtor &dtor)
                     {
+                        if (class_info.is_abstract && !dtor.is_virtual)
+                            return; // Don't allow calling non-virtual destructors on abstract classes.
+
                         class_info.traits.is_destructible = true;
                         if (dtor.is_trivial)
                             class_info.traits.is_trivially_destructible = true;
@@ -1676,6 +1683,12 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassCtor &elem)
                     {
+                        // Don't emit constructors for abstract classes.
+                        // We've already set the `is_..._constructable` bools in their traits to false, but we must also disable those separately.
+                        // Not only here, but also when emitting them later. Sync the two.
+                        if (std::get<ParsedTypeInfo::ClassDesc>(info.input_type).is_abstract)
+                            return;
+
                         // Special member functions have fixed names.
                         // Note that the same goes for the default constructors. But here we intentionally only handle the ones with actually zero parameters, and not the ones with all arguments defaulted.
                         // Note that this logic must be synced with how the default constructors are emitted.
@@ -2161,6 +2174,8 @@ namespace mrbind::CBindings
                                     {
                                         if (acts_on_ref && !is_dynamic)
                                             continue; // Only dynamic casts need a separate version that acts on references.
+                                        if (acts_on_ref && !is_downcast)
+                                            continue; // Upcasts shouldn't need a separate version that acts on references, since those should never fail.
 
                                         // Must include the type definition in the implementation file.
                                         // Otherwise the C++ type might not even be declared. We only automatically declare the C type in the public header.
@@ -2192,7 +2207,7 @@ namespace mrbind::CBindings
                                             // The upcasts don't need the static-vs-dynamic part in the name, because there is always at most one anyway.
                                             emit.c_name = binder.MakeMemberFuncName(
                                                 std::string(is_const ? "" : "Mutable") +
-                                                (!is_downcast ? "UpcastTo" : is_downcast ? "DynamicDowncastTo" : "StaticDowncastTo") +
+                                                (!is_downcast ? "UpcastTo" : is_dynamic ? (acts_on_ref ? "DynamicDowncastToOrFail" : "DynamicDowncastTo") : "StaticDowncastTo") +
                                                 "_" +
                                                 target_c_name
                                             );
@@ -2223,13 +2238,13 @@ namespace mrbind::CBindings
                                             emit.cpp_called_func = std::string(is_dynamic ? "dynamic_cast" : "static_cast") + "<" + cppdecl::ToCode(emit.cpp_return_type, cppdecl::ToCodeFlags::canonical_c_style) + ">";
                                             self.EmitFunction(file, emit);
                                         }
-
-                                        // Don't need more than one valid upcast.
-                                        // Among other things, this means that a dynamic upcast acting on references (as opposed to pointers)
-                                        //   will never be generated.
-                                        if (!is_downcast)
-                                            break;
                                     }
+
+                                    // Don't need more than one valid upcast.
+                                    // Among other things, this means that a dynamic upcast acting on references (as opposed to pointers)
+                                    //   will never be generated.
+                                    if (!is_downcast)
+                                        break;
                                 }
                             }
                         }
@@ -2252,6 +2267,12 @@ namespace mrbind::CBindings
                         },
                         [&](const ClassCtor &elem)
                         {
+                            // Don't emit constructors for abstract classes.
+                            // We've already set the `is_..._constructable` bools in their traits to false, but we must also disable those separately.
+                            // Not only here, but also when collecting the overload names. Sync the two.
+                            if (parsed_class_info.is_abstract)
+                                return;
+
                             try
                             {
                                 // The copy constructors are not emitted. Instead the move constructors are rewritten as if they were accepting the parameter by value.
@@ -2304,6 +2325,12 @@ namespace mrbind::CBindings
                                 if (elem.assignment_kind == CopyMoveKind::copy)
                                     return;
 
+                                // Don't emit assignments for abstract classes, since the way we bind them (with passing the class by value)
+                                //   requires it to be copyable or movable.
+                                // Maybe we could create alternative bindings for static classes, but honestly who cares about those, right?
+                                if (elem.assignment_kind != CopyMoveKind::none && parsed_class_info.is_abstract)
+                                    return;
+
                                 EmitFuncParams params;
                                 params.SetFromParsedClassMethod(self, cl, elem, GetNamespaceStack());
                                 self.EmitFunction(file, params);
@@ -2328,7 +2355,10 @@ namespace mrbind::CBindings
                         },
                         [&](const ClassDtor &elem)
                         {
-                            (void)elem;
+                            // Don't emit non-virtual destructors for abstract classes.
+                            // This matches the fact that we set the `is_destructable` trait to false for those.
+                            if (parsed_class_info.is_abstract && !elem.is_virtual)
+                                return;
 
                             try
                             {

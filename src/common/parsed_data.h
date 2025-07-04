@@ -378,6 +378,7 @@ namespace mrbind
         MBREFL_STRUCT(
             (std::optional<Comment>)(comment)
             (bool)(is_trivial, false)
+            (bool)(is_virtual, false)
         )
 
         void VisitTypes(const std::function<void(Type &type)> &func)
@@ -427,8 +428,8 @@ namespace mrbind
             (std::vector<ClassMemberVariant>)(members)
 
             (bool)(is_aggregate, false)
-
             (bool)(is_polymorphic, false)
+            (bool)(is_abstract, false)
 
             // A path to the file where this is defined.
             (DeclFileName)(declared_in_file)

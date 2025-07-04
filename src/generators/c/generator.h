@@ -568,6 +568,14 @@ namespace mrbind::CBindings
 
                 bool is_polymorphic = false;
 
+                // This implies `is_polymorphic`, and also automatically makes the class non-constructible (but it still remains destructible,
+                //   as long as the destructor is virtual, is to allow destruction through virtual bases).
+                // Maybe we'll decide to separate this from constructability later, but I don't see why we would, as it would complicate things quite a lot.
+                // Maybe we should disable assignability too, since we don't emit the assignment wrappers for abstract classes anyway,
+                //   because it's a bit tricky, because our assignment wrappers take the class by value. But this one is less obvious, since in the C++ sense
+                //   abstract classes are still assignable.
+                bool is_abstract = false;
+
                 // For consistency with `EnumDesc`. This one doesn't seem to be strictly necessary.
                 ClassDesc() {}
             };
