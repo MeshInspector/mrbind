@@ -1152,28 +1152,68 @@ namespace mrbind
 
         [[nodiscard]] DeclFileName GetDefinitionLocationFile(const clang::Decl &decl, const std::string &name_for_errors)
         {
-            std::string ret;
+            DeclFileName ret;
 
             const clang::Decl *fixed_decl = &decl;
 
+            // Recurse into the enclosing class, if any.
+            if (auto ctx = decl.getDeclContext()) // This or `getLexicalDeclContext()`? Does it even matter?
+            {
+                if (auto enclosing_class = llvm::dyn_cast<clang::TagDecl>(ctx))
+                {
+                    ret.MergeFrom(GetDefinitionLocationFile(*enclosing_class, std::string(enclosing_class->getName())));
+                }
+            }
+
+
             // Adjust class and function template specializations to point to the primary template.
+            // This is needed because the specializations be instantiated in basically random files.
             if (auto templ = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(fixed_decl))
+            {
+                const clang::TemplateArgumentList &targs = templ->getTemplateArgs();
+                for (const clang::TemplateArgument &elem : targs.asArray())
+                {
+                    if (elem.getKind() == clang::TemplateArgument::Type)
+                    {
+                        if (auto elem_decl = elem.getAsType()->getAsTagDecl())
+                            ret.MergeFrom(GetDefinitionLocationFile(*elem_decl, std::string(elem_decl->getName())));
+                    }
+                    // We should probably handle the rest of the kinds of template arguments too.
+                }
+
                 fixed_decl = templ->getSpecializedTemplate()->getTemplatedDecl();
+            }
             else if (auto func = llvm::dyn_cast<clang::FunctionDecl>(fixed_decl))
             {
                 if (auto templ = func->getPrimaryTemplate())
                     fixed_decl = templ;
             }
 
+            // Move from declaration to the definition, if any.
+            if (auto tagdecl = llvm::dyn_cast<clang::TagDecl>(fixed_decl))
+            {
+                // If no definition, we just keep the declaration location, I guess?
+                if (auto def = tagdecl->getDefinition())
+                    fixed_decl = def;
+            }
+            else if (auto funcdecl = llvm::dyn_cast<clang::FunctionDecl>(fixed_decl))
+            {
+                // If no definition, we just keep the declaration location, I guess?
+                if (auto def = funcdecl->getDefinition())
+                    fixed_decl = def;
+            }
+            // Do we need any other declaration kinds here?
+
+
             // `getExpansionLoc` is needed when the declaration is created by a macro expansion. Without it we get an empty string.
             // It also seems that it canonicalizes the filename. Therefore we canonicalize it ourselves AGAIN
             //   just in case, and don't preserve the original returned path, because it shouldn't have any important
             //   differences anyway.
-            ret = ctx->getSourceManager().getFilename(ctx->getSourceManager().getExpansionLoc(fixed_decl->getLocation()));
-            if (ret.empty())
+            ret.primary.canonical = ctx->getSourceManager().getFilename(ctx->getSourceManager().getExpansionLoc(fixed_decl->getLocation()));
+            if (ret.primary.canonical.empty())
                 throw std::runtime_error("Unable to determine the file path where this was declared: `" + name_for_errors + "`.");
-            ret = PathToString(std::filesystem::weakly_canonical(MakePath(ret)));
-            return {.canonical = ret};
+            ret.primary.canonical = PathToString(std::filesystem::weakly_canonical(MakePath(ret.primary.canonical)));
+            return ret;
         }
 
 

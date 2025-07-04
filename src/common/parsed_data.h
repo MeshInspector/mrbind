@@ -8,6 +8,7 @@
 #include <map>
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 #include <variant>
 #include <vector>
@@ -46,10 +47,30 @@ namespace mrbind
         }
     };
 
-    struct DeclFileName
+    // A single file name, in which something is declared.
+    struct DeclSingleFileName
     {
         std::string canonical;
-        friend auto &reflect_as(DeclFileName &self) {return self.canonical;}
+        friend auto &reflect_as(DeclSingleFileName &self) {return self.canonical;}
+        friend auto operator<=>(const DeclSingleFileName &, const DeclSingleFileName &) = default;
+    };
+
+    // A file name where something is declared, plus additionally a bunchof other files
+    //   that might need to be included for this declaration to work. For example, template arguments.
+    struct DeclFileName
+    {
+        MBREFL_STRUCT(
+            (DeclSingleFileName)(primary)
+            (std::set<DeclSingleFileName>)(extra)
+        )
+
+        // Adds everything from `other` to `extra`.
+        void MergeFrom(const DeclFileName &other)
+        {
+            extra.insert(other.primary);
+            for (const auto &elem : other.extra)
+                extra.insert(elem);
+        }
     };
 
     // ---

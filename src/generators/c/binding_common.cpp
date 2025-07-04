@@ -547,7 +547,8 @@ namespace mrbind::CBindings
                 {
                     if (auto iter = generator.parsed_type_info.find(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style)); iter != generator.parsed_type_info.end())
                     {
-                        file.source.custom_headers.insert(generator.ParsedFilenameToRelativeNameForInclusion(iter->second.GetParsedFileName()));
+                        auto headers = generator.ParsedFilenameToRelativeNamesForInclusion(iter->second.GetParsedFileName());
+                        file.source.custom_headers.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
                     }
                 }
             }

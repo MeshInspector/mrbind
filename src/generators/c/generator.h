@@ -225,8 +225,8 @@ namespace mrbind::CBindings
         std::unordered_set<std::filesystem::path> assumed_include_directories;
 
         // Figures out how to properly include a parsed file.
-        // Returns the name that you should include, not the entire include directive.
-        [[nodiscard]] std::string ParsedFilenameToRelativeNameForInclusion(const DeclFileName &input);
+        // Returns one or more names that you should include, not the entire include directive.
+        [[nodiscard]] std::set<std::string, std::less<>> ParsedFilenameToRelativeNamesForInclusion(const DeclFileName &input);
 
 
         // Returns the output file (which includes both header and source) for the given input file.

@@ -74,43 +74,54 @@ namespace mrbind::CBindings
         return std::any_of(map.begin(), map.end(), [&](const auto &elem){return elem.second == kind;});
     }
 
-    std::string Generator::ParsedFilenameToRelativeNameForInclusion(const DeclFileName &input)
+    std::set<std::string, std::less<>> Generator::ParsedFilenameToRelativeNamesForInclusion(const DeclFileName &input)
     {
-        std::filesystem::path input_path = std::filesystem::weakly_canonical(MakePath(input.canonical));
+        std::set<std::string, std::less<>> ret;
 
-        std::filesystem::path ret;
-        for (const auto &elem : assumed_include_directories)
+        auto HandleString = [&](const std::string &str)
         {
-            std::filesystem::path candidate = input_path.lexically_relative(elem);
-            if (ret.empty() || (candidate.native().size() < ret.native().size()))
-                ret = std::move(candidate);
-        }
+            std::filesystem::path input_path = std::filesystem::weakly_canonical(MakePath(str));
 
-        if (ret.empty())
-            throw std::runtime_error("I want to include the parsed file `" + input.canonical + "` but there is no matching `--assume-include-dir`.");
+            std::filesystem::path new_path;
+            for (const auto &elem : assumed_include_directories)
+            {
+                std::filesystem::path candidate = input_path.lexically_relative(elem);
+                if (new_path.empty() || (candidate.native().size() < new_path.native().size()))
+                    new_path = std::move(candidate);
+            }
 
-        return PathToString(ret);
+            if (new_path.empty())
+                throw std::runtime_error("I want to include the parsed file `" + str + "` but there is no matching `--assume-include-dir`.");
+
+            ret.insert(PathToString(new_path));
+        };
+
+        HandleString(input.primary.canonical);
+        for (const auto &elem : input.extra)
+            HandleString(elem.canonical);
+
+        return ret;
     }
 
     // Returns the output file (which includes both header and source) for the given input file.
     // Initializes it on the first access.
     Generator::OutputFile &Generator::GetOutputFile(const DeclFileName &source)
     {
-        auto [iter, is_new] = outputs.try_emplace(source.canonical);
+        auto [iter, is_new] = outputs.try_emplace(source.primary.canonical);
         OutputFile &file = iter->second;
         if (!is_new)
             return file; // Already exists.
 
         // Get the filename relative to the output directory, without extension.
         std::string rel_name;
-        auto prefix_it = path_mappings.find(source.canonical);
+        auto prefix_it = path_mappings.find(source.primary.canonical);
         if (prefix_it != path_mappings.end())
         {
             rel_name = prefix_it->second; // Direct match.
         }
         else
         {
-            std::filesystem::path source_copy_path = MakePath(source.canonical).parent_path();
+            std::filesystem::path source_copy_path = MakePath(source.primary.canonical).parent_path();
 
             while (true)
             {
@@ -119,7 +130,7 @@ namespace mrbind::CBindings
                 if (it != path_mappings.end())
                 {
                     rel_name = it->second;
-                    rel_name += source.canonical.substr(source_copy_str.size());
+                    rel_name += source.primary.canonical.substr(source_copy_str.size());
 
                     // Strip some known extensions.
                     for (const auto &ext : known_input_exts_to_strip)
@@ -135,7 +146,7 @@ namespace mrbind::CBindings
 
                 // Sic! `.has_parent_path()` seems to always return true, it has a weird spec.
                 if (!source_copy_path.has_relative_path())
-                    throw std::runtime_error("Couldn't map parsed filename `" + source.canonical + "` to an output filename, no matching `--map-path` found.");
+                    throw std::runtime_error("Couldn't map parsed filename `" + source.primary.canonical + "` to an output filename, no matching `--map-path` found.");
 
                 source_copy_path = source_copy_path.parent_path();
             }
@@ -2000,8 +2011,10 @@ namespace mrbind::CBindings
             {
                 OutputFile &file = self.GetOutputFile(cl.declared_in_file);
 
-                // Include the C++ header where this class is declared.
-                file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(cl.declared_in_file));
+                { // Include the C++ header where this class is declared.
+                    auto headers = self.ParsedFilenameToRelativeNamesForInclusion(cl.declared_in_file);
+                    file.source.custom_headers.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
+                }
 
                 const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
                 const std::string cpp_class_name_str = cppdecl::ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
@@ -2349,8 +2362,10 @@ namespace mrbind::CBindings
             {
                 OutputFile &file = self.GetOutputFile(func.declared_in_file);
 
-                // Include the C++ header where this function is declared.
-                file.source.custom_headers.insert(self.ParsedFilenameToRelativeNameForInclusion(func.declared_in_file));
+                { // Include the C++ header where this function is declared.
+                    auto headers = self.ParsedFilenameToRelativeNamesForInclusion(func.declared_in_file);
+                    file.source.custom_headers.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
+                }
 
                 EmitFuncParams params;
                 params.SetFromParsedFunc(self, func, GetClassStack().size() > 0, GetNamespaceStack());
