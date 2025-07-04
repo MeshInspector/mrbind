@@ -948,23 +948,7 @@ namespace mrbind::CBindings
 
         c_name = self.overloaded_names.at(&new_conv_op).name;
 
-        cpp_called_func += '(';
-        cpp_called_func += target_cpp_type_str;
-        cpp_called_func += ")(";
-        if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
-        {
-            extra_headers.stdlib_in_source_file.insert("utility");
-            cpp_called_func += "std::move(";
-        }
-        cpp_called_func += "*(";
-        cpp_called_func += cpp_type_str;
-        cpp_called_func += " *)_this)";
-        if (new_conv_op.ref_qualifier == RefQualifier::rvalue)
-        {
-            cpp_called_func += ")"; // Close `std::move(...)`.
-        }
-
-        cpp_called_func_parens = {};
+        cpp_called_func = "(" + target_cpp_type_str + ")(@this@)";
 
         if (new_conv_op.comment)
         {
