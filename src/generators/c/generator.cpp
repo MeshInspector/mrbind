@@ -2153,6 +2153,10 @@ namespace mrbind::CBindings
                                         if (acts_on_ref && !is_dynamic)
                                             continue; // Only dynamic casts need a separate version that acts on references.
 
+                                        // Must include the type definition in the implementation file.
+                                        // Otherwise the C++ type might not even be declared. We only automatically declare the C type in the public header.
+                                        TryIncludeHeadersForCppTypeInSourceFile(self, file, cppdecl::Type::FromQualifiedName(target_cpp_qual_name));
+
                                         for (bool is_const : {true, false})
                                         {
                                             Generator::EmitFuncParams emit;
