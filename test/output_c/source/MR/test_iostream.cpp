@@ -5,6 +5,22 @@
 #include <stdexcept>
 
 
+void MR_IOStream_operator_lshift(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
+{
+    operator<<(
+        (_1 ? *(std::ostream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
+        (_2 ? *(const MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
+    );
+}
+
+void MR_IOStream_operator_rshift(MR_C_std_istream *_1, MR_IOStream_A *_2)
+{
+    operator>>(
+        (_1 ? *(std::istream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
+        (_2 ? *(MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
+    );
+}
+
 MR_IOStream_A *MR_IOStream_A_DefaultConstruct(void)
 {
     return (MR_IOStream_A *)new MR::IOStream::A(MR::IOStream::A());
@@ -47,21 +63,5 @@ void MR_IOStream_A_Destroy(const MR_IOStream_A *_this)
 void MR_IOStream_A_DestroyArray(const MR_IOStream_A *_this)
 {
     delete[] ((const MR::IOStream::A *)_this);
-}
-
-void MR_IOStream_operator_lshift(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
-{
-    operator<<(
-        (_1 ? *(std::ostream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
-        (_2 ? *(const MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
-    );
-}
-
-void MR_IOStream_operator_rshift(MR_C_std_istream *_1, MR_IOStream_A *_2)
-{
-    operator>>(
-        (_1 ? *(std::istream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
-        (_2 ? *(MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
-    );
 }
 

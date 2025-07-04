@@ -1108,8 +1108,16 @@ namespace mrbind::CBindings
                 };
                 Guard guard{*this};
 
-                Visit(cl);
+                // Here we have to recurse first, and THEN visit.
+                // This matters e.g. if we have a enum inside of a class. We want the enum to be declared first (that's why we recurse),
+                //   before we start emitting the class members, which might rely on this enum.
+                // We could also just move all enum definitions (not declarations!) to the top of the file, but I don't like how that looks,
+                //   I'd rather keep the original order.
+                // This can only happen for enums. For nested classes (and all other classes too) we emit redundant declarations on the top of the file
+                //   to avoid similar issues (but those issues are with the upcasts/downcasts, which might use classes declared lower in this file).
+                // Enums can't be forward-declared, so we have to rely on this traversal order instead.
                 Process(static_cast<const mrbind::EntityContainer &>(cl));
+                Visit(cl);
             }
             void Process(const FuncEntity &func) {Visit(func);}
             void Process(const EnumEntity &en) {Visit(en);}
