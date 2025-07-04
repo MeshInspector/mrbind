@@ -9,6 +9,7 @@
 #include <input/MR/test_overloads.h>
 #include <input/MR/test_phmap.h>
 #include <input/MR/test_simple_types.h>
+#include <input/MR/test_static_memberr.h>
 #include <input/MR/test_std_containers.h>
 #include <input/MR/test_std_expected.h>
 #include <input/MR/test_std_filesystem.h>

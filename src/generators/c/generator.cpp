@@ -882,8 +882,7 @@ namespace mrbind::CBindings
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-        if (!new_method.is_static)
-            AddThisParamFromParsedClass(self, new_class, {new_method.is_const, new_method.ref_qualifier == RefQualifier::rvalue, new_method.is_static});
+        AddThisParamFromParsedClass(self, new_class, {new_method.is_const, new_method.ref_qualifier == RefQualifier::rvalue, new_method.is_static});
         AddParamsFromParsedFunc(self, new_method.params);
 
         // A pretty fallback parameter name for copy/move assignments (especially useful if they are generated implicitly, since those don't have a parameter name).
@@ -971,8 +970,7 @@ namespace mrbind::CBindings
         if (!is_const && cpp_return_type.IsConstOrReference())
             return false; // No mutable getter for a const (or reference) field.
 
-        if (!new_field.is_static)
-            AddThisParamFromParsedClass(self, new_class, is_const);
+        AddThisParamFromParsedClass(self, new_class, {is_const, false, new_field.is_static});
 
         const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
         c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
@@ -1076,7 +1074,11 @@ namespace mrbind::CBindings
                 // It seems we don't need to decay the params manually, the parser seems to already emit them in the decayed form.
                 const cppdecl::Type param_cpp_type_fixed = cppdecl::Type(param.cpp_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
-                if (!param.use_type_as_is)
+                if (param.kind == EmitFuncParams::Param::Kind::static_)
+                {
+                    // Nothing.
+                }
+                else if (!param.use_type_as_is)
                 {
                     const BindableType &bindable_param_type = FindBindableType(param_cpp_type_fixed, param.remove_sugar);
                     if (!bindable_param_type.param_usage && !bindable_param_type.param_usage_with_default_arg)
@@ -1180,7 +1182,14 @@ namespace mrbind::CBindings
                   case EmitFuncParams::Param::Kind::static_:
                     assert(arg_expr.empty());
                     // Emit the type instead.
-                    arg_expr = cppdecl::ToCode(param.cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+                    {
+                        cppdecl::Type type_fixed = param.cpp_type;
+                        // Remove reference-ness. At the time of writing this, those should always be references, but just in case,
+                        //   I made this conditional and handled pointers too. Shrug.
+                        if (type_fixed.Is<cppdecl::Reference>() || type_fixed.Is<cppdecl::Pointer>())
+                            type_fixed.RemoveModifier();
+                        arg_expr = cppdecl::ToCode(type_fixed, cppdecl::ToCodeFlags::canonical_c_style);
+                    }
                     break;
                 }
 
