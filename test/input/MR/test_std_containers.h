@@ -39,4 +39,14 @@ namespace MR::StdContainers
     inline std::multiset<float> GetMultiSetWithMergedIters() {return {};}
     inline std::multiset<float>::iterator GetMergedIter() {return {};}
     inline std::multiset<float>::const_iterator GetMergedIterConst() {return {};}
+
+
+    // Test vectors of a non-default-constructible type.
+
+    struct NonDefaultConstructible
+    {
+        NonDefaultConstructible(int) {}
+    };
+    inline std::vector<NonDefaultConstructible> NonDefCon() {return {};}
+
 }

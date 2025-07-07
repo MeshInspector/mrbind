@@ -3,6 +3,8 @@
 #include <common.h>
 #include <exports.h>
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,7 +22,9 @@ typedef struct MR_C_std_unordered_map_int_float MR_C_std_unordered_map_int_float
 typedef struct MR_C_std_unordered_multimap_int_float MR_C_std_unordered_multimap_int_float; // Defined in `#include <std_unordered_multimap_int_float.h>`.
 typedef struct MR_C_std_unordered_multiset_int MR_C_std_unordered_multiset_int; // Defined in `#include <std_unordered_multiset_int.h>`.
 typedef struct MR_C_std_unordered_set_int MR_C_std_unordered_set_int; // Defined in `#include <std_unordered_set_int.h>`.
+typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible MR_C_std_vector_MR_StdContainers_NonDefaultConstructible; // Defined in `#include <std_vector_MR_StdContainers_NonDefaultConstructible.h>`.
 typedef struct MR_C_std_vector_int MR_C_std_vector_int; // Defined in `#include <std_vector_int.h>`.
+typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible; // Defined below in this file.
 
 
 /// Generated from function `MR::StdContainers::Set`.
@@ -114,6 +118,41 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIter(void)
 /// Generated from function `MR::StdContainers::GetMergedIterConst`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(void);
+
+// Test vectors of a non-default-constructible type.
+/// Generated from class `MR::StdContainers::NonDefaultConstructible`.
+typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible;
+
+/// Generated from a constructor of class `MR::StdContainers::NonDefaultConstructible`.
+/// Parameter `_other` can not be null.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(const MR_StdContainers_NonDefaultConstructible *_other);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_OffsetPtr(const MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_OffsetMutablePtr(MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i);
+
+/// Generated from a method of class `MR::StdContainers::NonDefaultConstructible` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other);
+
+/// Destroys a heap-allocated instance of `MR_StdContainers_NonDefaultConstructible`. Does nothing if the pointer is null.
+MR_C_API void MR_StdContainers_NonDefaultConstructible_Destroy(const MR_StdContainers_NonDefaultConstructible *_this);
+
+/// Destroys a heap-allocated array of `MR_StdContainers_NonDefaultConstructible`. Does nothing if the pointer is null.
+MR_C_API void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_StdContainers_NonDefaultConstructible *_this);
+
+/// Generated from a constructor of class `MR::StdContainers::NonDefaultConstructible`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_Construct(int _1);
+
+/// Generated from function `MR::StdContainers::NonDefCon`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefCon(void);
 
 #ifdef __cplusplus
 } // extern "C"

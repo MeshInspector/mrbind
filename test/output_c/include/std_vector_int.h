@@ -68,6 +68,10 @@ MR_C_API bool MR_C_std_vector_int_IsEmpty(const MR_C_std_vector_int *_this);
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_int_Resize(MR_C_std_vector_int *_this, size_t new_size);
 
+/// Resizes the container. The new elements if any are set to the specified value.
+/// Parameter `_this` can not be null.
+MR_C_API void MR_C_std_vector_int_ResizeWithDefaultValue(MR_C_std_vector_int *_this, size_t new_size, int value);
+
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_C_std_vector_int_Clear(MR_C_std_vector_int *_this);

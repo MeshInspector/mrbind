@@ -67,6 +67,14 @@ void MR_C_std_vector_int_Resize(MR_C_std_vector_int *_this, size_t new_size)
     );
 }
 
+void MR_C_std_vector_int_ResizeWithDefaultValue(MR_C_std_vector_int *_this, size_t new_size, int value)
+{
+    (_this ? *(std::vector<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).resize(
+        new_size,
+        value
+    );
+}
+
 void MR_C_std_vector_int_Clear(MR_C_std_vector_int *_this)
 {
     (_this ? *(std::vector<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).clear();

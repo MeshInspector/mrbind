@@ -135,7 +135,7 @@ namespace mrbind::CBindings
                 }
 
                 // resize
-                if (params.has_resize)
+                if (params.has_resize && elem_traits.is_default_constructible)
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Resizes the container. The new elements if any are zeroed.";
@@ -145,6 +145,31 @@ namespace mrbind::CBindings
                         .name = "new_size",
                         .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
                     });
+                    emit.cpp_called_func = "resize";
+                    generator.EmitFunction(file, emit);
+                }
+
+                // resize with default value
+                if (params.has_resize && elem_traits.is_copy_constructible)
+                {
+                    Generator::EmitFuncParams emit;
+                    emit.c_comment = "/// Resizes the container. The new elements if any are set to the specified value.";
+                    emit.c_name = class_binder.MakeMemberFuncName("ResizeWithDefaultValue");
+                    emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+
+                    emit.params.push_back({
+                        .name = "new_size",
+                        .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                    });
+
+                    emit.params.push_back({
+                        .name = "value",
+                        .cpp_type = cppdecl::Type(cpp_elem_type),
+                    });
+                    // If the type looks expensive to pass, pass it by a const ref instead of by value.
+                    if (!generator.IsSimplyBindableDirectCast(cpp_elem_type))
+                        emit.params.back().cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
+
                     emit.cpp_called_func = "resize";
                     generator.EmitFunction(file, emit);
                 }

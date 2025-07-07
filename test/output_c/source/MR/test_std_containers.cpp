@@ -133,3 +133,49 @@ MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(void)
     return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(::MR::StdContainers::GetMergedIterConst());
 }
 
+MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(const MR_StdContainers_NonDefaultConstructible *_other)
+{
+    return (MR_StdContainers_NonDefaultConstructible *)new MR::StdContainers::NonDefaultConstructible(MR::StdContainers::NonDefaultConstructible(
+        (_other ? MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+const MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_OffsetPtr(const MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i)
+{
+    return (const MR_StdContainers_NonDefaultConstructible *)(((const MR::StdContainers::NonDefaultConstructible *)ptr) + i);
+}
+
+MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_OffsetMutablePtr(MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i)
+{
+    return (MR_StdContainers_NonDefaultConstructible *)(((MR::StdContainers::NonDefaultConstructible *)ptr) + i);
+}
+
+MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other)
+{
+    return (MR_StdContainers_NonDefaultConstructible *)&((_this ? *(MR::StdContainers::NonDefaultConstructible *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+void MR_StdContainers_NonDefaultConstructible_Destroy(const MR_StdContainers_NonDefaultConstructible *_this)
+{
+    delete ((const MR::StdContainers::NonDefaultConstructible *)_this);
+}
+
+void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_StdContainers_NonDefaultConstructible *_this)
+{
+    delete[] ((const MR::StdContainers::NonDefaultConstructible *)_this);
+}
+
+MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_Construct(int _1)
+{
+    return (MR_StdContainers_NonDefaultConstructible *)new MR::StdContainers::NonDefaultConstructible(MR::StdContainers::NonDefaultConstructible(
+        _1
+    ));
+}
+
+MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefCon(void)
+{
+    return (MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *)new std::vector<MR::StdContainers::NonDefaultConstructible>(::MR::StdContainers::NonDefCon());
+}
+

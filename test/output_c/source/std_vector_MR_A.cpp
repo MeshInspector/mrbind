@@ -68,6 +68,14 @@ void MR_C_std_vector_MR_A_Resize(MR_C_std_vector_MR_A *_this, size_t new_size)
     );
 }
 
+void MR_C_std_vector_MR_A_ResizeWithDefaultValue(MR_C_std_vector_MR_A *_this, size_t new_size, const MR_A *value)
+{
+    (_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).resize(
+        new_size,
+        (value ? *(const MR::A *)(value) : throw std::runtime_error("Parameter `value` can not be null."))
+    );
+}
+
 void MR_C_std_vector_MR_A_Clear(MR_C_std_vector_MR_A *_this)
 {
     (_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).clear();
