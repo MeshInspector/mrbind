@@ -175,6 +175,10 @@ typedef enum MR_TestSimpleTypes_E3
     MR_TestSimpleTypes_E3_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_TestSimpleTypes_E3;
 
+// Make sure `long long` works. The space in the type can be a bit weird.
+/// Generated from function `MR::TestSimpleTypes::LongLong`.
+MR_C_API long long MR_TestSimpleTypes_LongLong(long long x);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

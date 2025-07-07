@@ -299,3 +299,10 @@ void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
     );
 }
 
+long long MR_TestSimpleTypes_LongLong(long long x)
+{
+    return ::MR::TestSimpleTypes::LongLong(
+        x
+    );
+}
+

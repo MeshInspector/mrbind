@@ -72,4 +72,8 @@ namespace MR::TestSimpleTypes
 
     // This enum has no constants.
     enum class E3 {};
+
+
+    // Make sure `long long` works. The space in the type can be a bit weird.
+    inline long long LongLong(long long x) {return x;}
 }

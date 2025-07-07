@@ -389,7 +389,10 @@ namespace mrbind::CBindings
             return &AddNewTypeBindableWithSameAddress(type_name, TypeBindableWithSameAddress{.declared_in_c_stdlib_file = "stdbool.h"});
         // Built-in types.
         if (TypeNameIsCBuiltIn(type_name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
-            return &AddNewTypeBindableWithSameAddress(type_name, {});
+        {
+            // Need to specify `custom_c_type_name` here for `long long` to be correctly printed with a space, instead of being replaced with `long_long`.
+            return &AddNewTypeBindableWithSameAddress(type_name, {.custom_c_type_name = type_name_str});
+        }
 
         // Try find a regular bindable type, maybe it has the `binding_preserves_address` flag set.
         if (auto bindable_type = FindBindableTypeOpt(ParseTypeOrThrow(type_name_str)))
