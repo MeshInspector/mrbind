@@ -1097,6 +1097,10 @@ namespace mrbind::CBindings
                     if (has_useful_default_arg)
                         has_any_useful_default_args = true;
 
+                    // Include C++ headers for the C++ parameter type. This usually isn't necessary, but helps
+                    //   if the parsed code is sloppy about what headers it includes.
+                    TryIncludeHeadersForCppTypeInSourceFile(*this, file, param.cpp_type);
+
                     const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
                     const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
 
@@ -1262,6 +1266,7 @@ namespace mrbind::CBindings
         ret.decl.name.parts.emplace_back(params.c_name);
         ret.decl.type.modifiers.emplace_back(std::move(new_func));
 
+        // Handle the return type.
         try
         {
             cppdecl::Type c_return_type;
@@ -1275,6 +1280,10 @@ namespace mrbind::CBindings
                 const BindableType &bindable_return_type = FindBindableType(cpp_return_type_fixed, params.remove_return_type_sugar);
                 if (!bindable_return_type.return_usage)
                     throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
+
+                // Include C++ headers for the C++ return type. This usually isn't necessary, but helps
+                //   if the parsed code is sloppy about what headers it includes.
+                TryIncludeHeadersForCppTypeInSourceFile(*this, file, params.cpp_return_type);
 
                 // Declare or include the type dependencies of the return type.
                 ApplyTypeDependenciesToFile(file, bindable_return_type.return_usage->same_addr_bindable_type_dependencies);
