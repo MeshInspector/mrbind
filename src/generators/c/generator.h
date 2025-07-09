@@ -54,6 +54,10 @@ namespace mrbind::CBindings
         // Do not access directly! Use `MakePublicHelperName()` instead. That throws if this is not specified.
         std::string helper_name_prefix_opt;
 
+        // Fail if `[unsigned] long [long]` appears in the parsed input.
+        // This is designed to work with the parser's `--canonicalize-to-fixed-size-typedefs`.
+        bool reject_long_and_long_long = false;
+
         // ]
 
         // Constants: [
@@ -262,7 +266,8 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file, bool for_internal_header);
 
         // Returns true if this is a built-in C type.
-        [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all) const;
+        // If both `allow_scalar_typedefs` is true and `flags & allow_integral` is true, also accept `[u]int??_t`, to match `--canonicalize-to-fixed-size-typedefs`.
+        [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all, bool allow_scalar_typedefs = false) const;
 
         // The destroy function name for parsed and custom classes. It calls `delete`.
         // We have a separate function for destroying arrays (`is_array == true`) which corresponds to C++'s `delete[]`.
@@ -634,6 +639,11 @@ namespace mrbind::CBindings
         // ]
 
 
+        // Throws if the `type` is banned and shouldn't appear in the input.
+        // In particular, this respects `reject_long_and_long_long`.
+        void CheckForBannedTypes(const cppdecl::Type &type);
+
+
         struct ExtraHeaders
         {
             // Separately the entirely custom ones and stdlib ones, which currently is purely decorative.
@@ -859,9 +869,16 @@ namespace mrbind::CBindings
         // Finds a type in `bindable_cpp_types`. If no such type, tries to generate the binding information for it (and inserts it into the map), or throws on failure.
         // If `remove_sugar == true`, avoid the fancy rewrites like replacing `const std::string &` with char pointers. This is useful e.g. for `this` parameters.
         // This among other things disallows passing classes by value.
+        // NOTE: This doesn't allow top-level const types, and hard-errors on those.
         [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type, bool remove_sugar = false);
         // This version returns null on failure.
         [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar = false);
+
+        // Calls `FindBindableType()`, and then extracts the `.traits` from the result.
+        // But additionally supports const types, by removing assignability from those traits.
+        // This is unlike `FindBindableType()`, which hard-errors on const types.
+        // Throws on failure, including if `FindBindableType()` finds nothing.
+        [[nodiscard]] TypeTraits FindTypeTraits(const cppdecl::Type &type);
 
         // Uses `ForEachNonBuiltInQualNameInTypeName()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);

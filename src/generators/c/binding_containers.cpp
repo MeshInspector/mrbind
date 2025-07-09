@@ -30,8 +30,8 @@ namespace mrbind::CBindings
         class_binder = HeapAllocatedClassBinder::ForCustomType(generator, cpp_container_type);
 
         // `bindable_elem_type.traits` is required to never be null, so if `.value()` throws here, this is an internal error.
-        elem_traits = generator.FindBindableType(cpp_elem_type).traits.value();
-        mapped_elem_traits = params.is_map ? generator.FindBindableType(cpp_mapped_elem_type).traits.value() : elem_traits;
+        elem_traits = generator.FindTypeTraits(cpp_elem_type);
+        mapped_elem_traits = params.is_map ? generator.FindTypeTraits(cpp_mapped_elem_type) : elem_traits;
 
         class_binder.traits.emplace();
         class_binder.traits->is_default_constructible = true;

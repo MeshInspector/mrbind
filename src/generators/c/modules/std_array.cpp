@@ -27,7 +27,7 @@ namespace mrbind::CBindings::Modules
 
                 // Copy the traits from the element type.
                 // This will throw if the element type is unknown.
-                binder.traits = generator.FindBindableType(cpp_elem_type).traits.value();
+                binder.traits = generator.FindTypeTraits(cpp_elem_type);
 
                 auto get_output_file = [
                     type,

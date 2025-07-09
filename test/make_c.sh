@@ -14,26 +14,81 @@ fi
 
 echo test/input/MR/*.h | perl -pe 's|[\s\n]*test/([^\s\n]+)[\s\n]*|#include <\1>\n|g' >test/input/all.h
 
-mkdir -p test/output_c
-build/mrbind \
-    test/input/all.h \
-    --format=json \
-    --ignore :: \
-    --allow MR \
-    -o test/output_c/parsed.json \
-    --combine-types=cv,ref,ptr,smart_ptr \
-    --ignore MR::SignatureFilters::B --skip-mentions-of MR::SignatureFilters::B \
-    --ignore MR::SignatureFilters::AA --skip-mentions-of '/MR::SignatureFilters::AA<.*>/' \
-    -- \
-    -xc++-header \
-    -std=c++23 \
-    -Wall \
-    -Wextra \
-    -pedantic-errors \
-    -fparse-all-comments \
-    -Itest \
+
+MRBIND_FLAGS=(
+    test/input/all.h
+    --format=json
+    --ignore ::
+    --allow MR
+    --combine-types=cv,ref,ptr,smart_ptr
+    --ignore MR::SignatureFilters::B --skip-mentions-of MR::SignatureFilters::B
+    --ignore MR::SignatureFilters::AA --skip-mentions-of '/MR::SignatureFilters::AA<.*>/'
+    --
+    -xc++-header
+    -std=c++23
+    -Wall
+    -Wextra
+    -pedantic-errors
+    -fparse-all-comments
+    -Itest
     -isystemtest/input/parallel-hashmap
+    -Iinclude
+)
 
-build/mrbind_gen_c --input test/output_c/parsed.json --output-header-dir test/output_c/include --output-source-dir test/output_c/source --map-path test/input . --assume-include-dir test --clean-output-dirs --helper-name-prefix MR_C_
+MRBIND_GEN_C_FLAGS=(--map-path test/input . --assume-include-dir test --clean-output-dirs --helper-name-prefix MR_C_)
 
-$CXX test/output_c/source/*.cpp test/output_c/source/MR/*.cpp -fPIC -shared -o test/output_c/libbleh$EXT_SHARED -Itest/output_c/include -Itest/output_c/source -Itest -std=c++23 -Werror -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough -Wconversion -Wno-implicit-int-float-conversion -isystemtest/input/parallel-hashmap
+COMPILER_FLAGS=(
+    -fPIC
+    -shared
+    -Itest
+    -std=c++23
+    -Werror
+    -Wall
+    -Wextra
+    -pedantic-errors
+    -Wdeprecated
+    -Wextra-semi
+    -Wimplicit-fallthrough
+    -Wconversion
+    -Wno-implicit-int-float-conversion
+    -isystemtest/input/parallel-hashmap
+)
+
+# --- Variant 1: with default settings
+
+mkdir -p test/output_c
+
+build/mrbind \
+    -o test/output_c/parsed.json \
+    "${MRBIND_FLAGS[@]}"
+
+build/mrbind_gen_c --input test/output_c/parsed.json --output-header-dir test/output_c/include --output-source-dir test/output_c/source "${MRBIND_GEN_C_FLAGS[@]}"
+
+$CXX \
+    test/output_c/source/*.cpp \
+    test/output_c/source/MR/*.cpp \
+    -o test/output_c/libbleh$EXT_SHARED \
+    -Itest/output_c/include \
+    -Itest/output_c/source \
+    "${COMPILER_FLAGS[@]}"
+
+
+# --- Variant 2: with canonicalized fixed-size typedefs
+
+mkdir -p test/output_c_fixed_typedefs
+
+build/mrbind \
+    -o test/output_c_fixed_typedefs/parsed.json \
+    --canonicalize-to-fixed-size-typedefs \
+    "${MRBIND_FLAGS[@]}" \
+    -DDISABLE_LONG_LONG
+
+build/mrbind_gen_c --input test/output_c_fixed_typedefs/parsed.json --output-header-dir test/output_c_fixed_typedefs/include --output-source-dir test/output_c_fixed_typedefs/source --reject-long-and-long-long "${MRBIND_GEN_C_FLAGS[@]}"
+
+$CXX \
+    test/output_c_fixed_typedefs/source/*.cpp \
+    test/output_c_fixed_typedefs/source/MR/*.cpp \
+    -o test/output_c_fixed_typedefs/libbleh$EXT_SHARED \
+    -Itest/output_c_fixed_typedefs/include \
+    -Itest/output_c_fixed_typedefs/source \
+    "${COMPILER_FLAGS[@]}"

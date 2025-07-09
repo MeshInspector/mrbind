@@ -29,10 +29,10 @@ namespace mrbind::CBindings::Modules
 
             binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // Maybe not actually trivial, but we don't care. (The strictly correct tag would be `CopyableNonTrivialButCheap{}`, but I don't think it would change anything here.)
             for (const auto &elem_type : elem_types)
-                binder.traits->CombineCommonProperties(generator.FindBindableType(elem_type).traits.value());
+                binder.traits->CombineCommonProperties(generator.FindTypeTraits(elem_type));
             // Except the default constructability of the whole variant depends only on that of the first member.
             if (!elem_types.empty())
-                binder.traits->is_default_constructible = generator.FindBindableType(elem_types.front()).traits.value().is_default_constructible;
+                binder.traits->is_default_constructible = generator.FindTypeTraits(elem_types.front()).is_default_constructible;
 
             auto get_output_file = [
                 type,

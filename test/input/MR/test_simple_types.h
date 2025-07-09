@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstddef>
+
 namespace MR::TestSimpleTypes
 {
     inline int GetInt() {return 42;}
@@ -75,5 +77,11 @@ namespace MR::TestSimpleTypes
 
 
     // Make sure `long long` works. The space in the type can be a bit weird.
+    // This conflicts with `--canonicalize-to-fixed-size-typedefs` (or rather with `--reject-long-and-long-long`), so this is behind an ifdef.
+    #if !DISABLE_LONG_LONG
     inline long long LongLong(long long x) {return x;}
+    #endif
+
+    inline std::size_t blah(std::size_t x) {return x;}
+    inline std::ptrdiff_t blah(std::ptrdiff_t x) {return x;}
 }

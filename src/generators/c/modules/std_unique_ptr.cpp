@@ -71,20 +71,22 @@ namespace mrbind::CBindings::Modules
 
                     // Make sure it's destructible, because otherwise there will be no deallocation function.
                     // This will also throw if `FindBindableType` doesn't find anything, which is fine, and I don't see how it could possibly happen anyway.
-                    if (!generator.FindBindableType(cpp_elem_type_minus_array_unqual).traits.value().is_destructible)
+                    if (!generator.FindTypeTraits(cpp_elem_type_minus_array_unqual).is_destructible)
                         throw std::runtime_error("Type `" + cppdecl::ToCode(cpp_elem_type_minus_array_unqual, cppdecl::ToCodeFlags::canonical_c_style) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
 
                     func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound);
                 }
                 else if (
                     // This is a rough heuristic to allow only trivially destructible types.
-                    // If this fails, or comes up in some other place too, we probably need to add a specialized function to `cppdecl::Type`.
+                    // If this fails, or comes up in some other place too, we probably need to add a specialized function. (To `cppdecl::Type`? Or where?)
                     // Might name it `IsScalar()` or something, since all those types seem to be scalars. (Need to decide where to handle `std::nullptr_t`, since it's a scalar type,
                     //   but isn't handled by `IsBuiltInTypeName()`, because it isn't, well, built-in.)
+                    // And also we use `TypeNameIsCBuiltIn()`, but this should probably handle C++ types too (like `std::nullptr_t`?).
+                    // We we'll either another function or somet flag for `TypeNameIsCBuiltIn()`?
                     cpp_elem_type_minus_array_unqual.Is<cppdecl::Pointer>() ||
                     (
                         cpp_elem_type_minus_array_unqual.IsOnlyQualifiedName() &&
-                        cpp_elem_type_minus_array_unqual.simple_type.name.IsBuiltInTypeName(cppdecl::IsBuiltInTypeNameFlags::allow_arithmetic)
+                        generator.TypeNameIsCBuiltIn(cpp_elem_type_minus_array_unqual.simple_type.name, cppdecl::IsBuiltInTypeNameFlags::allow_arithmetic, true)
                     )
                 )
                 {

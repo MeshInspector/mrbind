@@ -29,7 +29,7 @@ namespace mrbind::CBindings::Modules
 
             binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // The triviality can get reset by the `CombineCommonProperties()` below if necessary.
             for (const auto &elem_type : elem_types)
-                binder.traits->CombineCommonProperties(generator.FindBindableType(elem_type).traits.value());
+                binder.traits->CombineCommonProperties(generator.FindTypeTraits(elem_type));
 
             auto get_output_file = [
                 type,

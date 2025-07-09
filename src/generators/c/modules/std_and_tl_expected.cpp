@@ -34,8 +34,8 @@ namespace mrbind::CBindings::Modules
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
 
             binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // The triviality can get reset by the `CombineCommonProperties()` below if necessary.
-            binder.traits->CombineCommonProperties(generator.FindBindableType(cpp_elem_type_value).traits.value());
-            binder.traits->CombineCommonProperties(generator.FindBindableType(cpp_elem_type_error).traits.value());
+            binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_value));
+            binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_error));
 
             const bool value_type_is_void = cpp_elem_type_value == cppdecl::Type::FromSingleWord("void");
 

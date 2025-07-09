@@ -339,9 +339,33 @@ namespace mrbind::CBindings
         return macro_name;
     }
 
-    bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags) const
+    bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags, bool allow_scalar_typedefs) const
     {
-        return name.IsBuiltInTypeName(flags);
+        if (name.IsBuiltInTypeName(flags))
+            return true;
+
+        if (allow_scalar_typedefs && bool(flags & cppdecl::IsBuiltInTypeNameFlags::allow_integral))
+        {
+            // Not handling the `std::` namespace on those typedefs. Firstly because the parser doesn't emit it anyway in the canonical types
+            //   (and those typedefs should only appear in the canonical types when `--canonicalize-to-fixed-size-typedefs` is used).
+            // And secondly because this function is called "C builtin" after all, and is supposed to exclude C++.
+            const std::string_view word = name.AsSingleWord();
+
+            // If you decide to add `size_t` and such here, then `FindTypeBindableWithSameAddressOpt()` will probably need a change of logic
+            //   to use `stddef.h` for those, since now it only uses `stdint.h` for those.
+
+            if (
+                word == "int8_t"  || word == "uint8_t" ||
+                word == "int16_t" || word == "uint16_t" ||
+                word == "int32_t" || word == "uint32_t" ||
+                word == "int64_t" || word == "uint64_t"
+            )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name, bool is_array) const
@@ -356,7 +380,9 @@ namespace mrbind::CBindings
 
     const Generator::TypeBindableWithSameAddress &Generator::AddNewTypeBindableWithSameAddress(const cppdecl::QualifiedName &cpp_type_name, TypeBindableWithSameAddress desc)
     {
-        // We used to have some extra logic here, but now this just inserts into the map, and checks for duplicates.
+        // We used to have some extra logic here, but now there isn't much.
+
+        CheckForBannedTypes(cppdecl::Type::FromQualifiedName(cpp_type_name));
 
         std::string cpp_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
         auto [iter, is_new] = types_bindable_with_same_address.try_emplace(std::move(cpp_str), std::move(desc));
@@ -382,11 +408,15 @@ namespace mrbind::CBindings
         if (iter != types_bindable_with_same_address.end())
             return &iter->second;
 
+
+        CheckForBannedTypes(cppdecl::Type::FromQualifiedName(type_name));
+
+
         // Bool.
         // This intentionally excludes the `_Bool` spelling. We simply don't bind it for now, who needs it anyway?
         // And the parser should rewrite it to `bool` regardless.
         if (type_name.AsSingleWord() == "bool")
-            return &AddNewTypeBindableWithSameAddress(type_name, TypeBindableWithSameAddress{.declared_in_c_stdlib_file = "stdbool.h"});
+            return &AddNewTypeBindableWithSameAddress(type_name, {.declared_in_c_stdlib_file = "stdbool.h"});
         // Built-in types.
         if (TypeNameIsCBuiltIn(type_name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
         {
@@ -485,7 +515,6 @@ namespace mrbind::CBindings
         return IsSimplyBindableIndirectReinterpret(type) && TypeNameIsCBuiltIn(type.simple_type.name);
     }
 
-    // Those can be passed by value with only a C-style cast.
     bool Generator::IsSimplyBindableDirectCast(const cppdecl::Type &type)
     {
         if (type.Is<cppdecl::Pointer>() && IsSimplyBindableIndirectReinterpret(type))
@@ -509,7 +538,6 @@ namespace mrbind::CBindings
         return false; // Nope.
     }
 
-    // Those can be passed by value with only a `static_cast`.
     bool Generator::IsSimplyBindableDirect(const cppdecl::Type &type)
     {
         bool ret = IsSimplyBindableDirectCast(type) && TypeNameIsCBuiltIn(type.simple_type.name);
@@ -517,8 +545,23 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    // ]
-
+    void Generator::CheckForBannedTypes(const cppdecl::Type &type)
+    {
+        if (reject_long_and_long_long)
+        {
+            type.VisitEachComponent<cppdecl::QualifiedName>(
+                cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+                [](const cppdecl::QualifiedName &name)
+                {
+                    std::string_view word = name.AsSingleWord();
+                    if (word == "long" || word == "long long")
+                    {
+                        throw std::runtime_error("`--reject-long-and-long-long` was specified, but the type `" + std::string(word) + "` fas found in the input. Assuming you run the parser with `--canonicalize-to-fixed-size-typedefs`, this means you should replace `" + std::string(word) + "` in the parsed code with a standard typedef of the same size.");
+                    }
+                }
+            );
+        }
+    }
 
     void Generator::ExtraHeaders::InsertToFile(OutputFile &file) const
     {
@@ -574,6 +617,14 @@ namespace mrbind::CBindings
 
     const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar)
     {
+        // Complain if we've got a top-level const type.
+        // I don't think this ever happens for the parsed code alone, since `EmitFunction()` automatically strips top-level constness
+        //   from the return types and the parameter types.
+        // The one place where this did happen is in our custom binding for `std::shared_ptr<const T>`, and even there it wasn't intended.
+        // So I think it's better to make this a hard error here, to catch any other such cases in custom bindings.
+        if (type.IsConst())
+            throw std::logic_error("Internal error: `Generator::FindBindableType()` shouldn't be given top-level const types. This shouldn't happen regardless of the input C++ code.");
+
         const std::string type_str = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
 
         auto &map = remove_sugar ? bindable_cpp_types_nosugar : bindable_cpp_types;
@@ -584,6 +635,9 @@ namespace mrbind::CBindings
             if (iter != map.end())
                 return &iter->second;
         }
+
+
+        CheckForBannedTypes(type);
 
 
         // Ask the modules first.
@@ -636,6 +690,14 @@ namespace mrbind::CBindings
 
         // Don't know how to bind this.
         return nullptr;
+    }
+
+    Generator::TypeTraits Generator::FindTypeTraits(const cppdecl::Type &type)
+    {
+        Generator::TypeTraits ret = FindBindableType(cppdecl::Type(type).RemoveQualifiers(cppdecl::CvQualifiers::const_)).traits.value();
+        if (type.IsConst())
+            ret.MakeNonAssignable();
+        return ret;
     }
 
     void Generator::FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target)
@@ -2432,7 +2494,12 @@ namespace mrbind::CBindings
                 file.header.contents += '\n';
             }
 
-            const bool is_default_underlying_type = en.canonical_underlying_type == "int";
+            // Should we also handle `[u]int32_t` here somehow? Feels a bit weird to assume that they're always equivalent to `int`,
+            //   but the parser can emit them with `--canonicalize-to-fixed-size-typedefs`...
+            const bool is_default_underlying_type = en.canonical_underlying_type == "int" || en.canonical_underlying_type == "unsigned int";
+
+            // If the enum uses a custom underlying type and have no elements, there's no point in emitting a `enum {dummy};`, it just looks ugly.
+            const bool need_body = is_default_underlying_type || !en.elems.empty();
 
             if (is_default_underlying_type)
             {
@@ -2440,45 +2507,55 @@ namespace mrbind::CBindings
             }
             else
             {
-                // If the underlying type isn't `int`, we need special care to keep the type size same in C and C++.
+                // If the underlying type isn't `[unsigned] int`, we need special care to keep the type size same in C and C++.
+
+                // Since the underlying type can be a `[u]int??_t` typedef (because of `--canonicalize-to-fixed-size-typedefs`), we might need a header!
+                if (auto opt = self.FindTypeBindableWithSameAddressOpt(en.canonical_underlying_type); opt && opt->declared_in_c_stdlib_file)
+                    file.header.stdlib_headers.insert(*opt->declared_in_c_stdlib_file);
 
                 file.header.contents += "typedef " + en.canonical_underlying_type + " " + c_type_str + ";\n";
-                file.header.contents += "enum // " + c_type_str + "\n";
+
+                if (need_body)
+                    file.header.contents += "enum // " + c_type_str + "\n";
             }
 
-            file.header.contents += "{\n";
+            // The list of constants, if needed.
+            if (need_body)
+            {
+                file.header.contents += "{\n";
 
-            if (en.elems.empty())
-            {
-                // No empty enums in C, so we need a placeholder element.
-                file.header.contents += "    ";
-                file.header.contents += c_type_str;
-                file.header.contents += "_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.\n";
-            }
-            else
-            {
-                for (const EnumElem &elem : en.elems)
+                if (en.elems.empty())
                 {
-                    if (elem.comment)
-                    {
-                        file.header.contents += IndentString(elem.comment->text_with_slashes, 1, true);
-                        file.header.contents += '\n';
-                    }
-
+                    // No empty enums in C, so we need a placeholder element.
                     file.header.contents += "    ";
                     file.header.contents += c_type_str;
-                    file.header.contents += '_';
-                    file.header.contents += elem.name;
-                    file.header.contents += " = ";
-                    file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
-                    file.header.contents += ",\n";
+                    file.header.contents += "_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.\n";
                 }
-            }
+                else
+                {
+                    for (const EnumElem &elem : en.elems)
+                    {
+                        if (elem.comment)
+                        {
+                            file.header.contents += IndentString(elem.comment->text_with_slashes, 1, true);
+                            file.header.contents += '\n';
+                        }
 
-            if (is_default_underlying_type)
-                file.header.contents += "} " + c_type_str + ";\n";
-            else
-                file.header.contents += "};\n";
+                        file.header.contents += "    ";
+                        file.header.contents += c_type_str;
+                        file.header.contents += '_';
+                        file.header.contents += elem.name;
+                        file.header.contents += " = ";
+                        file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
+                        file.header.contents += ",\n";
+                    }
+                }
+
+                if (is_default_underlying_type)
+                    file.header.contents += "} " + c_type_str + ";\n";
+                else
+                    file.header.contents += "};\n";
+            }
         }
 
         // void Visit(const TypedefEntity &td) override

@@ -60,9 +60,9 @@ const int *MR_C_std_shared_ptr_const_int_array_At(const MR_C_std_shared_ptr_cons
     return &((_this ? *(const std::shared_ptr<const int[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))[i]);
 }
 
-long MR_C_std_shared_ptr_const_int_array_UseCount(const MR_C_std_shared_ptr_const_int_array *_this)
+int MR_C_std_shared_ptr_const_int_array_UseCount(const MR_C_std_shared_ptr_const_int_array *_this)
 {
-    return (_this ? *(const std::shared_ptr<const int[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).use_count();
+    return int((_this ? *(const std::shared_ptr<const int[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).use_count());
 }
 
 void MR_C_std_shared_ptr_const_int_array_Construct(const int *ptr)

@@ -129,11 +129,13 @@ namespace mrbind::CBindings::Modules
                             "/// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.";
                         emit.c_name = binder.MakeMemberFuncName("UseCount");
 
-                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("long"); // Why does `.use_count()` return `long`?!?!
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("int");
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
 
-                        emit.cpp_called_func = "use_count";
+                        // This originally returns `long`, but this is problematic for us because our `--canonicalize-to-fixed-size-typedefs` plus `--reject-long-and-long-long`
+                        //   ban `long`. Therefore we cast this to `int`. This is probably saner for the user too.
+                        emit.cpp_called_func = "int(@this@.use_count())";
 
                         generator.EmitFunction(file, emit);
                     }

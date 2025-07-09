@@ -196,6 +196,8 @@ namespace mrbind
 
         // Simplify canonical type names using our `cppdecl` library.
         bool enable_cppdecl_processing = true;
+
+        bool canonicalize_to_fixed_size_typedefs = false;
     };
 
     struct PrintingPolicies
@@ -307,20 +309,98 @@ namespace mrbind
     }
 
 
-    [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, const VisitorParams &params, const clang::PrintingPolicy &printing_policy, bool strip_cvref_if_cppdecl_is_enabled)
+    [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, const clang::CompilerInstance &ci, const VisitorParams &params, const clang::PrintingPolicy &printing_policy, bool strip_cvref_if_cppdecl_is_enabled)
     {
         std::string ret = type.getCanonicalType().getAsString(printing_policy);
 
         if (params.enable_cppdecl_processing)
         {
             cppdecl::Type type = ParseTypeWithCppdecl(ret);
+
             if (strip_cvref_if_cppdecl_is_enabled)
             {
                 if (type.Is<cppdecl::Reference>())
                     type.RemoveModifier();
                 type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
             }
+
             cppdecl::Simplify(cppdecl::SimplifyFlags::native, type, cppdecl::FullSimplifyTraits{});
+
+            if (params.canonicalize_to_fixed_size_typedefs)
+            {
+                type.VisitEachComponent<cppdecl::SimpleType>(
+                    cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+                    [&](cppdecl::SimpleType &simple_type)
+                    {
+                        const std::string_view word = simple_type.name.AsSingleWord();
+                        const bool is_unsigned = bool(simple_type.flags & cppdecl::SimpleTypeFlags::unsigned_);
+
+                        auto TryApplyTypedef = [&](unsigned int bit_width)
+                        {
+                            std::string_view str;
+
+                            // Not using `std::` here. Firstly for compatibility with C, secondly because this will look a bit better
+                            //   when the resulting names are converted to identifiers.
+
+                            if (bit_width == 8)
+                                str = is_unsigned ? "uint8_t" : "int8_t";
+                            else if (bit_width == 16)
+                                str = is_unsigned ? "uint16_t" : "int16_t";
+                            else if (bit_width == 32)
+                                str = is_unsigned ? "uint32_t" : "int32_t";
+                            else if (bit_width == 64)
+                                str = is_unsigned ? "uint64_t" : "int64_t";
+
+                            if (!str.empty())
+                            {
+                                // Only change the name and keep the constness.
+                                simple_type.name = cppdecl::QualifiedName::FromSingleWord(std::string(str));
+                                // Reset flags that don't make sense for typedefs.
+                                // Turns out that's all of them. Note that the unsigned-ness is removed too, because it's a part of the typedef name and doesn't need to be spelled.
+                                simple_type.flags = {};
+                            }
+                        };
+
+                        if (word == "char" && bool(simple_type.flags & (cppdecl::SimpleTypeFlags::unsigned_ | cppdecl::SimpleTypeFlags::explicitly_signed)))
+                        {
+                            TryApplyTypedef(ci.getTarget().getCharWidth());
+                        }
+                        else if (word == "short")
+                        {
+                            TryApplyTypedef(ci.getTarget().getShortWidth());
+                        }
+                        else if (word == "int")
+                        {
+                            TryApplyTypedef(ci.getTarget().getIntWidth());
+                        }
+                        else
+                        {
+                            bool is_long_long = false;
+                            if (word == "long" || (is_long_long = word == "long long"))
+                            {
+                                // Using `getInt64Type()` instead of `getSizeType()` to hopefully better handle 32-bit platforms.
+                                // This wasn't actively tested though.
+                                clang::TargetInfo::IntType int64_type = ci.getTarget().getInt64Type();
+
+                                if (int64_type == clang::TargetInfo::IntType::SignedLong && !is_long_long)
+                                {
+                                    TryApplyTypedef(ci.getTarget().getLongWidth());
+                                }
+                                else if (int64_type == clang::TargetInfo::IntType::SignedLongLong && is_long_long)
+                                {
+                                    TryApplyTypedef(ci.getTarget().getLongLongWidth());
+                                }
+                                else
+                                {
+                                    // Right now we don't report those errors, but the error is:
+                                    // "Because `--canonicalize-to-fixed-size-typedefs` was specified, the type `" + std::string(word) + "` should not be used in the parsed interface. Instead use one of the standard typedefs of this bit width."
+                                }
+                            }
+                        }
+                    }
+                );
+            }
+
             ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
         }
 
@@ -346,12 +426,12 @@ namespace mrbind
             return name;
     }
 
-    [[nodiscard]] Type GetTypeStringsWithoutRegistration(const clang::QualType &type, const VisitorParams &params, const PrintingPolicies &printing_policies)
+    [[nodiscard]] Type GetTypeStringsWithoutRegistration(const clang::QualType &type, const clang::CompilerInstance &ci, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
         Type ret;
 
         // Here the roundtrip is handled by `GetCanonicalTypeName`.
-        ret.canonical = GetCanonicalTypeName(type, params, printing_policies.normal, false);
+        ret.canonical = GetCanonicalTypeName(type, ci, params, printing_policies.normal, false);
 
         ret.pretty = type.getAsString(printing_policies.normal);
         // If the type is spelled with `decltype`, force replace it with the canonical.
@@ -918,9 +998,9 @@ namespace mrbind
     }
 
     // Whether we should reject functions with this type in the signature, or class members of this type.
-    [[nodiscard]] bool ShouldRejectMentionsOfType(const clang::QualType &type, const VisitorParams &params, const PrintingPolicies &printing_policies)
+    [[nodiscard]] bool ShouldRejectMentionsOfType(const clang::QualType &type, const clang::CompilerInstance &ci, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
-        return params.blacklisted_mentioned_types.Contains(GetCanonicalTypeName(type, params, printing_policies.normal, true));
+        return params.blacklisted_mentioned_types.Contains(GetCanonicalTypeName(type, ci, params, printing_policies.normal, true));
     }
 
     // Passing non-const decl here because `Sema::CheckInstantiatedFunctionTemplateConstraints()` needs that.
@@ -992,13 +1072,13 @@ namespace mrbind
         if (!is_templated)
         {
             // Check return type, except in ctors, which don't have one.
-            if (!llvm::isa<clang::CXXConstructorDecl>(decl) && ShouldRejectMentionsOfType(decl.getReturnType(), params, printing_policies))
+            if (!llvm::isa<clang::CXXConstructorDecl>(decl) && ShouldRejectMentionsOfType(decl.getReturnType(), ci, params, printing_policies))
                 return true;
 
             // Check parameters.
             for (const clang::ParmVarDecl *p : decl.parameters())
             {
-                if (ShouldRejectMentionsOfType(p->getType(), params, printing_policies))
+                if (ShouldRejectMentionsOfType(p->getType(), ci, params, printing_policies))
                     return true;
             }
         }
@@ -1045,7 +1125,7 @@ namespace mrbind
         return false;
     }
 
-    bool ShouldRejectRecordField(const clang::FieldDecl &decl, const VisitorParams &params, const PrintingPolicies &printing_policies)
+    bool ShouldRejectRecordField(const clang::FieldDecl &decl, const clang::CompilerInstance &ci, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
         // We don't check `ShouldRejectDeclaration()` here. Should we? I doubt there's anything useful there...
 
@@ -1059,13 +1139,13 @@ namespace mrbind
             return true; // Reject disabled fields.
 
         // Check if the type is blacklisted. This should be last because it can be expensive.
-        if (ShouldRejectMentionsOfType(decl.getType(), params, printing_policies))
+        if (ShouldRejectMentionsOfType(decl.getType(), ci, params, printing_policies))
             return true;
 
         return false;
     }
 
-    bool ShouldRejectRecordStaticDataMember(const clang::VarDecl &decl, const VisitorParams &params, const PrintingPolicies &printing_policies)
+    bool ShouldRejectRecordStaticDataMember(const clang::VarDecl &decl, const clang::CompilerInstance &ci, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
         // We don't check `ShouldRejectDeclaration()` here. Should we? I doubt there's anything useful there...
 
@@ -1076,7 +1156,7 @@ namespace mrbind
             return true; // Reject disabled fields.
 
         // Check if the type is blacklisted. This should be last because it can be expensive.
-        if (ShouldRejectMentionsOfType(decl.getType(), params, printing_policies))
+        if (ShouldRejectMentionsOfType(decl.getType(), ci, params, printing_policies))
             return true;
 
         return false;
@@ -1099,7 +1179,7 @@ namespace mrbind
         // Wrap the non-member function for a nicer call syntax.
         [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, clang::PrintingPolicy PrintingPolicies::* policy = &PrintingPolicies::normal)
         {
-            return mrbind::GetCanonicalTypeName(type, *params, printing_policies.*policy, false);
+            return mrbind::GetCanonicalTypeName(type, *ci, *params, printing_policies.*policy, false);
         }
 
         // If `reason` is zero, the function does nothing.
@@ -1131,7 +1211,7 @@ namespace mrbind
         // If `reason` zero, doesn't register anything.
         [[nodiscard]] Type GetTypeStrings(const clang::QualType &type, TypeUses reason)
         {
-            Type ret = GetTypeStringsWithoutRegistration(type, *params, printing_policies);
+            Type ret = GetTypeStringsWithoutRegistration(type, *ci, *params, printing_policies);
             RegisterTypeSpelling(type, ret.pretty, reason);
             return ret;
         }
@@ -1453,7 +1533,7 @@ namespace mrbind
                 clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
                 for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
                 {
-                    if (ShouldRejectRecordStaticDataMember(*var, *params, printing_policies))
+                    if (ShouldRejectRecordStaticDataMember(*var, *ci, *params, printing_policies))
                         continue;
 
                     std::string full_name(var->getName());
@@ -1481,7 +1561,7 @@ namespace mrbind
             // -- Non-static data members.
             for (const clang::FieldDecl *field : decl->fields())
             {
-                if (ShouldRejectRecordField(*field, *params, printing_policies))
+                if (ShouldRejectRecordField(*field, *ci, *params, printing_policies))
                     continue;
 
                 ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
@@ -2191,7 +2271,7 @@ namespace mrbind
             // Normally they get instantiated automatically, but not if they are e.g. pointers.
             for (const clang::FieldDecl *field : decl->fields())
             {
-                if (ShouldRejectRecordField(*field, *params, printing_policies))
+                if (ShouldRejectRecordField(*field, *ci, *params, printing_policies))
                     continue;
 
                 GetUnderlyingClassOrEnumType(*ci, field->getType(), [&](clang::TagDecl *subdecl)
@@ -2208,7 +2288,7 @@ namespace mrbind
             clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
             for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
             {
-                if (ShouldRejectRecordStaticDataMember(*var, *params, printing_policies))
+                if (ShouldRejectRecordStaticDataMember(*var, *ci, *params, printing_policies))
                     continue;
 
                 GetUnderlyingClassOrEnumType(*ci, var->getType(), [&](clang::TagDecl *subdecl)
@@ -2636,6 +2716,12 @@ int main(int argc, char **argv)
                         params.enable_cppdecl_processing = false;
                         continue;
                     }
+
+                    if (this_arg == "--canonicalize-to-fixed-size-typedefs")
+                    {
+                        params.canonicalize_to_fixed_size_typedefs = true;
+                        continue;
+                    }
                 }
             }
 
@@ -2675,6 +2761,7 @@ int main(int argc, char **argv)
         "  --allow T                   - Unban a subentity of something that was banned with `--ignore`. Same syntax.\n"
         "  --skip-base T               - Silently remove `T` from any lists of base classes. You might also want to `--ignore T`.\n"
         "  --skip-mentions-of T        - Skip any data members of type `T`, and any functions that have type `T` either as the return type or as a parameter type. `T` must be cvref-unqualified, as those qualifiers are ignored automatically (unless `--no-cppdecl` is passed). Like in `--ignore`, the type can be enclosed in slashes to act as a regex. You might want to pass the same type to `--ignore` too. Unlike in `--ignore`, the template arguments can't be omitted, but a regex can be used to handle those.\n"
+        "  --canonicalize-to-fixed-size-typedefs - This helps produce cross-platform bindings. Canonicalize integer types to the standard fixed-width typedefs, instead of their normal spellings. If you use this, you shouldn't use `long` and `long long` directly in the interface, and should only use 64-bit wide standard typedefs in their place. Because otherwise you will get conflicts between different types of the same width (we refuse to canonicalize either `long` or `long long` depending on the platform to avoid errors, but this isn't what you want).\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
         "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.\n"

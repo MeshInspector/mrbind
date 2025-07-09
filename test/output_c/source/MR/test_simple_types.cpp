@@ -306,3 +306,17 @@ long long MR_TestSimpleTypes_LongLong(long long x)
     );
 }
 
+unsigned long MR_TestSimpleTypes_blah_unsigned_long(unsigned long x)
+{
+    return ::MR::TestSimpleTypes::blah(
+        x
+    );
+}
+
+long MR_TestSimpleTypes_blah_long(long x)
+{
+    return ::MR::TestSimpleTypes::blah(
+        x
+    );
+}
+

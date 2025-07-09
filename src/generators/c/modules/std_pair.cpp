@@ -23,8 +23,8 @@ namespace mrbind::CBindings::Modules
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
 
             binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // The triviality can get reset by the `CombineCommonProperties()` below if necessary.
-            binder.traits->CombineCommonProperties(generator.FindBindableType(cpp_elem_type_a).traits.value());
-            binder.traits->CombineCommonProperties(generator.FindBindableType(cpp_elem_type_b).traits.value());
+            binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_a));
+            binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_b));
 
             auto get_output_file = [
                 type,

@@ -28,6 +28,7 @@ int main(int raw_argc, char **raw_argv)
         bool seen_helper_header_dir = false;
         bool seen_helper_name_prefix = false;
         bool seen_clean_output_dirs = false;
+        bool seen_reject_long_and_long_long = false;
         bool seen_verbose = false;
 
         for (int i = 1; i < args.argc; i++)
@@ -47,6 +48,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --helper-name-prefix  <string>         - This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, possibly followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.\n"
                     "    --strip-filename-suffix  <ext>         - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
                     "    --assume-include-dir  <dir>            - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
+                    "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
                     "    --verbose                              - Write some logs.\n"
                     "\n"
                     "A minimal usage might look like this:\n"
@@ -166,6 +168,8 @@ int main(int raw_argc, char **raw_argv)
                     continue;
                 }
             }
+            if (ConsumeFlagWithNoArgs("--reject-long-and-long-long", generator.reject_long_and_long_long, &seen_reject_long_and_long_long))
+                continue;
 
             if (ConsumeFlagWithNoArgs("--verbose", verbose, &seen_verbose))
                 continue;
