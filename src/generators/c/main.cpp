@@ -276,8 +276,10 @@ int main(int raw_argc, char **raw_argv)
                     std::cerr << "mrbind_gen_c: Writing file: " << file->full_output_path << '\n';
 
                 std::ofstream output(mrbind::MakePath(file->full_output_path));
-                if (output)
-                    generator.DumpFileToOstream(elem.second, *file, output);
+                if (!output)
+                    throw std::runtime_error("Failed to open to the output file: `" + file->full_output_path + "`. Is the filename too long? In that case consider using `--max-header-name-length <n>`.");
+
+                generator.DumpFileToOstream(elem.second, *file, output);
                 if (!output)
                     throw std::runtime_error("Failed to write to the output file: `" + file->full_output_path + "`.");
             }
