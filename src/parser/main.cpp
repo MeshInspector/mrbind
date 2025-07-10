@@ -198,6 +198,8 @@ namespace mrbind
         bool enable_cppdecl_processing = true;
 
         bool canonicalize_to_fixed_size_typedefs = false;
+
+        bool implicit_enum_underlying_type_is_always_int = false;
     };
 
     struct PrintingPolicies
@@ -1818,7 +1820,17 @@ namespace mrbind
             new_enum.is_scoped = decl->isScoped();
             new_enum.comment = GetCommentString(*ctx, *decl);
             new_enum.full_type = GetCanonicalTypeName(ctx->getEnumType(decl));
-            new_enum.canonical_underlying_type = GetCanonicalTypeName(decl->getIntegerType());
+            new_enum.has_custom_underlying_type = decl->isFixed();
+            if (params->implicit_enum_underlying_type_is_always_int && !new_enum.has_custom_underlying_type)
+            {
+                // Do we keep `int` or do we replace it with `int??_t` if `params->canonicalize_to_fixed_size_typedefs == true`?
+                // I THINK the plain `int` is fine.
+                new_enum.canonical_underlying_type = "int";
+            }
+            else
+            {
+                new_enum.canonical_underlying_type = GetCanonicalTypeName(decl->getIntegerType());
+            }
             new_enum.is_signed = decl->getIntegerType()->isSignedIntegerType();
             new_enum.declared_in_file = GetDefinitionLocationFile(*decl, new_enum.full_type);
 
@@ -2755,6 +2767,12 @@ int main(int argc, char **argv)
                         params.canonicalize_to_fixed_size_typedefs = true;
                         continue;
                     }
+
+                    if (this_arg == "--implicit-enum-underlying-type-is-always-int")
+                    {
+                        params.implicit_enum_underlying_type_is_always_int = true;
+                        continue;
+                    }
                 }
             }
 
@@ -2795,6 +2813,7 @@ int main(int argc, char **argv)
         "  --skip-base T               - Silently remove `T` from any lists of base classes. You might also want to `--ignore T`.\n"
         "  --skip-mentions-of T        - Skip any data members of type `T`, and any functions that have type `T` either as the return type or as a parameter type. `T` must be cvref-unqualified, as those qualifiers are ignored automatically (unless `--no-cppdecl` is passed). Like in `--ignore`, the type can be enclosed in slashes to act as a regex. You might want to pass the same type to `--ignore` too. Unlike in `--ignore`, the template arguments can't be omitted, but a regex can be used to handle those.\n"
         "  --canonicalize-to-fixed-size-typedefs - This helps produce cross-platform bindings. Canonicalize integer types to the standard fixed-width typedefs, instead of their normal spellings. If you use this, you shouldn't use `long` and `long long` directly in the interface, and should only use 64-bit wide standard typedefs in their place. Because otherwise you will get conflicts between different types of the same width (we refuse to canonicalize either `long` or `long long` depending on the platform to avoid errors, but this isn't what you want).\n"
+        "  --implicit-enum-underlying-type-is-always-int - This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
         "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.\n"

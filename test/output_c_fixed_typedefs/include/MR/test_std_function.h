@@ -4,7 +4,6 @@
 #include <exports.h>
 
 #include <stddef.h>
-#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,7 +30,10 @@ MR_C_API void MR_StdFunction_foo_std_function_void_func_from_int32_t_int32_t(MR_
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_int32_t_func_from_int32_t_int32_t(MR_C_PassBy _1_pass_by, MR_C_std_function_int32_t_from_int32_t_int32_t *_1);
 
-typedef uint32_t MR_StdFunction_E;
+typedef enum MR_StdFunction_E
+{
+    MR_StdFunction_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
+} MR_StdFunction_E;
 
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int32_t_MR_StdFunction_E(MR_C_PassBy _1_pass_by, MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_1);

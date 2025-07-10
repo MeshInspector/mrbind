@@ -219,6 +219,13 @@ namespace mrbind
             // This is always canonical, i.e. all typedefs are expanded.
             (std::string)(canonical_underlying_type)
 
+            // True if the underlying type is fixed, as opposed to being implicitly selected by the compiler.
+            // This is always true for `enum class` (as indicated by `is_scoped == true`), which default to the `int` underlying type.
+            // Only unscoped enums can have this be false.
+            // Note that the implicit underlying type selection depends on the platform, e.g. on Windows it always seems to be `int`,
+            //   but on Linux it can also be `unsigned int` if all constants are non-negative.
+            (bool)(has_custom_underlying_type, false)
+
             // Whether this is a `enum class`.
             (bool)(is_scoped, false)
 

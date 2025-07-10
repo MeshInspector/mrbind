@@ -3,7 +3,6 @@
 #include <exports.h>
 
 #include <stddef.h>
-#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,7 +47,10 @@ MR_C_API void MR_NestedTypes_A_B_DestroyArray(const MR_NestedTypes_A_B *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_NestedTypes_A_B *MR_NestedTypes_A_B_AssignFromAnother(MR_NestedTypes_A_B *_this, const MR_NestedTypes_A_B *_other);
 
-typedef uint32_t MR_NestedTypes_A_E;
+typedef enum MR_NestedTypes_A_E
+{
+    MR_NestedTypes_A_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
+} MR_NestedTypes_A_E;
 
 /// Generated from class `MR::NestedTypes::A`.
 typedef struct MR_NestedTypes_A MR_NestedTypes_A;
