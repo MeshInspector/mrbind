@@ -320,3 +320,85 @@ long MR_TestSimpleTypes_blah_long(long x)
     );
 }
 
+unsigned long MR_TestSimpleTypes_FuncTemplate_unsigned_long(unsigned long _1)
+{
+    return ::MR::TestSimpleTypes::FuncTemplate<unsigned long>(
+        _1
+    );
+}
+
+int MR_TestSimpleTypes_FuncTemplate_int(int _1)
+{
+    return ::MR::TestSimpleTypes::FuncTemplate<int>(
+        _1
+    );
+}
+
+const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetConst_var_unsigned_long(void)
+{
+    return &(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
+}
+
+unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long(void)
+{
+    return &(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
+}
+
+MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
+        (_other ? MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+const MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_OffsetPtr(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *ptr, ptrdiff_t i)
+{
+    return (const MR_TestSimpleTypes_ClassTemplate_unsigned_long *)(((const MR::TestSimpleTypes::ClassTemplate<unsigned long> *)ptr) + i);
+}
+
+MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_OffsetMutablePtr(MR_TestSimpleTypes_ClassTemplate_unsigned_long *ptr, ptrdiff_t i)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)(((MR::TestSimpleTypes::ClassTemplate<unsigned long> *)ptr) + i);
+}
+
+void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this)
+{
+    delete ((const MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_this);
+}
+
+void MR_TestSimpleTypes_ClassTemplate_unsigned_long_DestroyArray(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this)
+{
+    delete[] ((const MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_this);
+}
+
+MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this, const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)&((_this ? *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(unsigned long _1)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
+        _1
+    ));
+}
+
+MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_int(int _1)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
+        _1
+    ));
+}
+
+void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_unsigned_long(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this)
+{
+    (_this ? *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<unsigned long>();
+}
+
+void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_int(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this)
+{
+    (_this ? *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<int>();
+}
+

@@ -9,4 +9,7 @@ namespace mrbind
 
     // Same, but for qualified names.
     [[nodiscard]] cppdecl::QualifiedName ParseQualifiedNameWithCppdecl(std::string_view input);
+
+    // Same, but for template argument lists.
+    [[nodiscard]] cppdecl::TemplateArgumentList ParseTemplateArgumentListWithCppdecl(std::string_view input);
 }

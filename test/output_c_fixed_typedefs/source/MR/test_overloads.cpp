@@ -18,9 +18,9 @@ void MR_Overloads_a_2(int32_t _1, int32_t _2)
     );
 }
 
-void MR_Overloads_b_int(void)
+void MR_Overloads_b_int32_t(void)
 {
-    ::MR::Overloads::b<int>();
+    ::MR::Overloads::b<int32_t>();
 }
 
 void MR_Overloads_b_float(void)

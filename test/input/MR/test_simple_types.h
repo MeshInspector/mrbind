@@ -84,4 +84,46 @@ namespace MR::TestSimpleTypes
 
     inline std::size_t blah(std::size_t x) {return x;}
     inline std::ptrdiff_t blah(std::ptrdiff_t x) {return x;}
+
+
+    // Here we test that `--canonicalize-to-fixed-size-typedefs` applies to the template arguments correctly.
+
+    // Function templates.
+    template <typename T> T FuncTemplate(T);
+    extern template std::size_t FuncTemplate(std::size_t);
+    // Another copy, to make sure the template arguments are not omitted.
+    extern template int FuncTemplate(int);
+
+    // Class templates.
+    template <typename T> struct ClassTemplate
+    {
+        // Enums.
+        enum class Enum {};
+
+        // Static variables.
+        template <typename U>
+        inline static U var{};
+
+        // Constructors.
+        template <typename U>
+        ClassTemplate(U);
+
+        // Methods.
+        template <typename U>
+        void foo() {}
+
+        // Skipping destructors, those don't have template parameters.
+        // Skipping conversion operators, since we ignore their template parameters, and only use the final target types.
+
+    };
+    using ClassTemplate0 = ClassTemplate<std::size_t>;
+
+    __attribute__((__annotate__("mrbind::ignore"))) inline void ClassTemplateHelper()
+    {
+        // Instantiate the stuff.
+        (void)ClassTemplate0(std::size_t{}).var<std::size_t>;
+        ClassTemplate0(std::size_t{}).foo<std::size_t>();
+        // Another copy, to make sure the template arguments are not omitted.
+        ClassTemplate0(int{}).foo<int>();
+    }
 }

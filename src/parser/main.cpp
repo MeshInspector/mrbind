@@ -309,6 +309,87 @@ namespace mrbind
     }
 
 
+    // Applies the common post-processing to a `cppdecl::Type` or `cppdecl::QualifiedName` or something similar.
+    void AdjustCppdeclEntity(auto &entity, const clang::CompilerInstance &ci, const VisitorParams &params, bool canonicalize)
+    {
+        cppdecl::Simplify(cppdecl::SimplifyFlags::native, entity, cppdecl::FullSimplifyTraits{});
+
+        if (canonicalize && params.canonicalize_to_fixed_size_typedefs)
+        {
+            entity.template VisitEachComponent<cppdecl::SimpleType>(
+                cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+                [&](cppdecl::SimpleType &simple_type)
+                {
+                    const std::string_view word = simple_type.name.AsSingleWord();
+                    const bool is_unsigned = bool(simple_type.flags & cppdecl::SimpleTypeFlags::unsigned_);
+
+                    auto TryApplyTypedef = [&](unsigned int bit_width)
+                    {
+                        std::string_view str;
+
+                        // Not using `std::` here. Firstly for compatibility with C, secondly because this will look a bit better
+                        //   when the resulting names are converted to identifiers.
+
+                        if (bit_width == 8)
+                            str = is_unsigned ? "uint8_t" : "int8_t";
+                        else if (bit_width == 16)
+                            str = is_unsigned ? "uint16_t" : "int16_t";
+                        else if (bit_width == 32)
+                            str = is_unsigned ? "uint32_t" : "int32_t";
+                        else if (bit_width == 64)
+                            str = is_unsigned ? "uint64_t" : "int64_t";
+
+                        if (!str.empty())
+                        {
+                            // Only change the name and keep the constness.
+                            simple_type.name = cppdecl::QualifiedName::FromSingleWord(std::string(str));
+                            // Reset flags that don't make sense for typedefs.
+                            // Turns out that's all of them. Note that the unsigned-ness is removed too, because it's a part of the typedef name and doesn't need to be spelled.
+                            simple_type.flags = {};
+                        }
+                    };
+
+                    if (word == "char" && bool(simple_type.flags & (cppdecl::SimpleTypeFlags::unsigned_ | cppdecl::SimpleTypeFlags::explicitly_signed)))
+                    {
+                        TryApplyTypedef(ci.getTarget().getCharWidth());
+                    }
+                    else if (word == "short")
+                    {
+                        TryApplyTypedef(ci.getTarget().getShortWidth());
+                    }
+                    else if (word == "int")
+                    {
+                        TryApplyTypedef(ci.getTarget().getIntWidth());
+                    }
+                    else
+                    {
+                        bool is_long_long = false;
+                        if (word == "long" || (is_long_long = word == "long long"))
+                        {
+                            // Using `getInt64Type()` instead of `getSizeType()` to hopefully better handle 32-bit platforms.
+                            // This wasn't actively tested though.
+                            clang::TargetInfo::IntType int64_type = ci.getTarget().getInt64Type();
+
+                            if (int64_type == clang::TargetInfo::IntType::SignedLong && !is_long_long)
+                            {
+                                TryApplyTypedef(ci.getTarget().getLongWidth());
+                            }
+                            else if (int64_type == clang::TargetInfo::IntType::SignedLongLong && is_long_long)
+                            {
+                                TryApplyTypedef(ci.getTarget().getLongLongWidth());
+                            }
+                            else
+                            {
+                                // Right now we don't report those errors, but the error is:
+                                // "Because `--canonicalize-to-fixed-size-typedefs` was specified, the type `" + std::string(word) + "` should not be used in the parsed interface. Instead use one of the standard typedefs of this bit width."
+                            }
+                        }
+                    }
+                }
+            );
+        }
+    }
+
     [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, const clang::CompilerInstance &ci, const VisitorParams &params, const clang::PrintingPolicy &printing_policy, bool strip_cvref_if_cppdecl_is_enabled)
     {
         std::string ret = type.getCanonicalType().getAsString(printing_policy);
@@ -324,82 +405,7 @@ namespace mrbind
                 type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
             }
 
-            cppdecl::Simplify(cppdecl::SimplifyFlags::native, type, cppdecl::FullSimplifyTraits{});
-
-            if (params.canonicalize_to_fixed_size_typedefs)
-            {
-                type.VisitEachComponent<cppdecl::SimpleType>(
-                    cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
-                    [&](cppdecl::SimpleType &simple_type)
-                    {
-                        const std::string_view word = simple_type.name.AsSingleWord();
-                        const bool is_unsigned = bool(simple_type.flags & cppdecl::SimpleTypeFlags::unsigned_);
-
-                        auto TryApplyTypedef = [&](unsigned int bit_width)
-                        {
-                            std::string_view str;
-
-                            // Not using `std::` here. Firstly for compatibility with C, secondly because this will look a bit better
-                            //   when the resulting names are converted to identifiers.
-
-                            if (bit_width == 8)
-                                str = is_unsigned ? "uint8_t" : "int8_t";
-                            else if (bit_width == 16)
-                                str = is_unsigned ? "uint16_t" : "int16_t";
-                            else if (bit_width == 32)
-                                str = is_unsigned ? "uint32_t" : "int32_t";
-                            else if (bit_width == 64)
-                                str = is_unsigned ? "uint64_t" : "int64_t";
-
-                            if (!str.empty())
-                            {
-                                // Only change the name and keep the constness.
-                                simple_type.name = cppdecl::QualifiedName::FromSingleWord(std::string(str));
-                                // Reset flags that don't make sense for typedefs.
-                                // Turns out that's all of them. Note that the unsigned-ness is removed too, because it's a part of the typedef name and doesn't need to be spelled.
-                                simple_type.flags = {};
-                            }
-                        };
-
-                        if (word == "char" && bool(simple_type.flags & (cppdecl::SimpleTypeFlags::unsigned_ | cppdecl::SimpleTypeFlags::explicitly_signed)))
-                        {
-                            TryApplyTypedef(ci.getTarget().getCharWidth());
-                        }
-                        else if (word == "short")
-                        {
-                            TryApplyTypedef(ci.getTarget().getShortWidth());
-                        }
-                        else if (word == "int")
-                        {
-                            TryApplyTypedef(ci.getTarget().getIntWidth());
-                        }
-                        else
-                        {
-                            bool is_long_long = false;
-                            if (word == "long" || (is_long_long = word == "long long"))
-                            {
-                                // Using `getInt64Type()` instead of `getSizeType()` to hopefully better handle 32-bit platforms.
-                                // This wasn't actively tested though.
-                                clang::TargetInfo::IntType int64_type = ci.getTarget().getInt64Type();
-
-                                if (int64_type == clang::TargetInfo::IntType::SignedLong && !is_long_long)
-                                {
-                                    TryApplyTypedef(ci.getTarget().getLongWidth());
-                                }
-                                else if (int64_type == clang::TargetInfo::IntType::SignedLongLong && is_long_long)
-                                {
-                                    TryApplyTypedef(ci.getTarget().getLongLongWidth());
-                                }
-                                else
-                                {
-                                    // Right now we don't report those errors, but the error is:
-                                    // "Because `--canonicalize-to-fixed-size-typedefs` was specified, the type `" + std::string(word) + "` should not be used in the parsed interface. Instead use one of the standard typedefs of this bit width."
-                                }
-                            }
-                        }
-                    }
-                );
-            }
+            AdjustCppdeclEntity(type, ci, params, true);
 
             ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
         }
@@ -410,20 +416,46 @@ namespace mrbind
     // This roundtrips the type name through cppdecl.
     // We need this because we'll end up adjusting SOME of them anyway (e.g. to fix the stuff in `test_typedefs_in_templates.h`), and we want the consistent style everywhere, e.g. to avoid redundant type registration.
     // Note that `GetCanonicalTypeName()` does this automatically.
-    [[nodiscard]] std::string RoundtripTypeNameThroughCppdecl(std::string name, const VisitorParams &params)
+    [[nodiscard]] std::string RoundtripTypeNameThroughCppdecl(std::string name, const clang::CompilerInstance &ci, const VisitorParams &params, bool canonicalize)
     {
         if (params.enable_cppdecl_processing)
-            return cppdecl::ToCode(ParseTypeWithCppdecl(name), {}); // No canonicalization here.
+        {
+            auto ret = ParseTypeWithCppdecl(name);
+            AdjustCppdeclEntity(ret, ci, params, canonicalize);
+            return cppdecl::ToCode(ret, {}); // I don't think we need the canonicalization flag here, regardless of `canonicalize`. Not 100% sure though. Same in the other functions below.
+        }
         else
+        {
             return name;
+        }
     }
     // Same, but for qualified names.
-    [[nodiscard]] std::string RoundtripQualifiedNameThroughCppdecl(std::string name, const VisitorParams &params)
+    [[nodiscard]] std::string RoundtripQualifiedNameThroughCppdecl(std::string name, const clang::CompilerInstance &ci, const VisitorParams &params, bool canonicalize)
     {
         if (params.enable_cppdecl_processing)
-            return cppdecl::ToCode(ParseQualifiedNameWithCppdecl(name), {}); // No canonicalization here.
+        {
+            auto ret = ParseQualifiedNameWithCppdecl(name);
+            AdjustCppdeclEntity(ret, ci, params, canonicalize);
+            return cppdecl::ToCode(ret, {}); // Same as above.
+        }
         else
+        {
             return name;
+        }
+    }
+    // Same, but for template argument lists.
+    [[nodiscard]] std::string RoundtripTemplateArgumentListThroughCppdecl(std::string name, const clang::CompilerInstance &ci, const VisitorParams &params, bool canonicalize)
+    {
+        if (params.enable_cppdecl_processing)
+        {
+            auto ret = ParseTemplateArgumentListWithCppdecl(name);
+            AdjustCppdeclEntity(ret, ci, params, canonicalize);
+            return cppdecl::ToCode(ret, {}); // Same as above.
+        }
+        else
+        {
+            return name;
+        }
     }
 
     [[nodiscard]] Type GetTypeStringsWithoutRegistration(const clang::QualType &type, const clang::CompilerInstance &ci, const VisitorParams &params, const PrintingPolicies &printing_policies)
@@ -445,7 +477,7 @@ namespace mrbind
             // Only roundtrip if we DIDN't replace the type with the canonical.
             // Because at the moment `cppdecl` chokes on `decltype(...)`, and as an optimization too.
 
-            ret.pretty = RoundtripTypeNameThroughCppdecl(std::move(ret.pretty), params);
+            ret.pretty = RoundtripTypeNameThroughCppdecl(std::move(ret.pretty), ci, params, true); // Canonincalize or not? This is the only place I'm not sure about. I guess yes, just in case?
             if (params.enable_cppdecl_processing)
                 ret.pretty = cppdecl::ToCode(ParseTypeWithCppdecl(ret.pretty), {}); // No canonicalization flags here.
         }
@@ -1349,6 +1381,7 @@ namespace mrbind
                     {
                         llvm::raw_string_ostream ss(new_ctor.template_args.emplace());
                         clang::printTemplateArgumentList(ss, targs->asArray(), printing_policies.normal, method->getTemplateSpecializationInfo()->getTemplate()->getTemplateParameters());
+                        *new_ctor.template_args = RoundtripTemplateArgumentListThroughCppdecl(std::move(*new_ctor.template_args), *ci, *params, true);
                     }
                 }
                 else
@@ -1391,7 +1424,7 @@ namespace mrbind
                             llvm::raw_string_ostream ss(new_method.full_name);
                             clang::printTemplateArgumentList(ss, args->asArray(), printing_policies.normal, method->getTemplateSpecializationInfo()->getTemplate()->getTemplateParameters());
 
-                            new_method.full_name = RoundtripQualifiedNameThroughCppdecl(std::move(new_method.full_name), *params);
+                            new_method.full_name = RoundtripQualifiedNameThroughCppdecl(std::move(new_method.full_name), *ci, *params, true);
                         }
 
                         new_method.is_static = method->isStatic();
@@ -1436,12 +1469,12 @@ namespace mrbind
             { // Full name.
                 llvm::raw_string_ostream qual_name_ss(new_func.full_qual_name);
                 decl->printQualifiedName(qual_name_ss, printing_policies.normal);
-                new_func.qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name, *params); // Make a copy before adding template arguments.
+                new_func.qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name, *ci, *params, true); // Make a copy before adding template arguments.
                 // Add template arguments, if any.
                 if (auto template_args = decl->getTemplateSpecializationArgs())
                 {
                     clang::printTemplateArgumentList(qual_name_ss, template_args->asArray(), printing_policies.normal, decl->getPrimaryTemplate()->getTemplateParameters());
-                    new_func.full_qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name, *params);
+                    new_func.full_qual_name = RoundtripQualifiedNameThroughCppdecl(new_func.full_qual_name, *ci, *params, true);
                 }
             }
 
@@ -1546,7 +1579,7 @@ namespace mrbind
                         if (!NameSpellingIsLegal(full_name))
                             continue; // Has unspellable template arguments.
 
-                        full_name = RoundtripQualifiedNameThroughCppdecl(std::move(full_name), *params);
+                        full_name = RoundtripQualifiedNameThroughCppdecl(std::move(full_name), *ci, *params, true);
                     }
 
                     ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
@@ -1827,7 +1860,7 @@ namespace mrbind
                 return true;
             }
 
-            std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(decl).getAsString(printing_policies.normal), *params);
+            std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(decl).getAsString(printing_policies.normal), *ci, *params, true);
             // Here we don't register the typedef TARGET TYPE SPELLING if we're going to poison the target type.
             auto type_strings = GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target * !should_poison);
             if (should_poison)

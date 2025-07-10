@@ -15,8 +15,8 @@ MR_C_API void MR_Overloads_a_1(int32_t _1);
 /// Generated from function `MR::Overloads::a`.
 MR_C_API void MR_Overloads_a_2(int32_t _1, int32_t _2);
 
-/// Generated from function `MR::Overloads::b<int>`.
-MR_C_API void MR_Overloads_b_int(void);
+/// Generated from function `MR::Overloads::b<int32_t>`.
+MR_C_API void MR_Overloads_b_int32_t(void);
 
 /// Generated from function `MR::Overloads::b<float>`.
 MR_C_API void MR_Overloads_b_float(void);
