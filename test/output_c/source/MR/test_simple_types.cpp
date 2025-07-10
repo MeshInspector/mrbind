@@ -361,6 +361,20 @@ MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate
     return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)(((MR::TestSimpleTypes::ClassTemplate<unsigned long> *)ptr) + i);
 }
 
+MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(unsigned long _1)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
+        _1
+    ));
+}
+
+MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_int(int _1)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
+        _1
+    ));
+}
+
 void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this)
 {
     delete ((const MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_this);
@@ -375,20 +389,6 @@ MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate
 {
     return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)&((_this ? *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (_other ? MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
-MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(unsigned long _1)
-{
-    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
-        _1
-    ));
-}
-
-MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_int(int _1)
-{
-    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
-        _1
     ));
 }
 

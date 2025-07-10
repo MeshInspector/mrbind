@@ -62,17 +62,17 @@ MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_OffsetMutablePtr(MR_Te
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_ConstructFromAnother(const MR_TestSizeT_A_uint64_t *_other);
 
-/// Generated from a method of class `MR::TestSizeT::A<uint64_t>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_A_uint64_t *_this, const MR_TestSizeT_A_uint64_t *_other);
-
 /// Destroys a heap-allocated instance of `MR_TestSizeT_A_uint64_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSizeT_A_uint64_t_Destroy(const MR_TestSizeT_A_uint64_t *_this);
 
 /// Destroys a heap-allocated array of `MR_TestSizeT_A_uint64_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSizeT_A_uint64_t_DestroyArray(const MR_TestSizeT_A_uint64_t *_this);
+
+/// Generated from a method of class `MR::TestSizeT::A<uint64_t>` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_A_uint64_t *_this, const MR_TestSizeT_A_uint64_t *_other);
 
 /// Generated from a method of class `MR::TestSizeT::A<uint64_t>` named `foo`.
 /// Parameter `_this` can not be null.

@@ -32,15 +32,15 @@ MR_C_API MR_AbstractClasses_A *MR_AbstractClasses_A_OffsetMutablePtr(MR_Abstract
 ///     `MR::AbstractClasses::C`
 typedef struct MR_AbstractClasses_B MR_AbstractClasses_B;
 
-/// Generated from a method of class `MR::AbstractClasses::B` named `foo`.
-/// Parameter `_this` can not be null.
-MR_C_API void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this);
-
 /// Destroys a heap-allocated instance of `MR_AbstractClasses_B`. Does nothing if the pointer is null.
 MR_C_API void MR_AbstractClasses_B_Destroy(const MR_AbstractClasses_B *_this);
 
 /// Destroys a heap-allocated array of `MR_AbstractClasses_B`. Does nothing if the pointer is null.
 MR_C_API void MR_AbstractClasses_B_DestroyArray(const MR_AbstractClasses_B *_this);
+
+/// Generated from a method of class `MR::AbstractClasses::B` named `foo`.
+/// Parameter `_this` can not be null.
+MR_C_API void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_AbstractClasses_B *MR_AbstractClasses_B_OffsetPtr(const MR_AbstractClasses_B *ptr, ptrdiff_t i);

@@ -34,13 +34,6 @@ MR_SignatureFilters_A *MR_SignatureFilters_A_ConstructFromAnother(const MR_Signa
     ));
 }
 
-MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other)
-{
-    return (MR_SignatureFilters_A *)&((_this ? *(MR::SignatureFilters::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 void MR_SignatureFilters_A_Destroy(const MR_SignatureFilters_A *_this)
 {
     delete ((const MR::SignatureFilters::A *)_this);
@@ -49,6 +42,13 @@ void MR_SignatureFilters_A_Destroy(const MR_SignatureFilters_A *_this)
 void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this)
 {
     delete[] ((const MR::SignatureFilters::A *)_this);
+}
+
+MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other)
+{
+    return (MR_SignatureFilters_A *)&((_this ? *(MR::SignatureFilters::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
 }
 
 void MR_SignatureFilters_foo_1(const MR_SignatureFilters_A *_1)
@@ -148,13 +148,6 @@ MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_ConstructFromAnother(const MR
     ));
 }
 
-MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other)
-{
-    return (MR_SignatureFilters_Blah *)&((_this ? *(MR::SignatureFilters::Blah *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::SignatureFilters::Blah(*(MR::SignatureFilters::Blah *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 void MR_SignatureFilters_Blah_Destroy(const MR_SignatureFilters_Blah *_this)
 {
     delete ((const MR::SignatureFilters::Blah *)_this);
@@ -163,5 +156,12 @@ void MR_SignatureFilters_Blah_Destroy(const MR_SignatureFilters_Blah *_this)
 void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this)
 {
     delete[] ((const MR::SignatureFilters::Blah *)_this);
+}
+
+MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other)
+{
+    return (MR_SignatureFilters_Blah *)&((_this ? *(MR::SignatureFilters::Blah *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::SignatureFilters::Blah(*(MR::SignatureFilters::Blah *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
 }
 

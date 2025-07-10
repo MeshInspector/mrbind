@@ -39,17 +39,17 @@ MR_C_API MR_TypedefsInTemplates_A_int32_t *MR_TypedefsInTemplates_A_int32_t_Offs
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int32_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_A_int32_t *MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(const MR_TypedefsInTemplates_A_int32_t *_other);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::A<int32_t>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_TypedefsInTemplates_A_int32_t *MR_TypedefsInTemplates_A_int32_t_AssignFromAnother(MR_TypedefsInTemplates_A_int32_t *_this, const MR_TypedefsInTemplates_A_int32_t *_other);
-
 /// Destroys a heap-allocated instance of `MR_TypedefsInTemplates_A_int32_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_A_int32_t_Destroy(const MR_TypedefsInTemplates_A_int32_t *_this);
 
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_A_int32_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_A_int32_t_DestroyArray(const MR_TypedefsInTemplates_A_int32_t *_this);
+
+/// Generated from a method of class `MR::TypedefsInTemplates::A<int32_t>` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_TypedefsInTemplates_A_int32_t *MR_TypedefsInTemplates_A_int32_t_AssignFromAnother(MR_TypedefsInTemplates_A_int32_t *_this, const MR_TypedefsInTemplates_A_int32_t *_other);
 
 /// Generated from a method of class `MR::TypedefsInTemplates::A<int32_t>` named `foo`.
 /// Parameter `_this` can not be null.
@@ -78,17 +78,17 @@ MR_C_API MR_TypedefsInTemplates_B_int32_t_BB_float *MR_TypedefsInTemplates_B_int
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int32_t_BB_float *MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(const MR_TypedefsInTemplates_B_int32_t_BB_float *_other);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::B<int32_t>::BB<float>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_TypedefsInTemplates_B_int32_t_BB_float *MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother(MR_TypedefsInTemplates_B_int32_t_BB_float *_this, const MR_TypedefsInTemplates_B_int32_t_BB_float *_other);
-
 /// Destroys a heap-allocated instance of `MR_TypedefsInTemplates_B_int32_t_BB_float`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy(const MR_TypedefsInTemplates_B_int32_t_BB_float *_this);
 
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_B_int32_t_BB_float`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_B_int32_t_BB_float_DestroyArray(const MR_TypedefsInTemplates_B_int32_t_BB_float *_this);
+
+/// Generated from a method of class `MR::TypedefsInTemplates::B<int32_t>::BB<float>` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_TypedefsInTemplates_B_int32_t_BB_float *MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother(MR_TypedefsInTemplates_B_int32_t_BB_float *_this, const MR_TypedefsInTemplates_B_int32_t_BB_float *_other);
 
 /// Generated from a method of class `MR::TypedefsInTemplates::B<int32_t>::BB<float>` named `foo`.
 /// Parameter `_this` can not be null.
@@ -121,17 +121,17 @@ MR_C_API MR_TypedefsInTemplates_B_int32_t *MR_TypedefsInTemplates_B_int32_t_Offs
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int32_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int32_t *MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(const MR_TypedefsInTemplates_B_int32_t *_other);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::B<int32_t>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_TypedefsInTemplates_B_int32_t *MR_TypedefsInTemplates_B_int32_t_AssignFromAnother(MR_TypedefsInTemplates_B_int32_t *_this, const MR_TypedefsInTemplates_B_int32_t *_other);
-
 /// Destroys a heap-allocated instance of `MR_TypedefsInTemplates_B_int32_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_B_int32_t_Destroy(const MR_TypedefsInTemplates_B_int32_t *_this);
 
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_B_int32_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_B_int32_t_DestroyArray(const MR_TypedefsInTemplates_B_int32_t *_this);
+
+/// Generated from a method of class `MR::TypedefsInTemplates::B<int32_t>` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_TypedefsInTemplates_B_int32_t *MR_TypedefsInTemplates_B_int32_t_AssignFromAnother(MR_TypedefsInTemplates_B_int32_t *_this, const MR_TypedefsInTemplates_B_int32_t *_other);
 
 /// Generated from function `MR::TypedefsInTemplates::bar`.
 MR_C_API void MR_TypedefsInTemplates_bar(int32_t _1);

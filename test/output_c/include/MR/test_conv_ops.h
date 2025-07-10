@@ -35,12 +35,6 @@ MR_C_API MR_ConvOps_A *MR_ConvOps_A_OffsetMutablePtr(MR_ConvOps_A *ptr, ptrdiff_
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_ConvOps_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_ConvOps_A *MR_ConvOps_A_ConstructFromAnother(const MR_ConvOps_A *_other);
 
-/// Generated from a method of class `MR::ConvOps::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_ConvOps_A *MR_ConvOps_A_AssignFromAnother(MR_ConvOps_A *_this, const MR_ConvOps_A *_other);
-
 /// Destroys a heap-allocated instance of `MR_ConvOps_A`. Does nothing if the pointer is null.
 MR_C_API void MR_ConvOps_A_Destroy(const MR_ConvOps_A *_this);
 
@@ -50,6 +44,12 @@ MR_C_API void MR_ConvOps_A_DestroyArray(const MR_ConvOps_A *_this);
 /// Generated from a conversion operator of class `MR::ConvOps::A` to type `bool`.
 /// Parameter `_this` can not be null.
 MR_C_API bool MR_ConvOps_A_ConvertTo_bool(const MR_ConvOps_A *_this);
+
+/// Generated from a method of class `MR::ConvOps::A` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_ConvOps_A *MR_ConvOps_A_AssignFromAnother(MR_ConvOps_A *_this, const MR_ConvOps_A *_other);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -75,13 +75,6 @@ MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_ConstructFromAnother(
     ));
 }
 
-MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other)
-{
-    return (MR_TestSizeT_A_unsigned_long *)&((_this ? *(MR::TestSizeT::A<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::TestSizeT::A<unsigned long>(*(MR::TestSizeT::A<unsigned long> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 void MR_TestSizeT_A_unsigned_long_Destroy(const MR_TestSizeT_A_unsigned_long *_this)
 {
     delete ((const MR::TestSizeT::A<unsigned long> *)_this);
@@ -90,6 +83,13 @@ void MR_TestSizeT_A_unsigned_long_Destroy(const MR_TestSizeT_A_unsigned_long *_t
 void MR_TestSizeT_A_unsigned_long_DestroyArray(const MR_TestSizeT_A_unsigned_long *_this)
 {
     delete[] ((const MR::TestSizeT::A<unsigned long> *)_this);
+}
+
+MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other)
+{
+    return (MR_TestSizeT_A_unsigned_long *)&((_this ? *(MR::TestSizeT::A<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::TestSizeT::A<unsigned long>(*(MR::TestSizeT::A<unsigned long> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
 }
 
 unsigned long MR_TestSizeT_A_unsigned_long_foo(MR_TestSizeT_A_unsigned_long *_this)

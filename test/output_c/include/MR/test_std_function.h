@@ -57,16 +57,6 @@ MR_C_API const MR_C_std_string *MR_StdFunction_A_GetConst_a(const MR_StdFunction
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_StdFunction_A_GetMutable_a(MR_StdFunction_A *_this);
 
-/// Generated from a constructor of class `MR::StdFunction::A`.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
-MR_C_API MR_StdFunction_A *MR_StdFunction_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
-
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-MR_C_API const MR_StdFunction_A *MR_StdFunction_A_OffsetPtr(const MR_StdFunction_A *ptr, ptrdiff_t i);
-
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-MR_C_API MR_StdFunction_A *MR_StdFunction_A_OffsetMutablePtr(MR_StdFunction_A *ptr, ptrdiff_t i);
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_DefaultConstruct(void);
@@ -76,16 +66,26 @@ MR_C_API MR_StdFunction_A *MR_StdFunction_A_DefaultConstruct(void);
 /// Use `MR_StdFunction_A_OffsetMutablePtr()` and `MR_StdFunction_A_OffsetPtr()` to access the array elements.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_DefaultConstructArray(size_t num_elems);
 
-/// Generated from a method of class `MR::StdFunction::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_StdFunction_A *MR_StdFunction_A_OffsetPtr(const MR_StdFunction_A *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_StdFunction_A *MR_StdFunction_A_OffsetMutablePtr(MR_StdFunction_A *ptr, ptrdiff_t i);
+
+/// Generated from a constructor of class `MR::StdFunction::A`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdFunction_A *MR_StdFunction_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
 
 /// Destroys a heap-allocated instance of `MR_StdFunction_A`. Does nothing if the pointer is null.
 MR_C_API void MR_StdFunction_A_Destroy(const MR_StdFunction_A *_this);
 
 /// Destroys a heap-allocated array of `MR_StdFunction_A`. Does nothing if the pointer is null.
 MR_C_API void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this);
+
+/// Generated from a method of class `MR::StdFunction::A` named `operator=`.
+/// Parameter `_this` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
 
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR_C_PassBy _1_pass_by, MR_C_std_function_void_from_MR_StdFunction_A *_1);

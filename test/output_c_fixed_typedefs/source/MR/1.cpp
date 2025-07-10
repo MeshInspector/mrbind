@@ -16,16 +16,6 @@ MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)
     return (MR_C_std_string *)&((_this ? *(MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
-void MR_A_Destroy(const MR_A *_this)
-{
-    delete ((const MR::A *)_this);
-}
-
-void MR_A_DestroyArray(const MR_A *_this)
-{
-    delete[] ((const MR::A *)_this);
-}
-
 MR_A *MR_A_DefaultConstruct(void)
 {
     return (MR_A *)new MR::A(MR::A());
@@ -51,6 +41,16 @@ MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_other)
     return (MR_A *)new MR::A(MR::A(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(_other, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(_other, MR::A))
     ));
+}
+
+void MR_A_Destroy(const MR_A *_this)
+{
+    delete ((const MR::A *)_this);
+}
+
+void MR_A_DestroyArray(const MR_A *_this)
+{
+    delete[] ((const MR::A *)_this);
 }
 
 MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other)

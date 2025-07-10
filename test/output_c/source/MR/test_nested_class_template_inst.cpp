@@ -32,13 +32,6 @@ MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_Const
     ));
 }
 
-MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(MR_NestedTemplateInst_A_int_AA_float *_this, const MR_NestedTemplateInst_A_int_AA_float *_other)
-{
-    return (MR_NestedTemplateInst_A_int_AA_float *)&((_this ? *(MR::NestedTemplateInst::A<int>::AA<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::NestedTemplateInst::A<int>::AA<float>(*(MR::NestedTemplateInst::A<int>::AA<float> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 void MR_NestedTemplateInst_A_int_AA_float_Destroy(const MR_NestedTemplateInst_A_int_AA_float *_this)
 {
     delete ((const MR::NestedTemplateInst::A<int>::AA<float> *)_this);
@@ -47,6 +40,13 @@ void MR_NestedTemplateInst_A_int_AA_float_Destroy(const MR_NestedTemplateInst_A_
 void MR_NestedTemplateInst_A_int_AA_float_DestroyArray(const MR_NestedTemplateInst_A_int_AA_float *_this)
 {
     delete[] ((const MR::NestedTemplateInst::A<int>::AA<float> *)_this);
+}
+
+MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(MR_NestedTemplateInst_A_int_AA_float *_this, const MR_NestedTemplateInst_A_int_AA_float *_other)
+{
+    return (MR_NestedTemplateInst_A_int_AA_float *)&((_this ? *(MR::NestedTemplateInst::A<int>::AA<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::NestedTemplateInst::A<int>::AA<float>(*(MR::NestedTemplateInst::A<int>::AA<float> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
 }
 
 MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_DefaultConstruct(void)
@@ -76,13 +76,6 @@ MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_ConstructFromAnother(co
     ));
 }
 
-MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_AssignFromAnother(MR_NestedTemplateInst_A_int *_this, const MR_NestedTemplateInst_A_int *_other)
-{
-    return (MR_NestedTemplateInst_A_int *)&((_this ? *(MR::NestedTemplateInst::A<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::NestedTemplateInst::A<int>(*(MR::NestedTemplateInst::A<int> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 void MR_NestedTemplateInst_A_int_Destroy(const MR_NestedTemplateInst_A_int *_this)
 {
     delete ((const MR::NestedTemplateInst::A<int> *)_this);
@@ -91,5 +84,12 @@ void MR_NestedTemplateInst_A_int_Destroy(const MR_NestedTemplateInst_A_int *_thi
 void MR_NestedTemplateInst_A_int_DestroyArray(const MR_NestedTemplateInst_A_int *_this)
 {
     delete[] ((const MR::NestedTemplateInst::A<int> *)_this);
+}
+
+MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_AssignFromAnother(MR_NestedTemplateInst_A_int *_this, const MR_NestedTemplateInst_A_int *_other)
+{
+    return (MR_NestedTemplateInst_A_int *)&((_this ? *(MR::NestedTemplateInst::A<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::NestedTemplateInst::A<int>(*(MR::NestedTemplateInst::A<int> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
 }
 

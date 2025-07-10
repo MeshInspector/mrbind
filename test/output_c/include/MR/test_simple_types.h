@@ -225,6 +225,16 @@ MR_C_API const MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleType
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_OffsetMutablePtr(MR_TestSimpleTypes_ClassTemplate_unsigned_long *ptr, ptrdiff_t i);
 
+// Constructors.
+/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
+MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(unsigned long _1);
+
+// Constructors.
+/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
+MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_int(int _1);
+
 /// Destroys a heap-allocated instance of `MR_TestSimpleTypes_ClassTemplate_unsigned_long`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this);
 
@@ -236,16 +246,6 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_DestroyArray(const 
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this, const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other);
-
-// Constructors.
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
-MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(unsigned long _1);
-
-// Constructors.
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
-MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_int(int _1);
 
 // Methods.
 /// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `foo<unsigned long>`.

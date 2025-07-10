@@ -42,13 +42,6 @@ MR_StaticFuncs_A *MR_StaticFuncs_A_ConstructFromAnother(const MR_StaticFuncs_A *
     ));
 }
 
-MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other)
-{
-    return (MR_StaticFuncs_A *)&((_this ? *(MR::StaticFuncs::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::StaticFuncs::A(*(MR::StaticFuncs::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 void MR_StaticFuncs_A_Destroy(const MR_StaticFuncs_A *_this)
 {
     delete ((const MR::StaticFuncs::A *)_this);
@@ -57,6 +50,13 @@ void MR_StaticFuncs_A_Destroy(const MR_StaticFuncs_A *_this)
 void MR_StaticFuncs_A_DestroyArray(const MR_StaticFuncs_A *_this)
 {
     delete[] ((const MR::StaticFuncs::A *)_this);
+}
+
+MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other)
+{
+    return (MR_StaticFuncs_A *)&((_this ? *(MR::StaticFuncs::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::StaticFuncs::A(*(MR::StaticFuncs::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
 }
 
 void MR_StaticFuncs_A_blah(void)

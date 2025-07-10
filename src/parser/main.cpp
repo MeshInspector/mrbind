@@ -1,3 +1,15 @@
+// Uhh, on Clang 18 + libstdc++ 12 I get some deprecation warnings INSIDE of the standard library, when using `std::stable_sort()`.
+// Silence those.
+#include <version>
+#ifdef _GLIBCXX_RELEASE
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+#include <algorithm>
+#ifdef _GLIBCXX_RELEASE
+#pragma GCC diagnostic pop
+#endif
+
 #include "common/filesystem.h"
 #include "common/parsed_data.h"
 #include "common/set_error_handlers.h"
@@ -28,6 +40,7 @@
 #include "post_include_clang.h"
 
 #include <array>
+#include <cstddef>
 #include <cstring>
 #include <filesystem>
 #include <fstream>
@@ -2482,7 +2495,92 @@ namespace mrbind
 
             params->rejected_namespace_stack.pop_back();
 
-            { // Remove identities from "alt type spellings".
+
+            // Sort the class members.
+            // We sometimes seem to get a different order of the implicit members on different platforms.
+            // We could make the sorting optional and put it behind a flag, but for now I don't see a reason why one would want to disable it.
+            {
+                auto SortContainer = [](auto &lambda, EntityContainer &cont) -> void
+                {
+                    if (ClassEntity *cl = dynamic_cast<ClassEntity *>(&cont))
+                    {
+                        // Using stable sorting!
+                        // The entire point of this is to get something stable across platforms, so the sorting has to be stable as well.
+                        std::stable_sort(
+                            cl->members.begin(),
+                            cl->members.end(),
+                            [](const ClassMemberVariant &a, const ClassMemberVariant &b)
+                            {
+                                // Our only goal here is to sort the special member functions, since those seem to be the only things that are emitted
+                                //   in a platform-dependent order.
+                                // But to get to those, we first do some additional sorting just in case.
+
+                                // First sort by type.
+                                if (auto d = std::ptrdiff_t(a.index()) - std::ptrdiff_t(b.index()))
+                                    return d < 0;
+
+                                // Sort constructors by their special kind.
+                                if (auto a_elem = std::get_if<ClassCtor>(&a))
+                                {
+                                    const auto &b_elem = std::get<ClassCtor>(b);
+
+                                    // A true default constructor goes first. (As opposed to those with default arguments.)
+                                    if (auto d = (a_elem->params.size() == 0) - (b_elem.params.size() == 0))
+                                        return d > 0;
+
+                                    // Then any "untrue" default constructors with default arguments.
+                                    if (auto d = a_elem->IsCallableWithNumArgs(0) - b_elem.IsCallableWithNumArgs(0))
+                                        return d > 0;
+
+                                    // Copy constructors?
+                                    if (auto d = (a_elem->kind == CopyMoveKind::copy) - (b_elem.kind == CopyMoveKind::copy))
+                                        return d > 0;
+
+                                    // Move constructors?
+                                    if (auto d = (a_elem->kind == CopyMoveKind::move) - (b_elem.kind == CopyMoveKind::move))
+                                        return d > 0;
+                                }
+                                // Sort assignment operators before other member functions.
+                                if (auto a_elem = std::get_if<ClassMethod>(&a))
+                                {
+                                    const auto &b_elem = std::get<ClassMethod>(b);
+
+                                    // Copy assignment?
+                                    if (auto d = (a_elem->assignment_kind == CopyMoveKind::copy) - (b_elem.assignment_kind == CopyMoveKind::copy))
+                                        return d > 0;
+
+                                    // Move assignment?
+                                    if (auto d = (a_elem->assignment_kind == CopyMoveKind::move) - (b_elem.assignment_kind == CopyMoveKind::move))
+                                        return d > 0;
+
+                                    // By-value assignment?
+                                    if (auto d = (a_elem->assignment_kind == CopyMoveKind::by_value_assignment) - (b_elem.assignment_kind == CopyMoveKind::by_value_assignment))
+                                        return d > 0;
+                                }
+
+                                return false; // Whatever;
+                            }
+                        );
+                    }
+
+                    // Recurse.
+                    for (auto &elem : cont.nested)
+                    {
+                        std::visit(
+                            [&]<typename T>(T &typed_elem)
+                            {
+                                if constexpr (std::is_base_of_v<EntityContainer, T>)
+                                    lambda(lambda, typed_elem);
+                            },
+                            *elem.variant
+                        );
+
+                    }
+                };
+                SortContainer(SortContainer, params->parsed_result.entities);
+            }
+
+            { // Remove identities from the "alt type spellings".
                 // We intentionally don't remove the empty lists after erasure, because we use this map to know all types we need to bind.
                 for (auto &inner : params->parsed_result.type_info)
                 {

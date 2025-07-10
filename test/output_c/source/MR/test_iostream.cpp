@@ -48,13 +48,6 @@ MR_IOStream_A *MR_IOStream_A_ConstructFromAnother(const MR_IOStream_A *_other)
     ));
 }
 
-MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IOStream_A *_other)
-{
-    return (MR_IOStream_A *)&((_this ? *(MR::IOStream::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::IOStream::A(*(MR::IOStream::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 void MR_IOStream_A_Destroy(const MR_IOStream_A *_this)
 {
     delete ((const MR::IOStream::A *)_this);
@@ -63,5 +56,12 @@ void MR_IOStream_A_Destroy(const MR_IOStream_A *_this)
 void MR_IOStream_A_DestroyArray(const MR_IOStream_A *_this)
 {
     delete[] ((const MR::IOStream::A *)_this);
+}
+
+MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IOStream_A *_other)
+{
+    return (MR_IOStream_A *)&((_this ? *(MR::IOStream::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::IOStream::A(*(MR::IOStream::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
 }
 

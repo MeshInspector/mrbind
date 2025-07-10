@@ -354,6 +354,20 @@ MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint
     return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)(((MR::TestSimpleTypes::ClassTemplate<uint64_t> *)ptr) + i);
 }
 
+MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_uint64_t(uint64_t _1)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
+        _1
+    ));
+}
+
+MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_int32_t(int32_t _1)
+{
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
+        _1
+    ));
+}
+
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_Destroy(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_this)
 {
     delete ((const MR::TestSimpleTypes::ClassTemplate<uint64_t> *)_this);
@@ -368,20 +382,6 @@ MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint
 {
     return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)&((_this ? *(MR::TestSimpleTypes::ClassTemplate<uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (_other ? MR::TestSimpleTypes::ClassTemplate<uint64_t>(*(MR::TestSimpleTypes::ClassTemplate<uint64_t> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
-MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_uint64_t(uint64_t _1)
-{
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
-        _1
-    ));
-}
-
-MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_int32_t(int32_t _1)
-{
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
-        _1
     ));
 }
 

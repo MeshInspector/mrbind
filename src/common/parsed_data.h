@@ -394,7 +394,8 @@ namespace mrbind
         }
     };
 
-    using ClassMemberVariant = std::variant<ClassField, ClassCtor, ClassMethod, ClassConvOp, ClassDtor>;
+    // The types in this variant should be sorted in the preferred member sorting order.
+    using ClassMemberVariant = std::variant<ClassField, ClassCtor, ClassDtor, ClassConvOp, ClassMethod>;
 
     struct ClassBase
     {

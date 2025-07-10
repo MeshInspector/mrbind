@@ -20,11 +20,6 @@ MR_AbstractClasses_A *MR_AbstractClasses_A_OffsetMutablePtr(MR_AbstractClasses_A
     return (MR_AbstractClasses_A *)(((MR::AbstractClasses::A *)ptr) + i);
 }
 
-void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this)
-{
-    (_this ? *(MR::AbstractClasses::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo();
-}
-
 void MR_AbstractClasses_B_Destroy(const MR_AbstractClasses_B *_this)
 {
     delete ((const MR::AbstractClasses::B *)_this);
@@ -33,6 +28,11 @@ void MR_AbstractClasses_B_Destroy(const MR_AbstractClasses_B *_this)
 void MR_AbstractClasses_B_DestroyArray(const MR_AbstractClasses_B *_this)
 {
     delete[] ((const MR::AbstractClasses::B *)_this);
+}
+
+void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this)
+{
+    (_this ? *(MR::AbstractClasses::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo();
 }
 
 const MR_AbstractClasses_B *MR_AbstractClasses_B_OffsetPtr(const MR_AbstractClasses_B *ptr, ptrdiff_t i)

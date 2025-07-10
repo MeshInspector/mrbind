@@ -150,10 +150,10 @@ MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructib
     return (MR_StdContainers_NonDefaultConstructible *)(((MR::StdContainers::NonDefaultConstructible *)ptr) + i);
 }
 
-MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other)
+MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_Construct(int _1)
 {
-    return (MR_StdContainers_NonDefaultConstructible *)&((_this ? *(MR::StdContainers::NonDefaultConstructible *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_StdContainers_NonDefaultConstructible *)new MR::StdContainers::NonDefaultConstructible(MR::StdContainers::NonDefaultConstructible(
+        _1
     ));
 }
 
@@ -167,10 +167,10 @@ void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_StdContainer
     delete[] ((const MR::StdContainers::NonDefaultConstructible *)_this);
 }
 
-MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_Construct(int _1)
+MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other)
 {
-    return (MR_StdContainers_NonDefaultConstructible *)new MR::StdContainers::NonDefaultConstructible(MR::StdContainers::NonDefaultConstructible(
-        _1
+    return (MR_StdContainers_NonDefaultConstructible *)&((_this ? *(MR::StdContainers::NonDefaultConstructible *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
 }
 

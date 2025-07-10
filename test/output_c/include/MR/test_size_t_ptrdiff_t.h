@@ -61,17 +61,17 @@ MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_OffsetMutabl
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_ConstructFromAnother(const MR_TestSizeT_A_unsigned_long *_other);
 
-/// Generated from a method of class `MR::TestSizeT::A<unsigned long>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other);
-
 /// Destroys a heap-allocated instance of `MR_TestSizeT_A_unsigned_long`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSizeT_A_unsigned_long_Destroy(const MR_TestSizeT_A_unsigned_long *_this);
 
 /// Destroys a heap-allocated array of `MR_TestSizeT_A_unsigned_long`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSizeT_A_unsigned_long_DestroyArray(const MR_TestSizeT_A_unsigned_long *_this);
+
+/// Generated from a method of class `MR::TestSizeT::A<unsigned long>` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other);
 
 /// Generated from a method of class `MR::TestSizeT::A<unsigned long>` named `foo`.
 /// Parameter `_this` can not be null.

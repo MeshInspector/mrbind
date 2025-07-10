@@ -35,17 +35,17 @@ MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_OffsetMutablePtr(MR_Signat
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_ConstructFromAnother(const MR_SignatureFilters_A *_other);
 
-/// Generated from a method of class `MR::SignatureFilters::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other);
-
 /// Destroys a heap-allocated instance of `MR_SignatureFilters_A`. Does nothing if the pointer is null.
 MR_C_API void MR_SignatureFilters_A_Destroy(const MR_SignatureFilters_A *_this);
 
 /// Destroys a heap-allocated array of `MR_SignatureFilters_A`. Does nothing if the pointer is null.
 MR_C_API void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this);
+
+/// Generated from a method of class `MR::SignatureFilters::A` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other);
 
 /// Generated from function `MR::SignatureFilters::foo`.
 /// Parameter `_1` can not be null.
@@ -126,17 +126,17 @@ MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_OffsetMutablePtr(MR_
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_Blah_Destroy()` to free it when you're done using it.
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_ConstructFromAnother(const MR_SignatureFilters_Blah *_other);
 
-/// Generated from a method of class `MR::SignatureFilters::Blah` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other);
-
 /// Destroys a heap-allocated instance of `MR_SignatureFilters_Blah`. Does nothing if the pointer is null.
 MR_C_API void MR_SignatureFilters_Blah_Destroy(const MR_SignatureFilters_Blah *_this);
 
 /// Destroys a heap-allocated array of `MR_SignatureFilters_Blah`. Does nothing if the pointer is null.
 MR_C_API void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this);
+
+/// Generated from a method of class `MR::SignatureFilters::Blah` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other);
 
 #ifdef __cplusplus
 } // extern "C"
