@@ -28,6 +28,7 @@ int main(int raw_argc, char **raw_argv)
         bool seen_helper_header_dir = false;
         bool seen_helper_name_prefix = false;
         bool seen_clean_output_dirs = false;
+        bool seen_max_output_filename_length = false;
         bool seen_reject_long_and_long_long = false;
         bool seen_verbose = false;
 
@@ -44,10 +45,11 @@ int main(int raw_argc, char **raw_argv)
                     "    --output-source-dir   <dir>            - Output directory for sources. Same rules are for `--output-header-dir`.\n"
                     "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
                     "    --clean-output-dirs                    - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
-                    "    --helper-header-dir  <dir>             - Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.\n"
-                    "    --helper-name-prefix  <string>         - This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, possibly followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.\n"
-                    "    --strip-filename-suffix  <ext>         - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
-                    "    --assume-include-dir  <dir>            - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
+                    "    --helper-header-dir       <dir>        - Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.\n"
+                    "    --helper-name-prefix      <string>     - This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, possibly followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.\n"
+                    "    --strip-filename-suffix   <ext>        - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
+                    "    --assume-include-dir      <dir>        - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
+                    "    --max-header-name-length  <n>          - Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.\n"
                     "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
                     "    --verbose                              - Write some logs.\n"
                     "\n"
@@ -116,6 +118,29 @@ int main(int raw_argc, char **raw_argv)
 
                 return false;
             };
+            auto ConsumeFlagWithSizeTArg = [&](std::string_view name, std::size_t &out, bool *dupe_check) -> bool
+            {
+                std::string str;
+                if (ConsumeFlagWithStringArg(name, str, dupe_check))
+                {
+                    if (str.empty() || !cppdecl::IsDigit(str.front()))
+                        throw std::runtime_error("`" + str + "` is not a valid number.");
+
+                    char *end = nullptr;
+
+                    static_assert(sizeof(out) == sizeof(long long));
+                    errno = 0;
+                    unsigned long long ll = std::strtoull(str.data(), &end, 10);
+                    if (end != str.data() + str.size() || errno != 0)
+                        throw std::runtime_error("`" + str + "` is not a valid number.");
+
+                    out = std::size_t(ll);
+
+                    return true;
+                }
+
+                return false;
+            };
 
             if (ConsumeFlagWithStringArg("--input", input_filename, &seen_input_filename))
                 continue;
@@ -168,6 +193,9 @@ int main(int raw_argc, char **raw_argv)
                     continue;
                 }
             }
+            if (ConsumeFlagWithSizeTArg("--max-header-name-length", generator.max_output_filename_len, &seen_max_output_filename_length))
+                continue;
+
             if (ConsumeFlagWithNoArgs("--reject-long-and-long-long", generator.reject_long_and_long_long, &seen_reject_long_and_long_long))
                 continue;
 

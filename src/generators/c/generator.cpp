@@ -1,6 +1,7 @@
 #include "generator.h"
 
 #include "common/filesystem.h"
+#include "common/hash.h"
 #include "common/meta.h"
 #include "common/parsed_data.h"
 #include "common/strings.h"
@@ -11,6 +12,7 @@
 #include <cppdecl/declarations/parse.h>
 #include <cppdecl/declarations/to_string.h>
 
+#include <cstdio>
 #include <filesystem>
 #include <functional>
 #include <iostream>
@@ -302,7 +304,28 @@ namespace mrbind::CBindings
 
         OutputFile &file = iter->second;
 
-        file.InitRelativeName(*this, PathToString(helper_header_relative_dir / name), true);
+        std::string full_name = PathToString(helper_header_relative_dir / name);
+
+        // Shorten the name if needed.
+        if (max_output_filename_len != 0 && full_name.size() > max_output_filename_len)
+        {
+            // Only hashing the suffix for no particular reason. Except perhaps if you have similar filenames that are too long (with different prefixes
+            //   of the same length), this will give them the same hashes, which is good for consistency between them?
+            auto hash = Hash(std::string_view(full_name).substr(max_output_filename_len));
+
+            full_name.resize(max_output_filename_len);
+            full_name += "__";
+
+            // Add the hash.
+            char buffer[100];
+            std::snprintf(buffer, sizeof buffer, "%x", (unsigned int)hash);
+            std::string_view view = buffer;
+            if (view.size() > hash_len_in_long_output_filenames)
+                view.remove_prefix(view.size() - hash_len_in_long_output_filenames);
+            full_name += view;
+        }
+
+        file.InitRelativeName(*this, std::move(full_name), true);
         file.InitDefaultContents(init_flags);
 
         return file;

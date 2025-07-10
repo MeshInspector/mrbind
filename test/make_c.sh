@@ -35,7 +35,13 @@ MRBIND_FLAGS=(
     -Iinclude
 )
 
-MRBIND_GEN_C_FLAGS=(--map-path test/input . --assume-include-dir test --clean-output-dirs --helper-name-prefix MR_C_)
+MRBIND_GEN_C_FLAGS=(
+    --map-path test/input .
+    --assume-include-dir test
+    --clean-output-dirs
+    --helper-name-prefix MR_C_
+    --max-header-name-length 100
+)
 
 COMPILER_FLAGS=(
     -fPIC

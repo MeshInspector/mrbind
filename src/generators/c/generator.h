@@ -58,6 +58,13 @@ namespace mrbind::CBindings
         // This is designed to work with the parser's `--canonicalize-to-fixed-size-typedefs`.
         bool reject_long_and_long_long = false;
 
+        // 0 means no limit.
+        // This is a loose limit, we don't count the extension, the extra hash string that gets added, etc.
+        std::size_t max_output_filename_len = 0;
+
+        // When adding a hash to the shortened long header names, this is how many hex digits we add.
+        std::size_t hash_len_in_long_output_filenames = 4;
+
         // ]
 
         // Constants: [
@@ -221,6 +228,10 @@ namespace mrbind::CBindings
 
         // What directories we need to create in the output.
         std::unordered_set<std::filesystem::path> directories_to_create;
+
+        // The filenames that are too long (and get shortened with the name hash added at the end) get added here, in their shortened form.
+        // We use this to check for duplicates.
+        std::unordered_set<std::string> long_filenames_with_hashes;
 
 
         // Which directories are expected added via the `-I` flags. We use this to decide what filenames to pass to `#include`.

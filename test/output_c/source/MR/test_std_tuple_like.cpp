@@ -54,19 +54,9 @@ MR_C_std_tuple_int_float *MR_StdTupleLike_GetTuple(void)
     return (MR_C_std_tuple_int_float *)new std::tuple<int, float>(::MR::StdTupleLike::GetTuple());
 }
 
-MR_C_std_tuple_const_int_const_float_int_ref_float_ref *MR_StdTupleLike_GetTuple2(void)
+MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *MR_StdTupleLike_GetTuple2(void)
 {
-    return (MR_C_std_tuple_const_int_const_float_int_ref_float_ref *)new std::tuple<const int, const float, int &, float &>(::MR::StdTupleLike::GetTuple2());
-}
-
-MR_C_std_tuple_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref *MR_StdTupleLike_GetTuple3(void)
-{
-    return (MR_C_std_tuple_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref *)new std::tuple<const int &, const float &, int &&, float &&>(::MR::StdTupleLike::GetTuple3());
-}
-
-MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *MR_StdTupleLike_GetTuple4(void)
-{
-    return (MR_C_std_tuple_const_int_rvalue_ref_const_float_rvalue_ref *)new std::tuple<const int &&, const float &&>(::MR::StdTupleLike::GetTuple4());
+    return (MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *)new std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&>(::MR::StdTupleLike::GetTuple2());
 }
 
 MR_C_std_tuple *MR_StdTupleLike_GetTuple7(void)
