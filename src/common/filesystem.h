@@ -21,7 +21,19 @@ namespace mrbind
     // Convert a path to an UTF-8 string.
     [[nodiscard]] inline std::string PathToString(const std::filesystem::path &path)
     {
-        auto ret = path.u8string();
-        return std::string(std::string_view(reinterpret_cast<const char *>(ret.c_str()), ret.size()));
+        auto ret_u8 = path.u8string();
+        std::string str(std::string_view(reinterpret_cast<const char *>(ret_u8.c_str()), ret_u8.size()));
+
+        // On Windows, replace `\` -> `/`.
+        // This helps us with the generated `#include` paths in C bindings, among other things.
+        #ifdef _WIN32
+        for (char &ch : str)
+        {
+            if (ch == '\\')
+                ch = '/';
+        }
+        #endif
+
+        return str;
     }
 }
