@@ -61,6 +61,9 @@ namespace mrbind
     {
         MBREFL_STRUCT(
             (DeclSingleFileName)(primary)
+
+            // Note that those can include standard library headers (absolute paths to them),
+            //   so those might not be portable across platforms. You might need to take special care to unify them.
             (std::set<DeclSingleFileName>)(extra)
         )
 

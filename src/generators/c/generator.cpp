@@ -80,7 +80,7 @@ namespace mrbind::CBindings
     {
         std::set<std::string, std::less<>> ret;
 
-        auto HandleString = [&](const std::string &str)
+        auto HandleString = [&](const std::string &str, bool is_primary)
         {
             std::filesystem::path input_path = std::filesystem::weakly_canonical(MakePath(str));
 
@@ -88,19 +88,30 @@ namespace mrbind::CBindings
             for (const auto &elem : assumed_include_directories)
             {
                 std::filesystem::path candidate = input_path.lexically_relative(elem);
+
+                // Skip this directory if the path is somehow empty, or importantly if the candidate starts with `..`. This apparently can happen.
+                if (candidate.empty() || *candidate.begin() == "..")
+                    continue;
+
                 if (new_path.empty() || (candidate.native().size() < new_path.native().size()))
                     new_path = std::move(candidate);
             }
 
+            // Check that we found something.
             if (new_path.empty())
-                throw std::runtime_error("I want to include the parsed file `" + str + "` but there is no matching `--assume-include-dir`.");
+            {
+                if (is_primary)
+                    throw std::runtime_error("I want to include the parsed file `" + str + "` but there is no matching `--assume-include-dir`.");
+                else
+                    return; // Silently skip unhandled secondary headers. We can have stuff like the standard library headers in there, and we don't want to handle them.
+            }
 
             ret.insert(PathToString(new_path));
         };
 
-        HandleString(input.primary.canonical);
+        HandleString(input.primary.canonical, true);
         for (const auto &elem : input.extra)
-            HandleString(elem.canonical);
+            HandleString(elem.canonical, false);
 
         return ret;
     }
