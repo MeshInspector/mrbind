@@ -2319,8 +2319,6 @@ namespace mrbind
             decl->setCompleteDefinitionRequired(true);
 
             // Instantiate this class.
-            // Here `decl->isCompleteDefinitionRequired()` rejects templates that WE don't want to instantiate,
-            //   because they were visited for a useless reason, uch as being return types of SFINAE-rejected functions.
             if (auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl))
             {
                 if (TryInstantiateClass(*ci, *cxxdecl, decl->getSourceRange().getBegin()))
