@@ -327,7 +327,9 @@ namespace mrbind
     // Applies the common post-processing to a `cppdecl::Type` or `cppdecl::QualifiedName` or something similar.
     void AdjustCppdeclEntity(auto &entity, const clang::CompilerInstance &ci, const VisitorParams &params, bool canonicalize)
     {
-        cppdecl::Simplify(cppdecl::SimplifyFlags::native, entity, cppdecl::FullSimplifyTraits{});
+        // Note, must use `SimplifyFlags::all` instead of `SimplifyFlags::native` here, because we can cross-"compile" with our parser.
+        // Most notably this triggers on Windows, where you might want to build the parser in MSYS2, but then run it in MSVC-compatible mode.
+        cppdecl::Simplify(cppdecl::SimplifyFlags::all, entity, cppdecl::FullSimplifyTraits{});
 
         if (canonicalize && params.canonicalize_to_fixed_size_typedefs)
         {
