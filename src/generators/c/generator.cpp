@@ -485,14 +485,16 @@ namespace mrbind::CBindings
         return FindTypeBindableWithSameAddressOpt(ParseQualNameOrThrow(type_name_str));
     }
 
-    void Generator::ForEachNonBuiltInQualNameInTypeName(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name)> func)
+    void Generator::ForEachNonBuiltInNestedTypeInType(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name, bool need_definition)> func)
     {
-        type.VisitEachComponent<cppdecl::QualifiedName>(
+        // The reason why this visits `Type` instead of `QualifiedName` is because we need to know if a type is an array or not,
+        //   because arrays in C (unlike in C++) need their element types to be complete, which is something `FillDefaultTypeDependencies()` needs to know.
+        type.VisitEachComponent<cppdecl::Type>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
-            [&](const cppdecl::QualifiedName &name)
+            [&](const cppdecl::Type &simple_type)
             {
-                if (!name.IsEmpty() && !TypeNameIsCBuiltIn(name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
-                    func(name);
+                if (!simple_type.simple_type.name.IsEmpty() && !TypeNameIsCBuiltIn(simple_type.simple_type.name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
+                    func(simple_type.simple_type.name, simple_type.Is<cppdecl::Array>(simple_type.modifiers.size() - 1)); // The underflow is fine here, because `Is()` silently returns false on out-of-range indices.
             }
         );
     }
@@ -736,7 +738,7 @@ namespace mrbind::CBindings
 
     void Generator::FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target)
     {
-        ForEachNonBuiltInQualNameInTypeName(source, [&](const cppdecl::QualifiedName &cpp_type_name)
+        ForEachNonBuiltInNestedTypeInType(source, [&](const cppdecl::QualifiedName &cpp_type_name, bool need_definition)
         {
             // Could validate that the type is known here here, but for now I'd rather do it lazily on use.
             // Not sure which way is better. Doing it lazily sounds a tiny bit more flexible?
@@ -744,11 +746,11 @@ namespace mrbind::CBindings
             std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
             if (target.param_usage)
-                target.param_usage->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
+                target.param_usage->same_addr_bindable_type_dependencies[cpp_type_str].need_header |= need_definition;
             if (target.param_usage_with_default_arg)
-                target.param_usage_with_default_arg->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
+                target.param_usage_with_default_arg->same_addr_bindable_type_dependencies[cpp_type_str].need_header |= need_definition;
             if (target.return_usage)
-                target.return_usage->same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
+                target.return_usage->same_addr_bindable_type_dependencies[cpp_type_str].need_header |= need_definition;
         });
     }
 

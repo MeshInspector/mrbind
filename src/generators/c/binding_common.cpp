@@ -536,7 +536,7 @@ namespace mrbind::CBindings
 
     void TryIncludeHeadersForCppTypeInSourceFile(Generator &generator, Generator::OutputFile &file, const cppdecl::Type &type)
     {
-        // Can't use `Generator::ForEachNonBuiltInQualNameInTypeName()` here, because that uses `no_recurse_into_names`, while here we need only `no_recurse_into_nontype_names`.
+        // Can't use `Generator::ForEachNonBuiltInNestedTypeInType()` here, because that uses `no_recurse_into_names`, while here we need only `no_recurse_into_nontype_names`.
         // Consider e.g. how we process `std::vector<T>`. Here we do need to visit `T`, and `no_recurse_into_names` would prevent that.
         type.VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_nontype_names,

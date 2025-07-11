@@ -612,10 +612,8 @@ namespace mrbind::CBindings
         std::unordered_map<std::string, ParsedTypeInfo> parsed_type_info;
 
 
-        // Given a type, iterates over every non-builtin type dependency that it has (which will have zero modifiers, and no `SimpleTypeFlags`,
-        //   so no signedness and such).
-        // This is the default behavior, `BindableType` entries can customize it.
-        void ForEachNonBuiltInQualNameInTypeName(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name)> func);
+        // Given a type, iterates over every non-builtin type dependency that it has.
+        void ForEachNonBuiltInNestedTypeInType(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name, bool need_definition)> func);
 
 
         // Type classification: [
@@ -746,7 +744,7 @@ namespace mrbind::CBindings
                 std::function<std::string(OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, DefaultArgVar default_arg)> c_params_to_cpp;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare? The keys are C++ type names.
-                // By default you can fill this using `ForEachNonBuiltInQualNameInTypeName()`.
+                // By default you can fill this using `ForEachNonBuiltInNestedTypeInType()`.
                 std::unordered_map<std::string, SameAddrBindableTypeDependency> same_addr_bindable_type_dependencies;
 
                 // The additional headers to include.
@@ -841,7 +839,7 @@ namespace mrbind::CBindings
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_expr;
 
                 // Which types-bindable-with-same-address do we need to include or forward-declare?
-                // By default you can fill this using `ForEachNonBuiltInQualNameInTypeName()`.
+                // By default you can fill this using `ForEachNonBuiltInNestedTypeInType()`.
                 std::unordered_map<std::string, SameAddrBindableTypeDependency> same_addr_bindable_type_dependencies;
 
                 // The additional headers to include.
@@ -891,7 +889,7 @@ namespace mrbind::CBindings
         // Throws on failure, including if `FindBindableType()` finds nothing.
         [[nodiscard]] TypeTraits FindTypeTraits(const cppdecl::Type &type);
 
-        // Uses `ForEachNonBuiltInQualNameInTypeName()` to populate `same_addr_bindable_type_dependencies` in the type.
+        // Uses `ForEachNonBuiltInNestedTypeInType()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);
 
         // This is for `BindableType::{Return,Param}Usage::same_addr_bindable_type_dependencies`.
