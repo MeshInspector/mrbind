@@ -2,7 +2,8 @@
 
 namespace MR::IncompleteArrayElemType
 {
-    struct A {};
+    // Can't use an opaque struct as an array element, because, well, it's opaque. But a enum should work.
+    enum E {};
 
-    void bar(A (*)[4]);
+    void bar(E (*)[4]);
 }

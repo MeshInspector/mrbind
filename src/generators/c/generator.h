@@ -888,6 +888,8 @@ namespace mrbind::CBindings
         // This is unlike `FindBindableType()`, which hard-errors on const types.
         // Throws on failure, including if `FindBindableType()` finds nothing.
         [[nodiscard]] TypeTraits FindTypeTraits(const cppdecl::Type &type);
+        // Same, but returns null instead of throwing on failure.
+        [[nodiscard]] std::optional<TypeTraits> FindTypeTraitsOpt(const cppdecl::Type &type);
 
         // Uses `ForEachNonBuiltInNestedTypeInType()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);

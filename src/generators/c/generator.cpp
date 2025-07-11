@@ -504,7 +504,7 @@ namespace mrbind::CBindings
         if (!type.IsOnlyQualifiedName() && !FindTypeBindableWithSameAddressOpt(type.simple_type.name))
             return false; // Some weird-ass type that can't be reinterpreted into a C type.
 
-        for (const auto &mod : type.modifiers)
+        for (std::size_t i = 0; const auto &mod : type.modifiers)
         {
             bool ok = std::visit(Overload{
                 [&](const cppdecl::Pointer &)
@@ -521,7 +521,19 @@ namespace mrbind::CBindings
                 },
                 [&](const cppdecl::Array &)
                 {
-                    return true; // Ok. Hopefully the array size is hardcoded.
+                    // Make sure the array element size has a known size.
+
+                    cppdecl::Type elem_type = type;
+                    // Remove the modifiers that we've already visited.
+                    elem_type.modifiers.erase(elem_type.modifiers.begin(), elem_type.modifiers.begin() + std::ptrdiff_t(i + 1));
+
+                    // Should this be a hard error instead, if we don't find the traits? I think a soft error is much better.
+                    auto traits = FindTypeTraitsOpt(elem_type);
+                    if (!traits)
+                        return false; // Nah, the element type is unknown.
+
+                    // The size needs to match for the array to be bindable.
+                    return traits->same_size_in_c_and_cpp;
                 },
                 [&](const cppdecl::Function &elem)
                 {
@@ -541,6 +553,8 @@ namespace mrbind::CBindings
 
             if (!ok)
                 return false;
+
+            i++;
         }
 
         return true;
@@ -730,7 +744,20 @@ namespace mrbind::CBindings
 
     Generator::TypeTraits Generator::FindTypeTraits(const cppdecl::Type &type)
     {
-        Generator::TypeTraits ret = FindBindableType(cppdecl::Type(type).RemoveQualifiers(cppdecl::CvQualifiers::const_)).traits.value();
+        auto ret = FindTypeTraitsOpt(type);
+        if (!ret)
+            throw std::runtime_error("The type traits for type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "` were queried, but I don't know this type.");
+        return *ret;
+    }
+
+    std::optional<Generator::TypeTraits> Generator::FindTypeTraitsOpt(const cppdecl::Type &type)
+    {
+        auto binding = FindBindableTypeOpt(cppdecl::Type(type).RemoveQualifiers(cppdecl::CvQualifiers::const_));
+        if (!binding)
+            return {};
+
+        // If the `.traits` is null, this is intentionally a hard error, since it should never be null.
+        Generator::TypeTraits ret = binding->traits.value();
         if (type.IsConst())
             ret.MakeNonAssignable();
         return ret;

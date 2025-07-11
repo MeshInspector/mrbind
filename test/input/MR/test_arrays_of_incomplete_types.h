@@ -4,5 +4,5 @@
 
 namespace MR::IncompleteArrayElemType
 {
-    void foo(A (*)[4]);
+    void foo(E (*)[4]);
 }

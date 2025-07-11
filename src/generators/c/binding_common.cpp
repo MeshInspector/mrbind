@@ -678,8 +678,8 @@ namespace mrbind::CBindings
             Generator::BindableType new_type;
 
             // I assume `IsSimplyBindableDirectCast()` is only going to trigger for simple types that are trivial enough for this. This could change later?
-            // Must assume different size in C and C++ because of enums (with custom underlying types).
-            new_type.traits = Generator::TypeTraits::TrivialButDifferentSizeInCAndCpp{};
+            // The size in C and C++ should always be the same here? Even for enums with custom underlying types, as we typedef them to their underlying types.
+            new_type.traits = Generator::TypeTraits::TrivialAndSameSizeInCAndCpp{};
 
             auto &ret_usage = new_type.return_usage.emplace();
             ret_usage.c_type = type_c_style;
