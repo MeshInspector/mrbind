@@ -10,6 +10,11 @@ const int32_t *MR_StaticFuncs_A_GetConst_x(void)
     return (const int32_t *)&(MR::StaticFuncs::A::x);
 }
 
+void MR_StaticFuncs_A_Set_x(int32_t value)
+{
+    MR::StaticFuncs::A::x = value;
+}
+
 int32_t *MR_StaticFuncs_A_GetMutable_x(void)
 {
     return (int32_t *)&(MR::StaticFuncs::A::x);

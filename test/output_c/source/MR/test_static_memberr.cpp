@@ -10,6 +10,11 @@ const int *MR_StaticFuncs_A_GetConst_x(void)
     return &(MR::StaticFuncs::A::x);
 }
 
+void MR_StaticFuncs_A_Set_x(int value)
+{
+    MR::StaticFuncs::A::x = value;
+}
+
 int *MR_StaticFuncs_A_GetMutable_x(void)
 {
     return &(MR::StaticFuncs::A::x);

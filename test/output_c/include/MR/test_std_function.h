@@ -47,12 +47,18 @@ MR_C_API void MR_StdFunction_foo_std_function_void_func_from_std_string(MR_C_Pas
 /// Generated from class `MR::StdFunction::A`.
 typedef struct MR_StdFunction_A MR_StdFunction_A;
 
-/// Generated from a member variable of class `MR::StdFunction::A` named `a`.
+/// Returns a pointer to a member variable of class `MR::StdFunction::A` named `a`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_StdFunction_A_GetConst_a(const MR_StdFunction_A *_this);
 
-/// Generated from a member variable of class `MR::StdFunction::A` named `a`.
+/// Modifies a member variable of class `MR::StdFunction::A` named `a`.
+/// Parameter `_this` can not be null.
+/// Parameter `value` can not be null.
+/// If `value_end` is null, then `value` is assumed to be null-terminated.
+MR_C_API void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value, const char *value_end);
+
+/// Returns a pointer to a member variable of class `MR::StdFunction::A` named `a`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_StdFunction_A_GetMutable_a(MR_StdFunction_A *_this);

@@ -11,6 +11,11 @@ const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this)
     return (const MR_C_std_string *)&((_this ? *(const MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
+void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end)
+{
+    (_this ? *(MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x = (value ? (value_end ? std::string(value, value_end) : std::string(value)) : throw std::runtime_error("Parameter `value` can not be null."));
+}
+
 MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)
 {
     return (MR_C_std_string *)&((_this ? *(MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);

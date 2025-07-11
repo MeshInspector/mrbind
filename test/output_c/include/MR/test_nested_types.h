@@ -55,22 +55,31 @@ typedef enum MR_NestedTypes_A_E
 /// Generated from class `MR::NestedTypes::A`.
 typedef struct MR_NestedTypes_A MR_NestedTypes_A;
 
-/// Generated from a member variable of class `MR::NestedTypes::A` named `b`.
+/// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `b`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_NestedTypes_A_B *MR_NestedTypes_A_GetConst_b(const MR_NestedTypes_A *_this);
 
-/// Generated from a member variable of class `MR::NestedTypes::A` named `b`.
+/// Modifies a member variable of class `MR::NestedTypes::A` named `b`.
+/// Parameter `_this` can not be null.
+/// Parameter `value` can not be null.
+MR_C_API void MR_NestedTypes_A_Set_b(MR_NestedTypes_A *_this, const MR_NestedTypes_A_B *value);
+
+/// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `b`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_NestedTypes_A_B *MR_NestedTypes_A_GetMutable_b(MR_NestedTypes_A *_this);
 
-/// Generated from a member variable of class `MR::NestedTypes::A` named `e`.
+/// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `e`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_NestedTypes_A_E *MR_NestedTypes_A_GetConst_e(const MR_NestedTypes_A *_this);
 
-/// Generated from a member variable of class `MR::NestedTypes::A` named `e`.
+/// Modifies a member variable of class `MR::NestedTypes::A` named `e`.
+/// Parameter `_this` can not be null.
+MR_C_API void MR_NestedTypes_A_Set_e(MR_NestedTypes_A *_this, MR_NestedTypes_A_E value);
+
+/// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `e`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_NestedTypes_A_E *MR_NestedTypes_A_GetMutable_e(MR_NestedTypes_A *_this);

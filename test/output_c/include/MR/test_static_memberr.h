@@ -14,11 +14,14 @@ typedef struct MR_StaticFuncs_A MR_StaticFuncs_A; // Defined below in this file.
 /// Generated from class `MR::StaticFuncs::A`.
 typedef struct MR_StaticFuncs_A MR_StaticFuncs_A;
 
-/// Generated from a member variable of class `MR::StaticFuncs::A` named `x`.
+/// Returns a pointer to a member variable of class `MR::StaticFuncs::A` named `x`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_StaticFuncs_A_GetConst_x(void);
 
-/// Generated from a member variable of class `MR::StaticFuncs::A` named `x`.
+/// Modifies a member variable of class `MR::StaticFuncs::A` named `x`.
+MR_C_API void MR_StaticFuncs_A_Set_x(int value);
+
+/// Returns a pointer to a member variable of class `MR::StaticFuncs::A` named `x`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_StaticFuncs_A_GetMutable_x(void);
 

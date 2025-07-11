@@ -116,6 +116,11 @@ const MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetConst_a(const MR_Signat
     return (const MR_SignatureFilters_A *)&((_this ? *(const MR::SignatureFilters::Blah *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a);
 }
 
+void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_A *value)
+{
+    (_this ? *(MR::SignatureFilters::Blah *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a = (value ? MR::SignatureFilters::A(*(MR::SignatureFilters::A *)value) : throw std::runtime_error("Parameter `value` can not be null."));
+}
+
 MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetMutable_a(MR_SignatureFilters_Blah *_this)
 {
     return (MR_SignatureFilters_A *)&((_this ? *(MR::SignatureFilters::Blah *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a);

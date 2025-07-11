@@ -332,6 +332,11 @@ const uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetConst_var_uint64_t(
     return (const uint64_t *)&(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
 }
 
+void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(uint64_t value)
+{
+    MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t> = value;
+}
+
 uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void)
 {
     return (uint64_t *)&(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);

@@ -96,12 +96,17 @@ MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void);
 /// Generated from class `MR::SignatureFilters::Blah`.
 typedef struct MR_SignatureFilters_Blah MR_SignatureFilters_Blah;
 
-/// Generated from a member variable of class `MR::SignatureFilters::Blah` named `a`.
+/// Returns a pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetConst_a(const MR_SignatureFilters_Blah *_this);
 
-/// Generated from a member variable of class `MR::SignatureFilters::Blah` named `a`.
+/// Modifies a member variable of class `MR::SignatureFilters::Blah` named `a`.
+/// Parameter `_this` can not be null.
+/// Parameter `value` can not be null.
+MR_C_API void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_A *value);
+
+/// Returns a pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetMutable_a(MR_SignatureFilters_Blah *_this);

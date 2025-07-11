@@ -206,11 +206,14 @@ typedef enum MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum
 /// Generated from class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
 typedef struct MR_TestSimpleTypes_ClassTemplate_unsigned_long MR_TestSimpleTypes_ClassTemplate_unsigned_long;
 
-/// Generated from a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
+/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetConst_var_unsigned_long(void);
 
-/// Generated from a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
+/// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
+MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(unsigned long value);
+
+/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long(void);
 

@@ -1098,9 +1098,16 @@ namespace mrbind::CBindings
             void SetFromParsedClassMethod(const CBindings::Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassConvOp(const CBindings::Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack);
 
-            // Makes a const or mutable getter (depending on `is_const`).
-            // Returns false if the getter can't be generated (if it's mutable and the member is read-only).
-            bool SetAsFieldGetter(CBindings::Generator &self, const ClassEntity &new_class, const ClassField &new_field, bool is_const);
+            enum class FieldAccessorKind
+            {
+                getter, // Returns a const reference to the field (a pointer in C).
+                mutable_getter, // Returns a mutable reference to the field (a pointer in C).
+                setter, // Takes the new field value as a parameter.
+            };
+
+            // Makes an accessor for a field.
+            // Returns false if not applicable (e.g. if the member is const and we're trying to generate
+            bool SetAsFieldAccessor(CBindings::Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind);
         };
         void EmitFunction(OutputFile &file, const EmitFuncParams &params);
 

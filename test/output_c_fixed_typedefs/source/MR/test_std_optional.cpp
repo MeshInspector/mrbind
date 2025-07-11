@@ -81,6 +81,11 @@ const int32_t *MR_StdOptional_A_GetConst_x(const MR_StdOptional_A *_this)
     return (const int32_t *)&((_this ? *(const MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
+void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value)
+{
+    (_this ? *(MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x = value;
+}
+
 int32_t *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this)
 {
     return (int32_t *)&((_this ? *(MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
@@ -168,6 +173,11 @@ void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_A *_1)
 const MR_C_std_string *MR_StdOptional_B_GetConst_s(const MR_StdOptional_B *_this)
 {
     return (const MR_C_std_string *)&((_this ? *(const MR::StdOptional::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).s);
+}
+
+void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const char *value_end)
+{
+    (_this ? *(MR::StdOptional::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).s = (value ? (value_end ? std::string(value, value_end) : std::string(value)) : throw std::runtime_error("Parameter `value` can not be null."));
 }
 
 MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this)

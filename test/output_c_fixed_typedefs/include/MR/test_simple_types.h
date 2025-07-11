@@ -199,11 +199,14 @@ typedef int32_t MR_TestSimpleTypes_ClassTemplate_uint64_t_Enum;
 /// Generated from class `MR::TestSimpleTypes::ClassTemplate<uint64_t>`.
 typedef struct MR_TestSimpleTypes_ClassTemplate_uint64_t MR_TestSimpleTypes_ClassTemplate_uint64_t;
 
-/// Generated from a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
+/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetConst_var_uint64_t(void);
 
-/// Generated from a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
+/// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
+MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(uint64_t value);
+
+/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void);
 

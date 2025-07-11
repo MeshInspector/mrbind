@@ -1062,42 +1062,72 @@ namespace mrbind::CBindings
         using_namespace_stack = new_using_namespace_stack;
     }
 
-    bool Generator::EmitFuncParams::SetAsFieldGetter(Generator &self, const ClassEntity &new_class, const ClassField &new_field, bool is_const)
+    bool Generator::EmitFuncParams::SetAsFieldAccessor(Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind)
     {
-        cpp_return_type = self.ParseTypeOrThrow(new_field.type.canonical);
+        const bool is_const = kind == FieldAccessorKind::getter;
+        const bool is_setter = kind == FieldAccessorKind::setter;
 
-        if (!is_const && cpp_return_type.IsConstOrReference())
-            return false; // No mutable getter for a const (or reference) field.
+        const cppdecl::Type field_type = self.ParseTypeOrThrow(new_field.type.canonical);
+        if (!is_setter)
+            cpp_return_type = field_type;
+
+        if (!is_const && field_type.IsConstOrReference())
+            return false; // No setters and mutable getters for const (and reference) fields.
+
+        // Setters additionally need assignability.
+        // This kinda makes the `.IsConstOrReference()` check above redundant, but I guess it's still an optimization, so let's keep it.
+        // Also reject arrays, because those obviously can't be assigned, but `FindTypeTraits()` will throw on them.
+        if (is_setter && (field_type.Is<cppdecl::Array>() || !self.FindTypeTraits(field_type).is_move_assignable))
+            return false;
 
         AddThisParamFromParsedClass(self, new_class, {is_const, false, new_field.is_static});
 
         const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
         c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
-        c_name += is_const ? "_GetConst_" : "_GetMutable_";
+        c_name += is_setter ? "_Set_" : is_const ? "_GetConst_" : "_GetMutable_";
         c_name += cppdecl::ToString(self.ParseQualNameOrThrow(new_field.full_name), cppdecl::ToStringFlags::identifier);
 
 
-        // Make the return type a const reference if not already a reference.
-        if (!cpp_return_type.Is<cppdecl::Reference>())
+        if (is_setter)
         {
-            if (is_const)
+            // Add the parameter for the setter.
+            params.push_back({
+                .name = "value",
+                .cpp_type = field_type,
+            });
+
+            // Not using `@this@.` here because this can be a static data member too!
+            // And it's inserted automatically anyway.
+            cpp_called_func = new_field.full_name + " = @1@";
+        }
+        else
+        {
+            // Make the return type a const reference if not already a reference.
+            if (!cpp_return_type.Is<cppdecl::Reference>())
             {
-                if (auto quals = cpp_return_type.GetQualifiersMut())
-                    *quals |= cppdecl::CvQualifiers::const_;
+                if (is_const)
+                {
+                    // Arrays need to have constness inserted in the element type.
+                    if (cpp_return_type.Is<cppdecl::Array>())
+                        cpp_return_type.AddQualifiers(cppdecl::CvQualifiers::const_, 1);
+                    else if (auto quals = cpp_return_type.GetQualifiersMut())
+                        *quals |= cppdecl::CvQualifiers::const_;
+                }
+                cpp_return_type.AddModifier(cppdecl::Reference{});
             }
-            cpp_return_type.AddModifier(cppdecl::Reference{});
+
+            cpp_called_func = new_field.full_name;
+            cpp_called_func_parens = {};
         }
 
 
-        cpp_called_func = new_field.full_name;
-        cpp_called_func_parens = {};
 
         if (new_field.comment)
         {
             c_comment = new_field.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from a member variable of class `";
+        c_comment += "/// " + std::string(is_setter ? "Modifies" : "Returns a pointer to") + " a member variable of class `";
         c_comment += class_cpp_type_str;
         c_comment += "` named `";
         c_comment += new_field.full_name;
@@ -1504,16 +1534,12 @@ namespace mrbind::CBindings
 
     void Generator::EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field)
     {
-        // At the time or writing, the first condition should always be true.
-        // Only the mutable getter can be omitted (if the field is const or is a reference).
-
-        EmitFuncParams getter;
-        if (getter.SetAsFieldGetter(*this, new_class, new_field, true))
-            EmitFunction(file, getter);
-
-        EmitFuncParams setter;
-        if (setter.SetAsFieldGetter(*this, new_class, new_field, false))
-            EmitFunction(file, setter);
+        for (auto kind : {EmitFuncParams::FieldAccessorKind::getter, EmitFuncParams::FieldAccessorKind::setter, EmitFuncParams::FieldAccessorKind::mutable_getter})
+        {
+            EmitFuncParams emit;
+            if (emit.SetAsFieldAccessor(*this, new_class, new_field, kind))
+                EmitFunction(file, emit);
+        }
     }
 
     // This fills `parsed_type_info` with the knowledge about all parsed types.

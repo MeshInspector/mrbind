@@ -339,6 +339,11 @@ const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetConst_var
     return &(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
 }
 
+void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(unsigned long value)
+{
+    MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long> = value;
+}
+
 unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long(void)
 {
     return &(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);

@@ -53,6 +53,11 @@ const MR_C_std_string *MR_StdFunction_A_GetConst_a(const MR_StdFunction_A *_this
     return (const MR_C_std_string *)&((_this ? *(const MR::StdFunction::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a);
 }
 
+void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value, const char *value_end)
+{
+    (_this ? *(MR::StdFunction::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a = (value ? (value_end ? std::string(value, value_end) : std::string(value)) : throw std::runtime_error("Parameter `value` can not be null."));
+}
+
 MR_C_std_string *MR_StdFunction_A_GetMutable_a(MR_StdFunction_A *_this)
 {
     return (MR_C_std_string *)&((_this ? *(MR::StdFunction::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a);

@@ -17,12 +17,18 @@ typedef struct MR_C_std_vector_MR_A MR_C_std_vector_MR_A; // Defined in `#includ
 /// Generated from class `MR::A`.
 typedef struct MR_A MR_A;
 
-/// Generated from a member variable of class `MR::A` named `x`.
+/// Returns a pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this);
 
-/// Generated from a member variable of class `MR::A` named `x`.
+/// Modifies a member variable of class `MR::A` named `x`.
+/// Parameter `_this` can not be null.
+/// Parameter `value` can not be null.
+/// If `value_end` is null, then `value` is assumed to be null-terminated.
+MR_C_API void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end);
+
+/// Returns a pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);
