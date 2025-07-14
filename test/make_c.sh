@@ -73,7 +73,11 @@ build/mrbind \
     -o test/output_c/parsed.json \
     "${MRBIND_FLAGS[@]}"
 
-build/mrbind_gen_c --input test/output_c/parsed.json --output-header-dir test/output_c/include --output-source-dir test/output_c/source "${MRBIND_GEN_C_FLAGS[@]}"
+build/mrbind_gen_c \
+    --input test/output_c/parsed.json \
+    --output-header-dir test/output_c/include \
+    --output-source-dir test/output_c/source \
+    "${MRBIND_GEN_C_FLAGS[@]}"
 
 build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
@@ -81,7 +85,14 @@ build/mrbind \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 
-build/mrbind_gen_c --input test/output_c_fixed_typedefs/parsed.json --output-header-dir test/output_c_fixed_typedefs/include --output-source-dir test/output_c_fixed_typedefs/source --reject-long-and-long-long "${MRBIND_GEN_C_FLAGS[@]}"
+# Here `--merge-std-and-tl-expected` is unrelated to the fixed-size typedefs, but we need to test it too, so why not here.
+build/mrbind_gen_c \
+    --input test/output_c_fixed_typedefs/parsed.json \
+    --output-header-dir test/output_c_fixed_typedefs/include \
+    --output-source-dir test/output_c_fixed_typedefs/source \
+    "${MRBIND_GEN_C_FLAGS[@]}" \
+    --reject-long-and-long-long \
+    --merge-std-and-tl-expected
 
 
 $CXX \

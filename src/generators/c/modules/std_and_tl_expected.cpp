@@ -13,6 +13,14 @@ namespace mrbind::CBindings::Modules
             cppdecl::QualifiedName{}.AddPart("tl").AddPart("expected"),
         };
 
+        bool merge_std_and_tl_expected = false;
+
+        void ConsumeFlag(FlagInterface &in) override
+        {
+            if (in.FlagNameMatches("--merge-std-and-tl-expected", "", "Bind both `std::expected` and `tl::expected` to the same common C name, without the `std`/`tl` prefix."))
+                merge_std_and_tl_expected = true;
+        }
+
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
             (void)type_str;
@@ -31,7 +39,15 @@ namespace mrbind::CBindings::Modules
             const cppdecl::Type &cpp_elem_type_value = std::get<cppdecl::Type>(type.simple_type.name.parts.back().template_args.value().args.at(0).var);
             const cppdecl::Type &cpp_elem_type_error = std::get<cppdecl::Type>(type.simple_type.name.parts.back().template_args.value().args.at(1).var);
 
-            HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
+            std::string customized_c_name;
+            cppdecl::Type type_with_merged_std_and_tl = type;
+            if (merge_std_and_tl_expected)
+            {
+                type_with_merged_std_and_tl.simple_type.name.parts.erase(type_with_merged_std_and_tl.simple_type.name.parts.begin());
+                customized_c_name = cppdecl::ToString(type_with_merged_std_and_tl, cppdecl::ToStringFlags::identifier);
+            }
+
+            HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name, std::move(customized_c_name));
 
             binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // The triviality can get reset by the `CombineCommonProperties()` below if necessary.
             binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_value));
@@ -42,6 +58,7 @@ namespace mrbind::CBindings::Modules
 
             auto get_output_file = [
                 type,
+                type_with_merged_std_and_tl,
                 type_str,
                 value_type_is_void,
                 cpp_elem_type_value,
@@ -50,7 +67,7 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+                Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type_with_merged_std_and_tl, cppdecl::ToStringFlags::identifier), &is_new);
 
                 if (is_new)
                 {
