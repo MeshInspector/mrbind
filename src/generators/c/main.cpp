@@ -6,6 +6,7 @@
 #include "generators/common/data_from_file.h"
 
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 
 int main(int raw_argc, char **raw_argv)
@@ -20,6 +21,13 @@ int main(int raw_argc, char **raw_argv)
     bool verbose = false;
 
     mrbind::CBindings::Generator generator;
+
+    { // Load the generator modules.
+        const auto &avail_modules = mrbind::CBindings::GetRegisteredModules();
+        generator.modules.reserve(avail_modules.size());
+        for (const auto &elem : avail_modules)
+            generator.modules.push_back(elem.second());
+    }
 
     { // Parse arguments.
         bool seen_input_filename = false;
@@ -38,6 +46,7 @@ int main(int raw_argc, char **raw_argv)
 
             if (view == "--help")
             {
+                static constexpr int flag_column_width = 38; // Sync with the whitespaces below.
                 std::cout <<
                     "Usage:\n"
                     "    --input               <filename.json>  - Input JSON file, as produced by `mrbind --format=json`.\n"
@@ -51,7 +60,37 @@ int main(int raw_argc, char **raw_argv)
                     "    --assume-include-dir      <dir>        - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
                     "    --max-header-name-length  <n>          - Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.\n"
                     "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
-                    "    --verbose                              - Write some logs.\n"
+                    "    --verbose                              - Write some logs.\n";
+
+                { // Ask modules for thier flags.
+                    // This fake implementation just prints the flags that the modules know about.
+                    struct FlagPrinter : mrbind::CBindings::Module::FlagInterface
+                    {
+                        bool FlagNameMatches(std::string_view name, std::string_view args, std::string_view description) override
+                        {
+                            std::string name_with_args(name);
+                            if (!args.empty())
+                            {
+                                name_with_args += ' ';
+                                name_with_args += args;
+                            }
+
+                            std::cout << "    " << std::setw(flag_column_width) << name_with_args << " - " << description << '\n';
+                            return false;
+                        }
+
+                        std::string_view GetStringArgument() override
+                        {
+                            throw std::runtime_error("Bad usage of `FlagInterface`: must not call `GetStringArgument()` before `FlagNameMatches()` returns true.");
+                        }
+                    };
+                    FlagPrinter printer;
+
+                    for (const auto &m : generator.modules)
+                        m->ConsumeFlag(printer);
+                }
+
+                std::cout <<
                     "\n"
                     "A minimal usage might look like this:\n"
                     "    mrbind_gen_c --input test/build/parsed.json --output-header-dir test/build/include --clean-output-dirs --output-source-dir test/build/source --map-path test/input . --assume-include-dir test\n"
@@ -202,6 +241,72 @@ int main(int raw_argc, char **raw_argv)
             if (ConsumeFlagWithNoArgs("--verbose", verbose, &seen_verbose))
                 continue;
 
+
+            { // Lastly, ask the modules.
+                struct FlagHandler : mrbind::CBindings::Module::FlagInterface
+                {
+                    int argc = 0;
+                    char **argv = nullptr;
+                    int *i = nullptr;
+
+                    enum class State
+                    {
+                        not_handled,
+                        handled_by_this_module,
+                        handled_by_previous_module,
+                    };
+                    State state = State::not_handled;
+
+                    std::string_view current_flag;
+
+                    void HandleModule(mrbind::CBindings::Module &m)
+                    {
+                        current_flag = argv[*i];
+                        m.ConsumeFlag(*this);
+                        if (state == State::handled_by_this_module)
+                            state = State::handled_by_previous_module;
+                    }
+
+                    bool FlagNameMatches(std::string_view name, std::string_view args, std::string_view description) override
+                    {
+                        (void)args;
+                        (void)description;
+
+                        if (state == State::handled_by_this_module)
+                            throw std::runtime_error("Bad usage of `FlagInterface`: must not call `FlagNameMatches()` again after it returned true.");
+                        if (state == State::handled_by_previous_module)
+                            throw std::runtime_error("Bad usage of `FlagInterface`: attempting to handle flag `" + std::string(current_flag) + "` after some other module has already handled it.");
+                        if (name != current_flag)
+                            return false;
+                        state = State::handled_by_this_module;
+                        return true;
+                    }
+
+                    std::string_view GetStringArgument() override
+                    {
+                        if (state != State::handled_by_this_module)
+                            throw std::runtime_error("Bad usage of `FlagInterface`: must not call `GetStringArgument()` before `FlagNameMatches()` returns true.");
+
+                        if (*i + 1 >= argc)
+                            throw std::runtime_error("Not enough arguments for `" + std::string(current_flag) + "`.");
+
+                        return argv[++*i];
+                    }
+                };
+                FlagHandler handler;
+                handler.argc = args.argc;
+                handler.argv = args.argv;
+                handler.i = &i;
+
+                // We don't stop this loop early when the flag is handled. Instead we check all other modules,
+                //   to make sure that no one else tries to handle the same flag. If that happens, we emit an error.
+                for (const auto &m : generator.modules)
+                    handler.HandleModule(*m);
+
+                if (handler.state != FlagHandler::State::not_handled)
+                    continue; // Some module has handled the flag.
+            }
+
             throw std::runtime_error("Unknown argument: `" + std::string(view) + "`. Consult `--help` for usage.");
         }
 
@@ -247,15 +352,9 @@ int main(int raw_argc, char **raw_argv)
         }
     }
 
-    { // Load the generator modules.
-        const auto &avail_modules = mrbind::CBindings::GetRegisteredModules();
-        generator.modules.reserve(avail_modules.size());
-        for (const auto &elem : avail_modules)
-        {
-            generator.modules.push_back(elem.second());
-            generator.modules.back()->Init(generator);
-        }
-    }
+    // Initialize the modules.
+    for (const auto &m : generator.modules)
+        m->Init(generator);
 
     // Generate all sources, in memory for now.
     generator.Generate();
