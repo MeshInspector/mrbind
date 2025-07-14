@@ -3,6 +3,7 @@
 #include <input/MR/test_member_vars.h>
 
 #include <stdexcept>
+#include <type_traits>
 
 
 const int *MR_MemberVars_A_GetConst_z(void)
@@ -50,14 +51,19 @@ int *MR_MemberVars_A_GetConst_ref(const MR_MemberVars_A *_this)
     return &((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).ref);
 }
 
-const int (*MR_MemberVars_A_GetConst_arr(const MR_MemberVars_A *_this))[4]
+const int *MR_MemberVars_A_GetConst_arr(const MR_MemberVars_A *_this)
 {
-    return &((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr);
+    return &((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr[0]);
 }
 
-int (*MR_MemberVars_A_GetMutable_arr(MR_MemberVars_A *_this))[4]
+int *MR_MemberVars_A_GetMutable_arr(MR_MemberVars_A *_this)
 {
-    return &((_this ? *(MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr);
+    return &((_this ? *(MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr[0]);
+}
+
+size_t MR_MemberVars_A_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::MemberVars::A::arr)>;
 }
 
 MR_MemberVars_A *MR_MemberVars_A_ConstructFromAnother(const MR_MemberVars_A *_other)

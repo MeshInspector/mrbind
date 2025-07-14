@@ -22,7 +22,7 @@ MR_C_API const int32_t *MR_MemberVars_A_GetConst_z(void);
 /// Modifies a member variable of class `MR::MemberVars::A` named `z`.
 MR_C_API void MR_MemberVars_A_Set_z(int32_t value);
 
-/// Returns a pointer to a member variable of class `MR::MemberVars::A` named `z`.
+/// Returns a mutable pointer to a member variable of class `MR::MemberVars::A` named `z`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_MemberVars_A_GetMutable_z(void);
 
@@ -39,7 +39,7 @@ MR_C_API const int32_t *MR_MemberVars_A_GetConst_x(const MR_MemberVars_A *_this)
 /// Parameter `_this` can not be null.
 MR_C_API void MR_MemberVars_A_Set_x(MR_MemberVars_A *_this, int32_t value);
 
-/// Returns a pointer to a member variable of class `MR::MemberVars::A` named `x`.
+/// Returns a mutable pointer to a member variable of class `MR::MemberVars::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_MemberVars_A_GetMutable_x(MR_MemberVars_A *_this);
@@ -56,16 +56,19 @@ MR_C_API const int32_t *MR_MemberVars_A_GetConst_y(const MR_MemberVars_A *_this)
 MR_C_API int32_t *MR_MemberVars_A_GetConst_ref(const MR_MemberVars_A *_this);
 
 // Arrays don't get setters, because they aren't assignable. But they still get mutable getters
-/// Returns a pointer to a member variable of class `MR::MemberVars::A` named `arr`.
+/// Returns a pointer to a member variable of class `MR::MemberVars::A` named `arr`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int32_t (*MR_MemberVars_A_GetConst_arr(const MR_MemberVars_A *_this))[4];
+MR_C_API const int32_t *MR_MemberVars_A_GetConst_arr(const MR_MemberVars_A *_this);
 
 // Arrays don't get setters, because they aren't assignable. But they still get mutable getters
-/// Returns a pointer to a member variable of class `MR::MemberVars::A` named `arr`.
+/// Returns a mutable pointer to a member variable of class `MR::MemberVars::A` named `arr`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API int32_t (*MR_MemberVars_A_GetMutable_arr(MR_MemberVars_A *_this))[4];
+MR_C_API int32_t *MR_MemberVars_A_GetMutable_arr(MR_MemberVars_A *_this);
+
+/// Returns the size of the array member of class `MR::MemberVars::A` named `arr`. The size is `4`.
+MR_C_API size_t MR_MemberVars_A_GetSize_arr(void);
 
 /// Generated from a constructor of class `MR::MemberVars::A`.
 /// Parameter `_other` can not be null.

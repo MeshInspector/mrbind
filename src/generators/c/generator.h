@@ -1103,6 +1103,7 @@ namespace mrbind::CBindings
                 getter, // Returns a const reference to the field (a pointer in C).
                 mutable_getter, // Returns a mutable reference to the field (a pointer in C).
                 setter, // Takes the new field value as a parameter.
+                array_size, // If this is a plain array member, generates a function that returns its size.
             };
 
             // Makes an accessor for a field.

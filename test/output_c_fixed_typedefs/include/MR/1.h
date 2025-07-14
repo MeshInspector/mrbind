@@ -28,7 +28,7 @@ MR_C_API const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this);
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
 MR_C_API void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end);
 
-/// Returns a pointer to a member variable of class `MR::A` named `x`.
+/// Returns a mutable pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);

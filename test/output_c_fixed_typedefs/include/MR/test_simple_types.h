@@ -206,7 +206,7 @@ MR_C_API const uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetConst_var_
 /// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(uint64_t value);
 
-/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
+/// Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void);
 

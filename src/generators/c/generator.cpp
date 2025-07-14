@@ -1093,15 +1093,54 @@ namespace mrbind::CBindings
 
     bool Generator::EmitFuncParams::SetAsFieldAccessor(Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind)
     {
-        const bool is_const = kind == FieldAccessorKind::getter;
-        const bool is_setter = kind == FieldAccessorKind::setter;
-
         const cppdecl::Type field_type = self.ParseTypeOrThrow(new_field.type.canonical);
-        if (!is_setter)
-            cpp_return_type = field_type;
+        const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
 
+        auto SetFuncName = [&](std::string_view name)
+        {
+            c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
+            c_name += '_';
+            c_name += name;
+            c_name += '_';
+            c_name += cppdecl::ToString(self.ParseQualNameOrThrow(new_field.full_name), cppdecl::ToStringFlags::identifier);
+        };
+
+        // Special handling for the function returning the array size, if this is an array.
+        if (kind == FieldAccessorKind::array_size)
+        {
+            if (!field_type.Is<cppdecl::Array>())
+                return false;
+
+            AddThisParamFromParsedClass(self, new_class, ThisParamKind::Static{});
+
+            // Not `int64_t`, that would be a bit silly, even if we use `--canonicalize-to-fixed-size-typedefs`.
+            // In our standard containers we also use `size_t`. That's intended.
+            cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
+
+            SetFuncName("GetSize");
+
+            // I guess we could hardcode the returned size instead, but this looks better to me.
+            extra_headers.stdlib_in_source_file.insert("type_traits"); // For `std::extent_v`.
+            cpp_called_func = "std::extent_v<decltype(@this@::" + new_field.full_name + ")>";
+
+            c_comment += "/// Returns the size of the array member of class `";
+            c_comment += class_cpp_type_str;
+            c_comment += "` named `";
+            c_comment += new_field.full_name;
+            c_comment += "`. The size is `";
+            c_comment += cppdecl::ToCode(field_type.As<cppdecl::Array>()->size, cppdecl::ToCodeFlags::canonical_c_style);
+            c_comment += "`.";
+
+            return true;
+        }
+
+        const bool is_const = kind == FieldAccessorKind::getter;
         if (!is_const && field_type.IsConstOrReference())
             return false; // No setters and mutable getters for const (and reference) fields.
+
+        const bool is_setter = kind == FieldAccessorKind::setter;
+        if (!is_setter)
+            cpp_return_type = field_type;
 
         // Setters additionally need assignability.
         // This kinda makes the `.IsConstOrReference()` check above redundant, but I guess it's still an optimization, so let's keep it.
@@ -1111,11 +1150,9 @@ namespace mrbind::CBindings
 
         AddThisParamFromParsedClass(self, new_class, {is_const, false, new_field.is_static});
 
-        const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
-        c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
-        c_name += is_setter ? "_Set_" : is_const ? "_GetConst_" : "_GetMutable_";
-        c_name += cppdecl::ToString(self.ParseQualNameOrThrow(new_field.full_name), cppdecl::ToStringFlags::identifier);
+        SetFuncName(is_setter ? "Set" : is_const ? "GetConst" : "GetMutable");
 
+        const bool is_array = field_type.Is<cppdecl::Array>();
 
         if (is_setter)
         {
@@ -1131,7 +1168,13 @@ namespace mrbind::CBindings
         }
         else
         {
-            // Make the return type a const reference if not already a reference.
+            // Replace arrays with references to their first elements.
+            // Using a reference instead of a pointer here to get a nice comment telling the user that it'll never be null (which is true).
+
+            if (is_array)
+                cpp_return_type.RemoveModifier();
+
+            // Make the return type a (possibly const) reference if not already a reference.
             if (!cpp_return_type.Is<cppdecl::Reference>())
             {
                 if (is_const)
@@ -1146,9 +1189,11 @@ namespace mrbind::CBindings
             }
 
             cpp_called_func = new_field.full_name;
+            if (is_array)
+                cpp_called_func += "[0]";
+
             cpp_called_func_parens = {};
         }
-
 
 
         if (new_field.comment)
@@ -1156,11 +1201,13 @@ namespace mrbind::CBindings
             c_comment = new_field.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// " + std::string(is_setter ? "Modifies" : "Returns a pointer to") + " a member variable of class `";
+        c_comment += "/// " + std::string(is_setter ? "Modifies" : is_const ? "Returns a pointer to" : "Returns a mutable pointer to") + " a member variable of class `";
         c_comment += class_cpp_type_str;
         c_comment += "` named `";
         c_comment += new_field.full_name;
         c_comment += "`.";
+        if (is_array)
+            c_comment += " This is a pointer to the first element of an array.";
 
         // No namespace stack is needed, because there are no default arguments involved.
 
@@ -1563,7 +1610,14 @@ namespace mrbind::CBindings
 
     void Generator::EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field)
     {
-        for (auto kind : {EmitFuncParams::FieldAccessorKind::getter, EmitFuncParams::FieldAccessorKind::setter, EmitFuncParams::FieldAccessorKind::mutable_getter})
+        for (auto kind :
+            {
+                EmitFuncParams::FieldAccessorKind::getter,
+                EmitFuncParams::FieldAccessorKind::setter,
+                EmitFuncParams::FieldAccessorKind::mutable_getter,
+                EmitFuncParams::FieldAccessorKind::array_size,
+            }
+        )
         {
             EmitFuncParams emit;
             if (emit.SetAsFieldAccessor(*this, new_class, new_field, kind))

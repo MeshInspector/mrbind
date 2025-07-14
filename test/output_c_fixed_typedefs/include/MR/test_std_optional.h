@@ -79,7 +79,7 @@ MR_C_API const int32_t *MR_StdOptional_A_GetConst_x(const MR_StdOptional_A *_thi
 /// Parameter `_this` can not be null.
 MR_C_API void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value);
 
-/// Returns a pointer to a member variable of class `MR::StdOptional::A` named `x`.
+/// Returns a mutable pointer to a member variable of class `MR::StdOptional::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this);
@@ -151,7 +151,7 @@ MR_C_API const MR_C_std_string *MR_StdOptional_B_GetConst_s(const MR_StdOptional
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
 MR_C_API void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const char *value_end);
 
-/// Returns a pointer to a member variable of class `MR::StdOptional::B` named `s`.
+/// Returns a mutable pointer to a member variable of class `MR::StdOptional::B` named `s`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this);
