@@ -80,21 +80,21 @@ double *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_double(MR_C_std_t
 
 const int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_Get_int32_t_2(const MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return (const int32_t *)&(std::get<2>((_this ? *(const std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<2>((_this ? *(const std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_int32_t_2(MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return (int32_t *)&(std::get<2>((_this ? *(std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<2>((_this ? *(std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 const int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_Get_int32_t_3(const MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return (const int32_t *)&(std::get<3>((_this ? *(const std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<3>((_this ? *(const std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_int32_t_3(MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return (int32_t *)&(std::get<3>((_this ? *(std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<3>((_this ? *(std::tuple<float, double, int32_t, int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 

@@ -72,7 +72,7 @@ int32_t *MR_C_std_unique_ptr_int32_t_array_Get(const MR_C_std_unique_ptr_int32_t
 
 int32_t *MR_C_std_unique_ptr_int32_t_array_At(const MR_C_std_unique_ptr_int32_t_array *_this, size_t i)
 {
-    return (int32_t *)&((_this ? *(const std::unique_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))[i]);
+    return &((_this ? *(const std::unique_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))[i]);
 }
 
 int32_t *MR_C_std_unique_ptr_int32_t_array_Release(MR_C_std_unique_ptr_int32_t_array *_this)

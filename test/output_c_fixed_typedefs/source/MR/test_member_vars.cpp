@@ -8,7 +8,7 @@
 
 const int32_t *MR_MemberVars_A_GetConst_z(void)
 {
-    return (const int32_t *)&(MR::MemberVars::A::z);
+    return &(MR::MemberVars::A::z);
 }
 
 void MR_MemberVars_A_Set_z(int32_t value)
@@ -18,17 +18,17 @@ void MR_MemberVars_A_Set_z(int32_t value)
 
 int32_t *MR_MemberVars_A_GetMutable_z(void)
 {
-    return (int32_t *)&(MR::MemberVars::A::z);
+    return &(MR::MemberVars::A::z);
 }
 
 const int32_t *MR_MemberVars_A_GetConst_w(void)
 {
-    return (const int32_t *)&(MR::MemberVars::A::w);
+    return &(MR::MemberVars::A::w);
 }
 
 const int32_t *MR_MemberVars_A_GetConst_x(const MR_MemberVars_A *_this)
 {
-    return (const int32_t *)&((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
+    return &((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
 void MR_MemberVars_A_Set_x(MR_MemberVars_A *_this, int32_t value)
@@ -38,27 +38,27 @@ void MR_MemberVars_A_Set_x(MR_MemberVars_A *_this, int32_t value)
 
 int32_t *MR_MemberVars_A_GetMutable_x(MR_MemberVars_A *_this)
 {
-    return (int32_t *)&((_this ? *(MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
+    return &((_this ? *(MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
 const int32_t *MR_MemberVars_A_GetConst_y(const MR_MemberVars_A *_this)
 {
-    return (const int32_t *)&((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).y);
+    return &((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).y);
 }
 
 int32_t *MR_MemberVars_A_GetConst_ref(const MR_MemberVars_A *_this)
 {
-    return (int32_t *)&((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).ref);
+    return &((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).ref);
 }
 
 const int32_t *MR_MemberVars_A_GetConst_arr(const MR_MemberVars_A *_this)
 {
-    return (const int32_t *)&((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr[0]);
+    return &((_this ? *(const MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr[0]);
 }
 
 int32_t *MR_MemberVars_A_GetMutable_arr(MR_MemberVars_A *_this)
 {
-    return (int32_t *)&((_this ? *(MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr[0]);
+    return &((_this ? *(MR::MemberVars::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).arr[0]);
 }
 
 size_t MR_MemberVars_A_GetSize_arr(void)

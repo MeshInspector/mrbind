@@ -15,8 +15,8 @@ uint64_t MR_TestSizeT_foo_uint64_t(uint64_t _1)
 
 uint64_t **MR_TestSizeT_foo_uint64_t_ptr_ref(uint64_t **_1)
 {
-    return (uint64_t **)&(::MR::TestSizeT::foo(
-        (_1 ? *(uint64_t **)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+    return &(::MR::TestSizeT::foo(
+        (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null."))
     ));
 }
 
@@ -36,8 +36,8 @@ int64_t MR_TestSizeT_foo_int64_t(int64_t _1)
 
 int64_t **MR_TestSizeT_foo_int64_t_ptr_ref(int64_t **_1)
 {
-    return (int64_t **)&(::MR::TestSizeT::foo(
-        (_1 ? *(int64_t **)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+    return &(::MR::TestSizeT::foo(
+        (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null."))
     ));
 }
 

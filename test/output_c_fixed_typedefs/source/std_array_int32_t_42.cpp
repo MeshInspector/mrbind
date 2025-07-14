@@ -50,14 +50,14 @@ MR_C_std_array_int32_t_42 *MR_C_std_array_int32_t_42_OffsetMutablePtr(MR_C_std_a
 
 const int32_t *MR_C_std_array_int32_t_42_At(const MR_C_std_array_int32_t_42 *_this, size_t i)
 {
-    return (const int32_t *)&((_this ? *(const std::array<int32_t, 42> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
+    return &((_this ? *(const std::array<int32_t, 42> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
         i
     ));
 }
 
 int32_t *MR_C_std_array_int32_t_42_MutableAt(MR_C_std_array_int32_t_42 *_this, size_t i)
 {
-    return (int32_t *)&((_this ? *(std::array<int32_t, 42> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
+    return &((_this ? *(std::array<int32_t, 42> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
         i
     ));
 }

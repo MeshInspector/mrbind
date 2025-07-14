@@ -67,27 +67,27 @@ void MR_C_phmap_parallel_node_hash_map_int32_t_float_Clear(MR_C_phmap_parallel_n
 
 float *MR_C_phmap_parallel_node_hash_map_int32_t_float_FindOrConstructElem(MR_C_phmap_parallel_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
-    return &((_this ? *(phmap::parallel_node_hash_map<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))[(key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))]);
+    return &((_this ? *(phmap::parallel_node_hash_map<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))[(key ? *key : throw std::runtime_error("Parameter `key` can not be null."))]);
 }
 
 bool MR_C_phmap_parallel_node_hash_map_int32_t_float_Contains(const MR_C_phmap_parallel_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
     return (_this ? *(const phmap::parallel_node_hash_map<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).contains(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     );
 }
 
 MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int32_t_float_Find(const MR_C_phmap_parallel_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
     return (MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator *)new phmap::parallel_node_hash_map<int32_t, float>::const_iterator((_this ? *(const phmap::parallel_node_hash_map<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     ));
 }
 
 MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *MR_C_phmap_parallel_node_hash_map_int32_t_float_FindMutable(MR_C_phmap_parallel_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
     return (MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *)new phmap::parallel_node_hash_map<int32_t, float>::iterator((_this ? *(phmap::parallel_node_hash_map<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     ));
 }
 
@@ -228,7 +228,7 @@ MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *MR_C_phmap_parallel_no
 
 const int32_t *MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefKey(const MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator *_this)
 {
-    return (const int32_t *)&((_this ? *(const phmap::parallel_node_hash_map<int32_t, float>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
+    return &((_this ? *(const phmap::parallel_node_hash_map<int32_t, float>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
 }
 
 const float *MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefValue(const MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator *_this)
@@ -243,7 +243,7 @@ void MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_Incr(MR_C_ph
 
 const int32_t *MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefKey(const MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *_this)
 {
-    return (const int32_t *)&((_this ? *(const phmap::parallel_node_hash_map<int32_t, float>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
+    return &((_this ? *(const phmap::parallel_node_hash_map<int32_t, float>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
 }
 
 float *MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefValue(const MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *_this)

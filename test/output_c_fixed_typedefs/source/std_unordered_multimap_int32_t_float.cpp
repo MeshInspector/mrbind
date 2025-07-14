@@ -68,21 +68,21 @@ void MR_C_std_unordered_multimap_int32_t_float_Clear(MR_C_std_unordered_multimap
 size_t MR_C_std_unordered_multimap_int32_t_float_Count(const MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
 {
     return (_this ? *(const std::unordered_multimap<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).count(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     );
 }
 
 MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_Find(const MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_const_iterator *)new std::unordered_multimap<int32_t, float>::const_iterator((_this ? *(const std::unordered_multimap<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     ));
 }
 
 MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_int32_t_float_FindMutable(MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_iterator *)new std::unordered_multimap<int32_t, float>::iterator((_this ? *(std::unordered_multimap<int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     ));
 }
 
@@ -223,7 +223,7 @@ MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_
 
 const int32_t *MR_C_std_unordered_multimap_int32_t_float_const_iterator_DerefKey(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
 {
-    return (const int32_t *)&((_this ? *(const std::unordered_multimap<int32_t, float>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
+    return &((_this ? *(const std::unordered_multimap<int32_t, float>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
 }
 
 const float *MR_C_std_unordered_multimap_int32_t_float_const_iterator_DerefValue(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
@@ -238,7 +238,7 @@ void MR_C_std_unordered_multimap_int32_t_float_const_iterator_Incr(MR_C_std_unor
 
 const int32_t *MR_C_std_unordered_multimap_int32_t_float_iterator_DerefKey(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
 {
-    return (const int32_t *)&((_this ? *(const std::unordered_multimap<int32_t, float>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
+    return &((_this ? *(const std::unordered_multimap<int32_t, float>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))->first);
 }
 
 float *MR_C_std_unordered_multimap_int32_t_float_iterator_DerefValue(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)

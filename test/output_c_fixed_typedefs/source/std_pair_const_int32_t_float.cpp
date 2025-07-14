@@ -51,7 +51,7 @@ MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_Construct(i
 
 const int32_t *MR_C_std_pair_const_int32_t_float_First(const MR_C_std_pair_const_int32_t_float *_this)
 {
-    return (const int32_t *)&((_this ? *(const std::pair<const int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
+    return &((_this ? *(const std::pair<const int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
 }
 
 const float *MR_C_std_pair_const_int32_t_float_Second(const MR_C_std_pair_const_int32_t_float *_this)

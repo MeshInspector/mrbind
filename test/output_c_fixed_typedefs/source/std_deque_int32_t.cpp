@@ -71,7 +71,7 @@ void MR_C_std_deque_int32_t_ResizeWithDefaultValue(MR_C_std_deque_int32_t *_this
 {
     (_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).resize(
         new_size,
-        (value ? *(const int32_t *)(value) : throw std::runtime_error("Parameter `value` can not be null."))
+        (value ? *value : throw std::runtime_error("Parameter `value` can not be null."))
     );
 }
 
@@ -82,14 +82,14 @@ void MR_C_std_deque_int32_t_Clear(MR_C_std_deque_int32_t *_this)
 
 const int32_t *MR_C_std_deque_int32_t_At(const MR_C_std_deque_int32_t *_this, size_t i)
 {
-    return (const int32_t *)&((_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
+    return &((_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
         i
     ));
 }
 
 int32_t *MR_C_std_deque_int32_t_MutableAt(MR_C_std_deque_int32_t *_this, size_t i)
 {
-    return (int32_t *)&((_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
+    return &((_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
         i
     ));
 }
@@ -325,7 +325,7 @@ MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_iterator_OffsetMutablePt
 
 const int32_t *MR_C_std_deque_int32_t_const_iterator_Deref(const MR_C_std_deque_int32_t_const_iterator *_this)
 {
-    return (const int32_t *)&(*(_this ? *(const std::deque<int32_t>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return &(*(_this ? *(const std::deque<int32_t>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
 }
 
 void MR_C_std_deque_int32_t_const_iterator_Incr(MR_C_std_deque_int32_t_const_iterator *_this)
@@ -350,7 +350,7 @@ ptrdiff_t MR_C_std_deque_int32_t_const_iterator_Distance(const MR_C_std_deque_in
 
 int32_t *MR_C_std_deque_int32_t_iterator_Deref(const MR_C_std_deque_int32_t_iterator *_this)
 {
-    return (int32_t *)&(*(_this ? *(const std::deque<int32_t>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return &(*(_this ? *(const std::deque<int32_t>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
 }
 
 void MR_C_std_deque_int32_t_iterator_Incr(MR_C_std_deque_int32_t_iterator *_this)

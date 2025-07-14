@@ -450,15 +450,15 @@ namespace mrbind::CBindings
         // This intentionally excludes the `_Bool` spelling. We simply don't bind it for now, who needs it anyway?
         // And the parser should rewrite it to `bool` regardless.
         if (type_name.AsSingleWord() == "bool")
-            return &AddNewTypeBindableWithSameAddress(type_name, {.declared_in_c_stdlib_file = "stdbool.h"});
+            return &AddNewTypeBindableWithSameAddress(type_name, {.declared_in_c_stdlib_file = "stdbool.h", .needs_reinterpret_cast = false});
         // Built-in types.
         if (TypeNameIsCBuiltIn(type_name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
         {
             // Need to specify `custom_c_type_name` here for `long long` to be correctly printed with a space, instead of being replaced with `long_long`.
-            return &AddNewTypeBindableWithSameAddress(type_name, {.custom_c_type_name = type_name_str});
+            return &AddNewTypeBindableWithSameAddress(type_name, {.custom_c_type_name = type_name_str, .needs_reinterpret_cast = false});
         }
 
-        // Try find a regular bindable type, maybe it has the `binding_preserves_address` flag set.
+        // Try find a regular bindable type, maybe it has `IsBindableWithSameAddress() == true`.
         if (auto bindable_type = FindBindableTypeOpt(ParseTypeOrThrow(type_name_str)))
         {
             if (bindable_type->IsBindableWithSameAddress())
@@ -501,7 +501,7 @@ namespace mrbind::CBindings
 
     bool Generator::IsSimplyBindableIndirectReinterpret(const cppdecl::Type &type)
     {
-        if (!type.IsOnlyQualifiedName() && !FindTypeBindableWithSameAddressOpt(type.simple_type.name))
+        if (!FindTypeBindableWithSameAddressOpt(type.simple_type.name))
             return false; // Some weird-ass type that can't be reinterpreted into a C type.
 
         for (std::size_t i = 0; const auto &mod : type.modifiers)
@@ -562,7 +562,13 @@ namespace mrbind::CBindings
 
     bool Generator::IsSimplyBindableIndirect(const cppdecl::Type &type)
     {
-        return IsSimplyBindableIndirectReinterpret(type) && TypeNameIsCBuiltIn(type.simple_type.name);
+        if (!IsSimplyBindableIndirectReinterpret(type))
+            return false;
+
+        if (auto opt = FindTypeBindableWithSameAddressOpt(type.simple_type.name))
+            return !opt->needs_reinterpret_cast;
+
+        return false; // This should be unreachable.
     }
 
     bool Generator::IsSimplyBindableDirectCast(const cppdecl::Type &type)

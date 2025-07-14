@@ -61,8 +61,8 @@ void MR_C_std_function_void_from_int32_t_int32_t_Assign(MR_C_std_function_void_f
     _self = [_f = func](int32_t _1, int32_t _2) -> void
     {
         _f(
-            (int32_t *)&mrbindc_details::unmove(_1),
-            (int32_t *)&mrbindc_details::unmove(_2)
+            &mrbindc_details::unmove(_1),
+            &mrbindc_details::unmove(_2)
         );
     };
 }
@@ -134,8 +134,8 @@ void MR_C_std_function_void_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_func
         auto operator()(int32_t _1, int32_t _2) -> void
         {
             _func(
-                (int32_t *)&mrbindc_details::unmove(_1),
-                (int32_t *)&mrbindc_details::unmove(_2),
+                &mrbindc_details::unmove(_1),
+                &mrbindc_details::unmove(_2),
                 _userdata
             );
         }

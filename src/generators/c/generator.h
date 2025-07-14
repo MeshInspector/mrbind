@@ -315,6 +315,9 @@ namespace mrbind::CBindings
             // This is optional. If null, we instead get the name by applying `cppdecl::ToString(..., cppdecl::ToStringFlags::identifier)` to the original C++ type name.
             std::string custom_c_type_name{};
 
+            // This can be set to false if this type is literally the same in C and C++, and pointers to it can work without casts.
+            bool needs_reinterpret_cast = true;
+
             [[nodiscard]] bool KnowHeaderOrForwardDeclaration() const {return declared_in_file || declared_in_c_stdlib_file || forward_declaration;}
         };
         // The keys are strings produced by `cppdecl` from C++ types. Don't feed the input type names to this directly.

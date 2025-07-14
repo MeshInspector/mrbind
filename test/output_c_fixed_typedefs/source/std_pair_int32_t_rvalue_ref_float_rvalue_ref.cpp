@@ -36,14 +36,14 @@ MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int32_t_rvalue_
 MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct(int32_t *first, float *second)
 {
     return (MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *)new std::pair<int32_t &&, float &&>(std::pair<int32_t &&, float &&>(
-        (first ? std::move(*(int32_t *)(first)) : throw std::runtime_error("Parameter `first` can not be null.")),
+        (first ? std::move(*first) : throw std::runtime_error("Parameter `first` can not be null.")),
         (second ? std::move(*second) : throw std::runtime_error("Parameter `second` can not be null."))
     ));
 }
 
 int32_t *MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_First(const MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *_this)
 {
-    return (int32_t *)&mrbindc_details::unmove((_this ? *(const std::pair<int32_t &&, float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
+    return &mrbindc_details::unmove((_this ? *(const std::pair<int32_t &&, float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
 }
 
 float *MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Second(const MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *_this)

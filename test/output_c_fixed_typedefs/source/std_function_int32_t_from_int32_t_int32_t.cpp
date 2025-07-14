@@ -61,8 +61,8 @@ void MR_C_std_function_int32_t_from_int32_t_int32_t_Assign(MR_C_std_function_int
     _self = [_f = func](int32_t _1, int32_t _2) -> int32_t
     {
         decltype(auto) _return = _f(
-            (int32_t *)&mrbindc_details::unmove(_1),
-            (int32_t *)&mrbindc_details::unmove(_2)
+            &mrbindc_details::unmove(_1),
+            &mrbindc_details::unmove(_2)
         );
         return _return;
     };
@@ -135,8 +135,8 @@ void MR_C_std_function_int32_t_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_f
         auto operator()(int32_t _1, int32_t _2) -> int32_t
         {
             decltype(auto) _return = _func(
-                (int32_t *)&mrbindc_details::unmove(_1),
-                (int32_t *)&mrbindc_details::unmove(_2),
+                &mrbindc_details::unmove(_1),
+                &mrbindc_details::unmove(_2),
                 _userdata
             );
             return _return;

@@ -62,7 +62,7 @@ void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_
     _self = [_f = func](int32_t _1, MR::StdFunction::E _2) -> MR::StdFunction::E
     {
         decltype(auto) _return = _f(
-            (int32_t *)&mrbindc_details::unmove(_1),
+            &mrbindc_details::unmove(_1),
             (MR_StdFunction_E *)&mrbindc_details::unmove(_2)
         );
         return ((MR::StdFunction::E)_return);
@@ -136,7 +136,7 @@ void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignWith
         auto operator()(int32_t _1, MR::StdFunction::E _2) -> MR::StdFunction::E
         {
             decltype(auto) _return = _func(
-                (int32_t *)&mrbindc_details::unmove(_1),
+                &mrbindc_details::unmove(_1),
                 (MR_StdFunction_E *)&mrbindc_details::unmove(_2),
                 _userdata
             );

@@ -32,20 +32,20 @@ MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref
     return (MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *)new std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&>(std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&>(
         _0,
         _1,
-        (_2 ? *(int32_t *)(_2) : throw std::runtime_error("Parameter `_2` can not be null.")),
+        (_2 ? *_2 : throw std::runtime_error("Parameter `_2` can not be null.")),
         (_3 ? *_3 : throw std::runtime_error("Parameter `_3` can not be null.")),
-        (_4 ? *(const int32_t *)(_4) : throw std::runtime_error("Parameter `_4` can not be null.")),
+        (_4 ? *_4 : throw std::runtime_error("Parameter `_4` can not be null.")),
         (_5 ? *_5 : throw std::runtime_error("Parameter `_5` can not be null.")),
-        (_6 ? std::move(*(int32_t *)(_6)) : throw std::runtime_error("Parameter `_6` can not be null.")),
+        (_6 ? std::move(*_6) : throw std::runtime_error("Parameter `_6` can not be null.")),
         (_7 ? std::move(*_7) : throw std::runtime_error("Parameter `_7` can not be null.")),
-        (_8 ? std::move(*(const int32_t *)(_8)) : throw std::runtime_error("Parameter `_8` can not be null.")),
+        (_8 ? std::move(*_8) : throw std::runtime_error("Parameter `_8` can not be null.")),
         (_9 ? std::move(*_9) : throw std::runtime_error("Parameter `_9` can not be null."))
     ));
 }
 
 const int32_t *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_const_int32_t(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    return (const int32_t *)&(std::get<0>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<0>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 const float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_const_float(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
@@ -55,7 +55,7 @@ const float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_cons
 
 int32_t *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_int32_t_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    return (int32_t *)&(std::get<2>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<2>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_float_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
@@ -65,7 +65,7 @@ float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int3
 
 const int32_t *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_const_int32_t_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    return (const int32_t *)&(std::get<4>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &(std::get<4>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 const float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_const_float_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
@@ -75,7 +75,7 @@ const float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_cons
 
 int32_t *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_int32_t_rvalue_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    return (int32_t *)&mrbindc_details::unmove(std::get<6>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &mrbindc_details::unmove(std::get<6>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_float_rvalue_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
@@ -85,7 +85,7 @@ float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int3
 
 const int32_t *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_const_int32_t_rvalue_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)
 {
-    return (const int32_t *)&mrbindc_details::unmove(std::get<8>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return &mrbindc_details::unmove(std::get<8>((_this ? *(const std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
 }
 
 const float *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Get_const_float_rvalue_ref(const MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this)

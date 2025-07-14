@@ -56,13 +56,13 @@ void MR_TestSimpleTypes_SetIntPtrDefNull(int32_t *_1)
 
 int32_t *MR_TestSimpleTypes_GetIntRef(void)
 {
-    return (int32_t *)&(::MR::TestSimpleTypes::GetIntRef());
+    return &(::MR::TestSimpleTypes::GetIntRef());
 }
 
 void MR_TestSimpleTypes_SetIntRef(int32_t *_1)
 {
     ::MR::TestSimpleTypes::SetIntRef(
-        (_1 ? *(int32_t *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 
@@ -71,7 +71,7 @@ void MR_TestSimpleTypes_SetIntRefDef(int32_t *_1)
     using namespace MR;
     using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetIntRefDef(
-        (_1 ? *(int32_t *)(_1) : static_cast<int32_t &>(global_int))
+        (_1 ? *_1 : static_cast<int32_t &>(global_int))
     );
 }
 
@@ -329,7 +329,7 @@ int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1)
 
 const uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetConst_var_uint64_t(void)
 {
-    return (const uint64_t *)&(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
+    return &(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(uint64_t value)
@@ -339,7 +339,7 @@ void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(uint64_t value)
 
 uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void)
 {
-    return (uint64_t *)&(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
+    return &(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other)

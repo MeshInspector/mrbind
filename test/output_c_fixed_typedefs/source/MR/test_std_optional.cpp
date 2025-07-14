@@ -78,7 +78,7 @@ void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E *_1)
 
 const int32_t *MR_StdOptional_A_GetConst_x(const MR_StdOptional_A *_this)
 {
-    return (const int32_t *)&((_this ? *(const MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
+    return &((_this ? *(const MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
 void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value)
@@ -88,7 +88,7 @@ void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value)
 
 int32_t *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this)
 {
-    return (int32_t *)&((_this ? *(MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
+    return &((_this ? *(MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
 
 MR_StdOptional_A *MR_StdOptional_A_DefaultConstruct(void)

@@ -68,14 +68,14 @@ void MR_C_phmap_parallel_flat_hash_set_int32_t_Clear(MR_C_phmap_parallel_flat_ha
 bool MR_C_phmap_parallel_flat_hash_set_int32_t_Contains(const MR_C_phmap_parallel_flat_hash_set_int32_t *_this, const int32_t *key)
 {
     return (_this ? *(const phmap::parallel_flat_hash_set<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).contains(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     );
 }
 
 MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *MR_C_phmap_parallel_flat_hash_set_int32_t_Find(const MR_C_phmap_parallel_flat_hash_set_int32_t *_this, const int32_t *key)
 {
     return (MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *)new phmap::parallel_flat_hash_set<int32_t>::const_iterator((_this ? *(const phmap::parallel_flat_hash_set<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).find(
-        (key ? *(const int32_t *)(key) : throw std::runtime_error("Parameter `key` can not be null."))
+        (key ? *key : throw std::runtime_error("Parameter `key` can not be null."))
     ));
 }
 
@@ -152,7 +152,7 @@ MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *MR_C_phmap_parallel_fl
 
 const int32_t *MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator_Deref(const MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *_this)
 {
-    return (const int32_t *)&(*(_this ? *(const phmap::parallel_flat_hash_set<int32_t>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return &(*(_this ? *(const phmap::parallel_flat_hash_set<int32_t>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
 }
 
 void MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator_Incr(MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *_this)

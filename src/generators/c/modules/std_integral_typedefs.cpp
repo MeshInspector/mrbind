@@ -19,6 +19,7 @@ namespace mrbind::CBindings::Modules
                 {
                     ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(std::string(c_name)));
                     ret->bindable_with_same_address.declared_in_c_stdlib_file = header;
+                    ret->bindable_with_same_address.needs_reinterpret_cast = false;
                     return true;
                 }
                 else

@@ -7,7 +7,7 @@
 
 const int32_t *MR_StaticFuncs_A_GetConst_x(void)
 {
-    return (const int32_t *)&(MR::StaticFuncs::A::x);
+    return &(MR::StaticFuncs::A::x);
 }
 
 void MR_StaticFuncs_A_Set_x(int32_t value)
@@ -17,7 +17,7 @@ void MR_StaticFuncs_A_Set_x(int32_t value)
 
 int32_t *MR_StaticFuncs_A_GetMutable_x(void)
 {
-    return (int32_t *)&(MR::StaticFuncs::A::x);
+    return &(MR::StaticFuncs::A::x);
 }
 
 MR_StaticFuncs_A *MR_StaticFuncs_A_DefaultConstruct(void)
