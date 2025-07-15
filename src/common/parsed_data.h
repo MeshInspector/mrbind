@@ -1,8 +1,11 @@
 #pragma once
 
 #include "mrbind/helpers/enum_flag_ops.h"
+#include "meta.h"
 #include "reflection.h"
 
+#include <cassert>
+#include <concepts>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -10,6 +13,7 @@
 #include <optional>
 #include <set>
 #include <string>
+#include <type_traits>
 #include <variant>
 #include <vector>
 
@@ -17,6 +21,8 @@ namespace mrbind
 {
     struct Entity;
     struct Type;
+    struct ClassMethod;
+    struct FuncEntity;
 
     // A base class for classes and namespaces, as those can have nested things in them.
     struct EntityContainer
@@ -173,6 +179,41 @@ namespace mrbind
         {
             BasicFunc::VisitTypes(func);
             func(return_type);
+        }
+
+        // We don't have `name` and `simple_name` here, but we do have them in some derived classes,
+        //   so it makes sense to define the common functions using them here.
+
+        [[nodiscard]] bool IsOverloadedOperator(this const SameAsAnyOf<FuncEntity, ClassMethod> auto &self)
+        {
+            return self.name != self.simple_name;
+        }
+
+        [[nodiscard]] std::string_view GetOverloadedOperatorToken(this const SameAsAnyOf<FuncEntity, ClassMethod> auto &self)
+        {
+            if (!self.IsOverloadedOperator())
+                return "";
+
+            assert(self.name.starts_with("operator"));
+
+            std::string_view ret = self.name;
+            ret.remove_prefix(8); // The length of the word `operator`.
+
+            // Just in case, but this shouldn't happen.
+            while (self.name.starts_with(' '))
+                ret.remove_prefix(1);
+
+            return ret;
+        }
+
+        [[nodiscard]] bool IsPostIncrOrDecr(this const SameAsAnyOf<FuncEntity, ClassMethod> auto &self)
+        {
+            if (!self.IsOverloadedOperator())
+                return false;
+            if (self.params.size() != 1 + std::is_same_v<std::remove_cvref_t<decltype(self)>, FuncEntity>)
+                return false;
+            std::string_view token = self.GetOverloadedOperatorToken();
+            return token == "++" || token == "--";
         }
     };
 
@@ -355,11 +396,6 @@ namespace mrbind
         , // Bases:
             (BasicReturningClassFunc)
         )
-
-        [[nodiscard]] bool IsOverloadedOperator() const
-        {
-            return name != simple_name;
-        }
 
         // Do we have template arguments?
         [[nodiscard]] bool HasTemplateArguments() const

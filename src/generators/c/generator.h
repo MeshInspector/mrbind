@@ -128,13 +128,13 @@ namespace mrbind::CBindings
 
         // Prefixes the name with whatever was passed to `--custom-name-prefix`.
         // This is for the custom names, as opposed to the parsed ones.
-        [[nodiscard]] std::string MakePublicHelperName(std::string_view name)
+        [[nodiscard]] std::string MakePublicHelperName(std::string_view name) const
         {
             std::string ret = helper_name_prefix_opt;
             ret += name;
             return ret;
         }
-        [[nodiscard]] std::string MakeDetailHelperName(std::string_view name)
+        [[nodiscard]] std::string MakeDetailHelperName(std::string_view name) const
         {
             std::string ret = helper_name_prefix_opt;
             ret += detail_helper_name_extra_prefix;
@@ -942,6 +942,16 @@ namespace mrbind::CBindings
         // Inserts them after each `\n`, and additionally, if `indent_first_line`, at the very beginning.
         [[nodiscard]] static std::string IndentString(std::string_view str, int levels, bool indent_first_line);
 
+        // `name` is `operator??`.
+        // Returns true if it semantically should be a free function. E.g. `operator+` should be, but `operator=` should not.
+        [[nodiscard]] bool OverloadedOperatorShouldBeEmittedAsFreeFunction(std::string_view name) const;
+
+        // Returns the name for the C function wrapping this overloaded operator.
+        // Only call this if `OverloadedOperatorShouldBeEmittedAsFreeFunction()` returned true.
+        // If you pass `fallback == true`, a secondary fallback name will be returned, that should be used in case of conflicts.
+        // Only pass non-null to `enclosing_class` if `parsed_func` is a `ClassMethod`.
+        [[nodiscard]] std::string MakeFreeFuncNameForOverloadedOperator(const ClassEntity *enclosing_class, std::variant<const FuncEntity *, const ClassMethod *> parsed_func, bool fallback) const;
+
 
         // Deduplicating overload names: [
         struct OverloadedName
@@ -1024,6 +1034,7 @@ namespace mrbind::CBindings
             Parens cpp_called_func_parens = {"(", ")"};
 
             // Additional arguments to pass to the `cpp_called_func`, before and after the regular ones.
+            // This is a bit dumb, it would be better to modify `params` to allow parameters that are not exposed to the signature, and only appear as arguments.
             std::vector<std::string> extra_args_before;
             std::vector<std::string> extra_args_after;
 
@@ -1088,6 +1099,9 @@ namespace mrbind::CBindings
             // Appends the parsed parameters to this function.
             // Appends to the existing parameters, doesn't remove them.
             void AddParamsFromParsedFunc(const CBindings::Generator &self, const std::vector<FuncParam> &new_params);
+
+            // Only call if you're sure that this is a post-increment/decrement. Removes the `int` parameter, replacing it with a dummy `0` argument.
+            void RemoveIntParamFromPostIncrOrDecr();
 
             // A helper class used as a parameter of `AddThisParam()` below.
             struct ThisParamKind

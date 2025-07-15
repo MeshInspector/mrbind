@@ -16,12 +16,12 @@ typedef struct MR_IOStream_A MR_IOStream_A; // Defined below in this file.
 /// Generated from function `MR::IOStream::operator<<`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API void MR_IOStream_operator_lshift(MR_C_std_ostream *_1, const MR_IOStream_A *_2);
+MR_C_API void MR_C_lshift_std_ostream_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2);
 
 /// Generated from function `MR::IOStream::operator>>`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API void MR_IOStream_operator_rshift(MR_C_std_istream *_1, MR_IOStream_A *_2);
+MR_C_API void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2);
 
 /// Generated from class `MR::IOStream::A`.
 typedef struct MR_IOStream_A MR_IOStream_A;

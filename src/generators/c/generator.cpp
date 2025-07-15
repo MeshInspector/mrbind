@@ -914,6 +914,135 @@ namespace mrbind::CBindings
         return ret;
     }
 
+    bool Generator::OverloadedOperatorShouldBeEmittedAsFreeFunction(std::string_view name) const
+    {
+        const std::string_view original_name = name;
+
+        if (!cppdecl::ConsumeWord(name, "operator"))
+            throw std::logic_error("Internal error: Expected `" + std::string(original_name) + "` to be the name of an overloaded operator and begin with the word `operator`, but it doesn't.");
+        cppdecl::TrimLeadingWhitespace(name); // Just in case.
+
+        if (
+            name == "->" ||
+            name == "->*" ||
+            name == "()" ||
+            name == "[]" ||
+            (
+                // Any assignment, including the simple `=` assignment.
+                name.ends_with('=') &&
+                // But excluding comparisons!
+                name != "==" &&
+                name != "!=" &&
+                name != "<=" &&
+                name != ">="
+            )
+        )
+        {
+            // Those should be the class methods.
+            return false;
+        }
+
+        return true;
+    }
+
+    std::string Generator::MakeFreeFuncNameForOverloadedOperator(const ClassEntity *enclosing_class, std::variant<const FuncEntity *, const ClassMethod *> parsed_func, bool fallback) const
+    {
+        return std::visit([&](const auto &elem)
+        {
+            static constexpr bool is_method = std::is_same_v<std::remove_cvref_t<decltype(elem)>, const ClassMethod *>;
+            assert(bool(enclosing_class) == is_method);
+
+            // There should be at least one parameter at this point, possibly `this`.
+            assert(elem->IsOverloadedOperator());
+            // This function should only handle operators that should be free functions
+            assert(elem->params.size() <= 2);
+
+            const std::string_view op_token = elem->GetOverloadedOperatorToken();
+
+            // Later in this function we'll call `MakePublicHelperName()` on this.
+            std::string ret;
+
+            // Unary operators that can also be binary need custom names to avoid conflicts with their binary versions.
+            if ((elem->params.size() + is_method) == 1)
+            {
+                if (op_token == "+")
+                    ret = "pos";
+                else if (op_token == "-")
+                    ret = "neg";
+                else if (op_token == "*")
+                    ret = "deref";
+                else if (op_token == "&")
+                    ret = "addressof"; // Ugh! Who overloads this?
+            }
+            // If none of the above applied, proceed normally.
+            if (ret.empty())
+            {
+                ret = cppdecl::TokenToIdentifier(op_token, true);
+
+                // Post-increments/decrements need custom names too.
+                // We consider the pre-increments/decrements the base versions that don't need any prefixes.
+                if (elem->IsPostIncrOrDecr())
+                    ret = "post_" + ret;
+            }
+
+            // Add the parameter types to the name, including the `this` parameter.
+
+            std::string first_type_str;
+            auto HandleParamType = [&](cppdecl::Type param_type)
+            {
+                // Skip the `int` parameter of the post-increments/decrements.
+                if (!first_type_str.empty() && elem->IsPostIncrOrDecr())
+                    return;
+
+                // Remove cvref from the parameter type. This shouldn't introduce any ambiguities, but will make the name look a lot nicer.
+                if (!fallback)
+                {
+                    if (param_type.Is<cppdecl::Reference>())
+                        param_type.RemoveModifier();
+                    param_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                }
+
+                std::string param_type_str = cppdecl::ToString(param_type, cppdecl::ToStringFlags::identifier);
+
+                if (first_type_str.empty())
+                    first_type_str = param_type_str;
+                // If the second operand has the same type as the first, don't emit it.
+                // Note that we can have at most two parameters here, as asserted above.
+                else if (first_type_str == param_type_str)
+                    return;
+
+                ret += '_';
+                ret += param_type_str;
+            };
+
+            if constexpr (is_method)
+            {
+                if (enclosing_class)
+                {
+                    cppdecl::Type this_param_type = ParseTypeOrThrow(enclosing_class->full_type);
+
+                    // Add the proper constness to the `this` parameter.
+                    if (elem->is_const)
+                        this_param_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+
+                    // Add referenceness.
+                    // Is it possible that neither condition triggers? Not sure, but this way of handling it should be fine.
+                    if (elem->ref_qualifier == RefQualifier::rvalue)
+                        this_param_type.AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue});
+                    else // `lvalue` or `none` (which counts as lvalue for our purposes)
+                        this_param_type.AddModifier(cppdecl::Reference{});
+
+                    HandleParamType(this_param_type);
+                }
+            }
+
+            for (const FuncParam &param : elem->params)
+                HandleParamType(ParseTypeOrThrow(param.type.canonical));
+
+            return MakePublicHelperName(ret);
+        }, parsed_func);
+    }
+
 
     void Generator::EmitFuncParams::AddParamsFromParsedFunc(const Generator &self, const std::vector<FuncParam> &new_params)
     {
@@ -931,6 +1060,13 @@ namespace mrbind::CBindings
                 arg.original_spelling = new_param.default_argument->original_spelling;
             }
         }
+    }
+
+    void Generator::EmitFuncParams::RemoveIntParamFromPostIncrOrDecr()
+    {
+        params.pop_back();
+        // I'd rather have a custom type of parameter for this purpose, instead of somethinng completely separate.
+        extra_args_after.push_back("0");
     }
 
     void Generator::EmitFuncParams::AddThisParam(cppdecl::Type new_class, ThisParamKind kind)
@@ -965,6 +1101,8 @@ namespace mrbind::CBindings
     void Generator::EmitFuncParams::SetFromParsedFunc(const Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         AddParamsFromParsedFunc(self, new_func.params);
+        if (new_func.IsPostIncrOrDecr())
+            RemoveIntParamFromPostIncrOrDecr();
 
         c_name = self.overloaded_names.at(&new_func).name;
 
@@ -1040,15 +1178,16 @@ namespace mrbind::CBindings
 
         AddThisParamFromParsedClass(self, new_class, {new_method.is_const, new_method.ref_qualifier == RefQualifier::rvalue, new_method.is_static});
         AddParamsFromParsedFunc(self, new_method.params);
+        if (new_method.IsPostIncrOrDecr())
+            RemoveIntParamFromPostIncrOrDecr();
 
         // A pretty fallback parameter name for copy/move assignments (especially useful if they are generated implicitly, since those don't have a parameter name).
         if (new_method.assignment_kind != CopyMoveKind::none && params.at(1).name.empty())
             params.at(1).name = "_other";
 
+        // Special assignments have fixed names.
         if (new_method.assignment_kind != CopyMoveKind::none)
         {
-            // Special member functions have fixed names.
-
             // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
             c_name = cppdecl::ToString(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToStringFlags::identifier);
             // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
@@ -1087,8 +1226,8 @@ namespace mrbind::CBindings
 
     void Generator::EmitFuncParams::SetFromParsedClassConvOp(const Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
-        cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+        const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
+        const std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
 
         AddThisParamFromParsedClass(self, new_class, {new_conv_op.is_const, new_conv_op.ref_qualifier == RefQualifier::rvalue});
 
@@ -1101,7 +1240,9 @@ namespace mrbind::CBindings
         SetReturnTypeFromParsedFunc(self, new_conv_op);
         const std::string target_cpp_type_str = cppdecl::ToCode(cpp_return_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-        c_name = self.overloaded_names.at(&new_conv_op).name;
+        c_name = self.parsed_type_info.at(cpp_type_str).c_type_str;
+        c_name += "_ConvertTo_";
+        c_name += cppdecl::ToString(self.ParseTypeOrThrow(new_conv_op.return_type.canonical), cppdecl::ToStringFlags::identifier);
 
         cpp_called_func = "(" + target_cpp_type_str + ")(@this@)";
 
@@ -1973,8 +2114,23 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassMethod &elem)
                     {
-                        if (elem.assignment_kind != CopyMoveKind::none) // Special member functions have fixed names.
+                        // Special assignments have fixed names.
+                        if (elem.assignment_kind != CopyMoveKind::none)
                             return;
+
+                        // Custom logic for overloaded operators that should be emitted as free functions.
+                        if (elem.IsOverloadedOperator() && self.OverloadedOperatorShouldBeEmittedAsFreeFunction(elem.name))
+                        {
+                            auto [iter, is_new] = self.overloaded_names.try_emplace(&elem);
+                            if (!is_new)
+                                throw std::logic_error("Internal error: Duplicate overloaded function pointer.");
+
+                            OverloadedName &ovl = iter->second;
+                            ovl.name = self.MakeFreeFuncNameForOverloadedOperator(&cl, &elem, false);
+                            ovl.fallback_name = self.MakeFreeFuncNameForOverloadedOperator(&cl, &elem, true);
+                            // Don't set the parameters for those, as we already embed their types in those names.
+                            return;
+                        }
 
                         std::string name = c_type_str;
                         name += '_';
@@ -1999,11 +2155,8 @@ namespace mrbind::CBindings
                     },
                     [&](const ClassConvOp &elem)
                     {
-                        std::string name = c_type_str;
-                        name += "_ConvertTo_";
-                        name += cppdecl::ToString(self.ParseTypeOrThrow(elem.return_type.canonical), cppdecl::ToStringFlags::identifier);
-
-                        AddFunc(elem, std::move(name));
+                        // Those have fixed names.
+                        (void)elem;
                     },
                     [&](const ClassDtor &elem)
                     {
@@ -2016,9 +2169,23 @@ namespace mrbind::CBindings
 
         void Visit(const FuncEntity &func) override
         {
+            // Custom logic for overloaded operators.
+            if (func.IsOverloadedOperator())
+            {
+                auto [iter, is_new] = self.overloaded_names.try_emplace(&func);
+                if (!is_new)
+                    throw std::logic_error("Internal error: Duplicate overloaded function pointer.");
+
+                OverloadedName &ovl = iter->second;
+                ovl.name = self.MakeFreeFuncNameForOverloadedOperator(nullptr, &func, false);
+                ovl.fallback_name = self.MakeFreeFuncNameForOverloadedOperator(nullptr, &func, true);
+                // Don't set the parameters for those, as we already embed their types in those names.
+                return;
+            }
+
             auto [iter, is_new] = self.overloaded_names.try_emplace(&func);
             if (!is_new)
-                throw std::logic_error("Internal error: duplicate overloaded function pointer.");
+                throw std::logic_error("Internal error: Duplicate overloaded function pointer.");
 
             OverloadedName &ovl = iter->second;
             ovl.name = cppdecl::ToString(self.ParseQualNameOrThrow(func.qual_name), cppdecl::ToStringFlags::identifier);
@@ -2905,7 +3072,7 @@ namespace mrbind::CBindings
                     {
                         std::string spelling_str = cppdecl::ToCode(ParseTypeOrThrow(spelling.first), cppdecl::ToCodeFlags::canonical_c_style);
                         if (!type_alt_spelling_to_canonical.try_emplace(std::move(spelling_str), sub_elem_type).second)
-                            throw std::runtime_error("Internal error: In input data, different types have the same non-canonical spelling: `" + spelling_str + "`."); // The `spelling_str` isn't moved on failure, so this is safe.
+                            throw std::logic_error("Internal error: In input data, different types have the same non-canonical spelling: `" + spelling_str + "`."); // The `spelling_str` isn't moved on failure, so this is safe.
                     }
                 }
             }

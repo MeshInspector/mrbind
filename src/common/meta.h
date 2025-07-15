@@ -1,5 +1,6 @@
 #pragma once
 
+#include <concepts>
 #include <optional>
 #include <string_view>
 #include <tuple>
@@ -32,4 +33,7 @@ namespace mrbind
 
     template <typename T> struct IsStdOptional : std::false_type {};
     template <typename T> struct IsStdOptional<std::optional<T>> : std::true_type {};
+
+    template <typename T, typename ...P>
+    concept SameAsAnyOf = (std::same_as<T, P> || ...);
 }

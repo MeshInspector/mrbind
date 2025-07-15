@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 
-void MR_IOStream_operator_lshift(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
+void MR_C_lshift_std_ostream_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
 {
     operator<<(
         (_1 ? *(std::ostream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
@@ -13,7 +13,7 @@ void MR_IOStream_operator_lshift(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
     );
 }
 
-void MR_IOStream_operator_rshift(MR_C_std_istream *_1, MR_IOStream_A *_2)
+void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2)
 {
     operator>>(
         (_1 ? *(std::istream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
