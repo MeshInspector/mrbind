@@ -112,7 +112,13 @@ namespace mrbind::CBindings
     // Maybe we should destroy this function altogether and leave only the `FillCommonParams()`.
     // The only difference is that `FillCommonParams()` also fills `.bindable_with_same_address`, which this one doesn't need to do,
     //   because it's for parsed classes only, and they populate `Generator::types_bindable_with_same_address` directly.
-    [[nodiscard]] Generator::BindableType MakeByValueClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type, const Generator::TypeTraits &traits);
+    [[nodiscard]] Generator::BindableType MakeByValueParsedClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits);
+
+    // Makes a binding that passes everything by value and uses `std::bit_cast()`. This is used for the `--expose-as-struct` structs (same-layout structs).
+    // For better or wose this doesn't fill `.bindable_with_same_address`, since it's for parsed classes only, and those don't need it (as they are added
+    //   to the `types_bindable_with_same_address` map independently).
+    // Maybe we should change it so that the parsed classes use `.bindable_with_same_address` too.
+    [[nodiscard]] Generator::BindableType MakeBitCastParsedClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits);
 
     // If `cpp_type` is one of `target_name {const &, &&, const &&}`, then generates a default binding for them `using `MakeSimpleTypeBinding()`, and then patches the parameter usage to match that of a by-value `target_name`.
     // If `cpp_type` isn't one of the listed types, returns null.

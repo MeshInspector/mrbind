@@ -42,6 +42,8 @@ MRBIND_GEN_C_FLAGS=(
     --clean-output-dirs
     --helper-name-prefix MR_C_
     --max-header-name-length 100
+    --expose-as-struct MR::MatchingLayout::A
+    --expose-as-struct /MR::MatchingLayout::B/
 )
 
 COMPILER_FLAGS=(
@@ -61,15 +63,25 @@ COMPILER_FLAGS=(
     -isystemtest/input/parallel-hashmap
 )
 
-# --- Variant 1: with default settings
 
 mkdir -p test/output_c
+mkdir -p test/output_c_fixed_typedefs
+
 
 build/mrbind \
     -o test/output_c/parsed.json \
     "${MRBIND_FLAGS[@]}"
 
 build/mrbind_gen_c --input test/output_c/parsed.json --output-header-dir test/output_c/include --output-source-dir test/output_c/source "${MRBIND_GEN_C_FLAGS[@]}"
+
+build/mrbind \
+    -o test/output_c_fixed_typedefs/parsed.json \
+    --canonicalize-to-fixed-size-typedefs \
+    "${MRBIND_FLAGS[@]}" \
+    -DDISABLE_LONG_LONG
+
+build/mrbind_gen_c --input test/output_c_fixed_typedefs/parsed.json --output-header-dir test/output_c_fixed_typedefs/include --output-source-dir test/output_c_fixed_typedefs/source --reject-long-and-long-long "${MRBIND_GEN_C_FLAGS[@]}"
+
 
 $CXX \
     test/output_c/source/*.cpp \
@@ -79,18 +91,6 @@ $CXX \
     -Itest/output_c/source \
     "${COMPILER_FLAGS[@]}"
 
-
-# --- Variant 2: with canonicalized fixed-size typedefs
-
-mkdir -p test/output_c_fixed_typedefs
-
-build/mrbind \
-    -o test/output_c_fixed_typedefs/parsed.json \
-    --canonicalize-to-fixed-size-typedefs \
-    "${MRBIND_FLAGS[@]}" \
-    -DDISABLE_LONG_LONG
-
-build/mrbind_gen_c --input test/output_c_fixed_typedefs/parsed.json --output-header-dir test/output_c_fixed_typedefs/include --output-source-dir test/output_c_fixed_typedefs/source --reject-long-and-long-long "${MRBIND_GEN_C_FLAGS[@]}"
 
 $CXX \
     test/output_c_fixed_typedefs/source/*.cpp \

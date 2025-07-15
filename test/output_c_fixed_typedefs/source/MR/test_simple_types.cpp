@@ -28,13 +28,13 @@ void MR_TestSimpleTypes_SetIntDef(const int32_t *_1)
 
 int32_t *MR_TestSimpleTypes_GetIntPtr(void)
 {
-    return (int32_t *)(::MR::TestSimpleTypes::GetIntPtr());
+    return ::MR::TestSimpleTypes::GetIntPtr();
 }
 
 void MR_TestSimpleTypes_SetIntPtr(int32_t *_1)
 {
     ::MR::TestSimpleTypes::SetIntPtr(
-        ((int32_t *)_1)
+        _1
     );
 }
 
@@ -43,14 +43,14 @@ void MR_TestSimpleTypes_SetIntPtrDef(int32_t *const *_1)
     using namespace MR;
     using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetIntPtrDef(
-        (_1 ? (int32_t *)(*_1) : static_cast<int32_t *>(&global_int))
+        (_1 ? *_1 : static_cast<int32_t *>(&global_int))
     );
 }
 
 void MR_TestSimpleTypes_SetIntPtrDefNull(int32_t *_1)
 {
     ::MR::TestSimpleTypes::SetIntPtrDefNull(
-        ((int32_t *)_1)
+        _1
     );
 }
 

@@ -51,7 +51,7 @@ MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_funct
     return (MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *)(((std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)ptr) + i);
 }
 
-void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t *_1, MR_StdFunction_E *_2))
+void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E *_2))
 {
     auto &_self = (_this ? *(std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
     if (!func)
@@ -62,14 +62,14 @@ void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_
     _self = [_f = func](int32_t _1, MR::StdFunction::E _2) -> MR::StdFunction::E
     {
         decltype(auto) _return = _f(
-            &mrbindc_details::unmove(_1),
+            _1,
             (MR_StdFunction_E *)&mrbindc_details::unmove(_2)
         );
         return ((MR::StdFunction::E)_return);
     };
 }
 
-void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignWithDataPtr(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t *_1, MR_StdFunction_E *_2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignWithDataPtr(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E *_2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
     auto &_self = (_this ? *(std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
     if (!func)
@@ -136,7 +136,7 @@ void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignWith
         auto operator()(int32_t _1, MR::StdFunction::E _2) -> MR::StdFunction::E
         {
             decltype(auto) _return = _func(
-                &mrbindc_details::unmove(_1),
+                _1,
                 (MR_StdFunction_E *)&mrbindc_details::unmove(_2),
                 _userdata
             );

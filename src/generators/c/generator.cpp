@@ -426,15 +426,15 @@ namespace mrbind::CBindings
         return iter->second;
     }
 
-    const Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name)
+    const Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name, bool can_invent_new_bindings)
     {
-        if (auto ret = FindTypeBindableWithSameAddressOpt(type_name))
+        if (auto ret = FindTypeBindableWithSameAddressOpt(type_name, can_invent_new_bindings))
             return *ret;
         else
             throw std::runtime_error("Don't know what to do with type `" + cppdecl::ToCode(type_name, cppdecl::ToCodeFlags::canonical_c_style) + "`: how to forward-declare it or what header to include.");
     }
 
-    const Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name)
+    const Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name, bool can_invent_new_bindings)
     {
         std::string type_name_str = cppdecl::ToCode(type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
@@ -459,11 +459,20 @@ namespace mrbind::CBindings
         }
 
         // Try find a regular bindable type, maybe it has `IsBindableWithSameAddress() == true`.
-        if (auto bindable_type = FindBindableTypeOpt(ParseTypeOrThrow(type_name_str)))
+        if (auto bindable_type = FindBindableTypeOpt(ParseTypeOrThrow(type_name_str), false, can_invent_new_bindings))
         {
             if (bindable_type->IsBindableWithSameAddress())
                 return &AddNewTypeBindableWithSameAddress(type_name, bindable_type->bindable_with_same_address);
         }
+
+        // `FindBindableTypeOpt()` can accidentally instantiate the binding for us, despite returning false.
+        // So re-test that we still have no binding. Failure to do so will cause `AddNewTypeBindableWithSameAddress()` below to complain
+        //   about duplicate bindings. (E.g. about `std::ostream`, so seemingly only for the same-addr-only ones? But maybe a coincidence.)
+        // This is lame, but I don't see any other way (since our `IsSimplyBindable...()` must call `FindTypeBindableWithSameAddressOpt()` to support
+        //   types like `int32_t` for our `--expose-as-struct`).
+        iter = types_bindable_with_same_address.find(type_name_str);
+        if (iter != types_bindable_with_same_address.end())
+            return &iter->second;
 
         // Ask the modules.
         for (const auto &m : modules)
@@ -475,14 +484,14 @@ namespace mrbind::CBindings
         return nullptr;
     }
 
-    const Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const std::string &type_name_str)
+    const Generator::TypeBindableWithSameAddress &Generator::FindTypeBindableWithSameAddress(const std::string &type_name_str, bool can_invent_new_bindings)
     {
-        return FindTypeBindableWithSameAddress(ParseQualNameOrThrow(type_name_str));
+        return FindTypeBindableWithSameAddress(ParseQualNameOrThrow(type_name_str), can_invent_new_bindings);
     }
 
-    const Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const std::string &type_name_str)
+    const Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const std::string &type_name_str, bool can_invent_new_bindings)
     {
-        return FindTypeBindableWithSameAddressOpt(ParseQualNameOrThrow(type_name_str));
+        return FindTypeBindableWithSameAddressOpt(ParseQualNameOrThrow(type_name_str), can_invent_new_bindings);
     }
 
     void Generator::ForEachNonBuiltInNestedTypeInType(const cppdecl::Type &type, const std::function<void(const cppdecl::QualifiedName &cpp_type_name, bool need_definition)> func)
@@ -565,7 +574,7 @@ namespace mrbind::CBindings
         if (!IsSimplyBindableIndirectReinterpret(type))
             return false;
 
-        if (auto opt = FindTypeBindableWithSameAddressOpt(type.simple_type.name))
+        if (auto opt = FindTypeBindableWithSameAddressOpt(type.simple_type.name, false))
             return !opt->needs_reinterpret_cast;
 
         return false; // This should be unreachable.
@@ -586,8 +595,9 @@ namespace mrbind::CBindings
                 return true;
             }
 
-            // A builtin type?
-            if (TypeNameIsCBuiltIn(type.simple_type.name))
+            // A builtin type? Or something like `int32_t`.
+            // A bit sketchy, but this needs to pass for `int32_t` for it to work as a member of an `--expose-as-struct` struct.
+            if (!FindTypeBindableWithSameAddress(type.simple_type.name, false).needs_reinterpret_cast)
                 return true;
         }
 
@@ -596,7 +606,12 @@ namespace mrbind::CBindings
 
     bool Generator::IsSimplyBindableDirect(const cppdecl::Type &type)
     {
-        bool ret = IsSimplyBindableDirectCast(type) && TypeNameIsCBuiltIn(type.simple_type.name);
+        bool ret = IsSimplyBindableDirectCast(type);
+
+        // This is a bit sketchy, but we need to allow both the built-in types AND things like `int32_t` (for `--expose-as-struct` struct members).
+        if (ret && FindTypeBindableWithSameAddress(type.simple_type.name, false).needs_reinterpret_cast)
+            ret = false;
+
         assert(!ret || IsSimplyBindableIndirect(type)); // This being true should automatically imply `IsSimplyBindableIndirect` in all cases.
         return ret;
     }
@@ -663,15 +678,15 @@ namespace mrbind::CBindings
         }
     }
 
-    const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar)
+    const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
     {
-        if (auto *ret = FindBindableTypeOpt(type, remove_sugar))
+        if (auto *ret = FindBindableTypeOpt(type, remove_sugar, can_invent_new_bindings))
             return *ret;
         else
             throw std::runtime_error("Don't know how to bind type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "`" + (remove_sugar ? " (with syntax sugar removed)" : "") + ".");
     }
 
-    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar)
+    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
     {
         // Complain if we've got a top-level const type.
         // I don't think this ever happens for the parsed code alone, since `EmitFunction()` automatically strips top-level constness
@@ -715,7 +730,9 @@ namespace mrbind::CBindings
         }
 
 
-        { // Invent a new binding.
+        // Invent a new binding.
+        if (can_invent_new_bindings)
+        {
             // This handles all the `IsSimplyBindable{Direct{,Cast},Indirect{,Reinterpret}}` types.
             if (auto opt = MakeSimpleTypeBinding(*this, type))
                 return &map.try_emplace(type_str, *opt).first->second;
@@ -728,7 +745,12 @@ namespace mrbind::CBindings
                 if (auto iter = parsed_type_info.find(type_str); iter != parsed_type_info.end())
                 {
                     if (auto class_desc = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
-                        return &map.try_emplace(type_str, MakeByValueClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
+                    {
+                        if (!class_desc->is_same_layout_struct)
+                            return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
+                        else
+                            return &map.try_emplace(type_str, MakeBitCastParsedClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
+                    }
                 }
                 // A custom desugared class based on a sugared one?
                 else if (remove_sugar)
@@ -737,7 +759,7 @@ namespace mrbind::CBindings
                     {
                         cppdecl::Type c_type = type;
                         ReplaceAllNamesInTypeWithCNames(c_type);
-                        return &map.try_emplace(type_str, MakeByValueClassBinding(*this, type.simple_type.name, cppdecl::ToCode(c_type, cppdecl::ToCodeFlags::canonical_c_style), opt->traits.value())).first->second;
+                        return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, cppdecl::ToCode(c_type, cppdecl::ToCodeFlags::canonical_c_style), opt->traits.value())).first->second;
                     }
                 }
             }
@@ -1666,6 +1688,28 @@ namespace mrbind::CBindings
             class_info.parsed = &cl;
             class_info.is_polymorphic = cl.is_polymorphic;
             class_info.is_abstract = cl.is_abstract;
+            class_info.is_standard_layout = cl.is_standard_layout;
+            class_info.is_trivially_copyable = cl.is_trivially_copyable;
+            class_info.is_same_layout_struct = self.same_layout_struct_filter.Contains(cpp_type_name);
+
+            if (class_info.is_same_layout_struct)
+            {
+                // If the class wants the matching layout, make sure it qualifies for that.
+                // We do some basic checks here, and later we'll also check the non-static data member types.
+
+                // Must be trivially copyable.
+                if (!class_info.is_trivially_copyable)
+                    throw std::runtime_error("The class `" + cpp_type_name + "` is whitelisted by `--expose-as-struct`, but it doesn't qualify for that because it is not trivially-copyable.");
+                // Must be standard-layout.
+                if (!class_info.is_standard_layout)
+                    throw std::runtime_error("The class `" + cpp_type_name + "` is whitelisted by `--expose-as-struct`, but it doesn't qualify for that because it doesn't satisfy `std::is_standard_layout`.");
+                // Must have no bases. I ain't dealing with those.
+                if (!class_info.parsed->bases.empty())
+                    throw std::runtime_error("The class `" + cpp_type_name + "` is whitelisted by `--expose-as-struct`, but it has a base class. This flag only supports the structs/classes with no base classes.");
+
+                // Mark it in the traits.
+                class_info.traits.same_size_in_c_and_cpp = true;
+            }
 
             bool has_by_value_assignment = false;
 
@@ -1697,6 +1741,8 @@ namespace mrbind::CBindings
                         else if (ctor.IsCallableWithNumArgs(0))
                         {
                             class_info.traits.is_default_constructible = true;
+                            if (ctor.is_trivial)
+                                class_info.traits.is_trivially_default_constructible = true;
                         }
                     },
                     [&](const ClassMethod &method)
@@ -2240,7 +2286,7 @@ namespace mrbind::CBindings
             {
                 OutputFile &file = self.GetOutputFile(cl.declared_in_file);
 
-                { // Include the C++ header where this class is declared.
+                { // In the source file, include the C++ header where this class is declared.
                     auto headers = self.ParsedFilenameToRelativeNamesForInclusion(cl.declared_in_file);
                     file.source.custom_headers.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
                 }
@@ -2254,11 +2300,10 @@ namespace mrbind::CBindings
                 const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
                 const ParsedTypeInfo::ClassDesc &parsed_class_info = std::get<ParsedTypeInfo::ClassDesc>(parsed_type_info.input_type);
 
-
                 // Forward-declaring in the middle of the file, not in the forward-declarations section.
                 // Firstly it looks better. But also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
 
-                // The comment on the forward-declaration.
+                // The comment on the declaration.
                 file.header.contents += '\n';
                 if (cl.comment)
                 {
@@ -2335,9 +2380,109 @@ namespace mrbind::CBindings
                     PrintBasesOrDerived(true);
                 }
 
-                // The forward-declaration itself.
-                file.header.contents += same_addr_bindable_info.forward_declaration.value() + '\n';
+                if (!parsed_class_info.is_same_layout_struct)
+                {
+                    // The forward-declaration itself.
+                    file.header.contents += same_addr_bindable_info.forward_declaration.value() + '\n';
+                }
+                else
+                {
+                    file.header.contents += "typedef struct " + parsed_type_info.c_type_str + '\n';
+                    file.header.contents += "{\n";
 
+                    std::size_t total_size = 0;
+                    std::size_t total_alignment = 0;
+                    for (const auto &member : cl.members)
+                    {
+                        const ClassField *field = std::get_if<ClassField>(&member);
+                        if (!field || field->is_static)
+                            continue;
+
+                        const bool is_first = total_size == 0;
+
+                        // Update offset.
+                        total_size = (total_size + (field->type_alignment - 1)) / field->type_alignment * field->type_alignment;
+                        if (total_size != field->byte_offset)
+                            throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but the byte offset of its member `" + field->full_name + "` doesn't match the one reported by the parser (expected " + std::to_string(field->byte_offset) + " but got " + std::to_string(total_size) + ").");
+                        total_size += field->type_size;
+
+                        // Update alignment.
+                        if (field->type_alignment > total_alignment)
+                            total_alignment = field->type_alignment;
+
+
+                        // Validate the field type:
+
+                        const cppdecl::Type cpp_field_type = self.ParseTypeOrThrow(field->type.canonical);
+                        const std::string cpp_field_type_str = cppdecl::ToCode(cpp_field_type, cppdecl::ToCodeFlags::canonical_c_style);
+
+                        // This below is the best idea I have right now. Looks jank, but works for now.
+                        const BindableType *binding = nullptr;
+                        const TypeBindableWithSameAddress *same_addr_binding = nullptr;
+                        bool type_ok = true;
+                        if (type_ok)
+                        {
+                            binding = self.FindBindableTypeOpt(cpp_field_type);
+                            if (!binding)
+                                type_ok = false;
+                        }
+                        if (type_ok)
+                        {
+                            same_addr_binding = self.FindTypeBindableWithSameAddressOpt(cpp_field_type_str);
+                            if (!same_addr_binding)
+                                type_ok = false;
+                        }
+                        if (type_ok && !binding->traits.value().same_size_in_c_and_cpp)
+                            type_ok = false;
+                        if (!type_ok)
+                            throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its member `" + field->full_name + "` has type `" + cpp_field_type_str + "` that's not suitable for being used directly in a C struct.");
+
+
+                        // Add the header for this field.
+                        if (same_addr_binding->declared_in_c_stdlib_file)
+                            file.header.stdlib_headers.insert(*same_addr_binding->declared_in_c_stdlib_file);
+                        else if (same_addr_binding->declared_in_file)
+                            file.header.custom_headers.insert(same_addr_binding->declared_in_file().header.path_for_inclusion);
+
+
+                        // Actually emit the field:
+
+                        // The comment if any.
+                        if (cl.comment)
+                        {
+                            // Insert the leading blank line if this isn't the first field. This makes things look nicer.
+                            if (!is_first)
+                                file.header.contents += '\n';
+
+                            file.header.contents += Generator::IndentString(cl.comment->text_with_slashes, 1, true);
+                            file.header.contents += '\n';
+                        }
+
+                        cppdecl::Decl field_decl;
+                        // Don't care about `full_name`, that's only for static member variables anyway, and we only deal with non-static ones here.
+                        field_decl.name = cppdecl::QualifiedName::FromSingleWord(field->name);
+
+                        field_decl.type = cpp_field_type;
+                        self.ReplaceAllNamesInTypeWithCNames(field_decl.type);
+
+                        file.header.contents += "    " + cppdecl::ToCode(field_decl, cppdecl::ToCodeFlags::canonical_c_style) + ";\n";
+                    }
+
+                    // Check the final alignment.
+                    if (total_alignment != cl.type_alignment)
+                        throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its estimated alignment doesn't match the one reported by the parser (expected " + std::to_string(cl.type_alignment) + " but got " + std::to_string(total_alignment) + ").");
+
+                    // Check the final size.
+                    total_size = (total_size + (total_alignment - 1)) / total_alignment * total_alignment;
+                    if (total_size != cl.type_size)
+                        throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its estimated byte size doesn't match the one reported by the parser (expected " + std::to_string(cl.type_size) + " but got " + std::to_string(total_size) + ").");
+
+                    file.header.contents += "} " + parsed_type_info.c_type_str + ";\n";
+                }
+
+
+                // If this is a same-layout struct that is trivially-default-constructible, we don't want the default constructor (and its array version).
+                const bool skip_trivial_default_ctor = parsed_class_info.is_same_layout_struct && parsed_class_info.traits.is_trivially_default_constructible;
 
                 auto MakeBinder = [&]
                 {
@@ -2363,7 +2508,10 @@ namespace mrbind::CBindings
 
                     auto binder = MakeBinder();
 
-                    { // Pointer offsetting.
+                    // Pointer offsetting.
+                    // Don't need it for the same-layout structs, as the user can do that manually.
+                    if (!parsed_class_info.is_same_layout_struct)
+                    {
                         self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, true));
                         self.EmitFunction(file, binder.PrepareFuncOffsetPtr(self, false));
                     }
@@ -2481,6 +2629,9 @@ namespace mrbind::CBindings
                         {
                             try
                             {
+                                if (parsed_class_info.is_same_layout_struct && !elem.is_static)
+                                    return; // Don't need accessors for non-static fields if we've already emitted the proper struct above.
+
                                 self.EmitClassMemberAccessors(file, cl, elem);
                             }
                             catch (...)
@@ -2494,6 +2645,16 @@ namespace mrbind::CBindings
                             // We've already set the `is_..._constructable` bools in their traits to false, but we must also disable those separately.
                             // Not only here, but also when collecting the overload names. Sync the two.
                             if (parsed_class_info.is_abstract)
+                                return;
+
+                            // Skip the copy/move constructors for same-layout structs. This is mentioned in the `--help` page.
+                            // I guess the other constructors can be useful?
+                            if (parsed_class_info.is_same_layout_struct && elem.kind != CopyMoveKind{})
+                                return;
+
+                            // Skip trivial default ctors for same-layout structs.
+                            // Note that we only skip the true default ctors and not those with default arguments. This sounds like the most sensible thing to do.
+                            if (skip_trivial_default_ctor && elem.params.empty())
                                 return;
 
                             try
@@ -2542,6 +2703,15 @@ namespace mrbind::CBindings
                         {
                             try
                             {
+                                // Complain if a same-layout struct has a non-trivial assignment.
+                                // We could support those, but it's easier not to.
+                                if (parsed_class_info.is_same_layout_struct && elem.assignment_kind != CopyMoveKind{})
+                                {
+                                    if (elem.is_trivial_assignment)
+                                        return;
+                                    throw std::runtime_error("The type `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but has a non-trivial destructor.");
+                                }
+
                                 // The copy assignments are not emitted. Instead the move assignments are rewritten as if they were accepting the parameter by value.
                                 // We treat the (parsed) by-value assignments exactly the same as move assignments, generating the same code for both.
                                 // We expect at most one of them (move and by-value) to exist, since having both leads to overload resolution errors when calling them anyway.
@@ -2578,6 +2748,15 @@ namespace mrbind::CBindings
                         },
                         [&](const ClassDtor &elem)
                         {
+                            // Complain if a same-layout struct has a non-trivial destructor.
+                            // We could support those, but it's easier not to.
+                            if (parsed_class_info.is_same_layout_struct)
+                            {
+                                if (elem.is_trivial)
+                                    return;
+                                throw std::runtime_error("The type `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but has a non-trivial destructor.");
+                            }
+
                             // Don't emit non-virtual destructors for abstract classes.
                             // This matches the fact that we set the `is_destructable` trait to false for those.
                             if (parsed_class_info.is_abstract && !elem.is_virtual)
@@ -2597,7 +2776,7 @@ namespace mrbind::CBindings
                     }, var);
                 }
 
-                // If didn't emit those earlier, do it now.
+                // If we didn't emit those earlier, do it now.
                 EmitMiscFunctionsOnce();
             }
             catch (...)

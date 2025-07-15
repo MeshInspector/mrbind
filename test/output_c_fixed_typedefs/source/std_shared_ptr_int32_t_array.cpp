@@ -52,7 +52,7 @@ MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_OffsetMutab
 
 int32_t *MR_C_std_shared_ptr_int32_t_array_Get(const MR_C_std_shared_ptr_int32_t_array *_this)
 {
-    return (int32_t *)((_this ? *(const std::shared_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get());
+    return (_this ? *(const std::shared_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get();
 }
 
 int32_t *MR_C_std_shared_ptr_int32_t_array_At(const MR_C_std_shared_ptr_int32_t_array *_this, ptrdiff_t i)
@@ -68,14 +68,14 @@ int MR_C_std_shared_ptr_int32_t_array_UseCount(const MR_C_std_shared_ptr_int32_t
 void MR_C_std_shared_ptr_int32_t_array_Construct(int32_t *ptr)
 {
     std::shared_ptr<int32_t[]>(
-        std::unique_ptr<int32_t[]>((int32_t *)ptr)
+        std::unique_ptr<int32_t[]>(ptr)
     );
 }
 
 void MR_C_std_shared_ptr_int32_t_array_Assign(MR_C_std_shared_ptr_int32_t_array *_this, int32_t *ptr)
 {
     (_this ? *(std::shared_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::shared_ptr<int32_t[]>(
-        std::unique_ptr<int32_t[]>((int32_t *)ptr)
+        std::unique_ptr<int32_t[]>(ptr)
     );
 }
 

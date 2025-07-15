@@ -2,6 +2,7 @@
 
 #include "common/parsed_data.h"
 #include "common/polyfill/std_filesystem_path_hash.h" // IWYU pragma: keep
+#include "common/string_filter.h"
 
 #include <cppdecl/declarations/data.h>
 
@@ -64,6 +65,9 @@ namespace mrbind::CBindings
 
         // When adding a hash to the shortened long header names, this is how many hex digits we add.
         std::size_t hash_len_in_long_output_filenames = 4;
+
+        // The matching C++ structs/classes get bound as C structs instead of opaque pointers.
+        StringFilter same_layout_struct_filter;
 
         // ]
 
@@ -331,11 +335,14 @@ namespace mrbind::CBindings
         //   which requires it to be completely filled right when passed.)
         const TypeBindableWithSameAddress &AddNewTypeBindableWithSameAddress(const cppdecl::QualifiedName &cpp_type_name, TypeBindableWithSameAddress desc);
 
-        [[nodiscard]] const TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name);
-        [[nodiscard]] const TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name);
+        // The `can_invent_new_bindings` parameter is used to avoid infinite recursion in some cases. We set it to false to prevent this function from trying
+        //   to create new bindings if they are missing (except using modules, that's allowed). Ultimately, if this is false, we must avoid
+        //   calling `IsSimplyBindable...()`.
+        [[nodiscard]] const TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const cppdecl::QualifiedName &type_name, bool can_invent_new_bindings = true);
+        [[nodiscard]] const TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name, bool can_invent_new_bindings = true);
         // The name must come from `cppdecl::ToCode(..., canonical_c_style)`.
-        [[nodiscard]] const TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const std::string &type_name_str);
-        [[nodiscard]] const TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name_str);
+        [[nodiscard]] const TypeBindableWithSameAddress &FindTypeBindableWithSameAddress(const std::string &type_name_str, bool can_invent_new_bindings = true);
+        [[nodiscard]] const TypeBindableWithSameAddress *FindTypeBindableWithSameAddressOpt(const std::string &type_name_str, bool can_invent_new_bindings = true);
 
 
         // Some information about parsed and custom types.
@@ -365,7 +372,9 @@ namespace mrbind::CBindings
             // If true, the copy constructor has the form `T(T &)` instead of `T(const T &)`.
             bool copy_constructor_takes_nonconst_ref = false;
 
-            // The type size is known in C, and is the same in C and C++.
+            // The type size is known in C, and is the same in C and C++. This implies that the binary representation is the same too.
+            // This also implies that the type is directly bindable (for `--expose-as-struct` struct members and such), though maybe we need
+            //   a separate way of opting types into that.
             bool same_size_in_c_and_cpp = false;
 
             // Set to true to indicate that the pass-by-value is dirt cheap and should always copy, instead of offering the pass-by enum.
@@ -594,6 +603,12 @@ namespace mrbind::CBindings
                 //   because it's a bit tricky, because our assignment wrappers take the class by value. But this one is less obvious, since in the C++ sense
                 //   abstract classes are still assignable.
                 bool is_abstract = false;
+
+                bool is_standard_layout = false;
+                bool is_trivially_copyable = false;
+
+                // Bound as a same-layout struct using `--expose-as-struct`.
+                bool is_same_layout_struct = false;
 
                 // For consistency with `EnumDesc`. This one doesn't seem to be strictly necessary.
                 ClassDesc() {}
@@ -882,9 +897,9 @@ namespace mrbind::CBindings
         // If `remove_sugar == true`, avoid the fancy rewrites like replacing `const std::string &` with char pointers. This is useful e.g. for `this` parameters.
         // This among other things disallows passing classes by value.
         // NOTE: This doesn't allow top-level const types, and hard-errors on those.
-        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type, bool remove_sugar = false);
+        [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type, bool remove_sugar = false, bool can_invent_new_bindings = true);
         // This version returns null on failure.
-        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar = false);
+        [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar = false, bool can_invent_new_bindings = true);
 
         // Calls `FindBindableType()`, and then extracts the `.traits` from the result.
         // But additionally supports const types, by removing assignability from those traits.

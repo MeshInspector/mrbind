@@ -51,6 +51,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --assume-include-dir      <dir>        - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
                     "    --max-header-name-length  <n>          - Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.\n"
                     "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
+                    "    --expose-as-struct        <type>       - Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.\n"
                     "    --verbose                              - Write some logs.\n"
                     "\n"
                     "A minimal usage might look like this:\n"
@@ -198,6 +199,15 @@ int main(int raw_argc, char **raw_argv)
 
             if (ConsumeFlagWithNoArgs("--reject-long-and-long-long", generator.reject_long_and_long_long, &seen_reject_long_and_long_long))
                 continue;
+
+            { // --expose-as-struct
+                std::string tmp;
+                if (ConsumeFlagWithStringArg("--expose-as-struct", tmp, nullptr))
+                {
+                    generator.same_layout_struct_filter.Insert(std::move(tmp));
+                    continue;
+                }
+            }
 
             if (ConsumeFlagWithNoArgs("--verbose", verbose, &seen_verbose))
                 continue;

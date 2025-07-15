@@ -27,7 +27,7 @@ MR_C_std_unique_ptr_int32_t_array *MR_C_std_unique_ptr_int32_t_array_ConstructFr
 MR_C_std_unique_ptr_int32_t_array *MR_C_std_unique_ptr_int32_t_array_ConstructFrom(int32_t *other)
 {
     return (MR_C_std_unique_ptr_int32_t_array *)new std::unique_ptr<int32_t[]>(std::unique_ptr<int32_t[]>(
-        std::unique_ptr<int32_t[]>((int32_t *)other)
+        std::unique_ptr<int32_t[]>(other)
     ));
 }
 
@@ -41,7 +41,7 @@ void MR_C_std_unique_ptr_int32_t_array_AssignFromAnother(MR_C_std_unique_ptr_int
 void MR_C_std_unique_ptr_int32_t_array_AssignFrom(MR_C_std_unique_ptr_int32_t_array *_this, int32_t *other)
 {
     (_this ? *(std::unique_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        std::unique_ptr<int32_t[]>((int32_t *)other)
+        std::unique_ptr<int32_t[]>(other)
     );
 }
 
@@ -67,7 +67,7 @@ MR_C_std_unique_ptr_int32_t_array *MR_C_std_unique_ptr_int32_t_array_OffsetMutab
 
 int32_t *MR_C_std_unique_ptr_int32_t_array_Get(const MR_C_std_unique_ptr_int32_t_array *_this)
 {
-    return (int32_t *)((_this ? *(const std::unique_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get());
+    return (_this ? *(const std::unique_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get();
 }
 
 int32_t *MR_C_std_unique_ptr_int32_t_array_At(const MR_C_std_unique_ptr_int32_t_array *_this, size_t i)
@@ -77,6 +77,6 @@ int32_t *MR_C_std_unique_ptr_int32_t_array_At(const MR_C_std_unique_ptr_int32_t_
 
 int32_t *MR_C_std_unique_ptr_int32_t_array_Release(MR_C_std_unique_ptr_int32_t_array *_this)
 {
-    return (int32_t *)((_this ? *(std::unique_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).release());
+    return (_this ? *(std::unique_ptr<int32_t[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).release();
 }
 

@@ -294,6 +294,10 @@ namespace mrbind
             (Type)(type)
 
             (bool)(is_static, false)
+
+            (std::size_t)(type_size) // It's easier to have this here for now, than to create a global type registry.
+            (std::size_t)(type_alignment) // ^
+            (std::size_t)(byte_offset) // Makes no sense for static variables.
         )
 
         void VisitTypes(const std::function<void(Type &type)> &func)
@@ -441,6 +445,11 @@ namespace mrbind
             (bool)(is_aggregate, false)
             (bool)(is_polymorphic, false)
             (bool)(is_abstract, false)
+            (bool)(is_standard_layout, false) // https://en.cppreference.com/w/cpp/language/classes.html#Standard-layout_class
+            (bool)(is_trivially_copyable, false) // https://en.cppreference.com/w/cpp/language/classes.html#Trivially_copyable_class
+
+            (std::size_t)(type_size) // It's easier to have this here for now, than to create a global type registry.
+            (std::size_t)(type_alignment) // ^
 
             // A path to the file where this is defined.
             (DeclFileName)(declared_in_file)

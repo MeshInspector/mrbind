@@ -50,7 +50,7 @@ MR_C_std_function_void_from_int32_t_int32_t *MR_C_std_function_void_from_int32_t
     return (MR_C_std_function_void_from_int32_t_int32_t *)(((std::function<void(int32_t, int32_t)> *)ptr) + i);
 }
 
-void MR_C_std_function_void_from_int32_t_int32_t_Assign(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t *_1, int32_t *_2))
+void MR_C_std_function_void_from_int32_t_int32_t_Assign(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t _1, int32_t _2))
 {
     auto &_self = (_this ? *(std::function<void(int32_t, int32_t)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
     if (!func)
@@ -61,13 +61,13 @@ void MR_C_std_function_void_from_int32_t_int32_t_Assign(MR_C_std_function_void_f
     _self = [_f = func](int32_t _1, int32_t _2) -> void
     {
         _f(
-            &mrbindc_details::unmove(_1),
-            &mrbindc_details::unmove(_2)
+            _1,
+            _2
         );
     };
 }
 
-void MR_C_std_function_void_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t *_1, int32_t *_2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+void MR_C_std_function_void_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t _1, int32_t _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
     auto &_self = (_this ? *(std::function<void(int32_t, int32_t)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
     if (!func)
@@ -134,8 +134,8 @@ void MR_C_std_function_void_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_func
         auto operator()(int32_t _1, int32_t _2) -> void
         {
             _func(
-                &mrbindc_details::unmove(_1),
-                &mrbindc_details::unmove(_2),
+                _1,
+                _2,
                 _userdata
             );
         }

@@ -71,8 +71,7 @@ MR_C_API void MR_C_std_vector_uint64_t_Resize(MR_C_std_vector_uint64_t *_this, s
 
 /// Resizes the container. The new elements if any are set to the specified value.
 /// Parameter `_this` can not be null.
-/// Parameter `value` can not be null.
-MR_C_API void MR_C_std_vector_uint64_t_ResizeWithDefaultValue(MR_C_std_vector_uint64_t *_this, size_t new_size, const uint64_t *value);
+MR_C_API void MR_C_std_vector_uint64_t_ResizeWithDefaultValue(MR_C_std_vector_uint64_t *_this, size_t new_size, uint64_t value);
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null.

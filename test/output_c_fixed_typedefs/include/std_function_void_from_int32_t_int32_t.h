@@ -48,25 +48,17 @@ MR_C_API MR_C_std_function_void_from_int32_t_int32_t *MR_C_std_function_void_fro
 
 /// Assign a stateless function.
 /// Parameter `_this` can not be null.
-/// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
-/// In C++ that parameter is an rvalue reference.
-/// Callback parameter `_2` will never be null. It is non-owning, do NOT destroy it.
-/// In C++ that parameter is an rvalue reference.
-MR_C_API void MR_C_std_function_void_from_int32_t_int32_t_Assign(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t *_1, int32_t *_2));
+MR_C_API void MR_C_std_function_void_from_int32_t_int32_t_Assign(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t _1, int32_t _2));
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 /// Parameter `_this` can not be null.
-/// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
-/// In C++ that parameter is an rvalue reference.
-/// Callback parameter `_2` will never be null. It is non-owning, do NOT destroy it.
-/// In C++ that parameter is an rvalue reference.
 /// How to use `userdata_callback`:
 ///   The `_this_userdata` parameter will never be null.
 ///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.
 ///   If `*_this_userdata` is     null and `_other_userdata` is non-null, a copy of the functor is being constructed. Perform copying if needed and write the new userdata to `*_this_userdata`.
 ///   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.
-MR_C_API void MR_C_std_function_void_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t *_1, int32_t *_2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata));
+MR_C_API void MR_C_std_function_void_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_function_void_from_int32_t_int32_t *_this, void (*func)(int32_t _1, int32_t _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata));
 
 #ifdef __cplusplus
 } // extern "C"

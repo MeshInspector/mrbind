@@ -48,18 +48,14 @@ MR_C_API MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_
 
 /// Assign a stateless function.
 /// Parameter `_this` can not be null.
-/// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
-/// In C++ that parameter is an rvalue reference.
 /// Callback parameter `_return_end` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 /// Callback return value can not be null.
 /// If `*_return_end` is kept null, then the callback return value is assumed to be null-terminated.
-MR_C_API void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t *_1, float _2));
+MR_C_API void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t _1, float _2));
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 /// Parameter `_this` can not be null.
-/// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
-/// In C++ that parameter is an rvalue reference.
 /// Callback parameter `_return_end` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 /// Callback return value can not be null.
 /// If `*_return_end` is kept null, then the callback return value is assumed to be null-terminated.
@@ -68,7 +64,7 @@ MR_C_API void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_fu
 ///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.
 ///   If `*_this_userdata` is     null and `_other_userdata` is non-null, a copy of the functor is being constructed. Perform copying if needed and write the new userdata to `*_this_userdata`.
 ///   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.
-MR_C_API void MR_C_std_function_std_string_from_int32_t_float_AssignWithDataPtr(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t *_1, float _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata));
+MR_C_API void MR_C_std_function_std_string_from_int32_t_float_AssignWithDataPtr(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t _1, float _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata));
 
 #ifdef __cplusplus
 } // extern "C"

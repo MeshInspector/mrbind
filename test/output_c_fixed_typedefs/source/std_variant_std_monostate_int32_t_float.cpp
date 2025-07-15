@@ -102,12 +102,12 @@ bool MR_C_std_variant_std_monostate_int32_t_float_Get_std_monostate(const MR_C_s
 
 const int32_t *MR_C_std_variant_std_monostate_int32_t_float_Get_int32_t(const MR_C_std_variant_std_monostate_int32_t_float *_this)
 {
-    return (const int32_t *)(std::get_if<1>(&(_this ? *(const std::variant<std::monostate, int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return std::get_if<1>(&(_this ? *(const std::variant<std::monostate, int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
 }
 
 int32_t *MR_C_std_variant_std_monostate_int32_t_float_GetMutable_int32_t(MR_C_std_variant_std_monostate_int32_t_float *_this)
 {
-    return (int32_t *)(std::get_if<1>(&(_this ? *(std::variant<std::monostate, int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return std::get_if<1>(&(_this ? *(std::variant<std::monostate, int32_t, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
 }
 
 const float *MR_C_std_variant_std_monostate_int32_t_float_Get_float(const MR_C_std_variant_std_monostate_int32_t_float *_this)

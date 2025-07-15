@@ -50,7 +50,7 @@ MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_string_fr
     return (MR_C_std_function_std_string_from_int32_t_float *)(((std::function<std::string(int32_t, float)> *)ptr) + i);
 }
 
-void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t *_1, float _2))
+void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t _1, float _2))
 {
     auto &_self = (_this ? *(std::function<std::string(int32_t, float)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
     if (!func)
@@ -63,14 +63,14 @@ void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_function_st
         const char *_return_end = {};
         decltype(auto) _return = _f(
             &_return_end,
-            &mrbindc_details::unmove(_1),
+            _1,
             _2
         );
         return (_return ? (_return_end ? std::string(_return, _return_end) : std::string(_return)) : throw std::runtime_error("Parameter `_return` can not be null."));
     };
 }
 
-void MR_C_std_function_std_string_from_int32_t_float_AssignWithDataPtr(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t *_1, float _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+void MR_C_std_function_std_string_from_int32_t_float_AssignWithDataPtr(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t _1, float _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
     auto &_self = (_this ? *(std::function<std::string(int32_t, float)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
     if (!func)
@@ -139,7 +139,7 @@ void MR_C_std_function_std_string_from_int32_t_float_AssignWithDataPtr(MR_C_std_
             const char *_return_end = {};
             decltype(auto) _return = _func(
                 &_return_end,
-                &mrbindc_details::unmove(_1),
+                _1,
                 _2,
                 _userdata
             );

@@ -6,6 +6,7 @@
 #include <input/MR/test_bases.h>
 #include <input/MR/test_conv_ops.h>
 #include <input/MR/test_iostream.h>
+#include <input/MR/test_matching_layout.h>
 #include <input/MR/test_member_vars.h>
 #include <input/MR/test_mention_blacklists.h>
 #include <input/MR/test_nested_class_template_inst.h>

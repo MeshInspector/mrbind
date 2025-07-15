@@ -65,12 +65,12 @@ MR_C_std_optional_int32_t *MR_C_std_optional_int32_t_OffsetMutablePtr(MR_C_std_o
 const int32_t *MR_C_std_optional_int32_t_Value(const MR_C_std_optional_int32_t *_this)
 {
     auto &_self = (_this ? *(const std::optional<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    return (const int32_t *)(_self ? &*_self : nullptr);
+    return _self ? &*_self : nullptr;
 }
 
 int32_t *MR_C_std_optional_int32_t_MutableValue(MR_C_std_optional_int32_t *_this)
 {
     auto &_self = (_this ? *(std::optional<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
-    return (int32_t *)(_self ? &*_self : nullptr);
+    return _self ? &*_self : nullptr;
 }
 

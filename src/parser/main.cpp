@@ -13,6 +13,7 @@
 #include "common/filesystem.h"
 #include "common/parsed_data.h"
 #include "common/set_error_handlers.h"
+#include "common/string_filter.h"
 #include "parser/combine_types.h"
 #include "parser/cppdecl_helpers.h"
 #include "parser/data_to_json.h"
@@ -131,54 +132,6 @@ namespace mrbind
         unselected,
         json,
         macros,
-    };
-
-    class StringFilter
-    {
-        std::set<std::string, std::less<>> exact;
-
-        struct Regex
-        {
-            std::regex regex;
-            std::string value;
-
-            Regex(std::string value) : regex(value.begin(), value.end()), value(std::move(value)) {}
-
-            friend bool operator==(const Regex &a, const Regex &b) {return a.value == b.value;}
-            friend auto operator<=>(const Regex &a, const Regex &b) {return a.value <=> b.value;}
-        };
-        std::set<Regex> regexes;
-
-      public:
-        StringFilter() {}
-
-        void Insert(std::string value)
-        {
-            if (value.size() > 2 && value.starts_with('/') && value.ends_with('/'))
-            {
-                value.pop_back();
-                value.erase(value.begin());
-                regexes.insert(std::move(value));
-            }
-            else
-            {
-                exact.insert(std::move(value));
-            }
-        }
-
-        [[nodiscard]] bool Contains(std::string_view value) const
-        {
-            if (exact.contains(value))
-                return true;
-
-            for (const Regex &r : regexes)
-            {
-                if (std::regex_match(value.begin(), value.end(), r.regex))
-                    return true;
-            }
-
-            return false;
-        }
     };
 
     struct VisitorParams
@@ -1446,7 +1399,8 @@ namespace mrbind
 
                         new_method.is_static = method->isStatic();
 
-                        new_method.is_trivial_assignment = method->isTrivial();
+                        if (new_method.assignment_kind != CopyMoveKind{})
+                            new_method.is_trivial_assignment = method->isTrivial();
                     }
 
                     basic_func = basic_ret_class_func;
@@ -1529,6 +1483,8 @@ namespace mrbind
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
             new_class.is_aggregate = ctx->getRecordType(decl)->isAggregateType();
+            new_class.type_size = ctx->getTypeInfo(ctx->getRecordType(decl)).Width;
+            new_class.type_alignment = ctx->getTypeInfo(ctx->getRecordType(decl)).Align;
             new_class.declared_in_file = GetDefinitionLocationFile(*decl, new_class.name);
             // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
             // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
@@ -1553,6 +1509,8 @@ namespace mrbind
             {
                 new_class.is_polymorphic = cxxdecl->isPolymorphic();
                 new_class.is_abstract = cxxdecl->isAbstract();
+                new_class.is_standard_layout = cxxdecl->isStandardLayout();
+                new_class.is_trivially_copyable = cxxdecl->isStandardLayout();
             }
 
             // Bases.
@@ -1605,6 +1563,10 @@ namespace mrbind
                     new_field.name = var->getName();
                     new_field.full_name = std::move(full_name);
                     new_field.type = GetTypeStrings(var->getType(), TypeUses::static_data_member);
+
+                    new_field.type_size = ctx->getTypeInfo(var->getType()).Width;
+                    new_field.type_alignment = ctx->getTypeInfo(var->getType()).Align;
+                    new_field.byte_offset = std::size_t(-1); // Makes no sense for static variables.
                 }
             }
 
@@ -1620,6 +1582,10 @@ namespace mrbind
                 new_field.name = field->getName();
                 new_field.full_name = field->getName();
                 new_field.type = GetTypeStrings(field->getType(), TypeUses::nonstatic_data_member);
+
+                new_field.type_size = ctx->getTypeInfo(field->getType()).Width;
+                new_field.type_alignment = ctx->getTypeInfo(field->getType()).Align;
+                new_field.byte_offset = ctx->getFieldOffset(field);
             }
 
             // -- Constructors and methods.

@@ -7,13 +7,13 @@
 
 int32_t *MR_StdUniquePtr_GetInt(void)
 {
-    return (int32_t *)(::MR::StdUniquePtr::GetInt()).release();
+    return (::MR::StdUniquePtr::GetInt()).release();
 }
 
 void MR_StdUniquePtr_SetInt(int32_t *_1)
 {
     ::MR::StdUniquePtr::SetInt(
-        std::unique_ptr<int32_t>((int32_t *)_1)
+        std::unique_ptr<int32_t>(_1)
     );
 }
 
@@ -27,7 +27,7 @@ void MR_StdUniquePtr_SetIntConstRef(const MR_C_std_unique_ptr_int32_t *_1)
 void MR_StdUniquePtr_SetIntDefTrivial(int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntDefTrivial(
-        std::unique_ptr<int32_t>((int32_t *)_1)
+        std::unique_ptr<int32_t>(_1)
     );
 }
 
@@ -36,7 +36,7 @@ void MR_StdUniquePtr_SetIntDef(int32_t *const *_1)
     using namespace MR;
     using namespace StdUniquePtr;
     ::MR::StdUniquePtr::SetIntDef(
-        (_1 ? std::unique_ptr<int32_t>((int32_t *)*_1) : static_cast<std::unique_ptr<int32_t>>(std::make_unique<int>(42)))
+        (_1 ? std::unique_ptr<int32_t>(*_1) : static_cast<std::unique_ptr<int32_t>>(std::make_unique<int>(42)))
     );
 }
 
@@ -57,33 +57,33 @@ void MR_StdUniquePtr_SetIntLvalueConstRef(const MR_C_std_unique_ptr_int32_t *_1)
 void MR_StdUniquePtr_SetIntRvalueRef(int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntRvalueRef(
-        std::unique_ptr<int32_t>((int32_t *)_1)
+        std::unique_ptr<int32_t>(_1)
     );
 }
 
 void MR_StdUniquePtr_SetIntRvalueConstRef(int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntRvalueConstRef(
-        std::unique_ptr<int32_t>((int32_t *)_1)
+        std::unique_ptr<int32_t>(_1)
     );
 }
 
 int32_t *MR_StdUniquePtr_GetIntArr(void)
 {
-    return (int32_t *)(::MR::StdUniquePtr::GetIntArr()).release();
+    return (::MR::StdUniquePtr::GetIntArr()).release();
 }
 
 void MR_StdUniquePtr_SetIntArr(int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntArr(
-        std::unique_ptr<int32_t[]>((int32_t *)_1)
+        std::unique_ptr<int32_t[]>(_1)
     );
 }
 
 void MR_StdUniquePtr_SetIntArrDefTrivial(int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntArrDefTrivial(
-        std::unique_ptr<int32_t[]>((int32_t *)_1)
+        std::unique_ptr<int32_t[]>(_1)
     );
 }
 
@@ -92,7 +92,7 @@ void MR_StdUniquePtr_SetIntArrDef(int32_t *const *_1)
     using namespace MR;
     using namespace StdUniquePtr;
     ::MR::StdUniquePtr::SetIntArrDef(
-        (_1 ? std::unique_ptr<int32_t[]>((int32_t *)*_1) : static_cast<std::unique_ptr<int32_t[]>>(std::make_unique<int[]>(42)))
+        (_1 ? std::unique_ptr<int32_t[]>(*_1) : static_cast<std::unique_ptr<int32_t[]>>(std::make_unique<int[]>(42)))
     );
 }
 
@@ -233,12 +233,12 @@ void MR_StdUniquePtr_SetClassArrDef(MR_StdUniquePtr_A *const *_1)
 
 const int32_t *MR_StdUniquePtr_GetConstInt(void)
 {
-    return (const int32_t *)(::MR::StdUniquePtr::GetConstInt()).release();
+    return (::MR::StdUniquePtr::GetConstInt()).release();
 }
 
 const int32_t *MR_StdUniquePtr_GetConstIntArr(void)
 {
-    return (const int32_t *)(::MR::StdUniquePtr::GetConstIntArr()).release();
+    return (::MR::StdUniquePtr::GetConstIntArr()).release();
 }
 
 const MR_StdUniquePtr_A *MR_StdUniquePtr_GetConstClass(void)

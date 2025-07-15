@@ -67,11 +67,11 @@ void MR_C_std_vector_int32_t_Resize(MR_C_std_vector_int32_t *_this, size_t new_s
     );
 }
 
-void MR_C_std_vector_int32_t_ResizeWithDefaultValue(MR_C_std_vector_int32_t *_this, size_t new_size, const int32_t *value)
+void MR_C_std_vector_int32_t_ResizeWithDefaultValue(MR_C_std_vector_int32_t *_this, size_t new_size, int32_t value)
 {
     (_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).resize(
         new_size,
-        (value ? *value : throw std::runtime_error("Parameter `value` can not be null."))
+        value
     );
 }
 
@@ -113,32 +113,32 @@ int32_t *MR_C_std_vector_int32_t_MutableAt(MR_C_std_vector_int32_t *_this, size_
 
 const int32_t *MR_C_std_vector_int32_t_Front(const MR_C_std_vector_int32_t *_this)
 {
-    return (const int32_t *)((_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr);
+    return (_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
 }
 
 int32_t *MR_C_std_vector_int32_t_MutableFront(MR_C_std_vector_int32_t *_this)
 {
-    return (int32_t *)((_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr);
+    return (_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
 }
 
 const int32_t *MR_C_std_vector_int32_t_Back(const MR_C_std_vector_int32_t *_this)
 {
-    return (const int32_t *)((_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr);
+    return (_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
 }
 
 int32_t *MR_C_std_vector_int32_t_MutableBack(MR_C_std_vector_int32_t *_this)
 {
-    return (int32_t *)((_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr);
+    return (_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
 }
 
 const int32_t *MR_C_std_vector_int32_t_Data(const MR_C_std_vector_int32_t *_this)
 {
-    return (const int32_t *)((_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data());
+    return (_this ? *(const std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data();
 }
 
 int32_t *MR_C_std_vector_int32_t_MutableData(MR_C_std_vector_int32_t *_this)
 {
-    return (int32_t *)((_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data());
+    return (_this ? *(std::vector<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data();
 }
 
 void MR_C_std_vector_int32_t_PushBack(MR_C_std_vector_int32_t *_this, int32_t new_elem)

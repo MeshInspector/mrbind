@@ -52,7 +52,7 @@ MR_C_std_shared_ptr_int32_t *MR_C_std_shared_ptr_int32_t_OffsetMutablePtr(MR_C_s
 
 int32_t *MR_C_std_shared_ptr_int32_t_Get(const MR_C_std_shared_ptr_int32_t *_this)
 {
-    return (int32_t *)((_this ? *(const std::shared_ptr<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get());
+    return (_this ? *(const std::shared_ptr<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get();
 }
 
 int MR_C_std_shared_ptr_int32_t_UseCount(const MR_C_std_shared_ptr_int32_t *_this)
@@ -63,14 +63,14 @@ int MR_C_std_shared_ptr_int32_t_UseCount(const MR_C_std_shared_ptr_int32_t *_thi
 void MR_C_std_shared_ptr_int32_t_Construct(int32_t *ptr)
 {
     std::shared_ptr<int32_t>(
-        std::unique_ptr<int32_t>((int32_t *)ptr)
+        std::unique_ptr<int32_t>(ptr)
     );
 }
 
 void MR_C_std_shared_ptr_int32_t_Assign(MR_C_std_shared_ptr_int32_t *_this, int32_t *ptr)
 {
     (_this ? *(std::shared_ptr<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::shared_ptr<int32_t>(
-        std::unique_ptr<int32_t>((int32_t *)ptr)
+        std::unique_ptr<int32_t>(ptr)
     );
 }
 

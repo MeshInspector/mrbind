@@ -986,7 +986,7 @@ namespace mrbind::CBindings
         return {};
     }
 
-    Generator::BindableType MakeByValueClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type, const Generator::TypeTraits &traits)
+    Generator::BindableType MakeByValueParsedClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits)
     {
         Generator::BindableType new_type;
         HeapAllocatedClassBinder class_binder;
@@ -995,11 +995,105 @@ namespace mrbind::CBindings
 
         class_binder.traits = traits;
         class_binder.cpp_type_name = cpp_type;
-        class_binder.c_type_name = c_type;
+        class_binder.c_type_name = c_type_str;
 
         new_type.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(generator);
 
         new_type.return_usage = class_binder.MakeReturnUsage(generator);
+
+        return new_type;
+    }
+
+    Generator::BindableType MakeBitCastParsedClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits)
+    {
+        (void)generator;
+
+        const std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+
+        Generator::BindableType new_type;
+        new_type.traits = traits;
+        // Don't need `.bindable_with_same_address` for parsed classes. See the comment on this function.
+
+        // Param usage.
+        Generator::BindableType::ParamUsage &param = new_type.param_usage.emplace();
+        param.same_addr_bindable_type_dependencies[cpp_type_str].need_header = true; // Need the header to pass this stuff by value.
+        param.c_params.push_back({.c_type = cppdecl::Type::FromSingleWord(std::string(c_type_str))});
+        param.extra_headers.stdlib_in_source_file.insert("bit"); // For `std::bit_cast()`.
+        param.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg) -> std::string
+        {
+            (void)source_file;
+            (void)default_arg;
+            assert(std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg));
+            return "std::bit_cast<" + cpp_type_str + ">(" + std::string(cpp_param_name) + ")";
+        };
+
+        // Param usage with default argument.
+        Generator::BindableType::ParamUsageWithDefaultArg &param_defarg = new_type.param_usage_with_default_arg.emplace();
+        param_defarg.same_addr_bindable_type_dependencies[cpp_type_str].need_header = true; // Need the header to pass this stuff by value.
+        param_defarg.c_params.push_back({.c_type = cppdecl::Type::FromSingleWord(std::string(c_type_str)).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})});
+        param_defarg.extra_headers.stdlib_in_source_file.insert("bit"); // For `std::bit_cast()`.
+        param_defarg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg) -> std::string
+        {
+            (void)source_file;
+
+            const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
+            std::string ret;
+            ret += "(";
+            ret += cpp_param_name;
+            ret += " ? ";
+
+            if (wrapper)
+            {
+                ret += wrapper->wrapper_cpp_type;
+                ret += "(";
+            }
+
+            ret += "std::bit_cast<" + cpp_type_str + ">(*" + std::string(cpp_param_name) + ")";
+
+            if (wrapper)
+                ret += ")";
+
+            ret += " : ";
+
+            std::visit(Overload{
+                [&](Generator::BindableType::ParamUsage::DefaultArgNone)
+                {
+                    // Unreachable, we have a separate usage without default parameters.
+                    assert(false);
+                },
+                [&](std::string_view default_arg)
+                {
+                    ret += cpp_type_str + "(";
+                    ret += default_arg;
+                    ret += ")";
+                },
+                [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
+                {
+                    ret += wrapper.wrapper_null;
+                }
+            }, default_arg);
+
+            ret += ")"; // Close `( ? : )` (default argument vs no default argument).
+
+            return ret;
+        };
+        param_defarg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback)
+        {
+            (void)cpp_param_name; (void)use_wrapper;
+            return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";
+        };
+
+        // Return usage.
+        Generator::BindableType::ReturnUsage &ret_usage = new_type.return_usage.emplace();
+        ret_usage.same_addr_bindable_type_dependencies[cpp_type_str].need_header = true; // Need the header to pass this stuff by value.
+        ret_usage.c_type = cppdecl::Type::FromSingleWord(std::string(c_type_str));
+        ret_usage.extra_headers.stdlib_in_source_file.insert("bit"); // For `std::bit_cast()`.
+        ret_usage.make_return_expr = [c_type_str = std::string(c_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
+        {
+            (void)file;
+            return "std::bit_cast<" + c_type_str + ">(" + std::string(expr) + ")";
+        };
 
         return new_type;
     }

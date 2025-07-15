@@ -99,12 +99,12 @@ void MR_C_std_variant_int32_t_float_std_string_AssignAs_std_string(MR_C_std_vari
 
 const int32_t *MR_C_std_variant_int32_t_float_std_string_Get_int32_t(const MR_C_std_variant_int32_t_float_std_string *_this)
 {
-    return (const int32_t *)(std::get_if<0>(&(_this ? *(const std::variant<int32_t, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return std::get_if<0>(&(_this ? *(const std::variant<int32_t, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
 }
 
 int32_t *MR_C_std_variant_int32_t_float_std_string_GetMutable_int32_t(MR_C_std_variant_int32_t_float_std_string *_this)
 {
-    return (int32_t *)(std::get_if<0>(&(_this ? *(std::variant<int32_t, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))));
+    return std::get_if<0>(&(_this ? *(std::variant<int32_t, float, std::string> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
 }
 
 const float *MR_C_std_variant_int32_t_float_std_string_Get_float(const MR_C_std_variant_int32_t_float_std_string *_this)
