@@ -9,7 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_function_MR_StdFunction_A MR_C_std_function_MR_StdFunction_A; // Defined below in this file.
 typedef struct MR_StdFunction_A MR_StdFunction_A; // Defined in `#include <MR/test_std_function.h>`.
 
 

@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_StaticFuncs_A MR_StaticFuncs_A; // Defined below in this file.
-
 
 /// Generated from class `MR::StaticFuncs::A`.
 typedef struct MR_StaticFuncs_A MR_StaticFuncs_A;

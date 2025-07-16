@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_variant_int32_t_float_float MR_C_std_variant_int32_t_float_float; // Defined below in this file.
-
 
 /// Stores one of 3 objects: `int32_t`, `float`, `float`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

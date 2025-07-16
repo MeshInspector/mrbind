@@ -11,9 +11,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_phmap_btree_multiset_int32_t MR_C_phmap_btree_multiset_int32_t; // Defined below in this file.
-typedef struct MR_C_phmap_btree_multiset_int32_t_const_iterator MR_C_phmap_btree_multiset_int32_t_const_iterator; // Defined below in this file.
-
 
 /// Generated from C++ container `phmap::btree_multiset<int32_t>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

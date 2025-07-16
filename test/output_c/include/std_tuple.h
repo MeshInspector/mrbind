@@ -8,8 +8,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_tuple MR_C_std_tuple; // Defined below in this file.
-
 
 /// Stores 0 objects.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

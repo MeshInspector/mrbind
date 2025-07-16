@@ -9,7 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_A MR_A; // Defined below in this file.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 typedef struct MR_C_std_vector_MR_A MR_C_std_vector_MR_A; // Defined in `#include <std_vector_MR_A.h>`.
 

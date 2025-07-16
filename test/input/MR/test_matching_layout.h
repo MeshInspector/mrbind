@@ -4,8 +4,11 @@ namespace MR::MatchingLayout
 {
     struct A
     {
+        // first
         int a;
+        // second
         short b;
+        // third
         float c;
     };
 

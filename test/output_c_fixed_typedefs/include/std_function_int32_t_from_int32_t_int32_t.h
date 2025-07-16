@@ -10,8 +10,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_function_int32_t_from_int32_t_int32_t MR_C_std_function_int32_t_from_int32_t_int32_t; // Defined below in this file.
-
 
 /// Stores a functor of type: `int32_t(int32_t, int32_t)`. Possibly stateful.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

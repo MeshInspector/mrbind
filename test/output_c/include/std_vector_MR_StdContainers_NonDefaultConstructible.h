@@ -10,9 +10,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible MR_C_std_vector_MR_StdContainers_NonDefaultConstructible; // Defined below in this file.
-typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator; // Defined below in this file.
-typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator; // Defined below in this file.
 typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible; // Defined in `#include <MR/test_std_containers.h>`.
 
 

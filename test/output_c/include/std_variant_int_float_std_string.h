@@ -10,7 +10,6 @@ extern "C" {
 #endif
 
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
-typedef struct MR_C_std_variant_int_float_std_string MR_C_std_variant_int_float_std_string; // Defined below in this file.
 
 
 /// Stores one of 3 objects: `int`, `float`, `std::string`.

@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_expected_int32_t_std_string MR_C_std_expected_int32_t_std_string; // Defined below in this file.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 
 

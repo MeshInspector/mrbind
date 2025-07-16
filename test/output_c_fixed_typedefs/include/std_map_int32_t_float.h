@@ -11,10 +11,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_map_int32_t_float MR_C_std_map_int32_t_float; // Defined below in this file.
-typedef struct MR_C_std_map_int32_t_float_const_iterator MR_C_std_map_int32_t_float_const_iterator; // Defined below in this file.
-typedef struct MR_C_std_map_int32_t_float_iterator MR_C_std_map_int32_t_float_iterator; // Defined below in this file.
-
 
 /// Generated from C++ container `std::map<int32_t, float>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

@@ -11,9 +11,6 @@ extern "C" {
 #endif
 
 typedef struct MR_A MR_A; // Defined in `#include <MR/1.h>`.
-typedef struct MR_C_std_vector_MR_A MR_C_std_vector_MR_A; // Defined below in this file.
-typedef struct MR_C_std_vector_MR_A_const_iterator MR_C_std_vector_MR_A_const_iterator; // Defined below in this file.
-typedef struct MR_C_std_vector_MR_A_iterator MR_C_std_vector_MR_A_iterator; // Defined below in this file.
 
 
 /// Generated from C++ container `std::vector<MR::A>`.

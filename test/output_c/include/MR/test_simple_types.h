@@ -8,8 +8,34 @@
 extern "C" {
 #endif
 
-typedef struct MR_TestSimpleTypes_ClassTemplate_unsigned_long MR_TestSimpleTypes_ClassTemplate_unsigned_long; // Defined below in this file.
 
+typedef enum MR_TestSimpleTypes_E
+{
+    MR_TestSimpleTypes_E_e1 = 0,
+} MR_TestSimpleTypes_E;
+
+// This enum has a custom underlying type.
+typedef short MR_TestSimpleTypes_E2;
+enum // MR_TestSimpleTypes_E2
+{
+    MR_TestSimpleTypes_E2_e1 = 0,
+};
+
+// This enum has no constants.
+typedef enum MR_TestSimpleTypes_E3
+{
+    MR_TestSimpleTypes_E3_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
+} MR_TestSimpleTypes_E3;
+
+// Class templates.
+/// Generated from class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
+typedef struct MR_TestSimpleTypes_ClassTemplate_unsigned_long MR_TestSimpleTypes_ClassTemplate_unsigned_long;
+
+// Enums.
+typedef enum MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum
+{
+    MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
+} MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum;
 
 /// Generated from function `MR::TestSimpleTypes::GetInt`.
 MR_C_API int MR_TestSimpleTypes_GetInt(void);
@@ -89,11 +115,6 @@ MR_C_API void MR_TestSimpleTypes_SetVoidPtrPtrDef(void **const *_1);
 /// Parameter `_1` defaults to a null pointer in C++.
 MR_C_API void MR_TestSimpleTypes_SetVoidPtrPtrDefNull(void **_1);
 
-typedef enum MR_TestSimpleTypes_E
-{
-    MR_TestSimpleTypes_E_e1 = 0,
-} MR_TestSimpleTypes_E;
-
 /// Generated from function `MR::TestSimpleTypes::GetEnum`.
 MR_C_API int MR_TestSimpleTypes_GetEnum(void);
 
@@ -129,13 +150,6 @@ MR_C_API void MR_TestSimpleTypes_SetEnumRef(MR_TestSimpleTypes_E *_1);
 /// Generated from function `MR::TestSimpleTypes::SetEnumRefDef`.
 /// Parameter `_1` has a default argument: `global_enum`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnumRefDef(MR_TestSimpleTypes_E *_1);
-
-// This enum has a custom underlying type.
-typedef short MR_TestSimpleTypes_E2;
-enum // MR_TestSimpleTypes_E2
-{
-    MR_TestSimpleTypes_E2_e1 = 0,
-};
 
 /// Generated from function `MR::TestSimpleTypes::GetEnum2`.
 MR_C_API int MR_TestSimpleTypes_GetEnum2(void);
@@ -173,12 +187,6 @@ MR_C_API void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1);
 /// Parameter `_1` has a default argument: `global_enum2`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1);
 
-// This enum has no constants.
-typedef enum MR_TestSimpleTypes_E3
-{
-    MR_TestSimpleTypes_E3_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
-} MR_TestSimpleTypes_E3;
-
 /// Generated from function `MR::TestSimpleTypes::LongLong`.
 MR_C_API long long MR_TestSimpleTypes_LongLong(long long x);
 
@@ -195,16 +203,6 @@ MR_C_API unsigned long MR_TestSimpleTypes_FuncTemplate_unsigned_long(unsigned lo
 // Function templates.
 /// Generated from function `MR::TestSimpleTypes::FuncTemplate<int>`.
 MR_C_API int MR_TestSimpleTypes_FuncTemplate_int(int _1);
-
-// Enums.
-typedef enum MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum
-{
-    MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
-} MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum;
-
-// Class templates.
-/// Generated from class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
-typedef struct MR_TestSimpleTypes_ClassTemplate_unsigned_long MR_TestSimpleTypes_ClassTemplate_unsigned_long;
 
 /// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

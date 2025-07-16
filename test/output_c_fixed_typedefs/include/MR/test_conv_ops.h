@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_ConvOps_A MR_ConvOps_A; // Defined below in this file.
-
 
 /// Generated from class `MR::ConvOps::A`.
 typedef struct MR_ConvOps_A MR_ConvOps_A;

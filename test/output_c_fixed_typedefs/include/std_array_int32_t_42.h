@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_array_int32_t_42 MR_C_std_array_int32_t_42; // Defined below in this file.
-
 
 /// A fixed-size array of `int32_t` of size 42.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

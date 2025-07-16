@@ -8,12 +8,12 @@
 extern "C" {
 #endif
 
-typedef struct MR_SignatureFilters_A MR_SignatureFilters_A; // Defined below in this file.
-typedef struct MR_SignatureFilters_Blah MR_SignatureFilters_Blah; // Defined below in this file.
-
 
 /// Generated from class `MR::SignatureFilters::A`.
 typedef struct MR_SignatureFilters_A MR_SignatureFilters_A;
+
+/// Generated from class `MR::SignatureFilters::Blah`.
+typedef struct MR_SignatureFilters_Blah MR_SignatureFilters_Blah;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_A_Destroy()` to free it when you're done using it.
@@ -92,9 +92,6 @@ MR_C_API void MR_SignatureFilters_foo5_1(const MR_SignatureFilters_A *_1);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 /// In C++ returns an rvalue reference.
 MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void);
-
-/// Generated from class `MR::SignatureFilters::Blah`.
-typedef struct MR_SignatureFilters_Blah MR_SignatureFilters_Blah;
 
 /// Returns a pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
 /// Parameter `_this` can not be null.

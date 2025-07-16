@@ -8,13 +8,21 @@
 extern "C" {
 #endif
 
-typedef struct MR_AbstractClasses_A MR_AbstractClasses_A; // Defined below in this file.
-typedef struct MR_AbstractClasses_B MR_AbstractClasses_B; // Defined below in this file.
-typedef struct MR_AbstractClasses_C MR_AbstractClasses_C; // Defined below in this file.
-
 
 /// Generated from class `MR::AbstractClasses::A`.
 typedef struct MR_AbstractClasses_A MR_AbstractClasses_A;
+
+/// Generated from class `MR::AbstractClasses::B`.
+/// Classes derived from this:
+///   Directly: (non-virtually)
+///     `MR::AbstractClasses::C`
+typedef struct MR_AbstractClasses_B MR_AbstractClasses_B;
+
+/// Generated from class `MR::AbstractClasses::C`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::AbstractClasses::B`
+typedef struct MR_AbstractClasses_C MR_AbstractClasses_C;
 
 /// Generated from a method of class `MR::AbstractClasses::A` named `foo`.
 /// Parameter `_this` can not be null.
@@ -25,12 +33,6 @@ MR_C_API const MR_AbstractClasses_A *MR_AbstractClasses_A_OffsetPtr(const MR_Abs
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_AbstractClasses_A *MR_AbstractClasses_A_OffsetMutablePtr(MR_AbstractClasses_A *ptr, ptrdiff_t i);
-
-/// Generated from class `MR::AbstractClasses::B`.
-/// Classes derived from this:
-///   Directly: (non-virtually)
-///     `MR::AbstractClasses::C`
-typedef struct MR_AbstractClasses_B MR_AbstractClasses_B;
 
 /// Destroys a heap-allocated instance of `MR_AbstractClasses_B`. Does nothing if the pointer is null.
 MR_C_API void MR_AbstractClasses_B_Destroy(const MR_AbstractClasses_B *_this);
@@ -78,12 +80,6 @@ MR_C_API const MR_AbstractClasses_C *MR_AbstractClasses_B_DynamicDowncastToOrFai
 /// Parameter `object` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastToOrFail_MR_AbstractClasses_C(MR_AbstractClasses_B *object);
-
-/// Generated from class `MR::AbstractClasses::C`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::AbstractClasses::B`
-typedef struct MR_AbstractClasses_C MR_AbstractClasses_C;
 
 /// Destroys a heap-allocated instance of `MR_AbstractClasses_C`. Does nothing if the pointer is null.
 MR_C_API void MR_AbstractClasses_C_Destroy(const MR_AbstractClasses_C *_this);

@@ -3,6 +3,7 @@
 #include "common/parsed_data.h"
 #include "common/polyfill/std_filesystem_path_hash.h" // IWYU pragma: keep
 #include "common/string_filter.h"
+#include "mrbind/helpers/enum_flag_ops.h"
 
 #include <cppdecl/declarations/data.h>
 
@@ -1166,12 +1167,22 @@ namespace mrbind::CBindings
         {
             virtual ~Visitor() = default;
 
+            virtual void VisitEarly(const ClassEntity &cl) {(void)cl;}
+            virtual void VisitEarly(const FuncEntity &func) {(void)func;}
+            virtual void VisitEarly(const EnumEntity &en) {(void)en;}
+            virtual void VisitEarly(const TypedefEntity &td) {(void)td;}
+
             virtual void Visit(const ClassEntity &cl) {(void)cl;}
             virtual void Visit(const FuncEntity &func) {(void)func;}
             virtual void Visit(const EnumEntity &en) {(void)en;}
             virtual void Visit(const TypedefEntity &td) {(void)td;}
 
-            void Process(const ClassEntity &cl)
+            // `pass_number == 1` calls `VisitEarly()`. `2` calls `Visit()`.
+            // `0` calls both.
+            //
+            // Currently we process the entire contents twice. See the `VisitorEmit` for details.
+
+            void Process(const ClassEntity &cl, int pass_number)
             {
                 class_stack.push_back(&cl);
                 struct Guard
@@ -1184,21 +1195,35 @@ namespace mrbind::CBindings
                 };
                 Guard guard{*this};
 
-                // Here we have to recurse first, and THEN visit.
-                // This matters e.g. if we have a enum inside of a class. We want the enum to be declared first (that's why we recurse),
-                //   before we start emitting the class members, which might rely on this enum.
-                // We could also just move all enum definitions (not declarations!) to the top of the file, but I don't like how that looks,
-                //   I'd rather keep the original order.
-                // This can only happen for enums. For nested classes (and all other classes too) we emit redundant declarations on the top of the file
-                //   to avoid similar issues (but those issues are with the upcasts/downcasts, which might use classes declared lower in this file).
-                // Enums can't be forward-declared, so we have to rely on this traversal order instead.
-                Process(static_cast<const mrbind::EntityContainer &>(cl));
-                Visit(cl);
+                if (pass_number != 2) // 0 or 1
+                    VisitEarly(cl);
+                if (pass_number != 1) // 0 or 2
+                    Visit(cl);
+                Process(static_cast<const mrbind::EntityContainer &>(cl), pass_number);
             }
-            void Process(const FuncEntity &func) {Visit(func);}
-            void Process(const EnumEntity &en) {Visit(en);}
-            void Process(const TypedefEntity &td) {Visit(td);}
-            void Process(const NamespaceEntity &ns)
+
+            void Process(const FuncEntity &func, int pass_number)
+            {
+                if (pass_number != 2) // 0 or 1
+                    VisitEarly(func);
+                if (pass_number != 1) // 0 or 2
+                    Visit(func);
+            }
+            void Process(const EnumEntity &en, int pass_number)
+            {
+                if (pass_number != 2) // 0 or 1
+                    VisitEarly(en);
+                if (pass_number != 1) // 0 or 2
+                    Visit(en);
+            }
+            void Process(const TypedefEntity &td, int pass_number)
+            {
+                if (pass_number != 2) // 0 or 1
+                    VisitEarly(td);
+                if (pass_number != 1) // 0 or 2
+                    Visit(td);
+            }
+            void Process(const NamespaceEntity &ns, int pass_number)
             {
                 namespace_stack.push_back(&ns);
                 struct Guard
@@ -1211,10 +1236,24 @@ namespace mrbind::CBindings
                 };
                 Guard guard{*this};
 
-                Process(static_cast<const mrbind::EntityContainer &>(ns));
+                Process(static_cast<const mrbind::EntityContainer &>(ns), pass_number);
             }
-            void Process(const EntityContainer &c) {for (const Entity &e : c.nested) Process(e);}
-            void Process(const Entity &e) {std::visit([&](const auto &elem){Process(elem);}, *e.variant);}
+            void Process(const EntityContainer &c, int pass_number)
+            {
+                for (const Entity &e : c.nested)
+                    Process(e, pass_number);
+            }
+            void Process(const Entity &e, int pass_number)
+            {
+                std::visit([&](const auto &elem){Process(elem, pass_number);}, *e.variant);
+            }
+
+            // This is what the user should call to begin recursion.
+            void Process(const EntityContainer &c)
+            {
+                Process(c, 1);
+                Process(c, 2);
+            }
 
           protected:
             // Those are "stacked" on top of each other. First the namespace stack gets filled, then the class stack.

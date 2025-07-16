@@ -11,8 +11,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E; // Defined below in this file.
-
 
 /// Stores a functor of type: `MR::StdFunction::E(int32_t, MR::StdFunction::E)`. Possibly stateful.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

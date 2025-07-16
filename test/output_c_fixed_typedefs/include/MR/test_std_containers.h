@@ -25,8 +25,11 @@ typedef struct MR_C_std_unordered_multiset_int32_t MR_C_std_unordered_multiset_i
 typedef struct MR_C_std_unordered_set_int32_t MR_C_std_unordered_set_int32_t; // Defined in `#include <std_unordered_set_int32_t.h>`.
 typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible MR_C_std_vector_MR_StdContainers_NonDefaultConstructible; // Defined in `#include <std_vector_MR_StdContainers_NonDefaultConstructible.h>`.
 typedef struct MR_C_std_vector_int32_t MR_C_std_vector_int32_t; // Defined in `#include <std_vector_int32_t.h>`.
-typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible; // Defined below in this file.
 
+
+// Test vectors of a non-default-constructible type.
+/// Generated from class `MR::StdContainers::NonDefaultConstructible`.
+typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible;
 
 /// Generated from function `MR::StdContainers::Set`.
 MR_C_API void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int32_t *_1);
@@ -119,10 +122,6 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIter(void)
 /// Generated from function `MR::StdContainers::GetMergedIterConst`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(void);
-
-// Test vectors of a non-default-constructible type.
-/// Generated from class `MR::StdContainers::NonDefaultConstructible`.
-typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible;
 
 /// Generated from a constructor of class `MR::StdContainers::NonDefaultConstructible`.
 /// Parameter `_other` can not be null.

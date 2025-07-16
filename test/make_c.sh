@@ -44,6 +44,7 @@ MRBIND_GEN_C_FLAGS=(
     --max-header-name-length 100
     --expose-as-struct MR::MatchingLayout::A
     --expose-as-struct /MR::MatchingLayout::B/
+    --expose-as-struct '/MR::DeclOrder::.*/'
 )
 
 COMPILER_FLAGS=(

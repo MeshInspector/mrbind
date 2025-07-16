@@ -5,22 +5,6 @@
 #include <stdexcept>
 
 
-void MR_C_lshift_std_ostream_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
-{
-    operator<<(
-        (_1 ? *(std::ostream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
-        (_2 ? *(const MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
-    );
-}
-
-void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2)
-{
-    operator>>(
-        (_1 ? *(std::istream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
-        (_2 ? *(MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
-    );
-}
-
 MR_IOStream_A *MR_IOStream_A_DefaultConstruct(void)
 {
     return (MR_IOStream_A *)new MR::IOStream::A(MR::IOStream::A());
@@ -63,5 +47,21 @@ MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IO
     return (MR_IOStream_A *)&((_this ? *(MR::IOStream::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (_other ? MR::IOStream::A(*(MR::IOStream::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
+}
+
+void MR_C_print_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
+{
+    operator<<(
+        (_1 ? *(std::ostream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
+        (_2 ? *(const MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
+    );
+}
+
+void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2)
+{
+    operator>>(
+        (_1 ? *(std::istream *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
+        (_2 ? *(MR::IOStream::A *)(_2) : throw std::runtime_error("Parameter `_2` can not be null."))
+    );
 }
 

@@ -11,8 +11,10 @@ extern "C" {
 
 typedef struct MR_C_std_vector_long MR_C_std_vector_long; // Defined in `#include <std_vector_long.h>`.
 typedef struct MR_C_std_vector_unsigned_long MR_C_std_vector_unsigned_long; // Defined in `#include <std_vector_unsigned_long.h>`.
-typedef struct MR_TestSizeT_A_unsigned_long MR_TestSizeT_A_unsigned_long; // Defined below in this file.
 
+
+/// Generated from class `MR::TestSizeT::A<unsigned long>`.
+typedef struct MR_TestSizeT_A_unsigned_long MR_TestSizeT_A_unsigned_long;
 
 /// Generated from function `MR::TestSizeT::foo`.
 MR_C_API unsigned long MR_TestSizeT_foo_unsigned_long(unsigned long _1);
@@ -37,9 +39,6 @@ MR_C_API long **MR_TestSizeT_foo_long_ptr_ref(long **_1);
 /// Generated from function `MR::TestSizeT::foo`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_long *MR_TestSizeT_foo_std_vector_long(MR_C_PassBy _1_pass_by, MR_C_std_vector_long *_1);
-
-/// Generated from class `MR::TestSizeT::A<unsigned long>`.
-typedef struct MR_TestSizeT_A_unsigned_long MR_TestSizeT_A_unsigned_long;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_unsigned_long_Destroy()` to free it when you're done using it.

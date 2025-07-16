@@ -12,8 +12,11 @@ typedef struct MR_C_std_unique_ptr_MR_StdUniquePtr_A MR_C_std_unique_ptr_MR_StdU
 typedef struct MR_C_std_unique_ptr_MR_StdUniquePtr_A_array MR_C_std_unique_ptr_MR_StdUniquePtr_A_array; // Defined in `#include <std_unique_ptr_MR_StdUniquePtr_A_array.h>`.
 typedef struct MR_C_std_unique_ptr_int MR_C_std_unique_ptr_int; // Defined in `#include <std_unique_ptr_int.h>`.
 typedef struct MR_C_std_unique_ptr_int_array MR_C_std_unique_ptr_int_array; // Defined in `#include <std_unique_ptr_int_array.h>`.
-typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A; // Defined below in this file.
 
+
+// Now with a class:
+/// Generated from class `MR::StdUniquePtr::A`.
+typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A;
 
 /// Generated from function `MR::StdUniquePtr::GetInt`.
 /// The returned pointer is owning! If not null, it must be deallocated using `MR_C_Free().
@@ -78,10 +81,6 @@ MR_C_API void MR_StdUniquePtr_SetIntArrDefTrivial(int *_1);
 /// Parameter `_1` takes ownership of the (deferenced) passed pointer (if not null), and will later call `MR_C_FreeArray()` on it automatically.
 /// Parameter `_1` has a default argument: `std::make_unique<int[]>(42)`, pass a null pointer to use it.
 MR_C_API void MR_StdUniquePtr_SetIntArrDef(int *const *_1);
-
-// Now with a class:
-/// Generated from class `MR::StdUniquePtr::A`.
-typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdUniquePtr_A_Destroy()` to free it when you're done using it.

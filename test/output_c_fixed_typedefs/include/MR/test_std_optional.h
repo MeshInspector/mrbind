@@ -15,9 +15,19 @@ typedef struct MR_C_std_optional_MR_StdOptional_B MR_C_std_optional_MR_StdOption
 typedef struct MR_C_std_optional_MR_StdOptional_E MR_C_std_optional_MR_StdOptional_E; // Defined in `#include <std_optional_MR_StdOptional_E.h>`.
 typedef struct MR_C_std_optional_int32_t MR_C_std_optional_int32_t; // Defined in `#include <std_optional_int32_t.h>`.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
-typedef struct MR_StdOptional_A MR_StdOptional_A; // Defined below in this file.
-typedef struct MR_StdOptional_B MR_StdOptional_B; // Defined below in this file.
 
+
+typedef int32_t MR_StdOptional_E;
+enum // MR_StdOptional_E
+{
+    MR_StdOptional_E_e1 = 0,
+};
+
+/// Generated from class `MR::StdOptional::A`.
+typedef struct MR_StdOptional_A MR_StdOptional_A;
+
+/// Generated from class `MR::StdOptional::B`.
+typedef struct MR_StdOptional_B MR_StdOptional_B;
 
 /// Generated from function `MR::StdOptional::GetInt`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_int32_t_Destroy()` to free it when you're done using it.
@@ -40,12 +50,6 @@ MR_C_API void MR_StdOptional_SetIntDefTrivial(const int32_t *_1);
 /// Parameter `_1` has a default argument: `42`, pass a null pointer to use it.
 MR_C_API void MR_StdOptional_SetIntDef(const MR_C_std_optional_int32_t *_1);
 
-typedef int32_t MR_StdOptional_E;
-enum // MR_StdOptional_E
-{
-    MR_StdOptional_E_e1 = 0,
-};
-
 /// Generated from function `MR::StdOptional::GetEnum`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_StdOptional_GetEnum(void);
@@ -66,9 +70,6 @@ MR_C_API void MR_StdOptional_SetEnumDefTrivial(const MR_StdOptional_E *_1);
 /// Generated from function `MR::StdOptional::SetEnumDef`.
 /// Parameter `_1` has a default argument: `E::e1`, pass a null pointer to use it.
 MR_C_API void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E *_1);
-
-/// Generated from class `MR::StdOptional::A`.
-typedef struct MR_StdOptional_A MR_StdOptional_A;
 
 /// Returns a pointer to a member variable of class `MR::StdOptional::A` named `x`.
 /// Parameter `_this` can not be null.
@@ -136,9 +137,6 @@ MR_C_API void MR_StdOptional_SetClassDefTrivial(const MR_StdOptional_A *_1);
 /// Generated from function `MR::StdOptional::SetClassDef`.
 /// Parameter `_1` has a default argument: `MR::StdOptional::A{42}`, pass a null pointer to use it.
 MR_C_API void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_A *_1);
-
-/// Generated from class `MR::StdOptional::B`.
-typedef struct MR_StdOptional_B MR_StdOptional_B;
 
 /// Returns a pointer to a member variable of class `MR::StdOptional::B` named `s`.
 /// Parameter `_this` can not be null.

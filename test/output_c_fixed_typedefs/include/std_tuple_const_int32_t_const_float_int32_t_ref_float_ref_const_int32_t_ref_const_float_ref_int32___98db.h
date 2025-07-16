@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref; // Defined below in this file.
-
 
 /// Stores 10 objects: `const int32_t`, `const float`, `int32_t &`, `float &`, `const int32_t &`, `const float &`, `int32_t &&`, `float &&`, `const int32_t &&`, `const float &&`.
 /// Supported `MR_C_PassBy` modes: (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

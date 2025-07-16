@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_string MR_C_std_string; // Defined below in this file.
-
 
 /// A heap-allocated null-terminated string.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).

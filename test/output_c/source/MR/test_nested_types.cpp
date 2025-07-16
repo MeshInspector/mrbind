@@ -5,50 +5,6 @@
 #include <stdexcept>
 
 
-MR_NestedTypes_A_B *MR_NestedTypes_A_B_DefaultConstruct(void)
-{
-    return (MR_NestedTypes_A_B *)new MR::NestedTypes::A::B(MR::NestedTypes::A::B());
-}
-
-MR_NestedTypes_A_B *MR_NestedTypes_A_B_DefaultConstructArray(size_t num_elems)
-{
-    return (MR_NestedTypes_A_B *)(new MR::NestedTypes::A::B[num_elems]{});
-}
-
-const MR_NestedTypes_A_B *MR_NestedTypes_A_B_OffsetPtr(const MR_NestedTypes_A_B *ptr, ptrdiff_t i)
-{
-    return (const MR_NestedTypes_A_B *)(((const MR::NestedTypes::A::B *)ptr) + i);
-}
-
-MR_NestedTypes_A_B *MR_NestedTypes_A_B_OffsetMutablePtr(MR_NestedTypes_A_B *ptr, ptrdiff_t i)
-{
-    return (MR_NestedTypes_A_B *)(((MR::NestedTypes::A::B *)ptr) + i);
-}
-
-MR_NestedTypes_A_B *MR_NestedTypes_A_B_ConstructFromAnother(const MR_NestedTypes_A_B *_other)
-{
-    return (MR_NestedTypes_A_B *)new MR::NestedTypes::A::B(MR::NestedTypes::A::B(
-        (_other ? MR::NestedTypes::A::B(*(MR::NestedTypes::A::B *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
-void MR_NestedTypes_A_B_Destroy(const MR_NestedTypes_A_B *_this)
-{
-    delete ((const MR::NestedTypes::A::B *)_this);
-}
-
-void MR_NestedTypes_A_B_DestroyArray(const MR_NestedTypes_A_B *_this)
-{
-    delete[] ((const MR::NestedTypes::A::B *)_this);
-}
-
-MR_NestedTypes_A_B *MR_NestedTypes_A_B_AssignFromAnother(MR_NestedTypes_A_B *_this, const MR_NestedTypes_A_B *_other)
-{
-    return (MR_NestedTypes_A_B *)&((_this ? *(MR::NestedTypes::A::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::NestedTypes::A::B(*(MR::NestedTypes::A::B *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
-    ));
-}
-
 const MR_NestedTypes_A_B *MR_NestedTypes_A_GetConst_b(const MR_NestedTypes_A *_this)
 {
     return (const MR_NestedTypes_A_B *)&((_this ? *(const MR::NestedTypes::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).b);
@@ -120,6 +76,50 @@ MR_NestedTypes_A *MR_NestedTypes_A_AssignFromAnother(MR_NestedTypes_A *_this, co
 {
     return (MR_NestedTypes_A *)&((_this ? *(MR::NestedTypes::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
         (_other ? MR::NestedTypes::A(*(MR::NestedTypes::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+MR_NestedTypes_A_B *MR_NestedTypes_A_B_DefaultConstruct(void)
+{
+    return (MR_NestedTypes_A_B *)new MR::NestedTypes::A::B(MR::NestedTypes::A::B());
+}
+
+MR_NestedTypes_A_B *MR_NestedTypes_A_B_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_NestedTypes_A_B *)(new MR::NestedTypes::A::B[num_elems]{});
+}
+
+const MR_NestedTypes_A_B *MR_NestedTypes_A_B_OffsetPtr(const MR_NestedTypes_A_B *ptr, ptrdiff_t i)
+{
+    return (const MR_NestedTypes_A_B *)(((const MR::NestedTypes::A::B *)ptr) + i);
+}
+
+MR_NestedTypes_A_B *MR_NestedTypes_A_B_OffsetMutablePtr(MR_NestedTypes_A_B *ptr, ptrdiff_t i)
+{
+    return (MR_NestedTypes_A_B *)(((MR::NestedTypes::A::B *)ptr) + i);
+}
+
+MR_NestedTypes_A_B *MR_NestedTypes_A_B_ConstructFromAnother(const MR_NestedTypes_A_B *_other)
+{
+    return (MR_NestedTypes_A_B *)new MR::NestedTypes::A::B(MR::NestedTypes::A::B(
+        (_other ? MR::NestedTypes::A::B(*(MR::NestedTypes::A::B *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+void MR_NestedTypes_A_B_Destroy(const MR_NestedTypes_A_B *_this)
+{
+    delete ((const MR::NestedTypes::A::B *)_this);
+}
+
+void MR_NestedTypes_A_B_DestroyArray(const MR_NestedTypes_A_B *_this)
+{
+    delete[] ((const MR::NestedTypes::A::B *)_this);
+}
+
+MR_NestedTypes_A_B *MR_NestedTypes_A_B_AssignFromAnother(MR_NestedTypes_A_B *_this, const MR_NestedTypes_A_B *_other)
+{
+    return (MR_NestedTypes_A_B *)&((_this ? *(MR::NestedTypes::A::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::NestedTypes::A::B(*(MR::NestedTypes::A::B *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
 }
 

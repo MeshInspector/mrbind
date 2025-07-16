@@ -10,18 +10,7 @@ extern "C" {
 
 typedef struct MR_C_std_istream MR_C_std_istream; // Defined in `#include <iostream.h>`.
 typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined in `#include <iostream.h>`.
-typedef struct MR_IOStream_A MR_IOStream_A; // Defined below in this file.
 
-
-/// Generated from function `MR::IOStream::operator<<`.
-/// Parameter `_1` can not be null.
-/// Parameter `_2` can not be null.
-MR_C_API void MR_C_lshift_std_ostream_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2);
-
-/// Generated from function `MR::IOStream::operator>>`.
-/// Parameter `_1` can not be null.
-/// Parameter `_2` can not be null.
-MR_C_API void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2);
 
 /// Generated from class `MR::IOStream::A`.
 typedef struct MR_IOStream_A MR_IOStream_A;
@@ -57,6 +46,16 @@ MR_C_API void MR_IOStream_A_DestroyArray(const MR_IOStream_A *_this);
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IOStream_A *_other);
+
+/// Generated from function `MR::IOStream::operator<<`.
+/// Parameter `_1` can not be null.
+/// Parameter `_2` can not be null.
+MR_C_API void MR_C_print_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2);
+
+/// Generated from function `MR::IOStream::operator>>`.
+/// Parameter `_1` can not be null.
+/// Parameter `_2` can not be null.
+MR_C_API void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -962,8 +962,10 @@ namespace mrbind::CBindings
             // Later in this function we'll call `MakePublicHelperName()` on this.
             std::string ret;
 
+            bool is_printing_left_shift = false;
+
             // Unary operators that can also be binary need custom names to avoid conflicts with their binary versions.
-            if ((elem->params.size() + is_method) == 1)
+            if (ret.empty() && (elem->params.size() + is_method) == 1)
             {
                 if (op_token == "+")
                     ret = "pos";
@@ -973,6 +975,13 @@ namespace mrbind::CBindings
                     ret = "deref";
                 else if (op_token == "&")
                     ret = "addressof"; // Ugh! Who overloads this?
+            }
+            // Left-shifting to an ostream reference should have a custom pretty name.
+            static const cppdecl::Type ostream_ref_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
+            if (ret.empty() && !is_method && op_token == "<<" && ParseTypeOrThrow(elem->params.front().type.canonical) == ostream_ref_type)
+            {
+                ret = "print";
+                is_printing_left_shift = true;
             }
             // If none of the above applied, proceed normally.
             if (ret.empty())
@@ -988,10 +997,17 @@ namespace mrbind::CBindings
             // Add the parameter types to the name, including the `this` parameter.
 
             std::string first_type_str;
+            bool first = true;
             auto HandleParamType = [&](cppdecl::Type param_type)
             {
+                const bool this_is_first = first;
+                first = false;
+
                 // Skip the `int` parameter of the post-increments/decrements.
-                if (!first_type_str.empty() && elem->IsPostIncrOrDecr())
+                if (!this_is_first && elem->IsPostIncrOrDecr())
+                    return;
+                // Skip the first parameter of the post-increments/decrements.
+                if (this_is_first && is_printing_left_shift)
                     return;
 
                 // Remove cvref from the parameter type. This shouldn't introduce any ambiguities, but will make the name look a lot nicer.
@@ -1004,7 +1020,7 @@ namespace mrbind::CBindings
 
                 std::string param_type_str = cppdecl::ToString(param_type, cppdecl::ToStringFlags::identifier);
 
-                if (first_type_str.empty())
+                if (this_is_first)
                     first_type_str = param_type_str;
                 // If the second operand has the same type as the first, don't emit it.
                 // Note that we can have at most two parameters here, as asserted above.
@@ -2447,7 +2463,33 @@ namespace mrbind::CBindings
         Generator &self;
         VisitorEmit(Generator &self) : self(self) {}
 
-        void Visit(const ClassEntity &cl) override
+        // This visitors has to act in two passes.
+        // The first pass defines enums and declares (or defines when using `--expose-as-struct`) structs.
+        // The second pass declares "member" functions.
+        // The two-pass solution seems to be the only option, because of the following:
+        //     struct A
+        //     {
+        //         struct B
+        //         {
+        //             A a();
+        //         };
+        //
+        //         B b();
+        //     };
+        //
+        // Here, assuming `--expose-as-struct` whitelists both structs, both need to be defined before both member functions are declared.
+        //
+        // I initially tried to run the two passes separately for each non-nested class, but this breaks on the following usecase:
+        //     template <bool X>
+        //     struct C
+        //     {
+        //         int bleh;
+        //         C<!X> blah();
+        //     };
+        //
+        // So instead we have to run those two passes separately over the entire input.
+
+        void VisitEarly(const ClassEntity &cl) override
         {
             try
             {
@@ -2482,20 +2524,16 @@ namespace mrbind::CBindings
                 const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
 
                 { // The part of the comment explaning the inheritance graph.
-                    auto iter = self.parsed_class_inheritance_info.find(cpp_class_name_str);
-                    if (iter == self.parsed_class_inheritance_info.end())
-                        throw std::logic_error("Internal error: The parsed class `" + cpp_class_name_str + "` is missing from the `.parsed_class_inheritance_info`.");
-
                     auto PrintBasesOrDerived = [&](bool print_derived)
                     {
-                        const auto &indirect_map = (print_derived ? iter->second.derived_indirect : iter->second.bases_indirect);
-                        const auto &direct_nonvirtual_map = (print_derived ? iter->second.derived_direct_nonvirtual : iter->second.bases_direct_nonvirtual);
+                        const auto &indirect_map = (print_derived ? inheritance_info.derived_indirect : inheritance_info.bases_indirect);
+                        const auto &direct_nonvirtual_map = (print_derived ? inheritance_info.derived_direct_nonvirtual : inheritance_info.bases_direct_nonvirtual);
 
                         if (!indirect_map.empty())
                         {
                             file.header.contents += (print_derived ? "/// Classes derived from this:\n" : "/// Inherits from:\n");
 
-                            if (iter->second.HaveAny(print_derived, InheritanceInfo::Kind::virt))
+                            if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::virt))
                             {
                                 file.header.contents += "///   Virtually:\n";
 
@@ -2507,7 +2545,7 @@ namespace mrbind::CBindings
                                 }
                             }
 
-                            if (iter->second.HaveAny(print_derived, InheritanceInfo::Kind::non_virt))
+                            if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::non_virt))
                             {
                                 std::string dir;
                                 std::string indir;
@@ -2528,7 +2566,7 @@ namespace mrbind::CBindings
                                     file.header.contents += "///   Indirectly: (non-virtually)\n" + indir;
                             }
 
-                            if (iter->second.HaveAny(print_derived, InheritanceInfo::Kind::ambiguous))
+                            if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::ambiguous))
                             {
                                 file.header.contents += "///   Ambiguously:\n";
 
@@ -2615,13 +2653,13 @@ namespace mrbind::CBindings
                         // Actually emit the field:
 
                         // The comment if any.
-                        if (cl.comment)
+                        if (field->comment)
                         {
                             // Insert the leading blank line if this isn't the first field. This makes things look nicer.
                             if (!is_first)
                                 file.header.contents += '\n';
 
-                            file.header.contents += Generator::IndentString(cl.comment->text_with_slashes, 1, true);
+                            file.header.contents += Generator::IndentString(field->comment->text_with_slashes, 1, true);
                             file.header.contents += '\n';
                         }
 
@@ -2635,6 +2673,10 @@ namespace mrbind::CBindings
                         file.header.contents += "    " + cppdecl::ToCode(field_decl, cppdecl::ToCodeFlags::canonical_c_style) + ";\n";
                     }
 
+                    // Complain if no fields. C doesn't have empty structs.
+                    if (total_size == 0)
+                        throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but it has no known fields. C doesn't support empty structures.");
+
                     // Check the final alignment.
                     if (total_alignment != cl.type_alignment)
                         throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its estimated alignment doesn't match the one reported by the parser (expected " + std::to_string(cl.type_alignment) + " but got " + std::to_string(total_alignment) + ").");
@@ -2646,6 +2688,31 @@ namespace mrbind::CBindings
 
                     file.header.contents += "} " + parsed_type_info.c_type_str + ";\n";
                 }
+            }
+            catch (...)
+            {
+                std::throw_with_nested(std::runtime_error("While binding class `" + cl.full_type + "` (early pass):"));
+            }
+        }
+
+        void Visit(const ClassEntity &cl) override
+        {
+            try
+            {
+                OutputFile &file = self.GetOutputFile(cl.declared_in_file);
+
+                { // In the source file, include the C++ header where this class is declared.
+                    auto headers = self.ParsedFilenameToRelativeNamesForInclusion(cl.declared_in_file);
+                    file.source.custom_headers.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
+                }
+
+                const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
+                const std::string cpp_class_name_str = cppdecl::ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
+
+                const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
+                const ParsedTypeInfo::ClassDesc &parsed_class_info = std::get<ParsedTypeInfo::ClassDesc>(parsed_type_info.input_type);
+
+                const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
 
 
                 // If this is a same-layout struct that is trivially-default-constructible, we don't want the default constructor (and its array version).
@@ -2973,7 +3040,7 @@ namespace mrbind::CBindings
             }
         }
 
-        void Visit(const EnumEntity &en) override
+        void VisitEarly(const EnumEntity &en) override
         {
             OutputFile &file = self.GetOutputFile(en.declared_in_file);
 
@@ -3173,10 +3240,8 @@ namespace mrbind::CBindings
                 {
                     const auto &type_info = FindTypeBindableWithSameAddress(elem.first);
 
-                    // We can't forward-declare this, but it's declared in the same file anyway. This happens for enums, we don't mind.
-                    // We need the forward-declarations for things defined in the same file only for classes, because those can reference
-                    //   classes defined below themselves, in their upcast/downcast functions.
-                    if (elem.second.declared_in_same_file && !type_info.forward_declaration)
+                    // Right now we don't declare anything defined in the same file, because our declaration order makes this unnecessary.
+                    if (elem.second.declared_in_same_file /*&& !type_info.forward_declaration*/)
                         continue;
 
                     if (!type_info.KnowHeaderOrForwardDeclaration())
@@ -3186,9 +3251,10 @@ namespace mrbind::CBindings
                         throw std::runtime_error("Need to forward-declare type `" + elem.first + "`, but don't know how.");
 
                     std::string fwd_decl = *type_info.forward_declaration;
-                    if (elem.second.declared_in_same_file)
-                        fwd_decl += " // Defined below in this file.";
-                    else if (type_info.declared_in_file)
+                    // if (elem.second.declared_in_same_file)
+                    //     fwd_decl += " // Defined below in this file.";
+                    // else
+                    if (type_info.declared_in_file)
                         fwd_decl += " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
 
                     fwd_decls.insert(std::move(fwd_decl));

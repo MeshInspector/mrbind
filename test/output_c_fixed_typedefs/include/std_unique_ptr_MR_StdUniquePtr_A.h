@@ -8,7 +8,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_unique_ptr_MR_StdUniquePtr_A MR_C_std_unique_ptr_MR_StdUniquePtr_A; // Defined below in this file.
 typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A; // Defined in `#include <MR/test_std_unique_ptr.h>`.
 
 

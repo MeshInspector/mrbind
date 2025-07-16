@@ -12,8 +12,10 @@ extern "C" {
 
 typedef struct MR_C_std_vector_int64_t MR_C_std_vector_int64_t; // Defined in `#include <std_vector_int64_t.h>`.
 typedef struct MR_C_std_vector_uint64_t MR_C_std_vector_uint64_t; // Defined in `#include <std_vector_uint64_t.h>`.
-typedef struct MR_TestSizeT_A_uint64_t MR_TestSizeT_A_uint64_t; // Defined below in this file.
 
+
+/// Generated from class `MR::TestSizeT::A<uint64_t>`.
+typedef struct MR_TestSizeT_A_uint64_t MR_TestSizeT_A_uint64_t;
 
 /// Generated from function `MR::TestSizeT::foo`.
 MR_C_API uint64_t MR_TestSizeT_foo_uint64_t(uint64_t _1);
@@ -38,9 +40,6 @@ MR_C_API int64_t **MR_TestSizeT_foo_int64_t_ptr_ref(int64_t **_1);
 /// Generated from function `MR::TestSizeT::foo`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int64_t *MR_TestSizeT_foo_std_vector_int64_t(MR_C_PassBy _1_pass_by, MR_C_std_vector_int64_t *_1);
-
-/// Generated from class `MR::TestSizeT::A<uint64_t>`.
-typedef struct MR_TestSizeT_A_uint64_t MR_TestSizeT_A_uint64_t;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_uint64_t_Destroy()` to free it when you're done using it.

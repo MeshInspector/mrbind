@@ -8,8 +8,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_MemberVars_A MR_MemberVars_A; // Defined below in this file.
-
 
 /// Generated from class `MR::MemberVars::A`.
 typedef struct MR_MemberVars_A MR_MemberVars_A;

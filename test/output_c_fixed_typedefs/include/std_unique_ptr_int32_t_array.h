@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_unique_ptr_int32_t_array MR_C_std_unique_ptr_int32_t_array; // Defined below in this file.
-
 
 /// Wraps a pointer to a heap-allocated array of type `int32_t`, of an unspecified size.
 /// Doesn't store the size, it has to be obtained separately.

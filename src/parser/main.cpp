@@ -41,6 +41,7 @@
 #include "post_include_clang.h"
 
 #include <array>
+#include <concepts>
 #include <cstddef>
 #include <cstring>
 #include <filesystem>
@@ -453,6 +454,16 @@ namespace mrbind
         }
 
         return ret;
+    }
+
+    // Divides the input by the byte size.
+    // Throws if not it's not a multiple of the byte size.
+    [[nodiscard]] auto DivideByByteSize(std::unsigned_integral auto n)
+    {
+        // For now we unconditionally assume byte size 8.
+        if (n % 8 != 0)
+            throw std::logic_error("Internal error: Expected the number to be a multiple of the byte size.");
+        return n / 8;
     }
 
 
@@ -1483,8 +1494,8 @@ namespace mrbind
             new_class.comment = GetCommentString(*ctx, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
             new_class.is_aggregate = ctx->getRecordType(decl)->isAggregateType();
-            new_class.type_size = ctx->getTypeInfo(ctx->getRecordType(decl)).Width;
-            new_class.type_alignment = ctx->getTypeInfo(ctx->getRecordType(decl)).Align;
+            new_class.type_size = DivideByByteSize(ctx->getTypeInfo(ctx->getRecordType(decl)).Width);
+            new_class.type_alignment = DivideByByteSize(ctx->getTypeInfo(ctx->getRecordType(decl)).Align);
             new_class.declared_in_file = GetDefinitionLocationFile(*decl, new_class.name);
             // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
             // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
@@ -1564,8 +1575,8 @@ namespace mrbind
                     new_field.full_name = std::move(full_name);
                     new_field.type = GetTypeStrings(var->getType(), TypeUses::static_data_member);
 
-                    new_field.type_size = ctx->getTypeInfo(var->getType()).Width;
-                    new_field.type_alignment = ctx->getTypeInfo(var->getType()).Align;
+                    new_field.type_size = DivideByByteSize(ctx->getTypeInfo(var->getType()).Width);
+                    new_field.type_alignment = DivideByByteSize(ctx->getTypeInfo(var->getType()).Align);
                     new_field.byte_offset = std::size_t(-1); // Makes no sense for static variables.
                 }
             }
@@ -1583,9 +1594,9 @@ namespace mrbind
                 new_field.full_name = field->getName();
                 new_field.type = GetTypeStrings(field->getType(), TypeUses::nonstatic_data_member);
 
-                new_field.type_size = ctx->getTypeInfo(field->getType()).Width;
-                new_field.type_alignment = ctx->getTypeInfo(field->getType()).Align;
-                new_field.byte_offset = ctx->getFieldOffset(field);
+                new_field.type_size = DivideByByteSize(ctx->getTypeInfo(field->getType()).Width);
+                new_field.type_alignment = DivideByByteSize(ctx->getTypeInfo(field->getType()).Align);
+                new_field.byte_offset = DivideByByteSize(ctx->getFieldOffset(field));
             }
 
             // -- Constructors and methods.

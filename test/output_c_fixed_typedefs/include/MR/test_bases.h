@@ -9,19 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct MR_Bases_A MR_Bases_A; // Defined below in this file.
-typedef struct MR_Bases_B MR_Bases_B; // Defined below in this file.
-typedef struct MR_Bases_B2 MR_Bases_B2; // Defined below in this file.
-typedef struct MR_Bases_C MR_Bases_C; // Defined below in this file.
-typedef struct MR_Bases_D MR_Bases_D; // Defined below in this file.
-typedef struct MR_Bases_D2 MR_Bases_D2; // Defined below in this file.
-typedef struct MR_Bases_D3 MR_Bases_D3; // Defined below in this file.
-typedef struct MR_Bases_E MR_Bases_E; // Defined below in this file.
-typedef struct MR_Bases_F MR_Bases_F; // Defined below in this file.
-typedef struct MR_Bases_G MR_Bases_G; // Defined below in this file.
-typedef struct MR_Bases_H MR_Bases_H; // Defined below in this file.
-typedef struct MR_Bases_I MR_Bases_I; // Defined below in this file.
-
 
 /// Generated from class `MR::Bases::A`.
 /// Classes derived from this:
@@ -38,6 +25,105 @@ typedef struct MR_Bases_I MR_Bases_I; // Defined below in this file.
 ///     `MR::Bases::D2`
 ///     `MR::Bases::D3`
 typedef struct MR_Bases_A MR_Bases_A;
+
+/// Generated from class `MR::Bases::B`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::Bases::A`
+/// Classes derived from this:
+///   Directly: (non-virtually)
+///     `MR::Bases::B2`
+///     `MR::Bases::D`
+///     `MR::Bases::D2`
+///     `MR::Bases::D3`
+typedef struct MR_Bases_B MR_Bases_B;
+
+/// Generated from class `MR::Bases::B2`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::Bases::B`
+///   Indirectly: (non-virtually)
+///     `MR::Bases::A`
+typedef struct MR_Bases_B2 MR_Bases_B2;
+
+/// Generated from class `MR::Bases::C`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::Bases::A`
+/// Classes derived from this:
+///   Directly: (non-virtually)
+///     `MR::Bases::D`
+typedef struct MR_Bases_C MR_Bases_C;
+
+/// Generated from class `MR::Bases::D`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::Bases::B`
+///     `MR::Bases::C`
+///   Ambiguously:
+///     `MR::Bases::A`
+typedef struct MR_Bases_D MR_Bases_D;
+
+/// Generated from class `MR::Bases::D2`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::Bases::B`
+///   Ambiguously:
+///     `MR::Bases::A`
+typedef struct MR_Bases_D2 MR_Bases_D2;
+
+/// Generated from class `MR::Bases::D3`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::Bases::B`
+///   Ambiguously:
+///     `MR::Bases::A`
+typedef struct MR_Bases_D3 MR_Bases_D3;
+
+/// Generated from class `MR::Bases::E`.
+/// Classes derived from this:
+///   Virtually:
+///     `MR::Bases::G`
+///     `MR::Bases::H`
+///     `MR::Bases::I`
+///   Directly: (non-virtually)
+///     `MR::Bases::F`
+typedef struct MR_Bases_E MR_Bases_E;
+
+/// Generated from class `MR::Bases::F`.
+/// Inherits from:
+///   Directly: (non-virtually)
+///     `MR::Bases::E`
+/// Classes derived from this:
+///   Virtually:
+///     `MR::Bases::G`
+///     `MR::Bases::H`
+///     `MR::Bases::I`
+typedef struct MR_Bases_F MR_Bases_F;
+
+/// Generated from class `MR::Bases::G`.
+/// Inherits from:
+///   Virtually:
+///     `MR::Bases::E`
+///     `MR::Bases::F`
+typedef struct MR_Bases_G MR_Bases_G;
+
+/// Generated from class `MR::Bases::H`.
+/// Inherits from:
+///   Virtually:
+///     `MR::Bases::E`
+///     `MR::Bases::F`
+///   Directly: (non-virtually)
+///     `MR::Bases::A`
+typedef struct MR_Bases_H MR_Bases_H;
+
+/// Generated from class `MR::Bases::I`.
+/// Inherits from:
+///   Virtually:
+///     `MR::Bases::A`
+///     `MR::Bases::E`
+///     `MR::Bases::F`
+typedef struct MR_Bases_I MR_Bases_I;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_A_Destroy()` to free it when you're done using it.
@@ -106,18 +192,6 @@ MR_C_API void MR_Bases_A_DestroyArray(const MR_Bases_A *_this);
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_A *MR_Bases_A_AssignFromAnother(MR_Bases_A *_this, const MR_Bases_A *_other);
-
-/// Generated from class `MR::Bases::B`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::Bases::A`
-/// Classes derived from this:
-///   Directly: (non-virtually)
-///     `MR::Bases::B2`
-///     `MR::Bases::D`
-///     `MR::Bases::D2`
-///     `MR::Bases::D3`
-typedef struct MR_Bases_B MR_Bases_B;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_B_Destroy()` to free it when you're done using it.
@@ -194,14 +268,6 @@ MR_C_API void MR_Bases_B_DestroyArray(const MR_Bases_B *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_B *MR_Bases_B_AssignFromAnother(MR_Bases_B *_this, const MR_Bases_B *_other);
 
-/// Generated from class `MR::Bases::B2`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::Bases::B`
-///   Indirectly: (non-virtually)
-///     `MR::Bases::A`
-typedef struct MR_Bases_B2 MR_Bases_B2;
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_B2_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_B2 *MR_Bases_B2_DefaultConstruct(void);
@@ -247,15 +313,6 @@ MR_C_API void MR_Bases_B2_DestroyArray(const MR_Bases_B2 *_this);
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_B2 *MR_Bases_B2_AssignFromAnother(MR_Bases_B2 *_this, const MR_Bases_B2 *_other);
-
-/// Generated from class `MR::Bases::C`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::Bases::A`
-/// Classes derived from this:
-///   Directly: (non-virtually)
-///     `MR::Bases::D`
-typedef struct MR_Bases_C MR_Bases_C;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_C_Destroy()` to free it when you're done using it.
@@ -305,15 +362,6 @@ MR_C_API void MR_Bases_C_DestroyArray(const MR_Bases_C *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_C *MR_Bases_C_AssignFromAnother(MR_Bases_C *_this, const MR_Bases_C *_other);
 
-/// Generated from class `MR::Bases::D`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::Bases::B`
-///     `MR::Bases::C`
-///   Ambiguously:
-///     `MR::Bases::A`
-typedef struct MR_Bases_D MR_Bases_D;
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D *MR_Bases_D_DefaultConstruct(void);
@@ -360,14 +408,6 @@ MR_C_API void MR_Bases_D_DestroyArray(const MR_Bases_D *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_D *MR_Bases_D_AssignFromAnother(MR_Bases_D *_this, const MR_Bases_D *_other);
 
-/// Generated from class `MR::Bases::D2`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::Bases::B`
-///   Ambiguously:
-///     `MR::Bases::A`
-typedef struct MR_Bases_D2 MR_Bases_D2;
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D2_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D2 *MR_Bases_D2_DefaultConstruct(void);
@@ -407,14 +447,6 @@ MR_C_API void MR_Bases_D2_DestroyArray(const MR_Bases_D2 *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_D2 *MR_Bases_D2_AssignFromAnother(MR_Bases_D2 *_this, const MR_Bases_D2 *_other);
 
-/// Generated from class `MR::Bases::D3`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::Bases::B`
-///   Ambiguously:
-///     `MR::Bases::A`
-typedef struct MR_Bases_D3 MR_Bases_D3;
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D3_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D3 *MR_Bases_D3_DefaultConstruct(void);
@@ -453,16 +485,6 @@ MR_C_API void MR_Bases_D3_DestroyArray(const MR_Bases_D3 *_this);
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_D3 *MR_Bases_D3_AssignFromAnother(MR_Bases_D3 *_this, const MR_Bases_D3 *_other);
-
-/// Generated from class `MR::Bases::E`.
-/// Classes derived from this:
-///   Virtually:
-///     `MR::Bases::G`
-///     `MR::Bases::H`
-///     `MR::Bases::I`
-///   Directly: (non-virtually)
-///     `MR::Bases::F`
-typedef struct MR_Bases_E MR_Bases_E;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_E_Destroy()` to free it when you're done using it.
@@ -505,17 +527,6 @@ MR_C_API void MR_Bases_E_DestroyArray(const MR_Bases_E *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_E *MR_Bases_E_AssignFromAnother(MR_Bases_E *_this, const MR_Bases_E *_other);
 
-/// Generated from class `MR::Bases::F`.
-/// Inherits from:
-///   Directly: (non-virtually)
-///     `MR::Bases::E`
-/// Classes derived from this:
-///   Virtually:
-///     `MR::Bases::G`
-///     `MR::Bases::H`
-///     `MR::Bases::I`
-typedef struct MR_Bases_F MR_Bases_F;
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_F_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_F *MR_Bases_F_DefaultConstruct(void);
@@ -554,13 +565,6 @@ MR_C_API void MR_Bases_F_DestroyArray(const MR_Bases_F *_this);
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_F *MR_Bases_F_AssignFromAnother(MR_Bases_F *_this, const MR_Bases_F *_other);
-
-/// Generated from class `MR::Bases::G`.
-/// Inherits from:
-///   Virtually:
-///     `MR::Bases::E`
-///     `MR::Bases::F`
-typedef struct MR_Bases_G MR_Bases_G;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_G_Destroy()` to free it when you're done using it.
@@ -605,15 +609,6 @@ MR_C_API void MR_Bases_G_DestroyArray(const MR_Bases_G *_this);
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_pass_by, MR_Bases_G *_other);
-
-/// Generated from class `MR::Bases::H`.
-/// Inherits from:
-///   Virtually:
-///     `MR::Bases::E`
-///     `MR::Bases::F`
-///   Directly: (non-virtually)
-///     `MR::Bases::A`
-typedef struct MR_Bases_H MR_Bases_H;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_H_Destroy()` to free it when you're done using it.
@@ -665,14 +660,6 @@ MR_C_API void MR_Bases_H_DestroyArray(const MR_Bases_H *_this);
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_pass_by, MR_Bases_H *_other);
-
-/// Generated from class `MR::Bases::I`.
-/// Inherits from:
-///   Virtually:
-///     `MR::Bases::A`
-///     `MR::Bases::E`
-///     `MR::Bases::F`
-typedef struct MR_Bases_I MR_Bases_I;
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_I_Destroy()` to free it when you're done using it.

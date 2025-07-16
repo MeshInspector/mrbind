@@ -9,14 +9,17 @@
 extern "C" {
 #endif
 
-typedef struct MR_MatchingLayout_B MR_MatchingLayout_B; // Defined below in this file.
-
 
 /// Generated from class `MR::MatchingLayout::A`.
 typedef struct MR_MatchingLayout_A
 {
+    // first
     int a;
+
+    // second
     short b;
+
+    // third
     float c;
 } MR_MatchingLayout_A;
 

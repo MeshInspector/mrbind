@@ -18,8 +18,15 @@ typedef struct MR_C_std_function_void_from_MR_StdFunction_A MR_C_std_function_vo
 typedef struct MR_C_std_function_void_from_int32_t_int32_t MR_C_std_function_void_from_int32_t_int32_t; // Defined in `#include <std_function_void_from_int32_t_int32_t.h>`.
 typedef struct MR_C_std_function_void_from_std_string MR_C_std_function_void_from_std_string; // Defined in `#include <std_function_void_from_std_string.h>`.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
-typedef struct MR_StdFunction_A MR_StdFunction_A; // Defined below in this file.
 
+
+typedef enum MR_StdFunction_E
+{
+    MR_StdFunction_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
+} MR_StdFunction_E;
+
+/// Generated from class `MR::StdFunction::A`.
+typedef struct MR_StdFunction_A MR_StdFunction_A;
 
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_int32_t_func(MR_C_PassBy _1_pass_by, MR_C_std_function_int32_t *_1);
@@ -30,11 +37,6 @@ MR_C_API void MR_StdFunction_foo_std_function_void_func_from_int32_t_int32_t(MR_
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_int32_t_func_from_int32_t_int32_t(MR_C_PassBy _1_pass_by, MR_C_std_function_int32_t_from_int32_t_int32_t *_1);
 
-typedef enum MR_StdFunction_E
-{
-    MR_StdFunction_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
-} MR_StdFunction_E;
-
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int32_t_MR_StdFunction_E(MR_C_PassBy _1_pass_by, MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_1);
 
@@ -43,9 +45,6 @@ MR_C_API void MR_StdFunction_foo_std_function_std_string_func_from_int32_t_float
 
 /// Generated from function `MR::StdFunction::foo`.
 MR_C_API void MR_StdFunction_foo_std_function_void_func_from_std_string(MR_C_PassBy _1_pass_by, MR_C_std_function_void_from_std_string *_1);
-
-/// Generated from class `MR::StdFunction::A`.
-typedef struct MR_StdFunction_A MR_StdFunction_A;
 
 /// Returns a pointer to a member variable of class `MR::StdFunction::A` named `a`.
 /// Parameter `_this` can not be null.
