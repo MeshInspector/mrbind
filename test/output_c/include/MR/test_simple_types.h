@@ -206,7 +206,7 @@ MR_C_API int MR_TestSimpleTypes_FuncTemplate_int(int _1);
 
 /// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetConst_var_unsigned_long(void);
+MR_C_API const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Get_var_unsigned_long(void);
 
 /// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(unsigned long value);

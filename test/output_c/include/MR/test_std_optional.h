@@ -72,7 +72,7 @@ MR_C_API void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E
 /// Returns a pointer to a member variable of class `MR::StdOptional::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int *MR_StdOptional_A_GetConst_x(const MR_StdOptional_A *_this);
+MR_C_API const int *MR_StdOptional_A_Get_x(const MR_StdOptional_A *_this);
 
 /// Modifies a member variable of class `MR::StdOptional::A` named `x`.
 /// Parameter `_this` can not be null.
@@ -139,7 +139,7 @@ MR_C_API void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_
 /// Returns a pointer to a member variable of class `MR::StdOptional::B` named `s`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_C_std_string *MR_StdOptional_B_GetConst_s(const MR_StdOptional_B *_this);
+MR_C_API const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_this);
 
 /// Modifies a member variable of class `MR::StdOptional::B` named `s`.
 /// Parameter `_this` can not be null.

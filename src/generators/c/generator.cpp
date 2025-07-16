@@ -1356,7 +1356,7 @@ namespace mrbind::CBindings
 
         AddThisParamFromParsedClass(self, new_class, {is_const, false, new_field.is_static});
 
-        SetFuncName(is_setter ? "Set" : is_const ? "GetConst" : "GetMutable");
+        SetFuncName(is_setter ? "Set" : is_const ? "Get" : "GetMutable");
 
         const bool is_array = field_type.Is<cppdecl::Array>();
 

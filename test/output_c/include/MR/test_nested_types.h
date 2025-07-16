@@ -23,7 +23,7 @@ typedef enum MR_NestedTypes_A_E
 /// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `b`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_NestedTypes_A_B *MR_NestedTypes_A_GetConst_b(const MR_NestedTypes_A *_this);
+MR_C_API const MR_NestedTypes_A_B *MR_NestedTypes_A_Get_b(const MR_NestedTypes_A *_this);
 
 /// Modifies a member variable of class `MR::NestedTypes::A` named `b`.
 /// Parameter `_this` can not be null.
@@ -38,7 +38,7 @@ MR_C_API MR_NestedTypes_A_B *MR_NestedTypes_A_GetMutable_b(MR_NestedTypes_A *_th
 /// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `e`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_NestedTypes_A_E *MR_NestedTypes_A_GetConst_e(const MR_NestedTypes_A *_this);
+MR_C_API const MR_NestedTypes_A_E *MR_NestedTypes_A_Get_e(const MR_NestedTypes_A *_this);
 
 /// Modifies a member variable of class `MR::NestedTypes::A` named `e`.
 /// Parameter `_this` can not be null.

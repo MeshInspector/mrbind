@@ -111,7 +111,7 @@ const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void)
     return (const MR_SignatureFilters_A *)&mrbindc_details::unmove(::MR::SignatureFilters::foo5());
 }
 
-const MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetConst_a(const MR_SignatureFilters_Blah *_this)
+const MR_SignatureFilters_A *MR_SignatureFilters_Blah_Get_a(const MR_SignatureFilters_Blah *_this)
 {
     return (const MR_SignatureFilters_A *)&((_this ? *(const MR::SignatureFilters::Blah *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a);
 }

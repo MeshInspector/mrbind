@@ -49,7 +49,7 @@ MR_C_API void MR_StdFunction_foo_std_function_void_func_from_std_string(MR_C_Pas
 /// Returns a pointer to a member variable of class `MR::StdFunction::A` named `a`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_C_std_string *MR_StdFunction_A_GetConst_a(const MR_StdFunction_A *_this);
+MR_C_API const MR_C_std_string *MR_StdFunction_A_Get_a(const MR_StdFunction_A *_this);
 
 /// Modifies a member variable of class `MR::StdFunction::A` named `a`.
 /// Parameter `_this` can not be null.

@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 
-const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this)
+const MR_C_std_string *MR_A_Get_x(const MR_A *_this)
 {
     return (const MR_C_std_string *)&((_this ? *(const MR::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }

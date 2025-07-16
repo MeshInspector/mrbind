@@ -19,7 +19,7 @@ typedef struct MR_A MR_A;
 /// Returns a pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_C_std_string *MR_A_GetConst_x(const MR_A *_this);
+MR_C_API const MR_C_std_string *MR_A_Get_x(const MR_A *_this);
 
 /// Modifies a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null.

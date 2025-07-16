@@ -96,7 +96,7 @@ MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void);
 /// Returns a pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetConst_a(const MR_SignatureFilters_Blah *_this);
+MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_Blah_Get_a(const MR_SignatureFilters_Blah *_this);
 
 /// Modifies a member variable of class `MR::SignatureFilters::Blah` named `a`.
 /// Parameter `_this` can not be null.

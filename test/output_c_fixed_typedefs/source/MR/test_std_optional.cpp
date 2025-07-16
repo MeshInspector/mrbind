@@ -76,7 +76,7 @@ void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E *_1)
     );
 }
 
-const int32_t *MR_StdOptional_A_GetConst_x(const MR_StdOptional_A *_this)
+const int32_t *MR_StdOptional_A_Get_x(const MR_StdOptional_A *_this)
 {
     return &((_this ? *(const MR::StdOptional::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).x);
 }
@@ -170,7 +170,7 @@ void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_A *_1)
     );
 }
 
-const MR_C_std_string *MR_StdOptional_B_GetConst_s(const MR_StdOptional_B *_this)
+const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_this)
 {
     return (const MR_C_std_string *)&((_this ? *(const MR::StdOptional::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).s);
 }

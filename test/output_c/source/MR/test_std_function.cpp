@@ -48,7 +48,7 @@ void MR_StdFunction_foo_std_function_void_func_from_std_string(MR_C_PassBy _1_pa
     );
 }
 
-const MR_C_std_string *MR_StdFunction_A_GetConst_a(const MR_StdFunction_A *_this)
+const MR_C_std_string *MR_StdFunction_A_Get_a(const MR_StdFunction_A *_this)
 {
     return (const MR_C_std_string *)&((_this ? *(const MR::StdFunction::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).a);
 }

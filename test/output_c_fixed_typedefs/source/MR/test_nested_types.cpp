@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 
-const MR_NestedTypes_A_B *MR_NestedTypes_A_GetConst_b(const MR_NestedTypes_A *_this)
+const MR_NestedTypes_A_B *MR_NestedTypes_A_Get_b(const MR_NestedTypes_A *_this)
 {
     return (const MR_NestedTypes_A_B *)&((_this ? *(const MR::NestedTypes::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).b);
 }
@@ -20,7 +20,7 @@ MR_NestedTypes_A_B *MR_NestedTypes_A_GetMutable_b(MR_NestedTypes_A *_this)
     return (MR_NestedTypes_A_B *)&((_this ? *(MR::NestedTypes::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).b);
 }
 
-const MR_NestedTypes_A_E *MR_NestedTypes_A_GetConst_e(const MR_NestedTypes_A *_this)
+const MR_NestedTypes_A_E *MR_NestedTypes_A_Get_e(const MR_NestedTypes_A *_this)
 {
     return (const MR_NestedTypes_A_E *)&((_this ? *(const MR::NestedTypes::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).e);
 }

@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 
-const int *MR_StaticFuncs_A_GetConst_x(void)
+const int *MR_StaticFuncs_A_Get_x(void)
 {
     return &(MR::StaticFuncs::A::x);
 }

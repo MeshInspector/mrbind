@@ -327,7 +327,7 @@ int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1)
     );
 }
 
-const uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetConst_var_uint64_t(void)
+const uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void)
 {
     return &(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
 }

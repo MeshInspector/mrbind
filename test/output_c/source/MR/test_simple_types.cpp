@@ -334,7 +334,7 @@ int MR_TestSimpleTypes_FuncTemplate_int(int _1)
     );
 }
 
-const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetConst_var_unsigned_long(void)
+const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Get_var_unsigned_long(void)
 {
     return &(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
 }
