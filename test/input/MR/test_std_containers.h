@@ -33,7 +33,14 @@ namespace MR::StdContainers
     inline std::multimap<int, float> GetMultiMap() {return {};}
     inline std::unordered_map<int, float> GetUnorderedMap() {return {};}
     inline std::unordered_multimap<int, float> GetUnorderedMultiMap() {return {};}
-    inline std::array<int, 42> GetStdArray() {return {};}
+
+    // `std::array` behaves differently with simple types.
+    struct A {};
+    inline std::array<A, 42> GetStdArray() {return {};}
+    inline std::array<int, 43> GetStdArraySimple() {return {};}
+    // The custom simple array needs a bit more testing:
+    inline void StdArraySimpleParam(std::array<int, 43>) {}
+    inline std::array<int, 43> *StdArraySimplePtr(std::array<int, 43> *param) {return param;}
 
     // For this `std::multiset` specialization, mention all iterators so that they get merged.
     inline std::multiset<float> GetMultiSetWithMergedIters() {return {};}

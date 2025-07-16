@@ -135,11 +135,20 @@ namespace mrbind::CBindings
             ret += name;
             return ret;
         }
+        // This one is for the internal helpers.
         [[nodiscard]] std::string MakeDetailHelperName(std::string_view name) const
         {
             std::string ret = helper_name_prefix_opt;
             ret += detail_helper_name_extra_prefix;
             ret += name;
+            return ret;
+        }
+        // This one is for member function names (including static member functions), for both parsed and custom classes.
+        [[nodiscard]] std::string MakeMemberFuncName(std::string_view c_type_name, std::string_view func_name) const
+        {
+            std::string ret(c_type_name);
+            ret += '_';
+            ret += func_name;
             return ret;
         }
 
@@ -970,7 +979,11 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string MakeFreeFuncNameForOverloadedOperator(const ClassEntity *enclosing_class, std::variant<const FuncEntity *, const ClassMethod *> parsed_func, bool fallback) const;
 
         // Is this field type usable in structs that want to have the same layout in C and C++?
-        [[nodiscard]] bool FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &type);
+        [[nodiscard]] bool FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &cpp_type);
+
+        // The given `type` is assumed to pass `FieldTypeUsableInSameLayoutStruct()`.
+        // Updates `file` to include the decessary headers and/or forward declarations for this type.
+        void AddDependenciesToFileForFieldOfSameLayoutStruct(const cppdecl::Type &cpp_type, OutputFile &file);
 
 
         // Deduplicating overload names: [

@@ -117,7 +117,7 @@ namespace mrbind::CBindings
                 { // size
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// The number of elements.";
-                    emit.c_name = class_binder.MakeMemberFuncName("Size");
+                    emit.c_name = class_binder.MakeMemberFuncName(generator, "Size");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                     emit.cpp_called_func = "size";
@@ -127,7 +127,7 @@ namespace mrbind::CBindings
                 { // empty
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns true if the size is zero.";
-                    emit.c_name = class_binder.MakeMemberFuncName("IsEmpty");
+                    emit.c_name = class_binder.MakeMemberFuncName(generator, "IsEmpty");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                     emit.cpp_called_func = "empty";
@@ -139,7 +139,7 @@ namespace mrbind::CBindings
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Resizes the container. The new elements if any are zeroed.";
-                    emit.c_name = class_binder.MakeMemberFuncName("Resize");
+                    emit.c_name = class_binder.MakeMemberFuncName(generator, "Resize");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                     emit.params.push_back({
                         .name = "new_size",
@@ -154,7 +154,7 @@ namespace mrbind::CBindings
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Resizes the container. The new elements if any are set to the specified value.";
-                    emit.c_name = class_binder.MakeMemberFuncName("ResizeWithDefaultValue");
+                    emit.c_name = class_binder.MakeMemberFuncName(generator, "ResizeWithDefaultValue");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
 
                     emit.params.push_back({
@@ -177,7 +177,7 @@ namespace mrbind::CBindings
                 { // clear
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Removes all elements from the container.";
-                    emit.c_name = class_binder.MakeMemberFuncName("Clear");
+                    emit.c_name = class_binder.MakeMemberFuncName(generator, "Clear");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                     emit.cpp_called_func = "clear";
                     generator.EmitFunction(file, emit);
@@ -189,7 +189,7 @@ namespace mrbind::CBindings
                     { // capacity
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The memory capacity, measued in the number of elements.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Capacity");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Capacity");
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.cpp_called_func = "capacity";
@@ -199,7 +199,7 @@ namespace mrbind::CBindings
                     { // reserve
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Reserves memory for a certain number of elements. Never shrinks the memory.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Reserve");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Reserve");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "new_capacity",
@@ -212,7 +212,7 @@ namespace mrbind::CBindings
                     { // shrink_to_fit
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Shrinks the capacity to match the size.";
-                        emit.c_name = class_binder.MakeMemberFuncName("ShrinkToFit");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "ShrinkToFit");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.cpp_called_func = "shrink_to_fit";
                         generator.EmitFunction(file, emit);
@@ -228,7 +228,7 @@ namespace mrbind::CBindings
                     { // [] const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The element at a specific index, read-only.";
-                        emit.c_name = class_binder.MakeMemberFuncName("At");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "At");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.params.push_back({
@@ -242,7 +242,7 @@ namespace mrbind::CBindings
                     { // [] mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The element at a specific index, mutable.";
-                        emit.c_name = class_binder.MakeMemberFuncName("MutableAt");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "MutableAt");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
@@ -259,7 +259,7 @@ namespace mrbind::CBindings
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the element with the specific key. If it doesn't exist, creates it first. Acts like map's `operator[]` in C++.";
-                    emit.c_name = class_binder.MakeMemberFuncName("FindOrConstructElem");
+                    emit.c_name = class_binder.MakeMemberFuncName(generator, "FindOrConstructElem");
                     emit.cpp_return_type = cppdecl::Type(cpp_mapped_elem_type).AddModifier(cppdecl::Reference{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                     emit.params.push_back({
@@ -276,7 +276,7 @@ namespace mrbind::CBindings
                     { // contains or count
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Checks if the contain contains this key.";
-                        emit.c_name = class_binder.MakeMemberFuncName((params.is_multi ? "Count" : "Contains"));
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, (params.is_multi ? "Count" : "Contains"));
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord(params.is_multi ? "size_t" : "bool");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.params.push_back({
@@ -290,7 +290,7 @@ namespace mrbind::CBindings
                     { // find, const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Find");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Find");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_const.cpp_type_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.params.push_back({
@@ -306,7 +306,7 @@ namespace mrbind::CBindings
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.";
-                        emit.c_name = class_binder.MakeMemberFuncName("FindMutable");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "FindMutable");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_mutable.cpp_type_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
@@ -324,7 +324,7 @@ namespace mrbind::CBindings
                     { // front const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first element or null if empty, read-only.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Front");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Front");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.cpp_called_func = "@this@.empty() ? &@this@.front() : nullptr";
@@ -334,7 +334,7 @@ namespace mrbind::CBindings
                     { // front mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first element or null if empty, mutable.";
-                        emit.c_name = class_binder.MakeMemberFuncName("MutableFront");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "MutableFront");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.empty() ? &@this@.front() : nullptr";
@@ -344,7 +344,7 @@ namespace mrbind::CBindings
                     { // back const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The last element or null if empty, read-only.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Back");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Back");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.cpp_called_func = "@this@.empty() ? &@this@.back() : nullptr";
@@ -354,7 +354,7 @@ namespace mrbind::CBindings
                     { // back mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The last element or null if empty, mutable.";
-                        emit.c_name = class_binder.MakeMemberFuncName("MutableBack");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "MutableBack");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.empty() ? &@this@.back() : nullptr";
@@ -368,7 +368,7 @@ namespace mrbind::CBindings
                     { // data const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, read-only.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Data");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Data");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.cpp_called_func = "data";
@@ -378,7 +378,7 @@ namespace mrbind::CBindings
                     { // data mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
-                        emit.c_name = class_binder.MakeMemberFuncName("MutableData");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "MutableData");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.cpp_called_func = "data";
@@ -399,7 +399,7 @@ namespace mrbind::CBindings
                     { // push_back, push_front
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Inserts a new element at the " + end_or_beginning + ".";
-                        emit.c_name = class_binder.MakeMemberFuncName("Push" + back_or_front_in_c_name);
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Push" + back_or_front_in_c_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "new_elem",
@@ -412,7 +412,7 @@ namespace mrbind::CBindings
                     { // pop_back, pop_front
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Removes one element from the " + end_or_beginning + ".";
-                        emit.c_name = class_binder.MakeMemberFuncName("Pop" + back_or_front_in_c_name);
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Pop" + back_or_front_in_c_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.cpp_called_func = "pop_" + back_or_front_in_cpp_name;
                         generator.EmitFunction(file, emit);
@@ -424,7 +424,7 @@ namespace mrbind::CBindings
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Inserts a new element.";
-                    emit.c_name = class_binder.MakeMemberFuncName("Insert");
+                    emit.c_name = class_binder.MakeMemberFuncName(generator, "Insert");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                     emit.params.push_back({
                         .name = "new_elem",
@@ -440,7 +440,7 @@ namespace mrbind::CBindings
                     { // insert
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Inserts a new element right before the specified position.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Insert");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Insert");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "position",
@@ -457,7 +457,7 @@ namespace mrbind::CBindings
                     { // erase
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Erases the element at the specified position.";
-                        emit.c_name = class_binder.MakeMemberFuncName("Erase");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "Erase");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "position",
@@ -487,7 +487,7 @@ namespace mrbind::CBindings
                         { // insert
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Inserts a new element right before the specified position." + constness_disclaimer;
-                            emit.c_name = class_binder.MakeMemberFuncName("InsertAt" + at_str);
+                            emit.c_name = class_binder.MakeMemberFuncName(generator, "InsertAt" + at_str);
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                             emit.params.push_back({
                                 .name = "position",
@@ -504,7 +504,7 @@ namespace mrbind::CBindings
                         { // erase
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Erases the element at the specified position." + constness_disclaimer;
-                            emit.c_name = class_binder.MakeMemberFuncName("EraseAt" + at_str);
+                            emit.c_name = class_binder.MakeMemberFuncName(generator, "EraseAt" + at_str);
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                             emit.params.push_back({
                                 .name = "position",
@@ -535,7 +535,7 @@ namespace mrbind::CBindings
                         { // get
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// The " + begin_or_end_str + " iterator, " + mut_or_const_str + ".";
-                            emit.c_name = class_binder.MakeMemberFuncName(mut_or_const_name + begin_or_end_method_name);
+                            emit.c_name = class_binder.MakeMemberFuncName(generator, mut_or_const_name + begin_or_end_method_name);
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name);
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), is_const_iter);
                             emit.cpp_called_func = c_or_empty + begin_or_end_str;
@@ -545,7 +545,7 @@ namespace mrbind::CBindings
                         { // compare
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Tests whether a " + mut_or_const_str + " iterator is the " + begin_or_end_str + " iterator.";
-                            emit.c_name = class_binder.MakeMemberFuncName("Is" + mut_or_const_name + begin_or_end_method_name);
+                            emit.c_name = class_binder.MakeMemberFuncName(generator, "Is" + mut_or_const_name + begin_or_end_method_name);
                             emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), is_const_iter);
                             emit.params.push_back({
@@ -571,7 +571,7 @@ namespace mrbind::CBindings
 
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Convert a " + mut_or_const_str + " iterator to an index.";
-                        emit.c_name = class_binder.MakeMemberFuncName(std::string(is_const_iter ? "" : "Mutable") + "ToIndex");
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, std::string(is_const_iter ? "" : "Mutable") + "ToIndex");
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("ptrdiff_t");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.params.push_back({
@@ -592,7 +592,7 @@ namespace mrbind::CBindings
                     { // Construct the const iterator from a mutable one.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Makes a const iterator from a mutable one.";
-                        emit.c_name = iterator_binder_const.MakeMemberFuncName("FromMutable");
+                        emit.c_name = iterator_binder_const.MakeMemberFuncName(generator, "FromMutable");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_const.cpp_type_name);
                         emit.params.push_back({
                             .name = "iter",
@@ -619,7 +619,7 @@ namespace mrbind::CBindings
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Dereferences a " + mut_or_const_str + " iterator.";
-                        emit.c_name = this_iter_binder.MakeMemberFuncName("Deref");
+                        emit.c_name = this_iter_binder.MakeMemberFuncName(generator, "Deref");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Reference{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), true);
                         emit.cpp_called_func = "*@this@";
@@ -632,7 +632,7 @@ namespace mrbind::CBindings
                         { // key
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Dereferences a " + mut_or_const_str + " iterator, returning the key.";
-                            emit.c_name = this_iter_binder.MakeMemberFuncName("DerefKey");
+                            emit.c_name = this_iter_binder.MakeMemberFuncName(generator, "DerefKey");
                             emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), true);
                             emit.cpp_called_func = "@this@->first";
@@ -642,7 +642,7 @@ namespace mrbind::CBindings
                         { // value
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Dereferences a " + mut_or_const_str + " iterator, returning the mapped value.";
-                            emit.c_name = this_iter_binder.MakeMemberFuncName("DerefValue");
+                            emit.c_name = this_iter_binder.MakeMemberFuncName(generator, "DerefValue");
                             emit.cpp_return_type = cppdecl::Type(cpp_mapped_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Reference{});
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), true);
                             emit.cpp_called_func = "@this@->second";
@@ -653,7 +653,7 @@ namespace mrbind::CBindings
                     { // increment
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Increments a " + mut_or_const_str + " iterator.";
-                        emit.c_name = this_iter_binder.MakeMemberFuncName("Incr");
+                        emit.c_name = this_iter_binder.MakeMemberFuncName(generator, "Incr");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), false);
                         emit.cpp_called_func = "++@this@";
                         generator.EmitFunction(file, emit);
@@ -664,7 +664,7 @@ namespace mrbind::CBindings
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Decrements a " + mut_or_const_str + " iterator.";
-                        emit.c_name = this_iter_binder.MakeMemberFuncName("Decr");
+                        emit.c_name = this_iter_binder.MakeMemberFuncName(generator, "Decr");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), false);
                         emit.cpp_called_func = "--@this@";
                         generator.EmitFunction(file, emit);
@@ -675,7 +675,7 @@ namespace mrbind::CBindings
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Increments or decrements a " + mut_or_const_str + " iterator by the specific amount. Completes in constant time.";
-                        emit.c_name = this_iter_binder.MakeMemberFuncName("OffsetBy");
+                        emit.c_name = this_iter_binder.MakeMemberFuncName(generator, "OffsetBy");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "delta",
@@ -690,7 +690,7 @@ namespace mrbind::CBindings
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Computes the signed difference between two " + mut_or_const_str + " iterators. Completes in constant time.";
-                        emit.c_name = this_iter_binder.MakeMemberFuncName("Distance");
+                        emit.c_name = this_iter_binder.MakeMemberFuncName(generator, "Distance");
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("ptrdiff_t");
                         emit.params.push_back({
                             .name = "a",

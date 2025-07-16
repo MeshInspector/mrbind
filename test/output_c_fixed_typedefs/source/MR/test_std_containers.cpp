@@ -3,6 +3,7 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_containers.h>
 
+#include <bit>
 #include <stdexcept>
 #include <utility>
 
@@ -113,9 +114,72 @@ MR_C_std_unordered_multimap_int32_t_float *MR_StdContainers_GetUnorderedMultiMap
     return (MR_C_std_unordered_multimap_int32_t_float *)new std::unordered_multimap<int32_t, float>(::MR::StdContainers::GetUnorderedMultiMap());
 }
 
-MR_C_std_array_int32_t_42 *MR_StdContainers_GetStdArray(void)
+MR_StdContainers_A *MR_StdContainers_A_DefaultConstruct(void)
 {
-    return (MR_C_std_array_int32_t_42 *)new std::array<int32_t, 42>(::MR::StdContainers::GetStdArray());
+    return (MR_StdContainers_A *)new MR::StdContainers::A(MR::StdContainers::A());
+}
+
+MR_StdContainers_A *MR_StdContainers_A_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_StdContainers_A *)(new MR::StdContainers::A[num_elems]{});
+}
+
+const MR_StdContainers_A *MR_StdContainers_A_OffsetPtr(const MR_StdContainers_A *ptr, ptrdiff_t i)
+{
+    return (const MR_StdContainers_A *)(((const MR::StdContainers::A *)ptr) + i);
+}
+
+MR_StdContainers_A *MR_StdContainers_A_OffsetMutablePtr(MR_StdContainers_A *ptr, ptrdiff_t i)
+{
+    return (MR_StdContainers_A *)(((MR::StdContainers::A *)ptr) + i);
+}
+
+MR_StdContainers_A *MR_StdContainers_A_ConstructFromAnother(const MR_StdContainers_A *_other)
+{
+    return (MR_StdContainers_A *)new MR::StdContainers::A(MR::StdContainers::A(
+        (_other ? MR::StdContainers::A(*(MR::StdContainers::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+void MR_StdContainers_A_Destroy(const MR_StdContainers_A *_this)
+{
+    delete ((const MR::StdContainers::A *)_this);
+}
+
+void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this)
+{
+    delete[] ((const MR::StdContainers::A *)_this);
+}
+
+MR_StdContainers_A *MR_StdContainers_A_AssignFromAnother(MR_StdContainers_A *_this, const MR_StdContainers_A *_other)
+{
+    return (MR_StdContainers_A *)&((_this ? *(MR::StdContainers::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::StdContainers::A(*(MR::StdContainers::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    ));
+}
+
+MR_C_std_array_MR_StdContainers_A_42 *MR_StdContainers_GetStdArray(void)
+{
+    return (MR_C_std_array_MR_StdContainers_A_42 *)new std::array<MR::StdContainers::A, 42>(::MR::StdContainers::GetStdArray());
+}
+
+MR_C_std_array_int32_t_43 MR_StdContainers_GetStdArraySimple(void)
+{
+    return std::bit_cast<MR_C_std_array_int32_t_43>(::MR::StdContainers::GetStdArraySimple());
+}
+
+void MR_StdContainers_StdArraySimpleParam(MR_C_std_array_int32_t_43 _1)
+{
+    ::MR::StdContainers::StdArraySimpleParam(
+        std::bit_cast<std::array<int32_t, 43>>(_1)
+    );
+}
+
+MR_C_std_array_int32_t_43 *MR_StdContainers_StdArraySimplePtr(MR_C_std_array_int32_t_43 *param)
+{
+    return (MR_C_std_array_int32_t_43 *)(::MR::StdContainers::StdArraySimplePtr(
+        ((std::array<int32_t, 43> *)param)
+    ));
 }
 
 MR_C_std_multiset_float *MR_StdContainers_GetMultiSetWithMergedIters(void)

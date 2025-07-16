@@ -85,7 +85,7 @@ namespace mrbind::CBindings::Modules
                     // We don't provide an `operator bool` check because the dereferencing function (that returns a pointer) already acts as one.
                     // We don't provide "set value" and "reset" functions because the sugared copy/move constructor and assignment already do the same thing.
 
-                    std::string func_name_get = binder.MakeMemberFuncName("Get");
+                    std::string func_name_get = binder.MakeMemberFuncName(generator, "Get");
 
                     { // Get pointer. Doesn't propagate const, since `std::shared_ptr` doesn't too.
                         Generator::EmitFuncParams emit;
@@ -106,7 +106,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns an element from the stored array. The stored pointer must not be null.";
-                        emit.c_name = binder.MakeMemberFuncName("At");
+                        emit.c_name = binder.MakeMemberFuncName(generator, "At");
 
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Reference{});
 
@@ -127,7 +127,7 @@ namespace mrbind::CBindings::Modules
                             "/// How many shared pointers share the managed object. Zero if no object is being managed.\n"
                             "/// This being zero usually conincides with `" + func_name_get + "()` returning null, but is ultimately orthogonal.\n"
                             "/// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.";
-                        emit.c_name = binder.MakeMemberFuncName("UseCount");
+                        emit.c_name = binder.MakeMemberFuncName(generator, "UseCount");
 
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("int");
 
@@ -147,7 +147,7 @@ namespace mrbind::CBindings::Modules
                     { // Construct from a pointer.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Create a new instance, taking ownership of an existing pointer.";
-                        emit.c_name = binder.MakeMemberFuncName("Construct");
+                        emit.c_name = binder.MakeMemberFuncName(generator, "Construct");
 
                         emit.params.push_back({
                             .name = "ptr",
@@ -162,7 +162,7 @@ namespace mrbind::CBindings::Modules
                     { // Assign from a pointer.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.";
-                        emit.c_name = binder.MakeMemberFuncName("Assign");
+                        emit.c_name = binder.MakeMemberFuncName(generator, "Assign");
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.params.push_back({

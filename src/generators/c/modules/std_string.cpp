@@ -39,7 +39,7 @@ namespace mrbind::CBindings::Modules
                 { // size
                     Generator::EmitFuncParams emit;
                     emit.c_comment = is_view ? "/// The number of characters in the string." : "/// The number of characters in the string, excluding the null-terminator.";
-                    emit.c_name = binder.MakeMemberFuncName("Size");
+                    emit.c_name = binder.MakeMemberFuncName(generator, "Size");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "size";
@@ -49,7 +49,7 @@ namespace mrbind::CBindings::Modules
                 { // data
                     Generator::EmitFuncParams emit;
                     emit.c_comment = is_view ? "/// Returns the string contents, NOT necessarily null-terminated." : "/// Returns the string contents, which are always null-terminated.";
-                    emit.c_name = binder.MakeMemberFuncName("Data");
+                    emit.c_name = binder.MakeMemberFuncName(generator, "Data");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "data";
@@ -61,7 +61,7 @@ namespace mrbind::CBindings::Modules
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.";
-                    emit.c_name = binder.MakeMemberFuncName("MutableData");
+                    emit.c_name = binder.MakeMemberFuncName(generator, "MutableData");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "data";
@@ -71,7 +71,7 @@ namespace mrbind::CBindings::Modules
                 { // data end
                     Generator::EmitFuncParams emit;
                     emit.c_comment = is_view ? "/// Returns a pointer to the end of string. Not dereferencable." : "/// Returns a pointer to the end of string, to its null-terminator.";
-                    emit.c_name = binder.MakeMemberFuncName("DataEnd");
+                    emit.c_name = binder.MakeMemberFuncName(generator, "DataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "@this@.data() + @this@.size()";
@@ -83,7 +83,7 @@ namespace mrbind::CBindings::Modules
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.";
-                    emit.c_name = binder.MakeMemberFuncName("MutableDataEnd");
+                    emit.c_name = binder.MakeMemberFuncName(generator, "MutableDataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddModifier(cppdecl::Pointer{});
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "@this@.data() + @this@.size()";

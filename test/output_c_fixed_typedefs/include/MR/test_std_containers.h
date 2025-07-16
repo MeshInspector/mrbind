@@ -2,6 +2,7 @@
 
 #include <common.h>
 #include <exports.h>
+#include <std_array_int32_t_43.h>
 
 #include <stddef.h>
 #include <stdint.h>
@@ -10,7 +11,7 @@
 extern "C" {
 #endif
 
-typedef struct MR_C_std_array_int32_t_42 MR_C_std_array_int32_t_42; // Defined in `#include <std_array_int32_t_42.h>`.
+typedef struct MR_C_std_array_MR_StdContainers_A_42 MR_C_std_array_MR_StdContainers_A_42; // Defined in `#include <std_array_MR_StdContainers_A_42.h>`.
 typedef struct MR_C_std_deque_int32_t MR_C_std_deque_int32_t; // Defined in `#include <std_deque_int32_t.h>`.
 typedef struct MR_C_std_list_int32_t MR_C_std_list_int32_t; // Defined in `#include <std_list_int32_t.h>`.
 typedef struct MR_C_std_map_int32_t_float MR_C_std_map_int32_t_float; // Defined in `#include <std_map_int32_t_float.h>`.
@@ -26,6 +27,10 @@ typedef struct MR_C_std_unordered_set_int32_t MR_C_std_unordered_set_int32_t; //
 typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible MR_C_std_vector_MR_StdContainers_NonDefaultConstructible; // Defined in `#include <std_vector_MR_StdContainers_NonDefaultConstructible.h>`.
 typedef struct MR_C_std_vector_int32_t MR_C_std_vector_int32_t; // Defined in `#include <std_vector_int32_t.h>`.
 
+
+// `std::array` behaves differently with simple types.
+/// Generated from class `MR::StdContainers::A`.
+typedef struct MR_StdContainers_A MR_StdContainers_A;
 
 // Test vectors of a non-default-constructible type.
 /// Generated from class `MR::StdContainers::NonDefaultConstructible`.
@@ -106,9 +111,51 @@ MR_C_API MR_C_std_unordered_map_int32_t_float *MR_StdContainers_GetUnorderedMap(
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_int32_t_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unordered_multimap_int32_t_float *MR_StdContainers_GetUnorderedMultiMap(void);
 
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdContainers_A *MR_StdContainers_A_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_StdContainers_A_DestroyArray()`.
+/// Use `MR_StdContainers_A_OffsetMutablePtr()` and `MR_StdContainers_A_OffsetPtr()` to access the array elements.
+MR_C_API MR_StdContainers_A *MR_StdContainers_A_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_StdContainers_A *MR_StdContainers_A_OffsetPtr(const MR_StdContainers_A *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_StdContainers_A *MR_StdContainers_A_OffsetMutablePtr(MR_StdContainers_A *ptr, ptrdiff_t i);
+
+/// Generated from a constructor of class `MR::StdContainers::A`.
+/// Parameter `_other` can not be null.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdContainers_A *MR_StdContainers_A_ConstructFromAnother(const MR_StdContainers_A *_other);
+
+/// Destroys a heap-allocated instance of `MR_StdContainers_A`. Does nothing if the pointer is null.
+MR_C_API void MR_StdContainers_A_Destroy(const MR_StdContainers_A *_this);
+
+/// Destroys a heap-allocated array of `MR_StdContainers_A`. Does nothing if the pointer is null.
+MR_C_API void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this);
+
+/// Generated from a method of class `MR::StdContainers::A` named `operator=`.
+/// Parameter `_this` can not be null.
+/// Parameter `_other` can not be null.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_StdContainers_A *MR_StdContainers_A_AssignFromAnother(MR_StdContainers_A *_this, const MR_StdContainers_A *_other);
+
 /// Generated from function `MR::StdContainers::GetStdArray`.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_int32_t_42_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_array_int32_t_42 *MR_StdContainers_GetStdArray(void);
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_MR_StdContainers_A_42_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_array_MR_StdContainers_A_42 *MR_StdContainers_GetStdArray(void);
+
+/// Generated from function `MR::StdContainers::GetStdArraySimple`.
+MR_C_API MR_C_std_array_int32_t_43 MR_StdContainers_GetStdArraySimple(void);
+
+// The custom simple array needs a bit more testing:
+/// Generated from function `MR::StdContainers::StdArraySimpleParam`.
+MR_C_API void MR_StdContainers_StdArraySimpleParam(MR_C_std_array_int32_t_43 _1);
+
+/// Generated from function `MR::StdContainers::StdArraySimplePtr`.
+MR_C_API MR_C_std_array_int32_t_43 *MR_StdContainers_StdArraySimplePtr(MR_C_std_array_int32_t_43 *param);
 
 // For this `std::multiset` specialization, mention all iterators so that they get merged.
 /// Generated from function `MR::StdContainers::GetMultiSetWithMergedIters`.

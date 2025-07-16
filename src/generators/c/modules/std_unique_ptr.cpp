@@ -153,7 +153,7 @@ namespace mrbind::CBindings::Modules
                     { // Get pointer. Doesn't propagate const, since `std::unique_ptr` doesn't too.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the stored pointer, possibly null.";
-                        emit.c_name = binder.MakeMemberFuncName("Get");
+                        emit.c_name = binder.MakeMemberFuncName(generator, "Get");
 
                         emit.cpp_return_type = underlying_ptr_type;
 
@@ -169,7 +169,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns an element from the stored array. The stored pointer must not be null.";
-                        emit.c_name = binder.MakeMemberFuncName("At");
+                        emit.c_name = binder.MakeMemberFuncName(generator, "At");
 
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Reference{});
 
@@ -194,7 +194,7 @@ namespace mrbind::CBindings::Modules
                             "/// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.\n"
                             "/// The returned pointer is owning! It must be deallocated using `" + func_name_destroy_released_ptr + "()`.";
 
-                        emit.c_name = binder.MakeMemberFuncName("Release");
+                        emit.c_name = binder.MakeMemberFuncName(generator, "Release");
 
                         emit.cpp_return_type = underlying_ptr_type;
 

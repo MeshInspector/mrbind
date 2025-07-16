@@ -15,9 +15,9 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    std::string HeapAllocatedClassBinder::MakeMemberFuncName(std::string_view name) const
+    std::string HeapAllocatedClassBinder::MakeMemberFuncName(const Generator &generator, std::string_view name) const
     {
-        return c_type_name + '_' + std::string(name);
+        return generator.MakeMemberFuncName(c_type_name, name);
     }
 
     void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const
@@ -359,13 +359,11 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor(Generator &generator) const
     {
-        (void)generator;
-
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName("DefaultConstruct");
+        ret.c_name = MakeMemberFuncName(generator, "DefaultConstruct");
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.remove_return_type_sugar = true;
@@ -383,7 +381,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName("DefaultConstructArray");
+        ret.c_name = MakeMemberFuncName(generator, "DefaultConstructArray");
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{});
         ret.remove_return_type_sugar = true;
@@ -405,13 +403,11 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveCtor(Generator &generator, bool with_param_sugar) const
     {
-        (void)generator;
-
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName((with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"));
+        ret.c_name = MakeMemberFuncName(generator, (with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"));
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.remove_return_type_sugar = true;
@@ -434,13 +430,11 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveAssignment(Generator &generator, bool with_param_sugar) const
     {
-        (void)generator;
-
         std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName((with_param_sugar ? "AssignFrom" : "AssignFromAnother"));
+        ret.c_name = MakeMemberFuncName(generator, (with_param_sugar ? "AssignFrom" : "AssignFromAnother"));
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 
@@ -1004,7 +998,7 @@ namespace mrbind::CBindings
         return new_type;
     }
 
-    Generator::BindableType MakeBitCastParsedClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits)
+    Generator::BindableType MakeBitCastClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits)
     {
         (void)generator;
 

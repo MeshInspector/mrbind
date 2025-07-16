@@ -749,7 +749,7 @@ namespace mrbind::CBindings
                         if (!class_desc->is_same_layout_struct)
                             return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
                         else
-                            return &map.try_emplace(type_str, MakeBitCastParsedClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
+                            return &map.try_emplace(type_str, MakeBitCastClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
                     }
                 }
                 // A custom desugared class based on a sugared one?
@@ -1059,17 +1059,25 @@ namespace mrbind::CBindings
         }, parsed_func);
     }
 
-    bool Generator::FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &type)
+    bool Generator::FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &cpp_type)
     {
         // This below is the best idea I have right now. Looks a bit jank, but works for now.
 
-        const BindableType *binding = FindBindableTypeOpt(type);
+        const BindableType *binding = FindBindableTypeOpt(cpp_type);
         if (!binding)
             return false;
-        if (!binding->traits.value().same_size_in_c_and_cpp || !binding->traits.value().UnconditionallyCopyOnPassByValue())
+        if (!binding->traits.value().same_size_in_c_and_cpp || binding->is_heap_allocated_class || !binding->traits.value().UnconditionallyCopyOnPassByValue())
             return false;
 
         return true;
+    }
+
+    void Generator::AddDependenciesToFileForFieldOfSameLayoutStruct(const cppdecl::Type &cpp_type, OutputFile &file)
+    {
+        // If `FieldTypeUsableInSameLayoutStruct()` returned true, I assume we can just grab some random usage and get the dependency information from it.
+        // I'm arbitrarily picking the return usage. Those shouldn't throw at this point, if `FieldTypeUsableInSameLayoutStruct()` has returned true.
+        const BindableType &binding = FindBindableType(cpp_type);
+        binding.return_usage.value().AddDependenciesToFile(*this, file);
     }
 
 
@@ -2631,13 +2639,8 @@ namespace mrbind::CBindings
                         if (!self.FieldTypeUsableInSameLayoutStruct(cpp_field_type))
                             throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its member `" + field->full_name + "` has type `" + cpp_field_type_str + "` that's not suitable for being used directly in a C struct.");
 
-
-                        { // Add the header for this field.
-                            // If `FieldTypeUsableInSameLayoutStruct()` returned true, I assume we can just grab some random usage and get the dependency information from it.
-                            // I'm arbitrarily picking the return usage. Those shouldn't throw at this point, if the condition above passes.
-                            const BindableType &binding = self.FindBindableType(cpp_field_type);
-                            binding.return_usage.value().AddDependenciesToFile(self, file);
-                        }
+                        // Add the headers and/or forward-declarations for this field.
+                        self.AddDependenciesToFileForFieldOfSameLayoutStruct(cpp_field_type, file);
 
 
                         // Actually emit the field:
@@ -2801,6 +2804,7 @@ namespace mrbind::CBindings
 
                                             // The upcasts don't need the static-vs-dynamic part in the name, because there is always at most one anyway.
                                             emit.c_name = binder.MakeMemberFuncName(
+                                                self,
                                                 std::string(is_const ? "" : "Mutable") +
                                                 (!is_downcast ? "UpcastTo" : is_dynamic ? (acts_on_ref ? "DynamicDowncastToOrFail" : "DynamicDowncastTo") : "StaticDowncastTo") +
                                                 "_" +

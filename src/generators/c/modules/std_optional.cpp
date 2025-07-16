@@ -70,7 +70,7 @@ namespace mrbind::CBindings::Modules
 
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The stored element or null if none, " + std::string(is_const ? "read-only" : "mutable") + ".";
-                        emit.c_name = binder.MakeMemberFuncName(std::string(is_const ? "" : "Mutable") + "Value");
+                        emit.c_name = binder.MakeMemberFuncName(generator, std::string(is_const ? "" : "Mutable") + "Value");
                         emit.cpp_return_type = cpp_elem_type;
                         if (emit.cpp_return_type.Is<cppdecl::Reference>())
                         {

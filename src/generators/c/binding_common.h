@@ -26,9 +26,9 @@ namespace mrbind::CBindings
         // Don't forget to set `traits` after this, some functionality requires it.
         [[nodiscard]] static HeapAllocatedClassBinder ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string_view new_c_type_name_base = "", std::string new_underlying_c_type_base_name = "");
 
-        // Does `c_type_name + "_" + name`. Use this to generate all the member function names.
+        // Essentially does `c_type_name + "_" + name`. Use this to generate all the member function names.
         // This is fine for "static" member functions too.
-        [[nodiscard]] std::string MakeMemberFuncName(std::string_view name) const;
+        [[nodiscard]] std::string MakeMemberFuncName(const Generator &generator, std::string_view name) const;
 
         void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const;
 
@@ -118,7 +118,7 @@ namespace mrbind::CBindings
     // For better or wose this doesn't fill `.bindable_with_same_address`, since it's for parsed classes only, and those don't need it (as they are added
     //   to the `types_bindable_with_same_address` map independently).
     // Maybe we should change it so that the parsed classes use `.bindable_with_same_address` too.
-    [[nodiscard]] Generator::BindableType MakeBitCastParsedClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits);
+    [[nodiscard]] Generator::BindableType MakeBitCastClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits);
 
     // If `cpp_type` is one of `target_name {const &, &&, const &&}`, then generates a default binding for them `using `MakeSimpleTypeBinding()`, and then patches the parameter usage to match that of a by-value `target_name`.
     // If `cpp_type` isn't one of the listed types, returns null.

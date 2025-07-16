@@ -23,90 +23,144 @@ namespace mrbind::CBindings::Modules
                 const cppdecl::Type &cpp_elem_type = std::get<cppdecl::Type>(type.simple_type.name.parts.back().template_args.value().args.at(0).var);
                 const cppdecl::PseudoExpr &array_size = std::get<cppdecl::PseudoExpr>(type.simple_type.name.parts.back().template_args.value().args.at(1).var);
 
-                HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
-
-                // Copy the traits from the element type.
-                // This will throw if the element type is unknown.
-                binder.traits = generator.FindTypeTraits(cpp_elem_type);
-
-                auto get_output_file = [
-                    type,
-                    cpp_elem_type,
-                    binder,
-                    array_size_str = cppdecl::ToCode(array_size, cppdecl::ToCodeFlags::canonical_c_style)
-                ](Generator &generator) -> Generator::OutputFile &
+                if (!generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type))
                 {
-                    bool is_new = false;
-                    Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+                    // The normal heap-allocated array.
 
-                    if (is_new)
+                    HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
+
+                    // Copy the traits from the element type.
+                    // This will throw if the element type is unknown.
+                    binder.traits = generator.FindTypeTraits(cpp_elem_type);
+
+                    auto get_output_file = [
+                        type,
+                        cpp_elem_type,
+                        binder,
+                        array_size_str = cppdecl::ToCode(array_size, cppdecl::ToCodeFlags::canonical_c_style)
+                    ](Generator &generator) -> Generator::OutputFile &
                     {
-                        file.source.stdlib_headers.insert("array");
-                        TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
+                        bool is_new = false;
+                        Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
 
-                        file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + array_size_str + ".\n";
-                        binder.EmitForwardDeclaration(generator, file);
+                        if (is_new)
+                        {
+                            file.source.stdlib_headers.insert("array");
+                            TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
 
-                        // The special member functions:
-                        binder.EmitSpecialMemberFunctions(generator, file);
+                            file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + array_size_str + ".\n";
+                            binder.EmitForwardDeclaration(generator, file);
 
-                        // Some custom functions:
+                            // The special member functions:
+                            binder.EmitSpecialMemberFunctions(generator, file);
 
-                        { // [] const
-                            Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// The element at a specific index, read-only.";
-                            emit.c_name = binder.MakeMemberFuncName("At");
-                            emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
-                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                            emit.params.push_back({
-                                .name = "i",
-                                .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
-                            });
-                            emit.cpp_called_func = "at";
-                            generator.EmitFunction(file, emit);
+                            // Some custom functions:
+
+                            { // [] const
+                                Generator::EmitFuncParams emit;
+                                emit.c_comment = "/// The element at a specific index, read-only.";
+                                emit.c_name = binder.MakeMemberFuncName(generator, "At");
+                                emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
+                                emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                                emit.params.push_back({
+                                    .name = "i",
+                                    .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                                });
+                                emit.cpp_called_func = "at";
+                                generator.EmitFunction(file, emit);
+                            }
+
+                            { // [] mutable
+                                Generator::EmitFuncParams emit;
+                                emit.c_comment = "/// The element at a specific index, mutable.";
+                                emit.c_name = binder.MakeMemberFuncName(generator, "MutableAt");
+                                emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
+                                emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                                emit.params.push_back({
+                                    .name = "i",
+                                    .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                                });
+                                emit.cpp_called_func = "at";
+                                generator.EmitFunction(file, emit);
+                            }
+
+                            { // data const
+                                Generator::EmitFuncParams emit;
+                                emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, read-only.";
+                                emit.c_name = binder.MakeMemberFuncName(generator, "Data");
+                                emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                                emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                                emit.cpp_called_func = "data";
+                                generator.EmitFunction(file, emit);
+                            }
+
+                            { // data mutable
+                                Generator::EmitFuncParams emit;
+                                emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
+                                emit.c_name = binder.MakeMemberFuncName(generator, "MutableData");
+                                emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
+                                emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                                emit.cpp_called_func = "data";
+                                generator.EmitFunction(file, emit);
+                            }
                         }
 
-                        { // [] mutable
-                            Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// The element at a specific index, mutable.";
-                            emit.c_name = binder.MakeMemberFuncName("MutableAt");
-                            emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
-                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
-                            emit.params.push_back({
-                                .name = "i",
-                                .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
-                            });
-                            emit.cpp_called_func = "at";
-                            generator.EmitFunction(file, emit);
+                        return file;
+                    };
+
+                    Generator::BindableType &new_type = ret.emplace();
+                    binder.FillCommonParams(generator, new_type);
+                    new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+                }
+                else
+                {
+                    // The fancy same-layout array.
+
+                    Generator::BindableType &new_type = ret.emplace();
+                    const std::string c_type_name = generator.MakePublicHelperName(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier));
+
+                    new_type = MakeBitCastClassBinding(generator, type.simple_type.name, c_type_name, generator.FindTypeTraits(cpp_elem_type));
+                    new_type.bindable_with_same_address.custom_c_type_name = c_type_name;
+                    new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclaration(c_type_name);
+
+                    auto get_output_file = [
+                        type,
+                        cpp_elem_type,
+                        c_type_name,
+                        array_size
+                    ](Generator &generator) -> Generator::OutputFile &
+                    {
+                        bool is_new = false;
+                        Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+
+                        if (is_new)
+                        {
+                            file.source.stdlib_headers.insert("array");
+                            TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
+
+                            file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + cppdecl::ToCode(array_size, cppdecl::ToCodeFlags::canonical_c_style) + ".\n";
+
+                            cppdecl::Decl array_field_decl;
+                            array_field_decl.name = cppdecl::QualifiedName::FromSingleWord("elems"); // Shrug.
+
+                            array_field_decl.type = cpp_elem_type;
+                            generator.ReplaceAllNamesInTypeWithCNames(array_field_decl.type);
+                            array_field_decl.type.AddModifier(cppdecl::Array{.size = array_size});
+
+                            // Passing the non-array type here (the element type), since a plain array will likely not have the bindings.
+                            generator.AddDependenciesToFileForFieldOfSameLayoutStruct(cpp_elem_type, file);
+
+                            file.header.contents += "typedef struct " + c_type_name + '\n';
+                            file.header.contents += "{\n";
+                            file.header.contents += "    " + cppdecl::ToCode(array_field_decl, cppdecl::ToCodeFlags::canonical_c_style) + ";\n";
+                            file.header.contents += "} " + c_type_name + ";\n";
                         }
 
-                        { // data const
-                            Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, read-only.";
-                            emit.c_name = binder.MakeMemberFuncName("Data");
-                            emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
-                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
-                            emit.cpp_called_func = "data";
-                            generator.EmitFunction(file, emit);
-                        }
+                        return file;
+                    };
 
-                        { // data mutable
-                            Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
-                            emit.c_name = binder.MakeMemberFuncName("MutableData");
-                            emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
-                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
-                            emit.cpp_called_func = "data";
-                            generator.EmitFunction(file, emit);
-                        }
-                    }
-
-                    return file;
-                };
-
-                Generator::BindableType &new_type = ret.emplace();
-                binder.FillCommonParams(generator, new_type);
-                new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+                    new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+                }
             }
 
             // `std::array::[const_]iterator` isn't handled yet.
