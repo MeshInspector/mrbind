@@ -49,6 +49,14 @@ MR_C_API const MR_C_phmap_parallel_node_hash_set_int32_t *MR_C_phmap_parallel_no
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_phmap_parallel_node_hash_set_int32_t *MR_C_phmap_parallel_node_hash_set_int32_t_OffsetMutablePtr(MR_C_phmap_parallel_node_hash_set_int32_t *ptr, ptrdiff_t i);
 
+/// Construct from a range of elements.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_parallel_node_hash_set_int32_t_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_phmap_parallel_node_hash_set_int32_t *MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(const int32_t *ptr, size_t size);
+
+/// Assign from a range of elements, overwriting previous contents.
+/// Parameter `_this` can not be null.
+MR_C_API void MR_C_phmap_parallel_node_hash_set_int32_t_AssignFromRange(MR_C_phmap_parallel_node_hash_set_int32_t *_this, const int32_t *ptr, size_t size);
+
 /// The number of elements.
 /// Parameter `_this` can not be null.
 MR_C_API size_t MR_C_phmap_parallel_node_hash_set_int32_t_Size(const MR_C_phmap_parallel_node_hash_set_int32_t *_this);

@@ -50,6 +50,16 @@ MR_C_std_list_int *MR_C_std_list_int_OffsetMutablePtr(MR_C_std_list_int *ptr, pt
     return (MR_C_std_list_int *)(((std::list<int> *)ptr) + i);
 }
 
+MR_C_std_list_int *MR_C_std_list_int_ConstructFromRange(const int *ptr, size_t size)
+{
+    return (MR_C_std_list_int *)new std::list<int>(std::list<int>(ptr, ptr + size));
+}
+
+void MR_C_std_list_int_AssignFromRange(MR_C_std_list_int *_this, const int *ptr, size_t size)
+{
+    (_this ? *(std::list<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::list<int>(ptr, ptr + size);
+}
+
 size_t MR_C_std_list_int_Size(const MR_C_std_list_int *_this)
 {
     return (_this ? *(const std::list<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

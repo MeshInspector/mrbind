@@ -50,6 +50,16 @@ MR_C_phmap_parallel_node_hash_set_int32_t *MR_C_phmap_parallel_node_hash_set_int
     return (MR_C_phmap_parallel_node_hash_set_int32_t *)(((phmap::parallel_node_hash_set<int32_t> *)ptr) + i);
 }
 
+MR_C_phmap_parallel_node_hash_set_int32_t *MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(const int32_t *ptr, size_t size)
+{
+    return (MR_C_phmap_parallel_node_hash_set_int32_t *)new phmap::parallel_node_hash_set<int32_t>(phmap::parallel_node_hash_set<int32_t>(ptr, ptr + size));
+}
+
+void MR_C_phmap_parallel_node_hash_set_int32_t_AssignFromRange(MR_C_phmap_parallel_node_hash_set_int32_t *_this, const int32_t *ptr, size_t size)
+{
+    (_this ? *(phmap::parallel_node_hash_set<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = phmap::parallel_node_hash_set<int32_t>(ptr, ptr + size);
+}
+
 size_t MR_C_phmap_parallel_node_hash_set_int32_t_Size(const MR_C_phmap_parallel_node_hash_set_int32_t *_this)
 {
     return (_this ? *(const phmap::parallel_node_hash_set<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

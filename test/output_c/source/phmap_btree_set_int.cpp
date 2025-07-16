@@ -50,6 +50,16 @@ MR_C_phmap_btree_set_int *MR_C_phmap_btree_set_int_OffsetMutablePtr(MR_C_phmap_b
     return (MR_C_phmap_btree_set_int *)(((phmap::btree_set<int> *)ptr) + i);
 }
 
+MR_C_phmap_btree_set_int *MR_C_phmap_btree_set_int_ConstructFromRange(const int *ptr, size_t size)
+{
+    return (MR_C_phmap_btree_set_int *)new phmap::btree_set<int>(phmap::btree_set<int>(ptr, ptr + size));
+}
+
+void MR_C_phmap_btree_set_int_AssignFromRange(MR_C_phmap_btree_set_int *_this, const int *ptr, size_t size)
+{
+    (_this ? *(phmap::btree_set<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = phmap::btree_set<int>(ptr, ptr + size);
+}
+
 size_t MR_C_phmap_btree_set_int_Size(const MR_C_phmap_btree_set_int *_this)
 {
     return (_this ? *(const phmap::btree_set<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

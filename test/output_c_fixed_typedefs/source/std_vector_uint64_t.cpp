@@ -50,6 +50,16 @@ MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_OffsetMutablePtr(MR_C_std_vec
     return (MR_C_std_vector_uint64_t *)(((std::vector<uint64_t> *)ptr) + i);
 }
 
+MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_ConstructFromRange(const uint64_t *ptr, size_t size)
+{
+    return (MR_C_std_vector_uint64_t *)new std::vector<uint64_t>(std::vector<uint64_t>(ptr, ptr + size));
+}
+
+void MR_C_std_vector_uint64_t_AssignFromRange(MR_C_std_vector_uint64_t *_this, const uint64_t *ptr, size_t size)
+{
+    (_this ? *(std::vector<uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::vector<uint64_t>(ptr, ptr + size);
+}
+
 size_t MR_C_std_vector_uint64_t_Size(const MR_C_std_vector_uint64_t *_this)
 {
     return (_this ? *(const std::vector<uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

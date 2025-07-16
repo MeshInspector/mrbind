@@ -66,6 +66,9 @@ namespace mrbind::CBindings
         Generator::TypeTraits mapped_elem_traits;
         std::string basic_output_file_name;
 
+        // Is the element type simple enough to allow assigning ranges?
+        bool supports_range_assignment = false;
+
         HeapAllocatedClassBinder iterator_binder_mutable;
         HeapAllocatedClassBinder iterator_binder_const;
     };

@@ -50,6 +50,16 @@ MR_C_std_unordered_multiset_int32_t *MR_C_std_unordered_multiset_int32_t_OffsetM
     return (MR_C_std_unordered_multiset_int32_t *)(((std::unordered_multiset<int32_t> *)ptr) + i);
 }
 
+MR_C_std_unordered_multiset_int32_t *MR_C_std_unordered_multiset_int32_t_ConstructFromRange(const int32_t *ptr, size_t size)
+{
+    return (MR_C_std_unordered_multiset_int32_t *)new std::unordered_multiset<int32_t>(std::unordered_multiset<int32_t>(ptr, ptr + size));
+}
+
+void MR_C_std_unordered_multiset_int32_t_AssignFromRange(MR_C_std_unordered_multiset_int32_t *_this, const int32_t *ptr, size_t size)
+{
+    (_this ? *(std::unordered_multiset<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::unordered_multiset<int32_t>(ptr, ptr + size);
+}
+
 size_t MR_C_std_unordered_multiset_int32_t_Size(const MR_C_std_unordered_multiset_int32_t *_this)
 {
     return (_this ? *(const std::unordered_multiset<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

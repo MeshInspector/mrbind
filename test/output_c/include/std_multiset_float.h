@@ -48,6 +48,14 @@ MR_C_API const MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetPtr(const 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetMutablePtr(MR_C_std_multiset_float *ptr, ptrdiff_t i);
 
+/// Construct from a range of elements.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multiset_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_multiset_float *MR_C_std_multiset_float_ConstructFromRange(const float *ptr, size_t size);
+
+/// Assign from a range of elements, overwriting previous contents.
+/// Parameter `_this` can not be null.
+MR_C_API void MR_C_std_multiset_float_AssignFromRange(MR_C_std_multiset_float *_this, const float *ptr, size_t size);
+
 /// The number of elements.
 /// Parameter `_this` can not be null.
 MR_C_API size_t MR_C_std_multiset_float_Size(const MR_C_std_multiset_float *_this);

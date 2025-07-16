@@ -50,6 +50,16 @@ MR_C_std_deque_int *MR_C_std_deque_int_OffsetMutablePtr(MR_C_std_deque_int *ptr,
     return (MR_C_std_deque_int *)(((std::deque<int> *)ptr) + i);
 }
 
+MR_C_std_deque_int *MR_C_std_deque_int_ConstructFromRange(const int *ptr, size_t size)
+{
+    return (MR_C_std_deque_int *)new std::deque<int>(std::deque<int>(ptr, ptr + size));
+}
+
+void MR_C_std_deque_int_AssignFromRange(MR_C_std_deque_int *_this, const int *ptr, size_t size)
+{
+    (_this ? *(std::deque<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::deque<int>(ptr, ptr + size);
+}
+
 size_t MR_C_std_deque_int_Size(const MR_C_std_deque_int *_this)
 {
     return (_this ? *(const std::deque<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

@@ -45,6 +45,11 @@ namespace mrbind::CBindings
 
         basic_output_file_name = cppdecl::ToString(cpp_container_type, cppdecl::ToStringFlags::identifier);
 
+        if (!params.is_map)
+        {
+            // This is fairly conservative, should be good enough for now. We can allow more types later.
+            supports_range_assignment = generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type);
+        }
 
         // Create the iterator binders.
         // Notably different standard containers can have overlapping iterator types, so we have to be really careful here.
@@ -114,6 +119,44 @@ namespace mrbind::CBindings
             // All the custom functions:
 
             { // The container itself.
+                if (supports_range_assignment)
+                {
+                    { // Construct from range
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Construct from a range of elements.";
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "ConstructFromRange");
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name);
+                        emit.params.push_back({
+                            .name = "ptr",
+                            .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}),
+                        });
+                        emit.params.push_back({
+                            .name = "size",
+                            .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                        });
+                        emit.cpp_called_func = cppdecl::ToCode(class_binder.cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style) + "(@1@, @1@ + @2@)";
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // Assign from range
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Assign from a range of elements, overwriting previous contents.";
+                        emit.c_name = class_binder.MakeMemberFuncName(generator, "AssignFromRange");
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
+                        emit.params.push_back({
+                            .name = "ptr",
+                            .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}),
+                        });
+                        emit.params.push_back({
+                            .name = "size",
+                            .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
+                        });
+                        // Not all containers have the `.assign()` method, so instead use the normal assignment.
+                        emit.cpp_called_func = "@this@ = " + cppdecl::ToCode(class_binder.cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style) + "(@1@, @1@ + @2@)";
+                        generator.EmitFunction(file, emit);
+                    }
+                }
+
                 { // size
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// The number of elements.";

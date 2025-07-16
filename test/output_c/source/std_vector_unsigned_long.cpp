@@ -50,6 +50,16 @@ MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_OffsetMutablePtr(MR
     return (MR_C_std_vector_unsigned_long *)(((std::vector<unsigned long> *)ptr) + i);
 }
 
+MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_ConstructFromRange(const unsigned long *ptr, size_t size)
+{
+    return (MR_C_std_vector_unsigned_long *)new std::vector<unsigned long>(std::vector<unsigned long>(ptr, ptr + size));
+}
+
+void MR_C_std_vector_unsigned_long_AssignFromRange(MR_C_std_vector_unsigned_long *_this, const unsigned long *ptr, size_t size)
+{
+    (_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::vector<unsigned long>(ptr, ptr + size);
+}
+
 size_t MR_C_std_vector_unsigned_long_Size(const MR_C_std_vector_unsigned_long *_this)
 {
     return (_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

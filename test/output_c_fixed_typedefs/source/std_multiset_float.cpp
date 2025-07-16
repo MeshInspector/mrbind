@@ -50,6 +50,16 @@ MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetMutablePtr(MR_C_std_multi
     return (MR_C_std_multiset_float *)(((std::multiset<float> *)ptr) + i);
 }
 
+MR_C_std_multiset_float *MR_C_std_multiset_float_ConstructFromRange(const float *ptr, size_t size)
+{
+    return (MR_C_std_multiset_float *)new std::multiset<float>(std::multiset<float>(ptr, ptr + size));
+}
+
+void MR_C_std_multiset_float_AssignFromRange(MR_C_std_multiset_float *_this, const float *ptr, size_t size)
+{
+    (_this ? *(std::multiset<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::multiset<float>(ptr, ptr + size);
+}
+
 size_t MR_C_std_multiset_float_Size(const MR_C_std_multiset_float *_this)
 {
     return (_this ? *(const std::multiset<float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

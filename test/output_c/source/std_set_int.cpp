@@ -50,6 +50,16 @@ MR_C_std_set_int *MR_C_std_set_int_OffsetMutablePtr(MR_C_std_set_int *ptr, ptrdi
     return (MR_C_std_set_int *)(((std::set<int> *)ptr) + i);
 }
 
+MR_C_std_set_int *MR_C_std_set_int_ConstructFromRange(const int *ptr, size_t size)
+{
+    return (MR_C_std_set_int *)new std::set<int>(std::set<int>(ptr, ptr + size));
+}
+
+void MR_C_std_set_int_AssignFromRange(MR_C_std_set_int *_this, const int *ptr, size_t size)
+{
+    (_this ? *(std::set<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::set<int>(ptr, ptr + size);
+}
+
 size_t MR_C_std_set_int_Size(const MR_C_std_set_int *_this)
 {
     return (_this ? *(const std::set<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();

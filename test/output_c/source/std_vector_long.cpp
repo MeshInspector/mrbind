@@ -50,6 +50,16 @@ MR_C_std_vector_long *MR_C_std_vector_long_OffsetMutablePtr(MR_C_std_vector_long
     return (MR_C_std_vector_long *)(((std::vector<long> *)ptr) + i);
 }
 
+MR_C_std_vector_long *MR_C_std_vector_long_ConstructFromRange(const long *ptr, size_t size)
+{
+    return (MR_C_std_vector_long *)new std::vector<long>(std::vector<long>(ptr, ptr + size));
+}
+
+void MR_C_std_vector_long_AssignFromRange(MR_C_std_vector_long *_this, const long *ptr, size_t size)
+{
+    (_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::vector<long>(ptr, ptr + size);
+}
+
 size_t MR_C_std_vector_long_Size(const MR_C_std_vector_long *_this)
 {
     return (_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();
