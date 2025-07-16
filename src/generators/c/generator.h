@@ -795,6 +795,14 @@ namespace mrbind::CBindings
                     else
                         return std::string(cpp_param_name);
                 }
+
+
+                // Modifies a source file to include all necessary headers, forward declarations, etc, to be able to use this parameter usage.
+                void AddDependenciesToFile(Generator &generator, OutputFile &file) const
+                {
+                    generator.ApplyTypeDependenciesToFile(file, same_addr_bindable_type_dependencies);
+                    extra_headers.InsertToFile(file);
+                }
             };
 
             struct ParamUsageWithDefaultArg : ParamUsage
@@ -881,6 +889,14 @@ namespace mrbind::CBindings
                     else
                         return std::string(expr);
                 }
+
+
+                // Modifies a source file to include all necessary headers, forward declarations, etc, to be able to use this return usage.
+                void AddDependenciesToFile(Generator &generator, OutputFile &file) const
+                {
+                    generator.ApplyTypeDependenciesToFile(file, same_addr_bindable_type_dependencies);
+                    extra_headers.InsertToFile(file);
+                }
             };
             // If this is null, this type is unusable as a return type.
             std::optional<ReturnUsage> return_usage;
@@ -952,6 +968,9 @@ namespace mrbind::CBindings
         // If you pass `fallback == true`, a secondary fallback name will be returned, that should be used in case of conflicts.
         // Only pass non-null to `enclosing_class` if `parsed_func` is a `ClassMethod`.
         [[nodiscard]] std::string MakeFreeFuncNameForOverloadedOperator(const ClassEntity *enclosing_class, std::variant<const FuncEntity *, const ClassMethod *> parsed_func, bool fallback) const;
+
+        // Is this field type usable in structs that want to have the same layout in C and C++?
+        [[nodiscard]] bool FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &type);
 
 
         // Deduplicating overload names: [

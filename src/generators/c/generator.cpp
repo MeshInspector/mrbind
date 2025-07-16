@@ -1059,6 +1059,19 @@ namespace mrbind::CBindings
         }, parsed_func);
     }
 
+    bool Generator::FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &type)
+    {
+        // This below is the best idea I have right now. Looks a bit jank, but works for now.
+
+        const BindableType *binding = FindBindableTypeOpt(type);
+        if (!binding)
+            return false;
+        if (!binding->traits.value().same_size_in_c_and_cpp || !binding->traits.value().UnconditionallyCopyOnPassByValue())
+            return false;
+
+        return true;
+    }
+
 
     void Generator::EmitFuncParams::AddParamsFromParsedFunc(const Generator &self, const std::vector<FuncParam> &new_params)
     {
@@ -1494,8 +1507,8 @@ namespace mrbind::CBindings
                     const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
                     const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
 
-                    // Declare or include type dependencies of the parameter.
-                    ApplyTypeDependenciesToFile(file, param_usage.same_addr_bindable_type_dependencies);
+                    // Declare or include the dependencies of the parameter.
+                    param_usage.AddDependenciesToFile(*this, file);
 
                     for (const auto &c_param : param_usage.c_params)
                     {
@@ -1545,9 +1558,6 @@ namespace mrbind::CBindings
 
                     if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
                         arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
-
-                    // Insert the extra includes.
-                    param_usage.extra_headers.InsertToFile(file);
                 }
                 else
                 {
@@ -1675,8 +1685,8 @@ namespace mrbind::CBindings
                 //   if the parsed code is sloppy about what headers it includes.
                 TryIncludeHeadersForCppTypeInSourceFile(*this, file, params.cpp_return_type);
 
-                // Declare or include the type dependencies of the return type.
-                ApplyTypeDependenciesToFile(file, bindable_return_type.return_usage->same_addr_bindable_type_dependencies);
+                // Declare or include the dependencies of the return type.
+                bindable_return_type.return_usage->AddDependenciesToFile(*this, file);
 
                 // Custom comment?
                 if (bindable_return_type.return_usage->append_to_comment)
@@ -1688,9 +1698,6 @@ namespace mrbind::CBindings
                 body_return = bindable_return_type.return_usage->MakeReturnExpr(file.source, body_return);
 
                 c_return_type = bindable_return_type.return_usage->c_type;
-
-                // Insert the extra includes.
-                bindable_return_type.return_usage->extra_headers.InsertToFile(file);
             }
             else
             {
@@ -2621,33 +2628,16 @@ namespace mrbind::CBindings
                         const cppdecl::Type cpp_field_type = self.ParseTypeOrThrow(field->type.canonical);
                         const std::string cpp_field_type_str = cppdecl::ToCode(cpp_field_type, cppdecl::ToCodeFlags::canonical_c_style);
 
-                        // This below is the best idea I have right now. Looks jank, but works for now.
-                        const BindableType *binding = nullptr;
-                        const TypeBindableWithSameAddress *same_addr_binding = nullptr;
-                        bool type_ok = true;
-                        if (type_ok)
-                        {
-                            binding = self.FindBindableTypeOpt(cpp_field_type);
-                            if (!binding)
-                                type_ok = false;
-                        }
-                        if (type_ok)
-                        {
-                            same_addr_binding = self.FindTypeBindableWithSameAddressOpt(cpp_field_type_str);
-                            if (!same_addr_binding)
-                                type_ok = false;
-                        }
-                        if (type_ok && !binding->traits.value().same_size_in_c_and_cpp)
-                            type_ok = false;
-                        if (!type_ok)
+                        if (!self.FieldTypeUsableInSameLayoutStruct(cpp_field_type))
                             throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its member `" + field->full_name + "` has type `" + cpp_field_type_str + "` that's not suitable for being used directly in a C struct.");
 
 
-                        // Add the header for this field.
-                        if (same_addr_binding->declared_in_c_stdlib_file)
-                            file.header.stdlib_headers.insert(*same_addr_binding->declared_in_c_stdlib_file);
-                        else if (same_addr_binding->declared_in_file)
-                            file.header.custom_headers.insert(same_addr_binding->declared_in_file().header.path_for_inclusion);
+                        { // Add the header for this field.
+                            // If `FieldTypeUsableInSameLayoutStruct()` returned true, I assume we can just grab some random usage and get the dependency information from it.
+                            // I'm arbitrarily picking the return usage. Those shouldn't throw at this point, if the condition above passes.
+                            const BindableType &binding = self.FindBindableType(cpp_field_type);
+                            binding.return_usage.value().AddDependenciesToFile(self, file);
+                        }
 
 
                         // Actually emit the field:
