@@ -173,6 +173,9 @@ namespace mrbind
         bool canonicalize_to_fixed_size_typedefs = false;
 
         bool implicit_enum_underlying_type_is_always_int = false;
+
+        // Try to substitute default arguments into templates, when possible.
+        bool buggy_substitute_default_template_args = false;
     };
 
     struct PrintingPolicies
@@ -2114,128 +2117,129 @@ namespace mrbind
             if (ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
                 return true;
 
-            #if 0
             // If this is a template, try instantiating it.
-            // This is currently disabled because it's buggy: https://github.com/MeshInspector/mrbind/issues/19
-
-            if (decl->isTemplated())
+            // This is currently disabled by default because it's buggy: https://github.com/MeshInspector/mrbind/issues/19
+            if (params->buggy_substitute_default_template_args)
             {
-                // Among other things, we visit the function declarations to instantiate their default arguments,
-                //   which apparently doesn't happen otherwise. This is only needed for free function templates.
-                // Something else already instantiates them for the class member functions.
-                if (auto templ = decl->getDescribedTemplate())
+                if (decl->isTemplated())
                 {
-                    auto func_templ = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
-
-                    const clang::TemplateParameterList &tparams = *templ->getTemplateParameters();
-
-                    // Can't use `tparams.getMinRequiredArguments()` because that apparently can return 0 when
-                    //   the template arguments are deducible from the function parameters, or something like that.
-                    // Added later: Uhh, really need a testcase. Not sure what this could possibly mean. :P
-                    bool all_params_have_default_args = std::all_of(tparams.begin(), tparams.end(),
-                        [](const clang::NamedDecl *tparam)
-                        {
-                            if (tparam->isParameterPack())
-                                return true;
-                            else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
-                                return ttp->hasDefaultArgument();
-                            else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
-                                return nttp->hasDefaultArgument();
-                            else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
-                                return tetp->hasDefaultArgument();
-                            else
-                                return false;
-                        }
-                    );
-
-                    if (all_params_have_default_args)
+                    // Among other things, we visit the function declarations to instantiate their default arguments,
+                    //   which apparently doesn't happen otherwise. This is only needed for free function templates.
+                    // Something else already instantiates them for the class member functions.
+                    if (auto templ = decl->getDescribedTemplate())
                     {
-                        // Cook up a list of all default template arguments.
-                        // Apparently just using an empty list doesn't work. It runs, but then the parser spits out `type-parameter-0-0` instead of the correct type name.
-                        std::vector<clang::TemplateArgument> targs_vec(tparams.size());
-                        for (unsigned i = 0; i < tparams.size(); i++)
+                        auto func_templ = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
+
+                        const clang::TemplateParameterList &tparams = *templ->getTemplateParameters();
+
+                        // Can't use `tparams.getMinRequiredArguments()` because that apparently can return 0 when
+                        //   the template arguments are deducible from the function parameters, or something like that.
+                        // Added later: Uhh, really need a testcase. Not sure what this could possibly mean. :P
+                        bool all_params_have_default_args = std::all_of(tparams.begin(), tparams.end(),
+                            [](const clang::NamedDecl *tparam)
+                            {
+                                if (tparam->isParameterPack())
+                                    return true;
+                                else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
+                                    return ttp->hasDefaultArgument();
+                                else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
+                                    return nttp->hasDefaultArgument();
+                                else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
+                                    return tetp->hasDefaultArgument();
+                                else
+                                    return false;
+                            }
+                        );
+
+                        if (all_params_have_default_args)
                         {
-                            const clang::NamedDecl *tparam = tparams.getParam(i);
-
-                            // Here we MUST canonicalize the arguments somehow, because `FunctionTemplateDecl::findSpecialization()` returns
-                            //   false negatives if you give it non-canonical types.
-                            // But I can't find where this is documented, and I'm not sure if it's the correct approach to canonicalization,
-                            //   or whether I need to also somehow canonicalize non-type and template-template parameters.
-                            // Failing to do this correctly leads to silent errors where the parser emits multiple equivalent instantiations
-                            //   with different spellings. Beware.
-
-                            if (tparam->isParameterPack())
+                            // Cook up a list of all default template arguments.
+                            // Apparently just using an empty list doesn't work. It runs, but then the parser spits out `type-parameter-0-0` instead of the correct type name.
+                            std::vector<clang::TemplateArgument> targs_vec(tparams.size());
+                            for (unsigned i = 0; i < tparams.size(); i++)
                             {
-                                targs_vec[i] = clang::TemplateArgument::getEmptyPack(); // Empty pack is its own thing!
-                            }
-                            else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
-                            {
-                                #if CLANG_VERSION_MAJOR == 18
-                                targs_vec[i] = ttp->getDefaultArgument().getCanonicalType(); // NOTE! This is important. See above.
-                                #else // 19+
-                                targs_vec[i] = ttp->getDefaultArgument().getArgument().getAsType().getCanonicalType(); // NOTE! This is important. See above.
-                                #endif
-                            }
-                            else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
-                            {
-                                #if CLANG_VERSION_MAJOR == 18
-                                targs_vec[i] = nttp->getDefaultArgument();
-                                #else // 19+
-                                targs_vec[i] = nttp->getDefaultArgument().getArgument();
-                                #endif
-                            }
-                            else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
-                            {
-                                targs_vec[i] = tetp->getDefaultArgument().getArgument(); // Hmm.
-                            }
-                            else
-                            {
-                                throw std::logic_error("What is this template argument?");
-                            }
-                        }
+                                const clang::NamedDecl *tparam = tparams.getParam(i);
 
-                        // For some reason this segfaults?! But it looks completely reasonable to me. Weird.
-                        //   clang::MultiLevelTemplateArgumentList ml_targs = ci->getSema().getTemplateInstantiationArgs(func_templ, nullptr, false, targs_vec);
-                        // So we do this instead:
-                        clang::MultiLevelTemplateArgumentList ml_targs(func_templ, targs_vec, false);
+                                // Here we MUST canonicalize the arguments somehow, because `FunctionTemplateDecl::findSpecialization()` returns
+                                //   false negatives if you give it non-canonical types.
+                                // But I can't find where this is documented, and I'm not sure if it's the correct approach to canonicalization,
+                                //   or whether I need to also somehow canonicalize non-type and template-template parameters.
+                                // Failing to do this correctly leads to silent errors where the parser emits multiple equivalent instantiations
+                                //   with different spellings. Beware.
 
-                        // Check if already instantiated...
-                        // There's also `Sema::FindInstantiatedDecl()`, but I coundn't figure out how it's supposed to be used, of it's applicable here at all or not.
-                        // I'm not sure if I should be calling it in `decl` or `templ`, and it never returned null pointers for me, so whatever.
-                        [[maybe_unused]] void *unused_insertion_point = nullptr;
-                        if (!func_templ->findSpecialization(ml_targs.getInnermost(), unused_insertion_point))
-                        {
-                            // This doesn't crash if already instantiated, and looks like it's a no-op in that case, but I'm not entirely sure.
-                            // It doesn't matter anyway, because it doesn't seem to indicate to the caller whether it's already instantiated or not,
-                            //   and we need that information to set `need_another_iteration`.
-
-                            // I WOULD use `ci->getSema().InstantiateFunctionDeclaration(...)` here, but that's annoying to use because it requires
-                            //   a `clang::TemplateArgumentList` rather than `clang::MultiLevelTemplateArgumentList`, which I now (since Clang 19) can't get
-                            //   without heap-allocating it (so I'd need to manually cache those). And all that function does is LITERALLY construct
-                            //   a `clang::MultiLevelTemplateArgumentList` again, which I can trivially get myself as shown above.
-
-                            // auto new_decl = ci->getSema().InstantiateFunctionDeclaration(func_templ, targs, decl->getSourceRange().getBegin());
-
-                            { // Inspired by `sema::InstantiateFunctionDeclaration()`.
-                                auto loc = decl->getSourceRange().getBegin();
-
-                                // Which one to pick? This one looks kinda relevant.
-                                auto csc = clang::Sema::CodeSynthesisContext::ExplicitTemplateArgumentSubstitution;
-
-                                clang::sema::TemplateDeductionInfo Info(loc);
-                                clang::Sema::InstantiatingTemplate Inst(ci->getSema(), loc, func_templ, ml_targs.getInnermost(), csc, Info);
-                                if (!Inst.isInvalid())
+                                if (tparam->isParameterPack())
                                 {
-                                    auto templated_decl = func_templ->getTemplatedDecl();
-                                    clang::Sema::ContextRAII SavedContext(ci->getSema(), templated_decl);
-                                    auto ret = cast_or_null<clang::FunctionDecl>(ci->getSema().SubstDecl(templated_decl, templated_decl->getParent(), ml_targs));
-                                    if (ret)
+                                    targs_vec[i] = clang::TemplateArgument::getEmptyPack(); // Empty pack is its own thing!
+                                }
+                                else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
+                                {
+                                    #if CLANG_VERSION_MAJOR == 18
+                                    targs_vec[i] = ttp->getDefaultArgument().getCanonicalType(); // NOTE! This is important. See above.
+                                    #else // 19+
+                                    targs_vec[i] = ttp->getDefaultArgument().getArgument().getAsType().getCanonicalType(); // NOTE! This is important. See above.
+                                    #endif
+                                }
+                                else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
+                                {
+                                    #if CLANG_VERSION_MAJOR == 18
+                                    targs_vec[i] = nttp->getDefaultArgument();
+                                    #else // 19+
+                                    targs_vec[i] = nttp->getDefaultArgument().getArgument();
+                                    #endif
+                                }
+                                else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
+                                {
+                                    targs_vec[i] = tetp->getDefaultArgument().getArgument(); // Hmm.
+                                }
+                                else
+                                {
+                                    throw std::logic_error("What is this template argument?");
+                                }
+                            }
+
+                            // For some reason this segfaults?! But it looks completely reasonable to me. Weird.
+                            //   clang::MultiLevelTemplateArgumentList ml_targs = ci->getSema().getTemplateInstantiationArgs(func_templ, nullptr, false, targs_vec);
+                            // So we do this instead:
+                            clang::MultiLevelTemplateArgumentList ml_targs(func_templ, targs_vec, false);
+
+                            // Check if already instantiated...
+                            // There's also `Sema::FindInstantiatedDecl()`, but I coundn't figure out how it's supposed to be used, of it's applicable here at all or not.
+                            // I'm not sure if I should be calling it in `decl` or `templ`, and it never returned null pointers for me, so whatever.
+                            [[maybe_unused]] void *unused_insertion_point = nullptr;
+                            if (!func_templ->findSpecialization(ml_targs.getInnermost(), unused_insertion_point))
+                            {
+                                // This doesn't crash if already instantiated, and looks like it's a no-op in that case, but I'm not entirely sure.
+                                // It doesn't matter anyway, because it doesn't seem to indicate to the caller whether it's already instantiated or not,
+                                //   and we need that information to set `need_another_iteration`.
+
+                                // I WOULD use `ci->getSema().InstantiateFunctionDeclaration(...)` here, but that's annoying to use because it requires
+                                //   a `clang::TemplateArgumentList` rather than `clang::MultiLevelTemplateArgumentList`, which I now (since Clang 19) can't get
+                                //   without heap-allocating it (so I'd need to manually cache those). And all that function does is LITERALLY construct
+                                //   a `clang::MultiLevelTemplateArgumentList` again, which I can trivially get myself as shown above.
+
+                                // auto new_decl = ci->getSema().InstantiateFunctionDeclaration(func_templ, targs, decl->getSourceRange().getBegin());
+
+                                { // Inspired by `sema::InstantiateFunctionDeclaration()`.
+                                    auto loc = decl->getSourceRange().getBegin();
+
+                                    // Which one to pick? This one looks kinda relevant.
+                                    auto csc = clang::Sema::CodeSynthesisContext::ExplicitTemplateArgumentSubstitution;
+
+                                    clang::sema::TemplateDeductionInfo Info(loc);
+                                    clang::Sema::InstantiatingTemplate Inst(ci->getSema(), loc, func_templ, ml_targs.getInnermost(), csc, Info);
+                                    if (!Inst.isInvalid())
                                     {
-                                        // `new_decl` CAN be null if the function failed to instantiate because of a SFINAE error.
-                                        // But this apparently doesn't happen for `requires` constraints?
-                                        // NOTE! Even if it's non-null, you must also check `Sema::CheckInstantiatedFunctionTemplateConstraints()`
-                                        //   before actually using the function.
-                                        need_another_iteration = true;
+                                        auto templated_decl = func_templ->getTemplatedDecl();
+                                        clang::Sema::ContextRAII SavedContext(ci->getSema(), templated_decl);
+                                        auto ret = cast_or_null<clang::FunctionDecl>(ci->getSema().SubstDecl(templated_decl, templated_decl->getParent(), ml_targs));
+                                        if (ret)
+                                        {
+                                            // `new_decl` CAN be null if the function failed to instantiate because of a SFINAE error.
+                                            // But this apparently doesn't happen for `requires` constraints?
+                                            // NOTE! Even if it's non-null, you must also check `Sema::CheckInstantiatedFunctionTemplateConstraints()`
+                                            //   before actually using the function.
+                                            need_another_iteration = true;
+                                        }
                                     }
                                 }
                             }
@@ -2243,7 +2247,6 @@ namespace mrbind
                     }
                 }
             }
-            #endif
 
             // For each parameter...
             for (clang::ParmVarDecl *p : decl->parameters())
@@ -2913,6 +2916,12 @@ int main(int argc, char **argv)
                         params.implicit_enum_underlying_type_is_always_int = true;
                         continue;
                     }
+
+                    if (this_arg == "--buggy-substitute-default-template-args")
+                    {
+                        params.buggy_substitute_default_template_args = true;
+                        continue;
+                    }
                 }
             }
 
@@ -2954,6 +2963,7 @@ int main(int argc, char **argv)
         "  --skip-mentions-of T        - Skip any data members of type `T`, and any functions that have type `T` either as the return type or as a parameter type. `T` must be cvref-unqualified, as those qualifiers are ignored automatically (unless `--no-cppdecl` is passed). Like in `--ignore`, the type can be enclosed in slashes to act as a regex. You might want to pass the same type to `--ignore` too. Unlike in `--ignore`, the template arguments can't be omitted, but a regex can be used to handle those.\n"
         "  --canonicalize-to-fixed-size-typedefs - This helps produce cross-platform bindings. Canonicalize integer types to the standard fixed-width typedefs, instead of their normal spellings. If you use this, you shouldn't use `long` and `long long` directly in the interface, and should only use 64-bit wide standard typedefs in their place. Because otherwise you will get conflicts between different types of the same width (we refuse to canonicalize either `long` or `long long` depending on the platform to avoid errors, but this isn't what you want).\n"
         "  --implicit-enum-underlying-type-is-always-int - This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.\n"
+        "  --buggy-substitute-default-template-args - Automatically instantiate function templates that have all their arguments defaulted, by substituting those default template arguments. This is currently buggy, enable at your own risk (chokes on old-style SFINAE, works alright with `requires`).\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
         "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.\n"
