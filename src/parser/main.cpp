@@ -156,6 +156,12 @@ namespace mrbind
         mutable ParsedFile parsed_result;
         mutable std::vector<EntityContainer *> container_stack;
 
+        // Maps canonical names as emitted by libclang (post-processed with cppdecl) to our custom spellings as specified with `mrbind::preferred_name`.
+        // We consult this map with canonicalizing types, to include our own mappings there too.
+        mutable std::unordered_map<std::string, cppdecl::QualifiedName> custom_preferred_names;
+        // We set this to true once we're done filling the map. Then it starts to affect `GetCanonicalTypeName()`.
+        mutable bool canonincalization_respects_custom_preferred_names = false;
+
         OutputFormat output_format = OutputFormat::unselected;
         std::vector<std::string> output_filenames;
 
@@ -277,6 +283,24 @@ namespace mrbind
         return false;
     }
 
+    // If the declaration has `mrbind::preferred_name=...`, returns the `...`. Otherwise null.
+    // This attribute is intended to be used for full template specializations, since those don't respect the stock `__attribute__((__preferred_name__(...)))`.
+    // `...` must be fully qualified. It's your job to ensure that a typedef with this name actually exists, and is always visible when its target is visible.
+    [[nodiscard]] std::optional<std::string> GetPreferredNameFromCustomAttribute(const clang::Decl &decl)
+    {
+        static constexpr std::string_view prefix = "mrbind::preferred_name=";
+        for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
+        {
+            std::string_view view = attr->getAnnotation();
+            if (view.starts_with(prefix))
+            {
+                view.remove_prefix(prefix.size());
+                return std::string(view);
+            }
+        }
+        return {};
+    }
+
 
     // Applies the common post-processing to a `cppdecl::Type` or `cppdecl::QualifiedName` or something similar.
     void AdjustCppdeclEntity(auto &entity, const clang::CompilerInstance &ci, const VisitorParams &params, bool canonicalize)
@@ -377,6 +401,20 @@ namespace mrbind
             }
 
             AdjustCppdeclEntity(type, ci, params, true);
+
+            // Apply custom canonical names!
+            if (params.canonincalization_respects_custom_preferred_names && !params.custom_preferred_names.empty())
+            {
+                type.VisitEachComponent<cppdecl::QualifiedName>(
+                    cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+                    [&](cppdecl::QualifiedName &name)
+                    {
+                        auto iter = params.custom_preferred_names.find(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
+                        if (iter != params.custom_preferred_names.end())
+                            name = iter->second;
+                    }
+                );
+            }
 
             ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
         }
@@ -1509,7 +1547,10 @@ namespace mrbind
                 templ->setTemplateArgsAsWritten(nullptr);
                 #endif
             }
-            new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
+            if (auto opt = GetPreferredNameFromCustomAttribute(*decl))
+                new_class.full_type = *opt;
+            else
+                new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
 
             // Register the class type, just in case. AFTER `setTypeAsWritten()`.
             (void)GetTypeStrings(ctx->getRecordType(decl), TypeUses::parsed);
@@ -1915,6 +1956,7 @@ namespace mrbind
     };
 
     // Mark all the classes and enums it sees as needing complete definitions.
+    // Additionally handles `mrbind::preferred_name` attributes, because those aren't used on templates anyway.
     struct ClangAstVisitor_CollectKnownTypes : clang::RecursiveASTVisitor<ClangAstVisitor_CollectKnownTypes>
     {
         using Base = clang::RecursiveASTVisitor<ClangAstVisitor_CollectKnownTypes>;
@@ -1932,12 +1974,19 @@ namespace mrbind
             params(&params)
         {}
 
+
+        // Wrap the non-member function for a nicer call syntax.
+        [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, clang::PrintingPolicy PrintingPolicies::* policy = &PrintingPolicies::normal)
+        {
+            return mrbind::GetCanonicalTypeName(type, *ci, *params, printing_policies.*policy, false);
+        }
+
+
         // Visit template specializations almost as if they were normal code.
         bool shouldVisitTemplateInstantiations() const // CRTP override
         {
             return true;
         }
-
 
 
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
@@ -1947,6 +1996,15 @@ namespace mrbind
             {
                 params->nonrejected_class_stack.push_back(nullptr);
                 return false;
+            }
+
+            // Register the `mrbind::preferred_name` attribute, if any, in the global map.
+            // Since it won't be used on (non-full-specialized) templates anyway, it's fine to do it here, before instantiating all templates.
+            if (auto opt = GetPreferredNameFromCustomAttribute(*decl))
+            {
+                std::string original_name = GetCanonicalTypeName(ctx->getRecordType(decl));
+                if (!params->custom_preferred_names.try_emplace(std::move(original_name), ParseQualifiedNameWithCppdecl(*opt)).second) // The string `original_name` is not moved on failure, so we can use it below when generating the error message.
+                    throw std::logic_error("Internal error: Duplicate parsed class name in the input: `" + original_name + "` (when constructing the mapping to the custom preferred name `" + *opt + "`.");
             }
 
             decl->setCompleteDefinitionRequired(true);
@@ -2449,6 +2507,9 @@ namespace mrbind
                 ClangAstVisitor_CollectKnownTypes vis(ctx, *ci, *params);
                 vis.TraverseDecl(ctx.getTranslationUnitDecl());
                 VerifyStacks();
+
+                // Once we're done fiilling the preferred names map, we can enable this.
+                params->canonincalization_respects_custom_preferred_names = true;
             }
 
             // Instantiate templates.

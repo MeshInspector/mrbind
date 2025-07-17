@@ -5,6 +5,7 @@
 #include <input/MR/test_arrays_of_incomplete_types.h>
 #include <input/MR/test_bases.h>
 #include <input/MR/test_conv_ops.h>
+#include <input/MR/test_custom_preferred_names.h>
 #include <input/MR/test_declaration_order.h>
 #include <input/MR/test_iostream.h>
 #include <input/MR/test_matching_layout.h>
