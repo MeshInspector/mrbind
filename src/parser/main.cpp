@@ -2056,7 +2056,10 @@ namespace mrbind
             if (ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
                 return true;
 
+            #if 0
             // If this is a template, try instantiating it.
+            // This is currently disabled because it's buggy: https://github.com/MeshInspector/mrbind/issues/19
+
             if (decl->isTemplated())
             {
                 // Among other things, we visit the function declarations to instantiate their default arguments,
@@ -2182,6 +2185,7 @@ namespace mrbind
                     }
                 }
             }
+            #endif
 
             // For each parameter...
             for (clang::ParmVarDecl *p : decl->parameters())
