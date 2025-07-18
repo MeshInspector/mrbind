@@ -13,7 +13,7 @@ unsigned long MR_TestSizeT_foo_unsigned_long(unsigned long _1)
     );
 }
 
-unsigned long **MR_TestSizeT_foo_unsigned_long_ptr_ref(unsigned long **_1)
+unsigned long **MR_TestSizeT_foo_unsigned_long_ptr(unsigned long **_1)
 {
     return &(::MR::TestSizeT::foo(
         (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null."))
@@ -34,7 +34,7 @@ long MR_TestSizeT_foo_long(long _1)
     );
 }
 
-long **MR_TestSizeT_foo_long_ptr_ref(long **_1)
+long **MR_TestSizeT_foo_long_ptr(long **_1)
 {
     return &(::MR::TestSizeT::foo(
         (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null."))

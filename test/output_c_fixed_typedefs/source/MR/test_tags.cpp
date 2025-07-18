@@ -10,21 +10,21 @@ void MR_Tags_foo_1_std_less_int32_t(void)
     );
 }
 
-void MR_Tags_foo_1_const_std_less_void_ref(void)
+void MR_Tags_foo_1_std_less_void(void)
 {
     ::MR::Tags::foo(
         std::less<void>{}
     );
 }
 
-void MR_Tags_foo_1_std_greater_int32_t_rvalue_ref(void)
+void MR_Tags_foo_1_std_greater_int32_t(void)
 {
     ::MR::Tags::foo(
         std::greater<int32_t>{}
     );
 }
 
-void MR_Tags_foo_1_const_std_greater_void_rvalue_ref(void)
+void MR_Tags_foo_1_std_greater_void(void)
 {
     ::MR::Tags::foo(
         std::greater<void>{}

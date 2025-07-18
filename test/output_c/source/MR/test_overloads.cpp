@@ -2,6 +2,9 @@
 
 #include <input/MR/test_overloads.h>
 
+#include <stdexcept>
+#include <utility>
+
 
 void MR_Overloads_a_1(int _1)
 {
@@ -57,6 +60,54 @@ void MR_Overloads_d_float(char _1, float _2, char _3)
         _1,
         _2,
         _3
+    );
+}
+
+void MR_Overloads_e_const_int_ref(const int *_1, int *_2)
+{
+    ::MR::Overloads::e(
+        (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null.")),
+        (_2 ? std::move(*_2) : throw std::runtime_error("Parameter `_2` can not be null."))
+    );
+}
+
+void MR_Overloads_e_int_rvalue_ref_int(int *_1, int *_2)
+{
+    ::MR::Overloads::e(
+        (_1 ? std::move(*_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
+        (_2 ? std::move(*_2) : throw std::runtime_error("Parameter `_2` can not be null."))
+    );
+}
+
+void MR_Overloads_e_int_rvalue_ref_float(int *_1, float *_2)
+{
+    ::MR::Overloads::e(
+        (_1 ? std::move(*_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
+        (_2 ? std::move(*_2) : throw std::runtime_error("Parameter `_2` can not be null."))
+    );
+}
+
+void MR_Overloads_f_float(float _1, int _2)
+{
+    ::MR::Overloads::f(
+        _1,
+        _2
+    );
+}
+
+void MR_Overloads_f_int_rvalue_ref(int *_1, float _2)
+{
+    ::MR::Overloads::f(
+        (_1 ? std::move(*_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
+        _2
+    );
+}
+
+void MR_Overloads_f_const_int_ref(const int *_1, float _2)
+{
+    ::MR::Overloads::f(
+        (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null.")),
+        _2
     );
 }
 

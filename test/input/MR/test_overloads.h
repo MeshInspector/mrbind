@@ -16,4 +16,15 @@ namespace MR::Overloads
 
     void d(char, int, char);
     void d(char, float, char);
+
+    void e(const int &, int &&);
+    void e(int &&, int &&);
+    void e(int &&, float &&);
+
+    // This is a fun testcase. Here we must not omit cvref on the first parameter, even if it partially helps with disambiguation,
+    //   because that ultimately leads to an ambiguity.
+    // So we can only omit cvref if each function has cvref in that parameter).
+    void f(float, int);
+    void f(int &&, float);
+    void f(const int &, float);
 }

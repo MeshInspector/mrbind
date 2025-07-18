@@ -2412,13 +2412,55 @@ namespace mrbind::CBindings
             bool any_progress = false;
             for (const auto &elem : ambig_names)
             {
+                bool need_cvref = false;
+
                 auto ParamTypeToString = [&](const cppdecl::Type &type)
                 {
-                    return cppdecl::ToString(type, cppdecl::ToStringFlags::identifier);
+                    if (need_cvref)
+                    {
+                        return cppdecl::ToString(type, cppdecl::ToStringFlags::identifier);
+                    }
+                    else
+                    {
+                        // Remove cvref. (Intentionally only const? Don't even want to think about how I should handle volatiile.)
+                        cppdecl::Type fixed_type = type;
+                        if (fixed_type.Is<cppdecl::Reference>())
+                            fixed_type.RemoveModifier();
+                        fixed_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                        return cppdecl::ToString(fixed_type, cppdecl::ToStringFlags::identifier);
+                    }
                 };
 
-                bool have_different_types = false;
-                { // Check if it makes sense for this name group.
+                // First try without cvref.
+                bool have_different_types = true;
+                {
+                    // Somewhat unusually, here we need ALL parameter types to be unique (ignoring cvref), not just some.
+                    // If only some of them are unique, it's still possible to get an ambiguity later. See the testcase `f()` in `test_overloads.h`.
+
+                    std::unordered_set<std::string> type_strings;
+
+                    for (const auto &subelem : elem.second)
+                    {
+                        std::string this_type_string;
+                        if (subelem->second.num_params_consumed < subelem->second.params.size())
+                            this_type_string = ParamTypeToString(subelem->second.params[subelem->second.num_params_consumed].cpp_type);
+
+                        // Still insert even if the string is empty.
+
+                        if (!type_strings.insert(std::move(this_type_string)).second)
+                        {
+                            have_different_types = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (!have_different_types)
+                {
+                    // Try again with cvref.
+                    need_cvref = true;
+
                     std::string first_type_str;
                     const auto &first_elem = *elem.second.front();
                     if (first_elem.second.num_params_consumed < first_elem.second.params.size())
@@ -2446,9 +2488,9 @@ namespace mrbind::CBindings
                             break;
                         }
                     }
-
-                    // Can't `continue;` here yet even if `have_different_types == false`. We still need to increment `num_params_consumed` below.
                 }
+
+                // Can't `continue;` here yet even if `have_different_types == false`. We still need to increment `num_params_consumed` below.
 
                 for (const auto &subelem : elem.second)
                 {

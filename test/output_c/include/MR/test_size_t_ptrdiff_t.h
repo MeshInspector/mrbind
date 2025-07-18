@@ -22,7 +22,7 @@ MR_C_API unsigned long MR_TestSizeT_foo_unsigned_long(unsigned long _1);
 /// Generated from function `MR::TestSizeT::foo`.
 /// Parameter `_1` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API unsigned long **MR_TestSizeT_foo_unsigned_long_ptr_ref(unsigned long **_1);
+MR_C_API unsigned long **MR_TestSizeT_foo_unsigned_long_ptr(unsigned long **_1);
 
 /// Generated from function `MR::TestSizeT::foo`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_Destroy()` to free it when you're done using it.
@@ -34,7 +34,7 @@ MR_C_API long MR_TestSizeT_foo_long(long _1);
 /// Generated from function `MR::TestSizeT::foo`.
 /// Parameter `_1` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API long **MR_TestSizeT_foo_long_ptr_ref(long **_1);
+MR_C_API long **MR_TestSizeT_foo_long_ptr(long **_1);
 
 /// Generated from function `MR::TestSizeT::foo`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_long_Destroy()` to free it when you're done using it.
