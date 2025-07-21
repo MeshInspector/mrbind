@@ -114,22 +114,22 @@ MR_A *MR_C_std_vector_MR_A_MutableAt(MR_C_std_vector_MR_A *_this, size_t i)
 
 const MR_A *MR_C_std_vector_MR_A_Front(const MR_C_std_vector_MR_A *_this)
 {
-    return (const MR_A *)((_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr);
+    return (const MR_A *)((_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front());
 }
 
 MR_A *MR_C_std_vector_MR_A_MutableFront(MR_C_std_vector_MR_A *_this)
 {
-    return (MR_A *)((_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr);
+    return (MR_A *)((_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front());
 }
 
 const MR_A *MR_C_std_vector_MR_A_Back(const MR_C_std_vector_MR_A *_this)
 {
-    return (const MR_A *)((_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr);
+    return (const MR_A *)((_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back());
 }
 
 MR_A *MR_C_std_vector_MR_A_MutableBack(MR_C_std_vector_MR_A *_this)
 {
-    return (MR_A *)((_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr);
+    return (MR_A *)((_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<MR::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back());
 }
 
 void MR_C_std_vector_MR_A_PushBack(MR_C_std_vector_MR_A *_this, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)

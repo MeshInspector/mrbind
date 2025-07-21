@@ -123,22 +123,22 @@ int64_t *MR_C_std_vector_int64_t_MutableAt(MR_C_std_vector_int64_t *_this, size_
 
 const int64_t *MR_C_std_vector_int64_t_Front(const MR_C_std_vector_int64_t *_this)
 {
-    return (_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 int64_t *MR_C_std_vector_int64_t_MutableFront(MR_C_std_vector_int64_t *_this)
 {
-    return (_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 const int64_t *MR_C_std_vector_int64_t_Back(const MR_C_std_vector_int64_t *_this)
 {
-    return (_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 int64_t *MR_C_std_vector_int64_t_MutableBack(MR_C_std_vector_int64_t *_this)
 {
-    return (_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<int64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 const int64_t *MR_C_std_vector_int64_t_Data(const MR_C_std_vector_int64_t *_this)

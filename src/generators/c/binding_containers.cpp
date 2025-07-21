@@ -370,7 +370,7 @@ namespace mrbind::CBindings
                         emit.c_name = class_binder.MakeMemberFuncName(generator, "Front");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
-                        emit.cpp_called_func = "@this@.empty() ? &@this@.front() : nullptr";
+                        emit.cpp_called_func = "@this@.empty() ? nullptr : &@this@.front()";
                         generator.EmitFunction(file, emit);
                     }
 
@@ -380,7 +380,7 @@ namespace mrbind::CBindings
                         emit.c_name = class_binder.MakeMemberFuncName(generator, "MutableFront");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
-                        emit.cpp_called_func = "@this@.empty() ? &@this@.front() : nullptr";
+                        emit.cpp_called_func = "@this@.empty() ? nullptr : &@this@.front()";
                         generator.EmitFunction(file, emit);
                     }
 
@@ -390,7 +390,7 @@ namespace mrbind::CBindings
                         emit.c_name = class_binder.MakeMemberFuncName(generator, "Back");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
-                        emit.cpp_called_func = "@this@.empty() ? &@this@.back() : nullptr";
+                        emit.cpp_called_func = "@this@.empty() ? nullptr : &@this@.back()";
                         generator.EmitFunction(file, emit);
                     }
 
@@ -400,7 +400,7 @@ namespace mrbind::CBindings
                         emit.c_name = class_binder.MakeMemberFuncName(generator, "MutableBack");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
-                        emit.cpp_called_func = "@this@.empty() ? &@this@.back() : nullptr";
+                        emit.cpp_called_func = "@this@.empty() ? nullptr : &@this@.back()";
                         generator.EmitFunction(file, emit);
                     }
                 }

@@ -107,22 +107,22 @@ MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDe
 
 const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Front(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this)
 {
-    return (const MR_StdContainers_NonDefaultConstructible *)((_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr);
+    return (const MR_StdContainers_NonDefaultConstructible *)((_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front());
 }
 
 MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableFront(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this)
 {
-    return (MR_StdContainers_NonDefaultConstructible *)((_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr);
+    return (MR_StdContainers_NonDefaultConstructible *)((_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front());
 }
 
 const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Back(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this)
 {
-    return (const MR_StdContainers_NonDefaultConstructible *)((_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr);
+    return (const MR_StdContainers_NonDefaultConstructible *)((_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back());
 }
 
 MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBack(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this)
 {
-    return (MR_StdContainers_NonDefaultConstructible *)((_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr);
+    return (MR_StdContainers_NonDefaultConstructible *)((_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back());
 }
 
 void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PushBack(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *new_elem)

@@ -106,22 +106,22 @@ int32_t *MR_C_std_deque_int32_t_MutableAt(MR_C_std_deque_int32_t *_this, size_t 
 
 const int32_t *MR_C_std_deque_int32_t_Front(const MR_C_std_deque_int32_t *_this)
 {
-    return (_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 int32_t *MR_C_std_deque_int32_t_MutableFront(MR_C_std_deque_int32_t *_this)
 {
-    return (_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 const int32_t *MR_C_std_deque_int32_t_Back(const MR_C_std_deque_int32_t *_this)
 {
-    return (_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 int32_t *MR_C_std_deque_int32_t_MutableBack(MR_C_std_deque_int32_t *_this)
 {
-    return (_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::deque<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 void MR_C_std_deque_int32_t_PushBack(MR_C_std_deque_int32_t *_this, int32_t new_elem)

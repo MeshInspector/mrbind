@@ -123,22 +123,22 @@ unsigned long *MR_C_std_vector_unsigned_long_MutableAt(MR_C_std_vector_unsigned_
 
 const unsigned long *MR_C_std_vector_unsigned_long_Front(const MR_C_std_vector_unsigned_long *_this)
 {
-    return (_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 unsigned long *MR_C_std_vector_unsigned_long_MutableFront(MR_C_std_vector_unsigned_long *_this)
 {
-    return (_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 const unsigned long *MR_C_std_vector_unsigned_long_Back(const MR_C_std_vector_unsigned_long *_this)
 {
-    return (_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 unsigned long *MR_C_std_vector_unsigned_long_MutableBack(MR_C_std_vector_unsigned_long *_this)
 {
-    return (_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<unsigned long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 const unsigned long *MR_C_std_vector_unsigned_long_Data(const MR_C_std_vector_unsigned_long *_this)

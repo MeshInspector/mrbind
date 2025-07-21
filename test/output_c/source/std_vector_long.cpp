@@ -123,22 +123,22 @@ long *MR_C_std_vector_long_MutableAt(MR_C_std_vector_long *_this, size_t i)
 
 const long *MR_C_std_vector_long_Front(const MR_C_std_vector_long *_this)
 {
-    return (_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 long *MR_C_std_vector_long_MutableFront(MR_C_std_vector_long *_this)
 {
-    return (_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front() : nullptr;
+    return (_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front();
 }
 
 const long *MR_C_std_vector_long_Back(const MR_C_std_vector_long *_this)
 {
-    return (_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 long *MR_C_std_vector_long_MutableBack(MR_C_std_vector_long *_this)
 {
-    return (_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? &(_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back() : nullptr;
+    return (_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<long> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back();
 }
 
 const long *MR_C_std_vector_long_Data(const MR_C_std_vector_long *_this)
