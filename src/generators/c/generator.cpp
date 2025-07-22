@@ -13,6 +13,7 @@
 #include <cppdecl/declarations/to_string.h>
 
 #include <cstdio>
+#include <exception>
 #include <filesystem>
 #include <functional>
 #include <iostream>
