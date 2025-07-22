@@ -27,7 +27,7 @@ int32_t MR_C_pos_MR_OverloadedOps_A(MR_OverloadedOps_A *_this)
     return (_this ? *(MR::OverloadedOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator+();
 }
 
-int32_t MR_C_plus_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
+int32_t MR_C_add_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
 {
     return (_this ? *(MR::OverloadedOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator+(
         (_1 ? MR::OverloadedOps::A(*(MR::OverloadedOps::A *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
@@ -39,7 +39,7 @@ int32_t MR_C_neg_MR_OverloadedOps_A(MR_OverloadedOps_A *_this)
     return (_this ? *(MR::OverloadedOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator-();
 }
 
-int32_t MR_C_minus_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
+int32_t MR_C_sub_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
 {
     return (_this ? *(MR::OverloadedOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator-(
         (_1 ? MR::OverloadedOps::A(*(MR::OverloadedOps::A *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
@@ -117,14 +117,14 @@ int32_t MR_C_greater_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_Over
     );
 }
 
-int32_t MR_OverloadedOps_A_plus_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
+int32_t MR_OverloadedOps_A_add_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
 {
     return (_this ? *(MR::OverloadedOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator+=(
         (_1 ? MR::OverloadedOps::A(*(MR::OverloadedOps::A *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
     );
 }
 
-int32_t MR_OverloadedOps_A_minus_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
+int32_t MR_OverloadedOps_A_sub_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
 {
     return (_this ? *(MR::OverloadedOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator-=(
         (_1 ? MR::OverloadedOps::A(*(MR::OverloadedOps::A *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
@@ -300,7 +300,7 @@ int32_t MR_OverloadedOps_A_call(MR_OverloadedOps_A *_this, const MR_OverloadedOp
     );
 }
 
-int32_t MR_OverloadedOps_A_at(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
+int32_t MR_OverloadedOps_A_index(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1)
 {
     return (_this ? *(MR::OverloadedOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator[](
         (_1 ? MR::OverloadedOps::A(*(MR::OverloadedOps::A *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
@@ -368,7 +368,7 @@ int32_t MR_C_pos_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1)
     );
 }
 
-int32_t MR_C_plus_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
+int32_t MR_C_add_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
 {
     return operator+(
         (_1 ? MR::OverloadedOps::B(*(MR::OverloadedOps::B *)_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
@@ -383,7 +383,7 @@ int32_t MR_C_neg_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1)
     );
 }
 
-int32_t MR_C_minus_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
+int32_t MR_C_sub_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
 {
     return operator-(
         (_1 ? MR::OverloadedOps::B(*(MR::OverloadedOps::B *)_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
@@ -476,7 +476,7 @@ int32_t MR_C_greater_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_O
     );
 }
 
-int32_t MR_C_plus_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
+int32_t MR_C_add_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
 {
     return operator+=(
         (_1 ? MR::OverloadedOps::B(*(MR::OverloadedOps::B *)_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
@@ -484,7 +484,7 @@ int32_t MR_C_plus_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const 
     );
 }
 
-int32_t MR_C_minus_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
+int32_t MR_C_sub_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2)
 {
     return operator-=(
         (_1 ? MR::OverloadedOps::B(*(MR::OverloadedOps::B *)_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
@@ -718,7 +718,7 @@ MR_OverloadedOps_C *MR_OverloadedOps_C_AssignFromAnother(MR_OverloadedOps_C *_th
     ));
 }
 
-void MR_C_plus_MR_OverloadedOps_C(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_C *_2)
+void MR_C_add_MR_OverloadedOps_C(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_C *_2)
 {
     operator+(
         (_1 ? *(const MR::OverloadedOps::C *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),
@@ -726,7 +726,7 @@ void MR_C_plus_MR_OverloadedOps_C(const MR_OverloadedOps_C *_1, const MR_Overloa
     );
 }
 
-void MR_C_plus_MR_OverloadedOps_C_MR_OverloadedOps_B(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_B *_2)
+void MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_B *_2)
 {
     operator+(
         (_1 ? *(const MR::OverloadedOps::C *)(_1) : throw std::runtime_error("Parameter `_1` can not be null.")),

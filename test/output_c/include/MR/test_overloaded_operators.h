@@ -45,7 +45,7 @@ MR_C_API int MR_C_pos_MR_OverloadedOps_A(MR_OverloadedOps_A *_this);
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator+`.
 /// Parameter `_this` can not be null.
 /// Parameter `_1` can not be null.
-MR_C_API int MR_C_plus_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
+MR_C_API int MR_C_add_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
 
 // Unary minus.
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator-`.
@@ -56,7 +56,7 @@ MR_C_API int MR_C_neg_MR_OverloadedOps_A(MR_OverloadedOps_A *_this);
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator-`.
 /// Parameter `_this` can not be null.
 /// Parameter `_1` can not be null.
-MR_C_API int MR_C_minus_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
+MR_C_API int MR_C_sub_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
 
 // Dereference (unary star).
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator*`.
@@ -125,13 +125,13 @@ MR_C_API int MR_C_greater_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator+=`.
 /// Parameter `_this` can not be null.
 /// Parameter `_1` can not be null.
-MR_C_API int MR_OverloadedOps_A_plus_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
+MR_C_API int MR_OverloadedOps_A_add_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
 
 // Minus assign.
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator-=`.
 /// Parameter `_this` can not be null.
 /// Parameter `_1` can not be null.
-MR_C_API int MR_OverloadedOps_A_minus_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
+MR_C_API int MR_OverloadedOps_A_sub_assign(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
 
 // Multiply assign.
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator*=`.
@@ -282,7 +282,7 @@ MR_C_API int MR_OverloadedOps_A_call(MR_OverloadedOps_A *_this, const MR_Overloa
 /// Generated from a method of class `MR::OverloadedOps::A` named `operator[]`.
 /// Parameter `_this` can not be null.
 /// Parameter `_1` can not be null.
-MR_C_API int MR_OverloadedOps_A_at(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
+MR_C_API int MR_OverloadedOps_A_index(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetPtr(const MR_OverloadedOps_A *ptr, ptrdiff_t i);
@@ -331,7 +331,7 @@ MR_C_API int MR_C_pos_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1);
 /// Generated from function `MR::OverloadedOps::operator+`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API int MR_C_plus_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
+MR_C_API int MR_C_add_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
 
 // Unary minus.
 /// Generated from function `MR::OverloadedOps::operator-`.
@@ -342,7 +342,7 @@ MR_C_API int MR_C_neg_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1);
 /// Generated from function `MR::OverloadedOps::operator-`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API int MR_C_minus_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
+MR_C_API int MR_C_sub_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
 
 // Dereference (unary star).
 /// Generated from function `MR::OverloadedOps::operator*`.
@@ -413,13 +413,13 @@ MR_C_API int MR_C_greater_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const
 /// Generated from function `MR::OverloadedOps::operator+=`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API int MR_C_plus_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
+MR_C_API int MR_C_add_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
 
 // Minus assign.
 /// Generated from function `MR::OverloadedOps::operator-=`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API int MR_C_minus_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
+MR_C_API int MR_C_sub_assign_MR_OverloadedOps_B(const MR_OverloadedOps_B *_1, const MR_OverloadedOps_B *_2);
 
 // Multiply assign.
 /// Generated from function `MR::OverloadedOps::operator*=`.
@@ -591,13 +591,13 @@ MR_C_API MR_OverloadedOps_C *MR_OverloadedOps_C_AssignFromAnother(MR_OverloadedO
 /// Generated from function `MR::OverloadedOps::operator+`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API void MR_C_plus_MR_OverloadedOps_C(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_C *_2);
+MR_C_API void MR_C_add_MR_OverloadedOps_C(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_C *_2);
 
 // But different types are printed.
 /// Generated from function `MR::OverloadedOps::operator+`.
 /// Parameter `_1` can not be null.
 /// Parameter `_2` can not be null.
-MR_C_API void MR_C_plus_MR_OverloadedOps_C_MR_OverloadedOps_B(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_B *_2);
+MR_C_API void MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(const MR_OverloadedOps_C *_1, const MR_OverloadedOps_B *_2);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_D_Destroy()` to free it when you're done using it.
