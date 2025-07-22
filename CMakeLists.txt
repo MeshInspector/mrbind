@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 3.10)
 
 project(mrbind)
 
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_EXTENSIONS off)
+# Old CMake doesn't understand `CMAKE_CXX_STANDARD 23`, so instead I add those to `CMAKE_CXX_FLAGS`.
+# set(CMAKE_CXX_STANDARD 23)
+# set(CMAKE_CXX_EXTENSIONS off)
 
 if(NOT MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough -Wconversion")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++23 -Wall -Wextra -pedantic-errors -Wdeprecated -Wextra-semi -Wimplicit-fallthrough -Wconversion")
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         # Just in case, set the flags for both libstdc++ and libc++.
