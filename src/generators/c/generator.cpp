@@ -394,7 +394,7 @@ namespace mrbind::CBindings
         {
             file.header.contents += "#ifndef " + macro_name + "\n";
             file.header.contents += "#  ifdef _WIN32\n";
-            file.header.contents += "#    if " + GetBuildLibraryMacroForFile(target_file) + "\n";
+            file.header.contents += "#    ifdef " + GetBuildLibraryMacroForFile(target_file) + "\n";
             file.header.contents += "#      define " + macro_name + " __declspec(dllexport)\n";
             file.header.contents += "#    else\n";
             file.header.contents += "#      define " + macro_name + " __declspec(dllimport)\n";
