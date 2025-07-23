@@ -1476,6 +1476,11 @@ namespace mrbind::CBindings
 
         std::string body_return = params.cpp_called_func;
 
+        // Should we wrap the entire function body in deprecation-silencing pragmas?
+        // We need to it for the entire body, because GCC apprently doesn't support injecting `_Pragma()` into arbitrary places in expressions (duh!).
+        // We additionally update this variable based on the parameter types and the return type. If any of them needs this, we add the pragmas.
+        bool should_silence_deprecation = params.silence_deprecation;
+
         // Assemble the parameter and argument lists.
         std::size_t i = 1; // This counter doesn't increment on `this` parameters. It is 1-based for user-friendliness.
         bool first_arg_in_call_expr = true;
@@ -1552,6 +1557,10 @@ namespace mrbind::CBindings
 
                     // Declare or include the dependencies of the parameter.
                     param_usage.AddDependenciesToFile(*this, file);
+
+                    // Update the deprecation flag.
+                    if (param_usage.silence_deprecation)
+                        should_silence_deprecation = true;
 
                     for (const auto &c_param : param_usage.c_params)
                     {
@@ -1731,6 +1740,10 @@ namespace mrbind::CBindings
                 // Declare or include the dependencies of the return type.
                 bindable_return_type.return_usage->AddDependenciesToFile(*this, file);
 
+                // Update the deprecation flag.
+                if (bindable_return_type.return_usage->silence_deprecation)
+                    should_silence_deprecation = true;
+
                 // Custom comment?
                 if (bindable_return_type.return_usage->append_to_comment)
                 {
@@ -1796,6 +1809,13 @@ namespace mrbind::CBindings
                 }
             }
 
+            // Silence deprecation if needed.
+            if (should_silence_deprecation)
+            {
+                ret.body += "    MRBINDC_IGNORE_DEPRECATION(\n";
+                file.source.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion);
+            }
+
             if (!body_pre.empty())
             {
                 ret.body += "    ";
@@ -1809,6 +1829,10 @@ namespace mrbind::CBindings
                 ret.body += body_return;
                 ret.body += "\n";
             }
+
+            // End silencing deprecation.
+            if (should_silence_deprecation)
+                ret.body += "    ) // MRBINDC_IGNORE_DEPRECATION\n";
 
             ret.body += "}";
         }

@@ -77,23 +77,15 @@ namespace mrbind::CBindings::Modules
                 type_str,
                 [](std::string_view begin) -> std::string
                 {
-                    return "MRBINDC_IGNORE_DEPRECATION(std::filesystem::u8path(" + std::string(begin) + "))";
+                    return "std::filesystem::u8path(" + std::string(begin) + ")";
                 },
                 [](std::string_view begin, std::string_view end) -> std::string
                 {
-                    return "MRBINDC_IGNORE_DEPRECATION(std::filesystem::u8path(" + std::string(begin) + ", " + std::string(end) + "))";
+                    return "std::filesystem::u8path(" + std::string(begin) + ", " + std::string(end) + ")";
                 }
             );
-            // Include the details header, for `MRBINDC_IGNORE_DEPRECATION()` in the callback above.
-            new_type.param_usage_with_default_arg->extra_headers.custom_in_source_file =
-                [&generator, next = std::move(new_type.param_usage_with_default_arg->extra_headers.custom_in_source_file)]
-                {
-                    std::unordered_set<std::string> ret;
-                    if (next)
-                        ret = next();
-                    ret.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
-                    return ret;
-                };
+            // `std::filesystem::u8path()` is deprecated, so we need to silence the warning! Duh.
+            new_type.param_usage_with_default_arg->silence_deprecation = true;
             // Expand the comment to say that this is a UTF-8 encoded path.
             new_type.param_usage_with_default_arg->append_to_comment =
                 [next = std::move(new_type.param_usage_with_default_arg->append_to_comment)](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param) -> std::string

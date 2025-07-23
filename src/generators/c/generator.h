@@ -779,6 +779,10 @@ namespace mrbind::CBindings
                 // This is for custom and stdlib headers, not for those generated from parsing. Use `same_addr_bindable_type_dependencies` for those.
                 ExtraHeaders extra_headers;
 
+                // Should we disable the deprecation warnings in the function body?
+                // We need to it for the entire body, because GCC apprently doesn't support injecting `_Pragma()` into arbitrary places in expressions (duh!).
+                bool silence_deprecation = false;
+
                 // When this type is returned, this string is appended to the comment.
                 // Don't include line breaks before and after, we add them automatically.
                 // Do include the leading slashes, normally `///`.
@@ -812,6 +816,8 @@ namespace mrbind::CBindings
                     generator.ApplyTypeDependenciesToFile(file, same_addr_bindable_type_dependencies);
                     extra_headers.InsertToFile(file);
                 }
+
+                ParamUsage() {} // Make Clang happy.
             };
 
             struct ParamUsageWithDefaultArg : ParamUsage
@@ -882,6 +888,10 @@ namespace mrbind::CBindings
                 // This is for custom and stdlib headers, not for those generated from parsing. Use `same_addr_bindable_type_dependencies` for those.
                 ExtraHeaders extra_headers;
 
+                // Should we disable the deprecation warnings in the function body?
+                // We need to it for the entire body, because GCC apprently doesn't support injecting `_Pragma()` into arbitrary places in expressions (duh!).
+                bool silence_deprecation = false;
+
                 // When this type is returned, this string is appended to the comment.
                 // Don't include line breaks before and after, we add them automatically.
                 // Do include the leading slashes, normally `///`.
@@ -906,6 +916,8 @@ namespace mrbind::CBindings
                     generator.ApplyTypeDependenciesToFile(file, same_addr_bindable_type_dependencies);
                     extra_headers.InsertToFile(file);
                 }
+
+                ReturnUsage() {} // Make Clang happy.
             };
             // If this is null, this type is unusable as a return type.
             std::optional<ReturnUsage> return_usage;
@@ -1085,6 +1097,11 @@ namespace mrbind::CBindings
 
             // The extra header files to include.
             ExtraHeaders extra_headers;
+
+            // Should we disable the deprecation warnings in the function body?
+            // We need to it for the entire body, because GCC apprently doesn't support injecting `_Pragma()` into arbitrary places in expressions (duh!).
+            // We also have similar flags in parameter and return usages, and accumulate them all.
+            bool silence_deprecation = false;
 
             struct Param
             {
