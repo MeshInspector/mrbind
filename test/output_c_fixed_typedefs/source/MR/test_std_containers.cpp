@@ -3,7 +3,6 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_containers.h>
 
-#include <bit>
 #include <stdexcept>
 #include <utility>
 
@@ -165,13 +164,13 @@ MR_C_std_array_MR_StdContainers_A_42 *MR_StdContainers_GetStdArray(void)
 
 MR_C_std_array_int32_t_43 MR_StdContainers_GetStdArraySimple(void)
 {
-    return std::bit_cast<MR_C_std_array_int32_t_43>(::MR::StdContainers::GetStdArraySimple());
+    return MRBINDC_BIT_CAST((MR_C_std_array_int32_t_43), ::MR::StdContainers::GetStdArraySimple());
 }
 
 void MR_StdContainers_StdArraySimpleParam(MR_C_std_array_int32_t_43 _1)
 {
     ::MR::StdContainers::StdArraySimpleParam(
-        std::bit_cast<std::array<int32_t, 43>>(_1)
+        MRBINDC_BIT_CAST((std::array<int32_t, 43>), _1)
     );
 }
 
