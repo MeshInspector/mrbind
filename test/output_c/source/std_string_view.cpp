@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_string_view.h"
 
 #include <stdexcept>

@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "MR/test_nested_class_template_inst.h"
 
 #include <input/MR/test_nested_class_template_inst.h>

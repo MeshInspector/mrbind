@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_flo__22dd.h"
 
 #include <__mrbind_c_details.h>

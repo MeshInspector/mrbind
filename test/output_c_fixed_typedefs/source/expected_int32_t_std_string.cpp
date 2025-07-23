@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "expected_int32_t_std_string.h"
 
 #include <__mrbind_c_details.h>

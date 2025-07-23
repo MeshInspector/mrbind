@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_vector_int.h"
 
 #include <__mrbind_c_details.h>

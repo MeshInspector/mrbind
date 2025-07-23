@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_shared_ptr_MR_StdSharedPtr_A_array.h"
 
 #include <__mrbind_c_details.h>

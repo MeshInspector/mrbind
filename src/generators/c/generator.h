@@ -56,6 +56,9 @@ namespace mrbind::CBindings
         // Do not access directly! Use `MakePublicHelperName()` instead. That throws if this is not specified.
         std::string helper_name_prefix_opt;
 
+        // Same, but for macros. If not specified, defaults to `helper_name_prefix_opt`.
+        std::string helper_macro_name_prefix_opt;
+
         // Fail if `[unsigned] long [long]` appears in the parsed input.
         // This is designed to work with the parser's `--canonicalize-to-fixed-size-typedefs`.
         bool reject_long_and_long_long = false;
@@ -76,9 +79,6 @@ namespace mrbind::CBindings
         std::string extension_header = ".h";
         std::string extension_source = ".cpp";
         std::string extension_internal_header = ".detail.hpp";
-
-        // This is added after `helper_name_prefix_opt` to internal names.
-        std::string detail_helper_name_extra_prefix = "DETAIL_";
         // ]
 
 
@@ -132,17 +132,23 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string MakePublicHelperName(std::string_view name) const
         {
             std::string ret = helper_name_prefix_opt;
+            if (ret.empty())
+                throw std::runtime_error("Must specify `--helper-name-prefix ...`.");
             ret += name;
             return ret;
         }
-        // This one is for the internal helpers.
-        [[nodiscard]] std::string MakeDetailHelperName(std::string_view name) const
+        // Same, but for macros.
+        [[nodiscard]] std::string MakePublicHelperMacroName(std::string_view name) const
         {
-            std::string ret = helper_name_prefix_opt;
-            ret += detail_helper_name_extra_prefix;
+            // Default to `MakePublicHelperName()` if not specified.
+            if (helper_macro_name_prefix_opt.empty())
+                return MakePublicHelperName(name);
+
+            std::string ret = helper_macro_name_prefix_opt;
             ret += name;
             return ret;
         }
+
         // This one is for member function names (including static member functions), for both parsed and custom classes.
         [[nodiscard]] std::string MakeMemberFuncName(std::string_view c_type_name, std::string_view func_name) const
         {
@@ -289,6 +295,10 @@ namespace mrbind::CBindings
         // Also modifies that file to include the header where the macro is declared, and creates that header on the first use too.
         // If `for_internal_header` is false, acts on the public C header. If true, acts on the internal C++ header.
         [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file, bool for_internal_header);
+
+        // Returns the macro that when defined enables the function exporting. It's defined automatically in all our source files.
+        // This function doesn't modify the file, unlike `GetExportMacroForFile()`.
+        [[nodiscard]] std::string GetBuildLibraryMacroForFile(const OutputFile &target_file);
 
         // Returns true if this is a built-in C type.
         // If both `allow_scalar_typedefs` is true and `flags & allow_integral` is true, also accept `[u]int??_t`, to match `--canonicalize-to-fixed-size-typedefs`.

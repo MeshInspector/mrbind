@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "MR/test_tags.h"
 
 #include <input/MR/test_tags.h>

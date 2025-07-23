@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "phmap_node_hash_map_int_float.h"
 
 #include <__mrbind_c_details.h>

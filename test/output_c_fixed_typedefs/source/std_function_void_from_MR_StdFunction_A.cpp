@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_function_void_from_MR_StdFunction_A.h"
 
 #include <__mrbind_c_details.h>

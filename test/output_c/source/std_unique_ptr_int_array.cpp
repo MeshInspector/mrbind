@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_unique_ptr_int_array.h"
 
 #include <common.h>

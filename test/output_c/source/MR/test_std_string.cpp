@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "MR/test_std_string.h"
 
 #include <input/MR/test_std_string.h>

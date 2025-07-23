@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "phmap_flat_hash_map_int32_t_float.h"
 
 #include <__mrbind_c_details.h>

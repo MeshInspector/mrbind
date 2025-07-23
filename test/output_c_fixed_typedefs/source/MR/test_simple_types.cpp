@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "MR/test_simple_types.h"
 
 #include <input/MR/test_simple_types.h>

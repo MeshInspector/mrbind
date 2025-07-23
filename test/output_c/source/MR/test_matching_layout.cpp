@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "MR/test_matching_layout.h"
 
 #include <__mrbind_c_details.h>

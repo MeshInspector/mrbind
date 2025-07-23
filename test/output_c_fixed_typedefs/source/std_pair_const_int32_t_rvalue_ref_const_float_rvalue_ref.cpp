@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref.h"
 
 #include <__mrbind_c_details.h>

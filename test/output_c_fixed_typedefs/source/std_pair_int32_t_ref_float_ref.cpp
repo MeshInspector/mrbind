@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_pair_int32_t_ref_float_ref.h"
 
 #include <stdexcept>

@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_function_MR_StdFunction_E_from_int_MR_StdFunction_E.h"
 
 #include <__mrbind_c_details.h>

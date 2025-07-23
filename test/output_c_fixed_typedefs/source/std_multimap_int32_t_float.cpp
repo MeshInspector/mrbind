@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_multimap_int32_t_float.h"
 
 #include <__mrbind_c_details.h>

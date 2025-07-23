@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_function_std_string_from_int_float.h"
 
 #include <__mrbind_c_details.h>

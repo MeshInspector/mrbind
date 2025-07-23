@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_unique_ptr_int32_t.h"
 
 #include <common.h>

@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_optional_MR_StdOptional_A.h"
 
 #include <input/MR/test_std_optional.h>

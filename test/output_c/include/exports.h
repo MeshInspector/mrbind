@@ -2,7 +2,7 @@
 
 #ifndef MR_C_API
 #  ifdef _WIN32
-#    if MR_C_BUILD
+#    if MR_C_BUILD_LIBRARY
 #      define MR_C_API __declspec(dllexport)
 #    else
 #      define MR_C_API __declspec(dllimport)

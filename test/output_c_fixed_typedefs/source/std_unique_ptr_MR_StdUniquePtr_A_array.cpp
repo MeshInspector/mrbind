@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_unique_ptr_MR_StdUniquePtr_A_array.h"
 
 #include <input/MR/test_std_unique_ptr.h>

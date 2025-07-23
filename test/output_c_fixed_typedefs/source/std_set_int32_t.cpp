@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_set_int32_t.h"
 
 #include <__mrbind_c_details.h>

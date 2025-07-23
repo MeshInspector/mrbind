@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "std_optional_int32_t.h"
 
 #include <optional>

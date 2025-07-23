@@ -388,13 +388,13 @@ namespace mrbind::CBindings
         OutputFile::SpecificFileContents &contents = for_internal_header ? target_file.internal_header : target_file.header;
         contents.custom_headers.insert(file.header.path_for_inclusion);
 
-        std::string macro_name = MakePublicHelperName("API");
+        std::string macro_name = MakePublicHelperMacroName("API");
 
         if (file_is_new)
         {
             file.header.contents += "#ifndef " + macro_name + "\n";
             file.header.contents += "#  ifdef _WIN32\n";
-            file.header.contents += "#    if " + MakePublicHelperName("BUILD") + "\n";
+            file.header.contents += "#    if " + GetBuildLibraryMacroForFile(target_file) + "\n";
             file.header.contents += "#      define " + macro_name + " __declspec(dllexport)\n";
             file.header.contents += "#    else\n";
             file.header.contents += "#      define " + macro_name + " __declspec(dllimport)\n";
@@ -406,6 +406,15 @@ namespace mrbind::CBindings
         }
 
         return macro_name;
+    }
+
+    std::string Generator::GetBuildLibraryMacroForFile(const OutputFile &target_file)
+    {
+        // This function could be changed later to depend on the `target_file` path, e.g. if we want multiple separate export files for multiple libraries in the output.
+        // Then we could also use different macro names, and so on.
+
+        (void)target_file;
+        return MakePublicHelperMacroName("BUILD_LIBRARY");
     }
 
     bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags, bool allow_scalar_typedefs) const
@@ -3264,6 +3273,10 @@ namespace mrbind::CBindings
 
     void Generator::DumpFileToOstream(const OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out)
     {
+        // Define the macro to dllexport our functions.
+        if (&file == &context.source && out)
+            out << "#define " << GetBuildLibraryMacroForFile(context) << '\n';
+
         if (out)
             out << file.preamble << '\n';
 

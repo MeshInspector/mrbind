@@ -1,3 +1,4 @@
+#define MR_C_BUILD_LIBRARY
 #include "MR/test_abstract_classes.h"
 
 #include <input/MR/test_abstract_classes.h>
