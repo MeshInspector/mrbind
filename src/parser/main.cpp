@@ -364,15 +364,15 @@ namespace mrbind
                         bool is_long_long = false;
                         if (word == "long" || (is_long_long = word == "long long"))
                         {
-                            // Using `getInt64Type()` instead of `getSizeType()` to hopefully better handle 32-bit platforms.
-                            // This wasn't actively tested though.
-                            clang::TargetInfo::IntType int64_type = ci.getTarget().getInt64Type();
+                            // Have to use `getSignedSizeType()` instead of `getInt64Type()` because they are different on Macs (`long` vs `long long` respectively),
+                            //   and we value `size_t`/`ptrdiff_t` more than we do `[u]int64_t`.
+                            clang::TargetInfo::IntType signed_size_type = ci.getTarget().getSignedSizeType();
 
-                            if (int64_type == clang::TargetInfo::IntType::SignedLong && !is_long_long)
+                            if (signed_size_type == clang::TargetInfo::IntType::SignedLong && !is_long_long)
                             {
                                 TryApplyTypedef(ci.getTarget().getLongWidth());
                             }
-                            else if (int64_type == clang::TargetInfo::IntType::SignedLongLong && is_long_long)
+                            else if (signed_size_type == clang::TargetInfo::IntType::SignedLongLong && is_long_long)
                             {
                                 TryApplyTypedef(ci.getTarget().getLongLongWidth());
                             }
