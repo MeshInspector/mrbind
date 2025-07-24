@@ -1139,6 +1139,56 @@ namespace mrbind::CBindings
         binding.return_usage.value().AddDependenciesToFile(*this, file);
     }
 
+    void Generator::TryIncludeHeadersForCppTypeInSourceFile(Generator::OutputFile &file, const cppdecl::Type &type)
+    {
+        // Can't use `Generator::ForEachNonBuiltInNestedTypeInType()` here, because that uses `no_recurse_into_names`, while here we need only `no_recurse_into_nontype_names`.
+        // Consider e.g. how we process `std::vector<T>`. Here we do need to visit `T`, and `no_recurse_into_names` would prevent that.
+        type.VisitEachComponent<cppdecl::QualifiedName>(
+            cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_nontype_names,
+            [&](const cppdecl::QualifiedName &name)
+            {
+                // Those checks are here as a little optimization. Even if we remove them, `parsed_type_info.find()` below should find nothing for those types.
+                if (!name.IsEmpty() && !TypeNameIsCBuiltIn(name))
+                {
+                    auto [cache_iter, is_new] = cached_cpp_includes_for_cpp_type_names.try_emplace(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
+
+                    if (is_new)
+                    {
+                        if (auto parsed_iter = parsed_type_info.find(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style)); parsed_iter != parsed_type_info.end())
+                        {
+                            // A parsed type.
+
+                            auto headers = ParsedFilenameToRelativeNamesForInclusion(parsed_iter->second.GetParsedFileName());
+                            cache_iter->second.generated.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
+                        }
+                        else
+                        {
+                            // Perhaps a custom type? Ask the modules.
+                            // Most of the time this is completely useless, since those headers will be already included by the parsed C++ headers
+                            //   that we are including in our source files.
+                            // Not always though. This fails for template instantiations, which are all collected into one generated header
+                            //   corresponding to the C++ header that has the template declaration, and that might not include all the necessary
+                            //   headers for all the specializations.
+
+                            for (const auto &m : modules)
+                            {
+                                if (auto header_name = m->GetCppIncludeForQualifiedName(*this, name))
+                                {
+                                    cache_iter->second.stdlib.insert(*header_name);
+                                    break;
+                                }
+                            }
+
+                            // If we don't find anything, jsut ignore this name.
+                        }
+                    }
+
+                    file.source.custom_headers.insert(cache_iter->second.generated.begin(), cache_iter->second.generated.end());
+                    file.source.stdlib_headers.insert(cache_iter->second.stdlib.begin(), cache_iter->second.stdlib.end());
+                }
+            }
+        );
+    }
 
     void Generator::EmitFuncParams::AddParamsFromParsedFunc(const Generator &self, const std::vector<FuncParam> &new_params)
     {
@@ -1574,7 +1624,7 @@ namespace mrbind::CBindings
 
                     // Include C++ headers for the C++ parameter type. This usually isn't necessary, but helps
                     //   if the parsed code is sloppy about what headers it includes.
-                    TryIncludeHeadersForCppTypeInSourceFile(*this, file, param.cpp_type);
+                    TryIncludeHeadersForCppTypeInSourceFile(file, param.cpp_type);
 
                     const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
                     const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
@@ -1759,7 +1809,7 @@ namespace mrbind::CBindings
 
                 // Include C++ headers for the C++ return type. This usually isn't necessary, but helps
                 //   if the parsed code is sloppy about what headers it includes.
-                TryIncludeHeadersForCppTypeInSourceFile(*this, file, params.cpp_return_type);
+                TryIncludeHeadersForCppTypeInSourceFile(file, params.cpp_return_type);
 
                 // Declare or include the dependencies of the return type.
                 bindable_return_type.return_usage->AddDependenciesToFile(*this, file);
@@ -2902,7 +2952,7 @@ namespace mrbind::CBindings
 
                                         // Must include the type definition in the implementation file.
                                         // Otherwise the C++ type might not even be declared. We only automatically declare the C type in the public header.
-                                        TryIncludeHeadersForCppTypeInSourceFile(self, file, cppdecl::Type::FromQualifiedName(target_cpp_qual_name));
+                                        self.TryIncludeHeadersForCppTypeInSourceFile(file, cppdecl::Type::FromQualifiedName(target_cpp_qual_name));
 
                                         for (bool is_const : {true, false})
                                         {

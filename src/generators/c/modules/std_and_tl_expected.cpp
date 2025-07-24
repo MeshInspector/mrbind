@@ -25,10 +25,9 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            bool is_tl_expected = false; // As opposed to `std::expected`.
             if (!type.IsOnlyQualifiedName() || !(
                 type.simple_type.name.Equals(target_std, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target) ||
-                (is_tl_expected = type.simple_type.name.Equals(target_std, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                type.simple_type.name.Equals(target_tl, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target)
             ))
             {
                 return ret;
@@ -62,8 +61,7 @@ namespace mrbind::CBindings::Modules
                 value_type_is_void,
                 cpp_elem_type_value,
                 cpp_elem_type_error,
-                binder,
-                is_tl_expected
+                binder
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
@@ -71,13 +69,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    if (is_tl_expected)
-                        file.source.stdlib_headers.insert("tl/expected.h"); // For now we're reusing `stdlib_headers` for third-party headers. Might be a good idea to add a separate category for them later.
-                    else
-                        file.source.stdlib_headers.insert("expected");
-
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     file.header.contents += "\n/// Stores either ";
                     if (value_type_is_void)
                         file.header.contents += "nothing (which represents success)";
@@ -178,6 +169,16 @@ namespace mrbind::CBindings::Modules
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            if (name.Equals(target_std, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                return "expected";
+            if (name.Equals(target_tl, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                return "tl/expected.h"; // For now we're putting third-party headers into the same category.
+            return {};
         }
     };
 }

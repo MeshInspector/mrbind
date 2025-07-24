@@ -4,6 +4,10 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_phmap.h>
 
+#include <cstdint>
+#include <parallel_hashmap/btree.h>
+#include <parallel_hashmap/phmap.h>
+
 
 void MR_Phmap_foo_phmap_flat_hash_set_int32_t(MR_C_PassBy _1_pass_by, MR_C_phmap_flat_hash_set_int32_t *_1)
 {

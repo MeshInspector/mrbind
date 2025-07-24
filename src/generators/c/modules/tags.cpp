@@ -1,6 +1,7 @@
 #include "generators/c/binding_common.h"
 #include "generators/c/module.h"
 
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -15,10 +16,15 @@ namespace mrbind::CBindings::Modules
         //
         // Note that we assume that all tag types are trivial and copyable, at least now. We can make that customizable later, it's simple.
 
-        std::vector<cppdecl::QualifiedName> base_names = {
-            cppdecl::QualifiedName{}.AddPart("std").AddPart("monostate"),
-            cppdecl::QualifiedName{}.AddPart("std").AddPart("less"),
-            cppdecl::QualifiedName{}.AddPart("std").AddPart("greater"),
+        struct Target
+        {
+            cppdecl::QualifiedName name;
+            std::string cpp_header;
+        };
+        std::vector<Target> targets = {
+            {.name = cppdecl::QualifiedName{}.AddPart("std").AddPart("monostate"), .cpp_header = "variant"},
+            {.name = cppdecl::QualifiedName{}.AddPart("std").AddPart("less"),      .cpp_header = "functional"},
+            {.name = cppdecl::QualifiedName{}.AddPart("std").AddPart("greater"),   .cpp_header = "functional"},
         };
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
@@ -56,7 +62,7 @@ namespace mrbind::CBindings::Modules
                     return ret; // Neither a qualified-name only, nor a reference to one.
                 }
 
-                if (std::none_of(base_names.begin(), base_names.end(), [&](const cppdecl::QualifiedName &base_name){return type.simple_type.name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);}))
+                if (std::none_of(targets.begin(), targets.end(), [&](const Target &target){return type.simple_type.name.Equals(target.name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);}))
                     return ret; // Not a matching type.
             }
 
@@ -102,6 +108,17 @@ namespace mrbind::CBindings::Modules
             };
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            for (const Target &target : targets)
+            {
+                if (name.Equals(target.name, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                    return target.cpp_header;
+            }
+            return {};
         }
     };
 }

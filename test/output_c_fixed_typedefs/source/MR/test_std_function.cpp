@@ -4,7 +4,11 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_function.h>
 
+#include <cstddef>
+#include <cstdint>
+#include <functional>
 #include <stdexcept>
+#include <string>
 
 
 void MR_StdFunction_foo_std_function_int32_t_func(MR_C_PassBy _1_pass_by, MR_C_std_function_int32_t *_1)

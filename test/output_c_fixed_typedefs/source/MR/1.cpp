@@ -4,7 +4,10 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/1.h>
 
+#include <cstddef>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 
 const MR_C_std_string *MR_A_Get_x(const MR_A *_this)

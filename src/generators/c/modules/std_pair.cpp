@@ -38,9 +38,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("utility"); // For `std::pair`.
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     file.header.contents += "\n/// Stores two objects: `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "` and `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
@@ -130,6 +127,14 @@ namespace mrbind::CBindings::Modules
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            if (name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                return "utility";
+            return {};
         }
     };
 }

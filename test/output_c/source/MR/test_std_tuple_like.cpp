@@ -4,6 +4,8 @@
 #include <input/MR/test_std_tuple_like.h>
 
 #include <stdexcept>
+#include <tuple>
+#include <utility>
 
 
 void MR_StdTupleLike_SetPair(const MR_C_std_pair_int_float *_1)

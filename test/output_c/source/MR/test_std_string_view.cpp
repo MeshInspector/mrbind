@@ -4,6 +4,7 @@
 #include <input/MR/test_std_string_view.h>
 
 #include <stdexcept>
+#include <string_view>
 
 
 void MR_StdStringView_Set(const char *s, const char *s_end)

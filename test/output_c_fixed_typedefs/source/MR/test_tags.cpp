@@ -3,6 +3,9 @@
 
 #include <input/MR/test_tags.h>
 
+#include <cstdint>
+#include <functional>
+
 
 void MR_Tags_foo_1_std_less_int32_t(void)
 {

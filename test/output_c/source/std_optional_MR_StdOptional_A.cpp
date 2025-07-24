@@ -3,6 +3,7 @@
 
 #include <input/MR/test_std_optional.h>
 
+#include <cstddef>
 #include <optional>
 #include <stdexcept>
 

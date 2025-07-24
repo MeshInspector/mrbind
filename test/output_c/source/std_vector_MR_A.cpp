@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/1.h>
 
+#include <cstddef>
 #include <stdexcept>
 #include <vector>
 

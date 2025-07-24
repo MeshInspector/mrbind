@@ -45,9 +45,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("variant");
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     file.header.contents += "\n/// Stores one of " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
@@ -184,6 +181,14 @@ namespace mrbind::CBindings::Modules
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            if (name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                return "variant";
+            return {};
         }
     };
 }

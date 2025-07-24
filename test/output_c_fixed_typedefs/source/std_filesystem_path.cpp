@@ -3,8 +3,10 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
 #include <filesystem>
 #include <stdexcept>
+#include <string>
 
 
 MR_C_std_filesystem_path *MR_C_std_filesystem_path_DefaultConstruct(void)

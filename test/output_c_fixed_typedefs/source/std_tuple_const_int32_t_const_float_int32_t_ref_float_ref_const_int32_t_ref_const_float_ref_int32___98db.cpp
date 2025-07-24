@@ -3,6 +3,8 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <stdexcept>
 #include <tuple>
 #include <utility>

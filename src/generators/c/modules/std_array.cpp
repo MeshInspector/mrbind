@@ -45,9 +45,6 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.source.stdlib_headers.insert("array");
-                            TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                             file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + array_size_str + ".\n";
                             binder.EmitForwardDeclaration(generator, file);
 
@@ -135,9 +132,6 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.source.stdlib_headers.insert("array");
-                            TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                             file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + cppdecl::ToCode(array_size, cppdecl::ToCodeFlags::canonical_c_style) + ".\n";
 
                             cppdecl::Decl array_field_decl;
@@ -168,6 +162,14 @@ namespace mrbind::CBindings::Modules
             // Could probably make the functions operating on them just use pointers on other standard libraries, typedefing those pointers to make it clear that they are operators.
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            if (name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                return "array";
+            return {};
         }
     };
 }

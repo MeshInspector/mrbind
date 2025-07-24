@@ -1,6 +1,8 @@
 #define MR_C_BUILD_LIBRARY
 #include "std_tuple_int32_t_float.h"
 
+#include <cstddef>
+#include <cstdint>
 #include <stdexcept>
 #include <tuple>
 

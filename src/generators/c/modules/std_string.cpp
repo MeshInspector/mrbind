@@ -124,5 +124,15 @@ namespace mrbind::CBindings::Modules
 
             return ret;
         }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            if (name.Equals(target_name_stdstring, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target))
+                return "string";
+            if (name.Equals(target_name_stdstringview, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target))
+                return "string_view";
+            return {};
+        }
     };
 }

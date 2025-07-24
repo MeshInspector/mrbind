@@ -3,6 +3,7 @@
 
 #include <input/MR/test_overloads.h>
 
+#include <cstdint>
 #include <stdexcept>
 #include <utility>
 

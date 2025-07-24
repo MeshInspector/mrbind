@@ -33,8 +33,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("filesystem");
-
                     file.header.contents += "\n/// Stores a filesystem path.\n";
 
                     binder.EmitForwardDeclaration(generator, file);
@@ -111,6 +109,14 @@ namespace mrbind::CBindings::Modules
                 };
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            if (name.Equals(target_name, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target))
+                return "filesystem";
+            return {};
         }
     };
 }

@@ -3,6 +3,8 @@
 
 #include <input/MR/test_std_unique_ptr.h>
 
+#include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 

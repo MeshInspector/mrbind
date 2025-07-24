@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_containers.h>
 
+#include <cstddef>
 #include <stdexcept>
 #include <vector>
 

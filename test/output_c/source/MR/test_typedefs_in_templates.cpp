@@ -3,6 +3,7 @@
 
 #include <input/MR/test_typedefs_in_templates.h>
 
+#include <cstddef>
 #include <stdexcept>
 
 

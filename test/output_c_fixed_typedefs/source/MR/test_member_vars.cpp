@@ -3,6 +3,8 @@
 
 #include <input/MR/test_member_vars.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <stdexcept>
 #include <type_traits>
 

@@ -8,14 +8,14 @@ namespace mrbind::CBindings::Modules
         std::string c_name_istream;
         std::string c_name_ostream;
 
-        void Init(Generator &generator)
+        void Init(Generator &generator) override
         {
             c_name_istream = generator.MakePublicHelperName("std_istream");
             c_name_ostream = generator.MakePublicHelperName("std_ostream");
         }
 
         // Those are only same-address bindable, which makes them a bit wonly.
-        std::optional<Generator::TypeBindableWithSameAddress> GetTypeBindableWithSameAddress(Generator &generator, const cppdecl::QualifiedName &type_name, const std::string &type_name_str)
+        std::optional<Generator::TypeBindableWithSameAddress> GetTypeBindableWithSameAddress(Generator &generator, const cppdecl::QualifiedName &type_name, const std::string &type_name_str) override
         {
             (void)type_name;
 
@@ -35,8 +35,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("iostream"); // For `std::iostream`.
-
                     file.header.contents += "\n/// A C++ output stream.\n";
                     file.header.contents += MakeStructForwardDeclaration(c_name_ostream) + '\n';
                     file.header.contents += "\n/// A C++ input stream.\n";
@@ -93,6 +91,18 @@ namespace mrbind::CBindings::Modules
             binding.custom_c_type_name = is_output_stream ? c_name_ostream : c_name_istream; // Need to customize this because we add a prefix.
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+            if (name.parts.size() == 2 && name.parts.front().AsSingleWord() == "std")
+            {
+                const std::string_view word = name.parts.back().AsSingleWord();
+                if (word == "istream" || word == "ostream")
+                    return "iostream";
+            }
+            return {};
         }
     };
 }

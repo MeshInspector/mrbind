@@ -3,6 +3,7 @@
 
 #include <common.h>
 
+#include <cstddef>
 #include <memory>
 #include <stdexcept>
 #include <utility>

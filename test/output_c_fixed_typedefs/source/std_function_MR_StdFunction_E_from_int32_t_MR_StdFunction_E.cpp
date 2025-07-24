@@ -4,6 +4,8 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_function.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <functional>
 #include <stdexcept>
 

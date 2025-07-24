@@ -3,6 +3,7 @@
 
 #include <input/MR/test_custom_preferred_names.h>
 
+#include <cstddef>
 #include <stdexcept>
 
 

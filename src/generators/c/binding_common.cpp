@@ -528,27 +528,6 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    void TryIncludeHeadersForCppTypeInSourceFile(Generator &generator, Generator::OutputFile &file, const cppdecl::Type &type)
-    {
-        // Can't use `Generator::ForEachNonBuiltInNestedTypeInType()` here, because that uses `no_recurse_into_names`, while here we need only `no_recurse_into_nontype_names`.
-        // Consider e.g. how we process `std::vector<T>`. Here we do need to visit `T`, and `no_recurse_into_names` would prevent that.
-        type.VisitEachComponent<cppdecl::QualifiedName>(
-            cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_nontype_names,
-            [&](const cppdecl::QualifiedName &name)
-            {
-                // Those checks are here as a little optimization. Even if we remove them, `parsed_type_info.find()` below should find nothing for those types.
-                if (!name.IsEmpty() && !generator.TypeNameIsCBuiltIn(name))
-                {
-                    if (auto iter = generator.parsed_type_info.find(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style)); iter != generator.parsed_type_info.end())
-                    {
-                        auto headers = generator.ParsedFilenameToRelativeNamesForInclusion(iter->second.GetParsedFileName());
-                        file.source.custom_headers.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
-                    }
-                }
-            }
-        );
-    }
-
     std::optional<std::string> CheckPointerDefaultArgumentForNullptr(std::string_view default_arg)
     {
         if (

@@ -3,8 +3,11 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <expected>
 #include <stdexcept>
+#include <string>
 
 
 MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_DefaultConstruct(void)

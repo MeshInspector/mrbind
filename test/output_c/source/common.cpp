@@ -1,6 +1,8 @@
 #define MR_C_BUILD_LIBRARY
 #include "common.h"
 
+#include <cstddef>
+
 
 void *MR_C_Alloc(size_t num_bytes)
 {

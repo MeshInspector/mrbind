@@ -3,6 +3,7 @@
 
 #include <input/MR/test_abstract_classes.h>
 
+#include <cstddef>
 #include <stdexcept>
 
 

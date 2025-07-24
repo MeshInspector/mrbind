@@ -1,7 +1,9 @@
 #define MR_C_BUILD_LIBRARY
 #include "std_string_view.h"
 
+#include <cstddef>
 #include <stdexcept>
+#include <string_view>
 
 
 MR_C_std_string_view *MR_C_std_string_view_DefaultConstruct(void)

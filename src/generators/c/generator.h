@@ -1011,6 +1011,20 @@ namespace mrbind::CBindings
         void AddDependenciesToFileForFieldOfSameLayoutStruct(const cppdecl::Type &cpp_type, OutputFile &file);
 
 
+        struct CachedIncludesForType
+        {
+            std::unordered_set<std::string> stdlib;
+            std::unordered_set<std::string> generated;
+        };
+        // Don't access directly.
+        // `TryIncludeHeadersForCppTypeInSourceFile()` caches the results here. The keys are stringified `QualifiedName`s.
+        std::unordered_map<std::string, CachedIncludesForType> cached_cpp_includes_for_cpp_type_names;
+
+        // Tries to include the rights headers in `file.source` to get `type` to work.
+        // Will silently skip the type or some of its parts if we don't know what headers they need.
+        void TryIncludeHeadersForCppTypeInSourceFile(Generator::OutputFile &file, const cppdecl::Type &type);
+
+
         // Deduplicating overload names: [
         struct OverloadedName
         {

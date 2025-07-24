@@ -3,8 +3,11 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <functional>
 #include <stdexcept>
+#include <string>
 
 
 MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_string_from_int32_t_float_DefaultConstruct(void)

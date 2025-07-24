@@ -4,7 +4,10 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_size_t_ptrdiff_t.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <stdexcept>
+#include <vector>
 
 
 MR_C_uint64_t MR_TestSizeT_foo_uint64_t(MR_C_uint64_t _1)

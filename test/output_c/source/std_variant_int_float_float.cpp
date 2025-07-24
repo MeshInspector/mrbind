@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "std_variant_int_float_float.h"
 
+#include <cstddef>
 #include <stdexcept>
 #include <variant>
 

@@ -3,7 +3,10 @@
 
 #include <input/MR/test_std_tuple_like.h>
 
+#include <cstdint>
 #include <stdexcept>
+#include <tuple>
+#include <utility>
 
 
 void MR_StdTupleLike_SetPair(const MR_C_std_pair_int32_t_float *_1)

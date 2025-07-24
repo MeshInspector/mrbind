@@ -3,6 +3,7 @@
 
 #include <input/MR/test_nested_class_template_inst.h>
 
+#include <cstddef>
 #include <stdexcept>
 
 

@@ -3,7 +3,9 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
 #include <stdexcept>
+#include <string>
 
 
 MR_C_std_string *MR_C_std_string_DefaultConstruct(void)

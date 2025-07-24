@@ -5,6 +5,8 @@
 #include <input/MR/test_variant.h>
 
 #include <stdexcept>
+#include <string>
+#include <variant>
 
 
 MR_C_std_variant_int_float *MR_StdVariant_foo(void)

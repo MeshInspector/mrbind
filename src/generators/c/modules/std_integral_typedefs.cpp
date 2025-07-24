@@ -1,50 +1,81 @@
 #include "generators/c/binding_common.h"
 #include "generators/c/module.h"
 
+#include <string>
+#include <vector>
+
 namespace mrbind::CBindings::Modules
 {
     // Handles various typedefs from `<stddef.h>` and `<stdint.h>`.
     // Since those shouldn't appear in canonical parsed type names, this is primarily to simplify writing custom bindings.
     struct StdIntegralTypedefs : DeriveModule<StdIntegralTypedefs>
     {
+        struct TargetType
+        {
+            std::string name;
+            std::string c_header;
+            std::string cpp_header;
+            bool could_need_custom_typedef = false;
+        };
+        std::vector<TargetType> target_types = {
+            {.name = "size_t"   , .c_header = "stddef.h", .cpp_header = "cstddef"},
+            {.name = "ptrdiff_t", .c_header = "stddef.h", .cpp_header = "cstddef"},
+            {.name = "int8_t"   , .c_header = "stdint.h", .cpp_header = "cstdint"},
+            {.name = "uint8_t"  , .c_header = "stdint.h", .cpp_header = "cstdint"},
+            {.name = "int16_t"  , .c_header = "stdint.h", .cpp_header = "cstdint"},
+            {.name = "uint16_t" , .c_header = "stdint.h", .cpp_header = "cstdint"},
+            {.name = "int32_t"  , .c_header = "stdint.h", .cpp_header = "cstdint"},
+            {.name = "uint32_t" , .c_header = "stdint.h", .cpp_header = "cstdint"},
+            {.name = "int64_t"  , .c_header = "stdint.h", .cpp_header = "cstdint", .could_need_custom_typedef = true},
+            {.name = "uint64_t" , .c_header = "stdint.h", .cpp_header = "cstdint", .could_need_custom_typedef = true},
+        };
+
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
             (void)type;
 
             std::optional<Generator::BindableType> ret;
 
-            auto HandleType = [&](std::string_view header, std::string_view c_name, bool could_need_custom_typedef = false) -> bool
+            for (const TargetType &target_type : target_types)
             {
-                if (type_str == c_name || (type_str.starts_with("std::") && std::string_view(type_str).substr(5) == c_name))
+                if (type_str == target_type.name || (type_str.starts_with("std::") && std::string_view(type_str).substr(5) == target_type.name))
                 {
-                    bool need_custom_typedef = could_need_custom_typedef && generator.custom_typedef_for_uint64_t_pointing_to_size_t;
+                    bool need_custom_typedef = target_type.could_need_custom_typedef && generator.custom_typedef_for_uint64_t_pointing_to_size_t;
 
-                    ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(need_custom_typedef ? generator.MakePublicHelperName(c_name) : std::string(c_name)));
+                    ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(need_custom_typedef ? generator.MakePublicHelperName(target_type.name) : target_type.name));
                     if (need_custom_typedef)
                         ret->bindable_with_same_address.declared_in_file = [&generator]() -> auto & {return generator.GetCommonPublicHelpersFile();};
                     else
-                        ret->bindable_with_same_address.declared_in_c_stdlib_file = header;
+                        ret->bindable_with_same_address.declared_in_c_stdlib_file = target_type.c_header;
                     ret->bindable_with_same_address.needs_reinterpret_cast = false;
-                    return true;
+                    break;
                 }
-                else
-                {
-                    return false;
-                }
-            };
-
-            HandleType("stddef.h", "size_t") ||
-            HandleType("stddef.h", "ptrdiff_t") ||
-            HandleType("stdint.h", "int8_t") ||
-            HandleType("stdint.h", "uint8_t") ||
-            HandleType("stdint.h", "int16_t") ||
-            HandleType("stdint.h", "uint16_t") ||
-            HandleType("stdint.h", "int32_t") ||
-            HandleType("stdint.h", "uint32_t") ||
-            HandleType("stdint.h", "int64_t", true) ||
-            HandleType("stdint.h", "uint64_t", true);
+            }
 
             return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+
+            if (name.parts.size() != 1 && name.parts.size() != 2)
+                return {};
+
+            if (name.parts.size() == 2 && name.parts.front().AsSingleWord() != "std")
+                return {};
+
+            const std::string_view word = name.parts.back().AsSingleWord();
+            if (word.empty())
+                return {};
+
+            for (const TargetType &target_type : target_types)
+            {
+                if (word == target_type.name)
+                    return target_type.cpp_header;
+            }
+
+            return {};
         }
     };
 }

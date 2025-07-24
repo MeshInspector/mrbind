@@ -3,6 +3,7 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
 #include <set>
 #include <stdexcept>
 

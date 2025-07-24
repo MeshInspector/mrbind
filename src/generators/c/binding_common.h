@@ -87,10 +87,6 @@ namespace mrbind::CBindings
     // `c_underlying_type_name` is only used if it's not empty. Otherwise we use `c_type_name`.
     [[nodiscard]] std::string MakeStructForwardDeclaration(std::string_view c_type_name, std::string_view c_underlying_type_name = "");
 
-    // Tries to include the rights headers in `file.source` to get `type` to work.
-    // Will silently skip the type or some of its parts if we don't know what headers they need.
-    void TryIncludeHeadersForCppTypeInSourceFile(Generator &generator, Generator::OutputFile &file, const cppdecl::Type &type);
-
 
     // This goes into the `BindableType::is_useless_default_argument` callback, to reject nullptr default arguments.
     // As that callback requires, returns the string describing the default argument if it wants to reject it.

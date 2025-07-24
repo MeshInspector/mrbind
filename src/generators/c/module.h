@@ -17,6 +17,7 @@ namespace mrbind::CBindings
     {
         virtual ~Module() = default;
 
+
         struct FlagInterface
         {
             virtual ~FlagInterface() = default;
@@ -34,9 +35,11 @@ namespace mrbind::CBindings
         // This is called before `Init()` to handle the command line arguments.
         virtual void ConsumeFlag(FlagInterface &in) {(void)in;}
 
+
         // This is called after constructing the module to initialize it, since the constructor doesn't have access to the generator,
         //   and some initialization might require that.
         virtual void Init(Generator &generator) {(void)generator;}
+
 
         // If you know this type, return the binding for it. If you don't, return null.
         // You're allowed to call `generator.FindBindableTypeOpt(...)` for any dependent types you need.
@@ -48,12 +51,18 @@ namespace mrbind::CBindings
         // Normally you would overload only one of the two, but both is possible too.
         virtual std::optional<Generator::BindableType> GetBindableTypeMaybeWithoutSugar(Generator &generator, const cppdecl::Type &type, const std::string &type_str, bool remove_sugar) {(void)generator; (void)type; (void)type_str; (void)remove_sugar; return {};}
 
+
         // Note, this is a subset of `GetBindableType()` that's rarely useful. Prefer that function (set `.bindable_with_same_address` in the return value for the effect equivalent to this).
         // If you know this type, return the information about it.
         // This function is for types pointers to which can be freely passed between C and C++, perhaps with a cast.
         // Such are, for example, any classes that are bound as opaque pointers.
         // `type_str` is the string representation of `type` (with `ToCodeFlags::canonical_c_style` like everywhere else`).
         virtual std::optional<Generator::TypeBindableWithSameAddress> GetTypeBindableWithSameAddress(Generator &generator, const cppdecl::QualifiedName &type_name, const std::string &type_name_str) {(void)generator; (void)type_name; (void)type_name_str; return {};}
+
+
+        // For a C++ type, return the C++ standard library header that declares it. Or null, if your module doesn't know this type.
+        // Do NOT recurse into template arguments, we do that automatically. And because of that, the result is limited to one string.
+        virtual std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) {(void)generator; (void)name; return {};}
     };
 
     // Using `std::map` to ensure a consistent ordering. The keys are the type names.

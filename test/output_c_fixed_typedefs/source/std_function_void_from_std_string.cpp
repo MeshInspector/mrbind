@@ -3,8 +3,10 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
 #include <functional>
 #include <stdexcept>
+#include <string>
 
 
 MR_C_std_function_void_from_std_string *MR_C_std_function_void_from_std_string_DefaultConstruct(void)

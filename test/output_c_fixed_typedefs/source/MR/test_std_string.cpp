@@ -4,6 +4,7 @@
 #include <input/MR/test_std_string.h>
 
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 

@@ -3,6 +3,8 @@
 
 #include <input/MR/test_iostream.h>
 
+#include <cstddef>
+#include <iostream>
 #include <stdexcept>
 
 

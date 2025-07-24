@@ -3,6 +3,8 @@
 
 #include <input/MR/test_overloaded_operators.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <stdexcept>
 
 

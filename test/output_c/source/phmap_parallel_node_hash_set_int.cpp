@@ -3,6 +3,7 @@
 
 #include <__mrbind_c_details.h>
 
+#include <cstddef>
 #include <parallel_hashmap/phmap.h>
 #include <stdexcept>
 

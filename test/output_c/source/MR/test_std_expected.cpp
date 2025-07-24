@@ -4,7 +4,9 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_expected.h>
 
+#include <expected>
 #include <stdexcept>
+#include <string>
 
 
 MR_C_std_expected_int_std_string *MR_StdExpected_GetExp(void)

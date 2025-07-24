@@ -4,8 +4,18 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_containers.h>
 
+#include <array>
+#include <cstddef>
+#include <cstdint>
+#include <deque>
+#include <list>
+#include <map>
+#include <set>
 #include <stdexcept>
+#include <unordered_map>
+#include <unordered_set>
 #include <utility>
+#include <vector>
 
 
 void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int32_t *_1)

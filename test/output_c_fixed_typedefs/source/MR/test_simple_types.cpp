@@ -3,6 +3,8 @@
 
 #include <input/MR/test_simple_types.h>
 
+#include <cstddef>
+#include <cstdint>
 #include <stdexcept>
 
 

@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "std_pair_int_ref_float_ref.h"
 
+#include <cstddef>
 #include <stdexcept>
 #include <utility>
 

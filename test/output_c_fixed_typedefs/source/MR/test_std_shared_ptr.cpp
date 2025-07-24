@@ -4,6 +4,9 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_shared_ptr.h>
 
+#include <cstddef>
+#include <cstdint>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 

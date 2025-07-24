@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "std_expected_void_float.h"
 
+#include <cstddef>
 #include <expected>
 #include <stdexcept>
 

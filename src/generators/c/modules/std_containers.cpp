@@ -211,22 +211,63 @@ namespace mrbind::CBindings::Modules
             },
         };
 
+        bool ForEachBinder(auto &&func)
+        {
+            if (func(binder_vector            )) return true;
+            if (func(binder_deque             )) return true;
+            if (func(binder_list              )) return true;
+            if (func(binder_set               )) return true;
+            if (func(binder_multiset          )) return true;
+            if (func(binder_unordered_set     )) return true;
+            if (func(binder_unordered_multiset)) return true;
+            if (func(binder_map               )) return true;
+            if (func(binder_multimap          )) return true;
+            if (func(binder_unordered_map     )) return true;
+            if (func(binder_unordered_multimap)) return true;
+            return false;
+        }
+
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
             (void)type_str;
-            if (auto ret = binder_vector            .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_deque             .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_list              .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_set               .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_multiset          .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_unordered_set     .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_unordered_multiset.MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_map               .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_multimap          .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_unordered_map     .MakeBinding(generator, type)) return ret;
-            if (auto ret = binder_unordered_multimap.MakeBinding(generator, type)) return ret;
 
-            return {};
+            std::optional<Generator::BindableType> ret;
+            ForEachBinder([&](MetaContainerBinder &binder){ret = binder.MakeBinding(generator, type); return bool(ret);});
+
+            return ret;
+        }
+
+        std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override
+        {
+            (void)generator;
+
+            std::optional<std::string> ret;
+
+            ForEachBinder([&](MetaContainerBinder &binder)
+            {
+                for (const auto &target : binder.targets)
+                {
+                    bool found = false;
+                    for (const auto &target_name : target.generic_cpp_container_names)
+                    {
+                        if (name.Equals(target_name, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (found)
+                    {
+                        ret = target.stdlib_container_header;
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+
+            return ret;
         }
     };
 }

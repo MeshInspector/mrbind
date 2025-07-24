@@ -4,6 +4,8 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_matching_layout.h>
 
+#include <cstddef>
+
 
 MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void)
 {

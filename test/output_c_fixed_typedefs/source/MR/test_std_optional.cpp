@@ -4,7 +4,11 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_optional.h>
 
+#include <cstddef>
+#include <cstdint>
+#include <optional>
 #include <stdexcept>
+#include <string>
 
 
 MR_C_std_optional_int32_t *MR_StdOptional_GetInt(void)

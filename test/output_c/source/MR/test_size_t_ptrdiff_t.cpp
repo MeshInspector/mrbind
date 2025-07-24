@@ -4,7 +4,9 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_size_t_ptrdiff_t.h>
 
+#include <cstddef>
 #include <stdexcept>
+#include <vector>
 
 
 unsigned long MR_TestSizeT_foo_unsigned_long(unsigned long _1)

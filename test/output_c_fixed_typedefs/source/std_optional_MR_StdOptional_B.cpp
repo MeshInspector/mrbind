@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_optional.h>
 
+#include <cstddef>
 #include <optional>
 #include <stdexcept>
 
