@@ -8,10 +8,8 @@ namespace mrbind::CBindings::Modules
 {
     struct StdAndTlExpected : DeriveModule<StdAndTlExpected>
     {
-        std::vector<cppdecl::QualifiedName> target_names = {
-            cppdecl::QualifiedName{}.AddPart("std").AddPart("expected"),
-            cppdecl::QualifiedName{}.AddPart("tl").AddPart("expected"),
-        };
+        cppdecl::QualifiedName target_std = cppdecl::QualifiedName{}.AddPart("std").AddPart("expected");
+        cppdecl::QualifiedName target_tl = cppdecl::QualifiedName{}.AddPart("tl").AddPart("expected");
 
         bool merge_std_and_tl_expected = false;
 
@@ -27,10 +25,11 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            if (
-                !type.IsOnlyQualifiedName() ||
-                std::none_of(target_names.begin(), target_names.end(), [&](const cppdecl::QualifiedName &target_name){return type.simple_type.name.Equals(target_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);})
-            )
+            bool is_tl_expected = false; // As opposed to `std::expected`.
+            if (!type.IsOnlyQualifiedName() || !(
+                type.simple_type.name.Equals(target_std, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target) ||
+                (is_tl_expected = type.simple_type.name.Equals(target_std, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+            ))
             {
                 return ret;
             }
@@ -63,7 +62,8 @@ namespace mrbind::CBindings::Modules
                 value_type_is_void,
                 cpp_elem_type_value,
                 cpp_elem_type_error,
-                binder
+                binder,
+                is_tl_expected
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
@@ -71,7 +71,11 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("expected");
+                    if (is_tl_expected)
+                        file.source.stdlib_headers.insert("tl/expected.h"); // For now we're reusing `stdlib_headers` for third-party headers. Might be a good idea to add a separate category for them later.
+                    else
+                        file.source.stdlib_headers.insert("expected");
+
                     TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
 
                     file.header.contents += "\n/// Stores either ";
