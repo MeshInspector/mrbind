@@ -57,10 +57,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("memory");
-
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     if (is_array)
                     {
                         file.header.contents +=
@@ -183,6 +179,10 @@ namespace mrbind::CBindings::Modules
 
             binder.FillCommonParams(generator, new_type);
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+
+            // Which C++ headers to use.
+            new_type.cpp_decl_location.cpp_stdlib_headers.insert("memory");
+            new_type.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type_minus_array));
 
             return ret;
         }

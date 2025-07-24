@@ -936,6 +936,20 @@ namespace mrbind::CBindings
             std::optional<ReturnUsage> return_usage;
 
 
+            struct CppDeclLocation
+            {
+                // Both can be set at the same time.
+                std::unordered_set<std::string> cpp_stdlib_headers;
+                std::unordered_set<std::string> cpp_parsed_headers;
+
+                void MergeCppDeclLocationsFrom(const BindableType::CppDeclLocation &other);
+                void AddCppIncludesToSourceFile(OutputFile &file) const;
+            };
+            // Where to find this type in C++.
+            // Prefer to access this via `FindTypeCppDeclLocation()`. But if you already have a valid `BindableType` that you got for other reasons,
+            //   you're free to read this from that as well.
+            CppDeclLocation cpp_decl_location;
+
             BindableType() {}
         };
         // The types that we know how to bind.
@@ -959,6 +973,12 @@ namespace mrbind::CBindings
         [[nodiscard]] TypeTraits FindTypeTraits(const cppdecl::Type &type);
         // Same, but returns null instead of throwing on failure.
         [[nodiscard]] std::optional<TypeTraits> FindTypeTraitsOpt(const cppdecl::Type &type);
+
+        // Calls `FindBindableType()`, and then extracts the `.cpp_decl_location` from the result.
+        // But additionally preprocesses the type (removes cvref, pointers, etc). Always use this instead of reading the field directly.
+        [[nodiscard]] const BindableType::CppDeclLocation &FindTypeCppDeclLocation(cppdecl::Type type);
+        // Same, but returns null instead of throwing on failure.
+        [[nodiscard]] const BindableType::CppDeclLocation *FindTypeCppDeclLocationOpt(cppdecl::Type type);
 
         // Uses `ForEachNonBuiltInNestedTypeInType()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);

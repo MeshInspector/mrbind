@@ -13,7 +13,7 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
-            auto HandleType = [&](std::string_view header, std::string_view c_name, bool could_need_custom_typedef = false) -> bool
+            auto HandleType = [&](std::string_view c_header, std::string_view cpp_header, std::string_view c_name, bool could_need_custom_typedef = false) -> bool
             {
                 if (type_str == c_name || (type_str.starts_with("std::") && std::string_view(type_str).substr(5) == c_name))
                 {
@@ -23,8 +23,10 @@ namespace mrbind::CBindings::Modules
                     if (need_custom_typedef)
                         ret->bindable_with_same_address.declared_in_file = [&generator]() -> auto & {return generator.GetCommonPublicHelpersFile();};
                     else
-                        ret->bindable_with_same_address.declared_in_c_stdlib_file = header;
+                        ret->bindable_with_same_address.declared_in_c_stdlib_file = c_header;
                     ret->bindable_with_same_address.needs_reinterpret_cast = false;
+
+                    ret->cpp_decl_location.cpp_stdlib_headers.insert(std::string(cpp_header));
                     return true;
                 }
                 else
@@ -33,16 +35,16 @@ namespace mrbind::CBindings::Modules
                 }
             };
 
-            HandleType("stddef.h", "size_t") ||
-            HandleType("stddef.h", "ptrdiff_t") ||
-            HandleType("stdint.h", "int8_t") ||
-            HandleType("stdint.h", "uint8_t") ||
-            HandleType("stdint.h", "int16_t") ||
-            HandleType("stdint.h", "uint16_t") ||
-            HandleType("stdint.h", "int32_t") ||
-            HandleType("stdint.h", "uint32_t") ||
-            HandleType("stdint.h", "int64_t", true) ||
-            HandleType("stdint.h", "uint64_t", true);
+            HandleType("stddef.h", "cstddef", "size_t") ||
+            HandleType("stddef.h", "cstddef", "ptrdiff_t") ||
+            HandleType("stdint.h", "cstdint", "int8_t") ||
+            HandleType("stdint.h", "cstdint", "uint8_t") ||
+            HandleType("stdint.h", "cstdint", "int16_t") ||
+            HandleType("stdint.h", "cstdint", "uint16_t") ||
+            HandleType("stdint.h", "cstdint", "int32_t") ||
+            HandleType("stdint.h", "cstdint", "uint32_t") ||
+            HandleType("stdint.h", "cstdint", "int64_t", true) ||
+            HandleType("stdint.h", "cstdint", "uint64_t", true);
 
             return ret;
         }

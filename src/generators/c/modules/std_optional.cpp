@@ -45,9 +45,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("optional");
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     file.header.contents += "\n/// Stores either a single `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` or nothing.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
@@ -105,6 +102,11 @@ namespace mrbind::CBindings::Modules
             new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
             new_type.return_usage = binder.MakeReturnUsage(generator);
+
+
+            // Which C++ headers to use.
+            new_type.cpp_decl_location.cpp_stdlib_headers.insert("optional");
+            new_type.cpp_decl_location.MergeCppDeclLocationsFrom(elem_type_binding.cpp_decl_location);
 
 
             // Parameter usage:

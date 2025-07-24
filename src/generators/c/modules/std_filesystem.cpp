@@ -33,8 +33,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("filesystem");
-
                     file.header.contents += "\n/// Stores a filesystem path.\n";
 
                     binder.EmitForwardDeclaration(generator, file);
@@ -109,6 +107,11 @@ namespace mrbind::CBindings::Modules
 
                     return ret;
                 };
+
+
+            // Which C++ headers to use.
+            new_type.cpp_decl_location.cpp_stdlib_headers.insert("filesystem");
+
 
             return ret;
         }

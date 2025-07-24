@@ -120,6 +120,8 @@ namespace mrbind::CBindings::Modules
                 new_type.return_usage = binder.MakeReturnUsage(generator);
 
                 new_type.param_usage_with_default_arg = MakeStringLikeParamUsageSupportingDefaultArg(type_str);
+
+                new_type.cpp_decl_location.cpp_stdlib_headers.insert("string");
             }
 
             return ret;

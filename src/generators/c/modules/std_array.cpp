@@ -45,9 +45,6 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.source.stdlib_headers.insert("array");
-                            TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                             file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + array_size_str + ".\n";
                             binder.EmitForwardDeclaration(generator, file);
 
@@ -135,8 +132,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.source.stdlib_headers.insert("array");
-                            TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
+                            // No source file whatsoever.
 
                             file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + cppdecl::ToCode(array_size, cppdecl::ToCodeFlags::canonical_c_style) + ".\n";
 
@@ -160,6 +156,13 @@ namespace mrbind::CBindings::Modules
                     };
 
                     new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+                }
+
+                // Which C++ headers to use.
+                if (ret)
+                {
+                    ret->cpp_decl_location.cpp_stdlib_headers.insert("array");
+                    ret->cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type));
                 }
             }
 

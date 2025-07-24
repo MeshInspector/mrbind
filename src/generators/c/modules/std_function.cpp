@@ -71,6 +71,9 @@ namespace mrbind::CBindings::Modules
             const Generator::BindableType *callback_return_type_binding = nullptr;
             const Generator::BindableType::ParamUsage *callback_return_usage = nullptr;
 
+            Generator::BindableType::CppDeclLocation cpp_decl_loc;
+            cpp_decl_loc.cpp_stdlib_headers.insert("functional");
+
             if (!cpp_callback_return_type_is_void)
             {
                 callback_return_type_binding = &generator.FindBindableType(cpp_callback_return_type);
@@ -79,6 +82,8 @@ namespace mrbind::CBindings::Modules
                     throw std::runtime_error("The return type of `std::function`, which is `" + cppdecl::ToCode(cpp_callback_return_type, cppdecl::ToCodeFlags::canonical_c_style) + "`, doesn't have a parameter usage.");
 
                 callback_return_usage = callback_return_type_binding->param_usage ? &callback_return_type_binding->param_usage.value() : &callback_return_type_binding->param_usage_with_default_arg.value();
+
+                cpp_decl_loc.MergeCppDeclLocationsFrom(callback_return_type_binding->cpp_decl_location);
             }
 
 
@@ -97,6 +102,8 @@ namespace mrbind::CBindings::Modules
                 if (!param_type_binding.return_usage)
                     throw std::runtime_error("A parameter type of `std::function`, a `" + cppdecl::ToCode(fixed_type, cppdecl::ToCodeFlags::canonical_c_style) + "`, doesn't have a return usage.");
                 callback_param_usages.push_back(&param_type_binding.return_usage.value());
+
+                cpp_decl_loc.MergeCppDeclLocationsFrom(param_type_binding.cpp_decl_location);
             }
 
 
@@ -190,10 +197,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("functional"); // For `std::function`.
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
-
                     file.header.contents += "\n/// Stores a functor of type: `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "`. Possibly stateful.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
@@ -473,6 +476,8 @@ namespace mrbind::CBindings::Modules
             Generator::BindableType &new_type = ret.emplace();
             binder.FillCommonParams(generator, new_type);
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+
+            new_type.cpp_decl_location = std::move(cpp_decl_loc);
 
             return ret;
         }

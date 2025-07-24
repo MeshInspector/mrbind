@@ -74,6 +74,13 @@ namespace mrbind::CBindings
         // Gotta copy the entire `*this` here because the lambda can outlive this instance (unless we force the user to be very careful about its lifetime, but that sounds too annoying).
         ret.bindable_with_same_address.declared_in_file = [*this, &generator]() -> auto & {return GetImplementationFile(generator);};
 
+        // Which C++ headers to use.
+        if (!stdlib_container_header.empty())
+            ret.cpp_decl_location.cpp_stdlib_headers.insert(stdlib_container_header);
+        ret.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type));
+        if (params.is_map)
+            ret.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_mapped_elem_type));
+
         return ret;
     }
 
@@ -98,11 +105,6 @@ namespace mrbind::CBindings
 
         if (is_new)
         {
-            if (!stdlib_container_header.empty())
-                file.source.stdlib_headers.insert(stdlib_container_header);
-
-            TryIncludeHeadersForCppTypeInSourceFile(generator, file, cppdecl::Type::FromQualifiedName(cpp_container_type));
-
             file.header.contents += "\n/// Generated from C++ container `" + cppdecl::ToCode(cpp_container_type, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
             class_binder.EmitForwardDeclaration(generator, file);
             file.header.contents += "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n";

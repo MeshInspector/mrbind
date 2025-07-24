@@ -35,7 +35,8 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("iostream"); // For `std::iostream`.
+                    // When we finally get rid of "types bindable with same address", this should be moved to `BindableType::cpp_decl_location`.
+                    file.source.stdlib_headers.insert("iostream");
 
                     file.header.contents += "\n/// A C++ output stream.\n";
                     file.header.contents += MakeStructForwardDeclaration(c_name_ostream) + '\n';

@@ -737,6 +737,18 @@ namespace mrbind::CBindings
         }
     }
 
+    void Generator::BindableType::CppDeclLocation::MergeCppDeclLocationsFrom(const BindableType::CppDeclLocation &other)
+    {
+        cpp_stdlib_headers.insert(other.cpp_stdlib_headers.begin(), other.cpp_stdlib_headers.end());
+        cpp_parsed_headers.insert(other.cpp_parsed_headers.begin(), other.cpp_parsed_headers.end());
+    }
+
+    void Generator::BindableType::CppDeclLocation::AddCppIncludesToSourceFile(OutputFile &file) const
+    {
+        file.source.stdlib_headers.insert(cpp_stdlib_headers.begin(), cpp_stdlib_headers.end());
+        file.source.custom_headers.insert(cpp_parsed_headers.begin(), cpp_parsed_headers.end());
+    }
+
     const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
     {
         if (auto *ret = FindBindableTypeOpt(type, remove_sugar, can_invent_new_bindings))
@@ -848,6 +860,30 @@ namespace mrbind::CBindings
         if (type.IsConst())
             ret.MakeNonAssignable();
         return ret;
+    }
+
+    const Generator::BindableType::CppDeclLocation &Generator::FindTypeCppDeclLocation(cppdecl::Type type)
+    {
+        auto ret = FindTypeCppDeclLocationOpt(type);
+        if (!ret)
+            throw std::runtime_error("The C++ declaration location for type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "` was queried, but I don't know this type.");
+        return *ret;
+    }
+
+    const Generator::BindableType::CppDeclLocation *Generator::FindTypeCppDeclLocationOpt(cppdecl::Type type)
+    {
+        // Adjust the type a bit by removing the modifiers that don't have any useful information in them, and removing constness.
+        // It's unclear if we should do anything about the other modifiers. Currently I expect whatever generates the `BindableType` to apply them.
+        // This whole function is ultimately a helper for people writing custom bindings anyway, so I think this is fine.
+        while (type.Is<cppdecl::Pointer>() || type.Is<cppdecl::Reference>() || type.Is<cppdecl::Array>())
+            type.RemoveModifier();
+        type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+        auto binding = FindBindableTypeOpt(cppdecl::Type(type));
+        if (!binding)
+            return nullptr;
+
+        return &binding->cpp_decl_location;
     }
 
     void Generator::FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target)

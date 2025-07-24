@@ -62,8 +62,7 @@ namespace mrbind::CBindings::Modules
                 value_type_is_void,
                 cpp_elem_type_value,
                 cpp_elem_type_error,
-                binder,
-                is_tl_expected
+                binder
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
@@ -71,13 +70,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    if (is_tl_expected)
-                        file.source.stdlib_headers.insert("tl/expected.h"); // For now we're reusing `stdlib_headers` for third-party headers. Might be a good idea to add a separate category for them later.
-                    else
-                        file.source.stdlib_headers.insert("expected");
-
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     file.header.contents += "\n/// Stores either ";
                     if (value_type_is_void)
                         file.header.contents += "nothing (which represents success)";
@@ -176,6 +168,16 @@ namespace mrbind::CBindings::Modules
 
             binder.FillCommonParams(generator, new_type);
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+
+
+            // Which C++ headers to use.
+            if (is_tl_expected)
+                new_type.cpp_decl_location.cpp_stdlib_headers.insert("tl/expected.h"); // For now we're reusing `stdlib_headers` for third-party headers. Might be a good idea to add a separate category for them later.
+            else
+                new_type.cpp_decl_location.cpp_stdlib_headers.insert("expected");
+            new_type.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type_value));
+            new_type.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type_error));
+
 
             return ret;
         }

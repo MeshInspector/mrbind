@@ -119,11 +119,8 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("memory");
                     if (include_common_header_in_output_header)
                         file.source.custom_headers.insert(generator.GetCommonPublicHelpersFile().header.path_for_inclusion);
-
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
 
                     if (is_array_of_unknown_bound)
                     {
@@ -380,6 +377,11 @@ namespace mrbind::CBindings::Modules
                 // Fill the type deps.
                 generator.FillDefaultTypeDependencies(underlying_ptr_type, new_type);
                 new_type.param_usage_with_default_arg->same_addr_bindable_type_dependencies.try_emplace(type_str); // Default arguments need the full `std_unique_ptr_T` type.
+
+
+                // Which C++ headers to use.
+                new_type.cpp_decl_location.cpp_stdlib_headers.insert("memory");
+                new_type.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type_minus_array_unqual));
             }
 
             return ret;

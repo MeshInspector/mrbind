@@ -15,10 +15,16 @@ namespace mrbind::CBindings::Modules
         //
         // Note that we assume that all tag types are trivial and copyable, at least now. We can make that customizable later, it's simple.
 
-        std::vector<cppdecl::QualifiedName> base_names = {
-            cppdecl::QualifiedName{}.AddPart("std").AddPart("monostate"),
-            cppdecl::QualifiedName{}.AddPart("std").AddPart("less"),
-            cppdecl::QualifiedName{}.AddPart("std").AddPart("greater"),
+        struct Target
+        {
+            cppdecl::QualifiedName name;
+            std::string cpp_stdlib_header;
+        };
+
+        std::vector<Target> targets = {
+            {.name = cppdecl::QualifiedName{}.AddPart("std").AddPart("monostate"), .cpp_stdlib_header = "variant"},
+            {.name = cppdecl::QualifiedName{}.AddPart("std").AddPart("less")     , .cpp_stdlib_header = "functional"},
+            {.name = cppdecl::QualifiedName{}.AddPart("std").AddPart("greater")  , .cpp_stdlib_header = "functional"},
         };
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
@@ -28,9 +34,13 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
+            std::string cpp_stdlib_header;
+
             { // Check against the list of known types.
                 if (!type.simple_type.IsOnlyQualifiedName(cppdecl::SingleWordFlags::ignore_const))
                     return ret; // Hmm.
+
+                // Allow zero modifiers, or a const/rvalue reference, or a pointer.
                 if (
                     !(
                         type.modifiers.size() == 0 ||
@@ -56,8 +66,19 @@ namespace mrbind::CBindings::Modules
                     return ret; // Neither a qualified-name only, nor a reference to one.
                 }
 
-                if (std::none_of(base_names.begin(), base_names.end(), [&](const cppdecl::QualifiedName &base_name){return type.simple_type.name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);}))
-                    return ret; // Not a matching type.
+                // Check the name.
+                bool found = false;
+                for (const auto &target : targets)
+                {
+                    if (type.simple_type.name.Equals(target.name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                    {
+                        found = true;
+                        cpp_stdlib_header = target.cpp_stdlib_header;
+                        break;
+                    }
+                }
+                if (!found)
+                    return;
             }
 
 
@@ -100,6 +121,10 @@ namespace mrbind::CBindings::Modules
 
                 return ret;
             };
+
+
+            if (!cpp_stdlib_header.empty())
+                binding.cpp_decl_location.cpp_stdlib_headers.insert(std::move(cpp_stdlib_header));
 
             return ret;
         }

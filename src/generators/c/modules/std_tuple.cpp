@@ -42,9 +42,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("tuple");
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     file.header.contents += "\n/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
@@ -142,6 +139,11 @@ namespace mrbind::CBindings::Modules
             Generator::BindableType &new_type = ret.emplace();
             binder.FillCommonParams(generator, new_type);
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+
+            // Which C++ headers to use.
+            new_type.cpp_decl_location.cpp_stdlib_headers.insert("tuple");
+            for (const auto &elem_type : elem_types)
+                new_type.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(elem_type));
 
             return ret;
         }

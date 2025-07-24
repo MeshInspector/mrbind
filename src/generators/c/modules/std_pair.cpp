@@ -38,9 +38,6 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.source.stdlib_headers.insert("utility"); // For `std::pair`.
-                    TryIncludeHeadersForCppTypeInSourceFile(generator, file, type);
-
                     file.header.contents += "\n/// Stores two objects: `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "` and `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
@@ -128,6 +125,11 @@ namespace mrbind::CBindings::Modules
             Generator::BindableType &new_type = ret.emplace();
             binder.FillCommonParams(generator, new_type);
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
+
+            // Which C++ headers to use.
+            new_type.cpp_decl_location.cpp_stdlib_headers.insert("utility"); // For `std::pair`.
+            new_type.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type_a));
+            new_type.cpp_decl_location.MergeCppDeclLocationsFrom(generator.FindTypeCppDeclLocation(cpp_elem_type_b));
 
             return ret;
         }
