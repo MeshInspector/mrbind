@@ -82,6 +82,7 @@ build/mrbind_gen_c \
 build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
     --canonicalize-to-fixed-size-typedefs \
+    --canonicalize-size_t-to-uint64_t \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 
@@ -92,6 +93,7 @@ build/mrbind_gen_c \
     --output-source-dir test/output_c_fixed_typedefs/source \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --reject-long-and-long-long \
+    --use-size_t-typedef-for-uint64_t \
     --merge-std-and-tl-expected
 
 

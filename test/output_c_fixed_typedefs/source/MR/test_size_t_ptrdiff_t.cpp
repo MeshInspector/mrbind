@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 
-uint64_t MR_TestSizeT_foo_uint64_t(uint64_t _1)
+MR_C_uint64_t MR_TestSizeT_foo_uint64_t(MR_C_uint64_t _1)
 {
     return ::MR::TestSizeT::foo(
         _1
@@ -28,7 +28,7 @@ MR_C_std_vector_uint64_t *MR_TestSizeT_foo_std_vector_uint64_t(MR_C_PassBy _1_pa
     ));
 }
 
-int64_t MR_TestSizeT_foo_int64_t(int64_t _1)
+MR_C_int64_t MR_TestSizeT_foo_int64_t(MR_C_int64_t _1)
 {
     return ::MR::TestSizeT::foo(
         _1
@@ -93,7 +93,7 @@ MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_
     ));
 }
 
-uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_this)
+MR_C_uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_this)
 {
     return (_this ? *(MR::TestSizeT::A<uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo();
 }

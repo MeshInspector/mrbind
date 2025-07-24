@@ -171,6 +171,10 @@ namespace mrbind
         bool enable_cppdecl_processing = true;
 
         bool canonicalize_to_fixed_size_typedefs = false;
+        // Only makes sense if `canonicalize_to_fixed_size_typedefs` is also true.
+        // Canonicalize `size_t` to `uint64_t`, and not necessarily canonicalize `uint64_t` to itself.
+        // The difference only matters on Macs, where `size_t` is `unsigned long`, while `uint64_t` is `unsigned long long`.
+        bool only_canonicalize_size_t_to_uint64_t = false;
 
         bool implicit_enum_underlying_type_is_always_int = false;
 
@@ -364,9 +368,9 @@ namespace mrbind
                         bool is_long_long = false;
                         if (word == "long" || (is_long_long = word == "long long"))
                         {
-                            // Have to use `getSignedSizeType()` instead of `getInt64Type()` because they are different on Macs (`long` vs `long long` respectively),
+                            // Here we usually want to use `getSignedSizeType()` instead of `getInt64Type()` because they are different on Macs (`long` vs `long long` respectively),
                             //   and we value `size_t`/`ptrdiff_t` more than we do `[u]int64_t`.
-                            clang::TargetInfo::IntType signed_size_type = ci.getTarget().getSignedSizeType();
+                            clang::TargetInfo::IntType signed_size_type = params.only_canonicalize_size_t_to_uint64_t ? ci.getTarget().getSignedSizeType() : ci.getTarget().getInt64Type();
 
                             if (signed_size_type == clang::TargetInfo::IntType::SignedLong && !is_long_long)
                             {
@@ -2911,6 +2915,12 @@ int main(int argc, char **argv)
                         continue;
                     }
 
+                    if (this_arg == "--canonicalize-size_t-to-uint64_t")
+                    {
+                        params.only_canonicalize_size_t_to_uint64_t = true;
+                        continue;
+                    }
+
                     if (this_arg == "--implicit-enum-underlying-type-is-always-int")
                     {
                         params.implicit_enum_underlying_type_is_always_int = true;
@@ -2961,7 +2971,8 @@ int main(int argc, char **argv)
         "  --allow T                   - Unban a subentity of something that was banned with `--ignore`. Same syntax.\n"
         "  --skip-base T               - Silently remove `T` from any lists of base classes. You might also want to `--ignore T`.\n"
         "  --skip-mentions-of T        - Skip any data members of type `T`, and any functions that have type `T` either as the return type or as a parameter type. `T` must be cvref-unqualified, as those qualifiers are ignored automatically (unless `--no-cppdecl` is passed). Like in `--ignore`, the type can be enclosed in slashes to act as a regex. You might want to pass the same type to `--ignore` too. Unlike in `--ignore`, the template arguments can't be omitted, but a regex can be used to handle those.\n"
-        "  --canonicalize-to-fixed-size-typedefs - This helps produce cross-platform bindings. Canonicalize integer types to the standard fixed-width typedefs, instead of their normal spellings. If you use this, you shouldn't use `long` and `long long` directly in the interface, and should only use 64-bit wide standard typedefs in their place. Because otherwise you will get conflicts between different types of the same width (we refuse to canonicalize either `long` or `long long` depending on the platform to avoid errors, but this isn't what you want).\n"
+        "  --canonicalize-to-fixed-size-typedefs - This helps produce cross-platform bindings. Canonicalize integer types to the standard fixed-width typedefs, instead of their normal spellings. If you use this, you shouldn't use `long` and `long long` directly in the interface, and should only use 64-bit wide standard typedefs in their place. Because otherwise you will get conflicts between different types of the same width (we refuse to canonicalize either `long` or `long long` depending on the platform to avoid errors). Additionally, to get sane results on Mac, the only 64-bit wide standard typedefs you can use are `[u]int64_t` (or alternatively enable `--canonicalize-size_t-to-uint64_t` and use `size_t` and `ptrdiff_t`, but then you must avoid `[u]int64_t.)\n"
+        "  --canonicalize-size_t-to-uint64_t - This only has effect if `--canonicalize-to-fixed-size-typedefs` is set, and if we're targeting Mac. On Mac, `uint64_t` and `size_t` are different types (`unsigned long long` and `unsigned long` respectively), for some unknown reason. If this is enabled, instead of canonicalizing `unsigned long` to `uint64_t`, we canonicalize `unsigned long long` to `uint64_t`. This allows you to use `size_t` and `ptrdiff_t` in the public interface, but means that you can no longer use the standard `[u]int64_t` typedefs in the interface.\n"
         "  --implicit-enum-underlying-type-is-always-int - This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.\n"
         "  --buggy-substitute-default-template-args - Automatically instantiate function templates that have all their arguments defaulted, by substituting those default template arguments. This is currently buggy, enable at your own risk (chokes on old-style SFINAE, works alright with `requires`).\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "

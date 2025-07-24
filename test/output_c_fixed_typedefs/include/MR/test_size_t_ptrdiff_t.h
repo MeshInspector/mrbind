@@ -4,7 +4,6 @@
 #include <exports.h>
 
 #include <stddef.h>
-#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,7 +17,7 @@ typedef struct MR_C_std_vector_uint64_t MR_C_std_vector_uint64_t; // Defined in 
 typedef struct MR_TestSizeT_A_uint64_t MR_TestSizeT_A_uint64_t;
 
 /// Generated from function `MR::TestSizeT::foo`.
-MR_C_API uint64_t MR_TestSizeT_foo_uint64_t(uint64_t _1);
+MR_C_API MR_C_uint64_t MR_TestSizeT_foo_uint64_t(MR_C_uint64_t _1);
 
 /// Generated from function `MR::TestSizeT::foo`.
 /// Parameter `_1` can not be null.
@@ -30,7 +29,7 @@ MR_C_API uint64_t **MR_TestSizeT_foo_uint64_t_ptr(uint64_t **_1);
 MR_C_API MR_C_std_vector_uint64_t *MR_TestSizeT_foo_std_vector_uint64_t(MR_C_PassBy _1_pass_by, MR_C_std_vector_uint64_t *_1);
 
 /// Generated from function `MR::TestSizeT::foo`.
-MR_C_API int64_t MR_TestSizeT_foo_int64_t(int64_t _1);
+MR_C_API MR_C_int64_t MR_TestSizeT_foo_int64_t(MR_C_int64_t _1);
 
 /// Generated from function `MR::TestSizeT::foo`.
 /// Parameter `_1` can not be null.
@@ -75,7 +74,7 @@ MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_T
 
 /// Generated from a method of class `MR::TestSizeT::A<uint64_t>` named `foo`.
 /// Parameter `_this` can not be null.
-MR_C_API uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_this);
+MR_C_API MR_C_uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_this);
 
 #ifdef __cplusplus
 } // extern "C"

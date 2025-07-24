@@ -300,21 +300,21 @@ void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
     );
 }
 
-uint64_t MR_TestSimpleTypes_blah_uint64_t(uint64_t x)
+MR_C_uint64_t MR_TestSimpleTypes_blah_uint64_t(MR_C_uint64_t x)
 {
     return ::MR::TestSimpleTypes::blah(
         x
     );
 }
 
-int64_t MR_TestSimpleTypes_blah_int64_t(int64_t x)
+MR_C_int64_t MR_TestSimpleTypes_blah_int64_t(MR_C_int64_t x)
 {
     return ::MR::TestSimpleTypes::blah(
         x
     );
 }
 
-uint64_t MR_TestSimpleTypes_FuncTemplate_uint64_t(uint64_t _1)
+MR_C_uint64_t MR_TestSimpleTypes_FuncTemplate_uint64_t(MR_C_uint64_t _1)
 {
     return ::MR::TestSimpleTypes::FuncTemplate<uint64_t>(
         _1
@@ -333,7 +333,7 @@ const uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void)
     return &(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
 }
 
-void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(uint64_t value)
+void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value)
 {
     MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t> = value;
 }
@@ -360,7 +360,7 @@ MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint
     return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)(((MR::TestSimpleTypes::ClassTemplate<uint64_t> *)ptr) + i);
 }
 
-MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_uint64_t(uint64_t _1)
+MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_uint64_t(MR_C_uint64_t _1)
 {
     return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
         _1

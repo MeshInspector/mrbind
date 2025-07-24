@@ -62,6 +62,9 @@ namespace mrbind::CBindings
         // Fail if `[unsigned] long [long]` appears in the parsed input.
         // This is designed to work with the parser's `--canonicalize-to-fixed-size-typedefs`.
         bool reject_long_and_long_long = false;
+        // Instead of binding `[u]int64_t` as is, create custom typedefs for them, pointing to `size_t` and `ptrdiff_t`.
+        // This is designed to work with the parser's `--canonicalize-size_t-to-uint64_t`.
+        bool custom_typedef_for_uint64_t_pointing_to_size_t = false;
 
         // 0 means no limit.
         // This is a loose limit, we don't count the extension, the extra hash string that gets added, etc.

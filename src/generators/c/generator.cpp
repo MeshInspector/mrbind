@@ -271,6 +271,21 @@ namespace mrbind::CBindings
         if (!is_new)
             return file;
 
+        // The custom 64-bit typedefs.
+        if (custom_typedef_for_uint64_t_pointing_to_size_t)
+        {
+            file.header.contents += "#ifdef __APPLE__\n";
+            file.header.contents += "#include <stddef.h>\n";
+            file.header.contents += "typedef ptrdiff_t " + MakePublicHelperName("int64_t") + ";\n";
+            file.header.contents += "typedef size_t " + MakePublicHelperName("uint64_t") + ";\n";
+            file.header.contents += "#else\n";
+            file.header.contents += "#include <stdint.h>\n";
+            file.header.contents += "typedef int64_t " + MakePublicHelperName("int64_t") + ";\n";
+            file.header.contents += "typedef uint64_t " + MakePublicHelperName("uint64_t") + ";\n";
+            file.header.contents += "#endif\n";
+            file.header.contents += "\n";
+        }
+
         { // The pass-by enum.
             std::string name = GetPassByEnumName();
 

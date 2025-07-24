@@ -5,7 +5,6 @@
 
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -75,7 +74,7 @@ MR_C_API void MR_C_std_vector_int64_t_Resize(MR_C_std_vector_int64_t *_this, siz
 
 /// Resizes the container. The new elements if any are set to the specified value.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_vector_int64_t_ResizeWithDefaultValue(MR_C_std_vector_int64_t *_this, size_t new_size, int64_t value);
+MR_C_API void MR_C_std_vector_int64_t_ResizeWithDefaultValue(MR_C_std_vector_int64_t *_this, size_t new_size, MR_C_int64_t value);
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null.
@@ -129,7 +128,7 @@ MR_C_API int64_t *MR_C_std_vector_int64_t_MutableData(MR_C_std_vector_int64_t *_
 
 /// Inserts a new element at the end.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_vector_int64_t_PushBack(MR_C_std_vector_int64_t *_this, int64_t new_elem);
+MR_C_API void MR_C_std_vector_int64_t_PushBack(MR_C_std_vector_int64_t *_this, MR_C_int64_t new_elem);
 
 /// Removes one element from the end.
 /// Parameter `_this` can not be null.
@@ -137,7 +136,7 @@ MR_C_API void MR_C_std_vector_int64_t_PopBack(MR_C_std_vector_int64_t *_this);
 
 /// Inserts a new element right before the specified position.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_vector_int64_t_Insert(MR_C_std_vector_int64_t *_this, size_t position, int64_t new_elem);
+MR_C_API void MR_C_std_vector_int64_t_Insert(MR_C_std_vector_int64_t *_this, size_t position, MR_C_int64_t new_elem);
 
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null.
@@ -146,7 +145,7 @@ MR_C_API void MR_C_std_vector_int64_t_Erase(MR_C_std_vector_int64_t *_this, size
 /// Inserts a new element right before the specified position.
 /// Parameter `_this` can not be null.
 /// Parameter `position` can not be null.
-MR_C_API void MR_C_std_vector_int64_t_InsertAtMutableIter(MR_C_std_vector_int64_t *_this, const MR_C_std_vector_int64_t_iterator *position, int64_t new_elem);
+MR_C_API void MR_C_std_vector_int64_t_InsertAtMutableIter(MR_C_std_vector_int64_t *_this, const MR_C_std_vector_int64_t_iterator *position, MR_C_int64_t new_elem);
 
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null.
@@ -156,7 +155,7 @@ MR_C_API void MR_C_std_vector_int64_t_EraseAtMutableIter(MR_C_std_vector_int64_t
 /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
 /// Parameter `_this` can not be null.
 /// Parameter `position` can not be null.
-MR_C_API void MR_C_std_vector_int64_t_InsertAtIter(MR_C_std_vector_int64_t *_this, const MR_C_std_vector_int64_t_const_iterator *position, int64_t new_elem);
+MR_C_API void MR_C_std_vector_int64_t_InsertAtIter(MR_C_std_vector_int64_t *_this, const MR_C_std_vector_int64_t_const_iterator *position, MR_C_int64_t new_elem);
 
 /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
 /// Parameter `_this` can not be null.

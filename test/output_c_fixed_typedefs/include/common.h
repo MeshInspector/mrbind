@@ -4,6 +4,16 @@
 
 #include <stddef.h>
 
+#ifdef __APPLE__
+#include <stddef.h>
+typedef ptrdiff_t MR_C_int64_t;
+typedef size_t MR_C_uint64_t;
+#else
+#include <stdint.h>
+typedef int64_t MR_C_int64_t;
+typedef uint64_t MR_C_uint64_t;
+#endif
+
 
 typedef enum MR_C_PassBy
 {
