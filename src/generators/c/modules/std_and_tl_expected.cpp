@@ -177,7 +177,7 @@ namespace mrbind::CBindings::Modules
             if (name.Equals(target_std, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
                 return "expected";
             if (name.Equals(target_tl, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
-                return "tl/expected.h"; // For now we're putting third-party headers into the same category.
+                return "tl/expected.hpp"; // For now we're putting third-party headers into the same category.
             return {};
         }
     };
