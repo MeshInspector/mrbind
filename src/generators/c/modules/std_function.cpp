@@ -76,7 +76,7 @@ namespace mrbind::CBindings::Modules
                 callback_return_type_binding = &generator.FindBindableType(cpp_callback_return_type);
 
                 if (!callback_return_type_binding->param_usage && !callback_return_type_binding->param_usage_with_default_arg)
-                    throw std::runtime_error("The return type of `std::function`, which is `" + cppdecl::ToCode(cpp_callback_return_type, cppdecl::ToCodeFlags::canonical_c_style) + "`, doesn't have a parameter usage.");
+                    throw std::runtime_error("The return type of `std::function`, which is `" + generator.CppdeclToCode(cpp_callback_return_type) + "`, doesn't have a parameter usage.");
 
                 callback_return_usage = callback_return_type_binding->param_usage ? &callback_return_type_binding->param_usage.value() : &callback_return_type_binding->param_usage_with_default_arg.value();
             }
@@ -95,7 +95,7 @@ namespace mrbind::CBindings::Modules
 
                 const Generator::BindableType &param_type_binding = generator.FindBindableType(fixed_type);
                 if (!param_type_binding.return_usage)
-                    throw std::runtime_error("A parameter type of `std::function`, a `" + cppdecl::ToCode(fixed_type, cppdecl::ToCodeFlags::canonical_c_style) + "`, doesn't have a return usage.");
+                    throw std::runtime_error("A parameter type of `std::function`, a `" + generator.CppdeclToCode(fixed_type) + "`, doesn't have a return usage.");
                 callback_param_usages.push_back(&param_type_binding.return_usage.value());
             }
 
@@ -190,7 +190,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores a functor of type: `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "`. Possibly stateful.\n";
+                    file.header.contents += "\n/// Stores a functor of type: `" + generator.CppdeclToCode(cpp_elem_type) + "`. Possibly stateful.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions:
@@ -263,7 +263,7 @@ namespace mrbind::CBindings::Modules
                                     cppdecl::Decl var_decl;
                                     var_decl.type = usage_c_param.c_type;
                                     var_decl.name = cppdecl::QualifiedName::FromSingleWord(output_parameters_base_name + usage_c_param.name_suffix);
-                                    ret.cpp_extra_statements += cppdecl::ToCode(var_decl, cppdecl::ToCodeFlags::canonical_c_style) + " = {};\n";
+                                    ret.cpp_extra_statements += generator.CppdeclToCode(var_decl) + " = {};\n";
 
                                     // Pass those variables too.
                                     ret.extra_args_before.push_back("&" + output_parameters_base_name + usage_c_param.name_suffix);
@@ -332,7 +332,7 @@ namespace mrbind::CBindings::Modules
                             "}";
 
                         emit.cpp_called_func = "_self = [_f = @1@]";
-                        emit.cpp_called_func += cppdecl::ToCode(strings.decl.type, cppdecl::ToCodeFlags::canonical_c_style | cppdecl::ToCodeFlags::lambda);
+                        emit.cpp_called_func += generator.CppdeclToCode(strings.decl.type, cppdecl::ToCodeFlags::lambda);
                         emit.cpp_called_func += '\n';
                         emit.cpp_called_func += generator.IndentString(strings.body, 1, true);
 
@@ -452,7 +452,7 @@ namespace mrbind::CBindings::Modules
                             "            _userdata_cb(&_userdata, nullptr);\n"
                             "    }\n"
                             "\n"
-                            "    auto operator()" + cppdecl::ToCode(strings.decl.type, cppdecl::ToCodeFlags::canonical_c_style | cppdecl::ToCodeFlags::lambda) + "\n"
+                            "    auto operator()" + generator.CppdeclToCode(strings.decl.type, cppdecl::ToCodeFlags::lambda) + "\n"
                             "    " + generator.IndentString(strings.body, 1, false) + "\n"
                             "};\n"
                             ;

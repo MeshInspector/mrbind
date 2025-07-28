@@ -57,11 +57,11 @@ namespace mrbind::CBindings
         // If not, then we let the underlying name match the public one.
         cppdecl::QualifiedName iterator_name = cpp_container_type;
         iterator_name.parts.emplace_back("iterator");
-        auto iter = generator.type_alt_spelling_to_canonical.find(cppdecl::ToCode(iterator_name, cppdecl::ToCodeFlags::canonical_c_style));
+        auto iter = generator.type_alt_spelling_to_canonical.find(generator.CppdeclToCode(iterator_name));
         iterator_binder_mutable = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
         iterator_binder_mutable.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
         iterator_name.parts.back().var = "const_iterator";
-        iter = generator.type_alt_spelling_to_canonical.find(cppdecl::ToCode(iterator_name, cppdecl::ToCodeFlags::canonical_c_style));
+        iter = generator.type_alt_spelling_to_canonical.find(generator.CppdeclToCode(iterator_name));
         iterator_binder_const = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
         iterator_binder_const.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
     }
@@ -103,7 +103,7 @@ namespace mrbind::CBindings
 
             generator.TryIncludeHeadersForCppTypeInSourceFile(file, cppdecl::Type::FromQualifiedName(cpp_container_type));
 
-            file.header.contents += "\n/// Generated from C++ container `" + cppdecl::ToCode(cpp_container_type, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
+            file.header.contents += "\n/// Generated from C++ container `" + generator.CppdeclToCode(cpp_container_type) + "`.\n";
             class_binder.EmitForwardDeclaration(generator, file);
             file.header.contents += "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n";
             iterator_binder_const.EmitForwardDeclaration(generator, file);
@@ -134,7 +134,7 @@ namespace mrbind::CBindings
                             .name = "size",
                             .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
                         });
-                        emit.cpp_called_func = cppdecl::ToCode(class_binder.cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style) + "(@1@, @1@ + @2@)";
+                        emit.cpp_called_func = generator.CppdeclToCode(class_binder.cpp_type_name) + "(@1@, @1@ + @2@)";
                         generator.EmitFunction(file, emit);
                     }
 
@@ -152,7 +152,7 @@ namespace mrbind::CBindings
                             .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
                         });
                         // Not all containers have the `.assign()` method, so instead use the normal assignment.
-                        emit.cpp_called_func = "@this@ = " + cppdecl::ToCode(class_binder.cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style) + "(@1@, @1@ + @2@)";
+                        emit.cpp_called_func = "@this@ = " + generator.CppdeclToCode(class_binder.cpp_type_name) + "(@1@, @1@ + @2@)";
                         generator.EmitFunction(file, emit);
                     }
                 }
@@ -641,7 +641,7 @@ namespace mrbind::CBindings
                             .name = "iter",
                             .cpp_type = cppdecl::Type::FromQualifiedName(iterator_binder_mutable.cpp_type_name),
                         });
-                        emit.cpp_called_func = cppdecl::ToCode(iterator_binder_mutable.cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+                        emit.cpp_called_func = generator.CppdeclToCode(iterator_binder_mutable.cpp_type_name);
                         generator.EmitFunction(file, emit);
                     }
 

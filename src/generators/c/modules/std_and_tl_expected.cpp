@@ -73,8 +73,8 @@ namespace mrbind::CBindings::Modules
                     if (value_type_is_void)
                         file.header.contents += "nothing (which represents success)";
                     else
-                        file.header.contents += "a `" + cppdecl::ToCode(cpp_elem_type_value, cppdecl::ToCodeFlags::canonical_c_style) + "` that represents success";
-                    file.header.contents += "or a `" + cppdecl::ToCode(cpp_elem_type_error, cppdecl::ToCodeFlags::canonical_c_style) + "` that represents an error.\n";
+                        file.header.contents += "a `" + generator.CppdeclToCode(cpp_elem_type_value) + "` that represents success";
+                    file.header.contents += "or a `" + generator.CppdeclToCode(cpp_elem_type_error) + "` that represents an error.\n";
 
                     binder.EmitForwardDeclaration(generator, file);
 
@@ -102,7 +102,7 @@ namespace mrbind::CBindings::Modules
                             }
                             else
                             {
-                                emit.c_comment += "/// If this instance represents success, returns the stored `" + cppdecl::ToCode(cpp_elem_type_value, cppdecl::ToCodeFlags::canonical_c_style) + "`. Otherwise null.";
+                                emit.c_comment += "/// If this instance represents success, returns the stored `" + generator.CppdeclToCode(cpp_elem_type_value) + "`. Otherwise null.";
                                 if (!is_const)
                                     emit.c_comment += " This version returns a mutable pointer.";
                             }
@@ -140,7 +140,7 @@ namespace mrbind::CBindings::Modules
                         {
                             Generator::EmitFuncParams emit;
 
-                            emit.c_comment += "/// If this instance represents an error, returns the stored `" + cppdecl::ToCode(cpp_elem_type_error, cppdecl::ToCodeFlags::canonical_c_style) + "`. Otherwise null.";
+                            emit.c_comment += "/// If this instance represents an error, returns the stored `" + generator.CppdeclToCode(cpp_elem_type_error) + "`. Otherwise null.";
                             if (!is_const)
                                 emit.c_comment += " This version returns a mutable pointer.";
 

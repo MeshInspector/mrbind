@@ -38,7 +38,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores two objects: `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "` and `" + cppdecl::ToCode(cpp_elem_type_a, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
+                    file.header.contents += "\n/// Stores two objects: `" + generator.CppdeclToCode(cpp_elem_type_a) + "` and `" + generator.CppdeclToCode(cpp_elem_type_a) + "`.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions:
@@ -58,7 +58,7 @@ namespace mrbind::CBindings::Modules
                             .cpp_type = cpp_elem_type_b, // `EmitFunction` removes the top-level constness (if any) from this automatically.
                         });
 
-                        emit.cpp_called_func = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
+                        emit.cpp_called_func = generator.CppdeclToCode(type);
                         generator.EmitFunction(file, emit);
                     }
 

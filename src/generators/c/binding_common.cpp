@@ -67,7 +67,7 @@ namespace mrbind::CBindings
     {
         Generator::BindableType::ReturnUsage ret;
 
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
         ret.c_type = cppdecl::Type::FromSingleWord(c_type_name).AddModifier(cppdecl::Pointer{});
         ret.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
@@ -93,7 +93,7 @@ namespace mrbind::CBindings
     {
         std::optional<Generator::BindableType::ParamUsageWithDefaultArg> ret;
 
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
         // Parameter passing strategy.
         if (traits.value().UnconditionallyCopyOnPassByValue())
@@ -359,7 +359,7 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor(Generator &generator) const
     {
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
         Generator::EmitFuncParams ret;
 
@@ -377,7 +377,7 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtorArray(Generator &generator) const
     {
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
         Generator::EmitFuncParams ret;
 
@@ -391,7 +391,7 @@ namespace mrbind::CBindings
             .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
         });
 
-        ret.cpp_called_func = "new " + cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style) + "[@1@]{}"; // Right now we're zeroing the array. That sounds like a good idea.
+        ret.cpp_called_func = "new " + generator.CppdeclToCode(cpp_type_name) + "[@1@]{}"; // Right now we're zeroing the array. That sounds like a good idea.
 
         ret.c_comment =
             "/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.\n"
@@ -403,7 +403,7 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveCtor(Generator &generator, bool with_param_sugar) const
     {
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
         Generator::EmitFuncParams ret;
 
@@ -430,7 +430,7 @@ namespace mrbind::CBindings
 
     Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncCopyMoveAssignment(Generator &generator, bool with_param_sugar) const
     {
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
         Generator::EmitFuncParams ret;
 
@@ -574,7 +574,7 @@ namespace mrbind::CBindings
             .c_type = cppdecl::Type(c_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{})
         });
         param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
-        param_def_arg.c_params_to_cpp = [cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
+        param_def_arg.c_params_to_cpp = [cpp_type_str = generator.CppdeclToCode(cpp_type)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
         {
             (void)source_file;
             std::string ret = "(";
@@ -632,7 +632,7 @@ namespace mrbind::CBindings
 
     std::optional<Generator::BindableType> MakeSimpleTypeBinding(Generator &generator, const cppdecl::Type &cpp_type)
     {
-        const std::string cpp_type_str = ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string cpp_type_str = generator.CppdeclToCode(cpp_type);
 
         // Bindable without a cast?
         if (generator.IsSimplyBindableDirect(cpp_type))
@@ -663,7 +663,7 @@ namespace mrbind::CBindings
             });
 
             // Add the casts!
-            ret_usage.make_return_expr = [type_str_c = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
+            ret_usage.make_return_expr = [type_str_c = generator.CppdeclToCode(type_c_style)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
             {
                 (void)file;
                 return "(" + type_str_c + ")(" + std::string(expr) + ")";
@@ -746,7 +746,7 @@ namespace mrbind::CBindings
         if (is_ref)
         {
             ref_target_type = cppdecl::Type(cpp_type).RemoveModifier();
-            ref_target_type_str = cppdecl::ToCode(ref_target_type, cppdecl::ToCodeFlags::canonical_c_style);
+            ref_target_type_str = generator.CppdeclToCode(ref_target_type);
         }
 
         // A reference to `IsSimplyBindableIndirect[Reinterpret]`?
@@ -797,8 +797,8 @@ namespace mrbind::CBindings
 
                     // Take the address and cast.
                     ret_usage.make_return_expr = [
-                        ref_target_c_type_str = ToCode(type_c_style, cppdecl::ToCodeFlags::canonical_c_style, 1),
-                        ref_target_c_type_ptr_str = ToCode(ptr_type_c_style, cppdecl::ToCodeFlags::canonical_c_style),
+                        ref_target_c_type_str = generator.CppdeclToCode(type_c_style, {}, 1),
+                        ref_target_c_type_ptr_str = generator.CppdeclToCode(ptr_type_c_style),
                         is_rvalue_ref,
                         details_file = is_rvalue_ref ? generator.GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
@@ -881,7 +881,7 @@ namespace mrbind::CBindings
                 param_def_arg.c_params_to_cpp = [
                     cpp_type_str,
                     ref_target_type_str,
-                    cpp_ptr_type_str = cppdecl::ToCode(cppdecl::Type(ref_target_type).AddModifier(cppdecl::Pointer{}), cppdecl::ToCodeFlags::canonical_c_style),
+                    cpp_ptr_type_str = generator.CppdeclToCode(cppdecl::Type(ref_target_type).AddModifier(cppdecl::Pointer{})),
                     with_cast,
                     is_rvalue_ref
                 ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
@@ -981,7 +981,7 @@ namespace mrbind::CBindings
     {
         (void)generator;
 
-        const std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string cpp_type_str = generator.CppdeclToCode(cpp_type);
 
         Generator::BindableType new_type;
         new_type.traits = traits;

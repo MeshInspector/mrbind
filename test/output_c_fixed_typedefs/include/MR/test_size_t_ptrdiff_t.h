@@ -13,7 +13,7 @@ typedef struct MR_C_std_vector_int64_t MR_C_std_vector_int64_t; // Defined in `#
 typedef struct MR_C_std_vector_uint64_t MR_C_std_vector_uint64_t; // Defined in `#include <std_vector_uint64_t.h>`.
 
 
-/// Generated from class `MR::TestSizeT::A<uint64_t>`.
+/// Generated from class `MR::TestSizeT::A<MR_C_uint64_t>`.
 typedef struct MR_TestSizeT_A_uint64_t MR_TestSizeT_A_uint64_t;
 
 /// Generated from function `MR::TestSizeT::foo`.
@@ -55,7 +55,7 @@ MR_C_API const MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_OffsetPtr(const 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_OffsetMutablePtr(MR_TestSizeT_A_uint64_t *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::TestSizeT::A<uint64_t>`.
+/// Generated from a constructor of class `MR::TestSizeT::A<MR_C_uint64_t>`.
 /// Parameter `_other` can not be null.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_ConstructFromAnother(const MR_TestSizeT_A_uint64_t *_other);
@@ -66,13 +66,13 @@ MR_C_API void MR_TestSizeT_A_uint64_t_Destroy(const MR_TestSizeT_A_uint64_t *_th
 /// Destroys a heap-allocated array of `MR_TestSizeT_A_uint64_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSizeT_A_uint64_t_DestroyArray(const MR_TestSizeT_A_uint64_t *_this);
 
-/// Generated from a method of class `MR::TestSizeT::A<uint64_t>` named `operator=`.
+/// Generated from a method of class `MR::TestSizeT::A<MR_C_uint64_t>` named `operator=`.
 /// Parameter `_this` can not be null.
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_A_uint64_t *_this, const MR_TestSizeT_A_uint64_t *_other);
 
-/// Generated from a method of class `MR::TestSizeT::A<uint64_t>` named `foo`.
+/// Generated from a method of class `MR::TestSizeT::A<MR_C_uint64_t>` named `foo`.
 /// Parameter `_this` can not be null.
 MR_C_API MR_C_uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_this);
 

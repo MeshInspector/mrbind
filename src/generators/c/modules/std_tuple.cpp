@@ -50,7 +50,7 @@ namespace mrbind::CBindings::Modules
                         else
                             file.header.contents += ", ";
 
-                        file.header.contents += '`' + cppdecl::ToCode(elem_type, cppdecl::ToCodeFlags::canonical_c_style) + '`';
+                        file.header.contents += '`' + generator.CppdeclToCode(elem_type) + '`';
                     }
                     file.header.contents += ".\n";
 
@@ -75,7 +75,7 @@ namespace mrbind::CBindings::Modules
                             });
                         }
 
-                        emit.cpp_called_func = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
+                        emit.cpp_called_func = generator.CppdeclToCode(type);
                         generator.EmitFunction(file, emit);
                     }
 
@@ -115,7 +115,7 @@ namespace mrbind::CBindings::Modules
                                 }
 
                                 Generator::EmitFuncParams emit;
-                                emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_const ? "read-only" : "mutable") + ".";
+                                emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + generator.CppdeclToCode(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ".";
                                 emit.c_name = binder.MakeMemberFuncName(generator, name);
                                 emit.cpp_return_type = elem_types[i];
                                 if (!emit.cpp_return_type.Is<cppdecl::Reference>())

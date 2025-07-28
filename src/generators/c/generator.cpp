@@ -477,7 +477,7 @@ namespace mrbind::CBindings
 
         CheckForBannedTypes(cppdecl::Type::FromQualifiedName(cpp_type_name));
 
-        std::string cpp_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_str = CppdeclToCode(cpp_type_name);
         auto [iter, is_new] = types_bindable_with_same_address.try_emplace(std::move(cpp_str), std::move(desc));
         if (!is_new)
             throw std::runtime_error("Duplicate type-bindable-with-same_address: " + cpp_str); // The key is not moved on failure.
@@ -490,12 +490,12 @@ namespace mrbind::CBindings
         if (auto ret = FindTypeBindableWithSameAddressOpt(type_name, can_invent_new_bindings))
             return *ret;
         else
-            throw std::runtime_error("Don't know what to do with type `" + cppdecl::ToCode(type_name, cppdecl::ToCodeFlags::canonical_c_style) + "`: how to forward-declare it or what header to include.");
+            throw std::runtime_error("Don't know what to do with type `" + CppdeclToCode(type_name) + "`: how to forward-declare it or what header to include.");
     }
 
     const Generator::TypeBindableWithSameAddress *Generator::FindTypeBindableWithSameAddressOpt(const cppdecl::QualifiedName &type_name, bool can_invent_new_bindings)
     {
-        std::string type_name_str = cppdecl::ToCode(type_name, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string type_name_str = CppdeclToCode(type_name);
 
         auto iter = types_bindable_with_same_address.find(type_name_str);
         if (iter != types_bindable_with_same_address.end())
@@ -647,7 +647,7 @@ namespace mrbind::CBindings
         if (type.modifiers.empty())
         {
             // A parsed enum?
-            if (auto iter = parsed_type_info.find(cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style));
+            if (auto iter = parsed_type_info.find(CppdeclToCode(type));
                 iter != parsed_type_info.end() && iter->second.IsEnum()
             )
             {
@@ -742,7 +742,7 @@ namespace mrbind::CBindings
         if (auto *ret = FindBindableTypeOpt(type, remove_sugar, can_invent_new_bindings))
             return *ret;
         else
-            throw std::runtime_error("Don't know how to bind type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "`" + (remove_sugar ? " (with syntax sugar removed)" : "") + ".");
+            throw std::runtime_error("Don't know how to bind type `" + CppdeclToCode(type) + "`" + (remove_sugar ? " (with syntax sugar removed)" : "") + ".");
     }
 
     const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
@@ -755,7 +755,7 @@ namespace mrbind::CBindings
         if (type.IsConst())
             throw std::logic_error("Internal error: `Generator::FindBindableType()` shouldn't be given top-level const types. This shouldn't happen regardless of the input C++ code.");
 
-        const std::string type_str = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string type_str = CppdeclToCode(type);
 
         auto &map = remove_sugar ? bindable_cpp_types_nosugar : bindable_cpp_types;
 
@@ -818,7 +818,7 @@ namespace mrbind::CBindings
                     {
                         cppdecl::Type c_type = type;
                         ReplaceAllNamesInTypeWithCNames(c_type);
-                        return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, cppdecl::ToCode(c_type, cppdecl::ToCodeFlags::canonical_c_style), opt->traits.value())).first->second;
+                        return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, CppdeclToCode(c_type), opt->traits.value())).first->second;
                     }
                 }
             }
@@ -833,7 +833,7 @@ namespace mrbind::CBindings
     {
         auto ret = FindTypeTraitsOpt(type);
         if (!ret)
-            throw std::runtime_error("The type traits for type `" + cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "` were queried, but I don't know this type.");
+            throw std::runtime_error("The type traits for type `" + CppdeclToCode(type) + "` were queried, but I don't know this type.");
         return *ret;
     }
 
@@ -857,7 +857,7 @@ namespace mrbind::CBindings
             // Could validate that the type is known here here, but for now I'd rather do it lazily on use.
             // Not sure which way is better. Doing it lazily sounds a tiny bit more flexible?
 
-            std::string cpp_type_str = cppdecl::ToCode(cpp_type_name, cppdecl::ToCodeFlags::canonical_c_style);
+            std::string cpp_type_str = CppdeclToCode(cpp_type_name);
 
             if (target.param_usage)
                 target.param_usage->same_addr_bindable_type_dependencies[cpp_type_str].need_header |= need_definition;
@@ -885,6 +885,30 @@ namespace mrbind::CBindings
         }
     }
 
+    static void UnadjustFixedSizeTypedefsInCppdeclEntityAfterParsing(const Generator &generator, auto &input)
+    {
+        if (!generator.custom_typedef_for_uint64_t_pointing_to_size_t)
+            return; // Nothing to do.
+
+        // Unadjust our own typedefs back to `[u]int64_t`, for `--canonicalize-size_t-to-uint64_t`.
+
+        std::string signed_name = generator.MakePublicHelperName("int64_t");
+        std::string unsigned_name = generator.MakePublicHelperName("uint64_t");
+
+        input.template VisitEachComponent<cppdecl::QualifiedName>(
+            cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+            [&](cppdecl::QualifiedName &name)
+            {
+                const std::string_view word = name.AsSingleWord();
+
+                if (word == signed_name)
+                    name = cppdecl::QualifiedName::FromSingleWord("int64_t");
+                if (word == unsigned_name)
+                    name = cppdecl::QualifiedName::FromSingleWord("uint64_t");
+            }
+        );
+    }
+
     const cppdecl::Type &Generator::ParseTypeOrThrow(const std::string &str) const
     {
         auto [iter, is_new] = cached_parsed_types.try_emplace(str);
@@ -897,7 +921,9 @@ namespace mrbind::CBindings
             throw std::runtime_error("Unable to parse type `" + str + "`, error at offset " + std::to_string(view.data() - str.data()) + ": " + error->message);
         if (!view.empty())
             throw std::runtime_error("Unable to parse type `" + str + "`, junk starting at offset " + std::to_string(view.data() - str.data()) + ".");
-        iter->second = std::move(std::get<cppdecl::Type>(ret));
+        auto &ret_type = std::get<cppdecl::Type>(ret);
+        UnadjustFixedSizeTypedefsInCppdeclEntityAfterParsing(*this, ret_type);
+        iter->second = std::move(ret_type);
         return iter->second;
     }
 
@@ -913,8 +939,66 @@ namespace mrbind::CBindings
             throw std::runtime_error("Unable to parse qualified name `" + str + "`, error at offset " + std::to_string(view.data() - str.data()) + ": " + error->message);
         if (!view.empty())
             throw std::runtime_error("Unable to parse qualified name `" + str + "`, junk starting at offset " + std::to_string(view.data() - str.data()) + ".");
-        iter->second = std::move(std::get<cppdecl::QualifiedName>(ret));
+        auto &ret_name = std::get<cppdecl::QualifiedName>(ret);
+        UnadjustFixedSizeTypedefsInCppdeclEntityAfterParsing(*this, ret_name);
+        iter->second = std::move(ret_name);
         return iter->second;
+    }
+
+    template <typename T>
+    static const T &AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(const Generator &generator, const T &input, T &storage)
+    {
+        if (!generator.custom_typedef_for_uint64_t_pointing_to_size_t)
+            return input; // Nothing to do.
+
+        // Adjust `[u]int64_t` to our own typedefs, for `--canonicalize-size_t-to-uint64_t`.
+
+        storage = input;
+
+        storage.template VisitEachComponent<cppdecl::QualifiedName>(
+            cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+            [&](cppdecl::QualifiedName &name)
+            {
+                const std::string_view word = name.AsSingleWord();
+
+                if (word == "int64_t")
+                    name = cppdecl::QualifiedName::FromSingleWord(generator.MakePublicHelperName("int64_t"));
+                else if (word == "uint64_t")
+                    name = cppdecl::QualifiedName::FromSingleWord(generator.MakePublicHelperName("uint64_t"));
+            }
+        );
+
+        return storage;
+    }
+
+    std::string Generator::CppdeclToCode(const cppdecl::Type &input, cppdecl::ToCodeFlags extra_flags, std::size_t skip_first_modifiers) const
+    {
+        cppdecl::Type storage;
+        return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags, skip_first_modifiers);
+    }
+
+    std::string Generator::CppdeclToCode(const cppdecl::QualifiedName &input, cppdecl::ToCodeFlags extra_flags) const
+    {
+        cppdecl::QualifiedName storage;
+        return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags);
+    }
+
+    std::string Generator::CppdeclToCode(const cppdecl::Decl &input, cppdecl::ToCodeFlags extra_flags) const
+    {
+        cppdecl::Decl storage;
+        return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags);
+    }
+
+    std::string Generator::CppdeclToCode(const cppdecl::PseudoExpr &input, cppdecl::ToCodeFlags extra_flags) const
+    {
+        cppdecl::PseudoExpr storage;
+        return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags);
+    }
+
+    std::string Generator::CppdeclToCode(const cppdecl::SimpleType &input, cppdecl::ToCodeFlags extra_flags, cppdecl::CvQualifiers ignore_cv_quals) const
+    {
+        cppdecl::SimpleType storage;
+        return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags, ignore_cv_quals);
     }
 
     std::string Generator::CppTypeNameToCTypeName(const cppdecl::QualifiedName &cpp_name)
@@ -922,7 +1006,7 @@ namespace mrbind::CBindings
         if (auto ret = CppTypeNameToCTypeNameOpt(cpp_name))
             return std::move(*ret);
         else
-            throw std::runtime_error("Unable to translate C++ type name to C, this type isn't known: `" + cppdecl::ToCode(cpp_name, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
+            throw std::runtime_error("Unable to translate C++ type name to C, this type isn't known: `" + CppdeclToCode(cpp_name) + "`.");
     }
 
     std::optional<std::string> Generator::CppTypeNameToCTypeNameOpt(const cppdecl::QualifiedName &cpp_name)
@@ -1150,11 +1234,11 @@ namespace mrbind::CBindings
                 // Those checks are here as a little optimization. Even if we remove them, `parsed_type_info.find()` below should find nothing for those types.
                 if (!name.IsEmpty() && !TypeNameIsCBuiltIn(name))
                 {
-                    auto [cache_iter, is_new] = cached_cpp_includes_for_cpp_type_names.try_emplace(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
+                    auto [cache_iter, is_new] = cached_cpp_includes_for_cpp_type_names.try_emplace(CppdeclToCode(name));
 
                     if (is_new)
                     {
-                        if (auto parsed_iter = parsed_type_info.find(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style)); parsed_iter != parsed_type_info.end())
+                        if (auto parsed_iter = parsed_type_info.find(CppdeclToCode(name)); parsed_iter != parsed_type_info.end())
                         {
                             // A parsed type.
 
@@ -1280,7 +1364,7 @@ namespace mrbind::CBindings
             params.at(0).name = "_other";
 
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        const std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
 
         if (new_ctor.kind != CopyMoveKind::none)
         {
@@ -1320,7 +1404,7 @@ namespace mrbind::CBindings
     void Generator::EmitFuncParams::SetFromParsedClassMethod(const Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+        std::string cpp_type_str = self.CppdeclToCode(cpp_type);
 
         AddThisParamFromParsedClass(self, new_class, {new_method.is_const, new_method.ref_qualifier == RefQualifier::rvalue, new_method.is_static});
         AddParamsFromParsedFunc(self, new_method.params);
@@ -1373,7 +1457,7 @@ namespace mrbind::CBindings
     void Generator::EmitFuncParams::SetFromParsedClassConvOp(const Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        const std::string cpp_type_str = cppdecl::ToCode(cpp_type, cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
 
         AddThisParamFromParsedClass(self, new_class, {new_conv_op.is_const, new_conv_op.ref_qualifier == RefQualifier::rvalue});
 
@@ -1384,7 +1468,7 @@ namespace mrbind::CBindings
             throw std::runtime_error("The conversion operator should have no parameters, but the parsed data has some.");
 
         SetReturnTypeFromParsedFunc(self, new_conv_op);
-        const std::string target_cpp_type_str = cppdecl::ToCode(cpp_return_type, cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string target_cpp_type_str = self.CppdeclToCode(cpp_return_type);
 
         c_name = self.parsed_type_info.at(cpp_type_str).c_type_str;
         c_name += "_ConvertTo_";
@@ -1409,7 +1493,7 @@ namespace mrbind::CBindings
     bool Generator::EmitFuncParams::SetAsFieldAccessor(Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind)
     {
         const cppdecl::Type field_type = self.ParseTypeOrThrow(new_field.type.canonical);
-        const std::string class_cpp_type_str = cppdecl::ToCode(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+        const std::string class_cpp_type_str = self.CppdeclToCode(self.ParseTypeOrThrow(new_class.full_type));
 
         auto SetFuncName = [&](std::string_view name)
         {
@@ -1443,7 +1527,7 @@ namespace mrbind::CBindings
             c_comment += "` named `";
             c_comment += new_field.full_name;
             c_comment += "`. The size is `";
-            c_comment += cppdecl::ToCode(field_type.As<cppdecl::Array>()->size, cppdecl::ToCodeFlags::canonical_c_style);
+            c_comment += self.CppdeclToCode(field_type.As<cppdecl::Array>()->size);
             c_comment += "`.";
 
             return true;
@@ -1718,7 +1802,7 @@ namespace mrbind::CBindings
                         //   I made this conditional and handled pointers too. Shrug.
                         if (type_fixed.Is<cppdecl::Reference>() || type_fixed.Is<cppdecl::Pointer>())
                             type_fixed.RemoveModifier();
-                        arg_expr = cppdecl::ToCode(type_fixed, cppdecl::ToCodeFlags::canonical_c_style);
+                        arg_expr = CppdeclToCode(type_fixed);
                     }
                     break;
                 }
@@ -1920,7 +2004,7 @@ namespace mrbind::CBindings
         {
             EmittedFunctionStrings strings = EmitFunctionAsStrings(file, params);
 
-            std::string new_decl_str = ToCode(strings.decl, cppdecl::ToCodeFlags::canonical_c_style);
+            std::string new_decl_str = CppdeclToCode(strings.decl);
 
             file.header.contents += '\n';
             file.header.contents += strings.comment;
@@ -1967,7 +2051,7 @@ namespace mrbind::CBindings
         void Visit(const ClassEntity &cl) override
         {
             cppdecl::Type parsed_type = self.ParseTypeOrThrow(cl.full_type);
-            const std::string cpp_type_name = cppdecl::ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style);
+            const std::string cpp_type_name = self.CppdeclToCode(parsed_type);
 
             auto [iter, is_new] = self.parsed_type_info.try_emplace(cpp_type_name);
             if (!is_new)
@@ -2109,7 +2193,7 @@ namespace mrbind::CBindings
                 for (const ClassBase &parsed_base : cl.bases)
                 {
                     auto &set = parsed_base.is_virtual ? iter->second.bases_indirect_virtual : iter->second.bases_direct_nonvirtual;
-                    set.insert(cppdecl::ToCode(self.ParseTypeOrThrow(parsed_base.type.canonical), cppdecl::ToCodeFlags::canonical_c_style));
+                    set.insert(self.CppdeclToCode(self.ParseTypeOrThrow(parsed_base.type.canonical)));
                 }
             }
         }
@@ -2123,7 +2207,7 @@ namespace mrbind::CBindings
         {
             cppdecl::Type parsed_type = self.ParseTypeOrThrow(en.full_type);
 
-            auto [iter, is_new] = self.parsed_type_info.try_emplace(ToCode(parsed_type, cppdecl::ToCodeFlags::canonical_c_style));
+            auto [iter, is_new] = self.parsed_type_info.try_emplace(self.CppdeclToCode(parsed_type));
             if (!is_new)
                 throw std::logic_error("Internal error: Duplicate type in input: " + en.full_type);
 
@@ -2232,7 +2316,7 @@ namespace mrbind::CBindings
 
         void Visit(const ClassEntity &cl) override
         {
-            const auto &info = self.parsed_type_info.at(ToCode(self.ParseTypeOrThrow(cl.full_type), cppdecl::ToCodeFlags::canonical_c_style));
+            const auto &info = self.parsed_type_info.at(self.CppdeclToCode(self.ParseTypeOrThrow(cl.full_type)));
             const auto &c_type_str = info.c_type_str;
 
             auto AddFunc = [&](const BasicFunc &func, std::string name, std::string fallback_name = "")
@@ -2691,7 +2775,7 @@ namespace mrbind::CBindings
                 }
 
                 const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
-                const std::string cpp_class_name_str = cppdecl::ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
+                const std::string cpp_class_name_str = self.CppdeclToCode(cpp_class_name);
 
                 // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
                 const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(cpp_class_name_str);
@@ -2809,7 +2893,7 @@ namespace mrbind::CBindings
                         // Validate the field type:
 
                         const cppdecl::Type cpp_field_type = self.ParseTypeOrThrow(field->type.canonical);
-                        const std::string cpp_field_type_str = cppdecl::ToCode(cpp_field_type, cppdecl::ToCodeFlags::canonical_c_style);
+                        const std::string cpp_field_type_str = self.CppdeclToCode(cpp_field_type);
 
                         if (!self.FieldTypeUsableInSameLayoutStruct(cpp_field_type))
                             throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its member `" + field->full_name + "` has type `" + cpp_field_type_str + "` that's not suitable for being used directly in a C struct.");
@@ -2838,7 +2922,7 @@ namespace mrbind::CBindings
                         field_decl.type = cpp_field_type;
                         self.ReplaceAllNamesInTypeWithCNames(field_decl.type);
 
-                        file.header.contents += "    " + cppdecl::ToCode(field_decl, cppdecl::ToCodeFlags::canonical_c_style) + ";\n";
+                        file.header.contents += "    " + self.CppdeclToCode(field_decl) + ";\n";
                     }
 
                     // Complain if no fields. C doesn't have empty structs.
@@ -2875,7 +2959,7 @@ namespace mrbind::CBindings
                 }
 
                 const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
-                const std::string cpp_class_name_str = cppdecl::ToCode(cpp_class_name, cppdecl::ToCodeFlags::canonical_c_style);
+                const std::string cpp_class_name_str = self.CppdeclToCode(cpp_class_name);
 
                 const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
                 const ParsedTypeInfo::ClassDesc &parsed_class_info = std::get<ParsedTypeInfo::ClassDesc>(parsed_type_info.input_type);
@@ -3009,7 +3093,7 @@ namespace mrbind::CBindings
                                                 emit.params.back().cpp_type.AddModifier(cppdecl::Pointer{});
                                             }
 
-                                            emit.cpp_called_func = std::string(is_dynamic ? "dynamic_cast" : "static_cast") + "<" + cppdecl::ToCode(emit.cpp_return_type, cppdecl::ToCodeFlags::canonical_c_style) + ">";
+                                            emit.cpp_called_func = std::string(is_dynamic ? "dynamic_cast" : "static_cast") + "<" + self.CppdeclToCode(emit.cpp_return_type) + ">";
                                             self.EmitFunction(file, emit);
                                         }
                                     }
@@ -3213,7 +3297,7 @@ namespace mrbind::CBindings
         {
             OutputFile &file = self.GetOutputFile(en.declared_in_file);
 
-            const std::string parsed_type_str = ToCode(self.ParseTypeOrThrow(en.full_type), cppdecl::ToCodeFlags::canonical_c_style);
+            const std::string parsed_type_str = self.CppdeclToCode(self.ParseTypeOrThrow(en.full_type));
 
             const auto &c_type_str = self.parsed_type_info.at(parsed_type_str).c_type_str;
 
@@ -3306,7 +3390,7 @@ namespace mrbind::CBindings
 
                     for (const auto &spelling : sub_elem.second.alt_spellings)
                     {
-                        std::string spelling_str = cppdecl::ToCode(ParseTypeOrThrow(spelling.first), cppdecl::ToCodeFlags::canonical_c_style);
+                        std::string spelling_str = CppdeclToCode(ParseTypeOrThrow(spelling.first));
                         if (!type_alt_spelling_to_canonical.try_emplace(std::move(spelling_str), sub_elem_type).second)
                             throw std::logic_error("Internal error: In input data, different types have the same non-canonical spelling: `" + spelling_str + "`."); // The `spelling_str` isn't moved on failure, so this is safe.
                     }

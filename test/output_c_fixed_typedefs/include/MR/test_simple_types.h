@@ -28,7 +28,7 @@ enum // MR_TestSimpleTypes_E2
 typedef int32_t MR_TestSimpleTypes_E3;
 
 // Class templates.
-/// Generated from class `MR::TestSimpleTypes::ClassTemplate<uint64_t>`.
+/// Generated from class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
 typedef struct MR_TestSimpleTypes_ClassTemplate_uint64_t MR_TestSimpleTypes_ClassTemplate_uint64_t;
 
 // Enums.
@@ -198,18 +198,18 @@ MR_C_API MR_C_uint64_t MR_TestSimpleTypes_FuncTemplate_uint64_t(MR_C_uint64_t _1
 /// Generated from function `MR::TestSimpleTypes::FuncTemplate<int32_t>`.
 MR_C_API int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1);
 
-/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
+/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<uint64_t>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void);
 
-/// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
+/// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<uint64_t>`.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value);
 
-/// Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `var<uint64_t>`.
+/// Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<uint64_t>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void);
 
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>`.
+/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
 /// Parameter `_other` can not be null.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other);
@@ -221,12 +221,12 @@ MR_C_API const MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_Cla
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_OffsetMutablePtr(MR_TestSimpleTypes_ClassTemplate_uint64_t *ptr, ptrdiff_t i);
 
 // Constructors.
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>`.
+/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_uint64_t(MR_C_uint64_t _1);
 
 // Constructors.
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>`.
+/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_int32_t(int32_t _1);
 
@@ -236,19 +236,19 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_Destroy(const MR_TestSim
 /// Destroys a heap-allocated array of `MR_TestSimpleTypes_ClassTemplate_uint64_t`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_DestroyArray(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_this);
 
-/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `operator=`.
+/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `operator=`.
 /// Parameter `_this` can not be null.
 /// Parameter `_other` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this, const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other);
 
 // Methods.
-/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `foo<uint64_t>`.
+/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `foo<uint64_t>`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_uint64_t(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this);
 
 // Methods.
-/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<uint64_t>` named `foo<int32_t>`.
+/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `foo<int32_t>`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_int32_t(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this);
 

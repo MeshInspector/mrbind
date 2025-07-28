@@ -97,7 +97,7 @@ namespace mrbind::CBindings::Modules
             Generator::BindableType::ParamUsage &param_usage = binding.param_usage_with_default_arg.emplace();
             // Return a default-constructed instance, that's all. Don't add any `c_params`.
             param_usage.c_params_to_cpp = [
-                ret = cppdecl::ToCode(type.simple_type, cppdecl::ToCodeFlags::canonical_c_style, cppdecl::CvQualifiers::const_) + "{}"
+                ret = generator.CppdeclToCode(type.simple_type, {}, cppdecl::CvQualifiers::const_) + "{}"
             ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg) -> std::string
             {
                 (void)source_file;

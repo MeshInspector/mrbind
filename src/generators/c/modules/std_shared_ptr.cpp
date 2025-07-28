@@ -61,14 +61,14 @@ namespace mrbind::CBindings::Modules
                     {
                         file.header.contents +=
                             "\n"
-                            "/// Wraps a pointer to a shared reference-counted heap-allocated array of type `" + cppdecl::ToCode(cpp_elem_type_minus_array, cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_array_of_unknown_bound ? "of an unspecified size" : "of size " + cppdecl::ToCode(cpp_elem_type.As<cppdecl::Array>()->size, cppdecl::ToCodeFlags::canonical_c_style)) + ".\n";
+                            "/// Wraps a pointer to a shared reference-counted heap-allocated array of type `" + generator.CppdeclToCode(cpp_elem_type_minus_array) + "`, " + (is_array_of_unknown_bound ? "of an unspecified size" : "of size " + generator.CppdeclToCode(cpp_elem_type.As<cppdecl::Array>()->size)) + ".\n";
 
                         if (is_array_of_unknown_bound)
                             file.header.contents += "/// Doesn't store the size, it has to be obtained separately.\n";
                     }
                     else
                     {
-                        file.header.contents += "\n/// Wraps a pointer to a single shared reference-counted heap-allocated `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
+                        file.header.contents += "\n/// Wraps a pointer to a single shared reference-counted heap-allocated `" + generator.CppdeclToCode(cpp_elem_type) + "`.\n";
                     }
                     binder.EmitForwardDeclaration(generator, file);
 

@@ -37,7 +37,7 @@ namespace mrbind::CBindings::Modules
                         type,
                         cpp_elem_type,
                         binder,
-                        array_size_str = cppdecl::ToCode(array_size, cppdecl::ToCodeFlags::canonical_c_style)
+                        array_size_str = generator.CppdeclToCode(array_size)
                     ](Generator &generator) -> Generator::OutputFile &
                     {
                         bool is_new = false;
@@ -45,7 +45,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + array_size_str + ".\n";
+                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCode(cpp_elem_type) + "` of size " + array_size_str + ".\n";
                             binder.EmitForwardDeclaration(generator, file);
 
                             // The special member functions:
@@ -132,7 +132,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.header.contents += "\n/// A fixed-size array of `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of size " + cppdecl::ToCode(array_size, cppdecl::ToCodeFlags::canonical_c_style) + ".\n";
+                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCode(cpp_elem_type) + "` of size " + generator.CppdeclToCode(array_size) + ".\n";
 
                             cppdecl::Decl array_field_decl;
                             array_field_decl.name = cppdecl::QualifiedName::FromSingleWord("elems"); // Shrug.
@@ -146,7 +146,7 @@ namespace mrbind::CBindings::Modules
 
                             file.header.contents += "typedef struct " + c_type_name + '\n';
                             file.header.contents += "{\n";
-                            file.header.contents += "    " + cppdecl::ToCode(array_field_decl, cppdecl::ToCodeFlags::canonical_c_style) + ";\n";
+                            file.header.contents += "    " + generator.CppdeclToCode(array_field_decl) + ";\n";
                             file.header.contents += "} " + c_type_name + ";\n";
                         }
 

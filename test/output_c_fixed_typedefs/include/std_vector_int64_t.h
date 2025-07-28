@@ -11,7 +11,7 @@ extern "C" {
 #endif
 
 
-/// Generated from C++ container `std::vector<int64_t>`.
+/// Generated from C++ container `std::vector<MR_C_int64_t>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_int64_t MR_C_std_vector_int64_t;
 

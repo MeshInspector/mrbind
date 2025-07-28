@@ -53,7 +53,7 @@ namespace mrbind::CBindings::Modules
                         else
                             file.header.contents += ", ";
 
-                        file.header.contents += '`' + cppdecl::ToCode(elem_type, cppdecl::ToCodeFlags::canonical_c_style) + '`';
+                        file.header.contents += '`' + generator.CppdeclToCode(elem_type) + '`';
                     }
                     file.header.contents += ".\n";
 
@@ -99,14 +99,14 @@ namespace mrbind::CBindings::Modules
                         for (std::size_t i = 0; i < elem_types.size(); i++)
                         {
                             Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// Constructs the variant storing the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`.";
+                            emit.c_comment = "/// Constructs the variant storing the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCode(elem_types[i]) + "`.";
                             emit.c_name = binder.MakeMemberFuncName(generator, "ConstructAs_" + type_identifiers[i]);
                             emit.cpp_return_type = type;
                             emit.params.push_back({
                                 .name = "value",
                                 .cpp_type = elem_types[i],
                             });
-                            emit.cpp_called_func = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_c_style) + "(std::in_place_index<" + std::to_string(i) + ">, @1@)";
+                            emit.cpp_called_func = generator.CppdeclToCode(type) + "(std::in_place_index<" + std::to_string(i) + ">, @1@)";
                             generator.EmitFunction(file, emit);
                         }
 
@@ -114,7 +114,7 @@ namespace mrbind::CBindings::Modules
                         for (std::size_t i = 0; i < elem_types.size(); i++)
                         {
                             Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// Assigns to the variant, making it store the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`.";
+                            emit.c_comment = "/// Assigns to the variant, making it store the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCode(elem_types[i]) + "`.";
                             emit.c_name = binder.MakeMemberFuncName(generator, "AssignAs_" + type_identifiers[i]);
                             emit.AddThisParam(type, false);
                             emit.params.push_back({
@@ -161,7 +161,7 @@ namespace mrbind::CBindings::Modules
                                 name += "_";
                                 name += type_identifiers[i];
 
-                                emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + cppdecl::ToCode(elem_types[i], cppdecl::ToCodeFlags::canonical_c_style) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
+                                emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCode(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
                                 emit.c_name = binder.MakeMemberFuncName(generator, name);
 
 

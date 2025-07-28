@@ -45,7 +45,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores either a single `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "` or nothing.\n";
+                    file.header.contents += "\n/// Stores either a single `" + generator.CppdeclToCode(cpp_elem_type) + "` or nothing.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions.

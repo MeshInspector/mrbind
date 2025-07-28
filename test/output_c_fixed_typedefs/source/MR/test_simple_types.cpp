@@ -3,6 +3,7 @@
 
 #include <input/MR/test_simple_types.h>
 
+#include <common.h>
 #include <cstddef>
 #include <cstdint>
 #include <stdexcept>
@@ -332,74 +333,74 @@ int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1)
 
 const MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
+    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<uint64_t>);
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value)
 {
-    MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t> = value;
+    MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<uint64_t> = value;
 }
 
 MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<uint64_t>::var<uint64_t>);
+    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<uint64_t>);
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other)
 {
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
-        (_other ? MR::TestSimpleTypes::ClassTemplate<uint64_t>(*(MR::TestSimpleTypes::ClassTemplate<uint64_t> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(
+        (_other ? MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(*(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
 }
 
 const MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_OffsetPtr(const MR_TestSimpleTypes_ClassTemplate_uint64_t *ptr, ptrdiff_t i)
 {
-    return (const MR_TestSimpleTypes_ClassTemplate_uint64_t *)(((const MR::TestSimpleTypes::ClassTemplate<uint64_t> *)ptr) + i);
+    return (const MR_TestSimpleTypes_ClassTemplate_uint64_t *)(((const MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)ptr) + i);
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_OffsetMutablePtr(MR_TestSimpleTypes_ClassTemplate_uint64_t *ptr, ptrdiff_t i)
 {
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)(((MR::TestSimpleTypes::ClassTemplate<uint64_t> *)ptr) + i);
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)(((MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)ptr) + i);
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_uint64_t(MR_C_uint64_t _1)
 {
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(
         _1
     ));
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_int32_t(int32_t _1)
 {
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<uint64_t>(MR::TestSimpleTypes::ClassTemplate<uint64_t>(
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)new MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(
         _1
     ));
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_Destroy(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_this)
 {
-    delete ((const MR::TestSimpleTypes::ClassTemplate<uint64_t> *)_this);
+    delete ((const MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)_this);
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_DestroyArray(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_this)
 {
-    delete[] ((const MR::TestSimpleTypes::ClassTemplate<uint64_t> *)_this);
+    delete[] ((const MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)_this);
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this, const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other)
 {
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)&((_this ? *(MR::TestSimpleTypes::ClassTemplate<uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::TestSimpleTypes::ClassTemplate<uint64_t>(*(MR::TestSimpleTypes::ClassTemplate<uint64_t> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)&((_this ? *(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+        (_other ? MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(*(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
     ));
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_uint64_t(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this)
 {
-    (_this ? *(MR::TestSimpleTypes::ClassTemplate<uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<uint64_t>();
+    (_this ? *(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<uint64_t>();
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_int32_t(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this)
 {
-    (_this ? *(MR::TestSimpleTypes::ClassTemplate<uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<int32_t>();
+    (_this ? *(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<int32_t>();
 }
 

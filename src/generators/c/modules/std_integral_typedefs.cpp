@@ -38,7 +38,11 @@ namespace mrbind::CBindings::Modules
 
             for (const TargetType &target_type : target_types)
             {
-                if (type_str == target_type.name || (type_str.starts_with("std::") && std::string_view(type_str).substr(5) == target_type.name))
+                if (
+                    generator.custom_typedef_for_uint64_t_pointing_to_size_t && target_type.could_need_custom_typedef
+                    ? type_str == generator.MakePublicHelperName(target_type.name)
+                    : type_str == target_type.name || (type_str.starts_with("std::") && std::string_view(type_str).substr(5) == target_type.name)
+                )
                 {
                     bool need_custom_typedef = target_type.could_need_custom_typedef && generator.custom_typedef_for_uint64_t_pointing_to_size_t;
 
@@ -75,7 +79,18 @@ namespace mrbind::CBindings::Modules
             for (const TargetType &target_type : target_types)
             {
                 if (word == target_type.name)
-                    return target_type.cpp_header;
+                {
+                    if (generator.custom_typedef_for_uint64_t_pointing_to_size_t && target_type.could_need_custom_typedef)
+                    {
+                        // Firstly, yes, we're still testing against the unadjusted name here. Apparently here it's always unadjusted.
+                        // Secondly, yes, we intentionally include the C header in the C++ source file. Not sure how else we could do this.
+                        return generator.GetCommonPublicHelpersFile().header.path_for_inclusion;
+                    }
+                    else
+                    {
+                        return target_type.cpp_header;
+                    }
+                }
             }
 
             return {};

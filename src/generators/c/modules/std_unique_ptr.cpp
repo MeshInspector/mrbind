@@ -72,7 +72,7 @@ namespace mrbind::CBindings::Modules
                     // Make sure it's destructible, because otherwise there will be no deallocation function.
                     // This will also throw if `FindBindableType` doesn't find anything, which is fine, and I don't see how it could possibly happen anyway.
                     if (!generator.FindTypeTraits(cpp_elem_type_minus_array_unqual).is_destructible)
-                        throw std::runtime_error("Type `" + cppdecl::ToCode(cpp_elem_type_minus_array_unqual, cppdecl::ToCodeFlags::canonical_c_style) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
+                        throw std::runtime_error("Type `" + generator.CppdeclToCode(cpp_elem_type_minus_array_unqual) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
 
                     func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound);
                 }
@@ -97,7 +97,7 @@ namespace mrbind::CBindings::Modules
                 }
                 else
                 {
-                    throw std::runtime_error("Not sure what deallocation function to use for this `std::unique_ptr` element type: `" + cppdecl::ToCode(cpp_elem_type_minus_array_unqual, cppdecl::ToCodeFlags::canonical_c_style) + "`.");
+                    throw std::runtime_error("Not sure what deallocation function to use for this `std::unique_ptr` element type: `" + generator.CppdeclToCode(cpp_elem_type_minus_array_unqual) + "`.");
                 }
             }
 
@@ -126,12 +126,12 @@ namespace mrbind::CBindings::Modules
                     {
                         file.header.contents +=
                             "\n"
-                            "/// Wraps a pointer to a heap-allocated array of type `" + cppdecl::ToCode(cpp_elem_type_minus_array, cppdecl::ToCodeFlags::canonical_c_style) + "`, of an unspecified size.\n"
+                            "/// Wraps a pointer to a heap-allocated array of type `" + generator.CppdeclToCode(cpp_elem_type_minus_array) + "`, of an unspecified size.\n"
                             "/// Doesn't store the size, it has to be obtained separately.\n";
                     }
                     else
                     {
-                        file.header.contents += "\n/// Wraps a pointer to a single heap-allocated `" + cppdecl::ToCode(cpp_elem_type, cppdecl::ToCodeFlags::canonical_c_style) + "`.\n";
+                        file.header.contents += "\n/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCode(cpp_elem_type) + "`.\n";
                     }
                     binder.EmitForwardDeclaration(generator, file);
 
@@ -220,7 +220,7 @@ namespace mrbind::CBindings::Modules
 
                 const bool pointer_needs_cast = !generator.IsSimplyBindableDirect(underlying_ptr_type);
                 if (pointer_needs_cast && !generator.IsSimplyBindableDirectCast(underlying_ptr_type))
-                    throw std::runtime_error("The underlying pointer type `" + cppdecl::ToCode(underlying_ptr_type, cppdecl::ToCodeFlags::canonical_c_style) + "` of a `std::unique_ptr` is somehow not bindable.");
+                    throw std::runtime_error("The underlying pointer type `" + generator.CppdeclToCode(underlying_ptr_type) + "` of a `std::unique_ptr` is somehow not bindable.");
 
                 // Make the C-style pointer type.
                 auto underlying_c_ptr_type = underlying_ptr_type;
@@ -252,7 +252,7 @@ namespace mrbind::CBindings::Modules
                     [
                         pointer_needs_cast,
                         type_str = std::string(type_str), // Casting to `std::string`, just in case I later change the function parameter `type_str` to a `std::string_view`. Wouldn't want it to blow up.
-                        underlying_ptr_type_str = cppdecl::ToCode(underlying_ptr_type, cppdecl::ToCodeFlags::canonical_c_style)
+                        underlying_ptr_type_str = generator.CppdeclToCode(underlying_ptr_type)
                     ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg) -> std::string
                     {
                         (void)source_file;
@@ -284,7 +284,7 @@ namespace mrbind::CBindings::Modules
                     [
                         pointer_needs_cast,
                         type_str = std::string(type_str), // Casting to `std::string`, just in case I later change the function parameter `type_str` to a `std::string_view`. Wouldn't want it to blow up.
-                        underlying_ptr_type_str = cppdecl::ToCode(underlying_ptr_type, cppdecl::ToCodeFlags::canonical_c_style)
+                        underlying_ptr_type_str = generator.CppdeclToCode(underlying_ptr_type)
                     ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
                     {
                         (void)source_file;
@@ -350,7 +350,7 @@ namespace mrbind::CBindings::Modules
                 new_type.return_usage->make_return_expr =
                     [
                         pointer_needs_cast,
-                        underlying_c_ptr_type_str = cppdecl::ToCode(underlying_c_ptr_type, cppdecl::ToCodeFlags::canonical_c_style)
+                        underlying_c_ptr_type_str = generator.CppdeclToCode(underlying_c_ptr_type)
                     ](Generator::OutputFile::SpecificFileContents &file, std::string_view expr) -> std::string
                     {
                         (void)file;

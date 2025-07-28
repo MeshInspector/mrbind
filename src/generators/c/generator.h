@@ -6,6 +6,7 @@
 #include "mrbind/helpers/enum_flag_ops.h"
 
 #include <cppdecl/declarations/data.h>
+#include <cppdecl/declarations/to_string.h>
 
 #include <filesystem>
 #include <functional>
@@ -973,10 +974,21 @@ namespace mrbind::CBindings
 
         // Parses a cppdecl type from `str`, throws on failure or if there was unparsed junk at the end of input.
         // Pass the CANONICAL types to this.
+        // This also undoes the `[u]int64`->typedefs replacement done by `CppdeclToCode()`, if we find that.
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str) const;
 
         mutable std::unordered_map<std::string, cppdecl::QualifiedName> cached_parsed_qual_names;
         [[nodiscard]] const cppdecl::QualifiedName &ParseQualNameOrThrow(const std::string &str) const;
+
+        // Calls `cppdecl::ToCode()` with the correct flags, and some adjustments.
+        // Always use this instead of `ToCode()`.
+        // This also replaces `[u]int64` with our custom typedefs.
+        [[nodiscard]] std::string CppdeclToCode(const cppdecl::Type &input, cppdecl::ToCodeFlags extra_flags = {}, std::size_t skip_first_modifiers = 0) const;
+        [[nodiscard]] std::string CppdeclToCode(const cppdecl::QualifiedName &input, cppdecl::ToCodeFlags extra_flags = {}) const;
+        [[nodiscard]] std::string CppdeclToCode(const cppdecl::Decl &input, cppdecl::ToCodeFlags extra_flags = {}) const;
+        [[nodiscard]] std::string CppdeclToCode(const cppdecl::PseudoExpr &input, cppdecl::ToCodeFlags extra_flags = {}) const;
+        [[nodiscard]] std::string CppdeclToCode(const cppdecl::SimpleType &input, cppdecl::ToCodeFlags extra_flags = {}, cppdecl::CvQualifiers ignore_cv_quals = {}) const;
+
 
         // Maps a C++ type name to a C type name, by consulting `FindTypeBindableWithSameAddress()`.
         // This only handles the types that are already known. DON'T use when writing new bindings.
