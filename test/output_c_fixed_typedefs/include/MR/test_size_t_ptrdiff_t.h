@@ -22,7 +22,7 @@ MR_C_API MR_C_uint64_t MR_TestSizeT_foo_uint64_t(MR_C_uint64_t _1);
 /// Generated from function `MR::TestSizeT::foo`.
 /// Parameter `_1` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API uint64_t **MR_TestSizeT_foo_uint64_t_ptr(uint64_t **_1);
+MR_C_API MR_C_uint64_t **MR_TestSizeT_foo_uint64_t_ptr(MR_C_uint64_t **_1);
 
 /// Generated from function `MR::TestSizeT::foo`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_Destroy()` to free it when you're done using it.
@@ -34,7 +34,7 @@ MR_C_API MR_C_int64_t MR_TestSizeT_foo_int64_t(MR_C_int64_t _1);
 /// Generated from function `MR::TestSizeT::foo`.
 /// Parameter `_1` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API int64_t **MR_TestSizeT_foo_int64_t_ptr(int64_t **_1);
+MR_C_API MR_C_int64_t **MR_TestSizeT_foo_int64_t_ptr(MR_C_int64_t **_1);
 
 /// Generated from function `MR::TestSizeT::foo`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int64_t_Destroy()` to free it when you're done using it.

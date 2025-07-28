@@ -54,11 +54,11 @@ MR_C_API MR_C_std_vector_int64_t *MR_C_std_vector_int64_t_OffsetMutablePtr(MR_C_
 
 /// Construct from a range of elements.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int64_t_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_int64_t *MR_C_std_vector_int64_t_ConstructFromRange(const int64_t *ptr, size_t size);
+MR_C_API MR_C_std_vector_int64_t *MR_C_std_vector_int64_t_ConstructFromRange(const MR_C_int64_t *ptr, size_t size);
 
 /// Assign from a range of elements, overwriting previous contents.
 /// Parameter `_this` can not be null.
-MR_C_API void MR_C_std_vector_int64_t_AssignFromRange(MR_C_std_vector_int64_t *_this, const int64_t *ptr, size_t size);
+MR_C_API void MR_C_std_vector_int64_t_AssignFromRange(MR_C_std_vector_int64_t *_this, const MR_C_int64_t *ptr, size_t size);
 
 /// The number of elements.
 /// Parameter `_this` can not be null.
@@ -95,36 +95,36 @@ MR_C_API void MR_C_std_vector_int64_t_ShrinkToFit(MR_C_std_vector_int64_t *_this
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int64_t *MR_C_std_vector_int64_t_At(const MR_C_std_vector_int64_t *_this, size_t i);
+MR_C_API const MR_C_int64_t *MR_C_std_vector_int64_t_At(const MR_C_std_vector_int64_t *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API int64_t *MR_C_std_vector_int64_t_MutableAt(MR_C_std_vector_int64_t *_this, size_t i);
+MR_C_API MR_C_int64_t *MR_C_std_vector_int64_t_MutableAt(MR_C_std_vector_int64_t *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null.
-MR_C_API const int64_t *MR_C_std_vector_int64_t_Front(const MR_C_std_vector_int64_t *_this);
+MR_C_API const MR_C_int64_t *MR_C_std_vector_int64_t_Front(const MR_C_std_vector_int64_t *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null.
-MR_C_API int64_t *MR_C_std_vector_int64_t_MutableFront(MR_C_std_vector_int64_t *_this);
+MR_C_API MR_C_int64_t *MR_C_std_vector_int64_t_MutableFront(MR_C_std_vector_int64_t *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null.
-MR_C_API const int64_t *MR_C_std_vector_int64_t_Back(const MR_C_std_vector_int64_t *_this);
+MR_C_API const MR_C_int64_t *MR_C_std_vector_int64_t_Back(const MR_C_std_vector_int64_t *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null.
-MR_C_API int64_t *MR_C_std_vector_int64_t_MutableBack(MR_C_std_vector_int64_t *_this);
+MR_C_API MR_C_int64_t *MR_C_std_vector_int64_t_MutableBack(MR_C_std_vector_int64_t *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, read-only.
 /// Parameter `_this` can not be null.
-MR_C_API const int64_t *MR_C_std_vector_int64_t_Data(const MR_C_std_vector_int64_t *_this);
+MR_C_API const MR_C_int64_t *MR_C_std_vector_int64_t_Data(const MR_C_std_vector_int64_t *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, mutable.
 /// Parameter `_this` can not be null.
-MR_C_API int64_t *MR_C_std_vector_int64_t_MutableData(MR_C_std_vector_int64_t *_this);
+MR_C_API MR_C_int64_t *MR_C_std_vector_int64_t_MutableData(MR_C_std_vector_int64_t *_this);
 
 /// Inserts a new element at the end.
 /// Parameter `_this` can not be null.
@@ -282,7 +282,7 @@ MR_C_API MR_C_std_vector_int64_t_iterator *MR_C_std_vector_int64_t_iterator_Offs
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int64_t *MR_C_std_vector_int64_t_const_iterator_Deref(const MR_C_std_vector_int64_t_const_iterator *_this);
+MR_C_API const MR_C_int64_t *MR_C_std_vector_int64_t_const_iterator_Deref(const MR_C_std_vector_int64_t_const_iterator *_this);
 
 /// Increments a const iterator.
 /// Parameter `_this` can not be null.
@@ -304,7 +304,7 @@ MR_C_API ptrdiff_t MR_C_std_vector_int64_t_const_iterator_Distance(const MR_C_st
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API int64_t *MR_C_std_vector_int64_t_iterator_Deref(const MR_C_std_vector_int64_t_iterator *_this);
+MR_C_API MR_C_int64_t *MR_C_std_vector_int64_t_iterator_Deref(const MR_C_std_vector_int64_t_iterator *_this);
 
 /// Increments a mutable iterator.
 /// Parameter `_this` can not be null.

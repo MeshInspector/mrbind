@@ -42,11 +42,14 @@ namespace mrbind::CBindings::Modules
                 {
                     bool need_custom_typedef = target_type.could_need_custom_typedef && generator.custom_typedef_for_uint64_t_pointing_to_size_t;
 
-                    ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(need_custom_typedef ? generator.MakePublicHelperName(target_type.name) : target_type.name));
+                    std::string c_name = need_custom_typedef ? generator.MakePublicHelperName(target_type.name) : target_type.name;
+
+                    ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(c_name));
                     if (need_custom_typedef)
                         ret->bindable_with_same_address.declared_in_file = [&generator]() -> auto & {return generator.GetCommonPublicHelpersFile();};
                     else
                         ret->bindable_with_same_address.declared_in_c_stdlib_file = target_type.c_header;
+                    ret->bindable_with_same_address.custom_c_type_name = c_name;
                     ret->bindable_with_same_address.needs_reinterpret_cast = false;
                     break;
                 }
