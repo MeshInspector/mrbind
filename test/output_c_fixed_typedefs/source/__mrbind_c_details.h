@@ -54,7 +54,7 @@ namespace mrbindc_details
 // reinterpret_cast
 #ifndef MRBINDC_BIT_CAST
 #include <type_traits>
-#define MRBINDC_BIT_CAST(p_type_, ...) (MRBINDC_IDENTITY p_type_ (reinterpret_cast<std::add_lvalue_reference_t<MRBINDC_IDENTITY p_type_>>(mrbindc_details::unmove(__VA_ARGS__))))
+#define MRBINDC_BIT_CAST(p_type_, ...) (MRBINDC_IDENTITY p_type_ (reinterpret_cast<std::add_lvalue_reference_t<std::add_const_t<MRBINDC_IDENTITY p_type_>>>(mrbindc_details::unmove(__VA_ARGS__))))
 #endif
 
 // ]
