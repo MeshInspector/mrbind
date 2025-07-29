@@ -24,6 +24,7 @@ MRBIND_FLAGS=(
     --ignore MR::SignatureFilters::B --skip-mentions-of MR::SignatureFilters::B
     --ignore MR::SignatureFilters::AA --skip-mentions-of '/MR::SignatureFilters::AA<.*>/'
     --implicit-enum-underlying-type-is-always-int
+    --buggy-substitute-default-template-args
     --
     -xc++-header
     -std=c++23

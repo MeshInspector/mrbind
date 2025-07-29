@@ -2177,10 +2177,16 @@ namespace mrbind
                                 }
                                 else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
                                 {
+                                    auto ProcessType = [&](const clang::QualType &type)
+                                    {
+                                        std::vector<clang::TemplateArgument> temp_targs_vec(targs_vec.begin(), targs_vec.begin() + i);
+                                        clang::MultiLevelTemplateArgumentList temp_ml_targs(func_templ, temp_targs_vec, false);
+                                        return ci->getSema().SubstType(type, temp_ml_targs, decl->getSourceRange().getBegin(), decl->getDeclName()).getCanonicalType();
+                                    };
                                     #if CLANG_VERSION_MAJOR == 18
-                                    targs_vec[i] = ttp->getDefaultArgument().getCanonicalType(); // NOTE! This is important. See above.
+                                    targs_vec[i] = ProcessType(ttp->getDefaultArgument()); // NOTE! This is important. See above.
                                     #else // 19+
-                                    targs_vec[i] = ttp->getDefaultArgument().getArgument().getAsType().getCanonicalType(); // NOTE! This is important. See above.
+                                    targs_vec[i] = ProcessType(ttp->getDefaultArgument().getArgument().getAsType()); // NOTE! This is important. See above.
                                     #endif
                                 }
                                 else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))

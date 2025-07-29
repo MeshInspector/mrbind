@@ -7,17 +7,6 @@
 
 namespace MR
 {
-    struct A
-    {
-        std::string x;
-
-        A() {}
-        A(const A &) = default;
-        A(A &&) = default;
-
-        A &operator=(A) {return *this;}
-    };
-
-    inline std::vector<A> foo() {return {};}
-    inline void bar(std::vector<A>) {}
+    template <typename T = int, std::enable_if_t<sizeof(T) == 42, int> = 0>
+    void foo() {}
 }
