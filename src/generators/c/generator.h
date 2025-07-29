@@ -1029,12 +1029,14 @@ namespace mrbind::CBindings
             std::unordered_set<std::string> generated;
         };
         // Don't access directly.
-        // `TryIncludeHeadersForCppTypeInSourceFile()` caches the results here. The keys are stringified `QualifiedName`s.
+        // `TryFindHeadersForCppTypeForSourceFile()` caches the results here. The keys are stringified `QualifiedName`s.
         std::unordered_map<std::string, CachedIncludesForType> cached_cpp_includes_for_cpp_type_names;
 
-        // Tries to include the rights headers in `file.source` to get `type` to work.
+        // Tries to find the rights headers that can be included in `file.source` to get `type` to work.
         // Will silently skip the type or some of its parts if we don't know what headers they need.
-        void TryIncludeHeadersForCppTypeInSourceFile(Generator::OutputFile &file, const cppdecl::Type &type);
+        [[nodiscard]] ExtraHeaders TryFindHeadersForCppTypeForSourceFile(const cppdecl::Type &type);
+        // Same, but for names.
+        [[nodiscard]] ExtraHeaders TryFindHeadersForCppNameForSourceFile(const cppdecl::QualifiedName &name);
 
 
         // Deduplicating overload names: [
@@ -1187,7 +1189,7 @@ namespace mrbind::CBindings
 
             // Appends the parsed parameters to this function.
             // Appends to the existing parameters, doesn't remove them.
-            void AddParamsFromParsedFunc(const CBindings::Generator &self, const std::vector<FuncParam> &new_params);
+            void AddParamsFromParsedFunc(CBindings::Generator &self, const std::vector<FuncParam> &new_params);
 
             // Only call if you're sure that this is a post-increment/decrement. Removes the `int` parameter, replacing it with a dummy `0` argument.
             void RemoveIntParamFromPostIncrOrDecr();
@@ -1210,14 +1212,14 @@ namespace mrbind::CBindings
             };
 
             void AddThisParam(cppdecl::Type new_class, ThisParamKind kind);
-            void AddThisParamFromParsedClass(const CBindings::Generator &self, const ClassEntity &new_class, ThisParamKind kind);
+            void AddThisParamFromParsedClass(Generator &self, const ClassEntity &new_class, ThisParamKind kind);
 
-            void SetReturnTypeFromParsedFunc(const CBindings::Generator &self, const BasicReturningFunc &new_func);
+            void SetReturnTypeFromParsedFunc(Generator &self, const BasicReturningFunc &new_func);
 
-            void SetFromParsedFunc(const CBindings::Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack);
-            void SetFromParsedClassCtor(const CBindings::Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
-            void SetFromParsedClassMethod(const CBindings::Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
-            void SetFromParsedClassConvOp(const CBindings::Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack);
+            void SetFromParsedFunc(Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack);
+            void SetFromParsedClassCtor(Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
+            void SetFromParsedClassMethod(Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
+            void SetFromParsedClassConvOp(Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack);
 
             enum class FieldAccessorKind
             {

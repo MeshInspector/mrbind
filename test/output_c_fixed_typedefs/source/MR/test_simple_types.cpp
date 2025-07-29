@@ -319,7 +319,7 @@ MR_C_int64_t MR_TestSimpleTypes_blah_int64_t(MR_C_int64_t x)
 
 MR_C_uint64_t MR_TestSimpleTypes_FuncTemplate_uint64_t(MR_C_uint64_t _1)
 {
-    return ::MR::TestSimpleTypes::FuncTemplate<uint64_t>(
+    return ::MR::TestSimpleTypes::FuncTemplate<MR_C_uint64_t>(
         _1
     );
 }
@@ -333,17 +333,17 @@ int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1)
 
 const MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<uint64_t>);
+    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<MR_C_uint64_t>);
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value)
 {
-    MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<uint64_t> = value;
+    MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<MR_C_uint64_t> = value;
 }
 
 MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<uint64_t>);
+    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<MR_C_uint64_t>);
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other)
@@ -396,7 +396,7 @@ MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_uint64_t(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this)
 {
-    (_this ? *(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<uint64_t>();
+    (_this ? *(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<MR_C_uint64_t>();
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_int32_t(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this)

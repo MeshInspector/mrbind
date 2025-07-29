@@ -191,21 +191,21 @@ MR_C_API MR_C_uint64_t MR_TestSimpleTypes_blah_uint64_t(MR_C_uint64_t x);
 MR_C_API MR_C_int64_t MR_TestSimpleTypes_blah_int64_t(MR_C_int64_t x);
 
 // Function templates.
-/// Generated from function `MR::TestSimpleTypes::FuncTemplate<uint64_t>`.
+/// Generated from function `MR::TestSimpleTypes::FuncTemplate<MR_C_uint64_t>`.
 MR_C_API MR_C_uint64_t MR_TestSimpleTypes_FuncTemplate_uint64_t(MR_C_uint64_t _1);
 
 // Function templates.
 /// Generated from function `MR::TestSimpleTypes::FuncTemplate<int32_t>`.
 MR_C_API int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1);
 
-/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<uint64_t>`.
+/// Returns a pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<MR_C_uint64_t>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void);
 
-/// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<uint64_t>`.
+/// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<MR_C_uint64_t>`.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value);
 
-/// Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<uint64_t>`.
+/// Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<MR_C_uint64_t>`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void);
 
@@ -243,7 +243,7 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_DestroyArray(const MR_Te
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this, const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other);
 
 // Methods.
-/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `foo<uint64_t>`.
+/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `foo<MR_C_uint64_t>`.
 /// Parameter `_this` can not be null.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_uint64_t(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this);
 

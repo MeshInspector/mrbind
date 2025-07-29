@@ -1,6 +1,7 @@
 #include <input/MR/1.h>
 #include <input/MR/2.h>
 #include <input/MR/test_abstract_classes.h>
+#include <input/MR/test_adjusting_names.h>
 #include <input/MR/test_arrays_of_incomplete_types_2.h>
 #include <input/MR/test_arrays_of_incomplete_types.h>
 #include <input/MR/test_bases.h>

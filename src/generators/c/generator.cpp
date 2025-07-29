@@ -1223,26 +1223,30 @@ namespace mrbind::CBindings
         binding.return_usage.value().AddDependenciesToFile(*this, file);
     }
 
-    void Generator::TryIncludeHeadersForCppTypeInSourceFile(Generator::OutputFile &file, const cppdecl::Type &type)
+    static Generator::ExtraHeaders TryFindCppHeaders(Generator &generator, const auto &entity)
     {
+        Generator::ExtraHeaders ret;
+
+        std::unordered_set<std::string> custom_in_source_file;
+
         // Can't use `Generator::ForEachNonBuiltInNestedTypeInType()` here, because that uses `no_recurse_into_names`, while here we need only `no_recurse_into_nontype_names`.
         // Consider e.g. how we process `std::vector<T>`. Here we do need to visit `T`, and `no_recurse_into_names` would prevent that.
-        type.VisitEachComponent<cppdecl::QualifiedName>(
+        entity.template VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_nontype_names,
             [&](const cppdecl::QualifiedName &name)
             {
                 // Those checks are here as a little optimization. Even if we remove them, `parsed_type_info.find()` below should find nothing for those types.
-                if (!name.IsEmpty() && !TypeNameIsCBuiltIn(name))
+                if (!name.IsEmpty() && !generator.TypeNameIsCBuiltIn(name))
                 {
-                    auto [cache_iter, is_new] = cached_cpp_includes_for_cpp_type_names.try_emplace(CppdeclToCode(name));
+                    auto [cache_iter, is_new] = generator.cached_cpp_includes_for_cpp_type_names.try_emplace(generator.CppdeclToCode(name));
 
                     if (is_new)
                     {
-                        if (auto parsed_iter = parsed_type_info.find(CppdeclToCode(name)); parsed_iter != parsed_type_info.end())
+                        if (auto parsed_iter = generator.parsed_type_info.find(generator.CppdeclToCode(name)); parsed_iter != generator.parsed_type_info.end())
                         {
                             // A parsed type.
 
-                            auto headers = ParsedFilenameToRelativeNamesForInclusion(parsed_iter->second.GetParsedFileName());
+                            auto headers = generator.ParsedFilenameToRelativeNamesForInclusion(parsed_iter->second.GetParsedFileName());
                             cache_iter->second.generated.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
                         }
                         else
@@ -1254,9 +1258,9 @@ namespace mrbind::CBindings
                             //   corresponding to the C++ header that has the template declaration, and that might not include all the necessary
                             //   headers for all the specializations.
 
-                            for (const auto &m : modules)
+                            for (const auto &m : generator.modules)
                             {
-                                if (auto header_name = m->GetCppIncludeForQualifiedName(*this, name))
+                                if (auto header_name = m->GetCppIncludeForQualifiedName(generator, name))
                                 {
                                     cache_iter->second.stdlib.insert(*header_name);
                                     break;
@@ -1267,14 +1271,27 @@ namespace mrbind::CBindings
                         }
                     }
 
-                    file.source.custom_headers.insert(cache_iter->second.generated.begin(), cache_iter->second.generated.end());
-                    file.source.stdlib_headers.insert(cache_iter->second.stdlib.begin(), cache_iter->second.stdlib.end());
+                    custom_in_source_file.insert(cache_iter->second.generated.begin(), cache_iter->second.generated.end());
+                    ret.stdlib_in_source_file.insert(cache_iter->second.stdlib.begin(), cache_iter->second.stdlib.end());
                 }
             }
         );
+
+        ret.custom_in_source_file = [value = std::move(custom_in_source_file)]{return value;};
+        return ret;
     }
 
-    void Generator::EmitFuncParams::AddParamsFromParsedFunc(const Generator &self, const std::vector<FuncParam> &new_params)
+    Generator::ExtraHeaders Generator::TryFindHeadersForCppTypeForSourceFile(const cppdecl::Type &type)
+    {
+        return TryFindCppHeaders(*this, type);
+    }
+
+    Generator::ExtraHeaders Generator::TryFindHeadersForCppNameForSourceFile(const cppdecl::QualifiedName &name)
+    {
+        return TryFindCppHeaders(*this, name);
+    }
+
+    void Generator::EmitFuncParams::AddParamsFromParsedFunc(Generator &self, const std::vector<FuncParam> &new_params)
     {
         params.reserve(params.size() + new_params.size());
         for (const FuncParam &new_param : new_params)
@@ -1311,7 +1328,7 @@ namespace mrbind::CBindings
         param.name = "_this";
     }
 
-    void Generator::EmitFuncParams::AddThisParamFromParsedClass(const Generator &self, const ClassEntity &new_class, ThisParamKind kind)
+    void Generator::EmitFuncParams::AddThisParamFromParsedClass(Generator &self, const ClassEntity &new_class, ThisParamKind kind)
     {
         Param &param = params.emplace_back();
         param.kind = kind.kind;
@@ -1323,12 +1340,12 @@ namespace mrbind::CBindings
         param.name = "_this";
     }
 
-    void Generator::EmitFuncParams::SetReturnTypeFromParsedFunc(const Generator &self, const BasicReturningFunc &new_func)
+    void Generator::EmitFuncParams::SetReturnTypeFromParsedFunc(Generator &self, const BasicReturningFunc &new_func)
     {
         cpp_return_type = self.ParseTypeOrThrow(new_func.return_type.canonical);
     }
 
-    void Generator::EmitFuncParams::SetFromParsedFunc(const Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack)
+    void Generator::EmitFuncParams::SetFromParsedFunc(Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         AddParamsFromParsedFunc(self, new_func.params);
         if (new_func.IsPostIncrOrDecr())
@@ -1338,10 +1355,17 @@ namespace mrbind::CBindings
 
         SetReturnTypeFromParsedFunc(self, new_func);
 
+        cppdecl::QualifiedName full_qual_name = self.ParseQualNameOrThrow(new_func.full_qual_name);
+
+        // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
+        std::string full_qual_name_fixed = self.CppdeclToCode(full_qual_name);
+        // Might need this at least for the custom `[u]int64_t` typedefs.
+        extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_qual_name));
+
         if (is_class_friend)
             cpp_called_func = new_func.name; // Do we need the template arguments here? I assume not, in the sane cases.
         else
-            cpp_called_func = "::" + new_func.full_qual_name; // Adding leading `::` to avoid ADL, just in case.
+            cpp_called_func = "::" + full_qual_name_fixed; // Adding leading `::` to avoid ADL, just in case.
 
         if (new_func.comment)
         {
@@ -1349,13 +1373,13 @@ namespace mrbind::CBindings
             c_comment += '\n';
         }
         c_comment += "/// Generated from function `";
-        c_comment += new_func.full_qual_name;
+        c_comment += full_qual_name_fixed;
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;
     }
 
-    void Generator::EmitFuncParams::SetFromParsedClassCtor(const Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack)
+    void Generator::EmitFuncParams::SetFromParsedClassCtor(Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         AddParamsFromParsedFunc(self, new_ctor.params);
 
@@ -1401,7 +1425,7 @@ namespace mrbind::CBindings
         using_namespace_stack = new_using_namespace_stack;
     }
 
-    void Generator::EmitFuncParams::SetFromParsedClassMethod(const Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack)
+    void Generator::EmitFuncParams::SetFromParsedClassMethod(Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         std::string cpp_type_str = self.CppdeclToCode(cpp_type);
@@ -1438,7 +1462,14 @@ namespace mrbind::CBindings
 
         SetReturnTypeFromParsedFunc(self, new_method);
 
-        cpp_called_func = new_method.full_name;
+        cppdecl::QualifiedName full_name_parsed = self.ParseQualNameOrThrow(new_method.full_name);
+
+        // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
+        std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
+        // Might need this at least for the custom `[u]int64_t` typedefs.
+        extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
+
+        cpp_called_func = full_name_fixed;
 
         if (new_method.comment)
         {
@@ -1448,13 +1479,13 @@ namespace mrbind::CBindings
         c_comment += "/// Generated from a method of class `";
         c_comment += cpp_type_str;
         c_comment += "` named `";
-        c_comment += new_method.full_name;
+        c_comment += full_name_fixed;
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;
     }
 
-    void Generator::EmitFuncParams::SetFromParsedClassConvOp(const Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack)
+    void Generator::EmitFuncParams::SetFromParsedClassConvOp(Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
@@ -1495,13 +1526,20 @@ namespace mrbind::CBindings
         const cppdecl::Type field_type = self.ParseTypeOrThrow(new_field.type.canonical);
         const std::string class_cpp_type_str = self.CppdeclToCode(self.ParseTypeOrThrow(new_class.full_type));
 
+        cppdecl::QualifiedName full_name_parsed = self.ParseQualNameOrThrow(new_field.full_name);
+
+        // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
+        std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
+
+        extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
+
         auto SetFuncName = [&](std::string_view name)
         {
             c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
             c_name += '_';
             c_name += name;
             c_name += '_';
-            c_name += cppdecl::ToString(self.ParseQualNameOrThrow(new_field.full_name), cppdecl::ToStringFlags::identifier);
+            c_name += cppdecl::ToString(full_name_parsed, cppdecl::ToStringFlags::identifier);
         };
 
         // Special handling for the function returning the array size, if this is an array.
@@ -1520,12 +1558,12 @@ namespace mrbind::CBindings
 
             // I guess we could hardcode the returned size instead, but this looks better to me.
             extra_headers.stdlib_in_source_file.insert("type_traits"); // For `std::extent_v`.
-            cpp_called_func = "std::extent_v<decltype(@this@::" + new_field.full_name + ")>";
+            cpp_called_func = "std::extent_v<decltype(@this@::" + full_name_fixed + ")>";
 
             c_comment += "/// Returns the size of the array member of class `";
             c_comment += class_cpp_type_str;
             c_comment += "` named `";
-            c_comment += new_field.full_name;
+            c_comment += full_name_fixed;
             c_comment += "`. The size is `";
             c_comment += self.CppdeclToCode(field_type.As<cppdecl::Array>()->size);
             c_comment += "`.";
@@ -1563,7 +1601,7 @@ namespace mrbind::CBindings
 
             // Not using `@this@.` here because this can be a static data member too!
             // And it's inserted automatically anyway.
-            cpp_called_func = new_field.full_name + " = @1@";
+            cpp_called_func = full_name_fixed + " = @1@";
         }
         else
         {
@@ -1587,7 +1625,7 @@ namespace mrbind::CBindings
                 cpp_return_type.AddModifier(cppdecl::Reference{});
             }
 
-            cpp_called_func = new_field.full_name;
+            cpp_called_func = full_name_fixed;
             if (is_array)
                 cpp_called_func += "[0]";
 
@@ -1603,7 +1641,7 @@ namespace mrbind::CBindings
         c_comment += "/// " + std::string(is_setter ? "Modifies" : is_const ? "Returns a pointer to" : "Returns a mutable pointer to") + " a member variable of class `";
         c_comment += class_cpp_type_str;
         c_comment += "` named `";
-        c_comment += new_field.full_name;
+        c_comment += full_name_fixed;
         c_comment += "`.";
         if (is_array)
             c_comment += " This is a pointer to the first element of an array.";
@@ -1707,8 +1745,8 @@ namespace mrbind::CBindings
                         has_any_useful_default_args = true;
 
                     // Include C++ headers for the C++ parameter type. This usually isn't necessary, but helps
-                    //   if the parsed code is sloppy about what headers it includes.
-                    TryIncludeHeadersForCppTypeInSourceFile(file, param.cpp_type);
+                    //   if the parsed code is sloppy about what headers it includes, and perhaps in some other cases
+                    TryFindHeadersForCppTypeForSourceFile(param.cpp_type).InsertToFile(file);
 
                     const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
                     const auto &param_usage = param_usage_defarg ? *param_usage_defarg : bindable_param_type.param_usage.value();
@@ -1892,8 +1930,8 @@ namespace mrbind::CBindings
                     throw std::runtime_error("Unable to bind this function because this type can't be bound as a return type.");
 
                 // Include C++ headers for the C++ return type. This usually isn't necessary, but helps
-                //   if the parsed code is sloppy about what headers it includes.
-                TryIncludeHeadersForCppTypeInSourceFile(file, params.cpp_return_type);
+                //   if the parsed code is sloppy about what headers it includes, and perhaps in some other cases.
+                TryFindHeadersForCppTypeForSourceFile(params.cpp_return_type).InsertToFile(file);
 
                 // Declare or include the dependencies of the return type.
                 bindable_return_type.return_usage->AddDependenciesToFile(*this, file);
@@ -3036,7 +3074,7 @@ namespace mrbind::CBindings
 
                                         // Must include the type definition in the implementation file.
                                         // Otherwise the C++ type might not even be declared. We only automatically declare the C type in the public header.
-                                        self.TryIncludeHeadersForCppTypeInSourceFile(file, cppdecl::Type::FromQualifiedName(target_cpp_qual_name));
+                                        self.TryFindHeadersForCppNameForSourceFile(target_cpp_qual_name).InsertToFile(file);
 
                                         for (bool is_const : {true, false})
                                         {

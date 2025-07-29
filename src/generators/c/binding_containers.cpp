@@ -101,7 +101,7 @@ namespace mrbind::CBindings
             if (!stdlib_container_header.empty())
                 file.source.stdlib_headers.insert(stdlib_container_header);
 
-            generator.TryIncludeHeadersForCppTypeInSourceFile(file, cppdecl::Type::FromQualifiedName(cpp_container_type));
+            generator.TryFindHeadersForCppTypeForSourceFile(cppdecl::Type::FromQualifiedName(cpp_container_type)).InsertToFile(file);
 
             file.header.contents += "\n/// Generated from C++ container `" + generator.CppdeclToCode(cpp_container_type) + "`.\n";
             class_binder.EmitForwardDeclaration(generator, file);
