@@ -77,6 +77,10 @@ namespace mrbind::CBindings
         // The matching C++ structs/classes get bound as C structs instead of opaque pointers.
         StringFilter same_layout_struct_filter;
 
+        // Allow setting an exception handler, instead of just propagating exceptions.
+        // Currently there's no flag to disable this. If you add that, you also need to remove all the `throw`s in that case, and replace them with something else.
+        bool catch_exceptions = true;
+
         // ]
 
         // Constants: [

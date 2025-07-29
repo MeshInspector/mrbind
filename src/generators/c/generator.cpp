@@ -299,6 +299,55 @@ namespace mrbind::CBindings
             file.header.contents += "} " + name + ";\n";
         }
 
+        // Exception handler.
+        if (catch_exceptions)
+        {
+            const std::string handler_typedef = MakePublicHelperName("ExceptionHandler");
+            const std::string handler_set = MakePublicHelperName("SetExceptionHandler");
+
+            file.header.contents += "typedef void " + handler_typedef + "(const char *message, void *userdata);\n";
+
+            file.source.stdlib_headers.insert("stddef.h"); // For `NULL`.
+            file.source.contents += "static " + handler_typedef + " mrbindc_exception_handler = NULL;\n";
+            file.source.contents += "static void * mrbindc_exception_handler_userdata = NULL;\n";
+
+            { // Set handler.
+                Generator::EmitFuncParams emit;
+                emit.c_comment =
+                    "/// Set the handler for C++ exceptions. If null (by default), they simply fall out of the C functions.\n"
+                    "/// If specified, the handler is called with the exception message. Then if the handler doesn't terminate the program, the failing C function returns zero.";
+                emit.c_name = handler_set;
+                emit.params.push_back({
+                    .name = "func",
+                    .cpp_type = cppdecl::Type::FromSingleWord(handler_typedef),
+                });
+                emit.params.push_back({
+                    .name = "userdata",
+                    .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                });
+                emit.cpp_called_func = "mrbindc_exception_handler = @1@; mrbindc_exception_handler_userdata = @2@";
+                EmitFunction(file, emit);
+            }
+
+            { // Set handler.
+                Generator::EmitFuncParams emit;
+                emit.c_comment = "/// Returns the handler that was set via `" + handler_set + "()`. Defaults to null."
+                emit.c_name = MakePublicHelperName("GetExceptionHandler");
+                emit.params.push_back({
+                    .name = "func",
+                    .cpp_type = cppdecl::Type::FromSingleWord(handler_typedef),
+                });
+                emit.params.push_back({
+                    .name = "userdata",
+                    .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                });
+                emit.cpp_called_func = "mrbindc_exception_handler = @1@; mrbindc_exception_handler_userdata = @2@";
+                EmitFunction(file, emit);
+            }
+
+            file.header.contents += "\n";
+        }
+
         { // Memory management functions.
             for (bool is_array : {false, true})
             {
