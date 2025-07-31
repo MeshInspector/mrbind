@@ -301,6 +301,27 @@ void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
     );
 }
 
+void MR_TestSimpleTypes_CheckChar_char_ptr(char *_1)
+{
+    ::MR::TestSimpleTypes::CheckChar(
+        _1
+    );
+}
+
+void MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(unsigned char *_1)
+{
+    ::MR::TestSimpleTypes::CheckChar(
+        _1
+    );
+}
+
+void MR_TestSimpleTypes_CheckChar_signed_char_ptr(signed char *_1)
+{
+    ::MR::TestSimpleTypes::CheckChar(
+        _1
+    );
+}
+
 long long MR_TestSimpleTypes_LongLong(long long x)
 {
     return ::MR::TestSimpleTypes::LongLong(

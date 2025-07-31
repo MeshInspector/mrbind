@@ -351,6 +351,7 @@ namespace mrbind
                         }
                     };
 
+                    // Apparently `int8_t` maps to `signed char` (and not just `char`) on all platforms I've checked: Windows, Linux, and MacOS. Nice.
                     if (word == "char" && bool(simple_type.flags & (cppdecl::SimpleTypeFlags::unsigned_ | cppdecl::SimpleTypeFlags::explicitly_signed)))
                     {
                         TryApplyTypedef(ci.getTarget().getCharWidth());

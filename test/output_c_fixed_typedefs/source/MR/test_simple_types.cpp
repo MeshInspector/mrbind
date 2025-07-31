@@ -303,6 +303,27 @@ void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
     );
 }
 
+void MR_TestSimpleTypes_CheckChar_char_ptr(char *_1)
+{
+    ::MR::TestSimpleTypes::CheckChar(
+        _1
+    );
+}
+
+void MR_TestSimpleTypes_CheckChar_uint8_t_ptr(uint8_t *_1)
+{
+    ::MR::TestSimpleTypes::CheckChar(
+        _1
+    );
+}
+
+void MR_TestSimpleTypes_CheckChar_int8_t_ptr(int8_t *_1)
+{
+    ::MR::TestSimpleTypes::CheckChar(
+        _1
+    );
+}
+
 MR_C_uint64_t MR_TestSimpleTypes_blah_uint64_t(MR_C_uint64_t x)
 {
     return ::MR::TestSimpleTypes::blah(

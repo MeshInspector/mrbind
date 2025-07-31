@@ -187,6 +187,16 @@ MR_C_API void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1);
 /// Parameter `_1` has a default argument: `global_enum2`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1);
 
+// Test all kinds of `char`.
+/// Generated from function `MR::TestSimpleTypes::CheckChar`.
+MR_C_API void MR_TestSimpleTypes_CheckChar_char_ptr(char *_1);
+
+/// Generated from function `MR::TestSimpleTypes::CheckChar`.
+MR_C_API void MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(unsigned char *_1);
+
+/// Generated from function `MR::TestSimpleTypes::CheckChar`.
+MR_C_API void MR_TestSimpleTypes_CheckChar_signed_char_ptr(signed char *_1);
+
 /// Generated from function `MR::TestSimpleTypes::LongLong`.
 MR_C_API long long MR_TestSimpleTypes_LongLong(long long x);
 

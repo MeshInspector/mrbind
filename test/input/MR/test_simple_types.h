@@ -76,6 +76,12 @@ namespace MR::TestSimpleTypes
     enum class E3 {};
 
 
+    // Test all kinds of `char`.
+    void CheckChar(char *);
+    void CheckChar(unsigned char *);
+    void CheckChar(signed char *);
+
+
     // Make sure `long long` works. The space in the type can be a bit weird.
     // This conflicts with `--canonicalize-to-fixed-size-typedefs` (or rather with `--reject-long-and-long-long`), so this is behind an ifdef.
     #if !DISABLE_LONG_LONG
