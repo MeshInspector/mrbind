@@ -1634,7 +1634,10 @@ namespace mrbind
             for (const clang::FieldDecl *field : decl->fields())
             {
                 if (ShouldRejectRecordField(*field, *ci, *params, printing_policies))
+                {
+                    new_class.some_nonstatic_data_members_skipped = true;
                     continue;
+                }
 
                 ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
                 new_field.comment = GetCommentString(*ctx, *field);

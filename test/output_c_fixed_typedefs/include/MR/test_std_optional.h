@@ -94,6 +94,10 @@ MR_C_API MR_StdOptional_A *MR_StdOptional_A_DefaultConstruct(void);
 /// Use `MR_StdOptional_A_OffsetMutablePtr()` and `MR_StdOptional_A_OffsetPtr()` to access the array elements.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_DefaultConstructArray(size_t num_elems);
 
+/// Constructs `MR::StdOptional::A` elementwise.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdOptional_A *MR_StdOptional_A_ConstructFrom(int32_t x);
+
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_StdOptional_A *MR_StdOptional_A_OffsetPtr(const MR_StdOptional_A *ptr, ptrdiff_t i);
 
@@ -162,6 +166,12 @@ MR_C_API MR_StdOptional_B *MR_StdOptional_B_DefaultConstruct(void);
 /// The array must be destroyed using `MR_StdOptional_B_DestroyArray()`.
 /// Use `MR_StdOptional_B_OffsetMutablePtr()` and `MR_StdOptional_B_OffsetPtr()` to access the array elements.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_DefaultConstructArray(size_t num_elems);
+
+/// Constructs `MR::StdOptional::B` elementwise.
+/// Parameter `s` can not be null.
+/// If `s_end` is null, then `s` is assumed to be null-terminated.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdOptional_B *MR_StdOptional_B_ConstructFrom(const char *s, const char *s_end);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_StdOptional_B *MR_StdOptional_B_OffsetPtr(const MR_StdOptional_B *ptr, ptrdiff_t i);

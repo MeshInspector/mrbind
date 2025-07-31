@@ -58,6 +58,11 @@ MR_C_API MR_NestedTypes_A *MR_NestedTypes_A_DefaultConstruct(void);
 /// Use `MR_NestedTypes_A_OffsetMutablePtr()` and `MR_NestedTypes_A_OffsetPtr()` to access the array elements.
 MR_C_API MR_NestedTypes_A *MR_NestedTypes_A_DefaultConstructArray(size_t num_elems);
 
+/// Constructs `MR::NestedTypes::A` elementwise.
+/// Parameter `b` can not be null.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_NestedTypes_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_NestedTypes_A *MR_NestedTypes_A_ConstructFrom(const MR_NestedTypes_A_B *b, MR_NestedTypes_A_E e);
+
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_NestedTypes_A *MR_NestedTypes_A_OffsetPtr(const MR_NestedTypes_A *ptr, ptrdiff_t i);
 

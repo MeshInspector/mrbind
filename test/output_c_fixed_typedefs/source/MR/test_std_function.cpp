@@ -78,6 +78,13 @@ MR_StdFunction_A *MR_StdFunction_A_DefaultConstructArray(size_t num_elems)
     return (MR_StdFunction_A *)(new MR::StdFunction::A[num_elems]{});
 }
 
+MR_StdFunction_A *MR_StdFunction_A_ConstructFrom(const char *a, const char *a_end)
+{
+    return (MR_StdFunction_A *)new MR::StdFunction::A(MR::StdFunction::A{
+        (a ? (a_end ? std::string(a, a_end) : std::string(a)) : throw std::runtime_error("Parameter `a` can not be null."))
+    });
+}
+
 const MR_StdFunction_A *MR_StdFunction_A_OffsetPtr(const MR_StdFunction_A *ptr, ptrdiff_t i)
 {
     return (const MR_StdFunction_A *)(((const MR::StdFunction::A *)ptr) + i);

@@ -2949,7 +2949,7 @@ namespace mrbind::CBindings
                             if (!is_first)
                                 file.header.contents += '\n';
 
-                            file.header.contents += Generator::IndentString(field->comment->text_with_slashes, 1, true);
+                            file.header.contents += IndentString(field->comment->text_with_slashes, 1, true);
                             file.header.contents += '\n';
                         }
 
@@ -3032,6 +3032,96 @@ namespace mrbind::CBindings
 
                     auto binder = MakeBinder();
 
+                    // Elementwise constructor for aggregates.
+                    if (
+                        cl.is_aggregate &&
+                        // If some of the fields are missing from the parser output, we won't be able to initialize elementwise anyway.
+                        // The parser could in theory still emit them with some flag, and then here, if they are default-constructible, we could
+                        //   emit `{}` placeholders for them here (or use designated initialization and skip them here). But all this sounds too complicated,
+                        //   and currently we have no need for this.
+                        !cl.some_nonstatic_data_members_skipped &&
+                        // We reject same-layout structs because the C users can construct those directly.
+                        !parsed_class_info.is_same_layout_struct &&
+                        // For now we reject classes with any bases, for simplicity.
+                        cl.bases.empty()
+                    )
+                    {
+                        bool all_members_ok = true;
+
+                        struct MemberDesc
+                        {
+                            cppdecl::Type type;
+                            std::string name;
+                        };
+                        std::vector<MemberDesc> member_descs;
+
+                        for (const ClassMemberVariant &var : cl.members)
+                        {
+                            std::visit(Overload{
+                                [&](const ClassField &elem)
+                                {
+                                    try
+                                    {
+                                        if (elem.is_static)
+                                            return; // Don't care about the static ones.
+
+                                        cppdecl::Type member_type = self.ParseTypeOrThrow(elem.type.canonical);
+
+                                        // `FindTypeTraits()` chokes on arrays, so check for them here.
+                                        if (member_type.Is<cppdecl::Array>())
+                                        {
+                                            all_members_ok = false;
+                                            return;
+                                        }
+
+                                        // Check that this field type is possible to pass in the first place. If not, there's nothing we can do.
+                                        TypeTraits traits = self.FindTypeTraits(member_type);
+                                        if (!traits.IsDefaultOrCopyOrMoveConstructible())
+                                        {
+                                            all_members_ok = false;
+                                            return;
+                                        }
+
+                                        member_descs.push_back({.type = std::move(member_type), .name = elem.name});
+                                    }
+                                    catch (...)
+                                    {
+                                        std::throw_with_nested(std::runtime_error("While checking field `" + elem.full_name + "` of an aggregate class:"));
+                                    }
+                                },
+                                [&](const ClassCtor &) {},
+                                [&](const ClassMethod &) {},
+                                [&](const ClassConvOp &) {},
+                                [&](const ClassDtor &) {},
+                            }, var);
+
+                            if (!all_members_ok)
+                                break;
+                        }
+
+                        // If all members can be passed via parameters, AND if we have at least one member (because otherwise the default ctor is sufficient),
+                        //   then emit the elementwise constructor.
+                        if (all_members_ok && !member_descs.empty())
+                        {
+                            EmitFuncParams emit;
+                            emit.c_comment = "/// Constructs `" + cpp_class_name_str + "` elementwise.";
+                            emit.c_name = binder.MakeMemberFuncName(self, "ConstructFrom");
+                            emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_class_name);
+                            for (const MemberDesc &member_desc : member_descs)
+                            {
+                                // I'm not entirely sure if I should desugar those parameters, or if sugared ones are fine.
+                                // I think they are fine, they definitely look more convenient to me.
+                                emit.params.push_back({
+                                    .name = member_desc.name,
+                                    .cpp_type = member_desc.type,
+                                });
+                            }
+                            emit.cpp_called_func = cpp_class_name_str;
+                            emit.cpp_called_func_parens = {"{", "}"}; // Don't rely on C++20 `(...)` initialization syntax.
+                            self.EmitFunction(file, emit);
+                        }
+                    }
+
                     // Pointer offsetting.
                     // Don't need it for the same-layout structs, as the user can do that manually.
                     if (!parsed_class_info.is_same_layout_struct)
@@ -3078,7 +3168,7 @@ namespace mrbind::CBindings
 
                                         for (bool is_const : {true, false})
                                         {
-                                            Generator::EmitFuncParams emit;
+                                            EmitFuncParams emit;
 
                                             emit.c_comment = "/// " + std::string(is_downcast ? "Downcasts" : "Upcasts") + " an instance of `" + cpp_class_name_str + "` to " + (is_downcast ? "a derived class" : "its base class") + " `" + target.first + "`.";
                                             if (is_downcast)

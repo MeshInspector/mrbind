@@ -47,6 +47,14 @@ MR_NestedTypes_A *MR_NestedTypes_A_DefaultConstructArray(size_t num_elems)
     return (MR_NestedTypes_A *)(new MR::NestedTypes::A[num_elems]{});
 }
 
+MR_NestedTypes_A *MR_NestedTypes_A_ConstructFrom(const MR_NestedTypes_A_B *b, MR_NestedTypes_A_E e)
+{
+    return (MR_NestedTypes_A *)new MR::NestedTypes::A(MR::NestedTypes::A{
+        (b ? MR::NestedTypes::A::B(*(MR::NestedTypes::A::B *)b) : throw std::runtime_error("Parameter `b` can not be null.")),
+        ((MR::NestedTypes::A::E)e)
+    });
+}
+
 const MR_NestedTypes_A *MR_NestedTypes_A_OffsetPtr(const MR_NestedTypes_A *ptr, ptrdiff_t i)
 {
     return (const MR_NestedTypes_A *)(((const MR::NestedTypes::A *)ptr) + i);

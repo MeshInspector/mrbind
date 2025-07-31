@@ -105,6 +105,13 @@ MR_StdOptional_A *MR_StdOptional_A_DefaultConstructArray(size_t num_elems)
     return (MR_StdOptional_A *)(new MR::StdOptional::A[num_elems]{});
 }
 
+MR_StdOptional_A *MR_StdOptional_A_ConstructFrom(int x)
+{
+    return (MR_StdOptional_A *)new MR::StdOptional::A(MR::StdOptional::A{
+        x
+    });
+}
+
 const MR_StdOptional_A *MR_StdOptional_A_OffsetPtr(const MR_StdOptional_A *ptr, ptrdiff_t i)
 {
     return (const MR_StdOptional_A *)(((const MR::StdOptional::A *)ptr) + i);
@@ -197,6 +204,13 @@ MR_StdOptional_B *MR_StdOptional_B_DefaultConstruct(void)
 MR_StdOptional_B *MR_StdOptional_B_DefaultConstructArray(size_t num_elems)
 {
     return (MR_StdOptional_B *)(new MR::StdOptional::B[num_elems]{});
+}
+
+MR_StdOptional_B *MR_StdOptional_B_ConstructFrom(const char *s, const char *s_end)
+{
+    return (MR_StdOptional_B *)new MR::StdOptional::B(MR::StdOptional::B{
+        (s ? (s_end ? std::string(s, s_end) : std::string(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+    });
 }
 
 const MR_StdOptional_B *MR_StdOptional_B_OffsetPtr(const MR_StdOptional_B *ptr, ptrdiff_t i)

@@ -71,6 +71,12 @@ MR_C_API MR_StdFunction_A *MR_StdFunction_A_DefaultConstruct(void);
 /// Use `MR_StdFunction_A_OffsetMutablePtr()` and `MR_StdFunction_A_OffsetPtr()` to access the array elements.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_DefaultConstructArray(size_t num_elems);
 
+/// Constructs `MR::StdFunction::A` elementwise.
+/// Parameter `a` can not be null.
+/// If `a_end` is null, then `a` is assumed to be null-terminated.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdFunction_A *MR_StdFunction_A_ConstructFrom(const char *a, const char *a_end);
+
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_StdFunction_A *MR_StdFunction_A_OffsetPtr(const MR_StdFunction_A *ptr, ptrdiff_t i);
 

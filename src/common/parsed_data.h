@@ -484,6 +484,10 @@ namespace mrbind
             (bool)(is_standard_layout, false) // https://en.cppreference.com/w/cpp/language/classes.html#Standard-layout_class
             (bool)(is_trivially_copyable, false) // https://en.cppreference.com/w/cpp/language/classes.html#Trivially_copyable_class
 
+            // If true, some non-static data members were not emitted in the parser output, for various reasons.
+            // If this is an aggregate that you were planning to initialize elementwise, you probably shouldn't do that anymore.
+            (bool)(some_nonstatic_data_members_skipped, false)
+
             (std::size_t)(type_size) // It's easier to have this here for now, than to create a global type registry.
             (std::size_t)(type_alignment) // ^
 
