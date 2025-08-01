@@ -19,6 +19,8 @@ namespace mrbind::CBindings::Modules
                 .has_capacity = true,
                 .has_front_back = true,
                 .has_push_back = true,
+                .push_front_requires_assignment = true,
+                .insert_requires_assignment = true,
             },
         };
 
@@ -36,6 +38,7 @@ namespace mrbind::CBindings::Modules
                 .has_front_back = true,
                 .has_push_back = true,
                 .has_push_front = true,
+                .insert_requires_assignment = true,
             },
         };
 
@@ -115,6 +118,7 @@ namespace mrbind::CBindings::Modules
             .params = {
                 .iter_category = ContainerBinder::IteratorCategory::forward, // Unordered sets have forward iterators, while the normal sets have bidirectional ones. Interesting!
                 .is_set = true,
+                .insert_requires_assignment = true, // Huh!
             },
         };
 
@@ -129,6 +133,7 @@ namespace mrbind::CBindings::Modules
                 .iter_category = ContainerBinder::IteratorCategory::forward, // Unordered sets have forward iterators, while the normal sets have bidirectional ones. Interesting!
                 .is_set = true,
                 .is_multi = true,
+                .insert_requires_assignment = true, // Huh!
             },
         };
 
@@ -193,6 +198,7 @@ namespace mrbind::CBindings::Modules
                 .iter_category = ContainerBinder::IteratorCategory::forward,
                 .is_map = true,
                 .has_mutable_iterators = true,
+                .insert_requires_assignment = true, // Huh!
             },
         };
 
@@ -208,6 +214,7 @@ namespace mrbind::CBindings::Modules
                 .is_map = true,
                 .is_multi = true,
                 .has_mutable_iterators = true,
+                .insert_requires_assignment = true, // Huh!
             },
         };
 

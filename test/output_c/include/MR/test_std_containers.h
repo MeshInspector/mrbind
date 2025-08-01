@@ -4,6 +4,7 @@
 #include <exports.h>
 #include <std_array_int_43.h>
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -11,18 +12,30 @@ extern "C" {
 #endif
 
 typedef struct MR_C_std_array_MR_StdContainers_A_42 MR_C_std_array_MR_StdContainers_A_42; // Defined in `#include <std_array_MR_StdContainers_A_42.h>`.
+typedef struct MR_C_std_array_MR_StdContainers_NonAssignable_42 MR_C_std_array_MR_StdContainers_NonAssignable_42; // Defined in `#include <std_array_MR_StdContainers_NonAssignable_42.h>`.
+typedef struct MR_C_std_deque_MR_StdContainers_NonAssignable MR_C_std_deque_MR_StdContainers_NonAssignable; // Defined in `#include <std_deque_MR_StdContainers_NonAssignable.h>`.
 typedef struct MR_C_std_deque_int MR_C_std_deque_int; // Defined in `#include <std_deque_int.h>`.
+typedef struct MR_C_std_list_MR_StdContainers_NonAssignable MR_C_std_list_MR_StdContainers_NonAssignable; // Defined in `#include <std_list_MR_StdContainers_NonAssignable.h>`.
 typedef struct MR_C_std_list_int MR_C_std_list_int; // Defined in `#include <std_list_int.h>`.
+typedef struct MR_C_std_map_MR_StdContainers_NonAssignable_float MR_C_std_map_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_map_MR_StdContainers_NonAssignable_float.h>`.
 typedef struct MR_C_std_map_int_float MR_C_std_map_int_float; // Defined in `#include <std_map_int_float.h>`.
+typedef struct MR_C_std_multimap_MR_StdContainers_NonAssignable_float MR_C_std_multimap_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_multimap_MR_StdContainers_NonAssignable_float.h>`.
 typedef struct MR_C_std_multimap_int_float MR_C_std_multimap_int_float; // Defined in `#include <std_multimap_int_float.h>`.
+typedef struct MR_C_std_multiset_MR_StdContainers_NonAssignable MR_C_std_multiset_MR_StdContainers_NonAssignable; // Defined in `#include <std_multiset_MR_StdContainers_NonAssignable.h>`.
 typedef struct MR_C_std_multiset_float MR_C_std_multiset_float; // Defined in `#include <std_multiset_float.h>`.
 typedef struct MR_C_std_multiset_int MR_C_std_multiset_int; // Defined in `#include <std_multiset_int.h>`.
+typedef struct MR_C_std_set_MR_StdContainers_NonAssignable MR_C_std_set_MR_StdContainers_NonAssignable; // Defined in `#include <std_set_MR_StdContainers_NonAssignable.h>`.
 typedef struct MR_C_std_set_float_const_iterator MR_C_std_set_float_const_iterator; // Defined in `#include <std_set_float.h>`.
 typedef struct MR_C_std_set_int MR_C_std_set_int; // Defined in `#include <std_set_int.h>`.
+typedef struct MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_unordered_map_MR_StdContainers_NonAssignable_float.h>`.
 typedef struct MR_C_std_unordered_map_int_float MR_C_std_unordered_map_int_float; // Defined in `#include <std_unordered_map_int_float.h>`.
+typedef struct MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_unordered_multimap_MR_StdContainers_NonAssignable_float.h>`.
 typedef struct MR_C_std_unordered_multimap_int_float MR_C_std_unordered_multimap_int_float; // Defined in `#include <std_unordered_multimap_int_float.h>`.
+typedef struct MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable; // Defined in `#include <std_unordered_multiset_MR_StdContainers_NonAssignable.h>`.
 typedef struct MR_C_std_unordered_multiset_int MR_C_std_unordered_multiset_int; // Defined in `#include <std_unordered_multiset_int.h>`.
+typedef struct MR_C_std_unordered_set_MR_StdContainers_NonAssignable MR_C_std_unordered_set_MR_StdContainers_NonAssignable; // Defined in `#include <std_unordered_set_MR_StdContainers_NonAssignable.h>`.
 typedef struct MR_C_std_unordered_set_int MR_C_std_unordered_set_int; // Defined in `#include <std_unordered_set_int.h>`.
+typedef struct MR_C_std_vector_MR_StdContainers_NonAssignable MR_C_std_vector_MR_StdContainers_NonAssignable; // Defined in `#include <std_vector_MR_StdContainers_NonAssignable.h>`.
 typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible MR_C_std_vector_MR_StdContainers_NonDefaultConstructible; // Defined in `#include <std_vector_MR_StdContainers_NonDefaultConstructible.h>`.
 typedef struct MR_C_std_vector_int MR_C_std_vector_int; // Defined in `#include <std_vector_int.h>`.
 
@@ -34,6 +47,10 @@ typedef struct MR_StdContainers_A MR_StdContainers_A;
 // Test vectors of a non-default-constructible type.
 /// Generated from class `MR::StdContainers::NonDefaultConstructible`.
 typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible;
+
+// A non-assignable type?
+/// Generated from class `MR::StdContainers::NonAssignable`.
+typedef struct MR_StdContainers_NonAssignable MR_StdContainers_NonAssignable;
 
 /// Generated from function `MR::StdContainers::Set`.
 MR_C_API void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int *_1);
@@ -199,6 +216,83 @@ MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultCo
 /// Generated from function `MR::StdContainers::NonDefCon`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefCon(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_StdContainers_NonAssignable_DestroyArray()`.
+/// Use `MR_StdContainers_NonAssignable_OffsetMutablePtr()` and `MR_StdContainers_NonAssignable_OffsetPtr()` to access the array elements.
+MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetPtr(const MR_StdContainers_NonAssignable *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(MR_StdContainers_NonAssignable *ptr, ptrdiff_t i);
+
+/// Destroys a heap-allocated instance of `MR_StdContainers_NonAssignable`. Does nothing if the pointer is null.
+MR_C_API void MR_StdContainers_NonAssignable_Destroy(const MR_StdContainers_NonAssignable *_this);
+
+/// Destroys a heap-allocated array of `MR_StdContainers_NonAssignable`. Does nothing if the pointer is null.
+MR_C_API void MR_StdContainers_NonAssignable_DestroyArray(const MR_StdContainers_NonAssignable *_this);
+
+/// Generated from a method of class `MR::StdContainers::NonAssignable` named `operator<`.
+/// Parameter `_this` can not be null.
+MR_C_API bool MR_C_less_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
+
+/// Generated from a method of class `MR::StdContainers::NonAssignable` named `operator==`.
+/// Parameter `_this` can not be null.
+MR_C_API bool MR_C_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
+
+/// Generated from function `MR::StdContainers::GetVectorNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_vector_MR_StdContainers_NonAssignable *MR_StdContainers_GetVectorNA(void);
+
+/// Generated from function `MR::StdContainers::GetDequeNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable *MR_StdContainers_GetDequeNA(void);
+
+/// Generated from function `MR::StdContainers::GetListNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_list_MR_StdContainers_NonAssignable *MR_StdContainers_GetListNA(void);
+
+/// Generated from function `MR::StdContainers::GetSetNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_set_MR_StdContainers_NonAssignable *MR_StdContainers_GetSetNA(void);
+
+/// Generated from function `MR::StdContainers::GetMultiSetNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multiset_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_multiset_MR_StdContainers_NonAssignable *MR_StdContainers_GetMultiSetNA(void);
+
+/// Generated from function `MR::StdContainers::GetUnorderedSetNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_StdContainers_GetUnorderedSetNA(void);
+
+/// Generated from function `MR::StdContainers::GetUnorderedMultiSetNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *MR_StdContainers_GetUnorderedMultiSetNA(void);
+
+/// Generated from function `MR::StdContainers::GetMapNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_map_MR_StdContainers_NonAssignable_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_map_MR_StdContainers_NonAssignable_float *MR_StdContainers_GetMapNA(void);
+
+/// Generated from function `MR::StdContainers::GetMultiMapNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_StdContainers_GetMultiMapNA(void);
+
+/// Generated from function `MR::StdContainers::GetUnorderedMapNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float *MR_StdContainers_GetUnorderedMapNA(void);
+
+/// Generated from function `MR::StdContainers::GetUnorderedMultiMapNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float *MR_StdContainers_GetUnorderedMultiMapNA(void);
+
+/// Generated from function `MR::StdContainers::GetStdArrayNA`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_MR_StdContainers_NonAssignable_42_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetStdArrayNA(void);
 
 #ifdef __cplusplus
 } // extern "C"

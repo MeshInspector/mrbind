@@ -11,6 +11,17 @@
 
 namespace MR::StdContainers
 {
+    struct NonAssignable;
+}
+
+template <>
+struct std::hash<MR::StdContainers::NonAssignable>
+{
+    std::size_t operator()(const MR::StdContainers::NonAssignable &) const {return 0;}
+};
+
+namespace MR::StdContainers
+{
     inline void Set(std::vector<int>) {}
     inline void SetWithDefault(std::vector<int> = {1, 2, 3}) {}
     inline std::vector<int> Get() {return {};}
@@ -56,4 +67,28 @@ namespace MR::StdContainers
     };
     inline std::vector<NonDefaultConstructible> NonDefCon() {return {};}
 
+
+    // A non-assignable type?
+
+    struct NonAssignable
+    {
+        NonAssignable() {}
+        NonAssignable(const NonAssignable &) {}
+        NonAssignable &operator=(const NonAssignable &) = delete;
+        bool operator<(NonAssignable) const {return false;}
+        bool operator==(NonAssignable) const {return true;}
+    };
+
+    inline std::vector            <NonAssignable>        GetVectorNA           () {return std::vector            <NonAssignable>{};}
+    inline std::deque             <NonAssignable>        GetDequeNA            () {return std::deque             <NonAssignable>{};}
+    inline std::list              <NonAssignable>        GetListNA             () {return std::list              <NonAssignable>{};}
+    inline std::set               <NonAssignable>        GetSetNA              () {return std::set               <NonAssignable>{};}
+    inline std::multiset          <NonAssignable>        GetMultiSetNA         () {return std::multiset          <NonAssignable>{};}
+    inline std::unordered_set     <NonAssignable>        GetUnorderedSetNA     () {return std::unordered_set     <NonAssignable>{};}
+    inline std::unordered_multiset<NonAssignable>        GetUnorderedMultiSetNA() {return std::unordered_multiset<NonAssignable>{};}
+    inline std::map               <NonAssignable, float> GetMapNA              () {return std::map               <NonAssignable, float>{};}
+    inline std::multimap          <NonAssignable, float> GetMultiMapNA         () {return std::multimap          <NonAssignable, float>{};}
+    inline std::unordered_map     <NonAssignable, float> GetUnorderedMapNA     () {return std::unordered_map     <NonAssignable, float>{};}
+    inline std::unordered_multimap<NonAssignable, float> GetUnorderedMultiMapNA() {return std::unordered_multimap<NonAssignable, float>{};}
+    inline std::array             <NonAssignable, 42>    GetStdArrayNA         () {return std::array             <NonAssignable, 42>{};}
 }

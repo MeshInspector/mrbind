@@ -193,7 +193,11 @@ namespace mrbind::CBindings
                 }
 
                 // resize with default value
-                if (params.has_resize && elem_traits.is_copy_constructible)
+                if (
+                    params.has_resize && elem_traits.is_copy_constructible &&
+                    // libstdc++ (last tested on 15) is bugged and requires the element type to be assignable for this function, for vectors: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=121348
+                    (params.insert_requires_assignment <= elem_traits.is_move_assignable)
+                )
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Resizes the container. The new elements if any are set to the specified value.";
@@ -435,6 +439,10 @@ namespace mrbind::CBindings
                     if (!(is_front ? params.has_push_front : params.has_push_back))
                         continue;
 
+                    // Check assignability requirements.
+                    if ((is_front ? params.push_front_requires_assignment : params.push_back_requires_assignment) && !elem_traits.is_move_assignable)
+                        continue;
+
                     const std::string end_or_beginning = is_front ? "beginning" : "end";
                     const std::string back_or_front_in_c_name = is_front ? "Front" : "Back";
                     const std::string back_or_front_in_cpp_name = is_front ? "front" : "back";
@@ -463,7 +471,8 @@ namespace mrbind::CBindings
                 }
 
                 // insert, without the iterator parameter
-                if (params.is_set && !params.is_map)
+                // Checking `insert_requires_assignment` here for consistency, but I don't think it matters right now.
+                if (params.is_set && !params.is_map && (params.insert_requires_assignment <= elem_traits.is_move_assignable))
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Inserts a new element.";
@@ -478,7 +487,7 @@ namespace mrbind::CBindings
                 }
 
                 // insert and erase at index
-                if (params.iter_category >= IteratorCategory::random_access)
+                if (params.iter_category >= IteratorCategory::random_access && (params.insert_requires_assignment <= elem_traits.is_move_assignable))
                 {
                     { // insert
                         Generator::EmitFuncParams emit;
@@ -515,7 +524,7 @@ namespace mrbind::CBindings
                 // We could omit those when dealing with random-access containers, but let's keep them for consistency with other containers.
                 // We also disable them for maps, because for maps we hide the underlying pairs.
                 // And we also disable them for sets, because there the iterator acts merely as an insertion hint, and we don't expose those hints to C.
-                if (!params.is_set && !params.is_map)
+                if (!params.is_set && !params.is_map && (params.insert_requires_assignment <= elem_traits.is_move_assignable))
                 {
                     for (bool is_const_iter : {false, true})
                     {

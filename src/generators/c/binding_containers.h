@@ -36,6 +36,10 @@ namespace mrbind::CBindings
 
             bool has_push_back = false; // Also `pop_back()`.
             bool has_push_front = false; // Also `pop_front()`.
+
+            bool push_front_requires_assignment = false;
+            bool push_back_requires_assignment = false;
+            bool insert_requires_assignment = false; // This also covers `erase()`, etc.
         };
 
         // `new_cpp_mapped_elem_type` should only be non-empty for maps. It's the mapped type, while `new_cpp_elem_type` is the key type.
