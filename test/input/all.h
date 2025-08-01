@@ -15,6 +15,7 @@
 #include <input/MR/test_mention_blacklists.h>
 #include <input/MR/test_nested_class_template_inst.h>
 #include <input/MR/test_nested_types.h>
+#include <input/MR/test_omitting_template_args_and_quals.h>
 #include <input/MR/test_overloaded_operators.h>
 #include <input/MR/test_overloads.h>
 #include <input/MR/test_phmap.h>

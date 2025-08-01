@@ -1363,9 +1363,24 @@ namespace mrbind::CBindings
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_qual_name));
 
         if (is_class_friend)
-            cpp_called_func = new_func.name; // Do we need the template arguments here? I assume not, in the sane cases.
+        {
+            // Skip the qualifiers, but keep the template arguments. The template arguments might matter in some cases.
+            // The qualifiers must be skipped because friend functions are normally only reachable via ADL.
+            // Roundtrip the name through cppdecl to adjust the template arguments, if necessary.
+            cpp_called_func = self.CppdeclToCode(self.ParseQualNameOrThrow(new_func.name + std::string(new_func.TemplateArguments())));
+        }
+        else if (new_func.IsOverloadedOperator())
+        {
+            // Skip the template arguments, as they could cause some unwanted instantiations.
+            // We could also skip the qualifiers, and but that doesn't do anything useful (other than looking nice), and could break
+            //   some poorly written code.
+            // We don't roundtrip this through cppdecl, since there are no template arguments to adjust.
+            cpp_called_func = new_func.qual_name;
+        }
         else
+        {
             cpp_called_func = "::" + full_qual_name_fixed; // Adding leading `::` to avoid ADL, just in case.
+        }
 
         if (new_func.comment)
         {
@@ -1469,7 +1484,10 @@ namespace mrbind::CBindings
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
 
-        cpp_called_func = full_name_fixed;
+        if (new_method.IsOverloadedOperator())
+            cpp_called_func = new_method.name; // Skip template arguments. We don't roundtrip this through cppdecl, since there are no template arguments to adjust.
+        else
+            cpp_called_func = full_name_fixed;
 
         if (new_method.comment)
         {

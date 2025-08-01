@@ -316,6 +316,26 @@ namespace mrbind
         {
             return name != simple_name;
         }
+
+        // Do we have template arguments?
+        [[nodiscard]] bool HasTemplateArguments() const
+        {
+            return !TemplateArguments().empty();
+        }
+
+        // Template arguments if any, or empty.
+        [[nodiscard]] std::string_view TemplateArguments() const
+        {
+            return std::string_view(full_qual_name).substr(qual_name.size());
+        }
+
+        // Returns `name = TemplateArguments()`. Unlike `full_qual_name`, this is unqualified.
+        [[nodiscard]] std::string NameWithTemplateArguments() const
+        {
+            std::string ret = name;
+            ret += TemplateArguments();
+            return ret;
+        }
     };
 
     // ---
@@ -408,6 +428,8 @@ namespace mrbind
         {
             return std::string_view(full_name).substr(name.size());
         }
+
+        // No `NameWithTemplateArguments()` here, unlike in `FuncEntity`, because here it's just `full_name`.
     };
 
     struct ClassConvOp : BasicReturningClassFunc
