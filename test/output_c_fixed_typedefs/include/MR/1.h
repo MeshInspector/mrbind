@@ -17,18 +17,18 @@ typedef struct MR_C_std_vector_MR_A MR_C_std_vector_MR_A; // Defined in `#includ
 typedef struct MR_A MR_A;
 
 /// Returns a pointer to a member variable of class `MR::A` named `x`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_A_Get_x(const MR_A *_this);
 
 /// Modifies a member variable of class `MR::A` named `x`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
 MR_C_API void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::A` named `x`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);
 
@@ -58,7 +58,7 @@ MR_C_API void MR_A_Destroy(const MR_A *_this);
 MR_C_API void MR_A_DestroyArray(const MR_A *_this);
 
 /// Generated from a method of class `MR::A` named `operator=`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other);
 

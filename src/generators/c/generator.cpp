@@ -2861,11 +2861,11 @@ namespace mrbind::CBindings
 
                         if (!indirect_map.empty())
                         {
-                            file.header.contents += (print_derived ? "/// Classes derived from this:\n" : "/// Inherits from:\n");
+                            file.header.contents += (print_derived ? "/// Derived classes:\n" : "/// Base classes:\n");
 
                             if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::virt))
                             {
-                                file.header.contents += "///   Virtually:\n";
+                                file.header.contents += "///   Virtual:\n";
 
                                 for (const auto &other : indirect_map)
                                 {
@@ -2891,14 +2891,14 @@ namespace mrbind::CBindings
                                 }
 
                                 if (!dir.empty())
-                                    file.header.contents += "///   Directly: (non-virtually)\n" + dir;
+                                    file.header.contents += "///   Direct: (non-virtual)\n" + dir;
                                 if (!indir.empty())
-                                    file.header.contents += "///   Indirectly: (non-virtually)\n" + indir;
+                                    file.header.contents += "///   Indirect: (non-virtual)\n" + indir;
                             }
 
                             if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::ambiguous))
                             {
-                                file.header.contents += "///   Ambiguously:\n";
+                                file.header.contents += "///   Ambiguous:\n";
 
                                 for (const auto &other : indirect_map)
                                 {

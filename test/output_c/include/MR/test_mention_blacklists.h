@@ -31,7 +31,7 @@ MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_A_OffsetPtr(const MR_S
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_OffsetMutablePtr(MR_SignatureFilters_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::SignatureFilters::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_ConstructFromAnother(const MR_SignatureFilters_A *_other);
 
@@ -42,13 +42,13 @@ MR_C_API void MR_SignatureFilters_A_Destroy(const MR_SignatureFilters_A *_this);
 MR_C_API void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this);
 
 /// Generated from a method of class `MR::SignatureFilters::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other);
 
 /// Generated from function `MR::SignatureFilters::foo`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_SignatureFilters_foo_1(const MR_SignatureFilters_A *_1);
 
 /// Generated from function `MR::SignatureFilters::foo`.
@@ -56,7 +56,7 @@ MR_C_API void MR_SignatureFilters_foo_1(const MR_SignatureFilters_A *_1);
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_foo_0(void);
 
 /// Generated from function `MR::SignatureFilters::foo2`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_SignatureFilters_foo2_1(MR_SignatureFilters_A *_1);
 
 /// Generated from function `MR::SignatureFilters::foo2`.
@@ -64,7 +64,7 @@ MR_C_API void MR_SignatureFilters_foo2_1(MR_SignatureFilters_A *_1);
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_foo2_0(void);
 
 /// Generated from function `MR::SignatureFilters::foo3`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_SignatureFilters_foo3_1(MR_SignatureFilters_A *_1);
@@ -75,7 +75,7 @@ MR_C_API void MR_SignatureFilters_foo3_1(MR_SignatureFilters_A *_1);
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_foo3_0(void);
 
 /// Generated from function `MR::SignatureFilters::foo4`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_SignatureFilters_foo4_1(const MR_SignatureFilters_A *_1);
 
 /// Generated from function `MR::SignatureFilters::foo4`.
@@ -83,7 +83,7 @@ MR_C_API void MR_SignatureFilters_foo4_1(const MR_SignatureFilters_A *_1);
 MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_foo4_0(void);
 
 /// Generated from function `MR::SignatureFilters::foo5`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_SignatureFilters_foo5_1(const MR_SignatureFilters_A *_1);
@@ -94,17 +94,17 @@ MR_C_API void MR_SignatureFilters_foo5_1(const MR_SignatureFilters_A *_1);
 MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void);
 
 /// Returns a pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_Blah_Get_a(const MR_SignatureFilters_Blah *_this);
 
 /// Modifies a member variable of class `MR::SignatureFilters::Blah` named `a`.
-/// Parameter `_this` can not be null.
-/// Parameter `value` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `value` can not be null. It is a single object.
 MR_C_API void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_A *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetMutable_a(MR_SignatureFilters_Blah *_this);
 
@@ -124,7 +124,7 @@ MR_C_API const MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_OffsetPtr(cons
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_OffsetMutablePtr(MR_SignatureFilters_Blah *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::SignatureFilters::Blah`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_Blah_Destroy()` to free it when you're done using it.
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_ConstructFromAnother(const MR_SignatureFilters_Blah *_other);
 
@@ -135,8 +135,8 @@ MR_C_API void MR_SignatureFilters_Blah_Destroy(const MR_SignatureFilters_Blah *_
 MR_C_API void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this);
 
 /// Generated from a method of class `MR::SignatureFilters::Blah` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other);
 

@@ -38,7 +38,7 @@ MR_C_API MR_C_std_deque_int32_t *MR_C_std_deque_int32_t_DefaultConstructArray(si
 MR_C_API MR_C_std_deque_int32_t *MR_C_std_deque_int32_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_deque_int32_t *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_AssignFromAnother(MR_C_std_deque_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int32_t *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_deque_int32_t`. Does nothing if the pointer is null.
@@ -58,147 +58,147 @@ MR_C_API MR_C_std_deque_int32_t *MR_C_std_deque_int32_t_OffsetMutablePtr(MR_C_st
 MR_C_API MR_C_std_deque_int32_t *MR_C_std_deque_int32_t_ConstructFromRange(const int32_t *ptr, size_t size);
 
 /// Assign from a range of elements, overwriting previous contents.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_AssignFromRange(MR_C_std_deque_int32_t *_this, const int32_t *ptr, size_t size);
 
 /// The number of elements.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API size_t MR_C_std_deque_int32_t_Size(const MR_C_std_deque_int32_t *_this);
 
 /// Returns true if the size is zero.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_std_deque_int32_t_IsEmpty(const MR_C_std_deque_int32_t *_this);
 
 /// Resizes the container. The new elements if any are zeroed.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_Resize(MR_C_std_deque_int32_t *_this, size_t new_size);
 
 /// Resizes the container. The new elements if any are set to the specified value.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_ResizeWithDefaultValue(MR_C_std_deque_int32_t *_this, size_t new_size, int32_t value);
 
 /// Removes all elements from the container.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_Clear(MR_C_std_deque_int32_t *_this);
 
 /// The element at a specific index, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_At(const MR_C_std_deque_int32_t *_this, size_t i);
 
 /// The element at a specific index, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_C_std_deque_int32_t_MutableAt(MR_C_std_deque_int32_t *_this, size_t i);
 
 /// The first element or null if empty, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_Front(const MR_C_std_deque_int32_t *_this);
 
 /// The first element or null if empty, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API int32_t *MR_C_std_deque_int32_t_MutableFront(MR_C_std_deque_int32_t *_this);
 
 /// The last element or null if empty, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_Back(const MR_C_std_deque_int32_t *_this);
 
 /// The last element or null if empty, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API int32_t *MR_C_std_deque_int32_t_MutableBack(MR_C_std_deque_int32_t *_this);
 
 /// Inserts a new element at the end.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_PushBack(MR_C_std_deque_int32_t *_this, int32_t new_elem);
 
 /// Removes one element from the end.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_PopBack(MR_C_std_deque_int32_t *_this);
 
 /// Inserts a new element at the beginning.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_PushFront(MR_C_std_deque_int32_t *_this, int32_t new_elem);
 
 /// Removes one element from the beginning.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_PopFront(MR_C_std_deque_int32_t *_this);
 
 /// Inserts a new element right before the specified position.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_Insert(MR_C_std_deque_int32_t *_this, size_t position, int32_t new_elem);
 
 /// Erases the element at the specified position.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_Erase(MR_C_std_deque_int32_t *_this, size_t position);
 
 /// Inserts a new element right before the specified position.
-/// Parameter `_this` can not be null.
-/// Parameter `position` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `position` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_InsertAtMutableIter(MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_iterator *position, int32_t new_elem);
 
 /// Erases the element at the specified position.
-/// Parameter `_this` can not be null.
-/// Parameter `position` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `position` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_EraseAtMutableIter(MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_iterator *position);
 
 /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
-/// Parameter `_this` can not be null.
-/// Parameter `position` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `position` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_InsertAtIter(MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_const_iterator *position, int32_t new_elem);
 
 /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
-/// Parameter `_this` can not be null.
-/// Parameter `position` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `position` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_EraseAtIter(MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_const_iterator *position);
 
 /// The begin iterator, const.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_Begin(const MR_C_std_deque_int32_t *_this);
 
 /// Tests whether a const iterator is the begin iterator.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `iter` can not be null. It is a single object.
 MR_C_API bool MR_C_std_deque_int32_t_IsBegin(const MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_const_iterator *iter);
 
 /// The begin iterator, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_MutableBegin(MR_C_std_deque_int32_t *_this);
 
 /// Tests whether a mutable iterator is the begin iterator.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `iter` can not be null. It is a single object.
 MR_C_API bool MR_C_std_deque_int32_t_IsMutableBegin(MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_iterator *iter);
 
 /// The end iterator, const.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_End(const MR_C_std_deque_int32_t *_this);
 
 /// Tests whether a const iterator is the end iterator.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `iter` can not be null. It is a single object.
 MR_C_API bool MR_C_std_deque_int32_t_IsEnd(const MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_const_iterator *iter);
 
 /// The end iterator, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_MutableEnd(MR_C_std_deque_int32_t *_this);
 
 /// Tests whether a mutable iterator is the end iterator.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `iter` can not be null. It is a single object.
 MR_C_API bool MR_C_std_deque_int32_t_IsMutableEnd(MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_iterator *iter);
 
 /// Convert a const iterator to an index.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `iter` can not be null. It is a single object.
 MR_C_API ptrdiff_t MR_C_std_deque_int32_t_ToIndex(const MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_const_iterator *iter);
 
 /// Convert a mutable iterator to an index.
-/// Parameter `_this` can not be null.
-/// Parameter `iter` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `iter` can not be null. It is a single object.
 MR_C_API ptrdiff_t MR_C_std_deque_int32_t_MutableToIndex(const MR_C_std_deque_int32_t *_this, const MR_C_std_deque_int32_t_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
@@ -211,13 +211,13 @@ MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_const_ite
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_const_iterator_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_const_iterator_ConstructFromAnother(const MR_C_std_deque_int32_t_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_const_iterator_AssignFromAnother(MR_C_std_deque_int32_t_const_iterator *_this, const MR_C_std_deque_int32_t_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_deque_int32_t_const_iterator`. Does nothing if the pointer is null.
@@ -233,7 +233,7 @@ MR_C_API const MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_con
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_const_iterator_OffsetMutablePtr(MR_C_std_deque_int32_t_const_iterator *ptr, ptrdiff_t i);
 
 /// Makes a const iterator from a mutable one.
-/// Parameter `iter` can not be null.
+/// Parameter `iter` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_const_iterator_FromMutable(const MR_C_std_deque_int32_t_iterator *iter);
 
@@ -247,13 +247,13 @@ MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_iterator_Defaul
 MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_iterator_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_iterator_ConstructFromAnother(const MR_C_std_deque_int32_t_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_iterator_AssignFromAnother(MR_C_std_deque_int32_t_iterator *_this, const MR_C_std_deque_int32_t_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_deque_int32_t_iterator`. Does nothing if the pointer is null.
@@ -269,47 +269,47 @@ MR_C_API const MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_iterator_
 MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_iterator_OffsetMutablePtr(MR_C_std_deque_int32_t_iterator *ptr, ptrdiff_t i);
 
 /// Dereferences a const iterator.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_const_iterator_Deref(const MR_C_std_deque_int32_t_const_iterator *_this);
 
 /// Increments a const iterator.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_const_iterator_Incr(MR_C_std_deque_int32_t_const_iterator *_this);
 
 /// Decrements a const iterator.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_const_iterator_Decr(MR_C_std_deque_int32_t_const_iterator *_this);
 
 /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_const_iterator_OffsetBy(MR_C_std_deque_int32_t_const_iterator *_this, ptrdiff_t delta);
 
 /// Computes the signed difference between two const iterators. Completes in constant time.
-/// Parameter `a` can not be null.
-/// Parameter `b` can not be null.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` can not be null. It is a single object.
 MR_C_API ptrdiff_t MR_C_std_deque_int32_t_const_iterator_Distance(const MR_C_std_deque_int32_t_const_iterator *a, const MR_C_std_deque_int32_t_const_iterator *b);
 
 /// Dereferences a mutable iterator.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_C_std_deque_int32_t_iterator_Deref(const MR_C_std_deque_int32_t_iterator *_this);
 
 /// Increments a mutable iterator.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_iterator_Incr(MR_C_std_deque_int32_t_iterator *_this);
 
 /// Decrements a mutable iterator.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_iterator_Decr(MR_C_std_deque_int32_t_iterator *_this);
 
 /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_deque_int32_t_iterator_OffsetBy(MR_C_std_deque_int32_t_iterator *_this, ptrdiff_t delta);
 
 /// Computes the signed difference between two mutable iterators. Completes in constant time.
-/// Parameter `a` can not be null.
-/// Parameter `b` can not be null.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` can not be null. It is a single object.
 MR_C_API ptrdiff_t MR_C_std_deque_int32_t_iterator_Distance(const MR_C_std_deque_int32_t_iterator *a, const MR_C_std_deque_int32_t_iterator *b);
 
 #ifdef __cplusplus

@@ -11,27 +11,27 @@ extern "C" {
 
 
 /// Generated from class `MR::Bases::A`.
-/// Classes derived from this:
-///   Virtually:
+/// Derived classes:
+///   Virtual:
 ///     `MR::Bases::I`
-///   Directly: (non-virtually)
+///   Direct: (non-virtual)
 ///     `MR::Bases::B`
 ///     `MR::Bases::C`
 ///     `MR::Bases::H`
-///   Indirectly: (non-virtually)
+///   Indirect: (non-virtual)
 ///     `MR::Bases::B2`
-///   Ambiguously:
+///   Ambiguous:
 ///     `MR::Bases::D`
 ///     `MR::Bases::D2`
 ///     `MR::Bases::D3`
 typedef struct MR_Bases_A MR_Bases_A;
 
 /// Generated from class `MR::Bases::B`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::A`
-/// Classes derived from this:
-///   Directly: (non-virtually)
+/// Derived classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::B2`
 ///     `MR::Bases::D`
 ///     `MR::Bases::D2`
@@ -39,87 +39,87 @@ typedef struct MR_Bases_A MR_Bases_A;
 typedef struct MR_Bases_B MR_Bases_B;
 
 /// Generated from class `MR::Bases::B2`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::B`
-///   Indirectly: (non-virtually)
+///   Indirect: (non-virtual)
 ///     `MR::Bases::A`
 typedef struct MR_Bases_B2 MR_Bases_B2;
 
 /// Generated from class `MR::Bases::C`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::A`
-/// Classes derived from this:
-///   Directly: (non-virtually)
+/// Derived classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::D`
 typedef struct MR_Bases_C MR_Bases_C;
 
 /// Generated from class `MR::Bases::D`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::B`
 ///     `MR::Bases::C`
-///   Ambiguously:
+///   Ambiguous:
 ///     `MR::Bases::A`
 typedef struct MR_Bases_D MR_Bases_D;
 
 /// Generated from class `MR::Bases::D2`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::B`
-///   Ambiguously:
+///   Ambiguous:
 ///     `MR::Bases::A`
 typedef struct MR_Bases_D2 MR_Bases_D2;
 
 /// Generated from class `MR::Bases::D3`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::B`
-///   Ambiguously:
+///   Ambiguous:
 ///     `MR::Bases::A`
 typedef struct MR_Bases_D3 MR_Bases_D3;
 
 /// Generated from class `MR::Bases::E`.
-/// Classes derived from this:
-///   Virtually:
+/// Derived classes:
+///   Virtual:
 ///     `MR::Bases::G`
 ///     `MR::Bases::H`
 ///     `MR::Bases::I`
-///   Directly: (non-virtually)
+///   Direct: (non-virtual)
 ///     `MR::Bases::F`
 typedef struct MR_Bases_E MR_Bases_E;
 
 /// Generated from class `MR::Bases::F`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::Bases::E`
-/// Classes derived from this:
-///   Virtually:
+/// Derived classes:
+///   Virtual:
 ///     `MR::Bases::G`
 ///     `MR::Bases::H`
 ///     `MR::Bases::I`
 typedef struct MR_Bases_F MR_Bases_F;
 
 /// Generated from class `MR::Bases::G`.
-/// Inherits from:
-///   Virtually:
+/// Base classes:
+///   Virtual:
 ///     `MR::Bases::E`
 ///     `MR::Bases::F`
 typedef struct MR_Bases_G MR_Bases_G;
 
 /// Generated from class `MR::Bases::H`.
-/// Inherits from:
-///   Virtually:
+/// Base classes:
+///   Virtual:
 ///     `MR::Bases::E`
 ///     `MR::Bases::F`
-///   Directly: (non-virtually)
+///   Direct: (non-virtual)
 ///     `MR::Bases::A`
 typedef struct MR_Bases_H MR_Bases_H;
 
 /// Generated from class `MR::Bases::I`.
-/// Inherits from:
-///   Virtually:
+/// Base classes:
+///   Virtual:
 ///     `MR::Bases::A`
 ///     `MR::Bases::E`
 ///     `MR::Bases::F`
@@ -177,7 +177,7 @@ MR_C_API const MR_Bases_H *MR_Bases_A_StaticDowncastTo_MR_Bases_H(const MR_Bases
 MR_C_API MR_Bases_H *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_H(MR_Bases_A *object);
 
 /// Generated from a constructor of class `MR::Bases::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_A *MR_Bases_A_ConstructFromAnother(const MR_Bases_A *_other);
 
@@ -188,8 +188,8 @@ MR_C_API void MR_Bases_A_Destroy(const MR_Bases_A *_this);
 MR_C_API void MR_Bases_A_DestroyArray(const MR_Bases_A *_this);
 
 /// Generated from a method of class `MR::Bases::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_A *MR_Bases_A_AssignFromAnother(MR_Bases_A *_this, const MR_Bases_A *_other);
 
@@ -252,7 +252,7 @@ MR_C_API const MR_Bases_D3 *MR_Bases_B_StaticDowncastTo_MR_Bases_D3(const MR_Bas
 MR_C_API MR_Bases_D3 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_D3(MR_Bases_B *object);
 
 /// Generated from a constructor of class `MR::Bases::B`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_B *MR_Bases_B_ConstructFromAnother(const MR_Bases_B *_other);
 
@@ -263,8 +263,8 @@ MR_C_API void MR_Bases_B_Destroy(const MR_Bases_B *_this);
 MR_C_API void MR_Bases_B_DestroyArray(const MR_Bases_B *_this);
 
 /// Generated from a method of class `MR::Bases::B` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_B *MR_Bases_B_AssignFromAnother(MR_Bases_B *_this, const MR_Bases_B *_other);
 
@@ -298,7 +298,7 @@ MR_C_API const MR_Bases_B *MR_Bases_B2_UpcastTo_MR_Bases_B(const MR_Bases_B2 *ob
 MR_C_API MR_Bases_B *MR_Bases_B2_MutableUpcastTo_MR_Bases_B(MR_Bases_B2 *object);
 
 /// Generated from a constructor of class `MR::Bases::B2`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_B2_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_B2 *MR_Bases_B2_ConstructFromAnother(const MR_Bases_B2 *_other);
 
@@ -309,8 +309,8 @@ MR_C_API void MR_Bases_B2_Destroy(const MR_Bases_B2 *_this);
 MR_C_API void MR_Bases_B2_DestroyArray(const MR_Bases_B2 *_this);
 
 /// Generated from a method of class `MR::Bases::B2` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_B2 *MR_Bases_B2_AssignFromAnother(MR_Bases_B2 *_this, const MR_Bases_B2 *_other);
 
@@ -346,7 +346,7 @@ MR_C_API const MR_Bases_D *MR_Bases_C_StaticDowncastTo_MR_Bases_D(const MR_Bases
 MR_C_API MR_Bases_D *MR_Bases_C_MutableStaticDowncastTo_MR_Bases_D(MR_Bases_C *object);
 
 /// Generated from a constructor of class `MR::Bases::C`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_C_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_C *MR_Bases_C_ConstructFromAnother(const MR_Bases_C *_other);
 
@@ -357,8 +357,8 @@ MR_C_API void MR_Bases_C_Destroy(const MR_Bases_C *_this);
 MR_C_API void MR_Bases_C_DestroyArray(const MR_Bases_C *_this);
 
 /// Generated from a method of class `MR::Bases::C` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_C *MR_Bases_C_AssignFromAnother(MR_Bases_C *_this, const MR_Bases_C *_other);
 
@@ -392,7 +392,7 @@ MR_C_API const MR_Bases_C *MR_Bases_D_UpcastTo_MR_Bases_C(const MR_Bases_D *obje
 MR_C_API MR_Bases_C *MR_Bases_D_MutableUpcastTo_MR_Bases_C(MR_Bases_D *object);
 
 /// Generated from a constructor of class `MR::Bases::D`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D *MR_Bases_D_ConstructFromAnother(const MR_Bases_D *_other);
 
@@ -403,8 +403,8 @@ MR_C_API void MR_Bases_D_Destroy(const MR_Bases_D *_this);
 MR_C_API void MR_Bases_D_DestroyArray(const MR_Bases_D *_this);
 
 /// Generated from a method of class `MR::Bases::D` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_D *MR_Bases_D_AssignFromAnother(MR_Bases_D *_this, const MR_Bases_D *_other);
 
@@ -431,7 +431,7 @@ MR_C_API const MR_Bases_B *MR_Bases_D2_UpcastTo_MR_Bases_B(const MR_Bases_D2 *ob
 MR_C_API MR_Bases_B *MR_Bases_D2_MutableUpcastTo_MR_Bases_B(MR_Bases_D2 *object);
 
 /// Generated from a constructor of class `MR::Bases::D2`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D2_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D2 *MR_Bases_D2_ConstructFromAnother(const MR_Bases_D2 *_other);
 
@@ -442,8 +442,8 @@ MR_C_API void MR_Bases_D2_Destroy(const MR_Bases_D2 *_this);
 MR_C_API void MR_Bases_D2_DestroyArray(const MR_Bases_D2 *_this);
 
 /// Generated from a method of class `MR::Bases::D2` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_D2 *MR_Bases_D2_AssignFromAnother(MR_Bases_D2 *_this, const MR_Bases_D2 *_other);
 
@@ -470,7 +470,7 @@ MR_C_API const MR_Bases_B *MR_Bases_D3_UpcastTo_MR_Bases_B(const MR_Bases_D3 *ob
 MR_C_API MR_Bases_B *MR_Bases_D3_MutableUpcastTo_MR_Bases_B(MR_Bases_D3 *object);
 
 /// Generated from a constructor of class `MR::Bases::D3`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D3_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D3 *MR_Bases_D3_ConstructFromAnother(const MR_Bases_D3 *_other);
 
@@ -481,8 +481,8 @@ MR_C_API void MR_Bases_D3_Destroy(const MR_Bases_D3 *_this);
 MR_C_API void MR_Bases_D3_DestroyArray(const MR_Bases_D3 *_this);
 
 /// Generated from a method of class `MR::Bases::D3` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_D3 *MR_Bases_D3_AssignFromAnother(MR_Bases_D3 *_this, const MR_Bases_D3 *_other);
 
@@ -511,7 +511,7 @@ MR_C_API const MR_Bases_F *MR_Bases_E_StaticDowncastTo_MR_Bases_F(const MR_Bases
 MR_C_API MR_Bases_F *MR_Bases_E_MutableStaticDowncastTo_MR_Bases_F(MR_Bases_E *object);
 
 /// Generated from a constructor of class `MR::Bases::E`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_E *MR_Bases_E_ConstructFromAnother(const MR_Bases_E *_other);
 
@@ -522,8 +522,8 @@ MR_C_API void MR_Bases_E_Destroy(const MR_Bases_E *_this);
 MR_C_API void MR_Bases_E_DestroyArray(const MR_Bases_E *_this);
 
 /// Generated from a method of class `MR::Bases::E` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_E *MR_Bases_E_AssignFromAnother(MR_Bases_E *_this, const MR_Bases_E *_other);
 
@@ -550,7 +550,7 @@ MR_C_API const MR_Bases_E *MR_Bases_F_UpcastTo_MR_Bases_E(const MR_Bases_F *obje
 MR_C_API MR_Bases_E *MR_Bases_F_MutableUpcastTo_MR_Bases_E(MR_Bases_F *object);
 
 /// Generated from a constructor of class `MR::Bases::F`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_F_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_F *MR_Bases_F_ConstructFromAnother(const MR_Bases_F *_other);
 
@@ -561,8 +561,8 @@ MR_C_API void MR_Bases_F_Destroy(const MR_Bases_F *_this);
 MR_C_API void MR_Bases_F_DestroyArray(const MR_Bases_F *_this);
 
 /// Generated from a method of class `MR::Bases::F` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_F *MR_Bases_F_AssignFromAnother(MR_Bases_F *_this, const MR_Bases_F *_other);
 
@@ -606,7 +606,7 @@ MR_C_API void MR_Bases_G_Destroy(const MR_Bases_G *_this);
 MR_C_API void MR_Bases_G_DestroyArray(const MR_Bases_G *_this);
 
 /// Generated from a method of class `MR::Bases::G` named `operator=`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_pass_by, MR_Bases_G *_other);
 
@@ -657,7 +657,7 @@ MR_C_API void MR_Bases_H_Destroy(const MR_Bases_H *_this);
 MR_C_API void MR_Bases_H_DestroyArray(const MR_Bases_H *_this);
 
 /// Generated from a method of class `MR::Bases::H` named `operator=`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_pass_by, MR_Bases_H *_other);
 
@@ -708,7 +708,7 @@ MR_C_API void MR_Bases_I_Destroy(const MR_Bases_I *_this);
 MR_C_API void MR_Bases_I_DestroyArray(const MR_Bases_I *_this);
 
 /// Generated from a method of class `MR::Bases::I` named `operator=`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_I *MR_Bases_I_AssignFromAnother(MR_Bases_I *_this, MR_C_PassBy _other_pass_by, MR_Bases_I *_other);
 

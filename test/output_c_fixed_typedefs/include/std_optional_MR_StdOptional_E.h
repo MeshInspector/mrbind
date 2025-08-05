@@ -24,7 +24,7 @@ MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_
 MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_StdOptional_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(const MR_C_std_optional_MR_StdOptional_E *other);
 
@@ -34,12 +34,12 @@ MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_
 MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_ConstructFrom(const MR_StdOptional_E *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_optional_MR_StdOptional_E_AssignFromAnother(MR_C_std_optional_MR_StdOptional_E *_this, const MR_C_std_optional_MR_StdOptional_E *other);
 
 /// Assigns the contents.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_C_std_optional_MR_StdOptional_E_AssignFrom(MR_C_std_optional_MR_StdOptional_E *_this, const MR_StdOptional_E *other);
 
@@ -56,11 +56,11 @@ MR_C_API const MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptio
 MR_C_API MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_OffsetMutablePtr(MR_C_std_optional_MR_StdOptional_E *ptr, ptrdiff_t i);
 
 /// The stored element or null if none, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_Value(const MR_C_std_optional_MR_StdOptional_E *_this);
 
 /// The stored element or null if none, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_MutableValue(MR_C_std_optional_MR_StdOptional_E *_this);
 
 #ifdef __cplusplus

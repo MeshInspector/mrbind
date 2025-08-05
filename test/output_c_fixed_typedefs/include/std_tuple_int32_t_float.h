@@ -24,13 +24,13 @@ MR_C_API MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_DefaultConst
 MR_C_API MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int32_t_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_ConstructFromAnother(const MR_C_std_tuple_int32_t_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_tuple_int32_t_float_AssignFromAnother(MR_C_std_tuple_int32_t_float *_this, const MR_C_std_tuple_int32_t_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_tuple_int32_t_float`. Does nothing if the pointer is null.
@@ -50,22 +50,22 @@ MR_C_API MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_OffsetMutabl
 MR_C_API MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_Construct(int32_t _0, float _1);
 
 /// The element 0, of type `int32_t`, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_C_std_tuple_int32_t_float_Get_int32_t(const MR_C_std_tuple_int32_t_float *_this);
 
 /// The element 0, of type `int32_t`, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_C_std_tuple_int32_t_float_GetMutable_int32_t(MR_C_std_tuple_int32_t_float *_this);
 
 /// The element 1, of type `float`, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const float *MR_C_std_tuple_int32_t_float_Get_float(const MR_C_std_tuple_int32_t_float *_this);
 
 /// The element 1, of type `float`, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API float *MR_C_std_tuple_int32_t_float_GetMutable_float(MR_C_std_tuple_int32_t_float *_this);
 

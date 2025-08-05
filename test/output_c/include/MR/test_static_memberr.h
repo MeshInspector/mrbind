@@ -39,7 +39,7 @@ MR_C_API const MR_StaticFuncs_A *MR_StaticFuncs_A_OffsetPtr(const MR_StaticFuncs
 MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_OffsetMutablePtr(MR_StaticFuncs_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::StaticFuncs::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StaticFuncs_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_ConstructFromAnother(const MR_StaticFuncs_A *_other);
 
@@ -50,8 +50,8 @@ MR_C_API void MR_StaticFuncs_A_Destroy(const MR_StaticFuncs_A *_this);
 MR_C_API void MR_StaticFuncs_A_DestroyArray(const MR_StaticFuncs_A *_this);
 
 /// Generated from a method of class `MR::StaticFuncs::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other);
 

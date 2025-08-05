@@ -34,11 +34,11 @@ MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_Cons
 MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_ConstructFrom(MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_expected_int_std_string_AssignFromAnother(MR_C_std_expected_int_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other);
 
 /// Assigns the contents.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_expected_int_std_string_AssignFrom(MR_C_std_expected_int_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_expected_int_std_string`. Does nothing if the pointer is null.
@@ -54,19 +54,19 @@ MR_C_API const MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_strin
 MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_OffsetMutablePtr(MR_C_std_expected_int_std_string *ptr, ptrdiff_t i);
 
 /// If this instance represents success, returns the stored `int`. Otherwise null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const int *MR_C_std_expected_int_std_string_GetValue(const MR_C_std_expected_int_std_string *_this);
 
 /// If this instance represents an error, returns the stored `std::string`. Otherwise null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const MR_C_std_string *MR_C_std_expected_int_std_string_GetError(const MR_C_std_expected_int_std_string *_this);
 
 /// If this instance represents success, returns the stored `int`. Otherwise null. This version returns a mutable pointer.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API int *MR_C_std_expected_int_std_string_GetMutableValue(MR_C_std_expected_int_std_string *_this);
 
 /// If this instance represents an error, returns the stored `std::string`. Otherwise null. This version returns a mutable pointer.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API MR_C_std_string *MR_C_std_expected_int_std_string_GetMutableError(MR_C_std_expected_int_std_string *_this);
 
 #ifdef __cplusplus

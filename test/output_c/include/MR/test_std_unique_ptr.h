@@ -28,7 +28,7 @@ MR_C_API int *MR_StdUniquePtr_GetInt(void);
 MR_C_API void MR_StdUniquePtr_SetInt(int *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetIntConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdUniquePtr_SetIntConstRef(const MR_C_std_unique_ptr_int *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetIntDefTrivial`.
@@ -44,11 +44,11 @@ MR_C_API void MR_StdUniquePtr_SetIntDefTrivial(int *_1);
 MR_C_API void MR_StdUniquePtr_SetIntDef(int *const *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetIntLvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdUniquePtr_SetIntLvalueRef(MR_C_std_unique_ptr_int *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetIntLvalueConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdUniquePtr_SetIntLvalueConstRef(const MR_C_std_unique_ptr_int *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetIntRvalueRef`.
@@ -98,7 +98,7 @@ MR_C_API const MR_StdUniquePtr_A *MR_StdUniquePtr_A_OffsetPtr(const MR_StdUnique
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_OffsetMutablePtr(MR_StdUniquePtr_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::StdUniquePtr::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdUniquePtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_ConstructFromAnother(const MR_StdUniquePtr_A *_other);
 
@@ -109,8 +109,8 @@ MR_C_API void MR_StdUniquePtr_A_Destroy(const MR_StdUniquePtr_A *_this);
 MR_C_API void MR_StdUniquePtr_A_DestroyArray(const MR_StdUniquePtr_A *_this);
 
 /// Generated from a method of class `MR::StdUniquePtr::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_AssignFromAnother(MR_StdUniquePtr_A *_this, const MR_StdUniquePtr_A *_other);
 
@@ -124,7 +124,7 @@ MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_GetClass(void);
 MR_C_API void MR_StdUniquePtr_SetClass(MR_StdUniquePtr_A *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetClassConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdUniquePtr_SetClassConstRef(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetClassDefTrivial`.
@@ -140,11 +140,11 @@ MR_C_API void MR_StdUniquePtr_SetClassDefTrivial(MR_StdUniquePtr_A *_1);
 MR_C_API void MR_StdUniquePtr_SetClassDef(MR_StdUniquePtr_A *const *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetClassLvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdUniquePtr_SetClassLvalueRef(MR_C_std_unique_ptr_MR_StdUniquePtr_A *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetClassLvalueConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdUniquePtr_SetClassLvalueConstRef(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_1);
 
 /// Generated from function `MR::StdUniquePtr::SetClassRvalueRef`.

@@ -35,7 +35,7 @@ MR_C_API const MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_Of
 MR_C_API MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_OffsetMutablePtr(MR_OmittingTargsAndQuals_A_int *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::OmittingTargsAndQuals::A<int>`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OmittingTargsAndQuals_A_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(const MR_OmittingTargsAndQuals_A_int *_other);
 
@@ -46,27 +46,27 @@ MR_C_API void MR_OmittingTargsAndQuals_A_int_Destroy(const MR_OmittingTargsAndQu
 MR_C_API void MR_OmittingTargsAndQuals_A_int_DestroyArray(const MR_OmittingTargsAndQuals_A_int *_this);
 
 /// Generated from a method of class `MR::OmittingTargsAndQuals::A<int>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_AssignFromAnother(MR_OmittingTargsAndQuals_A_int *_this, const MR_OmittingTargsAndQuals_A_int *_other);
 
 /// Generated from a method of class `MR::OmittingTargsAndQuals::A<int>` named `operator+`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_pos_MR_OmittingTargsAndQuals_A_int(MR_OmittingTargsAndQuals_A_int *_this);
 
 /// Generated from a method of class `MR::OmittingTargsAndQuals::A<int>` named `operator-<float>`.
-/// Parameter `_this` can not be null.
-/// Parameter `_1` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_C_sub_MR_OmittingTargsAndQuals_A_int_MR_OmittingTargsAndQuals_A_float(MR_OmittingTargsAndQuals_A_int *_this, const MR_OmittingTargsAndQuals_A_float *_1);
 
 /// Generated from function `MR::OmittingTargsAndQuals::a`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_int(const MR_OmittingTargsAndQuals_A_int *_1);
 
 /// Generated from function `MR::OmittingTargsAndQuals::b<float>`.
-/// Parameter `_1` can not be null.
-/// Parameter `_2` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
 MR_C_API void MR_OmittingTargsAndQuals_b(const MR_OmittingTargsAndQuals_A_int *_1, const MR_OmittingTargsAndQuals_A_float *_2);
 
 /// Constructs an empty (default-constructed) instance.
@@ -85,7 +85,7 @@ MR_C_API const MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_floa
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_OffsetMutablePtr(MR_OmittingTargsAndQuals_A_float *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::OmittingTargsAndQuals::A<float>`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OmittingTargsAndQuals_A_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(const MR_OmittingTargsAndQuals_A_float *_other);
 
@@ -96,33 +96,33 @@ MR_C_API void MR_OmittingTargsAndQuals_A_float_Destroy(const MR_OmittingTargsAnd
 MR_C_API void MR_OmittingTargsAndQuals_A_float_DestroyArray(const MR_OmittingTargsAndQuals_A_float *_this);
 
 /// Generated from a method of class `MR::OmittingTargsAndQuals::A<float>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_AssignFromAnother(MR_OmittingTargsAndQuals_A_float *_this, const MR_OmittingTargsAndQuals_A_float *_other);
 
 /// Generated from a method of class `MR::OmittingTargsAndQuals::A<float>` named `operator+`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_pos_MR_OmittingTargsAndQuals_A_float(MR_OmittingTargsAndQuals_A_float *_this);
 
 /// Generated from function `MR::OmittingTargsAndQuals::a`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float(const MR_OmittingTargsAndQuals_A_float *_1);
 
 /// Generated from function `MR::OmittingTargsAndQuals::operator*`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_C_deref_MR_OmittingTargsAndQuals_A_int(const MR_OmittingTargsAndQuals_A_int *_1);
 
 /// Generated from function `MR::OmittingTargsAndQuals::operator~<int>`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_C_compl_MR_OmittingTargsAndQuals_A_int(const MR_OmittingTargsAndQuals_A_int *_1);
 
 /// Generated from function `MR::OmittingTargsAndQuals::c`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_OmittingTargsAndQuals_c(const MR_OmittingTargsAndQuals_A_int *_1);
 
 /// Generated from function `MR::OmittingTargsAndQuals::d<int>`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_OmittingTargsAndQuals_d(const MR_OmittingTargsAndQuals_A_int *_1);
 
 /// Generated from function `MR::OmittingTargsAndQuals::inst`.

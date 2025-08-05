@@ -25,24 +25,24 @@ MR_C_API void MR_StdString_SetWithDefault(const char *s, const char *s_end);
 MR_C_API MR_C_std_string *MR_StdString_Get(void);
 
 /// Generated from function `MR::StdString::WriteToRef`.
-/// Parameter `ref` can not be null.
+/// Parameter `ref` can not be null. It is a single object.
 MR_C_API void MR_StdString_WriteToRef(MR_C_std_string *ref);
 
 /// Generated from function `MR::StdString::WriteToPtr`.
 MR_C_API void MR_StdString_WriteToPtr(MR_C_std_string *ptr);
 
 /// Generated from function `MR::StdString::ConstRef`.
-/// Parameter `s` can not be null.
+/// Parameter `s` can not be null. It is a single object.
 MR_C_API void MR_StdString_ConstRef(const MR_C_std_string *s);
 
 /// Generated from function `MR::StdString::RvalueRef`.
-/// Parameter `s` can not be null.
+/// Parameter `s` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdString_RvalueRef(MR_C_std_string *s);
 
 /// Generated from function `MR::StdString::ConstRvalueRef`.
-/// Parameter `s` can not be null.
+/// Parameter `s` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdString_ConstRvalueRef(const MR_C_std_string *s);

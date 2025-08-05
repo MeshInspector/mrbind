@@ -31,7 +31,7 @@ MR_C_API const MR_CustomPrefNames_Ai *MR_CustomPrefNames_Ai_OffsetPtr(const MR_C
 MR_C_API MR_CustomPrefNames_Ai *MR_CustomPrefNames_Ai_OffsetMutablePtr(MR_CustomPrefNames_Ai *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::CustomPrefNames::Ai`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CustomPrefNames_Ai_Destroy()` to free it when you're done using it.
 MR_C_API MR_CustomPrefNames_Ai *MR_CustomPrefNames_Ai_ConstructFromAnother(const MR_CustomPrefNames_Ai *_other);
 
@@ -42,8 +42,8 @@ MR_C_API void MR_CustomPrefNames_Ai_Destroy(const MR_CustomPrefNames_Ai *_this);
 MR_C_API void MR_CustomPrefNames_Ai_DestroyArray(const MR_CustomPrefNames_Ai *_this);
 
 /// Generated from a method of class `MR::CustomPrefNames::Ai` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CustomPrefNames_Ai *MR_CustomPrefNames_Ai_AssignFromAnother(MR_CustomPrefNames_Ai *_this, const MR_CustomPrefNames_Ai *_other);
 
@@ -63,7 +63,7 @@ MR_C_API const MR_CustomPrefNames_Af *MR_CustomPrefNames_Af_OffsetPtr(const MR_C
 MR_C_API MR_CustomPrefNames_Af *MR_CustomPrefNames_Af_OffsetMutablePtr(MR_CustomPrefNames_Af *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::CustomPrefNames::Af`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CustomPrefNames_Af_Destroy()` to free it when you're done using it.
 MR_C_API MR_CustomPrefNames_Af *MR_CustomPrefNames_Af_ConstructFromAnother(const MR_CustomPrefNames_Af *_other);
 
@@ -74,8 +74,8 @@ MR_C_API void MR_CustomPrefNames_Af_Destroy(const MR_CustomPrefNames_Af *_this);
 MR_C_API void MR_CustomPrefNames_Af_DestroyArray(const MR_CustomPrefNames_Af *_this);
 
 /// Generated from a method of class `MR::CustomPrefNames::Af` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CustomPrefNames_Af *MR_CustomPrefNames_Af_AssignFromAnother(MR_CustomPrefNames_Af *_this, const MR_CustomPrefNames_Af *_other);
 

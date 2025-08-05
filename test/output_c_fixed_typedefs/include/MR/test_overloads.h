@@ -34,26 +34,26 @@ MR_C_API void MR_Overloads_d_int32_t(char _1, int32_t _2, char _3);
 MR_C_API void MR_Overloads_d_float(char _1, float _2, char _3);
 
 /// Generated from function `MR::Overloads::e`.
-/// Parameter `_1` can not be null.
-/// Parameter `_2` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_Overloads_e_const_int32_t_ref(const int32_t *_1, int32_t *_2);
 
 /// Generated from function `MR::Overloads::e`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
-/// Parameter `_2` can not be null.
+/// Parameter `_2` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_Overloads_e_int32_t_rvalue_ref_int32_t(int32_t *_1, int32_t *_2);
 
 /// Generated from function `MR::Overloads::e`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
-/// Parameter `_2` can not be null.
+/// Parameter `_2` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_Overloads_e_int32_t_rvalue_ref_float(int32_t *_1, float *_2);
@@ -65,13 +65,13 @@ MR_C_API void MR_Overloads_e_int32_t_rvalue_ref_float(int32_t *_1, float *_2);
 MR_C_API void MR_Overloads_f_float(float _1, int32_t _2);
 
 /// Generated from function `MR::Overloads::f`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_Overloads_f_int32_t_rvalue_ref(int32_t *_1, float _2);
 
 /// Generated from function `MR::Overloads::f`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_Overloads_f_const_int32_t_ref(const int32_t *_1, float _2);
 
 #ifdef __cplusplus

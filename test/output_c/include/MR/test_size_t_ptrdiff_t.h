@@ -20,7 +20,7 @@ typedef struct MR_TestSizeT_A_unsigned_long MR_TestSizeT_A_unsigned_long;
 MR_C_API unsigned long MR_TestSizeT_foo_unsigned_long(unsigned long _1);
 
 /// Generated from function `MR::TestSizeT::foo`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned long **MR_TestSizeT_foo_unsigned_long_ptr(unsigned long **_1);
 
@@ -32,7 +32,7 @@ MR_C_API MR_C_std_vector_unsigned_long *MR_TestSizeT_foo_std_vector_unsigned_lon
 MR_C_API long MR_TestSizeT_foo_long(long _1);
 
 /// Generated from function `MR::TestSizeT::foo`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API long **MR_TestSizeT_foo_long_ptr(long **_1);
 
@@ -56,7 +56,7 @@ MR_C_API const MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_Offset
 MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_OffsetMutablePtr(MR_TestSizeT_A_unsigned_long *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::TestSizeT::A<unsigned long>`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_ConstructFromAnother(const MR_TestSizeT_A_unsigned_long *_other);
 
@@ -67,13 +67,13 @@ MR_C_API void MR_TestSizeT_A_unsigned_long_Destroy(const MR_TestSizeT_A_unsigned
 MR_C_API void MR_TestSizeT_A_unsigned_long_DestroyArray(const MR_TestSizeT_A_unsigned_long *_this);
 
 /// Generated from a method of class `MR::TestSizeT::A<unsigned long>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other);
 
 /// Generated from a method of class `MR::TestSizeT::A<unsigned long>` named `foo`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API unsigned long MR_TestSizeT_A_unsigned_long_foo(MR_TestSizeT_A_unsigned_long *_this);
 
 #ifdef __cplusplus

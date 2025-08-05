@@ -19,7 +19,7 @@ typedef struct MR_C_std_tuple_int_float MR_C_std_tuple_int_float; // Defined in 
 
 
 /// Generated from function `MR::StdTupleLike::SetPair`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdTupleLike_SetPair(const MR_C_std_pair_int_float *_1);
 
 /// Generated from function `MR::StdTupleLike::GetPair`.
@@ -47,7 +47,7 @@ MR_C_API MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *MR_StdTupleLike_GetPair5
 MR_C_API MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_StdTupleLike_GetPair6(void);
 
 /// Generated from function `MR::StdTupleLike::SetTuple`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdTupleLike_SetTuple(const MR_C_std_tuple_int_float *_1);
 
 /// Generated from function `MR::StdTupleLike::GetTuple`.

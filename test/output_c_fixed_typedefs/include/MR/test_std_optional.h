@@ -47,6 +47,7 @@ MR_C_API void MR_StdOptional_SetIntConstRef(const int32_t *_1);
 MR_C_API void MR_StdOptional_SetIntDefTrivial(const int32_t *_1);
 
 /// Generated from function `MR::StdOptional::SetIntDef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `42`, pass a null pointer to use it.
 MR_C_API void MR_StdOptional_SetIntDef(const MR_C_std_optional_int32_t *_1);
 
@@ -68,20 +69,21 @@ MR_C_API void MR_StdOptional_SetEnumConstRef(const MR_StdOptional_E *_1);
 MR_C_API void MR_StdOptional_SetEnumDefTrivial(const MR_StdOptional_E *_1);
 
 /// Generated from function `MR::StdOptional::SetEnumDef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `E::e1`, pass a null pointer to use it.
 MR_C_API void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E *_1);
 
 /// Returns a pointer to a member variable of class `MR::StdOptional::A` named `x`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_StdOptional_A_Get_x(const MR_StdOptional_A *_this);
 
 /// Modifies a member variable of class `MR::StdOptional::A` named `x`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value);
 
 /// Returns a mutable pointer to a member variable of class `MR::StdOptional::A` named `x`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this);
 
@@ -105,7 +107,7 @@ MR_C_API const MR_StdOptional_A *MR_StdOptional_A_OffsetPtr(const MR_StdOptional
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_OffsetMutablePtr(MR_StdOptional_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::StdOptional::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_ConstructFromAnother(const MR_StdOptional_A *_other);
 
@@ -116,8 +118,8 @@ MR_C_API void MR_StdOptional_A_Destroy(const MR_StdOptional_A *_this);
 MR_C_API void MR_StdOptional_A_DestroyArray(const MR_StdOptional_A *_this);
 
 /// Generated from a method of class `MR::StdOptional::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *_this, const MR_StdOptional_A *_other);
 
@@ -126,35 +128,39 @@ MR_C_API MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *
 MR_C_API MR_C_std_optional_MR_StdOptional_A *MR_StdOptional_GetClass(void);
 
 /// Generated from function `MR::StdOptional::SetClass`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetClass(const MR_StdOptional_A *_1);
 
 /// Generated from function `MR::StdOptional::SetClassConstRef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 MR_C_API void MR_StdOptional_SetClassConstRef(const MR_StdOptional_A *_1);
 
 /// Generated from function `MR::StdOptional::SetClassDefTrivial`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` is optional. To keep it empty, pass a null pointer.
 /// Parameter `_1` defaults to empty in C++.
 MR_C_API void MR_StdOptional_SetClassDefTrivial(const MR_StdOptional_A *_1);
 
 /// Generated from function `MR::StdOptional::SetClassDef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `MR::StdOptional::A{42}`, pass a null pointer to use it.
 MR_C_API void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_A *_1);
 
 /// Returns a pointer to a member variable of class `MR::StdOptional::B` named `s`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_this);
 
 /// Modifies a member variable of class `MR::StdOptional::B` named `s`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
 MR_C_API void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::StdOptional::B` named `s`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this);
 
@@ -190,7 +196,7 @@ MR_C_API void MR_StdOptional_B_Destroy(const MR_StdOptional_B *_this);
 MR_C_API void MR_StdOptional_B_DestroyArray(const MR_StdOptional_B *_this);
 
 /// Generated from a method of class `MR::StdOptional::B` named `operator=`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other);
 

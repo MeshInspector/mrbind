@@ -32,7 +32,7 @@ MR_C_API const MR_NestedTemplateInst_A_int32_t *MR_NestedTemplateInst_A_int32_t_
 MR_C_API MR_NestedTemplateInst_A_int32_t *MR_NestedTemplateInst_A_int32_t_OffsetMutablePtr(MR_NestedTemplateInst_A_int32_t *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::NestedTemplateInst::A<int32_t>`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_NestedTemplateInst_A_int32_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_NestedTemplateInst_A_int32_t *MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(const MR_NestedTemplateInst_A_int32_t *_other);
 
@@ -43,8 +43,8 @@ MR_C_API void MR_NestedTemplateInst_A_int32_t_Destroy(const MR_NestedTemplateIns
 MR_C_API void MR_NestedTemplateInst_A_int32_t_DestroyArray(const MR_NestedTemplateInst_A_int32_t *_this);
 
 /// Generated from a method of class `MR::NestedTemplateInst::A<int32_t>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_NestedTemplateInst_A_int32_t *MR_NestedTemplateInst_A_int32_t_AssignFromAnother(MR_NestedTemplateInst_A_int32_t *_this, const MR_NestedTemplateInst_A_int32_t *_other);
 
@@ -64,7 +64,7 @@ MR_C_API const MR_NestedTemplateInst_A_int32_t_AA_float *MR_NestedTemplateInst_A
 MR_C_API MR_NestedTemplateInst_A_int32_t_AA_float *MR_NestedTemplateInst_A_int32_t_AA_float_OffsetMutablePtr(MR_NestedTemplateInst_A_int32_t_AA_float *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::NestedTemplateInst::A<int32_t>::AA<float>`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_NestedTemplateInst_A_int32_t_AA_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_NestedTemplateInst_A_int32_t_AA_float *MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(const MR_NestedTemplateInst_A_int32_t_AA_float *_other);
 
@@ -75,8 +75,8 @@ MR_C_API void MR_NestedTemplateInst_A_int32_t_AA_float_Destroy(const MR_NestedTe
 MR_C_API void MR_NestedTemplateInst_A_int32_t_AA_float_DestroyArray(const MR_NestedTemplateInst_A_int32_t_AA_float *_this);
 
 /// Generated from a method of class `MR::NestedTemplateInst::A<int32_t>::AA<float>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_NestedTemplateInst_A_int32_t_AA_float *MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother(MR_NestedTemplateInst_A_int32_t_AA_float *_this, const MR_NestedTemplateInst_A_int32_t_AA_float *_other);
 

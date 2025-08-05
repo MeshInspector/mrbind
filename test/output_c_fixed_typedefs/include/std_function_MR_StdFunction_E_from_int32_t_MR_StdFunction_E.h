@@ -30,7 +30,7 @@ MR_C_API MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_
 MR_C_API MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignFromAnother(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E`. Does nothing if the pointer is null.
@@ -46,14 +46,14 @@ MR_C_API const MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E 
 MR_C_API MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_OffsetMutablePtr(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *ptr, ptrdiff_t i);
 
 /// Assign a stateless function.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_2` will never be null. It is non-owning, do NOT destroy it.
 /// In C++ that parameter is an rvalue reference.
 MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E *_2));
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_2` will never be null. It is non-owning, do NOT destroy it.
 /// In C++ that parameter is an rvalue reference.
 /// How to use `userdata_callback`:

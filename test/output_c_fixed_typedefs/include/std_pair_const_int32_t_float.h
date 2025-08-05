@@ -24,7 +24,7 @@ MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_De
 MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int32_t_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_ConstructFromAnother(const MR_C_std_pair_const_int32_t_float *other);
 
@@ -45,17 +45,17 @@ MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_Of
 MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_Construct(int32_t first, float second);
 
 /// The first of the two elements, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_C_std_pair_const_int32_t_float_First(const MR_C_std_pair_const_int32_t_float *_this);
 
 /// The second of the two elements, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const float *MR_C_std_pair_const_int32_t_float_Second(const MR_C_std_pair_const_int32_t_float *_this);
 
 /// The second of the two elements, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API float *MR_C_std_pair_const_int32_t_float_MutableSecond(MR_C_std_pair_const_int32_t_float *_this);
 

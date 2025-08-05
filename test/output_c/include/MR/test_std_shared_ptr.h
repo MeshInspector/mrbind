@@ -35,7 +35,7 @@ MR_C_API MR_C_std_shared_ptr_int *MR_StdSharedPtr_GetInt(void);
 MR_C_API void MR_StdSharedPtr_SetInt(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdSharedPtr_SetIntConstRef(const MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntDefTrivial`.
@@ -47,21 +47,21 @@ MR_C_API void MR_StdSharedPtr_SetIntDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_
 MR_C_API void MR_StdSharedPtr_SetIntDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntLvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdSharedPtr_SetIntLvalueRef(MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntLvalueConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdSharedPtr_SetIntLvalueConstRef(const MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntRvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdSharedPtr_SetIntRvalueRef(MR_C_std_shared_ptr_int *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetIntRvalueConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdSharedPtr_SetIntRvalueConstRef(const MR_C_std_shared_ptr_int *_1);
@@ -112,7 +112,7 @@ MR_C_API const MR_StdSharedPtr_A *MR_StdSharedPtr_A_OffsetPtr(const MR_StdShared
 MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_OffsetMutablePtr(MR_StdSharedPtr_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::StdSharedPtr::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_ConstructFromAnother(const MR_StdSharedPtr_A *_other);
 
@@ -123,8 +123,8 @@ MR_C_API void MR_StdSharedPtr_A_Destroy(const MR_StdSharedPtr_A *_this);
 MR_C_API void MR_StdSharedPtr_A_DestroyArray(const MR_StdSharedPtr_A *_this);
 
 /// Generated from a method of class `MR::StdSharedPtr::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdSharedPtr_A *MR_StdSharedPtr_A_AssignFromAnother(MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *_other);
 
@@ -136,7 +136,7 @@ MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_StdSharedPtr_GetClass(void);
 MR_C_API void MR_StdSharedPtr_SetClass(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdSharedPtr_SetClassConstRef(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassDefTrivial`.
@@ -148,21 +148,21 @@ MR_C_API void MR_StdSharedPtr_SetClassDefTrivial(MR_C_PassBy _1_pass_by, MR_C_st
 MR_C_API void MR_StdSharedPtr_SetClassDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassLvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdSharedPtr_SetClassLvalueRef(MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassLvalueConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdSharedPtr_SetClassLvalueConstRef(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassRvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdSharedPtr_SetClassRvalueRef(MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);
 
 /// Generated from function `MR::StdSharedPtr::SetClassRvalueConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdSharedPtr_SetClassRvalueConstRef(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1);

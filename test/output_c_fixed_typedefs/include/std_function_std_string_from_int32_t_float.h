@@ -29,7 +29,7 @@ MR_C_API MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_
 MR_C_API MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_string_from_int32_t_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_std_string_from_int32_t_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_std_string_from_int32_t_float_AssignFromAnother(MR_C_std_function_std_string_from_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_std_function_std_string_from_int32_t_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_std_string_from_int32_t_float`. Does nothing if the pointer is null.
@@ -45,7 +45,7 @@ MR_C_API const MR_C_std_function_std_string_from_int32_t_float *MR_C_std_functio
 MR_C_API MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_string_from_int32_t_float_OffsetMutablePtr(MR_C_std_function_std_string_from_int32_t_float *ptr, ptrdiff_t i);
 
 /// Assign a stateless function.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_return_end` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 /// Callback return value can not be null.
 /// If `*_return_end` is kept null, then the callback return value is assumed to be null-terminated.
@@ -53,7 +53,7 @@ MR_C_API void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_fu
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_return_end` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 /// Callback return value can not be null.
 /// If `*_return_end` is kept null, then the callback return value is assumed to be null-terminated.

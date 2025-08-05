@@ -23,13 +23,13 @@ MR_C_API MR_C_std_pair_int_float *MR_C_std_pair_int_float_DefaultConstruct(void)
 MR_C_API MR_C_std_pair_int_float *MR_C_std_pair_int_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_pair_int_float *MR_C_std_pair_int_float_ConstructFromAnother(const MR_C_std_pair_int_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_pair_int_float_AssignFromAnother(MR_C_std_pair_int_float *_this, const MR_C_std_pair_int_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_pair_int_float`. Does nothing if the pointer is null.
@@ -49,22 +49,22 @@ MR_C_API MR_C_std_pair_int_float *MR_C_std_pair_int_float_OffsetMutablePtr(MR_C_
 MR_C_API MR_C_std_pair_int_float *MR_C_std_pair_int_float_Construct(int first, float second);
 
 /// The first of the two elements, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_C_std_pair_int_float_First(const MR_C_std_pair_int_float *_this);
 
 /// The first of the two elements, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_C_std_pair_int_float_MutableFirst(MR_C_std_pair_int_float *_this);
 
 /// The second of the two elements, read-only.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const float *MR_C_std_pair_int_float_Second(const MR_C_std_pair_int_float *_this);
 
 /// The second of the two elements, mutable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API float *MR_C_std_pair_int_float_MutableSecond(MR_C_std_pair_int_float *_this);
 

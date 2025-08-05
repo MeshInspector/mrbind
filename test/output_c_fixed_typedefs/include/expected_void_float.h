@@ -24,23 +24,23 @@ MR_C_API MR_C_expected_void_float *MR_C_expected_void_float_DefaultConstruct(voi
 MR_C_API MR_C_expected_void_float *MR_C_expected_void_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_expected_void_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_expected_void_float *MR_C_expected_void_float_ConstructFromAnother(const MR_C_expected_void_float *other);
 
 /// Constructs a new instance.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_expected_void_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_expected_void_float *MR_C_expected_void_float_ConstructFrom(const MR_C_expected_void_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_expected_void_float_AssignFromAnother(MR_C_expected_void_float *_this, const MR_C_expected_void_float *other);
 
 /// Assigns the contents.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_expected_void_float_AssignFrom(MR_C_expected_void_float *_this, const MR_C_expected_void_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_expected_void_float`. Does nothing if the pointer is null.
@@ -56,15 +56,15 @@ MR_C_API const MR_C_expected_void_float *MR_C_expected_void_float_OffsetPtr(cons
 MR_C_API MR_C_expected_void_float *MR_C_expected_void_float_OffsetMutablePtr(MR_C_expected_void_float *ptr, ptrdiff_t i);
 
 /// Returns true if this instance stores nothing (which represents success).
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_expected_void_float_GetValue(const MR_C_expected_void_float *_this);
 
 /// If this instance represents an error, returns the stored `float`. Otherwise null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const float *MR_C_expected_void_float_GetError(const MR_C_expected_void_float *_this);
 
 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API float *MR_C_expected_void_float_GetMutableError(MR_C_expected_void_float *_this);
 
 #ifdef __cplusplus

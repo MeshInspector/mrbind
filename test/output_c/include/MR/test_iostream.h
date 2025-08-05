@@ -31,7 +31,7 @@ MR_C_API const MR_IOStream_A *MR_IOStream_A_OffsetPtr(const MR_IOStream_A *ptr, 
 MR_C_API MR_IOStream_A *MR_IOStream_A_OffsetMutablePtr(MR_IOStream_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::IOStream::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_IOStream_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_IOStream_A *MR_IOStream_A_ConstructFromAnother(const MR_IOStream_A *_other);
 
@@ -42,19 +42,19 @@ MR_C_API void MR_IOStream_A_Destroy(const MR_IOStream_A *_this);
 MR_C_API void MR_IOStream_A_DestroyArray(const MR_IOStream_A *_this);
 
 /// Generated from a method of class `MR::IOStream::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IOStream_A *_other);
 
 /// Generated from function `MR::IOStream::operator<<`.
-/// Parameter `_1` can not be null.
-/// Parameter `_2` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
 MR_C_API void MR_C_print_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2);
 
 /// Generated from function `MR::IOStream::operator>>`.
-/// Parameter `_1` can not be null.
-/// Parameter `_2` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
 MR_C_API void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2);
 
 #ifdef __cplusplus

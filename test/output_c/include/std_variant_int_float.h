@@ -23,13 +23,13 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstruct
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructFromAnother(const MR_C_std_variant_int_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_variant_int_float_AssignFromAnother(MR_C_std_variant_int_float *_this, const MR_C_std_variant_int_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_variant_int_float`. Does nothing if the pointer is null.
@@ -45,7 +45,7 @@ MR_C_API const MR_C_std_variant_int_float *MR_C_std_variant_int_float_OffsetPtr(
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_OffsetMutablePtr(MR_C_std_variant_int_float *ptr, ptrdiff_t i);
 
 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API size_t MR_C_std_variant_int_float_Index(const MR_C_std_variant_int_float *_this);
 
 /// Constructs the variant storing the element 0, of type `int`.
@@ -57,27 +57,27 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_int(
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_float(float value);
 
 /// Assigns to the variant, making it store the element 0, of type `int`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_variant_int_float_AssignAs_int(MR_C_std_variant_int_float *_this, int value);
 
 /// Assigns to the variant, making it store the element 1, of type `float`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_variant_int_float_AssignAs_float(MR_C_std_variant_int_float *_this, float value);
 
 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const int *MR_C_std_variant_int_float_Get_int(const MR_C_std_variant_int_float *_this);
 
 /// Returns the element 0, of type `int`, mutable. If it's not the active element, returns null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API int *MR_C_std_variant_int_float_GetMutable_int(MR_C_std_variant_int_float *_this);
 
 /// Returns the element 1, of type `float`, read-only. If it's not the active element, returns null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const float *MR_C_std_variant_int_float_Get_float(const MR_C_std_variant_int_float *_this);
 
 /// Returns the element 1, of type `float`, mutable. If it's not the active element, returns null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API float *MR_C_std_variant_int_float_GetMutable_float(MR_C_std_variant_int_float *_this);
 
 #ifdef __cplusplus

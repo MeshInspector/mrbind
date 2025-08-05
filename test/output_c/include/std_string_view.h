@@ -23,7 +23,7 @@ MR_C_API MR_C_std_string_view *MR_C_std_string_view_DefaultConstruct(void);
 MR_C_API MR_C_std_string_view *MR_C_std_string_view_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string_view *MR_C_std_string_view_ConstructFromAnother(const MR_C_std_string_view *other);
 
@@ -34,12 +34,12 @@ MR_C_API MR_C_std_string_view *MR_C_std_string_view_ConstructFromAnother(const M
 MR_C_API MR_C_std_string_view *MR_C_std_string_view_ConstructFrom(const char *other, const char *other_end);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_string_view_AssignFromAnother(MR_C_std_string_view *_this, const MR_C_std_string_view *other);
 
 /// Assigns the contents.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null.
 /// If `other_end` is null, then `other` is assumed to be null-terminated.
 MR_C_API void MR_C_std_string_view_AssignFrom(MR_C_std_string_view *_this, const char *other, const char *other_end);
@@ -57,15 +57,15 @@ MR_C_API const MR_C_std_string_view *MR_C_std_string_view_OffsetPtr(const MR_C_s
 MR_C_API MR_C_std_string_view *MR_C_std_string_view_OffsetMutablePtr(MR_C_std_string_view *ptr, ptrdiff_t i);
 
 /// The number of characters in the string.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API size_t MR_C_std_string_view_Size(const MR_C_std_string_view *_this);
 
 /// Returns the string contents, NOT necessarily null-terminated.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const char *MR_C_std_string_view_Data(const MR_C_std_string_view *_this);
 
 /// Returns a pointer to the end of string. Not dereferencable.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const char *MR_C_std_string_view_DataEnd(const MR_C_std_string_view *_this);
 
 #ifdef __cplusplus

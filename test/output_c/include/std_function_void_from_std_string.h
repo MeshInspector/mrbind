@@ -30,7 +30,7 @@ MR_C_API MR_C_std_function_void_from_std_string *MR_C_std_function_void_from_std
 MR_C_API MR_C_std_function_void_from_std_string *MR_C_std_function_void_from_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_void_from_std_string *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_void_from_std_string_AssignFromAnother(MR_C_std_function_void_from_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_function_void_from_std_string *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_void_from_std_string`. Does nothing if the pointer is null.
@@ -46,14 +46,14 @@ MR_C_API const MR_C_std_function_void_from_std_string *MR_C_std_function_void_fr
 MR_C_API MR_C_std_function_void_from_std_string *MR_C_std_function_void_from_std_string_OffsetMutablePtr(MR_C_std_function_void_from_std_string *ptr, ptrdiff_t i);
 
 /// Assign a stateless function.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
 /// In C++ that parameter is an rvalue reference.
 MR_C_API void MR_C_std_function_void_from_std_string_Assign(MR_C_std_function_void_from_std_string *_this, void (*func)(MR_C_std_string *_1));
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.
 /// In C++ that parameter is an rvalue reference.
 /// How to use `userdata_callback`:

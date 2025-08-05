@@ -24,7 +24,7 @@ MR_C_API MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_DefaultConstru
 MR_C_API MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null.
+/// Parameter `other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_int32_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_ConstructFromAnother(const MR_C_std_unique_ptr_int32_t *other);
 
@@ -35,12 +35,12 @@ MR_C_API MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_ConstructFromA
 MR_C_API MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_ConstructFrom(int32_t *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
-/// Parameter `other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `other` can not be null. It is a single object.
 MR_C_API void MR_C_std_unique_ptr_int32_t_AssignFromAnother(MR_C_std_unique_ptr_int32_t *_this, const MR_C_std_unique_ptr_int32_t *other);
 
 /// Assigns the contents.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` should point to a single object rather than to an array.
 /// Parameter `other` takes ownership of the passed pointer (if not null), and will later call `MR_C_Free()` on it automatically.
 MR_C_API void MR_C_std_unique_ptr_int32_t_AssignFrom(MR_C_std_unique_ptr_int32_t *_this, int32_t *other);
@@ -58,12 +58,12 @@ MR_C_API const MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_OffsetPt
 MR_C_API MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_OffsetMutablePtr(MR_C_std_unique_ptr_int32_t *ptr, ptrdiff_t i);
 
 /// Returns the stored pointer, possibly null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API int32_t *MR_C_std_unique_ptr_int32_t_Get(const MR_C_std_unique_ptr_int32_t *_this);
 
 /// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.
 /// The returned pointer is owning! It must be deallocated using `MR_C_Free()`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API int32_t *MR_C_std_unique_ptr_int32_t_Release(MR_C_std_unique_ptr_int32_t *_this);
 
 #ifdef __cplusplus

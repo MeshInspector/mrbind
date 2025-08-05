@@ -66,10 +66,11 @@ MR_C_API void MR_TestSimpleTypes_SetIntPtrDefNull(int *_1);
 MR_C_API int *MR_TestSimpleTypes_GetIntRef(void);
 
 /// Generated from function `MR::TestSimpleTypes::SetIntRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_TestSimpleTypes_SetIntRef(int *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetIntRefDef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `global_int`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetIntRefDef(int *_1);
 
@@ -144,10 +145,11 @@ MR_C_API void MR_TestSimpleTypes_SetEnumPtrDefNull(MR_TestSimpleTypes_E *_1);
 MR_C_API MR_TestSimpleTypes_E *MR_TestSimpleTypes_GetEnumRef(void);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnumRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_TestSimpleTypes_SetEnumRef(MR_TestSimpleTypes_E *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnumRefDef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `global_enum`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnumRefDef(MR_TestSimpleTypes_E *_1);
 
@@ -180,10 +182,11 @@ MR_C_API void MR_TestSimpleTypes_SetEnum2PtrDefNull(MR_TestSimpleTypes_E2 *_1);
 MR_C_API MR_TestSimpleTypes_E2 *MR_TestSimpleTypes_GetEnum2Ref(void);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnum2Ref`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnum2RefDef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `global_enum2`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1);
 
@@ -226,7 +229,7 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_lo
 MR_C_API unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long(void);
 
 /// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other);
 
@@ -253,19 +256,19 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy(const MR_Te
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_DestroyArray(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this);
 
 /// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this, const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other);
 
 // Methods.
 /// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `foo<unsigned long>`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_unsigned_long(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this);
 
 // Methods.
 /// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `foo<int>`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_int(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this);
 
 #ifdef __cplusplus

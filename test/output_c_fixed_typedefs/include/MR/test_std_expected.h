@@ -19,7 +19,7 @@ MR_C_API MR_C_expected_int32_t_std_string *MR_StdExpected_GetExp(void);
 MR_C_API void MR_StdExpected_SetExp(MR_C_PassBy _1_pass_by, MR_C_expected_int32_t_std_string *_1);
 
 /// Generated from function `MR::StdExpected::SetExpConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdExpected_SetExpConstRef(const MR_C_expected_int32_t_std_string *_1);
 
 /// Generated from function `MR::StdExpected::SetExpDefTrivial`.
@@ -35,18 +35,20 @@ MR_C_API void MR_StdExpected_SetExpDef(MR_C_PassBy _1_pass_by, MR_C_expected_int
 MR_C_API MR_C_expected_void_float *MR_StdExpected_GetExpVoid(void);
 
 /// Generated from function `MR::StdExpected::SetExpVoid`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdExpected_SetExpVoid(const MR_C_expected_void_float *_1);
 
 /// Generated from function `MR::StdExpected::SetExpVoidConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdExpected_SetExpVoidConstRef(const MR_C_expected_void_float *_1);
 
 /// Generated from function `MR::StdExpected::SetExpVoidDefTrivial`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `{}`, pass a null pointer to use it.
 MR_C_API void MR_StdExpected_SetExpVoidDefTrivial(const MR_C_expected_void_float *_1);
 
 /// Generated from function `MR::StdExpected::SetExpVoidDef`.
+/// Parameter `_1` is a single object.
 /// Parameter `_1` has a default argument: `std::expected<void, float>{}`, pass a null pointer to use it.
 MR_C_API void MR_StdExpected_SetExpVoidDef(const MR_C_expected_void_float *_1);
 

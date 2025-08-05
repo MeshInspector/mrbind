@@ -64,24 +64,24 @@ MR_C_API void MR_StdContainers_SetWithDefault(MR_C_PassBy _1_pass_by, MR_C_std_v
 MR_C_API MR_C_std_vector_int *MR_StdContainers_Get(void);
 
 /// Generated from function `MR::StdContainers::WriteToRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdContainers_WriteToRef(MR_C_std_vector_int *_1);
 
 /// Generated from function `MR::StdContainers::WriteToPtr`.
 MR_C_API void MR_StdContainers_WriteToPtr(MR_C_std_vector_int *_1);
 
 /// Generated from function `MR::StdContainers::ConstRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdContainers_ConstRef(const MR_C_std_vector_int *_1);
 
 /// Generated from function `MR::StdContainers::RvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdContainers_RvalueRef(MR_C_std_vector_int *_1);
 
 /// Generated from function `MR::StdContainers::ConstRvalueRef`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 /// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 ///   but if your pointer is owning, you must still destroy it manually later.
 MR_C_API void MR_StdContainers_ConstRvalueRef(const MR_C_std_vector_int *_1);
@@ -143,7 +143,7 @@ MR_C_API const MR_StdContainers_A *MR_StdContainers_A_OffsetPtr(const MR_StdCont
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_OffsetMutablePtr(MR_StdContainers_A *ptr, ptrdiff_t i);
 
 /// Generated from a constructor of class `MR::StdContainers::A`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_ConstructFromAnother(const MR_StdContainers_A *_other);
 
@@ -154,8 +154,8 @@ MR_C_API void MR_StdContainers_A_Destroy(const MR_StdContainers_A *_this);
 MR_C_API void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this);
 
 /// Generated from a method of class `MR::StdContainers::A` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_AssignFromAnother(MR_StdContainers_A *_this, const MR_StdContainers_A *_other);
 
@@ -187,7 +187,7 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIter(void)
 MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(void);
 
 /// Generated from a constructor of class `MR::StdContainers::NonDefaultConstructible`.
-/// Parameter `_other` can not be null.
+/// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(const MR_StdContainers_NonDefaultConstructible *_other);
 
@@ -208,8 +208,8 @@ MR_C_API void MR_StdContainers_NonDefaultConstructible_Destroy(const MR_StdConta
 MR_C_API void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_StdContainers_NonDefaultConstructible *_this);
 
 /// Generated from a method of class `MR::StdContainers::NonDefaultConstructible` named `operator=`.
-/// Parameter `_this` can not be null.
-/// Parameter `_other` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other);
 
@@ -239,11 +239,11 @@ MR_C_API void MR_StdContainers_NonAssignable_Destroy(const MR_StdContainers_NonA
 MR_C_API void MR_StdContainers_NonAssignable_DestroyArray(const MR_StdContainers_NonAssignable *_this);
 
 /// Generated from a method of class `MR::StdContainers::NonAssignable` named `operator<`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_less_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
 
 /// Generated from a method of class `MR::StdContainers::NonAssignable` named `operator==`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
 
 /// Generated from function `MR::StdContainers::GetVectorNA`.

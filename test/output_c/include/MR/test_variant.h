@@ -18,7 +18,7 @@ typedef struct MR_C_std_variant_std_monostate_int_float MR_C_std_variant_std_mon
 MR_C_API MR_C_std_variant_int_float *MR_StdVariant_foo(void);
 
 /// Generated from function `MR::StdVariant::bar`.
-/// Parameter `_1` can not be null.
+/// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_StdVariant_bar(const MR_C_std_variant_int_float_float *_1);
 
 /// Generated from function `MR::StdVariant::baz`.

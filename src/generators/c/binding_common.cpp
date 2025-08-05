@@ -173,10 +173,16 @@ namespace mrbind::CBindings
             param_usage.append_to_comment = [](std::string_view cpp_param_name, bool has_default_arg, bool is_output_param) -> std::string
             {
                 if (is_output_param)
+                {
                     return "/// Callback return value can not be null.";
-                else if (!has_default_arg)
-                    return "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
-                else return "";
+                }
+                else
+                {
+                    if (has_default_arg)
+                        return "/// Parameter `" + std::string(cpp_param_name) + "` is a single object.";
+                    else
+                        return "/// Parameter `" + std::string(cpp_param_name) + "` can not be null. It is a single object.";
+                }
             };
 
             param_usage.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback)
@@ -862,8 +868,10 @@ namespace mrbind::CBindings
                     }
                     else
                     {
-                        if (!has_default_arg)
-                            ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null.";
+                        if (has_default_arg)
+                            ret = "/// Parameter `" + std::string(cpp_param_name) + "` is a single object.";
+                        else
+                            ret = "/// Parameter `" + std::string(cpp_param_name) + "` can not be null. It is a single object.";
 
                         if (is_rvalue_ref)
                         {

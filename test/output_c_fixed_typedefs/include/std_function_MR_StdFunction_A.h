@@ -30,7 +30,7 @@ MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_
 MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_A *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_MR_StdFunction_A_AssignFromAnother(MR_C_std_function_MR_StdFunction_A *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_A *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_MR_StdFunction_A`. Does nothing if the pointer is null.
@@ -46,13 +46,13 @@ MR_C_API const MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunct
 MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_OffsetMutablePtr(MR_C_std_function_MR_StdFunction_A *ptr, ptrdiff_t i);
 
 /// Assign a stateless function.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_return_pass_by` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 MR_C_API void MR_C_std_function_MR_StdFunction_A_Assign(MR_C_std_function_MR_StdFunction_A *_this, MR_StdFunction_A *(*func)(MR_C_PassBy *_return_pass_by));
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Callback parameter `_return_pass_by` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 /// How to use `userdata_callback`:
 ///   The `_this_userdata` parameter will never be null.

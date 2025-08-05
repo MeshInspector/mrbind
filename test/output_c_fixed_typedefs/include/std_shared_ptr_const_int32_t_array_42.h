@@ -29,7 +29,7 @@ MR_C_API MR_C_std_shared_ptr_const_int32_t_array_42 *MR_C_std_shared_ptr_const_i
 MR_C_API MR_C_std_shared_ptr_const_int32_t_array_42 *MR_C_std_shared_ptr_const_int32_t_array_42_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_const_int32_t_array_42 *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_shared_ptr_const_int32_t_array_42_AssignFromAnother(MR_C_std_shared_ptr_const_int32_t_array_42 *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_const_int32_t_array_42 *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_shared_ptr_const_int32_t_array_42`. Does nothing if the pointer is null.
@@ -45,13 +45,13 @@ MR_C_API const MR_C_std_shared_ptr_const_int32_t_array_42 *MR_C_std_shared_ptr_c
 MR_C_API MR_C_std_shared_ptr_const_int32_t_array_42 *MR_C_std_shared_ptr_const_int32_t_array_42_OffsetMutablePtr(MR_C_std_shared_ptr_const_int32_t_array_42 *ptr, ptrdiff_t i);
 
 /// Returns the stored pointer, possibly null.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API const int32_t *MR_C_std_shared_ptr_const_int32_t_array_42_Get(const MR_C_std_shared_ptr_const_int32_t_array_42 *_this);
 
 /// How many shared pointers share the managed object. Zero if no object is being managed.
 /// This being zero usually conincides with `MR_C_std_shared_ptr_const_int32_t_array_42_Get()` returning null, but is ultimately orthogonal.
 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_C_std_shared_ptr_const_int32_t_array_42_UseCount(const MR_C_std_shared_ptr_const_int32_t_array_42 *_this);
 
 /// Create a new instance, taking ownership of an existing pointer.
@@ -60,7 +60,7 @@ MR_C_API int MR_C_std_shared_ptr_const_int32_t_array_42_UseCount(const MR_C_std_
 MR_C_API void MR_C_std_shared_ptr_const_int32_t_array_42_Construct(const int32_t *ptr);
 
 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// Parameter `ptr` can point to an array.
 /// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_C_FreeArray()` on it automatically.
 MR_C_API void MR_C_std_shared_ptr_const_int32_t_array_42_Assign(MR_C_std_shared_ptr_const_int32_t_array_42 *_this, const int32_t *ptr);

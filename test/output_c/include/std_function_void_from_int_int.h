@@ -28,7 +28,7 @@ MR_C_API MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_in
 MR_C_API MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_void_from_int_int *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_void_from_int_int_AssignFromAnother(MR_C_std_function_void_from_int_int *_this, MR_C_PassBy other_pass_by, MR_C_std_function_void_from_int_int *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_void_from_int_int`. Does nothing if the pointer is null.
@@ -44,12 +44,12 @@ MR_C_API const MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_
 MR_C_API MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_int_OffsetMutablePtr(MR_C_std_function_void_from_int_int *ptr, ptrdiff_t i);
 
 /// Assign a stateless function.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_void_from_int_int_Assign(MR_C_std_function_void_from_int_int *_this, void (*func)(int _1, int _2));
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 /// How to use `userdata_callback`:
 ///   The `_this_userdata` parameter will never be null.
 ///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.

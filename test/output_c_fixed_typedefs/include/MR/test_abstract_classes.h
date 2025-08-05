@@ -13,19 +13,19 @@ extern "C" {
 typedef struct MR_AbstractClasses_A MR_AbstractClasses_A;
 
 /// Generated from class `MR::AbstractClasses::B`.
-/// Classes derived from this:
-///   Directly: (non-virtually)
+/// Derived classes:
+///   Direct: (non-virtual)
 ///     `MR::AbstractClasses::C`
 typedef struct MR_AbstractClasses_B MR_AbstractClasses_B;
 
 /// Generated from class `MR::AbstractClasses::C`.
-/// Inherits from:
-///   Directly: (non-virtually)
+/// Base classes:
+///   Direct: (non-virtual)
 ///     `MR::AbstractClasses::B`
 typedef struct MR_AbstractClasses_C MR_AbstractClasses_C;
 
 /// Generated from a method of class `MR::AbstractClasses::A` named `foo`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_AbstractClasses_A_foo(MR_AbstractClasses_A *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -41,7 +41,7 @@ MR_C_API void MR_AbstractClasses_B_Destroy(const MR_AbstractClasses_B *_this);
 MR_C_API void MR_AbstractClasses_B_DestroyArray(const MR_AbstractClasses_B *_this);
 
 /// Generated from a method of class `MR::AbstractClasses::B` named `foo`.
-/// Parameter `_this` can not be null.
+/// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -71,13 +71,13 @@ MR_C_API MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastTo_MR_
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// This version is acting on mutable pointers.
-/// Parameter `object` can not be null.
+/// Parameter `object` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_AbstractClasses_C *MR_AbstractClasses_B_DynamicDowncastToOrFail_MR_AbstractClasses_C(const MR_AbstractClasses_B *object);
 
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
-/// Parameter `object` can not be null.
+/// Parameter `object` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastToOrFail_MR_AbstractClasses_C(MR_AbstractClasses_B *object);
 

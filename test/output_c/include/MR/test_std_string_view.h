@@ -25,7 +25,7 @@ MR_C_API void MR_StdStringView_SetWithDefault(const char *s, const char *s_end);
 MR_C_API MR_C_std_string_view *MR_StdStringView_Get(void);
 
 /// Generated from function `MR::StdStringView::WriteToRef`.
-/// Parameter `ref` can not be null.
+/// Parameter `ref` can not be null. It is a single object.
 MR_C_API void MR_StdStringView_WriteToRef(MR_C_std_string_view *ref);
 
 /// Generated from function `MR::StdStringView::WriteToPtr`.
