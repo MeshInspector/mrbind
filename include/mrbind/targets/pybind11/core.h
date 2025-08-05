@@ -1662,7 +1662,9 @@ namespace MRBind::pb11
                     +[](T &target)
                     {
                         return pybind11::make_iterator<pybind11::return_value_policy::copy>(begin(target), end(target));
-                    }
+                    },
+                    // This one IS important, because the policy isn't `reference_internal`. Omitting this causes dangling in some cases, when the container is a temporary.
+                    pybind11::keep_alive<0, 1>()
                 );
             }
         }
