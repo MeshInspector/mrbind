@@ -6,6 +6,7 @@
 
 #include <expected>
 #include <string>
+#include <vector>
 
 namespace MR::StdExpected
 {
@@ -20,6 +21,8 @@ namespace MR::StdExpected
     inline void SetExpVoidConstRef(const std::expected<void, float> &) {}
     inline void SetExpVoidDefTrivial(std::expected<void, float> = {}) {}
     inline void SetExpVoidDef(std::expected<void, float> = std::expected<void, float>{}) {}
+
+    inline std::vector<std::expected<int, std::string>> GetExpVec() {return {};}
 }
 
 #endif

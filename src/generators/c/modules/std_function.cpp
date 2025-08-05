@@ -37,14 +37,14 @@ namespace mrbind::CBindings::Modules
             // That `_func_` is from the function type. It makes complete sense in all other cases, but not here!
             std::string c_type_name_base;
             {
-                c_type_name_base = cppdecl::ToString(base_name, cppdecl::ToStringFlags::identifier);
+                c_type_name_base = generator.CppdeclToIdentifier(base_name);
 
                 c_type_name_base += '_';
-                c_type_name_base += cppdecl::ToString(cpp_callback_return_type, cppdecl::ToStringFlags::identifier);
+                c_type_name_base += generator.CppdeclToIdentifier(cpp_callback_return_type);
 
                 for (bool first = true; const auto &param : cpp_elem_type.As<cppdecl::Function>()->params)
                 {
-                    std::string param_str = cppdecl::ToString(param, cppdecl::ToStringFlags::identifier);
+                    std::string param_str = generator.CppdeclToIdentifier(param);
                     if (!param_str.empty())
                     {
                         if (first)
@@ -153,7 +153,7 @@ namespace mrbind::CBindings::Modules
 
                     // Adjust the parameter names ourselves, for clarity in the signature.
                     // The condition should always pass, since the parser doesn't seem to emit the parameter names here.
-                    std::string fixed_param_name = cppdecl::ToString(cpp_elem_type.As<cppdecl::Function>()->params.at(i).name, cppdecl::ToStringFlags::identifier);
+                    std::string fixed_param_name = generator.CppdeclToIdentifier(cpp_elem_type.As<cppdecl::Function>()->params.at(i).name);
                     if (fixed_param_name.empty())
                         fixed_param_name = '_' + std::to_string(i + 1);
 
@@ -190,7 +190,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores a functor of type: `" + generator.CppdeclToCode(cpp_elem_type) + "`. Possibly stateful.\n";
+                    file.header.contents += "\n/// Stores a functor of type: `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`. Possibly stateful.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions:

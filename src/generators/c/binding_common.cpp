@@ -9,7 +9,7 @@ namespace mrbind::CBindings
 
         ret.cpp_type_name = std::move(new_cpp_type_name);
 
-        ret.c_type_name = generator.MakePublicHelperName(new_c_type_name_base.empty() ? cppdecl::ToString(ret.cpp_type_name, cppdecl::ToStringFlags::identifier) : new_c_type_name_base);
+        ret.c_type_name = generator.MakePublicHelperName(new_c_type_name_base.empty() ? generator.CppdeclToIdentifier(ret.cpp_type_name) : new_c_type_name_base);
         ret.c_underlying_type_name = !new_underlying_c_type_base_name.empty() ? generator.MakePublicHelperName(new_underlying_c_type_base_name) : "";
 
         return ret;
@@ -748,12 +748,8 @@ namespace mrbind::CBindings
         const bool is_ref = cpp_type.Is<cppdecl::Reference>();
         const bool is_rvalue_ref = is_ref && cpp_type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue;
         cppdecl::Type ref_target_type;
-        std::string ref_target_type_str;
         if (is_ref)
-        {
             ref_target_type = cppdecl::Type(cpp_type).RemoveModifier();
-            ref_target_type_str = generator.CppdeclToCode(ref_target_type);
-        }
 
         // A reference to `IsSimplyBindableIndirect[Reinterpret]`?
         if (is_ref)
@@ -803,7 +799,6 @@ namespace mrbind::CBindings
 
                     // Take the address and cast.
                     ret_usage.make_return_expr = [
-                        ref_target_c_type_str = generator.CppdeclToCode(type_c_style, {}, 1),
                         ref_target_c_type_ptr_str = generator.CppdeclToCode(ptr_type_c_style),
                         is_rvalue_ref,
                         details_file = is_rvalue_ref ? generator.GetInternalDetailsFile().header.path_for_inclusion : std::string{}
@@ -888,7 +883,6 @@ namespace mrbind::CBindings
 
                 param_def_arg.c_params_to_cpp = [
                     cpp_type_str,
-                    ref_target_type_str,
                     cpp_ptr_type_str = generator.CppdeclToCode(cppdecl::Type(ref_target_type).AddModifier(cppdecl::Pointer{})),
                     with_cast,
                     is_rvalue_ref

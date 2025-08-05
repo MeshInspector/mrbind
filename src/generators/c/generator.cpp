@@ -10,6 +10,7 @@
 
 #include <cppdecl/declarations/data.h>
 #include <cppdecl/declarations/parse.h>
+#include <cppdecl/declarations/simplify.h>
 #include <cppdecl/declarations/to_string.h>
 
 #include <cstdio>
@@ -1001,6 +1002,80 @@ namespace mrbind::CBindings
         return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags, ignore_cv_quals);
     }
 
+    std::string Generator::CppdeclToCodeForComments(cppdecl::Type input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return CppdeclToCode(input);
+    }
+
+    std::string Generator::CppdeclToCodeForComments(cppdecl::QualifiedName input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return CppdeclToCode(input);
+    }
+
+    std::string Generator::CppdeclToCodeForComments(cppdecl::Decl input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return CppdeclToCode(input);
+    }
+
+    std::string Generator::CppdeclToCodeForComments(cppdecl::PseudoExpr input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return CppdeclToCode(input);
+    }
+
+    static void CppdeclAdjustForPrettyPrintingLow(const Generator &generator, auto &target)
+    {
+        for (const auto &m : generator.modules)
+            m->AdjustForPrettyPrinting(generator, target);
+    }
+
+    void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::Type &target) const
+    {
+        CppdeclAdjustForPrettyPrintingLow(*this, target);
+    }
+
+    void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::QualifiedName &target) const
+    {
+        CppdeclAdjustForPrettyPrintingLow(*this, target);
+    }
+
+    void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::Decl &target) const
+    {
+        CppdeclAdjustForPrettyPrintingLow(*this, target);
+    }
+
+    void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::PseudoExpr &target) const
+    {
+        CppdeclAdjustForPrettyPrintingLow(*this, target);
+    }
+
+    std::string Generator::CppdeclToIdentifier(cppdecl::Type input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
+    }
+
+    std::string Generator::CppdeclToIdentifier(cppdecl::QualifiedName input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
+    }
+
+    std::string Generator::CppdeclToIdentifier(cppdecl::Decl input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
+    }
+
+    std::string Generator::CppdeclToIdentifier(cppdecl::PseudoExpr input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
+    }
+
     std::string Generator::CppTypeNameToCTypeName(const cppdecl::QualifiedName &cpp_name)
     {
         if (auto ret = CppTypeNameToCTypeNameOpt(cpp_name))
@@ -1016,7 +1091,7 @@ namespace mrbind::CBindings
             return {};
 
         if (info->custom_c_type_name.empty())
-            return cppdecl::ToString(cpp_name, cppdecl::ToStringFlags::identifier);
+            return CppdeclToIdentifier(cpp_name);
         else
             return info->custom_c_type_name;
     }
@@ -1161,7 +1236,7 @@ namespace mrbind::CBindings
                     param_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
                 }
 
-                std::string param_type_str = cppdecl::ToString(param_type, cppdecl::ToStringFlags::identifier);
+                std::string param_type_str = CppdeclToIdentifier(param_type);
 
                 if (this_is_first)
                     first_type_str = param_type_str;
@@ -1358,7 +1433,9 @@ namespace mrbind::CBindings
         cppdecl::QualifiedName full_qual_name = self.ParseQualNameOrThrow(new_func.full_qual_name);
 
         // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
-        std::string full_qual_name_fixed = self.CppdeclToCode(full_qual_name);
+        const std::string full_qual_name_fixed = self.CppdeclToCode(full_qual_name);
+        const std::string full_qual_name_fixed_deco = self.CppdeclToCodeForComments(full_qual_name);
+
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_qual_name));
 
@@ -1388,7 +1465,7 @@ namespace mrbind::CBindings
             c_comment += '\n';
         }
         c_comment += "/// Generated from function `";
-        c_comment += full_qual_name_fixed;
+        c_comment += full_qual_name_fixed_deco;
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;
@@ -1404,13 +1481,14 @@ namespace mrbind::CBindings
 
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
+        const std::string cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_type);
 
         if (new_ctor.kind != CopyMoveKind::none)
         {
             // Special member functions have fixed names.
 
             // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-            c_name = cppdecl::ToString(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToStringFlags::identifier);
+            c_name = self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_class.full_type));
             // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
             c_name += "_ConstructFromAnother";
 
@@ -1434,7 +1512,7 @@ namespace mrbind::CBindings
             c_comment += '\n';
         }
         c_comment += "/// Generated from a constructor of class `";
-        c_comment += cpp_type_str;
+        c_comment += cpp_type_str_deco;
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;
@@ -1443,7 +1521,8 @@ namespace mrbind::CBindings
     void Generator::EmitFuncParams::SetFromParsedClassMethod(Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
-        std::string cpp_type_str = self.CppdeclToCode(cpp_type);
+        const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
+        const std::string cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_type);
 
         AddThisParamFromParsedClass(self, new_class, {new_method.is_const, new_method.ref_qualifier == RefQualifier::rvalue, new_method.is_static});
         AddParamsFromParsedFunc(self, new_method.params);
@@ -1458,7 +1537,7 @@ namespace mrbind::CBindings
         if (new_method.assignment_kind != CopyMoveKind::none)
         {
             // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-            c_name = cppdecl::ToString(self.ParseTypeOrThrow(new_class.full_type), cppdecl::ToStringFlags::identifier);
+            c_name = self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_class.full_type));
             // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
             c_name += "_AssignFromAnother";
 
@@ -1480,7 +1559,9 @@ namespace mrbind::CBindings
         cppdecl::QualifiedName full_name_parsed = self.ParseQualNameOrThrow(new_method.full_name);
 
         // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
-        std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
+        const std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
+        const std::string full_name_fixed_deco = self.CppdeclToCodeForComments(full_name_parsed);
+
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
 
@@ -1495,9 +1576,9 @@ namespace mrbind::CBindings
             c_comment += '\n';
         }
         c_comment += "/// Generated from a method of class `";
-        c_comment += cpp_type_str;
+        c_comment += cpp_type_str_deco;
         c_comment += "` named `";
-        c_comment += full_name_fixed;
+        c_comment += full_name_fixed_deco;
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;
@@ -1507,6 +1588,7 @@ namespace mrbind::CBindings
     {
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
+        const std::string cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_type);
 
         AddThisParamFromParsedClass(self, new_class, {new_conv_op.is_const, new_conv_op.ref_qualifier == RefQualifier::rvalue});
 
@@ -1518,10 +1600,11 @@ namespace mrbind::CBindings
 
         SetReturnTypeFromParsedFunc(self, new_conv_op);
         const std::string target_cpp_type_str = self.CppdeclToCode(cpp_return_type);
+        const std::string target_cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_return_type);
 
         c_name = self.parsed_type_info.at(cpp_type_str).c_type_str;
         c_name += "_ConvertTo_";
-        c_name += cppdecl::ToString(self.ParseTypeOrThrow(new_conv_op.return_type.canonical), cppdecl::ToStringFlags::identifier);
+        c_name += self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_conv_op.return_type.canonical));
 
         cpp_called_func = "(" + target_cpp_type_str + ")(@this@)";
 
@@ -1531,9 +1614,9 @@ namespace mrbind::CBindings
             c_comment += '\n';
         }
         c_comment += "/// Generated from a conversion operator of class `";
-        c_comment += cpp_type_str;
+        c_comment += cpp_type_str_deco;
         c_comment += "` to type `";
-        c_comment += target_cpp_type_str;
+        c_comment += target_cpp_type_str_deco;
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;
@@ -1543,11 +1626,13 @@ namespace mrbind::CBindings
     {
         const cppdecl::Type field_type = self.ParseTypeOrThrow(new_field.type.canonical);
         const std::string class_cpp_type_str = self.CppdeclToCode(self.ParseTypeOrThrow(new_class.full_type));
+        const std::string class_cpp_type_str_deco = self.CppdeclToCodeForComments(self.ParseTypeOrThrow(new_class.full_type));
 
         cppdecl::QualifiedName full_name_parsed = self.ParseQualNameOrThrow(new_field.full_name);
 
         // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
-        std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
+        const std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
+        const std::string full_name_fixed_deco = self.CppdeclToCodeForComments(full_name_parsed);
 
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
 
@@ -1557,7 +1642,7 @@ namespace mrbind::CBindings
             c_name += '_';
             c_name += name;
             c_name += '_';
-            c_name += cppdecl::ToString(full_name_parsed, cppdecl::ToStringFlags::identifier);
+            c_name += self.CppdeclToIdentifier(full_name_parsed);
         };
 
         // Special handling for the function returning the array size, if this is an array.
@@ -1579,11 +1664,11 @@ namespace mrbind::CBindings
             cpp_called_func = "std::extent_v<decltype(@this@::" + full_name_fixed + ")>";
 
             c_comment += "/// Returns the size of the array member of class `";
-            c_comment += class_cpp_type_str;
+            c_comment += class_cpp_type_str_deco;
             c_comment += "` named `";
-            c_comment += full_name_fixed;
+            c_comment += full_name_fixed_deco;
             c_comment += "`. The size is `";
-            c_comment += self.CppdeclToCode(field_type.As<cppdecl::Array>()->size);
+            c_comment += self.CppdeclToCodeForComments(field_type.As<cppdecl::Array>()->size);
             c_comment += "`.";
 
             return true;
@@ -1657,9 +1742,9 @@ namespace mrbind::CBindings
             c_comment += '\n';
         }
         c_comment += "/// " + std::string(is_setter ? "Modifies" : is_const ? "Returns a pointer to" : "Returns a mutable pointer to") + " a member variable of class `";
-        c_comment += class_cpp_type_str;
+        c_comment += class_cpp_type_str_deco;
         c_comment += "` named `";
-        c_comment += full_name_fixed;
+        c_comment += full_name_fixed_deco;
         c_comment += "`.";
         if (is_array)
             c_comment += " This is a pointer to the first element of an array.";
@@ -1855,7 +1940,7 @@ namespace mrbind::CBindings
                     {
                         cppdecl::Type type_fixed = param.cpp_type;
                         // Remove reference-ness. At the time of writing this, those should always be references, but just in case,
-                        //   I made this conditional and handled pointers too. Shrug.
+                        //   I'm making this conditional and handle pointers too. Shrug.
                         if (type_fixed.Is<cppdecl::Reference>() || type_fixed.Is<cppdecl::Pointer>())
                             type_fixed.RemoveModifier();
                         arg_expr = CppdeclToCode(type_fixed);
@@ -2116,7 +2201,7 @@ namespace mrbind::CBindings
             ParsedTypeInfo &info = iter->second;
 
             // Not using ReplaceAllNamesInTypeWithCNames()` here, because it's an overkill and requires the information that we're about to generate (though we could probably reorder things here).
-            info.c_type_str = cppdecl::ToString(parsed_type, cppdecl::ToStringFlags::identifier);
+            info.c_type_str = self.CppdeclToIdentifier(parsed_type);
             info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
@@ -2270,7 +2355,7 @@ namespace mrbind::CBindings
             ParsedTypeInfo &info = iter->second;
 
             // Not using ReplaceAllNamesInTypeWithCNames()` here, because it's an overkill and requires the information that we're about to generate (though we could probably reorder things here).
-            info.c_type_str = cppdecl::ToString(parsed_type, cppdecl::ToStringFlags::identifier);
+            info.c_type_str = self.CppdeclToIdentifier(parsed_type);
             info.c_type = cppdecl::Type::FromSingleWord(info.c_type_str);
 
             { // Add this type to `types_bindable_with_same_address`.
@@ -2413,7 +2498,7 @@ namespace mrbind::CBindings
 
                         std::string fallback_name;
                         if (elem.template_args)
-                            fallback_name = cppdecl::ToString(self.ParseQualNameOrThrow(name + *elem.template_args), cppdecl::ToStringFlags::identifier);
+                            fallback_name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(name + *elem.template_args));
                         AddFunc(elem, std::move(name), std::move(fallback_name));
                     },
                     [&](const ClassMethod &elem)
@@ -2454,7 +2539,7 @@ namespace mrbind::CBindings
 
                         std::string fallback_name;
                         if (elem.HasTemplateArguments())
-                            fallback_name = cppdecl::ToString(self.ParseQualNameOrThrow(name + std::string(elem.TemplateArguments())), cppdecl::ToStringFlags::identifier);
+                            fallback_name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(name + std::string(elem.TemplateArguments())));
                         AddFunc(elem, std::move(name), std::move(fallback_name));
                     },
                     [&](const ClassConvOp &elem)
@@ -2492,8 +2577,8 @@ namespace mrbind::CBindings
                 throw std::logic_error("Internal error: Duplicate overloaded function pointer.");
 
             OverloadedName &ovl = iter->second;
-            ovl.name = cppdecl::ToString(self.ParseQualNameOrThrow(func.qual_name), cppdecl::ToStringFlags::identifier);
-            ovl.fallback_name = cppdecl::ToString(self.ParseQualNameOrThrow(func.full_qual_name), cppdecl::ToStringFlags::identifier);
+            ovl.name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(func.qual_name));
+            ovl.fallback_name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(func.full_qual_name));
             ovl.AddParams(self, func.params);
         }
     };
@@ -2691,7 +2776,7 @@ namespace mrbind::CBindings
                 {
                     if (need_cvref)
                     {
-                        return cppdecl::ToString(type, cppdecl::ToStringFlags::identifier);
+                        return CppdeclToIdentifier(type);
                     }
                     else
                     {
@@ -2701,7 +2786,7 @@ namespace mrbind::CBindings
                             fixed_type.RemoveModifier();
                         fixed_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
-                        return cppdecl::ToString(fixed_type, cppdecl::ToStringFlags::identifier);
+                        return CppdeclToIdentifier(fixed_type);
                     }
                 };
 
@@ -2832,6 +2917,7 @@ namespace mrbind::CBindings
 
                 const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
                 const std::string cpp_class_name_str = self.CppdeclToCode(cpp_class_name);
+                const std::string cpp_class_name_str_deco = self.CppdeclToCodeForComments(cpp_class_name);
 
                 // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
                 const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(cpp_class_name_str);
@@ -2849,13 +2935,18 @@ namespace mrbind::CBindings
                     file.header.contents += cl.comment->text_with_slashes;
                     file.header.contents += '\n';
                 }
-                file.header.contents += "/// Generated from class `" + cpp_class_name_str + "`.\n";
+                file.header.contents += "/// Generated from class `" + cpp_class_name_str_deco + "`.\n";
 
                 const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
 
                 { // The part of the comment explaning the inheritance graph.
                     auto PrintBasesOrDerived = [&](bool print_derived)
                     {
+                        auto MakeNameDecorative = [&](const std::string &name)
+                        {
+                            return self.CppdeclToCodeForComments(self.ParseQualNameOrThrow(name));
+                        };
+
                         const auto &indirect_map = (print_derived ? inheritance_info.derived_indirect : inheritance_info.bases_indirect);
                         const auto &direct_nonvirtual_map = (print_derived ? inheritance_info.derived_direct_nonvirtual : inheritance_info.bases_direct_nonvirtual);
 
@@ -2871,7 +2962,7 @@ namespace mrbind::CBindings
                                 {
                                     if (other.second != InheritanceInfo::Kind::virt)
                                         continue;
-                                    file.header.contents += "///     `" + other.first + "`\n";
+                                    file.header.contents += "///     `" + MakeNameDecorative(other.first) + "`\n";
                                 }
                             }
 
@@ -2887,7 +2978,7 @@ namespace mrbind::CBindings
 
                                     std::string &str = direct_nonvirtual_map.contains(other.first) ? dir : indir;
 
-                                    str += "///     `" + other.first + "`\n";
+                                    str += "///     `" + MakeNameDecorative(other.first) + "`\n";
                                 }
 
                                 if (!dir.empty())
@@ -2905,7 +2996,7 @@ namespace mrbind::CBindings
                                     if (other.second != InheritanceInfo::Kind::ambiguous)
                                         continue;
 
-                                    file.header.contents += "///     `" + other.first + "`\n";
+                                    file.header.contents += "///     `" + MakeNameDecorative(other.first) + "`\n";
                                 }
                             }
                         }
@@ -3016,6 +3107,7 @@ namespace mrbind::CBindings
 
                 const cppdecl::QualifiedName cpp_class_name = self.ParseQualNameOrThrow(cl.full_type);
                 const std::string cpp_class_name_str = self.CppdeclToCode(cpp_class_name);
+                const std::string cpp_class_name_str_deco = self.CppdeclToCodeForComments(cpp_class_name);
 
                 const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
                 const ParsedTypeInfo::ClassDesc &parsed_class_info = std::get<ParsedTypeInfo::ClassDesc>(parsed_type_info.input_type);
@@ -3122,7 +3214,7 @@ namespace mrbind::CBindings
                         if (all_members_ok && !member_descs.empty())
                         {
                             EmitFuncParams emit;
-                            emit.c_comment = "/// Constructs `" + cpp_class_name_str + "` elementwise.";
+                            emit.c_comment = "/// Constructs `" + cpp_class_name_str_deco + "` elementwise.";
                             emit.c_name = binder.MakeMemberFuncName(self, "ConstructFrom");
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_class_name);
                             for (const MemberDesc &member_desc : member_descs)
@@ -3188,7 +3280,7 @@ namespace mrbind::CBindings
                                         {
                                             EmitFuncParams emit;
 
-                                            emit.c_comment = "/// " + std::string(is_downcast ? "Downcasts" : "Upcasts") + " an instance of `" + cpp_class_name_str + "` to " + (is_downcast ? "a derived class" : "its base class") + " `" + target.first + "`.";
+                                            emit.c_comment = "/// " + std::string(is_downcast ? "Downcasts" : "Upcasts") + " an instance of `" + cpp_class_name_str_deco + "` to " + (is_downcast ? "a derived class" : "its base class") + " `" + target.first + "`.";
                                             if (is_downcast)
                                             {
                                                 if (is_dynamic)

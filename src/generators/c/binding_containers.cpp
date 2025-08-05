@@ -43,7 +43,7 @@ namespace mrbind::CBindings
         // All `is_trivial_...` traits are false.
         class_binder.traits->is_any_constructible = true;
 
-        basic_output_file_name = cppdecl::ToString(cpp_container_type, cppdecl::ToStringFlags::identifier);
+        basic_output_file_name = generator.CppdeclToIdentifier(cpp_container_type);
 
         if (!params.is_map)
         {
@@ -58,11 +58,11 @@ namespace mrbind::CBindings
         cppdecl::QualifiedName iterator_name = cpp_container_type;
         iterator_name.parts.emplace_back("iterator");
         auto iter = generator.type_alt_spelling_to_canonical.find(generator.CppdeclToCode(iterator_name));
-        iterator_binder_mutable = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
+        iterator_binder_mutable = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? generator.CppdeclToIdentifier(iter->second) : "");
         iterator_binder_mutable.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
         iterator_name.parts.back().var = "const_iterator";
         iter = generator.type_alt_spelling_to_canonical.find(generator.CppdeclToCode(iterator_name));
-        iterator_binder_const = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? cppdecl::ToString(iter->second, cppdecl::ToStringFlags::identifier) : "");
+        iterator_binder_const = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? generator.CppdeclToIdentifier(iter->second) : "");
         iterator_binder_const.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
     }
 
@@ -103,7 +103,7 @@ namespace mrbind::CBindings
 
             generator.TryFindHeadersForCppTypeForSourceFile(cppdecl::Type::FromQualifiedName(cpp_container_type)).InsertToFile(file);
 
-            file.header.contents += "\n/// Generated from C++ container `" + generator.CppdeclToCode(cpp_container_type) + "`.\n";
+            file.header.contents += "\n/// Generated from C++ container `" + generator.CppdeclToCodeForComments(cpp_container_type) + "`.\n";
             class_binder.EmitForwardDeclaration(generator, file);
             file.header.contents += "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n";
             iterator_binder_const.EmitForwardDeclaration(generator, file);

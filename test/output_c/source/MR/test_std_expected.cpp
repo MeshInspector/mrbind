@@ -7,6 +7,7 @@
 #include <expected>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 
 MR_C_std_expected_int_std_string *MR_StdExpected_GetExp(void)
@@ -81,5 +82,10 @@ void MR_StdExpected_SetExpVoidDef(const MR_C_std_expected_void_float *_1)
     ::MR::StdExpected::SetExpVoidDef(
         (_1 ? std::expected<void, float>(*(std::expected<void, float> *)_1) : static_cast<std::expected<void, float>>(std::expected<void, float>{}))
     );
+}
+
+MR_C_std_vector_std_expected_int_std_string *MR_StdExpected_GetExpVec(void)
+{
+    return (MR_C_std_vector_std_expected_int_std_string *)new std::vector<std::expected<int, std::string>>(::MR::StdExpected::GetExpVec());
 }
 

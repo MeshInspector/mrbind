@@ -38,7 +38,7 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+                Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type), &is_new);
 
                 if (is_new)
                 {
@@ -50,7 +50,7 @@ namespace mrbind::CBindings::Modules
                         else
                             file.header.contents += ", ";
 
-                        file.header.contents += '`' + generator.CppdeclToCode(elem_type) + '`';
+                        file.header.contents += '`' + generator.CppdeclToCodeForComments(elem_type) + '`';
                     }
                     file.header.contents += ".\n";
 
@@ -88,7 +88,7 @@ namespace mrbind::CBindings::Modules
                         type_identifiers.reserve(elem_types.size());
                         for (const auto &elem_type : elem_types)
                         {
-                            type_identifiers.push_back(cppdecl::ToString(elem_type, cppdecl::ToStringFlags::identifier));
+                            type_identifiers.push_back(generator.CppdeclToIdentifier(elem_type));
                             auto [iter, is_new] = type_identifier_dupes.try_emplace(type_identifiers.back());
                             if (!is_new)
                                 iter->second = true;
@@ -115,7 +115,7 @@ namespace mrbind::CBindings::Modules
                                 }
 
                                 Generator::EmitFuncParams emit;
-                                emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + generator.CppdeclToCode(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ".";
+                                emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ".";
                                 emit.c_name = binder.MakeMemberFuncName(generator, name);
                                 emit.cpp_return_type = elem_types[i];
                                 if (!emit.cpp_return_type.Is<cppdecl::Reference>())

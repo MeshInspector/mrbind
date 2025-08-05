@@ -41,11 +41,11 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+                Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type), &is_new);
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores either a single `" + generator.CppdeclToCode(cpp_elem_type) + "` or nothing.\n";
+                    file.header.contents += "\n/// Stores either a single `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` or nothing.\n";
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions.

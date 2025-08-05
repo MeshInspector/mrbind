@@ -1,6 +1,8 @@
 #include "generators/c/binding_common.h"
 #include "generators/c/module.h"
 
+#include <cppdecl/declarations/simplify.h>
+
 #include <algorithm>
 #include <vector>
 
@@ -42,7 +44,7 @@ namespace mrbind::CBindings::Modules
             if (merge_std_and_tl_expected)
             {
                 type_with_merged_std_and_tl.simple_type.name.parts.erase(type_with_merged_std_and_tl.simple_type.name.parts.begin());
-                customized_c_name = cppdecl::ToString(type_with_merged_std_and_tl, cppdecl::ToStringFlags::identifier);
+                customized_c_name = generator.CppdeclToIdentifier(type_with_merged_std_and_tl);
             }
 
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name, std::move(customized_c_name));
@@ -65,7 +67,7 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type_with_merged_std_and_tl, cppdecl::ToStringFlags::identifier), &is_new);
+                Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type_with_merged_std_and_tl), &is_new);
 
                 if (is_new)
                 {
@@ -73,8 +75,8 @@ namespace mrbind::CBindings::Modules
                     if (value_type_is_void)
                         file.header.contents += "nothing (which represents success)";
                     else
-                        file.header.contents += "a `" + generator.CppdeclToCode(cpp_elem_type_value) + "` that represents success";
-                    file.header.contents += "or a `" + generator.CppdeclToCode(cpp_elem_type_error) + "` that represents an error.\n";
+                        file.header.contents += "a `" + generator.CppdeclToCodeForComments(cpp_elem_type_value) + "` that represents success";
+                    file.header.contents += "or a `" + generator.CppdeclToCodeForComments(cpp_elem_type_error) + "` that represents an error.\n";
 
                     binder.EmitForwardDeclaration(generator, file);
 
@@ -102,7 +104,7 @@ namespace mrbind::CBindings::Modules
                             }
                             else
                             {
-                                emit.c_comment += "/// If this instance represents success, returns the stored `" + generator.CppdeclToCode(cpp_elem_type_value) + "`. Otherwise null.";
+                                emit.c_comment += "/// If this instance represents success, returns the stored `" + generator.CppdeclToCodeForComments(cpp_elem_type_value) + "`. Otherwise null.";
                                 if (!is_const)
                                     emit.c_comment += " This version returns a mutable pointer.";
                             }
@@ -140,7 +142,7 @@ namespace mrbind::CBindings::Modules
                         {
                             Generator::EmitFuncParams emit;
 
-                            emit.c_comment += "/// If this instance represents an error, returns the stored `" + generator.CppdeclToCode(cpp_elem_type_error) + "`. Otherwise null.";
+                            emit.c_comment += "/// If this instance represents an error, returns the stored `" + generator.CppdeclToCodeForComments(cpp_elem_type_error) + "`. Otherwise null.";
                             if (!is_const)
                                 emit.c_comment += " This version returns a mutable pointer.";
 
@@ -179,6 +181,31 @@ namespace mrbind::CBindings::Modules
             if (name.Equals(target_tl, cppdecl::QualifiedName::EqualsFlags::allow_less_parts_in_target | cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
                 return "tl/expected.hpp"; // For now we're putting third-party headers into the same category.
             return {};
+        }
+
+        void AdjustForPrettyPrintingLow(const Generator &generator, auto &target) const
+        {
+            (void)generator;
+
+            if (merge_std_and_tl_expected)
+                cppdecl::Simplify(cppdecl::SimplifyFlags::bit_extra_merge_std_tl_expected, target);
+        }
+
+        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Type &target) const override
+        {
+            AdjustForPrettyPrintingLow(generator, target);
+        }
+        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::QualifiedName &target) const override
+        {
+            AdjustForPrettyPrintingLow(generator, target);
+        }
+        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Decl &target) const override
+        {
+            AdjustForPrettyPrintingLow(generator, target);
+        }
+        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::PseudoExpr &target) const override
+        {
+            AdjustForPrettyPrintingLow(generator, target);
         }
     };
 }

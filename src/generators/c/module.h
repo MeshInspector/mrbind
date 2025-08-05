@@ -63,6 +63,14 @@ namespace mrbind::CBindings
         // For a C++ type, return the C++ standard library header that declares it. Or null, if your module doesn't know this type.
         // Do NOT recurse into template arguments, we do that automatically. And because of that, the result is limited to one string.
         virtual std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) {(void)generator; (void)name; return {};}
+
+
+        // Those are called when converting a C++ name to an identifier, or when printing it in a comment.
+        // Those are NOT required to produce valid C++ types, as the result will never be compiled.
+        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Type &target) const {(void)generator; (void)target;}
+        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::QualifiedName &target) const {(void)generator; (void)target;}
+        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Decl &target) const {(void)generator; (void)target;}
+        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::PseudoExpr &target) const {(void)generator; (void)target;}
     };
 
     // Using `std::map` to ensure a consistent ordering. The keys are the type names.

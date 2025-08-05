@@ -115,7 +115,7 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+                Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type), &is_new);
 
                 if (is_new)
                 {
@@ -126,12 +126,12 @@ namespace mrbind::CBindings::Modules
                     {
                         file.header.contents +=
                             "\n"
-                            "/// Wraps a pointer to a heap-allocated array of type `" + generator.CppdeclToCode(cpp_elem_type_minus_array) + "`, of an unspecified size.\n"
+                            "/// Wraps a pointer to a heap-allocated array of type `" + generator.CppdeclToCodeForComments(cpp_elem_type_minus_array) + "`, of an unspecified size.\n"
                             "/// Doesn't store the size, it has to be obtained separately.\n";
                     }
                     else
                     {
-                        file.header.contents += "\n/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCode(cpp_elem_type) + "`.\n";
+                        file.header.contents += "\n/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n";
                     }
                     binder.EmitForwardDeclaration(generator, file);
 

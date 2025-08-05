@@ -340,7 +340,7 @@ namespace mrbind::CBindings
 
             // ]
 
-            // This is optional. If null, we instead get the name by applying `cppdecl::ToString(..., cppdecl::ToStringFlags::identifier)` to the original C++ type name.
+            // This is optional. If null, we instead get the name by applying `Generator::CppdeclToIdentifier()` to the original C++ type name.
             std::string custom_c_type_name{};
 
             // This can be set to false if this type is literally the same in C and C++, and pointers to it can work without casts.
@@ -988,6 +988,28 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string CppdeclToCode(const cppdecl::Decl &input, cppdecl::ToCodeFlags extra_flags = {}) const;
         [[nodiscard]] std::string CppdeclToCode(const cppdecl::PseudoExpr &input, cppdecl::ToCodeFlags extra_flags = {}) const;
         [[nodiscard]] std::string CppdeclToCode(const cppdecl::SimpleType &input, cppdecl::ToCodeFlags extra_flags = {}, cppdecl::CvQualifiers ignore_cv_quals = {}) const;
+
+        // Use this when generating comments. The result might not be valid C++.
+        // This e.g. merges `std::expected` and `tl::expected` into just `expected`, if `--merge-std-and-tl-expected` is enabled.
+        [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::Type input) const;
+        [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::QualifiedName input) const;
+        [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::Decl input) const;
+        [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::PseudoExpr input) const;
+
+        // Tweaks the input to make it look prettier, such as for forming identifiers or generating comments.
+        // Normally you don't need to call this manually, as `CppdeclToIdentifier()` and `CppdeclToCodeForComments()` do that automatically.
+        // The result does NOT have to be valid C++.
+        // This e.g. merges `std::expected` and `tl::expected` into just `expected`, if `--merge-std-and-tl-expected` is enabled.
+        void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::Type &target) const;
+        void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::QualifiedName &target) const;
+        void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::Decl &target) const;
+        void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::PseudoExpr &target) const;
+
+        // Use this instead of `cppdecl::ToString(..., identifier)`.
+        [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::Type input) const;
+        [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::QualifiedName input) const;
+        [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::Decl input) const;
+        [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::PseudoExpr input) const;
 
 
         // Maps a C++ type name to a C type name, by consulting `FindTypeBindableWithSameAddress()`.

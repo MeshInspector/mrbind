@@ -37,15 +37,15 @@ namespace mrbind::CBindings::Modules
                         type,
                         cpp_elem_type,
                         binder,
-                        array_size_str = generator.CppdeclToCode(array_size)
+                        array_size_str = generator.CppdeclToCodeForComments(array_size)
                     ](Generator &generator) -> Generator::OutputFile &
                     {
                         bool is_new = false;
-                        Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+                        Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type), &is_new);
 
                         if (is_new)
                         {
-                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCode(cpp_elem_type) + "` of size " + array_size_str + ".\n";
+                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + array_size_str + ".\n";
                             binder.EmitForwardDeclaration(generator, file);
 
                             // The special member functions:
@@ -114,7 +114,7 @@ namespace mrbind::CBindings::Modules
                     // The fancy same-layout array.
 
                     Generator::BindableType &new_type = ret.emplace();
-                    const std::string c_type_name = generator.MakePublicHelperName(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier));
+                    const std::string c_type_name = generator.MakePublicHelperName(generator.CppdeclToIdentifier(type));
 
                     new_type = MakeBitCastClassBinding(generator, type.simple_type.name, c_type_name, generator.FindTypeTraits(cpp_elem_type));
                     new_type.bindable_with_same_address.custom_c_type_name = c_type_name;
@@ -128,11 +128,11 @@ namespace mrbind::CBindings::Modules
                     ](Generator &generator) -> Generator::OutputFile &
                     {
                         bool is_new = false;
-                        Generator::OutputFile &file = generator.GetPublicHelperFile(cppdecl::ToString(type, cppdecl::ToStringFlags::identifier), &is_new);
+                        Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type), &is_new);
 
                         if (is_new)
                         {
-                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCode(cpp_elem_type) + "` of size " + generator.CppdeclToCode(array_size) + ".\n";
+                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size) + ".\n";
 
                             cppdecl::Decl array_field_decl;
                             array_field_decl.name = cppdecl::QualifiedName::FromSingleWord("elems"); // Shrug.
