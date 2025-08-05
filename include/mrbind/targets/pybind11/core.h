@@ -1662,7 +1662,9 @@ namespace MRBind::pb11
                     +[](T &target)
                     {
                         return pybind11::make_iterator<pybind11::return_value_policy::copy>(begin(target), end(target));
-                    }
+                    },
+                    // Looks like without `keep_alive` copied iterator might spoil out 
+                    pybind11::keep_alive<0, 1>()
                 );
             }
         }
