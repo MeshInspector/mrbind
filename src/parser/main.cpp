@@ -665,6 +665,15 @@ namespace mrbind
         ret->text = comment->getFormattedText(ctx.getSourceManager(), ctx.getDiagnostics());
         params.parsed_comments_adjuster.Adjust(ret->text);
 
+        // If adjusting the comment made it empty, back out and return null, instead of an empty string.
+        // This is primarily to handle adjustments, but honestly, if the original comment without adjustments is already empty,
+        //   it's probably a good idea to ignore it too, I guess?
+        if (ret->text.empty())
+        {
+            ret.reset();
+            return ret;
+        }
+
         // Get the raw version with slashes.
         // But also remove the leading whitespace on each line (before the slashes).
         std::string raw_text(comment->getRawText(ctx.getSourceManager()));
