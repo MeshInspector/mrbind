@@ -45,7 +45,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + array_size_str + ".\n";
+                            generator.EmitComment(file.header, "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + array_size_str + ".\n");
                             binder.EmitForwardDeclaration(generator, file);
 
                             // The special member functions:
@@ -132,7 +132,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            file.header.contents += "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size) + ".\n";
+                            generator.EmitComment(file.header, "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size) + ".\n");
 
                             cppdecl::Decl array_field_decl;
                             array_field_decl.name = cppdecl::QualifiedName::FromSingleWord("elems"); // Shrug.

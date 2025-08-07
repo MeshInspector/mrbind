@@ -25,24 +25,26 @@ namespace mrbind::CBindings
         { // Make a comment with supported pass-by modes.
             std::string enum_name = generator.GetPassByEnumName();
 
-            file.header.contents += "/// Supported `" + enum_name + "` modes: ";
+            std::string comment;
+
+            comment += "/// Supported `" + enum_name + "` modes: ";
             if (traits.value().is_default_constructible)
-                file.header.contents += '`' + enum_name + "_DefaultConstruct`, ";
+                comment += '`' + enum_name + "_DefaultConstruct`, ";
             if (traits.value().is_copy_constructible)
             {
-                file.header.contents += '`' + enum_name + "_Copy`";
+                comment += '`' + enum_name + "_Copy`";
                 if (traits.value().copy_constructor_takes_nonconst_ref)
-                    file.header.contents += " (for this type may modify the source object)";
-                file.header.contents += ", ";
+                    comment += " (for this type may modify the source object)";
+                comment += ", ";
             }
             if (traits.value().is_move_constructible)
-                file.header.contents += '`' + enum_name + "_Move`, ";
+                comment += '`' + enum_name + "_Move`, ";
 
-            file.header.contents += "(and `" + enum_name + "_DefaultArgument` and `" + enum_name + "_NoObject` if supported by the callee).\n";
+            comment += "(and `" + enum_name + "_DefaultArgument` and `" + enum_name + "_NoObject` if supported by the callee).\n";
+            generator.EmitComment(file.header, comment);
         }
 
-        file.header.contents += MakeForwardDeclaration();
-        file.header.contents += '\n';
+        file.header.contents += MakeForwardDeclaration() + '\n';
     }
 
     void HeapAllocatedClassBinder::FillCommonParams(Generator &generator, Generator::BindableType &type)

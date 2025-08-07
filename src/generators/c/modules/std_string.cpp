@@ -29,7 +29,7 @@ namespace mrbind::CBindings::Modules
             {
                 auto &binder = is_view ? binder_stdstringview : binder_stdstring;
 
-                file.header.contents += is_view ? "\n/// A non-owning string view. Not necessarily null-terminated.\n" : "\n/// A heap-allocated null-terminated string.\n";
+                generator.EmitComment(file.header, is_view ? "\n/// A non-owning string view. Not necessarily null-terminated.\n" : "\n/// A heap-allocated null-terminated string.\n");
                 binder.EmitForwardDeclaration(generator, file);
 
                 binder.EmitSpecialMemberFunctions(generator, file, true);

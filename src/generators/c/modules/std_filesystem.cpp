@@ -33,7 +33,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores a filesystem path.\n";
+                    generator.EmitComment(file.header, "\n/// Stores a filesystem path.\n");
 
                     binder.EmitForwardDeclaration(generator, file);
 

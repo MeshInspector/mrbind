@@ -2136,6 +2136,9 @@ namespace mrbind::CBindings
             ret.body += "}";
         }
 
+        // Adjust the comment.
+        generated_comments_adjuster.Adjust(ret.comment);
+
         return ret;
     }
 
@@ -2928,82 +2931,87 @@ namespace mrbind::CBindings
                 // Forward-declaring in the middle of the file, not in the forward-declarations section.
                 // Firstly it looks better. But also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
 
-                // The comment on the declaration.
-                file.header.contents += '\n';
-                if (cl.comment)
-                {
-                    file.header.contents += cl.comment->text_with_slashes;
-                    file.header.contents += '\n';
-                }
-                file.header.contents += "/// Generated from class `" + cpp_class_name_str_deco + "`.\n";
+                { // The comment on the declaration.
+                    std::string class_comment_str = "\n";
 
-                const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
-
-                { // The part of the comment explaning the inheritance graph.
-                    auto PrintBasesOrDerived = [&](bool print_derived)
+                    if (cl.comment)
                     {
-                        auto MakeNameDecorative = [&](const std::string &name)
+                        class_comment_str += cl.comment->text_with_slashes;
+                        class_comment_str += '\n';
+                    }
+
+                    class_comment_str += "/// Generated from class `" + cpp_class_name_str_deco + "`.\n";
+
+                    const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
+
+                    { // The part of the comment explaning the inheritance graph.
+                        auto PrintBasesOrDerived = [&](bool print_derived)
                         {
-                            return self.CppdeclToCodeForComments(self.ParseQualNameOrThrow(name));
+                            auto MakeNameDecorative = [&](const std::string &name)
+                            {
+                                return self.CppdeclToCodeForComments(self.ParseQualNameOrThrow(name));
+                            };
+
+                            const auto &indirect_map = (print_derived ? inheritance_info.derived_indirect : inheritance_info.bases_indirect);
+                            const auto &direct_nonvirtual_map = (print_derived ? inheritance_info.derived_direct_nonvirtual : inheritance_info.bases_direct_nonvirtual);
+
+                            if (!indirect_map.empty())
+                            {
+                                class_comment_str += (print_derived ? "/// Derived classes:\n" : "/// Base classes:\n");
+
+                                if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::virt))
+                                {
+                                    class_comment_str += "///   Virtual:\n";
+
+                                    for (const auto &other : indirect_map)
+                                    {
+                                        if (other.second != InheritanceInfo::Kind::virt)
+                                            continue;
+                                        class_comment_str += "///     `" + MakeNameDecorative(other.first) + "`\n";
+                                    }
+                                }
+
+                                if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::non_virt))
+                                {
+                                    std::string dir;
+                                    std::string indir;
+
+                                    for (const auto &other : indirect_map)
+                                    {
+                                        if (other.second != InheritanceInfo::Kind::non_virt)
+                                            continue;
+
+                                        std::string &str = direct_nonvirtual_map.contains(other.first) ? dir : indir;
+
+                                        str += "///     `" + MakeNameDecorative(other.first) + "`\n";
+                                    }
+
+                                    if (!dir.empty())
+                                        class_comment_str += "///   Direct: (non-virtual)\n" + dir;
+                                    if (!indir.empty())
+                                        class_comment_str += "///   Indirect: (non-virtual)\n" + indir;
+                                }
+
+                                if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::ambiguous))
+                                {
+                                    class_comment_str += "///   Ambiguous:\n";
+
+                                    for (const auto &other : indirect_map)
+                                    {
+                                        if (other.second != InheritanceInfo::Kind::ambiguous)
+                                            continue;
+
+                                        class_comment_str += "///     `" + MakeNameDecorative(other.first) + "`\n";
+                                    }
+                                }
+                            }
                         };
 
-                        const auto &indirect_map = (print_derived ? inheritance_info.derived_indirect : inheritance_info.bases_indirect);
-                        const auto &direct_nonvirtual_map = (print_derived ? inheritance_info.derived_direct_nonvirtual : inheritance_info.bases_direct_nonvirtual);
+                        PrintBasesOrDerived(false);
+                        PrintBasesOrDerived(true);
+                    }
 
-                        if (!indirect_map.empty())
-                        {
-                            file.header.contents += (print_derived ? "/// Derived classes:\n" : "/// Base classes:\n");
-
-                            if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::virt))
-                            {
-                                file.header.contents += "///   Virtual:\n";
-
-                                for (const auto &other : indirect_map)
-                                {
-                                    if (other.second != InheritanceInfo::Kind::virt)
-                                        continue;
-                                    file.header.contents += "///     `" + MakeNameDecorative(other.first) + "`\n";
-                                }
-                            }
-
-                            if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::non_virt))
-                            {
-                                std::string dir;
-                                std::string indir;
-
-                                for (const auto &other : indirect_map)
-                                {
-                                    if (other.second != InheritanceInfo::Kind::non_virt)
-                                        continue;
-
-                                    std::string &str = direct_nonvirtual_map.contains(other.first) ? dir : indir;
-
-                                    str += "///     `" + MakeNameDecorative(other.first) + "`\n";
-                                }
-
-                                if (!dir.empty())
-                                    file.header.contents += "///   Direct: (non-virtual)\n" + dir;
-                                if (!indir.empty())
-                                    file.header.contents += "///   Indirect: (non-virtual)\n" + indir;
-                            }
-
-                            if (inheritance_info.HaveAny(print_derived, InheritanceInfo::Kind::ambiguous))
-                            {
-                                file.header.contents += "///   Ambiguous:\n";
-
-                                for (const auto &other : indirect_map)
-                                {
-                                    if (other.second != InheritanceInfo::Kind::ambiguous)
-                                        continue;
-
-                                    file.header.contents += "///     `" + MakeNameDecorative(other.first) + "`\n";
-                                }
-                            }
-                        }
-                    };
-
-                    PrintBasesOrDerived(false);
-                    PrintBasesOrDerived(true);
+                    self.EmitComment(file.header, class_comment_str);
                 }
 
                 if (!parsed_class_info.is_same_layout_struct)

@@ -65,6 +65,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
                     "    --use-size_t-typedef-for-uint64_t      - This is intended to be used with the parser's `--canonicalize-size_t-to-uint64_t`. When the input contains `[u]int64_t`, we'll bind them as `size_t` and `ptrdiff_t` (or our own typedefs for them, rather), instead of the standard `[u]int64_t` typedefs.\n"
                     "    --expose-as-struct          <type>     - Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.\n"
+                    "    --adjust-comments           s/A/B/g    - Adjusts all generated comments in C code with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules.\n"
                     "    --verbose                              - Write some logs.\n";
 
                 { // Ask modules for thier flags.
@@ -253,6 +254,15 @@ int main(int raw_argc, char **raw_argv)
                 if (ConsumeFlagWithStringArg("--expose-as-struct", tmp, nullptr))
                 {
                     generator.same_layout_struct_filter.Insert(std::move(tmp));
+                    continue;
+                }
+            }
+
+            { // --adjust-comments
+                std::string tmp;
+                if (ConsumeFlagWithStringArg("--adjust-comments", tmp, nullptr))
+                {
+                    generator.generated_comments_adjuster.AddRule(tmp);
                     continue;
                 }
             }

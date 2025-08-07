@@ -57,19 +57,22 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
+                    std::string comment;
                     if (is_array)
                     {
-                        file.header.contents +=
+                        comment +=
                             "\n"
                             "/// Wraps a pointer to a shared reference-counted heap-allocated array of type `" + generator.CppdeclToCodeForComments(cpp_elem_type_minus_array) + "`, " + (is_array_of_unknown_bound ? "of an unspecified size" : "of size " + generator.CppdeclToCodeForComments(cpp_elem_type.As<cppdecl::Array>()->size)) + ".\n";
 
                         if (is_array_of_unknown_bound)
-                            file.header.contents += "/// Doesn't store the size, it has to be obtained separately.\n";
+                            comment += "/// Doesn't store the size, it has to be obtained separately.\n";
                     }
                     else
                     {
-                        file.header.contents += "\n/// Wraps a pointer to a single shared reference-counted heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n";
+                        comment += "\n/// Wraps a pointer to a single shared reference-counted heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n";
                     }
+                    generator.EmitComment(file.header, comment);
+
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions.

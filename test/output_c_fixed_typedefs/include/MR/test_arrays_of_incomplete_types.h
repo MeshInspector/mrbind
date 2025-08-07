@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 
-/// Generated from function `MR::IncompleteArrayElemType::foo`.
+// Generated from function `MR::IncompleteArrayElemType::foo`.
 MR_C_API void MR_IncompleteArrayElemType_foo(MR_IncompleteArrayElemType_E (*_1)[4]);
 
 #ifdef __cplusplus

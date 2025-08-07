@@ -190,7 +190,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores a functor of type: `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`. Possibly stateful.\n";
+                    generator.EmitComment(file.header, "\n/// Stores a functor of type: `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`. Possibly stateful.\n");
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions:

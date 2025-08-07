@@ -103,13 +103,13 @@ namespace mrbind::CBindings
 
             generator.TryFindHeadersForCppTypeForSourceFile(cppdecl::Type::FromQualifiedName(cpp_container_type)).InsertToFile(file);
 
-            file.header.contents += "\n/// Generated from C++ container `" + generator.CppdeclToCodeForComments(cpp_container_type) + "`.\n";
+            generator.EmitComment(file.header, "\n/// Generated from C++ container `" + generator.CppdeclToCodeForComments(cpp_container_type) + "`.\n");
             class_binder.EmitForwardDeclaration(generator, file);
-            file.header.contents += "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n";
+            generator.EmitComment(file.header, "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n");
             iterator_binder_const.EmitForwardDeclaration(generator, file);
             if (params.has_mutable_iterators)
             {
-                file.header.contents += "\n/// Mutable iterator for `" + class_binder.c_type_name + "`.\n";
+                generator.EmitComment(file.header, "\n/// Mutable iterator for `" + class_binder.c_type_name + "`.\n");
                 iterator_binder_mutable.EmitForwardDeclaration(generator, file);
             }
 

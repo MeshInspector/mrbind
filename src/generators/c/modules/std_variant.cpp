@@ -45,18 +45,19 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores one of " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
+                    std::string comment;
+                    comment += "\n/// Stores one of " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
                         if (first)
                             first = false;
                         else
-                            file.header.contents += ", ";
+                            comment += ", ";
 
-                        file.header.contents += '`' + generator.CppdeclToCodeForComments(elem_type) + '`';
+                        comment += '`' + generator.CppdeclToCodeForComments(elem_type) + '`';
                     }
-                    file.header.contents += ".\n";
-
+                    comment += ".\n";
+                    generator.EmitComment(file.header, comment);
 
                     binder.EmitForwardDeclaration(generator, file);
 

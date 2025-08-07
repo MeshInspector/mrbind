@@ -71,12 +71,14 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores either ";
+                    std::string comment = "\n/// Stores either ";
                     if (value_type_is_void)
-                        file.header.contents += "nothing (which represents success)";
+                        comment += "nothing (which represents success)";
                     else
-                        file.header.contents += "a `" + generator.CppdeclToCodeForComments(cpp_elem_type_value) + "` that represents success";
-                    file.header.contents += "or a `" + generator.CppdeclToCodeForComments(cpp_elem_type_error) + "` that represents an error.\n";
+                        comment += "a `" + generator.CppdeclToCodeForComments(cpp_elem_type_value) + "` that represents success";
+                    comment += " or a `" + generator.CppdeclToCodeForComments(cpp_elem_type_error) + "` that represents an error.\n";
+
+                    generator.EmitComment(file.header, comment);
 
                     binder.EmitForwardDeclaration(generator, file);
 

@@ -35,9 +35,9 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// A C++ output stream.\n";
+                    generator.EmitComment(file.header, "\n/// A C++ output stream.\n");
                     file.header.contents += MakeStructForwardDeclaration(c_name_ostream) + '\n';
-                    file.header.contents += "\n/// A C++ input stream.\n";
+                    generator.EmitComment(file.header, "\n/// A C++ input stream.\n");
                     file.header.contents += MakeStructForwardDeclaration(c_name_istream) + '\n';
 
                     { // cout

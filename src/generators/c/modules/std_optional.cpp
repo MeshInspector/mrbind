@@ -45,7 +45,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    file.header.contents += "\n/// Stores either a single `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` or nothing.\n";
+                    generator.EmitComment(file.header, "\n/// Stores either a single `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` or nothing.\n");
                     binder.EmitForwardDeclaration(generator, file);
 
                     // The special member functions.

@@ -3,6 +3,7 @@
 #include "common/parsed_data.h"
 #include "common/polyfill/std_filesystem_path_hash.h" // IWYU pragma: keep
 #include "common/string_filter.h"
+#include "common/string_regex_adjuster.h"
 #include "mrbind/helpers/enum_flag_ops.h"
 
 #include <cppdecl/declarations/data.h>
@@ -76,6 +77,8 @@ namespace mrbind::CBindings
 
         // The matching C++ structs/classes get bound as C structs instead of opaque pointers.
         StringFilter same_layout_struct_filter;
+
+        StringRegexAdjuster generated_comments_adjuster;
 
         // ]
 
@@ -1273,6 +1276,16 @@ namespace mrbind::CBindings
         [[nodiscard]] EmittedFunctionStrings EmitFunctionAsStrings(OutputFile &file, const EmitFuncParams &params);
 
         void EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field);
+
+        // Writes `comment` to the `file`, possibly adjusting it before writing.
+        // The input must end with an empty newline, and can optionally start with a newline
+        // Use this for emittinig all comments (even though we currently skip some internal comments; maybe we shouldn't).
+        void EmitComment(OutputFile::SpecificFileContents &file, std::string comment)
+        {
+            assert(comment.empty() || comment.ends_with('\n'));
+            generated_comments_adjuster.Adjust(comment);
+            file.contents += comment;
+        }
 
 
         struct Visitor

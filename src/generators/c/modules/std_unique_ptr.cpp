@@ -124,14 +124,15 @@ namespace mrbind::CBindings::Modules
 
                     if (is_array_of_unknown_bound)
                     {
-                        file.header.contents +=
+                        generator.EmitComment(file.header,
                             "\n"
                             "/// Wraps a pointer to a heap-allocated array of type `" + generator.CppdeclToCodeForComments(cpp_elem_type_minus_array) + "`, of an unspecified size.\n"
-                            "/// Doesn't store the size, it has to be obtained separately.\n";
+                            "/// Doesn't store the size, it has to be obtained separately.\n"
+                        );
                     }
                     else
                     {
-                        file.header.contents += "\n/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n";
+                        generator.EmitComment(file.header, "\n/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n");
                     }
                     binder.EmitForwardDeclaration(generator, file);
 
