@@ -14,6 +14,7 @@
 #include "common/parsed_data.h"
 #include "common/set_error_handlers.h"
 #include "common/string_filter.h"
+#include "common/string_regex_adjuster.h"
 #include "parser/combine_types.h"
 #include "parser/cppdecl_helpers.h"
 #include "parser/data_to_json.h"
@@ -180,6 +181,10 @@ namespace mrbind
 
         // Try to substitute default arguments into templates, when possible.
         bool buggy_substitute_default_template_args = false;
+
+        // All the parsed comments are pre-processed by this.
+        // Applies to both comment strings with and without slashes, so should handle both correctly.
+        StringRegexAdjuster parsed_comments_adjuster;
     };
 
     struct PrintingPolicies
@@ -646,7 +651,7 @@ namespace mrbind
     }
 
     // Returns a comment string associated with a declaration, or null if none.
-    [[nodiscard]] std::optional<Comment> GetCommentString(const clang::ASTContext &ctx, const clang::Decl &decl)
+    [[nodiscard]] std::optional<Comment> GetCommentString(const clang::ASTContext &ctx, const VisitorParams &params, const clang::Decl &decl)
     {
         // I'd really like to have a bool for documentation comments here, but for some reason everything
         //   that `getRawCommentForAnyRedecl()` returns has the type set to `merged` (instead of `normal` or `documentation`).
@@ -658,6 +663,7 @@ namespace mrbind
             return ret;
         ret.emplace();
         ret->text = comment->getFormattedText(ctx.getSourceManager(), ctx.getDiagnostics());
+        params.parsed_comments_adjuster.Adjust(ret->text);
 
         // Get the raw version with slashes.
         // But also remove the leading whitespace on each line (before the slashes).
@@ -675,6 +681,7 @@ namespace mrbind
             if (ch == '\n')
                 beginning_of_line = true;
         }
+        params.parsed_comments_adjuster.Adjust(ret->text_with_slashes);
 
         return ret;
     }
@@ -1387,7 +1394,7 @@ namespace mrbind
                 if (auto dtor = llvm::dyn_cast<clang::CXXDestructorDecl>(decl))
                 {
                     ClassDtor &new_dtor = target_class.members.emplace_back().emplace<ClassDtor>();
-                    new_dtor.comment = GetCommentString(*ctx, *method);
+                    new_dtor.comment = GetCommentString(*ctx, *params, *method);
                     new_dtor.is_trivial = dtor->isTrivial();
                     new_dtor.is_virtual = dtor->isVirtual();
                     return true; // Done processing the destructor. The rest is only for other kinds of members.
@@ -1476,7 +1483,7 @@ namespace mrbind
                     basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType(), TypeUses::returned);
                 }
 
-                basic_func->comment = GetCommentString(*ctx, *method);
+                basic_func->comment = GetCommentString(*ctx, *params, *method);
                 basic_func->params = GetFuncParams(*method);
                 return true; // Done processing member function, the rest is for non-members.
             }
@@ -1509,7 +1516,7 @@ namespace mrbind
             new_func.name = decl->getDeclName().getAsString();
             new_func.simple_name = GetAdjustedFuncName(*decl);
             new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
-            new_func.comment = GetCommentString(*ctx, *decl);
+            new_func.comment = GetCommentString(*ctx, *params, *decl);
             new_func.params = GetFuncParams(*decl);
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 
@@ -1537,7 +1544,7 @@ namespace mrbind
             params->container_stack.push_back(&new_class);
 
             new_class.name = decl->getName();
-            new_class.comment = GetCommentString(*ctx, *decl);
+            new_class.comment = GetCommentString(*ctx, *params, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
             new_class.is_aggregate = ctx->getRecordType(decl)->isAggregateType();
             new_class.type_size = DivideByByteSize(ctx->getTypeInfo(ctx->getRecordType(decl)).Width);
@@ -1618,7 +1625,7 @@ namespace mrbind
                     }
 
                     ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
-                    new_field.comment = GetCommentString(*ctx, *var);
+                    new_field.comment = GetCommentString(*ctx, *params, *var);
                     new_field.is_static = true;
                     new_field.name = var->getName();
                     new_field.full_name = std::move(full_name);
@@ -1640,7 +1647,7 @@ namespace mrbind
                 }
 
                 ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
-                new_field.comment = GetCommentString(*ctx, *field);
+                new_field.comment = GetCommentString(*ctx, *params, *field);
                 new_field.is_static = false;
                 new_field.name = field->getName();
                 new_field.full_name = field->getName();
@@ -1862,7 +1869,7 @@ namespace mrbind
 
             new_enum.name = decl->getName();
             new_enum.is_scoped = decl->isScoped();
-            new_enum.comment = GetCommentString(*ctx, *decl);
+            new_enum.comment = GetCommentString(*ctx, *params, *decl);
             new_enum.full_type = GetCanonicalTypeName(ctx->getEnumType(decl));
             new_enum.has_custom_underlying_type = decl->isFixed();
             if (params->implicit_enum_underlying_type_is_always_int && !new_enum.has_custom_underlying_type)
@@ -1883,7 +1890,7 @@ namespace mrbind
                 EnumElem &new_elem = new_enum.elems.emplace_back();
 
                 new_elem.name = elem->getName();
-                new_elem.comment = GetCommentString(*ctx, *elem);
+                new_elem.comment = GetCommentString(*ctx, *params, *elem);
 
                 if (new_enum.is_signed)
                 {
@@ -1930,7 +1937,7 @@ namespace mrbind
 
             new_typedef.name = decl->getName();
             new_typedef.full_name = std::move(full_name);
-            new_typedef.comment = GetCommentString(*ctx, *decl);
+            new_typedef.comment = GetCommentString(*ctx, *params, *decl);
             new_typedef.type = std::move(type_strings);
             new_typedef.declared_in_file = GetDefinitionLocationFile(*decl, new_typedef.full_name);
             RegisterTypeSpelling(decl->getUnderlyingType(), new_typedef.full_name, TypeUses::typedef_name);
@@ -1947,7 +1954,7 @@ namespace mrbind
                 params->container_stack.push_back(&new_ns);
                 if (!decl->isAnonymousNamespace())
                     new_ns.name = decl->getName();
-                new_ns.comment = GetCommentString(*ctx, *decl);
+                new_ns.comment = GetCommentString(*ctx, *params, *decl);
                 new_ns.is_inline = decl->isInlineNamespace();
                 new_ns.declared_in_file = GetDefinitionLocationFile(*decl, new_ns.name ? *new_ns.name : "(anonymous namespace)");
             }
@@ -2936,6 +2943,15 @@ int main(int argc, char **argv)
                         params.buggy_substitute_default_template_args = true;
                         continue;
                     }
+
+                    if (this_arg == "--adjust-comments")
+                    {
+                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
+                            throw std::runtime_error("Expected an argument after `" + std::string(this_arg) + "`.");
+
+                        params.parsed_comments_adjuster.AddRule(argv[++i]);
+                        continue;
+                    }
                 }
             }
 
@@ -2979,6 +2995,7 @@ int main(int argc, char **argv)
         "  --canonicalize-size_t-to-uint64_t - This only has effect if `--canonicalize-to-fixed-size-typedefs` is set, and if we're targeting Mac. On Mac, `uint64_t` and `size_t` are different types (`unsigned long long` and `unsigned long` respectively), for some unknown reason. If this is enabled, instead of canonicalizing `unsigned long` to `uint64_t`, we canonicalize `unsigned long long` to `uint64_t`. This allows you to use `size_t` and `ptrdiff_t` in the public interface, but means that you can no longer use the standard `[u]int64_t` typedefs in the interface.\n"
         "  --implicit-enum-underlying-type-is-always-int - This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.\n"
         "  --buggy-substitute-default-template-args - Automatically instantiate function templates that have all their arguments defaulted, by substituting those default template arguments. This is currently buggy, enable at your own risk (chokes on old-style SFINAE, works alright with `requires`).\n"
+        "  --adjust-comments s/A/B/g   - Adjusts all parsed comments with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules. We separately record the comments with and without leading slashes, and this is applied to both forms, so it should correctly handle both, and shouldn't remove the leading slashes, at least not without replacing them with some other form of a comment.\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
         "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.\n"

@@ -76,13 +76,13 @@ namespace mrbind
                 }
                 catch (...)
                 {
-                    std::throw_with_nested(std::runtime_error("While parsing regex `" + std::string(regex_view) = "`:"));
+                    std::throw_with_nested(std::runtime_error("While parsing regex `" + std::string(regex_view) + "`:"));
 
                 }
             }
             catch (...)
             {
-                std::throw_with_nested(std::runtime_error("While parsing replacement rule `" + std::string(input) = "`:"));
+                std::throw_with_nested(std::runtime_error("While parsing replacement rule `" + std::string(input) + "`:"));
             }
 
             rules.push_back(std::move(new_rule));
