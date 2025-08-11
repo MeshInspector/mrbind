@@ -226,19 +226,3 @@ MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *MR_StdSharedPtr_G
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <std_shared_ptr_MR_StdSharedPtr_A.h>
-#include <std_shared_ptr_MR_StdSharedPtr_A_array.h>
-#include <std_shared_ptr_MR_StdSharedPtr_A_array_42.h>
-#include <std_shared_ptr_const_MR_StdSharedPtr_A.h>
-#include <std_shared_ptr_const_MR_StdSharedPtr_A_array.h>
-#include <std_shared_ptr_const_MR_StdSharedPtr_A_array_42.h>
-#include <std_shared_ptr_const_int.h>
-#include <std_shared_ptr_const_int_array.h>
-#include <std_shared_ptr_const_int_array_42.h>
-#include <std_shared_ptr_int.h>
-#include <std_shared_ptr_int_array.h>
-#include <std_shared_ptr_int_array_42.h>

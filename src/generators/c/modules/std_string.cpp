@@ -23,7 +23,7 @@ namespace mrbind::CBindings::Modules
         Generator::OutputFile &GetOutputFile(Generator &generator, bool is_view)
         {
             bool is_new = false;
-            Generator::OutputFile &file = generator.GetPublicHelperFile(is_view ? "std_string_view" : "std_string", &is_new);
+            Generator::OutputFile &file = *generator.GetPublicHelperFile(is_view ? "std_string_view" : "std_string", &is_new);
 
             if (is_new)
             {

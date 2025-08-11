@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_STD_STRING_VIEW_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_STD_STRING_VIEW_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,7 +54,13 @@ MR_C_API void MR_StdStringView_ConstRvalueRef(const char *s, const char *s_end);
 } // extern "C"
 #endif
 
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_STD_STRING_VIEW_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_STRING_VIEW_H_2)
+#define MR_C_DETAIL_INCLUDED_MR_TEST_STD_STRING_VIEW_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <std_string_view.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_STRING_VIEW_H_2)

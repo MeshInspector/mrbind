@@ -1,8 +1,12 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_FUNCTION_MR_STDFUNCTION_E_FROM_INT32_T_MR_STDFUNCTION_E_H
+#define MR_C_DETAIL_INCLUDED_STD_FUNCTION_MR_STDFUNCTION_E_FROM_INT32_T_MR_STDFUNCTION_E_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <MR/test_std_function.h>
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -66,3 +70,14 @@ MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_A
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_FUNCTION_MR_STDFUNCTION_E_FROM_INT32_T_MR_STDFUNCTION_E_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_FUNCTION_MR_STDFUNCTION_E_FROM_INT32_T_MR_STDFUNCTION_E_H_2)
+#define MR_C_DETAIL_INCLUDED_STD_FUNCTION_MR_STDFUNCTION_E_FROM_INT32_T_MR_STDFUNCTION_E_H_2
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <MR/test_std_function.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_FUNCTION_MR_STDFUNCTION_E_FROM_INT32_T_MR_STDFUNCTION_E_H_2)

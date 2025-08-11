@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_ABSTRACT_CLASSES_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_ABSTRACT_CLASSES_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -103,3 +107,5 @@ MR_C_API MR_AbstractClasses_B *MR_AbstractClasses_C_MutableUpcastTo_MR_AbstractC
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_ABSTRACT_CLASSES_H

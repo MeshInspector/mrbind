@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_VECTOR_INT64_T_H
+#define MR_C_DETAIL_INCLUDED_STD_VECTOR_INT64_T_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -326,3 +330,5 @@ MR_C_API ptrdiff_t MR_C_std_vector_int64_t_iterator_Distance(const MR_C_std_vect
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_VECTOR_INT64_T_H

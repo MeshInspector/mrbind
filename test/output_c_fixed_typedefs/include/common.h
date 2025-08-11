@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_COMMON_H
+#define MR_C_DETAIL_INCLUDED_COMMON_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -39,3 +43,5 @@ MR_C_API void *MR_C_AllocArray(size_t num_bytes);
 // Deallocates memory that was previously allocated with `MR_C_AllocArray()`. Does nothing if the pointer is null.
 MR_C_API void MR_C_FreeArray(void *ptr);
 
+
+#endif // MR_C_DETAIL_INCLUDED_COMMON_H

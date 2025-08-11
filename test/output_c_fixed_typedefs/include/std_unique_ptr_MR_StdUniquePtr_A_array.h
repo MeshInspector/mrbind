@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_MR_STDUNIQUEPTR_A_ARRAY_H
+#define MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_MR_STDUNIQUEPTR_A_ARRAY_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -77,7 +81,13 @@ MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Release(
 } // extern "C"
 #endif
 
+#endif // MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_MR_STDUNIQUEPTR_A_ARRAY_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_MR_STDUNIQUEPTR_A_ARRAY_H_2)
+#define MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_MR_STDUNIQUEPTR_A_ARRAY_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <MR/test_std_unique_ptr.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_MR_STDUNIQUEPTR_A_ARRAY_H_2)

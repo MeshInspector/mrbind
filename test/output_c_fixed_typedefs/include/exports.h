@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_EXPORTS_H
+#define MR_C_DETAIL_INCLUDED_EXPORTS_H
 
 #ifndef MR_C_API
 #  ifdef _WIN32
@@ -12,3 +13,5 @@
 #  endif
 #endif
 
+
+#endif // MR_C_DETAIL_INCLUDED_EXPORTS_H

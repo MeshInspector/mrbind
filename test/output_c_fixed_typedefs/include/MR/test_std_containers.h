@@ -1,8 +1,12 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_STD_CONTAINERS_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_STD_CONTAINERS_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
 #include <std_array_int32_t_43.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -299,11 +303,16 @@ MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetS
 } // extern "C"
 #endif
 
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_STD_CONTAINERS_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_CONTAINERS_H_2)
+#define MR_C_DETAIL_INCLUDED_MR_TEST_STD_CONTAINERS_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <std_array_MR_StdContainers_A_42.h>
 #include <std_array_MR_StdContainers_NonAssignable_42.h>
+#include <std_array_int32_t_43.h>
 #include <std_deque_MR_StdContainers_NonAssignable.h>
 #include <std_deque_int32_t.h>
 #include <std_list_MR_StdContainers_NonAssignable.h>
@@ -329,3 +338,5 @@ MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetS
 #include <std_vector_MR_StdContainers_NonAssignable.h>
 #include <std_vector_MR_StdContainers_NonDefaultConstructible.h>
 #include <std_vector_int32_t.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_CONTAINERS_H_2)

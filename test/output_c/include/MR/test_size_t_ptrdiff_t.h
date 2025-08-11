@@ -79,9 +79,3 @@ MR_C_API unsigned long MR_TestSizeT_A_unsigned_long_foo(MR_TestSizeT_A_unsigned_
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <std_vector_long.h>
-#include <std_vector_unsigned_long.h>

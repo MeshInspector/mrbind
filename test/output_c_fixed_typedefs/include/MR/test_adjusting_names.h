@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_ADJUSTING_NAMES_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_ADJUSTING_NAMES_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -81,3 +85,5 @@ MR_C_API void MR_AdjustingNames_A_bar(MR_AdjustingNames_A *_this);
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_ADJUSTING_NAMES_H

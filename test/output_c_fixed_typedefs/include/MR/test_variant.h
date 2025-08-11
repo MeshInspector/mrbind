@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_VARIANT_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_VARIANT_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,6 +36,10 @@ MR_C_API MR_C_std_variant_std_monostate_int32_t_float *MR_StdVariant_blah(void);
 } // extern "C"
 #endif
 
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_VARIANT_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_VARIANT_H_2)
+#define MR_C_DETAIL_INCLUDED_MR_TEST_VARIANT_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
@@ -39,3 +47,5 @@ MR_C_API MR_C_std_variant_std_monostate_int32_t_float *MR_StdVariant_blah(void);
 #include <std_variant_int32_t_float_float.h>
 #include <std_variant_int32_t_float_std_string.h>
 #include <std_variant_std_monostate_int32_t_float.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_VARIANT_H_2)

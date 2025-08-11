@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_MATCHING_LAYOUT_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_MATCHING_LAYOUT_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -55,3 +59,5 @@ MR_C_API MR_MatchingLayout_B *MR_MatchingLayout_bleh(MR_MatchingLayout_B *_1);
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_MATCHING_LAYOUT_H

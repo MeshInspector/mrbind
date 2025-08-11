@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_TUPLE_FLOAT_DOUBLE_INT32_T_INT32_T_H
+#define MR_C_DETAIL_INCLUDED_STD_TUPLE_FLOAT_DOUBLE_INT32_T_INT32_T_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -92,3 +96,5 @@ MR_C_API int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_int32_t
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_TUPLE_FLOAT_DOUBLE_INT32_T_INT32_T_H

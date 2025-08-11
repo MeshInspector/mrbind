@@ -50,7 +50,7 @@ namespace mrbind::CBindings::Modules
 
                     ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(c_name));
                     if (need_custom_typedef)
-                        ret->bindable_with_same_address.declared_in_file = [&generator]() -> auto & {return generator.GetCommonPublicHelpersFile();};
+                        ret->bindable_with_same_address.declared_in_file = [&generator]() -> auto & {return *generator.GetCommonPublicHelpersFile();};
                     else
                         ret->bindable_with_same_address.declared_in_c_stdlib_file = target_type.c_header;
                     ret->bindable_with_same_address.custom_c_type_name = c_name;
@@ -84,7 +84,7 @@ namespace mrbind::CBindings::Modules
                     {
                         // Firstly, yes, we're still testing against the unadjusted name here. Apparently here it's always unadjusted.
                         // Secondly, yes, we intentionally include the C header in the C++ source file. Not sure how else we could do this.
-                        return generator.GetCommonPublicHelpersFile().header.path_for_inclusion;
+                        return generator.GetCommonPublicHelpersFile()->header.path_for_inclusion;
                     }
                     else
                     {

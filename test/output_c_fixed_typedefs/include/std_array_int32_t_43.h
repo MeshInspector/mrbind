@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_ARRAY_INT32_T_43_H
+#define MR_C_DETAIL_INCLUDED_STD_ARRAY_INT32_T_43_H
 
 #include <stdint.h>
 
@@ -16,3 +17,5 @@ typedef struct MR_C_std_array_int32_t_43
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_ARRAY_INT32_T_43_H

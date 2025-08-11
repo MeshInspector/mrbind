@@ -227,8 +227,3 @@ MR_C_API void MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_iterat
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <MR/test_std_containers.h>

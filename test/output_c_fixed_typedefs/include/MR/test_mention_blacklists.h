@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_MENTION_BLACKLISTS_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_MENTION_BLACKLISTS_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -143,3 +147,5 @@ MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_MENTION_BLACKLISTS_H

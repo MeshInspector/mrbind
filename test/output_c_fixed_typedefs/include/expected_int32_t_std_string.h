@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_EXPECTED_INT32_T_STD_STRING_H
+#define MR_C_DETAIL_INCLUDED_EXPECTED_INT32_T_STD_STRING_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -74,7 +78,13 @@ MR_C_API MR_C_std_string *MR_C_expected_int32_t_std_string_GetMutableError(MR_C_
 } // extern "C"
 #endif
 
+#endif // MR_C_DETAIL_INCLUDED_EXPECTED_INT32_T_STD_STRING_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_EXPECTED_INT32_T_STD_STRING_H_2)
+#define MR_C_DETAIL_INCLUDED_EXPECTED_INT32_T_STD_STRING_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <std_string.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_EXPECTED_INT32_T_STD_STRING_H_2)

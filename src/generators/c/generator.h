@@ -78,7 +78,11 @@ namespace mrbind::CBindings
         // The matching C++ structs/classes get bound as C structs instead of opaque pointers.
         StringFilter same_layout_struct_filter;
 
+        // This modifies most comments we generate.
         StringRegexAdjuster generated_comments_adjuster;
+
+        // Go out of our way to include additional headers in our headers, if we think the user might want them.
+        bool add_convenience_includes = false;
 
         // ]
 
@@ -155,6 +159,11 @@ namespace mrbind::CBindings
             ret += name;
             return ret;
         }
+        // Same, but for private macros.
+        [[nodiscard]] std::string MakeDetailHelperMacroName(std::string_view name) const
+        {
+            return MakePublicHelperMacroName("DETAIL_" + std::string(name));
+        }
 
         // This one is for member function names (including static member functions), for both parsed and custom classes.
         [[nodiscard]] std::string MakeMemberFuncName(std::string_view c_type_name, std::string_view func_name) const
@@ -184,6 +193,10 @@ namespace mrbind::CBindings
                 // If this is a header, this is a file name to be used to include it.
                 // This is empty for `.source` (the source file).
                 std::string path_for_inclusion;
+
+                // The include guard name in all caps, or empty if we're using pragma once.
+                // This must be non-empty if we're using `--add-convenience-includes`.
+                std::string include_guard_name;
 
                 // The contents are pasted in this order: [
 
@@ -294,19 +307,30 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string GetMemoryAllocFuncName(bool is_array, OutputFile *file);
 
         // Returns the public C header that declares the `PassBy` enum, and some other public helpers.
-        [[nodiscard]] OutputFile &GetCommonPublicHelpersFile();
+        // It's always created on the first use, except when `can_create == false`, in which case it will return null if the file doesn't exist.
+        [[nodiscard]] OutputFile *GetCommonPublicHelpersFile(bool can_create = true);
 
-        // Returns a public helper header with this name. It gets created on the first use.
-        [[nodiscard]] OutputFile &GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {});
+        // Returns true if this header is the header created by `GetCommonPublicHelpersFile()`.
+        [[nodiscard]] bool IsCommonPublicHelpersHeader(std::string_view path_for_inclusion);
+
+        // Returns a public helper header with this name.
+        // Normally it gets created on the first use, so this never returns null. But if you pass `can_create == false`, it'll return null if the file doesn't exist.
+        [[nodiscard]] OutputFile *GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true);
 
         // Returns the appropriate export macro for the specified output file.
         // Also modifies that file to include the header where the macro is declared, and creates that header on the first use too.
         // If `for_internal_header` is false, acts on the public C header. If true, acts on the internal C++ header.
         [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file, bool for_internal_header);
 
+        // Returns true if this header is a header created by `GetExportMacroForFile()`.
+        [[nodiscard]] bool IsExportHeader(std::string_view path_for_inclusion);
+
         // Returns the macro that when defined enables the function exporting. It's defined automatically in all our source files.
         // This function doesn't modify the file, unlike `GetExportMacroForFile()`.
         [[nodiscard]] std::string GetBuildLibraryMacroForFile(const OutputFile &target_file);
+
+        // Returns the macro that `--add-convenience-incldues` uses for internal purposes.
+        [[nodiscard]] std::string GetConvenienceIncludesMacro();
 
         // Returns true if this is a built-in C type.
         // If both `allow_scalar_typedefs` is true and `flags & allow_integral` is true, also accept `[u]int??_t`, to match `--canonicalize-to-fixed-size-typedefs`.

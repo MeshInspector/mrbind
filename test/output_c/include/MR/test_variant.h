@@ -31,11 +31,3 @@ MR_C_API MR_C_std_variant_std_monostate_int_float *MR_StdVariant_blah(void);
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <std_variant_int_float.h>
-#include <std_variant_int_float_float.h>
-#include <std_variant_int_float_std_string.h>
-#include <std_variant_std_monostate_int_float.h>

@@ -50,8 +50,3 @@ MR_C_API void MR_StdString_ConstRvalueRef(const MR_C_std_string *s);
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <std_string.h>

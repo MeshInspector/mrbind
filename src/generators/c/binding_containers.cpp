@@ -94,7 +94,7 @@ namespace mrbind::CBindings
         bool is_new = false;
 
         assert(!basic_output_file_name.empty());
-        Generator::OutputFile &file = generator.GetPublicHelperFile(basic_output_file_name, &is_new);
+        Generator::OutputFile &file = *generator.GetPublicHelperFile(basic_output_file_name, &is_new);
 
         if (is_new)
         {

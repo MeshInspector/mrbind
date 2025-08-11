@@ -200,7 +200,7 @@ namespace mrbind::CBindings
             // Here we only fill the `_with_default_arg` version, because that handles both.
             Generator::BindableType::ParamUsageWithDefaultArg &param_usage = ret.emplace();
             param_usage.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
-            param_usage.extra_headers.custom_in_header_file = [&generator]{return std::unordered_set{generator.GetCommonPublicHelpersFile().header.path_for_inclusion};};
+            param_usage.extra_headers.custom_in_header_file = [&generator]{return std::unordered_set{generator.GetCommonPublicHelpersFile()->header.path_for_inclusion};};
 
             param_usage.c_params.emplace_back().c_type.simple_type.name.parts.emplace_back(generator.GetPassByEnumName());
             param_usage.c_params.back().name_suffix = "_pass_by";

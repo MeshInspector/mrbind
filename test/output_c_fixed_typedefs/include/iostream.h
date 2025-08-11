@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_IOSTREAM_H
+#define MR_C_DETAIL_INCLUDED_IOSTREAM_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,3 +36,5 @@ MR_C_API MR_C_std_istream *MR_C_GetStdCin(void);
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_IOSTREAM_H

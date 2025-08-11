@@ -115,12 +115,12 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type), &is_new);
+                Generator::OutputFile &file = *generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type), &is_new);
 
                 if (is_new)
                 {
                     if (include_common_header_in_output_header)
-                        file.source.custom_headers.insert(generator.GetCommonPublicHelpersFile().header.path_for_inclusion);
+                        file.source.custom_headers.insert(generator.GetCommonPublicHelpersFile()->header.path_for_inclusion);
 
                     if (is_array_of_unknown_bound)
                     {

@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_UNORDERED_MULTIMAP_INT32_T_FLOAT_H
+#define MR_C_DETAIL_INCLUDED_STD_UNORDERED_MULTIMAP_INT32_T_FLOAT_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -220,3 +224,5 @@ MR_C_API void MR_C_std_unordered_multimap_int32_t_float_iterator_Incr(MR_C_std_u
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_UNORDERED_MULTIMAP_INT32_T_FLOAT_H

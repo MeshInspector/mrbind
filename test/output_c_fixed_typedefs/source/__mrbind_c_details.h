@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef MR_C_DETAIL_INCLUDED_MRBIND_C_DETAILS_H
+#define MR_C_DETAIL_INCLUDED_MRBIND_C_DETAILS_H
 
 #include <stdexcept>
 
@@ -59,3 +59,5 @@ namespace mrbindc_details
 
 // ]
 
+
+#endif // MR_C_DETAIL_INCLUDED_MRBIND_C_DETAILS_H

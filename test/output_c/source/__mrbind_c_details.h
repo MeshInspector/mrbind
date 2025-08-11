@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <stdexcept>
 
 namespace mrbindc_details

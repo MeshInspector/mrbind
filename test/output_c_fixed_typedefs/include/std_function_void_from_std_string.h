@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_STD_STRING_H
+#define MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_STD_STRING_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -67,7 +71,13 @@ MR_C_API void MR_C_std_function_void_from_std_string_AssignWithDataPtr(MR_C_std_
 } // extern "C"
 #endif
 
+#endif // MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_STD_STRING_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_STD_STRING_H_2)
+#define MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_STD_STRING_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <std_string.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_STD_STRING_H_2)

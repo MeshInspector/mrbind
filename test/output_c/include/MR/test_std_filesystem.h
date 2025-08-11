@@ -34,8 +34,3 @@ MR_C_API void MR_StdFilesystem_SetPathDef(const char *_1, const char *_1_end);
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <std_filesystem_path.h>

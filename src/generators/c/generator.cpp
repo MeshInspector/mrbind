@@ -54,11 +54,47 @@ namespace mrbind::CBindings
                 self.directories_to_create.insert((self.output_source_dir_path / cur_path).lexically_normal());
             }
         }
+
+        { // Also come up with the name for the include guard, if we want one.
+            // By default we use `#pragma once`, but adding convenience includes is incompatible with it.
+            if (self.add_convenience_includes)
+            {
+                auto ProcessSpecificFile = [&](SpecificFileContents &file)
+                {
+                    std::string_view view = file.path_for_inclusion;
+
+                    // Sanitizer the original path a bit.
+                    // This part is specifically for our `__mrbind_c_details`.
+                    while (view.starts_with('_'))
+                        view.remove_prefix(1);
+
+                    file.include_guard_name = view;
+
+                    // Convert to uppercase and remove special characters;
+                    for (char &ch : file.include_guard_name)
+                    {
+                        if (cppdecl::IsIdentifierChar(ch)) // Should be close enough.
+                        {
+                            ch = cppdecl::ToUpper(ch);
+                        }
+                        else
+                        {
+                            ch = '_';
+                        }
+                    }
+
+                    // Add some prefixes.
+                    file.include_guard_name = self.MakeDetailHelperMacroName("INCLUDED_" + file.include_guard_name);
+                };
+
+                ProcessSpecificFile(header);
+                ProcessSpecificFile(internal_header);
+            }
+        }
     }
 
     void Generator::OutputFile::InitDefaultContents(InitFlags flags)
     {
-        header.preamble += "#pragma once\n";
         source.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
 
         if (!bool(flags & InitFlags::no_extern_c))
@@ -67,8 +103,6 @@ namespace mrbind::CBindings
             header.footer += "#ifdef __cplusplus\n} // extern \"C\"\n#endif\n";
         }
 
-
-        internal_header.preamble += "#pragma once\n";
         internal_header.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
     }
 
@@ -181,7 +215,6 @@ namespace mrbind::CBindings
         OutputFile &file = iter->second;
 
         file.InitRelativeName(*this, "__mrbind_c_details", false);
-        file.header.preamble += "#pragma once\n\n";
         file.header.stdlib_headers.insert("stdexcept");
 
         std::string pass_by_enum_name = GetPassByEnumName();
@@ -254,50 +287,52 @@ namespace mrbind::CBindings
     std::string Generator::GetMemoryDeallocFuncName(bool is_array, OutputFile *file)
     {
         if (file)
-            file->header.custom_headers.insert(GetCommonPublicHelpersFile().header.path_for_inclusion);
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
         return MakePublicHelperName(is_array ? "FreeArray" : "Free");
     }
 
     std::string Generator::GetMemoryAllocFuncName(bool is_array, OutputFile *file)
     {
         if (file)
-            file->header.custom_headers.insert(GetCommonPublicHelpersFile().header.path_for_inclusion);
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
         return MakePublicHelperName(is_array ? "AllocArray" : "Alloc");
     }
 
-    Generator::OutputFile &Generator::GetCommonPublicHelpersFile()
+    Generator::OutputFile *Generator::GetCommonPublicHelpersFile(bool can_create)
     {
         bool is_new = false;
-        OutputFile &file = GetPublicHelperFile("common", &is_new, OutputFile::InitFlags::no_extern_c);
+        OutputFile *file = GetPublicHelperFile("common", &is_new, OutputFile::InitFlags::no_extern_c, can_create);
+        if (!file)
+            return nullptr;
         if (!is_new)
             return file;
 
         // The custom 64-bit typedefs.
         if (custom_typedef_for_uint64_t_pointing_to_size_t)
         {
-            file.header.contents += "#ifdef __APPLE__\n";
-            file.header.contents += "#include <stddef.h>\n";
-            file.header.contents += "typedef ptrdiff_t " + MakePublicHelperName("int64_t") + ";\n";
-            file.header.contents += "typedef size_t " + MakePublicHelperName("uint64_t") + ";\n";
-            file.header.contents += "#else\n";
-            file.header.contents += "#include <stdint.h>\n";
-            file.header.contents += "typedef int64_t " + MakePublicHelperName("int64_t") + ";\n";
-            file.header.contents += "typedef uint64_t " + MakePublicHelperName("uint64_t") + ";\n";
-            file.header.contents += "#endif\n";
-            file.header.contents += "\n";
+            file->header.contents += "#ifdef __APPLE__\n";
+            file->header.contents += "#include <stddef.h>\n";
+            file->header.contents += "typedef ptrdiff_t " + MakePublicHelperName("int64_t") + ";\n";
+            file->header.contents += "typedef size_t " + MakePublicHelperName("uint64_t") + ";\n";
+            file->header.contents += "#else\n";
+            file->header.contents += "#include <stdint.h>\n";
+            file->header.contents += "typedef int64_t " + MakePublicHelperName("int64_t") + ";\n";
+            file->header.contents += "typedef uint64_t " + MakePublicHelperName("uint64_t") + ";\n";
+            file->header.contents += "#endif\n";
+            file->header.contents += "\n";
         }
 
         { // The pass-by enum.
             std::string name = GetPassByEnumName();
 
-            file.header.contents += "\ntypedef enum " + name + "\n";
-            file.header.contents += "{\n";
-            file.header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
-            file.header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
-            file.header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
-            file.header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
-            file.header.contents += "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n";
-            file.header.contents += "} " + name + ";\n";
+            file->header.contents += "\ntypedef enum " + name + "\n";
+            file->header.contents += "{\n";
+            file->header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
+            file->header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
+            file->header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
+            file->header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
+            file->header.contents += "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n";
+            file->header.contents += "} " + name + ";\n";
         }
 
         { // Memory management functions.
@@ -328,7 +363,7 @@ namespace mrbind::CBindings
                     if (is_array)
                         emit.cpp_called_func += "[]";
 
-                    EmitFunction(file, emit);
+                    EmitFunction(*file, emit);
                 }
 
                 { // Deallocate.
@@ -347,7 +382,7 @@ namespace mrbind::CBindings
                     if (is_array)
                         emit.cpp_called_func += "[]";
 
-                    EmitFunction(file, emit);
+                    EmitFunction(*file, emit);
                 }
             }
         }
@@ -355,14 +390,25 @@ namespace mrbind::CBindings
         return file;
     }
 
-    Generator::OutputFile &Generator::GetPublicHelperFile(std::string_view name, bool *is_new, OutputFile::InitFlags init_flags)
+    bool Generator::IsCommonPublicHelpersHeader(std::string_view path_for_inclusion)
     {
-        auto [iter, iter_is_new] = outputs.try_emplace("//" + std::string(name));
+        auto header = GetCommonPublicHelpersFile(false);
+        return header && header->header.path_for_inclusion == path_for_inclusion;
+    }
+
+    Generator::OutputFile *Generator::GetPublicHelperFile(std::string_view name, bool *is_new, OutputFile::InitFlags init_flags, bool can_create)
+    {
+        const std::string map_key = "//" + std::string(name);
+
+        if (!can_create && !outputs.contains(map_key)) // Double map access, but oh well!
+            return nullptr;
+
+        auto [iter, iter_is_new] = outputs.try_emplace(map_key);
         if (is_new)
             *is_new = iter_is_new;
 
         if (!iter_is_new)
-            return iter->second;
+            return &iter->second;
 
         OutputFile &file = iter->second;
 
@@ -390,7 +436,12 @@ namespace mrbind::CBindings
         file.InitRelativeName(*this, std::move(full_name), true);
         file.InitDefaultContents(init_flags);
 
-        return file;
+        return &file;
+    }
+
+    static Generator::OutputFile *GetGlobalExportsHeader(Generator &generator, bool *file_is_new, bool can_create)
+    {
+        return generator.GetPublicHelperFile("exports", file_is_new, Generator::OutputFile::InitFlags::no_extern_c, can_create);
     }
 
     std::string Generator::GetExportMacroForFile(OutputFile &target_file, bool for_internal_header)
@@ -399,7 +450,7 @@ namespace mrbind::CBindings
         // Then we could also use different macro names, and so on.
 
         bool file_is_new = false;
-        OutputFile &file = GetPublicHelperFile("exports", &file_is_new, OutputFile::InitFlags::no_extern_c);
+        OutputFile &file = *GetGlobalExportsHeader(*this, &file_is_new, true);
 
         OutputFile::SpecificFileContents &contents = for_internal_header ? target_file.internal_header : target_file.header;
         contents.custom_headers.insert(file.header.path_for_inclusion);
@@ -424,6 +475,13 @@ namespace mrbind::CBindings
         return macro_name;
     }
 
+    bool Generator::IsExportHeader(std::string_view path_for_inclusion)
+    {
+        // If we make multiple export headers, this won't work anymore, and we'll need some flags in them or something.
+        auto header = GetGlobalExportsHeader(*this, nullptr, false);
+        return header && header->header.path_for_inclusion == path_for_inclusion;
+    }
+
     std::string Generator::GetBuildLibraryMacroForFile(const OutputFile &target_file)
     {
         // This function could be changed later to depend on the `target_file` path, e.g. if we want multiple separate export files for multiple libraries in the output.
@@ -431,6 +489,11 @@ namespace mrbind::CBindings
 
         (void)target_file;
         return MakePublicHelperMacroName("BUILD_LIBRARY");
+    }
+
+    std::string Generator::GetConvenienceIncludesMacro()
+    {
+        return MakeDetailHelperMacroName("CONVENIENCE_INCLUDES");
     }
 
     bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags, bool allow_scalar_typedefs) const
@@ -3668,15 +3731,33 @@ namespace mrbind::CBindings
 
     void Generator::DumpFileToOstream(const OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out)
     {
-        // Define the macro to dllexport our functions.
-        if (&file == &context.source && out)
+        const bool is_header = &file != &context.source;
+
+        const bool convenience_includes_in_this_file = is_header && add_convenience_includes && !file.include_guard_name.empty();
+
+        // Open the include guard.
+        if (out && is_header)
+        {
+            if (file.include_guard_name.empty())
+            {
+                out << "#pragma once\n\n";
+            }
+            else
+            {
+                out << "#ifndef " << file.include_guard_name << "\n";
+                out << "#define " << file.include_guard_name << "\n\n";
+            }
+        }
+
+        // Define the macro to dllexport our functions, only in the source files.
+        if (out && !is_header)
             out << "#define " << GetBuildLibraryMacroForFile(context) << '\n';
 
-        if (out)
+        if (out && !file.preamble.empty())
             out << file.preamble << '\n';
 
         // If this is the source file and we also have a non-empty internal header, include it.
-        if (out && &file == &context.source && context.internal_header.HasUsefulContents())
+        if (out && !is_header && context.internal_header.HasUsefulContents())
         {
             out << "#include <" << context.internal_header.path_for_inclusion << ">\n\n";
         }
@@ -3691,7 +3772,7 @@ namespace mrbind::CBindings
         std::set<std::string> stdlib_headers = file.stdlib_headers;
 
         std::set<std::string> late_custom_headers;
-        std::set<std::string> late_stdlib_headers;
+        std::set<std::string> late_stdlib_headers; // Not sure if this one will ever actually get used.
 
         { // Generate and write the list of headers.
             std::set<std::string> headers = file.custom_headers;
@@ -3721,13 +3802,28 @@ namespace mrbind::CBindings
                 }
             }
 
+            // Begin `--add-convenience-includes` magic.
+            if (out && convenience_includes_in_this_file && !headers.empty())
+            {
+                out << "#pragma push_macro(\"" << GetConvenienceIncludesMacro() << "\")\n";
+                out << "#define " << GetConvenienceIncludesMacro() << "\n";
+            }
+
             for (const auto &header : headers)
             {
                 if (out)
                     out << "#include <" << header << ">\n";
+
+                late_custom_headers.insert(header);
             }
             if (!headers.empty() && out)
+            {
+                // End `--add-convenience-includes` magic.
+                if (convenience_includes_in_this_file)
+                    out << "#pragma pop_macro(\"" << GetConvenienceIncludesMacro() << "\")\n";
+
                 out << '\n';
+            }
         }
 
         for (const auto &elem : stdlib_headers)
@@ -3789,30 +3885,62 @@ namespace mrbind::CBindings
         if (out)
             out << file.footer;
 
-        { // The late convenience headers. They are this late to avoid circular includes.
+        // Close the include guard, if not using `#pragma once`.
+        if (out && !file.include_guard_name.empty())
+            out << "\n#endif // " << file.include_guard_name << '\n';
+
+        // The late convenience headers. They are this late to avoid circular includes.
+        if (out && convenience_includes_in_this_file)
+        {
+            const std::string secondary_include_guard_name = file.include_guard_name + "_2";
+
             bool first = true;
             auto MakeCommentOnce = [&]
             {
                 if (first)
                 {
                     first = false;
-                    out << "\n\n// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.\n";
+
+                    // We both check the macro and add a second include guard here.
+                    out << "\n#if !defined(" << GetConvenienceIncludesMacro() << ") && !defined(" << secondary_include_guard_name << ")\n";
+                    out << "#define " << secondary_include_guard_name << "\n";
+                    out << "\n";
+                    out << "// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.\n";
                 }
             };
 
-            if (!late_custom_headers.empty())
+            if (out && !late_custom_headers.empty())
             {
-                MakeCommentOnce();
-                out << '\n';
+                bool first_custom = true;
                 for (const auto &header : late_custom_headers)
+                {
+                    // Reject some special headers that don't have anything interesting in them.
+                    if (IsExportHeader(header) || IsCommonPublicHelpersHeader(header))
+                        continue;
+
+                    MakeCommentOnce();
+
+                    if (first_custom)
+                    {
+                        first_custom = false;
+                        out << '\n';
+                    }
+
                     out << "#include <" << header << ">\n";
+                }
             }
-            if (!late_stdlib_headers.empty())
+            if (out && !late_stdlib_headers.empty())
             {
                 MakeCommentOnce();
                 out << '\n';
                 for (const auto &header : late_stdlib_headers)
                     out << "#include <" << header << ">\n";
+            }
+
+            // End phase two.
+            if (out && !first)
+            {
+                out << "\n#endif // !defined(" << GetConvenienceIncludesMacro() << ") && !defined(" << secondary_include_guard_name << ")\n";
             }
         }
     }

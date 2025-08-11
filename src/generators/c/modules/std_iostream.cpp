@@ -31,7 +31,7 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile("iostream", &is_new);
+                Generator::OutputFile &file = *generator.GetPublicHelperFile("iostream", &is_new);
 
                 if (is_new)
                 {

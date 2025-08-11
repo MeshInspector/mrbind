@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_NESTED_CLASS_TEMPLATE_INST_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_NESTED_CLASS_TEMPLATE_INST_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -83,3 +87,5 @@ MR_C_API MR_NestedTemplateInst_A_int32_t_AA_float *MR_NestedTemplateInst_A_int32
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_NESTED_CLASS_TEMPLATE_INST_H

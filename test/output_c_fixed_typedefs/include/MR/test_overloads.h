@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_MR_TEST_OVERLOADS_H
+#define MR_C_DETAIL_INCLUDED_MR_TEST_OVERLOADS_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stdint.h>
 
@@ -77,3 +81,5 @@ MR_C_API void MR_Overloads_f_const_int32_t_ref(const int32_t *_1, float _2);
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_MR_TEST_OVERLOADS_H

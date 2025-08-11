@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_INT32_T_ARRAY_H
+#define MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_INT32_T_ARRAY_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -75,3 +79,5 @@ MR_C_API int32_t *MR_C_std_unique_ptr_int32_t_array_Release(MR_C_std_unique_ptr_
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_UNIQUE_PTR_INT32_T_ARRAY_H

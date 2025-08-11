@@ -69,8 +69,3 @@ MR_C_API void MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42_Assign(MR_C_std_sha
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <MR/test_std_shared_ptr.h>

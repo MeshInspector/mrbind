@@ -67,7 +67,7 @@ namespace mrbind::CBindings::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type_with_merged_std_and_tl), &is_new);
+                Generator::OutputFile &file = *generator.GetPublicHelperFile(generator.CppdeclToIdentifier(type_with_merged_std_and_tl), &is_new);
 
                 if (is_new)
                 {

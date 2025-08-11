@@ -38,6 +38,7 @@ int main(int raw_argc, char **raw_argv)
         bool seen_helper_macro_name_prefix = false;
         bool seen_clean_output_dirs = false;
         bool seen_max_output_filename_length = false;
+        bool seen_add_convenience_includes = false;
         bool seen_reject_long_and_long_long = false;
         bool seen_custom_typedef_for_uint64_t_pointing_to_size_t = false;
         bool seen_verbose = false;
@@ -62,6 +63,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --strip-filename-suffix     <ext>      - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
                     "    --assume-include-dir        <dir>      - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
                     "    --max-header-name-length    <n>        - Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.\n"
+                    "    --add-convenience-includes             - Add more include directives to the output, that are not strictly necessary, but might help the user. This isn't enabled by default because it add too much bloat in large projects.\n"
                     "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
                     "    --use-size_t-typedef-for-uint64_t      - This is intended to be used with the parser's `--canonicalize-size_t-to-uint64_t`. When the input contains `[u]int64_t`, we'll bind them as `size_t` and `ptrdiff_t` (or our own typedefs for them, rather), instead of the standard `[u]int64_t` typedefs.\n"
                     "    --expose-as-struct          <type>     - Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.\n"
@@ -241,6 +243,9 @@ int main(int raw_argc, char **raw_argv)
                 }
             }
             if (ConsumeFlagWithSizeTArg("--max-header-name-length", generator.max_output_filename_len, &seen_max_output_filename_length))
+                continue;
+
+            if (ConsumeFlagWithNoArgs("--add-convenience-includes", generator.add_convenience_includes, &seen_add_convenience_includes))
                 continue;
 
             if (ConsumeFlagWithNoArgs("--reject-long-and-long-long", generator.reject_long_and_long_long, &seen_reject_long_and_long_long))

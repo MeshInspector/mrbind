@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_VARIANT_INT32_T_FLOAT_FLOAT_H
+#define MR_C_DETAIL_INCLUDED_STD_VARIANT_INT32_T_FLOAT_FLOAT_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -100,3 +104,5 @@ MR_C_API float *MR_C_std_variant_int32_t_float_float_GetMutable_float_2(MR_C_std
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_VARIANT_INT32_T_FLOAT_FLOAT_H

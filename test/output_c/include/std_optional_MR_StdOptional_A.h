@@ -69,8 +69,3 @@ MR_C_API MR_StdOptional_A *MR_C_std_optional_MR_StdOptional_A_MutableValue(MR_C_
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <MR/test_std_optional.h>

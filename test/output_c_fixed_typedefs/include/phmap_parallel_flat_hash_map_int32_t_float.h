@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_PHMAP_PARALLEL_FLAT_HASH_MAP_INT32_T_FLOAT_H
+#define MR_C_DETAIL_INCLUDED_PHMAP_PARALLEL_FLAT_HASH_MAP_INT32_T_FLOAT_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -226,3 +230,5 @@ MR_C_API void MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator_Incr(MR_C
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_PHMAP_PARALLEL_FLAT_HASH_MAP_INT32_T_FLOAT_H

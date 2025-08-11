@@ -66,8 +66,3 @@ MR_C_API void MR_C_std_function_void_from_std_string_AssignWithDataPtr(MR_C_std_
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
-
-// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
-
-#include <std_string.h>

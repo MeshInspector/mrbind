@@ -1,7 +1,11 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_INT32_T_INT32_T_H
+#define MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_INT32_T_INT32_T_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -61,3 +65,5 @@ MR_C_API void MR_C_std_function_void_from_int32_t_int32_t_AssignWithDataPtr(MR_C
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+#endif // MR_C_DETAIL_INCLUDED_STD_FUNCTION_VOID_FROM_INT32_T_INT32_T_H

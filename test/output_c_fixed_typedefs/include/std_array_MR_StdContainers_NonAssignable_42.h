@@ -1,6 +1,10 @@
-#pragma once
+#ifndef MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_NONASSIGNABLE_42_H
+#define MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_NONASSIGNABLE_42_H
 
+#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#define MR_C_DETAIL_CONVENIENCE_INCLUDES
 #include <exports.h>
+#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -58,7 +62,13 @@ MR_C_API MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssi
 } // extern "C"
 #endif
 
+#endif // MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_NONASSIGNABLE_42_H
+
+#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_NONASSIGNABLE_42_H_2)
+#define MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_NONASSIGNABLE_42_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <MR/test_std_containers.h>
+
+#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_NONASSIGNABLE_42_H_2)
