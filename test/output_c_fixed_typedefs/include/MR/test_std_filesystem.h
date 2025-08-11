@@ -1,10 +1,10 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,11 +41,11 @@ MR_C_API void MR_StdFilesystem_SetPathDef(const char *_1, const char *_1_end);
 
 #endif // MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H_2)
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <std_filesystem_path.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_FILESYSTEM_H_2)

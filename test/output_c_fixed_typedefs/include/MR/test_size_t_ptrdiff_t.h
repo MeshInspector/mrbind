@@ -1,11 +1,11 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -86,7 +86,7 @@ MR_C_API MR_C_uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_thi
 
 #endif // MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H_2)
 #define MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
@@ -94,4 +94,4 @@ MR_C_API MR_C_uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_thi
 #include <std_vector_int64_t.h>
 #include <std_vector_uint64_t.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_SIZE_T_PTRDIFF_T_H_2)

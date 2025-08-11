@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_function_void_from_MR_StdFunction_A.h"
 
 #include <__mrbind_c_details.h>

@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_shared_ptr_MR_StdSharedPtr_A.h"
 
 #include <__mrbind_c_details.h>

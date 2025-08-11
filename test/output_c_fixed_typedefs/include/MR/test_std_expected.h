@@ -1,11 +1,11 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #ifdef __cplusplus
 extern "C" {
@@ -67,7 +67,7 @@ MR_C_API MR_C_std_vector_expected_int32_t_std_string *MR_StdExpected_GetExpVec(v
 
 #endif // MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H_2)
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
@@ -76,4 +76,4 @@ MR_C_API MR_C_std_vector_expected_int32_t_std_string *MR_StdExpected_GetExpVec(v
 #include <expected_void_float.h>
 #include <std_vector_expected_int32_t_std_string.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_EXPECTED_H_2)

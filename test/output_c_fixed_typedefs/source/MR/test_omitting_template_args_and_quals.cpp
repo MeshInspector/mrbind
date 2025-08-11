@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_omitting_template_args_and_quals.h"
 
 #include <input/MR/test_omitting_template_args_and_quals.h>

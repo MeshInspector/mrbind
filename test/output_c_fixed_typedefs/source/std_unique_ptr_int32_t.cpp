@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_unique_ptr_int32_t.h"
 
 #include <common.h>

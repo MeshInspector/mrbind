@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_optional_MR_StdOptional_E.h"
 
 #include <input/MR/test_std_optional.h>

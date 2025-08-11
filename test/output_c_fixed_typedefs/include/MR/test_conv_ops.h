@@ -1,10 +1,10 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_CONV_OPS_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_CONV_OPS_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stdbool.h>
 #include <stddef.h>

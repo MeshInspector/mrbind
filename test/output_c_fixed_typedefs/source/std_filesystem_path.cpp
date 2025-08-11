@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_filesystem_path.h"
 
 #include <__mrbind_c_details.h>

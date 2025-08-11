@@ -330,7 +330,9 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string GetBuildLibraryMacroForFile(const OutputFile &target_file);
 
         // Returns the macro that `--add-convenience-incldues` uses for internal purposes.
-        [[nodiscard]] std::string GetConvenienceIncludesMacro();
+        // But you can also define it manually to disable the convenience includes in certain places, like we do in our implementation files
+        //   to speed up compilation.
+        [[nodiscard]] std::string GetDisableConvenienceIncludesMacro();
 
         // Returns true if this is a built-in C type.
         // If both `allow_scalar_typedefs` is true and `flags & allow_integral` is true, also accept `[u]int??_t`, to match `--canonicalize-to-fixed-size-typedefs`.

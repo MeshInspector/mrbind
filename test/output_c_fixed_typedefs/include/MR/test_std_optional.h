@@ -1,11 +1,11 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -232,7 +232,7 @@ MR_C_API void MR_StdOptional_SetClass2Def(MR_C_PassBy _1_pass_by, MR_StdOptional
 
 #endif // MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H_2)
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
@@ -243,4 +243,4 @@ MR_C_API void MR_StdOptional_SetClass2Def(MR_C_PassBy _1_pass_by, MR_StdOptional
 #include <std_optional_int32_t.h>
 #include <std_string.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_OPTIONAL_H_2)

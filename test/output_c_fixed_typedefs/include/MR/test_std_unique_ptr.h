@@ -1,10 +1,10 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -222,7 +222,7 @@ MR_C_API void MR_StdUniquePtr_SetFloatDefTrivial(float *_1);
 
 #endif // MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H_2)
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
@@ -232,4 +232,4 @@ MR_C_API void MR_StdUniquePtr_SetFloatDefTrivial(float *_1);
 #include <std_unique_ptr_int32_t.h>
 #include <std_unique_ptr_int32_t_array.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_UNIQUE_PTR_H_2)

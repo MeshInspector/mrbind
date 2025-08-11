@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_tuple_float_double_int32_t_int32_t.h"
 
 #include <cstddef>

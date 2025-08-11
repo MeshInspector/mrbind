@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_overloads.h"
 
 #include <input/MR/test_overloads.h>

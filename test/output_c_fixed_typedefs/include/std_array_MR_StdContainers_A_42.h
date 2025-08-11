@@ -1,10 +1,10 @@
 #ifndef MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H
 #define MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 
@@ -74,11 +74,11 @@ MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_MutableData(MR
 
 #endif // MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H_2)
 #define MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <MR/test_std_containers.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_STD_ARRAY_MR_STDCONTAINERS_A_42_H_2)

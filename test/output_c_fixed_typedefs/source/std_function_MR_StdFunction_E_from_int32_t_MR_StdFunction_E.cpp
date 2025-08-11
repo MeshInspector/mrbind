@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E.h"
 
 #include <__mrbind_c_details.h>

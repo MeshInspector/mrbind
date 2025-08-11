@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_array_MR_StdContainers_A_42.h"
 
 #include <input/MR/test_std_containers.h>

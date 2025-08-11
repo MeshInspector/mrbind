@@ -1,10 +1,10 @@
 #ifndef MR_C_DETAIL_INCLUDED_STD_TUPLE_INT32_T_FLOAT_H
 #define MR_C_DETAIL_INCLUDED_STD_TUPLE_INT32_T_FLOAT_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>

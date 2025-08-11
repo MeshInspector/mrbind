@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_variant_int32_t_float_std_string.h"
 
 #include <__mrbind_c_details.h>

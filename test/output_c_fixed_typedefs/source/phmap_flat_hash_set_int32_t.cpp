@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "phmap_flat_hash_set_int32_t.h"
 
 #include <__mrbind_c_details.h>

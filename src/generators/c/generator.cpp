@@ -491,9 +491,9 @@ namespace mrbind::CBindings
         return MakePublicHelperMacroName("BUILD_LIBRARY");
     }
 
-    std::string Generator::GetConvenienceIncludesMacro()
+    std::string Generator::GetDisableConvenienceIncludesMacro()
     {
-        return MakeDetailHelperMacroName("CONVENIENCE_INCLUDES");
+        return MakePublicHelperMacroName("DISABLE_CONVENIENCE_INCLUDES");
     }
 
     bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags, bool allow_scalar_typedefs) const
@@ -3752,6 +3752,9 @@ namespace mrbind::CBindings
         // Define the macro to dllexport our functions, only in the source files.
         if (out && !is_header)
             out << "#define " << GetBuildLibraryMacroForFile(context) << '\n';
+        // Define the macro to disable convenience includes in the source files, to speed up compilation.
+        if (out && !is_header && add_convenience_includes) // Not `convenience_includes_in_this_file`, because that's only for headers.
+            out << "#define " << GetDisableConvenienceIncludesMacro() << '\n';
 
         if (out && !file.preamble.empty())
             out << file.preamble << '\n';
@@ -3805,8 +3808,12 @@ namespace mrbind::CBindings
             // Begin `--add-convenience-includes` magic.
             if (out && convenience_includes_in_this_file && !headers.empty())
             {
-                out << "#pragma push_macro(\"" << GetConvenienceIncludesMacro() << "\")\n";
-                out << "#define " << GetConvenienceIncludesMacro() << "\n";
+                out << "#pragma push_macro(\"" << GetDisableConvenienceIncludesMacro() << "\")\n";
+
+                // This prevents circular inclusion. We include the same headers again at the end of the file.
+                // I don't want to print this comment to the file, because maybe we don't happen to actually include anything at the end, which can happen if the only
+                //   headers we have are the "common" and/or "exports" ones.
+                out << "#define " << GetDisableConvenienceIncludesMacro() << "\n";
             }
 
             for (const auto &header : headers)
@@ -3820,7 +3827,7 @@ namespace mrbind::CBindings
             {
                 // End `--add-convenience-includes` magic.
                 if (convenience_includes_in_this_file)
-                    out << "#pragma pop_macro(\"" << GetConvenienceIncludesMacro() << "\")\n";
+                    out << "#pragma pop_macro(\"" << GetDisableConvenienceIncludesMacro() << "\")\n";
 
                 out << '\n';
             }
@@ -3902,7 +3909,7 @@ namespace mrbind::CBindings
                     first = false;
 
                     // We both check the macro and add a second include guard here.
-                    out << "\n#if !defined(" << GetConvenienceIncludesMacro() << ") && !defined(" << secondary_include_guard_name << ")\n";
+                    out << "\n#if !defined(" << GetDisableConvenienceIncludesMacro() << ") && !defined(" << secondary_include_guard_name << ")\n";
                     out << "#define " << secondary_include_guard_name << "\n";
                     out << "\n";
                     out << "// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.\n";
@@ -3940,7 +3947,7 @@ namespace mrbind::CBindings
             // End phase two.
             if (out && !first)
             {
-                out << "\n#endif // !defined(" << GetConvenienceIncludesMacro() << ") && !defined(" << secondary_include_guard_name << ")\n";
+                out << "\n#endif // !defined(" << GetDisableConvenienceIncludesMacro() << ") && !defined(" << secondary_include_guard_name << ")\n";
             }
         }
     }

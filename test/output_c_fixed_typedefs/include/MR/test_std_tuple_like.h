@@ -1,10 +1,10 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,7 +77,7 @@ MR_C_API MR_C_std_tuple_float_double_int32_t_int32_t *MR_StdTupleLike_GetTuple8(
 
 #endif // MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H_2)
 #define MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
@@ -93,4 +93,4 @@ MR_C_API MR_C_std_tuple_float_double_int32_t_int32_t *MR_StdTupleLike_GetTuple8(
 #include <std_tuple_float_double_int32_t_int32_t.h>
 #include <std_tuple_int32_t_float.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_STD_TUPLE_LIKE_H_2)

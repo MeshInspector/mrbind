@@ -1,11 +1,11 @@
 #ifndef MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H
 #define MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stddef.h>
 #include <stdint.h>
@@ -130,11 +130,11 @@ MR_C_API MR_Aggregates_B *MR_Aggregates_B_AssignFromAnother(MR_Aggregates_B *_th
 
 #endif // MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H
 
-#if !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H_2)
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H_2)
 #define MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H_2
 
 // Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
 
 #include <std_string.h>
 
-#endif // !defined(MR_C_DETAIL_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H_2)
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_AGGREGATES_H_2)

@@ -1,11 +1,11 @@
 #ifndef MR_C_DETAIL_INCLUDED_PHMAP_FLAT_HASH_MAP_INT32_T_FLOAT_H
 #define MR_C_DETAIL_INCLUDED_PHMAP_FLAT_HASH_MAP_INT32_T_FLOAT_H
 
-#pragma push_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
-#define MR_C_DETAIL_CONVENIENCE_INCLUDES
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include <common.h>
 #include <exports.h>
-#pragma pop_macro("MR_C_DETAIL_CONVENIENCE_INCLUDES")
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stdbool.h>
 #include <stddef.h>

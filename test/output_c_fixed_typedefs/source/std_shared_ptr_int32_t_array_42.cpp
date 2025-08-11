@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_shared_ptr_int32_t_array_42.h"
 
 #include <__mrbind_c_details.h>

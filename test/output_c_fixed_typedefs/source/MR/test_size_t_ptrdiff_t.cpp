@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_size_t_ptrdiff_t.h"
 
 #include <__mrbind_c_details.h>

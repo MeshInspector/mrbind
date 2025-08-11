@@ -1,4 +1,5 @@
 #define MR_C_BUILD_LIBRARY
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_unique_ptr_MR_StdUniquePtr_A.h"
 
 #include <input/MR/test_std_unique_ptr.h>
