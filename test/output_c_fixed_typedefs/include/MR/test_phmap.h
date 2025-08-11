@@ -60,3 +60,19 @@ MR_C_API void MR_Phmap_foo_phmap_btree_multimap_int32_t_float(MR_C_PassBy _1_pas
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <phmap_btree_map_int32_t_float.h>
+#include <phmap_btree_multimap_int32_t_float.h>
+#include <phmap_btree_multiset_int32_t.h>
+#include <phmap_btree_set_int32_t.h>
+#include <phmap_flat_hash_map_int32_t_float.h>
+#include <phmap_flat_hash_set_int32_t.h>
+#include <phmap_node_hash_map_int32_t_float.h>
+#include <phmap_node_hash_set_int32_t.h>
+#include <phmap_parallel_flat_hash_map_int32_t_float.h>
+#include <phmap_parallel_flat_hash_set_int32_t.h>
+#include <phmap_parallel_node_hash_map_int32_t_float.h>
+#include <phmap_parallel_node_hash_set_int32_t.h>

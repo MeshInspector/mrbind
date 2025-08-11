@@ -60,3 +60,10 @@ MR_C_API MR_C_std_vector_expected_int32_t_std_string *MR_StdExpected_GetExpVec(v
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <expected_int32_t_std_string.h>
+#include <expected_void_float.h>
+#include <std_vector_expected_int32_t_std_string.h>

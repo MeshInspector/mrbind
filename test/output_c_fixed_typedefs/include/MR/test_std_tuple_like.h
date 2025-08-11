@@ -70,3 +70,17 @@ MR_C_API MR_C_std_tuple_float_double_int32_t_int32_t *MR_StdTupleLike_GetTuple8(
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_pair_const_int32_t_float.h>
+#include <std_pair_const_int32_t_ref_const_float_ref.h>
+#include <std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref.h>
+#include <std_pair_int32_t_float.h>
+#include <std_pair_int32_t_ref_float_ref.h>
+#include <std_pair_int32_t_rvalue_ref_float_rvalue_ref.h>
+#include <std_tuple.h>
+#include <std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32___98db.h>
+#include <std_tuple_float_double_int32_t_int32_t.h>
+#include <std_tuple_int32_t_float.h>

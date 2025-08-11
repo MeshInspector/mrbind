@@ -218,6 +218,7 @@ namespace mrbind::CBindings
                 struct ForwardDeclarationOrInclusion
                 {
                     // If false we'll just forward-declare.
+                    // Currently this also causes the header to be included AFTER the rest of the file, as a convenience for the user.
                     bool need_header = false;
 
                     // If true, the type is declared in this very file.

@@ -60,3 +60,8 @@ MR_C_API void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOS
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <iostream.h>

@@ -298,3 +298,34 @@ MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetS
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_array_MR_StdContainers_A_42.h>
+#include <std_array_MR_StdContainers_NonAssignable_42.h>
+#include <std_deque_MR_StdContainers_NonAssignable.h>
+#include <std_deque_int32_t.h>
+#include <std_list_MR_StdContainers_NonAssignable.h>
+#include <std_list_int32_t.h>
+#include <std_map_MR_StdContainers_NonAssignable_float.h>
+#include <std_map_int32_t_float.h>
+#include <std_multimap_MR_StdContainers_NonAssignable_float.h>
+#include <std_multimap_int32_t_float.h>
+#include <std_multiset_MR_StdContainers_NonAssignable.h>
+#include <std_multiset_float.h>
+#include <std_multiset_int32_t.h>
+#include <std_set_MR_StdContainers_NonAssignable.h>
+#include <std_set_float.h>
+#include <std_set_int32_t.h>
+#include <std_unordered_map_MR_StdContainers_NonAssignable_float.h>
+#include <std_unordered_map_int32_t_float.h>
+#include <std_unordered_multimap_MR_StdContainers_NonAssignable_float.h>
+#include <std_unordered_multimap_int32_t_float.h>
+#include <std_unordered_multiset_MR_StdContainers_NonAssignable.h>
+#include <std_unordered_multiset_int32_t.h>
+#include <std_unordered_set_MR_StdContainers_NonAssignable.h>
+#include <std_unordered_set_int32_t.h>
+#include <std_vector_MR_StdContainers_NonAssignable.h>
+#include <std_vector_MR_StdContainers_NonDefaultConstructible.h>
+#include <std_vector_int32_t.h>

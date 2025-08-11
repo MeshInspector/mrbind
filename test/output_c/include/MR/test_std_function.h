@@ -107,3 +107,16 @@ MR_C_API void MR_StdFunction_foo_std_function_MR_StdFunction_A_func(MR_C_PassBy 
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_function_MR_StdFunction_A.h>
+#include <std_function_MR_StdFunction_E_from_int_MR_StdFunction_E.h>
+#include <std_function_int.h>
+#include <std_function_int_from_int_int.h>
+#include <std_function_std_string_from_int_float.h>
+#include <std_function_void_from_MR_StdFunction_A.h>
+#include <std_function_void_from_int_int.h>
+#include <std_function_void_from_std_string.h>
+#include <std_string.h>

@@ -276,3 +276,8 @@ MR_C_API ptrdiff_t MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Distan
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <MR/test_std_containers.h>

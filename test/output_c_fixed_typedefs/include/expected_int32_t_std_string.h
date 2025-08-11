@@ -73,3 +73,8 @@ MR_C_API MR_C_std_string *MR_C_expected_int32_t_std_string_GetMutableError(MR_C_
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_string.h>

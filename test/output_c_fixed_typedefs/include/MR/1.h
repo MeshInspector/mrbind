@@ -72,3 +72,9 @@ MR_C_API void MR_bar(MR_C_PassBy _1_pass_by, MR_C_std_vector_MR_A *_1);
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_string.h>
+#include <std_vector_MR_A.h>

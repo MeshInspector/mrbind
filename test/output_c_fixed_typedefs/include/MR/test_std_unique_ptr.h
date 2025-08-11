@@ -215,3 +215,11 @@ MR_C_API void MR_StdUniquePtr_SetFloatDefTrivial(float *_1);
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_unique_ptr_MR_StdUniquePtr_A.h>
+#include <std_unique_ptr_MR_StdUniquePtr_A_array.h>
+#include <std_unique_ptr_int32_t.h>
+#include <std_unique_ptr_int32_t_array.h>

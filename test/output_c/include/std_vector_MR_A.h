@@ -313,3 +313,8 @@ MR_C_API ptrdiff_t MR_C_std_vector_MR_A_iterator_Distance(const MR_C_std_vector_
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <MR/1.h>

@@ -67,3 +67,8 @@ MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_MutableData(MR
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <MR/test_std_containers.h>

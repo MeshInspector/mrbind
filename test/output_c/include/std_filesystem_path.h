@@ -63,3 +63,8 @@ MR_C_API MR_C_std_string *MR_C_std_filesystem_path_GetString(const MR_C_std_file
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_string.h>

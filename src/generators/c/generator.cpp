@@ -3690,6 +3690,9 @@ namespace mrbind::CBindings
         // We're gonna append to this.
         std::set<std::string> stdlib_headers = file.stdlib_headers;
 
+        std::set<std::string> late_custom_headers;
+        std::set<std::string> late_stdlib_headers;
+
         { // Generate and write the list of headers.
             std::set<std::string> headers = file.custom_headers;
             for (const auto &elem : file.forward_declarations_and_inclusions)
@@ -3761,13 +3764,21 @@ namespace mrbind::CBindings
                         fwd_decl += " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
 
                     fwd_decls.insert(std::move(fwd_decl));
+
+
+                    { // Also append this to the late headers list, as a convenience for the user. We could make this optional (add a flag to disable this).
+                        if (type_info.declared_in_c_stdlib_file)
+                            late_stdlib_headers.insert(*type_info.declared_in_c_stdlib_file);
+                        else if (type_info.declared_in_file)
+                            late_custom_headers.insert(type_info.declared_in_file().header.path_for_inclusion);
+                    }
                 }
             }
 
-            for (const auto &header : fwd_decls)
+            for (const auto &fwd_decl : fwd_decls)
             {
                 if (out)
-                    out << header << '\n';
+                    out << fwd_decl << '\n';
             }
             if (!fwd_decls.empty() && out)
                 out << '\n';
@@ -3777,5 +3788,32 @@ namespace mrbind::CBindings
             out << file.contents << '\n';
         if (out)
             out << file.footer;
+
+        { // The late convenience headers. They are this late to avoid circular includes.
+            bool first = true;
+            auto MakeCommentOnce = [&]
+            {
+                if (first)
+                {
+                    first = false;
+                    out << "\n\n// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.\n";
+                }
+            };
+
+            if (!late_custom_headers.empty())
+            {
+                MakeCommentOnce();
+                out << '\n';
+                for (const auto &header : late_custom_headers)
+                    out << "#include <" << header << ">\n";
+            }
+            if (!late_stdlib_headers.empty())
+            {
+                MakeCommentOnce();
+                out << '\n';
+                for (const auto &header : late_stdlib_headers)
+                    out << "#include <" << header << ">\n";
+            }
+        }
     }
 }

@@ -313,3 +313,8 @@ MR_C_API ptrdiff_t MR_C_std_vector_std_expected_int_std_string_iterator_Distance
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_expected_int_std_string.h>

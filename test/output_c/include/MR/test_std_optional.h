@@ -223,3 +223,12 @@ MR_C_API void MR_StdOptional_SetClass2Def(MR_C_PassBy _1_pass_by, MR_StdOptional
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_optional_MR_StdOptional_A.h>
+#include <std_optional_MR_StdOptional_B.h>
+#include <std_optional_MR_StdOptional_E.h>
+#include <std_optional_int.h>
+#include <std_string.h>
