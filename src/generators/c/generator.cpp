@@ -3280,9 +3280,19 @@ namespace mrbind::CBindings
                                 break;
                         }
 
-                        // If all members can be passed via parameters, AND if we have at least one member (because otherwise the default ctor is sufficient),
-                        //   then emit the elementwise constructor.
-                        if (all_members_ok && !member_descs.empty())
+                        // Emit the elementwise constructor, if...
+                        if (
+                            // All members can be passed via parameters,
+                            all_members_ok &&
+                            // and we have at least one member (because otherwise the default ctor is sufficient),
+                            !member_descs.empty() &&
+                            // and we either either don't have too many fields, OR the class isn't default constructible, so we have to ignore the limit.
+                            // This limit is configurable with a command-line flag.
+                            (
+                                !parsed_class_info.traits.is_default_constructible ||
+                                member_descs.size() <= self.max_num_fields_for_default_constructible_aggregate_init
+                            )
+                        )
                         {
                             EmitFuncParams emit;
                             emit.c_comment = "/// Constructs `" + cpp_class_name_str_deco + "` elementwise.";
@@ -3298,7 +3308,7 @@ namespace mrbind::CBindings
                                 });
                             }
                             emit.cpp_called_func = cpp_class_name_str;
-                            emit.cpp_called_func_parens = {"{", "}"}; // Don't rely on C++20 `(...)` initialization syntax.
+                            emit.cpp_called_func_parens = {"{", "}"}; // Don't rely on C++20 `(...)` aggregate initialization syntax.
                             self.EmitFunction(file, emit);
                         }
                     }

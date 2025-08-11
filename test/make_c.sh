@@ -86,8 +86,7 @@ build/mrbind \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 
-# Here `--merge-std-and-tl-expected` is unrelated to the fixed-size typedefs, but we need to test it too, so why not here.
-# Same for `--adjust-comments` and `--add-convenience-includes`.
+# Here `--merge-std-and-tl-expected` (and everything beliw) is unrelated to the fixed-size typedefs, but we need to test it too, so why not here.
 build/mrbind_gen_c \
     --input test/output_c_fixed_typedefs/parsed.json \
     --output-header-dir test/output_c_fixed_typedefs/include \
@@ -97,7 +96,8 @@ build/mrbind_gen_c \
     --use-size_t-typedef-for-uint64_t \
     --merge-std-and-tl-expected \
     --adjust-comments 's|/// |// |g' \
-    --add-convenience-includes
+    --add-convenience-includes \
+    --preferred-max-num-aggregate-init-fields 8
 
 
 $CXX \
