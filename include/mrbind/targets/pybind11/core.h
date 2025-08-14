@@ -9,6 +9,7 @@
 // Various headers we need:
 
 #include <mrbind/helpers/common.h>
+#include <mrbind/helpers/const_string.h>
 #include <mrbind/helpers/enum_flag_ops.h>
 #include <mrbind/helpers/macro_sequence_for.h>
 #include <mrbind/helpers/map_filter_pack.h>
@@ -37,7 +38,7 @@
 
 // Enable this macro for only one TU.
 #if MB_DEFINE_IMPLEMENTATION
-#include <cstdio> // To report debug info if enabled.
+#include <cstdio> // To report debug info if enabled. Also for deprecation warnings.
 #include <cstdlib> // For `getenv` to enable debug logging, also `atoi` to parse the loglevel env variable.
 #include <exception> // For `std::terminate()`.
 #include <iostream> // To report errors.
@@ -1744,6 +1745,70 @@ namespace MRBind::pb11
         /* Instantiate `register_type`. */
         static constexpr std::integral_constant<const std::nullptr_t *, &register_type> force_register_type{};
     };
+
+
+    // --- Function deprecation:
+
+    void EmitDeprecationWarningLow(const char *name, const char *message, bool is_last);
+
+    template <ConstString Name, ConstString Message>
+    void EmitDeprecationWarning()
+    {
+        static int counter = 3;
+        if (counter > 0)
+        {
+            counter--;
+            EmitDeprecationWarningLow(Name.value, Message.value, counter == 0);
+        }
+    }
+
+    // An implementation detail for `deprecation_wrapper`, see below.
+    // `FuncType` always matches the type of `Func`. We have to write it this way to be able to specialize the template.
+    template <typename FuncType, auto Func, ConstString Name, ConstString Message>
+    struct DeprecationWrapperImpl {};
+
+    // Wraps a function pointer or a member function pointer to give it a deprecation message.
+    // For member function pointers, returns a normal function pointer instead, since we can't easily create a new member pointer.
+    template <auto Func, ConstString Name, ConstString Message>
+    constexpr auto deprecation_wrapper = DeprecationWrapperImpl<decltype(Func), Func, Name, Message>::func;
+
+    #define DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_FUNC(noexcept_) \
+        template <typename R, typename ...P, auto Func, ConstString Name, ConstString Message> \
+        struct DeprecationWrapperImpl<R (*)(P...) noexcept_, Func, Name, Message> \
+        { \
+            static R func(P ...params) noexcept_ \
+            { \
+                EmitDeprecationWarning<Name, Message>(); \
+                return Func(std::forward<P>(params)...); \
+            } \
+        };
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_FUNC()
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_FUNC(noexcept)
+    #undef DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_FUNC
+
+    #define DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(const_, ref_, maybe_ref_, noexcept_) \
+        template <typename R, typename C, typename ...P, auto Func, ConstString Name, ConstString Message> \
+        struct DeprecationWrapperImpl<R (C::*)(P...) const_ maybe_ref_ noexcept_, Func, Name, Message> \
+        { \
+            static R func(const_ C ref_ self, P ...params) noexcept_ \
+            { \
+                EmitDeprecationWarning<Name, Message>(); \
+                return (decltype(self)(self).*Func)(std::forward<P>(params)...); \
+            } \
+        };
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(     , & ,   ,         )
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(     , & ,   , noexcept)
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(     , & , & ,         )
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(     , & , & , noexcept)
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(     , &&, &&,         )
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(     , &&, &&, noexcept)
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(const, & ,   ,         )
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(const, & ,   , noexcept)
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(const, & , & ,         )
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(const, & , & , noexcept)
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(const, &&, &&,         )
+    DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD(const, &&, &&, noexcept)
+    #undef DETAIL_MB_PB11_SPECIALIZE_DEPRECATION_HANDLER_METHOD
 }
 
 PYBIND11_NAMESPACE_BEGIN(PYBIND11_NAMESPACE)
@@ -2711,6 +2776,15 @@ namespace MRBind::pb11
 
         return str;
     }
+
+    void EmitDeprecationWarningLow(const char *name, const char *message, bool is_last)
+    {
+        const char *last_str = is_last ? " (will not warn about this entity again)" : "";
+        if (*message)
+            std::fprintf(stderr, MRBIND_STR(MB_PB11_MODULE_NAME) ": `%s` is deprecated: `%s`%s\n", name, message, last_str);
+        else
+            std::fprintf(stderr, MRBIND_STR(MB_PB11_MODULE_NAME) ": `%s` is deprecated%s\n", name, last_str);
+    }
 }
 
 PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
@@ -3320,6 +3394,16 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_cl(ret_, simplename_, qualname_, ns_stack_, params_) \
     +[]( DETAIL_MB_PB11_MAKE_PARAM_DECLS(params_) ) -> decltype(auto) {return simplename_( DETAIL_MB_PB11_MAKE_PARAM_USES(params_) );}
 
+// `name_` is the entity name string literal.
+// `message_` is the deprecation reasong string literal, empty string if deprecated with no reason, completely empty if not deprecated.
+// `...` is a function pointer or a member function pointer.
+// If `message_` is empty, returns `...` unchanged. Otherwise wraps it in `MRBind::pb11::deprecation_wrapper<...>`, which prints a deprecation message when called,
+//   but still forwards the call.
+#define DETAIL_MB_PB11_DEPRECATION_WRAPPER(name_, message_, .../*func*/) DETAIL_MB_PB11_DEPRECATION_WRAPPER_1((__VA_ARGS__), name_, message_)
+#define DETAIL_MB_PB11_DEPRECATION_WRAPPER_1(p_func_, name_, .../*message*/) MRBIND_CAT(DETAIL_MB_PB11_DEPRECATION_WRAPPER_2_, __VA_OPT__(1))(name_, __VA_ARGS__, MRBIND_IDENTITY p_func_)
+#define DETAIL_MB_PB11_DEPRECATION_WRAPPER_2_1(name_, message_, .../*func*/) MRBind::pb11::deprecation_wrapper<__VA_ARGS__, name_, message_>
+#define DETAIL_MB_PB11_DEPRECATION_WRAPPER_2_(name_, message_, .../*func*/) __VA_ARGS__
+
 #define DETAIL_MB_PB11_IF_STATIC_(x, y) y
 #define DETAIL_MB_PB11_IF_STATIC_static(x, y) x
 
@@ -3378,7 +3462,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     }
 
 // Bind a function.
-#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_) \
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_) \
     MRBind::pb11::GetRegistry().func_entries.emplace_back( \
         /* Qualified name */\
         MRBIND_STR(MRBIND_IDENTITY qualname_), \
@@ -3389,7 +3473,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             MRBind::pb11::TryAddFunc<\
                 MRBind::pb11::FuncKind::nonmember_or_static, \
                 /* The function pointer or a lambda. */\
-                DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
+                DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullqualname_), deprecated_, DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) ) \
                 /* Parameter types. */\
                 DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
             >( \
@@ -3559,7 +3643,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_static(class_qualname_, name_)
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, deprecated_, comment_, params_) \
     MRBind::pb11::TryAddCtor<\
         /* Copy/move kind. */\
         MRBind::pb11::CopyMoveKind::copy_move_kind_, \
@@ -3579,13 +3663,13 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_) \
     MRBind::pb11::TryAddFunc< \
         /* Is this function static? */\
         MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) \
+        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) ) \
         /* Parameter types: */\
         /* Self parameter. */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
@@ -3627,7 +3711,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         MRBind::pb11::TryAddMutableSubscriptOperator<_pb11_C const_, DETAIL_MB_PB11_PARAM_TYPES(params_)>(_pb11_c);
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a conversion function.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, explicit_, ret_, const_, comment_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_conv_op(qualname_, explicit_, ret_, const_, deprecated_, comment_) \
     if (_pb11_state.pass_number == 0) \
     MRBind::pb11::TryAddFuncSimple< \
         /* Function kind: a conversion operator, possibly explicit. */\

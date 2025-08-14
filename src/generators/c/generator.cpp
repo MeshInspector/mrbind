@@ -4,6 +4,7 @@
 #include "common/hash.h"
 #include "common/meta.h"
 #include "common/parsed_data.h"
+#include "common/string_escape.h"
 #include "common/strings.h"
 #include "generators/c/binding_common.h"
 #include "generators/c/module.h"
@@ -387,6 +388,47 @@ namespace mrbind::CBindings
             }
         }
 
+        { // The deprecation macro.
+            const std::string deprecated_macro = GetDeprecationMacroName(false);
+            const std::string deprecated_macro_reason = GetDeprecationMacroName(true);
+
+            file->header.contents +=
+                "\n"
+                "// The deprecation attribute.\n"
+                "#if !defined(" + deprecated_macro + ") && !defined(" + deprecated_macro_reason + ")\n"
+                "#  if defined(__cplusplus) // C++:\n"
+                "#    ifdef __has_cpp_attribute\n"
+                "#      if __has_cpp_attribute(deprecated)\n"
+                "#        define " + deprecated_macro + " [[deprecated]]\n"
+                "#        ifdef _MSC_VER\n"
+                "#          define " + deprecated_macro_reason + "(str) [[deprecated(\"is deprecated: \" str)]] // When using this form, MSVC just dumps the entity name and the message, without telling you that it is a deprecation warning. So we add this part ourselves.\n"
+                "#        else\n"
+                "#          define " + deprecated_macro_reason + "(str) [[deprecated(str)]]\n"
+                "#        endif\n"
+                "#      endif\n"
+                "#    endif\n"
+                "#  elif defined(_MSC_VER) // C in MSVC. It has a bugged `__has_c_attribute`, so needs to be special-cased.\n"
+                "#    if _MSC_VER >= 1937 && __STDC_VERSION__ >= 202312 // Funnily enough, MSVC doesn't even define `__STDC_VERSION__` in `/std:clatest` mode in 1936, but does define it in if you pass `/std:c17`. 1937 does define it properly in both cases. This also coincides with `[[deprecated]]` getting implemented in C.\n"
+                "#      define " + deprecated_macro + " [[deprecated]]\n"
+                "#      define " + deprecated_macro_reason + "(str) [[deprecated(\"is deprecated: \" str)]] // When using this form, MSVC just dumps the entity name and the message, without telling you that it is a deprecation warning. So we add this part ourselves.\n"
+                "#    endif\n"
+                "#  else // C not in MSVC:\n"
+                "#    ifdef __has_c_attribute\n"
+                "#      if __has_c_attribute(deprecated)\n"
+                "#        define " + deprecated_macro + " [[deprecated]]\n"
+                "#        define " + deprecated_macro_reason + "(str) [[deprecated(str)]]\n"
+                "#      endif\n"
+                "#    endif\n"
+                "#  endif\n"
+                "#  ifndef " + deprecated_macro + " // If nothing above has worked, just expand to nothing.\n"
+                "#    define " + deprecated_macro + "\n"
+                "#  endif\n"
+                "#  ifndef " + deprecated_macro_reason + "\n"
+                "#    define " + deprecated_macro_reason + "(str) " + deprecated_macro + "\n"
+                "#  endif\n"
+                "#endif\n";
+        }
+
         return file;
     }
 
@@ -494,6 +536,17 @@ namespace mrbind::CBindings
     std::string Generator::GetDisableConvenienceIncludesMacro()
     {
         return MakePublicHelperMacroName("DISABLE_CONVENIENCE_INCLUDES");
+    }
+
+    std::string Generator::GetDeprecationMacroName(bool with_message)
+    {
+        return MakePublicHelperMacroName(with_message ? "DEPRECATED_REASON" : "DEPRECATED");
+    }
+
+    std::string Generator::GetDeprecationMacro(OutputFile &target_file, std::string_view message)
+    {
+        target_file.header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
+        return message.empty() ? GetDeprecationMacroName(false) : GetDeprecationMacroName(true) + "(" + EscapeQuoteString(message) + ")";
     }
 
     bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags, bool allow_scalar_typedefs) const
@@ -1485,6 +1538,9 @@ namespace mrbind::CBindings
 
     void Generator::EmitFuncParams::SetFromParsedFunc(Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
+        mark_deprecated = new_func.deprecation_message;
+        silence_deprecation |= bool(new_func.deprecation_message);
+
         AddParamsFromParsedFunc(self, new_func.params);
         if (new_func.IsPostIncrOrDecr())
             RemoveIntParamFromPostIncrOrDecr();
@@ -1536,6 +1592,9 @@ namespace mrbind::CBindings
 
     void Generator::EmitFuncParams::SetFromParsedClassCtor(Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
+        mark_deprecated = new_ctor.deprecation_message;
+        silence_deprecation |= bool(new_ctor.deprecation_message);
+
         AddParamsFromParsedFunc(self, new_ctor.params);
 
         // A pretty fallback parameter name for copy/move ctors (especially useful if they are generated implicitly, since those don't have a parameter name).
@@ -1583,6 +1642,9 @@ namespace mrbind::CBindings
 
     void Generator::EmitFuncParams::SetFromParsedClassMethod(Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
+        mark_deprecated = new_method.deprecation_message;
+        silence_deprecation |= bool(new_method.deprecation_message);
+
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
         const std::string cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_type);
@@ -1649,6 +1711,9 @@ namespace mrbind::CBindings
 
     void Generator::EmitFuncParams::SetFromParsedClassConvOp(Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
+        mark_deprecated = new_conv_op.deprecation_message;
+        silence_deprecation |= bool(new_conv_op.deprecation_message);
+
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
         const std::string cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_type);
@@ -2202,6 +2267,15 @@ namespace mrbind::CBindings
         // Adjust the comment.
         generated_comments_adjuster.Adjust(ret.comment);
 
+        { // Assemble the attributes.
+            // The deprecation attribute.
+            if (params.mark_deprecated)
+            {
+                ret.attributes += GetDeprecationMacro(file, *params.mark_deprecated);
+                ret.attributes += params.mark_deprecated->empty() ? ' ' : '\n'; // Line break only if we have a message.
+            }
+        }
+
         return ret;
     }
 
@@ -2215,6 +2289,7 @@ namespace mrbind::CBindings
 
             file.header.contents += '\n';
             file.header.contents += strings.comment;
+            file.header.contents += strings.attributes;
             file.header.contents += GetExportMacroForFile(file, false);
             file.header.contents += ' ';
             file.header.contents += new_decl_str;

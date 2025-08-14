@@ -240,6 +240,19 @@ namespace mrbind
         return true;
     }
 
+    // If this declaration is `[[deprecated]]`, returns the deprecation message, or empty string if none.
+    // If not deprecated, returns null.
+    [[nodiscard]] std::optional<std::string> GetDeprecationMessage(const clang::Decl &decl)
+    {
+        // I don't think we need to recurse anywhere here.
+
+        std::string message;
+        if (decl.isDeprecated(&message))
+            return std::move(message);
+        else
+            return {};
+    }
+
     // This attribute completely removes the entity from the parser output.
     [[nodiscard]] bool HasIgnoreAttribute(const clang::Decl &decl)
     {
@@ -1494,6 +1507,7 @@ namespace mrbind
 
                 basic_func->comment = GetCommentString(*ctx, *params, *method);
                 basic_func->params = GetFuncParams(*method);
+                basic_func->deprecation_message = GetDeprecationMessage(*method);
                 return true; // Done processing member function, the rest is for non-members.
             }
 
@@ -1527,6 +1541,7 @@ namespace mrbind
             new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
             new_func.comment = GetCommentString(*ctx, *params, *decl);
             new_func.params = GetFuncParams(*decl);
+            new_func.deprecation_message = GetDeprecationMessage(*decl);
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 
             return true;

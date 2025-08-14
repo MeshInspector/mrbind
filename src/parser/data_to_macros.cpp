@@ -1,7 +1,7 @@
 #include "data_to_macros.h"
 
 #include "common/meta.h"
-#include "string_manip.h"
+#include "common/string_escape.h"
 
 #include <unordered_set>
 #include <utility>
@@ -279,6 +279,7 @@ namespace mrbind
                             << "(" << e.qual_name << "), "
                             << "(" << e.full_qual_name << "), "
                             << NsStackToString() << ", "
+                            << (e.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*e.deprecation_message) : "/*not deprecated*/") + ", "
                             << (e.comment ? EscapeQuoteString(e.comment->text) : "/*no comment*/")
                             << ", ";
                         dump_params(e.params, false);
@@ -353,6 +354,7 @@ namespace mrbind
                                             case CopyMoveKind::by_value_assignment: throw std::logic_error("Internal error: `CopyMoveKind::by_value_assignment` on a constructor");
                                         }
                                         out << ", "
+                                            << (ctor.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*ctor.deprecation_message) : "/*not deprecated*/") + ", "
                                             << (ctor.comment ? EscapeQuoteString(ctor.comment->text) : "/*no comment*/") << ", ";
                                         dump_params(ctor.params);
                                         out << ")\n";
@@ -376,6 +378,7 @@ namespace mrbind
                                             << method.simple_name << ", "
                                             << "(" << method.full_name << "), "
                                             << (method.is_const ? "const" : "/*not const*/") << ", "
+                                            << (method.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*method.deprecation_message) : "/*not deprecated*/") + ", "
                                             << (method.comment ? EscapeQuoteString(method.comment->text) : "/*no comment*/") << ", ";
                                         dump_params(method.params);
                                         out << ")\n";
@@ -387,6 +390,7 @@ namespace mrbind
                                             << (conv_op.is_explicit ? "explicit" : "/*not explicit*/") << ", "
                                             << "(" << conv_op.return_type.pretty << "), "
                                             << (conv_op.is_const ? "const" : "/*not const*/") << ", "
+                                            << (conv_op.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*conv_op.deprecation_message) : "/*not deprecated*/") + ", "
                                             << (conv_op.comment ? EscapeQuoteString(conv_op.comment->text) : "/*no comment*/")
                                             << ")\n";
                                     },

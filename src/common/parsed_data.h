@@ -143,6 +143,7 @@ namespace mrbind
         MBREFL_STRUCT(
             (std::optional<Comment>)(comment)
             (std::vector<FuncParam>)(params)
+            (std::optional<std::string>)(deprecation_message) // Null if not deprecated. Empty string if deprecated without a message.
         )
 
         // Respecting the default arguments, is this callable with `n` arguments?

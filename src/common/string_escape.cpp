@@ -1,4 +1,4 @@
-#include "string_manip.h"
+#include "string_escape.h"
 
 namespace mrbind
 {

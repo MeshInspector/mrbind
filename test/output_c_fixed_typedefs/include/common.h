@@ -43,5 +43,39 @@ MR_C_API void *MR_C_AllocArray(size_t num_bytes);
 // Deallocates memory that was previously allocated with `MR_C_AllocArray()`. Does nothing if the pointer is null.
 MR_C_API void MR_C_FreeArray(void *ptr);
 
+// The deprecation attribute.
+#if !defined(MR_C_DEPRECATED) && !defined(MR_C_DEPRECATED_REASON)
+#  if defined(__cplusplus) // C++:
+#    ifdef __has_cpp_attribute
+#      if __has_cpp_attribute(deprecated)
+#        define MR_C_DEPRECATED [[deprecated]]
+#        ifdef _MSC_VER
+#          define MR_C_DEPRECATED_REASON(str) [[deprecated("is deprecated: " str)]] // When using this form, MSVC just dumps the entity name and the message, without telling you that it is a deprecation warning. So we add this part ourselves.
+#        else
+#          define MR_C_DEPRECATED_REASON(str) [[deprecated(str)]]
+#        endif
+#      endif
+#    endif
+#  elif defined(_MSC_VER) // C in MSVC. It has a bugged `__has_c_attribute`, so needs to be special-cased.
+#    if _MSC_VER >= 1937 && __STDC_VERSION__ >= 202312 // Funnily enough, MSVC doesn't even define `__STDC_VERSION__` in `/std:clatest` mode in 1936, but does define it in if you pass `/std:c17`. 1937 does define it properly in both cases. This also coincides with `[[deprecated]]` getting implemented in C.
+#      define MR_C_DEPRECATED [[deprecated]]
+#      define MR_C_DEPRECATED_REASON(str) [[deprecated("is deprecated: " str)]] // When using this form, MSVC just dumps the entity name and the message, without telling you that it is a deprecation warning. So we add this part ourselves.
+#    endif
+#  else // C not in MSVC:
+#    ifdef __has_c_attribute
+#      if __has_c_attribute(deprecated)
+#        define MR_C_DEPRECATED [[deprecated]]
+#        define MR_C_DEPRECATED_REASON(str) [[deprecated(str)]]
+#      endif
+#    endif
+#  endif
+#  ifndef MR_C_DEPRECATED // If nothing above has worked, just expand to nothing.
+#    define MR_C_DEPRECATED
+#  endif
+#  ifndef MR_C_DEPRECATED_REASON
+#    define MR_C_DEPRECATED_REASON(str) MR_C_DEPRECATED
+#  endif
+#endif
+
 
 #endif // MR_C_DETAIL_INCLUDED_COMMON_H

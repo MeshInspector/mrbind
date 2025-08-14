@@ -9,6 +9,7 @@
 #include <input/MR/test_conv_ops.h>
 #include <input/MR/test_custom_preferred_names.h>
 #include <input/MR/test_declaration_order.h>
+#include <input/MR/test_deprecation.h>
 #include <input/MR/test_iostream.h>
 #include <input/MR/test_matching_layout.h>
 #include <input/MR/test_member_vars.h>

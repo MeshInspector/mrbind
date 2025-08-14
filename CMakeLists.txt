@@ -27,6 +27,7 @@ include_directories(deps/cppdecl/include)
 
 add_library(mrbind_common STATIC
     src/common/set_error_handlers.cpp
+    src/common/string_escape.cpp
 )
 
 
@@ -41,7 +42,6 @@ if(MRBIND_BUILD_PARSER)
         src/parser/data_to_macros.cpp
         src/parser/main.cpp
         src/parser/multiplex_data.cpp
-        src/parser/string_manip.cpp
     )
 
     target_link_libraries(mrbind PRIVATE

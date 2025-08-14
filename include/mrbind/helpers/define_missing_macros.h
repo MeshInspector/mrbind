@@ -46,6 +46,7 @@
 // `qualname_` - fully qualified function name, parenthesized.
 // `fullqualname_` - same as `qualname_`, but also includes template arguments, if any.
 // `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
+// `deprecated_` - either a deprecation message string literal, or empty string if deprecated without a message, or completely empty if not deprecated.
 // `comment_` - a string literal with the comment, or empty if none.
 // `params_` - a list of parameters `(...)(...)(...)`, or empty if none.
 //     Each parameter is `(type_, name_, default_arg_)`, where:
@@ -53,7 +54,7 @@
 //     * `name_` - parameter name.
 //     * `default_arg_` - parenthesized default argument, or empty if none.
 //     * `default_arg_cpp_` - parenthesized default argument, or empty if none. This one is adjusted to be a valid C++ expression (e.g. `{}` is prepended with a type, etc).
-#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, comment_, params_)
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_)
 #endif
 
 #ifndef MB_CLASS
@@ -76,12 +77,13 @@
 //         * `name_` - field name.
 //         * `fullname_` - parenthesized, usually same as `name` but for variable templates includes template arguments.
 //         * `comment_` - a string literal with the comment, or empty if none.
-//     * A public constructor `(ctor, explicit_, copy_move_kind_, comment_, params_)`, where:
-//       * `explicit_` - either `explicit` or empty if not explicit.
-//       * `copy_move_kind_` - one of: `none`, `copy`, `move` (the latter two represent copy and move constructors respectively).
-//       * `comment_` - a string literal with the comment, or empty if none.
-//       * `params_` - a parameter list, same as for `MB_FUNC(...)`, see above.
-//     * A public method `(method, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, comment_, params_)`, where:
+//     * A public constructor `(ctor, explicit_, copy_move_kind_, deprecated_, comment_, params_)`, where:
+//         * `explicit_` - either `explicit` or empty if not explicit.
+//         * `copy_move_kind_` - one of: `none`, `copy`, `move` (the latter two represent copy and move constructors respectively).
+//         * `deprecated_` - either a deprecation message string literal, or empty string if deprecated without a message, or completely empty if not deprecated.
+//         * `comment_` - a string literal with the comment, or empty if none.
+//         * `params_` - a parameter list, same as for `MB_FUNC(...)`, see above.
+//     * A public method `(method, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_)`, where:
 //         * `static_` - either `static` or nothing if non-static.
 //         * `assignment_kind_` one of: `none`, `copy`, `move` (the latter two represent copy and move assignment respectively).
 //         * `ret_` - parenthesized return type, or empty if void.
@@ -89,9 +91,10 @@
 //         * `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Subscript`.
 //         * `fullname_` - `name_` plus template arguments, if any. Parenthesized.
 //         * `const_` - either `const` or nothing if non-const.
+//         * `deprecated_` - either a deprecation message string literal, or empty string if deprecated without a message, or completely empty if not deprecated.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.
-//     * A public conversion operator `(conv_op, explicit_, ret_, const_, comment_)`, with the same parameter meaning as above.
+//     * A public conversion operator `(conv_op, explicit_, ret_, const_, deprecated_, comment_)`, with the same parameter meaning as above.
 #define MB_CLASS(kind_, name_, qualname_, ns_stack_, is_aggregate_, comment_, bases_, members_)
 #endif
 

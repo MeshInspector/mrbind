@@ -337,6 +337,16 @@ namespace mrbind::CBindings
         //   to speed up compilation.
         [[nodiscard]] std::string GetDisableConvenienceIncludesMacro();
 
+        // Returns the name of the deprecation macro. With have separate macros with and without a message parameter.
+        // Prefer to use `GetDeprecationMacro()` instead of this, which automatically adds the correct include that defines this macro.
+        [[nodiscard]] std::string GetDeprecationMacroName(bool with_message);
+
+        // Returns the deprecation macro, possibly with a message (if not empty).
+        // Automatically adds the include for the macro to `target_file`.
+        // The reason why we don't separate an empty `message` from no message is because libclang itself seemingly doesn't have that separation,
+        //   at least in the one function I used to get the deprecation message.
+        [[nodiscard]] std::string GetDeprecationMacro(OutputFile &target_file, std::string_view message);
+
         // Returns true if this is a built-in C type.
         // If both `allow_scalar_typedefs` is true and `flags & allow_integral` is true, also accept `[u]int??_t`, to match `--canonicalize-to-fixed-size-typedefs`.
         [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all, bool allow_scalar_typedefs = false) const;
@@ -1199,6 +1209,12 @@ namespace mrbind::CBindings
             // We also have similar flags in parameter and return usages, and accumulate them all.
             bool silence_deprecation = false;
 
+            // Marks the emitted function as deprecated.
+            // If the string is empty, uses no message.
+            // The reason why we don't separate an empty message from no message is because libclang itself seemingly doesn't have that separation,
+            //   at least in the one function I used to get the deprecation message.
+            std::optional<std::string> mark_deprecated;
+
             struct Param
             {
                 // Empty if unnamed.
@@ -1300,6 +1316,10 @@ namespace mrbind::CBindings
 
             // Wrapped in braces. No trailing newline.
             std::string body;
+
+            // Those are the public attributes that should be prepended to the declaration in the header.
+            // Either empty, or ends with a whitespace or newline, depending on what spelling we think will look better.
+            std::string attributes;
         };
         // Like `EmitFunction()`, but doesn't write the function directly to the file. Instead returns the strings composing it.
         // But the includes and such get written directly to the file.
