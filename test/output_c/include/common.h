@@ -42,17 +42,24 @@ MR_C_API void MR_C_FreeArray(void *ptr);
 #        endif
 #      endif
 #    endif
-#  elif defined(_MSC_VER) // C in MSVC. It has a bugged `__has_c_attribute`, so needs to be special-cased.
-#    if _MSC_VER >= 1937 && __STDC_VERSION__ >= 202312 // Funnily enough, MSVC doesn't even define `__STDC_VERSION__` in `/std:clatest` mode in 1936, but does define it in if you pass `/std:c17`. 1937 does define it properly in both cases. This also coincides with `[[deprecated]]` getting implemented in C.
+#  elif defined(_MSC_VER) // C in MSVC. It has a buggy `__has_c_attribute`, so needs to be special-cased.
+#    if _MSC_VER >= 1937 && __STDC_VERSION__ >= 202312 // Funnily enough, MSVC doesn't even define `__STDC_VERSION__` in `/std:clatest` mode in 1936, but does define it in if you pass `/std:c17`. 1937 does define it in both cases (through the value for C23 is supposed to be one less than what it reports, `202311`). This also coincides with `[[deprecated]]` getting implemented in C.
 #      define MR_C_DEPRECATED [[deprecated]]
 #      define MR_C_DEPRECATED_REASON(str) [[deprecated("is deprecated: " str)]] // When using this form, MSVC just dumps the entity name and the message, without telling you that it is a deprecation warning. So we add this part ourselves.
+#    else // Fall back to the non-standard syntax.
+#      define MR_C_DEPRECATED __declspec(deprecated)
+#      define MR_C_DEPRECATED_REASON(str) __declspec(deprecated("is deprecated: " str)) // When using this form, MSVC just dumps the entity name and the message, without telling you that it is a deprecation warning. So we add this part ourselves.
 #    endif
 #  else // C not in MSVC:
-#    ifdef __has_c_attribute
+#    if defined(__has_c_attribute) && (__STDC_VERSION__ >= 202311 || !defined(__GNUC__)) // Don't trust the `__has_c_attribute()` alone, as new attributes might warn when used in old C, even if the compiler reports them as supported. So if we have `__GNUC__` and an old C version, prefer the non-standard syntax instead. If the C version is old, but this isn't `__GNUC__`, then we have no syntax to fall back to, so we just use this one.
 #      if __has_c_attribute(deprecated)
 #        define MR_C_DEPRECATED [[deprecated]]
 #        define MR_C_DEPRECATED_REASON(str) [[deprecated(str)]]
 #      endif
+#    endif
+#    if !defined(MR_C_DEPRECATED) && defined(__GNUC__)
+#      define MR_C_DEPRECATED __attribute__((__deprecated__))
+#      define MR_C_DEPRECATED_REASON(str) __attribute__((__deprecated__(str)))
 #    endif
 #  endif
 #  ifndef MR_C_DEPRECATED // If nothing above has worked, just expand to nothing.
