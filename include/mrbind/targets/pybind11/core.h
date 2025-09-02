@@ -1230,7 +1230,27 @@ namespace MRBind::pb11
         {
             // This currently does nothing in the first pass, which is something `TryAddFunc()` relies on when injecting new constructors for conversion operators.
 
-            static constexpr int desired_pass_number = (ParamTypeRequiresLateFuncRegistration<DecayToTrueParamType<P>> || ...) ? 2 : 1;
+            static constexpr int desired_pass_number =
+                // The copy ctors are delayed to pass 2 for a convoluted reason. We'd do the same to move ctors, but they are all disabled by a condition
+                //   above anyway.
+                // We have class `MR::Mesh` that's implicitly convertible to `MR::MeshPart`, because the latter has a ctor from `(const Mesh &)`.
+                // If you then proceed to do `a = module.MeshPart(module.makeSomeMesh())`, if the copy ctor is registered first, this calls the copy ctor
+                //   instead of the one taking a mesh, because Pybind doesn't a proper overload resolution, and just tries the overloads in the registration
+                //   order. This seems to be able to call the copy ctor because of the implicit conversion. So the result is one extra copy.
+                // The reason why this copy ctor call is bad, other than performance, is that we've made it so that `keep_alive` doesn't propagate
+                //   through copy ctors, out of general sanity. Which results in `keep_alive` silently being ignored in this case.
+                // But if we delay the copy ctors, they no longer interfere.
+                // The parser does currently sort the members, but it sorts copy ctors before user ctors, because this looks better in C. We could introduce
+                //   a flag to sort them after, but I believe this would be confusing to the user, since forgetting this flag would silently cause strange
+                //   dangling issues. So instead we delay the copy ctors here.
+                // And since they get emitted first by the parser, they'll happen in the delayed pass before user ctors, which is exactly what we want,
+                //   since delayed user ctors are usually delayed because they have catch-all `pybind11::object` parameters, so it's good to have them
+                //   after the copy ctors.
+                // But note that this fix isn't of course a full solution. If the user manually calls the copy ctor, the copy will lose the `keep_alive`s,
+                //   (since we explicitly opted out of lifetime-extending the copy ctor parameters, as mentioned above, which would be dumb for obvious reasons).
+                //   which I don't see an easy fix for.
+                CopyMove == CopyMoveKind::copy ||
+                (ParamTypeRequiresLateFuncRegistration<DecayToTrueParamType<P>> || ...) ? 2 : 1;
             if (pass_number != desired_pass_number && pass_number >= 0)
                 return;
 
