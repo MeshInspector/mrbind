@@ -62,7 +62,7 @@
 #endif
 
 // Like `offsetof(...)`, but with dumb warnings disabled.
-#ifdef __GNUC__
+#if defined(__GNUC__) || defined(__clang__)
 #define MB_PB11_OFFSETOF(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"") offsetof(__VA_ARGS__) _Pragma("GCC diagnostic pop")
 #else
 #define MB_PB11_OFFSETOF(...) offsetof(__VA_ARGS__)
