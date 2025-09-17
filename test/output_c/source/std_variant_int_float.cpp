@@ -19,14 +19,14 @@ MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstructArray(siz
 MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructFromAnother(const MR_C_std_variant_int_float *other)
 {
     return (MR_C_std_variant_int_float *)new std::variant<int, float>(std::variant<int, float>(
-        (other ? std::variant<int, float>(*(std::variant<int, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::variant<int, float>(*(std::variant<int, float> *)other))
     ));
 }
 
 void MR_C_std_variant_int_float_AssignFromAnother(MR_C_std_variant_int_float *_this, const MR_C_std_variant_int_float *other)
 {
-    (_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::variant<int, float>(*(std::variant<int, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int, float> *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::variant<int, float>(*(std::variant<int, float> *)other))
     );
 }
 
@@ -52,7 +52,7 @@ MR_C_std_variant_int_float *MR_C_std_variant_int_float_OffsetMutablePtr(MR_C_std
 
 size_t MR_C_std_variant_int_float_Index(const MR_C_std_variant_int_float *_this)
 {
-    return (_this ? *(const std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).index();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int, float> *)(_this)).index();
 }
 
 MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_int(int value)
@@ -67,7 +67,7 @@ MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_float(float v
 
 void MR_C_std_variant_int_float_AssignAs_int(MR_C_std_variant_int_float *_this, int value)
 {
-    auto &_self = (_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int, float> *)(_this));
     if (_self.index() == 0)
         std::get<0>(_self) = value;
     else
@@ -76,7 +76,7 @@ void MR_C_std_variant_int_float_AssignAs_int(MR_C_std_variant_int_float *_this, 
 
 void MR_C_std_variant_int_float_AssignAs_float(MR_C_std_variant_int_float *_this, float value)
 {
-    auto &_self = (_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int, float> *)(_this));
     if (_self.index() == 1)
         std::get<1>(_self) = value;
     else
@@ -85,21 +85,21 @@ void MR_C_std_variant_int_float_AssignAs_float(MR_C_std_variant_int_float *_this
 
 const int *MR_C_std_variant_int_float_Get_int(const MR_C_std_variant_int_float *_this)
 {
-    return std::get_if<0>(&(_this ? *(const std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return std::get_if<0>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int, float> *)(_this)));
 }
 
 int *MR_C_std_variant_int_float_GetMutable_int(MR_C_std_variant_int_float *_this)
 {
-    return std::get_if<0>(&(_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return std::get_if<0>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int, float> *)(_this)));
 }
 
 const float *MR_C_std_variant_int_float_Get_float(const MR_C_std_variant_int_float *_this)
 {
-    return std::get_if<1>(&(_this ? *(const std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return std::get_if<1>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int, float> *)(_this)));
 }
 
 float *MR_C_std_variant_int_float_GetMutable_float(MR_C_std_variant_int_float *_this)
 {
-    return std::get_if<1>(&(_this ? *(std::variant<int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return std::get_if<1>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int, float> *)(_this)));
 }
 

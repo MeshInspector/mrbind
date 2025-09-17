@@ -12,7 +12,7 @@
 void MR_StdString_Set(const char *s, const char *s_end)
 {
     ::MR::StdString::Set(
-        (s ? (s_end ? std::string(s, s_end) : std::string(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string(s, s_end) : std::string(s)))
     );
 }
 
@@ -33,7 +33,7 @@ MR_C_std_string *MR_StdString_Get(void)
 void MR_StdString_WriteToRef(MR_C_std_string *ref)
 {
     ::MR::StdString::WriteToRef(
-        (ref ? *(std::string *)(ref) : throw std::runtime_error("Parameter `ref` can not be null."))
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(std::string *)(ref))
     );
 }
 
@@ -47,21 +47,21 @@ void MR_StdString_WriteToPtr(MR_C_std_string *ptr)
 void MR_StdString_ConstRef(const MR_C_std_string *s)
 {
     ::MR::StdString::ConstRef(
-        (s ? *(const std::string *)(s) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), *(const std::string *)(s))
     );
 }
 
 void MR_StdString_RvalueRef(MR_C_std_string *s)
 {
     ::MR::StdString::RvalueRef(
-        (s ? std::move(*(std::string *)(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), std::move(*(std::string *)(s)))
     );
 }
 
 void MR_StdString_ConstRvalueRef(const MR_C_std_string *s)
 {
     ::MR::StdString::ConstRvalueRef(
-        (s ? std::move(*(const std::string *)(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), std::move(*(const std::string *)(s)))
     );
 }
 

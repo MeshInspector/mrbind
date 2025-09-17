@@ -19,7 +19,7 @@ MR_C_std_optional_int *MR_C_std_optional_int_DefaultConstructArray(size_t num_el
 MR_C_std_optional_int *MR_C_std_optional_int_ConstructFromAnother(const MR_C_std_optional_int *other)
 {
     return (MR_C_std_optional_int *)new std::optional<int>(std::optional<int>(
-        (other ? std::optional<int>(*(std::optional<int> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<int>(*(std::optional<int> *)other))
     ));
 }
 
@@ -32,14 +32,14 @@ MR_C_std_optional_int *MR_C_std_optional_int_ConstructFrom(const int *other)
 
 void MR_C_std_optional_int_AssignFromAnother(MR_C_std_optional_int *_this, const MR_C_std_optional_int *other)
 {
-    (_this ? *(std::optional<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::optional<int>(*(std::optional<int> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<int> *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<int>(*(std::optional<int> *)other))
     );
 }
 
 void MR_C_std_optional_int_AssignFrom(MR_C_std_optional_int *_this, const int *other)
 {
-    (_this ? *(std::optional<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<int> *)(_this)).operator=(
         (other ? std::optional<int>(*other) : std::nullopt)
     );
 }
@@ -66,13 +66,13 @@ MR_C_std_optional_int *MR_C_std_optional_int_OffsetMutablePtr(MR_C_std_optional_
 
 const int *MR_C_std_optional_int_Value(const MR_C_std_optional_int *_this)
 {
-    auto &_self = (_this ? *(const std::optional<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<int> *)(_this));
     return _self ? &*_self : nullptr;
 }
 
 int *MR_C_std_optional_int_MutableValue(MR_C_std_optional_int *_this)
 {
-    auto &_self = (_this ? *(std::optional<int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<int> *)(_this));
     return _self ? &*_self : nullptr;
 }
 

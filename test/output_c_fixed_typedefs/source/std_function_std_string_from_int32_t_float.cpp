@@ -30,7 +30,7 @@ MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_string_fr
 
 void MR_C_std_function_std_string_from_int32_t_float_AssignFromAnother(MR_C_std_function_std_string_from_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_std_function_std_string_from_int32_t_float *other)
 {
-    (_this ? *(std::function<std::string(int32_t, float)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int32_t, float)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<std::string(int32_t, float)>) MRBINDC_CLASSARG_COPY(other, (std::function<std::string(int32_t, float)>), std::function<std::string(int32_t, float)>) MRBINDC_CLASSARG_MOVE(other, (std::function<std::string(int32_t, float)>), std::function<std::string(int32_t, float)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<std::string(int32_t, float)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<std::string(int32_t, float)>) MRBINDC_CLASSARG_END(other, std::function<std::string(int32_t, float)>))
     );
 }
@@ -57,7 +57,7 @@ MR_C_std_function_std_string_from_int32_t_float *MR_C_std_function_std_string_fr
 
 void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t _1, float _2))
 {
-    auto &_self = (_this ? *(std::function<std::string(int32_t, float)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int32_t, float)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -71,13 +71,13 @@ void MR_C_std_function_std_string_from_int32_t_float_Assign(MR_C_std_function_st
             _1,
             _2
         );
-        return (_return ? (_return_end ? std::string(_return, _return_end) : std::string(_return)) : throw std::runtime_error("Parameter `_return` can not be null."));
+        return ((_return ? void() : throw std::runtime_error("Parameter `_return` can not be null.")), (_return_end ? std::string(_return, _return_end) : std::string(_return)));
     };
 }
 
 void MR_C_std_function_std_string_from_int32_t_float_AssignWithDataPtr(MR_C_std_function_std_string_from_int32_t_float *_this, const char *(*func)(const char **_return_end, int32_t _1, float _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    auto &_self = (_this ? *(std::function<std::string(int32_t, float)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int32_t, float)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -148,7 +148,7 @@ void MR_C_std_function_std_string_from_int32_t_float_AssignWithDataPtr(MR_C_std_
                 _2,
                 _userdata
             );
-            return (_return ? (_return_end ? std::string(_return, _return_end) : std::string(_return)) : throw std::runtime_error("Parameter `_return` can not be null."));
+            return ((_return ? void() : throw std::runtime_error("Parameter `_return` can not be null.")), (_return_end ? std::string(_return, _return_end) : std::string(_return)));
         }
     };
     

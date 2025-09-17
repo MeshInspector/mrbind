@@ -17,7 +17,7 @@ MR_C_std_variant_int_float *MR_StdVariant_foo(void)
 void MR_StdVariant_bar(const MR_C_std_variant_int_float_float *_1)
 {
     ::MR::StdVariant::bar(
-        (_1 ? std::variant<int, float, float>(*(std::variant<int, float, float> *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::variant<int, float, float>(*(std::variant<int, float, float> *)_1))
     );
 }
 

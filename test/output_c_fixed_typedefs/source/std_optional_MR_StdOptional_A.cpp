@@ -22,7 +22,7 @@ MR_C_std_optional_MR_StdOptional_A *MR_C_std_optional_MR_StdOptional_A_DefaultCo
 MR_C_std_optional_MR_StdOptional_A *MR_C_std_optional_MR_StdOptional_A_ConstructFromAnother(const MR_C_std_optional_MR_StdOptional_A *other)
 {
     return (MR_C_std_optional_MR_StdOptional_A *)new std::optional<MR::StdOptional::A>(std::optional<MR::StdOptional::A>(
-        (other ? std::optional<MR::StdOptional::A>(*(std::optional<MR::StdOptional::A> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<MR::StdOptional::A>(*(std::optional<MR::StdOptional::A> *)other))
     ));
 }
 
@@ -35,14 +35,14 @@ MR_C_std_optional_MR_StdOptional_A *MR_C_std_optional_MR_StdOptional_A_Construct
 
 void MR_C_std_optional_MR_StdOptional_A_AssignFromAnother(MR_C_std_optional_MR_StdOptional_A *_this, const MR_C_std_optional_MR_StdOptional_A *other)
 {
-    (_this ? *(std::optional<MR::StdOptional::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::optional<MR::StdOptional::A>(*(std::optional<MR::StdOptional::A> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::StdOptional::A> *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<MR::StdOptional::A>(*(std::optional<MR::StdOptional::A> *)other))
     );
 }
 
 void MR_C_std_optional_MR_StdOptional_A_AssignFrom(MR_C_std_optional_MR_StdOptional_A *_this, const MR_StdOptional_A *other)
 {
-    (_this ? *(std::optional<MR::StdOptional::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::StdOptional::A> *)(_this)).operator=(
         (other ? std::optional<MR::StdOptional::A>(MR::StdOptional::A(*(MR::StdOptional::A *)other)) : std::nullopt)
     );
 }
@@ -69,13 +69,13 @@ MR_C_std_optional_MR_StdOptional_A *MR_C_std_optional_MR_StdOptional_A_OffsetMut
 
 const MR_StdOptional_A *MR_C_std_optional_MR_StdOptional_A_Value(const MR_C_std_optional_MR_StdOptional_A *_this)
 {
-    auto &_self = (_this ? *(const std::optional<MR::StdOptional::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::StdOptional::A> *)(_this));
     return (const MR_StdOptional_A *)(_self ? &*_self : nullptr);
 }
 
 MR_StdOptional_A *MR_C_std_optional_MR_StdOptional_A_MutableValue(MR_C_std_optional_MR_StdOptional_A *_this)
 {
-    auto &_self = (_this ? *(std::optional<MR::StdOptional::A> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::StdOptional::A> *)(_this));
     return (MR_StdOptional_A *)(_self ? &*_self : nullptr);
 }
 

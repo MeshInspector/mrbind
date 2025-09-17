@@ -11,7 +11,7 @@
 void MR_StdTupleLike_SetPair(const MR_C_std_pair_int_float *_1)
 {
     ::MR::StdTupleLike::SetPair(
-        (_1 ? std::pair<int, float>(*(std::pair<int, float> *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::pair<int, float>(*(std::pair<int, float> *)_1))
     );
 }
 
@@ -48,7 +48,7 @@ MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_StdTupleLike_GetPa
 void MR_StdTupleLike_SetTuple(const MR_C_std_tuple_int_float *_1)
 {
     ::MR::StdTupleLike::SetTuple(
-        (_1 ? std::tuple<int, float>(*(std::tuple<int, float> *)_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::tuple<int, float>(*(std::tuple<int, float> *)_1))
     );
 }
 

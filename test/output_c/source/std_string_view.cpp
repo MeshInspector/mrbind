@@ -19,28 +19,28 @@ MR_C_std_string_view *MR_C_std_string_view_DefaultConstructArray(size_t num_elem
 MR_C_std_string_view *MR_C_std_string_view_ConstructFromAnother(const MR_C_std_string_view *other)
 {
     return (MR_C_std_string_view *)new std::string_view(std::string_view(
-        (other ? std::string_view(*(std::string_view *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::string_view(*(std::string_view *)other))
     ));
 }
 
 MR_C_std_string_view *MR_C_std_string_view_ConstructFrom(const char *other, const char *other_end)
 {
     return (MR_C_std_string_view *)new std::string_view(std::string_view(
-        (other ? (other_end ? std::string_view(other, other_end) : std::string_view(other)) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::string_view(other, other_end) : std::string_view(other)))
     ));
 }
 
 void MR_C_std_string_view_AssignFromAnother(MR_C_std_string_view *_this, const MR_C_std_string_view *other)
 {
-    (_this ? *(std::string_view *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::string_view(*(std::string_view *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string_view *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::string_view(*(std::string_view *)other))
     );
 }
 
 void MR_C_std_string_view_AssignFrom(MR_C_std_string_view *_this, const char *other, const char *other_end)
 {
-    (_this ? *(std::string_view *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? (other_end ? std::string_view(other, other_end) : std::string_view(other)) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string_view *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::string_view(other, other_end) : std::string_view(other)))
     );
 }
 
@@ -66,16 +66,16 @@ MR_C_std_string_view *MR_C_std_string_view_OffsetMutablePtr(MR_C_std_string_view
 
 size_t MR_C_std_string_view_Size(const MR_C_std_string_view *_this)
 {
-    return (_this ? *(const std::string_view *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).size();
 }
 
 const char *MR_C_std_string_view_Data(const MR_C_std_string_view *_this)
 {
-    return (_this ? *(const std::string_view *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).data();
 }
 
 const char *MR_C_std_string_view_DataEnd(const MR_C_std_string_view *_this)
 {
-    return (_this ? *(const std::string_view *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).data() + (_this ? *(const std::string_view *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).data() + ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).size();
 }
 

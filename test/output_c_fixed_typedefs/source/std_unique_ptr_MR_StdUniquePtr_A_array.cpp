@@ -23,7 +23,7 @@ MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr
 MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFromAnother(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *other)
 {
     return (MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *)new std::unique_ptr<MR::StdUniquePtr::A[]>(std::unique_ptr<MR::StdUniquePtr::A[]>(
-        (other ? std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)))
     ));
 }
 
@@ -36,14 +36,14 @@ MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr
 
 void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFromAnother(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *other)
 {
-    (_this ? *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)))
     );
 }
 
 void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFrom(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, MR_StdUniquePtr_A *other)
 {
-    (_this ? *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).operator=(
         std::unique_ptr<MR::StdUniquePtr::A[]>((MR::StdUniquePtr::A *)other)
     );
 }
@@ -70,16 +70,16 @@ MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr
 
 MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
 {
-    return (MR_StdUniquePtr_A *)((_this ? *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get());
+    return (MR_StdUniquePtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).get());
 }
 
 MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_At(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, size_t i)
 {
-    return (MR_StdUniquePtr_A *)&((_this ? *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."))[i]);
+    return (MR_StdUniquePtr_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this))[i]);
 }
 
 MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Release(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
 {
-    return (MR_StdUniquePtr_A *)((_this ? *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).release());
+    return (MR_StdUniquePtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).release());
 }
 

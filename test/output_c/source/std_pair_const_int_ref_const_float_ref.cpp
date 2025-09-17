@@ -9,7 +9,7 @@
 MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_ref_const_float_ref_ConstructFromAnother(const MR_C_std_pair_const_int_ref_const_float_ref *other)
 {
     return (MR_C_std_pair_const_int_ref_const_float_ref *)new std::pair<const int &, const float &>(std::pair<const int &, const float &>(
-        (other ? std::pair<const int &, const float &>(*(std::pair<const int &, const float &> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::pair<const int &, const float &>(*(std::pair<const int &, const float &> *)other))
     ));
 }
 
@@ -36,18 +36,18 @@ MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_ref_const_f
 MR_C_std_pair_const_int_ref_const_float_ref *MR_C_std_pair_const_int_ref_const_float_ref_Construct(const int *first, const float *second)
 {
     return (MR_C_std_pair_const_int_ref_const_float_ref *)new std::pair<const int &, const float &>(std::pair<const int &, const float &>(
-        (first ? *first : throw std::runtime_error("Parameter `first` can not be null.")),
-        (second ? *second : throw std::runtime_error("Parameter `second` can not be null."))
+        ((first ? void() : throw std::runtime_error("Parameter `first` can not be null.")), *first),
+        ((second ? void() : throw std::runtime_error("Parameter `second` can not be null.")), *second)
     ));
 }
 
 const int *MR_C_std_pair_const_int_ref_const_float_ref_First(const MR_C_std_pair_const_int_ref_const_float_ref *_this)
 {
-    return &((_this ? *(const std::pair<const int &, const float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
+    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int &, const float &> *)(_this)).first);
 }
 
 const float *MR_C_std_pair_const_int_ref_const_float_ref_Second(const MR_C_std_pair_const_int_ref_const_float_ref *_this)
 {
-    return &((_this ? *(const std::pair<const int &, const float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).second);
+    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int &, const float &> *)(_this)).second);
 }
 

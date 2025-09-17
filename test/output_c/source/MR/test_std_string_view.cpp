@@ -10,7 +10,7 @@
 void MR_StdStringView_Set(const char *s, const char *s_end)
 {
     ::MR::StdStringView::Set(
-        (s ? (s_end ? std::string_view(s, s_end) : std::string_view(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 
@@ -31,7 +31,7 @@ MR_C_std_string_view *MR_StdStringView_Get(void)
 void MR_StdStringView_WriteToRef(MR_C_std_string_view *ref)
 {
     ::MR::StdStringView::WriteToRef(
-        (ref ? *(std::string_view *)(ref) : throw std::runtime_error("Parameter `ref` can not be null."))
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(std::string_view *)(ref))
     );
 }
 
@@ -45,21 +45,21 @@ void MR_StdStringView_WriteToPtr(MR_C_std_string_view *ptr)
 void MR_StdStringView_ConstRef(const char *s, const char *s_end)
 {
     ::MR::StdStringView::ConstRef(
-        (s ? (s_end ? std::string_view(s, s_end) : std::string_view(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 
 void MR_StdStringView_RvalueRef(const char *s, const char *s_end)
 {
     ::MR::StdStringView::RvalueRef(
-        (s ? (s_end ? std::string_view(s, s_end) : std::string_view(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 
 void MR_StdStringView_ConstRvalueRef(const char *s, const char *s_end)
 {
     ::MR::StdStringView::ConstRvalueRef(
-        (s ? (s_end ? std::string_view(s, s_end) : std::string_view(s)) : throw std::runtime_error("Parameter `s` can not be null."))
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 

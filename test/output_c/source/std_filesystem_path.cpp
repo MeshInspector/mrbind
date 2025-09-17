@@ -30,14 +30,14 @@ MR_C_std_filesystem_path *MR_C_std_filesystem_path_ConstructFrom(const char *oth
 {
     MRBINDC_IGNORE_DEPRECATION(
     return (MR_C_std_filesystem_path *)new std::filesystem::path(std::filesystem::path(
-        (other ? (other_end ? std::filesystem::u8path(other, other_end) : std::filesystem::u8path(other)) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::filesystem::u8path(other, other_end) : std::filesystem::u8path(other)))
     ));
     ) // MRBINDC_IGNORE_DEPRECATION
 }
 
 void MR_C_std_filesystem_path_AssignFromAnother(MR_C_std_filesystem_path *_this, MR_C_PassBy other_pass_by, MR_C_std_filesystem_path *other)
 {
-    (_this ? *(std::filesystem::path *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::filesystem::path *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::filesystem::path) MRBINDC_CLASSARG_COPY(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_MOVE(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::filesystem::path) MRBINDC_CLASSARG_END(other, std::filesystem::path))
     );
 }
@@ -45,8 +45,8 @@ void MR_C_std_filesystem_path_AssignFromAnother(MR_C_std_filesystem_path *_this,
 void MR_C_std_filesystem_path_AssignFrom(MR_C_std_filesystem_path *_this, const char *other, const char *other_end)
 {
     MRBINDC_IGNORE_DEPRECATION(
-    (_this ? *(std::filesystem::path *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? (other_end ? std::filesystem::u8path(other, other_end) : std::filesystem::u8path(other)) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::filesystem::path *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::filesystem::u8path(other, other_end) : std::filesystem::u8path(other)))
     );
     ) // MRBINDC_IGNORE_DEPRECATION
 }
@@ -73,7 +73,7 @@ MR_C_std_filesystem_path *MR_C_std_filesystem_path_OffsetMutablePtr(MR_C_std_fil
 
 MR_C_std_string *MR_C_std_filesystem_path_GetString(const MR_C_std_filesystem_path *_this)
 {
-    auto ret = (_this ? *(const std::filesystem::path *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).u8string();
+    auto ret = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::filesystem::path *)(_this)).u8string();
     return (MR_C_std_string *)new std::string(std::string(reinterpret_cast<const char *>(ret.c_str()), ret.size()));
 }
 

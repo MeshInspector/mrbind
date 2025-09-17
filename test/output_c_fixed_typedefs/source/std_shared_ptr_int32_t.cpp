@@ -29,7 +29,7 @@ MR_C_std_shared_ptr_int32_t *MR_C_std_shared_ptr_int32_t_ConstructFromAnother(MR
 
 void MR_C_std_shared_ptr_int32_t_AssignFromAnother(MR_C_std_shared_ptr_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_int32_t *other)
 {
-    (_this ? *(std::shared_ptr<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int32_t> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<int32_t>), std::shared_ptr<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<int32_t>), std::shared_ptr<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<int32_t>) MRBINDC_CLASSARG_END(other, std::shared_ptr<int32_t>))
     );
 }
@@ -56,12 +56,12 @@ MR_C_std_shared_ptr_int32_t *MR_C_std_shared_ptr_int32_t_OffsetMutablePtr(MR_C_s
 
 int32_t *MR_C_std_shared_ptr_int32_t_Get(const MR_C_std_shared_ptr_int32_t *_this)
 {
-    return (_this ? *(const std::shared_ptr<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t> *)(_this)).get();
 }
 
 int MR_C_std_shared_ptr_int32_t_UseCount(const MR_C_std_shared_ptr_int32_t *_this)
 {
-    return int((_this ? *(const std::shared_ptr<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).use_count());
+    return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t> *)(_this)).use_count());
 }
 
 void MR_C_std_shared_ptr_int32_t_Construct(int32_t *ptr)
@@ -73,7 +73,7 @@ void MR_C_std_shared_ptr_int32_t_Construct(int32_t *ptr)
 
 void MR_C_std_shared_ptr_int32_t_Assign(MR_C_std_shared_ptr_int32_t *_this, int32_t *ptr)
 {
-    (_this ? *(std::shared_ptr<int32_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::shared_ptr<int32_t>(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int32_t> *)(_this)) = std::shared_ptr<int32_t>(
         std::unique_ptr<int32_t>(ptr)
     );
 }

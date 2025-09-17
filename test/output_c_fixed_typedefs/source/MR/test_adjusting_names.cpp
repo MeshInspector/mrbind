@@ -57,7 +57,7 @@ MR_AdjustingNames_A *MR_AdjustingNames_A_OffsetMutablePtr(MR_AdjustingNames_A *p
 MR_AdjustingNames_A *MR_AdjustingNames_A_ConstructFromAnother(const MR_AdjustingNames_A *_other)
 {
     return (MR_AdjustingNames_A *)new MR::AdjustingNames::A(MR::AdjustingNames::A(
-        (_other ? MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
     ));
 }
 
@@ -73,23 +73,23 @@ void MR_AdjustingNames_A_DestroyArray(const MR_AdjustingNames_A *_this)
 
 MR_C_uint64_t MR_AdjustingNames_A_ConvertTo_uint64_t(MR_AdjustingNames_A *_this)
 {
-    return (MR_C_uint64_t)((_this ? *(MR::AdjustingNames::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return (MR_C_uint64_t)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)));
 }
 
 MR_AdjustingNames_A *MR_AdjustingNames_A_AssignFromAnother(MR_AdjustingNames_A *_this, const MR_AdjustingNames_A *_other)
 {
-    return (MR_AdjustingNames_A *)&((_this ? *(MR::AdjustingNames::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_AdjustingNames_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
     ));
 }
 
 void MR_AdjustingNames_A_foo(MR_AdjustingNames_A *_this)
 {
-    (_this ? *(MR::AdjustingNames::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo<MR_C_uint64_t>();
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).foo<MR_C_uint64_t>();
 }
 
 void MR_AdjustingNames_A_bar(MR_AdjustingNames_A *_this)
 {
-    (_this ? *(MR::AdjustingNames::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).bar();
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).bar();
 }
 

@@ -88,7 +88,7 @@ MR_Bases_H *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_H(MR_Bases_A *object)
 MR_Bases_A *MR_Bases_A_ConstructFromAnother(const MR_Bases_A *_other)
 {
     return (MR_Bases_A *)new MR::Bases::A(MR::Bases::A(
-        (_other ? MR::Bases::A(*(MR::Bases::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::A(*(MR::Bases::A *)_other))
     ));
 }
 
@@ -104,8 +104,8 @@ void MR_Bases_A_DestroyArray(const MR_Bases_A *_this)
 
 MR_Bases_A *MR_Bases_A_AssignFromAnother(MR_Bases_A *_this, const MR_Bases_A *_other)
 {
-    return (MR_Bases_A *)&((_this ? *(MR::Bases::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::A(*(MR::Bases::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::A *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::A(*(MR::Bases::A *)_other))
     ));
 }
 
@@ -202,7 +202,7 @@ MR_Bases_D3 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_D3(MR_Bases_B *object)
 MR_Bases_B *MR_Bases_B_ConstructFromAnother(const MR_Bases_B *_other)
 {
     return (MR_Bases_B *)new MR::Bases::B(MR::Bases::B(
-        (_other ? MR::Bases::B(*(MR::Bases::B *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::B(*(MR::Bases::B *)_other))
     ));
 }
 
@@ -218,8 +218,8 @@ void MR_Bases_B_DestroyArray(const MR_Bases_B *_this)
 
 MR_Bases_B *MR_Bases_B_AssignFromAnother(MR_Bases_B *_this, const MR_Bases_B *_other)
 {
-    return (MR_Bases_B *)&((_this ? *(MR::Bases::B *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::B(*(MR::Bases::B *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_B *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::B *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::B(*(MR::Bases::B *)_other))
     ));
 }
 
@@ -274,7 +274,7 @@ MR_Bases_B *MR_Bases_B2_MutableUpcastTo_MR_Bases_B(MR_Bases_B2 *object)
 MR_Bases_B2 *MR_Bases_B2_ConstructFromAnother(const MR_Bases_B2 *_other)
 {
     return (MR_Bases_B2 *)new MR::Bases::B2(MR::Bases::B2(
-        (_other ? MR::Bases::B2(*(MR::Bases::B2 *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::B2(*(MR::Bases::B2 *)_other))
     ));
 }
 
@@ -290,8 +290,8 @@ void MR_Bases_B2_DestroyArray(const MR_Bases_B2 *_this)
 
 MR_Bases_B2 *MR_Bases_B2_AssignFromAnother(MR_Bases_B2 *_this, const MR_Bases_B2 *_other)
 {
-    return (MR_Bases_B2 *)&((_this ? *(MR::Bases::B2 *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::B2(*(MR::Bases::B2 *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_B2 *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::B2 *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::B2(*(MR::Bases::B2 *)_other))
     ));
 }
 
@@ -346,7 +346,7 @@ MR_Bases_D *MR_Bases_C_MutableStaticDowncastTo_MR_Bases_D(MR_Bases_C *object)
 MR_Bases_C *MR_Bases_C_ConstructFromAnother(const MR_Bases_C *_other)
 {
     return (MR_Bases_C *)new MR::Bases::C(MR::Bases::C(
-        (_other ? MR::Bases::C(*(MR::Bases::C *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::C(*(MR::Bases::C *)_other))
     ));
 }
 
@@ -362,8 +362,8 @@ void MR_Bases_C_DestroyArray(const MR_Bases_C *_this)
 
 MR_Bases_C *MR_Bases_C_AssignFromAnother(MR_Bases_C *_this, const MR_Bases_C *_other)
 {
-    return (MR_Bases_C *)&((_this ? *(MR::Bases::C *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::C(*(MR::Bases::C *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_C *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::C *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::C(*(MR::Bases::C *)_other))
     ));
 }
 
@@ -418,7 +418,7 @@ MR_Bases_C *MR_Bases_D_MutableUpcastTo_MR_Bases_C(MR_Bases_D *object)
 MR_Bases_D *MR_Bases_D_ConstructFromAnother(const MR_Bases_D *_other)
 {
     return (MR_Bases_D *)new MR::Bases::D(MR::Bases::D(
-        (_other ? MR::Bases::D(*(MR::Bases::D *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::D(*(MR::Bases::D *)_other))
     ));
 }
 
@@ -434,8 +434,8 @@ void MR_Bases_D_DestroyArray(const MR_Bases_D *_this)
 
 MR_Bases_D *MR_Bases_D_AssignFromAnother(MR_Bases_D *_this, const MR_Bases_D *_other)
 {
-    return (MR_Bases_D *)&((_this ? *(MR::Bases::D *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::D(*(MR::Bases::D *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_D *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::D *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::D(*(MR::Bases::D *)_other))
     ));
 }
 
@@ -476,7 +476,7 @@ MR_Bases_B *MR_Bases_D2_MutableUpcastTo_MR_Bases_B(MR_Bases_D2 *object)
 MR_Bases_D2 *MR_Bases_D2_ConstructFromAnother(const MR_Bases_D2 *_other)
 {
     return (MR_Bases_D2 *)new MR::Bases::D2(MR::Bases::D2(
-        (_other ? MR::Bases::D2(*(MR::Bases::D2 *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::D2(*(MR::Bases::D2 *)_other))
     ));
 }
 
@@ -492,8 +492,8 @@ void MR_Bases_D2_DestroyArray(const MR_Bases_D2 *_this)
 
 MR_Bases_D2 *MR_Bases_D2_AssignFromAnother(MR_Bases_D2 *_this, const MR_Bases_D2 *_other)
 {
-    return (MR_Bases_D2 *)&((_this ? *(MR::Bases::D2 *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::D2(*(MR::Bases::D2 *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_D2 *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::D2 *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::D2(*(MR::Bases::D2 *)_other))
     ));
 }
 
@@ -534,7 +534,7 @@ MR_Bases_B *MR_Bases_D3_MutableUpcastTo_MR_Bases_B(MR_Bases_D3 *object)
 MR_Bases_D3 *MR_Bases_D3_ConstructFromAnother(const MR_Bases_D3 *_other)
 {
     return (MR_Bases_D3 *)new MR::Bases::D3(MR::Bases::D3(
-        (_other ? MR::Bases::D3(*(MR::Bases::D3 *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::D3(*(MR::Bases::D3 *)_other))
     ));
 }
 
@@ -550,8 +550,8 @@ void MR_Bases_D3_DestroyArray(const MR_Bases_D3 *_this)
 
 MR_Bases_D3 *MR_Bases_D3_AssignFromAnother(MR_Bases_D3 *_this, const MR_Bases_D3 *_other)
 {
-    return (MR_Bases_D3 *)&((_this ? *(MR::Bases::D3 *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::D3(*(MR::Bases::D3 *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_D3 *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::D3 *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::D3(*(MR::Bases::D3 *)_other))
     ));
 }
 
@@ -592,7 +592,7 @@ MR_Bases_F *MR_Bases_E_MutableStaticDowncastTo_MR_Bases_F(MR_Bases_E *object)
 MR_Bases_E *MR_Bases_E_ConstructFromAnother(const MR_Bases_E *_other)
 {
     return (MR_Bases_E *)new MR::Bases::E(MR::Bases::E(
-        (_other ? MR::Bases::E(*(MR::Bases::E *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::E(*(MR::Bases::E *)_other))
     ));
 }
 
@@ -608,8 +608,8 @@ void MR_Bases_E_DestroyArray(const MR_Bases_E *_this)
 
 MR_Bases_E *MR_Bases_E_AssignFromAnother(MR_Bases_E *_this, const MR_Bases_E *_other)
 {
-    return (MR_Bases_E *)&((_this ? *(MR::Bases::E *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::E(*(MR::Bases::E *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_E *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::E *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::E(*(MR::Bases::E *)_other))
     ));
 }
 
@@ -650,7 +650,7 @@ MR_Bases_E *MR_Bases_F_MutableUpcastTo_MR_Bases_E(MR_Bases_F *object)
 MR_Bases_F *MR_Bases_F_ConstructFromAnother(const MR_Bases_F *_other)
 {
     return (MR_Bases_F *)new MR::Bases::F(MR::Bases::F(
-        (_other ? MR::Bases::F(*(MR::Bases::F *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::F(*(MR::Bases::F *)_other))
     ));
 }
 
@@ -666,8 +666,8 @@ void MR_Bases_F_DestroyArray(const MR_Bases_F *_this)
 
 MR_Bases_F *MR_Bases_F_AssignFromAnother(MR_Bases_F *_this, const MR_Bases_F *_other)
 {
-    return (MR_Bases_F *)&((_this ? *(MR::Bases::F *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::Bases::F(*(MR::Bases::F *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_Bases_F *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::F *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::Bases::F(*(MR::Bases::F *)_other))
     ));
 }
 
@@ -738,7 +738,7 @@ void MR_Bases_G_DestroyArray(const MR_Bases_G *_this)
 
 MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_pass_by, MR_Bases_G *_other)
 {
-    return (MR_Bases_G *)&((_this ? *(MR::Bases::G *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    return (MR_Bases_G *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::G *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::G) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::G), MR::Bases::G) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::G), MR::Bases::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::G) MRBINDC_CLASSARG_END(_other, MR::Bases::G))
     ));
 }
@@ -824,7 +824,7 @@ void MR_Bases_H_DestroyArray(const MR_Bases_H *_this)
 
 MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_pass_by, MR_Bases_H *_other)
 {
-    return (MR_Bases_H *)&((_this ? *(MR::Bases::H *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    return (MR_Bases_H *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::H *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::H) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::H), MR::Bases::H) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::H), MR::Bases::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::H) MRBINDC_CLASSARG_END(_other, MR::Bases::H))
     ));
 }
@@ -910,7 +910,7 @@ void MR_Bases_I_DestroyArray(const MR_Bases_I *_this)
 
 MR_Bases_I *MR_Bases_I_AssignFromAnother(MR_Bases_I *_this, MR_C_PassBy _other_pass_by, MR_Bases_I *_other)
 {
-    return (MR_Bases_I *)&((_this ? *(MR::Bases::I *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    return (MR_Bases_I *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::I *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::I) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::I), MR::Bases::I) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::I), MR::Bases::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::I) MRBINDC_CLASSARG_END(_other, MR::Bases::I))
     ));
 }

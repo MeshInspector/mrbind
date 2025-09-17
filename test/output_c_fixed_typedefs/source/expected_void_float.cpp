@@ -20,28 +20,28 @@ MR_C_expected_void_float *MR_C_expected_void_float_DefaultConstructArray(size_t 
 MR_C_expected_void_float *MR_C_expected_void_float_ConstructFromAnother(const MR_C_expected_void_float *other)
 {
     return (MR_C_expected_void_float *)new std::expected<void, float>(std::expected<void, float>(
-        (other ? std::expected<void, float>(*(std::expected<void, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)other))
     ));
 }
 
 MR_C_expected_void_float *MR_C_expected_void_float_ConstructFrom(const MR_C_expected_void_float *other)
 {
     return (MR_C_expected_void_float *)new std::expected<void, float>(std::expected<void, float>(
-        (other ? std::expected<void, float>(*(std::expected<void, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)other))
     ));
 }
 
 void MR_C_expected_void_float_AssignFromAnother(MR_C_expected_void_float *_this, const MR_C_expected_void_float *other)
 {
-    (_this ? *(std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::expected<void, float>(*(std::expected<void, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<void, float> *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)other))
     );
 }
 
 void MR_C_expected_void_float_AssignFrom(MR_C_expected_void_float *_this, const MR_C_expected_void_float *other)
 {
-    (_this ? *(std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::expected<void, float>(*(std::expected<void, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<void, float> *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)other))
     );
 }
 
@@ -67,18 +67,18 @@ MR_C_expected_void_float *MR_C_expected_void_float_OffsetMutablePtr(MR_C_expecte
 
 bool MR_C_expected_void_float_GetValue(const MR_C_expected_void_float *_this)
 {
-    return bool((_this ? *(const std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<void, float> *)(_this)));
 }
 
 const float *MR_C_expected_void_float_GetError(const MR_C_expected_void_float *_this)
 {
-    auto &_self = (_this ? *(const std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<void, float> *)(_this));
     return _self ? nullptr : &_self.error();
 }
 
 float *MR_C_expected_void_float_GetMutableError(MR_C_expected_void_float *_this)
 {
-    auto &_self = (_this ? *(std::expected<void, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<void, float> *)(_this));
     return _self ? nullptr : &_self.error();
 }
 

@@ -17,7 +17,7 @@ void MR_StdFilesystem_SetPath(const char *_1, const char *_1_end)
 {
     MRBINDC_IGNORE_DEPRECATION(
     ::MR::StdFilesystem::SetPath(
-        (_1 ? (_1_end ? std::filesystem::u8path(_1, _1_end) : std::filesystem::u8path(_1)) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), (_1_end ? std::filesystem::u8path(_1, _1_end) : std::filesystem::u8path(_1)))
     );
     ) // MRBINDC_IGNORE_DEPRECATION
 }
@@ -26,7 +26,7 @@ void MR_StdFilesystem_SetPathConstRef(const char *_1, const char *_1_end)
 {
     MRBINDC_IGNORE_DEPRECATION(
     ::MR::StdFilesystem::SetPathConstRef(
-        (_1 ? (_1_end ? std::filesystem::u8path(_1, _1_end) : std::filesystem::u8path(_1)) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), (_1_end ? std::filesystem::u8path(_1, _1_end) : std::filesystem::u8path(_1)))
     );
     ) // MRBINDC_IGNORE_DEPRECATION
 }

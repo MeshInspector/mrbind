@@ -28,7 +28,7 @@ MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_function_
 
 void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *other)
 {
-    (_this ? *(std::function<MR::StdFunction::E(int, MR::StdFunction::E)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::StdFunction::E(int, MR::StdFunction::E)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_COPY(other, (std::function<MR::StdFunction::E(int, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_MOVE(other, (std::function<MR::StdFunction::E(int, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_END(other, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>))
     );
 }
@@ -55,7 +55,7 @@ MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_function_
 
 void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Assign(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int _1, MR_StdFunction_E *_2))
 {
-    auto &_self = (_this ? *(std::function<MR::StdFunction::E(int, MR::StdFunction::E)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::StdFunction::E(int, MR::StdFunction::E)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -73,7 +73,7 @@ void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Assign(MR_C_st
 
 void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignWithDataPtr(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int _1, MR_StdFunction_E *_2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    auto &_self = (_this ? *(std::function<MR::StdFunction::E(int, MR::StdFunction::E)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::StdFunction::E(int, MR::StdFunction::E)> *)(_this));
     if (!func)
     {
         _self = nullptr;

@@ -19,7 +19,7 @@ MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_DefaultConstructArr
 MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_ConstructFromAnother(const MR_C_std_pair_const_int_float *other)
 {
     return (MR_C_std_pair_const_int_float *)new std::pair<const int, float>(std::pair<const int, float>(
-        (other ? std::pair<const int, float>(*(std::pair<const int, float> *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::pair<const int, float>(*(std::pair<const int, float> *)other))
     ));
 }
 
@@ -53,16 +53,16 @@ MR_C_std_pair_const_int_float *MR_C_std_pair_const_int_float_Construct(int first
 
 const int *MR_C_std_pair_const_int_float_First(const MR_C_std_pair_const_int_float *_this)
 {
-    return &((_this ? *(const std::pair<const int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
+    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int, float> *)(_this)).first);
 }
 
 const float *MR_C_std_pair_const_int_float_Second(const MR_C_std_pair_const_int_float *_this)
 {
-    return &((_this ? *(const std::pair<const int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).second);
+    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int, float> *)(_this)).second);
 }
 
 float *MR_C_std_pair_const_int_float_MutableSecond(MR_C_std_pair_const_int_float *_this)
 {
-    return &((_this ? *(std::pair<const int, float> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).second);
+    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<const int, float> *)(_this)).second);
 }
 

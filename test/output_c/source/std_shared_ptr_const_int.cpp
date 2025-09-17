@@ -27,7 +27,7 @@ MR_C_std_shared_ptr_const_int *MR_C_std_shared_ptr_const_int_ConstructFromAnothe
 
 void MR_C_std_shared_ptr_const_int_AssignFromAnother(MR_C_std_shared_ptr_const_int *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_const_int *other)
 {
-    (_this ? *(std::shared_ptr<const int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<const int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<const int>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<const int>), std::shared_ptr<const int>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<const int>), std::shared_ptr<const int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<const int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<const int>) MRBINDC_CLASSARG_END(other, std::shared_ptr<const int>))
     );
 }
@@ -54,12 +54,12 @@ MR_C_std_shared_ptr_const_int *MR_C_std_shared_ptr_const_int_OffsetMutablePtr(MR
 
 const int *MR_C_std_shared_ptr_const_int_Get(const MR_C_std_shared_ptr_const_int *_this)
 {
-    return (_this ? *(const std::shared_ptr<const int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).get();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const int> *)(_this)).get();
 }
 
 int MR_C_std_shared_ptr_const_int_UseCount(const MR_C_std_shared_ptr_const_int *_this)
 {
-    return int((_this ? *(const std::shared_ptr<const int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).use_count());
+    return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const int> *)(_this)).use_count());
 }
 
 void MR_C_std_shared_ptr_const_int_Construct(const int *ptr)
@@ -71,7 +71,7 @@ void MR_C_std_shared_ptr_const_int_Construct(const int *ptr)
 
 void MR_C_std_shared_ptr_const_int_Assign(MR_C_std_shared_ptr_const_int *_this, const int *ptr)
 {
-    (_this ? *(std::shared_ptr<const int> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) = std::shared_ptr<const int>(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<const int> *)(_this)) = std::shared_ptr<const int>(
         std::unique_ptr<const int>(ptr)
     );
 }

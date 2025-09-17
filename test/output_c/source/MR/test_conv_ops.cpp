@@ -30,7 +30,7 @@ MR_ConvOps_A *MR_ConvOps_A_OffsetMutablePtr(MR_ConvOps_A *ptr, ptrdiff_t i)
 MR_ConvOps_A *MR_ConvOps_A_ConstructFromAnother(const MR_ConvOps_A *_other)
 {
     return (MR_ConvOps_A *)new MR::ConvOps::A(MR::ConvOps::A(
-        (_other ? MR::ConvOps::A(*(MR::ConvOps::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::ConvOps::A(*(MR::ConvOps::A *)_other))
     ));
 }
 
@@ -46,13 +46,13 @@ void MR_ConvOps_A_DestroyArray(const MR_ConvOps_A *_this)
 
 bool MR_ConvOps_A_ConvertTo_bool(const MR_ConvOps_A *_this)
 {
-    return (bool)((_this ? *(const MR::ConvOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return (bool)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::ConvOps::A *)(_this)));
 }
 
 MR_ConvOps_A *MR_ConvOps_A_AssignFromAnother(MR_ConvOps_A *_this, const MR_ConvOps_A *_other)
 {
-    return (MR_ConvOps_A *)&((_this ? *(MR::ConvOps::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::ConvOps::A(*(MR::ConvOps::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_ConvOps_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::ConvOps::A *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::ConvOps::A(*(MR::ConvOps::A *)_other))
     ));
 }
 

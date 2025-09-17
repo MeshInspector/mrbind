@@ -31,18 +31,18 @@ MR_C_std_pair_int32_t_ref_float_ref *MR_C_std_pair_int32_t_ref_float_ref_OffsetM
 MR_C_std_pair_int32_t_ref_float_ref *MR_C_std_pair_int32_t_ref_float_ref_Construct(int32_t *first, float *second)
 {
     return (MR_C_std_pair_int32_t_ref_float_ref *)new std::pair<int32_t &, float &>(std::pair<int32_t &, float &>(
-        (first ? *first : throw std::runtime_error("Parameter `first` can not be null.")),
-        (second ? *second : throw std::runtime_error("Parameter `second` can not be null."))
+        ((first ? void() : throw std::runtime_error("Parameter `first` can not be null.")), *first),
+        ((second ? void() : throw std::runtime_error("Parameter `second` can not be null.")), *second)
     ));
 }
 
 int32_t *MR_C_std_pair_int32_t_ref_float_ref_First(const MR_C_std_pair_int32_t_ref_float_ref *_this)
 {
-    return &((_this ? *(const std::pair<int32_t &, float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).first);
+    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int32_t &, float &> *)(_this)).first);
 }
 
 float *MR_C_std_pair_int32_t_ref_float_ref_Second(const MR_C_std_pair_int32_t_ref_float_ref *_this)
 {
-    return &((_this ? *(const std::pair<int32_t &, float &> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).second);
+    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int32_t &, float &> *)(_this)).second);
 }
 

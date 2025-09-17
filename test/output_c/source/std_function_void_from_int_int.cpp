@@ -27,7 +27,7 @@ MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_int_Constru
 
 void MR_C_std_function_void_from_int_int_AssignFromAnother(MR_C_std_function_void_from_int_int *_this, MR_C_PassBy other_pass_by, MR_C_std_function_void_from_int_int *other)
 {
-    (_this ? *(std::function<void(int, int)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int, int)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<void(int, int)>) MRBINDC_CLASSARG_COPY(other, (std::function<void(int, int)>), std::function<void(int, int)>) MRBINDC_CLASSARG_MOVE(other, (std::function<void(int, int)>), std::function<void(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<void(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<void(int, int)>) MRBINDC_CLASSARG_END(other, std::function<void(int, int)>))
     );
 }
@@ -54,7 +54,7 @@ MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_int_OffsetM
 
 void MR_C_std_function_void_from_int_int_Assign(MR_C_std_function_void_from_int_int *_this, void (*func)(int _1, int _2))
 {
-    auto &_self = (_this ? *(std::function<void(int, int)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int, int)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -71,7 +71,7 @@ void MR_C_std_function_void_from_int_int_Assign(MR_C_std_function_void_from_int_
 
 void MR_C_std_function_void_from_int_int_AssignWithDataPtr(MR_C_std_function_void_from_int_int *_this, void (*func)(int _1, int _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    auto &_self = (_this ? *(std::function<void(int, int)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int, int)> *)(_this));
     if (!func)
     {
         _self = nullptr;

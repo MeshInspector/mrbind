@@ -31,7 +31,7 @@ MR_C_std_vector_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_st
 
 void MR_C_std_vector_expected_int32_t_std_string_AssignFromAnother(MR_C_std_vector_expected_int32_t_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_expected_int32_t_std_string *other)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_COPY(other, (std::vector<std::expected<int32_t, std::string>>), std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_MOVE(other, (std::vector<std::expected<int32_t, std::string>>), std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_END(other, std::vector<std::expected<int32_t, std::string>>))
     );
 }
@@ -58,185 +58,185 @@ MR_C_std_vector_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_st
 
 size_t MR_C_std_vector_expected_int32_t_std_string_Size(const MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).size();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).size();
 }
 
 bool MR_C_std_vector_expected_int32_t_std_string_IsEmpty(const MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).empty();
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_Resize(MR_C_std_vector_expected_int32_t_std_string *_this, size_t new_size)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).resize(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).resize(
         new_size
     );
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_ResizeWithDefaultValue(MR_C_std_vector_expected_int32_t_std_string *_this, size_t new_size, const MR_C_expected_int32_t_std_string *value)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).resize(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).resize(
         new_size,
-        (value ? *(const std::expected<int32_t, std::string> *)(value) : throw std::runtime_error("Parameter `value` can not be null."))
+        ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), *(const std::expected<int32_t, std::string> *)(value))
     );
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_Clear(MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).clear();
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).clear();
 }
 
 size_t MR_C_std_vector_expected_int32_t_std_string_Capacity(const MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).capacity();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).capacity();
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_Reserve(MR_C_std_vector_expected_int32_t_std_string *_this, size_t new_capacity)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).reserve(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).reserve(
         new_capacity
     );
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_ShrinkToFit(MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).shrink_to_fit();
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).shrink_to_fit();
 }
 
 const MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_At(const MR_C_std_vector_expected_int32_t_std_string *_this, size_t i)
 {
-    return (const MR_C_expected_int32_t_std_string *)&((_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
+    return (const MR_C_expected_int32_t_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).at(
         i
     ));
 }
 
 MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_MutableAt(MR_C_std_vector_expected_int32_t_std_string *_this, size_t i)
 {
-    return (MR_C_expected_int32_t_std_string *)&((_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).at(
+    return (MR_C_expected_int32_t_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).at(
         i
     ));
 }
 
 const MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_Front(const MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (const MR_C_expected_int32_t_std_string *)((_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front());
+    return (const MR_C_expected_int32_t_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).front());
 }
 
 MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_MutableFront(MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (MR_C_expected_int32_t_std_string *)((_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).front());
+    return (MR_C_expected_int32_t_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).front());
 }
 
 const MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_Back(const MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (const MR_C_expected_int32_t_std_string *)((_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back());
+    return (const MR_C_expected_int32_t_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).back());
 }
 
 MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_MutableBack(MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (MR_C_expected_int32_t_std_string *)((_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).empty() ? nullptr : &(_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).back());
+    return (MR_C_expected_int32_t_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).back());
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_PushBack(MR_C_std_vector_expected_int32_t_std_string *_this, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).push_back(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).push_back(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>))
     );
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_PopBack(MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).pop_back();
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).pop_back();
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_Insert(MR_C_std_vector_expected_int32_t_std_string *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert((_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).begin() + ptrdiff_t(position), (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>)));
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).begin() + ptrdiff_t(position), (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>)));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_Erase(MR_C_std_vector_expected_int32_t_std_string *_this, size_t position)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).erase((_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).begin() + ptrdiff_t(position));
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).erase(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).begin() + ptrdiff_t(position));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_InsertAtMutableIter(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_iterator *position, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
-        (position ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)position) : throw std::runtime_error("Parameter `position` can not be null.")),
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).insert(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>))
     );
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_EraseAtMutableIter(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_iterator *position)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).erase(
-        (position ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)position) : throw std::runtime_error("Parameter `position` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).erase(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)position))
     );
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_InsertAtIter(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).insert(
-        (position ? std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null.")),
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).insert(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>))
     );
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_EraseAtIter(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *position)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).erase(
-        (position ? std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)position) : throw std::runtime_error("Parameter `position` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).erase(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)position))
     );
 }
 
 MR_C_std_vector_expected_int32_t_std_string_const_iterator *MR_C_std_vector_expected_int32_t_std_string_Begin(const MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (MR_C_std_vector_expected_int32_t_std_string_const_iterator *)new std::vector<std::expected<int32_t, std::string>>::const_iterator((_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cbegin());
+    return (MR_C_std_vector_expected_int32_t_std_string_const_iterator *)new std::vector<std::expected<int32_t, std::string>>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).cbegin());
 }
 
 bool MR_C_std_vector_expected_int32_t_std_string_IsBegin(const MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *iter)
 {
-    return (_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cbegin() == (iter ? *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(iter) : throw std::runtime_error("Parameter `iter` can not be null."));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(iter));
 }
 
 MR_C_std_vector_expected_int32_t_std_string_iterator *MR_C_std_vector_expected_int32_t_std_string_MutableBegin(MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (MR_C_std_vector_expected_int32_t_std_string_iterator *)new std::vector<std::expected<int32_t, std::string>>::iterator((_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).begin());
+    return (MR_C_std_vector_expected_int32_t_std_string_iterator *)new std::vector<std::expected<int32_t, std::string>>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).begin());
 }
 
 bool MR_C_std_vector_expected_int32_t_std_string_IsMutableBegin(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_iterator *iter)
 {
-    return (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).begin() == (iter ? *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(iter) : throw std::runtime_error("Parameter `iter` can not be null."));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(iter));
 }
 
 MR_C_std_vector_expected_int32_t_std_string_const_iterator *MR_C_std_vector_expected_int32_t_std_string_End(const MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (MR_C_std_vector_expected_int32_t_std_string_const_iterator *)new std::vector<std::expected<int32_t, std::string>>::const_iterator((_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cend());
+    return (MR_C_std_vector_expected_int32_t_std_string_const_iterator *)new std::vector<std::expected<int32_t, std::string>>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).cend());
 }
 
 bool MR_C_std_vector_expected_int32_t_std_string_IsEnd(const MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *iter)
 {
-    return (_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cend() == (iter ? *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(iter) : throw std::runtime_error("Parameter `iter` can not be null."));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(iter));
 }
 
 MR_C_std_vector_expected_int32_t_std_string_iterator *MR_C_std_vector_expected_int32_t_std_string_MutableEnd(MR_C_std_vector_expected_int32_t_std_string *_this)
 {
-    return (MR_C_std_vector_expected_int32_t_std_string_iterator *)new std::vector<std::expected<int32_t, std::string>>::iterator((_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).end());
+    return (MR_C_std_vector_expected_int32_t_std_string_iterator *)new std::vector<std::expected<int32_t, std::string>>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).end());
 }
 
 bool MR_C_std_vector_expected_int32_t_std_string_IsMutableEnd(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_iterator *iter)
 {
-    return (_this ? *(std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).end() == (iter ? *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(iter) : throw std::runtime_error("Parameter `iter` can not be null."));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(iter));
 }
 
 ptrdiff_t MR_C_std_vector_expected_int32_t_std_string_ToIndex(const MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *iter)
 {
-    return (iter ? std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)iter) : throw std::runtime_error("Parameter `iter` can not be null.")) - (_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).cbegin();
+    return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).cbegin();
 }
 
 ptrdiff_t MR_C_std_vector_expected_int32_t_std_string_MutableToIndex(const MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_iterator *iter)
 {
-    return (iter ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)iter) : throw std::runtime_error("Parameter `iter` can not be null.")) - (_this ? *(const std::vector<std::expected<int32_t, std::string>> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).begin();
+    return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).begin();
 }
 
 MR_C_std_vector_expected_int32_t_std_string_const_iterator *MR_C_std_vector_expected_int32_t_std_string_const_iterator_DefaultConstruct(void)
@@ -252,14 +252,14 @@ MR_C_std_vector_expected_int32_t_std_string_const_iterator *MR_C_std_vector_expe
 MR_C_std_vector_expected_int32_t_std_string_const_iterator *MR_C_std_vector_expected_int32_t_std_string_const_iterator_ConstructFromAnother(const MR_C_std_vector_expected_int32_t_std_string_const_iterator *other)
 {
     return (MR_C_std_vector_expected_int32_t_std_string_const_iterator *)new std::vector<std::expected<int32_t, std::string>>::const_iterator(std::vector<std::expected<int32_t, std::string>>::const_iterator(
-        (other ? std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)other))
     ));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_const_iterator_AssignFromAnother(MR_C_std_vector_expected_int32_t_std_string_const_iterator *_this, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *other)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)other))
     );
 }
 
@@ -286,7 +286,7 @@ MR_C_std_vector_expected_int32_t_std_string_const_iterator *MR_C_std_vector_expe
 MR_C_std_vector_expected_int32_t_std_string_const_iterator *MR_C_std_vector_expected_int32_t_std_string_const_iterator_FromMutable(const MR_C_std_vector_expected_int32_t_std_string_iterator *iter)
 {
     return (MR_C_std_vector_expected_int32_t_std_string_const_iterator *)new std::vector<std::expected<int32_t, std::string>>::const_iterator(std::vector<std::expected<int32_t, std::string>>::iterator(
-        (iter ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)iter) : throw std::runtime_error("Parameter `iter` can not be null."))
+        ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)iter))
     ));
 }
 
@@ -303,14 +303,14 @@ MR_C_std_vector_expected_int32_t_std_string_iterator *MR_C_std_vector_expected_i
 MR_C_std_vector_expected_int32_t_std_string_iterator *MR_C_std_vector_expected_int32_t_std_string_iterator_ConstructFromAnother(const MR_C_std_vector_expected_int32_t_std_string_iterator *other)
 {
     return (MR_C_std_vector_expected_int32_t_std_string_iterator *)new std::vector<std::expected<int32_t, std::string>>::iterator(std::vector<std::expected<int32_t, std::string>>::iterator(
-        (other ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)other))
     ));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_iterator_AssignFromAnother(MR_C_std_vector_expected_int32_t_std_string_iterator *_this, const MR_C_std_vector_expected_int32_t_std_string_iterator *other)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (other ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)other) : throw std::runtime_error("Parameter `other` can not be null."))
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)other))
     );
 }
 
@@ -336,51 +336,51 @@ MR_C_std_vector_expected_int32_t_std_string_iterator *MR_C_std_vector_expected_i
 
 const MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_const_iterator_Deref(const MR_C_std_vector_expected_int32_t_std_string_const_iterator *_this)
 {
-    return (const MR_C_expected_int32_t_std_string *)&(*(_this ? *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return (const MR_C_expected_int32_t_std_string *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_const_iterator_Incr(MR_C_std_vector_expected_int32_t_std_string_const_iterator *_this)
 {
-    ++(_this ? *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_const_iterator_Decr(MR_C_std_vector_expected_int32_t_std_string_const_iterator *_this)
 {
-    --(_this ? *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_const_iterator_OffsetBy(MR_C_std_vector_expected_int32_t_std_string_const_iterator *_this, ptrdiff_t delta)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) += delta;
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this)) += delta;
 }
 
 ptrdiff_t MR_C_std_vector_expected_int32_t_std_string_const_iterator_Distance(const MR_C_std_vector_expected_int32_t_std_string_const_iterator *a, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *b)
 {
-    return (b ? std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)b) : throw std::runtime_error("Parameter `b` can not be null.")) - (a ? std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)a) : throw std::runtime_error("Parameter `a` can not be null."));
+    return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)a));
 }
 
 MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_iterator_Deref(const MR_C_std_vector_expected_int32_t_std_string_iterator *_this)
 {
-    return (MR_C_expected_int32_t_std_string *)&(*(_this ? *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")));
+    return (MR_C_expected_int32_t_std_string *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_iterator_Incr(MR_C_std_vector_expected_int32_t_std_string_iterator *_this)
 {
-    ++(_this ? *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_iterator_Decr(MR_C_std_vector_expected_int32_t_std_string_iterator *_this)
 {
-    --(_this ? *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_iterator_OffsetBy(MR_C_std_vector_expected_int32_t_std_string_iterator *_this, ptrdiff_t delta)
 {
-    (_this ? *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")) += delta;
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>>::iterator *)(_this)) += delta;
 }
 
 ptrdiff_t MR_C_std_vector_expected_int32_t_std_string_iterator_Distance(const MR_C_std_vector_expected_int32_t_std_string_iterator *a, const MR_C_std_vector_expected_int32_t_std_string_iterator *b)
 {
-    return (b ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)b) : throw std::runtime_error("Parameter `b` can not be null.")) - (a ? std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)a) : throw std::runtime_error("Parameter `a` can not be null."));
+    return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)a));
 }
 

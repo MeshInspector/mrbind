@@ -21,7 +21,7 @@ MR_C_uint64_t MR_TestSizeT_foo_uint64_t(MR_C_uint64_t _1)
 MR_C_uint64_t **MR_TestSizeT_foo_uint64_t_ptr(MR_C_uint64_t **_1)
 {
     return &(::MR::TestSizeT::foo(
-        (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
     ));
 }
 
@@ -42,7 +42,7 @@ MR_C_int64_t MR_TestSizeT_foo_int64_t(MR_C_int64_t _1)
 MR_C_int64_t **MR_TestSizeT_foo_int64_t_ptr(MR_C_int64_t **_1)
 {
     return &(::MR::TestSizeT::foo(
-        (_1 ? *_1 : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
     ));
 }
 
@@ -76,7 +76,7 @@ MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_OffsetMutablePtr(MR_TestSizeT_A
 MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_ConstructFromAnother(const MR_TestSizeT_A_uint64_t *_other)
 {
     return (MR_TestSizeT_A_uint64_t *)new MR::TestSizeT::A<MR_C_uint64_t>(MR::TestSizeT::A<MR_C_uint64_t>(
-        (_other ? MR::TestSizeT::A<MR_C_uint64_t>(*(MR::TestSizeT::A<MR_C_uint64_t> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSizeT::A<MR_C_uint64_t>(*(MR::TestSizeT::A<MR_C_uint64_t> *)_other))
     ));
 }
 
@@ -92,13 +92,13 @@ void MR_TestSizeT_A_uint64_t_DestroyArray(const MR_TestSizeT_A_uint64_t *_this)
 
 MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_A_uint64_t *_this, const MR_TestSizeT_A_uint64_t *_other)
 {
-    return (MR_TestSizeT_A_uint64_t *)&((_this ? *(MR::TestSizeT::A<MR_C_uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::TestSizeT::A<MR_C_uint64_t>(*(MR::TestSizeT::A<MR_C_uint64_t> *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_TestSizeT_A_uint64_t *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<MR_C_uint64_t> *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSizeT::A<MR_C_uint64_t>(*(MR::TestSizeT::A<MR_C_uint64_t> *)_other))
     ));
 }
 
 MR_C_uint64_t MR_TestSizeT_A_uint64_t_foo(MR_TestSizeT_A_uint64_t *_this)
 {
-    return (_this ? *(MR::TestSizeT::A<MR_C_uint64_t> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).foo();
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<MR_C_uint64_t> *)(_this)).foo();
 }
 

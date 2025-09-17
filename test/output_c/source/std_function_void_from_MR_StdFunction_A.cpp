@@ -28,7 +28,7 @@ MR_C_std_function_void_from_MR_StdFunction_A *MR_C_std_function_void_from_MR_Std
 
 void MR_C_std_function_void_from_MR_StdFunction_A_AssignFromAnother(MR_C_std_function_void_from_MR_StdFunction_A *_this, MR_C_PassBy other_pass_by, MR_C_std_function_void_from_MR_StdFunction_A *other)
 {
-    (_this ? *(std::function<void(MR::StdFunction::A)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(MR::StdFunction::A)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_COPY(other, (std::function<void(MR::StdFunction::A)>), std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_MOVE(other, (std::function<void(MR::StdFunction::A)>), std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_END(other, std::function<void(MR::StdFunction::A)>))
     );
 }
@@ -55,7 +55,7 @@ MR_C_std_function_void_from_MR_StdFunction_A *MR_C_std_function_void_from_MR_Std
 
 void MR_C_std_function_void_from_MR_StdFunction_A_Assign(MR_C_std_function_void_from_MR_StdFunction_A *_this, void (*func)(MR_StdFunction_A *_1))
 {
-    auto &_self = (_this ? *(std::function<void(MR::StdFunction::A)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(MR::StdFunction::A)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -71,7 +71,7 @@ void MR_C_std_function_void_from_MR_StdFunction_A_Assign(MR_C_std_function_void_
 
 void MR_C_std_function_void_from_MR_StdFunction_A_AssignWithDataPtr(MR_C_std_function_void_from_MR_StdFunction_A *_this, void (*func)(MR_StdFunction_A *_1, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    auto &_self = (_this ? *(std::function<void(MR::StdFunction::A)> *)(_this) : throw std::runtime_error("Parameter `_this` can not be null."));
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(MR::StdFunction::A)> *)(_this));
     if (!func)
     {
         _self = nullptr;

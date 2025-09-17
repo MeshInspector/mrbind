@@ -25,7 +25,7 @@ void MR_StdUniquePtr_SetInt(int32_t *_1)
 void MR_StdUniquePtr_SetIntConstRef(const MR_C_std_unique_ptr_int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntConstRef(
-        (_1 ? *(const std::unique_ptr<int32_t> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::unique_ptr<int32_t> *)(_1))
     );
 }
 
@@ -48,14 +48,14 @@ void MR_StdUniquePtr_SetIntDef(int32_t *const *_1)
 void MR_StdUniquePtr_SetIntLvalueRef(MR_C_std_unique_ptr_int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntLvalueRef(
-        (_1 ? *(std::unique_ptr<int32_t> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::unique_ptr<int32_t> *)(_1))
     );
 }
 
 void MR_StdUniquePtr_SetIntLvalueConstRef(const MR_C_std_unique_ptr_int32_t *_1)
 {
     ::MR::StdUniquePtr::SetIntLvalueConstRef(
-        (_1 ? *(const std::unique_ptr<int32_t> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::unique_ptr<int32_t> *)(_1))
     );
 }
 
@@ -124,7 +124,7 @@ MR_StdUniquePtr_A *MR_StdUniquePtr_A_OffsetMutablePtr(MR_StdUniquePtr_A *ptr, pt
 MR_StdUniquePtr_A *MR_StdUniquePtr_A_ConstructFromAnother(const MR_StdUniquePtr_A *_other)
 {
     return (MR_StdUniquePtr_A *)new MR::StdUniquePtr::A(MR::StdUniquePtr::A(
-        (_other ? MR::StdUniquePtr::A(*(MR::StdUniquePtr::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdUniquePtr::A(*(MR::StdUniquePtr::A *)_other))
     ));
 }
 
@@ -140,8 +140,8 @@ void MR_StdUniquePtr_A_DestroyArray(const MR_StdUniquePtr_A *_this)
 
 MR_StdUniquePtr_A *MR_StdUniquePtr_A_AssignFromAnother(MR_StdUniquePtr_A *_this, const MR_StdUniquePtr_A *_other)
 {
-    return (MR_StdUniquePtr_A *)&((_this ? *(MR::StdUniquePtr::A *)(_this) : throw std::runtime_error("Parameter `_this` can not be null.")).operator=(
-        (_other ? MR::StdUniquePtr::A(*(MR::StdUniquePtr::A *)_other) : throw std::runtime_error("Parameter `_other` can not be null."))
+    return (MR_StdUniquePtr_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdUniquePtr::A *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdUniquePtr::A(*(MR::StdUniquePtr::A *)_other))
     ));
 }
 
@@ -160,7 +160,7 @@ void MR_StdUniquePtr_SetClass(MR_StdUniquePtr_A *_1)
 void MR_StdUniquePtr_SetClassConstRef(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_1)
 {
     ::MR::StdUniquePtr::SetClassConstRef(
-        (_1 ? *(const std::unique_ptr<MR::StdUniquePtr::A> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::unique_ptr<MR::StdUniquePtr::A> *)(_1))
     );
 }
 
@@ -183,14 +183,14 @@ void MR_StdUniquePtr_SetClassDef(MR_StdUniquePtr_A *const *_1)
 void MR_StdUniquePtr_SetClassLvalueRef(MR_C_std_unique_ptr_MR_StdUniquePtr_A *_1)
 {
     ::MR::StdUniquePtr::SetClassLvalueRef(
-        (_1 ? *(std::unique_ptr<MR::StdUniquePtr::A> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A> *)(_1))
     );
 }
 
 void MR_StdUniquePtr_SetClassLvalueConstRef(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_1)
 {
     ::MR::StdUniquePtr::SetClassLvalueConstRef(
-        (_1 ? *(const std::unique_ptr<MR::StdUniquePtr::A> *)(_1) : throw std::runtime_error("Parameter `_1` can not be null."))
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::unique_ptr<MR::StdUniquePtr::A> *)(_1))
     );
 }
 

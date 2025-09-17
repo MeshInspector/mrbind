@@ -118,8 +118,20 @@ namespace mrbind::CBindings
 
                 std::string ret = "(";
 
-                ret += cpp_param_name;
-                ret += " ? ";
+                // This obtuse way of writing the conditional is to work around MSVC bug: https://developercommunity.visualstudio.com/t/Regression-array-access-on-result-on-te/10968165?
+                if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
+                {
+                    source_file.stdlib_headers.insert("stdexcept");
+                    ret += "(";
+                    ret += cpp_param_name;
+                    ret += " ? void() : throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                    ret += "), ";
+                }
+                else
+                {
+                    ret += cpp_param_name;
+                    ret += " ? ";
+                }
 
                 if (wrapper)
                 {
@@ -144,19 +156,15 @@ namespace mrbind::CBindings
                 ret += ")"; // Close `cpp_type_str(...)` constructor call.
                 if (wrapper)
                     ret += ")"; // Close wrapper construction.
-                ret += " : ";
 
                 std::visit(Overload{
                     [&](Generator::BindableType::ParamUsage::DefaultArgNone)
                     {
-                        source_file.stdlib_headers.insert("stdexcept");
-                        ret += "throw std::runtime_error(\"Parameter `";
-                        ret += cpp_param_name;
-                        ret += "` can not be null.\")";
+                        // Handled above.
                     },
                     [&](std::string_view default_arg)
                     {
-                        ret += "static_cast<";
+                        ret += " : static_cast<";
                         ret += cpp_type_str;
                         ret += ">(";
                         ret += default_arg;
@@ -164,6 +172,7 @@ namespace mrbind::CBindings
                     },
                     [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
                     {
+                        ret += " : ";
                         ret += wrapper.wrapper_null;
                     }
                 }, default_arg);
@@ -585,6 +594,10 @@ namespace mrbind::CBindings
         param_def_arg.c_params_to_cpp = [cpp_type_str = generator.CppdeclToCode(cpp_type)](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
         {
             (void)source_file;
+
+            // This lambda doesn't need the workaround for bug: https://developercommunity.visualstudio.com/t/Regression-array-access-on-result-on-te/10968165?
+            //   because it always gets a default argument, so it never needs to throw from a conditional.
+
             std::string ret = "(";
             ret += cpp_param_name;
             ret += " ? ";
@@ -692,6 +705,10 @@ namespace mrbind::CBindings
             param_def_arg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 (void)source_file;
+
+                // This lambda doesn't need the workaround for bug: https://developercommunity.visualstudio.com/t/Regression-array-access-on-result-on-te/10968165?
+                //   because it always gets a default argument, so it never needs to throw from a conditional.
+
                 std::string ret = "(";
                 ret += cpp_param_name;
                 ret += " ? ";
@@ -716,7 +733,7 @@ namespace mrbind::CBindings
                 std::visit(Overload{
                     [&](Generator::BindableType::ParamUsage::DefaultArgNone)
                     {
-                        // Unreachable.
+                        assert(false); // Unreachable.
                     },
                     [&](std::string_view default_arg)
                     {
@@ -893,8 +910,21 @@ namespace mrbind::CBindings
                     std::string ret;
 
                     ret += "(";
-                    ret += cpp_param_name;
-                    ret += " ? ";
+
+                    // This obtuse way of writing the conditional is to work around MSVC bug: https://developercommunity.visualstudio.com/t/Regression-array-access-on-result-on-te/10968165?
+                    if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
+                    {
+                        source_file.stdlib_headers.insert("stdexcept");
+                        ret += "(";
+                        ret += cpp_param_name;
+                        ret += " ? void() : throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                        ret += "), ";
+                    }
+                    else
+                    {
+                        ret += cpp_param_name;
+                        ret += " ? ";
+                    }
 
                     const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
 
@@ -927,18 +957,15 @@ namespace mrbind::CBindings
                     if (wrapper)
                         ret += ")"; // Close wrapper.
 
-                    ret += " : ";
-
                     // The default argument begins...
                     std::visit(Overload{
                         [&](Generator::BindableType::ParamUsage::DefaultArgNone)
                         {
-                            source_file.stdlib_headers.insert("stdexcept");
-                            ret += "throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                            // Handled above.
                         },
                         [&](std::string_view default_arg)
                         {
-                            ret += "static_cast<";
+                            ret += " : static_cast<";
                             ret += cpp_type_str;
                             ret += ">(";
                             ret += default_arg;
@@ -946,6 +973,7 @@ namespace mrbind::CBindings
                         },
                         [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
                         {
+                            ret += " : ";
                             ret += wrapper.wrapper_null;
                         }
                     }, default_arg);
@@ -1012,6 +1040,9 @@ namespace mrbind::CBindings
         param_defarg.c_params_to_cpp = [cpp_type_str](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg) -> std::string
         {
             (void)source_file;
+
+            // This lambda doesn't need the workaround for bug: https://developercommunity.visualstudio.com/t/Regression-array-access-on-result-on-te/10968165?
+            //   because it always gets a default argument, so it never needs to throw from a conditional.
 
             const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
 
@@ -1147,8 +1178,21 @@ namespace mrbind::CBindings
         ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
         {
             std::string ret = "(";
-            ret += cpp_param_name;
-            ret += " ? ";
+
+            // This obtuse way of writing the conditional is to work around MSVC bug: https://developercommunity.visualstudio.com/t/Regression-array-access-on-result-on-te/10968165?
+            if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
+            {
+                source_file.stdlib_headers.insert("stdexcept");
+                ret += "(";
+                ret += cpp_param_name;
+                ret += " ? void() : throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                ret += "), ";
+            }
+            else
+            {
+                ret += cpp_param_name;
+                ret += " ? ";
+            }
 
             const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
             if (wrapper)
@@ -1167,24 +1211,23 @@ namespace mrbind::CBindings
             else
                 ret += cpp_type_name + "(" + std::string(cpp_param_name) + ")";
 
-            ret += ") : ";
+            ret += ")";
 
             std::visit(Overload{
                 [&](Generator::BindableType::ParamUsage::DefaultArgNone)
                 {
-                    source_file.stdlib_headers.insert("stdexcept");
-                    ret += "throw std::runtime_error(\"Parameter `";
-                    ret += cpp_param_name;
-                    ret += "` can not be null.\")";
+                    // Handled above.
                 },
                 [&](std::string_view default_arg)
                 {
+                    ret += " : ";
                     ret += cpp_type_name + "(";
                     ret += default_arg;
                     ret += ")";
                 },
                 [&](const Generator::BindableType::ParamUsage::DefaultArgWrapper &wrapper)
                 {
+                    ret += " : ";
                     ret += wrapper.wrapper_null;
                 }
             }, default_arg);
