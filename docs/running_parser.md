@@ -8,9 +8,9 @@ Regardless of the output language, the first step is running the parser.
 
 It's recommended to prepare one big header file that includes all C++ headers you want to bind, as the parser accepts one header at a time. In theory you can parse your headers individually, but that's much slower.
 
-MRBind filters the code by namespaces, so it's ok if your headers include third-party libraries. You can just omit their namespaces from the filter.
+MRBind filters the code by namespaces, so it's not an issue if your headers include third-party libraries. You can simply filter out their namespaces.
 
-All code that you want to bind (that's not filtered out in this manner) must be under your control, as you might be required to add some annotations to the headers (such as to exclude certain problematic things from the bindings).
+All code that you want to bind (that's not filtered out in this manner) must be under your control, as you might be required to add some annotations to the headers (such as to exclude certain problematic things from the bindings, though there are workarounds that don't require annotations).
 
 ## Parser command line usage
 
@@ -26,20 +26,20 @@ mrbind <mrbind_flags> -- <clang_flags>
 
 Notice `--ignore :: --allow YourNamespace`, which limits the parser output to your namespace (replace `YourNamespace` with your library's namespace name).
 
-It's intentional that we filter out `namespace std`. Parsing the standard library contents is not supported, but you of course can include standard headers, and use standard types in your interface. They have handwritten bindings instead of parsed ones.
+It's intentional that we filter out `namespace std`, parsing the standard library contents is not supported. You can of course include standard headers, and use standard types in your interface. The point is that standard types have custom handwritten bindings instead of parsed ones.
 
-You can additionally `--ignore` more namespaces here, such as `--ignore YourLibrary::detail`. If your library isn't enclosed in a namespace, you'll have to individually bless every function/class/etc with `--allow`, but note that it accepts regexes: `--allow '/MyLib_.*/'` (replace `'...'` with appropriate escapement for your shell, it's not a part of the syntax).
+You can additionally `--ignore` more namespaces here, such as `--ignore YourLibrary::detail`. If your library adds entities to the global namespace, you'll have to individually bless every function/class/etc with `--allow` ( )note that it accepts regexes: `--allow '/MyLib_.*/'`; replace `'...'` with appropriate escapement for your shell, it's not a part of the syntax).
 
-**`<clang_flags>`** is where you put `-I`, `-D`, `-std=c++??` go here. Other useful flags that can be added here are:
+**`<clang_flags>`** is where you put `-I`, `-D`, `-std=c++??`, etc. Other useful flags that can be added here are:
 
 * `-xc++-header` — if your input header has the `.h` extension, add this flag to treat it as a C++ header rather than a C one.
 * `-resource-dir=...` — on most platforms this is necessary for Clang to find its own internal headers. Skipping this can lead to cryptic errors. Get the `...` by running `clang -print-resource-dir` (or `clang-$CLANG_VER -print-resource-dir` on Ubuntu, use the same version as you [built MRBind with](./building_mrbind.md)).
 * `-fparse-all-comments` — preserve all comments in the bindings, not only Doxygen-style ones.
 * `--target=x86_64-pc-windows-msvc -rtlib=platform -D_DLL -D_MT` — if you're on Windows, using Clang from MSYS2, but the rest of the project uses MSVC, use this to switch Clang to a MSVC-compatible mode (which will make it use MSVC's standard library, among other things).
 
-Notice that omitting `--` (and the subsequent flags) altogether will make Clang extract the flags the `compile_commands.json` if available. So `--` with nothing after it isn't the same thing as omitting it entirely. I recommend not omitting `--` and spelling out the flags manually.
+Notice that omitting `--` (and the subsequent flags) altogether will make Clang extract the flags from `compile_commands.json` if available. So `--` with nothing after it isn't the same thing as omitting it entirely. I recommend not omitting `--` and spelling out the flags manually.
 
-**So a complete command line could look similar to this:**<br/>
+**So a complete command line could look like this:**<br/>
 `mrbind YourHeader.h -o parse_result.json --format=json --ignore :: --allow YourNamespace -- -xc++-header -resource-dir="$(clang -print-resource-dir)" -fparse-all-comments`
 
 Note that `clang` that you call `-print-resource-dir` on must match the libclang you used when compiling MRBind. So e.g. on Ubuntu this would be `clang-21 -print-resource-dir` (or whatever version you used).
@@ -68,9 +68,9 @@ MRBind aggressively instantiates all templates it sees.
 
   While something like `using A = Foo<Bar>;` doesn't instantiate `Foo<Bar>` in standard C++, it does in MRBind.
 
-  When a class template is instantiated for any reason, all its non-template member functions are instantiated too, and so are member classes, etc.
+  When a class template is instantiated for any reason, all its non-template member functions are instantiated as well, and so are member classes, etc.
 
-  If your templates rely on this behavior, MRBind will choke on them. The fix is to properly annotate them with `requires` to make them SFINAE-friendly. (If you must additionally target pre-C++20, put `requires` in a macro to make it optional.)
+  If your templates rely on this behavior (rely on you not calling certain functions on "wrong" instantions), MRBind will choke on them. The fix is to properly annotate them with `requires` to make them SFINAE-friendly. (If you must additionally target pre-C++20, put `requires` in a macro to make it optional.)
 
   For example:
 
@@ -124,7 +124,7 @@ Here `operator*` is seemingly using the correct `requires`, yet MRBind still tri
 
 This is technically our bug, since this `operator*` is entirely SFINAE-friendly in standard C++. But it's not trivial to fix, so until we fix it, you'll need to use one of the several workarounds.
 
-You could `--ignore` the offending specialization.
+You could `--ignore` the offending specialization (`Matrix3<std::string>` in this example).
 
 You could use the following helper:
 ```cpp
@@ -143,4 +143,4 @@ Another way to fix this that you might be more familiar with is:
 template <typename TT = T>
 Vec3 operator*(Matrix3<TT>) requires std::is_floating_point_v<T /*or TT*/> {return {};}
 ```
-But this is worse, because now this function won't appear in the bindings unless you go out of your way to instantiate it. More about this later.
+But this is worse, because now this function won't appear in the bindings unless you go out of your way to instantiate it. More about this [here](TODO_link).

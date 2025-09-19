@@ -1,12 +1,12 @@
 # Generating Python bindings
 
-We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11). You can try the latest version of it. Or, at the time of writing this, the commit [`741d86f`](https://github.com/pybind/pybind11/commit/741d86f2e3527b667ba85d273a5eea19a0978ef5) is known to work.
+We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11). You can try using the latest version of it; or, at the time of writing this, the commit [`741d86f`](https://github.com/pybind/pybind11/commit/741d86f2e3527b667ba85d273a5eea19a0978ef5) is known to work.
 
 You're expected to have a basic understanding of how to work with Pybind. I recommend going through [the basic Pybind tutorial](https://pybind11.readthedocs.io/en/stable/basics.html), compiling at least one test module, and making sure you can import it in Python.
 
 Python modules are shared libraries (sometimes with a customized extension, typically `.pyd` instead of `.dll` on Windows, and `.so` elsewhere). When using Pybind, you create a `.cpp` file with a function that gets called on module import (using the `PYBIND11_MODULE` macro, the name passed to it must match the module filename minus the extension), where you register all your functions/classes using Pybind API (see the link above).
 
-Pybind is a header-only library, so you'll need to clone it and add it to your include paths. You also need some [platform-dependent linker flags](https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually). On Windows, you must link `pythonXY.lib`. On Linux, you don't link anything. On Mac, you don't link anything and also pass `-Xlinker -undefined -Xlinker dynamic_lookup`.
+Pybind is a header-only library, so you'll need to clone it and add it to your include paths. You also need some [platform-dependent linker flags](https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually). On Windows, you must link `pythonXY.lib`. On Linux, you don't link anything (and rely on the default behavior of not checking for undefined references when building shared libraries). On Mac, you don't link anything and additionally pass `-Xlinker -undefined -Xlinker dynamic_lookup`.
 
 Modules generated with Pybind need to be recompiled on every OS, for every minor Python version (X.Y, e.g. 3.13) that you want to support. We have a [Pybind fork](https://github.com/MeshInspector/mrbind-pybind11) that produces Python-version-agnostic modules, but I suggest getting the upstream version to work first, and then thinking about portability.
 
@@ -27,13 +27,13 @@ MB_FUNC(bar)
 ```
 But much more complex.
 
-Then for each target language using this format (currently only Python), we have a header that defines `MB_FUNC()` and other macros (in the case of Python they expand to Pybind calls). You defined `MRBIND_HEADER` to the name of that header.
+Then for each target language using this format (currently only Python), we have a header that defines `MB_FUNC()` and other macros (in the case of Python they expand to Pybind calls). `MRBIND_HEADER` needs to be defined to the name of that header.
 
 ## The build process
 
 [Previously](/docs/running_parser.md) the parser output format was set to JSON for testing (`--format=json`), but the Python backend requires a different format, `--format=macros`. This generates a `.cpp` file. (See above for more info.)
 
-Then you compile this file. Only the Clang compiler is supported, the same version that you used to compile MRBind (the generated code has some complex templating, that other compilers may or may not choke on).
+Then you compile this file. Only the Clang compiler is supported, the same version that you used to compile MRBind (the generated code has some complex templating that other compilers may or may not choke on).
 
 Compile with the following flags:
 
@@ -57,7 +57,7 @@ The generated `.cpp` file can be huge for large inputs, and compiling it can eas
 
 Define `-DMB_NUM_FRAGMENTS=42` to the desired number of parts ("fragments"), then compile the `.cpp` file this many times with different values of `-DMB_FRAGMENT=i` (where `i` goes from `0` to `N-1`). If you take a look at the generated `.cpp` file, you'll see `#ifdef`s used to split the contents evenly between fragments.
 
-Only one fragments (probably the 0th one) should define `-DMB_DEFINE_IMPLEMENTATION`.
+Only one fragments (preferably the 0th one) should define `-DMB_DEFINE_IMPLEMENTATION`.
 
 Then link the N resulting object files together into the final module.
 
@@ -71,7 +71,7 @@ It is possible to run the parser several times, and then link together the resul
 
 Each generated `.cpp` file can be compiled using a different number of [fragments](#ram-usage-during-compilation-compiling-in-multiple-fragments).
 
-When linking together multiple generated files, only one fragment across all files must defined `-DMB_DEFINE_IMPLEMENTATION`.
+When linking together multiple generated files, only one fragment across all files must define `-DMB_DEFINE_IMPLEMENTATION`.
 
 ## Tuning generated bindings
 
@@ -81,7 +81,7 @@ There are a few additional macros that you can define to tune the bindings:
 
   It's easy to see that having the top-level namespace (`MyLib`) in Python is usually pointless. This macro lets you remove it.
 
-  Set it to a comma-separate list of quoted namespace names. You have to remove multiple nested namespaces, separate them with `.` instead of `::`, Python style (see example above).
+  Set this to a comma-separate list of quoted namespace names. If you have to remove multiple nested namespaces, separate them with `.` instead of `::`, as they're spelled in Python (see example above).
 
   Here `'...'` is the shell's quoting, not a part of the syntax.
 
@@ -89,7 +89,7 @@ There are a few additional macros that you can define to tune the bindings:
 
   This one is used to tweak names like `MyModule.std_vector_MyLib_Foo` (originally `std::vector<MyLib::Foo>`) into e.g. `MyModule.std_vector_Foo`.
 
-  The macro takes a string literal, which is a `;`-separated list of `sed`-style regex replacement rules, where each rule is `s/A/B/g` (replaces regex `A` with string `B`), or without `g` (to act only once instead of multiple times).
+  The macro takes a string literal, containing a `;`-separated list of `sed`-style regex replacement rules, where each rule is `s/A/B/g` (replaces regex `A` with string `B`), or without `g` (to act only once instead of multiple times).
 
   Those rules apply to C++ type names. For example, `'"s/\\bMyLib:://g"'` will strip the `MyLib::` namespace, like in the example above.
 
@@ -120,7 +120,7 @@ There are a few additional macros that you can define to tune the bindings:
 
   Second of all, this is a very rare situation. Usually the element type will happen to be mentioned somewhere else standalone, so it will be handled by some other fragment.
 
-  And lastly, if you *do* get errors because of this, it's easy to manually poke the offending type to give it a binding. To do that, create an extra header (include it in the big one that you feed to the parser), and in it use following macros:
+  And lastly, if you *do* get errors because of this, it's easy to manually poke the offending type to give it a binding. To do that, create an extra header (include it in the big one that you feed to the parser), and in it use the following macros:
   ```cpp
   #define FORCE_REGISTER_TYPE(...) using MR_CONCAT(_mrbind_inst_,__LINE__) __attribute__((__annotate__("mrbind::instantiate_only"))) = __VA_ARGS__
   #define FORCE_REGISTER_PARAM_TYPE(...) __attribute__((__annotate__("mrbind::instantiate_only"))) void MR_CONCAT(_mrbind_inst_,__LINE__)(__VA_ARGS__)
@@ -128,6 +128,6 @@ There are a few additional macros that you can define to tune the bindings:
   ```
   Now having `FORCE_REGISTER_TYPE(std::string);` in that header would generate the binding for `std::string` even if it's not otherwise mentioned anywhere.
 
-  The reason why the other two macros exist is because some types behave differently in different contexts. E.g. using `int *` specifically as a function parameter generates a helper Python class `MyModule.int_output`, so registering an `int *` parameter needs to be done via `FORCE_REGISTER_PARAM_TYPE(int *)`.
+  The reason why the other two macros exist is because some types behave differently in different contexts. E.g. using `int *` specifically as a function parameter generates a helper Python class named `MyModule.int_output`, so registering an `int *` parameter needs to be done via `FORCE_REGISTER_PARAM_TYPE(int *)`.
 
   Only the parser needs to see those macros. You can `#ifdef` them away for the compilation.
