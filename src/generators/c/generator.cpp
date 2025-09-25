@@ -2536,7 +2536,7 @@ namespace mrbind::CBindings
             {
                 auto base_info_iter = parsed_class_inheritance_info.find(base);
                 if (base_info_iter == parsed_class_inheritance_info.end())
-                    throw std::runtime_error("Parsed class `" + info.first + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-base`.");
+                    throw std::runtime_error("Parsed class `" + info.first + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-mentions-of`.");
 
                 base_info_iter->second.derived_direct_nonvirtual.insert(info.first);
             }
@@ -2554,7 +2554,7 @@ namespace mrbind::CBindings
 
                 auto base_info_iter = parsed_class_inheritance_info.find(base);
                 if (base_info_iter == parsed_class_inheritance_info.end())
-                    throw std::runtime_error("Parsed class `" + derived + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-base`.");
+                    throw std::runtime_error("Parsed class `" + derived + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-mentions-of`.");
 
                 // Recurse.
                 for (const auto &base_of_base : base_info_iter->second.bases_direct_nonvirtual)
@@ -3597,7 +3597,7 @@ namespace mrbind::CBindings
                                 {
                                     if (elem.is_trivial_assignment)
                                         return;
-                                    throw std::runtime_error("The type `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but has a non-trivial destructor.");
+                                    throw std::runtime_error("The type `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but has a non-trivial assignment.");
                                 }
 
                                 // The copy assignments are not emitted. Instead the move assignments are rewritten as if they were accepting the parameter by value.
