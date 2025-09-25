@@ -51,6 +51,22 @@ There are more optional knobs to tune, but this should work.
 
 Try importing the resulting module and use `help(...)` and <kbd>Tab</kbd> to navigate around the contents.
 
+## Completeness of bindings
+
+Python bindings aren't checked for completeness neither on build nor when importing the Python module.
+
+This means e.g. that if some of your functions accept a third-party type that's not in the bindings, you won't get any errors until you try to call them. (In those cases you'll notice that the `help()` pages for the offending functions include the C++ type names (for parameters and/or the return type), e.g. `std::vector<Blah>` instead of Python-ified `mylib.std_vector_Blah`).
+
+A good way to check the bindings for completeness is [generating stubs for them](#generating-stubs).
+
+## Generating stubs
+
+Stubs are the `.pyi` files that Python IDEs use to provide code completion for modules. If you plan to distribute your modules, you should generate those.
+
+Use the [`pybind11-stubgen`](https://pypi.org/project/pybind11-stubgen/) utility to generate them, same as you would with pure Pybind11 bindings.
+
+This also has a side effect of testing the bindings for [completeness](#completeness-of-bindings), `pybind11-stubgen` will complain if something is missing (but will still produce usable stubs, so this doesn't have to be a blocker).
+
 ## RAM usage during compilation; compiling in multiple fragments
 
 The generated `.cpp` file can be huge for large inputs, and compiling it can easily exhaust your RAM. The solution is compiling it in parts.

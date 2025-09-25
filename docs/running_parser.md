@@ -66,38 +66,38 @@ Pass `-std=c++??` after `--`, as mentioned above. (Where `??` is a specific vers
 
 MRBind aggressively instantiates all templates it sees.
 
-  While something like `using A = Foo<Bar>;` doesn't instantiate `Foo<Bar>` in standard C++, it does in MRBind.
+While something like `using A = Foo<Bar>;` doesn't instantiate `Foo<Bar>` in standard C++, it does in MRBind.
 
-  When a class template is instantiated for any reason, all its non-template member functions are instantiated as well, and so are member classes, etc.
+When a class template is instantiated for any reason, all its non-template member functions are instantiated as well, and so are member classes, etc.
 
-  If your templates rely on this behavior (rely on you not calling certain functions on "wrong" instantions), MRBind will choke on them. The fix is to properly annotate them with `requires` to make them SFINAE-friendly. (If you must additionally target pre-C++20, put `requires` in a macro to make it optional.)
+If your templates rely on this behavior (rely on you not calling certain functions on "wrong" instantions), MRBind will choke on them. The fix is to properly annotate them with `requires` to make them SFINAE-friendly. (If you must additionally target pre-C++20, put `requires` in a macro to make it optional.)
 
-  For example:
+For example:
 
-  ```cpp
-  template <typename T>
-  struct Vec3
-  {
-      T x, y, z;
+```cpp
+template <typename T>
+struct Vec3
+{
+    T x, y, z;
 
-      Vec3 operator-() {return {-x, -y, -z};}
-  };
-  ```
+    Vec3 operator-() {return {-x, -y, -z};}
+};
+```
 
-  In standard C++, using `Vec3<std::string>` is legal as long as you never call `operator-` on it, but not in MRBind. MRBind requires you to do something like this:
+In standard C++, using `Vec3<std::string>` is legal as long as you never call `operator-` on it, but not in MRBind. MRBind requires you to do something like this:
 
-  ```cpp
-  template <typename T>
-  struct Vec3
-  {
-      T x, y, z;
+```cpp
+template <typename T>
+struct Vec3
+{
+    T x, y, z;
 
-      Vec3 operator-() requires requires{-x;} {return {-x, -y, -z};}
-  };
-  ```
-  This disables `operator-` if `-x` doesn't compile.
+    Vec3 operator-() requires requires{-x;} {return {-x, -y, -z};}
+};
+```
+This disables `operator-` if `-x` doesn't compile.
 
-  Of course, this is only needed if `Vec3<std::string>` is mentioned somewhere in the input headers. We don't randomly try to substitute arbitrary template arguments into templates.
+Of course, this is only needed if `Vec3<std::string>` is mentioned somewhere in the input headers. We don't randomly try to substitute arbitrary template arguments into templates.
 
 ### My templates are getting instantiated for no reason
 

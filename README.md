@@ -37,3 +37,7 @@ The point is making maintaining large bindings easy, with acceptable binding qua
    * [Generate Python bindings.](/docs/generating_python.md)
 
    * [Generate C bindings.](/docs/generating_c.md)
+
+4. Additional articles:
+
+   * [How to skip certain types/functions/etc?](/docs/skipping_entities.md)
