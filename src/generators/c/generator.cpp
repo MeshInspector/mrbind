@@ -817,20 +817,28 @@ namespace mrbind::CBindings
         }
     }
 
-    void Generator::ExtraHeaders::InsertToFile(OutputFile &file) const
+    void Generator::ExtraHeaders::InsertToFile(OutputFile &file, InsertHeadersMode mode) const
     {
-        file.header.stdlib_headers.insert(stdlib_in_header_file.begin(), stdlib_in_header_file.end());
-        file.source.stdlib_headers.insert(stdlib_in_source_file.begin(), stdlib_in_source_file.end());
+        if (bool(mode & InsertHeadersMode::insert_to_header))
+            file.header.stdlib_headers.insert(stdlib_in_header_file.begin(), stdlib_in_header_file.end());
+        if (bool(mode & InsertHeadersMode::insert_to_source))
+            file.source.stdlib_headers.insert(stdlib_in_source_file.begin(), stdlib_in_source_file.end());
 
-        std::unordered_set<std::string> header_custom;
-        if (custom_in_header_file)
-            header_custom = custom_in_header_file();
-        file.header.custom_headers.insert(std::make_move_iterator(header_custom.begin()), std::make_move_iterator(header_custom.end()));
+        if (bool(mode & InsertHeadersMode::insert_to_header))
+        {
+            std::unordered_set<std::string> header_custom;
+            if (custom_in_header_file)
+                header_custom = custom_in_header_file();
+            file.header.custom_headers.insert(std::make_move_iterator(header_custom.begin()), std::make_move_iterator(header_custom.end()));
+        }
 
-        std::unordered_set<std::string> source_custom;
-        if (custom_in_source_file)
-            source_custom = custom_in_source_file();
-        file.source.custom_headers.insert(std::make_move_iterator(source_custom.begin()), std::make_move_iterator(source_custom.end()));
+        if (bool(mode & InsertHeadersMode::insert_to_source))
+        {
+            std::unordered_set<std::string> source_custom;
+            if (custom_in_source_file)
+                source_custom = custom_in_source_file();
+            file.source.custom_headers.insert(std::make_move_iterator(source_custom.begin()), std::make_move_iterator(source_custom.end()));
+        }
     }
 
     void Generator::ExtraHeaders::MergeFrom(const ExtraHeaders &other)
@@ -3726,10 +3734,14 @@ namespace mrbind::CBindings
                 // If the underlying type isn't `[unsigned] int`, we need special care to keep the type size same in C and C++.
 
                 // Since the underlying type can be a `[u]int??_t` typedef (because of `--canonicalize-to-fixed-size-typedefs`), we might need a header!
-                if (auto opt = self.FindTypeBindableWithSameAddressOpt(en.canonical_underlying_type); opt && opt->declared_in_c_stdlib_file)
-                    file.header.stdlib_headers.insert(*opt->declared_in_c_stdlib_file);
+                // The type must be parsed as a type, not a qualified name, because e.g. `unsigned int` isn't one.
+                // Here I'm arbitrarily picking the return usage, it should be present for all the types that are simple enough to be used as underlying.
+                auto usage = self.FindBindableType(self.ParseTypeOrThrow(en.canonical_underlying_type)).return_usage.value();
+                // Add the necessary headers. Maybe this is a standard typedef, or ours?
+                usage.AddDependenciesToFile(self, file, InsertHeadersMode::insert_to_header);
 
-                file.header.contents += "typedef " + en.canonical_underlying_type + " " + c_type_str + ";\n";
+                // Can't use `en.canonical_underlying_type` here, because we might need to convert `[u]int64_t` to our own typedef.
+                file.header.contents += "typedef " + self.CppdeclToCode(usage.c_type) + " " + c_type_str + ";\n";
 
                 if (need_body)
                     file.header.contents += "enum // " + c_type_str + "\n";

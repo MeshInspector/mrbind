@@ -738,6 +738,14 @@ namespace mrbind::CBindings
         void CheckForBannedTypes(const cppdecl::Type &type);
 
 
+        enum class InsertHeadersMode
+        {
+            insert_to_header = 1 << 0,
+            insert_to_source = 1 << 1,
+            all = insert_to_header | insert_to_source,
+        };
+        MRBIND_FLAG_OPERATORS_IN_CLASS(InsertHeadersMode)
+
         struct ExtraHeaders
         {
             // Separately the entirely custom ones and stdlib ones, which currently is purely decorative.
@@ -749,7 +757,7 @@ namespace mrbind::CBindings
             std::function<std::unordered_set<std::string>()> custom_in_source_file;
             std::function<std::unordered_set<std::string>()> custom_in_header_file;
 
-            void InsertToFile(OutputFile &file) const;
+            void InsertToFile(OutputFile &file, InsertHeadersMode mode = InsertHeadersMode::all) const;
 
             void MergeFrom(const ExtraHeaders &other);
         };
@@ -968,10 +976,12 @@ namespace mrbind::CBindings
 
 
                 // Modifies a source file to include all necessary headers, forward declarations, etc, to be able to use this return usage.
-                void AddDependenciesToFile(Generator &generator, OutputFile &file) const
+                void AddDependenciesToFile(Generator &generator, OutputFile &file, InsertHeadersMode mode = InsertHeadersMode::all) const
                 {
-                    generator.ApplyTypeDependenciesToFile(file, same_addr_bindable_type_dependencies);
-                    extra_headers.InsertToFile(file);
+                    if (bool(mode & InsertHeadersMode::insert_to_header))
+                        generator.ApplyTypeDependenciesToFile(file, same_addr_bindable_type_dependencies);
+
+                    extra_headers.InsertToFile(file, mode);
                 }
 
                 ReturnUsage() {} // Make Clang happy.

@@ -27,6 +27,15 @@ typedef enum MR_TestSimpleTypes_E3
     MR_TestSimpleTypes_E3_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_TestSimpleTypes_E3;
 
+// This has multiple words in the underlying type. This has caused a bug at one point...
+typedef enum MR_TestSimpleTypes_E4
+{
+    MR_TestSimpleTypes_E4_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
+} MR_TestSimpleTypes_E4;
+
+// This will use a custom typedef for the underlying type, if that's enabled!
+typedef long MR_TestSimpleTypes_E5;
+
 // Class templates.
 /// Generated from class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
 typedef struct MR_TestSimpleTypes_ClassTemplate_unsigned_long MR_TestSimpleTypes_ClassTemplate_unsigned_long;

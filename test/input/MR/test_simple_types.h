@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <cstdint>
 
 namespace MR::TestSimpleTypes
 {
@@ -74,6 +75,12 @@ namespace MR::TestSimpleTypes
 
     // This enum has no constants.
     enum class E3 {};
+
+    // This has multiple words in the underlying type. This has caused a bug at one point...
+    enum class E4 : unsigned int {};
+
+    // This will use a custom typedef for the underlying type, if that's enabled!
+    enum class E5 : std::int64_t {};
 
 
     // Test all kinds of `char`.
