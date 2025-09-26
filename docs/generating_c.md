@@ -169,9 +169,9 @@ The problem:
 
 * MRBind expands the typedefs when generating C. So among other things, it's going to expand `std::size_t`, `std::int64_t`, etc.
 
-* On different platforms those typedefs expand to different types, causing inconsistency: `long` vs `long long`, etc.
+* On different platforms those typedefs expand to different types, causing inconsistency: `long` vs `long long`, etc. (Only the 64-bit wide typedefs have this inconsistency. On all the big platforms, the smaller ones map 1-to-1 to built-in types.)
 
-The fix currently only makes the bindings portable between 64-bit platforms. 32-bit ones would need a separate set of C sources and headers generated for them.
+The fix described below only makes the bindings portable between 64-bit platforms. 32-bit ones would need a separate set of C sources and headers generated for them.
 
 Here is the TL;DR of the fix. The rationale is discussed after.
 
