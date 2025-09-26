@@ -67,6 +67,7 @@ COMPILER_FLAGS=(
 
 mkdir -p test/output_c
 mkdir -p test/output_c_fixed_typedefs
+mkdir -p test/output_c_fixed_typedefs_64_only
 
 
 build/mrbind \
@@ -86,7 +87,7 @@ build/mrbind \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 
-# Here `--merge-std-and-tl-expected` (and everything beliw) is unrelated to the fixed-size typedefs, but we need to test it too, so why not here.
+# Here `--merge-std-and-tl-expected` (and everything below) is unrelated to the fixed-size typedefs, but we need to test it too, so why not here.
 build/mrbind_gen_c \
     --input test/output_c_fixed_typedefs/parsed.json \
     --output-header-dir test/output_c_fixed_typedefs/include \
@@ -99,6 +100,22 @@ build/mrbind_gen_c \
     --add-convenience-includes \
     --preferred-max-num-aggregate-init-fields 8
 
+# This third build is to test the `--canonicalize-64-to-fixed-size-typedefs` variant of the typedefs (64 bits only).
+build/mrbind \
+    -o test/output_c_fixed_typedefs_64_only/parsed.json \
+    --canonicalize-64-to-fixed-size-typedefs \
+    --canonicalize-size_t-to-uint64_t \
+    "${MRBIND_FLAGS[@]}" \
+    -DDISABLE_LONG_LONG
+
+build/mrbind_gen_c \
+    --input test/output_c_fixed_typedefs_64_only/parsed.json \
+    --output-header-dir test/output_c_fixed_typedefs_64_only/include \
+    --output-source-dir test/output_c_fixed_typedefs_64_only/source \
+    "${MRBIND_GEN_C_FLAGS[@]}" \
+    --reject-long-and-long-long \
+    --use-size_t-typedef-for-uint64_t \
+
 
 $CXX \
     test/output_c/source/*.cpp \
@@ -108,11 +125,18 @@ $CXX \
     -Itest/output_c/source \
     "${COMPILER_FLAGS[@]}"
 
-
 $CXX \
     test/output_c_fixed_typedefs/source/*.cpp \
     test/output_c_fixed_typedefs/source/MR/*.cpp \
     -o test/output_c_fixed_typedefs/libbleh$EXT_SHARED \
     -Itest/output_c_fixed_typedefs/include \
     -Itest/output_c_fixed_typedefs/source \
+    "${COMPILER_FLAGS[@]}"
+
+$CXX \
+    test/output_c_fixed_typedefs_64_only/source/*.cpp \
+    test/output_c_fixed_typedefs_64_only/source/MR/*.cpp \
+    -o test/output_c_fixed_typedefs_64_only/libbleh$EXT_SHARED \
+    -Itest/output_c_fixed_typedefs_64_only/include \
+    -Itest/output_c_fixed_typedefs_64_only/source \
     "${COMPILER_FLAGS[@]}"
