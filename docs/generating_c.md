@@ -128,3 +128,159 @@ When a C++ struct is an aggregate (i.e. has no constructors, and in C++ can be i
 This can get out of hand with huge structs. Use `--preferred-max-num-aggregate-init-fields N` (with e.g. `N`=`20`) to not generate those functions for structs with more than `N` members.
 
 This flag is ignored for non-default-constructible structs, as this could make them impossible to construct.
+
+### Using fixed-size typedefs
+
+Passing `--canonicalize-to-fixed-size-typedefs` will use `int32_t` and other similar standard typedefs instead of all built-in integer types.
+
+This is purely a style choice, and doesn't help portability. For portability, see [this](#making-the-bindings-cross-platform).
+
+## Making the bindings cross-platform
+
+If you don't go out of your way, by default the bindings will be usable only on the platform you've generated them on.
+
+But with some care, it's possible to make them fully consistent across platforms. After following those steps, it's *your* job to compare the results from Windows, Linux and Mac, to make sure they're all the same. Each of those platforms has some unique differences that can affect the output if not addressed.
+
+First the simple things:
+
+### Underlying types of enums
+
+On Windows, the underlying type of plain `enum`s defaults to `int`, while on Linux it's either `int` or `unsigned int` depending on whether there are negative constants or not. This underlying type shows up in the generated C headers.
+
+This only affects the plain `enum`, not `enum class`, which is specified by the C++ standard to default to the `int` type.
+
+The fix is to pass `--implicit-enum-underlying-type-is-always-int` to the **parser**. This will make it report the default type as `int`, regardless of what it actually is.
+
+So far this hasn't caused any breakage for us.
+
+### `std::expected` vs `tl::expected`
+
+If you switch between `std::expected` and `tl::expected` on different platforms, depending on what's available, this is for you.
+
+Pass `--merge-std-and-tl-expected` to the **generator** to remove the namespaces from both, calling both just `expected`.
+
+This purely renames things in the output, and shouldn't cause any breakage.
+
+### `size_t` and other standard typedefs
+
+This is the biggest source of problems and differences between platforms.
+
+The problem:
+
+* MRBind expands the typedefs when generating C. So among other things, it's going to expand `std::size_t`, `std::int64_t`, etc.
+
+* On different platforms those typedefs expand to different types, causing inconsistency: `long` vs `long long`, etc.
+
+The fix currently only makes the bindings portable between 64-bit platforms. 32-bit ones would need a separate set of C sources and headers generated for them.
+
+Here is the TL;DR of the fix. The rationale is discussed after.
+
+* **In any API you bind, there are restrictions on what 64-bit integer types you can use:**
+
+  * **Bad:** `[unsigned] long` and `[unsigned] long long`
+
+  * **Good:** `std::size_t`, `std::ptrdiff_t`, `std::intptr_t`, `std::uintptr_t`
+
+  * **Bad:** `std::int64_t`, `std::uint64_t`
+
+  * **Bad:** any of `std::[u]int_fastXX_t` and `std::[u]int_leastXX_t`
+
+  Those errors should be caught by the generator automatically, if you enable certain flags mentioned below *and* test on all of: Windows, Linux, Mac, then at least one platform will catch this.
+
+  So if you can't use `std::[u]int64_t`, then what do you use in its place? You make your own typedef for your library, along the lines of:
+
+  ```cpp
+  namespace mylib
+  {
+      #ifdef __APPLE__
+      using Int64 = std::ptrdiff_t;
+      using Uint64 = std::size_t;
+      static_assert(sizeof(Int64) == 8);
+      static_assert(sizeof(Uint64) == 8);
+      #else
+      using Int64 = std::int64_t;
+      using Uint64 = std::uint64_t;
+      #endif
+  }
+  ```
+
+  This `#ifdef __APPLE__` is somewhat cosmetic, because on other 64-bit platforms (tested Windows and Linux), `std::[u]int64_t` expand to the same type as `std::size_t` and `std::ptrdiff_t` anyway. It's only there to support 32-bit platforms.
+
+  You can **not** replace `#ifdef __APPLE__` with `#ifdef` to check if the parser is running, that's not going to work correctly in general.
+
+  The generated C code will receive a similar typedef, but generated automatically.
+
+* **And plus you need the following flags:**
+
+  * For the generator: `--reject-long-and-long-long --use-size_t-typedef-for-uint64_t`
+  * For the parser: `--canonicalize-64-to-fixed-size-typedefs --canonicalize-size_t-to-uint64_t`
+
+    Notice that `--canonicalize-64-to-fixed-size-typedefs` is a subset of [`--canonicalize-to-fixed-size-typedefs`](#using-fixed-size-typedefs), so if you're already using the latter, you can skip this flag.
+
+The end effect of all this is that the generator will make its own typedef for 64-bit wide integers (`MyLib_[u]int64_t`), and use it everywhere, including for what was originally `size_t`.
+
+Alternatively you have the option of inverting the allowed typedefs, allowing the use of `[u]int64_t` but disabling `size_t` and friends. This is achieved by removing `--use-size_t-typedef-for-uint64_t` and `--canonicalize-size_t-to-uint64_t`. This also makes the custom 64-bit typedefs unnecessary (both in your code and in the generated output).
+
+#### Why are we doing all this?
+
+This is a long story.
+
+To recap the problem: all 64-bit standard typedefs expand to different types (`long` vs `long long`) on different platforms. In particular:
+
+* On Windows, `long` is 32 bits wide, so `size_t`, `int64_t`, and all other 64-bit wide standard typedefs use `long long`.
+* On Linux, `long` is 64 bits wide, so it's used for all those typedefs instead.
+* On Mac, `long` is 64 bits wide, but both `long` and `long long` are used for different typedefs (because of course they are!). The typedefs with digits in their names (e.g. `int64_t`) use `long long`, while all the other ones (e.g. `size_t`) use `long`.
+
+#### Why is this a problem? Can't we have the parser *not* expand typedefs in the input?
+
+Turns out we can't. Consider the following code:
+```cpp
+template <typename T>
+struct Vec3
+{
+    T x, y, z;
+};
+
+Vec3<long> a();
+Vec3<long long> b();
+Vec3<std::int64_t> c();
+```
+We want this to generate **3** different C types: `A_long`, `A_long_long`, and `A_int64_t`. `A_int64_t` can be a typedef for one of the other two, but it still needs its own (appropriately named!) copies of all the member functions. Because to interact with the return value of `c()`, the clients should be using `A_int64_t_Get_x(...)`, not `A_long_Get_x(...)`, which would be non-portable.
+
+Doing it this way appears to be impossible, or at least very difficult. While I can make Clang substitute `long` and `long long` into the `Vec3<T>` template, I have no idea how to substitute `int64_t` in a way that produces the third distinct class I can interact with. Even if it can be hacked to do this, this makes no sense from the C++ point of view, this isn't something that a compiler is expected to be able to do.
+
+And we can't just take e.g. `A<long>` and replace every mention of `long` inside with `int64_t`, because what if it originally was a literal `long`?
+
+So in the end, a fully generic solution appears to be impossible. So instead we do the next best thing.
+
+#### Unifying Windows and Linux
+
+Mac adds its own issues (which I unfortunately realized late), it'll be addressed later.
+
+The idea is simple. You get rid of all mentions of `long` and `long long` in your API, and instead use the standard typedefs, doesn't matter which ones.
+
+Then on Windows, we have the generator rewrite every `long long` back to `int64_t` (so all typedefs converge to this one), and complain if sees any `long`. And on Linux we do the opposite, rewriting any `long` back to `int64_t`, and complaining if we see any `long long`.
+
+The end result is that you lose the ability to use `long` and `long long` in your API directly. You still can use the standard 64-bit wide typedefs, but all of them get rewritten to `[u]int64_t`. This means `size_t` also gets rewritten as `uint64_t`, which is a bit sad, but acceptable.
+
+This is achieved with the following flags:
+
+* `--canonicalize-64-to-fixed-size-typedefs` makes the parser replace `long long` with `int64_t` on Windows, and `long` with `int64_t` on Linux.
+
+* `--reject-long-and-long-long` then makes the generator complain if it sees any `long` or `long long` (that wasn't replaced with a typedef).
+
+Are we done yet? No.
+
+#### Unifying Mac with Windows and Linux
+
+Mac breaks this beautiful hack, because it has typedefs for both `long` and `long long`. There `size_t` and `ptrdiff_t` use `[unsigned] long`, while `[u]int64_t` use `[unsigned] long long`. The rule of thumb is that if a typedef has digits in its name, it's going to expand to `long long`, and otherwise to `long`.
+
+Because of this, you can't have both `[u]int64_t` and `size_t` in your API, you must choose one.
+
+If you do nothing, `size_t` will get rejected, and `[u]int64_t` will work normally.
+
+Some libraries might want this to stop at this, but since `size_t` seems more valuable then `[u]int64_t`, we provide a workaround that lets you keep it.
+
+Passing `--canonicalize-size_t-to-uint64_t` to the parser (which only has effect on Mac, but can be passed everywhere for consistency) makes it replace the wrong type with with `[u]int64_t`: instead of `long long`, it'll replace `long`.
+
+Normally this would produce broken code, but we counteract it with `--use-size_t-typedef-for-uint64_t` in the generator, which then rewrites `[u]int64_t` into a custom typedef `MyLib_[u]int64_t`, which on Mac is made to point to `std::size_t` or `std::ptrdiff_t` respectively.
