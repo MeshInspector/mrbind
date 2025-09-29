@@ -4,9 +4,9 @@
 /.vscode/launch.json
 /.vscode/_current_mode.txt
 /.vscode/_settings.src
-/test/**/*.json
-/test/**/*.so
 /test/**/*.dll
-/test/output_py
+/test/**/*.json
+/test/**/*.pyd
+/test/**/*.so
 parallel-hashmap/
 pybind11/

@@ -30,87 +30,73 @@ MB_NAMESPACE(MR, /*not inline*/, /*::*/, /*no comment*/)
 MB_FUNC(/*returns*/(std::vector<int>), GetVector, GetVector, (MR::GetVector), (MR::GetVector), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
 #if MB_CHECK_FRAGMENT(1)
-MB_FUNC(/*returns*/(std::deque<int>), GetDeque, GetDeque, (MR::GetDeque), (MR::GetDeque), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
-#endif
-#if MB_CHECK_FRAGMENT(2)
-MB_FUNC(/*returns*/(std::list<int>), GetList, GetList, (MR::GetList), (MR::GetList), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
-#endif
-#if MB_CHECK_FRAGMENT(3)
 MB_FUNC(/*returns*/(std::set<int>), GetSet, GetSet, (MR::GetSet), (MR::GetSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(4)
+#if MB_CHECK_FRAGMENT(2)
 MB_FUNC(/*returns*/(std::multiset<int>), GetMultiSet, GetMultiSet, (MR::GetMultiSet), (MR::GetMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(5)
+#if MB_CHECK_FRAGMENT(3)
 MB_FUNC(/*returns*/(std::unordered_set<int>), GetUnorderedSet, GetUnorderedSet, (MR::GetUnorderedSet), (MR::GetUnorderedSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(6)
+#if MB_CHECK_FRAGMENT(4)
 MB_FUNC(/*returns*/(std::unordered_multiset<int>), GetUnorderedMultiSet, GetUnorderedMultiSet, (MR::GetUnorderedMultiSet), (MR::GetUnorderedMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(7)
+#if MB_CHECK_FRAGMENT(5)
 MB_FUNC(/*returns*/(std::map<int, float>), GetMap, GetMap, (MR::GetMap), (MR::GetMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(8)
+#if MB_CHECK_FRAGMENT(6)
 MB_FUNC(/*returns*/(std::multimap<int, float>), GetMultiMap, GetMultiMap, (MR::GetMultiMap), (MR::GetMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(9)
+#if MB_CHECK_FRAGMENT(7)
 MB_FUNC(/*returns*/(std::unordered_map<int, float>), GetUnorderedMap, GetUnorderedMap, (MR::GetUnorderedMap), (MR::GetUnorderedMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(10)
+#if MB_CHECK_FRAGMENT(8)
 MB_FUNC(/*returns*/(std::unordered_multimap<int, float>), GetUnorderedMultiMap, GetUnorderedMultiMap, (MR::GetUnorderedMultiMap), (MR::GetUnorderedMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
-#if MB_CHECK_FRAGMENT(11)
+#if MB_CHECK_FRAGMENT(9)
 MB_FUNC(/*returns*/(std::array<int, 42>), GetStdArray, GetStdArray, (MR::GetStdArray), (MR::GetStdArray), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
 MB_END_NAMESPACE(MR, /*not inline*/, /*::*/)
 
+#if MB_CHECK_FRAGMENT_TYPES(10)
+MB_REGISTER_TYPE(10, /*name source: auto*/, std::array<int, 42>)
+MB_REGISTER_TYPE_RETURNED(10, /*name source: auto*/, std::array<int, 42>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(11)
+MB_REGISTER_TYPE(11, /*name source: auto*/, std::map<int, float>)
+MB_REGISTER_TYPE_RETURNED(11, /*name source: auto*/, std::map<int, float>)
+#endif
 #if MB_CHECK_FRAGMENT_TYPES(12)
-MB_REGISTER_TYPE(12, /*name source: auto*/, std::array<int, 42>)
-MB_REGISTER_TYPE_RETURNED(12, /*name source: auto*/, std::array<int, 42>)
+MB_REGISTER_TYPE(12, /*name source: auto*/, std::multimap<int, float>)
+MB_REGISTER_TYPE_RETURNED(12, /*name source: auto*/, std::multimap<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(13)
-MB_REGISTER_TYPE(13, /*name source: auto*/, std::deque<int>)
-MB_REGISTER_TYPE_RETURNED(13, /*name source: auto*/, std::deque<int>)
+MB_REGISTER_TYPE(13, /*name source: auto*/, std::multiset<int>)
+MB_REGISTER_TYPE_RETURNED(13, /*name source: auto*/, std::multiset<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(14)
-MB_REGISTER_TYPE(14, /*name source: auto*/, std::list<int>)
-MB_REGISTER_TYPE_RETURNED(14, /*name source: auto*/, std::list<int>)
+MB_REGISTER_TYPE(14, /*name source: auto*/, std::set<int>)
+MB_REGISTER_TYPE_RETURNED(14, /*name source: auto*/, std::set<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(15)
-MB_REGISTER_TYPE(15, /*name source: auto*/, std::map<int, float>)
-MB_REGISTER_TYPE_RETURNED(15, /*name source: auto*/, std::map<int, float>)
+MB_REGISTER_TYPE(15, /*name source: auto*/, std::unordered_map<int, float>)
+MB_REGISTER_TYPE_RETURNED(15, /*name source: auto*/, std::unordered_map<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(16)
-MB_REGISTER_TYPE(16, /*name source: auto*/, std::multimap<int, float>)
-MB_REGISTER_TYPE_RETURNED(16, /*name source: auto*/, std::multimap<int, float>)
+MB_REGISTER_TYPE(16, /*name source: auto*/, std::unordered_multimap<int, float>)
+MB_REGISTER_TYPE_RETURNED(16, /*name source: auto*/, std::unordered_multimap<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(17)
-MB_REGISTER_TYPE(17, /*name source: auto*/, std::multiset<int>)
-MB_REGISTER_TYPE_RETURNED(17, /*name source: auto*/, std::multiset<int>)
+MB_REGISTER_TYPE(17, /*name source: auto*/, std::unordered_multiset<int>)
+MB_REGISTER_TYPE_RETURNED(17, /*name source: auto*/, std::unordered_multiset<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(18)
-MB_REGISTER_TYPE(18, /*name source: auto*/, std::set<int>)
-MB_REGISTER_TYPE_RETURNED(18, /*name source: auto*/, std::set<int>)
+MB_REGISTER_TYPE(18, /*name source: auto*/, std::unordered_set<int>)
+MB_REGISTER_TYPE_RETURNED(18, /*name source: auto*/, std::unordered_set<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(19)
-MB_REGISTER_TYPE(19, /*name source: auto*/, std::unordered_map<int, float>)
-MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, std::unordered_map<int, float>)
-#endif
-#if MB_CHECK_FRAGMENT_TYPES(20)
-MB_REGISTER_TYPE(20, /*name source: auto*/, std::unordered_multimap<int, float>)
-MB_REGISTER_TYPE_RETURNED(20, /*name source: auto*/, std::unordered_multimap<int, float>)
-#endif
-#if MB_CHECK_FRAGMENT_TYPES(21)
-MB_REGISTER_TYPE(21, /*name source: auto*/, std::unordered_multiset<int>)
-MB_REGISTER_TYPE_RETURNED(21, /*name source: auto*/, std::unordered_multiset<int>)
-#endif
-#if MB_CHECK_FRAGMENT_TYPES(22)
-MB_REGISTER_TYPE(22, /*name source: auto*/, std::unordered_set<int>)
-MB_REGISTER_TYPE_RETURNED(22, /*name source: auto*/, std::unordered_set<int>)
-#endif
-#if MB_CHECK_FRAGMENT_TYPES(23)
-MB_REGISTER_TYPE(23, /*name source: auto*/, std::vector<int>)
-MB_REGISTER_TYPE_RETURNED(23, /*name source: auto*/, std::vector<int>)
+MB_REGISTER_TYPE(19, /*name source: auto*/, std::vector<int>)
+MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, std::vector<int>)
 #endif
 
 MB_END_FILE
