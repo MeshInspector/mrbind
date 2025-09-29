@@ -75,6 +75,8 @@ Type | C | Python | Comments
 `std::string` | ✅ | ✅ |
 `std::string_view` | ✅ | ✅ |
 `std::filesystem::path` | ✅ | ✅ |
+`std::shared_ptr` | ✅ | ✅ | In Python it dissolves into the underlying type.
+`std::unique_ptr` | ✅ | ✅ | In Python it dissolves into the underlying type.
 `std::expected` | ✅ | ✅ |
 `tl::expected` | ✅ | ✅ |
 `phmap::flat_hash_map` | ✅ | ✅ |
