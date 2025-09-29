@@ -20,7 +20,7 @@ MRBind still has some rough edges, but it is used in production for [MeshLib](ht
 
 ## Limitations
 
-MRBind is meant to cover large API surface area with minimal effort.
+MRBind is meant to cover a large API surface area with minimal effort.
 
 It'll never be as flexible as handwritten bindings, and doesn't offer as many customization knobs as raw Pybind11, for example.
 
@@ -79,6 +79,6 @@ Type | C | Python | Comments
 `tl::expected` | ✅ | ✅ |
 `phmap::flat_hash_map` | ✅ | ✅ |
 The rest of `phmap` | ✅ | ❌ | Not yet implemented, should be relatively simply.
-`std::future` | ❌ | ✅ | Not yet implemented
+`std::future` | ❌ | ✅ | Not yet implemented.
 `std::ostream` | ✅ | ⚠️ | Python writes into a callback. C only supports `std::cout`/`cerr`/`clog` for now, but it's easy to extend.
 `std::istream` | ✅ | ⚠️ | Same as `std::ostream`.
