@@ -74,6 +74,7 @@ Type | C | Python | Comments
 `std::pair` | ✅ | ✅ |
 `std::string` | ✅ | ✅ |
 `std::string_view` | ✅ | ✅ |
+`std::span` | ❌ | ❌ | Unclear how to implement in Python, ideas welcome. Simple in C, but not yet implemented there.
 `std::filesystem::path` | ✅ | ✅ |
 `std::shared_ptr` | ✅ | ✅ | In Python it dissolves into the underlying type.
 `std::unique_ptr` | ✅ | ✅ | In Python it dissolves into the underlying type.
