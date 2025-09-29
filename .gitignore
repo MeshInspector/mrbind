@@ -7,4 +7,6 @@
 /test/**/*.json
 /test/**/*.so
 /test/**/*.dll
+/test/output_py
 parallel-hashmap/
+pybind11/

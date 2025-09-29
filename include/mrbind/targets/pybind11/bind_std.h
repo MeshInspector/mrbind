@@ -265,33 +265,47 @@ struct MRBind::pb11::CustomTypeBinding<std::vector<T, A>>
     }
     #endif
 };
+// Basic map-like.
+namespace MRBind::pb11::detail::BindStd
+{
+    template <typename T>
+    struct BindMapLike
+        : DefaultCustomTypeBinding<T>,
+        RegisterTypeDependencies<typename T::key_type, AdjustContainerElemType<typename T::mapped_type>>
+    {
+        [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<T>(m, n));}
+
+        // Make sure the element type is loaded first.
+        // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.
+        // We could just avoid doing that for `std::vector`, but it's harder to pull off here, because `bind_map` registers SEVERAL different types (duh).
+        static std::unordered_set<std::type_index> base_typeids() {return MakeBaseTypeids<typename T::key_type, typename T::mapped_type>();}
+
+        #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
+        static void bind_members(typename DefaultCustomTypeBinding<T>::pybind_type &c)
+        {
+            using TT = typename std::remove_reference_t<decltype(c)>::type;
+
+            // Copy constructor.
+            if constexpr (pybind11::detail::is_copy_constructible<T>::value)
+                c.def(pybind11::init<const T &>());
+
+            c.def(+"size", +[](const T &v){return v.size();});
+        }
+        #endif
+    };
+}
 // std::map
 #include <map>
-template <typename T, typename U, typename Comp, typename A>
-struct MRBind::pb11::CustomTypeBinding<std::map<T, U, Comp, A>>
-    : DefaultCustomTypeBinding<std::map<T, U, Comp, A>>,
-    RegisterTypeDependencies<T, AdjustContainerElemType<U>>
-{
-    [[nodiscard]] static decltype(auto) pybind_init(auto f, pybind11::handle &m, const char *n) {return f(pybind11::patched::bind_map<std::map<T, U, Comp, A>>(m, n));}
-
-    // Make sure the element type is loaded first.
-    // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.
-    // We could just avoid doing that for `std::vector`, but it's harder to pull off here, because `bind_map` registers SEVERAL different types (duh).
-    static std::unordered_set<std::type_index> base_typeids() {return MakeBaseTypeids<T, U>();}
-
-    #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
-    static void bind_members(typename DefaultCustomTypeBinding<std::map<T, U, Comp, A>>::pybind_type &c)
-    {
-        using TT = typename std::remove_reference_t<decltype(c)>::type;
-
-        // Copy constructor.
-        if constexpr (pybind11::detail::is_copy_constructible<std::map<T, U, Comp, A>>::value)
-            c.def(pybind11::init<const std::map<T, U, Comp, A> &>());
-
-        c.def(+"size", +[](const std::map<T, U, Comp, A> &v){return v.size();});
-    }
-    #endif
-};
+template <typename T, typename U, typename L, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::map<T,U,L,A>> : MRBind::pb11::detail::BindStd::BindMapLike<std::map<T,U,L,A>> {};
+template <typename T, typename U, typename L, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::multimap<T,U,L,A>> : MRBind::pb11::detail::BindStd::BindMapLike<std::multimap<T,U,L,A>> {};
+// std::unordered_map
+#include <unordered_map>
+template <typename T, typename U, typename H, typename E, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::unordered_map<T,U,H,E,A>> : MRBind::pb11::detail::BindStd::BindMapLike<std::unordered_map<T,U,H,E,A>> {};
+template <typename T, typename U, typename H, typename E, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::unordered_multimap<T,U,H,E,A>> : MRBind::pb11::detail::BindStd::BindMapLike<std::unordered_multimap<T,U,H,E,A>> {};
 // std::array
 #include <array>
 template <typename T, std::size_t N>
@@ -543,12 +557,16 @@ namespace MRBind::pb11::detail::BindStd
 }
 // std::set
 #include <set>
-template <typename T, typename A>
-struct MRBind::pb11::CustomTypeBinding<std::set<T, A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::set<T, A>> {};
+template <typename T, typename C, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::set<T,C,A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::set<T,C,A>> {};
+template <typename T, typename C, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::multiset<T,C,A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::multiset<T,C,A>> {};
 // std::unordered_set
 #include <unordered_set>
-template <typename T, typename A>
-struct MRBind::pb11::CustomTypeBinding<std::unordered_set<T, A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::unordered_set<T, A>> {};
+template <typename T, typename H, typename E, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::unordered_set<T,H,E,A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::unordered_set<T,H,E,A>> {};
+template <typename T, typename H, typename E, typename A>
+struct MRBind::pb11::CustomTypeBinding<std::unordered_multiset<T,H,E,A>> : MRBind::pb11::detail::BindStd::BindSetLike<std::unordered_multiset<T,H,E,A>> {};
 // std::optional
 #include <optional>
 template <typename T>

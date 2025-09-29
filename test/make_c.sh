@@ -117,7 +117,7 @@ build/mrbind_gen_c \
     --use-size_t-typedef-for-uint64_t \
 
 
-$CXX \
+"$CXX" \
     test/output_c/source/*.cpp \
     test/output_c/source/MR/*.cpp \
     -o test/output_c/libbleh$EXT_SHARED \
@@ -125,7 +125,7 @@ $CXX \
     -Itest/output_c/source \
     "${COMPILER_FLAGS[@]}"
 
-$CXX \
+"$CXX" \
     test/output_c_fixed_typedefs/source/*.cpp \
     test/output_c_fixed_typedefs/source/MR/*.cpp \
     -o test/output_c_fixed_typedefs/libbleh$EXT_SHARED \
@@ -133,7 +133,7 @@ $CXX \
     -Itest/output_c_fixed_typedefs/source \
     "${COMPILER_FLAGS[@]}"
 
-$CXX \
+"$CXX" \
     test/output_c_fixed_typedefs_64_only/source/*.cpp \
     test/output_c_fixed_typedefs_64_only/source/MR/*.cpp \
     -o test/output_c_fixed_typedefs_64_only/libbleh$EXT_SHARED \

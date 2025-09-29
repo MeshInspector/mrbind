@@ -39,11 +39,21 @@ Compile with the following flags:
 
 * All flags needed for Pybind, as explained earlier.
 
+* `-std=c++20` or newer.
+
+* `-I.` — We're adding the current directory to the include search path, because at one point we need to do `#include __FILE__`. This becomes optional if you pass an absolute path to the source file to the compiler.
+
 * `-DMRBIND_HEADER='<mrbind/targets/pybind11.h>'` (Use the approproate quotes for your shell, `'...'` in Bash.)
 
 * `-DMB_PB11_MODULE_NAME=MyModule` — Set this to your module name. This should match the filename of the compiled module, minus the extension.
 
 * `-DMB_DEFINE_IMPLEMENTATION` — When compiling multiple source files, exactly one of them should have this defined. More on that below.
+
+* `-DPYBIND11_COMPILER_TYPE=... -DPYBIND11_BUILD_ABI=...` — To prevent cross-talk between your modules and those by other people, you should define both of those macros to your library name, preferably with a leading underscore, e.g. `-DPYBIND11_COMPILER_TYPE='"_mylib"' -DPYBIND11_BUILD_ABI='"_mylib"'`. (The double quotes are needed in the macro, and the single quotes here are the shell's quoting.)
+
+  Normally Pybind internals do cross-talk between modules that use the same compiler and ABI, but there's little reason do do this between modules from different vendors, and not disabling this has caused issues for us in the past.
+
+  The values of those macros are logged during compilation, as `Pybind internals magic: ...`.
 
 * If the Clang comes from MSYS2, but you're building in MSVC-compatible mode, then `--target=x86_64-pc-windows-msvc -rtlib=platform -D_DLL -D_MT` (same as what you passed to the parser before), plus additionally in Release mode: `-Xclang --dependent-lib=msvcrt` or in Debug mode: `-Xclang --dependent-lib=msvcrtd -D_DEBUG`.
 
@@ -112,6 +122,32 @@ There are a few additional macros that you can define to tune the bindings:
 * **`-DMB_PB11_MERGE_STL_TL_EXPECTED`** — If you mix `std::expected` and `tl::expected` on different platforms (depending on what's available), defining this should make the names more consistent across platforms, by stripping `std::` and `tl::` from `expected`.
 
 * **`-DMB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS`** — When binding the C++ standard containers, add some additional C++-style methods to them, in addition to the Python-style ones.
+
+* **`-DMB_PB11_MODULE_DEPS='"foo", "bar"'`** — Adding another Python modules as dependencies.
+
+  If you want to import another Python module at startup as a dependency, pass its name to this macro. It acceps a list of quoted module names. `'...'` here is the shell's quoting and not a part of the syntax.
+
+* **Adding aliases** — Python lets you add aliases for things like functions, types, and even class members, simply using what looks like variable assignment.
+
+  E.g. given `struct Vec3 {float x, y, z;};`, which binds to `mylib.Vec3` in Python, you could do `mylib.Vec3.foo = mylib.Vec3.x`, and then `foo` would be usable as an alternative name for `x` in every instance of the class.
+
+  MRBind exposes a way to create those aliases, by calling `MRBind::pb11::RegisterCustomAlias("alias", "target");` at startup. You can create a .cpp file with the following contents, and then compile it as a part of your module:
+
+  ```cpp
+  #include MRBIND_HEADER
+
+  static const auto MRBIND_UNIQUE_VAR = []{
+      #define ALIAS(alias, target) MRBind::pb11::RegisterCustomAlias(#alias, #target)
+
+      ALIAS( Vec3.foo, Vec3.x ); // Make `Vec3.foo` an alias for `Vec3.x`.
+      ALIAS( Vec3.bar, Vec3.y ); // Make `Vec3.foo` an alias for `Vec3.x`.
+
+      return nullptr;
+  }();
+  ```
+  Notice that `.` is used as the separator here instead of `::`, Python style. Also notice that the module name `mylib.` is omitted.
+
+
 
 ## Improving compilation time
 

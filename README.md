@@ -40,4 +40,45 @@ The point is making maintaining large bindings easy, with acceptable binding qua
 
 4. Additional articles:
 
-   * [How to skip certain types/functions/etc?](/docs/skipping_entities.md)
+   * [Skipping certain types/functions/etc.](/docs/skipping_entities.md)
+
+   * [Adding specific template specializations.](/docs/adding_template_specializations.md)
+
+   * [Customizing type names.](/docs/customizing_type_names.md)
+
+## Supported types
+
+Those are the C++ types that can appear as parameters and return types of bound functions, and as fields of bound classes.
+
+The list includes both standard types, and some types from third-party libraries.
+
+Type | C | Python | Comments
+---|---|---|---
+`std::vector` | ✅ | ✅ |
+`std::deque` | ✅ | ❌ | Not yet implemented, should be simple to add.
+`std::list` | ✅ | ❌ | Not yet implemented, should be simple to add.
+`std::set` | ✅ | ✅ |
+`std::multiset` | ✅ | ✅ |
+`std::unordered_set` | ✅ | ✅ |
+`std::unordered_multiset` | ✅ | ✅ |
+`std::map` | ✅ | ✅ |
+`std::multimap` | ✅ | ✅ |
+`std::unordered_map` | ✅ | ✅ |
+`std::unordered_multimap` | ✅ | ✅ |
+`std::array` | ✅ | ✅ |
+`std::optional` | ✅ | ✅ |
+`std::variant` | ✅ | ✅ |
+`std::any` | ❌ | ❌ | I don't see a good way of implementing this.
+`std::function` | ✅ | ✅ |
+`std::tuple` | ✅ | ✅ |
+`std::pair` | ✅ | ✅ |
+`std::string` | ✅ | ✅ |
+`std::string_view` | ✅ | ✅ |
+`std::filesystem::path` | ✅ | ✅ |
+`std::expected` | ✅ | ✅ |
+`tl::expected` | ✅ | ✅ |
+`phmap::flat_hash_map` | ✅ | ✅ |
+The rest of `phmap` | ✅ | ❌ | Not yet implemented, should be relatively simply.
+`std::future` | ❌ | ✅ | Not yet implemented
+`std::ostream` | ✅ | ⚠️ | Python writes into a callback. C only supports `std::cout`/`cerr`/`clog` for now, but it's easy to extend.
+`std::istream` | ✅ | ⚠️ | Same as `std::ostream`.

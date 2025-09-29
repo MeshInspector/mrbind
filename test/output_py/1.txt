@@ -1,0 +1,770 @@
+Help on module example:
+
+NAME
+    example
+
+CLASSES
+    pybind11_builtins.pybind11_object(builtins.object)
+        ItemsView
+        KeysView
+        MR
+        ValuesView
+        std_array_int_42
+        std_map_int_float
+        std_multimap_int_float
+        std_multiset_int
+        std_set_int
+        std_unordered_map_int_float
+        std_unordered_multimap_int_float
+        std_unordered_multiset_int
+        std_unordered_set_int
+        std_vector_int
+    
+    class ItemsView(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      ItemsView
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, /, *args, **kwargs)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.ItemsView) -> collections.abc.Iterator
+     |  
+     |  __len__(...)
+     |      __len__(self: example.ItemsView) -> int
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class KeysView(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      KeysView
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __contains__(...)
+     |      __contains__(self: example.KeysView, arg0: object) -> bool
+     |  
+     |  __init__(self, /, *args, **kwargs)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.KeysView) -> collections.abc.Iterator
+     |  
+     |  __len__(...)
+     |      __len__(self: example.KeysView) -> int
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class MR(pybind11_builtins.pybind11_object)
+     |  This is a namespace.
+     |  
+     |  Method resolution order:
+     |      MR
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, /, *args, **kwargs)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  GetDeque(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetDeque() -> std::deque<int, std::allocator<int> >
+     |  
+     |  GetList(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetList() -> std::__cxx11::list<int, std::allocator<int> >
+     |  
+     |  GetMap(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetMap() -> example.std_map_int_float
+     |  
+     |  GetMultiMap(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetMultiMap() -> example.std_multimap_int_float
+     |  
+     |  GetMultiSet(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetMultiSet() -> example.std_multiset_int
+     |  
+     |  GetSet(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetSet() -> example.std_set_int
+     |  
+     |  GetStdArray(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetStdArray() -> example.std_array_int_42
+     |  
+     |  GetUnorderedMap(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetUnorderedMap() -> example.std_unordered_map_int_float
+     |  
+     |  GetUnorderedMultiMap(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetUnorderedMultiMap() -> example.std_unordered_multimap_int_float
+     |  
+     |  GetUnorderedMultiSet(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetUnorderedMultiSet() -> example.std_unordered_multiset_int
+     |  
+     |  GetUnorderedSet(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetUnorderedSet() -> example.std_unordered_set_int
+     |  
+     |  GetVector(...) from pybind11_builtins.pybind11_detail_function_record_v1__myexample_myexample
+     |      GetVector() -> example.std_vector_int
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class ValuesView(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      ValuesView
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, /, *args, **kwargs)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.ValuesView) -> collections.abc.Iterator
+     |  
+     |  __len__(...)
+     |      __len__(self: example.ValuesView) -> int
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_array_int_42(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_array_int_42
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __getitem__(...)
+     |      __getitem__(self: example.std_array_int_42, arg0: typing.SupportsInt) -> int
+     |  
+     |  __init__(...)
+     |      __init__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __init__(self: example.std_array_int_42) -> None
+     |      
+     |      2. __init__(self: example.std_array_int_42, arg0: example.std_array_int_42) -> None
+     |      
+     |      3. __init__(self: example.std_array_int_42, arg0: collections.abc.Iterable) -> None
+     |      
+     |      Initialize from a list of 42elements.
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_array_int_42) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_array_int_42) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_array_int_42) -> str
+     |  
+     |  __setitem__(...)
+     |      __setitem__(self: example.std_array_int_42, arg0: typing.SupportsInt, arg1: typing.SupportsInt) -> None
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_map_int_float(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_map_int_float
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __bool__(...)
+     |      __bool__(self: example.std_map_int_float) -> bool
+     |      
+     |      Check whether the map is nonempty
+     |  
+     |  __contains__(...)
+     |      __contains__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __contains__(self: example.std_map_int_float, arg0: typing.SupportsInt) -> bool
+     |      
+     |      2. __contains__(self: example.std_map_int_float, arg0: object) -> bool
+     |  
+     |  __delitem__(...)
+     |      __delitem__(self: example.std_map_int_float, arg0: typing.SupportsInt) -> None
+     |  
+     |  __getitem__(...)
+     |      __getitem__(self: example.std_map_int_float, arg0: typing.SupportsInt) -> float
+     |  
+     |  __init__(...)
+     |      __init__(self: example.std_map_int_float) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_map_int_float) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_map_int_float) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_map_int_float) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  __setitem__(...)
+     |      __setitem__(self: example.std_map_int_float, arg0: typing.SupportsInt, arg1: typing.SupportsFloat) -> None
+     |  
+     |  items(...)
+     |      items(self: example.std_map_int_float) -> example.ItemsView
+     |  
+     |  keys(...)
+     |      keys(self: example.std_map_int_float) -> example.KeysView
+     |  
+     |  values(...)
+     |      values(self: example.std_map_int_float) -> example.ValuesView
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_multimap_int_float(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_multimap_int_float
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __bool__(...)
+     |      __bool__(self: example.std_multimap_int_float) -> bool
+     |      
+     |      Check whether the map is nonempty
+     |  
+     |  __contains__(...)
+     |      __contains__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __contains__(self: example.std_multimap_int_float, arg0: typing.SupportsInt) -> bool
+     |      
+     |      2. __contains__(self: example.std_multimap_int_float, arg0: object) -> bool
+     |  
+     |  __delitem__(...)
+     |      __delitem__(self: example.std_multimap_int_float, arg0: typing.SupportsInt) -> None
+     |  
+     |  __getitem__(...)
+     |      __getitem__(self: example.std_multimap_int_float, arg0: typing.SupportsInt) -> float
+     |  
+     |  __init__(...)
+     |      __init__(self: example.std_multimap_int_float) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_multimap_int_float) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_multimap_int_float) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_multimap_int_float) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  __setitem__(...)
+     |      __setitem__(self: example.std_multimap_int_float, arg0: typing.SupportsInt, arg1: typing.SupportsFloat) -> None
+     |  
+     |  items(...)
+     |      items(self: example.std_multimap_int_float) -> example.ItemsView
+     |  
+     |  keys(...)
+     |      keys(self: example.std_multimap_int_float) -> example.KeysView
+     |  
+     |  values(...)
+     |      values(self: example.std_multimap_int_float) -> example.ValuesView
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_multiset_int(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_multiset_int
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __contains__(...)
+     |      __contains__(self: example.std_multiset_int, arg0: typing.SupportsInt) -> bool
+     |  
+     |  __init__(...)
+     |      __init__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __init__(self: example.std_multiset_int) -> None
+     |      
+     |      2. __init__(self: example.std_multiset_int, arg0: collections.abc.Iterable) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_multiset_int) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_multiset_int) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_multiset_int) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  add(...)
+     |      add(self: example.std_multiset_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  discard(...)
+     |      discard(self: example.std_multiset_int, arg0: typing.SupportsInt) -> int
+     |  
+     |  pop(...)
+     |      pop(self: example.std_multiset_int) -> None
+     |  
+     |  remove(...)
+     |      remove(self: example.std_multiset_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_set_int(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_set_int
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __contains__(...)
+     |      __contains__(self: example.std_set_int, arg0: typing.SupportsInt) -> bool
+     |  
+     |  __init__(...)
+     |      __init__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __init__(self: example.std_set_int) -> None
+     |      
+     |      2. __init__(self: example.std_set_int, arg0: collections.abc.Iterable) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_set_int) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_set_int) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_set_int) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  add(...)
+     |      add(self: example.std_set_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  discard(...)
+     |      discard(self: example.std_set_int, arg0: typing.SupportsInt) -> int
+     |  
+     |  pop(...)
+     |      pop(self: example.std_set_int) -> None
+     |  
+     |  remove(...)
+     |      remove(self: example.std_set_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_unordered_map_int_float(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_unordered_map_int_float
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __bool__(...)
+     |      __bool__(self: example.std_unordered_map_int_float) -> bool
+     |      
+     |      Check whether the map is nonempty
+     |  
+     |  __contains__(...)
+     |      __contains__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __contains__(self: example.std_unordered_map_int_float, arg0: typing.SupportsInt) -> bool
+     |      
+     |      2. __contains__(self: example.std_unordered_map_int_float, arg0: object) -> bool
+     |  
+     |  __delitem__(...)
+     |      __delitem__(self: example.std_unordered_map_int_float, arg0: typing.SupportsInt) -> None
+     |  
+     |  __getitem__(...)
+     |      __getitem__(self: example.std_unordered_map_int_float, arg0: typing.SupportsInt) -> float
+     |  
+     |  __init__(...)
+     |      __init__(self: example.std_unordered_map_int_float) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_unordered_map_int_float) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_unordered_map_int_float) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_unordered_map_int_float) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  __setitem__(...)
+     |      __setitem__(self: example.std_unordered_map_int_float, arg0: typing.SupportsInt, arg1: typing.SupportsFloat) -> None
+     |  
+     |  items(...)
+     |      items(self: example.std_unordered_map_int_float) -> example.ItemsView
+     |  
+     |  keys(...)
+     |      keys(self: example.std_unordered_map_int_float) -> example.KeysView
+     |  
+     |  values(...)
+     |      values(self: example.std_unordered_map_int_float) -> example.ValuesView
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_unordered_multimap_int_float(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_unordered_multimap_int_float
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __bool__(...)
+     |      __bool__(self: example.std_unordered_multimap_int_float) -> bool
+     |      
+     |      Check whether the map is nonempty
+     |  
+     |  __contains__(...)
+     |      __contains__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __contains__(self: example.std_unordered_multimap_int_float, arg0: typing.SupportsInt) -> bool
+     |      
+     |      2. __contains__(self: example.std_unordered_multimap_int_float, arg0: object) -> bool
+     |  
+     |  __delitem__(...)
+     |      __delitem__(self: example.std_unordered_multimap_int_float, arg0: typing.SupportsInt) -> None
+     |  
+     |  __getitem__(...)
+     |      __getitem__(self: example.std_unordered_multimap_int_float, arg0: typing.SupportsInt) -> float
+     |  
+     |  __init__(...)
+     |      __init__(self: example.std_unordered_multimap_int_float) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_unordered_multimap_int_float) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_unordered_multimap_int_float) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_unordered_multimap_int_float) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  __setitem__(...)
+     |      __setitem__(self: example.std_unordered_multimap_int_float, arg0: typing.SupportsInt, arg1: typing.SupportsFloat) -> None
+     |  
+     |  items(...)
+     |      items(self: example.std_unordered_multimap_int_float) -> example.ItemsView
+     |  
+     |  keys(...)
+     |      keys(self: example.std_unordered_multimap_int_float) -> example.KeysView
+     |  
+     |  values(...)
+     |      values(self: example.std_unordered_multimap_int_float) -> example.ValuesView
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_unordered_multiset_int(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_unordered_multiset_int
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __contains__(...)
+     |      __contains__(self: example.std_unordered_multiset_int, arg0: typing.SupportsInt) -> bool
+     |  
+     |  __init__(...)
+     |      __init__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __init__(self: example.std_unordered_multiset_int) -> None
+     |      
+     |      2. __init__(self: example.std_unordered_multiset_int, arg0: collections.abc.Iterable) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_unordered_multiset_int) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_unordered_multiset_int) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_unordered_multiset_int) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  add(...)
+     |      add(self: example.std_unordered_multiset_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  discard(...)
+     |      discard(self: example.std_unordered_multiset_int, arg0: typing.SupportsInt) -> int
+     |  
+     |  pop(...)
+     |      pop(self: example.std_unordered_multiset_int) -> None
+     |  
+     |  remove(...)
+     |      remove(self: example.std_unordered_multiset_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_unordered_set_int(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_unordered_set_int
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __contains__(...)
+     |      __contains__(self: example.std_unordered_set_int, arg0: typing.SupportsInt) -> bool
+     |  
+     |  __init__(...)
+     |      __init__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __init__(self: example.std_unordered_set_int) -> None
+     |      
+     |      2. __init__(self: example.std_unordered_set_int, arg0: collections.abc.Iterable) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_unordered_set_int) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_unordered_set_int) -> int
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_unordered_set_int) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  add(...)
+     |      add(self: example.std_unordered_set_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  discard(...)
+     |      discard(self: example.std_unordered_set_int, arg0: typing.SupportsInt) -> int
+     |  
+     |  pop(...)
+     |      pop(self: example.std_unordered_set_int) -> None
+     |  
+     |  remove(...)
+     |      remove(self: example.std_unordered_set_int, arg0: typing.SupportsInt) -> None
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+    
+    class std_vector_int(pybind11_builtins.pybind11_object)
+     |  Method resolution order:
+     |      std_vector_int
+     |      pybind11_builtins.pybind11_object
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __bool__(...)
+     |      __bool__(self: example.std_vector_int) -> bool
+     |      
+     |      Check whether the list is nonempty
+     |  
+     |  __contains__(...)
+     |      __contains__(self: example.std_vector_int, x: typing.SupportsInt) -> bool
+     |      
+     |      Return true the container contains ``x``
+     |  
+     |  __delitem__(...)
+     |      __delitem__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __delitem__(self: example.std_vector_int, arg0: typing.SupportsInt) -> None
+     |      
+     |      Delete the list elements at index ``i``
+     |      
+     |      2. __delitem__(self: example.std_vector_int, arg0: slice) -> None
+     |      
+     |      Delete list elements using a slice object
+     |  
+     |  __eq__(...)
+     |      __eq__(self: example.std_vector_int, arg0: example.std_vector_int) -> bool
+     |  
+     |  __getitem__(...)
+     |      __getitem__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __getitem__(self: example.std_vector_int, s: slice) -> example.std_vector_int
+     |      
+     |      Retrieve list elements using a slice object
+     |      
+     |      2. __getitem__(self: example.std_vector_int, arg0: typing.SupportsInt) -> int
+     |  
+     |  __init__(...)
+     |      __init__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __init__(self: example.std_vector_int) -> None
+     |      
+     |      2. __init__(self: example.std_vector_int, arg0: collections.abc.Iterable) -> None
+     |  
+     |  __iter__(...)
+     |      __iter__(self: example.std_vector_int) -> collections.abc.Iterator[int]
+     |  
+     |  __len__(...)
+     |      __len__(self: example.std_vector_int) -> int
+     |  
+     |  __ne__(...)
+     |      __ne__(self: example.std_vector_int, arg0: example.std_vector_int) -> bool
+     |  
+     |  __repr__(...)
+     |      __repr__(self: example.std_vector_int) -> str
+     |      
+     |      Return the canonical string representation of this map.
+     |  
+     |  __setitem__(...)
+     |      __setitem__(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. __setitem__(self: example.std_vector_int, arg0: typing.SupportsInt, arg1: typing.SupportsInt) -> None
+     |      
+     |      2. __setitem__(self: example.std_vector_int, arg0: slice, arg1: example.std_vector_int) -> None
+     |      
+     |      Assign list elements using a slice object
+     |  
+     |  append(...)
+     |      append(self: example.std_vector_int, x: typing.SupportsInt) -> None
+     |      
+     |      Add an item to the end of the list
+     |  
+     |  clear(...)
+     |      clear(self: example.std_vector_int) -> None
+     |      
+     |      Clear the contents
+     |  
+     |  count(...)
+     |      count(self: example.std_vector_int, x: typing.SupportsInt) -> int
+     |      
+     |      Return the number of times ``x`` appears in the list
+     |  
+     |  data_pointer(...)
+     |      data_pointer(self: example.std_vector_int) -> int
+     |      
+     |      Returns the pointer to the contiguous vector contents, as an integer.
+     |  
+     |  extend(...)
+     |      extend(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. extend(self: example.std_vector_int, L: example.std_vector_int) -> None
+     |      
+     |      Extend the list by appending all the items in the given list
+     |      
+     |      2. extend(self: example.std_vector_int, L: collections.abc.Iterable) -> None
+     |      
+     |      Extend the list by appending all the items in the given list
+     |  
+     |  insert(...)
+     |      insert(self: example.std_vector_int, i: typing.SupportsInt, x: typing.SupportsInt) -> None
+     |      
+     |      Insert an item at a given position.
+     |  
+     |  pop(...)
+     |      pop(*args, **kwargs)
+     |      Overloaded function.
+     |      
+     |      1. pop(self: example.std_vector_int) -> int
+     |      
+     |      Remove and return the last item
+     |      
+     |      2. pop(self: example.std_vector_int, i: typing.SupportsInt) -> int
+     |      
+     |      Remove and return the item at index ``i``
+     |  
+     |  remove(...)
+     |      remove(self: example.std_vector_int, x: typing.SupportsInt) -> None
+     |      
+     |      Remove the first item from the list whose value is x. It is an error if there is no such item.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Readonly properties defined here:
+     |  
+     |  element_type_byte_size
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __hash__ = None
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from pybind11_builtins.pybind11_object:
+     |  
+     |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+     |      Create and return a new object.  See help(type) for accurate signature.
+
+FILE
+    /home/user/repos/MeshInspectorCode-2/MeshLib/thirdparty/mrbind/test/output_py/example.so
+
+
