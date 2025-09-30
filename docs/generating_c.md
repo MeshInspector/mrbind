@@ -101,6 +101,14 @@ All flags beflow are for `mrbind_gen_c`, unless mentioned otherwise.
 
 Some generated headers can end up with long filenames (e.g. if you bind `std::tuple` with a 100 members). To set a limit on filename length, use `--max-header-name-length N` (e.g. with `N`=`100`). Longer filenames will get truncated, and hashes will be appended to those names to make them unique.
 
+### Move the extra headers
+
+We generate some additional headers, such as `exports.h` for the shared library export macro, or headers for the standard containers if you use them.
+
+By default all those headers end up directly in the `--output-header-dir`, which can look bad.
+
+Use `--helper-header-dir some/dir` to move them to a subdirectory. `some/dir` is relative to `--output-header-dir`, and will typically be `MylibMisc`, or something along those lines.
+
 ### Expose simple structs as structs
 
 The default behavior is to expose all classes/structs as opaque heap-allocated pointers.
