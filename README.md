@@ -46,6 +46,8 @@ The point is making maintaining large bindings easy, with acceptable binding qua
 
    * [Customizing type names.](/docs/customizing_type_names.md)
 
+   * [Adjusting parsed comments.](/docs/adjusting_comments.md)
+
 ## Supported types
 
 Those are the C++ types that can appear as parameters and return types of bound functions, and as fields of bound classes.
@@ -56,35 +58,35 @@ If you need something from here that's marked "simple to implement", open an iss
 
 Type | C | Python | Comments
 ---|---|---|---
-`std::vector` | ✅ | ✅ |
-`std::deque` | ✅ | ❌ | Not yet implemented, should be simple to add.
-`std::list` | ✅ | ❌ | Not yet implemented, should be simple to add.
-`std::set` | ✅ | ✅ |
-`std::multiset` | ✅ | ✅ |
-`std::unordered_set` | ✅ | ✅ |
+`std::vector`             | ✅ | ✅ |
+`std::deque`              | ✅ | ❌ | Not yet implemented, should be simple to add.
+`std::list`               | ✅ | ❌ | Not yet implemented, should be simple to add.
+`std::set`                | ✅ | ✅ |
+`std::multiset`           | ✅ | ✅ |
+`std::unordered_set`      | ✅ | ✅ |
 `std::unordered_multiset` | ✅ | ✅ |
-`std::map` | ✅ | ✅ |
-`std::multimap` | ✅ | ✅ |
-`std::unordered_map` | ✅ | ✅ |
+`std::map`                | ✅ | ✅ |
+`std::multimap`           | ✅ | ✅ |
+`std::unordered_map`      | ✅ | ✅ |
 `std::unordered_multimap` | ✅ | ✅ |
-`std::array` | ✅ | ✅ |
-`std::optional` | ✅ | ✅ |
-`std::variant` | ✅ | ✅ |
-`std::any` | ❌ | ❌ | I don't see a good way of implementing this.
-`std::function` | ✅ | ✅ |
-`std::tuple` | ✅ | ✅ |
-`std::pair` | ✅ | ✅ |
-`std::string` | ✅ | ✅ |
-`std::string_view` | ✅ | ✅ |
-`std::span` | ❌ | ❌ | Unclear how to implement in Python, ideas welcome. Simple in C, but not yet implemented there.
-`std::filesystem::path` | ✅ | ✅ |
-`std::unique_ptr` | ✅ | ✅ | In Python it dissolves into the underlying type.
-`std::shared_ptr` | ✅ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't point to built-in types, such as `int`, but can point to user classes (due to Pybind limitations).
-`std::weak_ptr` | ❌ | ❌ | In Python difficult to support because of Pybind limitations. In C simply not implemented yet.
-`std::expected` | ✅ | ✅ | In Python it's auto-dereferenced when returned, which throws if it holds an error.
-`tl::expected` | ✅ | ✅ | Same as `std::expected`.
-`phmap::flat_hash_map` | ✅ | ✅ |
-The rest of `phmap` | ✅ | ❌ | Not yet implemented, should be relatively simple.
-`std::future` | ❌ | ✅ | Not yet implemented.
-`std::ostream` | ⚠️ | ✅ | C only supports `std::cout`/`cerr`/`clog` for now, but it's easy to extend.
-`std::istream` | ⚠️ | ✅ | Same as `std::ostream`.
+`std::array`              | ✅ | ✅ |
+`std::optional`           | ✅ | ✅ |
+`std::variant`            | ✅ | ✅ |
+`std::any`                | ❌ | ❌ | I don't see a good way of implementing this.
+`std::function`           | ✅ | ✅ |
+`std::tuple`              | ✅ | ✅ |
+`std::pair`               | ✅ | ✅ |
+`std::string`             | ✅ | ✅ |
+`std::string_view`        | ✅ | ✅ |
+`std::span`               | ❌ | ❌ | Unclear how to implement in Python, ideas welcome. Simple in C, but not yet implemented there.
+`std::filesystem::path`   | ✅ | ✅ |
+`std::unique_ptr`         | ✅ | ✅ | In Python it dissolves into the underlying type.
+`std::shared_ptr`         | ✅ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't point to built-in types, such as `int`, but can point to user classes (due to Pybind limitations).
+`std::weak_ptr`           | ❌ | ❌ | In Python difficult to support because of Pybind limitations. In C simply not implemented yet.
+`std::expected`           | ✅ | ✅ | In Python it's auto-dereferenced when returned, which throws if it holds an error.
+`tl::expected`            | ✅ | ✅ | Same as `std::expected`.
+`phmap::flat_hash_map`    | ✅ | ✅ |
+The rest of `phmap`       | ✅ | ❌ | Not yet implemented, should be relatively simple.
+`std::future`             | ❌ | ✅ | Not yet implemented.
+`std::ostream`            | ⚠️ | ✅ | C only supports `std::cout`/`cerr`/`clog` for now, but it's easy to extend.
+`std::istream`            | ⚠️ | ✅ | Same as `std::ostream`.
