@@ -1,13 +1,16 @@
 #pragma once
 
 #include <vector>
-#include <deque>
-#include <list>
 #include <set>
 #include <unordered_set>
 #include <map>
 #include <unordered_map>
 #include <array>
+
+#include <deque>
+#include <list>
+
+#include <memory>
 
 namespace MR
 {
@@ -25,4 +28,17 @@ namespace MR
     // Those are missing still!
     // inline std::deque             <int>        GetDeque            () {return std::deque             <int>{};}
     // inline std::list              <int>        GetList             () {return std::list              <int>{};}
+
+    // Pybind doesn't like shared pointers to built-in types.
+    // inline std::shared_ptr<int> GetSharedPtrInt() {return std::make_shared<int>();}
+    inline std::unique_ptr<int> GetUniquePtrInt() {return std::make_unique<int>();}
+    // No weak pointers yet.
+    // inline std::weak_ptr<int> GetWeakPtrInt() {return std::make_shared<int>();}
+
+    struct A {};
+
+    inline std::shared_ptr<A> GetSharedPtrClass() {return std::make_shared<A>();}
+    inline std::unique_ptr<A> GetUniquePtrClass() {return std::make_unique<A>();}
+    // No weak pointers yet.
+    // inline std::weak_ptr<A> GetWeakPtrClass() {return std::make_shared<A>();}
 }

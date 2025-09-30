@@ -52,6 +52,8 @@ Those are the C++ types that can appear as parameters and return types of bound 
 
 The list includes both standard types, and some types from third-party libraries.
 
+If you need something from here that's marked "simple to implement", open an issue.
+
 Type | C | Python | Comments
 ---|---|---|---
 `std::vector` | ✅ | ✅ |
@@ -76,12 +78,13 @@ Type | C | Python | Comments
 `std::string_view` | ✅ | ✅ |
 `std::span` | ❌ | ❌ | Unclear how to implement in Python, ideas welcome. Simple in C, but not yet implemented there.
 `std::filesystem::path` | ✅ | ✅ |
-`std::shared_ptr` | ✅ | ✅ | In Python it dissolves into the underlying type.
 `std::unique_ptr` | ✅ | ✅ | In Python it dissolves into the underlying type.
-`std::expected` | ✅ | ✅ |
-`tl::expected` | ✅ | ✅ |
+`std::shared_ptr` | ✅ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't point to built-in types, such as `int`, but can point to user classes (due to Pybind limitations).
+`std::weak_ptr` | ❌ | ❌ | In Python difficult to support because of Pybind limitations. In C simply not implemented yet.
+`std::expected` | ✅ | ✅ | In Python it's auto-dereferenced when returned, which throws if it holds an error.
+`tl::expected` | ✅ | ✅ | Same as `std::expected`.
 `phmap::flat_hash_map` | ✅ | ✅ |
-The rest of `phmap` | ✅ | ❌ | Not yet implemented, should be relatively simply.
+The rest of `phmap` | ✅ | ❌ | Not yet implemented, should be relatively simple.
 `std::future` | ❌ | ✅ | Not yet implemented.
-`std::ostream` | ✅ | ⚠️ | Python writes into a callback. C only supports `std::cout`/`cerr`/`clog` for now, but it's easy to extend.
-`std::istream` | ✅ | ⚠️ | Same as `std::ostream`.
+`std::ostream` | ⚠️ | ✅ | C only supports `std::cout`/`cerr`/`clog` for now, but it's easy to extend.
+`std::istream` | ⚠️ | ✅ | Same as `std::ostream`.
