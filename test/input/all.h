@@ -35,4 +35,5 @@
 #include <input/MR/test_std_unique_ptr.h>
 #include <input/MR/test_tags.h>
 #include <input/MR/test_typedefs_in_templates.h>
+#include <input/MR/test_using_decls.h>
 #include <input/MR/test_variant.h>

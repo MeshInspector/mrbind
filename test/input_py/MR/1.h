@@ -41,4 +41,8 @@ namespace MR
     inline std::unique_ptr<A> GetUniquePtrClass() {return std::make_unique<A>();}
     // No weak pointers yet.
     // inline std::weak_ptr<A> GetWeakPtrClass() {return std::make_shared<A>();}
+
+    struct B : virtual A {};
+
+    struct C : B {};
 }

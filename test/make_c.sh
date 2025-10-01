@@ -23,6 +23,7 @@ MRBIND_FLAGS=(
     --combine-types=cv,ref,ptr,smart_ptr
     --ignore MR::SignatureFilters::B --skip-mentions-of MR::SignatureFilters::B
     --ignore MR::SignatureFilters::AA --skip-mentions-of '/MR::SignatureFilters::AA<.*>/'
+    --skip-mentions-of UsingDecls_IgnoreMentionsOf
     --implicit-enum-underlying-type-is-always-int
     --
     -xc++-header

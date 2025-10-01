@@ -467,7 +467,7 @@ namespace mrbind
     {
         MBREFL_STRUCT(
             (Type)(type)
-            (bool)(is_virtual, false)
+            (bool)(is_virtual, false) // If true, this is a direct (!) virtual base, as opposed to a direct non-virtual.
         )
 
         void VisitTypes(const std::function<void(Type &type)> &func)
@@ -497,6 +497,7 @@ namespace mrbind
             // Name with all scope qualifiers added.
             (std::string)(full_type)
 
+            // This only holds direct bases, even when they are `virtual`.
             (std::vector<ClassBase>)(bases)
 
             (std::vector<ClassMemberVariant>)(members)

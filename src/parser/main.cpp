@@ -177,6 +177,8 @@ namespace mrbind
         // The difference only matters on Macs, where `size_t` is `unsigned long`, while `uint64_t` is `unsigned long long`.
         bool only_canonicalize_size_t_to_uint64_t = false;
 
+        // When the underlying type a enum isn't fixed (only possible for unscoped enums), always pretend it's an `int`, regardless of what Clang reports.
+        // Clang will report it as `unsigned int` on Linux (not on Windows) if there are no negative constants.
         bool implicit_enum_underlying_type_is_always_int = false;
 
         // Try to substitute default arguments into templates, when possible.
@@ -1626,46 +1628,52 @@ namespace mrbind
 
             // Members:
 
-            { // -- Static data members.
+            // -- Static data members.
+
+            auto TryHandleStaticVariable = [&](const clang::VarDecl *var)
+            {
+                if (ShouldRejectRecordStaticDataMember(*var, *ci, *params, printing_policies))
+                    return;
+
+                std::string full_name(var->getName());
+                // Add template arguments for variable templates to the name.
+                if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(var))
+                {
+                    llvm::raw_string_ostream ss(full_name);
+                    clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
+
+                    if (!NameSpellingIsLegal(full_name))
+                        return; // Has unspellable template arguments.
+
+                    full_name = RoundtripQualifiedNameThroughCppdecl(std::move(full_name), *ci, *params, true);
+                }
+
+                ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
+                new_field.comment = GetCommentString(*ctx, *params, *var);
+                new_field.is_static = true;
+                new_field.name = var->getName();
+                new_field.full_name = std::move(full_name);
+                new_field.type = GetTypeStrings(var->getType(), TypeUses::static_data_member);
+
+                new_field.type_size = DivideByByteSize(ctx->getTypeInfo(var->getType()).Width);
+                new_field.type_alignment = DivideByByteSize(ctx->getTypeInfo(var->getType()).Align);
+                new_field.byte_offset = std::size_t(-1); // Makes no sense for static variables.
+            };
+
+            { // Loop over the static data members.
                 clang::DeclContext::specific_decl_iterator<clang::VarDecl> iter(decl->decls_begin());
                 for (const clang::VarDecl *var : llvm::iterator_range(iter, decltype(iter){}))
-                {
-                    if (ShouldRejectRecordStaticDataMember(*var, *ci, *params, printing_policies))
-                        continue;
-
-                    std::string full_name(var->getName());
-                    // Add template arguments for variable templates to the name.
-                    if (auto templ = llvm::dyn_cast<clang::VarTemplateSpecializationDecl>(var))
-                    {
-                        llvm::raw_string_ostream ss(full_name);
-                        clang::printTemplateArgumentList(ss, templ->getTemplateArgs().asArray(), printing_policies.normal, templ->getSpecializedTemplate()->getTemplateParameters());
-
-                        if (!NameSpellingIsLegal(full_name))
-                            continue; // Has unspellable template arguments.
-
-                        full_name = RoundtripQualifiedNameThroughCppdecl(std::move(full_name), *ci, *params, true);
-                    }
-
-                    ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
-                    new_field.comment = GetCommentString(*ctx, *params, *var);
-                    new_field.is_static = true;
-                    new_field.name = var->getName();
-                    new_field.full_name = std::move(full_name);
-                    new_field.type = GetTypeStrings(var->getType(), TypeUses::static_data_member);
-
-                    new_field.type_size = DivideByByteSize(ctx->getTypeInfo(var->getType()).Width);
-                    new_field.type_alignment = DivideByByteSize(ctx->getTypeInfo(var->getType()).Align);
-                    new_field.byte_offset = std::size_t(-1); // Makes no sense for static variables.
-                }
+                    TryHandleStaticVariable(var);
             }
 
-            // -- Non-static data members.
-            for (const clang::FieldDecl *field : decl->fields())
+            // -- Fields (non-static data members).
+
+            auto TryHandleField = [&](const clang::FieldDecl *field)
             {
                 if (ShouldRejectRecordField(*field, *ci, *params, printing_policies))
                 {
                     new_class.some_nonstatic_data_members_skipped = true;
-                    continue;
+                    return;
                 }
 
                 ClassField &new_field = new_class.members.emplace_back().emplace<ClassField>();
@@ -1678,7 +1686,11 @@ namespace mrbind
                 new_field.type_size = DivideByByteSize(ctx->getTypeInfo(field->getType()).Width);
                 new_field.type_alignment = DivideByByteSize(ctx->getTypeInfo(field->getType()).Align);
                 new_field.byte_offset = DivideByByteSize(ctx->getFieldOffset(field));
-            }
+            };
+
+            // Loop over the fields.
+            for (const clang::FieldDecl *field : decl->fields())
+                TryHandleField(field);
 
             // -- Constructors and methods.
 
@@ -1687,6 +1699,31 @@ namespace mrbind
 
             // But! We do manually visit the implicit special members here, since otherwise they don't get emitted for some reason.
             // Last tested on Clang 18. If they get duplicated, remove this code.
+
+            auto TryHandleImplicitCtor = [&](clang::CXXConstructorDecl *ctor)
+            {
+                if ((ctor->isDefaultConstructor() || ctor->isCopyOrMoveConstructor()) && ctor->isImplicit())
+                {
+                    VisitFunctionDecl(ctor);
+                    return;
+                }
+            };
+
+            auto TryHandleImplicitAssignment = [&](clang::CXXMethodDecl *method)
+            {
+                if ((method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator()) && method->isImplicit())
+                {
+                    VisitFunctionDecl(method);
+                    return;
+                }
+
+                if (auto dtor = llvm::dyn_cast<clang::CXXDestructorDecl>(method); dtor && dtor->isImplicit())
+                {
+                    VisitFunctionDecl(dtor);
+                    return;
+                }
+            };
+
             {
                 // First, instantiate them. This is needed if they are implicitly declared.
                 // This doesn't seem to expose them to the visitor, so we still need the loop below.
@@ -1696,27 +1733,70 @@ namespace mrbind
 
                 // Constructors: default, copy and move.
                 for (clang::CXXConstructorDecl *ctor : cxxdecl->ctors())
-                {
-                    if ((ctor->isDefaultConstructor() || ctor->isCopyOrMoveConstructor()) && ctor->isImplicit())
-                    {
-                        VisitFunctionDecl(ctor);
-                        continue;
-                    }
-                }
+                    TryHandleImplicitCtor(ctor);
 
                 // Assignment operators.
                 for (clang::CXXMethodDecl *method : cxxdecl->methods())
+                    TryHandleImplicitAssignment(method);
+            }
+
+            // -- Using-declarations.
+
+            { // Visit fake declarations created by `using`.
+                clang::DeclContext::specific_decl_iterator<clang::UsingShadowDecl> iter(decl->decls_begin());
+                for (clang::UsingShadowDecl *shadow : llvm::iterator_range(iter, decltype(iter){}))
                 {
-                    if ((method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator()) && method->isImplicit())
+                    auto target = shadow->getTargetDecl();
+
+                    // If this comes from a base class (it always does, right?), then make sure that base isn't blacklisted.
+                    if (auto base_record = llvm::dyn_cast<clang::RecordDecl>(target->getDeclContext()))
                     {
-                        VisitFunctionDecl(method);
-                        continue;
+                        if (ShouldRejectMentionsOfType(ctx->getRecordType(base_record), *ci, *params, printing_policies))
+                            continue;
                     }
 
-                    if (auto dtor = llvm::dyn_cast<clang::CXXDestructorDecl>(method); dtor && dtor->isImplicit())
+                    // Now the specific member kinds:
+
+                    // Those seem to be unnecessary, and they cause issues.
+                    if (auto *elem = llvm::dyn_cast<clang::CXXConstructorDecl>(target))
                     {
-                        VisitFunctionDecl(dtor);
-                        continue;
+                        // TryHandleImplicitCtor(elem); // Not needed and causes issues.
+
+                        if (elem->isCopyOrMoveConstructor())
+                            continue;
+
+                        // If this is an inherited ctor, make sure it's not deleted because some other base lacks a default ctor.
+                        // I'm not sure why this isn't done automatically by `isDeleted()` or whatever.
+                        if (auto shadow_ctor = llvm::dyn_cast<clang::ConstructorUsingShadowDecl>(shadow))
+                        {
+                            if (ci->getSema().findInheritingConstructor(decl->getBeginLoc(), elem, shadow_ctor)->isDeleted())
+                                continue;
+                        }
+
+                        TraverseCXXConstructorDecl(elem);
+                    }
+                    else if (auto *elem = llvm::dyn_cast<clang::CXXMethodDecl>(target))
+                    {
+                        // TryHandleImplicitAssignment(elem); // Not needed and causes issues.
+
+                        if (!elem->isCopyAssignmentOperator() && !elem->isMoveAssignmentOperator())
+                            TraverseFunctionDecl(elem);
+                    }
+                    else if (auto *elem = llvm::dyn_cast<clang::VarDecl>(target))
+                    {
+                        TryHandleStaticVariable(elem);
+                    }
+                    else if (auto *elem = llvm::dyn_cast<clang::FieldDecl>(target))
+                    {
+                        TryHandleField(elem);
+                    }
+                    else if (auto *elem = llvm::dyn_cast<clang::FunctionDecl>(target))
+                    {
+                        TraverseFunctionDecl(elem);
+                    }
+                    else
+                    {
+                        // Enums and typedefs are ignored for now, because simply calling `Traverse...()` on them causes issues, as they have wrong full names.
                     }
                 }
             }
