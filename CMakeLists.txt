@@ -40,6 +40,7 @@ if(MRBIND_BUILD_PARSER)
         src/parser/cppdecl_helpers.cpp
         src/parser/data_to_json.cpp
         src/parser/data_to_macros.cpp
+        src/parser/copy_inherited_members.cpp
         src/parser/main.cpp
         src/parser/multiplex_data.cpp
     )

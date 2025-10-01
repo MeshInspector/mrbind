@@ -118,13 +118,18 @@ namespace mrbind::CBindings
             // The reverse mapping for `bases_direct_nonvirtual`.
             std::set<std::string> derived_direct_nonvirtual;
 
-            // Both direct and indirect. The virtual bases are always in a flat list.
-            std::set<std::string> bases_indirect_virtual;
+            // Only direct virtual bases. This isn't very useful, but that's what the parser emits.
+            std::set<std::string> bases_direct_true_virtual;
+            // This only holds the bases that are marked `virtual`, and not their non-virtual bases.
+
+            // Both direct and indirect.
+            // This only holds the bases that are marked `virtual`, and not their non-virtual bases.
+            std::set<std::string> bases_indirect_true_virtual;
 
             // Both direct and indirect. `true` means this base is ambiguous.
             std::map<std::string, bool> bases_indirect_nonvirtual;
 
-            // Both direct and indirect.
+            // Both direct and indirect. This does include the non-virtual bases of virtual bases, which isn't listed anywhere else.
             std::map<std::string, Kind, std::less<>> bases_indirect;
             // The reverse mapping for `bases_indirect`.
             std::map<std::string, Kind, std::less<>> derived_indirect;
