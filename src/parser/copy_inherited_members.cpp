@@ -132,12 +132,17 @@ namespace mrbind
                         {
                             // If the member we're inheriting was itself inherited from something else, reuse that inheritance information.
                             member_inherited_from = *elem.inherited_from;
+
+                            // But also if this is the first virtual base in the chain, remember this fact.
+                            if (!member_inherited_from.virtual_base && base.is_virtual)
+                                member_inherited_from.virtual_base = base.type.canonical;
                         }
                         else
                         {
                             // Otherwise fill it from this base.
                             member_inherited_from.base = base.type.canonical;
-                            member_inherited_from.base_is_virtual = base.is_virtual;
+                            if (base.is_virtual)
+                                member_inherited_from.virtual_base = base.type.canonical;
                         }
 
                         // Now merge it into the map!
@@ -155,10 +160,10 @@ namespace mrbind
                                 return; // Already ambiguous, nothing to do.
 
                             // Is this the same base type?
-                            if (method_iter->second.inherited_from.base == member_inherited_from.base)
+                            // This also checks that both virtual bases are the same, or both are unset.
+                            if (method_iter->second.inherited_from == member_inherited_from)
                             {
-                                // If the base type is the same, but at least one of the two bases isn't virtual, then this is an ambiguity.
-                                if (!method_iter->second.inherited_from.base_is_virtual || !member_inherited_from.base_is_virtual)
+                                if (!member_inherited_from.virtual_base)
                                 {
                                     method_iter->second.is_ambiguous = true;
                                     return;
@@ -171,16 +176,22 @@ namespace mrbind
                             {
                                 // Is dominance involved?
 
-                                const auto &existing_base = class_entries.at(method_iter->second.inherited_from.base);
-
-                                if (existing_base.recursive_bases.contains(member_inherited_from.base))
+                                if (!both_virtual_path)
+                                {
+                                    // If at least one base isn't on a virtual path,
+                                }
+                                else if (
+                                    const auto &existing_base = class_entries.at(method_iter->second.inherited_from.base);
+                                    existing_base.recursive_bases.contains(member_inherited_from.base)
+                                )
                                 {
                                     // Existing base dominates the new one, nothing to do.
                                     return;
                                 }
-
-                                const auto &new_base = class_entries.at(member_inherited_from.base);
-                                if (new_base.recursive_bases.contains(method_iter->second.inherited_from.base))
+                                else if (
+                                    const auto &new_base = class_entries.at(member_inherited_from.base);
+                                    new_base.recursive_bases.contains(method_iter->second.inherited_from.base)
+                                )
                                 {
                                     // The new base dominates the existing one.
 
