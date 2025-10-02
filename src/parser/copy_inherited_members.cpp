@@ -155,10 +155,10 @@ namespace mrbind
                                 return; // Already ambiguous, nothing to do.
 
                             // Is this the same base type?
-                            if (method_iter->second.inherited_from.base == base.type.canonical)
+                            if (method_iter->second.inherited_from.base == member_inherited_from.base)
                             {
                                 // If the base type is the same, but at least one of the two bases isn't virtual, then this is an ambiguity.
-                                if (!method_iter->second.inherited_from.base_is_virtual || !base.is_virtual)
+                                if (!method_iter->second.inherited_from.base_is_virtual || !member_inherited_from.base_is_virtual)
                                 {
                                     method_iter->second.is_ambiguous = true;
                                     return;
