@@ -73,6 +73,7 @@ mkdir -p test/output_c_fixed_typedefs_64_only
 
 build/mrbind \
     -o test/output_c/parsed.json \
+    --copy-members-for-using-decls \
     "${MRBIND_FLAGS[@]}"
 
 build/mrbind_gen_c \
