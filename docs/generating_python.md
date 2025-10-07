@@ -35,6 +35,8 @@ Then for each target language using this format (currently only Python), we have
 
 Then you compile this file. Only the Clang compiler is supported, the same version that you used to compile MRBind (the generated code has some complex templating that other compilers may or may not choke on).
 
+If the target library is compiled with a different compiler, and you get compatibility issues (`undefined reference`s), consult [the ABI compatibility page](/docs/clang_abi_compat.md).
+
 Compile with the following flags:
 
 * All flags needed for Pybind, as explained earlier.
