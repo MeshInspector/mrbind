@@ -46,6 +46,8 @@ MRBIND_GEN_C_FLAGS=(
     --expose-as-struct MR::MatchingLayout::A
     --expose-as-struct /MR::MatchingLayout::B/
     --expose-as-struct '/MR::DeclOrder::.*/'
+    --expose-as-struct MR::StdContainers::SimpleStruct
+    --expose-as-struct MR::StdContainers::StructWithArray
 )
 
 COMPILER_FLAGS=(
