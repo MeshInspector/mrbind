@@ -1066,7 +1066,8 @@ namespace mrbind::CBindings
 
         // Indents a string by the number of `levels` (each is currently 4 whitespaces).
         // Inserts them after each `\n`, and additionally, if `indent_first_line`, at the very beginning.
-        [[nodiscard]] static std::string IndentString(std::string_view str, int levels, bool indent_first_line);
+        // `indent_trailing_newline` only has effect if we have a trailing newline. In that case, this controls whether we add indentation after it or not.
+        [[nodiscard]] static std::string IndentString(std::string_view str, int levels, bool indent_first_line, bool indent_trailing_newline = true);
 
         // `name` is `operator??`.
         // Returns true if it semantically should be a free function. E.g. `operator+` should be, but `operator=` should not.
@@ -1340,6 +1341,19 @@ namespace mrbind::CBindings
             generated_comments_adjuster.Adjust(comment);
             file.contents += comment;
         }
+
+
+        // Here if `field_expected_size` and `field_expected_alignment` and `field_expected_offset` are not `-1`, they are validated against what `type` is known to have.
+        // This is done for each of them individually, they can be set to `-1` individually.
+        // We never accept `type`s for which we don't already know those parameters.
+        // Here if `field_comment` isn't empty, it must end with a trailing newline, and include leading slashes.
+        using EmitExposedStructFieldFunc = std::function<void(const cppdecl::Type &field_cpp_type, std::string field_comment, std::string field_name, std::size_t field_expected_size, std::size_t field_expected_alignment, std::size_t field_expected_offset)>;
+
+        // Calls `func` once, where you can then call `emit_field()` one or more times to emit fields.
+        // If `expected_size` and `expected_alignment` are not `-1`, then they are validated against the values computed form the fields you create.
+        // This is done for each of them individually, they can be set to `-1` individually.
+        // Here if `comment` isn't empty, it must end with a trailing newline, and include leading slashes.
+        void EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, std::size_t expected_size, std::size_t expected_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func);
 
 
         struct Visitor

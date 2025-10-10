@@ -1300,7 +1300,7 @@ namespace mrbind::CBindings
 
     // Indents a string by the number of `levels` (each is currently 4 whitespaces).
     // Only inserts them after each `\n`. Not at the beginning.
-    std::string Generator::IndentString(std::string_view str, int levels, bool indent_first_line)
+    std::string Generator::IndentString(std::string_view str, int levels, bool indent_first_line, bool indent_trailing_newline)
     {
         std::string ret;
         if (indent_first_line)
@@ -1309,11 +1309,11 @@ namespace mrbind::CBindings
                 ret += "    ";
         }
 
-        for (char ch : str)
+        for (const char &ch : str)
         {
             ret += ch;
 
-            if (ch == '\n')
+            if (ch == '\n' && (indent_trailing_newline || &ch != &str.back()))
             {
                 for (int i = 0; i < levels; i++)
                     ret += "    ";
@@ -2398,6 +2398,87 @@ namespace mrbind::CBindings
         }
     }
 
+    void Generator::EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, std::size_t expected_size, std::size_t expected_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)
+    {
+        // The comment.
+        assert(!comment.starts_with('\n'));
+        comment = '\n' + comment;
+        EmitCommentLow(file.header, comment);
+
+        file.header.contents += "typedef struct " + std::string(c_type_str) + '\n';
+        file.header.contents += "{\n";
+
+        std::size_t total_size = 0;
+        std::size_t total_alignment = 0;
+
+        func([&](const cppdecl::Type &field_cpp_type, std::string field_comment, std::string field_name, std::size_t field_expected_size, std::size_t field_expected_alignment, std::size_t field_expected_offset)
+        {
+            const bool is_first = total_size == 0;
+
+            // Validate the field type.
+            if (!FieldTypeUsableInSameLayoutStruct(field_cpp_type))
+                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: its member `" + field_name + "` has type `" + CppdeclToCode(field_cpp_type) + "` that's not suitable for being used directly in a C struct.");
+
+            // Add the headers and/or forward-declarations for this field type.
+            AddDependenciesToFileForFieldOfSameLayoutStruct(field_cpp_type, file);
+
+            // Check size and alignment of the type against the reference values, if any.
+            auto field_info = FindSameSizeAndAlignment(field_cpp_type);
+            if (field_expected_size != std::size_t(-1) && field_expected_size != field_info.size)
+                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The byte size of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(field_expected_size) + " but got " + std::to_string(field_info.size) + ").");
+            if (field_expected_alignment != std::size_t(-1) && field_expected_alignment != field_info.alignment)
+                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The alignment of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(expected_alignment) + " but got " + std::to_string(field_info.alignment) + ").");
+
+            // Update the offset, and optionally check it against the expected value.
+            total_size = (total_size + (field_info.alignment - 1)) / field_info.alignment * field_info.alignment;
+            if (field_expected_offset != std::size_t(-1) && total_size != field_expected_offset)
+                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The byte offset of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(field_expected_offset) + " but got " + std::to_string(total_size) + ").");
+            total_size += field_info.size;
+
+            // Update the final alignment.
+            if (field_info.alignment > total_alignment)
+                total_alignment = field_info.alignment;
+
+
+            // Actually emit the field:
+
+            // The comment if any.
+            if (!field_comment.empty())
+            {
+                assert(!field_comment.starts_with('\n'));
+                field_comment = IndentString(field_comment, 1, true, false);
+                // Insert the leading blank line if this isn't the first field. This makes things look nicer.
+                if (!is_first)
+                    field_comment = '\n' + field_comment;
+                EmitCommentLow(file.header, field_comment);
+            }
+
+            cppdecl::Decl field_decl;
+            // Don't care about `full_name`, that's only for static member variables anyway, and we only deal with non-static ones here.
+            field_decl.name = cppdecl::QualifiedName::FromSingleWord(field_name);
+
+            field_decl.type = field_cpp_type;
+            ReplaceAllNamesInTypeWithCNames(field_decl.type);
+
+            file.header.contents += "    " + CppdeclToCode(field_decl) + ";\n";
+        });
+
+        // Complain if no fields. C doesn't have empty structs.
+        if (total_size == 0)
+            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: it has no known fields. C doesn't support empty structures.");
+
+        // Check the final alignment, if specified.
+        if (expected_alignment != std::size_t(-1) && total_alignment != expected_alignment)
+            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: its estimated alignment doesn't match the expected value (expected " + std::to_string(expected_alignment) + " but got " + std::to_string(total_alignment) + ").");
+
+        // Check the final size, if specified.
+        total_size = (total_size + (total_alignment - 1)) / total_alignment * total_alignment;
+        if (expected_size != std::size_t(-1) && total_size != expected_size)
+            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: its estimated byte size doesn't match the expected value (expected " + std::to_string(expected_size) + " but got " + std::to_string(total_size) + ").");
+
+        file.header.contents += "} " + std::string(c_type_str) + ";\n";
+    }
+
     // This fills `parsed_type_info` with the knowledge about all parsed types.
     struct Generator::VisitorRegisterKnownTypes : Visitor
     {
@@ -3140,9 +3221,8 @@ namespace mrbind::CBindings
                 // Forward-declaring in the middle of the file, not in the forward-declarations section.
                 // Firstly it looks better. But also because we're inserting a comment, and wouldn't look good in the dense forward declarations list.
 
-                { // The comment on the declaration.
-                    std::string class_comment_str = "\n";
-
+                std::string class_comment_str;
+                { // Make the comment for the class.
                     if (cl.comment)
                     {
                         class_comment_str += cl.comment->text_with_slashes;
@@ -3219,90 +3299,42 @@ namespace mrbind::CBindings
                         PrintBasesOrDerived(false);
                         PrintBasesOrDerived(true);
                     }
-
-                    self.EmitCommentLow(file.header, class_comment_str);
                 }
 
                 if (!parsed_class_info.is_same_layout_struct)
                 {
+                    self.EmitCommentLow(file.header, '\n' + class_comment_str);
+
                     // The forward-declaration itself.
                     file.header.contents += same_addr_bindable_info.forward_declaration.value() + '\n';
                 }
                 else
                 {
-                    file.header.contents += "typedef struct " + parsed_type_info.c_type_str + '\n';
-                    file.header.contents += "{\n";
-
-                    std::size_t total_size = 0;
-                    std::size_t total_alignment = 0;
-                    for (const auto &member : cl.members)
-                    {
-                        const ClassField *field = std::get_if<ClassField>(&member);
-                        if (!field || field->is_static)
-                            continue;
-
-                        const bool is_first = total_size == 0;
-
-                        // Update offset.
-                        total_size = (total_size + (field->type_alignment - 1)) / field->type_alignment * field->type_alignment;
-                        if (total_size != field->byte_offset)
-                            throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but the byte offset of its member `" + field->full_name + "` doesn't match the one reported by the parser (expected " + std::to_string(field->byte_offset) + " but got " + std::to_string(total_size) + ").");
-                        total_size += field->type_size;
-
-                        // Update alignment.
-                        if (field->type_alignment > total_alignment)
-                            total_alignment = field->type_alignment;
-
-
-                        // Validate the field type:
-
-                        const cppdecl::Type cpp_field_type = self.ParseTypeOrThrow(field->type.canonical);
-                        const std::string cpp_field_type_str = self.CppdeclToCode(cpp_field_type);
-
-                        if (!self.FieldTypeUsableInSameLayoutStruct(cpp_field_type))
-                            throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its member `" + field->full_name + "` has type `" + cpp_field_type_str + "` that's not suitable for being used directly in a C struct.");
-
-                        // Add the headers and/or forward-declarations for this field.
-                        self.AddDependenciesToFileForFieldOfSameLayoutStruct(cpp_field_type, file);
-
-
-                        // Actually emit the field:
-
-                        // The comment if any.
-                        if (field->comment)
+                    self.EmitExposedStruct(
+                        file,
+                        class_comment_str,
+                        parsed_type_info.c_type_str,
+                        cl.type_size,
+                        cl.type_alignment,
+                        [&](EmitExposedStructFieldFunc emit_field)
                         {
-                            // Insert the leading blank line if this isn't the first field. This makes things look nicer.
-                            if (!is_first)
-                                file.header.contents += '\n';
+                            for (const auto &member : cl.members)
+                            {
+                                const ClassField *field = std::get_if<ClassField>(&member);
+                                if (!field || field->is_static)
+                                    continue;
 
-                            file.header.contents += IndentString(field->comment->text_with_slashes, 1, true);
-                            file.header.contents += '\n';
+                                emit_field(
+                                    self.ParseTypeOrThrow(field->type.canonical),
+                                    field->comment ? field->comment->text_with_slashes + '\n' : "",
+                                    field->name,
+                                    field->type_size,
+                                    field->type_alignment,
+                                    field->byte_offset
+                                );
+                            }
                         }
-
-                        cppdecl::Decl field_decl;
-                        // Don't care about `full_name`, that's only for static member variables anyway, and we only deal with non-static ones here.
-                        field_decl.name = cppdecl::QualifiedName::FromSingleWord(field->name);
-
-                        field_decl.type = cpp_field_type;
-                        self.ReplaceAllNamesInTypeWithCNames(field_decl.type);
-
-                        file.header.contents += "    " + self.CppdeclToCode(field_decl) + ";\n";
-                    }
-
-                    // Complain if no fields. C doesn't have empty structs.
-                    if (total_size == 0)
-                        throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but it has no known fields. C doesn't support empty structures.");
-
-                    // Check the final alignment.
-                    if (total_alignment != cl.type_alignment)
-                        throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its estimated alignment doesn't match the one reported by the parser (expected " + std::to_string(cl.type_alignment) + " but got " + std::to_string(total_alignment) + ").");
-
-                    // Check the final size.
-                    total_size = (total_size + (total_alignment - 1)) / total_alignment * total_alignment;
-                    if (total_size != cl.type_size)
-                        throw std::runtime_error("The class `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but its estimated byte size doesn't match the one reported by the parser (expected " + std::to_string(cl.type_size) + " but got " + std::to_string(total_size) + ").");
-
-                    file.header.contents += "} " + parsed_type_info.c_type_str + ";\n";
+                    );
                 }
             }
             catch (...)
