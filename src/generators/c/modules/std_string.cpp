@@ -29,8 +29,7 @@ namespace mrbind::CBindings::Modules
             {
                 auto &binder = is_view ? binder_stdstringview : binder_stdstring;
 
-                generator.EmitComment(file.header, is_view ? "\n/// A non-owning string view. Not necessarily null-terminated.\n" : "\n/// A heap-allocated null-terminated string.\n");
-                binder.EmitForwardDeclaration(generator, file);
+                binder.EmitForwardDeclaration(generator, file, is_view ? "/// A non-owning string view. Not necessarily null-terminated.\n" : "/// A heap-allocated null-terminated string.\n");
 
                 binder.EmitSpecialMemberFunctions(generator, file, true);
 
@@ -114,7 +113,7 @@ namespace mrbind::CBindings::Modules
                 new_type.is_heap_allocated_class = true;
 
                 new_type.bindable_with_same_address.declared_in_file = [this, &generator, is_view]() -> auto & {return GetOutputFile(generator, is_view);};
-                new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
+                new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclarationNoReg();
                 new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
                 new_type.return_usage = binder.MakeReturnUsage(generator);

@@ -69,7 +69,7 @@ namespace mrbind::CBindings::Modules
 
             Generator::BindableType &binding = ret.emplace();
 
-            binding.traits = Generator::TypeTraits::TrivialButDifferentSizeInCAndCpp{};
+            binding.traits = Generator::TypeTraits::Trivial{};
 
 
             // Entirely custom logic for pointers.

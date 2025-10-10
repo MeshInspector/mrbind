@@ -45,8 +45,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    generator.EmitComment(file.header, "\n/// Stores either a single `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` or nothing.\n");
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, "/// Stores either a single `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` or nothing.\n");
 
                     // The special member functions.
                     // Right now we don't support element types that don't support default arguments, but if we decide to add support,
@@ -98,7 +97,7 @@ namespace mrbind::CBindings::Modules
             new_type.is_heap_allocated_class = true;
 
             new_type.bindable_with_same_address.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
-            new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
+            new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclarationNoReg();
             new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
             new_type.return_usage = binder.MakeReturnUsage(generator);

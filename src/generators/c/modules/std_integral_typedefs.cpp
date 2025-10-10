@@ -48,7 +48,19 @@ namespace mrbind::CBindings::Modules
 
                     std::string c_name = need_custom_typedef ? generator.MakePublicHelperName(target_type.name) : target_type.name;
 
-                    ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(c_name));
+                    std::optional<Generator::TypeSizeAndAlignment> size_and_alignment_override;
+                    if (need_custom_typedef)
+                    {
+                        auto size_and_alignment = generator.data.platform_info.FindPrimitiveType(target_type.name);
+                        assert(size_and_alignment);
+
+                        size_and_alignment_override = {
+                            .size = size_and_alignment->type_size,
+                            .alignment = size_and_alignment->type_alignment,
+                        };
+                    }
+
+                    ret = MakeSimpleDirectTypeBinding(generator, type, cppdecl::Type::FromSingleWord(c_name), size_and_alignment_override);
                     if (need_custom_typedef)
                         ret->bindable_with_same_address.declared_in_file = [&generator]() -> auto & {return *generator.GetCommonPublicHelpersFile();};
                     else

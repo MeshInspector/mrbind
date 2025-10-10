@@ -43,7 +43,7 @@ namespace mrbind::CBindings::Modules
                 if (is_new)
                 {
                     std::string comment;
-                    comment += "\n/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
+                    comment += "/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
                         if (first)
@@ -54,10 +54,8 @@ namespace mrbind::CBindings::Modules
                         comment += '`' + generator.CppdeclToCodeForComments(elem_type) + '`';
                     }
                     comment += ".\n";
-                    generator.EmitComment(file.header, comment);
 
-
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, std::move(comment));
 
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);

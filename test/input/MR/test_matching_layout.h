@@ -10,6 +10,9 @@ namespace MR::MatchingLayout
         short b;
         // third
         float c;
+
+        // Having static fields is not an error! Those get their normal getters and setters.
+        static int x;
     };
 
     struct B

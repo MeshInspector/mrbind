@@ -532,6 +532,7 @@ namespace mrbind
     [[nodiscard]] auto DivideByByteSize(std::unsigned_integral auto n)
     {
         // For now we unconditionally assume byte size 8.
+        // Clang hardcodes the same thing in `ci->getTarget().getCharWidth()`, so whatever.
         if (n % 8 != 0)
             throw std::logic_error("Internal error: Expected the number to be a multiple of the byte size.");
         return n / 8;
@@ -2792,6 +2793,101 @@ namespace mrbind
                 CombineSimilarTypes(params->parsed_result, params->enable_cppdecl_processing ? MakeAdjustTypeNameFunc(params->adjust_type_name_flags) : MakeAdjustTypeNameFuncLegacyWithoutCppdecl(params->adjust_type_name_flags));
             }
 
+            { // Emit the information about built-in types. This is independent from everything else.
+                // Integral types:
+
+                struct IntEntry
+                {
+                    // Need our own names, since `TargetInfo::getTypeName()` uses a slightly different format.
+                    // E.g. it uses `long unsigned int`, but we want `unsigned long` (not only do we skip `int`, but also put `unsigned` before `long`).
+                    std::string_view name;
+
+                    bool is_typedef = false;
+
+                    clang::TargetInfo::IntType type;
+                };
+
+                for (IntEntry e : std::array{
+                    IntEntry{.name = "char",               .type = ci->getLangOpts().CharIsSigned ? clang::TargetInfo::IntType::SignedChar : clang::TargetInfo::IntType::UnsignedChar},
+                    IntEntry{.name = "signed char",        .type = clang::TargetInfo::IntType::SignedChar},
+                    IntEntry{.name = "unsigned char",      .type = clang::TargetInfo::IntType::UnsignedChar},
+                    IntEntry{.name = "short",              .type = clang::TargetInfo::IntType::SignedShort},
+                    IntEntry{.name = "unsigned short",     .type = clang::TargetInfo::IntType::UnsignedShort},
+                    IntEntry{.name = "int",                .type = clang::TargetInfo::IntType::SignedInt},
+                    IntEntry{.name = "unsigned int",       .type = clang::TargetInfo::IntType::UnsignedInt},
+                    IntEntry{.name = "long",               .type = clang::TargetInfo::IntType::SignedLong},
+                    IntEntry{.name = "unsigned long",      .type = clang::TargetInfo::IntType::UnsignedLong},
+                    IntEntry{.name = "long long",          .type = clang::TargetInfo::IntType::SignedLongLong},
+                    IntEntry{.name = "unsigned long long", .type = clang::TargetInfo::IntType::UnsignedLongLong},
+                    // Here `getTarget()` doesn't have consistent functions for different types.
+                    // And we can't use `getIntTypeByWidth()` for everything, because sometimes that's an ambiguity, and it would select the wrong thing.
+                    IntEntry{.name = "int8_t",             .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, true)},
+                    IntEntry{.name = "uint8_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, false)},
+                    IntEntry{.name = "int16_t",            .is_typedef = true, .type = ci->getTarget().getInt16Type()},
+                    IntEntry{.name = "uint16_t",           .is_typedef = true, .type = ci->getTarget().getUInt16Type()},
+                    IntEntry{.name = "int32_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, true)},
+                    IntEntry{.name = "uint32_t",           .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, false)},
+                    IntEntry{.name = "int64_t",            .is_typedef = true, .type = ci->getTarget().getInt64Type()},
+                    IntEntry{.name = "uint64_t",           .is_typedef = true, .type = ci->getTarget().getCorrespondingUnsignedType(ci->getTarget().getInt64Type())},
+                    IntEntry{.name = "size_t",             .is_typedef = true, .type = ci->getTarget().getSizeType()},
+                    IntEntry{.name = "ptrdiff_t",          .is_typedef = true, .type = ci->getTarget().getSignedSizeType()}, // There's also `getPtrDiffType(address_space)`, but it should be the same thing.
+                })
+                {
+                    params->parsed_result.platform_info.primitive_types.try_emplace(
+                        std::string(e.name),
+                        PrimitiveTypeInfo{
+                            .type_size      = DivideByByteSize(ci->getTarget().getTypeWidth(e.type)),
+                            .type_alignment = DivideByByteSize(ci->getTarget().getTypeAlign(e.type)),
+                            .typedef_for    =
+                                !e.is_typedef ? std::nullopt : std::optional(
+                                    e.type == clang::TargetInfo::IntType::SignedChar ? "signed char" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedChar ? "unsigned char" :
+                                    e.type == clang::TargetInfo::IntType::SignedShort ? "short" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedShort ? "unsigned short" :
+                                    e.type == clang::TargetInfo::IntType::SignedInt ? "int" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedInt ? "unsigned int" :
+                                    e.type == clang::TargetInfo::IntType::SignedLong ? "long" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedLong ? "unsigned long" :
+                                    e.type == clang::TargetInfo::IntType::SignedLongLong ? "long long" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedLongLong ? "unsigned long long" :
+                                    throw std::runtime_error("The standard typedef `" + std::string(e.name) + "` expands to some weird type.")
+                                ),
+                            .kind           = ci->getTarget().isTypeSigned(e.type) ? PrimitiveTypeInfo::Kind::signed_integral : PrimitiveTypeInfo::Kind::unsigned_integral,
+                        }
+                    );
+                }
+
+                // Floating-point types:
+
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "float",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getFloatWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getFloatAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                    }
+                );
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "double",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getDoubleWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getDoubleAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                    }
+                );
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "long double",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getLongDoubleWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getLongDoubleAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                    }
+                );
+
+                // Pointers:
+                params->parsed_result.platform_info.pointer_size = ci->getTarget().PointerWidth;
+                params->parsed_result.platform_info.pointer_alignment = ci->getTarget().PointerAlign;
+            }
 
             // Multiplex the output between several files, if needed.
             std::vector<ParsedFile> multiplexed_data = MultiplexData(std::move(params->parsed_result), params->output_filenames.size());

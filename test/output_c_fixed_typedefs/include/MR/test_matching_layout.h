@@ -35,6 +35,20 @@ typedef struct MR_MatchingLayout_B
     char y;
 } MR_MatchingLayout_B;
 
+// Having static fields is not an error! Those get their normal getters and setters.
+// Returns a pointer to a member variable of class `MR::MatchingLayout::A` named `x`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int32_t *MR_MatchingLayout_A_Get_x(void);
+
+// Having static fields is not an error! Those get their normal getters and setters.
+// Modifies a member variable of class `MR::MatchingLayout::A` named `x`.
+MR_C_API void MR_MatchingLayout_A_Set_x(int32_t value);
+
+// Having static fields is not an error! Those get their normal getters and setters.
+// Returns a mutable pointer to a member variable of class `MR::MatchingLayout::A` named `x`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t *MR_MatchingLayout_A_GetMutable_x(void);
+
 // Constructs an empty (default-constructed) instance.
 MR_C_API MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void);
 

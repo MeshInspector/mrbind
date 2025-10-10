@@ -696,6 +696,8 @@ namespace mrbind::CBindings
         if (!FindTypeBindableWithSameAddressOpt(type.simple_type.name))
             return false; // Some weird-ass type that can't be reinterpreted into a C type.
 
+        bool already_checked_arrays = false;
+
         for (std::size_t i = 0; const auto &mod : type.modifiers)
         {
             bool ok = std::visit(Overload{
@@ -715,17 +717,18 @@ namespace mrbind::CBindings
                 {
                     // Make sure the array element size has a known size.
 
+                    if (already_checked_arrays)
+                        return true; // Ok.
+
+                    // This isn't strictly necessary, but is purely an optimization.
+                    already_checked_arrays = true;
+
                     cppdecl::Type elem_type = type;
                     // Remove the modifiers that we've already visited.
-                    elem_type.modifiers.erase(elem_type.modifiers.begin(), elem_type.modifiers.begin() + std::ptrdiff_t(i + 1));
-
-                    // Should this be a hard error instead, if we don't find the traits? I think a soft error is much better.
-                    auto traits = FindTypeTraitsOpt(elem_type);
-                    if (!traits)
-                        return false; // Nah, the element type is unknown.
+                    elem_type.modifiers.erase(elem_type.modifiers.begin(), elem_type.modifiers.begin() + std::ptrdiff_t(i));
 
                     // The size needs to match for the array to be bindable.
-                    return traits->same_size_in_c_and_cpp;
+                    return bool(FindSameSizeAndAlignmentOpt(elem_type));
                 },
                 [&](const cppdecl::Function &elem)
                 {
@@ -940,7 +943,7 @@ namespace mrbind::CBindings
                         if (!class_desc->is_same_layout_struct)
                             return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
                         else
-                            return &map.try_emplace(type_str, MakeBitCastClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
+                            return &map.try_emplace(type_str, MakeBitCastClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits, {.size = class_desc->parsed->type_size, .alignment = class_desc->parsed->type_alignment})).first->second;
                     }
                 }
                 // A custom desugared class based on a sugared one?
@@ -980,6 +983,62 @@ namespace mrbind::CBindings
         if (type.IsConst())
             ret.MakeNonAssignable();
         return ret;
+    }
+
+    Generator::TypeSizeAndAlignment Generator::FindSameSizeAndAlignment(cppdecl::Type type)
+    {
+        if (auto opt = FindSameSizeAndAlignmentOpt(type))
+            return *opt;
+        else
+            throw std::runtime_error("Unable to determine the size and alignment (shared between C and C++) of type: `" + CppdeclToCode(type) + "`.");
+    }
+
+    std::optional<Generator::TypeSizeAndAlignment> Generator::FindSameSizeAndAlignmentOpt(cppdecl::Type type)
+    {
+        // Custom behavior for pointers.
+        if (type.Is<cppdecl::Pointer>())
+        {
+            if (!IsSimplyBindableDirect(type))
+                return {}; // Just in case, abort if this point is to some weird type.
+
+            return TypeSizeAndAlignment{.size = data.platform_info.pointer_size, .alignment = data.platform_info.pointer_alignment};
+        }
+
+        // Custom behavior for arrays.
+        if (auto arr = type.As<cppdecl::Array>())
+        {
+            // Make sure we know the size.
+            if (arr->size.tokens.size() != 1)
+                return {};
+            auto size_lit = std::get_if<cppdecl::NumericLiteral>(&arr->size.tokens.front());
+            if (!size_lit)
+                return {};
+            auto size = size_lit->ToInteger();
+            if (!size)
+                return {};
+            if (*size == 0)
+                return {}; // Can't determine anything for empty arrays, since on libc++ they copy the size and alignment from `T`, instead of using an empty type.
+
+            // Remove the array.
+            type.RemoveModifier();
+
+            auto opt = FindSameSizeAndAlignmentOpt(type);
+            if (!opt)
+                return {};
+            opt->size *= *size; // Multiply the size by the number of elements.
+            return opt;
+        }
+
+        // Strip const and reference.
+        if (type.Is<cppdecl::Reference>())
+            type.RemoveModifier();
+        type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+        // Check the resulting type.
+        auto opt = FindBindableTypeOpt(type);
+        if (!opt)
+            return {};
+        return opt->c_cpp_size_and_alignment; // This is also an optional.
     }
 
     void Generator::FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target)
@@ -1410,12 +1469,12 @@ namespace mrbind::CBindings
 
     bool Generator::FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &cpp_type)
     {
-        // This below is the best idea I have right now. Looks a bit jank, but works for now.
-
-        const BindableType *binding = FindBindableTypeOpt(cpp_type);
-        if (!binding)
+        if (!FindSameSizeAndAlignmentOpt(cpp_type))
             return false;
-        if (!binding->traits.value().same_size_in_c_and_cpp || binding->is_heap_allocated_class || !binding->traits.value().UnconditionallyCopyOnPassByValue())
+
+        // Not sure if those additional checks are strictly necessary, but just in case...
+        const BindableType *binding = FindBindableTypeOpt(cpp_type);
+        if (!binding || binding->is_heap_allocated_class || !binding->traits.value().UnconditionallyCopyOnPassByValue())
             return false;
 
         return true;
@@ -2366,7 +2425,7 @@ namespace mrbind::CBindings
 
                 self.AddNewTypeBindableWithSameAddress(parsed_type.simple_type.name, {
                     .declared_in_file = [&ret = self.GetOutputFile(cl.declared_in_file)]() -> auto & {return ret;}, // No point in being lazy here.
-                    .forward_declaration = MakeStructForwardDeclaration(info.c_type_str),
+                    .forward_declaration = MakeStructForwardDeclarationNoReg(info.c_type_str),
                 });
             }
 
@@ -2392,9 +2451,6 @@ namespace mrbind::CBindings
                 // Must have no bases. I ain't dealing with those.
                 if (!class_info.parsed->bases.empty())
                     throw std::runtime_error("The class `" + cpp_type_name + "` is whitelisted by `--expose-as-struct`, but it has a base class. This flag only supports the structs/classes with no base classes.");
-
-                // Mark it in the traits.
-                class_info.traits.same_size_in_c_and_cpp = true;
             }
 
             bool has_by_value_assignment = false;
@@ -3164,7 +3220,7 @@ namespace mrbind::CBindings
                         PrintBasesOrDerived(true);
                     }
 
-                    self.EmitComment(file.header, class_comment_str);
+                    self.EmitCommentLow(file.header, class_comment_str);
                 }
 
                 if (!parsed_class_info.is_same_layout_struct)

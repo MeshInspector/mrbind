@@ -22,10 +22,12 @@ namespace mrbind::CBindings::Modules
                 // This can throw if `type` has wrong template parameters, we don't mind. I'm not sure how it could be possible in valid C++ code in the first place.
                 const cppdecl::Type &cpp_elem_type = std::get<cppdecl::Type>(type.simple_type.name.parts.back().template_args.value().args.at(0).var);
                 const cppdecl::PseudoExpr &array_size = std::get<cppdecl::PseudoExpr>(type.simple_type.name.parts.back().template_args.value().args.at(1).var);
+                const std::string array_size_str = generator.CppdeclToCodeForComments(array_size);
 
-                if (!generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type))
+                if (array_size_str == "0" || !generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type))
                 {
                     // The normal heap-allocated array.
+                    // Zero-sized arrays go here too, because the layout of zero-sized arrays depends on the C++ standard library.
 
                     HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
 
@@ -45,8 +47,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            generator.EmitComment(file.header, "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + array_size_str + ".\n");
-                            binder.EmitForwardDeclaration(generator, file);
+                            binder.EmitForwardDeclaration(generator, file, "/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + array_size_str + ".\n");
 
                             // The special member functions:
                             binder.EmitSpecialMemberFunctions(generator, file);
@@ -116,9 +117,9 @@ namespace mrbind::CBindings::Modules
                     Generator::BindableType &new_type = ret.emplace();
                     const std::string c_type_name = generator.MakePublicHelperName(generator.CppdeclToIdentifier(type));
 
-                    new_type = MakeBitCastClassBinding(generator, type.simple_type.name, c_type_name, generator.FindTypeTraits(cpp_elem_type));
+                    new_type = MakeBitCastClassBinding(generator, type.simple_type.name, c_type_name, generator.FindTypeTraits(cpp_elem_type), generator.FindSameSizeAndAlignment(cpp_elem_type));
                     new_type.bindable_with_same_address.custom_c_type_name = c_type_name;
-                    new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclaration(c_type_name);
+                    new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclarationNoReg(c_type_name);
 
                     auto get_output_file = [
                         type,
@@ -132,7 +133,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            generator.EmitComment(file.header, "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size) + ".\n");
+                            generator.EmitCommentLow(file.header, "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size) + ".\n");
 
                             cppdecl::Decl array_field_decl;
                             array_field_decl.name = cppdecl::QualifiedName::FromSingleWord("elems"); // Shrug.

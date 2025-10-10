@@ -439,11 +439,6 @@ namespace mrbind::CBindings
             // If true, the copy constructor has the form `T(T &)` instead of `T(const T &)`.
             bool copy_constructor_takes_nonconst_ref = false;
 
-            // The type size is known in C, and is the same in C and C++. This implies that the binary representation is the same too.
-            // This also implies that the type is directly bindable (for `--expose-as-struct` struct members and such), though maybe we need
-            //   a separate way of opting types into that.
-            bool same_size_in_c_and_cpp = false;
-
             // Set to true to indicate that the pass-by-value is dirt cheap and should always copy, instead of offering the pass-by enum.
             // This already happens by default if `is_trivially_copy_constructible || is_trivially_move_constructible`, and this variable is a way to explicitly opt into this despite not being trivial.
             bool assume_copying_is_cheap = false;
@@ -453,32 +448,9 @@ namespace mrbind::CBindings
 
             TypeTraits() {}
 
-            struct TrivialAndSameSizeInCAndCpp {explicit TrivialAndSameSizeInCAndCpp() = default;};
+            struct Trivial {explicit Trivial() = default;};
             // This is for types that are copyable and have all their operations trivial.
-            TypeTraits(TrivialAndSameSizeInCAndCpp) : TypeTraits(TrivialButDifferentSizeInCAndCpp{})
-            {
-                is_default_constructible = true;
-                is_copy_constructible = true;
-                is_move_constructible = true;
-                is_copy_assignable = true;
-                is_move_assignable = true;
-                is_destructible = true;
-
-                is_trivially_default_constructible = true;
-                is_trivially_copy_constructible = true;
-                is_trivially_move_constructible = true;
-                is_trivially_copy_assignable = true;
-                is_trivially_move_assignable = true;
-                is_trivially_destructible = true;
-
-                is_any_constructible = true;
-
-                same_size_in_c_and_cpp = true;
-            }
-
-            struct TrivialButDifferentSizeInCAndCpp {explicit TrivialButDifferentSizeInCAndCpp() = default;};
-            // This is for types that are copyable and have all their operations trivial.
-            TypeTraits(TrivialButDifferentSizeInCAndCpp)
+            TypeTraits(Trivial)
             {
                 is_default_constructible = true;
                 is_copy_constructible = true;
@@ -762,11 +734,22 @@ namespace mrbind::CBindings
             void MergeFrom(const ExtraHeaders &other);
         };
 
+        struct TypeSizeAndAlignment
+        {
+            std::size_t size = 0;
+            std::size_t alignment = 0;
+        };
+
         struct BindableType
         {
             // This is normally NOT optional. Using `std::optional` here to catch forgetting to set this.
             // You don't need this if this is a `remove_sugar == true` desugared binding.
             std::optional<TypeTraits> traits;
+
+            // This is optional, set only if known. This being set implies that the binary representation matches too.
+            // Note, this is WRITE-ONLY. Read using `FindSameSizeAndAlignment()`.
+            // This should be set only in the sugared type.
+            std::optional<TypeSizeAndAlignment> c_cpp_size_and_alignment;
 
             // Only makes sense if the type is a pure qualified name without cvref/ptr-qualifiers and if `remove_sugar == false`.
             // Setting any field in this to non-null indicates that pointers to this type can be passed freely between C and C++ with at most a cast.
@@ -1013,6 +996,11 @@ namespace mrbind::CBindings
         [[nodiscard]] TypeTraits FindTypeTraits(const cppdecl::Type &type);
         // Same, but returns null instead of throwing on failure.
         [[nodiscard]] std::optional<TypeTraits> FindTypeTraitsOpt(const cppdecl::Type &type);
+
+        // Find size and alignment of a type, if they're shared between C and C++ and the type has the same binary representation.
+        // Notably this rejects references.
+        [[nodiscard]] TypeSizeAndAlignment FindSameSizeAndAlignment(cppdecl::Type type);
+        [[nodiscard]] std::optional<TypeSizeAndAlignment> FindSameSizeAndAlignmentOpt(cppdecl::Type type);
 
         // Uses `ForEachNonBuiltInNestedTypeInType()` to populate `same_addr_bindable_type_dependencies` in the type.
         void FillDefaultTypeDependencies(const cppdecl::Type &source, BindableType &target);
@@ -1332,17 +1320,23 @@ namespace mrbind::CBindings
             std::string attributes;
         };
         // Like `EmitFunction()`, but doesn't write the function directly to the file. Instead returns the strings composing it.
-        // But the includes and such get written directly to the file.
+        // But the includes and such still get written directly to the file.
         [[nodiscard]] EmittedFunctionStrings EmitFunctionAsStrings(OutputFile &file, const EmitFuncParams &params);
 
         void EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field);
 
         // Writes `comment` to the `file`, possibly adjusting it before writing.
-        // The input must end with an empty newline, and can optionally start with a newline
+        // The input must end with a newline, and can optionally start with a newline.
         // Use this for emittinig all comments (even though we currently skip some internal comments; maybe we shouldn't).
-        void EmitComment(OutputFile::SpecificFileContents &file, std::string comment)
+        // NOTE: You shouldn't use this to manually add comments to functions, structs, etc, because those comments need to be registered
+        //   and serialized along with their targets. The functions for emitting functions/structs/etc all have specialized ways
+        //   to pass their comments.
+        void EmitCommentLow(OutputFile::SpecificFileContents &file, std::string comment)
         {
-            assert(comment.empty() || comment.ends_with('\n'));
+            if (comment.empty())
+                return;
+
+            assert(comment.ends_with('\n'));
             generated_comments_adjuster.Adjust(comment);
             file.contents += comment;
         }

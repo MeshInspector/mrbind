@@ -35,10 +35,8 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    generator.EmitComment(file.header, "\n/// A C++ output stream.\n");
-                    file.header.contents += MakeStructForwardDeclaration(c_name_ostream) + '\n';
-                    generator.EmitComment(file.header, "\n/// A C++ input stream.\n");
-                    file.header.contents += MakeStructForwardDeclaration(c_name_istream) + '\n';
+                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ output stream.\n", c_name_ostream);
+                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ input stream.\n", c_name_istream);
 
                     { // cout
                         Generator::EmitFuncParams emit;
@@ -87,7 +85,7 @@ namespace mrbind::CBindings::Modules
             Generator::TypeBindableWithSameAddress &binding = ret.emplace();
 
             binding.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
-            binding.forward_declaration = MakeStructForwardDeclaration(is_output_stream ? c_name_ostream : c_name_istream);
+            binding.forward_declaration = MakeStructForwardDeclarationNoReg(is_output_stream ? c_name_ostream : c_name_istream);
             binding.custom_c_type_name = is_output_stream ? c_name_ostream : c_name_istream; // Need to customize this because we add a prefix.
 
             return ret;

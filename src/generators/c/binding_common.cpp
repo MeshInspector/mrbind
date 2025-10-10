@@ -20,12 +20,17 @@ namespace mrbind::CBindings
         return generator.MakeMemberFuncName(c_type_name, name);
     }
 
-    void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const
+    void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const
     {
         { // Make a comment with supported pass-by modes.
-            std::string enum_name = generator.GetPassByEnumName();
+            // Assert that the comment doesn't start with a newline, and ends with a newline if not empty.
+            assert(comment.empty() || !comment.starts_with('\n'));
+            assert(comment.empty() || comment.ends_with('\n'));
 
-            std::string comment;
+            // Add our own leading newline.
+            comment = '\n' + comment;
+
+            std::string enum_name = generator.GetPassByEnumName();
 
             comment += "/// Supported `" + enum_name + "` modes: ";
             if (traits.value().is_default_constructible)
@@ -41,10 +46,10 @@ namespace mrbind::CBindings
                 comment += '`' + enum_name + "_Move`, ";
 
             comment += "(and `" + enum_name + "_DefaultArgument` and `" + enum_name + "_NoObject` if supported by the callee).\n";
-            generator.EmitComment(file.header, comment);
+            generator.EmitCommentLow(file.header, comment);
         }
 
-        file.header.contents += MakeForwardDeclaration() + '\n';
+        file.header.contents += MakeForwardDeclarationNoReg() + '\n';
     }
 
     void HeapAllocatedClassBinder::FillCommonParams(Generator &generator, Generator::BindableType &type)
@@ -53,16 +58,16 @@ namespace mrbind::CBindings
 
         type.is_heap_allocated_class = true;
 
-        type.bindable_with_same_address.forward_declaration = MakeForwardDeclaration();
+        type.bindable_with_same_address.forward_declaration = MakeForwardDeclarationNoReg();
         type.bindable_with_same_address.custom_c_type_name = c_type_name;
 
         type.param_usage_with_default_arg = MakeParamUsageSupportingDefaultArg(generator);
         type.return_usage = MakeReturnUsage(generator);
     }
 
-    std::string HeapAllocatedClassBinder::MakeForwardDeclaration() const
+    std::string HeapAllocatedClassBinder::MakeForwardDeclarationNoReg() const
     {
-        return MakeStructForwardDeclaration(c_type_name, c_underlying_type_name);
+        return MakeStructForwardDeclarationNoReg(c_type_name, c_underlying_type_name);
     }
 
     Generator::BindableType::ReturnUsage HeapAllocatedClassBinder::MakeReturnUsage(Generator &generator) const
@@ -535,7 +540,7 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    std::string MakeStructForwardDeclaration(std::string_view c_type_name, std::string_view c_underlying_type_name)
+    std::string MakeStructForwardDeclarationNoReg(std::string_view c_type_name, std::string_view c_underlying_type_name)
     {
         std::string ret = "typedef struct ";
         ret += !c_underlying_type_name.empty() ? c_underlying_type_name : c_type_name;
@@ -551,7 +556,9 @@ namespace mrbind::CBindings
             default_arg == "nullptr" ||
             default_arg == "NULL" ||
             default_arg == "0" ||
-            default_arg == "{}"
+            default_arg == "{}" ||
+            default_arg == "__null" || // On GCC and Clang, `NULL` expands to this in the C++ mode.
+            default_arg == "((void *)0)" // GCC, Clang, and MSVC all seem to expand `NULL` to this in the C mode.
         )
         {
             return "a null pointer";
@@ -560,11 +567,46 @@ namespace mrbind::CBindings
         return {};
     }
 
-    Generator::BindableType MakeSimpleDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type)
+    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, std::string_view c_type_name, std::string_view c_underlying_type_name)
+    {
+        if (!comment.empty())
+        {
+            assert(!comment.starts_with('\n')); // Banning this here because we always add one ourselves.
+            file.header.contents += '\n'; // Leading newline adds some separation between declarations.
+            generator.EmitCommentLow(file.header, std::move(comment));
+        }
+
+        file.header.contents += MakeStructForwardDeclarationNoReg(c_type_name, c_underlying_type_name);
+        file.header.contents += '\n';
+    }
+
+    [[nodiscard]] std::optional<Generator::TypeSizeAndAlignment> GetSizeAndAlignmentForPrimitiveType(Generator &generator, const cppdecl::Type &cpp_type)
+    {
+        if (cpp_type.Is<cppdecl::Pointer>())
+        {
+            // A pointer?
+            return Generator::TypeSizeAndAlignment{
+                .size = generator.data.platform_info.pointer_size,
+                .alignment = generator.data.platform_info.pointer_alignment,
+            };
+        }
+        else if (auto prim = generator.data.platform_info.FindPrimitiveType(generator.CppdeclToCode(cpp_type)))
+        {
+            // A primitive type?
+            return Generator::TypeSizeAndAlignment{
+                .size = prim->type_size,
+                .alignment = prim->type_alignment,
+            };
+        }
+
+        return {};
+    }
+
+    Generator::BindableType MakeSimpleDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type, std::optional<Generator::TypeSizeAndAlignment> override_size_and_alignment)
     {
         Generator::BindableType ret;
 
-        ret.traits = Generator::TypeTraits::TrivialAndSameSizeInCAndCpp{};
+        ret.traits = Generator::TypeTraits::Trivial{};
 
         // Custom handling for `void`.
         if (cpp_type.AsSingleWord() == "void")
@@ -575,6 +617,17 @@ namespace mrbind::CBindings
             ret_usage.c_type = c_type;
 
             return ret;
+        }
+
+        if (override_size_and_alignment)
+        {
+            ret.c_cpp_size_and_alignment = std::move(override_size_and_alignment);
+        }
+        else
+        {
+            // This should never return null, at least on built-in types.
+            // But just in case I'm not inserting a check here, since it wouldn't break much.
+            ret.c_cpp_size_and_alignment = GetSizeAndAlignmentForPrimitiveType(generator, cpp_type);
         }
 
         if (cpp_type.IsConstOrReference())
@@ -655,13 +708,42 @@ namespace mrbind::CBindings
     {
         const std::string cpp_type_str = generator.CppdeclToCode(cpp_type);
 
+        auto TryFillSimpleSizeAndAlignment = [&](Generator::BindableType &new_type) -> bool
+        {
+            if (cpp_type.Is<cppdecl::Pointer>())
+            {
+                // A pointer?
+                new_type.c_cpp_size_and_alignment = Generator::TypeSizeAndAlignment{
+                    .size = generator.data.platform_info.pointer_size,
+                    .alignment = generator.data.platform_info.pointer_alignment,
+                };
+                return true;
+            }
+            else if (auto prim = generator.data.platform_info.FindPrimitiveType(cpp_type_str))
+            {
+                // A primitive type?
+                new_type.c_cpp_size_and_alignment = Generator::TypeSizeAndAlignment{
+                    .size = prim->type_size,
+                    .alignment = prim->type_alignment,
+                };
+                return true;
+            }
+
+            return false;
+        };
+
         // Bindable without a cast?
         if (generator.IsSimplyBindableDirect(cpp_type))
         {
             auto type_c_style = cpp_type;
             generator.ReplaceAllNamesInTypeWithCNames(type_c_style);
 
-            return MakeSimpleDirectTypeBinding(generator, cpp_type, type_c_style);
+            auto new_type = MakeSimpleDirectTypeBinding(generator, cpp_type, type_c_style);
+
+            // Try to guess size and alignment. This is optional, we don't care if this fails.
+            TryFillSimpleSizeAndAlignment(new_type);
+
+            return new_type;
         }
         // Bindable with a C-style cast?
         if (generator.IsSimplyBindableDirectCast(cpp_type))
@@ -671,9 +753,7 @@ namespace mrbind::CBindings
 
             Generator::BindableType new_type;
 
-            // I assume `IsSimplyBindableDirectCast()` is only going to trigger for simple types that are trivial enough for this. This could change later?
-            // The size in C and C++ should always be the same here? Even for enums with custom underlying types, as we typedef them to their underlying types.
-            new_type.traits = Generator::TypeTraits::TrivialAndSameSizeInCAndCpp{};
+            new_type.traits = Generator::TypeTraits::Trivial{};
 
             auto &ret_usage = new_type.return_usage.emplace();
             ret_usage.c_type = type_c_style;
@@ -759,6 +839,26 @@ namespace mrbind::CBindings
 
             // Definitely needed here.
             generator.FillDefaultTypeDependencies(cpp_type, new_type);
+
+            // Try to guess size and alignment. This is optional.
+            if ((new_type.c_cpp_size_and_alignment = GetSizeAndAlignmentForPrimitiveType(generator, cpp_type))) {}
+            else
+            {
+                // A enum?
+                if (auto iter = generator.parsed_type_info.find(cpp_type_str); iter != generator.parsed_type_info.end() && iter->second.IsEnum())
+                {
+                    try
+                    {
+                        // Propagate size and alignment from the underlying type.
+                        // This should never fail, so we use the throwing version.
+                        new_type.c_cpp_size_and_alignment = generator.FindSameSizeAndAlignment(generator.ParseTypeOrThrow(std::get<Generator::ParsedTypeInfo::EnumDesc>(iter->second.input_type).parsed->canonical_underlying_type));
+                    }
+                    catch (...)
+                    {
+                        std::throw_with_nested(std::runtime_error("While determining the size and alignment of the underlying type of enum `" + cpp_type_str + "`:"));
+                    }
+                }
+            }
 
             return new_type;
         }
@@ -1009,7 +1109,7 @@ namespace mrbind::CBindings
         return new_type;
     }
 
-    Generator::BindableType MakeBitCastClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits)
+    Generator::BindableType MakeBitCastClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits, const Generator::TypeSizeAndAlignment &size_and_alignment)
     {
         (void)generator;
 
@@ -1102,6 +1202,8 @@ namespace mrbind::CBindings
             (void)file;
             return "MRBINDC_BIT_CAST((" + c_type_str + "), " + std::string(expr) + ")";
         };
+
+        new_type.c_cpp_size_and_alignment = size_and_alignment;
 
         return new_type;
     }

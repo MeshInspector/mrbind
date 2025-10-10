@@ -103,15 +103,10 @@ namespace mrbind::CBindings
 
             generator.TryFindHeadersForCppTypeForSourceFile(cppdecl::Type::FromQualifiedName(cpp_container_type)).InsertToFile(file);
 
-            generator.EmitComment(file.header, "\n/// Generated from C++ container `" + generator.CppdeclToCodeForComments(cpp_container_type) + "`.\n");
-            class_binder.EmitForwardDeclaration(generator, file);
-            generator.EmitComment(file.header, "\n/// Read-only iterator for `" + class_binder.c_type_name + "`.\n");
-            iterator_binder_const.EmitForwardDeclaration(generator, file);
+            class_binder.EmitForwardDeclaration(generator, file, "/// Generated from C++ container `" + generator.CppdeclToCodeForComments(cpp_container_type) + "`.\n");
+            iterator_binder_const.EmitForwardDeclaration(generator, file, "/// Read-only iterator for `" + class_binder.c_type_name + "`.\n");
             if (params.has_mutable_iterators)
-            {
-                generator.EmitComment(file.header, "\n/// Mutable iterator for `" + class_binder.c_type_name + "`.\n");
-                iterator_binder_mutable.EmitForwardDeclaration(generator, file);
-            }
+                iterator_binder_mutable.EmitForwardDeclaration(generator, file, "/// Mutable iterator for `" + class_binder.c_type_name + "`.\n");
 
             // The special member functions:
             class_binder.EmitSpecialMemberFunctions(generator, file);
@@ -410,7 +405,7 @@ namespace mrbind::CBindings
                 }
 
                 // The data pointer.
-                if (params.iter_category >= IteratorCategory::contiguous && (!params.is_map && elem_traits.same_size_in_c_and_cpp))
+                if (params.iter_category >= IteratorCategory::contiguous && (!params.is_map && generator.FindSameSizeAndAlignmentOpt(cpp_elem_type)))
                 {
                     { // data const
                         Generator::EmitFuncParams emit;

@@ -71,16 +71,14 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    std::string comment = "\n/// Stores either ";
+                    std::string comment = "/// Stores either ";
                     if (value_type_is_void)
                         comment += "nothing (which represents success)";
                     else
                         comment += "a `" + generator.CppdeclToCodeForComments(cpp_elem_type_value) + "` that represents success";
                     comment += " or a `" + generator.CppdeclToCodeForComments(cpp_elem_type_error) + "` that represents an error.\n";
 
-                    generator.EmitComment(file.header, comment);
-
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, comment);
 
                     // The special member functions.
                     binder.EmitSpecialMemberFunctions(generator, file, true);

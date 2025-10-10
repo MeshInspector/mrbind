@@ -6,7 +6,23 @@
 #include <input/MR/test_matching_layout.h>
 
 #include <cstddef>
+#include <cstdint>
 
+
+const int32_t *MR_MatchingLayout_A_Get_x(void)
+{
+    return &(MR::MatchingLayout::A::x);
+}
+
+void MR_MatchingLayout_A_Set_x(int32_t value)
+{
+    MR::MatchingLayout::A::x = value;
+}
+
+int32_t *MR_MatchingLayout_A_GetMutable_x(void)
+{
+    return &(MR::MatchingLayout::A::x);
+}
 
 MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void)
 {

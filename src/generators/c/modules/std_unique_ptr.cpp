@@ -122,19 +122,18 @@ namespace mrbind::CBindings::Modules
                     if (include_common_header_in_output_header)
                         file.source.custom_headers.insert(generator.GetCommonPublicHelpersFile()->header.path_for_inclusion);
 
+                    std::string comment;
                     if (is_array_of_unknown_bound)
                     {
-                        generator.EmitComment(file.header,
-                            "\n"
+                        comment =
                             "/// Wraps a pointer to a heap-allocated array of type `" + generator.CppdeclToCodeForComments(cpp_elem_type_minus_array) + "`, of an unspecified size.\n"
-                            "/// Doesn't store the size, it has to be obtained separately.\n"
-                        );
+                            "/// Doesn't store the size, it has to be obtained separately.\n";
                     }
                     else
                     {
-                        generator.EmitComment(file.header, "\n/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n");
+                        comment = "/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n";
                     }
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, std::move(comment));
 
                     // The special member functions.
                     binder.EmitSpecialMemberFunctions(generator, file, true);

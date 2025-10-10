@@ -7,6 +7,21 @@
 #include <cstddef>
 
 
+const int *MR_MatchingLayout_A_Get_x(void)
+{
+    return &(MR::MatchingLayout::A::x);
+}
+
+void MR_MatchingLayout_A_Set_x(int value)
+{
+    MR::MatchingLayout::A::x = value;
+}
+
+int *MR_MatchingLayout_A_GetMutable_x(void)
+{
+    return &(MR::MatchingLayout::A::x);
+}
+
 MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void)
 {
     return MRBINDC_BIT_CAST((MR_MatchingLayout_B), MR::MatchingLayout::B());

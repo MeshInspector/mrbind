@@ -16,7 +16,7 @@
 #define MBREFL_STRUCT(seq_, .../*bases*/) \
     DETAIL_MBREFL_END( DETAIL_MBREFL_STRUCT_DECL_A seq_ ) \
     using _refl_is_struct = void; \
-    constexpr bool _refl_for_each_member(auto &&func) \
+    constexpr bool _refl_for_each_member([[maybe_unused]] auto &&func) \
     { \
         /* Here we handle bases after the derived members for the sole reason that it results in better output in our case. */\
         /* E.g. for namespaces, this causes the name to be printed before the members, which is good. */\
@@ -53,7 +53,7 @@
 //     e3,
 //     e4 = value,
 // )
-#define MBREFL_ENUM(name_, seq_, ...) DETAIL_MBREFL_ENUM(inline, name_, seq_, __VA_ARGS__)
+#define MBREFL_ENUM(name_, seq_, ...) namespace {} DETAIL_MBREFL_ENUM(inline, name_, seq_, __VA_ARGS__) // Using the dummy namespace to ensure that we're at namespace scope.
 #define MBREFL_ENUM_IN_CLASS(name_, seq_, ...) DETAIL_MBREFL_ENUM(friend, name_, seq_, __VA_ARGS__)
 
 #define DETAIL_MBREFL_ENUM(prefix_, name_, seq_, ...) \

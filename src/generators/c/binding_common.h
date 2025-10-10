@@ -30,7 +30,8 @@ namespace mrbind::CBindings
         // This is fine for "static" member functions too.
         [[nodiscard]] std::string MakeMemberFuncName(const Generator &generator, std::string_view name) const;
 
-        void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file) const;
+        // The `comment` can be empty. Otherwise it must end with a newline and must include leading slashes.
+        void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const;
 
         // Fills most of the contents that `type` needs to have.
         // The only thing that you need to set manually in addition to this is `.bindable_with_same_address.declared_in_file`, to a lambda generating your file.
@@ -39,7 +40,9 @@ namespace mrbind::CBindings
         // Those are used internally by `FillCommonParams()`, but you can call them manually too:
         // [
 
-        [[nodiscard]] std::string MakeForwardDeclaration() const;
+        // Returns the forward declaration string.
+        // `...NoReg` means this doesn't register the type in the output JSON, so prefer `EmitForwardDeclaration()`.
+        [[nodiscard]] std::string MakeForwardDeclarationNoReg() const;
 
         [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage(Generator &generator) const;
 
@@ -85,7 +88,9 @@ namespace mrbind::CBindings
 
     // A simple function that returns `typedef struct c_[underlying_]type_name c_type_name;`.
     // `c_underlying_type_name` is only used if it's not empty. Otherwise we use `c_type_name`.
-    [[nodiscard]] std::string MakeStructForwardDeclaration(std::string_view c_type_name, std::string_view c_underlying_type_name = "");
+    // NOTE: Only use this for filling `TypeBindableWithSameAddress`. Don't use this for codegen, as this doesn't register types (hence `...NoReg`).
+    //   Instead use `HeapAllocatedClassBinder::EmitForwardDeclaration()` or `EmitRefOnlyStructForwardDeclaration()` or something else.
+    [[nodiscard]] std::string MakeStructForwardDeclarationNoReg(std::string_view c_type_name, std::string_view c_underlying_type_name = "");
 
 
     // This goes into the `BindableType::is_useless_default_argument` callback, to reject nullptr default arguments.
@@ -93,11 +98,23 @@ namespace mrbind::CBindings
     [[nodiscard]] std::optional<std::string> CheckPointerDefaultArgumentForNullptr(std::string_view default_arg);
 
 
+    // This pastes the `MakeStructForwardDeclarationNoReg(...)` into the file, but also registers the type as a ref-only type.
+    // Objects of those types can't be created by the C user, but pointers and references to them can still be passed around.
+    // The `comment` is pasted before the declaration if not empty. Must end with a line break. Must include the leading slashes.
+    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, std::string_view c_type_name, std::string_view c_underlying_type_name = "");
+
+
+    // If this is a simple enough type, returns its size and alignment.
+    [[nodiscard]] std::optional<Generator::TypeSizeAndAlignment> GetSizeAndAlignmentForPrimitiveType(Generator &generator, const cppdecl::Type &cpp_type);
+
+
     // Predefined bindings: [
 
     // Make a simple direct type binding, such as those used for built-in C types.
     // This trusts you that the type is bindable in this (direct) manner.
-    [[nodiscard]] Generator::BindableType MakeSimpleDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type);
+    // `override_size_and_alignment` lets you override the size and alignment of this type (assumed to be matching between C and C++ if set).
+    //   Otherwise it's guessed from the name, or unset if unknown.
+    [[nodiscard]] Generator::BindableType MakeSimpleDirectTypeBinding(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::Type &c_type, std::optional<Generator::TypeSizeAndAlignment> override_size_and_alignment = {});
 
     // Make a simple type binding. This is mostly a superset of `MakeSimpleDirectTypeBinding()` that also allows casts. Conditionally selects the right strategy based on what the type is.
     // All parsed non-class types are handled through this.
@@ -114,7 +131,7 @@ namespace mrbind::CBindings
     // For better or wose this doesn't fill `.bindable_with_same_address`, since it's for parsed classes only, and those don't need it (as they are added
     //   to the `types_bindable_with_same_address` map independently).
     // Maybe we should change it so that the parsed classes use `.bindable_with_same_address` too.
-    [[nodiscard]] Generator::BindableType MakeBitCastClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits);
+    [[nodiscard]] Generator::BindableType MakeBitCastClassBinding(Generator &generator, const cppdecl::QualifiedName &cpp_type, std::string_view c_type_str, const Generator::TypeTraits &traits, const Generator::TypeSizeAndAlignment &size_and_alignment);
 
     // If `cpp_type` is one of `target_name {const &, &&, const &&}`, then generates a default binding for them `using `MakeSimpleTypeBinding()`, and then patches the parameter usage to match that of a by-value `target_name`.
     // If `cpp_type` isn't one of the listed types, returns null.
