@@ -10,7 +10,7 @@ extern "C" {
 
 
 /// Wraps a pointer to a single heap-allocated `int`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_unique_ptr_int MR_C_std_unique_ptr_int;
 
 /// Constructs an empty (default-constructed) instance.

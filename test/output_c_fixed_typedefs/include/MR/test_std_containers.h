@@ -48,14 +48,17 @@ typedef struct MR_C_std_vector_int32_t MR_C_std_vector_int32_t; // Defined in `#
 
 // `std::array` behaves differently with simple types.
 // Generated from class `MR::StdContainers::A`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_A MR_StdContainers_A;
 
 // Test vectors of a non-default-constructible type.
 // Generated from class `MR::StdContainers::NonDefaultConstructible`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible;
 
 // A non-assignable type?
 // Generated from class `MR::StdContainers::NonAssignable`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_NonAssignable MR_StdContainers_NonAssignable;
 
 // Generated from function `MR::StdContainers::Set`.

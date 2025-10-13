@@ -12,7 +12,7 @@ extern "C" {
 
 /// Wraps a pointer to a shared reference-counted heap-allocated array of type `const int`, of an unspecified size.
 /// Doesn't store the size, it has to be obtained separately.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_shared_ptr_const_int_array MR_C_std_shared_ptr_const_int_array;
 
 /// Constructs an empty (default-constructed) instance.

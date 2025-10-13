@@ -10,9 +10,11 @@ extern "C" {
 
 
 /// Generated from class `MR::CustomPrefNames::Ai`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CustomPrefNames_Ai MR_CustomPrefNames_Ai;
 
 /// Generated from class `MR::CustomPrefNames::Af`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CustomPrefNames_Af MR_CustomPrefNames_Af;
 
 /// Constructs an empty (default-constructed) instance.

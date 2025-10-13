@@ -18,11 +18,11 @@ typedef struct MR_StdContainers_NonAssignable MR_StdContainers_NonAssignable; //
 
 
 // Generated from C++ container `std::multiset<MR::StdContainers::NonAssignable>`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_multiset_MR_StdContainers_NonAssignable MR_C_std_multiset_MR_StdContainers_NonAssignable;
 
 // Read-only iterator for `MR_C_std_multiset_MR_StdContainers_NonAssignable`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator;
 
 // Constructs an empty (default-constructed) instance.

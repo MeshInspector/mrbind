@@ -30,22 +30,46 @@ namespace mrbind::CBindings
             // Add our own leading newline.
             comment = '\n' + comment;
 
-            std::string enum_name = generator.GetPassByEnumName();
+            std::string enum_name; // This is filled later if needed.
 
-            comment += "/// Supported `" + enum_name + "` modes: ";
+            bool first = true;
+            auto AddMode = [&](std::string_view mode_name)
+            {
+                if (first)
+                {
+                    first = false;
+
+                    enum_name = generator.GetPassByEnumName();
+                    comment += "/// Supported `" + enum_name + "` modes: ";
+                }
+                else
+                {
+                    comment += ", ";
+                }
+
+                comment += '`';
+                comment += enum_name;
+                comment += '_';
+                comment += mode_name;
+                comment += '`';
+            };
+
             if (traits.value().is_default_constructible)
-                comment += '`' + enum_name + "_DefaultConstruct`, ";
+                AddMode("DefaultConstruct");
+
             if (traits.value().is_copy_constructible)
             {
-                comment += '`' + enum_name + "_Copy`";
+                AddMode("Copy");
                 if (traits.value().copy_constructor_takes_nonconst_ref)
-                    comment += " (for this type may modify the source object)";
-                comment += ", ";
+                    comment += " (for this type it can modify the source object)";
             }
-            if (traits.value().is_move_constructible)
-                comment += '`' + enum_name + "_Move`, ";
 
-            comment += "(and `" + enum_name + "_DefaultArgument` and `" + enum_name + "_NoObject` if supported by the callee).\n";
+            if (traits.value().is_move_constructible)
+                AddMode("Move");
+
+            if (!first)
+                comment += " (and `" + enum_name + "_DefaultArgument` and `" + enum_name + "_NoObject` if supported by the callee).\n";
+
             generator.EmitCommentLow(file.header, comment);
         }
 

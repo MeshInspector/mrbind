@@ -14,9 +14,11 @@ extern "C" {
 
 
 // Generated from class `MR::NestedTypes::A`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_NestedTypes_A MR_NestedTypes_A;
 
 // Generated from class `MR::NestedTypes::A::B`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_NestedTypes_A_B MR_NestedTypes_A_B;
 
 typedef enum MR_NestedTypes_A_E

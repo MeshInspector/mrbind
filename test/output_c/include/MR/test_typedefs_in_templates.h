@@ -12,12 +12,15 @@ extern "C" {
 // This tests a specific Clang bug/quirk.
 // Certain typedefs in templates get their names printed without the template arguments of the enclosing class template, breaking our code generation.
 /// Generated from class `MR::TypedefsInTemplates::A<int>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TypedefsInTemplates_A_int MR_TypedefsInTemplates_A_int;
 
 /// Generated from class `MR::TypedefsInTemplates::B<int>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TypedefsInTemplates_B_int MR_TypedefsInTemplates_B_int;
 
 /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TypedefsInTemplates_B_int_BB_float MR_TypedefsInTemplates_B_int_BB_float;
 
 /// Constructs an empty (default-constructed) instance.

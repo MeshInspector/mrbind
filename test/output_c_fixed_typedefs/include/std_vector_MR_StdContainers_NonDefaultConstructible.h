@@ -18,15 +18,15 @@ typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefa
 
 
 // Generated from C++ container `std::vector<MR::StdContainers::NonDefaultConstructible>`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible MR_C_std_vector_MR_StdContainers_NonDefaultConstructible;
 
 // Read-only iterator for `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator;
 
 // Mutable iterator for `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator;
 
 // Constructs an empty (default-constructed) instance.

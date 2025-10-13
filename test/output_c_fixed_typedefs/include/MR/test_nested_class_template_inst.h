@@ -14,10 +14,12 @@ extern "C" {
 
 
 // Generated from class `MR::NestedTemplateInst::A<int32_t>`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_NestedTemplateInst_A_int32_t MR_NestedTemplateInst_A_int32_t;
 
 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
 // Generated from class `MR::NestedTemplateInst::A<int32_t>::AA<float>`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_NestedTemplateInst_A_int32_t_AA_float MR_NestedTemplateInst_A_int32_t_AA_float;
 
 // Constructs an empty (default-constructed) instance.

@@ -39,6 +39,7 @@ typedef MR_C_int64_t MR_TestSimpleTypes_E5;
 
 // Class templates.
 /// Generated from class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TestSimpleTypes_ClassTemplate_uint64_t MR_TestSimpleTypes_ClassTemplate_uint64_t;
 
 // Enums.

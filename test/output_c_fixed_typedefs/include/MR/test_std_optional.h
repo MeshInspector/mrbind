@@ -28,9 +28,11 @@ enum // MR_StdOptional_E
 };
 
 // Generated from class `MR::StdOptional::A`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdOptional_A MR_StdOptional_A;
 
 // Generated from class `MR::StdOptional::B`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdOptional_B MR_StdOptional_B;
 
 // Generated from function `MR::StdOptional::GetInt`.

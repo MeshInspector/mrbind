@@ -30,6 +30,7 @@ typedef enum MR_StdFunction_E
 } MR_StdFunction_E;
 
 // Generated from class `MR::StdFunction::A`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdFunction_A MR_StdFunction_A;
 
 // Generated from function `MR::StdFunction::foo`.

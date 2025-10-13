@@ -10,6 +10,7 @@ extern "C" {
 
 
 /// Generated from class `MR::MemberVars::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_MemberVars_A MR_MemberVars_A;
 
 /// Returns a pointer to a member variable of class `MR::MemberVars::A` named `z`.

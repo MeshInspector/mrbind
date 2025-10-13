@@ -24,6 +24,7 @@ extern "C" {
 ///     `MR::Bases::D`
 ///     `MR::Bases::D2`
 ///     `MR::Bases::D3`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_A MR_Bases_A;
 
 /// Generated from class `MR::Bases::B`.
@@ -36,6 +37,7 @@ typedef struct MR_Bases_A MR_Bases_A;
 ///     `MR::Bases::D`
 ///     `MR::Bases::D2`
 ///     `MR::Bases::D3`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_B MR_Bases_B;
 
 /// Generated from class `MR::Bases::B2`.
@@ -44,6 +46,7 @@ typedef struct MR_Bases_B MR_Bases_B;
 ///     `MR::Bases::B`
 ///   Indirect: (non-virtual)
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_B2 MR_Bases_B2;
 
 /// Generated from class `MR::Bases::C`.
@@ -53,6 +56,7 @@ typedef struct MR_Bases_B2 MR_Bases_B2;
 /// Derived classes:
 ///   Direct: (non-virtual)
 ///     `MR::Bases::D`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_C MR_Bases_C;
 
 /// Generated from class `MR::Bases::D`.
@@ -62,6 +66,7 @@ typedef struct MR_Bases_C MR_Bases_C;
 ///     `MR::Bases::C`
 ///   Ambiguous:
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D MR_Bases_D;
 
 /// Generated from class `MR::Bases::D2`.
@@ -70,6 +75,7 @@ typedef struct MR_Bases_D MR_Bases_D;
 ///     `MR::Bases::B`
 ///   Ambiguous:
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D2 MR_Bases_D2;
 
 /// Generated from class `MR::Bases::D3`.
@@ -78,6 +84,7 @@ typedef struct MR_Bases_D2 MR_Bases_D2;
 ///     `MR::Bases::B`
 ///   Ambiguous:
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D3 MR_Bases_D3;
 
 /// Generated from class `MR::Bases::E`.
@@ -88,6 +95,7 @@ typedef struct MR_Bases_D3 MR_Bases_D3;
 ///     `MR::Bases::I`
 ///   Direct: (non-virtual)
 ///     `MR::Bases::F`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_E MR_Bases_E;
 
 /// Generated from class `MR::Bases::F`.
@@ -99,6 +107,7 @@ typedef struct MR_Bases_E MR_Bases_E;
 ///     `MR::Bases::G`
 ///     `MR::Bases::H`
 ///     `MR::Bases::I`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_F MR_Bases_F;
 
 /// Generated from class `MR::Bases::G`.
@@ -106,6 +115,7 @@ typedef struct MR_Bases_F MR_Bases_F;
 ///   Virtual:
 ///     `MR::Bases::E`
 ///     `MR::Bases::F`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_G MR_Bases_G;
 
 /// Generated from class `MR::Bases::H`.
@@ -115,6 +125,7 @@ typedef struct MR_Bases_G MR_Bases_G;
 ///     `MR::Bases::F`
 ///   Direct: (non-virtual)
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_H MR_Bases_H;
 
 /// Generated from class `MR::Bases::I`.
@@ -123,6 +134,7 @@ typedef struct MR_Bases_H MR_Bases_H;
 ///     `MR::Bases::A`
 ///     `MR::Bases::E`
 ///     `MR::Bases::F`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_I MR_Bases_I;
 
 /// Constructs an empty (default-constructed) instance.

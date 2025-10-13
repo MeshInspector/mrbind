@@ -20,6 +20,7 @@
 
 namespace mrbind::CBindings
 {
+    struct HeapAllocatedClassBinder;
     struct Module;
 
     struct Generator
@@ -1363,6 +1364,10 @@ namespace mrbind::CBindings
 
         // Emits a enum.
         void EmitEnum(OutputFile &file, std::string comment, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func);
+
+        // Creates a binder for a parsed class. `parsed_full_type` should receive `ClassEntity::full_type` (you don't need to roundtrip it through cppdecl,
+        //   we do it automatically).
+        [[nodiscard]] HeapAllocatedClassBinder MakeParsedClassBinder(const std::string &parsed_full_type);
 
 
         struct Visitor

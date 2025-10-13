@@ -19,6 +19,7 @@ extern "C" {
 // Derived classes:
 //   Direct: (non-virtual)
 //     `MR::UsingDecls::B`
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_UsingDecls_A MR_UsingDecls_A;
 
 typedef int32_t MR_UsingDecls_A_E;
@@ -27,6 +28,7 @@ typedef int32_t MR_UsingDecls_A_E;
 // Base classes:
 //   Direct: (non-virtual)
 //     `MR::UsingDecls::A`
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_UsingDecls_B MR_UsingDecls_B;
 
 // Returns a pointer to a member variable of class `MR::UsingDecls::A` named `StaticVar`.

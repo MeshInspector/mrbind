@@ -14,6 +14,7 @@ typedef struct MR_C_std_vector_unsigned_long MR_C_std_vector_unsigned_long; // D
 
 
 /// Generated from class `MR::TestSizeT::A<unsigned long>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TestSizeT_A_unsigned_long MR_TestSizeT_A_unsigned_long;
 
 /// Generated from function `MR::TestSizeT::foo`.

@@ -11,17 +11,21 @@ extern "C" {
 
 // Member functions.
 /// Generated from class `MR::OverloadedOps::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_A MR_OverloadedOps_A;
 
 // Free functions.
 /// Generated from class `MR::OverloadedOps::B`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_B MR_OverloadedOps_B;
 
 // Test how the names are generated.
 /// Generated from class `MR::OverloadedOps::C`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_C MR_OverloadedOps_C;
 
 /// Generated from class `MR::OverloadedOps::D`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_D MR_OverloadedOps_D;
 
 /// Destroys a heap-allocated instance of `MR_OverloadedOps_A`. Does nothing if the pointer is null.

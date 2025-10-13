@@ -13,6 +13,7 @@ typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined in `#include <iostr
 
 
 /// Generated from class `MR::IOStream::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_IOStream_A MR_IOStream_A;
 
 /// Constructs an empty (default-constructed) instance.

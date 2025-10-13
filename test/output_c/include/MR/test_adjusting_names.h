@@ -12,6 +12,7 @@ extern "C" {
 // And test that `uint64_t` is correctly adjusted in some other kinds of names.
 // Though here we don't really test that each of them brings its own includes.
 /// Generated from class `MR::AdjustingNames::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_AdjustingNames_A MR_AdjustingNames_A;
 
 // When we're gonna call `foo<MR_C_uint64_t>()` in the source file, we must include the header for our typedef (and for the template arguments in general).

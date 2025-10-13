@@ -15,7 +15,7 @@ extern "C" {
 
 
 // Stores two objects: `int32_t &&` and `int32_t &&`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref;
 
 // Constructs a copy of another instance. The source remains alive.

@@ -2579,6 +2579,24 @@ namespace mrbind::CBindings
         }
     }
 
+    HeapAllocatedClassBinder Generator::MakeParsedClassBinder(const std::string &parsed_full_type)
+    {
+        // Need to roundtrip the type string through cppdecl.
+        const cppdecl::QualifiedName cpp_class_name = ParseQualNameOrThrow(parsed_full_type);
+        const std::string cpp_class_name_str = CppdeclToCode(cpp_class_name);
+
+        const ParsedTypeInfo &parsed_info = parsed_type_info.at(cpp_class_name_str);
+
+        HeapAllocatedClassBinder binder;
+
+        // We don't fill everything for now, just the bare minimum.
+        binder.cpp_type_name = cpp_class_name;
+        binder.c_type_name = parsed_info.c_type_str;
+        binder.traits = std::get<ParsedTypeInfo::ClassDesc>(parsed_info.input_type).traits;
+
+        return binder;
+    }
+
 
     // This fills `parsed_type_info` with the knowledge about all parsed types.
     struct Generator::VisitorRegisterKnownTypes : Visitor
@@ -3313,9 +3331,6 @@ namespace mrbind::CBindings
                 const std::string cpp_class_name_str = self.CppdeclToCode(cpp_class_name);
                 const std::string cpp_class_name_str_deco = self.CppdeclToCodeForComments(cpp_class_name);
 
-                // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-                const TypeBindableWithSameAddress &same_addr_bindable_info = self.types_bindable_with_same_address.at(cpp_class_name_str);
-
                 const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
                 const ParsedTypeInfo::ClassDesc &parsed_class_info = std::get<ParsedTypeInfo::ClassDesc>(parsed_type_info.input_type);
 
@@ -3404,10 +3419,8 @@ namespace mrbind::CBindings
 
                 if (!parsed_class_info.is_same_layout_struct)
                 {
-                    self.EmitCommentLow(file.header, '\n' + class_comment_str);
-
-                    // The forward-declaration itself.
-                    file.header.contents += same_addr_bindable_info.forward_declaration.value() + '\n';
+                    // The forward-declaration.
+                    self.MakeParsedClassBinder(cl.full_type).EmitForwardDeclaration(self, file, class_comment_str);
                 }
                 else
                 {
@@ -3466,15 +3479,6 @@ namespace mrbind::CBindings
                 // If this is a same-layout struct that is trivially-default-constructible, we don't want the default constructor (and its array version).
                 const bool skip_trivial_default_ctor = parsed_class_info.is_same_layout_struct && parsed_class_info.traits.is_trivially_default_constructible;
 
-                auto MakeBinder = [&]
-                {
-                    HeapAllocatedClassBinder binder;
-                    binder.cpp_type_name = cpp_class_name;
-                    binder.c_type_name = parsed_type_info.c_type_str;
-                    return binder;
-                };
-
-
                 // We need to do stuff on the first default ctor emitted (there can be multiple such ctors, because of default arguments).
                 bool emitted_any_default_ctor = false;
 
@@ -3488,7 +3492,7 @@ namespace mrbind::CBindings
 
                     emitted_misc_functions = true;
 
-                    auto binder = MakeBinder();
+                    auto binder = self.MakeParsedClassBinder(cl.full_type);
 
                     // Elementwise constructor for aggregates.
                     if (
@@ -3751,7 +3755,7 @@ namespace mrbind::CBindings
                                 // This logic must be synced with how the overloaded names are collected.
                                 if (elem.params.empty())
                                 {
-                                    HeapAllocatedClassBinder binder = MakeBinder();
+                                    HeapAllocatedClassBinder binder = self.MakeParsedClassBinder(cl.full_type);
                                     self.EmitFunction(file, binder.PrepareFuncDefaultCtor(self));
                                 }
                                 else
@@ -3769,7 +3773,7 @@ namespace mrbind::CBindings
                                 {
                                     emitted_any_default_ctor = true;
 
-                                    HeapAllocatedClassBinder binder = MakeBinder();
+                                    HeapAllocatedClassBinder binder = self.MakeParsedClassBinder(cl.full_type);
                                     self.EmitFunction(file, binder.PrepareFuncDefaultCtorArray(self));
                                 }
 
@@ -3847,7 +3851,7 @@ namespace mrbind::CBindings
 
                             try
                             {
-                                HeapAllocatedClassBinder binder = MakeBinder();
+                                HeapAllocatedClassBinder binder = self.MakeParsedClassBinder(cl.full_type);
                                 self.EmitFunction(file, binder.PrepareFuncDestroy(self));
                                 self.EmitFunction(file, binder.PrepareFuncDestroyArray(self));
                             }

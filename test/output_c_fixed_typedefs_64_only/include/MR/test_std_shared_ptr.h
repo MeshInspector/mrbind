@@ -25,6 +25,7 @@ typedef struct MR_C_std_shared_ptr_int_array_42 MR_C_std_shared_ptr_int_array_42
 
 // Now with a class:
 /// Generated from class `MR::StdSharedPtr::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdSharedPtr_A MR_StdSharedPtr_A;
 
 /// Generated from function `MR::StdSharedPtr::GetInt`.

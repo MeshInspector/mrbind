@@ -12,11 +12,13 @@ extern "C" {
 // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
 //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
 /// Generated from class `MR::OmittingTargsAndQuals::A<int>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OmittingTargsAndQuals_A_int MR_OmittingTargsAndQuals_A_int;
 
 // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
 //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
 /// Generated from class `MR::OmittingTargsAndQuals::A<float>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OmittingTargsAndQuals_A_float MR_OmittingTargsAndQuals_A_float;
 
 /// Constructs an empty (default-constructed) instance.
