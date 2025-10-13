@@ -3,6 +3,7 @@
 #include <common.h>
 #include <exports.h>
 #include <std_array_int_43.h>
+#include <std_array_int_array_4_array_3_5.h>
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -293,6 +294,11 @@ MR_C_API MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float *MR_St
 /// Generated from function `MR::StdContainers::GetStdArrayNA`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_MR_StdContainers_NonAssignable_42_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetStdArrayNA(void);
+
+// Fun stuff!
+// The type name is a bit weird for this, but at least it works.
+/// Generated from function `MR::StdContainers::GetStdArrayOfPlainArray`.
+MR_C_API MR_C_std_array_int_array_4_array_3_5 MR_StdContainers_GetStdArrayOfPlainArray(void);
 
 #ifdef __cplusplus
 } // extern "C"

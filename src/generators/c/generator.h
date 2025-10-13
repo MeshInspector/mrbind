@@ -736,8 +736,8 @@ namespace mrbind::CBindings
 
         struct TypeSizeAndAlignment
         {
-            std::size_t size = 0;
-            std::size_t alignment = 0;
+            std::size_t size = std::size_t(-1);
+            std::size_t alignment = std::size_t(-1);
         };
 
         struct BindableType
@@ -993,9 +993,9 @@ namespace mrbind::CBindings
         // But additionally supports const types, by removing assignability from those traits.
         // This is unlike `FindBindableType()`, which hard-errors on const types.
         // Throws on failure, including if `FindBindableType()` finds nothing.
-        [[nodiscard]] TypeTraits FindTypeTraits(const cppdecl::Type &type);
+        [[nodiscard]] TypeTraits FindTypeTraits(cppdecl::Type type);
         // Same, but returns null instead of throwing on failure.
-        [[nodiscard]] std::optional<TypeTraits> FindTypeTraitsOpt(const cppdecl::Type &type);
+        [[nodiscard]] std::optional<TypeTraits> FindTypeTraitsOpt(cppdecl::Type type);
 
         // Find size and alignment of a type, if they're shared between C and C++ and the type has the same binary representation.
         // Notably this rejects references.
@@ -1084,7 +1084,7 @@ namespace mrbind::CBindings
 
         // The given `type` is assumed to pass `FieldTypeUsableInSameLayoutStruct()`.
         // Updates `file` to include the decessary headers and/or forward declarations for this type.
-        void AddDependenciesToFileForFieldOfSameLayoutStruct(const cppdecl::Type &cpp_type, OutputFile &file);
+        void AddDependenciesToFileForFieldOfSameLayoutStruct(cppdecl::Type cpp_type, OutputFile &file);
 
 
         struct CachedIncludesForType
@@ -1343,17 +1343,17 @@ namespace mrbind::CBindings
         }
 
 
-        // Here if `field_expected_size` and `field_expected_alignment` and `field_expected_offset` are not `-1`, they are validated against what `type` is known to have.
-        // This is done for each of them individually, they can be set to `-1` individually.
+        // Here if `field_expected_size_and_alignment.{size,alignment}` and `field_expected_offset` are not `-1`, they are validated against what `type` is known to have.
+        // This is done for each of the three individually, they can be set to `-1` individually.
         // We never accept `type`s for which we don't already know those parameters.
         // Here if `field_comment` isn't empty, it must end with a trailing newline, and include leading slashes.
-        using EmitExposedStructFieldFunc = std::function<void(const cppdecl::Type &field_cpp_type, std::string field_comment, std::string field_name, std::size_t field_expected_size, std::size_t field_expected_alignment, std::size_t field_expected_offset)>;
+        using EmitExposedStructFieldFunc = std::function<void(const cppdecl::Type &field_cpp_type, std::string field_comment, std::string field_name, TypeSizeAndAlignment field_expected_size_and_alignment, std::size_t field_expected_offset)>;
 
         // Calls `func` once, where you can then call `emit_field()` one or more times to emit fields.
-        // If `expected_size` and `expected_alignment` are not `-1`, then they are validated against the values computed form the fields you create.
+        // If `expected_size_and_alignment.{size,alignment}` are not `-1`, then they are validated against the values computed form the fields you create.
         // This is done for each of them individually, they can be set to `-1` individually.
         // Here if `comment` isn't empty, it must end with a trailing newline, and include leading slashes.
-        void EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, std::size_t expected_size, std::size_t expected_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func);
+        void EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func);
 
 
         struct Visitor

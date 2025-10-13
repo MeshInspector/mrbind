@@ -20,6 +20,8 @@ typedef struct MR_MatchingLayout_A
 
     // third
     float c;
+    int arr[3];
+    int arr2d[4][5];
 } MR_MatchingLayout_A;
 
 /// Generated from class `MR::MatchingLayout::B`.

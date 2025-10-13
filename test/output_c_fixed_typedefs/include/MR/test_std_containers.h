@@ -6,6 +6,7 @@
 #include <common.h>
 #include <exports.h>
 #include <std_array_int32_t_43.h>
+#include <std_array_int32_t_array_4_array_3_5.h>
 #pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
 #include <stdbool.h>
@@ -299,6 +300,11 @@ MR_C_API MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float *MR_St
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_MR_StdContainers_NonAssignable_42_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetStdArrayNA(void);
 
+// Fun stuff!
+// The type name is a bit weird for this, but at least it works.
+// Generated from function `MR::StdContainers::GetStdArrayOfPlainArray`.
+MR_C_API MR_C_std_array_int32_t_array_4_array_3_5 MR_StdContainers_GetStdArrayOfPlainArray(void);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
@@ -313,6 +319,7 @@ MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetS
 #include <std_array_MR_StdContainers_A_42.h>
 #include <std_array_MR_StdContainers_NonAssignable_42.h>
 #include <std_array_int32_t_43.h>
+#include <std_array_int32_t_array_4_array_3_5.h>
 #include <std_deque_MR_StdContainers_NonAssignable.h>
 #include <std_deque_int32_t.h>
 #include <std_list_MR_StdContainers_NonAssignable.h>

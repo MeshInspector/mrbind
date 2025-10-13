@@ -964,7 +964,7 @@ namespace mrbind::CBindings
         return nullptr;
     }
 
-    Generator::TypeTraits Generator::FindTypeTraits(const cppdecl::Type &type)
+    Generator::TypeTraits Generator::FindTypeTraits(cppdecl::Type type)
     {
         auto ret = FindTypeTraitsOpt(type);
         if (!ret)
@@ -972,16 +972,24 @@ namespace mrbind::CBindings
         return *ret;
     }
 
-    std::optional<Generator::TypeTraits> Generator::FindTypeTraitsOpt(const cppdecl::Type &type)
+    std::optional<Generator::TypeTraits> Generator::FindTypeTraitsOpt(cppdecl::Type type)
     {
+        // Remove any array extents.
+        bool was_array = type.Is<cppdecl::Array>();
+        while (type.Is<cppdecl::Array>())
+            type.RemoveModifier();
+
         auto binding = FindBindableTypeOpt(cppdecl::Type(type).RemoveQualifiers(cppdecl::CvQualifiers::const_));
         if (!binding)
             return {};
 
         // If the `.traits` is null, this is intentionally a hard error, since it should never be null.
         Generator::TypeTraits ret = binding->traits.value();
-        if (type.IsConst())
+
+        // Make const and array types non-assignable.
+        if (type.IsConst() || was_array)
             ret.MakeNonAssignable();
+
         return ret;
     }
 
@@ -1472,16 +1480,15 @@ namespace mrbind::CBindings
         if (!FindSameSizeAndAlignmentOpt(cpp_type))
             return false;
 
-        // Not sure if those additional checks are strictly necessary, but just in case...
-        const BindableType *binding = FindBindableTypeOpt(cpp_type);
-        if (!binding || binding->is_heap_allocated_class || !binding->traits.value().UnconditionallyCopyOnPassByValue())
-            return false;
-
         return true;
     }
 
-    void Generator::AddDependenciesToFileForFieldOfSameLayoutStruct(const cppdecl::Type &cpp_type, OutputFile &file)
+    void Generator::AddDependenciesToFileForFieldOfSameLayoutStruct(cppdecl::Type cpp_type, OutputFile &file)
     {
+        // Remove all array extents.
+        while (cpp_type.Is<cppdecl::Array>())
+            cpp_type.RemoveModifier();
+
         // If `FieldTypeUsableInSameLayoutStruct()` returned true, I assume we can just grab some random usage and get the dependency information from it.
         // I'm arbitrarily picking the return usage. Those shouldn't throw at this point, if `FieldTypeUsableInSameLayoutStruct()` has returned true.
         const BindableType &binding = FindBindableType(cpp_type);
@@ -2398,7 +2405,7 @@ namespace mrbind::CBindings
         }
     }
 
-    void Generator::EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, std::size_t expected_size, std::size_t expected_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)
+    void Generator::EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)
     {
         // The comment.
         assert(!comment.starts_with('\n'));
@@ -2411,7 +2418,7 @@ namespace mrbind::CBindings
         std::size_t total_size = 0;
         std::size_t total_alignment = 0;
 
-        func([&](const cppdecl::Type &field_cpp_type, std::string field_comment, std::string field_name, std::size_t field_expected_size, std::size_t field_expected_alignment, std::size_t field_expected_offset)
+        func([&](const cppdecl::Type &field_cpp_type, std::string field_comment, std::string field_name, TypeSizeAndAlignment field_expected_size_and_alignment, std::size_t field_expected_offset)
         {
             const bool is_first = total_size == 0;
 
@@ -2424,10 +2431,10 @@ namespace mrbind::CBindings
 
             // Check size and alignment of the type against the reference values, if any.
             auto field_info = FindSameSizeAndAlignment(field_cpp_type);
-            if (field_expected_size != std::size_t(-1) && field_expected_size != field_info.size)
-                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The byte size of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(field_expected_size) + " but got " + std::to_string(field_info.size) + ").");
-            if (field_expected_alignment != std::size_t(-1) && field_expected_alignment != field_info.alignment)
-                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The alignment of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(expected_alignment) + " but got " + std::to_string(field_info.alignment) + ").");
+            if (field_expected_size_and_alignment.size != std::size_t(-1) && field_expected_size_and_alignment.size != field_info.size)
+                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The byte size of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(field_expected_size_and_alignment.size) + " but got " + std::to_string(field_info.size) + ").");
+            if (field_expected_size_and_alignment.alignment != std::size_t(-1) && field_expected_size_and_alignment.alignment != field_info.alignment)
+                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The alignment of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(field_expected_size_and_alignment.alignment) + " but got " + std::to_string(field_info.alignment) + ").");
 
             // Update the offset, and optionally check it against the expected value.
             total_size = (total_size + (field_info.alignment - 1)) / field_info.alignment * field_info.alignment;
@@ -2465,16 +2472,16 @@ namespace mrbind::CBindings
 
         // Complain if no fields. C doesn't have empty structs.
         if (total_size == 0)
-            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: it has no known fields. C doesn't support empty structures.");
+            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The struct has no known fields. C doesn't support empty structures.");
 
         // Check the final alignment, if specified.
-        if (expected_alignment != std::size_t(-1) && total_alignment != expected_alignment)
-            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: its estimated alignment doesn't match the expected value (expected " + std::to_string(expected_alignment) + " but got " + std::to_string(total_alignment) + ").");
+        if (expected_size_and_alignment.alignment != std::size_t(-1) && total_alignment != expected_size_and_alignment.alignment)
+            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The estimated alignment of the struct doesn't match the expected value (expected " + std::to_string(expected_size_and_alignment.alignment) + " but got " + std::to_string(total_alignment) + ").");
 
         // Check the final size, if specified.
         total_size = (total_size + (total_alignment - 1)) / total_alignment * total_alignment;
-        if (expected_size != std::size_t(-1) && total_size != expected_size)
-            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: its estimated byte size doesn't match the expected value (expected " + std::to_string(expected_size) + " but got " + std::to_string(total_size) + ").");
+        if (expected_size_and_alignment.size != std::size_t(-1) && total_size != expected_size_and_alignment.size)
+            throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The estimated byte size of the struct doesn't match the expected value (expected " + std::to_string(expected_size_and_alignment.size) + " but got " + std::to_string(total_size) + ").");
 
         file.header.contents += "} " + std::string(c_type_str) + ";\n";
     }
@@ -3314,8 +3321,7 @@ namespace mrbind::CBindings
                         file,
                         class_comment_str,
                         parsed_type_info.c_type_str,
-                        cl.type_size,
-                        cl.type_alignment,
+                        {.size = cl.type_size, .alignment = cl.type_alignment},
                         [&](EmitExposedStructFieldFunc emit_field)
                         {
                             for (const auto &member : cl.members)
@@ -3328,8 +3334,7 @@ namespace mrbind::CBindings
                                     self.ParseTypeOrThrow(field->type.canonical),
                                     field->comment ? field->comment->text_with_slashes + '\n' : "",
                                     field->name,
-                                    field->type_size,
-                                    field->type_alignment,
+                                    {.size = field->type_size, .alignment = field->type_alignment},
                                     field->byte_offset
                                 );
                             }

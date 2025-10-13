@@ -356,3 +356,8 @@ MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetStdArrayNA
     return (MR_C_std_array_MR_StdContainers_NonAssignable_42 *)new std::array<MR::StdContainers::NonAssignable, 42>(::MR::StdContainers::GetStdArrayNA());
 }
 
+MR_C_std_array_int_array_4_array_3_5 MR_StdContainers_GetStdArrayOfPlainArray(void)
+{
+    return MRBINDC_BIT_CAST((MR_C_std_array_int_array_4_array_3_5), ::MR::StdContainers::GetStdArrayOfPlainArray());
+}
+
