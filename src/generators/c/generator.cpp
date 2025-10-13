@@ -221,61 +221,63 @@ namespace mrbind::CBindings
         std::string pass_by_enum_name = GetPassByEnumName();
 
         // Class by-value argument helpers.
-        file.header.contents += "namespace mrbindc_details\n";
-        file.header.contents += "{\n";
-        file.header.contents += "    // Those are used to handle by-value arguments of class types, which are passed as a pointer plus a enum explaining how to handle it.\n";
-        file.header.contents += "    // The `cpp_type_without_wrapper_` vs `cpp_type_` are different for optionals: `cpp_type_` is either `T` or `std::optional<T>`, while `cpp_type_without_wrapper_` is always the `T` itself.\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_COPY(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Copy ? __VA_ARGS__(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_MOVE(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Move ? __VA_ARGS__(std::move(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `\" #enum_constant_ \"` was used.\") : __VA_ARGS__(default_arg_)) :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? throw std::runtime_error(\"Function parameter `\" #param_ \" doesn't support `\" #enum_constant_ \"`.\") :\n";
-        file.header.contents += "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n";
-        file.header.contents += "\n";
-        file.header.contents += "    // Converts an rvalue to an lvalue.\n";
-        file.header.contents += "    template <typename T> constexpr T &unmove(T &&value) {return static_cast<T &>(value);}\n";
-        file.header.contents += "} // namespace mrbindc_details\n";
-        file.header.contents += "\n";
-        file.header.contents += "\n";
-        file.header.contents += "#define MRBINDC_IDENTITY(...) __VA_ARGS__\n";
-        file.header.contents += "\n";
-        file.header.contents += "#if defined(_MSC_VER) && !defined(__clang__)\n";
-        file.header.contents += "#define MRBINDC_IGNORE_DEPRECATION(...) _Pragma(\"warning(push)\") _Pragma(\"warning(disable: 4996)\") __VA_ARGS__ _Pragma(\"warning(pop)\")\n";
-        file.header.contents += "#else\n";
-        file.header.contents += "#define MRBINDC_IGNORE_DEPRECATION(...) _Pragma(\"GCC diagnostic push\") _Pragma(\"GCC diagnostic ignored \\\"-Wdeprecated-declarations\\\"\") __VA_ARGS__ _Pragma(\"GCC diagnostic pop\")\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "\n";
-        file.header.contents += "\n";
-        file.header.contents += "// Define `MRBINDC_BIT_CAST()`. We have several implementations to choose from.\n";
-        file.header.contents += "// [\n";
-        file.header.contents += "\n";
-        file.header.contents += "// std::bit_cast\n";
-        file.header.contents += "#ifndef MRBINDC_BIT_CAST\n";
-        file.header.contents += "#if __has_include(<version>)\n";
-        file.header.contents += "#include <version>\n";
-        file.header.contents += "#ifdef __cpp_lib_bit_cast\n";
-        file.header.contents += "#include <bit>\n";
-        file.header.contents += "#define MRBINDC_BIT_CAST(p_type_, ...) std::bit_cast<MRBINDC_IDENTITY p_type_>(__VA_ARGS__)\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "\n";
-        file.header.contents += "// __builtin_bit_cast\n";
-        file.header.contents += "#ifndef MRBINDC_BIT_CAST\n";
-        file.header.contents += "#ifdef __has_builtin\n";
-        file.header.contents += "#if __has_builtin(__builtin_bit_cast)\n";
-        file.header.contents += "#define MRBINDC_BIT_CAST(p_type_, ...) __builtin_bit_cast(MRBINDC_IDENTITY p_type_, __VA_ARGS__) // How this handles commas in the first argument is a mystery, but it does.\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "\n";
-        file.header.contents += "// reinterpret_cast\n";
-        file.header.contents += "#ifndef MRBINDC_BIT_CAST\n";
-        file.header.contents += "#include <type_traits>\n";
-        file.header.contents += "#define MRBINDC_BIT_CAST(p_type_, ...) (MRBINDC_IDENTITY p_type_ (reinterpret_cast<std::add_lvalue_reference_t<std::add_const_t<MRBINDC_IDENTITY p_type_>>>(mrbindc_details::unmove(__VA_ARGS__))))\n";
-        file.header.contents += "#endif\n";
-        file.header.contents += "\n";
-        file.header.contents += "// ]\n";
+        file.header.contents +=
+            "namespace mrbindc_details\n"
+            "{\n"
+            "    // Those are used to handle by-value arguments of class types, which are passed as a pointer plus a enum explaining how to handle it.\n"
+            "    // The `cpp_type_without_wrapper_` vs `cpp_type_` are different for optionals: `cpp_type_` is either `T` or `std::optional<T>`, while `cpp_type_without_wrapper_` is always the `T` itself.\n"
+            "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n"
+            "    #define MRBINDC_CLASSARG_COPY(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Copy ? __VA_ARGS__(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_) :\n"
+            "    #define MRBINDC_CLASSARG_MOVE(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Move ? __VA_ARGS__(std::move(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_)) :\n"
+            "    #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `\" #enum_constant_ \"` was used.\") : __VA_ARGS__(default_arg_)) :\n"
+            "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? throw std::runtime_error(\"Function parameter `\" #param_ \" doesn't support `\" #enum_constant_ \"`.\") :\n"
+            "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n"
+            "\n"
+            "    // Converts an rvalue to an lvalue.\n"
+            "    template <typename T> constexpr T &unmove(T &&value) {return static_cast<T &>(value);}\n"
+            "} // namespace mrbindc_details\n"
+            "\n"
+            "\n"
+            "#define MRBINDC_IDENTITY(...) __VA_ARGS__\n"
+            "\n"
+            "#if defined(_MSC_VER) && !defined(__clang__)\n"
+            "#define MRBINDC_IGNORE_DEPRECATION(...) _Pragma(\"warning(push)\") _Pragma(\"warning(disable: 4996)\") __VA_ARGS__ _Pragma(\"warning(pop)\")\n"
+            "#else\n"
+            "#define MRBINDC_IGNORE_DEPRECATION(...) _Pragma(\"GCC diagnostic push\") _Pragma(\"GCC diagnostic ignored \\\"-Wdeprecated-declarations\\\"\") __VA_ARGS__ _Pragma(\"GCC diagnostic pop\")\n"
+            "#endif\n"
+            "\n"
+            "\n"
+            "// Define `MRBINDC_BIT_CAST()`. We have several implementations to choose from.\n"
+            "// [\n"
+            "\n"
+            "// std::bit_cast\n"
+            "#ifndef MRBINDC_BIT_CAST\n"
+            "#if __has_include(<version>)\n"
+            "#include <version>\n"
+            "#ifdef __cpp_lib_bit_cast\n"
+            "#include <bit>\n"
+            "#define MRBINDC_BIT_CAST(p_type_, ...) std::bit_cast<MRBINDC_IDENTITY p_type_>(__VA_ARGS__)\n"
+            "#endif\n"
+            "#endif\n"
+            "#endif\n"
+            "\n"
+            "// __builtin_bit_cast\n"
+            "#ifndef MRBINDC_BIT_CAST\n"
+            "#ifdef __has_builtin\n"
+            "#if __has_builtin(__builtin_bit_cast)\n"
+            "#define MRBINDC_BIT_CAST(p_type_, ...) __builtin_bit_cast(MRBINDC_IDENTITY p_type_, __VA_ARGS__) // How this handles commas in the first argument is a mystery, but it does.\n"
+            "#endif\n"
+            "#endif\n"
+            "#endif\n"
+            "\n"
+            "// reinterpret_cast\n"
+            "#ifndef MRBINDC_BIT_CAST\n"
+            "#include <type_traits>\n"
+            "#define MRBINDC_BIT_CAST(p_type_, ...) (MRBINDC_IDENTITY p_type_ (reinterpret_cast<std::add_lvalue_reference_t<std::add_const_t<MRBINDC_IDENTITY p_type_>>>(mrbindc_details::unmove(__VA_ARGS__))))\n"
+            "#endif\n"
+            "\n"
+            "// ]\n"
+        ;
 
         return file;
     }
@@ -311,29 +313,33 @@ namespace mrbind::CBindings
         // The custom 64-bit typedefs.
         if (custom_typedef_for_uint64_t_pointing_to_size_t)
         {
-            file->header.contents += "#ifdef __APPLE__\n";
-            file->header.contents += "#include <stddef.h>\n";
-            file->header.contents += "typedef ptrdiff_t " + MakePublicHelperName("int64_t") + ";\n";
-            file->header.contents += "typedef size_t " + MakePublicHelperName("uint64_t") + ";\n";
-            file->header.contents += "#else\n";
-            file->header.contents += "#include <stdint.h>\n";
-            file->header.contents += "typedef int64_t " + MakePublicHelperName("int64_t") + ";\n";
-            file->header.contents += "typedef uint64_t " + MakePublicHelperName("uint64_t") + ";\n";
-            file->header.contents += "#endif\n";
-            file->header.contents += "\n";
+            file->header.contents +=
+                "#ifdef __APPLE__\n"
+                "#include <stddef.h>\n"
+                "typedef ptrdiff_t " + MakePublicHelperName("int64_t") + ";\n"
+                "typedef size_t " + MakePublicHelperName("uint64_t") + ";\n"
+                "#else\n"
+                "#include <stdint.h>\n"
+                "typedef int64_t " + MakePublicHelperName("int64_t") + ";\n"
+                "typedef uint64_t " + MakePublicHelperName("uint64_t") + ";\n"
+                "#endif\n"
+                "\n"
+            ;
         }
 
         { // The pass-by enum.
             std::string name = GetPassByEnumName();
 
-            file->header.contents += "\ntypedef enum " + name + "\n";
-            file->header.contents += "{\n";
-            file->header.contents += "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n";
-            file->header.contents += "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n";
-            file->header.contents += "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n";
-            file->header.contents += "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n";
-            file->header.contents += "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n";
-            file->header.contents += "} " + name + ";\n";
+            file->header.contents +=
+                "\ntypedef enum " + name + "\n"
+                "{\n"
+                "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n"
+                "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n"
+                "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n"
+                "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n"
+                "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n"
+                "} " + name + ";\n"
+            ;
         }
 
         { // Memory management functions.
@@ -508,17 +514,19 @@ namespace mrbind::CBindings
 
         if (file_is_new)
         {
-            file.header.contents += "#ifndef " + macro_name + "\n";
-            file.header.contents += "#  ifdef _WIN32\n";
-            file.header.contents += "#    ifdef " + GetBuildLibraryMacroForFile(target_file) + "\n";
-            file.header.contents += "#      define " + macro_name + " __declspec(dllexport)\n";
-            file.header.contents += "#    else\n";
-            file.header.contents += "#      define " + macro_name + " __declspec(dllimport)\n";
-            file.header.contents += "#    endif\n";
-            file.header.contents += "#  else\n";
-            file.header.contents += "#    define " + macro_name + " __attribute__((__visibility__(\"default\")))\n";
-            file.header.contents += "#  endif\n";
-            file.header.contents += "#endif\n";
+            file.header.contents +=
+                "#ifndef " + macro_name + "\n"
+                "#  ifdef _WIN32\n"
+                "#    ifdef " + GetBuildLibraryMacroForFile(target_file) + "\n"
+                "#      define " + macro_name + " __declspec(dllexport)\n"
+                "#    else\n"
+                "#      define " + macro_name + " __declspec(dllimport)\n"
+                "#    endif\n"
+                "#  else\n"
+                "#    define " + macro_name + " __attribute__((__visibility__(\"default\")))\n"
+                "#  endif\n"
+                "#endif\n"
+            ;
         }
 
         return macro_name;
@@ -3806,10 +3814,7 @@ namespace mrbind::CBindings
             file.header.contents += '\n';
 
             if (en.comment)
-            {
-                file.header.contents += en.comment->text_with_slashes;
-                file.header.contents += '\n';
-            }
+                self.EmitCommentLow(file.header, en.comment->text_with_slashes + '\n');
 
             // Should we also handle `[u]int32_t` here somehow? Feels a bit weird to assume that they're always equivalent to `int`,
             //   but the parser can emit them with `--canonicalize-to-fixed-size-typedefs`...
