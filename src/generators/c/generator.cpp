@@ -2415,7 +2415,7 @@ namespace mrbind::CBindings
 
     void Generator::EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)
     {
-        // The comment.
+        // Emit the comment, if any. This works fine even if the comment is empty, in which case it just inserts a separating newline.
         assert(!comment.starts_with('\n'));
         comment = '\n' + comment;
         EmitCommentLow(file.header, comment);
@@ -2493,6 +2493,92 @@ namespace mrbind::CBindings
 
         file.header.contents += "} " + std::string(c_type_str) + ";\n";
     }
+
+    void Generator::EmitEnum(OutputFile &file, std::string comment, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func)
+    {
+        // Emit the comment, if any. This works fine even if the comment is empty, in which case it just inserts a separating newline.
+        assert(!comment.starts_with('\n'));
+        comment = '\n' + comment;
+        EmitCommentLow(file.header, comment);
+
+
+        // Should we also handle `[u]int32_t` here somehow? Maybe not.
+        const bool is_default_underlying_type = cpp_underlying_type == "int" || cpp_underlying_type == "unsigned int";
+
+        // This can crash if the underlying type isn't a known un
+        auto underlying_type_info = data.platform_info.FindPrimitiveType(cpp_underlying_type);
+        if (!underlying_type_info)
+            throw std::runtime_error("Unknown underlying type `" + std::string(cpp_underlying_type) + "` for enum `" + std::string(c_enum_name) + "`.");
+        const bool is_signed = underlying_type_info->kind == PrimitiveTypeInfo::Kind::signed_integral;
+
+        if (is_default_underlying_type)
+        {
+            file.header.contents += "typedef enum " + std::string(c_enum_name) + "\n{\n";
+        }
+        else
+        {
+            // If the underlying type isn't `[unsigned] int`, we need special care to keep the type size same in C and C++.
+
+            // Since the underlying type can be a `[u]int??_t` typedef (because of `--canonicalize-to-fixed-size-typedefs`), we might need a header!
+            // The type must be parsed as a type, not a qualified name, because e.g. `unsigned int` isn't one.
+            // Here I'm arbitrarily picking the return usage, it should be present for all the types that are simple enough to be used as underlying.
+            auto usage = FindBindableType(ParseTypeOrThrow(std::string(cpp_underlying_type))).return_usage.value();
+            // Add the necessary headers. Maybe this is a standard typedef, or ours?
+            usage.AddDependenciesToFile(*this, file, InsertHeadersMode::insert_to_header);
+
+            // Can't use `en.canonical_underlying_type` here, because we might need to convert `[u]int64_t` to our own typedef.
+            file.header.contents += "typedef " + CppdeclToCode(usage.c_type) + " " + std::string(c_enum_name) + ";\n";
+        }
+
+        bool first = true;
+        func([&](std::string elem_comment, std::string_view elem_name, std::uint64_t elem_unsigned_value)
+        {
+            if (first)
+            {
+                first = false;
+
+                if (!is_default_underlying_type)
+                {
+                    file.header.contents += "enum // " + std::string(c_enum_name) + "\n";
+                    file.header.contents += "{\n";
+                }
+            }
+
+            // The element comment, if any.
+            if (!elem_comment.empty())
+            {
+                assert(!elem_comment.starts_with('\n'));
+                EmitCommentLow(file.header, IndentString(elem_comment, 1, true, false));
+            }
+
+            file.header.contents += "    ";
+            file.header.contents += c_enum_name;
+            file.header.contents += '_';
+            file.header.contents += elem_name;
+            file.header.contents += " = ";
+            file.header.contents += is_signed ? std::to_string(std::int64_t(elem_unsigned_value)) : std::to_string(elem_unsigned_value);
+            file.header.contents += ",\n";
+        });
+
+        // The dummy element if there are no real elements, because C enums can't be empty.
+        if (first && is_default_underlying_type)
+        {
+            first = false;
+            file.header.contents += "    ";
+            file.header.contents += c_enum_name;
+            file.header.contents += "_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.\n";
+        }
+
+        // Close the body.
+        if (!first)
+        {
+            if (is_default_underlying_type)
+                file.header.contents += "} " + std::string(c_enum_name) + ";\n";
+            else
+                file.header.contents += "};\n";
+        }
+    }
+
 
     // This fills `parsed_type_info` with the knowledge about all parsed types.
     struct Generator::VisitorRegisterKnownTypes : Visitor
@@ -3811,77 +3897,23 @@ namespace mrbind::CBindings
 
             const auto &c_type_str = self.parsed_type_info.at(parsed_type_str).c_type_str;
 
-            file.header.contents += '\n';
-
-            if (en.comment)
-                self.EmitCommentLow(file.header, en.comment->text_with_slashes + '\n');
-
-            // Should we also handle `[u]int32_t` here somehow? Feels a bit weird to assume that they're always equivalent to `int`,
-            //   but the parser can emit them with `--canonicalize-to-fixed-size-typedefs`...
-            const bool is_default_underlying_type = en.canonical_underlying_type == "int" || en.canonical_underlying_type == "unsigned int";
-
-            // If the enum uses a custom underlying type and have no elements, there's no point in emitting a `enum {dummy};`, it just looks ugly.
-            const bool need_body = is_default_underlying_type || !en.elems.empty();
-
-            if (is_default_underlying_type)
-            {
-                file.header.contents += "typedef enum " + c_type_str + "\n";
-            }
-            else
-            {
-                // If the underlying type isn't `[unsigned] int`, we need special care to keep the type size same in C and C++.
-
-                // Since the underlying type can be a `[u]int??_t` typedef (because of `--canonicalize-to-fixed-size-typedefs`), we might need a header!
-                // The type must be parsed as a type, not a qualified name, because e.g. `unsigned int` isn't one.
-                // Here I'm arbitrarily picking the return usage, it should be present for all the types that are simple enough to be used as underlying.
-                auto usage = self.FindBindableType(self.ParseTypeOrThrow(en.canonical_underlying_type)).return_usage.value();
-                // Add the necessary headers. Maybe this is a standard typedef, or ours?
-                usage.AddDependenciesToFile(self, file, InsertHeadersMode::insert_to_header);
-
-                // Can't use `en.canonical_underlying_type` here, because we might need to convert `[u]int64_t` to our own typedef.
-                file.header.contents += "typedef " + self.CppdeclToCode(usage.c_type) + " " + c_type_str + ";\n";
-
-                if (need_body)
-                    file.header.contents += "enum // " + c_type_str + "\n";
-            }
-
-            // The list of constants, if needed.
-            if (need_body)
-            {
-                file.header.contents += "{\n";
-
-                if (en.elems.empty())
+            self.EmitEnum(
+                file,
+                en.comment ? en.comment->text_with_slashes + '\n' : "",
+                c_type_str,
+                en.canonical_underlying_type,
+                [&](EmitEnumFunc emit_elem)
                 {
-                    // No empty enums in C, so we need a placeholder element.
-                    file.header.contents += "    ";
-                    file.header.contents += c_type_str;
-                    file.header.contents += "_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.\n";
-                }
-                else
-                {
-                    for (const EnumElem &elem : en.elems)
+                    for (const auto &elem : en.elems)
                     {
-                        if (elem.comment)
-                        {
-                            file.header.contents += IndentString(elem.comment->text_with_slashes, 1, true);
-                            file.header.contents += '\n';
-                        }
-
-                        file.header.contents += "    ";
-                        file.header.contents += c_type_str;
-                        file.header.contents += '_';
-                        file.header.contents += elem.name;
-                        file.header.contents += " = ";
-                        file.header.contents += en.is_signed ? std::to_string(std::int64_t(elem.unsigned_value)) : std::to_string(elem.unsigned_value);
-                        file.header.contents += ",\n";
+                        emit_elem(
+                            elem.comment ? elem.comment->text_with_slashes + '\n' : "",
+                            elem.name,
+                            elem.unsigned_value
+                        );
                     }
                 }
-
-                if (is_default_underlying_type)
-                    file.header.contents += "} " + c_type_str + ";\n";
-                else
-                    file.header.contents += "};\n";
-            }
+            );
         }
 
         // void Visit(const TypedefEntity &td) override

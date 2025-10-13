@@ -1356,6 +1356,15 @@ namespace mrbind::CBindings
         void EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func);
 
 
+        // Here if `elem_comment` isn't empty, must end with a newline and must include leading slashes.
+        // `elem_name` automatically gets the enum name prepended to it, followed by `_`.
+        // The `unsigned_value` is not optional. It'll be conditionally cast to `std::int64_t` if the `cpp_underlying_type` passed to `EmitEnum()` is signed.
+        using EmitEnumFunc = std::function<void(std::string elem_comment, std::string_view elem_name, std::uint64_t elem_unsigned_value)>;
+
+        // Emits a enum.
+        void EmitEnum(OutputFile &file, std::string comment, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func);
+
+
         struct Visitor
         {
             virtual ~Visitor() = default;
