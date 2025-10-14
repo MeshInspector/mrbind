@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/ordered_set_and_map.h"
 #include "common/parsed_data.h"
 #include "common/polyfill/std_filesystem_path_hash.h" // IWYU pragma: keep
 #include "common/string_filter.h"
@@ -108,30 +109,52 @@ namespace mrbind::CBindings
             enum class Kind
             {
                 non_virt, // Non-virtual, possibly indirect.
-                virt, // Either virtual, or indirect through a virtual base.
+                true_virt, // True virtual base.
+                virt_path, // A non-virtual base inherited along a virtual path.
                 ambiguous,
             };
 
             // Using ordered containers to sort everything automatically.
             // All strings here are pre-baked with `cppdecl`.
 
-            std::set<std::string> bases_direct_nonvirtual;
-            // The reverse mapping for `bases_direct_nonvirtual`.
-            std::set<std::string> derived_direct_nonvirtual;
+            // Only direct virtual and non-virtual bases. This isn't very useful for virtual bases, but that's what the parser emits.
+            // The `true` value means that the base is virtual.
+            OrderedMap<std::string, bool> bases_direct_combined;
 
-            // Both direct and indirect. The virtual bases are always in a flat list.
-            std::set<std::string> bases_indirect_virtual;
+            // Classes directly derived from this one, non-virtually.
+            // This is the reverse mapping for a part of `bases_direct_combined` (with `false` values).
+            std::set<std::string, std::less<>> derived_direct_nonvirtual;
 
-            // Both direct and indirect. `true` means this base is ambiguous.
-            std::map<std::string, bool> bases_indirect_nonvirtual;
+            // All virtual bases of this class, including indirect ones, but excluding non-virtual bases inherited through a virtual path.
+            OrderedSet<std::string> bases_indirect_true_virtual;
 
-            // Both direct and indirect.
-            std::map<std::string, Kind, std::less<>> bases_indirect;
-            // The reverse mapping for `bases_indirect`.
+            // Both direct and indirect. This does include the non-virtual bases of virtual bases, which isn't listed anywhere else.
+            OrderedMap<std::string, Kind> bases_indirect;
+            // The reverse mapping for `bases_indirect`. This is sorted instead of being ordered, because there's no meaningful order to maintain here.
             std::map<std::string, Kind, std::less<>> derived_indirect;
 
+            // Queries `bases_indirect` or `derived_indirect`, returns true if it's not empty.
+            [[nodiscard]] bool HaveAnyIndirect(bool derived) const;
+
             // Queries `bases_indirect` or `derived_indirect`, returns true if we have at least one base/derived with the specified `kind`.
-            [[nodiscard]] bool HaveAny(bool derived, Kind kind) const;
+            [[nodiscard]] bool HaveIndirectOfKind(bool derived, Kind kind) const;
+
+            // Do we have a direct base/derived with this name?
+            [[nodiscard]] bool HaveDirectNonVirtualNamed(bool derived, std::string_view name) const;
+
+            void ForEachIndirect(bool derived, auto &&func) const
+            {
+                if (derived)
+                {
+                    for (const auto &elem : derived_indirect)
+                        func(elem);
+                }
+                else
+                {
+                    for (const auto &elem : bases_indirect.Vec())
+                        func(*bases_indirect.Map().find(elem));
+                }
+            }
         };
         // Inheritance information for parsed classes.
         // The map keys are pre-baked with `cppdecl`, and so are all strings inside.

@@ -762,20 +762,6 @@ MR_Bases_H *MR_Bases_H_OffsetMutablePtr(MR_Bases_H *ptr, ptrdiff_t i)
     return (MR_Bases_H *)(((MR::Bases::H *)ptr) + i);
 }
 
-const MR_Bases_A *MR_Bases_H_UpcastTo_MR_Bases_A(const MR_Bases_H *object)
-{
-    return (const MR_Bases_A *)(static_cast<const MR::Bases::A *>(
-        ((const MR::Bases::H *)object)
-    ));
-}
-
-MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object)
-{
-    return (MR_Bases_A *)(static_cast<MR::Bases::A *>(
-        ((MR::Bases::H *)object)
-    ));
-}
-
 const MR_Bases_E *MR_Bases_H_UpcastTo_MR_Bases_E(const MR_Bases_H *object)
 {
     return (const MR_Bases_E *)(static_cast<const MR::Bases::E *>(
@@ -800,6 +786,20 @@ const MR_Bases_F *MR_Bases_H_UpcastTo_MR_Bases_F(const MR_Bases_H *object)
 MR_Bases_F *MR_Bases_H_MutableUpcastTo_MR_Bases_F(MR_Bases_H *object)
 {
     return (MR_Bases_F *)(static_cast<MR::Bases::F *>(
+        ((MR::Bases::H *)object)
+    ));
+}
+
+const MR_Bases_A *MR_Bases_H_UpcastTo_MR_Bases_A(const MR_Bases_H *object)
+{
+    return (const MR_Bases_A *)(static_cast<const MR::Bases::A *>(
+        ((const MR::Bases::H *)object)
+    ));
+}
+
+MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object)
+{
+    return (MR_Bases_A *)(static_cast<MR::Bases::A *>(
         ((MR::Bases::H *)object)
     ));
 }
@@ -848,20 +848,6 @@ MR_Bases_I *MR_Bases_I_OffsetMutablePtr(MR_Bases_I *ptr, ptrdiff_t i)
     return (MR_Bases_I *)(((MR::Bases::I *)ptr) + i);
 }
 
-const MR_Bases_A *MR_Bases_I_UpcastTo_MR_Bases_A(const MR_Bases_I *object)
-{
-    return (const MR_Bases_A *)(static_cast<const MR::Bases::A *>(
-        ((const MR::Bases::I *)object)
-    ));
-}
-
-MR_Bases_A *MR_Bases_I_MutableUpcastTo_MR_Bases_A(MR_Bases_I *object)
-{
-    return (MR_Bases_A *)(static_cast<MR::Bases::A *>(
-        ((MR::Bases::I *)object)
-    ));
-}
-
 const MR_Bases_E *MR_Bases_I_UpcastTo_MR_Bases_E(const MR_Bases_I *object)
 {
     return (const MR_Bases_E *)(static_cast<const MR::Bases::E *>(
@@ -886,6 +872,20 @@ const MR_Bases_F *MR_Bases_I_UpcastTo_MR_Bases_F(const MR_Bases_I *object)
 MR_Bases_F *MR_Bases_I_MutableUpcastTo_MR_Bases_F(MR_Bases_I *object)
 {
     return (MR_Bases_F *)(static_cast<MR::Bases::F *>(
+        ((MR::Bases::I *)object)
+    ));
+}
+
+const MR_Bases_A *MR_Bases_I_UpcastTo_MR_Bases_A(const MR_Bases_I *object)
+{
+    return (const MR_Bases_A *)(static_cast<const MR::Bases::A *>(
+        ((const MR::Bases::I *)object)
+    ));
+}
+
+MR_Bases_A *MR_Bases_I_MutableUpcastTo_MR_Bases_A(MR_Bases_I *object)
+{
+    return (MR_Bases_A *)(static_cast<MR::Bases::A *>(
         ((MR::Bases::I *)object)
     ));
 }

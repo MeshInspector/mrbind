@@ -89,7 +89,7 @@ typedef struct MR_Bases_D3 MR_Bases_D3;
 
 /// Generated from class `MR::Bases::E`.
 /// Derived classes:
-///   Virtual:
+///   Non-virtual along a virtual path:
 ///     `MR::Bases::G`
 ///     `MR::Bases::H`
 ///     `MR::Bases::I`
@@ -113,16 +113,18 @@ typedef struct MR_Bases_F MR_Bases_F;
 /// Generated from class `MR::Bases::G`.
 /// Base classes:
 ///   Virtual:
-///     `MR::Bases::E`
 ///     `MR::Bases::F`
+///   Non-virtual along a virtual path:
+///     `MR::Bases::E`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_G MR_Bases_G;
 
 /// Generated from class `MR::Bases::H`.
 /// Base classes:
 ///   Virtual:
-///     `MR::Bases::E`
 ///     `MR::Bases::F`
+///   Non-virtual along a virtual path:
+///     `MR::Bases::E`
 ///   Direct: (non-virtual)
 ///     `MR::Bases::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -131,9 +133,10 @@ typedef struct MR_Bases_H MR_Bases_H;
 /// Generated from class `MR::Bases::I`.
 /// Base classes:
 ///   Virtual:
-///     `MR::Bases::A`
-///     `MR::Bases::E`
 ///     `MR::Bases::F`
+///     `MR::Bases::A`
+///   Non-virtual along a virtual path:
+///     `MR::Bases::E`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_I MR_Bases_I;
 
@@ -637,13 +640,6 @@ MR_C_API const MR_Bases_H *MR_Bases_H_OffsetPtr(const MR_Bases_H *ptr, ptrdiff_t
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Bases_H *MR_Bases_H_OffsetMutablePtr(MR_Bases_H *ptr, ptrdiff_t i);
 
-/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
-/// This version is acting on mutable pointers.
-MR_C_API const MR_Bases_A *MR_Bases_H_UpcastTo_MR_Bases_A(const MR_Bases_H *object);
-
-/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
-MR_C_API MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object);
-
 /// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::E`.
 /// This version is acting on mutable pointers.
 MR_C_API const MR_Bases_E *MR_Bases_H_UpcastTo_MR_Bases_E(const MR_Bases_H *object);
@@ -657,6 +653,13 @@ MR_C_API const MR_Bases_F *MR_Bases_H_UpcastTo_MR_Bases_F(const MR_Bases_H *obje
 
 /// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::F`.
 MR_C_API MR_Bases_F *MR_Bases_H_MutableUpcastTo_MR_Bases_F(MR_Bases_H *object);
+
+/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
+/// This version is acting on mutable pointers.
+MR_C_API const MR_Bases_A *MR_Bases_H_UpcastTo_MR_Bases_A(const MR_Bases_H *object);
+
+/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
+MR_C_API MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object);
 
 /// Generated from a constructor of class `MR::Bases::H`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_H_Destroy()` to free it when you're done using it.
@@ -688,13 +691,6 @@ MR_C_API const MR_Bases_I *MR_Bases_I_OffsetPtr(const MR_Bases_I *ptr, ptrdiff_t
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Bases_I *MR_Bases_I_OffsetMutablePtr(MR_Bases_I *ptr, ptrdiff_t i);
 
-/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
-/// This version is acting on mutable pointers.
-MR_C_API const MR_Bases_A *MR_Bases_I_UpcastTo_MR_Bases_A(const MR_Bases_I *object);
-
-/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
-MR_C_API MR_Bases_A *MR_Bases_I_MutableUpcastTo_MR_Bases_A(MR_Bases_I *object);
-
 /// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::E`.
 /// This version is acting on mutable pointers.
 MR_C_API const MR_Bases_E *MR_Bases_I_UpcastTo_MR_Bases_E(const MR_Bases_I *object);
@@ -708,6 +704,13 @@ MR_C_API const MR_Bases_F *MR_Bases_I_UpcastTo_MR_Bases_F(const MR_Bases_I *obje
 
 /// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::F`.
 MR_C_API MR_Bases_F *MR_Bases_I_MutableUpcastTo_MR_Bases_F(MR_Bases_I *object);
+
+/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
+/// This version is acting on mutable pointers.
+MR_C_API const MR_Bases_A *MR_Bases_I_UpcastTo_MR_Bases_A(const MR_Bases_I *object);
+
+/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
+MR_C_API MR_Bases_A *MR_Bases_I_MutableUpcastTo_MR_Bases_A(MR_Bases_I *object);
 
 /// Generated from a constructor of class `MR::Bases::I`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_I_Destroy()` to free it when you're done using it.
