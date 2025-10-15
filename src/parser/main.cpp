@@ -2895,10 +2895,9 @@ namespace mrbind
             // Write the output.
             for (std::size_t i = 0; i < multiplexed_data.size(); i++)
             {
-                std::error_code ec;
-                llvm::raw_fd_stream out(params->output_filenames.at(i), ec);
-                if (ec)
-                    throw std::runtime_error("Unable to open output file: " + ec.message());
+                std::ofstream out(MakePath(params->output_filenames.at(i)));
+                if (!out)
+                    throw std::runtime_error("Unable to open output file: `" + params->output_filenames.at(i) + "`.");
 
                 switch (params->output_format)
                 {
@@ -2913,6 +2912,9 @@ namespace mrbind
                     mrbind::ParsedFileToMacros(multiplexed_data[i], out);
                     break;
                 }
+
+                if (!out)
+                    throw std::runtime_error("Write error to output file: `" + params->output_filenames.at(i) + "`.");
             }
         }
     };

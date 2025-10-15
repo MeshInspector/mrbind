@@ -3,7 +3,7 @@
 #include "generators/c/generator.h"
 #include "generators/c/module.h"
 #include "generators/common/command_line_args_as_utf8.h"
-#include "generators/common/data_from_file.h"
+#include "generators/common/data_from_json.h"
 
 #include <fstream>
 #include <iomanip>

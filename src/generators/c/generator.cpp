@@ -107,33 +107,6 @@ namespace mrbind::CBindings
         internal_header.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
     }
 
-    bool Generator::InheritanceInfo::HaveAnyIndirect(bool derived) const
-    {
-        return derived ? !derived_indirect.empty() : !bases_indirect.Vec().empty();
-    }
-
-    bool Generator::InheritanceInfo::HaveIndirectOfKind(bool derived, Kind kind) const
-    {
-        if (derived)
-            return std::any_of(derived_indirect.begin(), derived_indirect.end(), [&](const auto &elem){return elem.second == kind;});
-        else
-            return std::any_of(bases_indirect.Map().begin(), bases_indirect.Map().end(), [&](const auto &elem){return elem.second == kind;});
-    }
-
-    // Do we have a direct base/derived with this name?
-    bool Generator::InheritanceInfo::HaveDirectNonVirtualNamed(bool derived, std::string_view name) const
-    {
-        if (derived)
-        {
-            return derived_direct_nonvirtual.contains(name);
-        }
-        else
-        {
-            auto iter = bases_direct_combined.Map().find(name);
-            return iter != bases_direct_combined.Map().end() && !iter->second;
-        }
-    }
-
     std::set<std::string, std::less<>> Generator::ParsedFilenameToRelativeNamesForInclusion(const DeclFileName &input)
     {
         std::set<std::string, std::less<>> ret;
@@ -2803,15 +2776,15 @@ namespace mrbind::CBindings
     void Generator::ConstructInheritanceGraph()
     {
         // This fills `most_derived_info.bases_indirect` and `most_derived_info.bases_indirect_true_virtual`.
-        auto RecurseIntoDirectBase = [&](auto &self, InheritanceInfo &most_derived_info, const std::string &cpp_base_name, InheritanceInfo::Kind kind) -> void
+        auto RecurseIntoDirectBase = [&](auto &self, CInterop::InheritanceInfo &most_derived_info, const std::string &cpp_base_name, CInterop::InheritanceInfo::Kind kind) -> void
         {
-            if (kind == InheritanceInfo::Kind::true_virt)
+            if (kind == CInterop::InheritanceInfo::Kind::true_virt)
             {
-                if (!most_derived_info.bases_indirect_true_virtual.TryEmplace(cpp_base_name))
+                if (!most_derived_info.bases_indirect_true_virtual.Insert(cpp_base_name))
                     return; // Duplicate true virtual base, don't recurse further.
             }
 
-            const InheritanceInfo &base_info = parsed_class_inheritance_info.at(cpp_base_name);
+            const CInterop::InheritanceInfo &base_info = parsed_class_inheritance_info.at(cpp_base_name);
 
             // Recurse.
             for (const auto &cpp_base_of_base_name : base_info.bases_direct_combined.Vec())
@@ -2820,10 +2793,10 @@ namespace mrbind::CBindings
                     self,
                     most_derived_info,
                     cpp_base_of_base_name,
-                    kind == InheritanceInfo::Kind::ambiguous ? Generator::InheritanceInfo::Kind::ambiguous :
-                        base_info.bases_direct_combined.Map().at(cpp_base_of_base_name) ? Generator::InheritanceInfo::Kind::true_virt :
-                        kind == InheritanceInfo::Kind::true_virt || kind == InheritanceInfo::Kind::virt_path ? Generator::InheritanceInfo::Kind::virt_path :
-                        Generator::InheritanceInfo::Kind::non_virt
+                    kind == CInterop::InheritanceInfo::Kind::ambiguous ? CInterop::InheritanceInfo::Kind::ambiguous :
+                        base_info.bases_direct_combined.Map().at(cpp_base_of_base_name) ? CInterop::InheritanceInfo::Kind::true_virt :
+                        kind == CInterop::InheritanceInfo::Kind::true_virt || kind == CInterop::InheritanceInfo::Kind::virt_path ? CInterop::InheritanceInfo::Kind::virt_path :
+                        CInterop::InheritanceInfo::Kind::non_virt
                 );
             }
 
@@ -2834,7 +2807,7 @@ namespace mrbind::CBindings
                 // When `kind == ambiguous`, this ends up unconditionally setting the resulting kind to `ambiguous` as well, which is what we want.
                 // When `kind == true_virt`, we've already checked above that we aren't revisiting a true virtual base, so we don't need any custom behavior here.
                 if (!is_new || kind_ref != kind)
-                    kind_ref = InheritanceInfo::Kind::ambiguous;
+                    kind_ref = CInterop::InheritanceInfo::Kind::ambiguous;
             }
         };
 
@@ -2865,7 +2838,7 @@ namespace mrbind::CBindings
             if (!info_is_new)
                 return;
 
-            InheritanceInfo &info = info_iter->second;
+            CInterop::InheritanceInfo &info = info_iter->second;
 
             // Set up `info.bases_direct_combined`, and also recursively initialize the bases.
             for (const ClassBase &parsed_base : cl->bases)
@@ -2881,7 +2854,7 @@ namespace mrbind::CBindings
                 // Visit bases recursively.
                 // This is a separate purely for simplicity. We could merge them, even though this one isn't limited to process each class once
                 //   (we could keep track of that still, and only run a part of the code when revisiting a class).
-                RecurseIntoDirectBase(RecurseIntoDirectBase, info, cpp_base_name, parsed_base.is_virtual ? Generator::InheritanceInfo::Kind::true_virt : Generator::InheritanceInfo::Kind::non_virt);
+                RecurseIntoDirectBase(RecurseIntoDirectBase, info, cpp_base_name, parsed_base.is_virtual ? CInterop::InheritanceInfo::Kind::true_virt : CInterop::InheritanceInfo::Kind::non_virt);
             }
         };
 
@@ -3394,7 +3367,7 @@ namespace mrbind::CBindings
 
                     class_comment_str += "/// Generated from class `" + cpp_class_name_str_deco + "`.\n";
 
-                    const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
+                    const CInterop::InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
 
                     { // The part of the comment explaning the inheritance graph.
                         auto PrintBasesOrDerived = [&](bool print_derived)
@@ -3414,10 +3387,10 @@ namespace mrbind::CBindings
 
                                     inheritance_info.ForEachIndirect(print_derived, [&](const auto &other)
                                     {
-                                        if (other.second != InheritanceInfo::Kind::true_virt && other.second != InheritanceInfo::Kind::virt_path)
+                                        if (other.second != CInterop::InheritanceInfo::Kind::true_virt && other.second != CInterop::InheritanceInfo::Kind::virt_path)
                                             return;
 
-                                        (other.second == InheritanceInfo::Kind::true_virt ? true_virt : virt_path) += "///     `" + MakeNameDecorative(other.first) + "`\n";
+                                        (other.second == CInterop::InheritanceInfo::Kind::true_virt ? true_virt : virt_path) += "///     `" + MakeNameDecorative(other.first) + "`\n";
                                     });
 
                                     if (!true_virt.empty())
@@ -3432,7 +3405,7 @@ namespace mrbind::CBindings
 
                                     inheritance_info.ForEachIndirect(print_derived, [&](const auto &other)
                                     {
-                                        if (other.second != InheritanceInfo::Kind::non_virt)
+                                        if (other.second != CInterop::InheritanceInfo::Kind::non_virt)
                                             return;
 
                                         std::string &str = inheritance_info.HaveDirectNonVirtualNamed(print_derived, other.first) ? dir : indir;
@@ -3447,13 +3420,13 @@ namespace mrbind::CBindings
                                 }
 
                                 // Ambiguous.
-                                if (inheritance_info.HaveIndirectOfKind(print_derived, InheritanceInfo::Kind::ambiguous))
+                                if (inheritance_info.HaveIndirectOfKind(print_derived, CInterop::InheritanceInfo::Kind::ambiguous))
                                 {
                                     class_comment_str += "///   Ambiguous:\n";
 
                                     inheritance_info.ForEachIndirect(print_derived, [&](const auto &other)
                                     {
-                                        if (other.second != InheritanceInfo::Kind::ambiguous)
+                                        if (other.second != CInterop::InheritanceInfo::Kind::ambiguous)
                                             return;
 
                                         class_comment_str += "///     `" + MakeNameDecorative(other.first) + "`\n";
@@ -3523,7 +3496,7 @@ namespace mrbind::CBindings
                 const ParsedTypeInfo &parsed_type_info = self.parsed_type_info.at(cpp_class_name_str);
                 const ParsedTypeInfo::ClassDesc &parsed_class_info = std::get<ParsedTypeInfo::ClassDesc>(parsed_type_info.input_type);
 
-                const InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
+                const CInterop::InheritanceInfo &inheritance_info = self.parsed_class_inheritance_info.at(cpp_class_name_str);
 
 
                 // If this is a same-layout struct that is trivially-default-constructible, we don't want the default constructor (and its array version).
@@ -3657,7 +3630,7 @@ namespace mrbind::CBindings
                         {
                             inheritance_info.ForEachIndirect(is_downcast, [&](const auto &target)
                             {
-                                if (target.second == InheritanceInfo::Kind::ambiguous)
+                                if (target.second == CInterop::InheritanceInfo::Kind::ambiguous)
                                     return;
 
                                 // The C type name of the target.
@@ -3668,7 +3641,7 @@ namespace mrbind::CBindings
                                 for (bool is_dynamic : {false, true})
                                 {
                                     // Virtual downcasts must be dynamic.
-                                    if (is_downcast && !is_dynamic && (target.second == Generator::InheritanceInfo::Kind::true_virt || target.second == InheritanceInfo::Kind::virt_path))
+                                    if (is_downcast && !is_dynamic && (target.second == CInterop::InheritanceInfo::Kind::true_virt || target.second == CInterop::InheritanceInfo::Kind::virt_path))
                                         continue;
 
                                     // If this is a dynamic cast, then the source type must be polymorphic.

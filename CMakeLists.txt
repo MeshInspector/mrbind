@@ -67,9 +67,13 @@ option(MRBIND_BUILD_GENERATOR_C "Build the C binding generator." ON)
 if(MRBIND_BUILD_GENERATOR_C)
     add_library(mrbind_gen_common STATIC
         src/generators/common/command_line_args_as_utf8.cpp
-        src/generators/common/data_from_file.cpp
         src/generators/common/data_from_json.cpp
         src/generators/common/load_file.cpp
+    )
+
+    add_library(mrbind_c_interop STATIC
+        src/generators/c_interop/c_output_desc.cpp
+        src/generators/c_interop/desc_to_and_from_json.cpp
     )
 endif()
 
@@ -102,5 +106,6 @@ if(MRBIND_BUILD_GENERATOR_C)
     target_link_libraries(mrbind_gen_c PRIVATE
         mrbind_common
         mrbind_gen_common
+        mrbind_c_interop
     )
 endif()

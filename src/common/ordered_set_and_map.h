@@ -28,7 +28,7 @@ namespace mrbind
 
         // Returns true if the element is new/
         template <typename TT = T>
-        bool TryEmplace(TT &&value)
+        bool Insert(TT &&value)
         {
             auto ret = set.insert(std::forward<TT>(value));
             if (ret.second)
@@ -63,6 +63,12 @@ namespace mrbind
             if (ret.second)
                 vec.push_back(ret.first->first);
             return {ret.first->second, ret.second};
+        }
+        // Insert an entire pair. This is used in container deserialization.
+        template <typename Pair>
+        bool Insert(Pair &&pair)
+        {
+            return TryEmplace(std::forward<Pair>(pair).first, std::forward<Pair>(pair).second).second;
         }
 
         [[nodiscard]] MapType::iterator FindMutable(const auto &key) const
