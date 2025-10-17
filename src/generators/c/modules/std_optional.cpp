@@ -66,7 +66,7 @@ namespace mrbind::CBindings::Modules
 
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The stored element or null if none, " + std::string(is_const ? "read-only" : "mutable") + ".";
-                        emit.c_name = binder.MakeMemberFuncName(generator, std::string(is_const ? "" : "Mutable") + "Value");
+                        emit.name = binder.MakeMemberFuncName(generator, std::string(is_const ? "" : "Mutable") + "Value");
                         emit.cpp_return_type = cpp_elem_type;
                         if (emit.cpp_return_type.Is<cppdecl::Reference>())
                         {
@@ -148,6 +148,8 @@ namespace mrbind::CBindings::Modules
 
                 return ret;
             };
+            // All this is considered sugar, because we're not passing the optional as an opaque pointer.
+            param_usage.considered_sugar_for_interop = true;
 
 
             // Param usage WITH the default argument gets a bit weird. If this is a class that uses the `PassBy` enum (as indicated by its `supports_default_arguments_in_wrappers == true`),
@@ -196,6 +198,9 @@ namespace mrbind::CBindings::Modules
 
                     return ret;
                 };
+
+                // This is still considered sugar, since we aren't just passing a pointer to the optional.
+                param_usage_defarg.considered_sugar_for_interop = true;
             }
             else
             {
@@ -203,6 +208,8 @@ namespace mrbind::CBindings::Modules
 
                 // This can return null. LOL.
                 new_type.param_usage_with_default_arg = binder.MakeParamUsageSupportingDefaultArg(generator);
+
+                // Not setting `considered_sugar_for_interop` here, this is not sugar.
             }
 
             // Filter out the null default arguments.

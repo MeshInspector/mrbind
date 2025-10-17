@@ -106,6 +106,7 @@ namespace mrbind::CBindings::Modules
 
                 return ret;
             };
+            // Not setting `considered_sugar_for_interop` because we have a special category for those tags: `CInterop::TypeKinds::EmptyTag`.
 
             return ret;
         }

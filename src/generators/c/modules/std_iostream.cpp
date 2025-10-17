@@ -41,7 +41,7 @@ namespace mrbind::CBindings::Modules
                     { // cout
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stdout` stream.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdCout");
+                        emit.name = generator.MakeFreeFuncName("GetStdCout");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::cout";
                         emit.cpp_called_func_parens = {};
@@ -51,7 +51,7 @@ namespace mrbind::CBindings::Modules
                     { // cerr
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stderr` stream, buffered.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdCerr");
+                        emit.name = generator.MakeFreeFuncName("GetStdCerr");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::cerr";
                         emit.cpp_called_func_parens = {};
@@ -61,7 +61,7 @@ namespace mrbind::CBindings::Modules
                     { // clog
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stderr` stream, unbuffered.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdClog");
+                        emit.name = generator.MakeFreeFuncName("GetStdClog");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::clog";
                         emit.cpp_called_func_parens = {};
@@ -71,7 +71,7 @@ namespace mrbind::CBindings::Modules
                     { // cin
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stdin` stream.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdCin");
+                        emit.name = generator.MakeFreeFuncName("GetStdCin");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("istream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::cin";
                         emit.cpp_called_func_parens = {};

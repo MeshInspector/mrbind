@@ -150,7 +150,7 @@ namespace mrbind::CBindings::Modules
                     { // Get pointer. Doesn't propagate const, since `std::unique_ptr` doesn't too.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the stored pointer, possibly null.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Get");
+                        emit.name = binder.MakeMemberFuncName(generator, "Get");
 
                         emit.cpp_return_type = underlying_ptr_type;
 
@@ -166,7 +166,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns an element from the stored array. The stored pointer must not be null.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "At");
+                        emit.name = binder.MakeMemberFuncName(generator, "At");
 
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Reference{});
 
@@ -191,7 +191,7 @@ namespace mrbind::CBindings::Modules
                             "/// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.\n"
                             "/// The returned pointer is owning! It must be deallocated using `" + func_name_destroy_released_ptr + "()`.";
 
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Release");
+                        emit.name = binder.MakeMemberFuncName(generator, "Release");
 
                         emit.cpp_return_type = underlying_ptr_type;
 
@@ -268,6 +268,7 @@ namespace mrbind::CBindings::Modules
 
                         return ret;
                     };
+                param_usage.considered_sugar_for_interop = true;
 
                 // Param usage with the default argument:
                 auto underlying_c_ptr_to_ptr_type = underlying_c_ptr_type;
@@ -338,6 +339,8 @@ namespace mrbind::CBindings::Modules
                     };
 
                 param_usage_defarg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
+                param_usage_defarg.considered_sugar_for_interop = true;
+
                 new_type.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
 
@@ -364,6 +367,7 @@ namespace mrbind::CBindings::Modules
                         ret += ").release()";
                         return ret;
                     };
+                new_type.return_usage->considered_sugar_for_interop = true; // The automatic releasing is sugar!
 
                 new_type.return_usage->append_to_comment = [func_name_destroy_released_ptr](std::string_view callback_param_name) -> std::string
                 {

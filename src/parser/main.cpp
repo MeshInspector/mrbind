@@ -529,7 +529,7 @@ namespace mrbind
 
     // Divides the input by the byte size.
     // Throws if not it's not a multiple of the byte size.
-    [[nodiscard]] auto DivideByByteSize(std::unsigned_integral auto n)
+    [[nodiscard]] auto DivideByByteSize(std::unsigned_integral auto n) -> decltype(n)
     {
         // For now we unconditionally assume byte size 8.
         // Clang hardcodes the same thing in `ci->getTarget().getCharWidth()`, so whatever.
@@ -2885,8 +2885,8 @@ namespace mrbind
                 );
 
                 // Pointers:
-                params->parsed_result.platform_info.pointer_size = ci->getTarget().PointerWidth;
-                params->parsed_result.platform_info.pointer_alignment = ci->getTarget().PointerAlign;
+                params->parsed_result.platform_info.pointer_size = DivideByByteSize(ci->getTarget().PointerWidth);
+                params->parsed_result.platform_info.pointer_alignment = DivideByByteSize(ci->getTarget().PointerAlign);
             }
 
             // Multiplex the output between several files, if needed.

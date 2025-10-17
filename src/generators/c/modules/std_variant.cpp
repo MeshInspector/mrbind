@@ -68,7 +68,7 @@ namespace mrbind::CBindings::Modules
                     { // index
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the index of the stored element type. In rare cases may return -1 if this variant is \"valueless by exception\".";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Index");
+                        emit.name = binder.MakeMemberFuncName(generator, "Index");
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                         emit.AddThisParam(type, true);
                         emit.cpp_called_func = "index";
@@ -100,7 +100,7 @@ namespace mrbind::CBindings::Modules
                         {
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Constructs the variant storing the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`.";
-                            emit.c_name = binder.MakeMemberFuncName(generator, "ConstructAs_" + type_identifiers[i]);
+                            emit.name = binder.MakeMemberFuncName(generator, "ConstructAs_" + type_identifiers[i], CInterop::MethodKinds::Constructor{});
                             emit.cpp_return_type = type;
                             emit.params.push_back({
                                 .name = "value",
@@ -115,7 +115,7 @@ namespace mrbind::CBindings::Modules
                         {
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Assigns to the variant, making it store the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`.";
-                            emit.c_name = binder.MakeMemberFuncName(generator, "AssignAs_" + type_identifiers[i]);
+                            emit.name = binder.MakeMemberFuncName(generator, "AssignAs_" + type_identifiers[i]);
                             emit.AddThisParam(type, false);
                             emit.params.push_back({
                                 .name = "value",
@@ -162,7 +162,7 @@ namespace mrbind::CBindings::Modules
                                 name += type_identifiers[i];
 
                                 emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
-                                emit.c_name = binder.MakeMemberFuncName(generator, name);
+                                emit.name = binder.MakeMemberFuncName(generator, name);
 
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);

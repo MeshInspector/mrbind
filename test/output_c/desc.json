@@ -1,0 +1,154 @@
+{
+    "cpp_types": {},
+    "functions": [],
+    "platform_info": {
+        "primitive_types": {
+            "char": {
+                "type_size": 1,
+                "type_alignment": 1,
+                "typedef_for": null,
+                "kind": "signed_integral"
+            },
+            "double": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": null,
+                "kind": "floating_point"
+            },
+            "float": {
+                "type_size": 4,
+                "type_alignment": 4,
+                "typedef_for": null,
+                "kind": "floating_point"
+            },
+            "int": {
+                "type_size": 4,
+                "type_alignment": 4,
+                "typedef_for": null,
+                "kind": "signed_integral"
+            },
+            "int16_t": {
+                "type_size": 2,
+                "type_alignment": 2,
+                "typedef_for": "short",
+                "kind": "signed_integral"
+            },
+            "int32_t": {
+                "type_size": 4,
+                "type_alignment": 4,
+                "typedef_for": "int",
+                "kind": "signed_integral"
+            },
+            "int64_t": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": "long",
+                "kind": "signed_integral"
+            },
+            "int8_t": {
+                "type_size": 1,
+                "type_alignment": 1,
+                "typedef_for": "signed char",
+                "kind": "signed_integral"
+            },
+            "long": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": null,
+                "kind": "signed_integral"
+            },
+            "long double": {
+                "type_size": 16,
+                "type_alignment": 16,
+                "typedef_for": null,
+                "kind": "floating_point"
+            },
+            "long long": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": null,
+                "kind": "signed_integral"
+            },
+            "ptrdiff_t": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": "long",
+                "kind": "signed_integral"
+            },
+            "short": {
+                "type_size": 2,
+                "type_alignment": 2,
+                "typedef_for": null,
+                "kind": "signed_integral"
+            },
+            "signed char": {
+                "type_size": 1,
+                "type_alignment": 1,
+                "typedef_for": null,
+                "kind": "signed_integral"
+            },
+            "size_t": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": "unsigned long",
+                "kind": "unsigned_integral"
+            },
+            "uint16_t": {
+                "type_size": 2,
+                "type_alignment": 2,
+                "typedef_for": "unsigned short",
+                "kind": "unsigned_integral"
+            },
+            "uint32_t": {
+                "type_size": 4,
+                "type_alignment": 4,
+                "typedef_for": "unsigned int",
+                "kind": "unsigned_integral"
+            },
+            "uint64_t": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": "unsigned long",
+                "kind": "unsigned_integral"
+            },
+            "uint8_t": {
+                "type_size": 1,
+                "type_alignment": 1,
+                "typedef_for": "unsigned char",
+                "kind": "unsigned_integral"
+            },
+            "unsigned char": {
+                "type_size": 1,
+                "type_alignment": 1,
+                "typedef_for": null,
+                "kind": "unsigned_integral"
+            },
+            "unsigned int": {
+                "type_size": 4,
+                "type_alignment": 4,
+                "typedef_for": null,
+                "kind": "unsigned_integral"
+            },
+            "unsigned long": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": null,
+                "kind": "unsigned_integral"
+            },
+            "unsigned long long": {
+                "type_size": 8,
+                "type_alignment": 8,
+                "typedef_for": null,
+                "kind": "unsigned_integral"
+            },
+            "unsigned short": {
+                "type_size": 2,
+                "type_alignment": 2,
+                "typedef_for": null,
+                "kind": "unsigned_integral"
+            }
+        },
+        "pointer_size": 8,
+        "pointer_alignment": 8
+    }
+}

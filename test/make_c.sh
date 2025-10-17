@@ -82,6 +82,7 @@ build/mrbind_gen_c \
     --input test/output_c/parsed.json \
     --output-header-dir test/output_c/include \
     --output-source-dir test/output_c/source \
+    --output-desc-json test/output_c/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}"
 
 build/mrbind \
@@ -96,6 +97,7 @@ build/mrbind_gen_c \
     --input test/output_c_fixed_typedefs/parsed.json \
     --output-header-dir test/output_c_fixed_typedefs/include \
     --output-source-dir test/output_c_fixed_typedefs/source \
+    --output-desc-json test/output_c_fixed_typedefs/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --reject-long-and-long-long \
     --use-size_t-typedef-for-uint64_t \
@@ -112,6 +114,7 @@ build/mrbind \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 
+# No `--output-desc-json` here, just to test that omitting it isn't broken.
 build/mrbind_gen_c \
     --input test/output_c_fixed_typedefs_64_only/parsed.json \
     --output-header-dir test/output_c_fixed_typedefs_64_only/include \

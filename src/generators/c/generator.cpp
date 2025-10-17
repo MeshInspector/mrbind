@@ -281,20 +281,6 @@ namespace mrbind::CBindings
         return MakePublicHelperName("PassBy");
     }
 
-    std::string Generator::GetMemoryDeallocFuncName(bool is_array, OutputFile *file)
-    {
-        if (file)
-            file->header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
-        return MakePublicHelperName(is_array ? "FreeArray" : "Free");
-    }
-
-    std::string Generator::GetMemoryAllocFuncName(bool is_array, OutputFile *file)
-    {
-        if (file)
-            file->header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
-        return MakePublicHelperName(is_array ? "AllocArray" : "Alloc");
-    }
-
     Generator::OutputFile *Generator::GetCommonPublicHelpersFile(bool can_create)
     {
         bool is_new = false;
@@ -342,16 +328,16 @@ namespace mrbind::CBindings
                 { // Allocate.
                     EmitFuncParams emit;
 
-                    emit.c_comment = "/// Allocates `n` bytes of memory, which can then be freed using `" + GetMemoryDeallocFuncName(is_array, nullptr) + "()`.";
+                    emit.c_comment = "/// Allocates `n` bytes of memory, which can then be freed using `" + GetMemoryDeallocFuncName(is_array, nullptr).c + "()`.";
                     if (is_array)
                     {
                         emit.c_comment +=
-                            "\n/// For all purposes this is equivalent to `" + GetMemoryAllocFuncName(false, nullptr) + "()` and `" + GetMemoryDeallocFuncName(false, nullptr) + "()`, but the deallocation functions are not interchangable."
+                            "\n/// For all purposes this is equivalent to `" + GetMemoryAllocFuncName(false, nullptr).c + "()` and `" + GetMemoryDeallocFuncName(false, nullptr).c + "()`, but the deallocation functions are not interchangable."
                             "\n/// This is a bit weird, but we have to have separate deallocation functions for arrays and non-arrays, because ASAN complains otherwise."
                             "\n/// So the allocation functions must be provided separately for both too.";
                     }
 
-                    emit.c_name = GetMemoryAllocFuncName(is_array, nullptr);
+                    emit.name = GetMemoryAllocFuncName(is_array, nullptr);
 
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
 
@@ -370,9 +356,9 @@ namespace mrbind::CBindings
                 { // Deallocate.
                     EmitFuncParams emit;
 
-                    emit.c_comment = "/// Deallocates memory that was previously allocated with `" + GetMemoryAllocFuncName(is_array, nullptr) + "()`. Does nothing if the pointer is null.";
+                    emit.c_comment = "/// Deallocates memory that was previously allocated with `" + GetMemoryAllocFuncName(is_array, nullptr).c + "()`. Does nothing if the pointer is null.";
 
-                    emit.c_name = GetMemoryDeallocFuncName(is_array, nullptr);
+                    emit.name = GetMemoryDeallocFuncName(is_array, nullptr);
 
                     emit.params.push_back({
                         .name = "ptr",
@@ -585,16 +571,6 @@ namespace mrbind::CBindings
         }
 
         return false;
-    }
-
-    std::string Generator::GetClassDestroyFuncName(std::string_view c_type_name, bool is_array) const
-    {
-        return std::string(c_type_name) + (is_array ? "_DestroyArray" : "_Destroy");
-    }
-
-    std::string Generator::GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const
-    {
-        return std::string(c_type_name) + (is_const ? "_OffsetPtr" : "_OffsetMutablePtr");
     }
 
     const Generator::TypeBindableWithSameAddress &Generator::AddNewTypeBindableWithSameAddress(const cppdecl::QualifiedName &cpp_type_name, TypeBindableWithSameAddress desc)
@@ -903,9 +879,13 @@ namespace mrbind::CBindings
                 return &iter->second;
         }
 
-
+        // Make sure the type is legal.
         CheckForBannedTypes(type);
 
+        auto InsertNewType = [&](BindableType new_binding) -> const BindableType *
+        {
+            return &map.try_emplace(type_str, std::move(new_binding)).first->second;
+        };
 
         // Ask the modules first.
         // We need this to be able to override the default bindings in some cases, for the types otherwise handled by `MakeSimpleTypeBinding()`.
@@ -917,12 +897,12 @@ namespace mrbind::CBindings
             {
                 // Strictly with sugar.
                 if (auto opt = m->GetBindableType(*this, type, type_str))
-                    return &map.try_emplace(type_str, *opt).first->second;
+                    return InsertNewType(*opt);
             }
 
             // Maybe without sugar.
             if (auto opt = m->GetBindableTypeMaybeWithoutSugar(*this, type, type_str, remove_sugar))
-                return &map.try_emplace(type_str, *opt).first->second;
+                return InsertNewType(*opt);
         }
 
 
@@ -931,7 +911,7 @@ namespace mrbind::CBindings
         {
             // This handles all the `IsSimplyBindable{Direct{,Cast},Indirect{,Reinterpret}}` types.
             if (auto opt = MakeSimpleTypeBinding(*this, type))
-                return &map.try_emplace(type_str, *opt).first->second;
+                return InsertNewType(*opt);
 
             // Maybe a class?
             // This binds the same way regardless of sugar.
@@ -943,9 +923,9 @@ namespace mrbind::CBindings
                     if (auto class_desc = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
                     {
                         if (!class_desc->is_same_layout_struct)
-                            return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits)).first->second;
+                            return InsertNewType(MakeByValueParsedClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits));
                         else
-                            return &map.try_emplace(type_str, MakeBitCastClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits, {.size = class_desc->parsed->type_size, .alignment = class_desc->parsed->type_alignment})).first->second;
+                            return InsertNewType(MakeBitCastClassBinding(*this, type.simple_type.name, iter->second.c_type_str, class_desc->traits, {.size = class_desc->parsed->type_size, .alignment = class_desc->parsed->type_alignment}));
                     }
                 }
                 // A custom desugared class based on a sugared one?
@@ -955,7 +935,7 @@ namespace mrbind::CBindings
                     {
                         cppdecl::Type c_type = type;
                         ReplaceAllNamesInTypeWithCNames(c_type);
-                        return &map.try_emplace(type_str, MakeByValueParsedClassBinding(*this, type.simple_type.name, CppdeclToCode(c_type), opt->traits.value())).first->second;
+                        return InsertNewType(MakeByValueParsedClassBinding(*this, type.simple_type.name, CppdeclToCode(c_type), opt->traits.value()));
                     }
                 }
             }
@@ -1628,7 +1608,8 @@ namespace mrbind::CBindings
         if (new_func.IsPostIncrOrDecr())
             RemoveIntParamFromPostIncrOrDecr();
 
-        c_name = self.overloaded_names.at(&new_func).name;
+        name.c = self.overloaded_names.at(&new_func).name;
+        name.cpp_for_interop = CInterop::FuncKinds::Regular{.name = new_func.qual_name, .full_name = new_func.full_qual_name};
 
         SetReturnTypeFromParsedFunc(self, new_func);
 
@@ -1693,9 +1674,9 @@ namespace mrbind::CBindings
             // Special member functions have fixed names.
 
             // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-            c_name = self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_class.full_type));
+            name.c = self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_class.full_type));
             // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
-            c_name += "_ConstructFromAnother";
+            name.c += "_ConstructFromAnother";
 
             // Rewrite the parameter to be a non-reference.
             assert(params.at(0).cpp_type.Is<cppdecl::Reference>());
@@ -1704,8 +1685,9 @@ namespace mrbind::CBindings
         }
         else
         {
-            c_name = self.overloaded_names.at(&new_ctor).name;
+            name.c = self.overloaded_names.at(&new_ctor).name;
         }
+        name.cpp_for_interop = CInterop::MethodKinds::Constructor{};
 
         cpp_return_type = cpp_type;
 
@@ -1745,9 +1727,11 @@ namespace mrbind::CBindings
         if (new_method.assignment_kind != CopyMoveKind::none)
         {
             // Intentionally not using `FindTypeBindableWithSameAddress()` here, since this is only for parsed types.
-            c_name = self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_class.full_type));
+            name.c = self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_class.full_type));
             // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
-            c_name += "_AssignFromAnother";
+            name.c += "_AssignFromAnother";
+
+            name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = "="};
 
             // Rewrite the parameter to be a non-reference.
             // Note that here (unlike in the constructors) this has to be conditional, because assignments take accept parameters by value.
@@ -1759,7 +1743,12 @@ namespace mrbind::CBindings
         }
         else
         {
-            c_name = self.overloaded_names.at(&new_method).name;
+            name.c = self.overloaded_names.at(&new_method).name;
+
+            if (new_method.IsOverloadedOperator())
+                name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = std::string(new_method.GetOverloadedOperatorToken())};
+            else
+                name.cpp_for_interop = CInterop::MethodKinds::Regular{.name = new_method.name, .full_name = new_method.full_name};
         }
 
         SetReturnTypeFromParsedFunc(self, new_method);
@@ -1813,9 +1802,11 @@ namespace mrbind::CBindings
         const std::string target_cpp_type_str = self.CppdeclToCode(cpp_return_type);
         const std::string target_cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_return_type);
 
-        c_name = self.parsed_type_info.at(cpp_type_str).c_type_str;
-        c_name += "_ConvertTo_";
-        c_name += self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_conv_op.return_type.canonical));
+        name.c = self.parsed_type_info.at(cpp_type_str).c_type_str;
+        name.c += "_ConvertTo_";
+        name.c += self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_conv_op.return_type.canonical));
+
+        name.cpp_for_interop = CInterop::MethodKinds::ConversionOperator{};
 
         cpp_called_func = "(" + target_cpp_type_str + ")(@this@)";
 
@@ -1847,13 +1838,14 @@ namespace mrbind::CBindings
 
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
 
-        auto SetFuncName = [&](std::string_view name)
+        auto SetFuncName = [&](std::string_view new_name)
         {
-            c_name = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
-            c_name += '_';
-            c_name += name;
-            c_name += '_';
-            c_name += self.CppdeclToIdentifier(full_name_parsed);
+            name.c = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
+            name.c += '_';
+            name.c += new_name;
+            name.c += '_';
+            name.c += self.CppdeclToIdentifier(full_name_parsed);
+            name.ignore_in_interop = true; // Field accessors are ignored here, because the fields are listed directly.
         };
 
         // Special handling for the function returning the array size, if this is an array.
@@ -2025,7 +2017,10 @@ namespace mrbind::CBindings
 
             try
             {
-                std::string param_name_fixed = !param.name.empty() ? param.name : is_this_param ? "_this" : "_" + std::to_string(i);
+                EmittedFunctionStrings::ParamInfo &out_param_info = ret.params_info.emplace_back();
+
+                out_param_info.fixed_name = !param.name.empty() ? param.name : is_this_param ? "_this" : "_" + std::to_string(i);
+                const auto &param_name_fixed = out_param_info.fixed_name;
 
                 std::string arg_expr;
                 if (param.custom_argument_spelling)
@@ -2051,6 +2046,7 @@ namespace mrbind::CBindings
                         : std::nullopt;
 
                     const bool has_useful_default_arg = param.default_arg && !useless_default_arg_message;
+                    out_param_info.has_useful_default_arg = has_useful_default_arg;
 
                     if (has_useful_default_arg && !bindable_param_type.param_usage_with_default_arg)
                         throw std::runtime_error("Unable to bind this function because this parameter has a default argument, but the binding for its type doesn't support default arguments.");
@@ -2225,7 +2221,7 @@ namespace mrbind::CBindings
         }
 
 
-        ret.decl.name.parts.emplace_back(params.c_name);
+        ret.decl.name.parts.emplace_back(params.name.c);
         ret.decl.type.modifiers.emplace_back(std::move(new_func));
 
         // Handle the return type.
@@ -2362,6 +2358,58 @@ namespace mrbind::CBindings
         return ret;
     }
 
+    Generator::EmitFuncParams::Name Generator::GetMemoryDeallocFuncName(bool is_array, OutputFile *file)
+    {
+        if (file)
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
+        EmitFuncParams::Name ret;
+        ret.c = MakePublicHelperName(is_array ? "FreeArray" : "Free");
+        ret.ignore_in_interop = true;
+        return ret;
+    }
+
+    Generator::EmitFuncParams::Name Generator::GetMemoryAllocFuncName(bool is_array, OutputFile *file)
+    {
+        if (file)
+            file->header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
+        EmitFuncParams::Name ret;
+        ret.c = MakePublicHelperName(is_array ? "AllocArray" : "Alloc");
+        ret.ignore_in_interop = true;
+        return ret;
+    }
+
+    Generator::EmitFuncParams::Name Generator::MakeMemberFuncName(std::string_view c_type_name, std::string func_name, std::optional<CInterop::MethodKindVar> interop_var) const
+    {
+        Generator::EmitFuncParams::Name ret;
+        ret.c = c_type_name;
+        ret.c += '_';
+        ret.c += func_name;
+        ret.cpp_for_interop = interop_var ? std::move(*interop_var) : CInterop::MethodKinds::Regular{.name = func_name, .full_name = std::move(func_name)};
+        return ret;
+    }
+
+    Generator::EmitFuncParams::Name Generator::GetClassDestroyFuncName(std::string_view c_type_name, bool is_array) const
+    {
+        auto ret = MakeMemberFuncName(c_type_name, (is_array ? "DestroyArray" : "Destroy"));
+        ret.ignore_in_interop = true;
+        return ret;
+    }
+
+    Generator::EmitFuncParams::Name Generator::GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const
+    {
+        auto ret = MakeMemberFuncName(c_type_name, (is_const ? "OffsetPtr" : "OffsetMutablePtr"));
+        ret.ignore_in_interop = true;
+        return ret;
+    }
+
+    Generator::EmitFuncParams::Name Generator::MakeFreeFuncName(std::string name, std::optional<CInterop::FuncKindVar> var) const
+    {
+        EmitFuncParams::Name ret;
+        ret.c = MakePublicHelperName(name);
+        ret.cpp_for_interop = var ? std::move(*var) : CInterop::FuncKinds::Regular{.name = name, .full_name = std::move(name)};
+        return ret;
+    }
+
     void Generator::EmitFunction(OutputFile &file, const EmitFuncParams &params)
     {
         try
@@ -2383,6 +2431,73 @@ namespace mrbind::CBindings
             file.source.contents += '\n';
             file.source.contents += strings.body;
             file.source.contents += '\n';
+
+            // Dump function description!
+            if (output_desc && !params.name.ignore_in_interop)
+            {
+                const bool is_member = !params.params.empty() && (params.params.front().kind == EmitFuncParams::Param::Kind::this_ref || params.params.front().kind == EmitFuncParams::Param::Kind::static_);
+
+                CInterop::BasicFuncLike *func_like = nullptr;
+
+                if (is_member)
+                {
+                    CInterop::ClassMethod &new_method = FindClassDescForInterop(params.params.front().cpp_type).methods.emplace_back();
+                    func_like = &new_method;
+
+                    new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
+                }
+                else
+                {
+                    CInterop::Function &new_func = output_desc->functions.emplace_back();
+                    func_like = &new_func;
+
+                    new_func.var = std::get<CInterop::FuncKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
+                }
+
+                { // The comment.
+                    assert(!params.c_comment.starts_with('\n'));
+                    assert(!params.c_comment.ends_with('\n'));
+
+                    func_like->comment.c_style = params.c_comment;
+                    func_like->comment.c_style += '\n';
+                }
+
+                func_like->c_name = params.name.c;
+
+                func_like->ret.cpp_type = CppdeclToCode(params.cpp_return_type);
+                func_like->ret.uses_sugar = !params.remove_return_type_sugar && FindBindableType(params.cpp_return_type).return_usage.value().considered_sugar_for_interop;
+
+                // Parameters.
+                func_like->params.reserve(params.params.size());
+                assert(strings.params_info.size() == params.params.size());
+
+                for (std::size_t i = 0; const EmitFuncParams::Param &input_param : params.params)
+                {
+                    CInterop::FuncParam &new_param = func_like->params.emplace_back();
+
+                    new_param.cpp_type = CppdeclToCode(input_param.cpp_type);
+                    new_param.name = input_param.name;
+                    new_param.name_or_placeholder = strings.params_info[i].fixed_name;
+
+                    if (input_param.default_arg)
+                    {
+                        new_param.default_arg_spelling = input_param.default_arg->original_spelling;
+                        new_param.default_arg_affects_parameter_passing = strings.params_info[i].has_useful_default_arg;
+                    }
+
+                    new_param.uses_sugar = !input_param.remove_sugar && FindBindableType(input_param.cpp_type).GetParamUsage(new_param.default_arg_affects_parameter_passing).considered_sugar_for_interop;
+
+                    if (input_param.kind == EmitFuncParams::Param::Kind::this_ref)
+                        new_param.this_param.emplace().is_static = false;
+                    else if (input_param.kind == EmitFuncParams::Param::Kind::static_)
+                        new_param.this_param.emplace().is_static = true;
+
+                    i++;
+                }
+                #error this section looks finished to me. We also finished setting up `considered_sugar_for_interop` for both param usages and return usages, I think.
+                #error 1. fix error in FindClassDescForInterop
+                #error 2. make various type emitting funcs fill the missing interop info for the types they emit.
+            }
         }
         catch (std::exception &e)
         {
@@ -2591,6 +2706,30 @@ namespace mrbind::CBindings
         return binder;
     }
 
+    CInterop::TypeKinds::Class &Generator::FindClassDescForInterop(cppdecl::Type cpp_type)
+    {
+        // Remove constness and reference-ness.
+        if (cpp_type.Is<cppdecl::Reference>())
+            cpp_type.RemoveModifier();
+        cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+        try
+        {
+            const auto &binding = FindBindableType(cpp_type);
+            if (!binding.interop_info)
+                throw std::logic_error("Internal error: The interop information for this type wasn't populated it. Was this function called too early?");
+
+            auto class_info = std::get_if<CInterop::TypeKinds::Class>(&binding.interop_info);
+            if (!class_info)
+                throw std::runtime_error("This type isn't a class.");
+
+            return *class_info;
+        }
+        catch (...)
+        {
+            std::throw_with_nested(std::runtime_error("While trying to find a description of type `" + CppdeclToCode(cpp_type) + "` for interop purposes:"));
+        }
+    }
 
     // This fills `parsed_type_info` with the knowledge about all parsed types.
     struct Generator::VisitorRegisterKnownTypes : Visitor
@@ -3600,7 +3739,7 @@ namespace mrbind::CBindings
                         {
                             EmitFuncParams emit;
                             emit.c_comment = "/// Constructs `" + cpp_class_name_str_deco + "` elementwise.";
-                            emit.c_name = binder.MakeMemberFuncName(self, "ConstructFrom");
+                            emit.name = binder.MakeMemberFuncName(self, "ConstructFrom", CInterop::MethodKinds::Constructor{});
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_class_name);
                             for (const MemberDesc &member_desc : member_descs)
                             {
@@ -3685,7 +3824,7 @@ namespace mrbind::CBindings
                                                 emit.c_comment += "\n/// This version is acting on mutable pointers.";
 
                                             // The upcasts don't need the static-vs-dynamic part in the name, because there is always at most one anyway.
-                                            emit.c_name = binder.MakeMemberFuncName(
+                                            emit.name = binder.MakeMemberFuncName(
                                                 self,
                                                 std::string(is_const ? "" : "Mutable") +
                                                 (!is_downcast ? "UpcastTo" : is_dynamic ? (acts_on_ref ? "DynamicDowncastToOrFail" : "DynamicDowncastTo") : "StaticDowncastTo") +
@@ -3951,6 +4090,12 @@ namespace mrbind::CBindings
 
     void Generator::Generate()
     {
+        // If we're creating a desc json, fill it with basic platform information.
+        if (output_desc)
+        {
+            output_desc->platform_info = data.platform_info;
+        }
+
         { // Construct the `type_alt_spelling_to_canonical` mapping.
             for (const auto &elem : data.type_info)
             {

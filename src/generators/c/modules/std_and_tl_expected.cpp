@@ -109,7 +109,7 @@ namespace mrbind::CBindings::Modules
                                     emit.c_comment += " This version returns a mutable pointer.";
                             }
 
-                            emit.c_name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Value");
+                            emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Value");
 
                             if (value_type_is_void)
                             {
@@ -146,7 +146,7 @@ namespace mrbind::CBindings::Modules
                             if (!is_const)
                                 emit.c_comment += " This version returns a mutable pointer.";
 
-                            emit.c_name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Error");
+                            emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Error");
 
                             emit.cpp_return_type = cpp_elem_type_error;
                             emit.cpp_return_type.AddQualifiers(cppdecl::CvQualifiers::const_ * is_const);

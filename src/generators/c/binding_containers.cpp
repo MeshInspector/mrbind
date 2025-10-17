@@ -119,7 +119,7 @@ namespace mrbind::CBindings
                     { // Construct from range
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Construct from a range of elements.";
-                        emit.c_name = class_binder.MakeMemberFuncName(generator, "ConstructFromRange");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "ConstructFromRange", CInterop::MethodKinds::Constructor{});
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name);
                         emit.params.push_back({
                             .name = "ptr",
@@ -136,7 +136,7 @@ namespace mrbind::CBindings
                     { // Assign from range
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Assign from a range of elements, overwriting previous contents.";
-                        emit.c_name = class_binder.MakeMemberFuncName(generator, "AssignFromRange");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "AssignFromRange", CInterop::MethodKinds::Operator{.token = "="});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "ptr",

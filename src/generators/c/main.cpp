@@ -2,6 +2,7 @@
 #include "common/set_error_handlers.h"
 #include "generators/c/generator.h"
 #include "generators/c/module.h"
+#include "generators/c_interop/desc_to_and_from_json.h"
 #include "generators/common/command_line_args_as_utf8.h"
 #include "generators/common/data_from_json.h"
 
@@ -16,6 +17,8 @@ int main(int raw_argc, char **raw_argv)
     mrbind::CommandLineArgsAsUtf8 args(raw_argc, raw_argv);
 
     std::string input_filename;
+    std::string output_json_desc_filename;
+
     bool clean_output_dirs = false;
 
     bool verbose = false;
@@ -33,6 +36,7 @@ int main(int raw_argc, char **raw_argv)
         bool seen_input_filename = false;
         bool seen_output_header_dir = false;
         bool seen_output_source_dir = false;
+        bool seen_output_json_desc_filename = false;
         bool seen_helper_header_dir = false;
         bool seen_helper_name_prefix = false;
         bool seen_helper_macro_name_prefix = false;
@@ -56,8 +60,9 @@ int main(int raw_argc, char **raw_argv)
                     "    --input               <filename.json>  - Input JSON file, as produced by `mrbind --format=json`.\n"
                     "    --output-header-dir   <dir>            - Output directory for headers. Must be empty or not exist, unless you pass `--clean-output-dirs` too. It's always an error if it exists and is not a directory.\n"
                     "    --output-source-dir   <dir>            - Output directory for sources. Same rules are for `--output-header-dir`.\n"
-                    "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
                     "    --clean-output-dirs                    - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
+                    "    --output-desc-json    <filename.json>  - Optional. Outputs an additional JSON describing the generated C code, which is useful for building bindings for other languages on top of the C ones.\n"
+                    "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
                     "    --helper-header-dir         <dir>      - Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.\n"
                     "    --helper-name-prefix        <string>   - This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.\n"
                     "    --helper-macro-name-prefix  <string>   - Optional. If specified, it overrides `--helper-name-prefix` specifically for macro names.\n"
@@ -199,6 +204,12 @@ int main(int raw_argc, char **raw_argv)
                 continue;
             if (ConsumeFlagWithNoArgs("--clean-output-dirs", clean_output_dirs, &seen_clean_output_dirs))
                 continue;
+            if (ConsumeFlagWithStringArg("--output-desc-json", output_json_desc_filename, &seen_output_json_desc_filename))
+            {
+                generator.output_desc.emplace(); // Tell the generator to begin collecting the description.
+                continue;
+            }
+
             { // --map-path
                 std::string from, to;
                 if (ConsumeFlagWithTwoStringArgs("--map-path", from, to, nullptr))
@@ -398,6 +409,17 @@ int main(int raw_argc, char **raw_argv)
     // Generate all sources, in memory for now.
     generator.Generate();
 
+    // Write the output description JSON.
+    if (generator.output_desc)
+    {
+        std::ofstream out(mrbind::MakePath(output_json_desc_filename));
+        if (!out)
+            throw std::runtime_error("Failed to open file for writing: `" + output_json_desc_filename + "`.");
+        mrbind::CInterop::OutputDescToJson(*generator.output_desc, out);
+        if (!out)
+            throw std::runtime_error("Failed to write to file: `" + output_json_desc_filename + "`.");
+    }
+
     // Create subdirectories in the output directory, if needed.
     for (const auto &elem : generator.directories_to_create)
         std::filesystem::create_directories(elem);
@@ -413,13 +435,13 @@ int main(int raw_argc, char **raw_argv)
                 if (verbose)
                     std::cerr << "mrbind_gen_c: Writing file: " << file->full_output_path << '\n';
 
-                std::ofstream output(mrbind::MakePath(file->full_output_path));
-                if (!output)
-                    throw std::runtime_error("Failed to open to the output file: `" + file->full_output_path + "`. Is the filename too long? In that case consider using `--max-header-name-length <n>`.");
+                std::ofstream out(mrbind::MakePath(file->full_output_path));
+                if (!out)
+                    throw std::runtime_error("Failed to open file for writing: `" + file->full_output_path + "`. Is the filename too long? In that case consider using `--max-header-name-length <n>`.");
 
-                generator.DumpFileToOstream(elem.second, *file, output);
-                if (!output)
-                    throw std::runtime_error("Failed to write to the output file: `" + file->full_output_path + "`.");
+                generator.DumpFileToOstream(elem.second, *file, out);
+                if (!out)
+                    throw std::runtime_error("Failed to write to file: `" + file->full_output_path + "`.");
             }
         }
     }

@@ -91,6 +91,15 @@ namespace mrbind::CBindings
 
         // ]
 
+        // Output JSON description: [
+        // If this is not empty, all emitted output is also added to this.
+        std::optional<CInterop::OutputDesc> output_desc;
+
+        // All methods are accumulated here, since the
+        std::vector<CInterop::ClassMethod> output_desc_pending_methods;
+
+        // ]
+
         // Constants: [
         std::string extension_header = ".h";
         std::string extension_source = ".cpp";
@@ -137,15 +146,6 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string MakeDetailHelperMacroName(std::string_view name) const
         {
             return MakePublicHelperMacroName("DETAIL_" + std::string(name));
-        }
-
-        // This one is for member function names (including static member functions), for both parsed and custom classes.
-        [[nodiscard]] std::string MakeMemberFuncName(std::string_view c_type_name, std::string_view func_name) const
-        {
-            std::string ret(c_type_name);
-            ret += '_';
-            ret += func_name;
-            return ret;
         }
 
 
@@ -271,15 +271,6 @@ namespace mrbind::CBindings
         // Returns the C name of the `PassBy` enum, which is used when passing classes to functions by value.
         [[nodiscard]] std::string GetPassByEnumName();
 
-        // Returns the C name of a function that's used to free memory without calling destructors.
-        // There is a separate version for arrays because ASAN complains about alloc-dealloc mismatch otherwise.
-        // `file` is optional. If specific, the include gets added to it that declares this function.
-        [[nodiscard]] std::string GetMemoryDeallocFuncName(bool is_array, OutputFile *file);
-        // Returns the C name of a function that's used to allocate memory without calling constructors.
-        // Not particualry useful by itself, but added for consistency with `GetMemoryDeallocFuncName()`.
-        // `file` is optional. If specific, the include gets added to it that declares this function.
-        [[nodiscard]] std::string GetMemoryAllocFuncName(bool is_array, OutputFile *file);
-
         // Returns the public C header that declares the `PassBy` enum, and some other public helpers.
         // It's always created on the first use, except when `can_create == false`, in which case it will return null if the file doesn't exist.
         [[nodiscard]] OutputFile *GetCommonPublicHelpersFile(bool can_create = true);
@@ -321,13 +312,6 @@ namespace mrbind::CBindings
         // Returns true if this is a built-in C type.
         // If both `allow_scalar_typedefs` is true and `flags & allow_integral` is true, also accept `[u]int??_t`, to match `--canonicalize-to-fixed-size-typedefs`.
         [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all, bool allow_scalar_typedefs = false) const;
-
-        // The destroy function name for parsed and custom classes. It calls `delete`.
-        // We have a separate function for destroying arrays (`is_array == true`) which corresponds to C++'s `delete[]`.
-        [[nodiscard]] std::string GetClassDestroyFuncName(std::string_view c_type_name, bool is_array = false) const;
-
-        // The name for the functions that add an offset to a pointer. We need this because the pointers themselves are typically opaque on the C side.
-        [[nodiscard]] std::string GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const;
 
 
         // Those types are a subset of `IsSimplyBindableIndirectReinterpret()` for pure qualified names (without cvref/ptr-qualifiers).
@@ -817,6 +801,13 @@ namespace mrbind::CBindings
                 //     Also when referring to them, prepend `*` to their names, because they are pointer output parameters.
                 std::function<std::string(std::string_view cpp_param_name, bool has_default_arg, bool is_output_param)> append_to_comment;
 
+                // Only matters for interop.
+                // Set to true if the parameter usage is somehow sugared, i.e. considered to be unique for this specific type,
+                //   as opposed to matching whatever `BindableType::interop_info` says.
+                // In particular, if this is a heap-allocated class, you must set this to true if you're doing anything other than passing an opaque pointer to it.
+                //   (Except that passing exposed structs by value isn't considered to be sugar.)
+                bool considered_sugar_for_interop = false;
+
                 // Calls `c_params_to_cpp` if not null, otherwise returns the string unchanged.
                 // `default_arg` should be empty if there's no default argument.
                 // NOTE: This will always produce correctly parenthesized strings. If the custom `c_params_to_cpp` is specified, it's its job to ensure that the result is correctly parenthesized.
@@ -879,6 +870,29 @@ namespace mrbind::CBindings
             std::optional<ParamUsageWithDefaultArg> param_usage_with_default_arg;
             // ]
 
+            // Returns either `param_usage` or `param_usage_with_default_arg`, depending on whether a default argument is required, and on which of them are null.
+            // Throws on failure.
+            [[nodiscard]] const ParamUsage &GetParamUsage(bool has_useful_default_arg) const
+            {
+                if (has_useful_default_arg)
+                {
+                    if (param_usage_with_default_arg)
+                        return *param_usage_with_default_arg;
+                    else
+                        throw std::logic_error("Internal error: No suitable parameter usage for this type.");
+                }
+                else
+                {
+                    if (param_usage)
+                        return *param_usage;
+                    else if (param_usage_with_default_arg)
+                        return *param_usage_with_default_arg;
+                    else
+                        throw std::logic_error("Internal error: No suitable parameter usage for this type.");
+                }
+            }
+
+
             // Optional. If set, all default arguments are checked with this function, and if it returns non-null, that default argument is ignored.
             // The returned string is pasted into a sentence of the form `Defaults to X in C++.`, so you should return a string that DOES NOT start with a capital letter,
             //   and DOES NOT end with a period.
@@ -918,6 +932,13 @@ namespace mrbind::CBindings
                 //   This is when binding C callbacks, for their parameters.
                 std::function<std::string(std::string_view callback_param_name)> append_to_comment;
 
+                // Only matters for interop.
+                // Set to true if the return usage is somehow sugared, i.e. considered to be unique for this specific type,
+                //   as opposed to matching whatever `BindableType::interop_info` says.
+                // In particular, if this is a heap-allocated class, you must set this to true if you're doing anything other than returning an opaque pointer to it.
+                //   (Except that returning exposed structs by value isn't considered to be sugar.)
+                bool considered_sugar_for_interop = false;
+
                 // Calls `make_return_expr` if not null, otherwise returns just `expr`.
                 // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
                 [[nodiscard]] std::string MakeReturnExpr(OutputFile::SpecificFileContents &file, std::string_view expr) const
@@ -944,10 +965,16 @@ namespace mrbind::CBindings
             std::optional<ReturnUsage> return_usage;
 
 
+            // The type description for interop.
+            // This is not optional for all types we support ourselves, but third-party custom types can skip this if they never use `--output-desc-json`.
+            std::optional<CInterop::TypeKindVar> interop_info;
+
+
             BindableType() {}
         };
         // The types that we know how to bind.
         // Don't access this directly! Use `FindBindableType` because that will lazily insert the missing types here.
+        // The only legal way to insert into this is from `FindBindableTypeOpt()`.
         std::unordered_map<std::string, BindableType> bindable_cpp_types;
         // An alternative version of the map above for the desugared cases. See `FindBindableType()` and its parameter `remove_sugar`.
         std::unordered_map<std::string, BindableType> bindable_cpp_types_nosugar;
@@ -1111,8 +1138,24 @@ namespace mrbind::CBindings
 
         struct EmitFuncParams
         {
-            // The C name of this function.
-            std::string c_name;
+            struct Name
+            {
+                // The emitted C name.
+                std::string c;
+
+                // The original C++ name, for generating the JSON description of the output.
+                // This isn't optional for us, I'm using `std::monostate` to catch forgetting to set this.
+                // Third-party patched code can skip setting this if they never use `--output-desc-json`.
+                // What kind of type is used here must match whether or not this is a member function (i.e. whether we have a `this` parameter,
+                //   including a fake one for static functions).
+                std::variant<std::monostate, CInterop::FuncKindVar, CInterop::MethodKindVar> cpp_for_interop;
+
+                // If true, `cpp_for_interop` is ignored (can be empty) and the function isn't emitted at all in the description JSON.
+                bool ignore_in_interop = false;
+            };
+
+            // The name of this function.
+            Name name;
 
             // The C++ return type. We'll translate it to C automatically.
             cppdecl::Type cpp_return_type = cppdecl::Type::FromSingleWord("void");
@@ -1290,10 +1333,47 @@ namespace mrbind::CBindings
             // Those are the public attributes that should be prepended to the declaration in the header.
             // Either empty, or ends with a whitespace or newline, depending on what spelling we think will look better.
             std::string attributes;
+
+            struct ParamInfo
+            {
+                // The copt of the parameter name. Except if it was empty, this is replaced with a unique placeholder name.
+                std::string fixed_name;
+
+                // If true, this parameter has a default argument that's considered useful, i.e. affects the parameter passing style.
+                bool has_useful_default_arg = false;
+            };
+
+            // Stores additional information about the parameters. Has the same size as `params.params`.
+            std::vector<ParamInfo> params_info;
         };
         // Like `EmitFunction()`, but doesn't write the function directly to the file. Instead returns the strings composing it.
         // But the includes and such still get written directly to the file.
         [[nodiscard]] EmittedFunctionStrings EmitFunctionAsStrings(OutputFile &file, const EmitFuncParams &params);
+
+
+        // Returns the C name of a function that's used to free memory without calling destructors.
+        // There is a separate version for arrays because ASAN complains about alloc-dealloc mismatch otherwise.
+        // `file` is optional. If specific, the include gets added to it that declares this function.
+        [[nodiscard]] EmitFuncParams::Name GetMemoryDeallocFuncName(bool is_array, OutputFile *file);
+        // Returns the C name of a function that's used to allocate memory without calling constructors.
+        // Not particualry useful by itself, but added for consistency with `GetMemoryDeallocFuncName()`.
+        // `file` is optional. If specific, the include gets added to it that declares this function.
+        [[nodiscard]] EmitFuncParams::Name GetMemoryAllocFuncName(bool is_array, OutputFile *file);
+
+        // This one is for member function names (including static member functions), for both parsed and custom classes.
+        // Prefer `HeapAllocatedClassBinder::MakeMemberFuncName()` if you're using that class already.
+        [[nodiscard]] EmitFuncParams::Name MakeMemberFuncName(std::string_view c_type_name, std::string func_name, std::optional<CInterop::MethodKindVar> interop_var = {}) const;
+
+        // The destroy function name for parsed and custom classes. It calls `delete`.
+        // We have a separate function for destroying arrays (`is_array == true`) which corresponds to C++'s `delete[]`.
+        [[nodiscard]] EmitFuncParams::Name GetClassDestroyFuncName(std::string_view c_type_name, bool is_array = false) const;
+
+        // The name for the functions that add an offset to a pointer. We need this because the pointers themselves are typically opaque on the C side.
+        [[nodiscard]] EmitFuncParams::Name GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const;
+
+        // Generates the name for a free function.
+        [[nodiscard]] EmitFuncParams::Name MakeFreeFuncName(std::string name, std::optional<CInterop::FuncKindVar> var = {}) const;
+
 
         void EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field);
 
@@ -1311,6 +1391,22 @@ namespace mrbind::CBindings
             assert(comment.ends_with('\n'));
             generated_comments_adjuster.Adjust(comment);
             file.contents += comment;
+        }
+
+        // Translates a parsed comment to a form usable for the interop.
+        [[nodiscard]] CInterop::Comment MakeCommentForInteropFromParsed(const std::optional<Comment> &parsed_comment)
+        {
+            CInterop::Comment ret;
+            if (parsed_comment)
+            {
+                ret.c_style = parsed_comment->text_with_slashes;
+
+                assert(!ret.c_style.ends_with('\n')); // If it turns out Clang can add those, we just need to remove them ourselves.
+                ret.c_style += '\n';
+
+                generated_comments_adjuster.Adjust(ret.c_style);
+            }
+            return ret;
         }
 
 
@@ -1338,6 +1434,11 @@ namespace mrbind::CBindings
         // Creates a binder for a parsed class. `parsed_full_type` should receive `ClassEntity::full_type` (you don't need to roundtrip it through cppdecl,
         //   we do it automatically).
         [[nodiscard]] HeapAllocatedClassBinder MakeParsedClassBinder(const std::string &parsed_full_type);
+
+
+        // Given a C++ class name, finds its interop description. Constness and reference-ness on the type is ignored.
+        // If there's no such class, throws. Also throws if this class doesn't yet have its interop description set, which can happen if you call this too early.
+        [[nodiscard]] CInterop::TypeKinds::Class &FindClassDescForInterop(cppdecl::Type cpp_type);
 
 
         struct Visitor

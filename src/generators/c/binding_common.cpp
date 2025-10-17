@@ -15,9 +15,9 @@ namespace mrbind::CBindings
         return ret;
     }
 
-    std::string HeapAllocatedClassBinder::MakeMemberFuncName(const Generator &generator, std::string_view name) const
+    Generator::EmitFuncParams::Name HeapAllocatedClassBinder::MakeMemberFuncName(const Generator &generator, std::string name, std::optional<CInterop::MethodKindVar> interop_var) const
     {
-        return generator.MakeMemberFuncName(c_type_name, name);
+        return generator.MakeMemberFuncName(c_type_name, name, std::move(interop_var));
     }
 
     void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const
@@ -409,7 +409,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName(generator, "DefaultConstruct");
+        ret.name = MakeMemberFuncName(generator, "DefaultConstruct", CInterop::MethodKinds::Constructor{});
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.remove_return_type_sugar = true;
@@ -427,7 +427,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName(generator, "DefaultConstructArray");
+        ret.name = MakeMemberFuncName(generator, "DefaultConstructArray"); // Not marking as a constructor.
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{});
         ret.remove_return_type_sugar = true;
@@ -453,7 +453,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName(generator, (with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"));
+        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"), CInterop::MethodKinds::Constructor{});
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.remove_return_type_sugar = true;
@@ -480,7 +480,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.c_name = MakeMemberFuncName(generator, (with_param_sugar ? "AssignFrom" : "AssignFromAnother"));
+        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "AssignFrom" : "AssignFromAnother"), CInterop::MethodKinds::Operator{.token = "="});
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 
@@ -640,6 +640,8 @@ namespace mrbind::CBindings
             auto &ret_usage = ret.return_usage.emplace();
             ret_usage.c_type = c_type;
 
+            ret.interop_info = CInterop::TypeKinds::Void{};
+
             return ret;
         }
 
@@ -725,6 +727,12 @@ namespace mrbind::CBindings
 
         generator.FillDefaultTypeDependencies(cpp_type, ret);
 
+        // Guess the interop kind:
+        if (cpp_type.Is<cppdecl::Pointer>())
+            ret.interop_info = CInterop::TypeKinds::PointerNonOwning{};
+        else
+            ret.interop_info = CInterop::TypeKinds::Arithmetic{}; // What else could it be? Hmm.
+
         return ret;
     }
 
@@ -732,42 +740,13 @@ namespace mrbind::CBindings
     {
         const std::string cpp_type_str = generator.CppdeclToCode(cpp_type);
 
-        auto TryFillSimpleSizeAndAlignment = [&](Generator::BindableType &new_type) -> bool
-        {
-            if (cpp_type.Is<cppdecl::Pointer>())
-            {
-                // A pointer?
-                new_type.c_cpp_size_and_alignment = Generator::TypeSizeAndAlignment{
-                    .size = generator.data.platform_info.pointer_size,
-                    .alignment = generator.data.platform_info.pointer_alignment,
-                };
-                return true;
-            }
-            else if (auto prim = generator.data.platform_info.FindPrimitiveType(cpp_type_str))
-            {
-                // A primitive type?
-                new_type.c_cpp_size_and_alignment = Generator::TypeSizeAndAlignment{
-                    .size = prim->type_size,
-                    .alignment = prim->type_alignment,
-                };
-                return true;
-            }
-
-            return false;
-        };
-
         // Bindable without a cast?
         if (generator.IsSimplyBindableDirect(cpp_type))
         {
             auto type_c_style = cpp_type;
             generator.ReplaceAllNamesInTypeWithCNames(type_c_style);
 
-            auto new_type = MakeSimpleDirectTypeBinding(generator, cpp_type, type_c_style);
-
-            // Try to guess size and alignment. This is optional, we don't care if this fails.
-            TryFillSimpleSizeAndAlignment(new_type);
-
-            return new_type;
+            return MakeSimpleDirectTypeBinding(generator, cpp_type, type_c_style);
         }
         // Bindable with a C-style cast?
         if (generator.IsSimplyBindableDirectCast(cpp_type))
@@ -864,8 +843,20 @@ namespace mrbind::CBindings
             // Definitely needed here.
             generator.FillDefaultTypeDependencies(cpp_type, new_type);
 
-            // Try to guess size and alignment. This is optional.
-            if ((new_type.c_cpp_size_and_alignment = GetSizeAndAlignmentForPrimitiveType(generator, cpp_type))) {}
+            // Try to guess size and alignment. Also here we handle the interop kind.
+            if ((new_type.c_cpp_size_and_alignment = GetSizeAndAlignmentForPrimitiveType(generator, cpp_type)))
+            {
+                // Also guess the interop kind.
+                if (cpp_type.Is<cppdecl::Pointer>())
+                {
+                    new_type.interop_info = CInterop::TypeKinds::PointerNonOwning{};
+                }
+                else
+                {
+                    // This shouldn't happen. Hmm.
+                    throw std::logic_error("Not sure what interop kind to select for type `" + generator.CppdeclToCode(cpp_type) + "`, expected it to be a pointer but it's something else.");
+                }
+            }
             else
             {
                 // A enum?
@@ -881,6 +872,8 @@ namespace mrbind::CBindings
                     {
                         std::throw_with_nested(std::runtime_error("While determining the size and alignment of the underlying type of enum `" + cpp_type_str + "`:"));
                     }
+
+                    // Skipping setting the interop info for now, it's done later by the `Generator::EmitEnum()`.
                 }
             }
 
@@ -1108,6 +1101,8 @@ namespace mrbind::CBindings
 
                 generator.FillDefaultTypeDependencies(cpp_type, new_type);
 
+                new_type.interop_info = CInterop::TypeKinds::ReferenceNonOwning{};
+
                 return new_type;
             }
         }
@@ -1126,9 +1121,13 @@ namespace mrbind::CBindings
         class_binder.cpp_type_name = cpp_type;
         class_binder.c_type_name = c_type_str;
 
+        new_type.is_heap_allocated_class = true;
+
         new_type.param_usage_with_default_arg = class_binder.MakeParamUsageSupportingDefaultArg(generator);
 
         new_type.return_usage = class_binder.MakeReturnUsage(generator);
+
+        // Not setting the interop info here, it's done lazily when emitting the struct body.
 
         return new_type;
     }
@@ -1389,6 +1388,8 @@ namespace mrbind::CBindings
             else
                 return "pass a null pointer to both it and `" + std::string(cpp_param_name) + "_end`";
         };
+
+        ret.considered_sugar_for_interop = true; // This is 100% sugar.
 
         return ret;
     }

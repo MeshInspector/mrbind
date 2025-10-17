@@ -308,7 +308,7 @@ namespace mrbind::CBindings::Modules
                     { // Assign stateless.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Assign a stateless function.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Assign");
+                        emit.name = binder.MakeMemberFuncName(generator, "Assign");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "func",
@@ -344,7 +344,7 @@ namespace mrbind::CBindings::Modules
                             "/// Assign a function with an extra user data pointer.\n"
                             "/// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.";
 
-                        emit.c_name = binder.MakeMemberFuncName(generator, "AssignWithDataPtr");
+                        emit.name = binder.MakeMemberFuncName(generator, "AssignWithDataPtr");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "func",

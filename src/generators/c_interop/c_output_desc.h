@@ -78,6 +78,15 @@ namespace mrbind::CInterop
         )
     };
 
+    struct OutputFile
+    {
+        MBREFL_STRUCT(
+            // This is the relative name of the output header and source declaring this entity, minus the extension (which are the same).
+            // Forward slashes are used as separators.
+            (std::string)(relative_name)
+        )
+    };
+
     struct EnumElem
     {
         MBREFL_STRUCT(
@@ -153,17 +162,12 @@ namespace mrbind::CInterop
     // Describes a single parameter of a free function or of a method.
     struct FuncParam
     {
+        // This additional information is added to the `this` parameter, if any.
         struct This
         {
             MBREFL_STRUCT(
-                // If true, the method is const.
-                (bool)(is_const, false)
-
-                // If true, the method is `&`-qualified in C++.
-                (bool)(is_lvalue_only, false)
-                // If true, the method is `&&`-qualified in C++.
-                // This is mutually exclusive with `is_lvalue_only`.
-                (bool)(is_rvalue_only, false)
+                // If true, this is a static member function. If false, a non-static one.
+                (bool)(is_static, false)
             )
 
             This() {} // Need this to make `std::optional` below happy.
@@ -194,7 +198,6 @@ namespace mrbind::CInterop
 
             // If set, this is the `this` parameter of a class method. Otherwise the method is static.
             // Only the first parameter can have this set.
-            // This typically implies `is_lvalue_only`.
             (std::optional<This>)(this_param)
         )
     };
@@ -221,9 +224,9 @@ namespace mrbind::CInterop
             static constexpr std::string_view name_in_variant = "regular";
 
             MBREFL_STRUCT(
-                // Note that this can be `operator@`.
+                // The name with all qualifiers.
                 (std::string)(name)
-                // With template arguments, if any. Otherwise equal to `name`.
+                // The name with all qualifiers and with template arguments, if any. Otherwise equal to `name`.
                 (std::string)(full_name)
 
                 // No `is_static` because that can be guessed from the parameters.
@@ -245,11 +248,10 @@ namespace mrbind::CInterop
 
     using FuncKindVar = std::variant<FuncKinds::Regular, FuncKinds::Operator>;
 
-    // A free function.
-    struct Function
+    struct BasicFuncLike
     {
         MBREFL_STRUCT(
-            (FuncKindVar)(var)
+            (Comment)(comment)
 
             // The C function name.
             (std::string)(c_name)
@@ -261,6 +263,17 @@ namespace mrbind::CInterop
         )
     };
 
+    // A free function.
+    struct Function : BasicFuncLike
+    {
+        MBREFL_STRUCT(
+            (OutputFile)(output_file)
+            (FuncKindVar)(var)
+        , // Bases:
+            (BasicFuncLike)
+        )
+    };
+
     namespace MethodKinds
     {
         // A regular member function. Not an overloaded operator, not a conversion operator, not a constructor, not a destructor.
@@ -269,9 +282,9 @@ namespace mrbind::CInterop
             static constexpr std::string_view name_in_variant = "regular";
 
             MBREFL_STRUCT(
-                // Note that this can be `operator@`.
+                // The name without (!) qualifiers.
                 (std::string)(name)
-                // With template arguments, if any. Otherwise equal to `name`.
+                // The name without (!) qualifiers and with template arguments, if any. Otherwise equal to `name`.
                 (std::string)(full_name)
 
                 // No `is_static` because that can be guessed from the parameters.
@@ -311,18 +324,12 @@ namespace mrbind::CInterop
     using MethodKindVar = std::variant<MethodKinds::Regular, MethodKinds::Constructor, MethodKinds::Operator, MethodKinds::ConversionOperator>;
 
     // Describes a single class method.
-    struct ClassMethod
+    struct ClassMethod : BasicFuncLike
     {
         MBREFL_STRUCT(
             (MethodKindVar)(var)
-
-            // The C function name.
-            (std::string)(c_name)
-
-            // The return type.
-            (FuncReturn)(ret)
-            // The parameters.
-            (std::vector<FuncParam>)(params)
+        , // Bases:
+            (BasicFuncLike)
         )
     };
 
@@ -375,6 +382,8 @@ namespace mrbind::CInterop
             static constexpr std::string_view name_in_variant = "enum";
 
             MBREFL_STRUCT(
+                (OutputFile)(output_file)
+
                 (Comment)(comment)
 
                 // How is this enum called in C?
@@ -396,6 +405,10 @@ namespace mrbind::CInterop
             static constexpr std::string_view name_in_variant = "class";
 
             MBREFL_STRUCT(
+                (OutputFile)(output_file)
+
+                (Comment)(comment)
+
                 // How is this class called in C?
                 (std::string)(c_name)
 

@@ -28,7 +28,8 @@ namespace mrbind::CBindings
 
         // Essentially does `c_type_name + "_" + name`. Use this to generate all the member function names.
         // This is fine for "static" member functions too.
-        [[nodiscard]] std::string MakeMemberFuncName(const Generator &generator, std::string_view name) const;
+        // If `interop_var` isn't specified, the `CInterop::MethodKinds::Regular` is used, with the same `name`.
+        [[nodiscard]] Generator::EmitFuncParams::Name MakeMemberFuncName(const Generator &generator, std::string name, std::optional<CInterop::MethodKindVar> interop_var = {}) const;
 
         // The `comment` can be empty. Otherwise it must end with a newline and must include leading slashes.
         void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const;
@@ -105,6 +106,7 @@ namespace mrbind::CBindings
 
 
     // If this is a simple enough type, returns its size and alignment.
+    // Works only for primitive arithmetic types, and for pointers.
     [[nodiscard]] std::optional<Generator::TypeSizeAndAlignment> GetSizeAndAlignmentForPrimitiveType(Generator &generator, const cppdecl::Type &cpp_type);
 
 
