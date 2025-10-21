@@ -965,9 +965,9 @@ namespace mrbind::CBindings
             std::optional<ReturnUsage> return_usage;
 
 
-            // The type description for interop.
+            // The type description for interop. Note that this type automatically defaults to `CInterop::TypeKinds::Invalid`.
             // This is not optional for all types we support ourselves, but third-party custom types can skip this if they never use `--output-desc-json`.
-            std::optional<CInterop::TypeKindVar> interop_info;
+            CInterop::TypeKindVar interop_info;
 
 
             BindableType() {}
@@ -986,6 +986,10 @@ namespace mrbind::CBindings
         [[nodiscard]] const BindableType &FindBindableType(const cppdecl::Type &type, bool remove_sugar = false, bool can_invent_new_bindings = true);
         // This version returns null on failure.
         [[nodiscard]] const BindableType *FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar = false, bool can_invent_new_bindings = true);
+
+        // The mutable versions.
+        [[nodiscard]] BindableType &FindBindableType_Mutable(const cppdecl::Type &type, bool remove_sugar = false, bool can_invent_new_bindings = true);
+        [[nodiscard]] BindableType *FindBindableTypeOpt_Mutable(const cppdecl::Type &type, bool remove_sugar = false, bool can_invent_new_bindings = true);
 
         // Calls `FindBindableType()`, and then extracts the `.traits` from the result.
         // But additionally supports const types, by removing assignability from those traits.
@@ -1241,13 +1245,16 @@ namespace mrbind::CBindings
                 enum class Kind
                 {
                     normal, // Nothing unusual about this parameter.
-                    not_added_to_call, // This parameter shouldn't be added as an argument to the function call. Typically you'll want to manually mention it in `cpp_called_func`.
                     this_ref, // This is the a `*this` parameter. Must be a reference (possibly rvalue). See `cpp_called_func` for how those parameters get used.
                     static_, // This is a static method, and this C++ parameter is only used for its type. The C parameter isn't emitted at all.
                 };
 
-                // At most one function parameter can have this set to anything other than `normal` and `not_added_to_call`.
+                // At most one function parameter can have this set to anything other than `normal`.
                 Kind kind = Kind::normal;
+
+                // If true, this argument will not be added to the function call.
+                // Since this is a C implementation detail, it doesn't affect the interop.
+                bool omit_from_call = false;
 
                 // If true, disable the fancy rewrites like replacing `std::string` with `const char *` pointers.
                 // This is useful e.g. for `this` parameters. Can't be used when passing class types by value.
@@ -1336,8 +1343,11 @@ namespace mrbind::CBindings
 
             struct ParamInfo
             {
-                // The copt of the parameter name. Except if it was empty, this is replaced with a unique placeholder name.
+                // The copy of the parameter name. Except if it was empty, this is replaced with a unique placeholder name.
                 std::string fixed_name;
+
+                // The adjusted parameter type. Typically this is just to remove constness.
+                cppdecl::Type fixed_type;
 
                 // If true, this parameter has a default argument that's considered useful, i.e. affects the parameter passing style.
                 bool has_useful_default_arg = false;
@@ -1393,20 +1403,23 @@ namespace mrbind::CBindings
             file.contents += comment;
         }
 
-        // Translates a parsed comment to a form usable for the interop.
-        [[nodiscard]] CInterop::Comment MakeCommentForInteropFromParsed(const std::optional<Comment> &parsed_comment)
+        // Prepares a comment for the interop output.
+        // `text_with_slashes` must either be empty or end with a newline. Must include slashes (or equivalent).
+        // Can contain at most one leading newline, which is ignored.
+        [[nodiscard]] CInterop::Comment MakeCommentForInterop(std::string_view text_with_slashes)
         {
-            CInterop::Comment ret;
-            if (parsed_comment)
-            {
-                ret.c_style = parsed_comment->text_with_slashes;
+            if (text_with_slashes.starts_with('\n'))
+                text_with_slashes.remove_prefix(1);
+            assert(!text_with_slashes.starts_with('\n'));
+            assert(text_with_slashes.empty() || text_with_slashes.ends_with('\n'));
 
-                assert(!ret.c_style.ends_with('\n')); // If it turns out Clang can add those, we just need to remove them ourselves.
-                ret.c_style += '\n';
+            return {.c_style = std::string(text_with_slashes)};
+        }
 
-                generated_comments_adjuster.Adjust(ret.c_style);
-            }
-            return ret;
+        // Creates a description of an output file for interop purposes.
+        [[nodiscard]] CInterop::OutputFile MakeOutputFileDescForInterop(OutputFile &file)
+        {
+            return {.relative_name = file.relative_name};
         }
 
 
@@ -1420,7 +1433,7 @@ namespace mrbind::CBindings
         // If `expected_size_and_alignment.{size,alignment}` are not `-1`, then they are validated against the values computed form the fields you create.
         // This is done for each of them individually, they can be set to `-1` individually.
         // Here if `comment` isn't empty, it must end with a trailing newline, and include leading slashes.
-        void EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func);
+        void EmitExposedStruct(OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func);
 
 
         // Here if `elem_comment` isn't empty, must end with a newline and must include leading slashes.
@@ -1429,12 +1442,15 @@ namespace mrbind::CBindings
         using EmitEnumFunc = std::function<void(std::string elem_comment, std::string_view elem_name, std::uint64_t elem_unsigned_value)>;
 
         // Emits a enum.
-        void EmitEnum(OutputFile &file, std::string comment, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func);
+        void EmitEnum(OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_enum_type, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func);
 
         // Creates a binder for a parsed class. `parsed_full_type` should receive `ClassEntity::full_type` (you don't need to roundtrip it through cppdecl,
         //   we do it automatically).
         [[nodiscard]] HeapAllocatedClassBinder MakeParsedClassBinder(const std::string &parsed_full_type);
 
+        // Call this once, when emitting the forward declaration of a class, to prepare the interop information for it.
+        // Throws if something is wrong.
+        [[nodiscard]] CInterop::TypeKinds::Class &CreateClassDescForInterop(const cppdecl::QualifiedName &cpp_name);
 
         // Given a C++ class name, finds its interop description. Constness and reference-ness on the type is ignored.
         // If there's no such class, throws. Also throws if this class doesn't yet have its interop description set, which can happen if you call this too early.

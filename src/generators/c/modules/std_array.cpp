@@ -147,6 +147,7 @@ namespace mrbind::CBindings::Modules
                             generator.EmitExposedStruct(
                                 file,
                                 "/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size_expr) + ".\n",
+                                type.simple_type.name,
                                 c_type_name,
                                 array_size_and_alignment,
                                 [&](Generator::EmitExposedStructFieldFunc emit_field)

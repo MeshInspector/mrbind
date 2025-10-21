@@ -2796,6 +2796,11 @@ namespace mrbind
             { // Emit the information about built-in types. This is independent from everything else.
                 // Integral types:
 
+                // Whether to adjust the `[u]int64_t` types to point to `size_t` and `ptrdiff_t` instead.
+                // Currently the C parser doesn't even care about this, but it's still a good idea to emit "correct" (if you can say that) information
+                //   in the platform description.
+                const bool uint64_typedef_is_size_t = (params->canonicalize_to_fixed_size_typedefs || params->canonicalize_64_to_fixed_size_typedefs) && params->only_canonicalize_size_t_to_uint64_t;
+
                 struct IntEntry
                 {
                     // Need our own names, since `TargetInfo::getTypeName()` uses a slightly different format.
@@ -2827,10 +2832,10 @@ namespace mrbind
                     IntEntry{.name = "uint16_t",           .is_typedef = true, .type = ci->getTarget().getUInt16Type()},
                     IntEntry{.name = "int32_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, true)},
                     IntEntry{.name = "uint32_t",           .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, false)},
-                    IntEntry{.name = "int64_t",            .is_typedef = true, .type = ci->getTarget().getInt64Type()},
-                    IntEntry{.name = "uint64_t",           .is_typedef = true, .type = ci->getTarget().getCorrespondingUnsignedType(ci->getTarget().getInt64Type())},
-                    IntEntry{.name = "size_t",             .is_typedef = true, .type = ci->getTarget().getSizeType()},
+                    IntEntry{.name = "int64_t",            .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSignedSizeType() : ci->getTarget().getInt64Type()},
+                    IntEntry{.name = "uint64_t",           .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSizeType()       : ci->getTarget().getCorrespondingUnsignedType(ci->getTarget().getInt64Type())},
                     IntEntry{.name = "ptrdiff_t",          .is_typedef = true, .type = ci->getTarget().getSignedSizeType()}, // There's also `getPtrDiffType(address_space)`, but it should be the same thing.
+                    IntEntry{.name = "size_t",             .is_typedef = true, .type = ci->getTarget().getSizeType()},
                 })
                 {
                     params->parsed_result.platform_info.primitive_types.try_emplace(

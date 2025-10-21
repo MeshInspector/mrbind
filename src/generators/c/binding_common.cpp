@@ -74,6 +74,28 @@ namespace mrbind::CBindings
         }
 
         file.header.contents += MakeForwardDeclarationNoReg() + '\n';
+
+        // Generate the interop description.
+        if (generator.output_desc)
+        {
+            CInterop::TypeKinds::Class &class_desc = generator.CreateClassDescForInterop(cpp_type_name);
+            class_desc.output_file = generator.MakeOutputFileDescForInterop(file);
+            class_desc.comment = generator.MakeCommentForInterop(comment);
+            class_desc.c_name = c_type_name;
+
+            // Those conditions must be synced with what `MakeParamUsageSupportingDefaultArg()` is doing.
+            if (traits.value().UnconditionallyCopyOnPassByValue())
+                class_desc.kind = CInterop::ClassKind::trivial_via_ptr;
+            else if (traits.value().IsDefaultOrCopyOrMoveConstructible())
+                class_desc.kind = CInterop::ClassKind::uses_pass_by_enum;
+            else
+                class_desc.kind = CInterop::ClassKind::ref_only; // I guess?
+
+            class_desc.inheritance_info = inheritance_info;
+
+            // `fields` must be set separately, manually.
+            // `methods` is filled when you call `EmitFunction()`.
+        }
     }
 
     void HeapAllocatedClassBinder::FillCommonParams(Generator &generator, Generator::BindableType &type)
@@ -106,9 +128,9 @@ namespace mrbind::CBindings
         ret.append_to_comment = [destroy_func_name = generator.GetClassDestroyFuncName(c_type_name)](std::string_view callback_param_name) -> std::string
         {
             if (callback_param_name.empty())
-                return "/// Never returns null. Returns an instance allocated on the heap! Must call `" + destroy_func_name + "()` to free it when you're done using it.";
+                return "/// Never returns null. Returns an instance allocated on the heap! Must call `" + destroy_func_name.c + "()` to free it when you're done using it.";
             else
-                return "/// Callback parameter `" + std::string(callback_param_name) + "` is never null. It is an instance allocated on the heap! Must call `" + destroy_func_name + "()` to free it when you're done using it.";
+                return "/// Callback parameter `" + std::string(callback_param_name) + "` is never null. It is an instance allocated on the heap! Must call `" + destroy_func_name.c + "()` to free it when you're done using it.";
         };
 
         ret.make_return_expr = [c_type_name = c_type_name, cpp_type_str = std::move(cpp_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
@@ -127,6 +149,7 @@ namespace mrbind::CBindings
         std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
         // Parameter passing strategy.
+        // Those conditions must be synced with how `HeapAllocatedClassBinder::EmitForwardDeclaration()` is generating the interop description.
         if (traits.value().UnconditionallyCopyOnPassByValue())
         {
             // For trivialy-copy/move-constructible classes, just pass a pointer.
@@ -432,6 +455,15 @@ namespace mrbind::CBindings
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{});
         ret.remove_return_type_sugar = true;
 
+        // Add a dummy parameter to indicate to the interop that this is effectively a static member function.
+        // This isn't needed for constructors, but this doesn't count as a constructor.
+        ret.params.push_back({
+            .name = "",
+            .kind = Generator::EmitFuncParams::Param::Kind::static_,
+            .omit_from_call = true,
+            .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name),
+        });
+
         ret.params.push_back({
             .name = "num_elems",
             .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
@@ -441,8 +473,8 @@ namespace mrbind::CBindings
 
         ret.c_comment =
             "/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.\n"
-            "/// The array must be destroyed using `" + generator.GetClassDestroyFuncName(c_type_name, true) + "()`.\n"
-            "/// Use `" + generator.GetClassPtrOffsetFuncName(c_type_name, false) + "()` and `" + generator.GetClassPtrOffsetFuncName(c_type_name, true) + "()` to access the array elements.";
+            "/// The array must be destroyed using `" + generator.GetClassDestroyFuncName(c_type_name, true).c + "()`.\n"
+            "/// Use `" + generator.GetClassPtrOffsetFuncName(c_type_name, false).c + "()` and `" + generator.GetClassPtrOffsetFuncName(c_type_name, true).c + "()` to access the array elements.";
 
         return ret;
     }
@@ -504,7 +536,7 @@ namespace mrbind::CBindings
     {
         Generator::EmitFuncParams ret;
 
-        ret.c_name = generator.GetClassDestroyFuncName(c_type_name);
+        ret.name = generator.GetClassDestroyFuncName(c_type_name);
 
         ret.params.push_back({
             .name = "_this",
@@ -524,7 +556,7 @@ namespace mrbind::CBindings
     {
         Generator::EmitFuncParams ret;
 
-        ret.c_name = generator.GetClassDestroyFuncName(c_type_name, true);
+        ret.name = generator.GetClassDestroyFuncName(c_type_name, true);
 
         ret.params.push_back({
             .name = "_this",
@@ -544,7 +576,7 @@ namespace mrbind::CBindings
     {
         Generator::EmitFuncParams ret;
 
-        ret.c_name = generator.GetClassPtrOffsetFuncName(c_type_name, is_const);
+        ret.name = generator.GetClassPtrOffsetFuncName(c_type_name, is_const);
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
 

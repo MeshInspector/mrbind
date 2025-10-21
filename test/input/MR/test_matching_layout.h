@@ -1,5 +1,7 @@
 #pragma once
 
+#include "_common.h"
+
 namespace MR::MatchingLayout
 {
     struct A
@@ -11,7 +13,7 @@ namespace MR::MatchingLayout
         // third
         float c;
 
-        long long ll;
+        MRint64 ll;
 
         int arr[3];
         int arr2d[4][5];

@@ -46,7 +46,7 @@ namespace mrbind::CBindings::Modules
                     { // Elementwise constructor.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Constructs the pair elementwise.";
-                        emit.name = binder.MakeMemberFuncName(generator, "Construct");
+                        emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{});
                         emit.cpp_return_type = type;
                         emit.params.push_back({
                             .name = "first",

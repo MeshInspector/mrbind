@@ -852,13 +852,23 @@ namespace mrbind::CBindings
 
     const Generator::BindableType &Generator::FindBindableType(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
     {
-        if (auto *ret = FindBindableTypeOpt(type, remove_sugar, can_invent_new_bindings))
+        return FindBindableType_Mutable(type, remove_sugar, can_invent_new_bindings);
+    }
+
+    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
+    {
+        return FindBindableTypeOpt_Mutable(type, remove_sugar, can_invent_new_bindings);
+    }
+
+    Generator::BindableType &Generator::FindBindableType_Mutable(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
+    {
+        if (auto *ret = FindBindableTypeOpt_Mutable(type, remove_sugar, can_invent_new_bindings))
             return *ret;
         else
             throw std::runtime_error("Don't know how to bind type `" + CppdeclToCode(type) + "`" + (remove_sugar ? " (with syntax sugar removed)" : "") + ".");
     }
 
-    const Generator::BindableType *Generator::FindBindableTypeOpt(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
+    Generator::BindableType *Generator::FindBindableTypeOpt_Mutable(const cppdecl::Type &type, bool remove_sugar, bool can_invent_new_bindings)
     {
         // Complain if we've got a top-level const type.
         // I don't think this ever happens for the parsed code alone, since `EmitFunction()` automatically strips top-level constness
@@ -882,7 +892,7 @@ namespace mrbind::CBindings
         // Make sure the type is legal.
         CheckForBannedTypes(type);
 
-        auto InsertNewType = [&](BindableType new_binding) -> const BindableType *
+        auto InsertNewType = [&](BindableType new_binding) -> BindableType *
         {
             return &map.try_emplace(type_str, std::move(new_binding)).first->second;
         };
@@ -2028,7 +2038,8 @@ namespace mrbind::CBindings
 
                 // Remove top-level constness from parameter types, to simplify the rest of the code.
                 // It seems we don't need to decay the params manually, the parser seems to already emit them in the decayed form.
-                const cppdecl::Type param_cpp_type_fixed = cppdecl::Type(param.cpp_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                out_param_info.fixed_type = cppdecl::Type(param.cpp_type).RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                const cppdecl::Type param_cpp_type_fixed = out_param_info.fixed_type;
 
                 if (param.kind == EmitFuncParams::Param::Kind::static_)
                 {
@@ -2114,7 +2125,7 @@ namespace mrbind::CBindings
                         ret.comment += "/// Parameter `" + param_name_fixed + "` defaults to " + *useless_default_arg_message + " in C++.\n";
                     }
 
-                    if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                    if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && !param.omit_from_call)
                         arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
                 }
                 else
@@ -2122,7 +2133,7 @@ namespace mrbind::CBindings
                     if (param.default_arg)
                         throw std::logic_error("Internal error: Bad usage: `EmitFuncParams::Param::use_type_as_is == true` is incompatible with a non-null `default_arg`.");
 
-                    if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                    if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && !param.omit_from_call)
                         arg_expr = param_name_fixed;
 
                     auto &new_param = new_func.params.emplace_back();
@@ -2130,33 +2141,37 @@ namespace mrbind::CBindings
                     new_param.name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed);
                 }
 
-                switch (param.kind)
+                if (param.omit_from_call)
                 {
-                  case EmitFuncParams::Param::Kind::normal:
-                    // Keep `arg_expr` as is.
-                    break;
-                  case EmitFuncParams::Param::Kind::not_added_to_call:
                     assert(arg_expr.empty());
-                    break;
-                  case EmitFuncParams::Param::Kind::this_ref:
-                    assert(!arg_expr.empty());
-                    break;
-                  case EmitFuncParams::Param::Kind::static_:
-                    assert(arg_expr.empty());
-                    // Emit the type instead.
+                }
+                else
+                {
+                    switch (param.kind)
                     {
-                        cppdecl::Type type_fixed = param.cpp_type;
-                        // Remove reference-ness. At the time of writing this, those should always be references, but just in case,
-                        //   I'm making this conditional and handle pointers too. Shrug.
-                        if (type_fixed.Is<cppdecl::Reference>() || type_fixed.Is<cppdecl::Pointer>())
-                            type_fixed.RemoveModifier();
-                        arg_expr = CppdeclToCode(type_fixed);
+                      case EmitFuncParams::Param::Kind::normal:
+                        // Keep `arg_expr` as is.
+                        break;
+                      case EmitFuncParams::Param::Kind::this_ref:
+                        assert(!arg_expr.empty());
+                        break;
+                      case EmitFuncParams::Param::Kind::static_:
+                        assert(arg_expr.empty());
+                        // Emit the type instead.
+                        {
+                            cppdecl::Type type_fixed = param.cpp_type;
+                            // Remove reference-ness. At the time of writing this, those should always be references, but just in case,
+                            //   I'm making this conditional and handle pointers too. Shrug.
+                            if (type_fixed.Is<cppdecl::Reference>() || type_fixed.Is<cppdecl::Pointer>())
+                                type_fixed.RemoveModifier();
+                            arg_expr = CppdeclToCode(type_fixed);
+                        }
+                        break;
                     }
-                    break;
                 }
 
                 // Append the argument to the call, if enabled.
-                if (param.kind != EmitFuncParams::Param::Kind::not_added_to_call)
+                if (!param.omit_from_call)
                 {
                     if (is_this_param)
                     {
@@ -2441,17 +2456,33 @@ namespace mrbind::CBindings
 
                 if (is_member)
                 {
+                    // A member function.
+
                     CInterop::ClassMethod &new_method = FindClassDescForInterop(params.params.front().cpp_type).methods.emplace_back();
+                    func_like = &new_method;
+
+                    new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
+                }
+                else if (auto method = std::get_if<CInterop::MethodKindVar>(&params.name.cpp_for_interop); method && std::holds_alternative<CInterop::MethodKinds::Constructor>(*method))
+                {
+                    // Custom behavior for constructors. Let them work without the static-member-function-like dummy function parameters.
+                    // Determine the target class from the constructor return type.
+
+                    CInterop::ClassMethod &new_method = FindClassDescForInterop(params.cpp_return_type).methods.emplace_back();
                     func_like = &new_method;
 
                     new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
                 }
                 else
                 {
+                    // A non-member function.
+
                     CInterop::Function &new_func = output_desc->functions.emplace_back();
                     func_like = &new_func;
 
-                    new_func.var = std::get<CInterop::FuncKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
+                    // If this throws, someone has set the wrong `cpp_for_interop` type.
+                    // If you get this on a constructor, you probably forgot to pass `CInterop::MethodKinds::Constructor{}` to `MakeMemberFuncName()`.
+                    new_func.var = std::get<CInterop::FuncKindVar>(params.name.cpp_for_interop);
                 }
 
                 { // The comment.
@@ -2475,7 +2506,9 @@ namespace mrbind::CBindings
                 {
                     CInterop::FuncParam &new_param = func_like->params.emplace_back();
 
-                    new_param.cpp_type = CppdeclToCode(input_param.cpp_type);
+                    const auto &fixed_param_type = strings.params_info[i].fixed_type;
+
+                    new_param.cpp_type = CppdeclToCode(fixed_param_type);
                     new_param.name = input_param.name;
                     new_param.name_or_placeholder = strings.params_info[i].fixed_name;
 
@@ -2485,7 +2518,9 @@ namespace mrbind::CBindings
                         new_param.default_arg_affects_parameter_passing = strings.params_info[i].has_useful_default_arg;
                     }
 
-                    new_param.uses_sugar = !input_param.remove_sugar && FindBindableType(input_param.cpp_type).GetParamUsage(new_param.default_arg_affects_parameter_passing).considered_sugar_for_interop;
+                    // Here we need `!input_param.use_type_as_is`, otherwise `FindBindableType()` chokes on some C types (while it should be fed only C++ types),
+                    //   that appear e.g. in the custom bindings of `std::function`.
+                    new_param.uses_sugar = !input_param.remove_sugar && !input_param.use_type_as_is && FindBindableType(fixed_param_type).GetParamUsage(new_param.default_arg_affects_parameter_passing).considered_sugar_for_interop;
 
                     if (input_param.kind == EmitFuncParams::Param::Kind::this_ref)
                         new_param.this_param.emplace().is_static = false;
@@ -2494,14 +2529,11 @@ namespace mrbind::CBindings
 
                     i++;
                 }
-                #error this section looks finished to me. We also finished setting up `considered_sugar_for_interop` for both param usages and return usages, I think.
-                #error 1. fix error in FindClassDescForInterop
-                #error 2. make various type emitting funcs fill the missing interop info for the types they emit.
             }
         }
         catch (std::exception &e)
         {
-            std::throw_with_nested(std::runtime_error("While emitting C function `" + params.c_name + "`:"));
+            std::throw_with_nested(std::runtime_error("While emitting C function `" + params.name.c + "`:"));
         }
     }
 
@@ -2522,12 +2554,27 @@ namespace mrbind::CBindings
         }
     }
 
-    void Generator::EmitExposedStruct(OutputFile &file, std::string comment, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)
+    void Generator::EmitExposedStruct(OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)
     {
         // Emit the comment, if any. This works fine even if the comment is empty, in which case it just inserts a separating newline.
         assert(!comment.starts_with('\n'));
         comment = '\n' + comment;
         EmitCommentLow(file.header, comment);
+
+        // Generate description for interop.
+        CInterop::TypeKinds::Class *class_desc = nullptr;
+        if (output_desc)
+        {
+            class_desc = &CreateClassDescForInterop(cpp_type_name);
+            class_desc->output_file = MakeOutputFileDescForInterop(file);
+            class_desc->comment = MakeCommentForInterop(comment);
+            class_desc->c_name = c_type_str;
+            class_desc->kind = CInterop::ClassKind::exposed_struct;
+            // `inheritance_info` remains empty, we don't support inheritance for exposed structs for now.
+            // `fields` is set blow.
+            // `methods` is filled when you call `EmitFunction()`.
+            // `size_and_alignment` is set at the end, in case we need to compute it.
+        }
 
         file.header.contents += "typedef struct " + std::string(c_type_str) + '\n';
         file.header.contents += "{\n";
@@ -2555,8 +2602,10 @@ namespace mrbind::CBindings
 
             // Update the offset, and optionally check it against the expected value.
             total_size = (total_size + (field_info.alignment - 1)) / field_info.alignment * field_info.alignment;
-            if (field_expected_offset != std::size_t(-1) && total_size != field_expected_offset)
-                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The byte offset of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(field_expected_offset) + " but got " + std::to_string(total_size) + ").");
+            // Need to save this for later, to write into the interop description.
+            const std::size_t field_offset = total_size;
+            if (field_expected_offset != std::size_t(-1) && field_offset != field_expected_offset)
+                throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The byte offset of member `" + field_name + "` doesn't match the expected value (expected " + std::to_string(field_expected_offset) + " but got " + std::to_string(field_offset) + ").");
             total_size += field_info.size;
 
             // Update the final alignment.
@@ -2585,6 +2634,23 @@ namespace mrbind::CBindings
             ReplaceAllNamesInTypeWithCNames(field_decl.type);
 
             file.header.contents += "    " + CppdeclToCode(field_decl) + ";\n";
+
+
+            // Save the description.
+            if (class_desc)
+            {
+                CInterop::ClassField &new_field = class_desc->fields.emplace_back();
+                new_field.comment = MakeCommentForInterop(field_comment);
+                new_field.is_static = false;
+                new_field.type = CppdeclToCode(field_cpp_type);
+                new_field.name = field_name;
+                new_field.full_name = field_name; // Same.
+                // No accessors.
+                new_field.layout.emplace();
+                new_field.layout->byte_size = field_info.size;
+                new_field.layout->byte_alignment = field_info.alignment;
+                new_field.layout->byte_offset = field_offset;
+            }
         });
 
         // Complain if no fields. C doesn't have empty structs.
@@ -2601,25 +2667,56 @@ namespace mrbind::CBindings
             throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The estimated byte size of the struct doesn't match the expected value (expected " + std::to_string(expected_size_and_alignment.size) + " but got " + std::to_string(total_size) + ").");
 
         file.header.contents += "} " + std::string(c_type_str) + ";\n";
+
+        // Lastly, finalize the interop description.
+        if (class_desc)
+        {
+            auto &size_and_alignment = class_desc->size_and_alignment.emplace();
+            size_and_alignment.size = total_size;
+            size_and_alignment.alignment = total_alignment;
+        }
     }
 
-    void Generator::EmitEnum(OutputFile &file, std::string comment, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func)
+    void Generator::EmitEnum(OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_enum_type, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func)
     {
         // Emit the comment, if any. This works fine even if the comment is empty, in which case it just inserts a separating newline.
         assert(!comment.starts_with('\n'));
         comment = '\n' + comment;
         EmitCommentLow(file.header, comment);
 
+        const cppdecl::Type parsed_cpp_underlying_type = ParseTypeOrThrow(std::string(cpp_underlying_type));
+        const std::string cpp_underlying_type_str = CppdeclToCode(parsed_cpp_underlying_type); // Roundtrip to canonicalize the name.
+
 
         // Should we also handle `[u]int32_t` here somehow? Maybe not.
-        const bool is_default_underlying_type = cpp_underlying_type == "int" || cpp_underlying_type == "unsigned int";
+        const bool is_default_underlying_type = cpp_underlying_type_str == "int" || cpp_underlying_type_str == "unsigned int";
 
         // This can crash if the underlying type isn't a known un
-        auto underlying_type_info = data.platform_info.FindPrimitiveType(cpp_underlying_type);
+        auto underlying_type_info = data.platform_info.FindPrimitiveType(cpp_underlying_type_str);
         if (!underlying_type_info)
-            throw std::runtime_error("Unknown underlying type `" + std::string(cpp_underlying_type) + "` for enum `" + std::string(c_enum_name) + "`.");
+            throw std::runtime_error("Unknown underlying type `" + cpp_underlying_type_str + "` for enum `" + std::string(c_enum_name) + "`.");
         const bool is_signed = underlying_type_info->kind == PrimitiveTypeInfo::Kind::signed_integral;
 
+        // Emit the interop description.
+        CInterop::TypeKinds::Enum *enum_desc = nullptr;
+        if (output_desc)
+        {
+            BindableType *bindable_type = FindBindableTypeOpt_Mutable(cppdecl::Type::FromQualifiedName(cpp_enum_type));
+            if (!bindable_type)
+                throw std::runtime_error("Trying to fill the interop description for enum `" + CppdeclToCode(cpp_enum_type) + "`, but it doesn't have a `BindableType` generated for it yet. That must be done first.");
+
+            if (!std::holds_alternative<CInterop::TypeKinds::Invalid>(bindable_type->interop_info))
+                throw std::runtime_error("Trying to fill the interop description for enum `" + CppdeclToCode(cpp_enum_type) + "`, but it already has some existing interop information associated with it.");
+
+            enum_desc = &bindable_type->interop_info.emplace<CInterop::TypeKinds::Enum>();
+
+            enum_desc->output_file = MakeOutputFileDescForInterop(file);
+            enum_desc->comment = MakeCommentForInterop(comment);
+            enum_desc->c_name = c_enum_name;
+            enum_desc->underlying_type = cpp_underlying_type_str;
+        }
+
+        // Emit the enum header.
         if (is_default_underlying_type)
         {
             file.header.contents += "typedef enum " + std::string(c_enum_name) + "\n{\n";
@@ -2631,7 +2728,7 @@ namespace mrbind::CBindings
             // Since the underlying type can be a `[u]int??_t` typedef (because of `--canonicalize-to-fixed-size-typedefs`), we might need a header!
             // The type must be parsed as a type, not a qualified name, because e.g. `unsigned int` isn't one.
             // Here I'm arbitrarily picking the return usage, it should be present for all the types that are simple enough to be used as underlying.
-            auto usage = FindBindableType(ParseTypeOrThrow(std::string(cpp_underlying_type))).return_usage.value();
+            auto usage = FindBindableType(parsed_cpp_underlying_type).return_usage.value();
             // Add the necessary headers. Maybe this is a standard typedef, or ours?
             usage.AddDependenciesToFile(*this, file, InsertHeadersMode::insert_to_header);
 
@@ -2667,6 +2764,15 @@ namespace mrbind::CBindings
             file.header.contents += " = ";
             file.header.contents += is_signed ? std::to_string(std::int64_t(elem_unsigned_value)) : std::to_string(elem_unsigned_value);
             file.header.contents += ",\n";
+
+            // Add to the interop description.
+            if (enum_desc)
+            {
+                CInterop::EnumElem &new_elem = enum_desc->elems.emplace_back();
+                new_elem.comment = MakeCommentForInterop(elem_comment);
+                new_elem.name = elem_name;
+                new_elem.unsigned_value = elem_unsigned_value;
+            }
         });
 
         // The dummy element if there are no real elements, because C enums can't be empty.
@@ -2703,7 +2809,25 @@ namespace mrbind::CBindings
         binder.c_type_name = parsed_info.c_type_str;
         binder.traits = std::get<ParsedTypeInfo::ClassDesc>(parsed_info.input_type).traits;
 
+        // Fill the inheritance information.
+        binder.inheritance_info = parsed_class_inheritance_info.at(cpp_class_name_str);
+
         return binder;
+    }
+
+    CInterop::TypeKinds::Class &Generator::CreateClassDescForInterop(const cppdecl::QualifiedName &cpp_name)
+    {
+        if (!output_desc)
+            throw std::logic_error("Internal error: Must not call `CreateClassDescForInterop()` when not emitting the output description for interop.");
+
+        Generator::BindableType *bindable_type = FindBindableTypeOpt_Mutable(cppdecl::Type::FromQualifiedName(cpp_name));
+        if (!bindable_type)
+            throw std::runtime_error("Trying to fill the interop description for class `" + CppdeclToCode(cpp_name) + "` (heap-allocated opaque), but it doesn't have a `BindableType` generated for it yet. That must be done first.");
+
+        if (!std::holds_alternative<CInterop::TypeKinds::Invalid>(bindable_type->interop_info))
+            throw std::runtime_error("Trying to fill the interop description for class `" + CppdeclToCode(cpp_name) + "` (heap-allocated opaque), but it already has some existing interop information associated with it.");
+
+        return bindable_type->interop_info.emplace<CInterop::TypeKinds::Class>();
     }
 
     CInterop::TypeKinds::Class &Generator::FindClassDescForInterop(cppdecl::Type cpp_type)
@@ -2715,9 +2839,9 @@ namespace mrbind::CBindings
 
         try
         {
-            const auto &binding = FindBindableType(cpp_type);
-            if (!binding.interop_info)
-                throw std::logic_error("Internal error: The interop information for this type wasn't populated it. Was this function called too early?");
+            auto &binding = FindBindableType_Mutable(cpp_type);
+            if (std::holds_alternative<CInterop::TypeKinds::Invalid>(binding.interop_info))
+                throw std::logic_error("Internal error: The interop information for this type wasn't populated yet. Was this function called too early?");
 
             auto class_info = std::get_if<CInterop::TypeKinds::Class>(&binding.interop_info);
             if (!class_info)
@@ -3589,6 +3713,7 @@ namespace mrbind::CBindings
                     self.EmitExposedStruct(
                         file,
                         class_comment_str,
+                        cpp_class_name,
                         parsed_type_info.c_type_str,
                         {.size = cl.type_size, .alignment = cl.type_alignment},
                         [&](EmitExposedStructFieldFunc emit_field)
@@ -3831,6 +3956,8 @@ namespace mrbind::CBindings
                                                 "_" +
                                                 target_c_name
                                             );
+                                            // Hide from interop. Call those functions directly by their names if you need them.
+                                            emit.name.ignore_in_interop = true;
 
                                             // Will add a pointer or a reference later.
                                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);
@@ -4059,13 +4186,15 @@ namespace mrbind::CBindings
         {
             OutputFile &file = self.GetOutputFile(en.declared_in_file);
 
-            const std::string parsed_type_str = self.CppdeclToCode(self.ParseTypeOrThrow(en.full_type));
+            const cppdecl::QualifiedName parsed_type = self.ParseQualNameOrThrow(en.full_type);
+            const std::string parsed_type_str = self.CppdeclToCode(parsed_type);
 
             const auto &c_type_str = self.parsed_type_info.at(parsed_type_str).c_type_str;
 
             self.EmitEnum(
                 file,
                 en.comment ? en.comment->text_with_slashes + '\n' : "",
+                parsed_type,
                 c_type_str,
                 en.canonical_underlying_type,
                 [&](EmitEnumFunc emit_elem)

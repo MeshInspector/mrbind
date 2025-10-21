@@ -63,11 +63,11 @@ int MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_UseCount(const MR_C_std_shared_p
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const MR::StdSharedPtr::A> *)(_this)).use_count());
 }
 
-void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Construct(const MR_StdSharedPtr_A *ptr)
+MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Construct(const MR_StdSharedPtr_A *ptr)
 {
-    std::shared_ptr<const MR::StdSharedPtr::A>(
+    return (MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *)new std::shared_ptr<const MR::StdSharedPtr::A>(std::shared_ptr<const MR::StdSharedPtr::A>(
         std::unique_ptr<const MR::StdSharedPtr::A>((const MR::StdSharedPtr::A *)ptr)
-    );
+    ));
 }
 
 void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Assign(MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *ptr)

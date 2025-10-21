@@ -20,6 +20,7 @@ typedef struct MR_MatchingLayout_A
 
     // third
     float c;
+    long ll;
     int arr[3];
     int arr2d[4][5];
 } MR_MatchingLayout_A;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <common.h>
 #include <exports.h>
 
 #include <stddef.h>
@@ -20,6 +21,7 @@ typedef struct MR_MatchingLayout_A
 
     // third
     float c;
+    MR_C_int64_t ll;
     int arr[3];
     int arr2d[4][5];
 } MR_MatchingLayout_A;

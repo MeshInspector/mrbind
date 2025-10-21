@@ -143,7 +143,9 @@ namespace mrbind::CBindings::Modules
                     { // Construct from a pointer.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Create a new instance, taking ownership of an existing pointer.";
-                        emit.name = binder.MakeMemberFuncName(generator, "Construct");
+                        emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{});
+
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
 
                         emit.params.push_back({
                             .name = "ptr",
@@ -158,7 +160,7 @@ namespace mrbind::CBindings::Modules
                     { // Assign from a pointer.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.";
-                        emit.name = binder.MakeMemberFuncName(generator, "Assign");
+                        emit.name = binder.MakeMemberFuncName(generator, "Assign", CInterop::MethodKinds::Operator{.token = "="});
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.params.push_back({

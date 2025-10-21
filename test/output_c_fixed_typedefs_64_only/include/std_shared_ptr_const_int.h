@@ -56,7 +56,8 @@ MR_C_API int MR_C_std_shared_ptr_const_int_UseCount(const MR_C_std_shared_ptr_co
 /// Create a new instance, taking ownership of an existing pointer.
 /// Parameter `ptr` should point to a single object rather than to an array.
 /// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_C_Free()` on it automatically.
-MR_C_API void MR_C_std_shared_ptr_const_int_Construct(const int *ptr);
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_int_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_int *MR_C_std_shared_ptr_const_int_Construct(const int *ptr);
 
 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
 /// Parameter `_this` can not be null. It is a single object.

@@ -74,7 +74,7 @@ namespace mrbind::CBindings::Modules
                     if (!generator.FindTypeTraits(cpp_elem_type_minus_array_unqual).is_destructible)
                         throw std::runtime_error("Type `" + generator.CppdeclToCode(cpp_elem_type_minus_array_unqual) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
 
-                    func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound);
+                    func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound).c;
                 }
                 else if (
                     // This is a rough heuristic to allow only trivially destructible types.
@@ -92,7 +92,7 @@ namespace mrbind::CBindings::Modules
                 {
                     // Those are trivially destructible, so recommend the generic deallocation functions.
 
-                    func_name_destroy_released_ptr = generator.GetMemoryDeallocFuncName(is_array_of_unknown_bound, nullptr);
+                    func_name_destroy_released_ptr = generator.GetMemoryDeallocFuncName(is_array_of_unknown_bound, nullptr).c;
                     include_common_header_in_output_header = true; // Include the header that declares this deallocation function.
                 }
                 else

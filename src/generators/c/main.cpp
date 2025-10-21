@@ -402,6 +402,14 @@ int main(int raw_argc, char **raw_argv)
         }
     }
 
+    { // Adjust the platform type information if we're using custom `[u]int64_t` typedefs.
+        if (generator.custom_typedef_for_uint64_t_pointing_to_size_t)
+        {
+            for (std::string_view name : {"int64_t", "uint64_t"})
+                generator.data.platform_info.primitive_types.try_emplace(generator.MakePublicHelperName(name), generator.data.platform_info.primitive_types.at(std::string(name)));
+        }
+    }
+
     // Initialize the modules.
     for (const auto &m : generator.modules)
         m->Init(generator);

@@ -20,6 +20,10 @@ namespace mrbind::CBindings
         // This is required by a lot of things. Making it `std::optional` solely to make it easier to catch forgetting to set it.
         std::optional<Generator::TypeTraits> traits;
 
+        // This defaults to empty, which means no inheritance. You can assign to this manually after construction.
+        // Making this `optional` and requiring to fill it manually for every class is too much hassle.
+        CInterop::InheritanceInfo inheritance_info;
+
         // If `new_c_type_name_base` isn't empty, it's used as the C type name (the prefix is added automatically, don't call `MakePublicHelperName()` yourself).
         // If `new_underlying_c_type_base_name` isn't empty, it's used as the true underlying canonical type name in the C code (the prefix is added automatically, don't call `MakePublicHelperName()` yourself).
         // It's not used in the method names and such, and not in the user-facing typedef for this type. Only in the struct name.

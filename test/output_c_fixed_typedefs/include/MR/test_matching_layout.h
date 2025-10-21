@@ -3,6 +3,7 @@
 
 #pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
+#include <common.h>
 #include <exports.h>
 #pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
@@ -25,6 +26,7 @@ typedef struct MR_MatchingLayout_A
 
     // third
     float c;
+    MR_C_int64_t ll;
     int32_t arr[3];
     int32_t arr2d[4][5];
 } MR_MatchingLayout_A;

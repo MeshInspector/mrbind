@@ -56,7 +56,8 @@ MR_C_API int MR_C_std_shared_ptr_const_int_array_42_UseCount(const MR_C_std_shar
 /// Create a new instance, taking ownership of an existing pointer.
 /// Parameter `ptr` can point to an array.
 /// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_C_FreeArray()` on it automatically.
-MR_C_API void MR_C_std_shared_ptr_const_int_array_42_Construct(const int *ptr);
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_int_array_42_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_const_int_array_42 *MR_C_std_shared_ptr_const_int_array_42_Construct(const int *ptr);
 
 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
 /// Parameter `_this` can not be null. It is a single object.

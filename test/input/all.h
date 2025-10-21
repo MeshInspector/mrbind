@@ -1,5 +1,6 @@
 #include <input/MR/1.h>
 #include <input/MR/2.h>
+#include <input/MR/_common.h>
 #include <input/MR/test_abstract_classes.h>
 #include <input/MR/test_adjusting_names.h>
 #include <input/MR/test_aggregates.h>

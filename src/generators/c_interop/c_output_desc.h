@@ -106,9 +106,22 @@ namespace mrbind::CInterop
         struct Layout
         {
             MBREFL_STRUCT(
-                (std::size_t)(byte_size)
-                (std::size_t)(byte_alignment)
-                (std::size_t)(byte_offset)
+                (std::size_t)(byte_size, std::size_t(-1))
+                (std::size_t)(byte_alignment, std::size_t(-1))
+                (std::size_t)(byte_offset, std::size_t(-1))
+            )
+
+            Layout() {} // Ugh.
+        };
+
+        struct Accessor
+        {
+            MBREFL_STRUCT(
+                // Either the return type or the parameter type, depending on what function this is.
+                (std::string)(type)
+
+                // The C name of this function.
+                (std::string)(c_name)
             )
         };
 
@@ -123,18 +136,14 @@ namespace mrbind::CInterop
             (std::string)(full_name)
 
             // Those will be null if the corresponding function isn't generated: [
-            (std::optional<std::string>)(const_getter_return_type)
-            (std::optional<std::string>)(mutable_getter_return_type)
-            (std::optional<std::string>)(setter_param_type)
+            (std::optional<Accessor>)(getter_const)
+            (std::optional<Accessor>)(getter_mutable)
+            (std::optional<Accessor>)(setter)
+            (std::optional<Accessor>)(getter_array_size) // If the field is an array, this function returns its size.
             // ]
 
-            // Is this field a plain C-style array? The getters then return pointers.
-            // This is a shorthand for parsing the field type and checking if it's an array or not.
-            // If this is present, an extra member function returning the array size will also be generated.
-            (bool)(is_plain_array, false)
-
             // Describes the location of this field in an exposed struct.
-            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for them.
+            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
             (std::optional<Layout>)(layout)
         )
     };
@@ -404,6 +413,16 @@ namespace mrbind::CInterop
         {
             static constexpr std::string_view name_in_variant = "class";
 
+            struct SizeAndAlignment
+            {
+                MBREFL_STRUCT(
+                    (std::size_t)(size, std::size_t(-1))
+                    (std::size_t)(alignment, std::size_t(-1))
+                )
+
+                SizeAndAlignment() {} // Ugh!
+            };
+
             MBREFL_STRUCT(
                 (OutputFile)(output_file)
 
@@ -423,6 +442,9 @@ namespace mrbind::CInterop
 
                 // Everything about the bases and the derived classes.
                 (InheritanceInfo)(inheritance_info)
+
+                // Currently this is only set if `kind == exposed_struct`.
+                (std::optional<SizeAndAlignment>)(size_and_alignment)
             )
         };
 
@@ -452,7 +474,7 @@ namespace mrbind::CInterop
     }
 
     using TypeKindVar = std::variant<
-        TypeKinds::Invalid,
+        TypeKinds::Invalid, // Must be first.
         TypeKinds::Void,
         TypeKinds::EmptyTag,
         TypeKinds::Arithmetic,
@@ -477,6 +499,7 @@ namespace mrbind::CInterop
     {
         MBREFL_STRUCT(
             // Maps C++ type names to their descriptions.
+            // The C generator fills it at the end for the `BindableType`s, so don't write to this manually for your specific types.
             (OrderedMap<std::string, TypeDesc>)(cpp_types)
 
             // The list of free functions.

@@ -62,9 +62,9 @@ int MR_C_std_shared_ptr_const_int_array_42_UseCount(const MR_C_std_shared_ptr_co
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const int[42]> *)(_this)).use_count());
 }
 
-void MR_C_std_shared_ptr_const_int_array_42_Construct(const int *ptr)
+MR_C_std_shared_ptr_const_int_array_42 *MR_C_std_shared_ptr_const_int_array_42_Construct(const int *ptr)
 {
-    std::shared_ptr<const int[42]>(std::unique_ptr<const int[]>(ptr).release());
+    return (MR_C_std_shared_ptr_const_int_array_42 *)new std::shared_ptr<const int[42]>(std::shared_ptr<const int[42]>(std::unique_ptr<const int[]>(ptr).release()));
 }
 
 void MR_C_std_shared_ptr_const_int_array_42_Assign(MR_C_std_shared_ptr_const_int_array_42 *_this, const int *ptr)

@@ -64,11 +64,11 @@ int MR_C_std_shared_ptr_int32_t_UseCount(const MR_C_std_shared_ptr_int32_t *_thi
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t> *)(_this)).use_count());
 }
 
-void MR_C_std_shared_ptr_int32_t_Construct(int32_t *ptr)
+MR_C_std_shared_ptr_int32_t *MR_C_std_shared_ptr_int32_t_Construct(int32_t *ptr)
 {
-    std::shared_ptr<int32_t>(
+    return (MR_C_std_shared_ptr_int32_t *)new std::shared_ptr<int32_t>(std::shared_ptr<int32_t>(
         std::unique_ptr<int32_t>(ptr)
-    );
+    ));
 }
 
 void MR_C_std_shared_ptr_int32_t_Assign(MR_C_std_shared_ptr_int32_t *_this, int32_t *ptr)
