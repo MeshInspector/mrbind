@@ -1628,7 +1628,15 @@ namespace mrbind::CBindings
             RemoveIntParamFromPostIncrOrDecr();
 
         name.c = self.overloaded_names.at(&new_func).name;
-        name.cpp_for_interop = CInterop::FuncKinds::Regular{.name = new_func.qual_name, .full_name = new_func.full_qual_name};
+
+        if (new_func.IsOverloadedOperator())
+        {
+            name.cpp_for_interop = CInterop::FuncKinds::Operator{.token = std::string(new_func.GetOverloadedOperatorToken())};
+        }
+        else
+        {
+            name.cpp_for_interop = CInterop::FuncKinds::Regular{.name = new_func.qual_name, .full_name = new_func.full_qual_name};
+        }
 
         SetReturnTypeFromParsedFunc(self, new_func);
 

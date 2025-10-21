@@ -322,10 +322,9 @@
                 "relative_name": "MR/test_iostream"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::IOStream::operator<<",
-                    "full_name": "MR::IOStream::operator<<"
+                    "token": "<<"
                 }
             },
             "comment": {
@@ -363,10 +362,9 @@
                 "relative_name": "MR/test_iostream"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::IOStream::operator>>",
-                    "full_name": "MR::IOStream::operator>>"
+                    "token": ">>"
                 }
             },
             "comment": {
@@ -897,10 +895,9 @@
                 "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OmittingTargsAndQuals::operator*",
-                    "full_name": "MR::OmittingTargsAndQuals::operator*"
+                    "token": "*"
                 }
             },
             "comment": {
@@ -929,10 +926,9 @@
                 "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OmittingTargsAndQuals::operator~",
-                    "full_name": "MR::OmittingTargsAndQuals::operator~<int>"
+                    "token": "~"
                 }
             },
             "comment": {
@@ -1047,10 +1043,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator+",
-                    "full_name": "MR::OverloadedOps::operator+"
+                    "token": "+"
                 }
             },
             "comment": {
@@ -1079,10 +1074,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator+",
-                    "full_name": "MR::OverloadedOps::operator+"
+                    "token": "+"
                 }
             },
             "comment": {
@@ -1120,10 +1114,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator-",
-                    "full_name": "MR::OverloadedOps::operator-"
+                    "token": "-"
                 }
             },
             "comment": {
@@ -1152,10 +1145,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator-",
-                    "full_name": "MR::OverloadedOps::operator-"
+                    "token": "-"
                 }
             },
             "comment": {
@@ -1193,10 +1185,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator*",
-                    "full_name": "MR::OverloadedOps::operator*"
+                    "token": "*"
                 }
             },
             "comment": {
@@ -1225,10 +1216,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator*",
-                    "full_name": "MR::OverloadedOps::operator*"
+                    "token": "*"
                 }
             },
             "comment": {
@@ -1266,10 +1256,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator/",
-                    "full_name": "MR::OverloadedOps::operator/"
+                    "token": "/"
                 }
             },
             "comment": {
@@ -1307,10 +1296,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator%",
-                    "full_name": "MR::OverloadedOps::operator%"
+                    "token": "%"
                 }
             },
             "comment": {
@@ -1348,10 +1336,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator^",
-                    "full_name": "MR::OverloadedOps::operator^"
+                    "token": "^"
                 }
             },
             "comment": {
@@ -1389,10 +1376,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator&",
-                    "full_name": "MR::OverloadedOps::operator&"
+                    "token": "&"
                 }
             },
             "comment": {
@@ -1430,10 +1416,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator|",
-                    "full_name": "MR::OverloadedOps::operator|"
+                    "token": "|"
                 }
             },
             "comment": {
@@ -1471,10 +1456,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator~",
-                    "full_name": "MR::OverloadedOps::operator~"
+                    "token": "~"
                 }
             },
             "comment": {
@@ -1503,10 +1487,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator!",
-                    "full_name": "MR::OverloadedOps::operator!"
+                    "token": "!"
                 }
             },
             "comment": {
@@ -1535,10 +1518,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator<",
-                    "full_name": "MR::OverloadedOps::operator<"
+                    "token": "<"
                 }
             },
             "comment": {
@@ -1576,10 +1558,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator>",
-                    "full_name": "MR::OverloadedOps::operator>"
+                    "token": ">"
                 }
             },
             "comment": {
@@ -1617,10 +1598,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator+=",
-                    "full_name": "MR::OverloadedOps::operator+="
+                    "token": "+="
                 }
             },
             "comment": {
@@ -1658,10 +1638,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator-=",
-                    "full_name": "MR::OverloadedOps::operator-="
+                    "token": "-="
                 }
             },
             "comment": {
@@ -1699,10 +1678,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator*=",
-                    "full_name": "MR::OverloadedOps::operator*="
+                    "token": "*="
                 }
             },
             "comment": {
@@ -1740,10 +1718,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator/=",
-                    "full_name": "MR::OverloadedOps::operator/="
+                    "token": "/="
                 }
             },
             "comment": {
@@ -1781,10 +1758,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator%=",
-                    "full_name": "MR::OverloadedOps::operator%="
+                    "token": "%="
                 }
             },
             "comment": {
@@ -1822,10 +1798,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator^=",
-                    "full_name": "MR::OverloadedOps::operator^="
+                    "token": "^="
                 }
             },
             "comment": {
@@ -1863,10 +1838,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator&=",
-                    "full_name": "MR::OverloadedOps::operator&="
+                    "token": "&="
                 }
             },
             "comment": {
@@ -1904,10 +1878,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator|=",
-                    "full_name": "MR::OverloadedOps::operator|="
+                    "token": "|="
                 }
             },
             "comment": {
@@ -1945,10 +1918,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator<<",
-                    "full_name": "MR::OverloadedOps::operator<<"
+                    "token": "<<"
                 }
             },
             "comment": {
@@ -1986,10 +1958,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator>>",
-                    "full_name": "MR::OverloadedOps::operator>>"
+                    "token": ">>"
                 }
             },
             "comment": {
@@ -2027,10 +1998,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator<<=",
-                    "full_name": "MR::OverloadedOps::operator<<="
+                    "token": "<<="
                 }
             },
             "comment": {
@@ -2068,10 +2038,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator>>=",
-                    "full_name": "MR::OverloadedOps::operator>>="
+                    "token": ">>="
                 }
             },
             "comment": {
@@ -2109,10 +2078,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator==",
-                    "full_name": "MR::OverloadedOps::operator=="
+                    "token": "=="
                 }
             },
             "comment": {
@@ -2150,10 +2118,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator!=",
-                    "full_name": "MR::OverloadedOps::operator!="
+                    "token": "!="
                 }
             },
             "comment": {
@@ -2191,10 +2158,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator<=",
-                    "full_name": "MR::OverloadedOps::operator<="
+                    "token": "<="
                 }
             },
             "comment": {
@@ -2232,10 +2198,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator>=",
-                    "full_name": "MR::OverloadedOps::operator>="
+                    "token": ">="
                 }
             },
             "comment": {
@@ -2273,10 +2238,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator<=>",
-                    "full_name": "MR::OverloadedOps::operator<=>"
+                    "token": "<=>"
                 }
             },
             "comment": {
@@ -2314,10 +2278,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator&&",
-                    "full_name": "MR::OverloadedOps::operator&&"
+                    "token": "&&"
                 }
             },
             "comment": {
@@ -2355,10 +2318,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator||",
-                    "full_name": "MR::OverloadedOps::operator||"
+                    "token": "||"
                 }
             },
             "comment": {
@@ -2396,10 +2358,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator++",
-                    "full_name": "MR::OverloadedOps::operator++"
+                    "token": "++"
                 }
             },
             "comment": {
@@ -2428,10 +2389,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator++",
-                    "full_name": "MR::OverloadedOps::operator++"
+                    "token": "++"
                 }
             },
             "comment": {
@@ -2460,10 +2420,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator--",
-                    "full_name": "MR::OverloadedOps::operator--"
+                    "token": "--"
                 }
             },
             "comment": {
@@ -2492,10 +2451,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator--",
-                    "full_name": "MR::OverloadedOps::operator--"
+                    "token": "--"
                 }
             },
             "comment": {
@@ -2524,10 +2482,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator,",
-                    "full_name": "MR::OverloadedOps::operator,"
+                    "token": ","
                 }
             },
             "comment": {
@@ -2565,10 +2522,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator->*",
-                    "full_name": "MR::OverloadedOps::operator->*"
+                    "token": "->*"
                 }
             },
             "comment": {
@@ -2606,10 +2562,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator+",
-                    "full_name": "MR::OverloadedOps::operator+"
+                    "token": "+"
                 }
             },
             "comment": {
@@ -2647,10 +2602,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator+",
-                    "full_name": "MR::OverloadedOps::operator+"
+                    "token": "+"
                 }
             },
             "comment": {
@@ -2688,10 +2642,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator+",
-                    "full_name": "MR::OverloadedOps::operator+"
+                    "token": "+"
                 }
             },
             "comment": {
@@ -2720,10 +2673,9 @@
                 "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
-                "kind": "regular",
+                "kind": "operator",
                 "value": {
-                    "name": "MR::OverloadedOps::operator+",
-                    "full_name": "MR::OverloadedOps::operator+"
+                    "token": "+"
                 }
             },
             "comment": {
