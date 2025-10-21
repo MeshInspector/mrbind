@@ -269,6 +269,10 @@ namespace mrbind::CInterop
             (FuncReturn)(ret)
             // The parameters.
             (std::vector<FuncParam>)(params)
+
+            // Was this marked as `[[deprecated]]`?
+            // Can hold a deprecation message. If holds an empty string, it was deprecated without a message.
+            (std::optional<std::string>)(is_deprecated)
         )
     };
 

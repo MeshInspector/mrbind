@@ -56,7 +56,7 @@ MR_C_API void MR_C_print_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A
 /// Generated from function `MR::IOStream::operator>>`.
 /// Parameter `_1` can not be null. It is a single object.
 /// Parameter `_2` can not be null. It is a single object.
-MR_C_API void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2);
+MR_C_API void MR_C_input_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2);
 
 #ifdef __cplusplus
 } // extern "C"

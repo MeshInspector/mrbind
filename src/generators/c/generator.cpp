@@ -32,6 +32,8 @@ namespace mrbind::CBindings
     void Generator::OutputFile::InitRelativeName(Generator &self, std::string new_relative_name, bool is_public)
     {
         relative_name = std::move(new_relative_name);
+        if (relative_name.starts_with("./"))
+            relative_name = relative_name.substr(2);
 
         std::filesystem::path relative_output_path = MakePath(relative_name);
 
@@ -1370,7 +1372,7 @@ namespace mrbind::CBindings
             // Later in this function we'll call `MakePublicHelperName()` on this.
             std::string ret;
 
-            bool is_printing_left_shift = false;
+            bool is_iostream_shift = false;
 
             // Unary operators that can also be binary need custom names to avoid conflicts with their binary versions.
             if (ret.empty() && (elem->params.size() + is_method) == 1)
@@ -1386,10 +1388,17 @@ namespace mrbind::CBindings
             }
             // Left-shifting to an ostream reference should have a custom pretty name.
             static const cppdecl::Type ostream_ref_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
+            static const cppdecl::Type istream_ref_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("istream")).AddModifier(cppdecl::Reference{});
             if (ret.empty() && !is_method && op_token == "<<" && ParseTypeOrThrow(elem->params.front().type.canonical) == ostream_ref_type)
             {
                 ret = "print";
-                is_printing_left_shift = true;
+                is_iostream_shift = true;
+            }
+            // Similarly right-shifting from an istream reference.
+            else if (ret.empty() && !is_method && op_token == ">>" && ParseTypeOrThrow(elem->params.front().type.canonical) == istream_ref_type)
+            {
+                ret = "input";
+                is_iostream_shift = true;
             }
             // If none of the above applied, proceed normally.
             if (ret.empty())
@@ -1414,8 +1423,8 @@ namespace mrbind::CBindings
                 // Skip the `int` parameter of the post-increments/decrements.
                 if (!this_is_first && elem->IsPostIncrOrDecr())
                     return;
-                // Skip the first parameter of the post-increments/decrements.
-                if (this_is_first && is_printing_left_shift)
+                // Skip the first parameter of `<<`/`>>` applied to iostreams.
+                if (this_is_first && is_iostream_shift)
                     return;
 
                 // Remove cvref from the parameter type. This shouldn't introduce any ambiguities, but will make the name look a lot nicer.
@@ -2480,6 +2489,8 @@ namespace mrbind::CBindings
                     CInterop::Function &new_func = output_desc->functions.emplace_back();
                     func_like = &new_func;
 
+                    new_func.output_file = MakeOutputFileDescForInterop(file);
+
                     // If this throws, someone has set the wrong `cpp_for_interop` type.
                     // If you get this on a constructor, you probably forgot to pass `CInterop::MethodKinds::Constructor{}` to `MakeMemberFuncName()`.
                     new_func.var = std::get<CInterop::FuncKindVar>(params.name.cpp_for_interop);
@@ -2529,6 +2540,9 @@ namespace mrbind::CBindings
 
                     i++;
                 }
+
+                // Deprecation attribute?
+                func_like->is_deprecated = params.mark_deprecated;
             }
         }
         catch (std::exception &e)

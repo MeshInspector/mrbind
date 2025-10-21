@@ -3,7 +3,7 @@
     "functions": [
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/1"
             },
             "var": {
                 "kind": "regular",
@@ -20,11 +20,12 @@
                 "cpp_type": "std::vector<MR::A>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/1"
             },
             "var": {
                 "kind": "regular",
@@ -51,11 +52,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_adjusting_names"
             },
             "var": {
                 "kind": "regular",
@@ -72,11 +74,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_adjusting_names"
             },
             "var": {
                 "kind": "regular",
@@ -93,11 +96,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_arrays_of_incomplete_types_2"
             },
             "var": {
                 "kind": "regular",
@@ -124,11 +128,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_arrays_of_incomplete_types"
             },
             "var": {
                 "kind": "regular",
@@ -155,11 +160,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_custom_preferred_names"
             },
             "var": {
                 "kind": "regular",
@@ -176,11 +182,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_deprecation"
             },
             "var": {
                 "kind": "regular",
@@ -197,11 +204,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": ""
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_deprecation"
             },
             "var": {
                 "kind": "regular",
@@ -218,11 +226,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": "Some \\message\n"
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "iostream"
             },
             "var": {
                 "kind": "regular",
@@ -239,11 +248,12 @@
                 "cpp_type": "std::ostream &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "iostream"
             },
             "var": {
                 "kind": "regular",
@@ -260,11 +270,12 @@
                 "cpp_type": "std::ostream &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "iostream"
             },
             "var": {
                 "kind": "regular",
@@ -281,11 +292,12 @@
                 "cpp_type": "std::ostream &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "iostream"
             },
             "var": {
                 "kind": "regular",
@@ -302,11 +314,12 @@
                 "cpp_type": "std::istream &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_iostream"
             },
             "var": {
                 "kind": "regular",
@@ -342,11 +355,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_iostream"
             },
             "var": {
                 "kind": "regular",
@@ -358,7 +372,7 @@
             "comment": {
                 "c_style": "/// Generated from function `MR::IOStream::operator>>`.\n"
             },
-            "c_name": "MR_C_rshift_std_istream_MR_IOStream_A",
+            "c_name": "MR_C_input_MR_IOStream_A",
             "ret": {
                 "cpp_type": "void",
                 "uses_sugar": false
@@ -382,11 +396,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_matching_layout"
             },
             "var": {
                 "kind": "regular",
@@ -403,11 +418,12 @@
                 "cpp_type": "MR::MatchingLayout::B",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_matching_layout"
             },
             "var": {
                 "kind": "regular",
@@ -434,11 +450,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_matching_layout"
             },
             "var": {
                 "kind": "regular",
@@ -465,11 +482,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_matching_layout"
             },
             "var": {
                 "kind": "regular",
@@ -496,11 +514,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -527,11 +546,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -548,11 +568,12 @@
                 "cpp_type": "MR::SignatureFilters::A",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -579,11 +600,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -600,11 +622,12 @@
                 "cpp_type": "MR::SignatureFilters::A &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -631,11 +654,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -652,11 +676,12 @@
                 "cpp_type": "MR::SignatureFilters::A &&",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -683,11 +708,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -704,11 +730,12 @@
                 "cpp_type": "const MR::SignatureFilters::A &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -735,11 +762,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_mention_blacklists"
             },
             "var": {
                 "kind": "regular",
@@ -756,11 +784,12 @@
                 "cpp_type": "const MR::SignatureFilters::A &&",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -787,11 +816,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -827,11 +857,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -858,11 +889,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -889,11 +921,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -920,11 +953,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -951,11 +985,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -982,11 +1017,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_omitting_template_args_and_quals"
             },
             "var": {
                 "kind": "regular",
@@ -1003,11 +1039,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1034,11 +1071,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1074,11 +1112,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1105,11 +1144,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1145,11 +1185,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1176,11 +1217,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1216,11 +1258,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1256,11 +1299,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1296,11 +1340,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1336,11 +1381,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1376,11 +1422,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1416,11 +1463,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1447,11 +1495,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1478,11 +1527,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1518,11 +1568,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1558,11 +1609,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1598,11 +1650,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1638,11 +1691,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1678,11 +1732,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1718,11 +1773,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1758,11 +1814,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1798,11 +1855,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1838,11 +1896,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1878,11 +1937,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1918,11 +1978,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1958,11 +2019,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -1998,11 +2060,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2038,11 +2101,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2078,11 +2142,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2118,11 +2183,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2158,11 +2224,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2198,11 +2265,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2238,11 +2306,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2278,11 +2347,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2318,11 +2388,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2349,11 +2420,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2380,11 +2452,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2411,11 +2484,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2442,11 +2516,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2482,11 +2557,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2522,11 +2598,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2562,11 +2639,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2602,11 +2680,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2633,11 +2712,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloaded_operators"
             },
             "var": {
                 "kind": "regular",
@@ -2664,11 +2744,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2695,11 +2776,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2735,11 +2817,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2756,11 +2839,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2777,11 +2861,12 @@
                 "cpp_type": "void",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2808,11 +2893,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2839,11 +2925,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2888,11 +2975,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2937,11 +3025,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -2977,11 +3066,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -3017,11 +3107,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -3057,11 +3148,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -3097,11 +3189,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -3137,11 +3230,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_overloads"
             },
             "var": {
                 "kind": "regular",
@@ -3177,11 +3271,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3208,11 +3303,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3239,11 +3335,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3270,11 +3367,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3301,11 +3399,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3332,11 +3431,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3363,11 +3463,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3394,11 +3495,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3425,11 +3527,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3456,11 +3559,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3487,11 +3591,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3518,11 +3623,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_phmap"
             },
             "var": {
                 "kind": "regular",
@@ -3549,11 +3655,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3570,11 +3677,12 @@
                 "cpp_type": "int32_t",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3601,11 +3709,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3632,11 +3741,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3653,11 +3763,12 @@
                 "cpp_type": "int32_t *",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3684,11 +3795,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3715,11 +3827,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3746,11 +3859,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3767,11 +3881,12 @@
                 "cpp_type": "int32_t &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3798,11 +3913,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3829,11 +3945,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3850,11 +3967,12 @@
                 "cpp_type": "void *",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3881,11 +3999,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3912,11 +4031,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3943,11 +4063,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3964,11 +4085,12 @@
                 "cpp_type": "const void *",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -3995,11 +4117,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4026,11 +4149,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4057,11 +4181,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4078,11 +4203,12 @@
                 "cpp_type": "void **",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4109,11 +4235,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4140,11 +4267,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4171,11 +4299,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4192,11 +4321,12 @@
                 "cpp_type": "int32_t",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4223,11 +4353,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4254,11 +4385,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4275,11 +4407,12 @@
                 "cpp_type": "MR::TestSimpleTypes::E *",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4306,11 +4439,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4337,11 +4471,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4368,11 +4503,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4389,11 +4525,12 @@
                 "cpp_type": "MR::TestSimpleTypes::E &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4420,11 +4557,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4451,11 +4589,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4472,11 +4611,12 @@
                 "cpp_type": "int32_t",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4503,11 +4643,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4534,11 +4675,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4555,11 +4697,12 @@
                 "cpp_type": "MR::TestSimpleTypes::E2 *",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4586,11 +4729,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4617,11 +4761,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4648,11 +4793,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4669,11 +4815,12 @@
                 "cpp_type": "MR::TestSimpleTypes::E2 &",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4700,11 +4847,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4731,11 +4879,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4762,11 +4911,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4793,11 +4943,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4824,11 +4975,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4855,11 +5007,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4886,11 +5039,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4917,11 +5071,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_simple_types"
             },
             "var": {
                 "kind": "regular",
@@ -4948,11 +5103,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_size_t_ptrdiff_t"
             },
             "var": {
                 "kind": "regular",
@@ -4979,11 +5135,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_size_t_ptrdiff_t"
             },
             "var": {
                 "kind": "regular",
@@ -5010,11 +5167,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_size_t_ptrdiff_t"
             },
             "var": {
                 "kind": "regular",
@@ -5041,11 +5199,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_size_t_ptrdiff_t"
             },
             "var": {
                 "kind": "regular",
@@ -5072,11 +5231,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_size_t_ptrdiff_t"
             },
             "var": {
                 "kind": "regular",
@@ -5103,11 +5263,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_size_t_ptrdiff_t"
             },
             "var": {
                 "kind": "regular",
@@ -5134,11 +5295,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5165,11 +5327,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5196,11 +5359,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5217,11 +5381,12 @@
                 "cpp_type": "std::vector<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5248,11 +5413,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5279,11 +5445,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5310,11 +5477,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5341,11 +5509,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5372,11 +5541,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5393,11 +5563,12 @@
                 "cpp_type": "std::deque<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5414,11 +5585,12 @@
                 "cpp_type": "std::list<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5435,11 +5607,12 @@
                 "cpp_type": "std::set<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5456,11 +5629,12 @@
                 "cpp_type": "std::multiset<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5477,11 +5651,12 @@
                 "cpp_type": "std::unordered_set<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5498,11 +5673,12 @@
                 "cpp_type": "std::unordered_multiset<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5519,11 +5695,12 @@
                 "cpp_type": "std::map<int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5540,11 +5717,12 @@
                 "cpp_type": "std::multimap<int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5561,11 +5739,12 @@
                 "cpp_type": "std::unordered_map<int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5582,11 +5761,12 @@
                 "cpp_type": "std::unordered_multimap<int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5603,11 +5783,12 @@
                 "cpp_type": "std::array<MR::StdContainers::A, 42>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5624,11 +5805,12 @@
                 "cpp_type": "std::array<int32_t, 43>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5655,11 +5837,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5686,11 +5869,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5707,11 +5891,12 @@
                 "cpp_type": "std::multiset<float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5728,11 +5913,12 @@
                 "cpp_type": "std::set<float>::const_iterator",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5749,11 +5935,12 @@
                 "cpp_type": "std::set<float>::const_iterator",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5770,11 +5957,12 @@
                 "cpp_type": "std::vector<MR::StdContainers::NonDefaultConstructible>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5791,11 +5979,12 @@
                 "cpp_type": "std::vector<MR::StdContainers::NonAssignable>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5812,11 +6001,12 @@
                 "cpp_type": "std::deque<MR::StdContainers::NonAssignable>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5833,11 +6023,12 @@
                 "cpp_type": "std::list<MR::StdContainers::NonAssignable>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5854,11 +6045,12 @@
                 "cpp_type": "std::set<MR::StdContainers::NonAssignable>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5875,11 +6067,12 @@
                 "cpp_type": "std::multiset<MR::StdContainers::NonAssignable>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5896,11 +6089,12 @@
                 "cpp_type": "std::unordered_set<MR::StdContainers::NonAssignable>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5917,11 +6111,12 @@
                 "cpp_type": "std::unordered_multiset<MR::StdContainers::NonAssignable>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5938,11 +6133,12 @@
                 "cpp_type": "std::map<MR::StdContainers::NonAssignable, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5959,11 +6155,12 @@
                 "cpp_type": "std::multimap<MR::StdContainers::NonAssignable, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -5980,11 +6177,12 @@
                 "cpp_type": "std::unordered_map<MR::StdContainers::NonAssignable, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -6001,11 +6199,12 @@
                 "cpp_type": "std::unordered_multimap<MR::StdContainers::NonAssignable, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -6022,11 +6221,12 @@
                 "cpp_type": "std::array<MR::StdContainers::NonAssignable, 42>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_containers"
             },
             "var": {
                 "kind": "regular",
@@ -6043,11 +6243,12 @@
                 "cpp_type": "std::array<int32_t[3][4], 5>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6064,11 +6265,12 @@
                 "cpp_type": "std::expected<int32_t, std::string>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6095,11 +6297,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6126,11 +6329,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6157,11 +6361,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6188,11 +6393,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6209,11 +6415,12 @@
                 "cpp_type": "std::expected<void, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6240,11 +6447,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6271,11 +6479,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6302,11 +6511,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6333,11 +6543,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_expected"
             },
             "var": {
                 "kind": "regular",
@@ -6354,11 +6565,12 @@
                 "cpp_type": "std::vector<std::expected<int32_t, std::string>>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_filesystem"
             },
             "var": {
                 "kind": "regular",
@@ -6375,11 +6587,12 @@
                 "cpp_type": "std::filesystem::path",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_filesystem"
             },
             "var": {
                 "kind": "regular",
@@ -6406,11 +6619,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_filesystem"
             },
             "var": {
                 "kind": "regular",
@@ -6437,11 +6651,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_filesystem"
             },
             "var": {
                 "kind": "regular",
@@ -6468,11 +6683,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_filesystem"
             },
             "var": {
                 "kind": "regular",
@@ -6499,11 +6715,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6530,11 +6747,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6561,11 +6779,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6592,11 +6811,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6623,11 +6843,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6654,11 +6875,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6685,11 +6907,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6716,11 +6939,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_function"
             },
             "var": {
                 "kind": "regular",
@@ -6747,11 +6971,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6768,11 +6993,12 @@
                 "cpp_type": "std::optional<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6799,11 +7025,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6830,11 +7057,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6861,11 +7089,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6892,11 +7121,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6913,11 +7143,12 @@
                 "cpp_type": "std::optional<MR::StdOptional::E>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6944,11 +7175,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -6975,11 +7207,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7006,11 +7239,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7037,11 +7271,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7058,11 +7293,12 @@
                 "cpp_type": "std::optional<MR::StdOptional::A>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7089,11 +7325,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7120,11 +7357,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7151,11 +7389,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7182,11 +7421,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7203,11 +7443,12 @@
                 "cpp_type": "std::optional<MR::StdOptional::B>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7234,11 +7475,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7265,11 +7507,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7296,11 +7539,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_optional"
             },
             "var": {
                 "kind": "regular",
@@ -7327,11 +7571,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7348,11 +7593,12 @@
                 "cpp_type": "std::shared_ptr<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7379,11 +7625,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7410,11 +7657,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7441,11 +7689,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7472,11 +7721,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7503,11 +7753,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7534,11 +7785,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7565,11 +7817,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7596,11 +7849,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7617,11 +7871,12 @@
                 "cpp_type": "std::shared_ptr<int32_t[]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7648,11 +7903,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7679,11 +7935,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7710,11 +7967,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7731,11 +7989,12 @@
                 "cpp_type": "std::shared_ptr<int32_t[42]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7762,11 +8021,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7793,11 +8053,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7824,11 +8085,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7845,11 +8107,12 @@
                 "cpp_type": "std::shared_ptr<MR::StdSharedPtr::A>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7876,11 +8139,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7907,11 +8171,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7938,11 +8203,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -7969,11 +8235,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8000,11 +8267,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8031,11 +8299,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8062,11 +8331,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8093,11 +8363,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8114,11 +8385,12 @@
                 "cpp_type": "std::shared_ptr<MR::StdSharedPtr::A[]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8145,11 +8417,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8176,11 +8449,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8207,11 +8481,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8228,11 +8503,12 @@
                 "cpp_type": "std::shared_ptr<MR::StdSharedPtr::A[42]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8259,11 +8535,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8290,11 +8567,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8321,11 +8599,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8342,11 +8621,12 @@
                 "cpp_type": "std::shared_ptr<const int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8363,11 +8643,12 @@
                 "cpp_type": "std::shared_ptr<const int32_t[]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8384,11 +8665,12 @@
                 "cpp_type": "std::shared_ptr<const int32_t[42]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8405,11 +8687,12 @@
                 "cpp_type": "std::shared_ptr<const MR::StdSharedPtr::A>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8426,11 +8709,12 @@
                 "cpp_type": "std::shared_ptr<const MR::StdSharedPtr::A[]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_shared_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -8447,11 +8731,12 @@
                 "cpp_type": "std::shared_ptr<const MR::StdSharedPtr::A[42]>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8478,11 +8763,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8509,11 +8795,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8530,11 +8817,12 @@
                 "cpp_type": "std::string",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8561,11 +8849,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8592,11 +8881,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8623,11 +8913,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8654,11 +8945,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string"
             },
             "var": {
                 "kind": "regular",
@@ -8685,11 +8977,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8716,11 +9009,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8747,11 +9041,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8768,11 +9063,12 @@
                 "cpp_type": "std::string_view",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8799,11 +9095,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8830,11 +9127,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8861,11 +9159,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8892,11 +9191,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_string_view"
             },
             "var": {
                 "kind": "regular",
@@ -8923,11 +9223,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -8954,11 +9255,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -8975,11 +9277,12 @@
                 "cpp_type": "std::pair<int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -8996,11 +9299,12 @@
                 "cpp_type": "std::pair<const int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9017,11 +9321,12 @@
                 "cpp_type": "std::pair<int32_t &, float &>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9038,11 +9343,12 @@
                 "cpp_type": "std::pair<const int32_t &, const float &>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9059,11 +9365,12 @@
                 "cpp_type": "std::pair<int32_t &&, float &&>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9080,11 +9387,12 @@
                 "cpp_type": "std::pair<const int32_t &&, const float &&>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9111,11 +9419,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9132,11 +9441,12 @@
                 "cpp_type": "std::tuple<int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9153,11 +9463,12 @@
                 "cpp_type": "std::tuple<const int32_t, const float, int32_t &, float &, const int32_t &, const float &, int32_t &&, float &&, const int32_t &&, const float &&>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9174,11 +9485,12 @@
                 "cpp_type": "std::tuple<>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_tuple_like"
             },
             "var": {
                 "kind": "regular",
@@ -9195,11 +9507,12 @@
                 "cpp_type": "std::tuple<float, double, int32_t, int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9216,11 +9529,12 @@
                 "cpp_type": "std::unique_ptr<int32_t>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9247,11 +9561,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9278,11 +9593,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9309,11 +9625,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9340,11 +9657,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9371,11 +9689,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9402,11 +9721,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9433,11 +9753,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9464,11 +9785,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9485,11 +9807,12 @@
                 "cpp_type": "std::unique_ptr<int32_t[]>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9516,11 +9839,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9547,11 +9871,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9578,11 +9903,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9599,11 +9925,12 @@
                 "cpp_type": "std::unique_ptr<MR::StdUniquePtr::A>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9630,11 +9957,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9661,11 +9989,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9692,11 +10021,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9723,11 +10053,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9754,11 +10085,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9785,11 +10117,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9816,11 +10149,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9847,11 +10181,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9868,11 +10203,12 @@
                 "cpp_type": "std::unique_ptr<MR::StdUniquePtr::A[]>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9899,11 +10235,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9930,11 +10267,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9961,11 +10299,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -9982,11 +10321,12 @@
                 "cpp_type": "std::unique_ptr<const int32_t>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -10003,11 +10343,12 @@
                 "cpp_type": "std::unique_ptr<const int32_t[]>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -10024,11 +10365,12 @@
                 "cpp_type": "std::unique_ptr<const MR::StdUniquePtr::A>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -10045,11 +10387,12 @@
                 "cpp_type": "std::unique_ptr<const MR::StdUniquePtr::A[]>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -10066,11 +10409,12 @@
                 "cpp_type": "std::unique_ptr<float>",
                 "uses_sugar": true
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -10097,11 +10441,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_std_unique_ptr"
             },
             "var": {
                 "kind": "regular",
@@ -10128,11 +10473,12 @@
                     "uses_sugar": true,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_tags"
             },
             "var": {
                 "kind": "regular",
@@ -10159,11 +10505,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_tags"
             },
             "var": {
                 "kind": "regular",
@@ -10190,11 +10537,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_tags"
             },
             "var": {
                 "kind": "regular",
@@ -10221,11 +10569,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_tags"
             },
             "var": {
                 "kind": "regular",
@@ -10252,11 +10601,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_tags"
             },
             "var": {
                 "kind": "regular",
@@ -10273,11 +10623,12 @@
                 "cpp_type": "std::less<int32_t>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_typedefs_in_templates"
             },
             "var": {
                 "kind": "regular",
@@ -10304,11 +10655,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_variant"
             },
             "var": {
                 "kind": "regular",
@@ -10325,11 +10677,12 @@
                 "cpp_type": "std::variant<int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_variant"
             },
             "var": {
                 "kind": "regular",
@@ -10356,11 +10709,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_variant"
             },
             "var": {
                 "kind": "regular",
@@ -10387,11 +10741,12 @@
                     "uses_sugar": false,
                     "this_param": null
                 }
-            ]
+            ],
+            "is_deprecated": null
         },
         {
             "output_file": {
-                "relative_name": ""
+                "relative_name": "MR/test_variant"
             },
             "var": {
                 "kind": "regular",
@@ -10408,7 +10763,8 @@
                 "cpp_type": "std::variant<std::monostate, int32_t, float>",
                 "uses_sugar": false
             },
-            "params": []
+            "params": [],
+            "is_deprecated": null
         }
     ],
     "platform_info": {

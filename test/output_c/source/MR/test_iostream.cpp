@@ -60,7 +60,7 @@ void MR_C_print_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
     );
 }
 
-void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2)
+void MR_C_input_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2)
 {
     operator>>(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::istream *)(_1)),
