@@ -54,7 +54,7 @@ MR_C_API void MR_UsingDecls_A_Set_Field(MR_UsingDecls_A *_this, int value);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_UsingDecls_A_GetMutable_Field(MR_UsingDecls_A *_this);
 
-/// Generated from a constructor of class `MR::UsingDecls::A`.
+/// Generated from constructor `MR::UsingDecls::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_UsingDecls_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_ConstructFromAnother(const MR_UsingDecls_A *_other);
@@ -74,7 +74,7 @@ MR_C_API const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object);
 
-/// Generated from a constructor of class `MR::UsingDecls::A`.
+/// Generated from constructor `MR::UsingDecls::A::A`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_UsingDecls_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_Construct(int _1);
 
@@ -84,25 +84,25 @@ MR_C_API void MR_UsingDecls_A_Destroy(const MR_UsingDecls_A *_this);
 /// Destroys a heap-allocated array of `MR_UsingDecls_A`. Does nothing if the pointer is null.
 MR_C_API void MR_UsingDecls_A_DestroyArray(const MR_UsingDecls_A *_this);
 
-/// Generated from a conversion operator of class `MR::UsingDecls::A` to type `int`.
+/// Generated from conversion operator `MR::UsingDecls::A::operator int`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_UsingDecls_A_ConvertTo_int(MR_UsingDecls_A *_this);
 
-/// Generated from a method of class `MR::UsingDecls::A` named `operator=`.
+/// Generated from method `MR::UsingDecls::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_AssignFromAnother(MR_UsingDecls_A *_this, const MR_UsingDecls_A *_other);
 
-/// Generated from a method of class `MR::UsingDecls::A` named `operator=`.
+/// Generated from method `MR::UsingDecls::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_UsingDecls_A_assign(MR_UsingDecls_A *_this, int _1);
 
-/// Generated from a method of class `MR::UsingDecls::A` named `Method`.
+/// Generated from method `MR::UsingDecls::A::Method`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_UsingDecls_A_Method(MR_UsingDecls_A *_this);
 
-/// Generated from a method of class `MR::UsingDecls::A` named `StaticFunc`.
+/// Generated from method `MR::UsingDecls::A::StaticFunc`.
 MR_C_API void MR_UsingDecls_A_StaticFunc(void);
 
 /// Returns a pointer to a member variable of class `MR::UsingDecls::B` named `Field`.
@@ -130,7 +130,7 @@ MR_C_API void MR_UsingDecls_B_Set_StaticVar(int value);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_UsingDecls_B_GetMutable_StaticVar(void);
 
-/// Generated from a constructor of class `MR::UsingDecls::B`.
+/// Generated from constructor `MR::UsingDecls::B::B`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_UsingDecls_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_B_ConstructFromAnother(const MR_UsingDecls_B *_other);
@@ -154,25 +154,25 @@ MR_C_API void MR_UsingDecls_B_Destroy(const MR_UsingDecls_B *_this);
 /// Destroys a heap-allocated array of `MR_UsingDecls_B`. Does nothing if the pointer is null.
 MR_C_API void MR_UsingDecls_B_DestroyArray(const MR_UsingDecls_B *_this);
 
-/// Generated from a conversion operator of class `MR::UsingDecls::B` to type `int`.
+/// Generated from conversion operator `MR::UsingDecls::B::operator int`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_UsingDecls_B_ConvertTo_int(MR_UsingDecls_B *_this);
 
-/// Generated from a method of class `MR::UsingDecls::B` named `operator=`.
+/// Generated from method `MR::UsingDecls::B::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_B_AssignFromAnother(MR_UsingDecls_B *_this, const MR_UsingDecls_B *_other);
 
-/// Generated from a method of class `MR::UsingDecls::B` named `operator=`.
+/// Generated from method `MR::UsingDecls::B::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_UsingDecls_B_assign(MR_UsingDecls_B *_this, int _1);
 
-/// Generated from a method of class `MR::UsingDecls::B` named `Method`.
+/// Generated from method `MR::UsingDecls::B::Method`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_UsingDecls_B_Method(MR_UsingDecls_B *_this);
 
-/// Generated from a method of class `MR::UsingDecls::B` named `StaticFunc`.
+/// Generated from method `MR::UsingDecls::B::StaticFunc`.
 MR_C_API void MR_UsingDecls_B_StaticFunc(void);
 
 #ifdef __cplusplus

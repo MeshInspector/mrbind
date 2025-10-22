@@ -48,7 +48,7 @@ MR_C_API const MR_A *MR_A_OffsetPtr(const MR_A *ptr, ptrdiff_t i);
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_A *MR_A_OffsetMutablePtr(MR_A *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::A`.
+/// Generated from constructor `MR::A::A`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_other);
 
@@ -58,7 +58,7 @@ MR_C_API void MR_A_Destroy(const MR_A *_this);
 /// Destroys a heap-allocated array of `MR_A`. Does nothing if the pointer is null.
 MR_C_API void MR_A_DestroyArray(const MR_A *_this);
 
-/// Generated from a method of class `MR::A` named `operator=`.
+/// Generated from method `MR::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other);

@@ -40,7 +40,7 @@ MR_C_API const MR_OmittingTargsAndQuals_A_int32_t *MR_OmittingTargsAndQuals_A_in
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_OmittingTargsAndQuals_A_int32_t *MR_OmittingTargsAndQuals_A_int32_t_OffsetMutablePtr(MR_OmittingTargsAndQuals_A_int32_t *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::OmittingTargsAndQuals::A<int32_t>`.
+// Generated from constructor `MR::OmittingTargsAndQuals::A<int32_t>::A`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_OmittingTargsAndQuals_A_int32_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_OmittingTargsAndQuals_A_int32_t *MR_OmittingTargsAndQuals_A_int32_t_ConstructFromAnother(const MR_OmittingTargsAndQuals_A_int32_t *_other);
@@ -51,17 +51,17 @@ MR_C_API void MR_OmittingTargsAndQuals_A_int32_t_Destroy(const MR_OmittingTargsA
 // Destroys a heap-allocated array of `MR_OmittingTargsAndQuals_A_int32_t`. Does nothing if the pointer is null.
 MR_C_API void MR_OmittingTargsAndQuals_A_int32_t_DestroyArray(const MR_OmittingTargsAndQuals_A_int32_t *_this);
 
-// Generated from a method of class `MR::OmittingTargsAndQuals::A<int32_t>` named `operator=`.
+// Generated from method `MR::OmittingTargsAndQuals::A<int32_t>::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_OmittingTargsAndQuals_A_int32_t *MR_OmittingTargsAndQuals_A_int32_t_AssignFromAnother(MR_OmittingTargsAndQuals_A_int32_t *_this, const MR_OmittingTargsAndQuals_A_int32_t *_other);
 
-// Generated from a method of class `MR::OmittingTargsAndQuals::A<int32_t>` named `operator+`.
+// Generated from method `MR::OmittingTargsAndQuals::A<int32_t>::operator+`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_pos_MR_OmittingTargsAndQuals_A_int32_t(MR_OmittingTargsAndQuals_A_int32_t *_this);
 
-// Generated from a method of class `MR::OmittingTargsAndQuals::A<int32_t>` named `operator-<float>`.
+// Generated from method `MR::OmittingTargsAndQuals::A<int32_t>::operator-<float>`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_C_sub_MR_OmittingTargsAndQuals_A_int32_t_MR_OmittingTargsAndQuals_A_float(MR_OmittingTargsAndQuals_A_int32_t *_this, const MR_OmittingTargsAndQuals_A_float *_1);
@@ -90,7 +90,7 @@ MR_C_API const MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_floa
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_OffsetMutablePtr(MR_OmittingTargsAndQuals_A_float *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::OmittingTargsAndQuals::A<float>`.
+// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_OmittingTargsAndQuals_A_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(const MR_OmittingTargsAndQuals_A_float *_other);
@@ -101,13 +101,13 @@ MR_C_API void MR_OmittingTargsAndQuals_A_float_Destroy(const MR_OmittingTargsAnd
 // Destroys a heap-allocated array of `MR_OmittingTargsAndQuals_A_float`. Does nothing if the pointer is null.
 MR_C_API void MR_OmittingTargsAndQuals_A_float_DestroyArray(const MR_OmittingTargsAndQuals_A_float *_this);
 
-// Generated from a method of class `MR::OmittingTargsAndQuals::A<float>` named `operator=`.
+// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_AssignFromAnother(MR_OmittingTargsAndQuals_A_float *_this, const MR_OmittingTargsAndQuals_A_float *_other);
 
-// Generated from a method of class `MR::OmittingTargsAndQuals::A<float>` named `operator+`.
+// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator+`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_pos_MR_OmittingTargsAndQuals_A_float(MR_OmittingTargsAndQuals_A_float *_this);
 

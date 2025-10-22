@@ -49,7 +49,7 @@ MR_C_API const MR_AdjustingNames_A *MR_AdjustingNames_A_OffsetPtr(const MR_Adjus
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_AdjustingNames_A *MR_AdjustingNames_A_OffsetMutablePtr(MR_AdjustingNames_A *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::AdjustingNames::A`.
+/// Generated from constructor `MR::AdjustingNames::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_AdjustingNames_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_AdjustingNames_A *MR_AdjustingNames_A_ConstructFromAnother(const MR_AdjustingNames_A *_other);
@@ -60,21 +60,21 @@ MR_C_API void MR_AdjustingNames_A_Destroy(const MR_AdjustingNames_A *_this);
 /// Destroys a heap-allocated array of `MR_AdjustingNames_A`. Does nothing if the pointer is null.
 MR_C_API void MR_AdjustingNames_A_DestroyArray(const MR_AdjustingNames_A *_this);
 
-/// Generated from a conversion operator of class `MR::AdjustingNames::A` to type `unsigned long`.
+/// Generated from conversion operator `MR::AdjustingNames::A::operator unsigned long`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API unsigned long MR_AdjustingNames_A_ConvertTo_unsigned_long(MR_AdjustingNames_A *_this);
 
-/// Generated from a method of class `MR::AdjustingNames::A` named `operator=`.
+/// Generated from method `MR::AdjustingNames::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_AdjustingNames_A *MR_AdjustingNames_A_AssignFromAnother(MR_AdjustingNames_A *_this, const MR_AdjustingNames_A *_other);
 
-/// Generated from a method of class `MR::AdjustingNames::A` named `foo<unsigned long>`.
+/// Generated from method `MR::AdjustingNames::A::foo<unsigned long>`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_AdjustingNames_A_foo(MR_AdjustingNames_A *_this);
 
-/// Generated from a method of class `MR::AdjustingNames::A` named `bar`.
+/// Generated from method `MR::AdjustingNames::A::bar`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_AdjustingNames_A_bar(MR_AdjustingNames_A *_this);
 

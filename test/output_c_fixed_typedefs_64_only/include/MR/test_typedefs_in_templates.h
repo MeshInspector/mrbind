@@ -38,7 +38,7 @@ MR_C_API const MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_Offset
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_OffsetMutablePtr(MR_TypedefsInTemplates_A_int *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::TypedefsInTemplates::A<int>`.
+/// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_ConstructFromAnother(const MR_TypedefsInTemplates_A_int *_other);
@@ -49,13 +49,13 @@ MR_C_API void MR_TypedefsInTemplates_A_int_Destroy(const MR_TypedefsInTemplates_
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_A_int`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_A_int_DestroyArray(const MR_TypedefsInTemplates_A_int *_this);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::A<int>` named `operator=`.
+/// Generated from method `MR::TypedefsInTemplates::A<int>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_AssignFromAnother(MR_TypedefsInTemplates_A_int *_this, const MR_TypedefsInTemplates_A_int *_other);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::A<int>` named `foo`.
+/// Generated from method `MR::TypedefsInTemplates::A<int>::foo`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_TypedefsInTemplates_A_int_foo(MR_TypedefsInTemplates_A_int *_this);
 
@@ -74,7 +74,7 @@ MR_C_API const MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_Offset
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_OffsetMutablePtr(MR_TypedefsInTemplates_B_int *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::TypedefsInTemplates::B<int>`.
+/// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_ConstructFromAnother(const MR_TypedefsInTemplates_B_int *_other);
@@ -85,7 +85,7 @@ MR_C_API void MR_TypedefsInTemplates_B_int_Destroy(const MR_TypedefsInTemplates_
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_B_int`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_B_int_DestroyArray(const MR_TypedefsInTemplates_B_int *_this);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::B<int>` named `operator=`.
+/// Generated from method `MR::TypedefsInTemplates::B<int>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -106,7 +106,7 @@ MR_C_API const MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_i
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_OffsetMutablePtr(MR_TypedefsInTemplates_B_int_BB_float *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::TypedefsInTemplates::B<int>::BB<float>`.
+/// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_BB_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(const MR_TypedefsInTemplates_B_int_BB_float *_other);
@@ -117,17 +117,17 @@ MR_C_API void MR_TypedefsInTemplates_B_int_BB_float_Destroy(const MR_TypedefsInT
 /// Destroys a heap-allocated array of `MR_TypedefsInTemplates_B_int_BB_float`. Does nothing if the pointer is null.
 MR_C_API void MR_TypedefsInTemplates_B_int_BB_float_DestroyArray(const MR_TypedefsInTemplates_B_int_BB_float *_this);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::B<int>::BB<float>` named `operator=`.
+/// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(MR_TypedefsInTemplates_B_int_BB_float *_this, const MR_TypedefsInTemplates_B_int_BB_float *_other);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::B<int>::BB<float>` named `foo`.
+/// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_TypedefsInTemplates_B_int_BB_float_foo(MR_TypedefsInTemplates_B_int_BB_float *_this);
 
-/// Generated from a method of class `MR::TypedefsInTemplates::B<int>::BB<float>` named `foo2`.
+/// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo2`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_TypedefsInTemplates_B_int_BB_float_foo2(MR_TypedefsInTemplates_B_int_BB_float *_this);
 

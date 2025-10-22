@@ -56,7 +56,7 @@ MR_C_API const MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_Offset
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_OffsetMutablePtr(MR_TestSizeT_A_unsigned_long *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::TestSizeT::A<unsigned long>`.
+/// Generated from constructor `MR::TestSizeT::A<unsigned long>::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_ConstructFromAnother(const MR_TestSizeT_A_unsigned_long *_other);
@@ -67,13 +67,13 @@ MR_C_API void MR_TestSizeT_A_unsigned_long_Destroy(const MR_TestSizeT_A_unsigned
 /// Destroys a heap-allocated array of `MR_TestSizeT_A_unsigned_long`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSizeT_A_unsigned_long_DestroyArray(const MR_TestSizeT_A_unsigned_long *_this);
 
-/// Generated from a method of class `MR::TestSizeT::A<unsigned long>` named `operator=`.
+/// Generated from method `MR::TestSizeT::A<unsigned long>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other);
 
-/// Generated from a method of class `MR::TestSizeT::A<unsigned long>` named `foo`.
+/// Generated from method `MR::TestSizeT::A<unsigned long>::foo`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API unsigned long MR_TestSizeT_A_unsigned_long_foo(MR_TestSizeT_A_unsigned_long *_this);
 

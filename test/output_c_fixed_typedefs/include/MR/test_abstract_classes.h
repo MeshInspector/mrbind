@@ -28,7 +28,7 @@ typedef struct MR_AbstractClasses_B MR_AbstractClasses_B;
 //     `MR::AbstractClasses::B`
 typedef struct MR_AbstractClasses_C MR_AbstractClasses_C;
 
-// Generated from a method of class `MR::AbstractClasses::A` named `foo`.
+// Generated from method `MR::AbstractClasses::A::foo`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_AbstractClasses_A_foo(MR_AbstractClasses_A *_this);
 
@@ -44,7 +44,7 @@ MR_C_API void MR_AbstractClasses_B_Destroy(const MR_AbstractClasses_B *_this);
 // Destroys a heap-allocated array of `MR_AbstractClasses_B`. Does nothing if the pointer is null.
 MR_C_API void MR_AbstractClasses_B_DestroyArray(const MR_AbstractClasses_B *_this);
 
-// Generated from a method of class `MR::AbstractClasses::B` named `foo`.
+// Generated from method `MR::AbstractClasses::B::foo`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this);
 

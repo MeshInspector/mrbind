@@ -96,7 +96,7 @@ MR_C_API const MR_Aggregates_A *MR_Aggregates_A_OffsetPtr(const MR_Aggregates_A 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Aggregates_A *MR_Aggregates_A_OffsetMutablePtr(MR_Aggregates_A *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::Aggregates::A`.
+// Generated from constructor `MR::Aggregates::A::A`.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_Aggregates_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_Aggregates_A *MR_Aggregates_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Aggregates_A *_other);
 
@@ -106,7 +106,7 @@ MR_C_API void MR_Aggregates_A_Destroy(const MR_Aggregates_A *_this);
 // Destroys a heap-allocated array of `MR_Aggregates_A`. Does nothing if the pointer is null.
 MR_C_API void MR_Aggregates_A_DestroyArray(const MR_Aggregates_A *_this);
 
-// Generated from a method of class `MR::Aggregates::A` named `operator=`.
+// Generated from method `MR::Aggregates::A::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Aggregates_A *MR_Aggregates_A_AssignFromAnother(MR_Aggregates_A *_this, MR_C_PassBy _other_pass_by, MR_Aggregates_A *_other);
@@ -126,7 +126,7 @@ MR_C_API const MR_Aggregates_B *MR_Aggregates_B_OffsetPtr(const MR_Aggregates_B 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Aggregates_B *MR_Aggregates_B_OffsetMutablePtr(MR_Aggregates_B *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::Aggregates::B`.
+// Generated from constructor `MR::Aggregates::B::B`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_Aggregates_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_Aggregates_B *MR_Aggregates_B_ConstructFromAnother(const MR_Aggregates_B *_other);
@@ -137,13 +137,13 @@ MR_C_API void MR_Aggregates_B_Destroy(const MR_Aggregates_B *_this);
 // Destroys a heap-allocated array of `MR_Aggregates_B`. Does nothing if the pointer is null.
 MR_C_API void MR_Aggregates_B_DestroyArray(const MR_Aggregates_B *_this);
 
-// Generated from a method of class `MR::Aggregates::B` named `operator=`.
+// Generated from method `MR::Aggregates::B::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Aggregates_B *MR_Aggregates_B_AssignFromAnother(MR_Aggregates_B *_this, const MR_Aggregates_B *_other);
 
-// Generated from a constructor of class `MR::Aggregates::NonDefaultConstructible`.
+// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_Aggregates_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_Aggregates_NonDefaultConstructible *MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(const MR_Aggregates_NonDefaultConstructible *_other);
@@ -160,7 +160,7 @@ MR_C_API void MR_Aggregates_NonDefaultConstructible_Destroy(const MR_Aggregates_
 // Destroys a heap-allocated array of `MR_Aggregates_NonDefaultConstructible`. Does nothing if the pointer is null.
 MR_C_API void MR_Aggregates_NonDefaultConstructible_DestroyArray(const MR_Aggregates_NonDefaultConstructible *_this);
 
-// Generated from a method of class `MR::Aggregates::NonDefaultConstructible` named `operator=`.
+// Generated from method `MR::Aggregates::NonDefaultConstructible::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -297,7 +297,7 @@ MR_C_API const MR_Aggregates_C *MR_Aggregates_C_OffsetPtr(const MR_Aggregates_C 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Aggregates_C *MR_Aggregates_C_OffsetMutablePtr(MR_Aggregates_C *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::Aggregates::C`.
+// Generated from constructor `MR::Aggregates::C::C`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_Aggregates_C_Destroy()` to free it when you're done using it.
 MR_C_API MR_Aggregates_C *MR_Aggregates_C_ConstructFromAnother(const MR_Aggregates_C *_other);
@@ -308,7 +308,7 @@ MR_C_API void MR_Aggregates_C_Destroy(const MR_Aggregates_C *_this);
 // Destroys a heap-allocated array of `MR_Aggregates_C`. Does nothing if the pointer is null.
 MR_C_API void MR_Aggregates_C_DestroyArray(const MR_Aggregates_C *_this);
 
-// Generated from a method of class `MR::Aggregates::C` named `operator=`.
+// Generated from method `MR::Aggregates::C::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -455,7 +455,7 @@ MR_C_API const MR_Aggregates_D *MR_Aggregates_D_OffsetPtr(const MR_Aggregates_D 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Aggregates_D *MR_Aggregates_D_OffsetMutablePtr(MR_Aggregates_D *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::Aggregates::D`.
+// Generated from constructor `MR::Aggregates::D::D`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_Aggregates_D_Destroy()` to free it when you're done using it.
 MR_C_API MR_Aggregates_D *MR_Aggregates_D_ConstructFromAnother(const MR_Aggregates_D *_other);
@@ -466,7 +466,7 @@ MR_C_API void MR_Aggregates_D_Destroy(const MR_Aggregates_D *_this);
 // Destroys a heap-allocated array of `MR_Aggregates_D`. Does nothing if the pointer is null.
 MR_C_API void MR_Aggregates_D_DestroyArray(const MR_Aggregates_D *_this);
 
-// Generated from a method of class `MR::Aggregates::D` named `operator=`.
+// Generated from method `MR::Aggregates::D::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -643,7 +643,7 @@ MR_C_API void MR_Aggregates_E_Set_j(MR_Aggregates_E *_this, const MR_Aggregates_
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Aggregates_NonDefaultConstructible *MR_Aggregates_E_GetMutable_j(MR_Aggregates_E *_this);
 
-// Generated from a constructor of class `MR::Aggregates::E`.
+// Generated from constructor `MR::Aggregates::E::E`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_Aggregates_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_Aggregates_E *MR_Aggregates_E_ConstructFromAnother(const MR_Aggregates_E *_other);
@@ -665,7 +665,7 @@ MR_C_API void MR_Aggregates_E_Destroy(const MR_Aggregates_E *_this);
 // Destroys a heap-allocated array of `MR_Aggregates_E`. Does nothing if the pointer is null.
 MR_C_API void MR_Aggregates_E_DestroyArray(const MR_Aggregates_E *_this);
 
-// Generated from a method of class `MR::Aggregates::E` named `operator=`.
+// Generated from method `MR::Aggregates::E::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.

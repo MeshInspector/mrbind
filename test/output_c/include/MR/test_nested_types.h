@@ -71,7 +71,7 @@ MR_C_API const MR_NestedTypes_A *MR_NestedTypes_A_OffsetPtr(const MR_NestedTypes
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_NestedTypes_A *MR_NestedTypes_A_OffsetMutablePtr(MR_NestedTypes_A *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::NestedTypes::A`.
+/// Generated from constructor `MR::NestedTypes::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_NestedTypes_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_NestedTypes_A *MR_NestedTypes_A_ConstructFromAnother(const MR_NestedTypes_A *_other);
@@ -82,7 +82,7 @@ MR_C_API void MR_NestedTypes_A_Destroy(const MR_NestedTypes_A *_this);
 /// Destroys a heap-allocated array of `MR_NestedTypes_A`. Does nothing if the pointer is null.
 MR_C_API void MR_NestedTypes_A_DestroyArray(const MR_NestedTypes_A *_this);
 
-/// Generated from a method of class `MR::NestedTypes::A` named `operator=`.
+/// Generated from method `MR::NestedTypes::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -103,7 +103,7 @@ MR_C_API const MR_NestedTypes_A_B *MR_NestedTypes_A_B_OffsetPtr(const MR_NestedT
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_NestedTypes_A_B *MR_NestedTypes_A_B_OffsetMutablePtr(MR_NestedTypes_A_B *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::NestedTypes::A::B`.
+/// Generated from constructor `MR::NestedTypes::A::B::B`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_NestedTypes_A_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_NestedTypes_A_B *MR_NestedTypes_A_B_ConstructFromAnother(const MR_NestedTypes_A_B *_other);
@@ -114,7 +114,7 @@ MR_C_API void MR_NestedTypes_A_B_Destroy(const MR_NestedTypes_A_B *_this);
 /// Destroys a heap-allocated array of `MR_NestedTypes_A_B`. Does nothing if the pointer is null.
 MR_C_API void MR_NestedTypes_A_B_DestroyArray(const MR_NestedTypes_A_B *_this);
 
-/// Generated from a method of class `MR::NestedTypes::A::B` named `operator=`.
+/// Generated from method `MR::NestedTypes::A::B::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

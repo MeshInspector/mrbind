@@ -1725,8 +1725,10 @@ namespace mrbind::CBindings
             c_comment = new_ctor.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from a constructor of class `";
+        c_comment += "/// Generated from constructor `";
         c_comment += cpp_type_str_deco;
+        c_comment += "::";
+        c_comment += self.CppdeclToCodeForComments(cppdecl::QualifiedName::FromSinglePart(cppdecl::UnqualifiedName{.var = cpp_type.simple_type.name.parts.back().var}));
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;
@@ -1799,9 +1801,9 @@ namespace mrbind::CBindings
             c_comment = new_method.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from a method of class `";
+        c_comment += "/// Generated from method `";
         c_comment += cpp_type_str_deco;
-        c_comment += "` named `";
+        c_comment += "::";
         c_comment += full_name_fixed_deco;
         c_comment += "`.";
 
@@ -1842,9 +1844,9 @@ namespace mrbind::CBindings
             c_comment = new_conv_op.comment->text_with_slashes;
             c_comment += '\n';
         }
-        c_comment += "/// Generated from a conversion operator of class `";
+        c_comment += "/// Generated from conversion operator `";
         c_comment += cpp_type_str_deco;
-        c_comment += "` to type `";
+        c_comment += "::operator ";
         c_comment += target_cpp_type_str_deco;
         c_comment += "`.";
 
