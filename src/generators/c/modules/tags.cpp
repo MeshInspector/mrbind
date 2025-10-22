@@ -79,6 +79,10 @@ namespace mrbind::CBindings::Modules
                 Generator::BindableType::ReturnUsage &return_usage = binding.return_usage.emplace();
                 return_usage.c_type = cppdecl::Type::FromSingleWord("bool");
                 return_usage.extra_headers.stdlib_in_header_file = {"stdbool.h"};
+
+                // This isn't considered sugar. Instead we have an entire custom type kind of this.
+                // Making this sugar doesn't make much sense, because it would be sugar for what exactly, for a non-owning pointer?
+                binding.interop_info = CInterop::TypeKinds::EmptyTagPtr{};
                 return ret; // That's all.
             }
 
@@ -106,7 +110,10 @@ namespace mrbind::CBindings::Modules
 
                 return ret;
             };
-            // Not setting `considered_sugar_for_interop` because we have a special category for those tags: `CInterop::TypeKinds::EmptyTag`.
+
+            // Not setting `considered_sugar_for_interop` because we have a special category for those tags, which we set below.
+            // We set the category here, unlike for other classes, because those tags don't have any C declarations that could set it later.
+            binding.interop_info = CInterop::TypeKinds::EmptyTag{};
 
             return ret;
         }

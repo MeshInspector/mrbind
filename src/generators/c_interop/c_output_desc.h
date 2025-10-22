@@ -99,55 +99,6 @@ namespace mrbind::CInterop
         )
     };
 
-    // Describes a single class field.
-    struct ClassField
-    {
-        // Describes the location of this field in an exposed struct.
-        struct Layout
-        {
-            MBREFL_STRUCT(
-                (std::size_t)(byte_size, std::size_t(-1))
-                (std::size_t)(byte_alignment, std::size_t(-1))
-                (std::size_t)(byte_offset, std::size_t(-1))
-            )
-
-            Layout() {} // Ugh.
-        };
-
-        struct Accessor
-        {
-            MBREFL_STRUCT(
-                // Either the return type or the parameter type, depending on what function this is.
-                (std::string)(type)
-
-                // The C name of this function.
-                (std::string)(c_name)
-            )
-        };
-
-        MBREFL_STRUCT(
-            (Comment)(comment)
-
-            (bool)(is_static, false)
-            (std::string)(type)
-
-            (std::string)(name)
-            // Only matters for static variable templates, where it includes template arguments. Otherwise it's equal to `name`.
-            (std::string)(full_name)
-
-            // Those will be null if the corresponding function isn't generated: [
-            (std::optional<Accessor>)(getter_const)
-            (std::optional<Accessor>)(getter_mutable)
-            (std::optional<Accessor>)(setter)
-            (std::optional<Accessor>)(getter_array_size) // If the field is an array, this function returns its size.
-            // ]
-
-            // Describes the location of this field in an exposed struct.
-            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
-            (std::optional<Layout>)(layout)
-        )
-    };
-
     // Some select type traits.
     struct TypeTraits
     {
@@ -166,6 +117,25 @@ namespace mrbind::CInterop
             (bool)(is_trivially_move_assignable, false)
             (bool)(is_trivially_destructible, false)
         )
+
+        // This is used to tie together all member of this class, and the similarly named methods of `Generator::TypeTraits`.`
+        static auto TieSimilarType(auto &&input)
+        {
+            return std::tie(
+                input.is_default_constructible,
+                input.is_copy_constructible,
+                input.is_move_constructible,
+                input.is_copy_assignable,
+                input.is_move_assignable,
+                input.is_destructible,
+                input.is_trivially_default_constructible,
+                input.is_trivially_copy_constructible,
+                input.is_trivially_move_constructible,
+                input.is_trivially_copy_assignable,
+                input.is_trivially_move_assignable,
+                input.is_trivially_destructible
+            );
+        }
     };
 
     // Describes a single parameter of a free function or of a method.
@@ -346,6 +316,47 @@ namespace mrbind::CInterop
         )
     };
 
+    // Describes a single class field.
+    struct ClassField
+    {
+        // Describes a single generated accessor for a class field.
+        struct Accessor : BasicFuncLike {};
+
+        // Describes the location of this field in an exposed struct.
+        struct Layout
+        {
+            MBREFL_STRUCT(
+                (std::size_t)(byte_size, std::size_t(-1))
+                (std::size_t)(byte_alignment, std::size_t(-1))
+                (std::size_t)(byte_offset, std::size_t(-1))
+            )
+
+            Layout() {} // Ugh.
+        };
+
+        MBREFL_STRUCT(
+            (Comment)(comment)
+
+            (bool)(is_static, false)
+            (std::string)(type)
+
+            (std::string)(name)
+            // Only matters for static variable templates, where it includes template arguments. Otherwise it's equal to `name`.
+            (std::string)(full_name)
+
+            // Those will be null if the corresponding function isn't generated: [
+            (std::optional<Accessor>)(getter_const)
+            (std::optional<Accessor>)(getter_mutable)
+            (std::optional<Accessor>)(setter)
+            (std::optional<Accessor>)(getter_array_size) // If the field is an array, this function returns its size.
+            // ]
+
+            // Describes the location of this field in an exposed struct.
+            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
+            (std::optional<Layout>)(layout)
+        )
+    };
+
     MBREFL_ENUM( ClassKind,
         // Instances of this class can't be created by user, and it can't be passed by value.
         // Only opaque references to the class can be used.
@@ -360,7 +371,8 @@ namespace mrbind::CInterop
 
     namespace TypeKinds
     {
-        // This shouldn't appear in the output.
+        // This can appear on types that are only used in a sugared manner, or are unused (in function parameters and return types) at all.
+        // If this appears on a non-sugared parameter or return type, you should raise an error.
         struct Invalid
         {
             static constexpr std::string_view name_in_variant = "invalid";
@@ -379,6 +391,14 @@ namespace mrbind::CInterop
         struct EmptyTag
         {
             static constexpr std::string_view name_in_variant = "empty_tag";
+            MBREFL_STRUCT()
+        };
+
+        // A special kind of pointer, that can be mapped to `bool` because the target type is empty anyway.
+        // Currently this is only used as a return type, not as parameter type.
+        struct EmptyTagPtr
+        {
+            static constexpr std::string_view name_in_variant = "empty_tag_ptr";
             MBREFL_STRUCT()
         };
 
@@ -465,28 +485,18 @@ namespace mrbind::CInterop
             static constexpr std::string_view name_in_variant = "reference_non_owning";
             MBREFL_STRUCT()
         };
-
-        // When this a parameter, it takes ownership of the raw pointer.
-        // When this a return value, it releases ownership of the raw pointer.
-        struct PointerTransferingOwnership
-        {
-            static constexpr std::string_view name_in_variant = "pointer_transfering_ownership";
-            MBREFL_STRUCT(
-                (std::string)(deleter_func) // Which C function should be called to free this pointer.
-            )
-        };
     }
 
     using TypeKindVar = std::variant<
-        TypeKinds::Invalid, // Must be first.
+        TypeKinds::Invalid,
         TypeKinds::Void,
         TypeKinds::EmptyTag,
+        TypeKinds::EmptyTagPtr,
         TypeKinds::Arithmetic,
         TypeKinds::Enum,
         TypeKinds::Class,
         TypeKinds::PointerNonOwning,
-        TypeKinds::ReferenceNonOwning,
-        TypeKinds::PointerTransferingOwnership
+        TypeKinds::ReferenceNonOwning
     >;
 
     struct TypeDesc
@@ -494,7 +504,9 @@ namespace mrbind::CInterop
         MBREFL_STRUCT(
             (TypeKindVar)(var)
 
-            (TypeTraits)(traits)
+            // This can only be null if `var == Invalid`, but even then it doesn't have to be null.
+            // If this happens to be null in any other case, you should raise an error.
+            (std::optional<TypeTraits>)(traits)
         )
     };
 

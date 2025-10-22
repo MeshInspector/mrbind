@@ -6,7 +6,6 @@
 /.vscode/_settings.src
 /test/**/*.dll
 /test/**/*.json
-!/test/**/desc.json
 /test/**/*.pyd
 /test/**/*.so
 parallel-hashmap/

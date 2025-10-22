@@ -71,7 +71,7 @@ namespace mrbind
             return TryEmplace(std::forward<Pair>(pair).first, std::forward<Pair>(pair).second).second;
         }
 
-        [[nodiscard]] MapType::iterator FindMutable(const auto &key) const
+        [[nodiscard]] MapType::iterator FindMutable(const auto &key)
         {
             return map.find(key);
         }

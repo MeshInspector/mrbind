@@ -975,9 +975,9 @@ namespace mrbind::CBindings
         // The types that we know how to bind.
         // Don't access this directly! Use `FindBindableType` because that will lazily insert the missing types here.
         // The only legal way to insert into this is from `FindBindableTypeOpt()`.
-        std::unordered_map<std::string, BindableType> bindable_cpp_types;
+        OrderedMap<std::string, BindableType> bindable_cpp_types;
         // An alternative version of the map above for the desugared cases. See `FindBindableType()` and its parameter `remove_sugar`.
-        std::unordered_map<std::string, BindableType> bindable_cpp_types_nosugar;
+        OrderedMap<std::string, BindableType> bindable_cpp_types_nosugar;
 
         // Finds a type in `bindable_cpp_types`. If no such type, tries to generate the binding information for it (and inserts it into the map), or throws on failure.
         // If `remove_sugar == true`, avoid the fancy rewrites like replacing `const std::string &` with char pointers. This is useful e.g. for `this` parameters.
@@ -1278,6 +1278,28 @@ namespace mrbind::CBindings
             };
             std::vector<Param> params;
 
+            enum class FieldAccessorKind
+            {
+                getter, // Returns a const reference to the field (a pointer in C).
+                mutable_getter, // Returns a mutable reference to the field (a pointer in C).
+                setter, // Takes the new field value as a parameter.
+                array_size, // If this is a plain array member, generates a function that returns its size.
+            };
+
+            struct FieldAccessorDesc
+            {
+                // To what field should we add this accessor?
+                CInterop::ClassField *interop_field = nullptr;
+
+                // What kind of accessor is this?
+                FieldAccessorKind kind{};
+
+                FieldAccessorDesc() {}
+            };
+            // This should be set for class fields.
+            // You usually don't need to set this manually. This is set by `SetAsFieldAccessor()`.
+            std::optional<FieldAccessorDesc> field_accessor;
+
             // Appends the parsed parameters to this function.
             // Appends to the existing parameters, doesn't remove them.
             void AddParamsFromParsedFunc(CBindings::Generator &self, const std::vector<FuncParam> &new_params);
@@ -1312,17 +1334,10 @@ namespace mrbind::CBindings
             void SetFromParsedClassMethod(Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassConvOp(Generator &self, const ClassEntity &new_class, const ClassConvOp &new_conv_op, std::span<const NamespaceEntity *const> new_using_namespace_stack);
 
-            enum class FieldAccessorKind
-            {
-                getter, // Returns a const reference to the field (a pointer in C).
-                mutable_getter, // Returns a mutable reference to the field (a pointer in C).
-                setter, // Takes the new field value as a parameter.
-                array_size, // If this is a plain array member, generates a function that returns its size.
-            };
-
             // Makes an accessor for a field.
             // Returns false if not applicable (e.g. if the member is const and we're trying to generate
-            bool SetAsFieldAccessor(CBindings::Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind);
+            // `interop_field` is mandatory for our own code, but the user code could skip it if they never use `--output-desc-json`.
+            bool SetAsFieldAccessor(CBindings::Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind, CInterop::ClassField *interop_field);
         };
         void EmitFunction(OutputFile &file, const EmitFuncParams &params);
 

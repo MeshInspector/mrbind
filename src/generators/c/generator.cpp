@@ -886,8 +886,8 @@ namespace mrbind::CBindings
 
         { // Find existing type.
             // Here we don't use `.try_emplace()` because we might throw later, and in that case we don't want to insert anything.
-            auto iter = map.find(type_str);
-            if (iter != map.end())
+            auto iter = map.FindMutable(type_str);
+            if (iter != map.Map().end())
                 return &iter->second;
         }
 
@@ -896,7 +896,7 @@ namespace mrbind::CBindings
 
         auto InsertNewType = [&](BindableType new_binding) -> BindableType *
         {
-            return &map.try_emplace(type_str, std::move(new_binding)).first->second;
+            return &map.TryEmplace(type_str, std::move(new_binding)).first;
         };
 
         // Ask the modules first.
@@ -1851,11 +1851,12 @@ namespace mrbind::CBindings
         using_namespace_stack = new_using_namespace_stack;
     }
 
-    bool Generator::EmitFuncParams::SetAsFieldAccessor(Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind)
+    bool Generator::EmitFuncParams::SetAsFieldAccessor(Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind, CInterop::ClassField *interop_field)
     {
         const cppdecl::Type field_type = self.ParseTypeOrThrow(new_field.type.canonical);
-        const std::string class_cpp_type_str = self.CppdeclToCode(self.ParseTypeOrThrow(new_class.full_type));
-        const std::string class_cpp_type_str_deco = self.CppdeclToCodeForComments(self.ParseTypeOrThrow(new_class.full_type));
+        const cppdecl::QualifiedName class_cpp_type = self.ParseQualNameOrThrow(new_class.full_type);
+        const std::string class_cpp_type_str = self.CppdeclToCode(class_cpp_type);
+        const std::string class_cpp_type_str_deco = self.CppdeclToCodeForComments(class_cpp_type);
 
         cppdecl::QualifiedName full_name_parsed = self.ParseQualNameOrThrow(new_field.full_name);
 
@@ -1865,6 +1866,14 @@ namespace mrbind::CBindings
 
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
 
+        // Store the interop info.
+        if (interop_field)
+        {
+            field_accessor.emplace();
+            field_accessor->interop_field = interop_field;
+            field_accessor->kind = kind;
+        }
+
         auto SetFuncName = [&](std::string_view new_name)
         {
             name.c = self.parsed_type_info.at(class_cpp_type_str).c_type_str;
@@ -1872,7 +1881,6 @@ namespace mrbind::CBindings
             name.c += new_name;
             name.c += '_';
             name.c += self.CppdeclToIdentifier(full_name_parsed);
-            name.ignore_in_interop = true; // Field accessors are ignored here, because the fields are listed directly.
         };
 
         // Special handling for the function returning the array size, if this is an array.
@@ -2473,12 +2481,33 @@ namespace mrbind::CBindings
 
                 if (is_member)
                 {
-                    // A member function.
+                    // A member function, or possibly a field accessor.
 
-                    CInterop::ClassMethod &new_method = FindClassDescForInterop(params.params.front().cpp_type).methods.emplace_back();
-                    func_like = &new_method;
+                    if (params.field_accessor)
+                    {
+                        std::optional<CInterop::ClassField::Accessor> CInterop::ClassField::* accessor_memptr = nullptr;
 
-                    new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
+                        switch (params.field_accessor->kind)
+                        {
+                            case EmitFuncParams::FieldAccessorKind::getter:         accessor_memptr = &CInterop::ClassField::getter_const;      break;
+                            case EmitFuncParams::FieldAccessorKind::mutable_getter: accessor_memptr = &CInterop::ClassField::getter_mutable;    break;
+                            case EmitFuncParams::FieldAccessorKind::setter:         accessor_memptr = &CInterop::ClassField::setter;            break;
+                            case EmitFuncParams::FieldAccessorKind::array_size:     accessor_memptr = &CInterop::ClassField::getter_array_size; break;
+                        }
+
+                        std::optional<CInterop::ClassField::Accessor> &new_accessor = params.field_accessor->interop_field->*accessor_memptr;
+                        if (new_accessor)
+                            throw std::runtime_error("This function is a duplicate field accessor.");
+
+                        func_like = &new_accessor.emplace();
+                    }
+                    else
+                    {
+                        CInterop::ClassMethod &new_method = FindClassDescForInterop(params.params.front().cpp_type).methods.emplace_back();
+                        func_like = &new_method;
+
+                        new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
+                    }
                 }
                 else if (auto method = std::get_if<CInterop::MethodKindVar>(&params.name.cpp_for_interop); method && std::holds_alternative<CInterop::MethodKinds::Constructor>(*method))
                 {
@@ -2561,6 +2590,22 @@ namespace mrbind::CBindings
 
     void Generator::EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field)
     {
+        // Write the interop info.
+        CInterop::ClassField *interop_field = nullptr;
+        if (output_desc)
+        {
+            auto &class_desc = FindClassDescForInterop(ParseTypeOrThrow(new_class.full_type));
+            interop_field = &class_desc.fields.emplace_back();
+
+            interop_field->comment = MakeCommentForInterop(new_field.comment ? new_field.comment->text_with_slashes + '\n' : "");
+            interop_field->is_static = new_field.is_static;
+            interop_field->type = CppdeclToCode(ParseTypeOrThrow(new_field.type.canonical)); // Roundtrip the type to canonicalize it.
+            interop_field->name = new_field.name;
+            interop_field->full_name = new_field.full_name;
+            // We COULD set `layout` too, but who needs it for opaque fields?
+            // If you decide to write to it here, don't forget to change the comment on it to reflect that it can be set for opaque fields too.
+        }
+
         for (auto kind :
             {
                 EmitFuncParams::FieldAccessorKind::getter,
@@ -2571,7 +2616,7 @@ namespace mrbind::CBindings
         )
         {
             EmitFuncParams emit;
-            if (emit.SetAsFieldAccessor(*this, new_class, new_field, kind))
+            if (emit.SetAsFieldAccessor(*this, new_class, new_field, kind, interop_field))
                 EmitFunction(file, emit);
         }
     }
@@ -4283,6 +4328,51 @@ namespace mrbind::CBindings
         { // Emit.
             VisitorEmit v(*this);
             v.Process(data.entities);
+        }
+
+        // Lastly, dump all known bindable types into the desc json.
+        if (output_desc)
+        {
+            try
+            {
+                // It's tempting to filter out pointers and references from this, but it's not so simple.
+                // We can't filter e.g. `std::monostate *` because that maps to `bool` in return types, and you wouldn't know this
+                //   if we didn't emit an entry for it.
+                for (const auto &cpp_name : bindable_cpp_types.Vec())
+                {
+                    try
+                    {
+                        const BindableType &input_type = bindable_cpp_types.Map().at(cpp_name);
+                        CInterop::TypeDesc &new_type = output_desc->cpp_types.TryEmplace(cpp_name).first;
+
+                        { // Dump the traits.
+                            if (input_type.traits)
+                            {
+                                CInterop::TypeTraits::TieSimilarType(new_type.traits.emplace()) = CInterop::TypeTraits::TieSimilarType(*input_type.traits);
+                            }
+                            else
+                            {
+                                // If the traits are missing, complain if the type kind is not `Invalid`.
+                                if (!std::holds_alternative<CInterop::TypeKinds::Invalid>(input_type.interop_info))
+                                    throw std::runtime_error("The type traits are not specified.");
+                            }
+                        }
+
+
+                        // Dump the type itself.
+
+                        new_type.var = input_type.interop_info;
+                    }
+                    catch (...)
+                    {
+                        std::throw_with_nested(std::runtime_error("While processing type `" + cpp_name + "`:"));
+                    }
+                }
+            }
+            catch (...)
+            {
+                std::throw_with_nested(std::runtime_error("While generating the output description JSON:"));
+            }
         }
     }
 
