@@ -26,6 +26,9 @@ include_directories(deps/cppdecl/include)
 
 
 add_library(mrbind_common STATIC
+    src/common/command_line_args_as_utf8.cpp
+    src/common/command_line_parser.cpp
+    src/common/filesystem.cpp
     src/common/set_error_handlers.cpp
     src/common/string_escape.cpp
 )
@@ -63,10 +66,10 @@ endif()
 
 
 option(MRBIND_BUILD_GENERATOR_C "Build the C binding generator." ON)
+option(MRBIND_BUILD_GENERATOR_CSHARP "Build the C# binding generator." ON)
 
-if(MRBIND_BUILD_GENERATOR_C)
+if(MRBIND_BUILD_GENERATOR_C OR MRBIND_BUILD_GENERATOR_CSHARP)
     add_library(mrbind_gen_common STATIC
-        src/generators/common/command_line_args_as_utf8.cpp
         src/generators/common/data_from_json.cpp
         src/generators/common/load_file.cpp
     )
@@ -74,6 +77,9 @@ if(MRBIND_BUILD_GENERATOR_C)
     add_library(mrbind_c_interop STATIC
         src/generators/c_interop/c_output_desc.cpp
         src/generators/c_interop/desc_to_and_from_json.cpp
+    )
+    target_link_libraries(mrbind_c_interop PUBLIC
+        mrbind_common
     )
 endif()
 
@@ -104,6 +110,20 @@ if(MRBIND_BUILD_GENERATOR_C)
         deps/cppdecl/include
     )
     target_link_libraries(mrbind_gen_c PRIVATE
+        mrbind_common
+        mrbind_gen_common
+        mrbind_c_interop
+    )
+endif()
+
+if(MRBIND_BUILD_GENERATOR_CSHARP)
+    add_executable(mrbind_gen_csharp
+        src/generators/csharp/main.cpp
+    )
+    target_include_directories(mrbind_gen_csharp PRIVATE
+        deps/cppdecl/include
+    )
+    target_link_libraries(mrbind_gen_csharp PRIVATE
         mrbind_common
         mrbind_gen_common
         mrbind_c_interop

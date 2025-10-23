@@ -1728,7 +1728,7 @@ namespace mrbind::CBindings
         c_comment += "/// Generated from constructor `";
         c_comment += cpp_type_str_deco;
         c_comment += "::";
-        c_comment += self.CppdeclToCodeForComments(cppdecl::QualifiedName::FromSinglePart(cppdecl::UnqualifiedName{.var = cpp_type.simple_type.name.parts.back().var}));
+        c_comment += self.CppdeclToCodeForComments(cppdecl::QualifiedName::FromSinglePart(cppdecl::UnqualifiedName{.var = cpp_type.simple_type.name.parts.back().var, .template_args = {}}));
         c_comment += "`.";
 
         using_namespace_stack = new_using_namespace_stack;

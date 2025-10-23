@@ -1,9 +1,9 @@
+#include "common/command_line_args_as_utf8.h"
 #include "common/filesystem.h"
 #include "common/set_error_handlers.h"
+#include "generators/c_interop/desc_to_and_from_json.h"
 #include "generators/c/generator.h"
 #include "generators/c/module.h"
-#include "generators/c_interop/desc_to_and_from_json.h"
-#include "generators/common/command_line_args_as_utf8.h"
 #include "generators/common/data_from_json.h"
 
 #include <fstream>
@@ -376,30 +376,7 @@ int main(int raw_argc, char **raw_argv)
 
     { // Prepare the output directories.
         for (const auto &path : {&generator.output_header_dir_path, &generator.output_source_dir_path})
-        {
-            auto stat = std::filesystem::status(*path);
-
-            // Complain if the output path already exists but isn't a directory.
-            if (stat.type() != std::filesystem::file_type::not_found && stat.type() != std::filesystem::file_type::directory)
-                throw std::runtime_error("Output path `" + mrbind::PathToString(*path) + "` already exists but is not a directory.");
-
-            if (stat.type() == std::filesystem::file_type::not_found)
-            {
-                // Create the missing output directory.
-                std::filesystem::create_directories(*path);
-            }
-            else
-            {
-                // Destroy everything in the output directory or complain if `--clean-output-dirs` isn't specified.
-                for (const std::filesystem::directory_entry &e : std::filesystem::directory_iterator(*path))
-                {
-                    if (!clean_output_dirs)
-                        throw std::runtime_error("Output directory `" + mrbind::PathToString(*path) + "` is not empty, and `--clean-output-dirs` wasn't specfied.");
-
-                    std::filesystem::remove_all(e);
-                }
-            }
-        }
+            mrbind::PrepareOutputDir(*path, clean_output_dirs ? "" : "--clean-output-dirs");
     }
 
     { // Adjust the platform type information if we're using custom `[u]int64_t` typedefs.
