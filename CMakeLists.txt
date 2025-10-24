@@ -118,6 +118,7 @@ endif()
 
 if(MRBIND_BUILD_GENERATOR_CSHARP)
     add_executable(mrbind_gen_csharp
+        src/generators/csharp/generator.cpp
         src/generators/csharp/main.cpp
     )
     target_include_directories(mrbind_gen_csharp PRIVATE

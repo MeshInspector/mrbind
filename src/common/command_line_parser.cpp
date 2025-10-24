@@ -66,7 +66,7 @@ namespace mrbind
 
                 std::printf("  %-*s  - Shows this page.\n", (int)max_size, "--help");
                 for (std::size_t i = 0; i < flags.Vec().size(); i++)
-                    std::printf("  %-*s  - %s\n", (int)max_size, flags.Vec()[i].c_str(), flags.Map().at(flags.Vec()[i]).desc.c_str());
+                    std::printf("  %-*s  - %s\n", (int)max_size, flags_with_args[i].c_str(), flags.Map().at(flags.Vec()[i]).desc.c_str());
 
                 std::exit(0);
             }
