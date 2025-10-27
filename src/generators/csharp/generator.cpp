@@ -215,12 +215,24 @@ namespace mrbind::CSharp
                 {
                     return CreateBinding({
                         .param_usage = TypeBinding::ParamUsage{
-                            .make_strings = [type = std::string(*csharp_type_str)](std::string_view cpp_param_name)
+                            .make_strings = [type = std::string(*csharp_type_str)](const std::string &cpp_param_name)
                             {
                                 return TypeBinding::ParamUsage::Strings{
-                                    .dllimport_decl_params = type + ' ' + std::string(cpp_param_name),
-                                    .csharp_decl_params = type + ' ' + std::string(cpp_param_name),
-                                    .csharp_args_for_c = std::string(cpp_param_name),
+                                    .dllimport_decl_params = type + ' ' + cpp_param_name,
+                                    .csharp_decl_params = type + ' ' + cpp_param_name,
+                                    .csharp_args_for_c = cpp_param_name,
+                                };
+                            },
+                        },
+                        .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                            .make_strings = [type = std::string(*csharp_type_str)](const std::string &cpp_param_name)
+                            {
+                                return TypeBinding::ParamUsage::Strings{
+                                    .dllimport_decl_params = type + " *" + cpp_param_name, // No const pointers in C#.
+                                    .csharp_decl_params = type + "? " + cpp_param_name + " = null",
+                                    .needs_unsafe = true,
+                                    .extra_statements = type + " __deref_" + cpp_param_name + " = " + cpp_param_name + ".GetValueOrDefault();\n",
+                                    .csharp_args_for_c = cpp_param_name + ".HasValue ? &__deref_" + cpp_param_name + " : null",
                                 };
                             },
                         },
@@ -240,13 +252,48 @@ namespace mrbind::CSharp
     {
         try
         {
+            bool func_is_unsafe = false;
+
+            // First, generate the parameter strings.
+            std::vector<TypeBinding::ParamUsage::Strings> param_strings;
+            param_strings.reserve(func_like.params.size());
+            for (const auto &param : func_like.params)
+            {
+                try
+                {
+                    const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
+
+                    // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
+                    const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
+                    if (!param_usage)
+                        throw std::runtime_error("The C++ parameter type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a parameter type.");
+
+                    param_strings.push_back(param_usage->make_strings(param.name_or_placeholder));
+
+                    if (param_strings.back().needs_unsafe)
+                        func_is_unsafe = true;
+                }
+                catch (...)
+                {
+                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(param_strings.size()) + " out of " + std::to_string(func_like.params.size()) + ":"));
+                }
+            }
+
+
             // Write a separating empty line if needed.
             if (!file.contents.ends_with("{\n"))
                 file.WriteString("\n");
 
-            // A comment, if any.
+            // The comment, if any.
             // This already has a trailing newline and the slashes.
             file.WriteString(func_like.comment.c_style);
+
+            // Comments for default arguments, if any.
+            for (const auto &param : func_like.params)
+            {
+                if (param.default_arg_spelling)
+                    file.WriteString("/// Parameter `" + param.name_or_placeholder + "` defaults to `" + *param.default_arg_spelling + "`.\n");
+            }
 
             // Deprecation attribute?
             if (func_like.is_deprecated)
@@ -272,6 +319,12 @@ namespace mrbind::CSharp
             const TypeBinding &ret_binding = GetTypeBinding(ParseTypeOrThrow(func_like.ret.cpp_type), func_like.ret.uses_sugar);
             if (!ret_binding.return_usage)
                 throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
+            if (ret_binding.return_usage->needs_unsafe)
+                func_is_unsafe = true;
+
+            // Unsafe?
+            if (func_is_unsafe)
+                file.WriteString("unsafe ");
 
             // Write the return type.
             file.WriteString(ret_binding.return_usage->csharp_return_type);
@@ -279,28 +332,6 @@ namespace mrbind::CSharp
 
             // Write the C# name.
             file.WriteString(csharp_name);
-
-            // Generate the parameter strings.
-            std::vector<TypeBinding::ParamUsage::Strings> param_strings;
-            param_strings.reserve(func_like.params.size());
-            for (const auto &param : func_like.params)
-            {
-                try
-                {
-                    const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
-
-                    // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
-                    const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
-                    if (!param_usage)
-                        throw std::runtime_error("The C++ parameter type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a parameter type.");
-
-                    param_strings.push_back(param_usage->make_strings(param.name_or_placeholder));
-                }
-                catch (...)
-                {
-                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(param_strings.size()) + " out of " + std::to_string(func_like.params.size()) + ":"));
-                }
-            }
 
             { // Write the parameter list.
                 file.WriteString("(");
@@ -348,6 +379,15 @@ namespace mrbind::CSharp
 
                     file.WriteString(");\n");
                 }
+            }
+
+            // Any extra statements from the parameters?
+            for (const auto &param : param_strings)
+            {
+                if (param.extra_statements.empty())
+                    continue;
+                file.WriteString("    ");
+                file.WriteString(param.extra_statements);
             }
 
             { // Call the imported function.

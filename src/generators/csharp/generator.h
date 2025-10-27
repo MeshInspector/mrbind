@@ -53,12 +53,19 @@ namespace mrbind::CSharp
                 // A comma-separated list of parameter declarations for the public C# function declaration, or empty if none.
                 std::string csharp_decl_params;
 
-                // A comma-separated list of arguments that will be passed to the `DllImport`ed C function.
+                // If set to true, the enclosing C# function gets marked `unsafe`.
+                bool needs_unsafe = false;
+
+                // Optional. The additional statements to insert for this parameter before the `return`.
+                // If not empty, must end with a newline. No indentation is needed.
+                std::string extra_statements = "";
+
+                // A comma-separated list of arguments that will be passed to the `DllImport`ed C function, or empty if none.
                 std::string csharp_args_for_c;
             };
 
             // Generate all the necessary strings.
-            std::function<Strings(std::string_view cpp_param_name)> make_strings;
+            std::function<Strings(const std::string &cpp_param_name)> make_strings;
         };
 
         // Unlike in C, those don't fall back to each other. Both need to be implemented separately.
@@ -72,6 +79,9 @@ namespace mrbind::CSharp
 
             // The public C# return type.
             std::string csharp_return_type;
+
+            // If set to true, the enclosing C# function gets marked `unsafe`.
+            bool needs_unsafe = false;
 
             // Given an expression, creates a return statement for it. If null, defaults to `"return " + expr + ";"`.
             // Don't call directly, use `MakeReturnExpr()`.
