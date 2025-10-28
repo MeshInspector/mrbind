@@ -7,6 +7,7 @@ build/mrbind_gen_csharp \
     --input-json test/output_c/desc.json \
     --output-dir test/output_csharp/src \
     --clean-output-dir \
-    --imported-lib-name bleh
+    --imported-lib-name bleh \
+    --helpers-namespace MR::Misc
 
 dotnet build test/output_csharp

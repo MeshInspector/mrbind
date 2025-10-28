@@ -20,6 +20,7 @@ int main(int argc, char **argv)
     std::optional<std::string> output_dir_path;
     bool clean_output_dir = false;
     std::optional<std::string> imported_lib_name;
+    std::optional<std::string> helpers_namespace;
 
     mrbind::CommandLineParser args_parser;
 
@@ -55,6 +56,14 @@ int main(int argc, char **argv)
             imported_lib_name = args.front();
         },
     });
+    args_parser.AddFlag("--helpers-namespace", {
+        .arg_names = {"name"},
+        .desc = "Mandatory. The parameter is a C++-style `Foo::Bar` namespace name. This will be used in the generated C# to store some additional utilities. This namespace doesn't have to exist in the C++ input. In C# this will be generated as a static class, rather than an actual namespace.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            helpers_namespace = args.front();
+        },
+    });
 
     mrbind::CommandLineArgsAsUtf8 args(argc, argv);
     args_parser.Parse(args.argc, args.argv);
@@ -75,6 +84,10 @@ int main(int argc, char **argv)
     if (!imported_lib_name)
         throw std::runtime_error("`--imported-lib-name` is required.");
     generator.imported_lib_name = *imported_lib_name;
+
+    if (!helpers_namespace)
+        throw std::runtime_error("`--helpers-namespace` is required.");
+    generator.helpers_namespace = generator.ParseNameOrThrow(*helpers_namespace);
 
     // Generate.
     generator.Generate();
