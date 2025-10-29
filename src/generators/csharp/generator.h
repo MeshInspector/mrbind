@@ -189,7 +189,8 @@ namespace mrbind::CSharp
 
         // Returns the binding for a C++ type.
         [[nodiscard]] const TypeBinding &GetTypeBinding(const cppdecl::Type &cpp_type, bool enable_sugar);
-        // This version returns null instead of throwing on failure.
+        // This version returns null instead of throwing on unknown types.
+        // It can still throw if something goes seriously wrong.
         [[nodiscard]] const TypeBinding *GetTypeBindingOpt(const cppdecl::Type &cpp_type, bool enable_sugar);
 
         // You should almost never use this directly, prefer `RequestHelper()`.
