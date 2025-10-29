@@ -536,7 +536,7 @@ namespace mrbind::CSharp
         return helpers_prefix + name;
     }
 
-    void Generator::EmitWrapperForFuncLike(OutputFile &file, const CInterop::BasicFuncLike &func_like, std::string_view prefix, std::string_view csharp_name)
+    void Generator::EmitCFuncLike(OutputFile &file, const CInterop::BasicFuncLike &func_like, std::string_view prefix, std::string_view csharp_name)
     {
         try
         {
@@ -778,7 +778,68 @@ namespace mrbind::CSharp
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting a wrapper function for C function `" + func_like.c_name + "`:"));
+            std::throw_with_nested(std::runtime_error("While emitting function `" + func_like.c_name + "`:"));
+        }
+    }
+
+    void Generator::EmitCEnum(OutputFile &file, const CInterop::TypeKinds::Enum &enum_desc, std::string_view prefix, std::string_view csharp_name)
+    {
+        try
+        {
+            // A separator?
+            file.WriteSeparatingNewline();
+
+            // A comment?
+            file.WriteString(enum_desc.comment.c_style);
+
+            // The custom prefix, if any.
+            if (!prefix.empty())
+            {
+                file.WriteString(prefix);
+                file.WriteString(" ");
+            }
+
+            // The declaration header. We always force the underlying type, just in case.
+            file.WriteString("enum ");
+            file.WriteString(csharp_name);
+            file.WriteString(" : ");
+
+            // The underlying type. We don't even validate that iit's integral for now, it should never be non-integral here.
+            auto underlying_type = CToCSharpPrimitiveTypeOpt(enum_desc.underlying_type, false);
+            if (!underlying_type)
+                throw std::runtime_error("Unknown underlying C type: `" + enum_desc.underlying_type + "`.");
+            // Write the underlying type.
+            file.WriteString(*underlying_type);
+            file.WriteString("\n");
+
+            const bool is_signed = c_desc.platform_info.FindPrimitiveType(enum_desc.underlying_type)->kind == PrimitiveTypeInfo::Kind::signed_integral;
+
+            // Open the enum scope.
+            file.PushScope({}, "{\n", "}\n");
+
+            // Write the constants...
+            for (const CInterop::EnumElem &elem : enum_desc.elems)
+            {
+                // The comment, if any.
+                file.WriteString(elem.comment.c_style);
+
+                file.WriteString(elem.name);
+                file.WriteString(" = ");
+
+                if (is_signed)
+                    file.WriteString(std::to_string(std::int64_t(elem.unsigned_value)));
+                else
+                    file.WriteString(std::to_string(elem.unsigned_value));
+
+                file.WriteString(",\n");
+            }
+
+            // Close the enum scope.
+            file.PopScope();
+        }
+        catch (...)
+        {
+            std::throw_with_nested(std::runtime_error("While emitting enum `" + enum_desc.c_name + "`:"));
         }
     }
 
@@ -793,6 +854,24 @@ namespace mrbind::CSharp
             }
         }
 
+        // Emit types.
+        for (const auto &key : c_desc.cpp_types.Vec())
+        {
+            // Most of the variant elements are useless to us, so we aren't using `std::visit` here.
+
+            const auto &var = c_desc.cpp_types.Map().at(key).var;
+
+            if (auto elem = std::get_if<CInterop::TypeKinds::Enum>(&var))
+            {
+                OutputFile &file = GetOutputFile(elem->output_file);
+
+                auto qual_name = ParseNameOrThrow(key);
+                file.EnsureNamespace({qual_name.parts.begin(), qual_name.parts.end() - 1});
+
+                EmitCEnum(file, *elem, "public", CppdeclToCode(qual_name.parts.back()));
+            }
+        }
+
         // Emit free functions.
         for (const CInterop::Function &free_func : c_desc.functions)
         {
@@ -804,7 +883,7 @@ namespace mrbind::CSharp
             assert(!qual_name.parts.empty());
             file.EnsureNamespace({qual_name.parts.begin(), qual_name.parts.end() - 1});
 
-            EmitWrapperForFuncLike(file, free_func, "public static", CppdeclToCode(qual_name.parts.back()));
+            EmitCFuncLike(file, free_func, "public static", CppdeclToCode(qual_name.parts.back()));
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.
