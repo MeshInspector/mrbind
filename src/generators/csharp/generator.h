@@ -161,12 +161,15 @@ namespace mrbind::CSharp
         [[nodiscard]] const cppdecl::QualifiedName &ParseNameOrThrow(const std::string &str);
 
         // Translates a primitive C type to C#. This intentionally rejects pointers.
-        [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type);
+        // `is_indirect` affects how `bool` is mapped. If true, returns `bool` as is, and otherwise returns `byte`.
+        // This is needed since passing `bool` by value internally uses `int32_t` in C#, but passing it by reference seems to work correctly.
+        [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect);
 
         // Maps a C type to a C# type string. This uses a very simple mapping.
         // If `is_unsafe` isn't null, accumulates true to it if the resulting type is a pointer.
         // Note that `*is_unsafe` is never set to false. It's either set to true or left unchanged.
-        [[nodiscard]] std::optional<std::string> CToCSharpTypeOpt(const cppdecl::Type &c_type, bool *is_unsafe = nullptr);
+        // Set `is_indirect == true` for pointee types.
+        [[nodiscard]] std::optional<std::string> CToCSharpTypeOpt(const cppdecl::Type &c_type, bool *is_unsafe = nullptr, bool is_indirect = false);
 
         // Caches bindings for the types. Don't access directly, this is for `GetTypeBinding()`.
         // Using the plain `map` instead of `unordered_map` because of the `pair`, which isn't hashable by default.

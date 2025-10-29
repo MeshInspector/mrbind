@@ -119,10 +119,10 @@ namespace mrbind::CSharp
         return iter->second;
     }
 
-    std::optional<std::string_view> Generator::CToCSharpPrimitiveTypeOpt(std::string_view c_type)
+    std::optional<std::string_view> Generator::CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect)
     {
         if (c_type == "void") return "void";
-        if (c_type == "bool") return "byte"; // I heard the C# `bool` gets passed as an `int32_t`, so using a `byte` instead.
+        if (c_type == "bool") return is_indirect ? "bool" : "byte"; // When passing `bool` by value, they get passed as an `int32_t`, so we must use a `byte` instead.
 
         if (auto opt = c_desc.platform_info.FindPrimitiveType(c_type))
         {
@@ -150,11 +150,11 @@ namespace mrbind::CSharp
         return {};
     }
 
-    std::optional<std::string> Generator::CToCSharpTypeOpt(const cppdecl::Type &c_type, bool *is_unsafe)
+    std::optional<std::string> Generator::CToCSharpTypeOpt(const cppdecl::Type &c_type, bool *is_unsafe, bool is_indirect)
     {
         if (c_type.modifiers.empty())
         {
-            if (auto opt = CToCSharpPrimitiveTypeOpt(c_type.IsSingleWord() ? c_type.AsSingleWord() : CppdeclToCode(c_type)))
+            if (auto opt = CToCSharpPrimitiveTypeOpt(c_type.IsSingleWord() ? c_type.AsSingleWord() : CppdeclToCode(c_type), is_indirect))
                 return std::string(*opt);
         }
 
@@ -166,7 +166,7 @@ namespace mrbind::CSharp
             cppdecl::Type new_c_type = c_type;
             new_c_type.RemoveModifier();
             new_c_type.RemoveQualifiers(cppdecl::CvQualifiers::const_); // C# has no pointers to `const`.
-            if (auto opt = CToCSharpTypeOpt(new_c_type)) // Don't need to propagate `is_unsafe` because we've already written true to it.
+            if (auto opt = CToCSharpTypeOpt(new_c_type, nullptr, true)) // Don't need to propagate `is_unsafe` because we've already written true to it.
                 return *opt + "*";
             else
                 return "void*"; // I guess?
@@ -247,7 +247,7 @@ namespace mrbind::CSharp
             }
 
             // Arithmetic types.
-            if (auto csharp_type_str = CToCSharpPrimitiveTypeOpt(cpp_type_str))
+            if (auto csharp_type_str = CToCSharpPrimitiveTypeOpt(cpp_type_str, false))
             {
                 return CreateBinding({
                     .param_usage = TypeBinding::ParamUsage{
@@ -289,87 +289,9 @@ namespace mrbind::CSharp
 
                 const std::string cpp_underlying_type_str = CppdeclToCode(cpp_underlying_type);
 
-                // Bool.
-                if (cpp_underlying_type_str == "bool")
-                {
-                    if (!is_const)
-                    {
-                        return CreateBinding({
-                            .param_usage = TypeBinding::ParamUsage{
-                                .make_strings = [](const std::string &name)
-                                {
-                                    return TypeBinding::ParamUsage::Strings{
-                                        .needs_unsafe = true,
-                                        .dllimport_decl_params = "byte *" + name,
-                                        .csharp_decl_params = "ref bool " + name,
-                                        .extra_statements = "byte __bool_" + name + " = " + name + " ? (byte)1 : (byte)0;\n",
-                                        .csharp_args_for_c = "&__bool_" + name,
-                                        .extra_statements_after = name + " = __bool_" + name + " != 0;\n",
-                                    };
-                                },
-                            },
-                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                .make_strings = [this](const std::string &name)
-                                {
-                                    return TypeBinding::ParamUsage::Strings{
-                                        .needs_unsafe = true,
-                                        .dllimport_decl_params = "byte *" + name,
-                                        // Must pass a class because C# `ref` parameters can't have default arguments, and and we can't just tell the user
-                                        //   to pass a placeholder, because we might have proper default arguments before this one, so omitting the default argument here
-                                        //   would cause a compilation error.
-                                        .csharp_decl_params = RequestHelper("InOut") + "<bool>? " + name + " = null",
-                                        .extra_statements = "byte __bool_" + name + " = " + name + " != null && " + name + ".Value ? (byte)1 : (byte)0;\n",
-                                        .csharp_args_for_c = name + " != null ? &__bool_" + name + " : null",
-                                        .extra_statements_after = "if (" + name + " != null) " + name + ".Value = __bool_" + name + " != 0;\n",
-                                    };
-                                },
-                            },
-                            .return_usage = TypeBinding::ReturnUsage{
-                                .needs_unsafe = true,
-                                .dllimport_return_type = "byte *",
-                                .csharp_return_type = RequestHelper("BoolRef"), // Can't return a true `ref bool` because C# bools occupy 4 bytes.
-                                .make_return_expr = [this](const std::string &expr){return "return new " + RequestHelper("BoolRef") + "(" + expr + ");";},
-                            },
-                        });
-                    }
-                    else
-                    {
-                        return CreateBinding({
-                            .param_usage = TypeBinding::ParamUsage{
-                                .make_strings = [](const std::string &name)
-                                {
-                                    return TypeBinding::ParamUsage::Strings{
-                                        .dllimport_decl_params = "byte *" + name, // No const pointers in C#.
-                                        .csharp_decl_params = "bool " + name,
-                                        .extra_statements = "byte __bool_" + name + " = " + name + " ? (byte)1 : (byte)0;\n",
-                                        .csharp_args_for_c = "&__bool_" + name,
-                                    };
-                                },
-                            },
-                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                .make_strings = [](const std::string &name)
-                                {
-                                    return TypeBinding::ParamUsage::Strings{
-                                        .needs_unsafe = true,
-                                        .dllimport_decl_params = "byte *" + name, // No const pointers in C#.
-                                        .csharp_decl_params = "bool? " + name + " = null",
-                                        .extra_statements = "byte __deref_" + name + " = " + name + ".GetValueOrDefault() ? (byte)1 : (byte)0;\n",
-                                        .csharp_args_for_c = name + ".HasValue ? &__deref_" + name + " : null",
-                                    };
-                                },
-                            },
-                            .return_usage = TypeBinding::ReturnUsage{
-                                .needs_unsafe = true,
-                                .dllimport_return_type = "byte *",
-                                .csharp_return_type = "bool",
-                                .make_return_expr = [](const std::string &expr){return "return *" + expr + " != 0;";},
-                            },
-                        });
-                    }
-                }
-
                 // Arithmetic types.
-                if (auto csharp_type_str = CToCSharpPrimitiveTypeOpt(cpp_underlying_type_str))
+                // This includes `bool`. From what I understand, only by-value bool is special-cased to be passed as `int32_t`, and pointers to `bool` work fine.
+                if (auto csharp_type_str = CToCSharpPrimitiveTypeOpt(cpp_underlying_type_str, true))
                 {
                     if (!is_const)
                     {
@@ -738,7 +660,6 @@ namespace mrbind::CSharp
 
             file.EnsureNamespace(helpers_namespace.parts);
 
-            bool first = true;
             auto NeedHelper = [&](const std::string &name) -> bool
             {
                 if (requested_helpers.erase(name))
@@ -752,22 +673,6 @@ namespace mrbind::CSharp
 
                 return false;
             };
-
-            if (NeedHelper("BoolRef"))
-            {
-                file.WriteString(
-                    "public unsafe class BoolRef\n"
-                    "{\n"
-                    "    internal byte* Ptr = null;\n"
-                    "    internal BoolRef(byte *NewPtr) {Ptr = NewPtr;}\n" // Need this to have pretty oneliners.
-                    "\n"
-                    "    public bool Value\n"
-                    "    {\n"
-                    "        get => *Ptr != 0;\n"
-                    "        set => *Ptr = value ? (byte)1 : (byte)0;\n"
-                    "    }\n"
-                    "}\n");
-            }
 
             if (NeedHelper("InOut"))
             {
