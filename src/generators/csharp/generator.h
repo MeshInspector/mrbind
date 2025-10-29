@@ -36,7 +36,11 @@ namespace mrbind::CSharp
         void DumpToOstream(std::ostream &out) const;
 
         // Writes the string with automatic indentation.
+        // `extra_indent` is how many additional levels of indentation to add or remove from this string.
         void WriteString(std::string_view input, int extra_indent = 0);
+
+        // Writes a separating newline, but only if the previous line doesn't end with `{`.
+        void WriteSeparatingNewline();
 
         // Writes `}` and pops one scope from `current_scope`.
         void PopScope();
@@ -89,7 +93,10 @@ namespace mrbind::CSharp
             };
 
             // Generate all the necessary strings.
-            std::function<Strings(const std::string &cpp_param_name)> make_strings;
+            // You can ignore `have_useless_defarg` by default, unless this type can have default arguments that don't affect parameter passing style.
+            // In this case, `param_usage` (not `_with_default_arg`) can receive this as `true`. In that case, you must add the default argument
+            //   and reset it back to false, to indicate that you've handled it. Typically all you need to do is to add the `= null` default argument.
+            std::function<Strings(const std::string &name, bool &/*have_useless_defarg*/)> make_strings;
         };
 
         // Unlike in C, those don't fall back to each other. Both need to be implemented separately.
@@ -101,6 +108,10 @@ namespace mrbind::CSharp
             // If set to true, the enclosing C# function gets marked `unsafe`.
             bool needs_unsafe = false;
 
+            // If true, the returned result will always be saved to a temporary variable, and `make_return_expr` will receive that variable.
+            // This is needed if `make_return_expr` wants to use the expression multiple times.
+            bool needs_temporary_variable = false;
+
             // The return type for the `DllImport` C# function declaration.
             std::string dllimport_return_type;
 
@@ -109,6 +120,7 @@ namespace mrbind::CSharp
 
             // Given an expression, creates a return statement for it. If null, defaults to `"return " + expr + ";"`.
             // You can embed newlines into this, no trailing newline is needed.
+            // You must not use `expr` more than once, unless you also set `needs_temporary_variable`.
             // Don't call directly, use `MakeReturnExpr()`.
             // Need `= nullptr` to tell Clang that this is optional in designated initialization.
             std::function<std::string(const std::string &expr)> make_return_expr = nullptr;

@@ -40,6 +40,13 @@ namespace mrbind::CSharp
         });
     }
 
+    // Writes a separating newline, but only if the previous line doesn't end with `{`.
+    void OutputFile::WriteSeparatingNewline()
+    {
+        if (!contents.ends_with("{\n"))
+            WriteString("\n");
+    }
+
     void OutputFile::PopScope()
     {
         assert(!current_scope.empty());
@@ -217,7 +224,7 @@ namespace mrbind::CSharp
             {
                 return CreateBinding({
                     .param_usage = TypeBinding::ParamUsage{
-                        .make_strings = [](const std::string &name)
+                        .make_strings = [](const std::string &name, bool &/*have_useless_defarg*/)
                         {
                             return TypeBinding::ParamUsage::Strings{
                                 .dllimport_decl_params = "byte " + name,
@@ -227,7 +234,7 @@ namespace mrbind::CSharp
                         },
                     },
                     .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                        .make_strings = [](const std::string &name)
+                        .make_strings = [](const std::string &name, bool &/*have_useless_defarg*/)
                         {
                             return TypeBinding::ParamUsage::Strings{
                                 .needs_unsafe = true,
@@ -251,7 +258,7 @@ namespace mrbind::CSharp
             {
                 return CreateBinding({
                     .param_usage = TypeBinding::ParamUsage{
-                        .make_strings = [type = std::string(*csharp_type_str)](const std::string &name)
+                        .make_strings = [type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
                         {
                             return TypeBinding::ParamUsage::Strings{
                                 .dllimport_decl_params = type + ' ' + name,
@@ -261,7 +268,7 @@ namespace mrbind::CSharp
                         },
                     },
                     .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                        .make_strings = [type = std::string(*csharp_type_str)](const std::string &name)
+                        .make_strings = [type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
                         {
                             return TypeBinding::ParamUsage::Strings{
                                 .needs_unsafe = true,
@@ -280,6 +287,7 @@ namespace mrbind::CSharp
             }
 
             // References to...
+            // This intentionally handles rvalue references too.
             if (cpp_type.Is<cppdecl::Reference>() && cpp_type.modifiers.size() == 1)
             {
                 cppdecl::Type cpp_underlying_type = cpp_type;
@@ -297,7 +305,7 @@ namespace mrbind::CSharp
                     {
                         return CreateBinding({
                             .param_usage = TypeBinding::ParamUsage{
-                                .make_strings = [type = std::string(*csharp_type_str)](const std::string &name)
+                                .make_strings = [type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
                                 {
                                     return TypeBinding::ParamUsage::Strings{
                                         .needs_unsafe = true,
@@ -310,7 +318,7 @@ namespace mrbind::CSharp
                                 },
                             },
                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                .make_strings = [this, type = std::string(*csharp_type_str)](const std::string &name)
+                                .make_strings = [this, type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
                                 {
                                     return TypeBinding::ParamUsage::Strings{
                                         .needs_unsafe = true,
@@ -337,7 +345,7 @@ namespace mrbind::CSharp
                     {
                         return CreateBinding({
                             .param_usage = TypeBinding::ParamUsage{
-                                .make_strings = [type = std::string(*csharp_type_str)](const std::string &name)
+                                .make_strings = [type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
                                 {
                                     return TypeBinding::ParamUsage::Strings{
                                         .dllimport_decl_params = type + " *" + name, // No const pointers in C#.
@@ -347,7 +355,7 @@ namespace mrbind::CSharp
                                 },
                             },
                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                .make_strings = [type = std::string(*csharp_type_str)](const std::string &name)
+                                .make_strings = [type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
                                 {
                                     return TypeBinding::ParamUsage::Strings{
                                         .needs_unsafe = true,
@@ -363,6 +371,104 @@ namespace mrbind::CSharp
                                 .dllimport_return_type = std::string(*csharp_type_str) + " *",
                                 .csharp_return_type = std::string(*csharp_type_str),
                                 .make_return_expr = [](const std::string &expr){return "return *" + expr + ";";},
+                            },
+                        });
+                    }
+                }
+            }
+
+            // Pointers to...
+            if (cpp_type.Is<cppdecl::Pointer>() && cpp_type.modifiers.size() == 1)
+            {
+                cppdecl::Type cpp_underlying_type = cpp_type;
+                cpp_underlying_type.RemoveModifier();
+                const bool is_const = cpp_underlying_type.IsConst();
+                cpp_underlying_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                const std::string cpp_underlying_type_str = CppdeclToCode(cpp_underlying_type);
+
+                // Arithmetic types.
+                // This includes `bool`. From what I understand, only by-value bool is special-cased to be passed as `int32_t`, and pointers to `bool` work fine.
+                if (auto csharp_type_str = CToCSharpPrimitiveTypeOpt(cpp_underlying_type_str, true))
+                {
+                    if (!is_const)
+                    {
+                        return CreateBinding({
+                            .param_usage = TypeBinding::ParamUsage{
+                                .make_strings = [this, type = std::string(*csharp_type_str)](const std::string &name, bool &have_useless_defarg)
+                                {
+                                    return TypeBinding::ParamUsage::Strings{
+                                        .needs_unsafe = true,
+                                        .dllimport_decl_params = type + " *" + name,
+                                        .csharp_decl_params = RequestHelper("InOut") + "<" + type + ">? " + name + (std::exchange(have_useless_defarg, false) ? " = null" : ""),
+                                        .extra_statements = type + " __value_" + name + " = " + name + " != null ? " + name + ".Value : default(" + type + ");\n",
+                                        .csharp_args_for_c = name + " != null ? &__value_" + name + " : null",
+                                        .extra_statements_after = "if (" + name + " != null) " + name + ".Value = __value_" + name + ";\n",
+                                    };
+                                },
+                            },
+                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                .make_strings = [this, type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
+                                {
+                                    return TypeBinding::ParamUsage::Strings{
+                                        .needs_unsafe = true,
+                                        .dllimport_decl_params = type + " **" + name,
+                                        .csharp_decl_params = RequestHelper("InOutOpt") + "<" + type + ">? " + name + " = null",
+                                        .extra_statements =
+                                            type + " __value_" + name + " = " + name + " != null && " + name + ".Opt != null ? " + name + ".Opt.Value : default(" + type + ");\n" +
+                                            type + " *__valueptr_" + name + " = " + name + " != null && " + name + ".Opt != null ? &__value_" + name + " : null;\n",
+                                        .csharp_args_for_c = name + " != null ? &__valueptr_" + name + " : null",
+                                        .extra_statements_after = "if (" + name + " != null && " + name + ".Opt != null) " + name + ".Opt.Value = __value_" + name + ";\n",
+                                    };
+                                },
+                            },
+                            .return_usage = TypeBinding::ReturnUsage{
+                                .needs_unsafe = true,
+                                .needs_temporary_variable = true,
+                                .dllimport_return_type = std::string(*csharp_type_str) + " *",
+                                .csharp_return_type = RequestHelper("Ref") + "<" + std::string(*csharp_type_str) + ">?",
+                                .make_return_expr = [this, type = std::string(*csharp_type_str)](const std::string &expr)
+                                {
+                                    return "return " + expr + " != null ? new " + RequestHelper("Ref") + "<" + type + ">(" + expr + ") : null;";
+                                },
+                            },
+                        });
+                    }
+                    else
+                    {
+                        return CreateBinding({
+                            .param_usage = TypeBinding::ParamUsage{
+                                .make_strings = [type = std::string(*csharp_type_str)](const std::string &name, bool &have_useless_defarg)
+                                {
+                                    return TypeBinding::ParamUsage::Strings{
+                                        .needs_unsafe = true,
+                                        .dllimport_decl_params = type + " *" + name, // No const pointers in C#.
+                                        .csharp_decl_params = type + "? " + name + (std::exchange(have_useless_defarg, false) ? " = null" : ""),
+                                        .extra_statements = type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n",
+                                        .csharp_args_for_c = name + ".HasValue ? &__deref_" + name + " : null",
+                                    };
+                                },
+                            },
+                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                .make_strings = [this, type = std::string(*csharp_type_str)](const std::string &name, bool &/*have_useless_defarg*/)
+                                {
+                                    return TypeBinding::ParamUsage::Strings{
+                                        .needs_unsafe = true,
+                                        .dllimport_decl_params = type + " **" + name, // No const pointers in C#.
+                                        .csharp_decl_params = RequestHelper("InOpt") + "<" + type + ">? " + name + " = null",
+                                        .extra_statements =
+                                            type + " __value_" + name + " = " + name + " != null && " + name + ".Opt != null ? " + name + ".Opt.Value : default(" + type + ");\n" +
+                                            type + " *__valueptr_" + name + " = " + name + " != null && " + name + ".Opt != null ? &__value_" + name + " : null;\n",
+                                        .csharp_args_for_c = name + " != null ? &__valueptr_" + name + " : null",
+                                    };
+                                },
+                            },
+                            .return_usage = TypeBinding::ReturnUsage{
+                                .needs_unsafe = true,
+                                .needs_temporary_variable = true,
+                                .dllimport_return_type = std::string(*csharp_type_str) + " *",
+                                .csharp_return_type = std::string(*csharp_type_str) + "?",
+                                .make_return_expr = [](const std::string &expr){return "return " + expr + " != null ? *" + expr + " : null;";},
                             },
                         });
                     }
@@ -392,6 +498,7 @@ namespace mrbind::CSharp
             param_strings.reserve(func_like.params.size());
             for (const auto &param : func_like.params)
             {
+                std::size_t visual_index = param_strings.size() + 1;
                 try
                 {
                     const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
@@ -399,24 +506,30 @@ namespace mrbind::CSharp
                     // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
                     const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
                     if (!param_usage)
-                        throw std::runtime_error("The C++ parameter type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a parameter type.");
+                        throw std::runtime_error("This C++ parameter type is known, but this type isn't usable as a parameter type.");
+
+                    const bool useless_default_arg = param.default_arg_spelling && !param.default_arg_affects_parameter_passing;
+                    bool useless_default_arg_var = useless_default_arg;
 
                     param_usages.push_back(&*param_usage);
-                    param_strings.push_back(param_usage->make_strings(param.name_or_placeholder));
+                    param_strings.push_back(param_usage->make_strings(param.name_or_placeholder, useless_default_arg_var));
+
+                    // Check that the callback handled our useless default arg, if any.
+                    if (useless_default_arg && useless_default_arg_var)
+                        throw std::runtime_error("This parameter has a default argument that doesn't affect parameter passing, but this type binding doesn't understand those.");
 
                     if (param_strings.back().needs_unsafe)
                         func_is_unsafe = true;
                 }
                 catch (...)
                 {
-                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(param_strings.size() + 1) + " out of " + std::to_string(func_like.params.size()) + ":"));
+                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(visual_index) + " out of " + std::to_string(func_like.params.size()) + ", of type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + ":"));
                 }
             }
 
 
             // Write a separating empty line if needed.
-            if (!file.contents.ends_with("{\n"))
-                file.WriteString("\n");
+            file.WriteSeparatingNewline();
 
             // The comment, if any.
             // This already has a trailing newline and the slashes.
@@ -425,7 +538,8 @@ namespace mrbind::CSharp
             // Comments for default arguments, if any.
             for (const auto &param : func_like.params)
             {
-                if (param.default_arg_spelling)
+                // This message is only truly needed for non-trivial default arguments.
+                if (param.default_arg_affects_parameter_passing)
                     file.WriteString("/// Parameter `" + param.name_or_placeholder + "` defaults to `" + *param.default_arg_spelling + "`.\n");
             }
 
@@ -576,7 +690,7 @@ namespace mrbind::CSharp
                 }
 
                 // Call the function.
-                if (extra_statements_after.empty())
+                if (extra_statements_after.empty() && !ret_binding.return_usage->needs_temporary_variable)
                 {
                     // Return the call directly.
                     file.WriteString(extra_statements);
@@ -660,26 +774,81 @@ namespace mrbind::CSharp
 
             file.EnsureNamespace(helpers_namespace.parts);
 
-            auto NeedHelper = [&](const std::string &name) -> bool
-            {
-                if (requested_helpers.erase(name))
+            { // `InOut`, `InOutOpt`.
+                bool need_inout = requested_helpers.erase("InOut");
+                bool need_inout_opt = requested_helpers.erase("InOutOpt");
+                if (need_inout || need_inout_opt)
                 {
-                    // A separator between helpers, if needed.
-                    if (!file.contents.ends_with("{\n"))
-                        file.WriteString("\n");
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// This is used for optional in/out parameters, since `ref` can't be nullable.\n"
+                        "public class InOut<T> where T: unmanaged\n"
+                        "{\n"
+                        "    public T Value;\n"
+                        "\n"
+                        "    public InOut() {}\n"
+                        "    public InOut(T NewValue) {Value = NewValue;}\n"
+                        "}\n"
+                    );
 
-                    return true;
+                    if (need_inout_opt)
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "/// This is used for optional in/out parameters with default arguments.\n"
+                            "/// Passing a null `InOutOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"I don't want to input/output via this parameter\".\n"
+                            "public class InOutOpt<T> where T: unmanaged\n"
+                            "{\n"
+                            "    public InOut<T>? Opt;\n"
+                            "\n"
+                            "    // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.\n"
+                            "    public InOutOpt() {}\n"
+                            "    // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.\n"
+                            "    public InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}\n"
+                            "    // An implicit conversion for passing function parameters.\n"
+                            "    public static implicit operator InOutOpt<T>(InOut<T>? NewOpt) {return new InOutOpt<T>(NewOpt);}\n"
+                            "}\n"
+                        );
+                    }
                 }
+            }
 
-                return false;
-            };
-
-            if (NeedHelper("InOut"))
+            // `InOpt`.
+            if (requested_helpers.erase("InOpt"))
             {
+                file.WriteSeparatingNewline();
                 file.WriteString(
-                    "public class InOut<T> where T: unmanaged\n"
+                    "/// This is used for optional parameters with default arguments.\n"
+                    "/// Passing a null `InOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"pass nothing to the function\".\n"
+                    "public class InOpt<T> where T: unmanaged\n"
                     "{\n"
-                    "    public T Value;\n"
+                    "    public T? Opt;\n"
+                    "\n"
+                    "    public InOpt() {}\n"
+                    "    public InOpt(T NewOpt) {Opt = NewOpt;}\n"
+                    "    public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}\n"
+                    "}\n"
+                );
+            }
+
+            // `Ref`.
+            if (requested_helpers.erase("Ref"))
+            {
+                file.WriteSeparatingNewline();
+                file.WriteString(
+                    "/// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.\n"
+                    "/// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.\n"
+                    "public unsafe class Ref<T> where T: unmanaged\n"
+                    "{\n"
+                    "    /// Should never be null.\n"
+                    "    private T *Ptr;\n"
+                    "    /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
+                    "    internal Ref(T *NewPtr)\n"
+                    "    {\n"
+                    "        System.Diagnostics.Trace.Assert(NewPtr != null); Ptr = NewPtr;\n"
+                    "    }\n"
+                    "\n"
+                    "    public ref T Value => ref *Ptr;\n"
                     "}\n"
                 );
             }
