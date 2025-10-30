@@ -129,12 +129,13 @@ namespace mrbind::CSharp
     std::optional<std::string_view> Generator::CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect)
     {
         if (c_type == "void") return "void";
-        if (c_type == "bool") return is_indirect ? "bool" : "byte"; // When passing `bool` by value, they get passed as an `int32_t`, so we must use a `byte` instead.
 
         if (auto opt = c_desc.platform_info.FindPrimitiveType(c_type))
         {
             switch (opt->kind)
             {
+              case PrimitiveTypeInfo::Kind::boolean:
+                return is_indirect ? "bool" : "byte"; // When passing `bool` by value, they get passed as an `int32_t`, so we must use a `byte` instead.
               case PrimitiveTypeInfo::Kind::floating_point:
                 if (opt->type_size == 4) return "float";
                 if (opt->type_size == 8) return "double";
@@ -791,6 +792,11 @@ namespace mrbind::CSharp
 
             // A comment?
             file.WriteString(enum_desc.comment.c_style);
+
+            const PrimitiveTypeInfo::Kind underlying_kind = c_desc.platform_info.FindPrimitiveType(enum_desc.underlying_type)->kind;
+            // If the underlying type is `bool`, mention this in a comment, because in C# we'll use `byte` (it doesn't allow `bool`).
+            if (underlying_kind == PrimitiveTypeInfo::Kind::boolean)
+                file.WriteString("/// This enum is intended to be boolean.\n");
 
             // The custom prefix, if any.
             if (!prefix.empty())

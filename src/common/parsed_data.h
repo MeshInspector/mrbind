@@ -716,6 +716,7 @@ namespace mrbind
             (signed_integral)
             (unsigned_integral)
             (floating_point)
+            (boolean)
         )
 
         MBREFL_STRUCT(

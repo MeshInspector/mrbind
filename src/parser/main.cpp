@@ -2889,6 +2889,16 @@ namespace mrbind
                     }
                 );
 
+                // Also add the bool.
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "bool",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getBoolWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getBoolAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::boolean,
+                    }
+                );
+
                 // Pointers:
                 params->parsed_result.platform_info.pointer_size = DivideByByteSize(ci->getTarget().PointerWidth);
                 params->parsed_result.platform_info.pointer_alignment = DivideByByteSize(ci->getTarget().PointerAlign);
