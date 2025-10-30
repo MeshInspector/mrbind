@@ -190,6 +190,37 @@ public static partial class MR
             return *__MR_CSharp_test_enum_cref(&a, b.HasValue ? &__deref_b : null);
         }
 
+        /// Generated from function `MR::CSharp::test_enum_ptr`.
+        /// Parameter `c` defaults to `&default_e1`.
+        public static unsafe MR.Misc.Ref<MR.CSharp.E1>? test_enum_ptr(MR.Misc.InOut<MR.CSharp.E1>? a, MR.Misc.InOut<MR.CSharp.E1>? b = null, MR.Misc.InOutOpt<MR.CSharp.E1>? c = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_ptr(MR.CSharp.E1 *a, MR.CSharp.E1 *b, MR.CSharp.E1 **c);
+            MR.CSharp.E1 __value_a = a != null ? a.Value : default(MR.CSharp.E1);
+            MR.CSharp.E1 __value_b = b != null ? b.Value : default(MR.CSharp.E1);
+            MR.CSharp.E1 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E1);
+            MR.CSharp.E1 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
+            var __ret = __MR_CSharp_test_enum_ptr(a != null ? &__value_a : null, b != null ? &__value_b : null, c != null ? &__valueptr_c : null);
+            if (c != null && c.Opt != null) c.Opt.Value = __value_c;
+            if (b != null) b.Value = __value_b;
+            if (a != null) a.Value = __value_a;
+            return __ret != null ? new MR.Misc.Ref<MR.CSharp.E1>(__ret) : null;
+        }
+
+        /// Generated from function `MR::CSharp::test_enum_cptr`.
+        /// Parameter `c` defaults to `&default_e1`.
+        public static unsafe MR.CSharp.E1? test_enum_cptr(MR.CSharp.E1? a, MR.CSharp.E1? b = null, MR.Misc.InOpt<MR.CSharp.E1>? c = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cptr", ExactSpelling = true)]
+            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_cptr(MR.CSharp.E1 *a, MR.CSharp.E1 *b, MR.CSharp.E1 **c);
+            MR.CSharp.E1 __deref_a = a.GetValueOrDefault();
+            MR.CSharp.E1 __deref_b = b.GetValueOrDefault();
+            MR.CSharp.E1 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E1);
+            MR.CSharp.E1 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
+            var __ret = __MR_CSharp_test_enum_cptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
+            return __ret != null ? *__ret : null;
+        }
+
         /// Generated from function `MR::CSharp::test_bool_enum`.
         /// Parameter `b` defaults to `E2::b`.
         public static unsafe MR.CSharp.E2 test_bool_enum(MR.CSharp.E2 a, MR.CSharp.E2? b = null)
@@ -228,6 +259,43 @@ public static partial class MR
             MR.CSharp.E2 __deref_b = b.GetValueOrDefault();
             if ((byte)__deref_b > 1) __deref_b = (MR.CSharp.E2)1;
             return *__MR_CSharp_test_bool_enum_cref(&a, b.HasValue ? &__deref_b : null);
+        }
+
+        /// Generated from function `MR::CSharp::test_bool_enum_ptr`.
+        /// Parameter `c` defaults to `&default_e2`.
+        public static unsafe MR.Misc.Ref<MR.CSharp.E2>? test_bool_enum_ptr(MR.Misc.InOut<MR.CSharp.E2>? a, MR.Misc.InOut<MR.CSharp.E2>? b = null, MR.Misc.InOutOpt<MR.CSharp.E2>? c = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.E2 *__MR_CSharp_test_bool_enum_ptr(MR.CSharp.E2 *a, MR.CSharp.E2 *b, MR.CSharp.E2 **c);
+            MR.CSharp.E2 __value_a = a != null ? a.Value : default(MR.CSharp.E2);
+            if ((byte)__value_a > 1) __value_a = (MR.CSharp.E2)1;
+            MR.CSharp.E2 __value_b = b != null ? b.Value : default(MR.CSharp.E2);
+            if ((byte)__value_b > 1) __value_b = (MR.CSharp.E2)1;
+            MR.CSharp.E2 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E2);
+            MR.CSharp.E2 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
+            if ((byte)__value_c > 1) __value_c = (MR.CSharp.E2)1;
+            var __ret = __MR_CSharp_test_bool_enum_ptr(a != null ? &__value_a : null, b != null ? &__value_b : null, c != null ? &__valueptr_c : null);
+            if (c != null && c.Opt != null) c.Opt.Value = __value_c;
+            if (b != null) b.Value = __value_b;
+            if (a != null) a.Value = __value_a;
+            return __ret != null ? new MR.Misc.Ref<MR.CSharp.E2>(__ret) : null;
+        }
+
+        /// Generated from function `MR::CSharp::test_bool_enum_cptr`.
+        /// Parameter `c` defaults to `&default_e2`.
+        public static unsafe MR.CSharp.E2? test_bool_enum_cptr(MR.CSharp.E2? a, MR.CSharp.E2? b = null, MR.Misc.InOpt<MR.CSharp.E2>? c = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_cptr", ExactSpelling = true)]
+            extern static MR.CSharp.E2 *__MR_CSharp_test_bool_enum_cptr(MR.CSharp.E2 *a, MR.CSharp.E2 *b, MR.CSharp.E2 **c);
+            MR.CSharp.E2 __deref_a = a.GetValueOrDefault();
+            if ((byte)__deref_a > 1) __deref_a = (MR.CSharp.E2)1;
+            MR.CSharp.E2 __deref_b = b.GetValueOrDefault();
+            if ((byte)__deref_b > 1) __deref_b = (MR.CSharp.E2)1;
+            MR.CSharp.E2 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E2);
+            MR.CSharp.E2 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
+            if ((byte)__value_c > 1) __value_c = (MR.CSharp.E2)1;
+            var __ret = __MR_CSharp_test_bool_enum_cptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
+            return __ret != null ? *__ret : null;
         }
     }
 }
