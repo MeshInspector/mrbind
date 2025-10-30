@@ -524,5 +524,14 @@ namespace mrbind::CInterop
             // The platform information, propagated as is from the parser output.
             (PlatformInfo)(platform_info)
         )
+
+        [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)
+        {
+            auto iter = cpp_types.Map().find(type);
+            if (iter != cpp_types.Map().end())
+                return &iter->second;
+            else
+                return nullptr;
+        }
     };
 }
