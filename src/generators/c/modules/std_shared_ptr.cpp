@@ -7,7 +7,6 @@ namespace mrbind::CBindings::Modules
     struct StdSharedPtr : DeriveModule<StdSharedPtr>
     {
         // Here I try to support all of: `std::shared_ptr<T>`, `std::shared_ptr<T[]>`, and `std::shared_ptr<T[N]>`.
-        // `` has no special logic in the standard library, and is pretty rare in general, so I don't have special handling for it.
 
         cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr");
 
@@ -169,6 +168,39 @@ namespace mrbind::CBindings::Modules
                         });
 
                         emit.cpp_called_func = "@this@ = " + construct_from_unique_ptr;
+
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // Construct from a non-owning pointer.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Create a new instance, storing a non-owning pointer.";
+                        emit.name = binder.MakeMemberFuncName(generator, "ConstructNonOwning", CInterop::MethodKinds::Constructor{});
+
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+
+                        emit.params.push_back({
+                            .name = "ptr",
+                            .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                        });
+
+                        emit.cpp_called_func = type_str + "(std::shared_ptr<void>{}, @1@)";
+
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // Assign a non-owning pointer.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.";
+                        emit.name = binder.MakeMemberFuncName(generator, "AssignNonOwning");
+
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                        emit.params.push_back({
+                            .name = "ptr",
+                            .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                        });
+
+                        emit.cpp_called_func = "@this@ = " + type_str + "(std::shared_ptr<void>{}, @1@)";
 
                         generator.EmitFunction(file, emit);
                     }
