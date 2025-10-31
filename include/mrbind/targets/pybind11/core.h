@@ -883,6 +883,16 @@ namespace MRBind::pb11
     {
         using disables_func = void;
     };
+    // `std::unique_ptr` in parameters don't work. This specialization only acts on lvalue references, because everything else is already rejected
+    //   by the "no non-copyable types by value or by rvalue ref" specialization above.
+    // This can't work because all our holder types a `std::shared_ptr`s. I guess we could cook up something for primitive types, allocating on the spot,
+    //   but I don't think anyone needs that.
+    template <typename T>
+    requires std::is_lvalue_reference_v<T> && IsUniquePtr<std::remove_reference_t<T>>::value
+    struct ParamTraitsLow<T>
+    {
+        using disables_func = void;
+    };
 
     // Ban functions with `std::initializer_list` parameters.
     // In theory we could support those by constructing those in a non-portable manner.
@@ -973,9 +983,9 @@ namespace MRBind::pb11
     // (When the reverse happens it also crashes, but in that case no adjustment can help us, so instead we use a `shared_ptr` holder and adjust `unique_ptr`.)
     template <typename T, typename D> requires (!IsPybindBuiltinType<T>::value)
     struct ReturnTypeTraits<std::unique_ptr<T, D>> {static std::shared_ptr<T> Adjust(std::unique_ptr<T, D> &&src) {return std::move(src);}};
-    // When returning a REFERENCE to `std::unique_ptr` (to a parsed class), just replace it with a raw pointer.
+    // When returning an LVALUE REFERENCE to `std::unique_ptr` (to a parsed class), just replace it with a raw pointer.
     // This one was necessary for `tl::expected<T,U>` bindings, where if `T` is a `unique_ptr`, `.value()` returns a reference to it.
-    template <typename T> requires std::is_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value && (!IsPybindBuiltinType<typename std::remove_cvref_t<T>::element_type>::value)
+    template <typename T> requires std::is_lvalue_reference_v<T> && IsUniquePtr<std::remove_cvref_t<T>>::value && (!IsPybindBuiltinType<typename std::remove_cvref_t<T>::element_type>::value)
     struct ReturnTypeTraits<T> {static auto Adjust(T &&src) {return src.get();}};
 
     // Some code to adjust containers recursively:

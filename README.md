@@ -80,7 +80,7 @@ Type | C | Python | Comments
 `std::string_view`        | ✅ | ✅ |
 `std::span`               | ❌ | ❌ | Unclear how to implement in Python, ideas welcome. Simple in C, but not yet implemented there.
 `std::filesystem::path`   | ✅ | ✅ |
-`std::unique_ptr`         | ✅ | ✅ | In Python it dissolves into the underlying type.
+`std::unique_ptr`         | ✅ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't be a function parameter.
 `std::shared_ptr`         | ✅ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't point to built-in types, such as `int`, but can point to user classes (due to Pybind limitations).
 `std::weak_ptr`           | ❌ | ❌ | In Python difficult to support because of Pybind limitations. In C simply not implemented yet.
 `std::expected`           | ✅ | ✅ | In Python it's auto-dereferenced when returned, which throws if it holds an error.
