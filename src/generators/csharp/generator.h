@@ -16,7 +16,14 @@
 
 namespace mrbind::CSharp
 {
-    [[nodiscard]] std::string CppdeclToCode(const auto &value);
+    [[nodiscard]] std::string CppdeclToCode(const auto &value)
+    {
+        return cppdecl::ToCode(value, {});
+    }
+    [[nodiscard]] std::string CppdeclToIdentifier(const auto &value)
+    {
+        return cppdecl::ToString(value, cppdecl::ToStringFlags::identifier);
+    }
 
     struct OutputFile
     {
@@ -100,6 +107,7 @@ namespace mrbind::CSharp
         };
 
         // Unlike in C, those don't fall back to each other. Both need to be implemented separately.
+        // The correct usage of those two must be chosen based on `FuncParam::default_arg_affects_parameter_passing`.
         std::optional<ParamUsage> param_usage{};
         std::optional<ParamUsage> param_usage_with_default_arg{};
 
@@ -180,6 +188,15 @@ namespace mrbind::CSharp
         // Converts a C++ qualified name to a C# name.
         [[nodiscard]] std::string CppToCSharpName(const cppdecl::QualifiedName &name);
 
+        // Converts a C++ qualified class name to a C# helper interface name for this class.
+        [[nodiscard]] std::string CppToCSharpInterfaceName(const cppdecl::QualifiedName &name);
+        // Same, but for unqualified names.
+        // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
+        [[nodiscard]] std::string CppToCSharpUnqualInterfaceName(std::string_view name);
+
+        // Given a C++ class name, returns the "GetUnderlying..." method that's used in classes derived from this to return pointers to the underlying C instance.
+        [[nodiscard]] std::string CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name);
+
         // Caches bindings for the types. Don't access directly, this is for `GetTypeBinding()`.
         // Using the plain `map` instead of `unordered_map` because of the `pair`, which isn't hashable by default.
         std::map<std::pair<std::string, bool/*enable_sugar*/>, TypeBinding> cached_type_bindings;
@@ -216,6 +233,12 @@ namespace mrbind::CSharp
         // `csharp_name` is used as the C# enum name.
         // `prefix` is pasted before the declaration, separated with a space if not empty.
         void EmitCEnum(OutputFile &file, const CInterop::TypeKinds::Enum &enum_desc, std::string_view prefix, std::string_view csharp_name);
+
+        // A low-level function to emit a wrapper for a single C "class" (the result of wrapping a C++ class).
+        // Assumes that the correct namespace or class was already entered in `file`.
+        // `csharp_name` is used as the C# enum name.
+        // `prefix` is pasted before the declaration, separated with a space if not empty.
+        void EmitCClass(OutputFile &file, const cppdecl::QualifiedName &cpp_name, const CInterop::TypeKinds::Class &class_desc, std::string_view prefix, std::string_view csharp_name);
 
         void Generate();
 

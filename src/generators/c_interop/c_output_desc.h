@@ -293,6 +293,10 @@ namespace mrbind::CInterop
             MBREFL_STRUCT(
                 // Which operator this is.
                 (std::string)(token)
+
+                // Is this a copy/move/by-value assignment?
+                // This is added as a quick way to check this, without having to check the parameter type.
+                (bool)(is_special_assignment, false)
             )
         };
 

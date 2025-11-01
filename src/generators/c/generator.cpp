@@ -1760,7 +1760,7 @@ namespace mrbind::CBindings
             // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
             name.c += "_AssignFromAnother";
 
-            name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = "="};
+            name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = "=", .is_special_assignment = true};
 
             // Rewrite the parameter to be a non-reference.
             // Note that here (unlike in the constructors) this has to be conditional, because assignments take accept parameters by value.

@@ -450,7 +450,8 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.name = MakeMemberFuncName(generator, "DefaultConstructArray"); // Not marking as a constructor.
+        ret.name = MakeMemberFuncName(generator, "DefaultConstructArray");
+        ret.name.ignore_in_interop = true; // If someone needs this function, they can call it directly by name.
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name).AddModifier(cppdecl::Pointer{});
         ret.remove_return_type_sugar = true;
@@ -512,7 +513,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "AssignFrom" : "AssignFromAnother"), CInterop::MethodKinds::Operator{.token = "="});
+        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "AssignFrom" : "AssignFromAnother"), CInterop::MethodKinds::Operator{.token = "=", .is_special_assignment = !with_param_sugar});
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 
 // This is a mixed bag of tests primarily intended for testing the C# bindings.
 
@@ -43,6 +44,8 @@ namespace MR::CSharp
     inline E1 test_enum(E1 a, E1 b = E1::b) {std::cout << int(a) << ' ' << int(b) << '\n'; return b;}
     inline E1 &test_enum_ref(E1 &a, E1 &b = default_e1) {(void)a; (void)b; return default_e1;}
     inline const E1 &test_enum_cref(const E1 &a, const E1 &b = default_e1) {(void)a; (void)b; return default_e1;}
+    inline E1 *test_enum_ptr(E1 *a, E1 *b = nullptr, E1 *c = &default_e1) {(void)a; (void)b; (void)c; return &default_e1;}
+    inline const E1 *test_enum_cptr(const E1 *a, const E1 *b = nullptr, const E1 *c = &default_e1) {(void)a; (void)b; (void)c; return &default_e1;}
 
     enum class E2 : bool
     {
@@ -53,4 +56,14 @@ namespace MR::CSharp
     inline E2 test_bool_enum(E2 a, E2 b = E2::b) {std::cout << int(a) << ' ' << int(b) << '\n'; return b;}
     inline E2 &test_bool_enum_ref(E2 &a, E2 &b = default_e2) {(void)a; (void)b; return default_e2;}
     inline const E2 &test_bool_enum_cref(const E2 &a, const E2 &b = default_e2) {(void)a; (void)b; return default_e2;}
+    inline E2 *test_bool_enum_ptr(E2 *a, E2 *b = nullptr, E2 *c = &default_e2) {(void)a; (void)b; (void)c; return &default_e2;}
+    inline const E2 *test_bool_enum_cptr(const E2 *a, const E2 *b = nullptr, const E2 *c = &default_e2) {(void)a; (void)b; (void)c; return &default_e2;}
+
+    struct A
+    {
+        int a = 10;
+
+        void foo() {}
+        void bar(int, int) const {}
+    };
 }

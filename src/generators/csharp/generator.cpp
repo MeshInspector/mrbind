@@ -7,11 +7,6 @@
 
 namespace mrbind::CSharp
 {
-    std::string CppdeclToCode(const auto &value)
-    {
-        return cppdecl::ToCode(value, {});
-    }
-
     void OutputFile::DumpToOstream(std::ostream &out) const
     {
         out << contents;
@@ -82,7 +77,7 @@ namespace mrbind::CSharp
             // Push new ones, assuming those are plain namespaces.
             // Since C# namespaces can only contain classes, and not e.g. free functions, we instead use partial classes.
             // "Partial" you can reopen them later to add more members.
-            PushScope(new_namespace[i], "public static partial class " + CppdeclToCode(new_namespace[i]) + "\n{\n", "}\n");
+            PushScope(new_namespace[i], "public static partial class " + CppdeclToIdentifier(new_namespace[i]) + "\n{\n", "}\n");
         }
     }
 
@@ -166,9 +161,37 @@ namespace mrbind::CSharp
             if (i > 0)
                 ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
 
-            ret += CppdeclToCode(name.parts[i]);
+            ret += CppdeclToIdentifier(name.parts[i]);
         }
         return ret;
+    }
+
+    std::string Generator::CppToCSharpInterfaceName(const cppdecl::QualifiedName &name)
+    {
+        std::string ret;
+        for (std::size_t i = 0; i < name.parts.size(); i++)
+        {
+            if (i > 0)
+                ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
+
+            std::string part = CppdeclToIdentifier(name.parts[i]);
+
+            if (i + 1 == name.parts.size())
+                part = CppToCSharpUnqualInterfaceName(part);
+
+            ret += part;
+        }
+        return ret;
+    }
+
+    std::string Generator::CppToCSharpUnqualInterfaceName(std::string_view name)
+    {
+        return "__I" + std::string(name);
+    }
+
+    std::string Generator::CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name)
+    {
+        return "_GetUnderlying_" + CppdeclToIdentifier(name);
     }
 
     const TypeBinding &Generator::GetTypeBinding(const cppdecl::Type &cpp_type, bool enable_sugar)
@@ -692,6 +715,27 @@ namespace mrbind::CSharp
                 std::size_t visual_index = param_strings.size() + 1;
                 try
                 {
+                    // Handle the `this` parameter.
+                    if (param.this_param)
+                    {
+                        cppdecl::Type this_type = ParseTypeOrThrow(param.cpp_type);
+                        assert(this_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
+                        if (this_type.Is<cppdecl::Reference>())
+                            this_type.RemoveModifier();
+                        this_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                        assert(this_type.IsOnlyQualifiedName());
+
+                        param_usages.push_back(nullptr);
+                        param_strings.push_back({
+                            .needs_unsafe = true,
+                            .dllimport_decl_params = "_Underlying *" + param.name_or_placeholder,
+                            .csharp_decl_params = "", // Nothing.
+                            .csharp_args_for_c = CppClassToCSharpGetUnderlyingMethodName(this_type.simple_type.name) + "()",
+                        });
+                        func_is_unsafe = true; // Since we `continue` early, this needs to be set manually.
+                        continue;
+                    }
+
                     const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
 
                     // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
@@ -794,6 +838,17 @@ namespace mrbind::CSharp
 
             // Begin function body.
             file.PushScope({}, "{\n", "}\n");
+
+            // If this is a non-const function, make sure the instance is also not const.
+            if (!func_like.params.empty() && func_like.params.front().this_param)
+            {
+                const cppdecl::Type param_type = ParseTypeOrThrow(func_like.params.front().cpp_type);
+                assert(param_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
+                if (!param_type.IsConst(1))
+                {
+                    file.WriteString("if (!_IsConst()) throw new " + RequestHelper("MutableMethodCalledOnConstInstance") + "();\n");
+                }
+            }
 
             { // The `DllImport` declaration.
                 file.WriteString("[System.Runtime.InteropServices.DllImport(" + EscapeQuoteString(imported_lib_name) + ", EntryPoint = \"" + func_like.c_name + "\", ExactSpelling = true)]\n");
@@ -918,7 +973,7 @@ namespace mrbind::CSharp
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting function `" + func_like.c_name + "`:"));
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C function `" + func_like.c_name + "`:"));
         }
     }
 
@@ -984,7 +1039,112 @@ namespace mrbind::CSharp
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting enum `" + enum_desc.c_name + "`:"));
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C enum `" + enum_desc.c_name + "`:"));
+        }
+    }
+
+    void Generator::EmitCClass(OutputFile &file, const cppdecl::QualifiedName &cpp_name, const CInterop::TypeKinds::Class &class_desc, std::string_view prefix, std::string_view csharp_name)
+    {
+        try
+        {
+            // Declare the interface.
+
+            // A separator?
+            file.WriteSeparatingNewline();
+
+            // No comment on the interface, we add it only on the class.
+
+            // The interface header.
+            if (!prefix.empty())
+            {
+                file.WriteString(prefix);
+                file.WriteString(" ");
+            }
+            file.WriteString("interface ");
+            const std::string csharp_matching_interface_name = CppToCSharpUnqualInterfaceName(csharp_name);
+            file.WriteString(csharp_matching_interface_name);
+            file.PushScope({}, "\n{\n", "}\n");
+
+            // The "get underlying" method can have any access here, but then C# only lets you implement it as public.
+            // I don't think it matters what access I put on it, since this method is considered internal, but the interface is considered internal as well. Shrug.
+            // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
+            //   all parameter/return types to be public too.
+            file.WriteString("public struct _Underlying; // Represents the underlying C type.\n");
+            const std::string csharp_underlying_ptr_method_name = CppClassToCSharpGetUnderlyingMethodName(cpp_name);
+            file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C object.\n");
+            file.WriteString("\n");
+            file.WriteString("// Returns true if the underlying instance is read-only.\n");
+            file.WriteString("public bool _IsConst();\n");
+
+            for (const CInterop::ClassMethod &method : class_desc.methods)
+            {
+                std::string csharp_name;
+                bool skip = false;
+
+                std::visit(Overload{
+                    [&](const CInterop::MethodKinds::Regular &elem)
+                    {
+                        csharp_name = elem.name;
+                    },
+                    [&](const CInterop::MethodKinds::Constructor &elem)
+                    {
+                        (void)elem;
+                        skip = true; // Don't want constructors here.
+                    },
+                    [&](const CInterop::MethodKinds::Operator &elem)
+                    {
+                        (void)elem; // TODO
+                        if (elem.is_special_assignment)
+                            skip = true;
+                    },
+                    [&](const CInterop::MethodKinds::ConversionOperator &elem)
+                    {
+                        (void)elem; // TODO
+                    },
+                }, method.var);
+
+                if (skip)
+                    continue;
+
+                assert(!csharp_name.empty());
+
+                EmitCFuncLike(file, method, "public", csharp_name);
+            }
+
+            file.PopScope(); // Pop the interface scope.
+
+            file.WriteSeparatingNewline();
+
+            // Now the class itself.
+
+            // The comment, if any.
+            // This already has a trailing newline and the slashes.
+            file.WriteString(class_desc.comment.c_style);
+
+            // The class header.
+            if (!prefix.empty())
+            {
+                file.WriteString(prefix);
+                file.WriteString(" ");
+            }
+            file.WriteString("class ");
+            file.WriteString(csharp_name);
+            file.WriteString(" : ");
+            file.WriteString(csharp_matching_interface_name);
+            file.PushScope({}, "\n{\n", "}\n");
+
+            // The underlying pointer.
+            // TODO: We'll need to skip this in derived classes.
+            file.WriteString("private unsafe " + csharp_matching_interface_name + "._Underlying *_underlying;\n");
+            file.WriteString("private bool _IsConstVal;\n");
+            file.WriteString("public unsafe " + csharp_matching_interface_name + "._Underlying *" + csharp_underlying_ptr_method_name + "() => _underlying;\n");
+            file.WriteString("public bool _IsConst() => _IsConstVal;\n");
+
+            file.PopScope(); // Pop the class scope.
+        }
+        catch (...)
+        {
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C class-like type `" + class_desc.c_name + "`:"));
         }
     }
 
@@ -994,7 +1154,7 @@ namespace mrbind::CSharp
             // Set `helpers_prefix`.
             for (const auto &elem : helpers_namespace.parts)
             {
-                helpers_prefix += CppdeclToCode(elem);
+                helpers_prefix += CppdeclToIdentifier(elem);
                 helpers_prefix += '.';
             }
         }
@@ -1006,6 +1166,7 @@ namespace mrbind::CSharp
 
             const auto &var = c_desc.cpp_types.Map().at(key).var;
 
+            // Enums.
             if (auto elem = std::get_if<CInterop::TypeKinds::Enum>(&var))
             {
                 OutputFile &file = GetOutputFile(elem->output_file);
@@ -1013,7 +1174,17 @@ namespace mrbind::CSharp
                 auto qual_name = ParseNameOrThrow(key);
                 file.EnsureNamespace({qual_name.parts.begin(), qual_name.parts.end() - 1});
 
-                EmitCEnum(file, *elem, "public", CppdeclToCode(qual_name.parts.back()));
+                EmitCEnum(file, *elem, "public", CppdeclToIdentifier(qual_name.parts.back()));
+            }
+            // Classes.
+            else if (auto elem = std::get_if<CInterop::TypeKinds::Class>(&var))
+            {
+                OutputFile &file = GetOutputFile(elem->output_file);
+
+                auto qual_name = ParseNameOrThrow(key);
+                file.EnsureNamespace({qual_name.parts.begin(), qual_name.parts.end() - 1});
+
+                EmitCClass(file, ParseNameOrThrow(key), *elem, "public", CppdeclToIdentifier(qual_name.parts.back()));
             }
         }
 
@@ -1028,7 +1199,7 @@ namespace mrbind::CSharp
             assert(!qual_name.parts.empty());
             file.EnsureNamespace({qual_name.parts.begin(), qual_name.parts.end() - 1});
 
-            EmitCFuncLike(file, free_func, "public static", CppdeclToCode(qual_name.parts.back()));
+            EmitCFuncLike(file, free_func, "public static", CppdeclToIdentifier(qual_name.parts.back()));
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.
@@ -1126,6 +1297,33 @@ namespace mrbind::CSharp
                     "    public ref T Value => ref *Ptr;\n"
                     "}\n"
                 );
+            }
+
+            { // Custom exception.
+                auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)
+                {
+                    if (!requested_helpers.erase(name))
+                        return;
+
+                    file.WriteSeparatingNewline();
+
+                    if (!comment.empty())
+                    {
+                        assert(comment.ends_with('\n'));
+                        file.WriteString(comment);
+                    }
+
+                    file.WriteString(
+                        "public class " + name + " : System.Exception\n"
+                        "{\n"
+                        "    public " + name + "() {}\n"
+                        "    public " + name + "(string message) : base(message) {}\n"
+                        "    public " + name + "(string message, Exception inner) : base(message, inner) {}\n"
+                        "}\n"
+                    );
+                };
+
+                CreateExceptionClassIfNeeded("MutableMethodCalledOnConstInstance", "/// This is thrown when a non-const method is called on class instance that's considered const (`._IsConst() == true`).\n");
             }
 
             // Lastly, check for unknown helper names.
