@@ -887,6 +887,7 @@ namespace MRBind::pb11
     //   by the "no non-copyable types by value or by rvalue ref" specialization above.
     // This can't work because all our holder types a `std::shared_ptr`s. I guess we could cook up something for primitive types, allocating on the spot,
     //   but I don't think anyone needs that.
+    // Newer pybind apparently can support those correctly via `pybind11::smart_holder`, but our pybind target is too old for that.
     template <typename T>
     requires std::is_lvalue_reference_v<T> && IsUniquePtr<std::remove_reference_t<T>>::value
     struct ParamTraitsLow<T>
