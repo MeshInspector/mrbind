@@ -726,32 +726,33 @@ namespace mrbind::CSharp
                         assert(this_type.IsOnlyQualifiedName());
 
                         param_usages.push_back(nullptr);
-                        param_strings.push_back({
-                            .needs_unsafe = true,
-                            .dllimport_decl_params = "_Underlying *" + param.name_or_placeholder,
-                            .csharp_decl_params = "", // Nothing.
-                            .csharp_args_for_c = CppClassToCSharpGetUnderlyingMethodName(this_type.simple_type.name) + "()",
-                        });
-                        func_is_unsafe = true; // Since we `continue` early, this needs to be set manually.
-                        continue;
+                        param_strings.emplace_back();
+                        if (!param.this_param->is_static)
+                        {
+                            param_strings.back().needs_unsafe = true;
+                            param_strings.back().dllimport_decl_params = "_Underlying *" + param.name_or_placeholder;
+                            param_strings.back().csharp_args_for_c = CppClassToCSharpGetUnderlyingMethodName(this_type.simple_type.name) + "()";
+                        }
                     }
+                    else
+                    {
+                        const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
 
-                    const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
+                        // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
+                        const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
+                        if (!param_usage)
+                            throw std::runtime_error("This C++ parameter type is known, but this type isn't usable as a parameter type.");
 
-                    // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
-                    const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
-                    if (!param_usage)
-                        throw std::runtime_error("This C++ parameter type is known, but this type isn't usable as a parameter type.");
+                        const bool useless_default_arg = param.default_arg_spelling && !param.default_arg_affects_parameter_passing;
+                        bool useless_default_arg_var = useless_default_arg;
 
-                    const bool useless_default_arg = param.default_arg_spelling && !param.default_arg_affects_parameter_passing;
-                    bool useless_default_arg_var = useless_default_arg;
+                        param_usages.push_back(&*param_usage);
+                        param_strings.push_back(param_usage->make_strings(param.name_or_placeholder, useless_default_arg_var));
 
-                    param_usages.push_back(&*param_usage);
-                    param_strings.push_back(param_usage->make_strings(param.name_or_placeholder, useless_default_arg_var));
-
-                    // Check that the callback handled our useless default arg, if any.
-                    if (useless_default_arg && useless_default_arg_var)
-                        throw std::runtime_error("This parameter has a default argument that doesn't affect parameter passing, but this type binding doesn't understand those.");
+                        // Check that the callback handled our useless default arg, if any.
+                        if (useless_default_arg && useless_default_arg_var)
+                            throw std::runtime_error("This parameter has a default argument that doesn't affect parameter passing, but this type binding doesn't understand those.");
+                    }
 
                     if (param_strings.back().needs_unsafe)
                         func_is_unsafe = true;
@@ -769,6 +770,27 @@ namespace mrbind::CSharp
             // The comment, if any.
             // This already has a trailing newline and the slashes.
             file.WriteString(func_like.comment.c_style);
+
+            // If this is a member function, figure out some of its properties.
+            bool is_nonstatic_nonconst = false;
+            bool is_static = false;
+            if (!func_like.params.empty() && func_like.params.front().this_param)
+            {
+                if (func_like.params.front().this_param->is_static)
+                {
+                    is_static = true;
+                }
+                else
+                {
+                    const cppdecl::Type param_type = ParseTypeOrThrow(func_like.params.front().cpp_type);
+                    assert(param_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
+                    if (!param_type.IsConst(1))
+                        is_nonstatic_nonconst = true;
+                }
+            }
+            // Add the comment for non-static non-const functions.
+            if (is_nonstatic_nonconst)
+                file.WriteString("/// This function mutates the object. It will throw if `._IsConst() == true`.\n");
 
             // Comments for default arguments, if any.
             for (const auto &param : func_like.params)
@@ -809,6 +831,10 @@ namespace mrbind::CSharp
             if (func_is_unsafe)
                 file.WriteString("unsafe ");
 
+            // Static?
+            if (is_static)
+                file.WriteString("static ");
+
             // Write the return type.
             file.WriteString(ret_binding.return_usage->csharp_return_type);
             file.WriteString(" ");
@@ -839,16 +865,9 @@ namespace mrbind::CSharp
             // Begin function body.
             file.PushScope({}, "{\n", "}\n");
 
-            // If this is a non-const function, make sure the instance is also not const.
-            if (!func_like.params.empty() && func_like.params.front().this_param)
-            {
-                const cppdecl::Type param_type = ParseTypeOrThrow(func_like.params.front().cpp_type);
-                assert(param_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
-                if (!param_type.IsConst(1))
-                {
-                    file.WriteString("if (!_IsConst()) throw new " + RequestHelper("MutableMethodCalledOnConstInstance") + "();\n");
-                }
-            }
+            // If this is a non-static non-const function, make sure the instance is also not const.
+            if (is_nonstatic_nonconst)
+                file.WriteString("if (!_IsConst()) throw new " + RequestHelper("MutableMethodCalledOnConstInstance") + "();\n");
 
             { // The `DllImport` declaration.
                 file.WriteString("[System.Runtime.InteropServices.DllImport(" + EscapeQuoteString(imported_lib_name) + ", EntryPoint = \"" + func_like.c_name + "\", ExactSpelling = true)]\n");
