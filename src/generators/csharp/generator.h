@@ -227,8 +227,39 @@ namespace mrbind::CSharp
         // A low-level function to emit a single C function.
         // Assumes that the correct namespace or class was already entered in `file`.
         // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
-        // `prefix` is pasted before the return type, separated with a space if not empty.
-        void EmitCFuncLike(OutputFile &file, AnyFuncLikePtr func_like, std::string_view prefix, std::string_view csharp_name);
+        void EmitCFuncLike(OutputFile &file, AnyFuncLikePtr func_like, std::string_view csharp_name);
+
+        // If this returns false, we shouldn't emit this method.
+        [[nodiscard]] bool ShouldEmitMethod(const CInterop::ClassMethod &method);
+
+        // Determine a suitable unqualified C# name for a method.
+        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method);
+
+        struct InheritedFuncStrings
+        {
+            // This is the function declaration, without the body.
+            std::string header;
+
+            // This is the function body. Paste it immediately after `header` with no separator.
+            // This will have a trailing newline.
+            std::string body;
+        };
+        // Generate the stub function declaration that forwards the call to the interface or base class `base_name`.
+        // In C#, when you implement a method directly in the interface, it can't be called on a derived class without manually upcasting it
+        //   to the interface, unless you explicitly reimplement it in the derived class.
+        // This function generates a stub implementation that propagates the specified interface.
+        [[nodiscard]] InheritedFuncStrings MakeInheritedFunc(const CInterop::ClassMethod &method, std::string_view base_name);
+
+        struct ParameterBinding
+        {
+            // This is null only for `this` parameters.
+            const TypeBinding::ParamUsage *usage = nullptr;
+
+            TypeBinding::ParamUsage::Strings strings;
+        };
+        // A helper function that returns various binding information about a function parameter, or throws on failure.
+        // Passing `method_like` is only needed if this parameter belongs to a class member (and then it's only used if it's the `this` parameter).
+        [[nodiscard]] ParameterBinding GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like);
 
         // A low-level function to emit a wrapper for a single C enum.
         // Assumes that the correct namespace or class was already entered in `file`.

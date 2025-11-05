@@ -699,13 +699,13 @@ namespace mrbind::CSharp
         return helpers_prefix + name;
     }
 
-    void Generator::EmitCFuncLike(OutputFile &file, AnyFuncLikePtr func_like, std::string_view prefix, std::string_view csharp_name)
+    void Generator::EmitCFuncLike(OutputFile &file, AnyFuncLikePtr any_func_like, std::string_view csharp_name)
     {
-        const CInterop::BasicFuncLike &basic_func_like = *std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, func_like);
-        const CInterop::BasicClassMethodLike *basic_method_like = std::visit(Overload{
+        const CInterop::BasicFuncLike &func_like = *std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, any_func_like);
+        const CInterop::BasicClassMethodLike *method_like = std::visit(Overload{
             [](const CInterop::BasicClassMethodLike *ptr) -> const CInterop::BasicClassMethodLike * {return ptr;},
             [](const CInterop::Function *) -> const CInterop::BasicClassMethodLike * {return nullptr;},
-        }, func_like);
+        }, any_func_like);
 
         try
         {
@@ -714,58 +714,23 @@ namespace mrbind::CSharp
             // First, generate the parameter strings.
             std::vector<const TypeBinding::ParamUsage *> param_usages;
             std::vector<TypeBinding::ParamUsage::Strings> param_strings;
-            param_usages.reserve(basic_func_like.params.size());
-            param_strings.reserve(basic_func_like.params.size());
-            for (const auto &param : basic_func_like.params)
+            param_usages.reserve(func_like.params.size());
+            param_strings.reserve(func_like.params.size());
+            for (const auto &param : func_like.params)
             {
                 std::size_t visual_index = param_strings.size() + 1;
                 try
                 {
-                    // Handle the `this` parameter.
-                    if (param.is_this_param)
-                    {
-                        cppdecl::Type this_type = ParseTypeOrThrow(param.cpp_type);
-                        assert(this_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
-                        if (this_type.Is<cppdecl::Reference>())
-                            this_type.RemoveModifier();
-                        this_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
-                        assert(this_type.IsOnlyQualifiedName());
-
-                        param_usages.push_back(nullptr);
-                        param_strings.emplace_back();
-                        if (!basic_method_like->is_static)
-                        {
-                            param_strings.back().needs_unsafe = true;
-                            param_strings.back().dllimport_decl_params = "_Underlying *" + param.name_or_placeholder;
-                            param_strings.back().csharp_args_for_c = CppClassToCSharpGetUnderlyingMethodName(this_type.simple_type.name) + "()";
-                        }
-                    }
-                    else
-                    {
-                        const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
-
-                        // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
-                        const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
-                        if (!param_usage)
-                            throw std::runtime_error("This C++ parameter type is known, but this type isn't usable as a parameter type.");
-
-                        const bool useless_default_arg = param.default_arg_spelling && !param.default_arg_affects_parameter_passing;
-                        bool useless_default_arg_var = useless_default_arg;
-
-                        param_usages.push_back(&*param_usage);
-                        param_strings.push_back(param_usage->make_strings(param.name_or_placeholder, useless_default_arg_var));
-
-                        // Check that the callback handled our useless default arg, if any.
-                        if (useless_default_arg && useless_default_arg_var)
-                            throw std::runtime_error("This parameter has a default argument that doesn't affect parameter passing, but this type binding doesn't understand those.");
-                    }
+                    auto param_binding = GetParameterBinding(param, method_like);
+                    param_usages.push_back(param_binding.usage);
+                    param_strings.push_back(std::move(param_binding.strings));
 
                     if (param_strings.back().needs_unsafe)
                         func_is_unsafe = true;
                 }
                 catch (...)
                 {
-                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(visual_index) + " out of " + std::to_string(basic_func_like.params.size()) + ", of type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + ":"));
+                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(visual_index) + " out of " + std::to_string(func_like.params.size()) + ", of type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + ":"));
                 }
             }
 
@@ -775,13 +740,13 @@ namespace mrbind::CSharp
 
             // The comment, if any.
             // This already has a trailing newline and the slashes.
-            file.WriteString(basic_func_like.comment.c_style);
+            file.WriteString(func_like.comment.c_style);
 
             // If this is a member function, figure out if it's const.
             bool is_nonstatic_nonconst = false;
-            if (!basic_func_like.params.empty() && basic_func_like.params.front().is_this_param && !basic_method_like->is_static)
+            if (!func_like.params.empty() && func_like.params.front().is_this_param && !method_like->is_static)
             {
-                const cppdecl::Type param_type = ParseTypeOrThrow(basic_func_like.params.front().cpp_type);
+                const cppdecl::Type param_type = ParseTypeOrThrow(func_like.params.front().cpp_type);
                 assert(param_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
                 if (!param_type.IsConst(1))
                     is_nonstatic_nonconst = true;
@@ -791,7 +756,7 @@ namespace mrbind::CSharp
                 file.WriteString("/// This function mutates the object. It will throw if `._IsConst() == true`.\n");
 
             // Comments for default arguments, if any.
-            for (const auto &param : basic_func_like.params)
+            for (const auto &param : func_like.params)
             {
                 // This message is only truly needed for non-trivial default arguments.
                 if (param.default_arg_affects_parameter_passing)
@@ -799,29 +764,25 @@ namespace mrbind::CSharp
             }
 
             // Deprecation attribute?
-            if (basic_func_like.is_deprecated)
+            if (func_like.is_deprecated)
             {
                 file.WriteString("[Obsolete");
-                if (!basic_func_like.is_deprecated->empty())
+                if (!func_like.is_deprecated->empty())
                 {
                     file.WriteString("(");
-                    file.WriteString(EscapeQuoteString(*basic_func_like.is_deprecated));
+                    file.WriteString(EscapeQuoteString(*func_like.is_deprecated));
                     file.WriteString(")");
                 }
                 file.WriteString("]\n");
             }
 
-            // Write the prefix, if any.
-            if (!prefix.empty())
-            {
-                file.WriteString(prefix);
-                file.WriteString(" ");
-            }
+            // Public!
+            file.WriteString("public ");
 
             // Find the return type binding.
-            const TypeBinding &ret_binding = GetTypeBinding(ParseTypeOrThrow(basic_func_like.ret.cpp_type), basic_func_like.ret.uses_sugar);
+            const TypeBinding &ret_binding = GetTypeBinding(ParseTypeOrThrow(func_like.ret.cpp_type), func_like.ret.uses_sugar);
             if (!ret_binding.return_usage)
-                throw std::runtime_error("The C++ return type `" + basic_func_like.ret.cpp_type + "`" + (basic_func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
+                throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
             if (ret_binding.return_usage->needs_unsafe)
                 func_is_unsafe = true;
 
@@ -829,8 +790,8 @@ namespace mrbind::CSharp
             if (func_is_unsafe)
                 file.WriteString("unsafe ");
 
-            // Static?
-            if (basic_method_like && basic_method_like->is_static)
+            // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
+            if (!method_like || method_like->is_static)
                 file.WriteString("static ");
 
             // Note, not emitting `virtual` here, because it's useless in the interfaces.
@@ -871,8 +832,8 @@ namespace mrbind::CSharp
                 file.WriteString("if (!_IsConst()) throw new " + RequestHelper("MutableMethodCalledOnConstInstance") + "();\n");
 
             { // The `DllImport` declaration.
-                file.WriteString("[System.Runtime.InteropServices.DllImport(" + EscapeQuoteString(imported_lib_name) + ", EntryPoint = \"" + basic_func_like.c_name + "\", ExactSpelling = true)]\n");
-                file.WriteString("extern static " + ret_binding.return_usage->dllimport_return_type + (ret_binding.return_usage->dllimport_return_type.ends_with('*') ? "" : " ") + "__" + basic_func_like.c_name);
+                file.WriteString("[System.Runtime.InteropServices.DllImport(" + EscapeQuoteString(imported_lib_name) + ", EntryPoint = \"" + func_like.c_name + "\", ExactSpelling = true)]\n");
+                file.WriteString("extern static " + ret_binding.return_usage->dllimport_return_type + (ret_binding.return_usage->dllimport_return_type.ends_with('*') ? "" : " ") + "__" + func_like.c_name);
 
                 { // Write the parameter list.
                     file.WriteString("(");
@@ -902,7 +863,7 @@ namespace mrbind::CSharp
             // Any extra statements from the parameters?
             {
                 // Collect the extra statements, and open scopes.
-                for (std::size_t i = 0; i < basic_func_like.params.size(); i++)
+                for (std::size_t i = 0; i < func_like.params.size(); i++)
                 {
                     const auto &param = param_strings[i];
 
@@ -921,7 +882,7 @@ namespace mrbind::CSharp
                 }
 
                 // Collect the cleanup extra statements, in reverse.
-                for (std::size_t i = basic_func_like.params.size(); i-- > 0;)
+                for (std::size_t i = func_like.params.size(); i-- > 0;)
                 {
                     const auto &param = param_strings[i];
 
@@ -933,7 +894,7 @@ namespace mrbind::CSharp
 
             { // Call the imported function.
                 // Begin assembling the call expression.
-                std::string expr = "__" + basic_func_like.c_name;
+                std::string expr = "__" + func_like.c_name;
 
                 { // Add the argument list.
                     expr += "(";
@@ -993,8 +954,224 @@ namespace mrbind::CSharp
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C function `" + basic_func_like.c_name + "`:"));
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C function `" + func_like.c_name + "`:"));
         }
+    }
+
+    bool Generator::ShouldEmitMethod(const CInterop::ClassMethod &method)
+    {
+        return std::visit(Overload{
+            [&](const CInterop::MethodKinds::Regular &elem)
+            {
+                (void)elem;
+                return true;
+            },
+            [&](const CInterop::MethodKinds::Constructor &elem)
+            {
+                (void)elem;
+                return false; // TODO allow constructors
+            },
+            [&](const CInterop::MethodKinds::Operator &elem)
+            {
+                (void)elem;
+                return false; // TODO
+                // return !elem.is_special_assignment;
+            },
+            [&](const CInterop::MethodKinds::ConversionOperator &elem)
+            {
+                (void)elem;
+                return false; // TODO
+            },
+        }, method.var);
+    }
+
+    std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method)
+    {
+        return std::visit(Overload{
+            [&](const CInterop::MethodKinds::Regular &elem) -> std::string
+            {
+                return elem.name;
+            },
+            [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
+            {
+                (void)elem;
+                assert(false); // TODO
+                return "";
+            },
+            [&](const CInterop::MethodKinds::Operator &elem) -> std::string
+            {
+                (void)elem;
+                assert(false); // TODO
+                return "";
+            },
+            [&](const CInterop::MethodKinds::ConversionOperator &elem) -> std::string
+            {
+                (void)elem;
+                assert(false); // TODO
+                return "";
+            },
+        }, method.var);
+    }
+
+    Generator::InheritedFuncStrings Generator::MakeInheritedFunc(const CInterop::ClassMethod &method, std::string_view base_name)
+    {
+        assert(ShouldEmitMethod(method));
+        const std::string unqual_method_name = MakeUnqualCSharpMethodName(method);
+
+        InheritedFuncStrings ret;
+
+        try
+        {
+            ret.header += "public ";
+
+            if (method.is_static)
+                ret.header += "static ";
+
+            // The return type.
+            const TypeBinding &ret_binding = GetTypeBinding(ParseTypeOrThrow(method.ret.cpp_type), method.ret.uses_sugar);
+            if (!ret_binding.return_usage)
+                throw std::runtime_error("The C++ return type `" + method.ret.cpp_type + "`" + (method.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
+            ret.header += ret_binding.return_usage->csharp_return_type;
+            ret.header += ' ';
+
+            // The method name.
+            ret.header += unqual_method_name;
+
+            // Begin the parameter list.
+            ret.header += '(';
+
+
+            // Begin assembling the body.
+            ret.body += " => ";
+
+            // Do we return by reference?
+            if (ret_binding.return_usage->csharp_return_type.starts_with("ref "))
+                ret.body += "ref ";
+
+            // The object we're calling this on.
+            if (method.is_static)
+            {
+                ret.body += base_name;
+            }
+            else
+            {
+                ret.body += "((";
+                ret.body += base_name;
+                ret.body += ")this)";
+            }
+
+            // The member we're calling.
+            ret.body += '.';
+            ret.body += unqual_method_name;
+
+            // Begin the argument list.
+            ret.body += '(';
+
+            // Handle the parameters.
+            for (std::size_t visual_index = 1; const auto &param : method.params)
+            {
+                try
+                {
+                    // Handle the `this` parameter.
+                    if (!param.is_this_param)
+                    {
+                        auto param_binding = GetParameterBinding(param, &method);
+
+                        if (!param_binding.strings.csharp_decl_params.empty())
+                        {
+                            if (!ret.header.ends_with('('))
+                                ret.header += ", ";
+                            ret.header += param_binding.strings.csharp_decl_params;
+
+                            if (!ret.body.ends_with('('))
+                                ret.body += ", ";
+                            Strings::Split(param_binding.strings.csharp_decl_params, ",", [&](std::string_view part) -> bool
+                            {
+                                while (part.starts_with(' '))
+                                    part.remove_prefix(1);
+                                while (part.ends_with(' '))
+                                    part.remove_suffix(1);
+
+                                if (part.starts_with("ref "))
+                                    ret.body += "ref ";
+
+                                std::string_view name;
+
+                                // Find the name as the substring after the last space.
+                                if (auto sep = part.find_last_of(' '); sep != std::string_view::npos)
+                                    name = part.substr(sep + 1);
+                                else
+                                    name = part;
+
+                                ret.body += name;
+
+                                return false;
+                            });
+                        }
+                    }
+                }
+                catch (...)
+                {
+                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(visual_index) + " out of " + std::to_string(method.params.size()) + ", of type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + ":"));
+                }
+
+                visual_index++;
+            }
+
+            // Close the parameter list and the argument list.
+            ret.header += ')';
+            ret.body += ");\n";
+        }
+        catch (...)
+        {
+            std::throw_with_nested(std::runtime_error("While emitting an inheritance wrapper for method `" + unqual_method_name + "`:"));
+        }
+
+        return ret;
+    }
+
+    Generator::ParameterBinding Generator::GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like)
+    {
+        ParameterBinding ret;
+
+        // Handle the `this` parameter.
+        if (param.is_this_param)
+        {
+            cppdecl::Type this_type = ParseTypeOrThrow(param.cpp_type);
+            assert(this_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
+            if (this_type.Is<cppdecl::Reference>())
+                this_type.RemoveModifier();
+            this_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+            assert(this_type.IsOnlyQualifiedName());
+
+            if (!method_like->is_static)
+            {
+                ret.strings.needs_unsafe = true;
+                ret.strings.dllimport_decl_params = "_Underlying *" + param.name_or_placeholder;
+                ret.strings.csharp_args_for_c = CppClassToCSharpGetUnderlyingMethodName(this_type.simple_type.name) + "()";
+            }
+        }
+        else
+        {
+            const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), param.uses_sugar);
+
+            // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
+            const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
+            if (!param_usage)
+                throw std::runtime_error("This C++ parameter type is known, but this type isn't usable as a parameter type" + std::string(param.default_arg_affects_parameter_passing ? " (with a default argument)" : "") + ".");
+
+            const bool useless_default_arg = param.default_arg_spelling && !param.default_arg_affects_parameter_passing;
+            bool useless_default_arg_var = useless_default_arg;
+
+            ret.usage = &*param_usage;
+            ret.strings = param_usage->make_strings(param.name_or_placeholder, useless_default_arg_var);
+
+            // Check that the callback handled our useless default arg, if any.
+            if (useless_default_arg && useless_default_arg_var)
+                throw std::runtime_error("This parameter has a default argument that doesn't affect parameter passing, but this type binding doesn't understand those.");
+        }
+
+        return ret;
     }
 
     void Generator::EmitCEnum(OutputFile &file, const CInterop::TypeKinds::Enum &enum_desc, std::string_view prefix, std::string_view csharp_name)
@@ -1098,37 +1275,10 @@ namespace mrbind::CSharp
 
             for (const CInterop::ClassMethod &method : class_desc.methods)
             {
-                std::string csharp_name;
-                bool skip = false;
-
-                std::visit(Overload{
-                    [&](const CInterop::MethodKinds::Regular &elem)
-                    {
-                        csharp_name = elem.name;
-                    },
-                    [&](const CInterop::MethodKinds::Constructor &elem)
-                    {
-                        (void)elem;
-                        skip = true; // Don't want constructors here.
-                    },
-                    [&](const CInterop::MethodKinds::Operator &elem)
-                    {
-                        (void)elem; // TODO
-                        if (elem.is_special_assignment)
-                            skip = true;
-                    },
-                    [&](const CInterop::MethodKinds::ConversionOperator &elem)
-                    {
-                        (void)elem; // TODO
-                    },
-                }, method.var);
-
-                if (skip)
+                if (!ShouldEmitMethod(method))
                     continue;
 
-                assert(!csharp_name.empty());
-
-                EmitCFuncLike(file, &method, "public", csharp_name);
+                EmitCFuncLike(file, &method, MakeUnqualCSharpMethodName(method));
             }
 
             file.PopScope(); // Pop the interface scope.
@@ -1159,6 +1309,24 @@ namespace mrbind::CSharp
             file.WriteString("private bool _IsConstVal;\n");
             file.WriteString("public unsafe " + csharp_matching_interface_name + "._Underlying *" + csharp_underlying_ptr_method_name + "() => _underlying;\n");
             file.WriteString("public bool _IsConst() => _IsConstVal;\n");
+
+            // Emit the method wrappers.
+            bool first_wrapper = true;
+            for (const CInterop::ClassMethod &method : class_desc.methods)
+            {
+                if (!ShouldEmitMethod(method))
+                    continue;
+
+                if (first_wrapper)
+                {
+                    first_wrapper = false;
+                    file.WriteSeparatingNewline();
+                }
+
+                auto strings = MakeInheritedFunc(method, csharp_matching_interface_name);
+                file.WriteString(strings.header);
+                file.WriteString(strings.body);
+            }
 
             file.PopScope(); // Pop the class scope.
         }
@@ -1219,7 +1387,7 @@ namespace mrbind::CSharp
             assert(!qual_name.parts.empty());
             file.EnsureNamespace({qual_name.parts.begin(), qual_name.parts.end() - 1});
 
-            EmitCFuncLike(file, &free_func, "public static", CppdeclToIdentifier(qual_name.parts.back()));
+            EmitCFuncLike(file, &free_func, CppdeclToIdentifier(qual_name.parts.back()));
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.
