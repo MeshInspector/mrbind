@@ -1161,6 +1161,9 @@ namespace mrbind::CBindings
             // The name of this function.
             Name name;
 
+            // This is primarily for interop, the C generator doesn't care about it.
+            bool mark_virtual = false;
+
             // The C++ return type. We'll translate it to C automatically.
             cppdecl::Type cpp_return_type = cppdecl::Type::FromSingleWord("void");
 

@@ -222,11 +222,13 @@ namespace mrbind::CSharp
         // Passing an invalid name name will initially succeed, but then will cause an error at the end of generation, in `GenerateHelpers()`.
         [[nodiscard]] std::string RequestHelper(const std::string &name);
 
+        using AnyFuncLikePtr = std::variant<const CInterop::Function *, const CInterop::ClassMethod *, const CInterop::ClassField::Accessor *>;
+
         // A low-level function to emit a single C function.
         // Assumes that the correct namespace or class was already entered in `file`.
         // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
         // `prefix` is pasted before the return type, separated with a space if not empty.
-        void EmitCFuncLike(OutputFile &file, const CInterop::BasicFuncLike &func_like, std::string_view prefix, std::string_view csharp_name);
+        void EmitCFuncLike(OutputFile &file, AnyFuncLikePtr func_like, std::string_view prefix, std::string_view csharp_name);
 
         // A low-level function to emit a wrapper for a single C enum.
         // Assumes that the correct namespace or class was already entered in `file`.

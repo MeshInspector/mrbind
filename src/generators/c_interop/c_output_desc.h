@@ -141,17 +141,6 @@ namespace mrbind::CInterop
     // Describes a single parameter of a free function or of a method.
     struct FuncParam
     {
-        // This additional information is added to the `this` parameter, if any.
-        struct This
-        {
-            MBREFL_STRUCT(
-                // If true, this is a static member function. If false, a non-static one.
-                (bool)(is_static, false)
-            )
-
-            This() {} // Need this to make `std::optional` below happy.
-        };
-
         MBREFL_STRUCT(
             // The C++ type of this parameter.
             (std::string)(cpp_type)
@@ -175,9 +164,9 @@ namespace mrbind::CInterop
             //   or you won't be able to call the function correctly.
             (bool)(uses_sugar, false)
 
-            // If set, this is the `this` parameter of a class method. Otherwise the method is static.
-            // Only the first parameter can have this set.
-            (std::optional<This>)(this_param)
+            // If true, this is the `this` parameter of a class member function.
+            // Even static member functions have this set to true, those have fake `this` parameters that are only used to prov
+            (bool)(is_this_param, false)
         )
     };
 
@@ -207,8 +196,6 @@ namespace mrbind::CInterop
                 (std::string)(name)
                 // The name with all qualifiers and with template arguments, if any. Otherwise equal to `name`.
                 (std::string)(full_name)
-
-                // No `is_static` because that can be guessed from the parameters.
             )
         };
 
@@ -269,8 +256,6 @@ namespace mrbind::CInterop
                 (std::string)(name)
                 // The name without (!) qualifiers and with template arguments, if any. Otherwise equal to `name`.
                 (std::string)(full_name)
-
-                // No `is_static` because that can be guessed from the parameters.
             )
         };
 
@@ -310,13 +295,24 @@ namespace mrbind::CInterop
 
     using MethodKindVar = std::variant<MethodKinds::Regular, MethodKinds::Constructor, MethodKinds::Operator, MethodKinds::ConversionOperator>;
 
+    // Describes a single class method or a gener
+    struct BasicClassMethodLike : BasicFuncLike
+    {
+        MBREFL_STRUCT(
+            (bool)(is_static, false)
+            (bool)(is_virtual, false)
+        , // Bases:
+            (BasicFuncLike)
+        )
+    };
+
     // Describes a single class method.
-    struct ClassMethod : BasicFuncLike
+    struct ClassMethod : BasicClassMethodLike
     {
         MBREFL_STRUCT(
             (MethodKindVar)(var)
         , // Bases:
-            (BasicFuncLike)
+            (BasicClassMethodLike)
         )
     };
 
@@ -324,7 +320,7 @@ namespace mrbind::CInterop
     struct ClassField
     {
         // Describes a single generated accessor for a class field.
-        struct Accessor : BasicFuncLike {};
+        struct Accessor : BasicClassMethodLike {};
 
         // Describes the location of this field in an exposed struct.
         struct Layout

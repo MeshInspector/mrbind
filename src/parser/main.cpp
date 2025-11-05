@@ -1507,6 +1507,8 @@ namespace mrbind
                         case clang::RQ_RValue: basic_ret_class_func->ref_qualifier = RefQualifier::rvalue; break;
                     }
 
+                    basic_ret_class_func->is_virtual = method->isVirtual();
+
                     // Force instantiate body to know the true return type rather than `auto`.
                     (void)InstantiateReturnTypeIfNeeded(*ci, *decl);
 

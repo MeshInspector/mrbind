@@ -229,6 +229,7 @@ namespace mrbind
         MBREFL_STRUCT(
             (bool)(is_const, false)
             (RefQualifier)(ref_qualifier, RefQualifier::none)
+            (bool)(is_virtual, false)
         , // Bases:
             (BasicReturningFunc)
         )

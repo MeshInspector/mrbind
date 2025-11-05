@@ -1739,6 +1739,8 @@ namespace mrbind::CBindings
         mark_deprecated = new_method.deprecation_message;
         silence_deprecation |= bool(new_method.deprecation_message);
 
+        mark_virtual = new_method.is_virtual;
+
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
         const std::string cpp_type_str_deco = self.CppdeclToCodeForComments(cpp_type);
@@ -1814,6 +1816,8 @@ namespace mrbind::CBindings
     {
         mark_deprecated = new_conv_op.deprecation_message;
         silence_deprecation |= bool(new_conv_op.deprecation_message);
+
+        mark_virtual = new_conv_op.is_virtual;
 
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
@@ -2479,11 +2483,16 @@ namespace mrbind::CBindings
             {
                 const bool is_member = !params.params.empty() && (params.params.front().kind == EmitFuncParams::Param::Kind::this_ref || params.params.front().kind == EmitFuncParams::Param::Kind::static_);
 
+                if (!is_member && params.mark_virtual)
+                    throw std::runtime_error("Only class member functions can be marked virtual.");
+
                 CInterop::BasicFuncLike *func_like = nullptr;
 
                 if (is_member)
                 {
                     // A member function, or possibly a field accessor.
+
+                    CInterop::BasicClassMethodLike *method_like = nullptr;
 
                     if (params.field_accessor)
                     {
@@ -2501,15 +2510,20 @@ namespace mrbind::CBindings
                         if (new_accessor)
                             throw std::runtime_error("This function is a duplicate field accessor.");
 
-                        func_like = &new_accessor.emplace();
+                        method_like = &new_accessor.emplace();
+                        func_like = method_like;
                     }
                     else
                     {
                         CInterop::ClassMethod &new_method = FindClassDescForInterop(params.params.front().cpp_type).methods.emplace_back();
                         func_like = &new_method;
+                        method_like = &new_method;
 
                         new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
                     }
+
+                    method_like->is_static = !params.params.empty() && params.params.front().kind == EmitFuncParams::Param::Kind::static_;
+                    method_like->is_virtual = params.mark_virtual;
                 }
                 else if (auto method = std::get_if<CInterop::MethodKindVar>(&params.name.cpp_for_interop); method && std::holds_alternative<CInterop::MethodKinds::Constructor>(*method))
                 {
@@ -2572,10 +2586,7 @@ namespace mrbind::CBindings
                     //   that appear e.g. in the custom bindings of `std::function`.
                     new_param.uses_sugar = !input_param.remove_sugar && !input_param.use_type_as_is && FindBindableType(fixed_param_type).GetParamUsage(new_param.default_arg_affects_parameter_passing).considered_sugar_for_interop;
 
-                    if (input_param.kind == EmitFuncParams::Param::Kind::this_ref)
-                        new_param.this_param.emplace().is_static = false;
-                    else if (input_param.kind == EmitFuncParams::Param::Kind::static_)
-                        new_param.this_param.emplace().is_static = true;
+                    new_param.is_this_param = input_param.kind == EmitFuncParams::Param::Kind::this_ref || input_param.kind == EmitFuncParams::Param::Kind::static_;
 
                     i++;
                 }

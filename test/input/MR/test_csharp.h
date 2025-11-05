@@ -65,5 +65,12 @@ namespace MR::CSharp
 
         void foo() {}
         void bar(int, int) const {}
+
+        static void static_foo() {}
+        static void static_bar(int, int) {}
+
+        virtual ~A() = default;
+        virtual void virtual_foo() {}
+        virtual void virtual_bar(int, int) const {}
     };
 }
