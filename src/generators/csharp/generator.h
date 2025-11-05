@@ -235,7 +235,7 @@ namespace mrbind::CSharp
         // Determine a suitable unqualified C# name for a method.
         [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method);
 
-        struct InheritedFuncStrings
+        struct InheritedMethodStrings
         {
             // This is the function declaration, without the body.
             std::string header;
@@ -248,7 +248,11 @@ namespace mrbind::CSharp
         // In C#, when you implement a method directly in the interface, it can't be called on a derived class without manually upcasting it
         //   to the interface, unless you explicitly reimplement it in the derived class.
         // This function generates a stub implementation that propagates the specified interface.
-        [[nodiscard]] InheritedFuncStrings MakeInheritedFunc(const CInterop::ClassMethod &method, std::string_view base_name);
+        [[nodiscard]] InheritedMethodStrings MakeInheritedMethod(const CInterop::ClassMethod &method, std::string_view base_name);
+
+        // Create a C# comment for a parsed function.
+        // This will always end with a newline if not empty, and will include slashes.
+        [[nodiscard]] std::string MakeFuncComment(AnyFuncLikePtr any_func_like);
 
         struct ParameterBinding
         {

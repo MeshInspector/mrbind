@@ -738,9 +738,8 @@ namespace mrbind::CSharp
             // Write a separating empty line if needed.
             file.WriteSeparatingNewline();
 
-            // The comment, if any.
-            // This already has a trailing newline and the slashes.
-            file.WriteString(func_like.comment.c_style);
+            // Write the comment.
+            file.WriteString(MakeFuncComment(any_func_like));
 
             // If this is a member function, figure out if it's const.
             bool is_nonstatic_nonconst = false;
@@ -751,9 +750,6 @@ namespace mrbind::CSharp
                 if (!param_type.IsConst(1))
                     is_nonstatic_nonconst = true;
             }
-            // Add the comment for non-static non-const functions.
-            if (is_nonstatic_nonconst)
-                file.WriteString("/// This function mutates the object. It will throw if `._IsConst() == true`.\n");
 
             // Comments for default arguments, if any.
             for (const auto &param : func_like.params)
@@ -786,13 +782,13 @@ namespace mrbind::CSharp
             if (ret_binding.return_usage->needs_unsafe)
                 func_is_unsafe = true;
 
-            // Unsafe?
-            if (func_is_unsafe)
-                file.WriteString("unsafe ");
-
             // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
             if (!method_like || method_like->is_static)
                 file.WriteString("static ");
+
+            // Unsafe?
+            if (func_is_unsafe)
+                file.WriteString("unsafe ");
 
             // Note, not emitting `virtual` here, because it's useless in the interfaces.
             // We do emit it when explicitly inheriting each method in the derived classes.
@@ -1013,12 +1009,12 @@ namespace mrbind::CSharp
         }, method.var);
     }
 
-    Generator::InheritedFuncStrings Generator::MakeInheritedFunc(const CInterop::ClassMethod &method, std::string_view base_name)
+    Generator::InheritedMethodStrings Generator::MakeInheritedMethod(const CInterop::ClassMethod &method, std::string_view base_name)
     {
         assert(ShouldEmitMethod(method));
         const std::string unqual_method_name = MakeUnqualCSharpMethodName(method);
 
-        InheritedFuncStrings ret;
+        InheritedMethodStrings ret;
 
         try
         {
@@ -1126,6 +1122,33 @@ namespace mrbind::CSharp
         {
             std::throw_with_nested(std::runtime_error("While emitting an inheritance wrapper for method `" + unqual_method_name + "`:"));
         }
+
+        return ret;
+    }
+
+    std::string Generator::MakeFuncComment(AnyFuncLikePtr any_func_like)
+    {
+        const CInterop::BasicFuncLike &func_like = *std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, any_func_like);
+        const CInterop::BasicClassMethodLike *method_like = std::visit(Overload{
+            [](const CInterop::BasicClassMethodLike *ptr) -> const CInterop::BasicClassMethodLike * {return ptr;},
+            [](const CInterop::Function *) -> const CInterop::BasicClassMethodLike * {return nullptr;},
+        }, any_func_like);
+
+        std::string ret = func_like.comment.c_style;
+
+        // If this is a member function, figure out if it's const.
+        bool is_nonstatic_nonconst = false;
+        if (!func_like.params.empty() && func_like.params.front().is_this_param && !method_like->is_static)
+        {
+            const cppdecl::Type param_type = ParseTypeOrThrow(func_like.params.front().cpp_type);
+            assert(param_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
+            if (!param_type.IsConst(1))
+                is_nonstatic_nonconst = true;
+        }
+
+        // Add the comment for non-static non-const functions.
+        if (is_nonstatic_nonconst)
+            ret += "/// This function mutates the object. It will throw if `._IsConst() == true`.\n";
 
         return ret;
     }
@@ -1252,6 +1275,7 @@ namespace mrbind::CSharp
             // No comment on the interface, we add it only on the class.
 
             // The interface header.
+            file.WriteString("/// The internal interface for class `" + std::string(csharp_name) + "`.\n");
             if (!prefix.empty())
             {
                 file.WriteString(prefix);
@@ -1305,25 +1329,26 @@ namespace mrbind::CSharp
 
             // The underlying pointer.
             // TODO: We'll need to skip this in derived classes.
-            file.WriteString("private unsafe " + csharp_matching_interface_name + "._Underlying *_underlying;\n");
+            file.WriteString("private unsafe " + csharp_matching_interface_name + "._Underlying *_UnderlyingPtr;\n");
             file.WriteString("private bool _IsConstVal;\n");
-            file.WriteString("public unsafe " + csharp_matching_interface_name + "._Underlying *" + csharp_underlying_ptr_method_name + "() => _underlying;\n");
+            file.WriteString("internal unsafe " + std::string(csharp_name) + "(" + csharp_matching_interface_name + "._Underlying *ptr, bool is_const) {_UnderlyingPtr = ptr; _IsConstVal = is_const;}\n");
+            file.WriteString("\n");
+            file.WriteString("public unsafe " + csharp_matching_interface_name + "._Underlying *" + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
             file.WriteString("public bool _IsConst() => _IsConstVal;\n");
 
             // Emit the method wrappers.
-            bool first_wrapper = true;
             for (const CInterop::ClassMethod &method : class_desc.methods)
             {
                 if (!ShouldEmitMethod(method))
                     continue;
 
-                if (first_wrapper)
-                {
-                    first_wrapper = false;
-                    file.WriteSeparatingNewline();
-                }
+                file.WriteSeparatingNewline();
 
-                auto strings = MakeInheritedFunc(method, csharp_matching_interface_name);
+                // Write the comment.
+                file.WriteString(MakeFuncComment(&method));
+
+                // Write the method itself.
+                auto strings = MakeInheritedMethod(method, csharp_matching_interface_name);
                 file.WriteString(strings.header);
                 file.WriteString(strings.body);
             }

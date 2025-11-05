@@ -20,6 +20,118 @@ public static partial class MR
             b = 1,
         }
 
+        /// The internal interface for class `A`.
+        public interface __IA
+        {
+            public struct _Underlying; // Represents the underlying C type.
+            internal unsafe _Underlying *_GetUnderlying_MR_CSharp_A(); // Returns the pointer to the underlying C object.
+
+            // Returns true if the underlying instance is read-only.
+            public bool _IsConst();
+
+            /// Generated from method `MR::CSharp::A::foo`.
+            /// This function mutates the object. It will throw if `._IsConst() == true`.
+            public unsafe void foo()
+            {
+                if (!_IsConst()) throw new MR.Misc.MutableMethodCalledOnConstInstance();
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_foo", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_foo(_Underlying *_this);
+                __MR_CSharp_A_foo(_GetUnderlying_MR_CSharp_A());
+            }
+
+            /// Generated from method `MR::CSharp::A::bar`.
+            public unsafe void bar(int _1, int _2)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_bar", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_bar(_Underlying *_this, int _1, int _2);
+                __MR_CSharp_A_bar(_GetUnderlying_MR_CSharp_A(), _1, _2);
+            }
+
+            /// Generated from method `MR::CSharp::A::static_foo`.
+            public static void static_foo()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_static_foo", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_static_foo();
+                __MR_CSharp_A_static_foo();
+            }
+
+            /// Generated from method `MR::CSharp::A::static_bar`.
+            public static void static_bar(int _1, int _2)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_static_bar", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_static_bar(int _1, int _2);
+                __MR_CSharp_A_static_bar(_1, _2);
+            }
+
+            /// Generated from method `MR::CSharp::A::virtual_foo`.
+            /// This function mutates the object. It will throw if `._IsConst() == true`.
+            public unsafe void virtual_foo()
+            {
+                if (!_IsConst()) throw new MR.Misc.MutableMethodCalledOnConstInstance();
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_foo", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_virtual_foo(_Underlying *_this);
+                __MR_CSharp_A_virtual_foo(_GetUnderlying_MR_CSharp_A());
+            }
+
+            /// Generated from method `MR::CSharp::A::virtual_bar`.
+            public unsafe void virtual_bar(int _1, int _2)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_bar", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_virtual_bar(_Underlying *_this, int _1, int _2);
+                __MR_CSharp_A_virtual_bar(_GetUnderlying_MR_CSharp_A(), _1, _2);
+            }
+
+            /// Generated from method `MR::CSharp::A::refs`.
+            /// This function mutates the object. It will throw if `._IsConst() == true`.
+            public unsafe ref int refs(ref int x, ref int _2)
+            {
+                if (!_IsConst()) throw new MR.Misc.MutableMethodCalledOnConstInstance();
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_refs", ExactSpelling = true)]
+                extern static int *__MR_CSharp_A_refs(_Underlying *_this, int *x, int *_2);
+                fixed (int *__ptr_x = &x) {
+                    fixed (int *__ptr__2 = &_2) {
+                        return ref *__MR_CSharp_A_refs(_GetUnderlying_MR_CSharp_A(), __ptr_x, __ptr__2);
+                    } // fixed __ptr__2
+                } // fixed __ptr_x
+            }
+        }
+
+        /// Generated from class `MR::CSharp::A`.
+        /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+        public class A : __IA
+        {
+            private unsafe __IA._Underlying *_UnderlyingPtr;
+            private bool _IsConstVal;
+            internal unsafe A(__IA._Underlying *ptr, bool is_const) {_UnderlyingPtr = ptr; _IsConstVal = is_const;}
+
+            public unsafe __IA._Underlying *_GetUnderlying_MR_CSharp_A() => _UnderlyingPtr;
+            public bool _IsConst() => _IsConstVal;
+
+            /// Generated from method `MR::CSharp::A::foo`.
+            /// This function mutates the object. It will throw if `._IsConst() == true`.
+            public void foo() => ((__IA)this).foo();
+
+            /// Generated from method `MR::CSharp::A::bar`.
+            public void bar(int _1, int _2) => ((__IA)this).bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::static_foo`.
+            public static void static_foo() => __IA.static_foo();
+
+            /// Generated from method `MR::CSharp::A::static_bar`.
+            public static void static_bar(int _1, int _2) => __IA.static_bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::virtual_foo`.
+            /// This function mutates the object. It will throw if `._IsConst() == true`.
+            public void virtual_foo() => ((__IA)this).virtual_foo();
+
+            /// Generated from method `MR::CSharp::A::virtual_bar`.
+            public void virtual_bar(int _1, int _2) => ((__IA)this).virtual_bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::refs`.
+            /// This function mutates the object. It will throw if `._IsConst() == true`.
+            public ref int refs(ref int x, ref int _2) => ref ((__IA)this).refs(ref x, ref _2);
+        }
+
         /// Generated from function `MR::CSharp::foo`.
         public static void foo()
         {

@@ -72,5 +72,7 @@ namespace MR::CSharp
         virtual ~A() = default;
         virtual void virtual_foo() {}
         virtual void virtual_bar(int, int) const {}
+
+        int &refs(int &x, int &) {return x;}
     };
 }
