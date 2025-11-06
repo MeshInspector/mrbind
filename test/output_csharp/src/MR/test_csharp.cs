@@ -97,7 +97,6 @@ public static partial class MR
         }
 
         /// Generated from class `MR::CSharp::A`.
-        /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
         public class A : __IA
         {
             private unsafe __IA._Underlying *_UnderlyingPtr;

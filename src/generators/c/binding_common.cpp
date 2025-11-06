@@ -22,6 +22,8 @@ namespace mrbind::CBindings
 
     void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const
     {
+        std::string comment_without_pass_by_modes;
+
         { // Make a comment with supported pass-by modes.
             // Assert that the comment doesn't start with a newline, and ends with a newline if not empty.
             assert(comment.empty() || !comment.starts_with('\n'));
@@ -29,6 +31,9 @@ namespace mrbind::CBindings
 
             // Add our own leading newline.
             comment = '\n' + comment;
+
+            // Fork the comment before we add the pass-by modes.
+            comment_without_pass_by_modes = comment;
 
             std::string enum_name; // This is filled later if needed.
 
@@ -80,7 +85,7 @@ namespace mrbind::CBindings
         {
             CInterop::TypeKinds::Class &class_desc = generator.CreateClassDescForInterop(cpp_type_name);
             class_desc.output_file = generator.MakeOutputFileDescForInterop(file);
-            class_desc.comment = generator.MakeCommentForInterop(comment);
+            class_desc.comment = generator.MakeCommentForInterop(comment_without_pass_by_modes);
             class_desc.c_name = c_type_name;
 
             // Those conditions must be synced with what `MakeParamUsageSupportingDefaultArg()` is doing.
