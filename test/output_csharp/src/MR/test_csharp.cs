@@ -149,6 +149,45 @@ public static partial class MR
             public ref int refs(ref int x, ref int _2) => ref ((__IA)this).refs(ref x, ref _2);
         }
 
+        /// The internal interface for class `Trivial`.
+        public interface __ITrivial
+        {
+            public struct _Underlying; // Represents the underlying C type.
+            internal unsafe _Underlying *_GetUnderlying_MR_CSharp_Trivial(); // Returns the pointer to the underlying C object.
+
+            // Returns true if the underlying instance is read-only.
+            public bool _IsConst();
+        }
+
+        /// Generated from class `MR::CSharp::Trivial`.
+        public class Trivial : __ITrivial, System.IDisposable
+        {
+            private unsafe __ITrivial._Underlying *_UnderlyingPtr;
+            public unsafe __ITrivial._Underlying *_GetUnderlying_MR_CSharp_Trivial() => _UnderlyingPtr;
+            internal unsafe Trivial(__ITrivial._Underlying *ptr, bool is_owning, bool is_const) {_UnderlyingPtr = ptr; _IsOwningVal = is_owning; _IsConstVal = is_const;}
+
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_Trivial_Destroy(__ITrivial._Underlying *_this);
+                __MR_CSharp_Trivial_Destroy(_GetUnderlying_MR_CSharp_Trivial());
+                _UnderlyingPtr = null;
+            }
+            public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~Trivial() {Dispose(false);}
+
+            private bool _IsConstVal;
+            /// Returns true if this is a read-only instance. Calling mutating methods on it will throw.
+            public bool _IsConst() => _IsConstVal;
+
+            private bool _IsOwningVal;
+            /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.
+            /// If false, we assume that the underlying C++ instance will live long enough.
+            public bool _IsOwning() => _IsOwningVal;
+        }
+
         /// Generated from function `MR::CSharp::foo`.
         public static void foo()
         {
@@ -425,6 +464,14 @@ public static partial class MR
             if ((byte)__value_c > 1) __value_c = (MR.CSharp.E2)1;
             var __ret = __MR_CSharp_test_bool_enum_cptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
             return __ret != null ? *__ret : null;
+        }
+
+        /// Generated from function `MR::CSharp::test_class_trivial`.
+        public static unsafe MR.CSharp.Trivial test_class_trivial()
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial", ExactSpelling = true)]
+            extern static MR.CSharp.__ITrivial._Underlying *__MR_CSharp_test_class_trivial();
+            return new(__MR_CSharp_test_class_trivial(), is_owning: true, is_const: false);
         }
     }
 }

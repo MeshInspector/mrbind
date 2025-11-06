@@ -351,9 +351,65 @@ namespace mrbind::CSharp
 
                         return CreateBinding(std::move(ret));
                     },
-                    [&](const CInterop::TypeKinds::Class &) -> const TypeBinding *
+                    [&](const CInterop::TypeKinds::Class &elem) -> const TypeBinding *
                     {
-                        return nullptr;
+                        if (!cpp_type.IsOnlyQualifiedName())
+                            throw std::runtime_error("This type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
+
+                        const std::string csharp_interface = CppToCSharpInterfaceName(cpp_type.simple_type.name);
+                        const std::string csharp_type = CppToCSharpName(cpp_type.simple_type.name);
+
+                        switch (elem.kind)
+                        {
+                          case CInterop::ClassKind::ref_only:
+                            throw std::runtime_error("The class marked as `ClassKind::ref_only`, but it's being passed by value.");
+                            break;
+                          case CInterop::ClassKind::uses_pass_by_enum:
+                            // TODO
+                            throw std::logic_error("Not implemented yet!");
+                            break;
+                          case CInterop::ClassKind::trivial_via_ptr:
+                            return CreateBinding({
+                                // .param_usage = TypeBinding::ParamUsage{
+                                //     .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                //     {
+                                //         return TypeBinding::ParamUsage::Strings{
+                                //             .dllimport_decl_params = csharp_type + ' ' + name,
+                                //             .csharp_decl_params = csharp_type + ' ' + name,
+                                //             .extra_statements = fix_input ? fix_input(name) : "",
+                                //             .dllimport_args = name,
+                                //         };
+                                //     },
+                                // },
+                                // .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                //     .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                //     {
+                                //         return TypeBinding::ParamUsage::Strings{
+                                //             .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
+                                //             .csharp_decl_params = csharp_type + "? " + name + " = null",
+                                //             .extra_statements =
+                                //                 csharp_type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n" +
+                                //                 (fix_input ? fix_input("__deref_" + name) : ""),
+                                //             .dllimport_args = name + ".HasValue ? &__deref_" + name + " : null",
+                                //         };
+                                //     },
+                                // },
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = csharp_interface + "._Underlying *",
+                                    .csharp_return_type = csharp_type,
+                                    .make_return_expr = [](const std::string &expr)
+                                    {
+                                        return "return new(" + expr + ", is_owning: true, is_const: false);";
+                                    },
+                                },
+                            });
+
+                            break;
+                          case CInterop::ClassKind::exposed_struct:
+                            // TODO
+                            throw std::logic_error("Not implemented yet!");
+                            break;
+                        }
                     },
                     [&](const CInterop::TypeKinds::PointerNonOwning &) -> const TypeBinding *
                     {
@@ -1542,7 +1598,52 @@ namespace mrbind::CSharp
                 );
             }
 
-            { // Custom exception.
+            // `ByValue` and friends.
+            if (requested_helpers.erase("ByValue"))
+            {
+                file.WriteSeparatingNewline();
+                file.WriteString(
+                    "/// This is used as a function parameter when the underlying function receives a non-trivial C++ class by value.\n"
+                    "/// Usage:\n"
+                    "/// * Pass `new()` to default-construct the instance.\n"
+                    "/// * Pass an instance of `T` to copy it into the function.\n"
+                    "/// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.\n"
+                    "///   Be careful if your input isn't a unique reference to this object.\n"
+                    "/// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.\n"
+                    "public readonly struct ByValue<T>\n"
+                    "{\n"
+                    "    readonly T? Value;\n"
+                    "    readonly _PassBy PassByMode;\n"
+                    "    public ByValue() {PassByMode = _PassBy.default_construct;}\n"
+                    "    public ByValue(T NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}\n"
+                    "    public ByValue(_Moved<T> Moved) {Value = Moved.Value; PassByMode = _PassBy.move;}\n"
+                    "    public static implicit operator ByValue<T>(T Arg) {return new ByValue<T>(Arg);}\n"
+                    "    public static implicit operator ByValue<T>(_Moved<T> Arg) {return new ByValue<T>(Arg);}\n"
+                    "}\n"
+                    "\n"
+                    "/// This can be used with `ByValue<T>` function parameters, to indicate that the argument should be moved.\n"
+                    "/// See that struct for a longer explanation.\n"
+                    "public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}\n"
+                    "\n"
+                    "/// Don't use directly, this is the return type of `Move()`. See that for explanation.\n"
+                    "public readonly struct _Moved<T>\n"
+                    "{\n"
+                    "    internal readonly T Value;\n"
+                    "    internal _Moved(T NewValue) {Value = NewValue;}\n"
+                    "}\n"
+                    "\n"
+                    "internal enum _PassBy : int\n" // This enum must be synced with `CInterop::PassBy`.`
+                    "{\n"
+                    "    default_construct,\n"
+                    "    copy,\n"
+                    "    move,\n"
+                    "    default_arg,\n"
+                    "    no_object,\n"
+                    "}\n"
+                );
+            }
+
+            { // Custom exceptions.
                 auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)
                 {
                     if (!requested_helpers.erase(name))
