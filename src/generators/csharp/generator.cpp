@@ -358,6 +358,7 @@ namespace mrbind::CSharp
 
                         const std::string csharp_interface = CppToCSharpInterfaceName(cpp_type.simple_type.name);
                         const std::string csharp_type = CppToCSharpName(cpp_type.simple_type.name);
+                        const std::string csharp_underlying_ptr_method = CppClassToCSharpGetUnderlyingMethodName(cpp_type.simple_type.name);
 
                         switch (elem.kind)
                         {
@@ -370,30 +371,26 @@ namespace mrbind::CSharp
                             break;
                           case CInterop::ClassKind::trivial_via_ptr:
                             return CreateBinding({
-                                // .param_usage = TypeBinding::ParamUsage{
-                                //     .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
-                                //     {
-                                //         return TypeBinding::ParamUsage::Strings{
-                                //             .dllimport_decl_params = csharp_type + ' ' + name,
-                                //             .csharp_decl_params = csharp_type + ' ' + name,
-                                //             .extra_statements = fix_input ? fix_input(name) : "",
-                                //             .dllimport_args = name,
-                                //         };
-                                //     },
-                                // },
-                                // .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                //     .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
-                                //     {
-                                //         return TypeBinding::ParamUsage::Strings{
-                                //             .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
-                                //             .csharp_decl_params = csharp_type + "? " + name + " = null",
-                                //             .extra_statements =
-                                //                 csharp_type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n" +
-                                //                 (fix_input ? fix_input("__deref_" + name) : ""),
-                                //             .dllimport_args = name + ".HasValue ? &__deref_" + name + " : null",
-                                //         };
-                                //     },
-                                // },
+                                .param_usage = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = csharp_interface + "._Underlying *" + name,
+                                            .csharp_decl_params = csharp_type + ' ' + name,
+                                            .dllimport_args = name + "." + csharp_underlying_ptr_method + "()",
+                                        };
+                                    },
+                                },
+                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = csharp_interface + "._Underlying *" + name,
+                                            .csharp_decl_params = csharp_type + "? " + name + " = null",
+                                            .dllimport_args = name + " != null ? " + name + "." + csharp_underlying_ptr_method + "() : null",
+                                        };
+                                    },
+                                },
                                 .return_usage = TypeBinding::ReturnUsage{
                                     .dllimport_return_type = csharp_interface + "._Underlying *",
                                     .csharp_return_type = csharp_type,

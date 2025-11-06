@@ -467,11 +467,12 @@ public static partial class MR
         }
 
         /// Generated from function `MR::CSharp::test_class_trivial`.
-        public static unsafe MR.CSharp.Trivial test_class_trivial()
+        /// Parameter `b` defaults to `{}`.
+        public static unsafe MR.CSharp.Trivial test_class_trivial(MR.CSharp.Trivial a, MR.CSharp.Trivial? b = null)
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial", ExactSpelling = true)]
-            extern static MR.CSharp.__ITrivial._Underlying *__MR_CSharp_test_class_trivial();
-            return new(__MR_CSharp_test_class_trivial(), is_owning: true, is_const: false);
+            extern static MR.CSharp.__ITrivial._Underlying *__MR_CSharp_test_class_trivial(MR.CSharp.__ITrivial._Underlying *a, MR.CSharp.__ITrivial._Underlying *b);
+            return new(__MR_CSharp_test_class_trivial(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: true, is_const: false);
         }
     }
 }

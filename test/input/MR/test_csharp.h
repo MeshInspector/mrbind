@@ -75,4 +75,11 @@ namespace MR::CSharp
 
         int &refs(int &x, int &) {return x;}
     };
+
+    class Trivial
+    {
+        void foo() {}
+    };
+
+    inline Trivial test_class_trivial(Trivial a, Trivial b = {}) {(void)a; (void)b; return {};}
 }
