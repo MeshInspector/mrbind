@@ -97,14 +97,32 @@ public static partial class MR
         }
 
         /// Generated from class `MR::CSharp::A`.
-        public class A : __IA
+        public class A : __IA, System.IDisposable
         {
             private unsafe __IA._Underlying *_UnderlyingPtr;
-            private bool _IsConstVal;
-            internal unsafe A(__IA._Underlying *ptr, bool is_const) {_UnderlyingPtr = ptr; _IsConstVal = is_const;}
-
             public unsafe __IA._Underlying *_GetUnderlying_MR_CSharp_A() => _UnderlyingPtr;
+            internal unsafe A(__IA._Underlying *ptr, bool is_owning, bool is_const) {_UnderlyingPtr = ptr; _IsOwningVal = is_owning; _IsConstVal = is_const;}
+
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_Destroy(__IA._Underlying *_this);
+                __MR_CSharp_A_Destroy(_GetUnderlying_MR_CSharp_A());
+                _UnderlyingPtr = null;
+            }
+            public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~A() {Dispose(false);}
+
+            private bool _IsConstVal;
+            /// Returns true if this is a read-only instance. Calling mutating methods on it will throw.
             public bool _IsConst() => _IsConstVal;
+
+            private bool _IsOwningVal;
+            /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.
+            /// If false, we assume that the underlying C++ instance will live long enough.
+            public bool _IsOwning() => _IsOwningVal;
 
             /// Generated from method `MR::CSharp::A::foo`.
             /// This function mutates the object. It will throw if `._IsConst() == true`.

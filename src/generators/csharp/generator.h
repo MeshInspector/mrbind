@@ -67,9 +67,6 @@ namespace mrbind::CSharp
         {
             struct Strings
             {
-                // If set to true, the enclosing C# function gets marked `unsafe`.
-                bool needs_unsafe = false;
-
                 // A comma-separated list of parameter declarations for the `DllImport` C# function declaration, or empty if none.
                 std::string dllimport_decl_params;
 
@@ -86,7 +83,7 @@ namespace mrbind::CSharp
                 std::string extra_statements = "";
 
                 // A comma-separated list of arguments that will be passed to the `DllImport`ed C function, or empty if none.
-                std::string csharp_args_for_c;
+                std::string dllimport_args;
 
                 // Optional. The additional statements to insert for this parameter after calling the C function.
                 // If not empty, must end with a newline. No indentation is needed.
@@ -113,9 +110,6 @@ namespace mrbind::CSharp
 
         struct ReturnUsage
         {
-            // If set to true, the enclosing C# function gets marked `unsafe`.
-            bool needs_unsafe = false;
-
             // If true, the returned result will always be saved to a temporary variable, and `make_return_expr` will receive that variable.
             // This is needed if `make_return_expr` wants to use the expression multiple times.
             bool needs_temporary_variable = false;
@@ -265,6 +259,24 @@ namespace mrbind::CSharp
         // Passing `method_like` is only needed if this parameter belongs to a class member (and then it's only used if it's the `this` parameter).
         [[nodiscard]] ParameterBinding GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like);
 
+        struct CFuncDeclStrings
+        {
+            // This is the entire C function declaration with a trailing newline.
+            std::string dllimport_decl;
+
+            // This is the C# name that we declare in `c_decl`. Usually it the C name you specified with some underscores prepended just in case.
+            std::string csharp_name;
+
+            // If true, the caller should be marked `unsafe`.
+            // We don't add `unsafe` to `c_decl` because having it in the caller is enough.
+            bool is_unsafe = false;
+        };
+
+        // Creates a C function declaration for C# code.
+        // `c_name` is the underlying C function name. `return_type` is the return type as it should be spelled in C#.
+        // `params` is a comma-separated list as it should be spelled in C#.
+        [[nodiscard]] CFuncDeclStrings MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params);
+
         // A low-level function to emit a wrapper for a single C enum.
         // Assumes that the correct namespace or class was already entered in `file`.
         // `csharp_name` is used as the C# enum name.
@@ -275,7 +287,7 @@ namespace mrbind::CSharp
         // Assumes that the correct namespace or class was already entered in `file`.
         // `csharp_name` is used as the C# enum name.
         // `prefix` is pasted before the declaration, separated with a space if not empty.
-        void EmitCClass(OutputFile &file, const cppdecl::QualifiedName &cpp_name, const CInterop::TypeKinds::Class &class_desc, std::string_view prefix, std::string_view csharp_name);
+        void EmitCClass(OutputFile &file, const cppdecl::QualifiedName &cpp_name, const CInterop::TypeKinds::Class &class_desc, const CInterop::TypeTraits &traits, std::string_view prefix, std::string_view csharp_name);
 
         void Generate();
 
