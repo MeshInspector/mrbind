@@ -153,7 +153,7 @@ namespace mrbind::CSharp
         return {};
     }
 
-    std::string Generator::CppToCSharpName(const cppdecl::QualifiedName &name)
+    std::string Generator::CppToCSharpEnumName(const cppdecl::QualifiedName &name)
     {
         std::string ret;
         for (std::size_t i = 0; i < name.parts.size(); i++)
@@ -166,7 +166,7 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpInterfaceName(const cppdecl::QualifiedName &name)
+    std::string Generator::CppToCSharpClassName(const cppdecl::QualifiedName &name, bool is_const)
     {
         std::string ret;
         for (std::size_t i = 0; i < name.parts.size(); i++)
@@ -177,16 +177,39 @@ namespace mrbind::CSharp
             std::string part = CppdeclToIdentifier(name.parts[i]);
 
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualInterfaceName(part);
+                part = CppToCSharpUnqualClassName(part, is_const);
 
             ret += part;
         }
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualInterfaceName(std::string_view name)
+    std::string Generator::CppToCSharpUnqualClassName(std::string_view name, bool is_const)
     {
-        return "__I" + std::string(name);
+        return is_const ? "Const" + std::string(name) : std::string(name);
+    }
+
+    std::string Generator::CppToCSharpInterfaceName(const cppdecl::QualifiedName &name, bool is_const)
+    {
+        std::string ret;
+        for (std::size_t i = 0; i < name.parts.size(); i++)
+        {
+            if (i > 0)
+                ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
+
+            std::string part = CppdeclToIdentifier(name.parts[i]);
+
+            if (i + 1 == name.parts.size())
+                part = CppToCSharpUnqualInterfaceName(part, is_const);
+
+            ret += part;
+        }
+        return ret;
+    }
+
+    std::string Generator::CppToCSharpUnqualInterfaceName(std::string_view name, bool is_const)
+    {
+        return "__I" + CppToCSharpUnqualClassName(name, is_const);
     }
 
     std::string Generator::CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name)
@@ -338,7 +361,7 @@ namespace mrbind::CSharp
                         if (!cpp_type.IsOnlyQualifiedName())
                             throw std::runtime_error("This is marked as `TypeKinds::Enum`, but the type name isn't just a qualified name.");
 
-                        std::string csharp_type = CppToCSharpName(cpp_type.simple_type.name);
+                        std::string csharp_type = CppToCSharpEnumName(cpp_type.simple_type.name);
 
                         const bool underlying_is_bool = c_desc.platform_info.FindPrimitiveType(elem.underlying_type)->kind == PrimitiveTypeInfo::Kind::boolean;
 
@@ -356,8 +379,8 @@ namespace mrbind::CSharp
                         if (!cpp_type.IsOnlyQualifiedName())
                             throw std::runtime_error("This type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
-                        const std::string csharp_interface = CppToCSharpInterfaceName(cpp_type.simple_type.name);
-                        const std::string csharp_type = CppToCSharpName(cpp_type.simple_type.name);
+                        const std::string csharp_interface = CppToCSharpInterfaceName(cpp_type.simple_type.name, false);
+                        const std::string csharp_type = CppToCSharpClassName(cpp_type.simple_type.name, false);
                         const std::string csharp_underlying_ptr_method = CppClassToCSharpGetUnderlyingMethodName(cpp_type.simple_type.name);
 
                         switch (elem.kind)
@@ -396,7 +419,7 @@ namespace mrbind::CSharp
                                     .csharp_return_type = csharp_type,
                                     .make_return_expr = [](const std::string &expr)
                                     {
-                                        return "return new(" + expr + ", is_owning: true, is_const: false);";
+                                        return "return new(" + expr + ", is_owning: true);";
                                     },
                                 },
                             });
@@ -541,7 +564,7 @@ namespace mrbind::CSharp
                                     if (!cpp_underlying_type.IsOnlyQualifiedName())
                                         throw std::runtime_error("The underlying type of the reference is marked as `TypeKinds::Enum`, but the type name isn't just a qualified name.");
 
-                                    const std::string csharp_underlying_enum_type = CppToCSharpName(cpp_underlying_type.simple_type.name);
+                                    const std::string csharp_underlying_enum_type = CppToCSharpEnumName(cpp_underlying_type.simple_type.name);
                                     const bool underlying_is_bool = c_desc.platform_info.FindPrimitiveType(underlying_enum.underlying_type)->kind == PrimitiveTypeInfo::Kind::boolean;
 
                                     return CreateBinding(MakeScalarPtrBinding(csharp_underlying_enum_type,
@@ -695,7 +718,7 @@ namespace mrbind::CSharp
                                     if (!cpp_underlying_type.IsOnlyQualifiedName())
                                         throw std::runtime_error("The underlying type of the reference is marked as `TypeKinds::Enum`, but the type name isn't just a qualified name.");
 
-                                    const std::string csharp_underlying_enum_type = CppToCSharpName(cpp_underlying_type.simple_type.name);
+                                    const std::string csharp_underlying_enum_type = CppToCSharpEnumName(cpp_underlying_type.simple_type.name);
                                     const bool underlying_is_bool = c_desc.platform_info.FindPrimitiveType(underlying_enum.underlying_type)->kind == PrimitiveTypeInfo::Kind::boolean;
 
                                     return CreateBinding(MakeScalarRefBinding(csharp_underlying_enum_type,
@@ -705,8 +728,63 @@ namespace mrbind::CSharp
                                         : nullptr
                                     ));
                                 },
-                                [&](const CInterop::TypeKinds::Class &) -> const TypeBinding *
+                                [&](const CInterop::TypeKinds::Class &elem) -> const TypeBinding *
                                 {
+                                    (void)elem;
+                                    #if 0
+                                    if (!cpp_underlying_type.IsOnlyQualifiedName())
+                                        throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
+
+                                    const std::string csharp_interface = CppToCSharpInterfaceName(cpp_underlying_type.simple_type.name);
+                                    const std::string csharp_type = CppToCSharpName(cpp_underlying_type.simple_type.name);
+                                    const std::string csharp_underlying_ptr_method = CppClassToCSharpGetUnderlyingMethodName(cpp_underlying_type.simple_type.name);
+
+                                    switch (elem.kind)
+                                    {
+                                      case CInterop::ClassKind::uses_pass_by_enum:
+                                        // TODO
+                                        throw std::logic_error("Not implemented yet!");
+                                        break;
+                                      case CInterop::ClassKind::ref_only:
+                                      case CInterop::ClassKind::trivial_via_ptr:
+                                        return CreateBinding({
+                                            .param_usage = TypeBinding::ParamUsage{
+                                                .make_strings = [csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                                {
+                                                    return TypeBinding::ParamUsage::Strings{
+                                                        .dllimport_decl_params = csharp_interface + "._Underlying *" + name,
+                                                        .csharp_decl_params = csharp_type + ' ' + name,
+                                                        .dllimport_args = name + "." + csharp_underlying_ptr_method + "()",
+                                                    };
+                                                },
+                                            },
+                                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                                .make_strings = [csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                                {
+                                                    return TypeBinding::ParamUsage::Strings{
+                                                        .dllimport_decl_params = csharp_interface + "._Underlying *" + name,
+                                                        .csharp_decl_params = csharp_type + "? " + name + " = null",
+                                                        .dllimport_args = name + " != null ? " + name + "." + csharp_underlying_ptr_method + "() : null",
+                                                    };
+                                                },
+                                            },
+                                            .return_usage = TypeBinding::ReturnUsage{
+                                                .dllimport_return_type = csharp_interface + "._Underlying *",
+                                                .csharp_return_type = csharp_type,
+                                                .make_return_expr = [is_const](const std::string &expr)
+                                                {
+                                                    return "return new(" + expr + ", is_owning: false, is_const: " + (is_const ? "true" : "false") + ");";
+                                                },
+                                            },
+                                        });
+
+                                        break;
+                                      case CInterop::ClassKind::exposed_struct:
+                                        // TODO
+                                        throw std::logic_error("Not implemented yet!");
+                                        break;
+                                    }
+                                    #endif
                                     return nullptr;
                                 },
                                 [&](const CInterop::TypeKinds::PointerNonOwning &) -> const TypeBinding *
@@ -793,24 +871,6 @@ namespace mrbind::CSharp
             // Write the comment.
             file.WriteString(MakeFuncComment(any_func_like));
 
-            // If this is a member function, figure out if it's const.
-            bool is_nonstatic_nonconst = false;
-            if (!func_like.params.empty() && func_like.params.front().is_this_param && !method_like->is_static)
-            {
-                const cppdecl::Type param_type = ParseTypeOrThrow(func_like.params.front().cpp_type);
-                assert(param_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
-                if (!param_type.IsConst(1))
-                    is_nonstatic_nonconst = true;
-            }
-
-            // Comments for default arguments, if any.
-            for (const auto &param : func_like.params)
-            {
-                // This message is only truly needed for non-trivial default arguments.
-                if (param.default_arg_affects_parameter_passing)
-                    file.WriteString("/// Parameter `" + param.name_or_placeholder + "` defaults to `" + *param.default_arg_spelling + "`.\n");
-            }
-
             // Deprecation attribute?
             if (func_like.is_deprecated)
             {
@@ -830,6 +890,10 @@ namespace mrbind::CSharp
             // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
             if (!method_like || method_like->is_static)
                 file.WriteString("static ");
+
+            // Virtual?
+            if (method_like && method_like->is_virtual)
+                file.WriteString("virtual ");
 
             // Unsafe?
             if (dllimport_strings.is_unsafe)
@@ -867,10 +931,6 @@ namespace mrbind::CSharp
 
             // Begin function body.
             file.PushScope({}, "{\n", "}\n");
-
-            // If this is a non-static non-const function, make sure the instance is also not const.
-            if (is_nonstatic_nonconst)
-                file.WriteString("if (!_IsConst()) throw new " + RequestHelper("MutableMethodCalledOnConstInstance") + "();\n");
 
             // The `DllImport` declaration.
             file.WriteString(dllimport_strings.dllimport_decl);
@@ -977,33 +1037,6 @@ namespace mrbind::CSharp
         }
     }
 
-    bool Generator::ShouldEmitMethod(const CInterop::ClassMethod &method)
-    {
-        return std::visit(Overload{
-            [&](const CInterop::MethodKinds::Regular &elem)
-            {
-                (void)elem;
-                return true;
-            },
-            [&](const CInterop::MethodKinds::Constructor &elem)
-            {
-                (void)elem;
-                return false; // TODO allow constructors
-            },
-            [&](const CInterop::MethodKinds::Operator &elem)
-            {
-                (void)elem;
-                return false; // TODO
-                // return !elem.is_special_assignment;
-            },
-            [&](const CInterop::MethodKinds::ConversionOperator &elem)
-            {
-                (void)elem;
-                return false; // TODO
-            },
-        }, method.var);
-    }
-
     std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method)
     {
         return std::visit(Overload{
@@ -1034,7 +1067,6 @@ namespace mrbind::CSharp
 
     Generator::InheritedMethodStrings Generator::MakeInheritedMethod(const CInterop::ClassMethod &method, std::string_view base_name)
     {
-        assert(ShouldEmitMethod(method));
         const std::string unqual_method_name = MakeUnqualCSharpMethodName(method);
 
         InheritedMethodStrings ret;
@@ -1140,6 +1172,10 @@ namespace mrbind::CSharp
             // Close the parameter list and the argument list.
             ret.header += ')';
             ret.body += ");\n";
+
+
+            // Lastly, make the comment.
+            ret.comment = MakeFuncComment(&method);
         }
         catch (...)
         {
@@ -1159,19 +1195,25 @@ namespace mrbind::CSharp
 
         std::string ret = func_like.comment.c_style;
 
-        // If this is a member function, figure out if it's const.
-        bool is_nonstatic_nonconst = false;
-        if (!func_like.params.empty() && func_like.params.front().is_this_param && !method_like->is_static)
+        // Extra comments from the parameter types.
+        for (const auto &param : func_like.params)
         {
-            const cppdecl::Type param_type = ParseTypeOrThrow(func_like.params.front().cpp_type);
-            assert(param_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
-            if (!param_type.IsConst(1))
-                is_nonstatic_nonconst = true;
+            ParameterBinding binding = GetParameterBinding(param, method_like);
+            if (!binding.strings.extra_comment.empty())
+            {
+                assert(!binding.strings.extra_comment.starts_with('\n'));
+                assert(binding.strings.extra_comment.ends_with('\n'));
+                ret += binding.strings.extra_comment;
+            }
         }
 
-        // Add the comment for non-static non-const functions.
-        if (is_nonstatic_nonconst)
-            ret += "/// This function mutates the object. It will throw if `._IsConst() == true`.\n";
+        // Comments for default arguments, if any.
+        for (const auto &param : func_like.params)
+        {
+            // This message is only truly needed for non-trivial default arguments.
+            if (param.default_arg_affects_parameter_passing)
+                ret += "/// Parameter `" + param.name_or_placeholder + "` defaults to `" + *param.default_arg_spelling + "`.\n";
+        }
 
         return ret;
     }
@@ -1310,10 +1352,166 @@ namespace mrbind::CSharp
         }
     }
 
-    void Generator::EmitCClass(OutputFile &file, const cppdecl::QualifiedName &cpp_name, const CInterop::TypeKinds::Class &class_desc, const CInterop::TypeTraits &traits, std::string_view prefix, std::string_view csharp_name)
+    const Generator::EmittedClassInfo &Generator::GetEmittedClassInfo(const MaybeConstClass &cl)
+    {
+        // Not immediately doing `try_emplace()` to intentionally get an infinite recursion if there's a cycle somehow.
+        auto iter = cached_emitted_class_info.find(cl);
+        if (iter != cached_emitted_class_info.end())
+            return iter->second;
+
+        EmittedClassInfo ret;
+
+        const CInterop::TypeDesc *type_desc = c_desc.FindTypeOpt(cl.class_name);
+        if (!type_desc)
+            throw std::logic_error("Trying to emit C++ class `" + cl.class_name + "`, but it doesn't appear in the input JSON.");
+
+        const auto *class_desc = std::get_if<CInterop::TypeKinds::Class>(&type_desc->var);
+        if (!class_desc)
+            throw std::logic_error("Trying to emit C++ class `" + cl.class_name + "`, but in the input JSON it's marked as something other than a class.");
+
+        { // Figure out the bases.
+            bool first = true;
+
+            // The primary base of a non-const class is its const counterpart.
+            if (!cl.is_const)
+            {
+                ret.base_class = cl;
+                ret.base_class->is_const = true;
+                first = false;
+            }
+
+            // For now we just iterate over all direct bases, both virtual and non-virtual.
+            // All interface inheritance in C# is virtual. You can't inherit from multiple classes, so it can only be said to be virtual for interfaces.
+            // In theory we could skip virtual bases if they were already inherited earlier in the inheritance hierarchy, but this doesn't see to actually do anything,
+            //   other than skipping some redundant interface inheritance, that does nothing anyway.
+            // So for now we don't do it.
+            for (const auto &base : class_desc->inheritance_info.bases_direct_combined.Vec())
+            {
+                // If we didn't have a base class yet, make this the single base class. Otherwise an interface.
+                if (first)
+                {
+                    first = false;
+                    ret.base_class = MaybeConstClass{.class_name = base, .is_const = cl.is_const};
+                }
+                else
+                {
+                    ret.base_interfaces.push_back(MaybeConstClass{.class_name = base, .is_const = cl.is_const});
+                }
+            }
+        }
+
+        // Figure out the direct methods.
+        for (const auto &method : class_desc->methods)
+        {
+            bool is_const_or_static = method.is_static;
+            if (!is_const_or_static)
+            {
+                // Check if the `this` parameter is const.
+                assert(!method.params.empty() && method.params.front().is_this_param);
+                if (!method.params.empty() && method.params.front().is_this_param)
+                {
+                    cppdecl::Type type = ParseTypeOrThrow(method.params.front().cpp_type);
+                    if (type.Is<cppdecl::Reference>())
+                    {
+                        is_const_or_static = type.IsConst(1);
+                    }
+                    else
+                    {
+                        // A by-value parameter.
+                        // This branch will be useful when we eventually (hopefully) add support for explicit object parameters.
+                        // For now it should be unreachable.
+                        assert(type.modifiers.empty());
+                        is_const_or_static = true; // This is considered `const`.
+                    }
+                }
+            }
+
+            bool should_emit = std::visit(Overload{
+                [&](const CInterop::MethodKinds::Regular &elem)
+                {
+                    (void)elem;
+                    return true;
+                },
+                [&](const CInterop::MethodKinds::Constructor &elem)
+                {
+                    (void)elem;
+                    return false; // TODO allow constructors
+                },
+                [&](const CInterop::MethodKinds::Operator &elem)
+                {
+                    (void)elem;
+                    return false; // TODO
+                    // return !elem.is_special_assignment;
+                },
+                [&](const CInterop::MethodKinds::ConversionOperator &elem)
+                {
+                    (void)elem;
+                    return false; // TODO
+                },
+            }, method.var);
+
+            if (!should_emit || is_const_or_static != cl.is_const)
+                continue;
+
+            // We rely on pointer stability of the input.
+            ret.direct_methods.push_back(&method);
+        }
+
+
+        // Figure out the combined methods.
+
+        const EmittedClassInfo *base_info = nullptr;
+        if (ret.base_class)
+            base_info = &GetEmittedClassInfo(*ret.base_class);
+
+        // Firstly, copy the methods from the base, if any.
+        if (base_info)
+            ret.combined_methods = base_info->combined_methods;
+
+        // Add direct methods, replacing the ones from the base class.
+        for (const CInterop::ClassMethod *method : ret.direct_methods)
+        {
+            EmittedClassInfo::MaybeInheritedMethod &new_method = ret.combined_methods.TryEmplace(MakeUnqualCSharpMethodName(*method)).first;
+            // Hmm, do I pass this class or this interface? Interface should result in less wrapper depth, so it's probably better?
+            new_method.method = MakeInheritedMethod(*method, CppToCSharpInterfaceName(ParseNameOrThrow(cl.class_name), cl.is_const));
+            new_method.need_implementation = false;
+        }
+
+        // Add methods from inherited interfaces.
+        for (const MaybeConstClass &base_interface : ret.base_interfaces)
+        {
+            const EmittedClassInfo &base_info = GetEmittedClassInfo(base_interface);
+            for (const auto &method_name : base_info.combined_methods.Vec())
+            {
+                auto [ref, is_new] = ret.combined_methods.TryEmplace(method_name);
+
+                // If this method already exists, then it's either from the base CLASS, in which case `.need_implementation == false`, which should be fine.
+                // Or it's from an earlier INTERFACE, then it'll already have `.need_implementation = true`, which we're about to set here.
+                if (!is_new)
+                    continue;
+
+                ref.method = base_info.combined_methods.Map().at(method_name).method;
+                // Force reimplement the method, because we don't automatically inherit the implementation from an interface.
+                ref.need_implementation = true;
+            }
+        }
+
+        return cached_emitted_class_info.try_emplace(cl, std::move(ret)).first->second;
+    }
+
+    void Generator::EmitMaybeConstCClass(OutputFile &file, const MaybeConstClass &cl)
     {
         try
         {
+            const cppdecl::QualifiedName cpp_qual_name = ParseNameOrThrow(cl.class_name);
+            const std::string cpp_unqual_name = CppdeclToCode(cpp_qual_name.parts.back());
+            const std::string unqual_csharp_name = CppToCSharpUnqualClassName(cpp_unqual_name, cl.is_const);
+
+            const CInterop::TypeDesc &type_desc = *c_desc.FindTypeOpt(cl.class_name);
+            const CInterop::TypeKinds::Class &class_desc = std::get<CInterop::TypeKinds::Class>(type_desc.var);
+
+            const EmittedClassInfo &class_info = GetEmittedClassInfo(cl);
+
             // Declare the interface.
 
             // A separator?
@@ -1322,34 +1520,56 @@ namespace mrbind::CSharp
             // No comment on the interface, we add it only on the class.
 
             // The interface header.
-            file.WriteString("/// The internal interface for class `" + std::string(csharp_name) + "`.\n");
-            if (!prefix.empty())
-            {
-                file.WriteString(prefix);
-                file.WriteString(" ");
+            file.WriteString("/// The internal interface for class `" + std::string(cpp_unqual_name) + "`, the " + (cl.is_const ? "const" : "non-const") + " half.\n");
+            file.WriteString("public interface ");
+            const std::string csharp_primary_interface_name = CppToCSharpUnqualInterfaceName(cpp_unqual_name, cl.is_const);
+            file.WriteString(csharp_primary_interface_name);
+
+            { // Write the bases.
+                auto BaseSeparator = [&, first = true]() mutable
+                {
+                    if (first)
+                    {
+                        first = false;
+                        file.WriteString(" : ");
+                    }
+                    else
+                    {
+                        file.WriteString(", ");
+                    }
+                };
+
+                // The interface for the base class.
+                if (class_info.base_class)
+                {
+                    BaseSeparator();
+                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(class_info.base_class->class_name), class_info.base_class->is_const));
+                }
+
+                // Any additional interfaces.
+                for (const MaybeConstClass &in : class_info.base_interfaces)
+                {
+                    BaseSeparator();
+                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(in.class_name), in.is_const));
+                }
             }
-            file.WriteString("interface ");
-            const std::string csharp_matching_interface_name = CppToCSharpUnqualInterfaceName(csharp_name);
-            file.WriteString(csharp_matching_interface_name);
+
             file.PushScope({}, "\n{\n", "}\n");
 
-            // The "get underlying" method can have any access here, but then C# only lets you implement it as public.
-            // I don't think it matters what access I put on it, since this method is considered internal, but the interface is considered internal as well. Shrug.
-            // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
-            //   all parameter/return types to be public too.
-            file.WriteString("public struct _Underlying; // Represents the underlying C type.\n");
-            const std::string csharp_underlying_ptr_method_name = CppClassToCSharpGetUnderlyingMethodName(cpp_name);
-            file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C object.\n");
-            file.WriteString("\n");
-            file.WriteString("// Returns true if the underlying instance is read-only.\n");
-            file.WriteString("public bool _IsConst();\n");
-
-            for (const CInterop::ClassMethod &method : class_desc.methods)
+            const std::string csharp_underlying_ptr_method_name = CppClassToCSharpGetUnderlyingMethodName(cpp_qual_name);
+            if (cl.is_const)
             {
-                if (!ShouldEmitMethod(method))
-                    continue;
+                // The "get underlying" method can have any access here, but then C# only lets you implement it as public.
+                // I don't think it matters what access I put on it, since this method is considered internal, but the interface is considered internal as well. Shrug.
+                // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
+                //   all parameter/return types to be public too.
+                file.WriteString("public struct _Underlying; // Represents the underlying C type.\n");
+                file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C object.\n");
+            }
 
-                EmitCFuncLike(file, &method, MakeUnqualCSharpMethodName(method));
+            for (const CInterop::ClassMethod *method : class_info.direct_methods)
+            {
+                EmitCFuncLike(file, method, MakeUnqualCSharpMethodName(*method));
             }
 
             file.PopScope(); // Pop the interface scope.
@@ -1362,32 +1582,77 @@ namespace mrbind::CSharp
             // The comment, if any.
             // This already has a trailing newline and the slashes.
             file.WriteString(class_desc.comment.c_style);
+            file.WriteString("/// This is the " + std::string(cl.is_const ? "const" : "non-const") + " half of the class.\n");
 
             // The class header.
-            if (!prefix.empty())
-            {
-                file.WriteString(prefix);
-                file.WriteString(" ");
-            }
-            file.WriteString("class ");
-            file.WriteString(csharp_name);
+            file.WriteString("public class ");
+            file.WriteString(unqual_csharp_name);
             file.WriteString(" : ");
-            file.WriteString(csharp_matching_interface_name);
-            if (traits.is_destructible)
-                file.WriteString(", System.IDisposable");
+
+            { // Write the bases.
+                auto BaseSeparator = [&, first = true]() mutable
+                {
+                    if (first)
+                        first = false;
+                    else
+                        file.WriteString(", ");
+                };
+
+                if (class_info.base_class)
+                {
+                    BaseSeparator();
+                    file.WriteString(CppToCSharpClassName(ParseNameOrThrow(class_info.base_class->class_name), class_info.base_class->is_const));
+                }
+                else
+                {
+                    // The default base and some default interfaces.
+
+                    BaseSeparator();
+                    file.WriteString(RequestHelper("Object"));
+
+                    if (type_desc.traits.value().is_destructible)
+                    {
+                        BaseSeparator();
+                        file.WriteString("System.IDisposable");
+                    }
+                }
+
+                // The primary interface.
+                BaseSeparator();
+                file.WriteString(csharp_primary_interface_name);
+
+                // Any additional interfaces.
+                for (const MaybeConstClass &in : class_info.base_interfaces)
+                {
+                    BaseSeparator();
+                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(in.class_name), in.is_const));
+                }
+            }
             file.PushScope({}, "\n{\n", "}\n");
 
+            // Does this class declare its own pointer to the underlying C instance? As opposed to just inheriting it.
+            // This is always false for non-const class variants, since they can reuse the pointer from the const half.
+            // TODO: need to make this conditional, to depend on cast-ability of the inherited pointer.
+            bool declares_underlying_pointer = cl.is_const;
+
             // The underlying pointer.
-            // TODO: We'll need to skip this in derived classes.
-            file.WriteString("private unsafe " + csharp_matching_interface_name + "._Underlying *_UnderlyingPtr;\n");
-            file.WriteString("public unsafe " + csharp_matching_interface_name + "._Underlying *" + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
-            file.WriteString("internal unsafe " + std::string(csharp_name) + "(" + csharp_matching_interface_name + "._Underlying *ptr, bool is_owning, bool is_const) {_UnderlyingPtr = ptr; _IsOwningVal = is_owning; _IsConstVal = is_const;}\n");
-
-            file.WriteSeparatingNewline();
-
-            if (traits.is_destructible)
+            if (declares_underlying_pointer)
             {
-                const auto dtor_strings = MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", csharp_matching_interface_name + "._Underlying *_this");
+                file.WriteString("private unsafe " + csharp_primary_interface_name + "._Underlying *_UnderlyingPtr;\n");
+                file.WriteString("public unsafe " + csharp_primary_interface_name + "._Underlying *" + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
+            }
+
+            // The constructor.
+            file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(" + csharp_primary_interface_name + "._Underlying *ptr, bool is_owning) : ");
+            file.WriteString(class_info.base_class ? "base(ptr, is_owning)" : "base(is_owning)");
+            file.WriteString(declares_underlying_pointer ? " {_UnderlyingPtr = ptr;}" : " {}");
+            file.WriteString("\n");
+
+            if (declares_underlying_pointer && type_desc.traits.value().is_destructible)
+            {
+                const auto dtor_strings = MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", csharp_primary_interface_name + "._Underlying *_this");
+
+                file.WriteSeparatingNewline();
 
                 file.WriteString("protected virtual unsafe void Dispose(bool disposing)\n");
                 file.PushScope({}, "{\n", "}\n");
@@ -1402,45 +1667,30 @@ namespace mrbind::CSharp
                 file.PopScope();
                 file.WriteString(
                     "public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}\n"
-                    "~" + std::string(csharp_name) + "() {Dispose(false);}\n"
+                    "~" + std::string(unqual_csharp_name) + "() {Dispose(false);}\n"
                 );
             }
 
-            file.WriteSeparatingNewline();
-
-            file.WriteString("private bool _IsConstVal;\n");
-            file.WriteString("/// Returns true if this is a read-only instance. Calling mutating methods on it will throw.\n");
-            file.WriteString("public bool _IsConst() => _IsConstVal;\n");
-
-            file.WriteSeparatingNewline();
-
-            file.WriteString("private bool _IsOwningVal;\n");
-            file.WriteString("/// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.\n");
-            file.WriteString("/// If false, we assume that the underlying C++ instance will live long enough.\n");
-            file.WriteString("public bool _IsOwning() => _IsOwningVal;\n");
-
             // Emit the method wrappers.
-            for (const CInterop::ClassMethod &method : class_desc.methods)
+            for (const std::string &method_name : class_info.combined_methods.Vec())
             {
-                if (!ShouldEmitMethod(method))
+                const EmittedClassInfo::MaybeInheritedMethod &method_info = class_info.combined_methods.Map().at(method_name);
+                if (!method_info.need_implementation)
                     continue;
 
                 file.WriteSeparatingNewline();
 
-                // Write the comment.
-                file.WriteString(MakeFuncComment(&method));
-
                 // Write the method itself.
-                auto strings = MakeInheritedMethod(method, csharp_matching_interface_name);
-                file.WriteString(strings.header);
-                file.WriteString(strings.body);
+                file.WriteString(method_info.method.comment);
+                file.WriteString(method_info.method.header);
+                file.WriteString(method_info.method.body);
             }
 
             file.PopScope(); // Pop the class scope.
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C class-like type `" + class_desc.c_name + "`:"));
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for a C++ class `" + cl.class_name + "` (" + (cl.is_const ? "const" : "non-const") + " half):"));
         }
     }
 
@@ -1480,7 +1730,8 @@ namespace mrbind::CSharp
                 auto qual_name = ParseNameOrThrow(key);
                 file.EnsureNamespace({qual_name.parts.begin(), qual_name.parts.end() - 1});
 
-                EmitCClass(file, ParseNameOrThrow(key), *elem, type_desc.traits.value(), "public", CppdeclToIdentifier(qual_name.parts.back()));
+                EmitMaybeConstCClass(file, {.class_name = key, .is_const = true});
+                EmitMaybeConstCClass(file, {.class_name = key, .is_const = false});
             }
         }
 
@@ -1515,6 +1766,24 @@ namespace mrbind::CSharp
             OutputFile &file = output_files.try_emplace("__common").first->second;
 
             file.EnsureNamespace(helpers_namespace.parts);
+
+            // `Object`.
+            if (requested_helpers.erase("Object"))
+            {
+                file.WriteSeparatingNewline();
+                file.WriteString(
+                    "/// This is the base class for all our classes.\n"
+                    "public class Object\n"
+                    "{\n"
+                    "    private bool _IsOwningVal;\n"
+                    "    /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.\n"
+                    "    /// If false, we assume that the underlying C++ instance will live long enough.\n"
+                    "    public bool _IsOwning() => _IsOwningVal;\n"
+                    "\n"
+                    "    internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}"
+                    "}\n"
+                );
+            }
 
             { // `InOut`, `InOutOpt`.
                 bool need_inout = requested_helpers.erase("InOut");
@@ -1640,6 +1909,8 @@ namespace mrbind::CSharp
                 );
             }
 
+            // Currently we don't need any custom exceptions.
+            #if 0
             { // Custom exceptions.
                 auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)
                 {
@@ -1663,9 +1934,8 @@ namespace mrbind::CSharp
                         "}\n"
                     );
                 };
-
-                CreateExceptionClassIfNeeded("MutableMethodCalledOnConstInstance", "/// This is thrown when a non-const method is called on class instance that's considered const (`._IsConst() == true`).\n");
             }
+            #endif
 
             // Lastly, check for unknown helper names.
             if (!requested_helpers.empty())

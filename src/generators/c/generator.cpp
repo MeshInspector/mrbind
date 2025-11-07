@@ -2523,7 +2523,8 @@ namespace mrbind::CBindings
                         new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
                     }
 
-                    method_like->is_static = !params.params.empty() && params.params.front().kind == EmitFuncParams::Param::Kind::static_;
+                    assert(!params.params.empty());
+                    method_like->is_static = params.params.front().kind == EmitFuncParams::Param::Kind::static_;
                     method_like->is_virtual = params.mark_virtual;
                 }
                 else if (auto method = std::get_if<CInterop::MethodKindVar>(&params.name.cpp_for_interop); method && std::holds_alternative<CInterop::MethodKinds::Constructor>(*method))
@@ -2535,6 +2536,7 @@ namespace mrbind::CBindings
                     func_like = &new_method;
 
                     new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
+                    new_method.is_static = true; // Constructors are considered static.
                 }
                 else
                 {

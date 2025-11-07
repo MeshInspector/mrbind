@@ -116,6 +116,9 @@ namespace mrbind::CInterop
             (bool)(is_trivially_copy_assignable, false)
             (bool)(is_trivially_move_assignable, false)
             (bool)(is_trivially_destructible, false)
+
+            // If true, the copy constructor has the form `T(T &)` instead of `T(const T &)`.
+            (bool)(copy_constructor_takes_nonconst_ref, false)
         )
 
         // This is used to tie together all member of this class, and the similarly named methods of `Generator::TypeTraits`.`
@@ -133,7 +136,8 @@ namespace mrbind::CInterop
                 input.is_trivially_move_constructible,
                 input.is_trivially_copy_assignable,
                 input.is_trivially_move_assignable,
-                input.is_trivially_destructible
+                input.is_trivially_destructible,
+                input.copy_constructor_takes_nonconst_ref
             );
         }
     };

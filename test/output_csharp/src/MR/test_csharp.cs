@@ -20,24 +20,11 @@ public static partial class MR
             b = 1,
         }
 
-        /// The internal interface for class `A`.
-        public interface __IA
+        /// The internal interface for class `A`, the const half.
+        public interface __IConstA
         {
             public struct _Underlying; // Represents the underlying C type.
             internal unsafe _Underlying *_GetUnderlying_MR_CSharp_A(); // Returns the pointer to the underlying C object.
-
-            // Returns true if the underlying instance is read-only.
-            public bool _IsConst();
-
-            /// Generated from method `MR::CSharp::A::foo`.
-            /// This function mutates the object. It will throw if `._IsConst() == true`.
-            public unsafe void foo()
-            {
-                if (!_IsConst()) throw new MR.Misc.MutableMethodCalledOnConstInstance();
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_foo", ExactSpelling = true)]
-                extern static void __MR_CSharp_A_foo(_Underlying *_this);
-                __MR_CSharp_A_foo(_GetUnderlying_MR_CSharp_A());
-            }
 
             /// Generated from method `MR::CSharp::A::bar`.
             public unsafe void bar(int _1, int _2)
@@ -63,29 +50,58 @@ public static partial class MR
                 __MR_CSharp_A_static_bar(_1, _2);
             }
 
-            /// Generated from method `MR::CSharp::A::virtual_foo`.
-            /// This function mutates the object. It will throw if `._IsConst() == true`.
-            public unsafe void virtual_foo()
-            {
-                if (!_IsConst()) throw new MR.Misc.MutableMethodCalledOnConstInstance();
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_foo", ExactSpelling = true)]
-                extern static void __MR_CSharp_A_virtual_foo(_Underlying *_this);
-                __MR_CSharp_A_virtual_foo(_GetUnderlying_MR_CSharp_A());
-            }
-
             /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public unsafe void virtual_bar(int _1, int _2)
+            public virtual unsafe void virtual_bar(int _1, int _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_bar", ExactSpelling = true)]
                 extern static void __MR_CSharp_A_virtual_bar(_Underlying *_this, int _1, int _2);
                 __MR_CSharp_A_virtual_bar(_GetUnderlying_MR_CSharp_A(), _1, _2);
             }
+        }
+
+        /// Generated from class `MR::CSharp::A`.
+        /// This is the const half of the class.
+        public class ConstA : MR.Misc.Object, System.IDisposable, __IConstA
+        {
+            private unsafe __IConstA._Underlying *_UnderlyingPtr;
+            public unsafe __IConstA._Underlying *_GetUnderlying_MR_CSharp_A() => _UnderlyingPtr;
+            internal unsafe ConstA(__IConstA._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_Destroy(__IConstA._Underlying *_this);
+                __MR_CSharp_A_Destroy(_GetUnderlying_MR_CSharp_A());
+                _UnderlyingPtr = null;
+            }
+            public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstA() {Dispose(false);}
+        }
+
+        /// The internal interface for class `A`, the non-const half.
+        public interface __IA : MR.CSharp.__IConstA
+        {
+            /// Generated from method `MR::CSharp::A::foo`.
+            public unsafe void foo()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_foo", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_foo(_Underlying *_this);
+                __MR_CSharp_A_foo(_GetUnderlying_MR_CSharp_A());
+            }
+
+            /// Generated from method `MR::CSharp::A::virtual_foo`.
+            public virtual unsafe void virtual_foo()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_foo", ExactSpelling = true)]
+                extern static void __MR_CSharp_A_virtual_foo(_Underlying *_this);
+                __MR_CSharp_A_virtual_foo(_GetUnderlying_MR_CSharp_A());
+            }
 
             /// Generated from method `MR::CSharp::A::refs`.
-            /// This function mutates the object. It will throw if `._IsConst() == true`.
             public unsafe ref int refs(ref int x, ref int _2)
             {
-                if (!_IsConst()) throw new MR.Misc.MutableMethodCalledOnConstInstance();
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_refs", ExactSpelling = true)]
                 extern static int *__MR_CSharp_A_refs(_Underlying *_this, int *x, int *_2);
                 fixed (int *__ptr_x = &x) {
@@ -97,95 +113,50 @@ public static partial class MR
         }
 
         /// Generated from class `MR::CSharp::A`.
-        public class A : __IA, System.IDisposable
+        /// This is the non-const half of the class.
+        public class A : MR.CSharp.ConstA, __IA
         {
-            private unsafe __IA._Underlying *_UnderlyingPtr;
-            public unsafe __IA._Underlying *_GetUnderlying_MR_CSharp_A() => _UnderlyingPtr;
-            internal unsafe A(__IA._Underlying *ptr, bool is_owning, bool is_const) {_UnderlyingPtr = ptr; _IsOwningVal = is_owning; _IsConstVal = is_const;}
-
-            protected virtual unsafe void Dispose(bool disposing)
-            {
-                if (_UnderlyingPtr == null)
-                    return;
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_Destroy", ExactSpelling = true)]
-                extern static void __MR_CSharp_A_Destroy(__IA._Underlying *_this);
-                __MR_CSharp_A_Destroy(_GetUnderlying_MR_CSharp_A());
-                _UnderlyingPtr = null;
-            }
-            public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-            ~A() {Dispose(false);}
-
-            private bool _IsConstVal;
-            /// Returns true if this is a read-only instance. Calling mutating methods on it will throw.
-            public bool _IsConst() => _IsConstVal;
-
-            private bool _IsOwningVal;
-            /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.
-            /// If false, we assume that the underlying C++ instance will live long enough.
-            public bool _IsOwning() => _IsOwningVal;
-
-            /// Generated from method `MR::CSharp::A::foo`.
-            /// This function mutates the object. It will throw if `._IsConst() == true`.
-            public void foo() => ((__IA)this).foo();
-
-            /// Generated from method `MR::CSharp::A::bar`.
-            public void bar(int _1, int _2) => ((__IA)this).bar(_1, _2);
-
-            /// Generated from method `MR::CSharp::A::static_foo`.
-            public static void static_foo() => __IA.static_foo();
-
-            /// Generated from method `MR::CSharp::A::static_bar`.
-            public static void static_bar(int _1, int _2) => __IA.static_bar(_1, _2);
-
-            /// Generated from method `MR::CSharp::A::virtual_foo`.
-            /// This function mutates the object. It will throw if `._IsConst() == true`.
-            public void virtual_foo() => ((__IA)this).virtual_foo();
-
-            /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public void virtual_bar(int _1, int _2) => ((__IA)this).virtual_bar(_1, _2);
-
-            /// Generated from method `MR::CSharp::A::refs`.
-            /// This function mutates the object. It will throw if `._IsConst() == true`.
-            public ref int refs(ref int x, ref int _2) => ref ((__IA)this).refs(ref x, ref _2);
+            internal unsafe A(__IA._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
         }
 
-        /// The internal interface for class `Trivial`.
-        public interface __ITrivial
+        /// The internal interface for class `Trivial`, the const half.
+        public interface __IConstTrivial
         {
             public struct _Underlying; // Represents the underlying C type.
             internal unsafe _Underlying *_GetUnderlying_MR_CSharp_Trivial(); // Returns the pointer to the underlying C object.
-
-            // Returns true if the underlying instance is read-only.
-            public bool _IsConst();
         }
 
         /// Generated from class `MR::CSharp::Trivial`.
-        public class Trivial : __ITrivial, System.IDisposable
+        /// This is the const half of the class.
+        public class ConstTrivial : MR.Misc.Object, System.IDisposable, __IConstTrivial
         {
-            private unsafe __ITrivial._Underlying *_UnderlyingPtr;
-            public unsafe __ITrivial._Underlying *_GetUnderlying_MR_CSharp_Trivial() => _UnderlyingPtr;
-            internal unsafe Trivial(__ITrivial._Underlying *ptr, bool is_owning, bool is_const) {_UnderlyingPtr = ptr; _IsOwningVal = is_owning; _IsConstVal = is_const;}
+            private unsafe __IConstTrivial._Underlying *_UnderlyingPtr;
+            public unsafe __IConstTrivial._Underlying *_GetUnderlying_MR_CSharp_Trivial() => _UnderlyingPtr;
+            internal unsafe ConstTrivial(__IConstTrivial._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
             protected virtual unsafe void Dispose(bool disposing)
             {
                 if (_UnderlyingPtr == null)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_Destroy", ExactSpelling = true)]
-                extern static void __MR_CSharp_Trivial_Destroy(__ITrivial._Underlying *_this);
+                extern static void __MR_CSharp_Trivial_Destroy(__IConstTrivial._Underlying *_this);
                 __MR_CSharp_Trivial_Destroy(_GetUnderlying_MR_CSharp_Trivial());
                 _UnderlyingPtr = null;
             }
             public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-            ~Trivial() {Dispose(false);}
+            ~ConstTrivial() {Dispose(false);}
+        }
 
-            private bool _IsConstVal;
-            /// Returns true if this is a read-only instance. Calling mutating methods on it will throw.
-            public bool _IsConst() => _IsConstVal;
+        /// The internal interface for class `Trivial`, the non-const half.
+        public interface __ITrivial : MR.CSharp.__IConstTrivial
+        {
+        }
 
-            private bool _IsOwningVal;
-            /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.
-            /// If false, we assume that the underlying C++ instance will live long enough.
-            public bool _IsOwning() => _IsOwningVal;
+        /// Generated from class `MR::CSharp::Trivial`.
+        /// This is the non-const half of the class.
+        public class Trivial : MR.CSharp.ConstTrivial, __ITrivial
+        {
+            internal unsafe Trivial(__ITrivial._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
         }
 
         /// Generated from function `MR::CSharp::foo`.
@@ -472,7 +443,7 @@ public static partial class MR
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial", ExactSpelling = true)]
             extern static MR.CSharp.__ITrivial._Underlying *__MR_CSharp_test_class_trivial(MR.CSharp.__ITrivial._Underlying *a, MR.CSharp.__ITrivial._Underlying *b);
-            return new(__MR_CSharp_test_class_trivial(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: true, is_const: false);
+            return new(__MR_CSharp_test_class_trivial(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: true);
         }
     }
 }

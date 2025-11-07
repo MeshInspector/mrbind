@@ -2,6 +2,16 @@ public static partial class MR
 {
     public static partial class Misc
     {
+        /// This is the base class for all our classes.
+        public class Object
+        {
+            private bool _IsOwningVal;
+            /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.
+            /// If false, we assume that the underlying C++ instance will live long enough.
+            public bool _IsOwning() => _IsOwningVal;
+
+            internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}}
+
         /// This is used for optional in/out parameters, since `ref` can't be nullable.
         public class InOut<T> where T: unmanaged
         {
@@ -49,14 +59,6 @@ public static partial class MR
             }
 
             public ref T Value => ref *Ptr;
-        }
-
-        /// This is thrown when a non-const method is called on class instance that's considered const (`._IsConst() == true`).
-        public class MutableMethodCalledOnConstInstance : System.Exception
-        {
-            public MutableMethodCalledOnConstInstance() {}
-            public MutableMethodCalledOnConstInstance(string message) : base(message) {}
-            public MutableMethodCalledOnConstInstance(string message, Exception inner) : base(message, inner) {}
         }
     }
 }

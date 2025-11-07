@@ -67,6 +67,9 @@ namespace mrbind::CSharp
         {
             struct Strings
             {
+                // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
+                std::string extra_comment = "";
+
                 // A comma-separated list of parameter declarations for the `DllImport` C# function declaration, or empty if none.
                 std::string dllimport_decl_params;
 
@@ -149,6 +152,7 @@ namespace mrbind::CSharp
         // Input: [
 
         // The result of parsing the input JSON.
+        // Don't modify this, since we need pointer stability in a few places.
         CInterop::OutputDesc c_desc;
 
         // The library name to pass to `DllImport`.
@@ -179,14 +183,20 @@ namespace mrbind::CSharp
         // This is needed since passing `bool` by value internally uses `int32_t` in C#, but passing it by reference seems to work correctly.
         [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect);
 
-        // Converts a C++ qualified name to a C# name.
-        [[nodiscard]] std::string CppToCSharpName(const cppdecl::QualifiedName &name);
+        // Converts a C++ qualified enum name to a C# name.
+        [[nodiscard]] std::string CppToCSharpEnumName(const cppdecl::QualifiedName &name);
 
-        // Converts a C++ qualified class name to a C# helper interface name for this class.
-        [[nodiscard]] std::string CppToCSharpInterfaceName(const cppdecl::QualifiedName &name);
+        // Converts a C++ qualified class name to a C# name. Since we split classes into const and non-const halves, we need a bool to specify which half we want.
+        [[nodiscard]] std::string CppToCSharpClassName(const cppdecl::QualifiedName &name, bool is_const);
         // Same, but for unqualified names.
         // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
-        [[nodiscard]] std::string CppToCSharpUnqualInterfaceName(std::string_view name);
+        [[nodiscard]] std::string CppToCSharpUnqualClassName(std::string_view name, bool is_const);
+
+        // Converts a C++ qualified class name to a C# helper interface name for this class.
+        [[nodiscard]] std::string CppToCSharpInterfaceName(const cppdecl::QualifiedName &name, bool is_const);
+        // Same, but for unqualified names.
+        // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
+        [[nodiscard]] std::string CppToCSharpUnqualInterfaceName(std::string_view name, bool is_const);
 
         // Given a C++ class name, returns the "GetUnderlying..." method that's used in classes derived from this to return pointers to the underlying C instance.
         [[nodiscard]] std::string CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name);
@@ -223,9 +233,6 @@ namespace mrbind::CSharp
         // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
         void EmitCFuncLike(OutputFile &file, AnyFuncLikePtr func_like, std::string_view csharp_name);
 
-        // If this returns false, we shouldn't emit this method.
-        [[nodiscard]] bool ShouldEmitMethod(const CInterop::ClassMethod &method);
-
         // Determine a suitable unqualified C# name for a method.
         [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method);
 
@@ -237,6 +244,10 @@ namespace mrbind::CSharp
             // This is the function body. Paste it immediately after `header` with no separator.
             // This will have a trailing newline.
             std::string body;
+
+            // This is the comment, if any. If not empty, it'll have the trailing newline and the necessary slashes.
+            // Paste it before the header, without an additional newline.
+            std::string comment;
         };
         // Generate the stub function declaration that forwards the call to the interface or base class `base_name`.
         // In C#, when you implement a method directly in the interface, it can't be called on a derived class without manually upcasting it
@@ -283,11 +294,50 @@ namespace mrbind::CSharp
         // `prefix` is pasted before the declaration, separated with a space if not empty.
         void EmitCEnum(OutputFile &file, const CInterop::TypeKinds::Enum &enum_desc, std::string_view prefix, std::string_view csharp_name);
 
-        // A low-level function to emit a wrapper for a single C "class" (the result of wrapping a C++ class).
+        // Since we duplicate each class and its corresponding interface into const and non-const versions,
+        //   we need an extra bool to describe which half of the class is being operated on.
+        struct MaybeConstClass
+        {
+            // Qualified C++ class name.
+            std::string class_name;
+
+            bool is_const = false;
+
+            friend auto operator<=>(const MaybeConstClass &, const MaybeConstClass &) = default;
+        };
+
+        struct EmittedClassInfo
+        {
+            // The C++ name of the base class (as opposed to interfaces), if any.
+            std::optional<MaybeConstClass> base_class;
+
+            // The C++ names of the classes, which corresponding interfaces we inherit.
+            std::vector<MaybeConstClass> base_interfaces;
+
+            // The methods that come directly from this class, not counting the inherited ones.
+            std::vector<const CInterop::ClassMethod *> direct_methods;
+
+            struct MaybeInheritedMethod
+            {
+                InheritedMethodStrings method;
+
+                // If false, this method is automatically inherited from the parent, so we don't need to paste it into this class.
+                bool need_implementation = false;
+            };
+
+            // The methods directly either defined by this class or inherited.
+            // The keys are `.header`s of the values, so there is some duplication.
+            OrderedMap<std::string, MaybeInheritedMethod> combined_methods;
+        };
+
+        // Don't access directly, this is for `GetEmittedClassInfo()`.
+        std::map<MaybeConstClass, EmittedClassInfo> cached_emitted_class_info;
+
+        [[nodiscard]] const EmittedClassInfo &GetEmittedClassInfo(const MaybeConstClass &cl);
+
+        // A low-level function to emit a wrapper for a single half (either const or non-const) of a C "class".
         // Assumes that the correct namespace or class was already entered in `file`.
-        // `csharp_name` is used as the C# enum name.
-        // `prefix` is pasted before the declaration, separated with a space if not empty.
-        void EmitCClass(OutputFile &file, const cppdecl::QualifiedName &cpp_name, const CInterop::TypeKinds::Class &class_desc, const CInterop::TypeTraits &traits, std::string_view prefix, std::string_view csharp_name);
+        void EmitMaybeConstCClass(OutputFile &file, const MaybeConstClass &cl);
 
         void Generate();
 
