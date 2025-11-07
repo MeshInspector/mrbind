@@ -1563,6 +1563,9 @@ namespace mrbind::CSharp
                 // I don't think it matters what access I put on it, since this method is considered internal, but the interface is considered internal as well. Shrug.
                 // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
                 //   all parameter/return types to be public too.
+
+                if (class_info.base_class)
+                    file.WriteString("new "); // Be explicit about the shadowing.
                 file.WriteString("public struct _Underlying; // Represents the underlying C type.\n");
                 file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C object.\n");
             }
@@ -1632,41 +1635,116 @@ namespace mrbind::CSharp
 
             // Does this class declare its own pointer to the underlying C instance? As opposed to just inheriting it.
             // This is always false for non-const class variants, since they can reuse the pointer from the const half.
-            // TODO: need to make this conditional, to depend on cast-ability of the inherited pointer.
-            bool declares_underlying_pointer = cl.is_const;
+            // If this is false, then we'll `static_cast` the pointer in the base class, so make sure that's possible for your type,
+            //   or set this to `true` to declare your own pointer.
+            bool declares_underlying_pointer = false;
+            if (cl.is_const)
+            {
+                // If the base is virtual, we can no longer `static_cast`, and rather than try to `dynamic_cast` (which is only possible if the base is polymorphic,
+                //   which isn't a given), we instead store a separate derived pointer. I don't want to pay the const of a `dynamic_cast` on every method call.
+                declares_underlying_pointer = !class_info.base_class || class_desc.inheritance_info.bases_direct_combined.Map().at(class_info.base_class->class_name);
+            }
+
+
+            // Determine the C# underlying pointer types, for this class and its base, if any.
+            // Some of those are `std::optional` to catch errors if we try to use them without assigning to them.
+            std::string underlying_ptr_type = csharp_primary_interface_name + "._Underlying *";
+            std::optional<std::string> base_underlying_ptr_type;
+            std::optional<std::string> base_c_name;
+            if (cl.is_const && class_info.base_class)
+            {
+                base_underlying_ptr_type = CppToCSharpInterfaceName(ParseNameOrThrow(class_info.base_class.value().class_name), true) + "._Underlying *";
+                base_c_name = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(class_info.base_class.value().class_name)->var).c_name;
+            }
 
             // The underlying pointer.
-            if (declares_underlying_pointer)
+            // This is done only for the const halves, because the non-const ones can always reuse the pointer from the const half.
+            if (cl.is_const)
             {
-                file.WriteString("private unsafe " + csharp_primary_interface_name + "._Underlying *_UnderlyingPtr;\n");
-                file.WriteString("public unsafe " + csharp_primary_interface_name + "._Underlying *" + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
+                if (declares_underlying_pointer)
+                {
+                    // Declare our own pointer.
+                    file.WriteString("private unsafe " + underlying_ptr_type + "_UnderlyingPtr;\n");
+                    file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
+                }
+                else
+                {
+                    // `static_cast` the parent pointer.
+
+                    file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "()\n");
+                    file.PushScope({}, "{\n", "}\n");
+
+                    // I believe it doesn't matter if we use the `Mutable` or the normal (const) downcast here.
+                    // Mutable feels more natural to me, since all C# pointers are non-const.
+                    auto cast_decl = MakeDllImportDecl(base_c_name.value() + "_StaticDowncastTo_" + class_desc.c_name, underlying_ptr_type, base_underlying_ptr_type.value() + "_this");
+                    file.WriteString(cast_decl.dllimport_decl);
+
+                    file.WriteString("return " + cast_decl.csharp_name + "(base." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(class_info.base_class.value().class_name)) + "());\n");
+
+                    file.PopScope();
+                }
+            }
+
+
+            // The upcast method for the constructor, if any.
+            if (cl.is_const && class_info.base_class)
+            {
+                file.WriteString("private static unsafe " + base_underlying_ptr_type.value() + "_UpcastUnderlying(" + underlying_ptr_type + "ptr)");
+                file.PushScope({}, "{\n", "}\n");
+
+                auto cast_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + base_c_name.value(), base_underlying_ptr_type.value(), underlying_ptr_type + "_this");
+                file.WriteString(cast_decl.dllimport_decl);
+
+                file.WriteString("return " + cast_decl.csharp_name + "(ptr);\n");
+
+                file.PopScope();
             }
 
             // The constructor.
-            file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(" + csharp_primary_interface_name + "._Underlying *ptr, bool is_owning) : ");
-            file.WriteString(class_info.base_class ? "base(ptr, is_owning)" : "base(is_owning)");
+            file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(" + underlying_ptr_type + "ptr, bool is_owning) : ");
+            file.WriteString(!cl.is_const ? "base(ptr, is_owning)" : class_info.base_class ? "base(_UpcastUnderlying(ptr), is_owning)" : "base(is_owning)");
             file.WriteString(declares_underlying_pointer ? " {_UnderlyingPtr = ptr;}" : " {}");
             file.WriteString("\n");
 
             if (declares_underlying_pointer && type_desc.traits.value().is_destructible)
             {
-                const auto dtor_strings = MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", csharp_primary_interface_name + "._Underlying *_this");
+                const auto dtor_strings = MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", underlying_ptr_type + "_this");
+
+                std::string virtual_or_override = class_info.base_class ? "override" : "virtual";
 
                 file.WriteSeparatingNewline();
 
-                file.WriteString("protected virtual unsafe void Dispose(bool disposing)\n");
+                file.WriteString("protected " + virtual_or_override + " unsafe void Dispose(bool disposing)\n");
                 file.PushScope({}, "{\n", "}\n");
                 file.WriteString(
                     "if (_UnderlyingPtr == null)\n"
                     "    return;\n"
+                );
+
+                if (class_info.base_class)
+                {
+                    file.PushScope({}, "if (disposing)\n{\n", "}\n");
+
+                    if (class_info.base_class)
+                        file.WriteString("base.Dispose();");
+
+                    file.PopScope();
+                }
+
+                file.WriteString(
                     // Here we'd have `if (disposing)` where we would explicitly `.Dispose()` managed data members, if we had any.
-                    + dtor_strings.dllimport_decl +
+                    dtor_strings.dllimport_decl +
                     dtor_strings.csharp_name + "(" + csharp_underlying_ptr_method_name + "());\n"
                     "_UnderlyingPtr = null;\n"
                 );
-                file.PopScope();
+
+                // Propagate to the base class.
+                if (class_info.base_class)
+                    file.WriteString("base.Dispose(disposing);\n");
+
+                file.PopScope(); // Close `void Dispose(bool disposing)`.
                 file.WriteString(
-                    "public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}\n"
+                    "public " + virtual_or_override + " void Dispose() {Dispose(true); GC.SuppressFinalize(this);}\n"
                     "~" + std::string(unqual_csharp_name) + "() {Dispose(false);}\n"
                 );
             }

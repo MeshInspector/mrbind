@@ -60,6 +60,11 @@ public static partial class MR
         }
 
         /// Generated from class `MR::CSharp::A`.
+        /// Derived classes:
+        ///   Virtual:
+        ///     `MR::CSharp::C`
+        ///   Direct: (non-virtual)
+        ///     `MR::CSharp::B`
         /// This is the const half of the class.
         public class ConstA : MR.Misc.Object, System.IDisposable, __IConstA
         {
@@ -76,7 +81,7 @@ public static partial class MR
                 __MR_CSharp_A_Destroy(_GetUnderlying_MR_CSharp_A());
                 _UnderlyingPtr = null;
             }
-            public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstA() {Dispose(false);}
         }
 
@@ -113,10 +118,131 @@ public static partial class MR
         }
 
         /// Generated from class `MR::CSharp::A`.
+        /// Derived classes:
+        ///   Virtual:
+        ///     `MR::CSharp::C`
+        ///   Direct: (non-virtual)
+        ///     `MR::CSharp::B`
         /// This is the non-const half of the class.
         public class A : MR.CSharp.ConstA, __IA
         {
             internal unsafe A(__IA._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+        }
+
+        /// The internal interface for class `B`, the const half.
+        public interface __IConstB : MR.CSharp.__IConstA
+        {
+            new public struct _Underlying; // Represents the underlying C type.
+            internal unsafe _Underlying *_GetUnderlying_MR_CSharp_B(); // Returns the pointer to the underlying C object.
+        }
+
+        /// Generated from class `MR::CSharp::B`.
+        /// Base classes:
+        ///   Direct: (non-virtual)
+        ///     `MR::CSharp::A`
+        /// This is the const half of the class.
+        public class ConstB : MR.CSharp.ConstA, __IConstB
+        {
+            public unsafe __IConstB._Underlying *_GetUnderlying_MR_CSharp_B()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_StaticDowncastTo_MR_CSharp_B", ExactSpelling = true)]
+                extern static __IConstB._Underlying *__MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(MR.CSharp.__IConstA._Underlying *_this);
+                return __MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(base._GetUnderlying_MR_CSharp_A());
+            }
+            private static unsafe MR.CSharp.__IConstA._Underlying *_UpcastUnderlying(__IConstB._Underlying *ptr){
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
+                extern static MR.CSharp.__IConstA._Underlying *__MR_CSharp_B_UpcastTo_MR_CSharp_A(__IConstB._Underlying *_this);
+                return __MR_CSharp_B_UpcastTo_MR_CSharp_A(ptr);
+            }
+            internal unsafe ConstB(__IConstB._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {}
+        }
+
+        /// The internal interface for class `B`, the non-const half.
+        public interface __IB : MR.CSharp.__IConstB, MR.CSharp.__IA
+        {
+        }
+
+        /// Generated from class `MR::CSharp::B`.
+        /// Base classes:
+        ///   Direct: (non-virtual)
+        ///     `MR::CSharp::A`
+        /// This is the non-const half of the class.
+        public class B : MR.CSharp.ConstB, __IB, MR.CSharp.__IA
+        {
+            internal unsafe B(__IB._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Generated from method `MR::CSharp::A::foo`.
+            public void foo() => ((MR.CSharp.__IA)this).foo();
+
+            /// Generated from method `MR::CSharp::A::virtual_foo`.
+            public void virtual_foo() => ((MR.CSharp.__IA)this).virtual_foo();
+
+            /// Generated from method `MR::CSharp::A::refs`.
+            public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.__IA)this).refs(ref x, ref _2);
+        }
+
+        /// The internal interface for class `C`, the const half.
+        public interface __IConstC : MR.CSharp.__IConstA
+        {
+            new public struct _Underlying; // Represents the underlying C type.
+            internal unsafe _Underlying *_GetUnderlying_MR_CSharp_C(); // Returns the pointer to the underlying C object.
+        }
+
+        /// Generated from class `MR::CSharp::C`.
+        /// Base classes:
+        ///   Virtual:
+        ///     `MR::CSharp::A`
+        /// This is the const half of the class.
+        public class ConstC : MR.CSharp.ConstA, __IConstC
+        {
+            private unsafe __IConstC._Underlying *_UnderlyingPtr;
+            public unsafe __IConstC._Underlying *_GetUnderlying_MR_CSharp_C() => _UnderlyingPtr;
+            private static unsafe MR.CSharp.__IConstA._Underlying *_UpcastUnderlying(__IConstC._Underlying *ptr){
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
+                extern static MR.CSharp.__IConstA._Underlying *__MR_CSharp_C_UpcastTo_MR_CSharp_A(__IConstC._Underlying *_this);
+                return __MR_CSharp_C_UpcastTo_MR_CSharp_A(ptr);
+            }
+            internal unsafe ConstC(__IConstC._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {_UnderlyingPtr = ptr;}
+
+            protected override unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null)
+                    return;
+                if (disposing)
+                {
+                    base.Dispose();}
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_C_Destroy(__IConstC._Underlying *_this);
+                __MR_CSharp_C_Destroy(_GetUnderlying_MR_CSharp_C());
+                _UnderlyingPtr = null;
+                base.Dispose(disposing);
+            }
+            public override void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstC() {Dispose(false);}
+        }
+
+        /// The internal interface for class `C`, the non-const half.
+        public interface __IC : MR.CSharp.__IConstC, MR.CSharp.__IA
+        {
+        }
+
+        /// Generated from class `MR::CSharp::C`.
+        /// Base classes:
+        ///   Virtual:
+        ///     `MR::CSharp::A`
+        /// This is the non-const half of the class.
+        public class C : MR.CSharp.ConstC, __IC, MR.CSharp.__IA
+        {
+            internal unsafe C(__IC._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Generated from method `MR::CSharp::A::foo`.
+            public void foo() => ((MR.CSharp.__IA)this).foo();
+
+            /// Generated from method `MR::CSharp::A::virtual_foo`.
+            public void virtual_foo() => ((MR.CSharp.__IA)this).virtual_foo();
+
+            /// Generated from method `MR::CSharp::A::refs`.
+            public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.__IA)this).refs(ref x, ref _2);
         }
 
         /// The internal interface for class `Trivial`, the const half.
@@ -143,7 +269,7 @@ public static partial class MR
                 __MR_CSharp_Trivial_Destroy(_GetUnderlying_MR_CSharp_Trivial());
                 _UnderlyingPtr = null;
             }
-            public void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstTrivial() {Dispose(false);}
         }
 

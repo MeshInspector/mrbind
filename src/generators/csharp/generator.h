@@ -309,6 +309,7 @@ namespace mrbind::CSharp
         struct EmittedClassInfo
         {
             // The C++ name of the base class (as opposed to interfaces), if any.
+            // This is guaranteed to be a parsed class name, so you can look it up in `c_desc`.
             std::optional<MaybeConstClass> base_class;
 
             // The C++ names of the classes, which corresponding interfaces we inherit.
