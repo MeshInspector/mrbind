@@ -83,6 +83,18 @@ public static partial class MR
             }
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstA() {Dispose(false);}
+
+            /// Generated from method `MR::CSharp::A::bar`.
+            public void bar(int _1, int _2) => ((MR.CSharp.__IConstA)this).bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::static_foo`.
+            public static void static_foo() => MR.CSharp.__IConstA.static_foo();
+
+            /// Generated from method `MR::CSharp::A::static_bar`.
+            public static void static_bar(int _1, int _2) => MR.CSharp.__IConstA.static_bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::virtual_bar`.
+            public void virtual_bar(int _1, int _2) => ((MR.CSharp.__IConstA)this).virtual_bar(_1, _2);
         }
 
         /// The internal interface for class `A`, the non-const half.
@@ -127,6 +139,15 @@ public static partial class MR
         public class A : MR.CSharp.ConstA, __IA
         {
             internal unsafe A(__IA._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Generated from method `MR::CSharp::A::foo`.
+            public void foo() => ((MR.CSharp.__IA)this).foo();
+
+            /// Generated from method `MR::CSharp::A::virtual_foo`.
+            public void virtual_foo() => ((MR.CSharp.__IA)this).virtual_foo();
+
+            /// Generated from method `MR::CSharp::A::refs`.
+            public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.__IA)this).refs(ref x, ref _2);
         }
 
         /// The internal interface for class `B`, the const half.

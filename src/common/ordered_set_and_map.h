@@ -75,5 +75,8 @@ namespace mrbind
         {
             return map.find(key);
         }
+
+        [[nodiscard]] auto MutableMapBegin() {return map.begin();}
+        [[nodiscard]] auto MutableMapEnd() {return map.end();}
     };
 }

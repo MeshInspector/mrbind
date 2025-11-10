@@ -1466,7 +1466,13 @@ namespace mrbind::CSharp
 
         // Firstly, copy the methods from the base, if any.
         if (base_info)
+        {
             ret.combined_methods = base_info->combined_methods;
+
+            // The directly inherited methods don't need to be reimplemented.
+            for (auto it = ret.combined_methods.MutableMapBegin(); it != ret.combined_methods.MutableMapEnd(); ++it)
+                it->second.need_implementation = false;
+        }
 
         // Add direct methods, replacing the ones from the base class.
         for (const CInterop::ClassMethod *method : ret.direct_methods)
@@ -1474,7 +1480,7 @@ namespace mrbind::CSharp
             EmittedClassInfo::MaybeInheritedMethod &new_method = ret.combined_methods.TryEmplace(MakeUnqualCSharpMethodName(*method)).first;
             // Hmm, do I pass this class or this interface? Interface should result in less wrapper depth, so it's probably better?
             new_method.method = MakeInheritedMethod(*method, CppToCSharpInterfaceName(ParseNameOrThrow(cl.class_name), cl.is_const));
-            new_method.need_implementation = false;
+            new_method.need_implementation = true;
         }
 
         // Add methods from inherited interfaces.
