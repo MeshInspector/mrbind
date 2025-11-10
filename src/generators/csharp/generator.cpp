@@ -209,7 +209,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualInterfaceName(std::string_view name, bool is_const)
     {
-        return "__I" + CppToCSharpUnqualClassName(name, is_const);
+        return "I" + CppToCSharpUnqualClassName(name, is_const);
     }
 
     std::string Generator::CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name)
@@ -1526,7 +1526,8 @@ namespace mrbind::CSharp
             // No comment on the interface, we add it only on the class.
 
             // The interface header.
-            file.WriteString("/// The internal interface for class `" + std::string(cpp_unqual_name) + "`, the " + (cl.is_const ? "const" : "non-const") + " half.\n");
+            file.WriteString("/// The interface for class `" + std::string(cpp_unqual_name) + "`, the " + (cl.is_const ? "const" : "non-const") + " half.\n");
+            file.WriteString("/// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.\n");
             file.WriteString("public interface ");
             const std::string csharp_primary_interface_name = CppToCSharpUnqualInterfaceName(cpp_unqual_name, cl.is_const);
             file.WriteString(csharp_primary_interface_name);
@@ -1670,6 +1671,7 @@ namespace mrbind::CSharp
                 if (declares_underlying_pointer)
                 {
                     // Declare our own pointer.
+                    file.WriteSeparatingNewline();
                     file.WriteString("private unsafe " + underlying_ptr_type + "_UnderlyingPtr;\n");
                     file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
                 }
@@ -1677,6 +1679,7 @@ namespace mrbind::CSharp
                 {
                     // `static_cast` the parent pointer.
 
+                    file.WriteSeparatingNewline();
                     file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "()\n");
                     file.PushScope({}, "{\n", "}\n");
 
@@ -1697,9 +1700,14 @@ namespace mrbind::CSharp
             {
                 for (const MaybeConstClass &base_interface : class_info.base_interfaces)
                 {
+                    // While we're at it, make sure that the base isn't ambiguous (or the upcast function will not exist).
+                    if (class_desc.inheritance_info.bases_indirect.Map().at(base_interface.class_name) == CInterop::InheritanceInfo::Kind::ambiguous)
+                        throw std::runtime_error("Class `" + cl.class_name + "` has an ambiguous direct base `" + base_interface.class_name + "`. This isn't supported by this generator, and is a questionable situation in general.");
+
                     const cppdecl::QualifiedName &this_base_name = ParseNameOrThrow(base_interface.class_name);
                     const std::string this_base_underlying_ptr_type = CppToCSharpInterfaceName(this_base_name, true) + "._Underlying *";
 
+                    file.WriteSeparatingNewline();
                     file.WriteString("public unsafe " + this_base_underlying_ptr_type + CppClassToCSharpGetUnderlyingMethodName(this_base_name) + "()\n");
                     file.PushScope({}, "{\n", "}\n");
 
@@ -1711,9 +1719,15 @@ namespace mrbind::CSharp
                     file.PopScope();
                 }
             }
+
             // The upcast method for the constructor, if any.
             if (cl.is_const && class_info.base_class)
             {
+                // While we're at it, make sure that the base isn't ambiguous (or the upcast function will not exist).
+                if (class_desc.inheritance_info.bases_indirect.Map().at(class_info.base_class->class_name) == CInterop::InheritanceInfo::Kind::ambiguous)
+                    throw std::runtime_error("Class `" + cl.class_name + "` has an ambiguous direct base `" + class_info.base_class->class_name + "`. This isn't supported by this generator, and is a questionable situation in general.");
+
+                file.WriteSeparatingNewline();
                 file.WriteString("private static unsafe " + base_underlying_ptr_type.value() + "_UpcastUnderlying(" + underlying_ptr_type + "ptr)\n");
                 file.PushScope({}, "{\n", "}\n");
 
@@ -1726,6 +1740,7 @@ namespace mrbind::CSharp
             }
 
             // The constructor.
+            file.WriteSeparatingNewline();
             file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(" + underlying_ptr_type + "ptr, bool is_owning) : ");
             file.WriteString(!cl.is_const ? "base(ptr, is_owning)" : class_info.base_class ? "base(_UpcastUnderlying(ptr), is_owning)" : "base(is_owning)");
             file.WriteString(declares_underlying_pointer ? " {_UnderlyingPtr = ptr;}" : " {}");

@@ -101,6 +101,19 @@ namespace MR::CSharp
     // Even if the secondary bases are virtual, this doesn't affect anything.
     struct G : A, D, virtual E {};
 
+    // Ambiguous direct bases are detected by the generator and cause it to error.
+    #if 0
+    #ifdef __GNUC__
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Winaccessible-base"
+    #endif
+    struct Ambig1 : A, B {}; // The first base is ambiguous.
+    struct Ambig2 : B, A {}; // The non-first base is ambiguous.
+    #ifdef __GNUC__
+    #pragma GCC diagnostic pop
+    #endif
+    #endif
+
     class Trivial
     {
         void foo() {}
