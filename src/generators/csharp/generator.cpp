@@ -1691,11 +1691,30 @@ namespace mrbind::CSharp
                 }
             }
 
+            // The "get underlying" methods for interface bases, as opposed to the primary base.
+            // This is only needed for the const halves, since the non-const halves just inherit all this from the const half.
+            if (cl.is_const)
+            {
+                for (const MaybeConstClass &base_interface : class_info.base_interfaces)
+                {
+                    const cppdecl::QualifiedName &this_base_name = ParseNameOrThrow(base_interface.class_name);
+                    const std::string this_base_underlying_ptr_type = CppToCSharpInterfaceName(this_base_name, true) + "._Underlying *";
 
+                    file.WriteString("public unsafe " + this_base_underlying_ptr_type + CppClassToCSharpGetUnderlyingMethodName(this_base_name) + "()\n");
+                    file.PushScope({}, "{\n", "}\n");
+
+                    auto cast_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(base_interface.class_name)->var).c_name, this_base_underlying_ptr_type, underlying_ptr_type + "_this");
+                    file.WriteString(cast_decl.dllimport_decl);
+
+                    file.WriteString("return " + cast_decl.csharp_name + "(" + csharp_underlying_ptr_method_name + "());\n");
+
+                    file.PopScope();
+                }
+            }
             // The upcast method for the constructor, if any.
             if (cl.is_const && class_info.base_class)
             {
-                file.WriteString("private static unsafe " + base_underlying_ptr_type.value() + "_UpcastUnderlying(" + underlying_ptr_type + "ptr)");
+                file.WriteString("private static unsafe " + base_underlying_ptr_type.value() + "_UpcastUnderlying(" + underlying_ptr_type + "ptr)\n");
                 file.PushScope({}, "{\n", "}\n");
 
                 auto cast_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + base_c_name.value(), base_underlying_ptr_type.value(), underlying_ptr_type + "_this");

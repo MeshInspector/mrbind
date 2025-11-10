@@ -61,6 +61,13 @@ namespace MR::CSharp
 
     struct A
     {
+        A() = default;
+        A(const A &) = default;
+        A(A &&) = default;
+        A &operator=(const A &) = default;
+        A &operator=(A &&) = default;
+        virtual ~A() = default;
+
         int a = 10;
 
         void foo() {}
@@ -69,12 +76,30 @@ namespace MR::CSharp
         static void static_foo() {}
         static void static_bar(int, int) {}
 
-        virtual ~A() = default;
         virtual void virtual_foo() {}
         virtual void virtual_bar(int, int) const {}
 
         int &refs(int &x, int &) {return x;}
     };
+
+    struct B : A {};
+    struct C : virtual A {};
+
+    struct D
+    {
+        void d1() const {}
+        void d2() {}
+    };
+
+    struct E
+    {
+        void e1() const {}
+        void e2() {}
+    };
+
+    struct F : A, D, E {};
+    // Even if the secondary bases are virtual, this doesn't affect anything.
+    struct G : A, D, virtual E {};
 
     class Trivial
     {
