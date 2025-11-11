@@ -2887,13 +2887,17 @@ namespace mrbind::CBindings
 
         HeapAllocatedClassBinder binder;
 
+        const auto &class_desc = std::get<ParsedTypeInfo::ClassDesc>(parsed_info.input_type);
+
         // We don't fill everything for now, just the bare minimum.
         binder.cpp_type_name = cpp_class_name;
         binder.c_type_name = parsed_info.c_type_str;
-        binder.traits = std::get<ParsedTypeInfo::ClassDesc>(parsed_info.input_type).traits;
+        binder.traits = class_desc.traits;
 
         // Fill the inheritance information.
         binder.inheritance_info = parsed_class_inheritance_info.at(cpp_class_name_str);
+
+        binder.mark_polymorphic = class_desc.is_polymorphic;
 
         return binder;
     }

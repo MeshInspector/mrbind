@@ -170,23 +170,58 @@ public static partial class MR
         ///   Direct: (non-virtual)
         ///     `MR::CSharp::A`
         /// This is the const half of the class.
-        public class ConstB : MR.CSharp.ConstA, IConstB
+        public class ConstB : MR.Misc.Object, System.IDisposable, IConstB, MR.CSharp.IConstA
         {
-            public unsafe IConstB._Underlying *_GetUnderlying_MR_CSharp_B()
-            {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_StaticDowncastTo_MR_CSharp_B", ExactSpelling = true)]
-                extern static IConstB._Underlying *__MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(MR.CSharp.IConstA._Underlying *_this);
-                return __MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(base._GetUnderlying_MR_CSharp_A());
-            }
+            private unsafe IConstB._Underlying *_UnderlyingPtr;
+            public unsafe IConstB._Underlying *_GetUnderlying_MR_CSharp_B() => _UnderlyingPtr;
 
-            private static unsafe MR.CSharp.IConstA._Underlying *_UpcastUnderlying(IConstB._Underlying *ptr)
+            public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                 extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_B_UpcastTo_MR_CSharp_A(IConstB._Underlying *_this);
-                return __MR_CSharp_B_UpcastTo_MR_CSharp_A(ptr);
+                return __MR_CSharp_B_UpcastTo_MR_CSharp_A(_GetUnderlying_MR_CSharp_B());
             }
 
-            internal unsafe ConstB(IConstB._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {}
+            internal unsafe ConstB(IConstB._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_B_Destroy(IConstB._Underlying *_this);
+                __MR_CSharp_B_Destroy(_GetUnderlying_MR_CSharp_B());
+                _UnderlyingPtr = null;
+            }
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstB() {Dispose(false);}
+
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(ConstB self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator ConstB?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B", ExactSpelling = true)]
+                extern static IConstB._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                ConstB ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+
+            /// Generated from method `MR::CSharp::A::bar`.
+            public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::static_foo`.
+            public static void static_foo() => MR.CSharp.IConstA.static_foo();
+
+            /// Generated from method `MR::CSharp::A::static_bar`.
+            public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::virtual_bar`.
+            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
         }
 
         /// The interface for class `B`, the non-const half.
@@ -205,7 +240,30 @@ public static partial class MR
             internal unsafe B(IB._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
             // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(B self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.A(B self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator B?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B", ExactSpelling = true)]
+                extern static IB._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                B ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+            public static unsafe explicit operator B?(MR.CSharp.A parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B", ExactSpelling = true)]
+                extern static IB._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(MR.CSharp.IA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                B ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
 
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
@@ -230,35 +288,58 @@ public static partial class MR
         ///   Virtual:
         ///     `MR::CSharp::A`
         /// This is the const half of the class.
-        public class ConstC : MR.CSharp.ConstA, IConstC
+        public class ConstC : MR.Misc.Object, System.IDisposable, IConstC, MR.CSharp.IConstA
         {
             private unsafe IConstC._Underlying *_UnderlyingPtr;
             public unsafe IConstC._Underlying *_GetUnderlying_MR_CSharp_C() => _UnderlyingPtr;
 
-            private static unsafe MR.CSharp.IConstA._Underlying *_UpcastUnderlying(IConstC._Underlying *ptr)
+            public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                 extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_C_UpcastTo_MR_CSharp_A(IConstC._Underlying *_this);
-                return __MR_CSharp_C_UpcastTo_MR_CSharp_A(ptr);
+                return __MR_CSharp_C_UpcastTo_MR_CSharp_A(_GetUnderlying_MR_CSharp_C());
             }
 
-            internal unsafe ConstC(IConstC._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {_UnderlyingPtr = ptr;}
+            internal unsafe ConstC(IConstC._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
-            protected override unsafe void Dispose(bool disposing)
+            protected virtual unsafe void Dispose(bool disposing)
             {
                 if (_UnderlyingPtr == null)
                     return;
-                if (disposing)
-                {
-                    base.Dispose();}
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_C_Destroy(IConstC._Underlying *_this);
                 __MR_CSharp_C_Destroy(_GetUnderlying_MR_CSharp_C());
                 _UnderlyingPtr = null;
-                base.Dispose(disposing);
             }
-            public override void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstC() {Dispose(false);}
+
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(ConstC self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator ConstC?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C", ExactSpelling = true)]
+                extern static IConstC._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                ConstC ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+
+            /// Generated from method `MR::CSharp::A::bar`.
+            public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::static_foo`.
+            public static void static_foo() => MR.CSharp.IConstA.static_foo();
+
+            /// Generated from method `MR::CSharp::A::static_bar`.
+            public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::virtual_bar`.
+            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
         }
 
         /// The interface for class `C`, the non-const half.
@@ -277,7 +358,30 @@ public static partial class MR
             internal unsafe C(IC._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
             // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(C self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.A(C self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator C?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C", ExactSpelling = true)]
+                extern static IC._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                C ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+            public static unsafe explicit operator C?(MR.CSharp.A parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C", ExactSpelling = true)]
+                extern static IC._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(MR.CSharp.IA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                C ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
 
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
@@ -450,13 +554,16 @@ public static partial class MR
         ///     `MR::CSharp::D`
         ///     `MR::CSharp::E`
         /// This is the const half of the class.
-        public class ConstF : MR.CSharp.ConstA, IConstF, MR.CSharp.IConstD, MR.CSharp.IConstE
+        public class ConstF : MR.Misc.Object, System.IDisposable, IConstF, MR.CSharp.IConstA, MR.CSharp.IConstD, MR.CSharp.IConstE
         {
-            public unsafe IConstF._Underlying *_GetUnderlying_MR_CSharp_F()
+            private unsafe IConstF._Underlying *_UnderlyingPtr;
+            public unsafe IConstF._Underlying *_GetUnderlying_MR_CSharp_F() => _UnderlyingPtr;
+
+            public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_StaticDowncastTo_MR_CSharp_F", ExactSpelling = true)]
-                extern static IConstF._Underlying *__MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(MR.CSharp.IConstA._Underlying *_this);
-                return __MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(base._GetUnderlying_MR_CSharp_A());
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
+                extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_A(IConstF._Underlying *_this);
+                return __MR_CSharp_F_UpcastTo_MR_CSharp_A(_GetUnderlying_MR_CSharp_F());
             }
 
             public unsafe MR.CSharp.IConstD._Underlying *_GetUnderlying_MR_CSharp_D()
@@ -473,18 +580,48 @@ public static partial class MR
                 return __MR_CSharp_F_UpcastTo_MR_CSharp_E(_GetUnderlying_MR_CSharp_F());
             }
 
-            private static unsafe MR.CSharp.IConstA._Underlying *_UpcastUnderlying(IConstF._Underlying *ptr)
-            {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
-                extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_A(IConstF._Underlying *_this);
-                return __MR_CSharp_F_UpcastTo_MR_CSharp_A(ptr);
-            }
+            internal unsafe ConstF(IConstF._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
-            internal unsafe ConstF(IConstF._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {}
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_F_Destroy(IConstF._Underlying *_this);
+                __MR_CSharp_F_Destroy(_GetUnderlying_MR_CSharp_F());
+                _UnderlyingPtr = null;
+            }
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstF() {Dispose(false);}
 
             // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(ConstF self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstD(ConstF self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstE(ConstF self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator ConstF?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F", ExactSpelling = true)]
+                extern static IConstF._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                ConstF ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+
+            /// Generated from method `MR::CSharp::A::bar`.
+            public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::static_foo`.
+            public static void static_foo() => MR.CSharp.IConstA.static_foo();
+
+            /// Generated from method `MR::CSharp::A::static_bar`.
+            public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::virtual_bar`.
+            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::D::d1`.
             public void d1() => ((MR.CSharp.IConstD)this).d1();
@@ -511,11 +648,34 @@ public static partial class MR
             internal unsafe F(IF._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
             // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(F self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.A(F self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstD(F self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.D(F self) {MR.CSharp.D ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstE(F self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.E(F self) {MR.CSharp.E ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator F?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F", ExactSpelling = true)]
+                extern static IF._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                F ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+            public static unsafe explicit operator F?(MR.CSharp.A parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F", ExactSpelling = true)]
+                extern static IF._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(MR.CSharp.IA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                F ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
 
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
@@ -550,13 +710,16 @@ public static partial class MR
         ///     `MR::CSharp::A`
         ///     `MR::CSharp::D`
         /// This is the const half of the class.
-        public class ConstG : MR.CSharp.ConstA, IConstG, MR.CSharp.IConstD, MR.CSharp.IConstE
+        public class ConstG : MR.Misc.Object, System.IDisposable, IConstG, MR.CSharp.IConstA, MR.CSharp.IConstD, MR.CSharp.IConstE
         {
-            public unsafe IConstG._Underlying *_GetUnderlying_MR_CSharp_G()
+            private unsafe IConstG._Underlying *_UnderlyingPtr;
+            public unsafe IConstG._Underlying *_GetUnderlying_MR_CSharp_G() => _UnderlyingPtr;
+
+            public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_StaticDowncastTo_MR_CSharp_G", ExactSpelling = true)]
-                extern static IConstG._Underlying *__MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(MR.CSharp.IConstA._Underlying *_this);
-                return __MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(base._GetUnderlying_MR_CSharp_A());
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
+                extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_A(IConstG._Underlying *_this);
+                return __MR_CSharp_G_UpcastTo_MR_CSharp_A(_GetUnderlying_MR_CSharp_G());
             }
 
             public unsafe MR.CSharp.IConstD._Underlying *_GetUnderlying_MR_CSharp_D()
@@ -573,18 +736,48 @@ public static partial class MR
                 return __MR_CSharp_G_UpcastTo_MR_CSharp_E(_GetUnderlying_MR_CSharp_G());
             }
 
-            private static unsafe MR.CSharp.IConstA._Underlying *_UpcastUnderlying(IConstG._Underlying *ptr)
-            {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
-                extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_A(IConstG._Underlying *_this);
-                return __MR_CSharp_G_UpcastTo_MR_CSharp_A(ptr);
-            }
+            internal unsafe ConstG(IConstG._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
-            internal unsafe ConstG(IConstG._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {}
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_G_Destroy(IConstG._Underlying *_this);
+                __MR_CSharp_G_Destroy(_GetUnderlying_MR_CSharp_G());
+                _UnderlyingPtr = null;
+            }
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstG() {Dispose(false);}
 
             // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(ConstG self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstD(ConstG self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstE(ConstG self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator ConstG?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G", ExactSpelling = true)]
+                extern static IConstG._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                ConstG ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+
+            /// Generated from method `MR::CSharp::A::bar`.
+            public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::static_foo`.
+            public static void static_foo() => MR.CSharp.IConstA.static_foo();
+
+            /// Generated from method `MR::CSharp::A::static_bar`.
+            public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
+
+            /// Generated from method `MR::CSharp::A::virtual_bar`.
+            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::D::d1`.
             public void d1() => ((MR.CSharp.IConstD)this).d1();
@@ -613,11 +806,34 @@ public static partial class MR
             internal unsafe G(IG._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
             // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstA(G self) {MR.CSharp.ConstA ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.A(G self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstD(G self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.D(G self) {MR.CSharp.D ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.ConstE(G self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
             public static unsafe implicit operator MR.CSharp.E(G self) {MR.CSharp.E ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+
+            // Downcasts:
+            public static unsafe explicit operator G?(MR.CSharp.ConstA parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G", ExactSpelling = true)]
+                extern static IG._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(MR.CSharp.IConstA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                G ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
+            public static unsafe explicit operator G?(MR.CSharp.A parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G", ExactSpelling = true)]
+                extern static IG._Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(MR.CSharp.IA._Underlying *_this);
+                var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(parent._GetUnderlying_MR_CSharp_A());
+                if (ptr == null) return null;
+                G ret = new(ptr, is_owning: false);
+                ret._KeepAlive(parent);
+                return ret;
+            }
 
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();

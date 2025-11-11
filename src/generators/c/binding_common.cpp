@@ -97,6 +97,7 @@ namespace mrbind::CBindings
                 class_desc.kind = CInterop::ClassKind::ref_only; // I guess?
 
             class_desc.inheritance_info = inheritance_info;
+            class_desc.is_polymorphic = mark_polymorphic;
 
             // `fields` must be set separately, manually.
             // `methods` is filled when you call `EmitFunction()`.

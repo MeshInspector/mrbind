@@ -1370,7 +1370,7 @@ namespace mrbind::CSharp
             throw std::logic_error("Trying to emit C++ class `" + cl.class_name + "`, but in the input JSON it's marked as something other than a class.");
 
         { // Figure out the bases.
-            bool first = true;
+            [[maybe_unused]] bool first = true;
 
             // The primary base of a non-const class is its const counterpart.
             if (!cl.is_const)
@@ -1388,6 +1388,8 @@ namespace mrbind::CSharp
             for (const auto &base : class_desc->inheritance_info.bases_direct_combined.Vec())
             {
                 // If we didn't have a base class yet, make this the single base class. Otherwise an interface.
+                // Currently this is disabled, because I'm not sure how to emit a downcast in this case, since implicit conversions can't target base or derived classes.
+                #if 0
                 if (first)
                 {
                     first = false;
@@ -1395,6 +1397,7 @@ namespace mrbind::CSharp
                     ret.indirect_base_classes.MustInsert(MaybeConstClass{.class_name = base, .is_const = cl.is_const});
                 }
                 else
+                #endif
                 {
                     ret.base_interfaces.push_back(MaybeConstClass{.class_name = base, .is_const = cl.is_const});
                 }
@@ -1572,7 +1575,7 @@ namespace mrbind::CSharp
                 // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
                 //   all parameter/return types to be public too.
 
-                if (class_info.DirectBase())
+                if (class_info.DirectBase() || !class_info.base_interfaces.empty())
                     file.WriteString("new "); // Be explicit about the shadowing.
                 file.WriteString("public struct _Underlying; // Represents the underlying C type.\n");
                 file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C object.\n");
@@ -1661,7 +1664,7 @@ namespace mrbind::CSharp
             std::optional<std::string> base_c_name;
             if (cl.is_const && class_info.DirectBase())
             {
-                base_underlying_ptr_type = CppToCSharpInterfaceName(ParseNameOrThrow(class_info.DirectBase()->class_name), true) + "._Underlying *";
+                base_underlying_ptr_type = CppToCSharpInterfaceName(ParseNameOrThrow(class_info.DirectBase()->class_name), cl.is_const) + "._Underlying *";
                 base_c_name = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(class_info.DirectBase()->class_name)->var).c_name;
             }
 
@@ -1816,6 +1819,53 @@ namespace mrbind::CSharp
 
                             const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), base_is_const);
                             file.WriteString("public static unsafe implicit operator " + csharp_base_name + "(" + unqual_csharp_name + " self) {" + csharp_base_name + " ret = new(self." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(base_name)) + "(), is_owning: false); ret._KeepAlive(self); return ret;}\n");
+                        }
+                    }
+                }
+
+                { // Downcasts.
+                    bool first = true;
+                    for (const auto &base_name : class_desc.inheritance_info.bases_indirect.Vec())
+                    {
+                        if (class_desc.inheritance_info.bases_indirect.Map().at(base_name) == CInterop::InheritanceInfo::Kind::ambiguous)
+                            continue; // Skip ambiguous bases.
+
+                        for (bool base_is_const : {true, false})
+                        {
+                            if (!base_is_const && cl.is_const)
+                                continue; // Downcasts can't remove constness.
+
+                            if (class_info.indirect_base_classes.Set().contains({.class_name = base_name, .is_const = base_is_const}))
+                                continue; // This is a true base class (as opposed to an interface), no need for a custom downcast.
+
+                            const auto &base_desc = std::get<CInterop::TypeKinds::Class>(c_desc.cpp_types.Map().at(base_name).var);
+
+                            if (!base_desc.is_polymorphic)
+                                continue; // For now we don't do static downcasts, as they are unsafe.
+
+                            if (first)
+                            {
+                                file.WriteSeparatingNewline();
+                                file.WriteString("// Downcasts:\n");
+                                first = false;
+                            }
+
+                            const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), base_is_const);
+                            file.WriteString("public static unsafe explicit operator " + unqual_csharp_name + "?(" + csharp_base_name + " parent)\n");
+                            file.PushScope({}, "{\n", "}\n");
+
+                            auto dllimport_decl = MakeDllImportDecl(base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, csharp_primary_interface_name + "._Underlying *", CppToCSharpInterfaceName(ParseNameOrThrow(base_name), base_is_const) + "._Underlying *_this");
+                            file.WriteString(dllimport_decl.dllimport_decl);
+
+                            file.WriteString(
+                                "var ptr = " + dllimport_decl.csharp_name + "(parent." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(base_name)) + "());\n"
+                                "if (ptr == null) return null;\n" +
+                                unqual_csharp_name + " ret = new(ptr, is_owning: false);\n"
+                                "ret._KeepAlive(parent);\n"
+                                "return ret;\n"
+                            );
+
+                            file.PopScope();
                         }
                     }
                 }

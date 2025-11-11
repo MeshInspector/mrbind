@@ -473,6 +473,9 @@ namespace mrbind::CInterop
 
                 // Currently this is only set if `kind == exposed_struct`.
                 (std::optional<SizeAndAlignment>)(size_and_alignment)
+
+                // This is important to know because it affects whether we can apply `dynamic_cast` to this type.
+                (bool)(is_polymorphic, false)
             )
         };
 

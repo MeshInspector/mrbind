@@ -24,6 +24,9 @@ namespace mrbind::CBindings
         // Making this `optional` and requiring to fill it manually for every class is too much hassle.
         CInterop::InheritanceInfo inheritance_info;
 
+        // This defaults to false. This only matters for the C interop, to allow clients to call `dynamic_cast`s.
+        bool mark_polymorphic = false;
+
         // If `new_c_type_name_base` isn't empty, it's used as the C type name (the prefix is added automatically, don't call `MakePublicHelperName()` yourself).
         // If `new_underlying_c_type_base_name` isn't empty, it's used as the true underlying canonical type name in the C code (the prefix is added automatically, don't call `MakePublicHelperName()` yourself).
         // It's not used in the method names and such, and not in the user-facing typedef for this type. Only in the struct name.
