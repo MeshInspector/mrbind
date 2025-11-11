@@ -156,7 +156,7 @@ namespace mrbind::CInterop
 
             // The C++ spelling of the default argument of this parameter, if any.
             // If this is set, we have a default argument.
-            (std::optional<std::string>)(default_arg_spelling)
+            (std::optional<std::string>)(default_arg_spelling, {})
             // If this is true, then `default_arg_spelling` will also be set.
             // This being true indicates that the default argument affects the parameter passing style.
             // If this is false, you should pass the parameter with the same ABI as if there was no default argument,
@@ -270,6 +270,9 @@ namespace mrbind::CInterop
             MBREFL_STRUCT(
                 // The template arguments including `<...>`, or empty if none.
                 (std::string)(template_args)
+
+                // Is this the combined copy/move constructor? We only emit copy/move constructors in this combined form.
+                (bool)(is_copying_ctor, false)
             )
         };
 
@@ -283,9 +286,8 @@ namespace mrbind::CInterop
                 // Which operator this is.
                 (std::string)(token)
 
-                // Is this a copy/move/by-value assignment?
-                // This is added as a quick way to check this, without having to check the parameter type.
-                (bool)(is_special_assignment, false)
+                // Is this the combined copy/move assignment? We only emit copy/move assignments in this combined form.
+                (bool)(is_copying_assignment, false)
             )
         };
 

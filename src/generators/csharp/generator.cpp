@@ -825,12 +825,26 @@ namespace mrbind::CSharp
             [](const CInterop::Function *) -> const CInterop::BasicClassMethodLike * {return nullptr;},
         }, any_func_like);
 
+        const CInterop::ClassMethod *method = std::visit(Overload{
+            [](const CInterop::Function *) -> const CInterop::ClassMethod * {return nullptr;},
+            [](const CInterop::ClassMethod *ptr) -> const CInterop::ClassMethod * {return ptr;},
+            [](const CInterop::ClassField::Accessor *) -> const CInterop::ClassMethod * {return nullptr;},
+        }, any_func_like);
+
+        const bool is_ctor = method && std::holds_alternative<CInterop::MethodKinds::Constructor>(method->var);
+
         try
         {
+
             // Find the return type binding.
-            const TypeBinding &ret_binding = GetTypeBinding(ParseTypeOrThrow(func_like.ret.cpp_type), func_like.ret.uses_sugar);
-            if (!ret_binding.return_usage)
-                throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
+            const TypeBinding *ret_binding = nullptr;
+
+            if (!is_ctor)
+            {
+                ret_binding = &GetTypeBinding(ParseTypeOrThrow(func_like.ret.cpp_type), func_like.ret.uses_sugar);
+                if (!ret_binding->return_usage)
+                    throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
+            }
 
             // Generate the parameter strings.
             std::string dllimport_param_string;
@@ -863,7 +877,7 @@ namespace mrbind::CSharp
             }
 
             // Generate the dllimport declaration.
-            const auto dllimport_strings = MakeDllImportDecl(func_like.c_name, ret_binding.return_usage->dllimport_return_type, dllimport_param_string);
+            const auto dllimport_strings = MakeDllImportDecl(func_like.c_name, is_ctor ? CppToCSharpInterfaceName(ParseNameOrThrow(method_like->ret.cpp_type), true) + "._Underlying *" : ret_binding->return_usage->dllimport_return_type, dllimport_param_string);
 
             // Write a separating empty line if needed.
             file.WriteSeparatingNewline();
@@ -888,23 +902,22 @@ namespace mrbind::CSharp
             file.WriteString("public ");
 
             // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
-            if (!method_like || method_like->is_static)
+            if (!is_ctor && (!method_like || method_like->is_static))
                 file.WriteString("static ");
 
-            // Virtual?
-            if (method_like && method_like->is_virtual)
-                file.WriteString("virtual ");
+            // Note, not emitting `virtual` here, because it's useless in the interfaces.
+            // We do emit it when explicitly inheriting each method in the derived classes.
 
             // Unsafe?
             if (dllimport_strings.is_unsafe)
                 file.WriteString("unsafe ");
 
-            // Note, not emitting `virtual` here, because it's useless in the interfaces.
-            // We do emit it when explicitly inheriting each method in the derived classes.
-
             // Write the return type.
-            file.WriteString(ret_binding.return_usage->csharp_return_type);
-            file.WriteString(" ");
+            if (!is_ctor)
+            {
+                file.WriteString(ret_binding->return_usage->csharp_return_type);
+                file.WriteString(" ");
+            }
 
             // Write the C# name.
             file.WriteString(csharp_name);
@@ -926,11 +939,15 @@ namespace mrbind::CSharp
                     file.WriteString(param.csharp_decl_params);
                 }
 
-                file.WriteString(")\n");
+                file.WriteString(")");
             }
 
+            // Write a member init list for the constructor.
+            if (is_ctor)
+                file.WriteString(" : this(null, is_owning: true)");
+
             // Begin function body.
-            file.PushScope({}, "{\n", "}\n");
+            file.PushScope({}, "\n{\n", "}\n");
 
             // The `DllImport` declaration.
             file.WriteString(dllimport_strings.dllimport_decl);
@@ -939,8 +956,7 @@ namespace mrbind::CSharp
             std::string extra_statements_after;
             int num_scopes_to_pop = 0;
 
-            // Any extra statements from the parameters?
-            {
+            { // Any extra statements from the parameters?
                 // Collect the extra statements, and open scopes.
                 for (std::size_t i = 0; i < func_like.params.size(); i++)
                 {
@@ -996,16 +1012,22 @@ namespace mrbind::CSharp
                 }
 
                 // Call the function.
-                if (extra_statements_after.empty() && !ret_binding.return_usage->needs_temporary_variable)
+                if (is_ctor)
+                {
+                    file.WriteString(extra_statements);
+                    file.WriteString("_UnderlyingPtr = " + expr + ";\n");
+                    file.WriteString(extra_statements_after);
+                }
+                else if (extra_statements_after.empty() && !ret_binding->return_usage->needs_temporary_variable)
                 {
                     // Return the call directly.
                     file.WriteString(extra_statements);
-                    file.WriteString(ret_binding.return_usage->MakeReturnExpr(expr) + '\n');
+                    file.WriteString(ret_binding->return_usage->MakeReturnExpr(expr) + '\n');
                 }
                 else
                 {
                     // Store the result to a temporary variable (if not void), run some custom code, and then return.
-                    std::string ret_expr = ret_binding.return_usage->MakeReturnExpr("__ret");
+                    std::string ret_expr = ret_binding->return_usage->MakeReturnExpr("__ret");
 
                     if (ret_expr == "__ret;")
                     {
@@ -1077,6 +1099,9 @@ namespace mrbind::CSharp
 
             if (method.is_static)
                 ret.header += "static ";
+
+            if (method.is_virtual)
+                ret.header += "virtual ";
 
             // The return type.
             const TypeBinding &ret_binding = GetTypeBinding(ParseTypeOrThrow(method.ret.cpp_type), method.ret.uses_sugar);
@@ -1226,7 +1251,7 @@ namespace mrbind::CSharp
         if (param.is_this_param)
         {
             cppdecl::Type this_type = ParseTypeOrThrow(param.cpp_type);
-            assert(this_type.Is<cppdecl::Reference>()); // Just for now. Support for explicit `this` parameters can be added later.
+            assert(this_type.Is<cppdecl::Reference>() != method_like->is_static); // Just for now. Support for explicit `this` parameters can be added later.
             if (this_type.Is<cppdecl::Reference>())
                 this_type.RemoveModifier();
             this_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
@@ -1439,13 +1464,13 @@ namespace mrbind::CSharp
                 [&](const CInterop::MethodKinds::Constructor &elem)
                 {
                     (void)elem;
-                    return false; // TODO allow constructors
+                    return false; // Constructors don't go through this system.
                 },
                 [&](const CInterop::MethodKinds::Operator &elem)
                 {
                     (void)elem;
                     return false; // TODO
-                    // return !elem.is_special_assignment;
+                    // return !elem.is_copying_assignment;
                 },
                 [&](const CInterop::MethodKinds::ConversionOperator &elem)
                 {
@@ -1676,7 +1701,7 @@ namespace mrbind::CSharp
                 {
                     // Declare our own pointer.
                     file.WriteSeparatingNewline();
-                    file.WriteString("private unsafe " + underlying_ptr_type + "_UnderlyingPtr;\n");
+                    file.WriteString("protected unsafe " + underlying_ptr_type + "_UnderlyingPtr;\n");
                     file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
                 }
                 else
@@ -1762,7 +1787,9 @@ namespace mrbind::CSharp
                 file.WriteString("protected " + virtual_or_override + " unsafe void Dispose(bool disposing)\n");
                 file.PushScope({}, "{\n", "}\n");
                 file.WriteString(
-                    "if (_UnderlyingPtr == null)\n"
+                    // Here `_UnderlyingPtr` should never normally be null, unless something goes really wrong during construction.
+                    // But `_IsOwning` being false is common.
+                    "if (_UnderlyingPtr == null || !_IsOwning)\n"
                     "    return;\n"
                 );
 
@@ -1869,6 +1896,19 @@ namespace mrbind::CSharp
                         }
                     }
                 }
+            }
+
+            // Emit the constructors.
+            for (const auto &method : class_desc.methods)
+            {
+                const auto *ctor = std::get_if<CInterop::MethodKinds::Constructor>(&method.var);
+                if (!ctor)
+                    continue; // Not a constructor.
+
+                if (ctor->is_copying_ctor)
+                    continue; // A special combined copy/move ctor. We don't emit those directly, instead the copying should be done using the `IClonable` interface.
+
+                EmitCFuncLike(file, &method, unqual_csharp_name);
             }
 
             // Emit the method wrappers.
@@ -1978,7 +2018,7 @@ namespace mrbind::CSharp
                     "    private bool _IsOwningVal;\n"
                     "    /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.\n"
                     "    /// If false, we assume that the underlying C++ instance will live long enough.\n"
-                    "    public bool _IsOwning() => _IsOwningVal;\n"
+                    "    public bool _IsOwning => _IsOwningVal;\n"
                     "\n"
                     "    /// Which objects need to be kept alive while this object exists? This is public just in case.\n"
                     "    public List<object>? _KeepAliveList;\n"

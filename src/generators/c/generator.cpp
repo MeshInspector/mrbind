@@ -1610,7 +1610,8 @@ namespace mrbind::CBindings
         param.cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         if (kind.is_const)
             param.cpp_type.AddQualifiers(cppdecl::CvQualifiers::const_);
-        param.cpp_type.AddModifier(cppdecl::Reference{.kind = kind.is_rvalue ? cppdecl::RefQualifier::rvalue : cppdecl::RefQualifier::lvalue});
+        if (kind.kind != Param::Kind::static_)
+            param.cpp_type.AddModifier(cppdecl::Reference{.kind = kind.is_rvalue ? cppdecl::RefQualifier::rvalue : cppdecl::RefQualifier::lvalue});
         param.name = "_this";
     }
 
@@ -1715,7 +1716,10 @@ namespace mrbind::CBindings
         {
             name.c = self.overloaded_names.at(&new_ctor).name;
         }
-        name.cpp_for_interop = CInterop::MethodKinds::Constructor{};
+        name.cpp_for_interop = CInterop::MethodKinds::Constructor{
+            .template_args = new_ctor.template_args.value_or(""),
+            .is_copying_ctor = new_ctor.kind != CopyMoveKind::none,
+        };
 
         cpp_return_type = cpp_type;
 
@@ -1763,7 +1767,7 @@ namespace mrbind::CBindings
             // Yes, not the nicest names if the user chooses `PassBy_DefaultConstruct`, but that's not a likely case, since we emit the default constructor separately for clarity.
             name.c += "_AssignFromAnother";
 
-            name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = "=", .is_special_assignment = true};
+            name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = "=", .is_copying_assignment = true};
 
             // Rewrite the parameter to be a non-reference.
             // Note that here (unlike in the constructors) this has to be conditional, because assignments take accept parameters by value.
@@ -2534,6 +2538,14 @@ namespace mrbind::CBindings
 
                     CInterop::ClassMethod &new_method = FindClassDescForInterop(params.cpp_return_type).methods.emplace_back();
                     func_like = &new_method;
+
+                    // Force insert the static-method-like dummy `this` parameter, for consistency.
+                    func_like->params.insert(func_like->params.begin(), CInterop::FuncParam{
+                        .cpp_type = CppdeclToCode(params.cpp_return_type),
+                        .name = "_this",
+                        .name_or_placeholder = "_this",
+                        .is_this_param = true,
+                    });
 
                     new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
                     new_method.is_static = true; // Constructors are considered static.

@@ -8,7 +8,7 @@ public static partial class MR
             private bool _IsOwningVal;
             /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.
             /// If false, we assume that the underlying C++ instance will live long enough.
-            public bool _IsOwning() => _IsOwningVal;
+            public bool _IsOwning => _IsOwningVal;
 
             /// Which objects need to be kept alive while this object exists? This is public just in case.
             public List<object>? _KeepAliveList;

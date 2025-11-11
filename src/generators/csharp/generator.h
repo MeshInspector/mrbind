@@ -323,6 +323,7 @@ namespace mrbind::CSharp
             std::vector<MaybeConstClass> base_interfaces;
 
             // The methods that come directly from this class, not counting the inherited ones.
+            // Constructors are not listed here.
             std::vector<const CInterop::ClassMethod *> direct_methods;
 
             struct MaybeInheritedMethod
@@ -335,6 +336,7 @@ namespace mrbind::CSharp
 
             // The methods directly either defined by this class or inherited.
             // The keys are `.header`s of the values, so there is some duplication.
+            // Constructors are not listed here.
             OrderedMap<std::string, MaybeInheritedMethod> combined_methods;
         };
 

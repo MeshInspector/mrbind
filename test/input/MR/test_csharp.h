@@ -82,7 +82,11 @@ namespace MR::CSharp
         int &refs(int &x, int &) {return x;}
     };
 
-    struct B : A {};
+    struct B : A
+    {
+        B() {}
+        B(int a, int b) {(void)a; (void)b;}
+    };
     struct C : virtual A {};
 
     struct D

@@ -492,7 +492,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"), CInterop::MethodKinds::Constructor{});
+        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "ConstructFrom" : "ConstructFromAnother"), CInterop::MethodKinds::Constructor{.is_copying_ctor = !with_param_sugar});
 
         ret.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_type_name);
         ret.remove_return_type_sugar = true;
@@ -519,7 +519,7 @@ namespace mrbind::CBindings
 
         Generator::EmitFuncParams ret;
 
-        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "AssignFrom" : "AssignFromAnother"), CInterop::MethodKinds::Operator{.token = "=", .is_special_assignment = !with_param_sugar});
+        ret.name = MakeMemberFuncName(generator, (with_param_sugar ? "AssignFrom" : "AssignFromAnother"), CInterop::MethodKinds::Operator{.token = "=", .is_copying_assignment = !with_param_sugar});
 
         ret.AddThisParam(cppdecl::Type::FromQualifiedName(cpp_type_name), false);
 

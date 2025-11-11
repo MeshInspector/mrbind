@@ -52,7 +52,7 @@ public static partial class MR
             }
 
             /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public virtual unsafe void virtual_bar(int _1, int _2)
+            public unsafe void virtual_bar(int _1, int _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_bar", ExactSpelling = true)]
                 extern static void __MR_CSharp_A_virtual_bar(_Underlying *_this, int _1, int _2);
@@ -71,14 +71,14 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstA : MR.Misc.Object, System.IDisposable, IConstA
         {
-            private unsafe IConstA._Underlying *_UnderlyingPtr;
+            protected unsafe IConstA._Underlying *_UnderlyingPtr;
             public unsafe IConstA._Underlying *_GetUnderlying_MR_CSharp_A() => _UnderlyingPtr;
 
             internal unsafe ConstA(IConstA._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_A_Destroy(IConstA._Underlying *_this);
@@ -87,6 +87,14 @@ public static partial class MR
             }
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstA() {Dispose(false);}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstA() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_A_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_A_DefaultConstruct();
+            }
 
             /// Generated from method `MR::CSharp::A::bar`.
             public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
@@ -98,7 +106,7 @@ public static partial class MR
             public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
+            public virtual void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
         }
 
         /// The interface for class `A`, the non-const half.
@@ -114,7 +122,7 @@ public static partial class MR
             }
 
             /// Generated from method `MR::CSharp::A::virtual_foo`.
-            public virtual unsafe void virtual_foo()
+            public unsafe void virtual_foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_foo", ExactSpelling = true)]
                 extern static void __MR_CSharp_A_virtual_foo(_Underlying *_this);
@@ -147,11 +155,19 @@ public static partial class MR
         {
             internal unsafe A(IA._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe A() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstA._Underlying *__MR_CSharp_A_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_A_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
 
             /// Generated from method `MR::CSharp::A::virtual_foo`.
-            public void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
+            public virtual void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
 
             /// Generated from method `MR::CSharp::A::refs`.
             public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.IA)this).refs(ref x, ref _2);
@@ -172,7 +188,7 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstB : MR.Misc.Object, System.IDisposable, IConstB, MR.CSharp.IConstA
         {
-            private unsafe IConstB._Underlying *_UnderlyingPtr;
+            protected unsafe IConstB._Underlying *_UnderlyingPtr;
             public unsafe IConstB._Underlying *_GetUnderlying_MR_CSharp_B() => _UnderlyingPtr;
 
             public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
@@ -186,7 +202,7 @@ public static partial class MR
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_B_Destroy(IConstB._Underlying *_this);
@@ -211,6 +227,22 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstB() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstB._Underlying *__MR_CSharp_B_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_B_DefaultConstruct();
+            }
+
+            /// Generated from constructor `MR::CSharp::B::B`.
+            public unsafe ConstB(int a, int b) : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_Construct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstB._Underlying *__MR_CSharp_B_Construct(int a, int b);
+                _UnderlyingPtr = __MR_CSharp_B_Construct(a, b);
+            }
+
             /// Generated from method `MR::CSharp::A::bar`.
             public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
 
@@ -221,7 +253,7 @@ public static partial class MR
             public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
+            public virtual void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
         }
 
         /// The interface for class `B`, the non-const half.
@@ -265,11 +297,27 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe B() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstB._Underlying *__MR_CSharp_B_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_B_DefaultConstruct();
+            }
+
+            /// Generated from constructor `MR::CSharp::B::B`.
+            public unsafe B(int a, int b) : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_Construct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstB._Underlying *__MR_CSharp_B_Construct(int a, int b);
+                _UnderlyingPtr = __MR_CSharp_B_Construct(a, b);
+            }
+
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
 
             /// Generated from method `MR::CSharp::A::virtual_foo`.
-            public void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
+            public virtual void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
 
             /// Generated from method `MR::CSharp::A::refs`.
             public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.IA)this).refs(ref x, ref _2);
@@ -290,7 +338,7 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstC : MR.Misc.Object, System.IDisposable, IConstC, MR.CSharp.IConstA
         {
-            private unsafe IConstC._Underlying *_UnderlyingPtr;
+            protected unsafe IConstC._Underlying *_UnderlyingPtr;
             public unsafe IConstC._Underlying *_GetUnderlying_MR_CSharp_C() => _UnderlyingPtr;
 
             public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
@@ -304,7 +352,7 @@ public static partial class MR
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_C_Destroy(IConstC._Underlying *_this);
@@ -329,6 +377,14 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstC() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstC._Underlying *__MR_CSharp_C_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_C_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::A::bar`.
             public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
 
@@ -339,7 +395,7 @@ public static partial class MR
             public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
+            public virtual void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
         }
 
         /// The interface for class `C`, the non-const half.
@@ -383,11 +439,19 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe C() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstC._Underlying *__MR_CSharp_C_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_C_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
 
             /// Generated from method `MR::CSharp::A::virtual_foo`.
-            public void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
+            public virtual void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
 
             /// Generated from method `MR::CSharp::A::refs`.
             public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.IA)this).refs(ref x, ref _2);
@@ -417,14 +481,14 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstD : MR.Misc.Object, System.IDisposable, IConstD
         {
-            private unsafe IConstD._Underlying *_UnderlyingPtr;
+            protected unsafe IConstD._Underlying *_UnderlyingPtr;
             public unsafe IConstD._Underlying *_GetUnderlying_MR_CSharp_D() => _UnderlyingPtr;
 
             internal unsafe ConstD(IConstD._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_D_Destroy(IConstD._Underlying *_this);
@@ -433,6 +497,14 @@ public static partial class MR
             }
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstD() {Dispose(false);}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstD() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstD._Underlying *__MR_CSharp_D_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_D_DefaultConstruct();
+            }
 
             /// Generated from method `MR::CSharp::D::d1`.
             public void d1() => ((MR.CSharp.IConstD)this).d1();
@@ -460,6 +532,14 @@ public static partial class MR
         public class D : MR.CSharp.ConstD, ID
         {
             internal unsafe D(ID._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe D() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstD._Underlying *__MR_CSharp_D_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_D_DefaultConstruct();
+            }
 
             /// Generated from method `MR::CSharp::D::d2`.
             public void d2() => ((MR.CSharp.ID)this).d2();
@@ -490,14 +570,14 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstE : MR.Misc.Object, System.IDisposable, IConstE
         {
-            private unsafe IConstE._Underlying *_UnderlyingPtr;
+            protected unsafe IConstE._Underlying *_UnderlyingPtr;
             public unsafe IConstE._Underlying *_GetUnderlying_MR_CSharp_E() => _UnderlyingPtr;
 
             internal unsafe ConstE(IConstE._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_E_Destroy(IConstE._Underlying *_this);
@@ -506,6 +586,14 @@ public static partial class MR
             }
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstE() {Dispose(false);}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstE() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstE._Underlying *__MR_CSharp_E_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_E_DefaultConstruct();
+            }
 
             /// Generated from method `MR::CSharp::E::e1`.
             public void e1() => ((MR.CSharp.IConstE)this).e1();
@@ -535,6 +623,14 @@ public static partial class MR
         {
             internal unsafe E(IE._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe E() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstE._Underlying *__MR_CSharp_E_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_E_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::E::e2`.
             public void e2() => ((MR.CSharp.IE)this).e2();
         }
@@ -556,7 +652,7 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstF : MR.Misc.Object, System.IDisposable, IConstF, MR.CSharp.IConstA, MR.CSharp.IConstD, MR.CSharp.IConstE
         {
-            private unsafe IConstF._Underlying *_UnderlyingPtr;
+            protected unsafe IConstF._Underlying *_UnderlyingPtr;
             public unsafe IConstF._Underlying *_GetUnderlying_MR_CSharp_F() => _UnderlyingPtr;
 
             public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
@@ -584,7 +680,7 @@ public static partial class MR
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_F_Destroy(IConstF._Underlying *_this);
@@ -611,6 +707,14 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstF() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstF._Underlying *__MR_CSharp_F_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_F_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::A::bar`.
             public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
 
@@ -621,7 +725,7 @@ public static partial class MR
             public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
+            public virtual void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::D::d1`.
             public void d1() => ((MR.CSharp.IConstD)this).d1();
@@ -677,11 +781,19 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe F() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstF._Underlying *__MR_CSharp_F_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_F_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
 
             /// Generated from method `MR::CSharp::A::virtual_foo`.
-            public void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
+            public virtual void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
 
             /// Generated from method `MR::CSharp::A::refs`.
             public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.IA)this).refs(ref x, ref _2);
@@ -712,7 +824,7 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstG : MR.Misc.Object, System.IDisposable, IConstG, MR.CSharp.IConstA, MR.CSharp.IConstD, MR.CSharp.IConstE
         {
-            private unsafe IConstG._Underlying *_UnderlyingPtr;
+            protected unsafe IConstG._Underlying *_UnderlyingPtr;
             public unsafe IConstG._Underlying *_GetUnderlying_MR_CSharp_G() => _UnderlyingPtr;
 
             public unsafe MR.CSharp.IConstA._Underlying *_GetUnderlying_MR_CSharp_A()
@@ -740,7 +852,7 @@ public static partial class MR
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_G_Destroy(IConstG._Underlying *_this);
@@ -767,6 +879,14 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstG() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstG._Underlying *__MR_CSharp_G_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_G_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::A::bar`.
             public void bar(int _1, int _2) => ((MR.CSharp.IConstA)this).bar(_1, _2);
 
@@ -777,7 +897,7 @@ public static partial class MR
             public static void static_bar(int _1, int _2) => MR.CSharp.IConstA.static_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::A::virtual_bar`.
-            public void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
+            public virtual void virtual_bar(int _1, int _2) => ((MR.CSharp.IConstA)this).virtual_bar(_1, _2);
 
             /// Generated from method `MR::CSharp::D::d1`.
             public void d1() => ((MR.CSharp.IConstD)this).d1();
@@ -835,11 +955,19 @@ public static partial class MR
                 return ret;
             }
 
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe G() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstG._Underlying *__MR_CSharp_G_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_G_DefaultConstruct();
+            }
+
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
 
             /// Generated from method `MR::CSharp::A::virtual_foo`.
-            public void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
+            public virtual void virtual_foo() => ((MR.CSharp.IA)this).virtual_foo();
 
             /// Generated from method `MR::CSharp::A::refs`.
             public ref int refs(ref int x, ref int _2) => ref ((MR.CSharp.IA)this).refs(ref x, ref _2);
@@ -863,14 +991,14 @@ public static partial class MR
         /// This is the const half of the class.
         public class ConstTrivial : MR.Misc.Object, System.IDisposable, IConstTrivial
         {
-            private unsafe IConstTrivial._Underlying *_UnderlyingPtr;
+            protected unsafe IConstTrivial._Underlying *_UnderlyingPtr;
             public unsafe IConstTrivial._Underlying *_GetUnderlying_MR_CSharp_Trivial() => _UnderlyingPtr;
 
             internal unsafe ConstTrivial(IConstTrivial._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
             protected virtual unsafe void Dispose(bool disposing)
             {
-                if (_UnderlyingPtr == null)
+                if (_UnderlyingPtr == null || !_IsOwning)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_Destroy", ExactSpelling = true)]
                 extern static void __MR_CSharp_Trivial_Destroy(IConstTrivial._Underlying *_this);
@@ -879,6 +1007,14 @@ public static partial class MR
             }
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~ConstTrivial() {Dispose(false);}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstTrivial() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstTrivial._Underlying *__MR_CSharp_Trivial_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_Trivial_DefaultConstruct();
+            }
         }
 
         /// The interface for class `Trivial`, the non-const half.
@@ -892,6 +1028,14 @@ public static partial class MR
         public class Trivial : MR.CSharp.ConstTrivial, ITrivial
         {
             internal unsafe Trivial(ITrivial._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe Trivial() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstTrivial._Underlying *__MR_CSharp_Trivial_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_Trivial_DefaultConstruct();
+            }
         }
 
         /// Generated from function `MR::CSharp::foo`.
