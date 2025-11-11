@@ -308,9 +308,16 @@ namespace mrbind::CSharp
 
         struct EmittedClassInfo
         {
-            // The C++ name of the base class (as opposed to interfaces), if any.
-            // This is guaranteed to be a parsed class name, so you can look it up in `c_desc`.
-            std::optional<MaybeConstClass> base_class;
+            // The C++ names of the base classes (as opposed to interfaces), if any.
+            // C# supports at most one base class, so this is the chain of bases. The last element in the set is the direct base.
+            // Those are guaranteed to be parsed class names, so you can look them up in `c_desc`.
+            OrderedSet<MaybeConstClass> indirect_base_classes;
+
+            // Returns the direct base class, if any. This is the last element of `indirect_base_classes`.
+            [[nodiscard]] const MaybeConstClass *DirectBase() const
+            {
+                return indirect_base_classes.Vec().empty() ? nullptr : &indirect_base_classes.Vec().back();
+            }
 
             // The C++ names of the classes, which corresponding interfaces we inherit.
             std::vector<MaybeConstClass> base_interfaces;

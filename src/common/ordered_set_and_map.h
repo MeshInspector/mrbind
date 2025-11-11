@@ -3,8 +3,10 @@
 #include <functional>
 #include <map>
 #include <set>
+#include <stdexcept>
 #include <utility>
 #include <vector>
+#include <utility>
 
 namespace mrbind
 {
@@ -26,7 +28,7 @@ namespace mrbind
         [[nodiscard]] const VecType &Vec() const {return vec;}
         [[nodiscard]] const SetType &Set() const {return set;}
 
-        // Returns true if the element is new/
+        // Returns true if the element is new.
         template <typename TT = T>
         bool Insert(TT &&value)
         {
@@ -34,6 +36,14 @@ namespace mrbind
             if (ret.second)
                 vec.push_back(*ret.first);
             return ret.second;
+        }
+
+        // Inserts an element or throws if it already exists.
+        template <typename TT = T>
+        void MustInsert(TT &&value)
+        {
+            if (!Insert(std::forward<TT>(value)))
+                throw std::logic_error("Internal error: Expected the set to only contain unique elements.");
         }
     };
 

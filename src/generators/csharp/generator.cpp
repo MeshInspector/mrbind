@@ -1375,8 +1375,8 @@ namespace mrbind::CSharp
             // The primary base of a non-const class is its const counterpart.
             if (!cl.is_const)
             {
-                ret.base_class = cl;
-                ret.base_class->is_const = true;
+                ret.indirect_base_classes = GetEmittedClassInfo({.class_name = cl.class_name, .is_const = true}).indirect_base_classes;
+                ret.indirect_base_classes.MustInsert({.class_name = cl.class_name, .is_const = true});
                 first = false;
             }
 
@@ -1391,7 +1391,8 @@ namespace mrbind::CSharp
                 if (first)
                 {
                     first = false;
-                    ret.base_class = MaybeConstClass{.class_name = base, .is_const = cl.is_const};
+                    ret.indirect_base_classes = GetEmittedClassInfo(MaybeConstClass{.class_name = base, .is_const = cl.is_const}).indirect_base_classes;
+                    ret.indirect_base_classes.MustInsert(MaybeConstClass{.class_name = base, .is_const = cl.is_const});
                 }
                 else
                 {
@@ -1461,8 +1462,8 @@ namespace mrbind::CSharp
         // Figure out the combined methods.
 
         const EmittedClassInfo *base_info = nullptr;
-        if (ret.base_class)
-            base_info = &GetEmittedClassInfo(*ret.base_class);
+        if (ret.DirectBase())
+            base_info = &GetEmittedClassInfo(*ret.DirectBase());
 
         // Firstly, copy the methods from the base, if any.
         if (base_info)
@@ -1547,10 +1548,10 @@ namespace mrbind::CSharp
                 };
 
                 // The interface for the base class.
-                if (class_info.base_class)
+                if (class_info.DirectBase())
                 {
                     BaseSeparator();
-                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(class_info.base_class->class_name), class_info.base_class->is_const));
+                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(class_info.DirectBase()->class_name), class_info.DirectBase()->is_const));
                 }
 
                 // Any additional interfaces.
@@ -1571,7 +1572,7 @@ namespace mrbind::CSharp
                 // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
                 //   all parameter/return types to be public too.
 
-                if (class_info.base_class)
+                if (class_info.DirectBase())
                     file.WriteString("new "); // Be explicit about the shadowing.
                 file.WriteString("public struct _Underlying; // Represents the underlying C type.\n");
                 file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C object.\n");
@@ -1608,10 +1609,10 @@ namespace mrbind::CSharp
                         file.WriteString(", ");
                 };
 
-                if (class_info.base_class)
+                if (class_info.DirectBase())
                 {
                     BaseSeparator();
-                    file.WriteString(CppToCSharpClassName(ParseNameOrThrow(class_info.base_class->class_name), class_info.base_class->is_const));
+                    file.WriteString(CppToCSharpClassName(ParseNameOrThrow(class_info.DirectBase()->class_name), class_info.DirectBase()->is_const));
                 }
                 else
                 {
@@ -1649,7 +1650,7 @@ namespace mrbind::CSharp
             {
                 // If the base is virtual, we can no longer `static_cast`, and rather than try to `dynamic_cast` (which is only possible if the base is polymorphic,
                 //   which isn't a given), we instead store a separate derived pointer. I don't want to pay the const of a `dynamic_cast` on every method call.
-                declares_underlying_pointer = !class_info.base_class || class_desc.inheritance_info.bases_direct_combined.Map().at(class_info.base_class->class_name);
+                declares_underlying_pointer = !class_info.DirectBase() || class_desc.inheritance_info.bases_direct_combined.Map().at(class_info.DirectBase()->class_name);
             }
 
 
@@ -1658,10 +1659,10 @@ namespace mrbind::CSharp
             std::string underlying_ptr_type = csharp_primary_interface_name + "._Underlying *";
             std::optional<std::string> base_underlying_ptr_type;
             std::optional<std::string> base_c_name;
-            if (cl.is_const && class_info.base_class)
+            if (cl.is_const && class_info.DirectBase())
             {
-                base_underlying_ptr_type = CppToCSharpInterfaceName(ParseNameOrThrow(class_info.base_class.value().class_name), true) + "._Underlying *";
-                base_c_name = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(class_info.base_class.value().class_name)->var).c_name;
+                base_underlying_ptr_type = CppToCSharpInterfaceName(ParseNameOrThrow(class_info.DirectBase()->class_name), true) + "._Underlying *";
+                base_c_name = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(class_info.DirectBase()->class_name)->var).c_name;
             }
 
             // The underlying pointer.
@@ -1688,7 +1689,7 @@ namespace mrbind::CSharp
                     auto cast_decl = MakeDllImportDecl(base_c_name.value() + "_StaticDowncastTo_" + class_desc.c_name, underlying_ptr_type, base_underlying_ptr_type.value() + "_this");
                     file.WriteString(cast_decl.dllimport_decl);
 
-                    file.WriteString("return " + cast_decl.csharp_name + "(base." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(class_info.base_class.value().class_name)) + "());\n");
+                    file.WriteString("return " + cast_decl.csharp_name + "(base." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(class_info.DirectBase()->class_name)) + "());\n");
 
                     file.PopScope();
                 }
@@ -1721,11 +1722,11 @@ namespace mrbind::CSharp
             }
 
             // The upcast method for the constructor, if any.
-            if (cl.is_const && class_info.base_class)
+            if (cl.is_const && class_info.DirectBase())
             {
                 // While we're at it, make sure that the base isn't ambiguous (or the upcast function will not exist).
-                if (class_desc.inheritance_info.bases_indirect.Map().at(class_info.base_class->class_name) == CInterop::InheritanceInfo::Kind::ambiguous)
-                    throw std::runtime_error("Class `" + cl.class_name + "` has an ambiguous direct base `" + class_info.base_class->class_name + "`. This isn't supported by this generator, and is a questionable situation in general.");
+                if (class_desc.inheritance_info.bases_indirect.Map().at(class_info.DirectBase()->class_name) == CInterop::InheritanceInfo::Kind::ambiguous)
+                    throw std::runtime_error("Class `" + cl.class_name + "` has an ambiguous direct base `" + class_info.DirectBase()->class_name + "`. This isn't supported by this generator, and is a questionable situation in general.");
 
                 file.WriteSeparatingNewline();
                 file.WriteString("private static unsafe " + base_underlying_ptr_type.value() + "_UpcastUnderlying(" + underlying_ptr_type + "ptr)\n");
@@ -1742,15 +1743,16 @@ namespace mrbind::CSharp
             // The constructor.
             file.WriteSeparatingNewline();
             file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(" + underlying_ptr_type + "ptr, bool is_owning) : ");
-            file.WriteString(!cl.is_const ? "base(ptr, is_owning)" : class_info.base_class ? "base(_UpcastUnderlying(ptr), is_owning)" : "base(is_owning)");
+            file.WriteString(!cl.is_const ? "base(ptr, is_owning)" : class_info.DirectBase() ? "base(_UpcastUnderlying(ptr), is_owning)" : "base(is_owning)");
             file.WriteString(declares_underlying_pointer ? " {_UnderlyingPtr = ptr;}" : " {}");
             file.WriteString("\n");
 
+            // The `IDisposable` implementation and the destructor.
             if (declares_underlying_pointer && type_desc.traits.value().is_destructible)
             {
                 const auto dtor_strings = MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", underlying_ptr_type + "_this");
 
-                std::string virtual_or_override = class_info.base_class ? "override" : "virtual";
+                std::string virtual_or_override = class_info.DirectBase() ? "override" : "virtual";
 
                 file.WriteSeparatingNewline();
 
@@ -1761,11 +1763,11 @@ namespace mrbind::CSharp
                     "    return;\n"
                 );
 
-                if (class_info.base_class)
+                if (class_info.DirectBase())
                 {
                     file.PushScope({}, "if (disposing)\n{\n", "}\n");
 
-                    if (class_info.base_class)
+                    if (class_info.DirectBase())
                         file.WriteString("base.Dispose();");
 
                     file.PopScope();
@@ -1779,7 +1781,7 @@ namespace mrbind::CSharp
                 );
 
                 // Propagate to the base class.
-                if (class_info.base_class)
+                if (class_info.DirectBase())
                     file.WriteString("base.Dispose(disposing);\n");
 
                 file.PopScope(); // Close `void Dispose(bool disposing)`.
