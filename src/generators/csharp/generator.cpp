@@ -1791,6 +1791,36 @@ namespace mrbind::CSharp
                 );
             }
 
+            { // Emit the custom upcasts/downcasts.
+                { // Upcasts.
+                    bool first = true;
+                    for (const auto &base_name : class_desc.inheritance_info.bases_indirect.Vec())
+                    {
+                        if (class_desc.inheritance_info.bases_indirect.Map().at(base_name) == CInterop::InheritanceInfo::Kind::ambiguous)
+                            continue; // Skip ambiguous bases.
+
+                        for (bool base_is_const : {true, false})
+                        {
+                            if (!base_is_const && cl.is_const)
+                                continue; // Upcasts can't remove constness.
+
+                            if (class_info.indirect_base_classes.Set().contains({.class_name = base_name, .is_const = base_is_const}))
+                                continue; // This is a true base class (as opposed to an interface), no need for a custom upcast.
+
+                            if (first)
+                            {
+                                file.WriteSeparatingNewline();
+                                file.WriteString("// Upcasts:\n");
+                                first = false;
+                            }
+
+                            const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), base_is_const);
+                            file.WriteString("public static unsafe implicit operator " + csharp_base_name + "(" + unqual_csharp_name + " self) {" + csharp_base_name + " ret = new(self." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(base_name)) + "(), is_owning: false); ret._KeepAlive(self); return ret;}\n");
+                        }
+                    }
+                }
+            }
+
             // Emit the method wrappers.
             for (const std::string &method_name : class_info.combined_methods.Vec())
             {
@@ -1899,6 +1929,15 @@ namespace mrbind::CSharp
                     "    /// Returns true if this is an owning instance. When disposed, it will either destroy the underlying C++ instance, or decrement its reference count.\n"
                     "    /// If false, we assume that the underlying C++ instance will live long enough.\n"
                     "    public bool _IsOwning() => _IsOwningVal;\n"
+                    "\n"
+                    "    /// Which objects need to be kept alive while this object exists? This is public just in case.\n"
+                    "    public List<object>? _KeepAliveList;\n"
+                    "    public void _KeepAlive(object obj)\n"
+                    "    {\n"
+                    "        if (_KeepAliveList == null)\n"
+                    "            _KeepAliveList = new();\n"
+                    "        _KeepAliveList.Add(obj);\n"
+                    "    }\n"
                     "\n"
                     "    internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}"
                     "}\n"

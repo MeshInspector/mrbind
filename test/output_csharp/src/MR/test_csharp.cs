@@ -204,6 +204,9 @@ public static partial class MR
         {
             internal unsafe B(IB._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.A(B self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
+
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
 
@@ -272,6 +275,9 @@ public static partial class MR
         public class C : MR.CSharp.ConstC, IC, MR.CSharp.IA
         {
             internal unsafe C(IC._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.A(C self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
 
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
@@ -476,6 +482,10 @@ public static partial class MR
 
             internal unsafe ConstF(IConstF._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {}
 
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstD(ConstF self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.ConstE(ConstF self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+
             /// Generated from method `MR::CSharp::D::d1`.
             public void d1() => ((MR.CSharp.IConstD)this).d1();
 
@@ -499,6 +509,13 @@ public static partial class MR
         public class F : MR.CSharp.ConstF, IF, MR.CSharp.IA, MR.CSharp.ID, MR.CSharp.IE
         {
             internal unsafe F(IF._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.A(F self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.ConstD(F self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.D(F self) {MR.CSharp.D ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.ConstE(F self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.E(F self) {MR.CSharp.E ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
 
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();
@@ -565,6 +582,10 @@ public static partial class MR
 
             internal unsafe ConstG(IConstG._Underlying *ptr, bool is_owning) : base(_UpcastUnderlying(ptr), is_owning) {}
 
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.ConstD(ConstG self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.ConstE(ConstG self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+
             /// Generated from method `MR::CSharp::D::d1`.
             public void d1() => ((MR.CSharp.IConstD)this).d1();
 
@@ -590,6 +611,13 @@ public static partial class MR
         public class G : MR.CSharp.ConstG, IG, MR.CSharp.IA, MR.CSharp.ID, MR.CSharp.IE
         {
             internal unsafe G(IG._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            // Upcasts:
+            public static unsafe implicit operator MR.CSharp.A(G self) {MR.CSharp.A ret = new(self._GetUnderlying_MR_CSharp_A(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.ConstD(G self) {MR.CSharp.ConstD ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.D(G self) {MR.CSharp.D ret = new(self._GetUnderlying_MR_CSharp_D(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.ConstE(G self) {MR.CSharp.ConstE ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
+            public static unsafe implicit operator MR.CSharp.E(G self) {MR.CSharp.E ret = new(self._GetUnderlying_MR_CSharp_E(), is_owning: false); ret._KeepAlive(self); return ret;}
 
             /// Generated from method `MR::CSharp::A::foo`.
             public void foo() => ((MR.CSharp.IA)this).foo();

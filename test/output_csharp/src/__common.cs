@@ -10,6 +10,15 @@ public static partial class MR
             /// If false, we assume that the underlying C++ instance will live long enough.
             public bool _IsOwning() => _IsOwningVal;
 
+            /// Which objects need to be kept alive while this object exists? This is public just in case.
+            public List<object>? _KeepAliveList;
+            public void _KeepAlive(object obj)
+            {
+                if (_KeepAliveList == null)
+                    _KeepAliveList = new();
+                _KeepAliveList.Add(obj);
+            }
+
             internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}}
 
         /// This is used for optional in/out parameters, since `ref` can't be nullable.
