@@ -393,21 +393,21 @@ namespace mrbind::CSharp
                           case CInterop::ClassKind::uses_pass_by_enum:
                             return CreateBinding({
                                 .param_usage = TypeBinding::ParamUsage{
-                                    .make_strings = [this, csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    .make_strings = [this, csharp_type_mut, csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
                                     {
                                         return TypeBinding::ParamUsage::Strings{
                                             .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_interface_const + "._Underlying *" + name,
-                                            .csharp_decl_params = RequestHelper("ByValue") + "<" + csharp_type_const + "> " + name,
+                                            .csharp_decl_params = RequestHelper("ByValue") + "<" + csharp_type_mut + ", " + csharp_type_const + "> " + name,
                                             .dllimport_args = name + ".PassByMode, " + name + ".Value != null ? " + name + ".Value." + csharp_underlying_ptr_method + "() : null",
                                         };
                                     },
                                 },
                                 .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                    .make_strings = [this, csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    .make_strings = [this, csharp_type_mut, csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
                                     {
                                         return TypeBinding::ParamUsage::Strings{
                                             .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_interface_const + "._Underlying *" + name,
-                                            .csharp_decl_params = RequestHelper("ByValue") + "<" + csharp_type_const + ">? " + name + " = null",
+                                            .csharp_decl_params = RequestHelper("ByValue") + "<" + csharp_type_mut + ", " + csharp_type_const + ">? " + name + " = null",
                                             .dllimport_args = name + ".HasValue ? " + name + ".Value.PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + ".HasValue && " + name + ".Value.Value != null ? " + name + ".Value.Value." + csharp_underlying_ptr_method + "() : null",
                                         };
                                     },
@@ -2226,18 +2226,18 @@ namespace mrbind::CSharp
                     "/// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.\n"
                     "///   Be careful if your input isn't a unique reference to this object.\n"
                     "/// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.\n"
-                    "public readonly struct ByValue<T>\n"
+                    "public readonly struct ByValue<T, ConstT> where T: ConstT\n"
                     "{\n"
-                    "    internal readonly T? Value;\n"
+                    "    internal readonly ConstT? Value;\n"
                     "    internal readonly _PassBy PassByMode;\n"
                     "    public ByValue() {PassByMode = _PassBy.default_construct;}\n"
-                    "    public ByValue(T NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}\n"
+                    "    public ByValue(ConstT NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}\n"
                     "    public ByValue(_Moved<T> Moved) {Value = Moved.Value; PassByMode = _PassBy.move;}\n"
-                    "    public static implicit operator ByValue<T>(T Arg) {return new ByValue<T>(Arg);}\n"
-                    "    public static implicit operator ByValue<T>(_Moved<T> Arg) {return new ByValue<T>(Arg);}\n"
+                    "    public static implicit operator ByValue<T, ConstT>(ConstT Arg) {return new ByValue<T, ConstT>(Arg);}\n"
+                    "    public static implicit operator ByValue<T, ConstT>(_Moved<T> Arg) {return new ByValue<T, ConstT>(Arg);}\n"
                     "}\n"
                     "\n"
-                    "/// This can be used with `ByValue<T>` function parameters, to indicate that the argument should be moved.\n"
+                    "/// This can be used with `ByValue<...>` function parameters, to indicate that the argument should be moved.\n"
                     "/// See that struct for a longer explanation.\n"
                     "public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}\n"
                     "\n"

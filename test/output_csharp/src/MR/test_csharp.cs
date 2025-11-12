@@ -1544,7 +1544,7 @@ public static partial class MR
 
         /// Generated from function `MR::CSharp::test_class_nontrivial`.
         /// Parameter `b` defaults to `{}`.
-        public static unsafe MR.CSharp.NonTrivial test_class_nontrivial(MR.Misc.ByValue<MR.CSharp.ConstNonTrivial> a, MR.Misc.ByValue<MR.CSharp.ConstNonTrivial>? b = null)
+        public static unsafe MR.CSharp.NonTrivial test_class_nontrivial(MR.Misc.ByValue<MR.CSharp.NonTrivial, MR.CSharp.ConstNonTrivial> a, MR.Misc.ByValue<MR.CSharp.NonTrivial, MR.CSharp.ConstNonTrivial>? b = null)
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial", ExactSpelling = true)]
             extern static MR.CSharp.INonTrivial._Underlying *__MR_CSharp_test_class_nontrivial(MR.Misc._PassBy a_pass_by, MR.CSharp.IConstNonTrivial._Underlying *a, MR.Misc._PassBy b_pass_by, MR.CSharp.IConstNonTrivial._Underlying *b);

@@ -96,18 +96,18 @@ public static partial class MR
         /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
         ///   Be careful if your input isn't a unique reference to this object.
         /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-        public readonly struct ByValue<T>
+        public readonly struct ByValue<T, ConstT> where T: ConstT
         {
-            internal readonly T? Value;
+            internal readonly ConstT? Value;
             internal readonly _PassBy PassByMode;
             public ByValue() {PassByMode = _PassBy.default_construct;}
-            public ByValue(T NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}
+            public ByValue(ConstT NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}
             public ByValue(_Moved<T> Moved) {Value = Moved.Value; PassByMode = _PassBy.move;}
-            public static implicit operator ByValue<T>(T Arg) {return new ByValue<T>(Arg);}
-            public static implicit operator ByValue<T>(_Moved<T> Arg) {return new ByValue<T>(Arg);}
+            public static implicit operator ByValue<T, ConstT>(ConstT Arg) {return new ByValue<T, ConstT>(Arg);}
+            public static implicit operator ByValue<T, ConstT>(_Moved<T> Arg) {return new ByValue<T, ConstT>(Arg);}
         }
 
-        /// This can be used with `ByValue<T>` function parameters, to indicate that the argument should be moved.
+        /// This can be used with `ByValue<...>` function parameters, to indicate that the argument should be moved.
         /// See that struct for a longer explanation.
         public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}
 
