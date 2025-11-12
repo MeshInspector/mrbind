@@ -379,8 +379,10 @@ namespace mrbind::CSharp
                         if (!cpp_type.IsOnlyQualifiedName())
                             throw std::runtime_error("This type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
-                        const std::string csharp_interface = CppToCSharpInterfaceName(cpp_type.simple_type.name, false);
-                        const std::string csharp_type = CppToCSharpClassName(cpp_type.simple_type.name, false);
+                        const std::string csharp_interface_mut = CppToCSharpInterfaceName(cpp_type.simple_type.name, false);
+                        const std::string csharp_interface_const = CppToCSharpInterfaceName(cpp_type.simple_type.name, true);
+                        const std::string csharp_type_mut = CppToCSharpClassName(cpp_type.simple_type.name, false);
+                        const std::string csharp_type_const = CppToCSharpClassName(cpp_type.simple_type.name, true);
                         const std::string csharp_underlying_ptr_method = CppClassToCSharpGetUnderlyingMethodName(cpp_type.simple_type.name);
 
                         switch (elem.kind)
@@ -395,28 +397,28 @@ namespace mrbind::CSharp
                           case CInterop::ClassKind::trivial_via_ptr:
                             return CreateBinding({
                                 .param_usage = TypeBinding::ParamUsage{
-                                    .make_strings = [csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    .make_strings = [csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
                                     {
                                         return TypeBinding::ParamUsage::Strings{
-                                            .dllimport_decl_params = csharp_interface + "._Underlying *" + name,
-                                            .csharp_decl_params = csharp_type + ' ' + name,
+                                            .dllimport_decl_params = csharp_interface_const + "._Underlying *" + name,
+                                            .csharp_decl_params = csharp_type_const + ' ' + name,
                                             .dllimport_args = name + "." + csharp_underlying_ptr_method + "()",
                                         };
                                     },
                                 },
                                 .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                    .make_strings = [csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    .make_strings = [csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
                                     {
                                         return TypeBinding::ParamUsage::Strings{
-                                            .dllimport_decl_params = csharp_interface + "._Underlying *" + name,
-                                            .csharp_decl_params = csharp_type + "? " + name + " = null",
+                                            .dllimport_decl_params = csharp_interface_const + "._Underlying *" + name,
+                                            .csharp_decl_params = csharp_type_const + "? " + name + " = null",
                                             .dllimport_args = name + " != null ? " + name + "." + csharp_underlying_ptr_method + "() : null",
                                         };
                                     },
                                 },
                                 .return_usage = TypeBinding::ReturnUsage{
-                                    .dllimport_return_type = csharp_interface + "._Underlying *",
-                                    .csharp_return_type = csharp_type,
+                                    .dllimport_return_type = csharp_interface_mut + "._Underlying *",
+                                    .csharp_return_type = csharp_type_mut,
                                     .make_return_expr = [](const std::string &expr)
                                     {
                                         return "return new(" + expr + ", is_owning: true);";
@@ -574,8 +576,62 @@ namespace mrbind::CSharp
                                         : nullptr
                                     ));
                                 },
-                                [&](const CInterop::TypeKinds::Class &) -> const TypeBinding *
+                                [&](const CInterop::TypeKinds::Class &elem) -> const TypeBinding *
                                 {
+                                    if (!cpp_underlying_type.IsOnlyQualifiedName())
+                                        throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
+
+                                    const std::string csharp_interface = CppToCSharpInterfaceName(cpp_type.simple_type.name, is_const);
+                                    const std::string csharp_type = CppToCSharpClassName(cpp_type.simple_type.name, is_const);
+                                    const std::string csharp_underlying_ptr_method = CppClassToCSharpGetUnderlyingMethodName(cpp_type.simple_type.name);
+
+                                    switch (elem.kind)
+                                    {
+                                      case CInterop::ClassKind::uses_pass_by_enum:
+                                        // TODO
+                                        throw std::logic_error("Not implemented yet!");
+                                        break;
+                                      case CInterop::ClassKind::ref_only:
+                                      case CInterop::ClassKind::trivial_via_ptr:
+                                        return CreateBinding({
+                                            .param_usage = TypeBinding::ParamUsage{
+                                                .make_strings = [csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &have_useless_defarg)
+                                                {
+                                                    return TypeBinding::ParamUsage::Strings{
+                                                        .dllimport_decl_params = csharp_interface + "._Underlying *" + name,
+                                                        .csharp_decl_params = csharp_type + "? " + name + (std::exchange(have_useless_defarg, false) ? " = null" : ""),
+                                                        .dllimport_args = name + " != null ? " + name + "." + csharp_underlying_ptr_method + "() : null",
+                                                    };
+                                                },
+                                            },
+                                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                                .make_strings = [this, csharp_type, csharp_interface, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                                {
+                                                    return TypeBinding::ParamUsage::Strings{
+                                                        .dllimport_decl_params = csharp_interface + "._Underlying **" + name,
+                                                        .csharp_decl_params = RequestHelper("InOptClass") + "<" + csharp_type + ">? " + name + " = null",
+                                                        .extra_statements = csharp_interface + "._Underlying *__ptr_" + name + " = " + name + " != null && " + name + ".Opt != null ? " + name + ".Opt." + csharp_underlying_ptr_method + "() : null;\n",
+                                                        .dllimport_args = name + " != null ? &__ptr_" + name + " : null",
+                                                    };
+                                                },
+                                            },
+                                            .return_usage = TypeBinding::ReturnUsage{
+                                                .needs_temporary_variable = true,
+                                                .dllimport_return_type = csharp_interface + "._Underlying *",
+                                                .csharp_return_type = csharp_type + "?",
+                                                .make_return_expr = [csharp_type](const std::string &expr)
+                                                {
+                                                    return "return " + expr + " != null ? new " + csharp_type + "(" + expr + ", is_owning: false) : null;";
+                                                },
+                                            },
+                                        });
+
+                                        break;
+                                      case CInterop::ClassKind::exposed_struct:
+                                        // TODO
+                                        throw std::logic_error("Not implemented yet!");
+                                        break;
+                                    }
                                     return nullptr;
                                 },
                                 [&](const CInterop::TypeKinds::PointerNonOwning &) -> const TypeBinding *
@@ -730,14 +786,12 @@ namespace mrbind::CSharp
                                 },
                                 [&](const CInterop::TypeKinds::Class &elem) -> const TypeBinding *
                                 {
-                                    (void)elem;
-                                    #if 0
                                     if (!cpp_underlying_type.IsOnlyQualifiedName())
                                         throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
-                                    const std::string csharp_interface = CppToCSharpInterfaceName(cpp_underlying_type.simple_type.name);
-                                    const std::string csharp_type = CppToCSharpName(cpp_underlying_type.simple_type.name);
-                                    const std::string csharp_underlying_ptr_method = CppClassToCSharpGetUnderlyingMethodName(cpp_underlying_type.simple_type.name);
+                                    const std::string csharp_interface = CppToCSharpInterfaceName(cpp_type.simple_type.name, is_const);
+                                    const std::string csharp_type = CppToCSharpClassName(cpp_type.simple_type.name, is_const);
+                                    const std::string csharp_underlying_ptr_method = CppClassToCSharpGetUnderlyingMethodName(cpp_type.simple_type.name);
 
                                     switch (elem.kind)
                                     {
@@ -771,9 +825,9 @@ namespace mrbind::CSharp
                                             .return_usage = TypeBinding::ReturnUsage{
                                                 .dllimport_return_type = csharp_interface + "._Underlying *",
                                                 .csharp_return_type = csharp_type,
-                                                .make_return_expr = [is_const](const std::string &expr)
+                                                .make_return_expr = [](const std::string &expr)
                                                 {
-                                                    return "return new(" + expr + ", is_owning: false, is_const: " + (is_const ? "true" : "false") + ");";
+                                                    return "return new(" + expr + ", is_owning: false);";
                                                 },
                                             },
                                         });
@@ -784,7 +838,6 @@ namespace mrbind::CSharp
                                         throw std::logic_error("Not implemented yet!");
                                         break;
                                     }
-                                    #endif
                                     return nullptr;
                                 },
                                 [&](const CInterop::TypeKinds::PointerNonOwning &) -> const TypeBinding *
@@ -2079,6 +2132,10 @@ namespace mrbind::CSharp
                 file.WriteSeparatingNewline();
                 file.WriteString(
                     "/// This is used for optional parameters with default arguments.\n"
+                    "/// Usage:\n"
+                    "/// * Pass `null` to use the default argument.\n"
+                    "/// * Pass `new()` to pass no object.\n"
+                    "/// * Pass an instance of `T` to pass it to the function.\n"
                     "/// Passing a null `InOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"pass nothing to the function\".\n"
                     "public class InOpt<T> where T: unmanaged\n"
                     "{\n"
@@ -2087,6 +2144,28 @@ namespace mrbind::CSharp
                     "    public InOpt() {}\n"
                     "    public InOpt(T NewOpt) {Opt = NewOpt;}\n"
                     "    public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}\n"
+                    "}\n"
+                );
+            }
+
+            // `InOptClass`.
+            if (requested_helpers.erase("InOptClass"))
+            {
+                file.WriteSeparatingNewline();
+                file.WriteString(
+                    "/// This is used for optional parameters of class types with default arguments.\n"
+                    "/// This needs to be separate from `InOpt`, since the lack of `unmanaged` constraint seems to somehow interfere with the behavior of unmanaged types.\n"
+                    "/// Usage:\n"
+                    "/// * Pass `null` to use the default argument.\n"
+                    "/// * Pass `new()` to pass no object.\n"
+                    "/// * Pass an instance of `T` to pass it to the function.\n"
+                    "public class InOptClass<T>\n"
+                    "{\n"
+                    "    public T? Opt;\n"
+                    "\n"
+                    "    public InOptClass() {}\n"
+                    "    public InOptClass(T NewOpt) {Opt = NewOpt;}\n"
+                    "    public static implicit operator InOptClass<T>(T NewOpt) {return new InOptClass<T>(NewOpt);}\n"
                     "}\n"
                 );
             }

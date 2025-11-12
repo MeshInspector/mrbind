@@ -122,6 +122,11 @@ namespace MR::CSharp
     {
         void foo() {}
     };
+    inline Trivial default_trivial;
 
     inline Trivial test_class_trivial(Trivial a, Trivial b = {}) {(void)a; (void)b; return {};}
+    inline Trivial &test_bool_enum_ref(Trivial &a, Trivial &b = default_trivial) {(void)a; (void)b; return default_trivial;}
+    inline const Trivial &test_bool_enum_cref(const Trivial &a, const Trivial &b = default_trivial) {(void)a; (void)b; return default_trivial;}
+    inline Trivial *test_bool_enum_ptr(Trivial *a, Trivial *b = nullptr, Trivial *c = &default_trivial) {(void)a; (void)b; (void)c; return &default_trivial;}
+    inline const Trivial *test_bool_enum_cptr(const Trivial *a, const Trivial *b = nullptr, const Trivial *c = &default_trivial) {(void)a; (void)b; (void)c; return &default_trivial;}
 }

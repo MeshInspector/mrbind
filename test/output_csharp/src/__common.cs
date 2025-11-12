@@ -45,6 +45,10 @@ public static partial class MR
         }
 
         /// This is used for optional parameters with default arguments.
+        /// Usage:
+        /// * Pass `null` to use the default argument.
+        /// * Pass `new()` to pass no object.
+        /// * Pass an instance of `T` to pass it to the function.
         /// Passing a null `InOpt` means "use default argument", and passing a one with a null `.Opt` means "pass nothing to the function".
         public class InOpt<T> where T: unmanaged
         {
@@ -53,6 +57,21 @@ public static partial class MR
             public InOpt() {}
             public InOpt(T NewOpt) {Opt = NewOpt;}
             public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}
+        }
+
+        /// This is used for optional parameters of class types with default arguments.
+        /// This needs to be separate from `InOpt`, since the lack of `unmanaged` constraint seems to somehow interfere with the behavior of unmanaged types.
+        /// Usage:
+        /// * Pass `null` to use the default argument.
+        /// * Pass `new()` to pass no object.
+        /// * Pass an instance of `T` to pass it to the function.
+        public class InOptClass<T>
+        {
+            public T? Opt;
+
+            public InOptClass() {}
+            public InOptClass(T NewOpt) {Opt = NewOpt;}
+            public static implicit operator InOptClass<T>(T NewOpt) {return new InOptClass<T>(NewOpt);}
         }
 
         /// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.
