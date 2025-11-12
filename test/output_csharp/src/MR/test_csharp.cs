@@ -1038,6 +1038,183 @@ public static partial class MR
             }
         }
 
+        /// The interface for class `TrivialDerived`, the const half.
+        /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+        public interface IConstTrivialDerived
+        {
+            public struct _Underlying; // Represents the underlying C type.
+            internal unsafe _Underlying *_GetUnderlying_MR_CSharp_TrivialDerived(); // Returns the pointer to the underlying C object.
+        }
+
+        /// Generated from class `MR::CSharp::TrivialDerived`.
+        /// This is the const half of the class.
+        public class ConstTrivialDerived : MR.Misc.Object, System.IDisposable, IConstTrivialDerived
+        {
+            protected unsafe IConstTrivialDerived._Underlying *_UnderlyingPtr;
+            public unsafe IConstTrivialDerived._Underlying *_GetUnderlying_MR_CSharp_TrivialDerived() => _UnderlyingPtr;
+
+            internal unsafe ConstTrivialDerived(IConstTrivialDerived._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null || !_IsOwning)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_TrivialDerived_Destroy(IConstTrivialDerived._Underlying *_this);
+                __MR_CSharp_TrivialDerived_Destroy(_GetUnderlying_MR_CSharp_TrivialDerived());
+                _UnderlyingPtr = null;
+            }
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstTrivialDerived() {Dispose(false);}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstTrivialDerived() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstTrivialDerived._Underlying *__MR_CSharp_TrivialDerived_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_TrivialDerived_DefaultConstruct();
+            }
+        }
+
+        /// The interface for class `TrivialDerived`, the non-const half.
+        /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+        public interface ITrivialDerived : MR.CSharp.IConstTrivialDerived
+        {
+        }
+
+        /// Generated from class `MR::CSharp::TrivialDerived`.
+        /// This is the non-const half of the class.
+        public class TrivialDerived : MR.CSharp.ConstTrivialDerived, ITrivialDerived
+        {
+            internal unsafe TrivialDerived(ITrivialDerived._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe TrivialDerived() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstTrivialDerived._Underlying *__MR_CSharp_TrivialDerived_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_TrivialDerived_DefaultConstruct();
+            }
+        }
+
+        /// The interface for class `NonTrivial`, the const half.
+        /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+        public interface IConstNonTrivial
+        {
+            public struct _Underlying; // Represents the underlying C type.
+            internal unsafe _Underlying *_GetUnderlying_MR_CSharp_NonTrivial(); // Returns the pointer to the underlying C object.
+        }
+
+        /// Generated from class `MR::CSharp::NonTrivial`.
+        /// This is the const half of the class.
+        public class ConstNonTrivial : MR.Misc.Object, System.IDisposable, IConstNonTrivial
+        {
+            protected unsafe IConstNonTrivial._Underlying *_UnderlyingPtr;
+            public unsafe IConstNonTrivial._Underlying *_GetUnderlying_MR_CSharp_NonTrivial() => _UnderlyingPtr;
+
+            internal unsafe ConstNonTrivial(IConstNonTrivial._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null || !_IsOwning)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_NonTrivial_Destroy(IConstNonTrivial._Underlying *_this);
+                __MR_CSharp_NonTrivial_Destroy(_GetUnderlying_MR_CSharp_NonTrivial());
+                _UnderlyingPtr = null;
+            }
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstNonTrivial() {Dispose(false);}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstNonTrivial() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstNonTrivial._Underlying *__MR_CSharp_NonTrivial_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_NonTrivial_DefaultConstruct();
+            }
+        }
+
+        /// The interface for class `NonTrivial`, the non-const half.
+        /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+        public interface INonTrivial : MR.CSharp.IConstNonTrivial
+        {
+        }
+
+        /// Generated from class `MR::CSharp::NonTrivial`.
+        /// This is the non-const half of the class.
+        public class NonTrivial : MR.CSharp.ConstNonTrivial, INonTrivial
+        {
+            internal unsafe NonTrivial(INonTrivial._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe NonTrivial() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstNonTrivial._Underlying *__MR_CSharp_NonTrivial_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_NonTrivial_DefaultConstruct();
+            }
+        }
+
+        /// The interface for class `NonTrivialDerived`, the const half.
+        /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+        public interface IConstNonTrivialDerived
+        {
+            public struct _Underlying; // Represents the underlying C type.
+            internal unsafe _Underlying *_GetUnderlying_MR_CSharp_NonTrivialDerived(); // Returns the pointer to the underlying C object.
+        }
+
+        /// Generated from class `MR::CSharp::NonTrivialDerived`.
+        /// This is the const half of the class.
+        public class ConstNonTrivialDerived : MR.Misc.Object, System.IDisposable, IConstNonTrivialDerived
+        {
+            protected unsafe IConstNonTrivialDerived._Underlying *_UnderlyingPtr;
+            public unsafe IConstNonTrivialDerived._Underlying *_GetUnderlying_MR_CSharp_NonTrivialDerived() => _UnderlyingPtr;
+
+            internal unsafe ConstNonTrivialDerived(IConstNonTrivialDerived._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+            protected virtual unsafe void Dispose(bool disposing)
+            {
+                if (_UnderlyingPtr == null || !_IsOwning)
+                    return;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_Destroy", ExactSpelling = true)]
+                extern static void __MR_CSharp_NonTrivialDerived_Destroy(IConstNonTrivialDerived._Underlying *_this);
+                __MR_CSharp_NonTrivialDerived_Destroy(_GetUnderlying_MR_CSharp_NonTrivialDerived());
+                _UnderlyingPtr = null;
+            }
+            public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+            ~ConstNonTrivialDerived() {Dispose(false);}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe ConstNonTrivialDerived() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstNonTrivialDerived._Underlying *__MR_CSharp_NonTrivialDerived_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_NonTrivialDerived_DefaultConstruct();
+            }
+        }
+
+        /// The interface for class `NonTrivialDerived`, the non-const half.
+        /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+        public interface INonTrivialDerived : MR.CSharp.IConstNonTrivialDerived
+        {
+        }
+
+        /// Generated from class `MR::CSharp::NonTrivialDerived`.
+        /// This is the non-const half of the class.
+        public class NonTrivialDerived : MR.CSharp.ConstNonTrivialDerived, INonTrivialDerived
+        {
+            internal unsafe NonTrivialDerived(INonTrivialDerived._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+            /// Constructs an empty (default-constructed) instance.
+            public unsafe NonTrivialDerived() : this(null, is_owning: true)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CSharp.IConstNonTrivialDerived._Underlying *__MR_CSharp_NonTrivialDerived_DefaultConstruct();
+                _UnderlyingPtr = __MR_CSharp_NonTrivialDerived_DefaultConstruct();
+            }
+        }
+
         /// Generated from function `MR::CSharp::foo`.
         public static void foo()
         {
@@ -1178,21 +1355,21 @@ public static partial class MR
         /// Parameter `b` defaults to `E1::b`.
         public static unsafe MR.CSharp.E1 test_enum(MR.CSharp.E1 a, MR.CSharp.E1? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum", ExactSpelling = true)]
-            extern static MR.CSharp.E1 __MR_CSharp_test_enum(MR.CSharp.E1 a, MR.CSharp.E1 *b);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_MR_CSharp_E1", ExactSpelling = true)]
+            extern static MR.CSharp.E1 __MR_CSharp_test_enum_MR_CSharp_E1(MR.CSharp.E1 a, MR.CSharp.E1 *b);
             MR.CSharp.E1 __deref_b = b.GetValueOrDefault();
-            return __MR_CSharp_test_enum(a, b.HasValue ? &__deref_b : null);
+            return __MR_CSharp_test_enum_MR_CSharp_E1(a, b.HasValue ? &__deref_b : null);
         }
 
         /// Generated from function `MR::CSharp::test_enum_ref`.
         /// Parameter `b` defaults to `default_e1`.
         public static unsafe ref MR.CSharp.E1 test_enum_ref(ref MR.CSharp.E1 a, MR.Misc.InOut<MR.CSharp.E1>? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ref", ExactSpelling = true)]
-            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_ref(MR.CSharp.E1 *a, MR.CSharp.E1 *b);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ref_MR_CSharp_E1", ExactSpelling = true)]
+            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_ref_MR_CSharp_E1(MR.CSharp.E1 *a, MR.CSharp.E1 *b);
             fixed (MR.CSharp.E1 *__ptr_a = &a) {
                 MR.CSharp.E1 __value_b = b != null ? b.Value : default(MR.CSharp.E1);
-                var __ret = __MR_CSharp_test_enum_ref(__ptr_a, b != null ? &__value_b : null);
+                var __ret = __MR_CSharp_test_enum_ref_MR_CSharp_E1(__ptr_a, b != null ? &__value_b : null);
                 if (b != null) b.Value = __value_b;
                 return ref *__ret;
             } // fixed __ptr_a
@@ -1202,23 +1379,23 @@ public static partial class MR
         /// Parameter `b` defaults to `default_e1`.
         public static unsafe MR.CSharp.E1 test_enum_cref(MR.CSharp.E1 a, MR.CSharp.E1? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cref", ExactSpelling = true)]
-            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_cref(MR.CSharp.E1 *a, MR.CSharp.E1 *b);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cref_MR_CSharp_E1", ExactSpelling = true)]
+            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_cref_MR_CSharp_E1(MR.CSharp.E1 *a, MR.CSharp.E1 *b);
             MR.CSharp.E1 __deref_b = b.GetValueOrDefault();
-            return *__MR_CSharp_test_enum_cref(&a, b.HasValue ? &__deref_b : null);
+            return *__MR_CSharp_test_enum_cref_MR_CSharp_E1(&a, b.HasValue ? &__deref_b : null);
         }
 
         /// Generated from function `MR::CSharp::test_enum_ptr`.
         /// Parameter `c` defaults to `&default_e1`.
         public static unsafe MR.Misc.Ref<MR.CSharp.E1>? test_enum_ptr(MR.Misc.InOut<MR.CSharp.E1>? a, MR.Misc.InOut<MR.CSharp.E1>? b = null, MR.Misc.InOutOpt<MR.CSharp.E1>? c = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ptr", ExactSpelling = true)]
-            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_ptr(MR.CSharp.E1 *a, MR.CSharp.E1 *b, MR.CSharp.E1 **c);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr(MR.CSharp.E1 *a, MR.CSharp.E1 *b, MR.CSharp.E1 **c);
             MR.CSharp.E1 __value_a = a != null ? a.Value : default(MR.CSharp.E1);
             MR.CSharp.E1 __value_b = b != null ? b.Value : default(MR.CSharp.E1);
             MR.CSharp.E1 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E1);
             MR.CSharp.E1 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
-            var __ret = __MR_CSharp_test_enum_ptr(a != null ? &__value_a : null, b != null ? &__value_b : null, c != null ? &__valueptr_c : null);
+            var __ret = __MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr(a != null ? &__value_a : null, b != null ? &__value_b : null, c != null ? &__valueptr_c : null);
             if (c != null && c.Opt != null) c.Opt.Value = __value_c;
             if (b != null) b.Value = __value_b;
             if (a != null) a.Value = __value_a;
@@ -1229,62 +1406,62 @@ public static partial class MR
         /// Parameter `c` defaults to `&default_e1`.
         public static unsafe MR.CSharp.E1? test_enum_cptr(MR.CSharp.E1? a, MR.CSharp.E1? b = null, MR.Misc.InOpt<MR.CSharp.E1>? c = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cptr", ExactSpelling = true)]
-            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_cptr(MR.CSharp.E1 *a, MR.CSharp.E1 *b, MR.CSharp.E1 **c);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.E1 *__MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr(MR.CSharp.E1 *a, MR.CSharp.E1 *b, MR.CSharp.E1 **c);
             MR.CSharp.E1 __deref_a = a.GetValueOrDefault();
             MR.CSharp.E1 __deref_b = b.GetValueOrDefault();
             MR.CSharp.E1 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E1);
             MR.CSharp.E1 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
-            var __ret = __MR_CSharp_test_enum_cptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
+            var __ret = __MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
             return __ret != null ? *__ret : null;
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum`.
+        /// Generated from function `MR::CSharp::test_enum`.
         /// Parameter `b` defaults to `E2::b`.
-        public static unsafe MR.CSharp.E2 test_bool_enum(MR.CSharp.E2 a, MR.CSharp.E2? b = null)
+        public static unsafe MR.CSharp.E2 test_enum(MR.CSharp.E2 a, MR.CSharp.E2? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum", ExactSpelling = true)]
-            extern static MR.CSharp.E2 __MR_CSharp_test_bool_enum(MR.CSharp.E2 a, MR.CSharp.E2 *b);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_MR_CSharp_E2", ExactSpelling = true)]
+            extern static MR.CSharp.E2 __MR_CSharp_test_enum_MR_CSharp_E2(MR.CSharp.E2 a, MR.CSharp.E2 *b);
             if ((byte)a > 1) a = (MR.CSharp.E2)1;
             MR.CSharp.E2 __deref_b = b.GetValueOrDefault();
             if ((byte)__deref_b > 1) __deref_b = (MR.CSharp.E2)1;
-            return __MR_CSharp_test_bool_enum(a, b.HasValue ? &__deref_b : null);
+            return __MR_CSharp_test_enum_MR_CSharp_E2(a, b.HasValue ? &__deref_b : null);
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_ref`.
+        /// Generated from function `MR::CSharp::test_enum_ref`.
         /// Parameter `b` defaults to `default_e2`.
-        public static unsafe ref MR.CSharp.E2 test_bool_enum_ref(ref MR.CSharp.E2 a, MR.Misc.InOut<MR.CSharp.E2>? b = null)
+        public static unsafe ref MR.CSharp.E2 test_enum_ref(ref MR.CSharp.E2 a, MR.Misc.InOut<MR.CSharp.E2>? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_ref_MR_CSharp_E2", ExactSpelling = true)]
-            extern static MR.CSharp.E2 *__MR_CSharp_test_bool_enum_ref_MR_CSharp_E2(MR.CSharp.E2 *a, MR.CSharp.E2 *b);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ref_MR_CSharp_E2", ExactSpelling = true)]
+            extern static MR.CSharp.E2 *__MR_CSharp_test_enum_ref_MR_CSharp_E2(MR.CSharp.E2 *a, MR.CSharp.E2 *b);
             fixed (MR.CSharp.E2 *__ptr_a = &a) {
                 if ((byte)a > 1) a = (MR.CSharp.E2)1;
                 MR.CSharp.E2 __value_b = b != null ? b.Value : default(MR.CSharp.E2);
                 if ((byte)__value_b > 1) __value_b = (MR.CSharp.E2)1;
-                var __ret = __MR_CSharp_test_bool_enum_ref_MR_CSharp_E2(__ptr_a, b != null ? &__value_b : null);
+                var __ret = __MR_CSharp_test_enum_ref_MR_CSharp_E2(__ptr_a, b != null ? &__value_b : null);
                 if (b != null) b.Value = __value_b;
                 return ref *__ret;
             } // fixed __ptr_a
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_cref`.
+        /// Generated from function `MR::CSharp::test_enum_cref`.
         /// Parameter `b` defaults to `default_e2`.
-        public static unsafe MR.CSharp.E2 test_bool_enum_cref(MR.CSharp.E2 a, MR.CSharp.E2? b = null)
+        public static unsafe MR.CSharp.E2 test_enum_cref(MR.CSharp.E2 a, MR.CSharp.E2? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_cref_MR_CSharp_E2", ExactSpelling = true)]
-            extern static MR.CSharp.E2 *__MR_CSharp_test_bool_enum_cref_MR_CSharp_E2(MR.CSharp.E2 *a, MR.CSharp.E2 *b);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cref_MR_CSharp_E2", ExactSpelling = true)]
+            extern static MR.CSharp.E2 *__MR_CSharp_test_enum_cref_MR_CSharp_E2(MR.CSharp.E2 *a, MR.CSharp.E2 *b);
             if ((byte)a > 1) a = (MR.CSharp.E2)1;
             MR.CSharp.E2 __deref_b = b.GetValueOrDefault();
             if ((byte)__deref_b > 1) __deref_b = (MR.CSharp.E2)1;
-            return *__MR_CSharp_test_bool_enum_cref_MR_CSharp_E2(&a, b.HasValue ? &__deref_b : null);
+            return *__MR_CSharp_test_enum_cref_MR_CSharp_E2(&a, b.HasValue ? &__deref_b : null);
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_ptr`.
+        /// Generated from function `MR::CSharp::test_enum_ptr`.
         /// Parameter `c` defaults to `&default_e2`.
-        public static unsafe MR.Misc.Ref<MR.CSharp.E2>? test_bool_enum_ptr(MR.Misc.InOut<MR.CSharp.E2>? a, MR.Misc.InOut<MR.CSharp.E2>? b = null, MR.Misc.InOutOpt<MR.CSharp.E2>? c = null)
+        public static unsafe MR.Misc.Ref<MR.CSharp.E2>? test_enum_ptr(MR.Misc.InOut<MR.CSharp.E2>? a, MR.Misc.InOut<MR.CSharp.E2>? b = null, MR.Misc.InOutOpt<MR.CSharp.E2>? c = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_ptr_MR_CSharp_E2_ptr", ExactSpelling = true)]
-            extern static MR.CSharp.E2 *__MR_CSharp_test_bool_enum_ptr_MR_CSharp_E2_ptr(MR.CSharp.E2 *a, MR.CSharp.E2 *b, MR.CSharp.E2 **c);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ptr_MR_CSharp_E2_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.E2 *__MR_CSharp_test_enum_ptr_MR_CSharp_E2_ptr(MR.CSharp.E2 *a, MR.CSharp.E2 *b, MR.CSharp.E2 **c);
             MR.CSharp.E2 __value_a = a != null ? a.Value : default(MR.CSharp.E2);
             if ((byte)__value_a > 1) __value_a = (MR.CSharp.E2)1;
             MR.CSharp.E2 __value_b = b != null ? b.Value : default(MR.CSharp.E2);
@@ -1292,19 +1469,19 @@ public static partial class MR
             MR.CSharp.E2 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E2);
             MR.CSharp.E2 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
             if ((byte)__value_c > 1) __value_c = (MR.CSharp.E2)1;
-            var __ret = __MR_CSharp_test_bool_enum_ptr_MR_CSharp_E2_ptr(a != null ? &__value_a : null, b != null ? &__value_b : null, c != null ? &__valueptr_c : null);
+            var __ret = __MR_CSharp_test_enum_ptr_MR_CSharp_E2_ptr(a != null ? &__value_a : null, b != null ? &__value_b : null, c != null ? &__valueptr_c : null);
             if (c != null && c.Opt != null) c.Opt.Value = __value_c;
             if (b != null) b.Value = __value_b;
             if (a != null) a.Value = __value_a;
             return __ret != null ? new MR.Misc.Ref<MR.CSharp.E2>(__ret) : null;
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_cptr`.
+        /// Generated from function `MR::CSharp::test_enum_cptr`.
         /// Parameter `c` defaults to `&default_e2`.
-        public static unsafe MR.CSharp.E2? test_bool_enum_cptr(MR.CSharp.E2? a, MR.CSharp.E2? b = null, MR.Misc.InOpt<MR.CSharp.E2>? c = null)
+        public static unsafe MR.CSharp.E2? test_enum_cptr(MR.CSharp.E2? a, MR.CSharp.E2? b = null, MR.Misc.InOpt<MR.CSharp.E2>? c = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_cptr_const_MR_CSharp_E2_ptr", ExactSpelling = true)]
-            extern static MR.CSharp.E2 *__MR_CSharp_test_bool_enum_cptr_const_MR_CSharp_E2_ptr(MR.CSharp.E2 *a, MR.CSharp.E2 *b, MR.CSharp.E2 **c);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.E2 *__MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr(MR.CSharp.E2 *a, MR.CSharp.E2 *b, MR.CSharp.E2 **c);
             MR.CSharp.E2 __deref_a = a.GetValueOrDefault();
             if ((byte)__deref_a > 1) __deref_a = (MR.CSharp.E2)1;
             MR.CSharp.E2 __deref_b = b.GetValueOrDefault();
@@ -1312,7 +1489,7 @@ public static partial class MR
             MR.CSharp.E2 __value_c = c != null && c.Opt != null ? c.Opt.Value : default(MR.CSharp.E2);
             MR.CSharp.E2 *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
             if ((byte)__value_c > 1) __value_c = (MR.CSharp.E2)1;
-            var __ret = __MR_CSharp_test_bool_enum_cptr_const_MR_CSharp_E2_ptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
+            var __ret = __MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
             return __ret != null ? *__ret : null;
         }
 
@@ -1325,44 +1502,93 @@ public static partial class MR
             return new(__MR_CSharp_test_class_trivial(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: true);
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_ref`.
+        /// Generated from function `MR::CSharp::test_class_trivial_ref`.
         /// Parameter `b` defaults to `default_trivial`.
-        public static unsafe MR.CSharp.Trivial test_bool_enum_ref(MR.CSharp.Trivial a, MR.CSharp.Trivial? b = null)
+        public static unsafe MR.CSharp.Trivial test_class_trivial_ref(MR.CSharp.Trivial a, MR.CSharp.Trivial? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_ref_MR_CSharp_Trivial", ExactSpelling = true)]
-            extern static MR.CSharp.ITrivial._Underlying *__MR_CSharp_test_bool_enum_ref_MR_CSharp_Trivial(MR.CSharp.ITrivial._Underlying *a, MR.CSharp.ITrivial._Underlying *b);
-            return new(__MR_CSharp_test_bool_enum_ref_MR_CSharp_Trivial(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: false);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_ref", ExactSpelling = true)]
+            extern static MR.CSharp.ITrivial._Underlying *__MR_CSharp_test_class_trivial_ref(MR.CSharp.ITrivial._Underlying *a, MR.CSharp.ITrivial._Underlying *b);
+            return new(__MR_CSharp_test_class_trivial_ref(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: false);
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_cref`.
+        /// Generated from function `MR::CSharp::test_class_trivial_cref`.
         /// Parameter `b` defaults to `default_trivial`.
-        public static unsafe MR.CSharp.ConstTrivial test_bool_enum_cref(MR.CSharp.ConstTrivial a, MR.CSharp.ConstTrivial? b = null)
+        public static unsafe MR.CSharp.ConstTrivial test_class_trivial_cref(MR.CSharp.ConstTrivial a, MR.CSharp.ConstTrivial? b = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_cref_MR_CSharp_Trivial", ExactSpelling = true)]
-            extern static MR.CSharp.IConstTrivial._Underlying *__MR_CSharp_test_bool_enum_cref_MR_CSharp_Trivial(MR.CSharp.IConstTrivial._Underlying *a, MR.CSharp.IConstTrivial._Underlying *b);
-            return new(__MR_CSharp_test_bool_enum_cref_MR_CSharp_Trivial(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: false);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_cref", ExactSpelling = true)]
+            extern static MR.CSharp.IConstTrivial._Underlying *__MR_CSharp_test_class_trivial_cref(MR.CSharp.IConstTrivial._Underlying *a, MR.CSharp.IConstTrivial._Underlying *b);
+            return new(__MR_CSharp_test_class_trivial_cref(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: false);
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_ptr`.
+        /// Generated from function `MR::CSharp::test_class_trivial_ptr`.
         /// Parameter `c` defaults to `&default_trivial`.
-        public static unsafe MR.CSharp.Trivial? test_bool_enum_ptr(MR.CSharp.Trivial? a, MR.CSharp.Trivial? b = null, MR.Misc.InOptClass<MR.CSharp.Trivial>? c = null)
+        public static unsafe MR.CSharp.Trivial? test_class_trivial_ptr(MR.CSharp.Trivial? a, MR.CSharp.Trivial? b = null, MR.Misc.InOptClass<MR.CSharp.Trivial>? c = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_ptr_MR_CSharp_Trivial_ptr", ExactSpelling = true)]
-            extern static MR.CSharp.ITrivial._Underlying *__MR_CSharp_test_bool_enum_ptr_MR_CSharp_Trivial_ptr(MR.CSharp.ITrivial._Underlying *a, MR.CSharp.ITrivial._Underlying *b, MR.CSharp.ITrivial._Underlying **c);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.ITrivial._Underlying *__MR_CSharp_test_class_trivial_ptr(MR.CSharp.ITrivial._Underlying *a, MR.CSharp.ITrivial._Underlying *b, MR.CSharp.ITrivial._Underlying **c);
             MR.CSharp.ITrivial._Underlying *__ptr_c = c != null && c.Opt != null ? c.Opt._GetUnderlying_MR_CSharp_Trivial() : null;
-            var __ret = __MR_CSharp_test_bool_enum_ptr_MR_CSharp_Trivial_ptr(a != null ? a._GetUnderlying_MR_CSharp_Trivial() : null, b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null, c != null ? &__ptr_c : null);
+            var __ret = __MR_CSharp_test_class_trivial_ptr(a != null ? a._GetUnderlying_MR_CSharp_Trivial() : null, b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null, c != null ? &__ptr_c : null);
             return __ret != null ? new MR.CSharp.Trivial(__ret, is_owning: false) : null;
         }
 
-        /// Generated from function `MR::CSharp::test_bool_enum_cptr`.
+        /// Generated from function `MR::CSharp::test_class_trivial_cptr`.
         /// Parameter `c` defaults to `&default_trivial`.
-        public static unsafe MR.CSharp.ConstTrivial? test_bool_enum_cptr(MR.CSharp.ConstTrivial? a, MR.CSharp.ConstTrivial? b = null, MR.Misc.InOptClass<MR.CSharp.ConstTrivial>? c = null)
+        public static unsafe MR.CSharp.ConstTrivial? test_class_trivial_cptr(MR.CSharp.ConstTrivial? a, MR.CSharp.ConstTrivial? b = null, MR.Misc.InOptClass<MR.CSharp.ConstTrivial>? c = null)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_enum_cptr_const_MR_CSharp_Trivial_ptr", ExactSpelling = true)]
-            extern static MR.CSharp.IConstTrivial._Underlying *__MR_CSharp_test_bool_enum_cptr_const_MR_CSharp_Trivial_ptr(MR.CSharp.IConstTrivial._Underlying *a, MR.CSharp.IConstTrivial._Underlying *b, MR.CSharp.IConstTrivial._Underlying **c);
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_cptr", ExactSpelling = true)]
+            extern static MR.CSharp.IConstTrivial._Underlying *__MR_CSharp_test_class_trivial_cptr(MR.CSharp.IConstTrivial._Underlying *a, MR.CSharp.IConstTrivial._Underlying *b, MR.CSharp.IConstTrivial._Underlying **c);
             MR.CSharp.IConstTrivial._Underlying *__ptr_c = c != null && c.Opt != null ? c.Opt._GetUnderlying_MR_CSharp_Trivial() : null;
-            var __ret = __MR_CSharp_test_bool_enum_cptr_const_MR_CSharp_Trivial_ptr(a != null ? a._GetUnderlying_MR_CSharp_Trivial() : null, b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null, c != null ? &__ptr_c : null);
+            var __ret = __MR_CSharp_test_class_trivial_cptr(a != null ? a._GetUnderlying_MR_CSharp_Trivial() : null, b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null, c != null ? &__ptr_c : null);
             return __ret != null ? new MR.CSharp.ConstTrivial(__ret, is_owning: false) : null;
+        }
+
+        /// Generated from function `MR::CSharp::test_class_nontrivial`.
+        /// Parameter `b` defaults to `{}`.
+        public static unsafe MR.CSharp.NonTrivial test_class_nontrivial(MR.Misc.ByValue<MR.CSharp.ConstNonTrivial> a, MR.Misc.ByValue<MR.CSharp.ConstNonTrivial>? b = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial", ExactSpelling = true)]
+            extern static MR.CSharp.INonTrivial._Underlying *__MR_CSharp_test_class_nontrivial(MR.Misc._PassBy a_pass_by, MR.CSharp.IConstNonTrivial._Underlying *a, MR.Misc._PassBy b_pass_by, MR.CSharp.IConstNonTrivial._Underlying *b);
+            return new(__MR_CSharp_test_class_nontrivial(a.PassByMode, a.Value != null ? a.Value._GetUnderlying_MR_CSharp_NonTrivial() : null, b.HasValue ? b.Value.PassByMode : MR.Misc._PassBy.default_arg, b.HasValue && b.Value.Value != null ? b.Value.Value._GetUnderlying_MR_CSharp_NonTrivial() : null), is_owning: true);
+        }
+
+        /// Generated from function `MR::CSharp::test_class_nontrivial_ref`.
+        /// Parameter `b` defaults to `default_nontrivial`.
+        public static unsafe MR.CSharp.NonTrivial test_class_nontrivial_ref(MR.CSharp.NonTrivial a, MR.CSharp.NonTrivial? b = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_ref", ExactSpelling = true)]
+            extern static MR.CSharp.INonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_ref(MR.CSharp.INonTrivial._Underlying *a, MR.CSharp.INonTrivial._Underlying *b);
+            return new(__MR_CSharp_test_class_nontrivial_ref(a._GetUnderlying_MR_CSharp_NonTrivial(), b != null ? b._GetUnderlying_MR_CSharp_NonTrivial() : null), is_owning: false);
+        }
+
+        /// Generated from function `MR::CSharp::test_class_nontrivial_cref`.
+        /// Parameter `b` defaults to `default_nontrivial`.
+        public static unsafe MR.CSharp.ConstNonTrivial test_class_nontrivial_cref(MR.CSharp.ConstNonTrivial a, MR.CSharp.ConstNonTrivial? b = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_cref", ExactSpelling = true)]
+            extern static MR.CSharp.IConstNonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_cref(MR.CSharp.IConstNonTrivial._Underlying *a, MR.CSharp.IConstNonTrivial._Underlying *b);
+            return new(__MR_CSharp_test_class_nontrivial_cref(a._GetUnderlying_MR_CSharp_NonTrivial(), b != null ? b._GetUnderlying_MR_CSharp_NonTrivial() : null), is_owning: false);
+        }
+
+        /// Generated from function `MR::CSharp::test_class_nontrivial_ptr`.
+        /// Parameter `c` defaults to `&default_nontrivial`.
+        public static unsafe MR.CSharp.NonTrivial? test_class_nontrivial_ptr(MR.CSharp.NonTrivial? a, MR.CSharp.NonTrivial? b = null, MR.Misc.InOptClass<MR.CSharp.NonTrivial>? c = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_ptr", ExactSpelling = true)]
+            extern static MR.CSharp.INonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_ptr(MR.CSharp.INonTrivial._Underlying *a, MR.CSharp.INonTrivial._Underlying *b, MR.CSharp.INonTrivial._Underlying **c);
+            MR.CSharp.INonTrivial._Underlying *__ptr_c = c != null && c.Opt != null ? c.Opt._GetUnderlying_MR_CSharp_NonTrivial() : null;
+            var __ret = __MR_CSharp_test_class_nontrivial_ptr(a != null ? a._GetUnderlying_MR_CSharp_NonTrivial() : null, b != null ? b._GetUnderlying_MR_CSharp_NonTrivial() : null, c != null ? &__ptr_c : null);
+            return __ret != null ? new MR.CSharp.NonTrivial(__ret, is_owning: false) : null;
+        }
+
+        /// Generated from function `MR::CSharp::test_class_nontrivial_cptr`.
+        /// Parameter `c` defaults to `&default_nontrivial`.
+        public static unsafe MR.CSharp.ConstNonTrivial? test_class_nontrivial_cptr(MR.CSharp.ConstNonTrivial? a, MR.CSharp.ConstNonTrivial? b = null, MR.Misc.InOptClass<MR.CSharp.ConstNonTrivial>? c = null)
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_cptr", ExactSpelling = true)]
+            extern static MR.CSharp.IConstNonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_cptr(MR.CSharp.IConstNonTrivial._Underlying *a, MR.CSharp.IConstNonTrivial._Underlying *b, MR.CSharp.IConstNonTrivial._Underlying **c);
+            MR.CSharp.IConstNonTrivial._Underlying *__ptr_c = c != null && c.Opt != null ? c.Opt._GetUnderlying_MR_CSharp_NonTrivial() : null;
+            var __ret = __MR_CSharp_test_class_nontrivial_cptr(a != null ? a._GetUnderlying_MR_CSharp_NonTrivial() : null, b != null ? b._GetUnderlying_MR_CSharp_NonTrivial() : null, c != null ? &__ptr_c : null);
+            return __ret != null ? new MR.CSharp.ConstNonTrivial(__ret, is_owning: false) : null;
         }
     }
 }

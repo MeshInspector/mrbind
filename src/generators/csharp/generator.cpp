@@ -391,8 +391,36 @@ namespace mrbind::CSharp
                             throw std::runtime_error("The class marked as `ClassKind::ref_only`, but it's being passed by value.");
                             break;
                           case CInterop::ClassKind::uses_pass_by_enum:
-                            // TODO
-                            throw std::logic_error("Not implemented yet!");
+                            return CreateBinding({
+                                .param_usage = TypeBinding::ParamUsage{
+                                    .make_strings = [this, csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_interface_const + "._Underlying *" + name,
+                                            .csharp_decl_params = RequestHelper("ByValue") + "<" + csharp_type_const + "> " + name,
+                                            .dllimport_args = name + ".PassByMode, " + name + ".Value != null ? " + name + ".Value." + csharp_underlying_ptr_method + "() : null",
+                                        };
+                                    },
+                                },
+                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                    .make_strings = [this, csharp_type_const, csharp_interface_const, csharp_underlying_ptr_method](const std::string &name, bool &/*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_interface_const + "._Underlying *" + name,
+                                            .csharp_decl_params = RequestHelper("ByValue") + "<" + csharp_type_const + ">? " + name + " = null",
+                                            .dllimport_args = name + ".HasValue ? " + name + ".Value.PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + ".HasValue && " + name + ".Value.Value != null ? " + name + ".Value.Value." + csharp_underlying_ptr_method + "() : null",
+                                        };
+                                    },
+                                },
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = csharp_interface_mut + "._Underlying *",
+                                    .csharp_return_type = csharp_type_mut,
+                                    .make_return_expr = [](const std::string &expr)
+                                    {
+                                        return "return new(" + expr + ", is_owning: true);";
+                                    },
+                                },
+                            });
                             break;
                           case CInterop::ClassKind::trivial_via_ptr:
                             return CreateBinding({
@@ -425,7 +453,6 @@ namespace mrbind::CSharp
                                     },
                                 },
                             });
-
                             break;
                           case CInterop::ClassKind::exposed_struct:
                             // TODO
@@ -587,11 +614,8 @@ namespace mrbind::CSharp
 
                                     switch (elem.kind)
                                     {
-                                      case CInterop::ClassKind::uses_pass_by_enum:
-                                        // TODO
-                                        throw std::logic_error("Not implemented yet!");
-                                        break;
                                       case CInterop::ClassKind::ref_only:
+                                      case CInterop::ClassKind::uses_pass_by_enum:
                                       case CInterop::ClassKind::trivial_via_ptr:
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
@@ -795,11 +819,8 @@ namespace mrbind::CSharp
 
                                     switch (elem.kind)
                                     {
-                                      case CInterop::ClassKind::uses_pass_by_enum:
-                                        // TODO
-                                        throw std::logic_error("Not implemented yet!");
-                                        break;
                                       case CInterop::ClassKind::ref_only:
+                                      case CInterop::ClassKind::uses_pass_by_enum:
                                       case CInterop::ClassKind::trivial_via_ptr:
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
@@ -2193,7 +2214,8 @@ namespace mrbind::CSharp
             }
 
             // `ByValue` and friends.
-            if (requested_helpers.erase("ByValue"))
+            // Intentionally using `|` to not short-circuit erasures.
+            if (requested_helpers.erase("ByValue") | requested_helpers.erase("_PassBy"))
             {
                 file.WriteSeparatingNewline();
                 file.WriteString(
@@ -2206,8 +2228,8 @@ namespace mrbind::CSharp
                     "/// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.\n"
                     "public readonly struct ByValue<T>\n"
                     "{\n"
-                    "    readonly T? Value;\n"
-                    "    readonly _PassBy PassByMode;\n"
+                    "    internal readonly T? Value;\n"
+                    "    internal readonly _PassBy PassByMode;\n"
                     "    public ByValue() {PassByMode = _PassBy.default_construct;}\n"
                     "    public ByValue(T NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}\n"
                     "    public ByValue(_Moved<T> Moved) {Value = Moved.Value; PassByMode = _PassBy.move;}\n"

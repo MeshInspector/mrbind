@@ -315,7 +315,8 @@ namespace mrbind::CBindings
             file->header.contents +=
                 "\ntypedef enum " + name + "\n"
                 "{\n"
-                // This must be synced with `CInterop::PassBy`.
+                // This must be synced with `CInterop::PassBy`. (Which in turn needs to be synced with more stuff.)
+                // The ABI of this enum is important at least for C#.
                 "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n"
                 "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n"
                 "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n"

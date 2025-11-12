@@ -88,5 +88,43 @@ public static partial class MR
 
             public ref T Value => ref *Ptr;
         }
+
+        /// This is used as a function parameter when the underlying function receives a non-trivial C++ class by value.
+        /// Usage:
+        /// * Pass `new()` to default-construct the instance.
+        /// * Pass an instance of `T` to copy it into the function.
+        /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+        ///   Be careful if your input isn't a unique reference to this object.
+        /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+        public readonly struct ByValue<T>
+        {
+            internal readonly T? Value;
+            internal readonly _PassBy PassByMode;
+            public ByValue() {PassByMode = _PassBy.default_construct;}
+            public ByValue(T NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}
+            public ByValue(_Moved<T> Moved) {Value = Moved.Value; PassByMode = _PassBy.move;}
+            public static implicit operator ByValue<T>(T Arg) {return new ByValue<T>(Arg);}
+            public static implicit operator ByValue<T>(_Moved<T> Arg) {return new ByValue<T>(Arg);}
+        }
+
+        /// This can be used with `ByValue<T>` function parameters, to indicate that the argument should be moved.
+        /// See that struct for a longer explanation.
+        public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}
+
+        /// Don't use directly, this is the return type of `Move()`. See that for explanation.
+        public readonly struct _Moved<T>
+        {
+            internal readonly T Value;
+            internal _Moved(T NewValue) {Value = NewValue;}
+        }
+
+        internal enum _PassBy : int
+        {
+            default_construct,
+            copy,
+            move,
+            default_arg,
+            no_object,
+        }
     }
 }
