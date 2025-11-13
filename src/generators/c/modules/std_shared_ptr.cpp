@@ -10,6 +10,20 @@ namespace mrbind::CBindings::Modules
 
         cppdecl::QualifiedName base_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr");
 
+        // If true, also bind shared pointers for all base classes and derived classes.
+        bool viral_bindings = false;
+        #error implement this
+
+        void ConsumeFlag(FlagInterface &in) override
+        {
+            if (in.FlagNameMatches("--bind-shared-ptr-virally", "", "If enabled, when encountering `std::shared_ptr` with a class as a template parameter, we will additionally generate `std::shared_ptr` bindings for all its base and derived classes, recursively."))
+            {
+                if (viral_bindings)
+                    throw std::runtime_error("Duplicate flag `--bind-shared-ptr-virally`.");
+                viral_bindings = true;
+            }
+        }
+
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
             (void)type_str;
@@ -24,6 +38,7 @@ namespace mrbind::CBindings::Modules
 
             const bool is_array = cpp_elem_type.Is<cppdecl::Array>();
             const bool is_array_of_unknown_bound = is_array && cpp_elem_type.As<cppdecl::Array>()->size.IsEmpty();
+            const bool is_void = cpp_elem_type.AsSingleWord() == "void";
 
             const cppdecl::Type cpp_elem_type_minus_array = is_array ? cppdecl::Type(cpp_elem_type).RemoveModifier() : cpp_elem_type;
 
@@ -36,8 +51,13 @@ namespace mrbind::CBindings::Modules
             // The underlying plain pointer type.
             const cppdecl::Type underlying_ptr_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{});
 
-            HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
-            binder.traits = Generator::TypeTraits::CopyableNonTrivial{}; // Not using `CopyableNonTrivialButCheap`, because refcount increments are not necessarily cheap, I assume?
+            static constexpr auto MakeSharedPtrBinder = [&](Generator &generator, const cppdecl::QualifiedName &shared_ptr_name) -> HeapAllocatedClassBinder
+            {
+                HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, shared_ptr_name);
+                binder.traits = Generator::TypeTraits::CopyableNonTrivial{}; // Not using `CopyableNonTrivialButCheap`, because refcount increments are not necessarily cheap, I assume?
+                return binder;
+            };
+            const HeapAllocatedClassBinder binder = MakeSharedPtrBinder(generator, type.simple_type.name);
 
             auto get_output_file = [
                 type,
@@ -48,7 +68,8 @@ namespace mrbind::CBindings::Modules
                 binder,
                 underlying_ptr_type,
                 is_array,
-                is_array_of_unknown_bound
+                is_array_of_unknown_bound,
+                is_void
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
@@ -139,7 +160,10 @@ namespace mrbind::CBindings::Modules
                     if (is_array && !is_array_of_unknown_bound)
                         construct_from_unique_ptr += "(@1@.release())"; // Arrays of fixed bound need special care.
 
-                    { // Construct from a pointer.
+                    // Construct from a pointer.
+                    // This ctor is disabled in `std::shared_ptr<void>`. We don't really need it, since the user should just use a typed pointer instead.
+                    if (!is_void)
+                    {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Create a new instance, taking ownership of an existing pointer.";
                         emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{});
@@ -156,7 +180,10 @@ namespace mrbind::CBindings::Modules
                         generator.EmitFunction(file, emit);
                     }
 
-                    { // Assign from a pointer.
+                    // Assign from a pointer.
+                    // This ctor is disabled in `std::shared_ptr<void>`. We don't really need it, since the user should just use a typed pointer instead.
+                    if (!is_void)
+                    {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.";
                         emit.name = binder.MakeMemberFuncName(generator, "Assign", CInterop::MethodKinds::Operator{.token = "="});
@@ -203,6 +230,94 @@ namespace mrbind::CBindings::Modules
                         emit.cpp_called_func = "@this@ = " + type_str + "(std::shared_ptr<void>{}, @1@)";
 
                         generator.EmitFunction(file, emit);
+                    }
+
+                    static const cppdecl::Type sharedptr_void_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr").AddTemplateArgument(cppdecl::Type::FromSingleWord("void")));
+
+                    { // The aliasing constructor, from unrelated shared and raw pointers.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment =
+                            "/// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.\n"
+                            "/// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.";
+                        emit.name = binder.MakeMemberFuncName(generator, "ConstructAliasing", CInterop::MethodKinds::Constructor{});
+
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+
+                        emit.params.push_back({
+                            .name = "ownership",
+                            .cpp_type = sharedptr_void_type,
+                        });
+                        emit.params.push_back({
+                            .name = "ptr",
+                            .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                        });
+
+                        emit.cpp_called_func = type_str;
+
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // The aliasing assignment, from unrelated shared and raw pointers.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment =
+                            "/// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.\n"
+                            "/// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.";
+                        emit.name = binder.MakeMemberFuncName(generator, "AssignAliasing"); // Not marking this as assignment due to multiple parameters.
+
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                        emit.params.push_back({
+                            .name = "ownership",
+                            .cpp_type = sharedptr_void_type,
+                        });
+                        emit.params.push_back({
+                            .name = "ptr",
+                            .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                        });
+
+                        emit.cpp_called_func = "@this@ = " + type_str;
+
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    // Interop with `std::shared_ptr<void>`:
+                    if (!is_void)
+                    {
+                        // Here we boldly inject constructors and assignments into `std::shared_ptr<void>`.
+                        const HeapAllocatedClassBinder void_binder = MakeSharedPtrBinder(generator, sharedptr_void_type.simple_type.name);
+
+                        { // Construct `std::shared_ptr<void>`.
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.";
+
+                            // We could use either the template parameter name or the full shared pointer name here.
+                            // I guess it's more consistent to use the full type, even though it's uglier.
+                            // And similarly for the assignment operator below.
+                            emit.name = void_binder.MakeMemberFuncName(generator, "ConstructFrom_" + binder.c_type_name, CInterop::MethodKinds::Constructor{});
+
+                            emit.cpp_return_type = sharedptr_void_type;
+
+                            emit.cpp_called_func = generator.CppdeclToCode(sharedptr_void_type);
+
+                            generator.EmitFunction(file, emit);
+                        }
+
+                        { // Copy-assign to an existing `std::shared_ptr<void>`.
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.";
+
+                            // See the comment in the similar constructor above for how we chose this name.
+                            emit.name = void_binder.MakeMemberFuncName(generator, "AssignFrom_" + binder.c_type_name, CInterop::MethodKinds::Operator{.token = "="});
+
+                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(void_binder.cpp_type_name), false);
+                            emit.params.push_back({
+                                .name = "_other",
+                                .cpp_type = sharedptr_void_type,
+                            });
+
+                            emit.cpp_called_func = "@this@ = @1@";
+
+                            generator.EmitFunction(file, emit);
+                        }
                     }
                 }
 

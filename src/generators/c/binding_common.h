@@ -43,7 +43,7 @@ namespace mrbind::CBindings
 
         // Fills most of the contents that `type` needs to have.
         // The only thing that you need to set manually in addition to this is `.bindable_with_same_address.declared_in_file`, to a lambda generating your file.
-        void FillCommonParams(Generator &generator, Generator::BindableType &type);
+        void FillCommonParams(Generator &generator, Generator::BindableType &type) const;
 
         // Those are used internally by `FillCommonParams()`, but you can call them manually too:
         // [

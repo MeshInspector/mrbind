@@ -572,7 +572,35 @@ namespace mrbind::CSharp
                                 },
                                 [&](const CInterop::TypeKinds::Void &) -> const TypeBinding *
                                 {
-                                    return nullptr;
+                                    return CreateBinding({
+                                        .param_usage = TypeBinding::ParamUsage{
+                                            .make_strings = [is_const](const std::string &name, bool &have_useless_defarg)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
+                                                    .dllimport_decl_params = "void *" + name,
+                                                    .csharp_decl_params = "void *" + name + (std::exchange(have_useless_defarg, false) ? " = null" : ""),
+                                                    .dllimport_args = name,
+                                                };
+                                            },
+                                        },
+                                        .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                            .make_strings = [is_const](const std::string &name, bool &/*have_useless_defarg*/)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
+                                                    .dllimport_decl_params = "void **" + name,
+                                                    .csharp_decl_params = "void **" + name + " = null",
+                                                    .dllimport_args = name,
+                                                };
+                                            },
+                                        },
+                                        .return_usage = TypeBinding::ReturnUsage{
+                                            .extra_comment = std::string("/// Returns ") + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
+                                            .dllimport_return_type = "void *",
+                                            .csharp_return_type = "void *",
+                                        },
+                                    });
                                 },
                                 [&](const CInterop::TypeKinds::EmptyTag &) -> const TypeBinding *
                                 {
@@ -909,7 +937,6 @@ namespace mrbind::CSharp
 
         try
         {
-
             // Find the return type binding.
             const TypeBinding *ret_binding = nullptr;
 
@@ -990,7 +1017,8 @@ namespace mrbind::CSharp
             if (!is_ctor)
             {
                 file.WriteString(ret_binding->return_usage->csharp_return_type);
-                file.WriteString(" ");
+                if (!ret_binding->return_usage->csharp_return_type.ends_with('*'))
+                    file.WriteString(" ");
             }
 
             // Write the C# name.
@@ -1182,7 +1210,8 @@ namespace mrbind::CSharp
             if (!ret_binding.return_usage)
                 throw std::runtime_error("The C++ return type `" + method.ret.cpp_type + "`" + (method.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
             ret.header += ret_binding.return_usage->csharp_return_type;
-            ret.header += ' ';
+            if (!ret_binding.return_usage->csharp_return_type.ends_with('*'))
+                ret.header += ' ';
 
             // The method name.
             ret.header += unqual_method_name;
@@ -1297,6 +1326,12 @@ namespace mrbind::CSharp
         // Extra comments from the parameter types.
         for (const auto &param : func_like.params)
         {
+            // The default arguments.
+            // This message is only truly needed for non-trivial default arguments.
+            if (param.default_arg_affects_parameter_passing)
+                ret += "/// Parameter `" + param.name_or_placeholder + "` defaults to `" + *param.default_arg_spelling + "`.\n";
+
+            // The custom comments.
             ParameterBinding binding = GetParameterBinding(param, method_like);
             if (!binding.strings.extra_comment.empty())
             {
@@ -1306,13 +1341,11 @@ namespace mrbind::CSharp
             }
         }
 
-        // Comments for default arguments, if any.
-        for (const auto &param : func_like.params)
-        {
-            // This message is only truly needed for non-trivial default arguments.
-            if (param.default_arg_affects_parameter_passing)
-                ret += "/// Parameter `" + param.name_or_placeholder + "` defaults to `" + *param.default_arg_spelling + "`.\n";
-        }
+        // The comment from the return type.
+        const auto &ret_comment = GetTypeBinding(ParseTypeOrThrow(func_like.ret.cpp_type), func_like.ret.uses_sugar).return_usage.value().extra_comment;
+        assert(!ret_comment.starts_with('\n'));
+        assert(ret_comment.ends_with('\n'));
+        ret += ret_comment;
 
         return ret;
     }
@@ -1488,6 +1521,7 @@ namespace mrbind::CSharp
             {
                 // If we didn't have a base class yet, make this the single base class. Otherwise an interface.
                 // Currently this is disabled, because I'm not sure how to emit a downcast in this case, since implicit conversions can't target base or derived classes.
+                // Note that you can't just uncomment this, a bunch of things will break, such as our `Dispose()` implementations which are not designed to handle this.
                 #if 0
                 if (first)
                 {
@@ -1621,6 +1655,15 @@ namespace mrbind::CSharp
 
             const EmittedClassInfo &class_info = GetEmittedClassInfo(cl);
 
+            // Do we have bindings for `std::shared_ptr<T>`?
+            const CInterop::TypeDesc *shared_ptr_desc = GetSharedPtrTypeDescForCppTypeOpt(cl.class_name);
+            // The C name for `std::shared_ptr<T>`, if we have that.
+            std::optional<std::string> c_sharedptr_name;
+            if (shared_ptr_desc)
+            {
+                c_sharedptr_name = std::get<CInterop::TypeKinds::Class>(shared_ptr_desc->var).c_name;
+            }
+
             // Declare the interface.
 
             // A separator?
@@ -1666,17 +1709,32 @@ namespace mrbind::CSharp
 
             file.PushScope({}, "\n{\n", "}\n");
 
+            // Declare the underlying pointer type, and the method to access the underlying pointer.
             const std::string csharp_underlying_ptr_method_name = CppClassToCSharpGetUnderlyingMethodName(cpp_qual_name);
             if (cl.is_const)
             {
                 // The "get underlying" method can have any access here, but then C# only lets you implement it as public.
-                // I don't think it matters what access I put on it, since this method is considered internal, but the interface is considered internal as well. Shrug.
+                // I don't think it really matters what access I put on it.
                 // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
                 //   all parameter/return types to be public too.
 
                 if (class_info.DirectBase() || !class_info.base_interfaces.empty())
                     file.WriteString("new "); // Be explicit about the shadowing.
-                file.WriteString("public struct _Underlying; // Represents the underlying C type.\n");
+                file.WriteString("public struct _Underlying; // Represents the underlying C++ type.\n");
+                if (shared_ptr_desc)
+                {
+                    // Be explicit about the shadowing. This only shadows something if the direct base
+                    //   or any of the interface bases declares its own shared pointer type.
+                    if (
+                        (class_info.DirectBase() && GetSharedPtrTypeDescForCppTypeOpt(class_info.DirectBase()->class_name)) ||
+                        std::any_of(class_info.base_interfaces.begin(), class_info.base_interfaces.end(), [&](const MaybeConstClass &elem){return GetSharedPtrTypeDescForCppTypeOpt(elem.class_name);})
+                    )
+                    {
+                        file.WriteString("new ");
+                    }
+
+                    file.WriteString("public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.\n");
+                }
                 file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C object.\n");
             }
 
@@ -1773,10 +1831,28 @@ namespace mrbind::CSharp
             {
                 if (declares_underlying_pointer)
                 {
-                    // Declare our own pointer.
-                    file.WriteSeparatingNewline();
-                    file.WriteString("protected unsafe " + underlying_ptr_type + "_UnderlyingPtr;\n");
-                    file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
+                    if (!shared_ptr_desc)
+                    {
+                        // Declare our own raw pointer.
+                        file.WriteSeparatingNewline();
+                        file.WriteString("protected unsafe " + underlying_ptr_type + "_UnderlyingPtr;\n");
+                        file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
+                    }
+                    else
+                    {
+                        // Declare our own shared pointer.
+
+                        file.WriteSeparatingNewline();
+                        file.WriteString("protected unsafe _UnderlyingShared *_UnderlyingSharedPtr;\n");
+                        file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "()\n");
+                        file.PushScope({}, "{\n", "}\n");
+
+                        auto dllimport_get_ptr_from_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", "_Underlying *", "_UnderlyingSharedPtr *_this");
+                        file.WriteString(dllimport_get_ptr_from_shared.dllimport_decl);
+                        file.WriteString("return " + dllimport_get_ptr_from_shared.csharp_name + "(_UnderlyingSharedPtr);\n");
+
+                        file.PopScope();
+                    }
                 }
                 else
                 {
@@ -2008,6 +2084,45 @@ namespace mrbind::CSharp
         }
     }
 
+    bool Generator::IsManagedTypeInCSharp(const std::string &cpp_type)
+    {
+        if (const auto cl = std::get_if<CInterop::TypeKinds::Class>(&c_desc.cpp_types.Map().at(cpp_type).var))
+        {
+            switch (cl->kind)
+            {
+              case CInterop::ClassKind::ref_only:
+              case CInterop::ClassKind::uses_pass_by_enum:
+              case CInterop::ClassKind::trivial_via_ptr:
+                return true;
+              case CInterop::ClassKind::exposed_struct:
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    const CInterop::TypeDesc *Generator::GetSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type)
+    {
+        return c_desc.FindTypeOpt("std::shared_ptr<" + cpp_type + ">");
+    }
+
+    bool Generator::ShouldEmitCppType(const cppdecl::Type &cpp_type)
+    {
+        if (cpp_type.IsOnlyQualifiedName())
+        {
+            // Skip `std::shared_ptr<T>` to managed types.
+            static const cppdecl::QualifiedName shared_ptr_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr");
+            if (cpp_type.simple_type.name.Equals(shared_ptr_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+            {
+                if (IsManagedTypeInCSharp(CppdeclToCode(cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0))))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
     void Generator::Generate()
     {
         { // Perform some initialization.
@@ -2022,6 +2137,10 @@ namespace mrbind::CSharp
         // Emit types.
         for (const auto &key : c_desc.cpp_types.Vec())
         {
+            // Skip certain types.
+            if (!ShouldEmitCppType(ParseTypeOrThrow(key)))
+                continue;
+
             // Most of the variant elements are useless to us, so we aren't using `std::visit` here.
 
             const auto &type_desc = c_desc.cpp_types.Map().at(key);

@@ -113,6 +113,9 @@ namespace mrbind::CSharp
 
         struct ReturnUsage
         {
+            // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
+            std::string extra_comment = "";
+
             // If true, the returned result will always be saved to a temporary variable, and `make_return_expr` will receive that variable.
             // This is needed if `make_return_expr` wants to use the expression multiple times.
             bool needs_temporary_variable = false;
@@ -348,6 +351,15 @@ namespace mrbind::CSharp
         // A low-level function to emit a wrapper for a single half (either const or non-const) of a C "class".
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitMaybeConstCClass(OutputFile &file, const MaybeConstClass &cl);
+
+        // Returns true if this C++ type maps to a managed type in C#, e.g. a class (so force heap-allocated), as opposed to scalars and structs.
+        [[nodiscard]] bool IsManagedTypeInCSharp(const std::string &cpp_type);
+
+        // If our input has a binding for `std::shared_ptr<T>` (where `T` is `cpp_type`), returns that binding. Otherwise null.
+        [[nodiscard]] const CInterop::TypeDesc *GetSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type);
+
+        // If this returns false, this C++ type (usually a class or enum) will not be emitted.
+        [[nodiscard]] bool ShouldEmitCppType(const cppdecl::Type &cpp_type);
 
         void Generate();
 

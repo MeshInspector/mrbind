@@ -104,7 +104,7 @@ namespace mrbind::CBindings
         }
     }
 
-    void HeapAllocatedClassBinder::FillCommonParams(Generator &generator, Generator::BindableType &type)
+    void HeapAllocatedClassBinder::FillCommonParams(Generator &generator, Generator::BindableType &type) const
     {
         type.traits = traits.value(); // `type.traits` isn't actually optional (despite having that type), see the comment on it for details.
 
