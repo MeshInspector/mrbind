@@ -12,4 +12,7 @@ namespace mrbind
 
     // Same, but for template argument lists.
     [[nodiscard]] cppdecl::TemplateArgumentList ParseTemplateArgumentListWithCppdecl(std::string_view input);
+
+    // Returns true if the input contains some ugly unnamed types that we can't parse at the moment.
+    [[nodiscard]] bool ContainsUnnamedTypes(std::string_view input);
 }

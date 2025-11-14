@@ -505,9 +505,9 @@ namespace mrbind
         ret.canonical = GetCanonicalTypeName(type, ci, params, printing_policies.normal, false);
 
         ret.pretty = type.getAsString(printing_policies.normal);
-        // If the type is spelled with `decltype`, force replace it with the canonical.
-        // This is needed if we e.g. `decltype` the function parameters.
-        if (ret.pretty.find("decltype(") != std::string::npos)
+        // If the type is spelled with `decltype`, force replace it with the canonical. This is needed if we e.g. `decltype` the function parameters.
+        // Also handle some ugly unnamed types that we can't parse.
+        if (ret.pretty.find("decltype(") != std::string::npos || ContainsUnnamedTypes(ret.pretty))
         {
             ret.pretty = ret.canonical;
         }
