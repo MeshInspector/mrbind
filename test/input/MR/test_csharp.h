@@ -149,4 +149,5 @@ namespace MR::CSharp
 
 //     inline std::shared_ptr<void> test_shared_ptr() {return {};}
 //     inline std::shared_ptr<int> test_shared_ptr2() {return {};}
+    inline std::shared_ptr<const D> test_shared_ptr3() {return {};}
 }

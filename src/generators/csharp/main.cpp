@@ -10,6 +10,7 @@
 #include <span>
 #include <string>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
 int main(int argc, char **argv)
@@ -21,6 +22,8 @@ int main(int argc, char **argv)
     bool clean_output_dir = false;
     std::optional<std::string> imported_lib_name;
     std::optional<std::string> helpers_namespace;
+    std::vector<std::pair<std::string, std::string>> replaced_namespaces;
+    std::optional<std::string> forced_namespace;
 
     mrbind::CommandLineParser args_parser;
 
@@ -64,6 +67,23 @@ int main(int argc, char **argv)
             helpers_namespace = args.front();
         },
     });
+    args_parser.AddFlag("--replace-namespace", {
+        .allow_repeat = true,
+        .arg_names = {"from", "to"},
+        .desc = "Takes two C++-style namespace names. Applies a replacement to the prefixes of all C++ names in the input. The flag can be specified multiple times, the replacements will be applied in the same order. The second argument can be `::` to remove a namespace entirely.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            replaced_namespaces.emplace_back(std::string(args[0]), std::string(args[1]));
+        },
+    });
+    args_parser.AddFlag("--force-namespace", {
+        .arg_names = {"name"},
+        .desc = "The parameter is a C++-style `Foo::Bar` namespace name. Any C++ names that don't start with the first component of this namespae (`Foo` in this example) will have this namespace prepended to them.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            forced_namespace = args.front();
+        },
+    });
 
     mrbind::CommandLineArgsAsUtf8 args(argc, argv);
     args_parser.Parse(args.argc, args.argv);
@@ -88,6 +108,20 @@ int main(int argc, char **argv)
     if (!helpers_namespace)
         throw std::runtime_error("`--helpers-namespace` is required.");
     generator.helpers_namespace = generator.ParseNameOrThrow(*helpers_namespace);
+
+    generator.replaced_namespaces.reserve(replaced_namespaces.size());
+    for (const auto &elem : replaced_namespaces)
+    {
+        // The second parameter specifically can be `::`, so we special-case it here, since `::` is otherwise not a valid qualified name.
+        cppdecl::QualifiedName second;
+        if (elem.second != "::")
+            second = generator.ParseNameOrThrow(elem.second);
+
+        generator.replaced_namespaces.emplace_back(generator.ParseNameOrThrow(elem.first), std::move(second));
+    }
+
+    if (forced_namespace)
+        generator.forced_namespace = generator.ParseNameOrThrow(*forced_namespace);
 
     // Generate.
     generator.Generate();

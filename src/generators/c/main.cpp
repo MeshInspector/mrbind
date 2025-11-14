@@ -324,10 +324,10 @@ int main(int raw_argc, char **raw_argv)
 
                         if (state == State::handled_by_this_module)
                             throw std::runtime_error("Bad usage of `FlagInterface`: must not call `FlagNameMatches()` again after it returned true.");
-                        if (state == State::handled_by_previous_module)
-                            throw std::runtime_error("Bad usage of `FlagInterface`: attempting to handle flag `" + std::string(current_flag) + "` after some other module has already handled it.");
                         if (name != current_flag)
                             return false;
+                        if (state == State::handled_by_previous_module)
+                            throw std::runtime_error("Bad usage of `FlagInterface`: attempting to handle flag `" + std::string(current_flag) + "` after some other module has already handled it.");
                         state = State::handled_by_this_module;
                         return true;
                     }

@@ -83,7 +83,8 @@ build/mrbind_gen_c \
     --output-header-dir test/output_c/include \
     --output-source-dir test/output_c/source \
     --output-desc-json test/output_c/desc.json \
-    "${MRBIND_GEN_C_FLAGS[@]}"
+    "${MRBIND_GEN_C_FLAGS[@]}" \
+    --bind-shared-ptr-virally
 
 build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
@@ -122,6 +123,7 @@ build/mrbind_gen_c \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --reject-long-and-long-long \
     --use-size_t-typedef-for-uint64_t \
+    --bind-shared-ptr-virally
 
 
 "$CXX" \
