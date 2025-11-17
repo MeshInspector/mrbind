@@ -1223,6 +1223,8 @@ public static partial class MR
             {
                 public struct _Underlying; // Represents the underlying C++ type.
                 internal unsafe _Underlying *_GetUnderlying_MR_CSharp_SA(); // Returns the pointer to the underlying C++ object.
+
+                public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
             }
 
             /// Generated from class `MR::CSharp::SA`.
@@ -1232,12 +1234,11 @@ public static partial class MR
             /// This is the const half of the class.
             public class ConstSA : MR.CS.Misc.SharedObject, System.IDisposable, IConstSA
             {
-                public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
-                protected unsafe _UnderlyingShared *_UnderlyingSharedPtr;
+                internal unsafe IConstSA._UnderlyingShared *_UnderlyingSharedPtr;
                 public unsafe IConstSA._Underlying *_GetUnderlying_MR_CSharp_SA()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Get", ExactSpelling = true)]
-                    extern static IConstSA._Underlying *__MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingShared *_this);
+                    extern static IConstSA._Underlying *__MR_C_std_shared_ptr_MR_CSharp_SA_Get(IConstSA._UnderlyingShared *_this);
                     return __MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingSharedPtr);
                 }
 
@@ -1253,40 +1254,40 @@ public static partial class MR
                 }
 
                 /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                internal unsafe IConstSA._UnderlyingShared *_CloneUnderlyingSharedPtr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
+                    extern static IConstSA._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, IConstSA._UnderlyingShared *other);
                     return __MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
                 }
 
                 internal unsafe ConstSA(IConstSA._Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_Construct(IConstSA._Underlying *other);
+                    extern static IConstSA._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_Construct(IConstSA._Underlying *other);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning(IConstSA._Underlying *other);
+                    extern static IConstSA._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning(IConstSA._Underlying *other);
                     if (is_owning)
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning(ptr);
                 }
 
-                internal unsafe ConstSA(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = ptr;}
+                internal unsafe ConstSA(IConstSA._UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
 
-                internal static unsafe ConstSA _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSA._Underlying *ptr)
+                internal static unsafe SA _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSA._Underlying *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSA._Underlying *ptr);
+                    extern static IConstSA._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSA._Underlying *ptr);
                     return new(__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
                 }
 
-                private unsafe void _LateMakeShared(IConstSA._Underlying *ptr)
+                protected unsafe void _LateMakeShared(IConstSA._Underlying *ptr)
                 {
                     System.Diagnostics.Trace.Assert(_IsOwningVal == true);
                     System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr == null);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_Construct(IConstSA._Underlying *other);
+                    extern static IConstSA._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_Construct(IConstSA._Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                 }
 
@@ -1295,7 +1296,7 @@ public static partial class MR
                     if (_UnderlyingSharedPtr == null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingShared *_this);
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(IConstSA._UnderlyingShared *_this);
                     __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingSharedPtr);
                     _UnderlyingSharedPtr = null;
                 }
@@ -1326,23 +1327,7 @@ public static partial class MR
             {
                 internal unsafe SA(ISA._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                internal unsafe SA(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = ptr;}
-
-                internal static unsafe SA _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, ISA._Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, ISA._Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private unsafe void _LateMakeShared(ISA._Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr == null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ISA._Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
-                }
+                internal unsafe SA(ISA._UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe SA() : this(shared_ptr: null, is_owning: true)
@@ -1359,6 +1344,8 @@ public static partial class MR
             {
                 public struct _Underlying; // Represents the underlying C++ type.
                 internal unsafe _Underlying *_GetUnderlying_MR_CSharp_SB(); // Returns the pointer to the underlying C++ object.
+
+                public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
             }
 
             /// Generated from class `MR::CSharp::SB`.
@@ -1368,12 +1355,11 @@ public static partial class MR
             /// This is the const half of the class.
             public class ConstSB : MR.CS.Misc.SharedObject, System.IDisposable, IConstSB
             {
-                public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
-                protected unsafe _UnderlyingShared *_UnderlyingSharedPtr;
+                internal unsafe IConstSB._UnderlyingShared *_UnderlyingSharedPtr;
                 public unsafe IConstSB._Underlying *_GetUnderlying_MR_CSharp_SB()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Get", ExactSpelling = true)]
-                    extern static IConstSB._Underlying *__MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingShared *_this);
+                    extern static IConstSB._Underlying *__MR_C_std_shared_ptr_MR_CSharp_SB_Get(IConstSB._UnderlyingShared *_this);
                     return __MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingSharedPtr);
                 }
 
@@ -1389,40 +1375,40 @@ public static partial class MR
                 }
 
                 /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                internal unsafe IConstSB._UnderlyingShared *_CloneUnderlyingSharedPtr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
+                    extern static IConstSB._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, IConstSB._UnderlyingShared *other);
                     return __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
                 }
 
                 internal unsafe ConstSB(IConstSB._Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_Construct(IConstSB._Underlying *other);
+                    extern static IConstSB._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_Construct(IConstSB._Underlying *other);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(IConstSB._Underlying *other);
+                    extern static IConstSB._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(IConstSB._Underlying *other);
                     if (is_owning)
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(ptr);
                 }
 
-                internal unsafe ConstSB(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = ptr;}
+                internal unsafe ConstSB(IConstSB._UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
 
-                internal static unsafe ConstSB _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSB._Underlying *ptr)
+                internal static unsafe SB _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSB._Underlying *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSB._Underlying *ptr);
+                    extern static IConstSB._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSB._Underlying *ptr);
                     return new(__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
                 }
 
-                private unsafe void _LateMakeShared(IConstSB._Underlying *ptr)
+                protected unsafe void _LateMakeShared(IConstSB._Underlying *ptr)
                 {
                     System.Diagnostics.Trace.Assert(_IsOwningVal == true);
                     System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr == null);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_Construct(IConstSB._Underlying *other);
+                    extern static IConstSB._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_Construct(IConstSB._Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
                 }
 
@@ -1431,7 +1417,7 @@ public static partial class MR
                     if (_UnderlyingSharedPtr == null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingShared *_this);
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(IConstSB._UnderlyingShared *_this);
                     __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingSharedPtr);
                     _UnderlyingSharedPtr = null;
                 }
@@ -1462,23 +1448,7 @@ public static partial class MR
             {
                 internal unsafe SB(ISB._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                internal unsafe SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = ptr;}
-
-                internal static unsafe SB _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, ISB._Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, ISB._Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private unsafe void _LateMakeShared(ISB._Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr == null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ISB._Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
-                }
+                internal unsafe SB(ISB._UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe SB() : this(shared_ptr: null, is_owning: true)
@@ -1495,6 +1465,8 @@ public static partial class MR
             {
                 new public struct _Underlying; // Represents the underlying C++ type.
                 internal unsafe _Underlying *_GetUnderlying_MR_CSharp_SC(); // Returns the pointer to the underlying C++ object.
+                new 
+                public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
             }
 
             /// Generated from class `MR::CSharp::SC`.
@@ -1505,13 +1477,11 @@ public static partial class MR
             /// This is the const half of the class.
             public class ConstSC : MR.CS.Misc.SharedObject, System.IDisposable, IConstSC, MR.CS.CSharp.IConstSA, MR.CS.CSharp.IConstSB
             {
-                new 
-                public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
-                protected unsafe _UnderlyingShared *_UnderlyingSharedPtr;
+                internal unsafe IConstSC._UnderlyingShared *_UnderlyingSharedPtr;
                 public unsafe IConstSC._Underlying *_GetUnderlying_MR_CSharp_SC()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Get", ExactSpelling = true)]
-                    extern static IConstSC._Underlying *__MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingShared *_this);
+                    extern static IConstSC._Underlying *__MR_C_std_shared_ptr_MR_CSharp_SC_Get(IConstSC._UnderlyingShared *_this);
                     return __MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingSharedPtr);
                 }
 
@@ -1527,10 +1497,10 @@ public static partial class MR
                 }
 
                 /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                internal unsafe IConstSC._UnderlyingShared *_CloneUnderlyingSharedPtr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
+                    extern static IConstSC._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, IConstSC._UnderlyingShared *other);
                     return __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
                 }
 
@@ -1551,30 +1521,30 @@ public static partial class MR
                 internal unsafe ConstSC(IConstSC._Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(IConstSC._Underlying *other);
+                    extern static IConstSC._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(IConstSC._Underlying *other);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(IConstSC._Underlying *other);
+                    extern static IConstSC._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(IConstSC._Underlying *other);
                     if (is_owning)
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
                 }
 
-                internal unsafe ConstSC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = ptr;}
+                internal unsafe ConstSC(IConstSC._UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
 
-                internal static unsafe ConstSC _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSC._Underlying *ptr)
+                internal static unsafe SC _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSC._Underlying *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSC._Underlying *ptr);
+                    extern static IConstSC._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, IConstSC._Underlying *ptr);
                     return new(__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
                 }
 
-                private unsafe void _LateMakeShared(IConstSC._Underlying *ptr)
+                protected unsafe void _LateMakeShared(IConstSC._Underlying *ptr)
                 {
                     System.Diagnostics.Trace.Assert(_IsOwningVal == true);
                     System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr == null);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(IConstSC._Underlying *other);
+                    extern static IConstSC._UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(IConstSC._Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
                 }
 
@@ -1583,7 +1553,7 @@ public static partial class MR
                     if (_UnderlyingSharedPtr == null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SC_Destroy(_UnderlyingShared *_this);
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SC_Destroy(IConstSC._UnderlyingShared *_this);
                     __MR_C_std_shared_ptr_MR_CSharp_SC_Destroy(_UnderlyingSharedPtr);
                     _UnderlyingSharedPtr = null;
                 }
@@ -1619,23 +1589,7 @@ public static partial class MR
             {
                 internal unsafe SC(ISC._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = ptr;}
-
-                internal static unsafe SC _MakeAliasing(MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, ISC._Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.std.IConstshared_ptr_const_void._Underlying *ownership, ISC._Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private unsafe void _LateMakeShared(ISC._Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr == null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ISC._Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
-                }
+                internal unsafe SC(ISC._UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.ConstSA(SC self) {return MR.CS.CSharp.ConstSA._MakeAliasing((MR.CS.std.IConstshared_ptr_const_void._Underlying *)self._UnderlyingSharedPtr, self._GetUnderlying_MR_CSharp_SA());}
@@ -1935,7 +1889,7 @@ public static partial class MR
             public static unsafe MR.CS.CSharp.Trivial test_class_trivial(MR.CS.CSharp.ConstTrivial a, MR.CS.CSharp.ConstTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial", ExactSpelling = true)]
-                extern static MR.CS.CSharp.ITrivial._Underlying *__MR_CSharp_test_class_trivial(MR.CS.CSharp.IConstTrivial._Underlying *a, MR.CS.CSharp.IConstTrivial._Underlying *b);
+                extern static MR.CS.CSharp.ITrivial._Underlying *__MR_CSharp_test_class_trivial(MR.CS.CSharp.ITrivial._Underlying *a, MR.CS.CSharp.ITrivial._Underlying *b);
                 return new(__MR_CSharp_test_class_trivial(a._GetUnderlying_MR_CSharp_Trivial(), b != null ? b._GetUnderlying_MR_CSharp_Trivial() : null), is_owning: true);
             }
 
@@ -1984,7 +1938,7 @@ public static partial class MR
             public static unsafe MR.CS.CSharp.NonTrivial test_class_nontrivial(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivial, MR.CS.CSharp.ConstNonTrivial> a, MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivial, MR.CS.CSharp.ConstNonTrivial>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial", ExactSpelling = true)]
-                extern static MR.CS.CSharp.INonTrivial._Underlying *__MR_CSharp_test_class_nontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.IConstNonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.IConstNonTrivial._Underlying *b);
+                extern static MR.CS.CSharp.INonTrivial._Underlying *__MR_CSharp_test_class_nontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.INonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.INonTrivial._Underlying *b);
                 return new(__MR_CSharp_test_class_nontrivial(a.PassByMode, a.Value != null ? a.Value._GetUnderlying_MR_CSharp_NonTrivial() : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value != null ? b.Value.Value._GetUnderlying_MR_CSharp_NonTrivial() : null), is_owning: true);
             }
 
@@ -2054,13 +2008,59 @@ public static partial class MR
                 return __MR_CSharp_test_void_cptr(a, b, c);
             }
 
-            // Poke shared pointer type to instatiate `std::shared_ptr` for the entire hierarchy.
-            /// Generated from function `MR::CSharp::test_shared_ptr_to_class`.
-            public static unsafe MR.CS.std.shared_ptr_const_MR_CSharp_SA test_shared_ptr_to_class()
+            // Pokeing a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
+            /// Generated from function `MR::CSharp::test_shptr`.
+            /// Parameter `b` defaults to `default_shptr`.
+            public static unsafe MR.CS.CSharp.SA test_shptr(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> a, MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA>? b = null)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shared_ptr_to_class", ExactSpelling = true)]
-                extern static MR.CS.std.Ishared_ptr_const_MR_CSharp_SA._Underlying *__MR_CSharp_test_shared_ptr_to_class();
-                return new(__MR_CSharp_test_shared_ptr_to_class(), is_owning: true);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ISA._UnderlyingShared *__MR_CSharp_test_shptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.ISA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.ISA._UnderlyingShared *b);
+                return new(__MR_CSharp_test_shptr(a.PassByMode, a.Value != null ? a.Value._UnderlyingSharedPtr : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value != null ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_shptr_ref`.
+            /// Parameter `b` defaults to `default_shptr`.
+            public static unsafe MR.CS.CSharp.SA test_shptr_ref(MR.CS.CSharp.SA a, MR.CS.CSharp.SA? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ISA._UnderlyingShared *__MR_CSharp_test_shptr_ref(MR.CS.CSharp.ISA._UnderlyingShared *a, MR.CS.CSharp.ISA._UnderlyingShared *b);
+                return new(__MR_CSharp_test_shptr_ref(a._UnderlyingSharedPtr, b != null ? b._UnderlyingSharedPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_shptr_cref`.
+            /// Parameter `b` defaults to `default_shptr`.
+            public static unsafe MR.CS.CSharp.ConstSA test_shptr_cref(MR.CS.CSharp.ConstSA a, MR.CS.CSharp.ConstSA? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_cref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.IConstSA._UnderlyingShared *__MR_CSharp_test_shptr_cref(MR.CS.CSharp.IConstSA._UnderlyingShared *a, MR.CS.CSharp.IConstSA._UnderlyingShared *b);
+                return new(__MR_CSharp_test_shptr_cref(a._UnderlyingSharedPtr, b != null ? b._UnderlyingSharedPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_shcptr`.
+            /// Parameter `b` defaults to `default_shcptr`.
+            public static unsafe MR.CS.CSharp.SA test_shcptr(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> a, MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ISA._UnderlyingShared *__MR_CSharp_test_shcptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.ISA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.ISA._UnderlyingShared *b);
+                return new(__MR_CSharp_test_shcptr(a.PassByMode, a.Value != null ? a.Value._UnderlyingSharedPtr : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value != null ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_shcptr_ref`.
+            /// Parameter `b` defaults to `default_shcptr`.
+            public static unsafe MR.CS.CSharp.SA test_shcptr_ref(MR.CS.CSharp.SA a, MR.CS.CSharp.SA? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ISA._UnderlyingShared *__MR_CSharp_test_shcptr_ref(MR.CS.CSharp.ISA._UnderlyingShared *a, MR.CS.CSharp.ISA._UnderlyingShared *b);
+                return new(__MR_CSharp_test_shcptr_ref(a._UnderlyingSharedPtr, b != null ? b._UnderlyingSharedPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_shcptr_cref`.
+            /// Parameter `b` defaults to `default_shcptr`.
+            public static unsafe MR.CS.CSharp.ConstSA test_shcptr_cref(MR.CS.CSharp.ConstSA a, MR.CS.CSharp.ConstSA? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_cref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.IConstSA._UnderlyingShared *__MR_CSharp_test_shcptr_cref(MR.CS.CSharp.IConstSA._UnderlyingShared *a, MR.CS.CSharp.IConstSA._UnderlyingShared *b);
+                return new(__MR_CSharp_test_shcptr_cref(a._UnderlyingSharedPtr, b != null ? b._UnderlyingSharedPtr : null), is_owning: false);
             }
         }
     }

@@ -75,8 +75,10 @@ namespace mrbind::CSharp
                 // A comma-separated list of parameter declarations for the `DllImport` C# function declaration, or empty if none.
                 std::string dllimport_decl_params;
 
-                // A comma-separated list of parameter declarations for the public C# function declaration, or empty if none.
-                std::string csharp_decl_params;
+                // A list of parameter declarations for the public C# function declaration, or empty if none.
+                // This one needs to be an actual vector, because we apply non-trivial transformations to it, and splitting a string
+                //   wouldn't be trivial, since we'd have to ignore commas in `<...>` generic argument lists.
+                std::vector<std::string> csharp_decl_params;
 
                 // Optional. If specified, the return statement is wrapped in a scope, where this string opens it, and `scope_close` closes.
                 // If not empty, must end with a newline. No indentation is needed.
@@ -214,9 +216,6 @@ namespace mrbind::CSharp
 
         // Given a C++ class name, returns the "GetUnderlying..." method that's used in classes derived from this to return pointers to the underlying C++ instance.
         [[nodiscard]] std::string CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name);
-
-        // Given a C++ class name, returns the "CopyUnderlyingShared..." method that copy-constructs the underlying shared pointer.
-        [[nodiscard]] std::string CppClassToCSharpCopyUnderlyingSharedMethodName(const cppdecl::QualifiedName &name);
 
         // Caches bindings for the types. Don't access directly, this is for `GetTypeBinding()`.
         // Using the plain `map` instead of `unordered_map` because of the `pair`, which isn't hashable by default.

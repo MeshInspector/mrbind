@@ -21,7 +21,8 @@ public static partial class MR
                     _KeepAliveList.Add(obj);
                 }
 
-                internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}}
+                internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}
+            }
 
             /// This is the base class for those of our classes that are backed by `std::shared_ptr`.
             public abstract class SharedObject : Object
@@ -33,16 +34,8 @@ public static partial class MR
                 /// We repurpose `_IsOwningVal` for this.
                 public bool _IsOwningSharedPtr => _IsOwningVal;
 
-                /// Which objects need to be kept alive while this object exists? This is public just in case.
-                public List<object>? _KeepAliveList;
-                public void _KeepAlive(object obj)
-                {
-                    if (_KeepAliveList == null)
-                        _KeepAliveList = new();
-                    _KeepAliveList.Add(obj);
-                }
-
-                internal SharedObject(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}}
+                internal SharedObject(bool NewIsOwning) : base(NewIsOwning) {}
+            }
 
             /// This is used for optional in/out parameters, since `ref` can't be nullable.
             public class InOut<T> where T: unmanaged
