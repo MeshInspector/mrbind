@@ -338,7 +338,7 @@ namespace mrbind
 
         if (canonicalize && (params.canonicalize_to_fixed_size_typedefs || params.canonicalize_64_to_fixed_size_typedefs))
         {
-            entity.template VisitEachComponent<cppdecl::SimpleType>(
+            (void)entity.template VisitEachComponent<cppdecl::SimpleType>(
                 cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
                 [&](cppdecl::SimpleType &simple_type)
                 {
@@ -410,6 +410,8 @@ namespace mrbind
                             }
                         }
                     }
+
+                    return false;
                 }
             );
         }
@@ -435,13 +437,14 @@ namespace mrbind
             // Apply custom canonical names!
             if (params.canonincalization_respects_custom_preferred_names && !params.custom_preferred_names.empty())
             {
-                type.VisitEachComponent<cppdecl::QualifiedName>(
+                (void)type.VisitEachComponent<cppdecl::QualifiedName>(
                     cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
                     [&](cppdecl::QualifiedName &name)
                     {
                         auto iter = params.custom_preferred_names.find(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
                         if (iter != params.custom_preferred_names.end())
                             name = iter->second;
+                        return false;
                     }
                 );
             }
@@ -505,9 +508,9 @@ namespace mrbind
         ret.canonical = GetCanonicalTypeName(type, ci, params, printing_policies.normal, false);
 
         ret.pretty = type.getAsString(printing_policies.normal);
-        // If the type is spelled with `decltype`, force replace it with the canonical. This is needed if we e.g. `decltype` the function parameters.
-        // Also handle some ugly unnamed types that we can't parse.
-        if (ret.pretty.find("decltype(") != std::string::npos || ContainsUnnamedTypes(ret.pretty))
+        // If the type is spelled with `decltype`, force replace it with the canonical.
+        // This is needed if we e.g. `decltype` the function parameters.
+        if (ret.pretty.find("decltype(") != std::string::npos)
         {
             ret.pretty = ret.canonical;
         }
@@ -1838,7 +1841,7 @@ namespace mrbind
                             cppdecl::Type visited_type = ParseTypeWithCppdecl(*visited_type_string);
                             bool any_type_changes = false;
 
-                            visited_type.VisitEachComponent<cppdecl::QualifiedName>({}, [&](cppdecl::QualifiedName &visited_name)
+                            (void)visited_type.VisitEachComponent<cppdecl::QualifiedName>({}, [&](cppdecl::QualifiedName &visited_name)
                             {
                                 for (const cppdecl::QualifiedName &typedef_name : typedef_names)
                                 {

@@ -1,7 +1,6 @@
 #include "cppdecl_helpers.h"
 
 #include <cppdecl/declarations/parse.h>
-#include <cppdecl/declarations/unnamed_types.h>
 
 namespace mrbind
 {
@@ -55,10 +54,5 @@ namespace mrbind
             throw std::runtime_error("Expected a template argument list in `" + std::string(input) + "` but didn't find one. Please report a bug. Pass `--no-cppdecl` to try to work around this, but note that this will break most non-trivial usecases.");
 
         return std::move(*opt);
-    }
-
-    bool ContainsUnnamedTypes(std::string_view input)
-    {
-        return cppdecl::ContainsUnnamedTypes(input);
     }
 }
