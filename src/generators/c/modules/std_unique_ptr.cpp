@@ -83,6 +83,7 @@ namespace mrbind::CBindings::Modules
                     //   but isn't handled by `IsBuiltInTypeName()`, because it isn't, well, built-in.)
                     // And also we use `TypeNameIsCBuiltIn()`, but this should probably handle C++ types too (like `std::nullptr_t`?).
                     // We we'll either another function or somet flag for `TypeNameIsCBuiltIn()`?
+                    cpp_elem_type_minus_array_unqual.AsSingleWord() == "void" ||
                     cpp_elem_type_minus_array_unqual.Is<cppdecl::Pointer>() ||
                     (
                         cpp_elem_type_minus_array_unqual.IsOnlyQualifiedName() &&

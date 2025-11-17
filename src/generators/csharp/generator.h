@@ -25,6 +25,8 @@ namespace mrbind::CSharp
         return cppdecl::ToString(value, cppdecl::ToStringFlags::identifier);
     }
 
+    struct Generator;
+
     struct OutputFile
     {
         std::string contents;
@@ -58,7 +60,7 @@ namespace mrbind::CSharp
         void PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope);
 
         // Repeatedly calls `PushScope()` and `PopScope()` to end up in the desired namespace.
-        void EnsureNamespace(std::span<const cppdecl::UnqualifiedName> new_namespace);
+        void EnsureNamespace(const Generator &generator, cppdecl::QualifiedName new_namespace);
     };
 
     struct TypeBinding
@@ -113,6 +115,9 @@ namespace mrbind::CSharp
 
         struct ReturnUsage
         {
+            // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
+            std::string extra_comment = "";
+
             // If true, the returned result will always be saved to a temporary variable, and `make_return_expr` will receive that variable.
             // This is needed if `make_return_expr` wants to use the expression multiple times.
             bool needs_temporary_variable = false;
@@ -161,6 +166,12 @@ namespace mrbind::CSharp
         // The C# namespace to store the additional generated utilties.
         cppdecl::QualifiedName helpers_namespace;
 
+        // Those prefixes are replaced in all C++ names.
+        std::vector<std::pair<cppdecl::QualifiedName, cppdecl::QualifiedName>> replaced_namespaces;
+
+        // This C# namespace is added to the names that don't already start with the first unqualified part of it.
+        std::optional<cppdecl::QualifiedName> forced_namespace;
+
         // ]
 
         // Maps relative file paths (without extensions) to the file descriptions and contents.
@@ -183,23 +194,29 @@ namespace mrbind::CSharp
         // This is needed since passing `bool` by value internally uses `int32_t` in C#, but passing it by reference seems to work correctly.
         [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect);
 
+        // Adjusts a name to apply any `--remove-namespace` and `--force-namespace` flags.
+        [[nodiscard]] cppdecl::QualifiedName AdjustCppName(cppdecl::QualifiedName name) const;
+
         // Converts a C++ qualified enum name to a C# name.
-        [[nodiscard]] std::string CppToCSharpEnumName(const cppdecl::QualifiedName &name);
+        [[nodiscard]] std::string CppToCSharpEnumName(cppdecl::QualifiedName name);
 
         // Converts a C++ qualified class name to a C# name. Since we split classes into const and non-const halves, we need a bool to specify which half we want.
-        [[nodiscard]] std::string CppToCSharpClassName(const cppdecl::QualifiedName &name, bool is_const);
+        [[nodiscard]] std::string CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const);
         // Same, but for unqualified names.
         // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
-        [[nodiscard]] std::string CppToCSharpUnqualClassName(std::string_view name, bool is_const);
+        [[nodiscard]] std::string CppToCSharpUnqualClassName(const cppdecl::UnqualifiedName &name, bool is_const);
 
         // Converts a C++ qualified class name to a C# helper interface name for this class.
-        [[nodiscard]] std::string CppToCSharpInterfaceName(const cppdecl::QualifiedName &name, bool is_const);
+        [[nodiscard]] std::string CppToCSharpInterfaceName(cppdecl::QualifiedName name, bool is_const);
         // Same, but for unqualified names.
         // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
-        [[nodiscard]] std::string CppToCSharpUnqualInterfaceName(std::string_view name, bool is_const);
+        [[nodiscard]] std::string CppToCSharpUnqualInterfaceName(const cppdecl::UnqualifiedName &name, bool is_const);
 
-        // Given a C++ class name, returns the "GetUnderlying..." method that's used in classes derived from this to return pointers to the underlying C instance.
+        // Given a C++ class name, returns the "GetUnderlying..." method that's used in classes derived from this to return pointers to the underlying C++ instance.
         [[nodiscard]] std::string CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name);
+
+        // Given a C++ class name, returns the "CopyUnderlyingShared..." method that copy-constructs the underlying shared pointer.
+        [[nodiscard]] std::string CppClassToCSharpCopyUnderlyingSharedMethodName(const cppdecl::QualifiedName &name);
 
         // Caches bindings for the types. Don't access directly, this is for `GetTypeBinding()`.
         // Using the plain `map` instead of `unordered_map` because of the `pair`, which isn't hashable by default.
@@ -348,6 +365,18 @@ namespace mrbind::CSharp
         // A low-level function to emit a wrapper for a single half (either const or non-const) of a C "class".
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitMaybeConstCClass(OutputFile &file, const MaybeConstClass &cl);
+
+        // Returns true if this C++ type maps to a managed type in C#, e.g. a class (so force heap-allocated), as opposed to scalars and structs.
+        // Throws if this isn't a known type.
+        // Ignores constness on the type.
+        [[nodiscard]] bool IsManagedTypeInCSharp(cppdecl::Type cpp_type);
+
+        // If our input has a binding for `std::shared_ptr<T>` (where `T` is `cpp_type`), returns that binding. Otherwise null.
+        // This can be used to check if a class is backed by a shared pointer or not.
+        [[nodiscard]] const CInterop::TypeDesc *GetSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type);
+
+        // If this returns false, this C++ type (usually a class or enum) will not be emitted.
+        [[nodiscard]] bool ShouldEmitCppType(const cppdecl::Type &cpp_type);
 
         void Generate();
 
