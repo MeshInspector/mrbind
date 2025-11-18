@@ -2036,6 +2036,28 @@ public static partial class MR
                 return new(__MR_CSharp_test_shptr_cref(a._UnderlyingSharedPtr, b != null ? b._UnderlyingSharedPtr : null), is_owning: false);
             }
 
+            /// Generated from function `MR::CSharp::test_shptr_ptr`.
+            /// Parameter `b` defaults to `&default_shptr`.
+            public static unsafe MR.CS.CSharp.SA? TestShptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.SA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ISA._UnderlyingShared *__MR_CSharp_test_shptr_ptr(MR.CS.CSharp.ISA._UnderlyingShared *a, MR.CS.CSharp.ISA._UnderlyingShared **b);
+                MR.CS.CSharp.ISA._UnderlyingShared *__ptr_b = b != null && b.Opt != null ? b.Opt._UnderlyingSharedPtr : null;
+                var __ret = __MR_CSharp_test_shptr_ptr(a != null ? a._UnderlyingSharedPtr : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.CSharp.SA(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_shptr_cptr`.
+            /// Parameter `b` defaults to `&default_shptr`.
+            public static unsafe MR.CS.CSharp.ConstSA? TestShptrCptr(MR.CS.CSharp.ConstSA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.ConstSA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_cptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.IConstSA._UnderlyingShared *__MR_CSharp_test_shptr_cptr(MR.CS.CSharp.IConstSA._UnderlyingShared *a, MR.CS.CSharp.IConstSA._UnderlyingShared **b);
+                MR.CS.CSharp.IConstSA._UnderlyingShared *__ptr_b = b != null && b.Opt != null ? b.Opt._UnderlyingSharedPtr : null;
+                var __ret = __MR_CSharp_test_shptr_cptr(a != null ? a._UnderlyingSharedPtr : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.CSharp.ConstSA(__ret, is_owning: false) : null;
+            }
+
             /// Generated from function `MR::CSharp::test_shcptr`.
             /// Parameter `b` defaults to `default_shcptr`.
             public static unsafe MR.CS.CSharp.SA TestShcptr(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> a, MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA>? b = null)
@@ -2061,6 +2083,28 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.IConstSA._UnderlyingShared *__MR_CSharp_test_shcptr_cref(MR.CS.CSharp.IConstSA._UnderlyingShared *a, MR.CS.CSharp.IConstSA._UnderlyingShared *b);
                 return new(__MR_CSharp_test_shcptr_cref(a._UnderlyingSharedPtr, b != null ? b._UnderlyingSharedPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_shcptr_ptr`.
+            /// Parameter `b` defaults to `&default_shcptr`.
+            public static unsafe MR.CS.CSharp.SA? TestShcptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.SA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ISA._UnderlyingShared *__MR_CSharp_test_shcptr_ptr(MR.CS.CSharp.ISA._UnderlyingShared *a, MR.CS.CSharp.ISA._UnderlyingShared **b);
+                MR.CS.CSharp.ISA._UnderlyingShared *__ptr_b = b != null && b.Opt != null ? b.Opt._UnderlyingSharedPtr : null;
+                var __ret = __MR_CSharp_test_shcptr_ptr(a != null ? a._UnderlyingSharedPtr : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.CSharp.SA(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_shcptr_cptr`.
+            /// Parameter `b` defaults to `&default_shcptr`.
+            public static unsafe MR.CS.CSharp.ConstSA? TestShcptrCptr(MR.CS.CSharp.ConstSA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.ConstSA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_cptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.IConstSA._UnderlyingShared *__MR_CSharp_test_shcptr_cptr(MR.CS.CSharp.IConstSA._UnderlyingShared *a, MR.CS.CSharp.IConstSA._UnderlyingShared **b);
+                MR.CS.CSharp.IConstSA._UnderlyingShared *__ptr_b = b != null && b.Opt != null ? b.Opt._UnderlyingSharedPtr : null;
+                var __ret = __MR_CSharp_test_shcptr_cptr(a != null ? a._UnderlyingSharedPtr : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.CSharp.ConstSA(__ret, is_owning: false) : null;
             }
         }
     }
