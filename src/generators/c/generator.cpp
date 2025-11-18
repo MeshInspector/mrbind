@@ -1728,8 +1728,8 @@ namespace mrbind::CBindings
             name.c = self.overloaded_names.at(&new_ctor).name;
         }
         name.cpp_for_interop = CInterop::MethodKinds::Constructor{
-            .template_args = new_ctor.template_args.value_or(""),
             .is_copying_ctor = new_ctor.kind != CopyMoveKind::none,
+            .template_args = new_ctor.template_args.value_or(""),
         };
 
         cpp_return_type = cpp_type;

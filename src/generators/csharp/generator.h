@@ -20,9 +20,14 @@ namespace mrbind::CSharp
     {
         return cppdecl::ToCode(value, {});
     }
-    [[nodiscard]] std::string CppdeclToIdentifier(const auto &value)
+
+    // Transforms a single C++ string (usually a type name or a qualified name) to C# style.
+    [[nodiscard]] std::string CppStringToCsharpIdentifier(std::string_view cpp_ident);
+
+    // Transforms any C++ entity to a C#-style name.
+    [[nodiscard]] std::string CppToCsharpIdentifier(const auto &value)
     {
-        return cppdecl::ToString(value, cppdecl::ToStringFlags::identifier);
+        return CppStringToCsharpIdentifier(cppdecl::ToCode(value, {}));
     }
 
     struct Generator;

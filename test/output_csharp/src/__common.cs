@@ -21,7 +21,7 @@ public static partial class MR
                     _KeepAliveList.Add(obj);
                 }
 
-                internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}
+                internal Object(bool is_owning) {_IsOwningVal = is_owning;}
             }
 
             /// This is the base class for those of our classes that are backed by `std::shared_ptr`.
@@ -34,7 +34,7 @@ public static partial class MR
                 /// We repurpose `_IsOwningVal` for this.
                 public bool _IsOwningSharedPtr => _IsOwningVal;
 
-                internal SharedObject(bool NewIsOwning) : base(NewIsOwning) {}
+                internal SharedObject(bool is_owning) : base(is_owning) {}
             }
 
             /// This is used for optional in/out parameters, since `ref` can't be nullable.

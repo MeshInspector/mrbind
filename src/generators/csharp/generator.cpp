@@ -7,6 +7,41 @@
 
 namespace mrbind::CSharp
 {
+    std::string CppStringToCsharpIdentifier(std::string_view cpp_ident)
+    {
+        std::string ret;
+        ret.reserve(cpp_ident.size());
+
+        bool uppercase_next = true;
+        for (char ch : cpp_ident)
+        {
+            if (ch == '<' || ch == '>' || ch == ',')
+            {
+                ret += '_';
+                uppercase_next = true;
+                continue;
+            }
+
+            if (cppdecl::IsAlpha(ch) || cppdecl::IsDigit(ch))
+            {
+                if (std::exchange(uppercase_next, false))
+                    ret += cppdecl::ToUpper(ch);
+                else
+                    ret += ch;
+                continue;
+            }
+
+            // Reject all other characters.
+            uppercase_next = true;
+        }
+
+        // Trim trailing `_`. Leading ones should be impossible on sane inputs
+        while (ret.ends_with('_'))
+            ret.pop_back();
+
+        return ret;
+    }
+
     void OutputFile::DumpToOstream(std::ostream &out) const
     {
         out << contents;
@@ -79,7 +114,7 @@ namespace mrbind::CSharp
             // Push new ones, assuming those are plain namespaces.
             // Since C# namespaces can only contain classes, and not e.g. free functions, we instead use partial classes.
             // "Partial" you can reopen them later to add more members.
-            PushScope(new_namespace.parts[i], "public static partial class " + CppdeclToIdentifier(new_namespace.parts[i]) + "\n{\n", "}\n");
+            PushScope(new_namespace.parts[i], "public static partial class " + CppToCsharpIdentifier(new_namespace.parts[i]) + "\n{\n", "}\n");
         }
     }
 
@@ -193,7 +228,7 @@ namespace mrbind::CSharp
             if (i > 0)
                 ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
 
-            ret += CppdeclToIdentifier(name.parts[i]);
+            ret += CppToCsharpIdentifier(name.parts[i]);
         }
         return ret;
     }
@@ -212,7 +247,7 @@ namespace mrbind::CSharp
             if (i + 1 == name.parts.size())
                 part = CppToCSharpUnqualClassName(name.parts[i], is_const);
             else
-                part = CppdeclToIdentifier(name.parts[i]);
+                part = CppToCsharpIdentifier(name.parts[i]);
 
             ret += part;
         }
@@ -221,7 +256,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualClassName(const cppdecl::UnqualifiedName &name, bool is_const)
     {
-        return is_const ? "Const" + CppdeclToIdentifier(name) : CppdeclToIdentifier(name);
+        return is_const ? "Const" + CppToCsharpIdentifier(name) : CppToCsharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInterfaceName(cppdecl::QualifiedName name, bool is_const)
@@ -238,7 +273,7 @@ namespace mrbind::CSharp
             if (i + 1 == name.parts.size())
                 part = CppToCSharpUnqualInterfaceName(name.parts[i], is_const);
             else
-                part = CppdeclToIdentifier(name.parts[i]);
+                part = CppToCsharpIdentifier(name.parts[i]);
 
             ret += part;
         }
@@ -253,7 +288,7 @@ namespace mrbind::CSharp
     std::string Generator::CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name)
     {
         // Intentionally not adjusting the name here.
-        return "_GetUnderlying_" + CppdeclToIdentifier(name);
+        return "_GetUnderlying_" + CppToCsharpIdentifier(name);
     }
 
     const TypeBinding &Generator::GetTypeBinding(const cppdecl::Type &cpp_type, bool enable_sugar)
@@ -2382,7 +2417,7 @@ namespace mrbind::CSharp
             // Set `helpers_prefix`.
             for (const auto &elem : AdjustCppName(helpers_namespace).parts)
             {
-                helpers_prefix += CppdeclToIdentifier(elem);
+                helpers_prefix += CppToCsharpIdentifier(elem);
                 helpers_prefix += '.';
             }
         }
@@ -2406,7 +2441,7 @@ namespace mrbind::CSharp
                 auto qual_name = ParseNameOrThrow(key);
                 file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
 
-                EmitCEnum(file, *elem, "public", CppdeclToIdentifier(qual_name.parts.back()));
+                EmitCEnum(file, *elem, "public", CppToCsharpIdentifier(qual_name.parts.back()));
             }
             // Classes.
             else if (auto elem = std::get_if<CInterop::TypeKinds::Class>(&type_desc.var))
@@ -2432,7 +2467,7 @@ namespace mrbind::CSharp
             assert(!qual_name.parts.empty());
             file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
 
-            EmitCFuncLike(file, &free_func, CppdeclToIdentifier(qual_name.parts.back()));
+            EmitCFuncLike(file, &free_func, CppToCsharpIdentifier(qual_name.parts.back()));
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.
@@ -2477,7 +2512,7 @@ namespace mrbind::CSharp
                     "        _KeepAliveList.Add(obj);\n"
                     "    }\n"
                     "\n"
-                    "    internal Object(bool NewIsOwning) {_IsOwningVal = NewIsOwning;}\n"
+                    "    internal Object(bool is_owning) {_IsOwningVal = is_owning;}\n"
                     "}\n"
                 );
 
@@ -2497,7 +2532,7 @@ namespace mrbind::CSharp
                         "    /// We repurpose `_IsOwningVal` for this.\n"
                         "    public bool _IsOwningSharedPtr => _IsOwningVal;\n"
                         "\n"
-                        "    internal SharedObject(bool NewIsOwning) : base(NewIsOwning) {}\n"
+                        "    internal SharedObject(bool is_owning) : base(is_owning) {}\n"
                         "}\n"
                     );
                 }

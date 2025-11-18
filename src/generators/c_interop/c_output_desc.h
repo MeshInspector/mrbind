@@ -268,11 +268,11 @@ namespace mrbind::CInterop
         {
             static constexpr std::string_view name_in_variant = "constructor";
             MBREFL_STRUCT(
-                // The template arguments including `<...>`, or empty if none.
-                (std::string)(template_args)
-
                 // Is this the combined copy/move constructor? We only emit copy/move constructors in this combined form.
                 (bool)(is_copying_ctor, false)
+
+                // The template arguments including `<...>`, or empty if none.
+                (std::string)(template_args, {})
             )
         };
 
