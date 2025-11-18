@@ -1174,6 +1174,10 @@ namespace mrbind::CBindings
             // Use the return type as is, don't attempt to translate it from C++ to C.
             bool use_return_type_as_is = false;
 
+            // If true, signal to the interop that the resulting pointer is an array pointer, not a single object pointer.
+            // Will error if the return type is not a pointer.
+            bool mark_as_returning_pointer_to_array = false;
+
             // Most often this will be null.
             // If null, this defaults to `"return "+expr+";"`, except that for `void` the `return ` is omitted by default.
             std::function<std::string(std::string_view expr)> make_return_expr = nullptr;
@@ -1270,6 +1274,10 @@ namespace mrbind::CBindings
                 // This conflicts with `default_arg` (will trigger an internal error when emitting).
                 // If this is true, `remove_sugar` be ignored.
                 bool use_type_as_is = false;
+
+                // If true, signal to the interop that the resulting pointer is an array pointer, not a single object pointer.
+                // Will error if the parameter type is not a pointer.
+                bool mark_as_pointer_to_array = false;
 
 
                 struct DefaultArg

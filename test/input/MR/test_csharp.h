@@ -1,5 +1,6 @@
 #pragma once
 
+#include <filesystem>
 #include <iostream>
 #include <memory>
 
@@ -28,6 +29,15 @@ namespace MR::CSharp
 
     inline int *test_int_ptr(int *a, int *b = nullptr, int *c = &default_int) {(void)a; (void)b; (void)c; return &default_int;}
     inline const int *test_int_cptr(const int *a, const int *b = nullptr, const int *c = &default_int) {(void)a; (void)b; (void)c; return &default_int;}
+
+    inline unsigned short default_ushort = 42;
+
+    inline unsigned short test_ushort(unsigned short a, unsigned short b = 42) {std::cout << int(a) << ' ' << int(b) << '\n'; return b;}
+    inline unsigned short &test_ushort_ref(unsigned short &a, unsigned short &b = default_ushort) {(void)a; (void)b; return default_ushort;}
+    inline const unsigned short &test_ushort_cref(const unsigned short &a, const unsigned short &b = default_ushort) {(void)a; (void)b; return default_ushort;}
+    inline unsigned short *test_ushort_ptr(unsigned short *a, unsigned short *b = nullptr, unsigned short *c = &default_ushort) {(void)a; (void)b; (void)c; return &default_ushort;}
+    inline const unsigned short *test_ushort_cptr(const unsigned short *a, const unsigned short *b = nullptr, const unsigned short *c = &default_ushort) {(void)a; (void)b; (void)c; return &default_ushort;}
+
 
     /// Enum comment.
     enum class E1
@@ -167,4 +177,31 @@ namespace MR::CSharp
     inline const std::shared_ptr<const SA> &test_shcptr_cref(const std::shared_ptr<const SA> &a, const std::shared_ptr<const SA> &b = default_shcptr) {(void)a; return b;}
     inline std::shared_ptr<const SA> *test_shcptr_ptr(std::shared_ptr<const SA> *a, std::shared_ptr<const SA> *b = &default_shcptr) {(void)a; return b;}
     inline const std::shared_ptr<const SA> *test_shcptr_cptr(const std::shared_ptr<const SA> *a, const std::shared_ptr<const SA> *b = &default_shcptr) {(void)a; return b;}
+
+
+    inline std::string default_string;
+
+    inline std::string test_string(std::string a, std::string b = default_string) {(void)a; return b;}
+    inline std::string &test_string_ref(std::string &a, std::string &b = default_string) {(void)a; return b;}
+    inline const std::string &test_string_cref(const std::string &a, const std::string &b = default_string) {(void)a; return b;}
+    inline std::string *test_string_ptr(std::string *a, std::string *b = &default_string) {(void)a; return b;}
+    inline const std::string *test_string_cptr(const std::string *a, const std::string *b = &default_string) {(void)a; return b;}
+
+
+    inline std::string_view default_stringview;
+
+    inline std::string_view test_stringview(std::string_view a, std::string_view b = default_stringview) {(void)a; return b;}
+    inline std::string_view &test_stringview_ref(std::string_view &a, std::string_view &b = default_stringview) {(void)a; return b;}
+    inline const std::string_view &test_stringview_cref(const std::string_view &a, const std::string_view &b = default_stringview) {(void)a; return b;}
+    inline std::string_view *test_stringview_ptr(std::string_view *a, std::string_view *b = &default_stringview) {(void)a; return b;}
+    inline const std::string_view *test_stringview_cptr(const std::string_view *a, const std::string_view *b = &default_stringview) {(void)a; return b;}
+
+
+    inline std::filesystem::path default_fspath;
+
+    inline std::filesystem::path test_fspath(std::filesystem::path a, std::filesystem::path b = default_fspath) {(void)a; return b;}
+    inline std::filesystem::path &test_fspath_ref(std::filesystem::path &a, std::filesystem::path &b = default_fspath) {(void)a; return b;}
+    inline const std::filesystem::path &test_fspath_cref(const std::filesystem::path &a, const std::filesystem::path &b = default_fspath) {(void)a; return b;}
+    inline std::filesystem::path *test_fspath_ptr(std::filesystem::path *a, std::filesystem::path *b = &default_fspath) {(void)a; return b;}
+    inline const std::filesystem::path *test_fspath_cptr(const std::filesystem::path *a, const std::filesystem::path *b = &default_fspath) {(void)a; return b;}
 }

@@ -143,6 +143,33 @@ public static partial class MR
                 default_arg,
                 no_object,
             }
+
+            /// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.
+            /// Pass `null` or `new()` to use the default argument.
+            ///   Note that for the original `ReadOnlySpan`, those result in an empty span instead.
+            public ref struct ReadOnlyCharSpanOpt
+            {
+                public readonly bool HasValue;
+
+                ReadOnlySpan<char> Span;
+                public ReadOnlySpan<char> Value
+                {
+                    get
+                    {
+                        System.Diagnostics.Trace.Assert(HasValue);
+                        return Span;
+                    }
+                }
+
+                public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr != null; Span = arr;}
+                public ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {HasValue = true; Span = span;}
+                public ReadOnlyCharSpanOpt(string? str) {HasValue = str != null; Span = str;}
+
+                // This is disabled because it makes conversion from `null` ambiguous.
+                // public static implicit operator ReadOnlyCharSpanOpt(char[]? arr) {return new(arr);}
+                public static implicit operator ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {return new(span);}
+                public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}
+            }
         }
     }
 }

@@ -928,7 +928,27 @@ namespace mrbind::CBindings
         {
             // This handles all the `IsSimplyBindable{Direct{,Cast},Indirect{,Reinterpret}}` types.
             if (auto opt = MakeSimpleTypeBinding(*this, type))
+            {
+                // If we're dumping the interop JSON, as a courtesy also generate bindings for the pointer/reference target types.
+                // Hopefully this doesn't have any unforeseen side effects...
+                if (type.Is<cppdecl::Pointer>() || type.Is<cppdecl::Reference>())
+                {
+                    cppdecl::Type type_copy = type;
+
+                    do
+                    {
+                        type_copy.RemoveModifier();
+                        // Remove `const` at the same time, since `FindBindableType()` considers top-level const types an internal error.
+                        type_copy.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                        // Not sure if propagating `remove_sugar` makes sense here, so I won't by default. It'll probably never matter.
+                        (void)FindBindableType(type_copy);
+                    }
+                    while (type_copy.Is<cppdecl::Pointer>() || type_copy.Is<cppdecl::Reference>());
+                }
+
                 return InsertNewType(*opt);
+            }
 
             // Maybe a class?
             // This binds the same way regardless of sugar.
@@ -2494,6 +2514,19 @@ namespace mrbind::CBindings
             file.source.contents += strings.body;
             file.source.contents += '\n';
 
+            // Some validation for interop that should happen even if we don't dump the interop description.
+            if (!params.name.ignore_in_interop)
+            {
+                if (params.mark_as_returning_pointer_to_array && !params.cpp_return_type.Is<cppdecl::Pointer>())
+                    throw std::runtime_error("The function is marked as returning a pointer to an array element, but the return type isn't a pointer.");
+
+                for (std::size_t i = 0; i < params.params.size(); i++)
+                {
+                    if (params.params[i].mark_as_pointer_to_array && !params.params[i].cpp_type.Is<cppdecl::Pointer>())
+                        throw std::runtime_error("The parameter " + std::to_string(i) + " is marked as a pointer to an array element, but the parameter type isn't a pointer.");
+                }
+            }
+
             // Dump function description!
             if (output_desc && !params.name.ignore_in_interop)
             {
@@ -2587,6 +2620,7 @@ namespace mrbind::CBindings
 
                 func_like->ret.cpp_type = CppdeclToCode(params.cpp_return_type);
                 func_like->ret.uses_sugar = !params.remove_return_type_sugar && FindBindableType(params.cpp_return_type).return_usage.value().considered_sugar_for_interop;
+                func_like->ret.is_array_pointer = params.mark_as_returning_pointer_to_array;
 
                 // Parameters.
                 func_like->params.reserve(params.params.size());
@@ -2613,6 +2647,8 @@ namespace mrbind::CBindings
                     new_param.uses_sugar = !input_param.remove_sugar && !input_param.use_type_as_is && FindBindableType(fixed_param_type).GetParamUsage(new_param.default_arg_affects_parameter_passing).considered_sugar_for_interop;
 
                     new_param.is_this_param = input_param.kind == EmitFuncParams::Param::Kind::this_ref || input_param.kind == EmitFuncParams::Param::Kind::static_;
+
+                    new_param.is_array_pointer = params.params[i].mark_as_pointer_to_array;
 
                     i++;
                 }

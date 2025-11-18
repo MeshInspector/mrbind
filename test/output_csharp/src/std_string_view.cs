@@ -1,0 +1,142 @@
+public static partial class MR
+{
+    public static partial class CS
+    {
+        public static partial class Std
+        {
+            /// The interface for class `string_view`, the const half.
+            /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+            public interface IConstStringView
+            {
+                public struct _Underlying; // Represents the underlying C++ type.
+                internal unsafe _Underlying *_GetUnderlying_StdStringView(); // Returns the pointer to the underlying C++ object.
+
+                /// The number of characters in the string.
+                public unsafe ulong Size()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_string_view_Size(_Underlying *_this);
+                    return __MR_C_std_string_view_Size(_GetUnderlying_StdStringView());
+                }
+
+                /// Returns the string contents, NOT necessarily null-terminated.
+                /// Returns a read-only pointer.
+                public unsafe byte *Data()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Data", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_view_Data(_Underlying *_this);
+                    return __MR_C_std_string_view_Data(_GetUnderlying_StdStringView());
+                }
+
+                /// Returns a pointer to the end of string. Not dereferencable.
+                /// Returns a read-only pointer.
+                public unsafe byte *DataEnd()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DataEnd", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_view_DataEnd(_Underlying *_this);
+                    return __MR_C_std_string_view_DataEnd(_GetUnderlying_StdStringView());
+                }
+            }
+
+            /// A non-owning string view. Not necessarily null-terminated.
+            /// This is the const half of the class.
+            public class ConstStringView : MR.CS.Misc.Object, System.IDisposable, IConstStringView
+            {
+                protected unsafe IConstStringView._Underlying *_UnderlyingPtr;
+                public unsafe IConstStringView._Underlying *_GetUnderlying_StdStringView() => _UnderlyingPtr;
+
+                internal unsafe ConstStringView(IConstStringView._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr == null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_string_view_Destroy(IConstStringView._Underlying *_this);
+                    __MR_C_std_string_view_Destroy(_GetUnderlying_StdStringView());
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstStringView() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstStringView() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
+                }
+
+                /// Constructs a new instance.
+                public unsafe ConstStringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
+                    byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                    int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
+                    fixed (byte *__ptr_other = __bytes_other)
+                    {
+                        _UnderlyingPtr = __MR_C_std_string_view_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                    }
+                }
+
+                /// The number of characters in the string.
+                public ulong Size() => ((MR.CS.Std.IConstStringView)this).Size();
+
+                /// Returns the string contents, NOT necessarily null-terminated.
+                /// Returns a read-only pointer.
+                public unsafe byte *Data() => ((MR.CS.Std.IConstStringView)this).Data();
+
+                /// Returns a pointer to the end of string. Not dereferencable.
+                /// Returns a read-only pointer.
+                public unsafe byte *DataEnd() => ((MR.CS.Std.IConstStringView)this).DataEnd();
+
+                // Custom extras:
+
+                public static unsafe implicit operator ReadOnlySpan<byte>(MR.CS.Std.ConstStringView self)
+                {
+                    return new(self.Data(), checked((int)self.Size()));
+                }
+
+                public static unsafe implicit operator string(MR.CS.Std.ConstStringView self)
+                {
+                    return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
+                }
+            }
+
+            /// The interface for class `string_view`, the non-const half.
+            /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+            public interface IStringView : MR.CS.Std.IConstStringView
+            {
+            }
+
+            /// A non-owning string view. Not necessarily null-terminated.
+            /// This is the non-const half of the class.
+            public class StringView : MR.CS.Std.ConstStringView, IStringView
+            {
+                internal unsafe StringView(IStringView._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StringView() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
+                }
+
+                /// Constructs a new instance.
+                public unsafe StringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
+                    byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                    int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
+                    fixed (byte *__ptr_other = __bytes_other)
+                    {
+                        _UnderlyingPtr = __MR_C_std_string_view_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -168,13 +168,17 @@ namespace mrbind::CInterop
             //   or you won't be able to call the function correctly.
             (bool)(uses_sugar, false)
 
+            // This can only be set if `cpp_type` is a pointer.
+            // Indicates that it's a pointer to an array, as opposed to a single object.
+            (bool)(is_array_pointer, false)
+
             // If true, this is the `this` parameter of a class member function.
             // Even static member functions have this set to true, those have fake `this` parameters that are only used to prov
             (bool)(is_this_param, false)
         )
     };
 
-    // Describes the return type and related proeprties of a free function or a method.
+    // Describes the return type and related properties of a free function or a method.
     struct FuncReturn
     {
         MBREFL_STRUCT(
@@ -185,6 +189,10 @@ namespace mrbind::CInterop
             // If this is true, you must know the sugared returning style for this specific type,
             //   or you won't be able to call the function correctly.
             (bool)(uses_sugar, false)
+
+            // This can only be set if `cpp_type` is a pointer.
+            // Indicates that it's a pointer to an array, as opposed to a single object.
+            (bool)(is_array_pointer, false)
         )
     };
 

@@ -222,15 +222,35 @@ namespace mrbind::CSharp
         // Given a C++ class name, returns the "GetUnderlying..." method that's used in classes derived from this to return pointers to the underlying C++ instance.
         [[nodiscard]] std::string CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name);
 
+        enum class TypeBindingFlags
+        {
+            // Enable type-specific sugared passing style.
+            enable_sugar = 1 << 0,
+            // Treat a pointer as a pointer to an array element.
+            pointer_to_array = 1 << 1,
+        };
+        MRBIND_FLAG_OPERATORS_IN_CLASS(TypeBindingFlags)
+
+        // Describes flags with a string. The result will be empty if the flags are empty.
+        // Otherwise will return a string of the form ` (...) (...)` (with one or more parentheses).
+        [[nodiscard]] static std::string TypeBindingFlagsToString(TypeBindingFlags flags);
+
+        [[nodiscard]] static TypeBindingFlags TypeBindingFlagsForReturn(const CInterop::FuncReturn &ret);
+        [[nodiscard]] static TypeBindingFlags TypeBindingFlagsForParam(const CInterop::FuncParam &param);
+
         // Caches bindings for the types. Don't access directly, this is for `GetTypeBinding()`.
         // Using the plain `map` instead of `unordered_map` because of the `pair`, which isn't hashable by default.
-        std::map<std::pair<std::string, bool/*enable_sugar*/>, TypeBinding> cached_type_bindings;
+        std::map<std::pair<std::string, TypeBindingFlags>, TypeBinding> cached_type_bindings;
 
         // Returns the binding for a C++ type.
-        [[nodiscard]] const TypeBinding &GetTypeBinding(const cppdecl::Type &cpp_type, bool enable_sugar);
+        [[nodiscard]] const TypeBinding &GetTypeBinding(const cppdecl::Type &cpp_type, TypeBindingFlags flags);
         // This version returns null instead of throwing on unknown types.
         // It can still throw if something goes seriously wrong.
-        [[nodiscard]] const TypeBinding *GetTypeBindingOpt(const cppdecl::Type &cpp_type, bool enable_sugar);
+        [[nodiscard]] const TypeBinding *GetTypeBindingOpt(const cppdecl::Type &cpp_type, TypeBindingFlags flags);
+
+        // Given a C++ class name, returns the string with the additional contents for this class.
+        // If not empty, it must have a trailing newline and no leading newline.
+        [[nodiscard]] std::string GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, bool is_const);
 
         // You should almost never use this directly, prefer `RequestHelper()`.
         // This is set once when we start generating.

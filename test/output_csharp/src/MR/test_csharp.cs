@@ -136,11 +136,13 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_refs", ExactSpelling = true)]
                     extern static int *__MR_CSharp_A_refs(_Underlying *_this, int *x, int *_2);
-                    fixed (int *__ptr_x = &x) {
-                        fixed (int *__ptr__2 = &_2) {
+                    fixed (int *__ptr_x = &x)
+                    {
+                        fixed (int *__ptr__2 = &_2)
+                        {
                             return ref *__MR_CSharp_A_refs(_GetUnderlying_MRCSharpA(), __ptr_x, __ptr__2);
-                        } // fixed __ptr__2
-                    } // fixed __ptr_x
+                        }
+                    }
                 }
             }
 
@@ -1640,11 +1642,12 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_ref", ExactSpelling = true)]
                 extern static void __MR_CSharp_test_bool_ref(bool *a, bool *b);
-                fixed (bool *__ptr_a = &a) {
+                fixed (bool *__ptr_a = &a)
+                {
                     bool __value_b = b != null ? b.Value : default(bool);
                     __MR_CSharp_test_bool_ref(__ptr_a, b != null ? &__value_b : null);
                     if (b != null) b.Value = __value_b;
-                } // fixed __ptr_a
+                }
             }
 
             /// Generated from function `MR::CSharp::test_bool_ref2`.
@@ -1653,12 +1656,13 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_ref2", ExactSpelling = true)]
                 extern static int __MR_CSharp_test_bool_ref2(bool *a, bool *b);
-                fixed (bool *__ptr_a = &a) {
+                fixed (bool *__ptr_a = &a)
+                {
                     bool __value_b = b != null ? b.Value : default(bool);
                     var __ret = __MR_CSharp_test_bool_ref2(__ptr_a, b != null ? &__value_b : null);
                     if (b != null) b.Value = __value_b;
                     return __ret;
-                } // fixed __ptr_a
+                }
             }
 
             /// Generated from function `MR::CSharp::get_bool_ref`.
@@ -1693,12 +1697,13 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_ref", ExactSpelling = true)]
                 extern static int *__MR_CSharp_test_int_ref(int *a, int *b);
-                fixed (int *__ptr_a = &a) {
+                fixed (int *__ptr_a = &a)
+                {
                     int __value_b = b != null ? b.Value : default(int);
                     var __ret = __MR_CSharp_test_int_ref(__ptr_a, b != null ? &__value_b : null);
                     if (b != null) b.Value = __value_b;
                     return ref *__ret;
-                } // fixed __ptr_a
+                }
             }
 
             /// Generated from function `MR::CSharp::test_int_cref`.
@@ -1742,6 +1747,72 @@ public static partial class MR
                 return __ret != null ? *__ret : null;
             }
 
+            /// Generated from function `MR::CSharp::test_ushort`.
+            /// Parameter `b` defaults to `42`.
+            public static unsafe ushort TestUshort(ushort a, ushort? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort", ExactSpelling = true)]
+                extern static ushort __MR_CSharp_test_ushort(ushort a, ushort *b);
+                ushort __deref_b = b.GetValueOrDefault();
+                return __MR_CSharp_test_ushort(a, b.HasValue ? &__deref_b : null);
+            }
+
+            /// Generated from function `MR::CSharp::test_ushort_ref`.
+            /// Parameter `b` defaults to `default_ushort`.
+            public static unsafe ref ushort TestUshortRef(ref ushort a, MR.CS.Misc.InOut<ushort>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_ref", ExactSpelling = true)]
+                extern static ushort *__MR_CSharp_test_ushort_ref(ushort *a, ushort *b);
+                fixed (ushort *__ptr_a = &a)
+                {
+                    ushort __value_b = b != null ? b.Value : default(ushort);
+                    var __ret = __MR_CSharp_test_ushort_ref(__ptr_a, b != null ? &__value_b : null);
+                    if (b != null) b.Value = __value_b;
+                    return ref *__ret;
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_ushort_cref`.
+            /// Parameter `b` defaults to `default_ushort`.
+            public static unsafe ushort TestUshortCref(ushort a, ushort? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_cref", ExactSpelling = true)]
+                extern static ushort *__MR_CSharp_test_ushort_cref(ushort *a, ushort *b);
+                ushort __deref_b = b.GetValueOrDefault();
+                return *__MR_CSharp_test_ushort_cref(&a, b.HasValue ? &__deref_b : null);
+            }
+
+            /// Generated from function `MR::CSharp::test_ushort_ptr`.
+            /// Parameter `c` defaults to `&default_ushort`.
+            public static unsafe MR.CS.Misc.Ref<ushort>? TestUshortPtr(MR.CS.Misc.InOut<ushort>? a, MR.CS.Misc.InOut<ushort>? b = null, MR.CS.Misc.InOutOpt<ushort>? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_ptr", ExactSpelling = true)]
+                extern static ushort *__MR_CSharp_test_ushort_ptr(ushort *a, ushort *b, ushort **c);
+                ushort __value_a = a != null ? a.Value : default(ushort);
+                ushort __value_b = b != null ? b.Value : default(ushort);
+                ushort __value_c = c != null && c.Opt != null ? c.Opt.Value : default(ushort);
+                ushort *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
+                var __ret = __MR_CSharp_test_ushort_ptr(a != null ? &__value_a : null, b != null ? &__value_b : null, c != null ? &__valueptr_c : null);
+                if (c != null && c.Opt != null) c.Opt.Value = __value_c;
+                if (b != null) b.Value = __value_b;
+                if (a != null) a.Value = __value_a;
+                return __ret != null ? new MR.CS.Misc.Ref<ushort>(__ret) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_ushort_cptr`.
+            /// Parameter `c` defaults to `&default_ushort`.
+            public static unsafe ushort? TestUshortCptr(ushort? a, ushort? b = null, MR.CS.Misc.InOpt<ushort>? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_cptr", ExactSpelling = true)]
+                extern static ushort *__MR_CSharp_test_ushort_cptr(ushort *a, ushort *b, ushort **c);
+                ushort __deref_a = a.GetValueOrDefault();
+                ushort __deref_b = b.GetValueOrDefault();
+                ushort __value_c = c != null && c.Opt != null ? c.Opt.Value : default(ushort);
+                ushort *__valueptr_c = c != null && c.Opt != null ? &__value_c : null;
+                var __ret = __MR_CSharp_test_ushort_cptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c != null ? &__valueptr_c : null);
+                return __ret != null ? *__ret : null;
+            }
+
             /// Generated from function `MR::CSharp::test_enum`.
             /// Parameter `b` defaults to `E1::b`.
             public static unsafe MR.CS.CSharp.E1 TestEnum(MR.CS.CSharp.E1 a, MR.CS.CSharp.E1? b = null)
@@ -1758,12 +1829,13 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ref_MR_CSharp_E1", ExactSpelling = true)]
                 extern static MR.CS.CSharp.E1 *__MR_CSharp_test_enum_ref_MR_CSharp_E1(MR.CS.CSharp.E1 *a, MR.CS.CSharp.E1 *b);
-                fixed (MR.CS.CSharp.E1 *__ptr_a = &a) {
+                fixed (MR.CS.CSharp.E1 *__ptr_a = &a)
+                {
                     MR.CS.CSharp.E1 __value_b = b != null ? b.Value : default(MR.CS.CSharp.E1);
                     var __ret = __MR_CSharp_test_enum_ref_MR_CSharp_E1(__ptr_a, b != null ? &__value_b : null);
                     if (b != null) b.Value = __value_b;
                     return ref *__ret;
-                } // fixed __ptr_a
+                }
             }
 
             /// Generated from function `MR::CSharp::test_enum_cref`.
@@ -1825,14 +1897,15 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ref_MR_CSharp_E2", ExactSpelling = true)]
                 extern static MR.CS.CSharp.E2 *__MR_CSharp_test_enum_ref_MR_CSharp_E2(MR.CS.CSharp.E2 *a, MR.CS.CSharp.E2 *b);
-                fixed (MR.CS.CSharp.E2 *__ptr_a = &a) {
+                fixed (MR.CS.CSharp.E2 *__ptr_a = &a)
+                {
                     if ((byte)a > 1) a = (MR.CS.CSharp.E2)1;
                     MR.CS.CSharp.E2 __value_b = b != null ? b.Value : default(MR.CS.CSharp.E2);
                     if ((byte)__value_b > 1) __value_b = (MR.CS.CSharp.E2)1;
                     var __ret = __MR_CSharp_test_enum_ref_MR_CSharp_E2(__ptr_a, b != null ? &__value_b : null);
                     if (b != null) b.Value = __value_b;
                     return ref *__ret;
-                } // fixed __ptr_a
+                }
             }
 
             /// Generated from function `MR::CSharp::test_enum_cref`.
@@ -2105,6 +2178,243 @@ public static partial class MR
                 MR.CS.CSharp.IConstSA._UnderlyingShared *__ptr_b = b != null && b.Opt != null ? b.Opt._UnderlyingSharedPtr : null;
                 var __ret = __MR_CSharp_test_shcptr_cptr(a != null ? a._UnderlyingSharedPtr : null, b != null ? &__ptr_b : null);
                 return __ret != null ? new MR.CS.CSharp.ConstSA(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_string`.
+            /// Parameter `b` defaults to `default_string`.
+            public static unsafe MR.CS.Std.String TestString(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string", ExactSpelling = true)]
+                extern static MR.CS.Std.IString._Underlying *__MR_CSharp_test_string(byte *a, byte *a_end, byte *b, byte *b_end);
+                byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                int __len_a = System.Text.Encoding.UTF8.GetBytes(a, __bytes_a);
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    byte[] __bytes_b;
+                    int __len_b = 0;
+                    if (b.HasValue)
+                    {
+                        __bytes_b = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(b.Value.Length)];
+                        __len_b = System.Text.Encoding.UTF8.GetBytes(b.Value, __bytes_b);
+                    }
+                    fixed (byte *__ptr_b = __bytes_b)
+                    {
+                        return new(__MR_CSharp_test_string(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: true);
+                    }
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_string_ref`.
+            /// Parameter `b` defaults to `default_string`.
+            public static unsafe MR.CS.Std.String TestStringRef(MR.CS.Std.String a, MR.CS.Std.String? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.IString._Underlying *__MR_CSharp_test_string_ref(MR.CS.Std.IString._Underlying *a, MR.CS.Std.IString._Underlying *b);
+                return new(__MR_CSharp_test_string_ref(a._GetUnderlying_StdString(), b != null ? b._GetUnderlying_StdString() : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_string_cref`.
+            /// Parameter `b` defaults to `default_string`.
+            public static unsafe MR.CS.Std.ConstString TestStringCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.IConstString._Underlying *__MR_CSharp_test_string_cref(byte *a, byte *a_end, byte *b, byte *b_end);
+                byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                int __len_a = System.Text.Encoding.UTF8.GetBytes(a, __bytes_a);
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    byte[] __bytes_b;
+                    int __len_b = 0;
+                    if (b.HasValue)
+                    {
+                        __bytes_b = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(b.Value.Length)];
+                        __len_b = System.Text.Encoding.UTF8.GetBytes(b.Value, __bytes_b);
+                    }
+                    fixed (byte *__ptr_b = __bytes_b)
+                    {
+                        return new(__MR_CSharp_test_string_cref(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: false);
+                    }
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_string_ptr`.
+            /// Parameter `b` defaults to `&default_string`.
+            public static unsafe MR.CS.Std.String? TestStringPtr(MR.CS.Std.String? a, MR.CS.Misc.InOptClass<MR.CS.Std.String>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.IString._Underlying *__MR_CSharp_test_string_ptr(MR.CS.Std.IString._Underlying *a, MR.CS.Std.IString._Underlying **b);
+                MR.CS.Std.IString._Underlying *__ptr_b = b != null && b.Opt != null ? b.Opt._GetUnderlying_StdString() : null;
+                var __ret = __MR_CSharp_test_string_ptr(a != null ? a._GetUnderlying_StdString() : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.Std.String(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_string_cptr`.
+            /// Parameter `b` defaults to `&default_string`.
+            public static unsafe MR.CS.Std.ConstString? TestStringCptr(MR.CS.Std.ConstString? a, MR.CS.Misc.InOptClass<MR.CS.Std.ConstString>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.IConstString._Underlying *__MR_CSharp_test_string_cptr(MR.CS.Std.IConstString._Underlying *a, MR.CS.Std.IConstString._Underlying **b);
+                MR.CS.Std.IConstString._Underlying *__ptr_b = b != null && b.Opt != null ? b.Opt._GetUnderlying_StdString() : null;
+                var __ret = __MR_CSharp_test_string_cptr(a != null ? a._GetUnderlying_StdString() : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.Std.ConstString(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_stringview`.
+            /// Parameter `b` defaults to `default_stringview`.
+            public static unsafe MR.CS.Std.StringView TestStringview(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview", ExactSpelling = true)]
+                extern static MR.CS.Std.IStringView._Underlying *__MR_CSharp_test_stringview(byte *a, byte *a_end, byte *b, byte *b_end);
+                byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                int __len_a = System.Text.Encoding.UTF8.GetBytes(a, __bytes_a);
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    byte[] __bytes_b;
+                    int __len_b = 0;
+                    if (b.HasValue)
+                    {
+                        __bytes_b = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(b.Value.Length)];
+                        __len_b = System.Text.Encoding.UTF8.GetBytes(b.Value, __bytes_b);
+                    }
+                    fixed (byte *__ptr_b = __bytes_b)
+                    {
+                        return new(__MR_CSharp_test_stringview(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: true);
+                    }
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_stringview_ref`.
+            /// Parameter `b` defaults to `default_stringview`.
+            public static unsafe MR.CS.Std.StringView TestStringviewRef(MR.CS.Std.StringView a, MR.CS.Std.StringView? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.IStringView._Underlying *__MR_CSharp_test_stringview_ref(MR.CS.Std.IStringView._Underlying *a, MR.CS.Std.IStringView._Underlying *b);
+                return new(__MR_CSharp_test_stringview_ref(a._GetUnderlying_StdStringView(), b != null ? b._GetUnderlying_StdStringView() : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_stringview_cref`.
+            /// Parameter `b` defaults to `default_stringview`.
+            public static unsafe MR.CS.Std.ConstStringView TestStringviewCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.IConstStringView._Underlying *__MR_CSharp_test_stringview_cref(byte *a, byte *a_end, byte *b, byte *b_end);
+                byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                int __len_a = System.Text.Encoding.UTF8.GetBytes(a, __bytes_a);
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    byte[] __bytes_b;
+                    int __len_b = 0;
+                    if (b.HasValue)
+                    {
+                        __bytes_b = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(b.Value.Length)];
+                        __len_b = System.Text.Encoding.UTF8.GetBytes(b.Value, __bytes_b);
+                    }
+                    fixed (byte *__ptr_b = __bytes_b)
+                    {
+                        return new(__MR_CSharp_test_stringview_cref(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: false);
+                    }
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_stringview_ptr`.
+            /// Parameter `b` defaults to `&default_stringview`.
+            public static unsafe MR.CS.Std.StringView? TestStringviewPtr(MR.CS.Std.StringView? a, MR.CS.Misc.InOptClass<MR.CS.Std.StringView>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.IStringView._Underlying *__MR_CSharp_test_stringview_ptr(MR.CS.Std.IStringView._Underlying *a, MR.CS.Std.IStringView._Underlying **b);
+                MR.CS.Std.IStringView._Underlying *__ptr_b = b != null && b.Opt != null ? b.Opt._GetUnderlying_StdStringView() : null;
+                var __ret = __MR_CSharp_test_stringview_ptr(a != null ? a._GetUnderlying_StdStringView() : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.Std.StringView(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_stringview_cptr`.
+            /// Parameter `b` defaults to `&default_stringview`.
+            public static unsafe MR.CS.Std.ConstStringView? TestStringviewCptr(MR.CS.Std.ConstStringView? a, MR.CS.Misc.InOptClass<MR.CS.Std.ConstStringView>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.IConstStringView._Underlying *__MR_CSharp_test_stringview_cptr(MR.CS.Std.IConstStringView._Underlying *a, MR.CS.Std.IConstStringView._Underlying **b);
+                MR.CS.Std.IConstStringView._Underlying *__ptr_b = b != null && b.Opt != null ? b.Opt._GetUnderlying_StdStringView() : null;
+                var __ret = __MR_CSharp_test_stringview_cptr(a != null ? a._GetUnderlying_StdStringView() : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.Std.ConstStringView(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_fspath`.
+            /// Parameter `b` defaults to `default_fspath`.
+            public static unsafe MR.CS.Std.Filesystem.Path TestFspath(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath", ExactSpelling = true)]
+                extern static MR.CS.Std.Filesystem.IPath._Underlying *__MR_CSharp_test_fspath(byte *a, byte *a_end, byte *b, byte *b_end);
+                byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                int __len_a = System.Text.Encoding.UTF8.GetBytes(a, __bytes_a);
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    byte[] __bytes_b;
+                    int __len_b = 0;
+                    if (b.HasValue)
+                    {
+                        __bytes_b = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(b.Value.Length)];
+                        __len_b = System.Text.Encoding.UTF8.GetBytes(b.Value, __bytes_b);
+                    }
+                    fixed (byte *__ptr_b = __bytes_b)
+                    {
+                        return new(__MR_CSharp_test_fspath(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: true);
+                    }
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_fspath_ref`.
+            /// Parameter `b` defaults to `default_fspath`.
+            public static unsafe MR.CS.Std.Filesystem.Path TestFspathRef(MR.CS.Std.Filesystem.Path a, MR.CS.Std.Filesystem.Path? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Filesystem.IPath._Underlying *__MR_CSharp_test_fspath_ref(MR.CS.Std.Filesystem.IPath._Underlying *a, MR.CS.Std.Filesystem.IPath._Underlying *b);
+                return new(__MR_CSharp_test_fspath_ref(a._GetUnderlying_StdFilesystemPath(), b != null ? b._GetUnderlying_StdFilesystemPath() : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_fspath_cref`.
+            /// Parameter `b` defaults to `default_fspath`.
+            public static unsafe MR.CS.Std.Filesystem.ConstPath TestFspathCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Filesystem.IConstPath._Underlying *__MR_CSharp_test_fspath_cref(byte *a, byte *a_end, byte *b, byte *b_end);
+                byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                int __len_a = System.Text.Encoding.UTF8.GetBytes(a, __bytes_a);
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    byte[] __bytes_b;
+                    int __len_b = 0;
+                    if (b.HasValue)
+                    {
+                        __bytes_b = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(b.Value.Length)];
+                        __len_b = System.Text.Encoding.UTF8.GetBytes(b.Value, __bytes_b);
+                    }
+                    fixed (byte *__ptr_b = __bytes_b)
+                    {
+                        return new(__MR_CSharp_test_fspath_cref(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: false);
+                    }
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_fspath_ptr`.
+            /// Parameter `b` defaults to `&default_fspath`.
+            public static unsafe MR.CS.Std.Filesystem.Path? TestFspathPtr(MR.CS.Std.Filesystem.Path? a, MR.CS.Misc.InOptClass<MR.CS.Std.Filesystem.Path>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Filesystem.IPath._Underlying *__MR_CSharp_test_fspath_ptr(MR.CS.Std.Filesystem.IPath._Underlying *a, MR.CS.Std.Filesystem.IPath._Underlying **b);
+                MR.CS.Std.Filesystem.IPath._Underlying *__ptr_b = b != null && b.Opt != null ? b.Opt._GetUnderlying_StdFilesystemPath() : null;
+                var __ret = __MR_CSharp_test_fspath_ptr(a != null ? a._GetUnderlying_StdFilesystemPath() : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.Std.Filesystem.Path(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_fspath_cptr`.
+            /// Parameter `b` defaults to `&default_fspath`.
+            public static unsafe MR.CS.Std.Filesystem.ConstPath? TestFspathCptr(MR.CS.Std.Filesystem.ConstPath? a, MR.CS.Misc.InOptClass<MR.CS.Std.Filesystem.ConstPath>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Filesystem.IConstPath._Underlying *__MR_CSharp_test_fspath_cptr(MR.CS.Std.Filesystem.IConstPath._Underlying *a, MR.CS.Std.Filesystem.IConstPath._Underlying **b);
+                MR.CS.Std.Filesystem.IConstPath._Underlying *__ptr_b = b != null && b.Opt != null ? b.Opt._GetUnderlying_StdFilesystemPath() : null;
+                var __ret = __MR_CSharp_test_fspath_cptr(a != null ? a._GetUnderlying_StdFilesystemPath() : null, b != null ? &__ptr_b : null);
+                return __ret != null ? new MR.CS.Std.Filesystem.ConstPath(__ret, is_owning: false) : null;
             }
         }
     }
