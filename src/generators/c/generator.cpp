@@ -663,12 +663,13 @@ namespace mrbind::CBindings
     {
         // The reason why this visits `Type` instead of `QualifiedName` is because we need to know if a type is an array or not,
         //   because arrays in C (unlike in C++) need their element types to be complete, which is something `FillDefaultTypeDependencies()` needs to know.
-        type.VisitEachComponent<cppdecl::Type>(
+        (void)type.VisitEachComponent<cppdecl::Type>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](const cppdecl::Type &simple_type)
             {
                 if (!simple_type.simple_type.name.IsEmpty() && !TypeNameIsCBuiltIn(simple_type.simple_type.name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
                     func(simple_type.simple_type.name, simple_type.Is<cppdecl::Array>(simple_type.modifiers.size() - 1)); // The underflow is fine here, because `Is()` silently returns false on out-of-range indices.
+                return false;
             }
         );
     }
@@ -788,7 +789,7 @@ namespace mrbind::CBindings
     {
         if (reject_long_and_long_long)
         {
-            type.VisitEachComponent<cppdecl::QualifiedName>(
+            (void)type.VisitEachComponent<cppdecl::QualifiedName>(
                 cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
                 [](const cppdecl::QualifiedName &name)
                 {
@@ -797,6 +798,8 @@ namespace mrbind::CBindings
                     {
                         throw std::runtime_error("`--reject-long-and-long-long` was specified, but the type `" + std::string(word) + "` fas found in the input. Assuming you run the parser with `--canonicalize-to-fixed-size-typedefs`, this means you should replace `" + std::string(word) + "` in the parsed code with a standard typedef of the same size.");
                     }
+
+                    return false;
                 }
             );
         }
@@ -1090,7 +1093,7 @@ namespace mrbind::CBindings
         std::string signed_name = generator.MakePublicHelperName("int64_t");
         std::string unsigned_name = generator.MakePublicHelperName("uint64_t");
 
-        input.template VisitEachComponent<cppdecl::QualifiedName>(
+        (void)input.template VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
             [&](cppdecl::QualifiedName &name)
             {
@@ -1100,6 +1103,8 @@ namespace mrbind::CBindings
                     name = cppdecl::QualifiedName::FromSingleWord("int64_t");
                 if (word == unsigned_name)
                     name = cppdecl::QualifiedName::FromSingleWord("uint64_t");
+
+                return false;
             }
         );
     }
@@ -1150,7 +1155,7 @@ namespace mrbind::CBindings
 
         storage = input;
 
-        storage.template VisitEachComponent<cppdecl::QualifiedName>(
+        (void)storage.template VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
             [&](cppdecl::QualifiedName &name)
             {
@@ -1160,6 +1165,8 @@ namespace mrbind::CBindings
                     name = cppdecl::QualifiedName::FromSingleWord(generator.MakePublicHelperName("int64_t"));
                 else if (word == "uint64_t")
                     name = cppdecl::QualifiedName::FromSingleWord(generator.MakePublicHelperName("uint64_t"));
+
+                return false;
             }
         );
 
@@ -1293,11 +1300,12 @@ namespace mrbind::CBindings
 
     void Generator::ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type)
     {
-        type.VisitEachComponent<cppdecl::QualifiedName>(
+        (void)type.VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](cppdecl::QualifiedName &name)
             {
                 name = cppdecl::QualifiedName::FromSingleWord(CppTypeNameToCTypeName(name));
+                return false;
             }
         );
     }
@@ -1506,7 +1514,7 @@ namespace mrbind::CBindings
 
         // Can't use `Generator::ForEachNonBuiltInNestedTypeInType()` here, because that uses `no_recurse_into_names`, while here we need only `no_recurse_into_nontype_names`.
         // Consider e.g. how we process `std::vector<T>`. Here we do need to visit `T`, and `no_recurse_into_names` would prevent that.
-        entity.template VisitEachComponent<cppdecl::QualifiedName>(
+        (void)entity.template VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_nontype_names,
             [&](const cppdecl::QualifiedName &name)
             {
@@ -1549,6 +1557,8 @@ namespace mrbind::CBindings
                     custom_in_source_file.insert(cache_iter->second.generated.begin(), cache_iter->second.generated.end());
                     ret.stdlib_in_source_file.insert(cache_iter->second.stdlib.begin(), cache_iter->second.stdlib.end());
                 }
+
+                return false;
             }
         );
 
