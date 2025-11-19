@@ -92,7 +92,7 @@ namespace mrbind::CSharp
 
     void OutputFile::EnsureNamespace(const Generator &generator, cppdecl::QualifiedName new_namespace)
     {
-        new_namespace = generator.AdjustCppName(std::move(new_namespace));
+        new_namespace = generator.AdjustCppNamespaces(std::move(new_namespace));
 
         if (new_namespace.parts.empty())
         {
@@ -190,7 +190,7 @@ namespace mrbind::CSharp
         return {};
     }
 
-    cppdecl::QualifiedName Generator::AdjustCppName(cppdecl::QualifiedName name) const
+    cppdecl::QualifiedName Generator::AdjustCppNamespaces(cppdecl::QualifiedName name) const
     {
         // Apply any replacements.
         for (const auto &[from, to] : replaced_namespaces)
@@ -220,7 +220,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpEnumName(cppdecl::QualifiedName name)
     {
-        name = AdjustCppName(std::move(name));
+        name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
         for (std::size_t i = 0; i < name.parts.size(); i++)
@@ -235,7 +235,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const)
     {
-        name = AdjustCppName(std::move(name));
+        name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
         for (std::size_t i = 0; i < name.parts.size(); i++)
@@ -261,7 +261,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpInterfaceName(cppdecl::QualifiedName name, bool is_const)
     {
-        name = AdjustCppName(std::move(name));
+        name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
         for (std::size_t i = 0; i < name.parts.size(); i++)
@@ -1755,10 +1755,15 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    void Generator::EmitCEnum(OutputFile &file, const CInterop::TypeKinds::Enum &enum_desc, std::string_view prefix, std::string_view csharp_name)
+    void Generator::EmitCppEnum(OutputFile &file, const std::string &cpp_name_str)
     {
         try
         {
+            const cppdecl::QualifiedName cpp_name = ParseNameOrThrow(cpp_name_str);
+            const std::string unqual_csharp_name = CppToCsharpIdentifier(cpp_name.parts.back());
+
+            const CInterop::TypeKinds::Enum &enum_desc = std::get<CInterop::TypeKinds::Enum>(c_desc.FindTypeOpt(cpp_name_str)->var);
+
             // A separator?
             file.WriteSeparatingNewline();
 
@@ -1770,16 +1775,12 @@ namespace mrbind::CSharp
             if (underlying_kind == PrimitiveTypeInfo::Kind::boolean)
                 file.WriteString("/// This enum is intended to be boolean.\n");
 
-            // The custom prefix, if any.
-            if (!prefix.empty())
-            {
-                file.WriteString(prefix);
-                file.WriteString(" ");
-            }
+            // Access.
+            file.WriteString("public ");
 
             // The declaration header. We always force the underlying type, just in case.
             file.WriteString("enum ");
-            file.WriteString(csharp_name);
+            file.WriteString(unqual_csharp_name);
             file.WriteString(" : ");
 
             // The underlying type. We don't even validate that iit's integral for now, it should never be non-integral here.
@@ -1817,7 +1818,7 @@ namespace mrbind::CSharp
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C enum `" + enum_desc.c_name + "`:"));
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C++ enum `" + cpp_name_str + "`:"));
         }
     }
 
@@ -1979,7 +1980,7 @@ namespace mrbind::CSharp
         return cached_emitted_class_info.try_emplace(cl, std::move(ret)).first->second;
     }
 
-    void Generator::EmitMaybeConstCClass(OutputFile &file, const MaybeConstClass &cl)
+    void Generator::EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl)
     {
         try
         {
@@ -2009,6 +2010,22 @@ namespace mrbind::CSharp
             static const cppdecl::QualifiedName cpp_sharedptr_constvoid_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr").AddTemplateArgument(cppdecl::Type::FromSingleWord("void").AddQualifiers(cppdecl::CvQualifiers::const_));
             // This is the C# name of the underlying raw pointer used in the C# wrapper of `std::shared_ptr<const void>`.
             static const std::string sharedptr_constvoid_underlying_ptr_type = CppToCSharpInterfaceName(cpp_sharedptr_constvoid_name, true) + "._Underlying *";
+
+            // This lambda emits all types nested in this one, if any.
+            auto EmitNestedClasses = [&]
+            {
+                std::string nested_type_prefix = CppdeclToCode(cpp_qual_name) + "::";
+
+                auto iter = c_desc.cpp_types.Map().lower_bound(nested_type_prefix);
+                while (iter != c_desc.cpp_types.Map().end() && iter->first.starts_with(nested_type_prefix))
+                {
+                    if (ShouldEmitCppType(ParseTypeOrThrow(iter->first)))
+                        EmitCppTypeUnconditionally(file, iter->first);
+
+                    ++iter;
+                }
+            };
+
 
             // Declare the interface.
 
@@ -2567,6 +2584,12 @@ namespace mrbind::CSharp
                 file.WriteString(method_info.method.body);
             }
 
+            // Emit the nested types, if any.
+            // C# seems to allow declaring classes directly in interfaces, but accessing them through
+            //   the derived class names doesn't work for some reason. So we put them there.
+            if (cl.is_const)
+                EmitNestedClasses();
+
             // Emit the custom hardcoded extras.
             if (auto str = GetExtraContentsForParsedClass(ParseNameOrThrow(cl.class_name), cl.is_const); !str.empty())
             {
@@ -2584,7 +2607,26 @@ namespace mrbind::CSharp
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting a wrapper for a C++ class `" + cl.class_name + "` (" + (cl.is_const ? "const" : "non-const") + " half):"));
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C++ class `" + cl.class_name + "` (" + (cl.is_const ? "const" : "non-const") + " half):"));
+        }
+    }
+
+    void Generator::EmitCppTypeUnconditionally(OutputFile &file, const std::string &cpp_type)
+    {
+        // Most of the variant elements are useless to us, so we aren't using `std::visit` here.
+
+        const auto &type_desc = c_desc.cpp_types.Map().at(cpp_type);
+
+        // Enums.
+        if (std::holds_alternative<CInterop::TypeKinds::Enum>(type_desc.var))
+        {
+            EmitCppEnum(file, cpp_type);
+        }
+        // Classes.
+        else if (std::holds_alternative<CInterop::TypeKinds::Class>(type_desc.var))
+        {
+            EmitMaybeConstCppClass(file, {.class_name = cpp_type, .is_const = true});
+            EmitMaybeConstCppClass(file, {.class_name = cpp_type, .is_const = false});
         }
     }
 
@@ -2633,7 +2675,7 @@ namespace mrbind::CSharp
     {
         { // Perform some initialization.
             // Set `helpers_prefix`.
-            for (const auto &elem : AdjustCppName(helpers_namespace).parts)
+            for (const auto &elem : AdjustCppNamespaces(helpers_namespace).parts)
             {
                 helpers_prefix += CppToCsharpIdentifier(elem);
                 helpers_prefix += '.';
@@ -2650,30 +2692,33 @@ namespace mrbind::CSharp
             if (!ShouldEmitCppType(ParseTypeOrThrow(key)))
                 continue;
 
-            // Most of the variant elements are useless to us, so we aren't using `std::visit` here.
+            const CInterop::OutputFile *file_desc = std::visit(Overload{
+                [](const CInterop::TypeKinds::Class &elem) -> const CInterop::OutputFile * {return &elem.output_file;},
+                [](const CInterop::TypeKinds::Enum &elem) -> const CInterop::OutputFile * {return &elem.output_file;},
+                [](const auto &) -> const CInterop::OutputFile * {return nullptr;},
+            }, c_desc.cpp_types.Map().at(key).var);
 
-            const auto &type_desc = c_desc.cpp_types.Map().at(key);
-
-            // Enums.
-            if (auto elem = std::get_if<CInterop::TypeKinds::Enum>(&type_desc.var))
+            if (file_desc)
             {
-                OutputFile &file = GetOutputFile(elem->output_file);
+                const cppdecl::QualifiedName qual_name = ParseNameOrThrow(key);
 
-                auto qual_name = ParseNameOrThrow(key);
+                { // Reject nested types. `EmitMaybeConstCppClass()` will emit them recursively by itself.
+                    if (qual_name.parts.size() > 1)
+                    {
+                        cppdecl::QualifiedName enclosing_class_name = qual_name;
+                        enclosing_class_name.parts.pop_back();
+
+                        if (auto enclosing_class = c_desc.FindTypeOpt(CppdeclToCode(enclosing_class_name)))
+                        {
+                            if (std::holds_alternative<CInterop::TypeKinds::Class>(enclosing_class->var))
+                                continue;
+                        }
+                    }
+                }
+
+                OutputFile &file = GetOutputFile(*file_desc);
                 file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
-
-                EmitCEnum(file, *elem, "public", CppToCsharpIdentifier(qual_name.parts.back()));
-            }
-            // Classes.
-            else if (auto elem = std::get_if<CInterop::TypeKinds::Class>(&type_desc.var))
-            {
-                OutputFile &file = GetOutputFile(elem->output_file);
-
-                auto qual_name = ParseNameOrThrow(key);
-                file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
-
-                EmitMaybeConstCClass(file, {.class_name = key, .is_const = true});
-                EmitMaybeConstCClass(file, {.class_name = key, .is_const = false});
+                EmitCppTypeUnconditionally(file, key);
             }
         }
 
@@ -2913,6 +2958,7 @@ namespace mrbind::CSharp
             }
 
             { // `ReadOnlySpanOpt<T>` and `ReadOnlyCharSpanOpt`.
+                // Since `ReadOnlySpan<T>` doesn't work with `?` at least in .NET 8, we need this class.
                 if (requested_helpers.erase("ReadOnlySpanOpt"))
                 {
                     file.WriteSeparatingNewline();

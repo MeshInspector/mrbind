@@ -202,7 +202,7 @@ namespace mrbind::CSharp
         [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect);
 
         // Adjusts a name to apply any `--remove-namespace` and `--force-namespace` flags.
-        [[nodiscard]] cppdecl::QualifiedName AdjustCppName(cppdecl::QualifiedName name) const;
+        [[nodiscard]] cppdecl::QualifiedName AdjustCppNamespaces(cppdecl::QualifiedName name) const;
 
         // Converts a C++ qualified enum name to a C# name.
         [[nodiscard]] std::string CppToCSharpEnumName(cppdecl::QualifiedName name);
@@ -331,9 +331,7 @@ namespace mrbind::CSharp
 
         // A low-level function to emit a wrapper for a single C enum.
         // Assumes that the correct namespace or class was already entered in `file`.
-        // `csharp_name` is used as the C# enum name.
-        // `prefix` is pasted before the declaration, separated with a space if not empty.
-        void EmitCEnum(OutputFile &file, const CInterop::TypeKinds::Enum &enum_desc, std::string_view prefix, std::string_view csharp_name);
+        void EmitCppEnum(OutputFile &file, const std::string &cpp_name_str);
 
         // Since we duplicate each class and its corresponding interface into const and non-const versions,
         //   we need an extra bool to describe which half of the class is being operated on.
@@ -388,7 +386,11 @@ namespace mrbind::CSharp
 
         // A low-level function to emit a wrapper for a single half (either const or non-const) of a C "class".
         // Assumes that the correct namespace or class was already entered in `file`.
-        void EmitMaybeConstCClass(OutputFile &file, const MaybeConstClass &cl);
+        void EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl);
+
+        // Emit a type unconditionally (you should check `ShouldEmitCppType()` yourself).
+        // Assumes that the correct namespace or class was already entered in `file`.
+        void EmitCppTypeUnconditionally(OutputFile &file, const std::string &cpp_type);
 
         // Returns true if this C++ type maps to a managed type in C#, e.g. a class (so force heap-allocated), as opposed to scalars and structs.
         // Throws if this isn't a known type.

@@ -1608,6 +1608,146 @@ public static partial class MR
                 }
             }
 
+            /// The interface for class `Outer`, the const half.
+            /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+            public interface IConstOuter
+            {
+                public struct _Underlying; // Represents the underlying C++ type.
+                internal unsafe _Underlying *_GetUnderlying_MRCSharpOuter(); // Returns the pointer to the underlying C++ object.
+            }
+
+            // Nested classes.
+            /// Generated from class `MR::CSharp::Outer`.
+            /// This is the const half of the class.
+            public class ConstOuter : MR.CS.Misc.Object, System.IDisposable, IConstOuter
+            {
+                protected unsafe IConstOuter._Underlying *_UnderlyingPtr;
+                public unsafe IConstOuter._Underlying *_GetUnderlying_MRCSharpOuter() => _UnderlyingPtr;
+
+                internal unsafe ConstOuter(IConstOuter._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr == null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_Outer_Destroy(IConstOuter._Underlying *_this);
+                    __MR_CSharp_Outer_Destroy(_GetUnderlying_MRCSharpOuter());
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstOuter() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstOuter() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IConstOuter._Underlying *__MR_CSharp_Outer_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_Outer_DefaultConstruct();
+                }
+
+                /// The interface for class `Inner`, the const half.
+                /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+                public interface IConstInner
+                {
+                    public struct _Underlying; // Represents the underlying C++ type.
+                    internal unsafe _Underlying *_GetUnderlying_MRCSharpOuterInner(); // Returns the pointer to the underlying C++ object.
+                }
+
+                /// Generated from class `MR::CSharp::Outer::Inner`.
+                /// This is the const half of the class.
+                public class ConstInner : MR.CS.Misc.Object, System.IDisposable, IConstInner
+                {
+                    protected unsafe IConstInner._Underlying *_UnderlyingPtr;
+                    public unsafe IConstInner._Underlying *_GetUnderlying_MRCSharpOuterInner() => _UnderlyingPtr;
+
+                    internal unsafe ConstInner(IConstInner._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                    protected virtual unsafe void Dispose(bool disposing)
+                    {
+                        if (_UnderlyingPtr == null || !_IsOwningVal)
+                            return;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_Destroy", ExactSpelling = true)]
+                        extern static void __MR_CSharp_Outer_Inner_Destroy(IConstInner._Underlying *_this);
+                        __MR_CSharp_Outer_Inner_Destroy(_GetUnderlying_MRCSharpOuterInner());
+                        _UnderlyingPtr = null;
+                    }
+                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                    ~ConstInner() {Dispose(false);}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe ConstInner() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Outer.IConstInner._Underlying *__MR_CSharp_Outer_Inner_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_Outer_Inner_DefaultConstruct();
+                    }
+                }
+
+                /// The interface for class `Inner`, the non-const half.
+                /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+                public interface IInner : MR.CS.CSharp.Outer.IConstInner
+                {
+                    /// Generated from method `MR::CSharp::Outer::Inner::bar`.
+                    public unsafe void bar()
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_bar", ExactSpelling = true)]
+                        extern static void __MR_CSharp_Outer_Inner_bar(_Underlying *_this);
+                        __MR_CSharp_Outer_Inner_bar(_GetUnderlying_MRCSharpOuterInner());
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::Outer::Inner`.
+                /// This is the non-const half of the class.
+                public class Inner : MR.CS.CSharp.Outer.ConstInner, IInner
+                {
+                    internal unsafe Inner(IInner._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe Inner() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Outer.IConstInner._Underlying *__MR_CSharp_Outer_Inner_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_Outer_Inner_DefaultConstruct();
+                    }
+
+                    /// Generated from method `MR::CSharp::Outer::Inner::bar`.
+                    public void bar() => ((MR.CS.CSharp.Outer.IInner)this).bar();
+                }
+            }
+
+            /// The interface for class `Outer`, the non-const half.
+            /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
+            public interface IOuter : MR.CS.CSharp.IConstOuter
+            {
+                /// Generated from method `MR::CSharp::Outer::foo`.
+                public unsafe void foo()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_foo", ExactSpelling = true)]
+                    extern static void __MR_CSharp_Outer_foo(_Underlying *_this);
+                    __MR_CSharp_Outer_foo(_GetUnderlying_MRCSharpOuter());
+                }
+            }
+
+            // Nested classes.
+            /// Generated from class `MR::CSharp::Outer`.
+            /// This is the non-const half of the class.
+            public class Outer : MR.CS.CSharp.ConstOuter, IOuter
+            {
+                internal unsafe Outer(IOuter._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Outer() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IConstOuter._Underlying *__MR_CSharp_Outer_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_Outer_DefaultConstruct();
+                }
+
+                /// Generated from method `MR::CSharp::Outer::foo`.
+                public void foo() => ((MR.CS.CSharp.IOuter)this).foo();
+            }
+
             /// Generated from function `MR::CSharp::foo`.
             public static void Foo()
             {

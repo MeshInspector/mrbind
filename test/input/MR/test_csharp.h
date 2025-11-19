@@ -204,4 +204,16 @@ namespace MR::CSharp
     inline const std::filesystem::path &test_fspath_cref(const std::filesystem::path &a, const std::filesystem::path &b = default_fspath) {(void)a; return b;}
     inline std::filesystem::path *test_fspath_ptr(std::filesystem::path *a, std::filesystem::path *b = &default_fspath) {(void)a; return b;}
     inline const std::filesystem::path *test_fspath_cptr(const std::filesystem::path *a, const std::filesystem::path *b = &default_fspath) {(void)a; return b;}
+
+
+    // Nested classes.
+    struct Outer
+    {
+        void foo() {}
+
+        struct Inner
+        {
+            void bar() {}
+        };
+    };
 }
