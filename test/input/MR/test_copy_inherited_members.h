@@ -1,7 +1,6 @@
 #pragma once
 
-// At the time of writing this, the `--copy-inherited-members` flag that this is supposed to test isn't merged yet.
-// But this is still useful for testing various kinds of inheritance.
+// This tests the behavior of `--copy-inherited-members`.
 
 namespace MR::CopyInheritedMembers
 {
@@ -41,4 +40,10 @@ namespace MR::CopyInheritedMembers
 
     struct K : G, J {}; // This gets nothing.
     struct L : J, G {}; // This gets nothing.
+
+    // Now test that a non-virtual base of a virtual base gets treated as a virtual.
+
+    struct M : virtual J {};
+    struct N : M, virtual J {}; // This gets everything from `A`.
+    struct O : virtual J, N {}; // This gets everything from `A`.
 }

@@ -938,11 +938,18 @@ namespace mrbind::CBindings
                     do
                     {
                         type_copy.RemoveModifier();
+
+                        // Also drop arrays, since for `FindBindableType()` arrays are hard errors.
+                        while (type_copy.Is<cppdecl::Array>())
+                            type_copy.RemoveModifier();
+
                         // Remove `const` at the same time, since `FindBindableType()` considers top-level const types an internal error.
                         type_copy.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
                         // Not sure if propagating `remove_sugar` makes sense here, so I won't by default. It'll probably never matter.
-                        (void)FindBindableType(type_copy);
+                        // This is opt because we have types that are not bindable directly, e.g. `std::istream`,`std::ostream`.
+                        //   I could come up with a fancy way of rejecting them here, but it's easier to ignore the errors.
+                        (void)FindBindableTypeOpt(type_copy);
                     }
                     while (type_copy.Is<cppdecl::Pointer>() || type_copy.Is<cppdecl::Reference>());
                 }

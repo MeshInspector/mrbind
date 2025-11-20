@@ -16,6 +16,7 @@
 #include "common/string_filter.h"
 #include "common/string_regex_adjuster.h"
 #include "parser/combine_types.h"
+#include "parser/copy_inherited_members.h"
 #include "parser/cppdecl_helpers.h"
 #include "parser/data_to_json.h"
 #include "parser/data_to_macros.h"
@@ -183,6 +184,9 @@ namespace mrbind
 
         // If true, `using` declarations cause a copy of the member to be emitted in the derived class.
         bool copy_members_for_using_decls = false;
+
+        // Copy inherited members into the derived classes.
+        bool copy_inherited_members = false;
 
         // Try to substitute default arguments into templates, when possible.
         bool buggy_substitute_default_template_args = false;
@@ -1786,7 +1790,7 @@ namespace mrbind
                     }
 
                     // Everything other than constructors is hidden behind a flag.
-                    if (!params->copy_members_for_using_decls)
+                    if (!params->copy_inherited_members)
                         continue;
 
                     if (auto *elem = llvm::dyn_cast<clang::CXXMethodDecl>(target))
@@ -2671,6 +2675,10 @@ namespace mrbind
 
             params->rejected_namespace_stack.pop_back();
 
+            // Optionally copy the inherited members into the derived classes.
+            // We need to do it here, before sorting the members.
+            if (params->copy_inherited_members)
+                CopyInheritedMembers(params->parsed_result);
 
             // Sort the class members.
             // We sometimes seem to get a different order of the implicit members on different platforms.
@@ -3163,9 +3171,9 @@ int main(int argc, char **argv)
                         continue;
                     }
 
-                    if (this_arg == "--copy-members-for-using-decls")
+                    if (this_arg == "--copy-inherited-members")
                     {
-                        params.copy_members_for_using_decls = true;
+                        params.copy_inherited_members = true;
                         continue;
                     }
 
@@ -3225,7 +3233,7 @@ int main(int argc, char **argv)
         "  --canonicalize-64-to-fixed-size-typedefs - A subset of `--canonicalize-to-fixed-size-typedefs` that only acts on 64-bit wide types. Note that it only acts on either `[unsigned] long` or `[unsigned] long long` depending on the platform, depending on which one corresponds to the `[u]int64_t` typedef.\n"
         "  --canonicalize-size_t-to-uint64_t - This only has effect if `--canonicalize-[int64-]to-fixed-size-typedefs` is set (at least one of the two), and only if we're targeting Mac. On Mac, `uint64_t` and `size_t` are different types (`unsigned long long` and `unsigned long` respectively), for some unknown reason. If this is enabled, instead of canonicalizing `unsigned long` to `uint64_t`, we canonicalize `unsigned long long` to `uint64_t`. This allows you to use `size_t` and `ptrdiff_t` in the public interface, but means that you can no longer use the standard `[u]int64_t` typedefs in the interface.\n"
         "  --implicit-enum-underlying-type-is-always-int - This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.\n"
-        "  --copy-members-for-using-decls - When encountering `using` in a derived class, copy the members from the base class. This only makes sense for languages that don't do this automatically. This flag doesn't affect constructors, which are inherited unconditionally.\n"
+        "  --copy-inherited-members    - Copy the inherited members from base classes into the derived classes. This only makes sense for certain output languages that don't do this automatically. This doesn't affect constructors, or any members explicitly imported via `using`, as those are always copied.\n"
         "  --buggy-substitute-default-template-args - Automatically instantiate function templates that have all their arguments defaulted, by substituting those default template arguments. This is currently buggy, enable at your own risk (chokes on old-style SFINAE, works alright with `requires`).\n"
         "  --adjust-comments s/A/B/g   - Adjusts all parsed comments with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules. We separately record the comments with and without leading slashes, and this is applied to both forms, so it should correctly handle both, and shouldn't remove the leading slashes, at least not without replacing them with some other form of a comment.\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "

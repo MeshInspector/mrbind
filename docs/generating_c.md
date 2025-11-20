@@ -109,6 +109,12 @@ By default all those headers end up directly in the `--output-header-dir`, which
 
 Use `--helper-header-dir some/dir` to move them to a subdirectory. `some/dir` is relative to `--output-header-dir`, and will typically be `MylibMisc`, or something along those lines.
 
+### Inherit class members
+
+Pass `--copy-inherited-members` to the parser (`mrbind`) to paste the members from the base classes into the classes derived from them. Otherwise you'll have to manually upcast the pointers to call the base methods.
+
+This applies only to the implicitly inherited members. Members explicitly inherited via `using`, including constructors, are copied unconditionally.
+
 ### Expose simple structs as structs
 
 The default behavior is to expose all classes/structs as opaque heap-allocated pointers.

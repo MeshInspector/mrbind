@@ -82,6 +82,21 @@ namespace mrbind
         }
     };
 
+    // Explains from what base a member was inherited from, if any.
+    // This isn't set if `using` was used for this inheritance.
+    struct DeclInheritedFrom
+    {
+        MBREFL_STRUCT(
+            (std::string)(base)
+
+            // If it was inherited along a virtual path, this is the virtual base in that path (the least derived one, as close to `base` as possible).
+            // If not null, this either matches `base` exactly, or is derived from it.
+            (std::optional<std::string>)(virtual_base)
+        )
+
+        friend bool operator==(const DeclInheritedFrom &, const DeclInheritedFrom &) = default;
+    };
+
     // ---
 
     struct Type
@@ -230,6 +245,8 @@ namespace mrbind
             (bool)(is_const, false)
             (RefQualifier)(ref_qualifier, RefQualifier::none)
             (bool)(is_virtual, false)
+
+            (std::optional<DeclInheritedFrom>)(inherited_from)
         , // Bases:
             (BasicReturningFunc)
         )
@@ -357,6 +374,8 @@ namespace mrbind
             (Type)(type)
 
             (bool)(is_static, false)
+
+            (std::optional<DeclInheritedFrom>)(inherited_from)
 
             (std::size_t)(type_size) // It's easier to have this here for now, than to create a global type registry.
             (std::size_t)(type_alignment) // ^

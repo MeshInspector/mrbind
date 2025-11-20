@@ -1132,3 +1132,303 @@ MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_L_AssignFromAnother(MR_CopyIn
     ));
 }
 
+MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_DefaultConstruct(void)
+{
+    return (MR_CopyInheritedMembers_M *)new MR::CopyInheritedMembers::M(MR::CopyInheritedMembers::M());
+}
+
+MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CopyInheritedMembers_M *)(new MR::CopyInheritedMembers::M[num_elems]{});
+}
+
+const MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_OffsetPtr(const MR_CopyInheritedMembers_M *ptr, ptrdiff_t i)
+{
+    return (const MR_CopyInheritedMembers_M *)(((const MR::CopyInheritedMembers::M *)ptr) + i);
+}
+
+MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_OffsetMutablePtr(MR_CopyInheritedMembers_M *ptr, ptrdiff_t i)
+{
+    return (MR_CopyInheritedMembers_M *)(((MR::CopyInheritedMembers::M *)ptr) + i);
+}
+
+const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_M *object)
+{
+    return (const MR_CopyInheritedMembers_A *)(static_cast<const MR::CopyInheritedMembers::A *>(
+        ((const MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_M *object)
+{
+    return (MR_CopyInheritedMembers_A *)(static_cast<MR::CopyInheritedMembers::A *>(
+        ((MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_M *object)
+{
+    return (const MR_CopyInheritedMembers_J *)(static_cast<const MR::CopyInheritedMembers::J *>(
+        ((const MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_M *object)
+{
+    return (MR_CopyInheritedMembers_J *)(static_cast<MR::CopyInheritedMembers::J *>(
+        ((MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_M_StaticDowncastTo_MR_CopyInheritedMembers_N(const MR_CopyInheritedMembers_M *object)
+{
+    return (const MR_CopyInheritedMembers_N *)(static_cast<const MR::CopyInheritedMembers::N *>(
+        ((const MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_M_MutableStaticDowncastTo_MR_CopyInheritedMembers_N(MR_CopyInheritedMembers_M *object)
+{
+    return (MR_CopyInheritedMembers_N *)(static_cast<MR::CopyInheritedMembers::N *>(
+        ((MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_M_StaticDowncastTo_MR_CopyInheritedMembers_O(const MR_CopyInheritedMembers_M *object)
+{
+    return (const MR_CopyInheritedMembers_O *)(static_cast<const MR::CopyInheritedMembers::O *>(
+        ((const MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_M_MutableStaticDowncastTo_MR_CopyInheritedMembers_O(MR_CopyInheritedMembers_M *object)
+{
+    return (MR_CopyInheritedMembers_O *)(static_cast<MR::CopyInheritedMembers::O *>(
+        ((MR::CopyInheritedMembers::M *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_M *_other)
+{
+    return (MR_CopyInheritedMembers_M *)new MR::CopyInheritedMembers::M(MR::CopyInheritedMembers::M(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::M), MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::M), MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::M))
+    ));
+}
+
+void MR_CopyInheritedMembers_M_Destroy(const MR_CopyInheritedMembers_M *_this)
+{
+    delete ((const MR::CopyInheritedMembers::M *)_this);
+}
+
+void MR_CopyInheritedMembers_M_DestroyArray(const MR_CopyInheritedMembers_M *_this)
+{
+    delete[] ((const MR::CopyInheritedMembers::M *)_this);
+}
+
+MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_AssignFromAnother(MR_CopyInheritedMembers_M *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_M *_other)
+{
+    return (MR_CopyInheritedMembers_M *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::M *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::M), MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::M), MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::M))
+    ));
+}
+
+MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_DefaultConstruct(void)
+{
+    return (MR_CopyInheritedMembers_N *)new MR::CopyInheritedMembers::N(MR::CopyInheritedMembers::N());
+}
+
+MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CopyInheritedMembers_N *)(new MR::CopyInheritedMembers::N[num_elems]{});
+}
+
+const MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_OffsetPtr(const MR_CopyInheritedMembers_N *ptr, ptrdiff_t i)
+{
+    return (const MR_CopyInheritedMembers_N *)(((const MR::CopyInheritedMembers::N *)ptr) + i);
+}
+
+MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_OffsetMutablePtr(MR_CopyInheritedMembers_N *ptr, ptrdiff_t i)
+{
+    return (MR_CopyInheritedMembers_N *)(((MR::CopyInheritedMembers::N *)ptr) + i);
+}
+
+const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_N *object)
+{
+    return (const MR_CopyInheritedMembers_A *)(static_cast<const MR::CopyInheritedMembers::A *>(
+        ((const MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_N_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_N *object)
+{
+    return (MR_CopyInheritedMembers_A *)(static_cast<MR::CopyInheritedMembers::A *>(
+        ((MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_N *object)
+{
+    return (const MR_CopyInheritedMembers_J *)(static_cast<const MR::CopyInheritedMembers::J *>(
+        ((const MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_N_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_N *object)
+{
+    return (MR_CopyInheritedMembers_J *)(static_cast<MR::CopyInheritedMembers::J *>(
+        ((MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(const MR_CopyInheritedMembers_N *object)
+{
+    return (const MR_CopyInheritedMembers_M *)(static_cast<const MR::CopyInheritedMembers::M *>(
+        ((const MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_N_MutableUpcastTo_MR_CopyInheritedMembers_M(MR_CopyInheritedMembers_N *object)
+{
+    return (MR_CopyInheritedMembers_M *)(static_cast<MR::CopyInheritedMembers::M *>(
+        ((MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_N_StaticDowncastTo_MR_CopyInheritedMembers_O(const MR_CopyInheritedMembers_N *object)
+{
+    return (const MR_CopyInheritedMembers_O *)(static_cast<const MR::CopyInheritedMembers::O *>(
+        ((const MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_N_MutableStaticDowncastTo_MR_CopyInheritedMembers_O(MR_CopyInheritedMembers_N *object)
+{
+    return (MR_CopyInheritedMembers_O *)(static_cast<MR::CopyInheritedMembers::O *>(
+        ((MR::CopyInheritedMembers::N *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_N *_other)
+{
+    return (MR_CopyInheritedMembers_N *)new MR::CopyInheritedMembers::N(MR::CopyInheritedMembers::N(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::N), MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::N), MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::N))
+    ));
+}
+
+void MR_CopyInheritedMembers_N_Destroy(const MR_CopyInheritedMembers_N *_this)
+{
+    delete ((const MR::CopyInheritedMembers::N *)_this);
+}
+
+void MR_CopyInheritedMembers_N_DestroyArray(const MR_CopyInheritedMembers_N *_this)
+{
+    delete[] ((const MR::CopyInheritedMembers::N *)_this);
+}
+
+MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_AssignFromAnother(MR_CopyInheritedMembers_N *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_N *_other)
+{
+    return (MR_CopyInheritedMembers_N *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::N *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::N), MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::N), MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::N))
+    ));
+}
+
+MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_DefaultConstruct(void)
+{
+    return (MR_CopyInheritedMembers_O *)new MR::CopyInheritedMembers::O(MR::CopyInheritedMembers::O());
+}
+
+MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CopyInheritedMembers_O *)(new MR::CopyInheritedMembers::O[num_elems]{});
+}
+
+const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_OffsetPtr(const MR_CopyInheritedMembers_O *ptr, ptrdiff_t i)
+{
+    return (const MR_CopyInheritedMembers_O *)(((const MR::CopyInheritedMembers::O *)ptr) + i);
+}
+
+MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_OffsetMutablePtr(MR_CopyInheritedMembers_O *ptr, ptrdiff_t i)
+{
+    return (MR_CopyInheritedMembers_O *)(((MR::CopyInheritedMembers::O *)ptr) + i);
+}
+
+const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_O *object)
+{
+    return (const MR_CopyInheritedMembers_A *)(static_cast<const MR::CopyInheritedMembers::A *>(
+        ((const MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_O *object)
+{
+    return (MR_CopyInheritedMembers_A *)(static_cast<MR::CopyInheritedMembers::A *>(
+        ((MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_O *object)
+{
+    return (const MR_CopyInheritedMembers_J *)(static_cast<const MR::CopyInheritedMembers::J *>(
+        ((const MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_O *object)
+{
+    return (MR_CopyInheritedMembers_J *)(static_cast<MR::CopyInheritedMembers::J *>(
+        ((MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(const MR_CopyInheritedMembers_O *object)
+{
+    return (const MR_CopyInheritedMembers_M *)(static_cast<const MR::CopyInheritedMembers::M *>(
+        ((const MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_M(MR_CopyInheritedMembers_O *object)
+{
+    return (MR_CopyInheritedMembers_M *)(static_cast<MR::CopyInheritedMembers::M *>(
+        ((MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+const MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(const MR_CopyInheritedMembers_O *object)
+{
+    return (const MR_CopyInheritedMembers_N *)(static_cast<const MR::CopyInheritedMembers::N *>(
+        ((const MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_N(MR_CopyInheritedMembers_O *object)
+{
+    return (MR_CopyInheritedMembers_N *)(static_cast<MR::CopyInheritedMembers::N *>(
+        ((MR::CopyInheritedMembers::O *)object)
+    ));
+}
+
+MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_O *_other)
+{
+    return (MR_CopyInheritedMembers_O *)new MR::CopyInheritedMembers::O(MR::CopyInheritedMembers::O(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::O), MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::O), MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::O))
+    ));
+}
+
+void MR_CopyInheritedMembers_O_Destroy(const MR_CopyInheritedMembers_O *_this)
+{
+    delete ((const MR::CopyInheritedMembers::O *)_this);
+}
+
+void MR_CopyInheritedMembers_O_DestroyArray(const MR_CopyInheritedMembers_O *_this)
+{
+    delete[] ((const MR::CopyInheritedMembers::O *)_this);
+}
+
+MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_AssignFromAnother(MR_CopyInheritedMembers_O *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_O *_other)
+{
+    return (MR_CopyInheritedMembers_O *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::O *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::O), MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::O), MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::O))
+    ));
+}
+

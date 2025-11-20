@@ -87,6 +87,10 @@ MR_C_API void MR_AbstractClasses_C_Destroy(const MR_AbstractClasses_C *_this);
 /// Destroys a heap-allocated array of `MR_AbstractClasses_C`. Does nothing if the pointer is null.
 MR_C_API void MR_AbstractClasses_C_DestroyArray(const MR_AbstractClasses_C *_this);
 
+/// Generated from method `MR::AbstractClasses::C::foo`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_AbstractClasses_C_foo(MR_AbstractClasses_C *_this);
+
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API const MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetPtr(const MR_AbstractClasses_C *ptr, ptrdiff_t i);
 
