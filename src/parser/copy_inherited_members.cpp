@@ -64,6 +64,7 @@ namespace mrbind
             // This is incremental, for sorting purposes.
             int member_id = 0;
 
+            // This is a vector of all members with the same name.
             // Having those as pointers is fine, because those only point to the base class methods, and we're already done modifying the base classes.
             std::vector<std::variant<const ClassMethod *, const ClassConvOp *, const ClassField *>> members;
         };
@@ -78,7 +79,8 @@ namespace mrbind
 
             int member_id_counter = 0; // This only needs to be unique per-class, unlike `class_id_counter`.
 
-            // Mark all member functions this class has as shadowed.
+            // Mark all members this class has as ambiguous, since we don't want to re-emit
+            //   the existing direct members. We only want the inherited ones.
             std::unordered_map<std::string, MemberEntry> inherited_methods;
             std::unordered_map<std::string, MemberEntry> inherited_conv_ops;
             std::unordered_map<std::string, MemberEntry> inherited_fields;
@@ -124,7 +126,7 @@ namespace mrbind
 
                 for (const auto &member : class_iter->second.cl->members)
                 {
-                    auto HandleMember = [&](const auto &elem, const std::string &name, auto &map)
+                    auto HandleMember = [&]<typename T>(const T &elem, const std::string &name, auto &map)
                     {
                         // Figure out where this method is originally inherited from. Or is it directly from this base?
                         DeclInheritedFrom member_inherited_from;
@@ -132,63 +134,75 @@ namespace mrbind
                         {
                             // If the member we're inheriting was itself inherited from something else, reuse that inheritance information.
                             member_inherited_from = *elem.inherited_from;
+
+                            // But also if this is the first virtual base in the chain, remember this fact.
+                            if (!member_inherited_from.virtual_base && base.is_virtual)
+                                member_inherited_from.virtual_base = base.type.canonical;
                         }
                         else
                         {
                             // Otherwise fill it from this base.
                             member_inherited_from.base = base.type.canonical;
-                            member_inherited_from.base_is_virtual = base.is_virtual;
+                            if (base.is_virtual)
+                                member_inherited_from.virtual_base = base.type.canonical;
                         }
 
                         // Now merge it into the map!
 
-                        auto [method_iter, is_new] = map.try_emplace(name);
+                        auto [member_iter, is_new] = map.try_emplace(name);
                         if (is_new)
                         {
-                            method_iter->second.inherited_from = member_inherited_from;
-                            method_iter->second.member_id = member_id_counter++;
-                            method_iter->second.is_ambiguous = false;
+                            member_iter->second.inherited_from = member_inherited_from;
+                            member_iter->second.member_id = member_id_counter++;
+                            member_iter->second.is_ambiguous = false;
                         }
                         else
                         {
-                            if (method_iter->second.is_ambiguous)
+                            if (member_iter->second.is_ambiguous)
                                 return; // Already ambiguous, nothing to do.
 
-                            // Is this the same base type?
-                            if (method_iter->second.inherited_from.base == base.type.canonical)
+                            // If the members come from different virtual bases (or at least one isn't from a virtual base),
+                            //   then they are for sure ambiguous.
+                            // TODO: This is correct for non-static members, but I'm not sure about static ones.
+                            //   This considers static members ambiguous when they come from two ambiguous bases of the same type.
+                            //   GCC agrees with us, but Clang and MSVC don't. Clang's behavior makes more sense, but it's more difficult to implement,
+                            //   so for now we use this implementation. Can add the more aggressive inheritance for static members later.
+                            if (!member_inherited_from.virtual_base || member_inherited_from.virtual_base != member_iter->second.inherited_from.virtual_base)
                             {
-                                // If the base type is the same, but at least one of the two bases isn't virtual, then this is an ambiguity.
-                                if (!method_iter->second.inherited_from.base_is_virtual || !base.is_virtual)
-                                {
-                                    method_iter->second.is_ambiguous = true;
-                                    return;
-                                }
+                                member_iter->second.is_ambiguous = true;
+                                return;
+                            }
 
-                                // Otherwise this is legal, but this member should already be in the list, so stop now.
+                            // Do the members come from the same base?
+                            if (member_inherited_from.base == member_iter->second.inherited_from.base)
+                            {
+                                // This is legal, but this member should already be in the list, so stop now.
                                 return;
                             }
                             else
                             {
                                 // Is dominance involved?
 
-                                const auto &existing_base = class_entries.at(method_iter->second.inherited_from.base);
-
-                                if (existing_base.recursive_bases.contains(member_inherited_from.base))
+                                if (
+                                    const auto &existing_base = class_entries.at(member_iter->second.inherited_from.base);
+                                    existing_base.recursive_bases.contains(member_inherited_from.base)
+                                )
                                 {
                                     // Existing base dominates the new one, nothing to do.
                                     return;
                                 }
-
-                                const auto &new_base = class_entries.at(member_inherited_from.base);
-                                if (new_base.recursive_bases.contains(method_iter->second.inherited_from.base))
+                                else if (
+                                    const auto &new_base = class_entries.at(member_inherited_from.base);
+                                    new_base.recursive_bases.contains(member_iter->second.inherited_from.base)
+                                )
                                 {
                                     // The new base dominates the existing one.
 
                                     // Destroy the existing contents.
-                                    method_iter->second.members.clear();
+                                    member_iter->second.members.clear();
 
                                     // Replace the inheritance information.
-                                    method_iter->second.inherited_from = member_inherited_from;
+                                    member_iter->second.inherited_from = member_inherited_from;
 
                                     // Continue normally to add the new member.
                                 }
@@ -196,14 +210,14 @@ namespace mrbind
                                 {
                                     // Neither dominates the other, this is an ambiguity.
 
-                                    method_iter->second.is_ambiguous = true;
+                                    member_iter->second.is_ambiguous = true;
                                     return;
                                 }
                             }
                         }
 
                         // Store the method!
-                        method_iter->second.members.push_back(&elem);
+                        member_iter->second.members.push_back({&elem});
                     };
 
                     std::visit(Overload{
@@ -229,7 +243,7 @@ namespace mrbind
 
             // Get the list of methods to emit, and sort them by their incremental IDs.
             members_to_emit.clear(); // Reusing the memory!
-            members_to_emit.reserve(inherited_methods.size());
+            members_to_emit.reserve(inherited_methods.size() + inherited_conv_ops.size() + inherited_fields.size());
 
             for (const auto &elem : inherited_methods)
             {

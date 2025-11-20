@@ -89,9 +89,12 @@ namespace mrbind
         MBREFL_STRUCT(
             (std::string)(base)
 
-            // Is this `base` a virtual base?
-            (bool)(base_is_virtual, false)
+            // If it was inherited along a virtual path, this is the virtual base in that path (the least derived one, as close to `base` as possible).
+            // If not null, this either matches `base` exactly, or is derived from it.
+            (std::optional<std::string>)(virtual_base)
         )
+
+        friend bool operator==(const DeclInheritedFrom &, const DeclInheritedFrom &) = default;
     };
 
     // ---
