@@ -99,6 +99,11 @@ void MR_AbstractClasses_C_DestroyArray(const MR_AbstractClasses_C *_this)
     delete[] ((const MR::AbstractClasses::C *)_this);
 }
 
+void MR_AbstractClasses_C_foo(MR_AbstractClasses_C *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::C *)(_this)).foo();
+}
+
 const MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetPtr(const MR_AbstractClasses_C *ptr, ptrdiff_t i)
 {
     return (const MR_AbstractClasses_C *)(((const MR::AbstractClasses::C *)ptr) + i);

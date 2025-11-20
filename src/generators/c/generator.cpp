@@ -2499,7 +2499,7 @@ namespace mrbind::CBindings
 
                 for (const ClassBase &parsed_base : cl.bases)
                 {
-                    auto &set = parsed_base.is_virtual ? iter->second.bases_indirect_virtual : iter->second.bases_direct_nonvirtual;
+                    auto &set = parsed_base.is_virtual ? iter->second.bases_direct_true_virtual : iter->second.bases_direct_nonvirtual;
                     set.insert(self.CppdeclToCode(self.ParseTypeOrThrow(parsed_base.type.canonical)));
                 }
             }
@@ -2559,50 +2559,80 @@ namespace mrbind::CBindings
                 base_info_iter->second.derived_direct_nonvirtual.insert(info.first);
             }
 
-            // Fill indirect non-virtual bases.
-
-            auto lambda = [&](auto &lambda, const std::string &derived, const std::string &base) -> void
-            {
-                auto [iter, is_new] = info.second.bases_indirect_nonvirtual.try_emplace(base);
-                if (!is_new)
+            { // Fill indirect non-virtual bases.
+                auto lambda = [&](auto &lambda, const std::string &derived, const std::string &base) -> void
                 {
-                    iter->second = true; // An ambiguous base.
-                    return;
-                }
+                    auto [iter, is_new] = info.second.bases_indirect_nonvirtual.try_emplace(base);
+                    if (!is_new)
+                    {
+                        iter->second = true; // An ambiguous base.
+                        return;
+                    }
 
-                auto base_info_iter = parsed_class_inheritance_info.find(base);
-                if (base_info_iter == parsed_class_inheritance_info.end())
-                    throw std::runtime_error("Parsed class `" + derived + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-mentions-of`.");
+                    auto base_info_iter = parsed_class_inheritance_info.find(base);
+                    if (base_info_iter == parsed_class_inheritance_info.end())
+                        throw std::runtime_error("Parsed class `" + derived + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-mentions-of`.");
 
-                // Recurse.
-                for (const auto &base_of_base : base_info_iter->second.bases_direct_nonvirtual)
-                    lambda(lambda, base, base_of_base);
-            };
-            for (const auto &base : info.second.bases_direct_nonvirtual)
-                lambda(lambda, info.first, base);
+                    // Recurse.
+                    for (const auto &base_of_base : base_info_iter->second.bases_direct_nonvirtual)
+                        lambda(lambda, base, base_of_base);
+                };
+                for (const auto &base : info.second.bases_direct_nonvirtual)
+                    lambda(lambda, info.first, base);
+            }
+
+            { // Fill indirect virtual bases.
+                auto lambda = [&](auto &lambda, const std::string &derived, const std::string &base, bool is_virtual) -> void
+                {
+                    if (is_virtual)
+                    {
+                        // No duplicate checks are needed for virtual bases.
+                        info.second.bases_indirect_true_virtual.insert(base);
+                    }
+
+                    auto base_info_iter = parsed_class_inheritance_info.find(base);
+                    if (base_info_iter == parsed_class_inheritance_info.end())
+                        throw std::runtime_error("Parsed class `" + derived + "` has base `" + base + "`, but that base wasn't parsed. Either feed the header that defines it to the parser, or use `--skip-mentions-of`.");
+
+                    // Recurse.
+                    for (const auto &base_of_base : base_info_iter->second.bases_direct_nonvirtual)
+                        lambda(lambda, base, base_of_base, false);
+                    for (const auto &base_of_base : base_info_iter->second.bases_direct_true_virtual)
+                        lambda(lambda, base, base_of_base, true);
+                };
+                for (const auto &base : info.second.bases_direct_nonvirtual)
+                    lambda(lambda, info.first, base, false);
+                for (const auto &base : info.second.bases_direct_true_virtual)
+                    lambda(lambda, info.first, base, true);
+            }
 
             // Copy that information to the combined virtual/non-virtual list.
             for (const auto &elem : info.second.bases_indirect_nonvirtual)
                 info.second.bases_indirect.try_emplace(elem.first, elem.second ? Generator::InheritanceInfo::Kind::ambiguous : Generator::InheritanceInfo::Kind::non_virt);
 
-            // Add the virtual bases.
-            for (auto &base : info.second.bases_indirect_virtual)
+            auto HandleVirtualBase = [&](const std::string &base, bool force_ambiguous)
             {
                 auto [iter, is_new] = info.second.bases_indirect.try_emplace(base, Generator::InheritanceInfo::Kind::virt);
-                if (!is_new)
+                if ((!is_new && iter->second == InheritanceInfo::Kind::non_virt) || force_ambiguous)
+                {
                     iter->second = InheritanceInfo::Kind::ambiguous;
-            }
 
-            // For each virtual base, add its indirect non-virtual bases.
-            for (auto &base : info.second.bases_indirect_virtual)
+                    // Also mark as ambiguous in `bases_indirect_nonvirtual`, if this base is mentioned there.
+                    if (auto nonvirt_iter = info.second.bases_indirect_nonvirtual.find(base); nonvirt_iter != info.second.bases_indirect_nonvirtual.end())
+                        nonvirt_iter->second = true;
+                }
+            };
+            // Add the virtual bases.
+            for (auto &base : info.second.bases_indirect_true_virtual)
             {
+                // The true virtual bases.
+                HandleVirtualBase(base, false);
+
+                // The non-virtual bases of virtual bases.
+
                 // At this point `.at()` should never throw, because the loop above did the necessary validation.
                 for (const auto &base_of_base : parsed_class_inheritance_info.at(base).bases_indirect_nonvirtual)
-                {
-                    auto [iter, is_new] = info.second.bases_indirect.try_emplace(base_of_base.first, base_of_base.second ? Generator::InheritanceInfo::Kind::ambiguous : Generator::InheritanceInfo::Kind::virt);
-                    if (!is_new)
-                        iter->second = InheritanceInfo::Kind::ambiguous;
-                }
+                    HandleVirtualBase(base_of_base.first, base_of_base.second);
             }
 
             // Fill the reverse mapping (list the derived classes).
