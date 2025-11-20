@@ -4,56 +4,23 @@ public static partial class MR
     {
         public static partial class Std
         {
-            /// The interface for class `string_view`, the const half.
-            /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
-            public interface IConstStringView
-            {
-                public struct _Underlying; // Represents the underlying C++ type.
-                internal unsafe _Underlying *_GetUnderlying_StdStringView(); // Returns the pointer to the underlying C++ object.
-
-                /// The number of characters in the string.
-                public unsafe ulong Size()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_string_view_Size(_Underlying *_this);
-                    return __MR_C_std_string_view_Size(_GetUnderlying_StdStringView());
-                }
-
-                /// Returns the string contents, NOT necessarily null-terminated.
-                /// Returns a read-only pointer.
-                public unsafe byte *Data()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Data", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_view_Data(_Underlying *_this);
-                    return __MR_C_std_string_view_Data(_GetUnderlying_StdStringView());
-                }
-
-                /// Returns a pointer to the end of string. Not dereferencable.
-                /// Returns a read-only pointer.
-                public unsafe byte *DataEnd()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DataEnd", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_view_DataEnd(_Underlying *_this);
-                    return __MR_C_std_string_view_DataEnd(_GetUnderlying_StdStringView());
-                }
-            }
-
             /// A non-owning string view. Not necessarily null-terminated.
             /// This is the const half of the class.
-            public class ConstStringView : MR.CS.Misc.Object, System.IDisposable, IConstStringView
+            public class ConstStringView : MR.CS.Misc.Object, System.IDisposable
             {
-                protected unsafe IConstStringView._Underlying *_UnderlyingPtr;
-                public unsafe IConstStringView._Underlying *_GetUnderlying_StdStringView() => _UnderlyingPtr;
+                internal struct _Underlying; // Represents the underlying C++ type.
 
-                internal unsafe ConstStringView(IConstStringView._Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstStringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr == null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_string_view_Destroy(IConstStringView._Underlying *_this);
-                    __MR_C_std_string_view_Destroy(_GetUnderlying_StdStringView());
+                    extern static void __MR_C_std_string_view_Destroy(_Underlying *_this);
+                    __MR_C_std_string_view_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
@@ -63,7 +30,7 @@ public static partial class MR
                 public unsafe ConstStringView() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
                 }
 
@@ -71,7 +38,7 @@ public static partial class MR
                 public unsafe ConstStringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
+                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
                     int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
                     fixed (byte *__ptr_other = __bytes_other)
@@ -81,15 +48,30 @@ public static partial class MR
                 }
 
                 /// The number of characters in the string.
-                public ulong Size() => ((MR.CS.Std.IConstStringView)this).Size();
+                public unsafe ulong Size()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_string_view_Size(_Underlying *_this);
+                    return __MR_C_std_string_view_Size(_UnderlyingPtr);
+                }
 
                 /// Returns the string contents, NOT necessarily null-terminated.
                 /// Returns a read-only pointer.
-                public unsafe byte *Data() => ((MR.CS.Std.IConstStringView)this).Data();
+                public unsafe byte *Data()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Data", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_view_Data(_Underlying *_this);
+                    return __MR_C_std_string_view_Data(_UnderlyingPtr);
+                }
 
                 /// Returns a pointer to the end of string. Not dereferencable.
                 /// Returns a read-only pointer.
-                public unsafe byte *DataEnd() => ((MR.CS.Std.IConstStringView)this).DataEnd();
+                public unsafe byte *DataEnd()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DataEnd", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_view_DataEnd(_Underlying *_this);
+                    return __MR_C_std_string_view_DataEnd(_UnderlyingPtr);
+                }
 
                 // Custom extras:
 
@@ -104,23 +86,17 @@ public static partial class MR
                 }
             }
 
-            /// The interface for class `string_view`, the non-const half.
-            /// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.
-            public interface IStringView : MR.CS.Std.IConstStringView
-            {
-            }
-
             /// A non-owning string view. Not necessarily null-terminated.
             /// This is the non-const half of the class.
-            public class StringView : MR.CS.Std.ConstStringView, IStringView
+            public class StringView : ConstStringView
             {
-                internal unsafe StringView(IStringView._Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe StringView(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe StringView() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
                 }
 
@@ -128,7 +104,7 @@ public static partial class MR
                 public unsafe StringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.IConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
+                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
                     int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
                     fixed (byte *__ptr_other = __bytes_other)

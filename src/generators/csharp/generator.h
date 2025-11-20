@@ -213,15 +213,6 @@ namespace mrbind::CSharp
         // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
         [[nodiscard]] std::string CppToCSharpUnqualClassName(const cppdecl::UnqualifiedName &name, bool is_const);
 
-        // Converts a C++ qualified class name to a C# helper interface name for this class.
-        [[nodiscard]] std::string CppToCSharpInterfaceName(cppdecl::QualifiedName name, bool is_const);
-        // Same, but for unqualified names.
-        // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
-        [[nodiscard]] std::string CppToCSharpUnqualInterfaceName(const cppdecl::UnqualifiedName &name, bool is_const);
-
-        // Given a C++ class name, returns the "GetUnderlying..." method that's used in classes derived from this to return pointers to the underlying C++ instance.
-        [[nodiscard]] std::string CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name);
-
         enum class TypeBindingFlags
         {
             // Enable type-specific sugared passing style.
@@ -277,25 +268,6 @@ namespace mrbind::CSharp
         // Determine a suitable unqualified C# name for a method.
         [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method);
 
-        struct InheritedMethodStrings
-        {
-            // This is the function declaration, without the body.
-            std::string header;
-
-            // This is the function body. Paste it immediately after `header` with no separator.
-            // This will have a trailing newline.
-            std::string body;
-
-            // This is the comment, if any. If not empty, it'll have the trailing newline and the necessary slashes.
-            // Paste it before the header, without an additional newline.
-            std::string comment;
-        };
-        // Generate the stub function declaration that forwards the call to the interface or base class `base_name`.
-        // In C#, when you implement a method directly in the interface, it can't be called on a derived class without manually upcasting it
-        //   to the interface, unless you explicitly reimplement it in the derived class.
-        // This function generates a stub implementation that propagates the specified interface.
-        [[nodiscard]] InheritedMethodStrings MakeInheritedMethod(const CInterop::ClassMethod &method, std::string_view base_name);
-
         // Create a C# comment for a parsed function.
         // This will always end with a newline if not empty, and will include slashes.
         [[nodiscard]] std::string MakeFuncComment(AnyFuncLikePtr any_func_like);
@@ -333,7 +305,7 @@ namespace mrbind::CSharp
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitCppEnum(OutputFile &file, const std::string &cpp_name_str);
 
-        // Since we duplicate each class and its corresponding interface into const and non-const versions,
+        // Since we duplicate each class into const and non-const versions,
         //   we need an extra bool to describe which half of the class is being operated on.
         struct MaybeConstClass
         {
@@ -344,45 +316,6 @@ namespace mrbind::CSharp
 
             friend auto operator<=>(const MaybeConstClass &, const MaybeConstClass &) = default;
         };
-
-        struct EmittedClassInfo
-        {
-            // The C++ names of the base classes (as opposed to interfaces), if any.
-            // C# supports at most one base class, so this is the chain of bases. The last element in the set is the direct base.
-            // Those are guaranteed to be parsed class names, so you can look them up in `c_desc`.
-            OrderedSet<MaybeConstClass> indirect_base_classes;
-
-            // Returns the direct base class, if any. This is the last element of `indirect_base_classes`.
-            [[nodiscard]] const MaybeConstClass *DirectBase() const
-            {
-                return indirect_base_classes.Vec().empty() ? nullptr : &indirect_base_classes.Vec().back();
-            }
-
-            // The C++ names of the classes, which corresponding interfaces we inherit.
-            std::vector<MaybeConstClass> base_interfaces;
-
-            // The methods that come directly from this class, not counting the inherited ones.
-            // Constructors are not listed here.
-            std::vector<const CInterop::ClassMethod *> direct_methods;
-
-            struct MaybeInheritedMethod
-            {
-                InheritedMethodStrings method;
-
-                // If false, this method is automatically inherited from the parent, so we don't need to paste it into this class.
-                bool need_implementation = false;
-            };
-
-            // The methods directly either defined by this class or inherited.
-            // The keys are `.header`s of the values, so there is some duplication.
-            // Constructors are not listed here.
-            OrderedMap<std::string, MaybeInheritedMethod> combined_methods;
-        };
-
-        // Don't access directly, this is for `GetEmittedClassInfo()`.
-        std::map<MaybeConstClass, EmittedClassInfo> cached_emitted_class_info;
-
-        [[nodiscard]] const EmittedClassInfo &GetEmittedClassInfo(const MaybeConstClass &cl);
 
         // A low-level function to emit a wrapper for a single half (either const or non-const) of a C "class".
         // Assumes that the correct namespace or class was already entered in `file`.

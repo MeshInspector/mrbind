@@ -259,38 +259,6 @@ namespace mrbind::CSharp
         return is_const ? "Const" + CppToCsharpIdentifier(name) : CppToCsharpIdentifier(name);
     }
 
-    std::string Generator::CppToCSharpInterfaceName(cppdecl::QualifiedName name, bool is_const)
-    {
-        name = AdjustCppNamespaces(std::move(name));
-
-        std::string ret;
-        for (std::size_t i = 0; i < name.parts.size(); i++)
-        {
-            if (i > 0)
-                ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
-
-            std::string part;
-            if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualInterfaceName(name.parts[i], is_const);
-            else
-                part = CppToCsharpIdentifier(name.parts[i]);
-
-            ret += part;
-        }
-        return ret;
-    }
-
-    std::string Generator::CppToCSharpUnqualInterfaceName(const cppdecl::UnqualifiedName &name, bool is_const)
-    {
-        return "I" + CppToCSharpUnqualClassName(name, is_const);
-    }
-
-    std::string Generator::CppClassToCSharpGetUnderlyingMethodName(const cppdecl::QualifiedName &name)
-    {
-        // Intentionally not adjusting the name here.
-        return "_GetUnderlying_" + CppToCsharpIdentifier(name);
-    }
-
     std::string Generator::TypeBindingFlagsToString(TypeBindingFlags flags)
     {
         std::string ret;
@@ -488,12 +456,10 @@ namespace mrbind::CSharp
                             // Otherwise this is the original referenced type.
                             const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
 
-                            const std::string csharp_interface_mut = CppToCSharpInterfaceName(cpp_effective_type.simple_type.name, false);
-                            const std::string csharp_interface_const = CppToCSharpInterfaceName(cpp_effective_type.simple_type.name, true);
                             const std::string csharp_type_mut = CppToCSharpClassName(cpp_effective_type.simple_type.name, false);
                             const std::string csharp_type_const = CppToCSharpClassName(cpp_effective_type.simple_type.name, true);
-                            const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : CppClassToCSharpGetUnderlyingMethodName(cpp_effective_type.simple_type.name) + "()";
-                            const std::string csharp_underlying_ptr_type = csharp_interface_mut + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
+                            const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
+                            const std::string csharp_underlying_ptr_type = csharp_type_mut + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
 
                             switch (elem.kind)
                             {
@@ -794,10 +760,9 @@ namespace mrbind::CSharp
                                         // Otherwise this is the original referenced type.
                                         const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
 
-                                        const std::string csharp_interface = CppToCSharpInterfaceName(cpp_effective_type.simple_type.name, is_const);
                                         const std::string csharp_type = CppToCSharpClassName(cpp_effective_type.simple_type.name, is_const);
-                                        const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : CppClassToCSharpGetUnderlyingMethodName(cpp_type.simple_type.name) + "()";
-                                        const std::string csharp_underlying_ptr_type = csharp_interface + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
+                                        const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
+                                        const std::string csharp_underlying_ptr_type = csharp_type + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
 
                                         switch (elem.kind)
                                         {
@@ -1011,10 +976,9 @@ namespace mrbind::CSharp
                                         // Otherwise this is the original referenced type.
                                         const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
 
-                                        const std::string csharp_interface = CppToCSharpInterfaceName(cpp_effective_type.simple_type.name, is_const);
                                         const std::string csharp_type = CppToCSharpClassName(cpp_effective_type.simple_type.name, is_const);
-                                        const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : CppClassToCSharpGetUnderlyingMethodName(cpp_type.simple_type.name) + "()";
-                                        const std::string csharp_underlying_ptr_type = csharp_interface + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
+                                        const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
+                                        const std::string csharp_underlying_ptr_type = csharp_type + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
 
                                         switch (elem.kind)
                                         {
@@ -1292,7 +1256,7 @@ namespace mrbind::CSharp
             }
 
             // Generate the dllimport declaration.
-            const auto dllimport_strings = MakeDllImportDecl(func_like.c_name, is_ctor ? CppToCSharpInterfaceName(ParseNameOrThrow(method_like->ret.cpp_type), true) + "._Underlying *" : ret_binding->return_usage->dllimport_return_type, dllimport_param_string);
+            const auto dllimport_strings = MakeDllImportDecl(func_like.c_name, is_ctor ? CppToCSharpClassName(ParseNameOrThrow(method_like->ret.cpp_type), true) + "._Underlying *" : ret_binding->return_usage->dllimport_return_type, dllimport_param_string);
 
             // Write a separating empty line if needed.
             file.WriteSeparatingNewline();
@@ -1522,131 +1486,6 @@ namespace mrbind::CSharp
         }, method.var);
     }
 
-    Generator::InheritedMethodStrings Generator::MakeInheritedMethod(const CInterop::ClassMethod &method, std::string_view base_name)
-    {
-        const std::string unqual_method_name = MakeUnqualCSharpMethodName(method);
-
-        InheritedMethodStrings ret;
-
-        try
-        {
-            // The return type.
-            // We'll prepend some specifiers later, because among them we might need to add `unsafe`, and to determine if we need that,
-            //   we need the rest of the string to be already generated.
-            const TypeBinding &ret_binding = GetTypeBinding(ParseTypeOrThrow(method.ret.cpp_type), TypeBindingFlagsForReturn(method.ret));
-            if (!ret_binding.return_usage)
-                throw std::runtime_error("The C++ return type `" + method.ret.cpp_type + "`" + (method.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
-            ret.header += ret_binding.return_usage->csharp_return_type;
-            if (!ret_binding.return_usage->csharp_return_type.ends_with('*'))
-                ret.header += ' ';
-
-            // The method name.
-            ret.header += unqual_method_name;
-
-            // Begin the parameter list.
-            ret.header += '(';
-
-
-            // Begin assembling the body.
-            ret.body += " => ";
-
-            // Do we return by reference?
-            if (ret_binding.return_usage->csharp_return_type.starts_with("ref "))
-                ret.body += "ref ";
-
-            // The object we're calling this on.
-            if (method.is_static)
-            {
-                ret.body += base_name;
-            }
-            else
-            {
-                ret.body += "((";
-                ret.body += base_name;
-                ret.body += ")this)";
-            }
-
-            // The member we're calling.
-            ret.body += '.';
-            ret.body += unqual_method_name;
-
-            // Begin the argument list.
-            ret.body += '(';
-
-            // Handle the parameters.
-            for (std::size_t visual_index = 1; const auto &param : method.params)
-            {
-                try
-                {
-                    // Handle the `this` parameter.
-                    if (!param.is_this_param)
-                    {
-                        auto param_binding = GetParameterBinding(param, &method);
-
-                        if (!param_binding.strings.csharp_decl_params.empty())
-                        {
-                            for (const auto &csharp_param : param_binding.strings.csharp_decl_params)
-                            {
-                                assert(!csharp_param.starts_with(' '));
-                                assert(!csharp_param.ends_with(' '));
-
-                                if (!ret.header.ends_with('('))
-                                    ret.header += ", ";
-                                ret.header += csharp_param;
-
-
-                                if (!ret.body.ends_with('('))
-                                    ret.body += ", ";
-
-                                if (csharp_param.starts_with("ref "))
-                                    ret.body += "ref ";
-
-                                // Find the name as the substring after the last space.
-                                std::string_view name;
-                                if (auto sep = csharp_param.find_last_of(" *"); sep != std::string_view::npos)
-                                    name = std::string_view(csharp_param).substr(sep + 1);
-                                else
-                                    name = csharp_param;
-
-                                ret.body += name;
-                            }
-                        }
-                    }
-                }
-                catch (...)
-                {
-                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(visual_index) + " out of " + std::to_string(method.params.size()) + ", of type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + ":"));
-                }
-
-                visual_index++;
-            }
-
-            // Close the parameter list and the argument list.
-            ret.header += ')';
-            ret.body += ");\n";
-
-            // Determine the function prefix. This must be done after assembling the `ret.header`, since we analyze it below.
-            std::string prefix;
-            prefix += "public ";
-            if (method.is_static)
-                prefix += "static ";
-            if (method.is_virtual)
-                prefix += "virtual ";
-            if (ret.header.find('*') != std::string::npos)
-                prefix += "unsafe ";
-            ret.header = prefix + ret.header;
-
-            // Lastly, make the comment.
-            ret.comment = MakeFuncComment(&method);
-        }
-        catch (...)
-        {
-            std::throw_with_nested(std::runtime_error("While emitting an inheritance wrapper for method `" + unqual_method_name + "`:"));
-        }
-
-        return ret;
-    }
-
     std::string Generator::MakeFuncComment(AnyFuncLikePtr any_func_like)
     {
         const CInterop::BasicFuncLike &func_like = *std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, any_func_like);
@@ -1704,7 +1543,7 @@ namespace mrbind::CSharp
             if (!method_like->is_static)
             {
                 ret.strings.dllimport_decl_params = "_Underlying *" + param.name_or_placeholder;
-                ret.strings.dllimport_args = CppClassToCSharpGetUnderlyingMethodName(this_type.simple_type.name) + "()";
+                ret.strings.dllimport_args = "_UnderlyingPtr";
             }
         }
         else
@@ -1822,164 +1661,6 @@ namespace mrbind::CSharp
         }
     }
 
-    const Generator::EmittedClassInfo &Generator::GetEmittedClassInfo(const MaybeConstClass &cl)
-    {
-        // Not immediately doing `try_emplace()` to intentionally get an infinite recursion if there's a cycle somehow.
-        auto iter = cached_emitted_class_info.find(cl);
-        if (iter != cached_emitted_class_info.end())
-            return iter->second;
-
-        EmittedClassInfo ret;
-
-        const CInterop::TypeDesc *type_desc = c_desc.FindTypeOpt(cl.class_name);
-        if (!type_desc)
-            throw std::logic_error("Trying to emit C++ class `" + cl.class_name + "`, but it doesn't appear in the input JSON.");
-
-        const auto *class_desc = std::get_if<CInterop::TypeKinds::Class>(&type_desc->var);
-        if (!class_desc)
-            throw std::logic_error("Trying to emit C++ class `" + cl.class_name + "`, but in the input JSON it's marked as something other than a class.");
-
-        { // Figure out the bases.
-            [[maybe_unused]] bool first = true;
-
-            // The primary base of a non-const class is its const counterpart.
-            if (!cl.is_const)
-            {
-                ret.indirect_base_classes = GetEmittedClassInfo({.class_name = cl.class_name, .is_const = true}).indirect_base_classes;
-                ret.indirect_base_classes.MustInsert({.class_name = cl.class_name, .is_const = true});
-                first = false;
-            }
-
-            // For now we just iterate over all direct bases, both virtual and non-virtual.
-            // All interface inheritance in C# is virtual. You can't inherit from multiple classes, so it can only be said to be virtual for interfaces.
-            // In theory we could skip virtual bases if they were already inherited earlier in the inheritance hierarchy, but this doesn't see to actually do anything,
-            //   other than skipping some redundant interface inheritance, that does nothing anyway.
-            // So for now we don't do it.
-            for (const auto &base : class_desc->inheritance_info.bases_direct_combined.Vec())
-            {
-                // If we didn't have a base class yet, make this the single base class. Otherwise an interface.
-                // Currently this is disabled, because I'm not sure how to emit a downcast in this case, since implicit conversions can't target base or derived classes.
-                // Note that you can't just uncomment this, a bunch of things will break, such as our `Dispose()` implementations which are not designed to handle this.
-                #if 0
-                if (first)
-                {
-                    first = false;
-                    ret.indirect_base_classes = GetEmittedClassInfo(MaybeConstClass{.class_name = base, .is_const = cl.is_const}).indirect_base_classes;
-                    ret.indirect_base_classes.MustInsert(MaybeConstClass{.class_name = base, .is_const = cl.is_const});
-                }
-                else
-                #endif
-                {
-                    ret.base_interfaces.push_back(MaybeConstClass{.class_name = base, .is_const = cl.is_const});
-                }
-            }
-        }
-
-        // Figure out the direct methods.
-        for (const auto &method : class_desc->methods)
-        {
-            bool is_const_or_static = method.is_static;
-            if (!is_const_or_static)
-            {
-                // Check if the `this` parameter is const.
-                assert(!method.params.empty() && method.params.front().is_this_param);
-                if (!method.params.empty() && method.params.front().is_this_param)
-                {
-                    cppdecl::Type type = ParseTypeOrThrow(method.params.front().cpp_type);
-                    if (type.Is<cppdecl::Reference>())
-                    {
-                        is_const_or_static = type.IsConst(1);
-                    }
-                    else
-                    {
-                        // A by-value parameter.
-                        // This branch will be useful when we eventually (hopefully) add support for explicit object parameters.
-                        // For now it should be unreachable.
-                        assert(type.modifiers.empty());
-                        is_const_or_static = true; // This is considered `const`.
-                    }
-                }
-            }
-
-            bool should_emit = std::visit(Overload{
-                [&](const CInterop::MethodKinds::Regular &elem)
-                {
-                    (void)elem;
-                    return true;
-                },
-                [&](const CInterop::MethodKinds::Constructor &elem)
-                {
-                    (void)elem;
-                    return false; // Constructors don't go through this system.
-                },
-                [&](const CInterop::MethodKinds::Operator &elem)
-                {
-                    (void)elem;
-                    return false; // TODO
-                    // return !elem.is_copying_assignment;
-                },
-                [&](const CInterop::MethodKinds::ConversionOperator &elem)
-                {
-                    (void)elem;
-                    return false; // TODO
-                },
-            }, method.var);
-
-            if (!should_emit || is_const_or_static != cl.is_const)
-                continue;
-
-            // We rely on pointer stability of the input.
-            ret.direct_methods.push_back(&method);
-        }
-
-
-        // Figure out the combined methods.
-
-        const EmittedClassInfo *base_info = nullptr;
-        if (ret.DirectBase())
-            base_info = &GetEmittedClassInfo(*ret.DirectBase());
-
-        // Firstly, copy the methods from the base, if any.
-        if (base_info)
-        {
-            ret.combined_methods = base_info->combined_methods;
-
-            // The directly inherited methods don't need to be reimplemented.
-            for (auto it = ret.combined_methods.MutableMapBegin(); it != ret.combined_methods.MutableMapEnd(); ++it)
-                it->second.need_implementation = false;
-        }
-
-        // Add direct methods, replacing the ones from the base class.
-        for (const CInterop::ClassMethod *method : ret.direct_methods)
-        {
-            EmittedClassInfo::MaybeInheritedMethod &new_method = ret.combined_methods.TryEmplace(MakeUnqualCSharpMethodName(*method)).first;
-            // Hmm, do I pass this class or this interface? Interface should result in less wrapper depth, so it's probably better?
-            new_method.method = MakeInheritedMethod(*method, CppToCSharpInterfaceName(ParseNameOrThrow(cl.class_name), cl.is_const));
-            new_method.need_implementation = true;
-        }
-
-        // Add methods from inherited interfaces.
-        for (const MaybeConstClass &base_interface : ret.base_interfaces)
-        {
-            const EmittedClassInfo &base_info = GetEmittedClassInfo(base_interface);
-            for (const auto &method_name : base_info.combined_methods.Vec())
-            {
-                auto [ref, is_new] = ret.combined_methods.TryEmplace(method_name);
-
-                // If this method already exists, then it's either from the base CLASS, in which case `.need_implementation == false`, which should be fine.
-                // Or it's from an earlier INTERFACE, then it'll already have `.need_implementation = true`, which we're about to set here.
-                if (!is_new)
-                    continue;
-
-                ref.method = base_info.combined_methods.Map().at(method_name).method;
-                // Force reimplement the method, because we don't automatically inherit the implementation from an interface.
-                ref.need_implementation = true;
-            }
-        }
-
-        return cached_emitted_class_info.try_emplace(cl, std::move(ret)).first->second;
-    }
-
     void Generator::EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl)
     {
         try
@@ -1990,8 +1671,6 @@ namespace mrbind::CSharp
 
             const CInterop::TypeDesc &type_desc = *c_desc.FindTypeOpt(cl.class_name);
             const CInterop::TypeKinds::Class &class_desc = std::get<CInterop::TypeKinds::Class>(type_desc.var);
-
-            const EmittedClassInfo &class_info = GetEmittedClassInfo(cl);
 
             // Do we have bindings for `std::shared_ptr<T>`?
             const CInterop::TypeDesc *shared_ptr_desc = GetSharedPtrTypeDescForCppTypeOpt(cl.class_name);
@@ -2009,7 +1688,7 @@ namespace mrbind::CSharp
             // And it'll also help if we decide to get rid of the uncool cast one day.
             static const cppdecl::QualifiedName cpp_sharedptr_constvoid_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr").AddTemplateArgument(cppdecl::Type::FromSingleWord("void").AddQualifiers(cppdecl::CvQualifiers::const_));
             // This is the C# name of the underlying raw pointer used in the C# wrapper of `std::shared_ptr<const void>`.
-            static const std::string sharedptr_constvoid_underlying_ptr_type = CppToCSharpInterfaceName(cpp_sharedptr_constvoid_name, true) + "._Underlying *";
+            static const std::string sharedptr_constvoid_underlying_ptr_type = CppToCSharpClassName(cpp_sharedptr_constvoid_name, true) + "._Underlying *";
 
             // This lambda emits all types nested in this one, if any.
             auto EmitNestedClasses = [&]
@@ -2027,99 +1706,8 @@ namespace mrbind::CSharp
             };
 
 
-            // Declare the interface.
-
-            // A separator?
+            // Begin writing the class.
             file.WriteSeparatingNewline();
-
-            // No comment on the interface, we add it only on the class.
-
-            // The interface header.
-            file.WriteString("/// The interface for class `" + std::string(cpp_unqual_name) + "`, the " + (cl.is_const ? "const" : "non-const") + " half.\n");
-            file.WriteString("/// We never use interfaces as function parameters or return types, because they prevent implicit conversions, but can use them freely.\n");
-            file.WriteString("public interface ");
-            const std::string csharp_primary_interface_name = CppToCSharpUnqualInterfaceName(cpp_qual_name.parts.back(), cl.is_const);
-            file.WriteString(csharp_primary_interface_name);
-
-            { // Write the bases.
-                auto BaseSeparator = [&, first = true]() mutable
-                {
-                    if (first)
-                    {
-                        first = false;
-                        file.WriteString(" : ");
-                    }
-                    else
-                    {
-                        file.WriteString(", ");
-                    }
-                };
-
-                // The interface for the base class.
-                if (class_info.DirectBase())
-                {
-                    BaseSeparator();
-                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(class_info.DirectBase()->class_name), class_info.DirectBase()->is_const));
-                }
-
-                // Any additional interfaces.
-                for (const MaybeConstClass &in : class_info.base_interfaces)
-                {
-                    BaseSeparator();
-                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(in.class_name), in.is_const));
-                }
-            }
-
-            file.PushScope({}, "\n{\n", "}\n");
-
-            // Declare the underlying pointer type, and the method to access the underlying pointer.
-            const std::string csharp_underlying_ptr_method_name = CppClassToCSharpGetUnderlyingMethodName(cpp_qual_name);
-
-            if (cl.is_const)
-            {
-                // The "get underlying" method can have any access here, but then C# only lets you implement it as public.
-                // I don't think it really matters what access I put on it.
-                // The "underlying" struct itself must be public, because the overriding method for "get underlying" must be public, and that requires
-                //   all parameter/return types to be public too.
-
-                file.WriteSeparatingNewline();
-                if (class_info.DirectBase() || !class_info.base_interfaces.empty())
-                    file.WriteString("new "); // Be explicit about the shadowing.
-                file.WriteString("public struct _Underlying; // Represents the underlying C++ type.\n");
-                file.WriteString("internal unsafe _Underlying *" + csharp_underlying_ptr_method_name + "(); // Returns the pointer to the underlying C++ object.\n");
-
-                // The opaque struct type for our shared pointer.
-                if (shared_ptr_desc)
-                {
-                    // This doesn't have to be in the interface, it could be in the derived class.
-                    // But if we reconsider, moving it there would be painful, so we declare it here directly.
-
-                    // Be explicit about the shadowing. This only shadows something if the direct base
-                    //   or any of the interface bases declares its own shared pointer type.
-                    if (
-                        (class_info.DirectBase() && GetSharedPtrTypeDescForCppTypeOpt(class_info.DirectBase()->class_name)) ||
-                        std::any_of(class_info.base_interfaces.begin(), class_info.base_interfaces.end(), [&](const MaybeConstClass &elem){return GetSharedPtrTypeDescForCppTypeOpt(elem.class_name);})
-                    )
-                    {
-                        file.WriteString("new ");
-                    }
-
-                    file.WriteSeparatingNewline();
-                    file.WriteString("public struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.\n");
-                }
-            }
-
-            for (const CInterop::ClassMethod *method : class_info.direct_methods)
-            {
-                EmitCFuncLike(file, method, MakeUnqualCSharpMethodName(*method));
-            }
-
-            file.PopScope(); // Pop the interface scope.
-
-            file.WriteSeparatingNewline();
-
-
-            // Now the class itself.
 
             // The comment, if any.
             // This already has a trailing newline and the slashes.
@@ -2140,10 +1728,12 @@ namespace mrbind::CSharp
                         file.WriteString(", ");
                 };
 
-                if (class_info.DirectBase())
+                if (!cl.is_const)
                 {
                     BaseSeparator();
-                    file.WriteString(CppToCSharpClassName(ParseNameOrThrow(class_info.DirectBase()->class_name), class_info.DirectBase()->is_const));
+
+                    // Inherit from the const half.
+                    file.WriteString(CppToCSharpUnqualClassName(cpp_qual_name.parts.back(), true));
                 }
                 else
                 {
@@ -2158,158 +1748,88 @@ namespace mrbind::CSharp
                         file.WriteString("System.IDisposable");
                     }
                 }
-
-                // The primary interface.
-                BaseSeparator();
-                file.WriteString(csharp_primary_interface_name);
-
-                // Any additional interfaces.
-                for (const MaybeConstClass &in : class_info.base_interfaces)
-                {
-                    BaseSeparator();
-                    file.WriteString(CppToCSharpInterfaceName(ParseNameOrThrow(in.class_name), in.is_const));
-                }
             }
             file.PushScope({}, "\n{\n", "}\n");
-
-            // Does this class declare its own pointer to the underlying C instance? As opposed to just inheriting it.
-            // This is always false for non-const class variants, since they can reuse the pointer from the const half.
-            // If this is false, then we'll `static_cast` the pointer in the base class, so make sure that's possible for your type,
-            //   or set this to `true` to declare your own pointer.
-            bool declares_underlying_pointer = false;
-            if (cl.is_const)
-            {
-                // If the base is virtual, we can no longer `static_cast`, and rather than try to `dynamic_cast` (which is only possible if the base is polymorphic,
-                //   which isn't a given), we instead store a separate derived pointer. I don't want to pay the const of a `dynamic_cast` on every method call.
-                declares_underlying_pointer = !class_info.DirectBase() || class_desc.inheritance_info.bases_direct_combined.Map().at(class_info.DirectBase()->class_name);
-            }
-
-
-            // Determine the C# underlying pointer types, for this class and its base, if any.
-            // Some of those are `std::optional` to catch errors if we try to use them without assigning to them.
-            std::string underlying_ptr_type = csharp_primary_interface_name + "._Underlying *";
-
-            std::optional<std::string> base_underlying_ptr_type;
-            std::optional<std::string> base_c_name;
-            if (cl.is_const && class_info.DirectBase())
-            {
-                base_underlying_ptr_type = CppToCSharpInterfaceName(ParseNameOrThrow(class_info.DirectBase()->class_name), cl.is_const) + "._Underlying *";
-                base_c_name = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(class_info.DirectBase()->class_name)->var).c_name;
-            }
 
             // The underlying pointer.
             // This is done only for the const halves, because the non-const ones can always reuse the pointer from the const half.
             if (cl.is_const)
             {
-                if (declares_underlying_pointer)
+                file.WriteSeparatingNewline();
+
+                // The opaque struct type for the raw pointer.
+                file.WriteString("internal struct _Underlying; // Represents the underlying C++ type.\n");
+
+                // The opaque struct type for the shared pointer.
+                if (shared_ptr_desc)
+                    file.WriteString("internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.\n");
+
+
+                if (!shared_ptr_desc)
                 {
-                    if (!shared_ptr_desc)
-                    {
-                        // Declare our own raw pointer.
-                        file.WriteSeparatingNewline();
-                        file.WriteString("protected unsafe " + underlying_ptr_type + "_UnderlyingPtr;\n");
-                        file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "() => _UnderlyingPtr;\n");
-                    }
-                    else
-                    {
-                        // Declare our own shared pointer.
-
-                        file.WriteSeparatingNewline();
-
-                        file.WriteString("internal unsafe " + csharp_primary_interface_name + "._UnderlyingShared *_UnderlyingSharedPtr;\n");
-
-                        { // Get underlying raw pointer from the shared pointer.
-                            file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "()\n");
-                            file.PushScope({}, "{\n", "}\n");
-
-                            auto dllimport_get_ptr_from_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", underlying_ptr_type, csharp_primary_interface_name + "._UnderlyingShared *_this");
-                            file.WriteString(dllimport_get_ptr_from_shared.dllimport_decl);
-                            file.WriteString("return " + dllimport_get_ptr_from_shared.csharp_name + "(_UnderlyingSharedPtr);\n");
-
-                            file.PopScope();
-                        }
-
-                        { // Check if the underlying shared pointer owns the target object.
-                            file.WriteSeparatingNewline();
-                            file.WriteString("/// Check if the underlying shared pointer is owning or not.\n");
-                            file.WriteString("public override bool _IsOwning\n");
-                            file.PushScope({}, "{\n", "}\n");
-                            file.PushScope({}, "get\n{\n", "}\n");
-
-                            auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_UseCount", "int", "");
-                            file.WriteString(dllimport_use_count.dllimport_decl);
-                            file.WriteString("return " + dllimport_use_count.csharp_name + "() > 0;\n");
-
-                            file.PopScope();
-                            file.PopScope();
-                        }
-
-                        { // Copy the underlying shared pointer.
-                            // This sadly has to be public, as otherwise we can't override methods from interfaces.
-                            // Though honestly this doesn't strictly
-
-                            file.WriteSeparatingNewline();
-                            file.WriteString("/// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).\n");
-                            file.WriteString("internal unsafe " + csharp_primary_interface_name + "._UnderlyingShared *_CloneUnderlyingSharedPtr()\n");
-                            file.PushScope({}, "{\n", "}\n");
-
-                            auto dllimport_clone_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructFromAnother", csharp_primary_interface_name + "._UnderlyingShared *", RequestHelper("_PassBy") + " other_pass_by, " + csharp_primary_interface_name + "._UnderlyingShared *other");
-                            file.WriteString(dllimport_clone_shared.dllimport_decl);
-                            file.WriteString("return " + dllimport_clone_shared.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, _UnderlyingSharedPtr);\n");
-
-                            file.PopScope();
-                        }
-                    }
+                    // Declare our own raw pointer.
+                    file.WriteSeparatingNewline();
+                    file.WriteString("internal unsafe _Underlying *_UnderlyingPtr;\n");
                 }
                 else
                 {
-                    // `static_cast` the parent pointer.
+                    // Declare our own shared pointer.
 
                     file.WriteSeparatingNewline();
-                    file.WriteString("public unsafe " + underlying_ptr_type + csharp_underlying_ptr_method_name + "()\n");
-                    file.PushScope({}, "{\n", "}\n");
 
-                    // I believe it doesn't matter if we use the `Mutable` or the normal (const) downcast here.
-                    // Mutable feels more natural to me, since all C# pointers are non-const.
-                    auto cast_decl = MakeDllImportDecl(base_c_name.value() + "_StaticDowncastTo_" + class_desc.c_name, underlying_ptr_type, base_underlying_ptr_type.value() + "_this");
-                    file.WriteString(cast_decl.dllimport_decl);
+                    file.WriteString("internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;\n");
 
-                    file.WriteString("return " + cast_decl.csharp_name + "(base." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(class_info.DirectBase()->class_name)) + "());\n");
+                    { // Get underlying raw pointer from the shared pointer.
+                        file.WriteString("internal unsafe _Underlying *_UnderlyingPtr\n");
+                        file.PushScope({}, "{\n", "}\n");
+                        file.WriteString("get\n");
+                        file.PushScope({}, "{\n", "}\n");
 
-                    file.PopScope();
-                }
-            }
+                        auto dllimport_get_ptr_from_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", "_Underlying *", "_UnderlyingShared *_this");
+                        file.WriteString(dllimport_get_ptr_from_shared.dllimport_decl);
+                        file.WriteString("return " + dllimport_get_ptr_from_shared.csharp_name + "(_UnderlyingSharedPtr);\n");
 
-            // The "get underlying" methods for interface bases, as opposed to the primary base.
-            // This is only needed for the const halves, since the non-const halves just inherit all this from the const half.
-            if (cl.is_const)
-            {
-                for (const MaybeConstClass &base_interface : class_info.base_interfaces)
-                {
-                    // While we're at it, make sure that the base isn't ambiguous (or the upcast function will not exist).
-                    if (class_desc.inheritance_info.bases_indirect.Map().at(base_interface.class_name) == CInterop::InheritanceInfo::Kind::ambiguous)
-                        throw std::runtime_error("Class `" + cl.class_name + "` has an ambiguous direct base `" + base_interface.class_name + "`. This isn't supported by this generator, and is a questionable situation in general.");
+                        file.PopScope();
+                        file.PopScope();
+                    }
 
-                    const cppdecl::QualifiedName &this_base_name = ParseNameOrThrow(base_interface.class_name);
-                    const std::string this_base_underlying_ptr_type = CppToCSharpInterfaceName(this_base_name, true) + "._Underlying *";
+                    { // Check if the underlying shared pointer owns the target object.
+                        file.WriteSeparatingNewline();
+                        file.WriteString("/// Check if the underlying shared pointer is owning or not.\n");
+                        file.WriteString("public override bool _IsOwning\n");
+                        file.PushScope({}, "{\n", "}\n");
+                        file.PushScope({}, "get\n{\n", "}\n");
 
-                    file.WriteSeparatingNewline();
-                    file.WriteString("public unsafe " + this_base_underlying_ptr_type + CppClassToCSharpGetUnderlyingMethodName(this_base_name) + "()\n");
-                    file.PushScope({}, "{\n", "}\n");
+                        auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_UseCount", "int", "");
+                        file.WriteString(dllimport_use_count.dllimport_decl);
+                        file.WriteString("return " + dllimport_use_count.csharp_name + "() > 0;\n");
 
-                    auto cast_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(base_interface.class_name)->var).c_name, this_base_underlying_ptr_type, underlying_ptr_type + "_this");
-                    file.WriteString(cast_decl.dllimport_decl);
+                        file.PopScope();
+                        file.PopScope();
+                    }
 
-                    file.WriteString("return " + cast_decl.csharp_name + "(" + csharp_underlying_ptr_method_name + "());\n");
+                    { // Copy the underlying shared pointer.
+                        // This sadly has to be public, as otherwise we can't override methods from interfaces.
+                        // Though honestly this doesn't strictly
 
-                    file.PopScope();
+                        file.WriteSeparatingNewline();
+                        file.WriteString("/// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).\n");
+                        file.WriteString("internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()\n");
+                        file.PushScope({}, "{\n", "}\n");
+
+                        auto dllimport_clone_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructFromAnother", "_UnderlyingShared *", RequestHelper("_PassBy") + " other_pass_by, _UnderlyingShared *other");
+                        file.WriteString(dllimport_clone_shared.dllimport_decl);
+                        file.WriteString("return " + dllimport_clone_shared.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, _UnderlyingSharedPtr);\n");
+
+                        file.PopScope();
+                    }
                 }
             }
 
             // The constructor from a pointer.
             file.WriteSeparatingNewline();
-            file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(" + underlying_ptr_type + "ptr, bool is_owning)");
-            if (!declares_underlying_pointer)
+            file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_Underlying *ptr, bool is_owning)");
+            if (!cl.is_const)
             {
                 file.WriteString(" : base(ptr, is_owning) {}\n");
             }
@@ -2326,10 +1846,10 @@ namespace mrbind::CSharp
 
                 file.PushScope({}, "{\n", "}\n");
 
-                auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", csharp_primary_interface_name + "._UnderlyingShared *", underlying_ptr_type + "other");
+                auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
                 file.WriteString(dllimport_construct_owning.dllimport_decl);
 
-                auto dllimport_construct_nonowning = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructNonOwning", csharp_primary_interface_name + "._UnderlyingShared *", underlying_ptr_type + "other");
+                auto dllimport_construct_nonowning = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
                 file.WriteString(dllimport_construct_nonowning.dllimport_decl);
 
                 file.WriteString(
@@ -2347,11 +1867,11 @@ namespace mrbind::CSharp
                 // A simple constructor from an existing shared pointer, either owning or not.
                 // Note, the parameter name here is `shared_ptr` instead of `ptr` for overload disambiguation when passing null.
                 file.WriteSeparatingNewline();
-                file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(" + csharp_primary_interface_name + "._UnderlyingShared *shared_ptr, bool is_owning)");
-                if (class_info.DirectBase())
-                    file.WriteString(" : base(shared_ptr, is_owning) {}\n");
-                else
+                file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_UnderlyingShared *shared_ptr, bool is_owning)");
+                if (cl.is_const)
                     file.WriteString(" : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}\n");
+                else
+                    file.WriteString(" : base(shared_ptr, is_owning) {}\n");
 
                 // An aliasing constructor.
                 if (cl.is_const)
@@ -2359,10 +1879,10 @@ namespace mrbind::CSharp
                     file.WriteSeparatingNewline();
 
                     // Notice that this returns a non-const type. This allows us to avoid overriding it in the non-const half, and otherwise shouldn't change anything.
-                    file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name.parts.back(), false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type + "ownership, " + underlying_ptr_type + "ptr)\n");
+                    file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name.parts.back(), false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr)\n");
                     file.PushScope({}, "{\n", "}\n");
 
-                    auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", csharp_primary_interface_name + "._UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type + "ownership, " + underlying_ptr_type + "ptr");
+                    auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr");
                     file.WriteString(dllimport_construct_aliasing.dllimport_decl);
                     file.WriteString("return new(" + dllimport_construct_aliasing.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, ownership, ptr), is_owning: true);\n");
 
@@ -2377,14 +1897,15 @@ namespace mrbind::CSharp
                     //   and then call `_LateMakeShared()` to lazily construct a new shared pointer.
 
                     file.WriteSeparatingNewline();
-                    file.WriteString("protected unsafe void _LateMakeShared(" + underlying_ptr_type + "ptr)\n");
+                    // `private protected` = must satisfy both `internal` and `protected`.
+                    file.WriteString("private protected unsafe void _LateMakeShared(_Underlying *ptr)\n");
                     file.PushScope({}, "{\n", "}\n");
 
                     // Make sure the usage is correct, i.e. that the owning bool was set to true, and the pointer is still false.
                     file.WriteString("System.Diagnostics.Trace.Assert(_IsOwningVal == true);\n");
                     file.WriteString("System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr == null);\n");
 
-                    auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", csharp_primary_interface_name + "._UnderlyingShared *", underlying_ptr_type + "other");
+                    auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
                     file.WriteString(dllimport_construct_owning.dllimport_decl);
 
                     file.WriteString("_UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n");
@@ -2396,18 +1917,16 @@ namespace mrbind::CSharp
             // The `IDisposable` implementation and the destructor.
             // We don't need this and can't emit this if the underlying type isn't destructible. In that case we don't emit the constructors as well.
             // Except if we're also using a shared pointer; then we DO need this, as we must destroy the shared pointer even if it's non-owning.
-            if (declares_underlying_pointer && (type_desc.traits.value().is_destructible || shared_ptr_desc))
+            if (cl.is_const && (type_desc.traits.value().is_destructible || shared_ptr_desc))
             {
                 const auto dtor_strings =
                     shared_ptr_desc
-                    ? MakeDllImportDecl(c_sharedptr_name.value() + "_Destroy", "void", csharp_primary_interface_name + "._UnderlyingShared *_this")
-                    : MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", underlying_ptr_type + "_this");
-
-                std::string virtual_or_override = class_info.DirectBase() ? "override" : "virtual";
+                    ? MakeDllImportDecl(c_sharedptr_name.value() + "_Destroy", "void", "_UnderlyingShared *_this")
+                    : MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", "_Underlying *_this");
 
                 file.WriteSeparatingNewline();
 
-                file.WriteString("protected " + virtual_or_override + " unsafe void Dispose(bool disposing)\n");
+                file.WriteString("protected virtual unsafe void Dispose(bool disposing)\n");
                 file.PushScope({}, "{\n", "}\n");
                 file.WriteString(
                     // Notice the use of `_IsOwningVal` instead of `_IsOwning`. They mean the same thing if shared pointers are not involved,
@@ -2416,35 +1935,18 @@ namespace mrbind::CSharp
                     // Here `_UnderlyingPtr` should never normally be null, unless something goes really wrong during construction,
                     //   but `_IsOwningVal` being false is common.
                     "if (" + std::string(shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + " == null || !_IsOwningVal)\n"
-                    "    return;\n"
-                );
-
-                if (class_info.DirectBase())
-                {
-                    // I don't think this branch can ever execute right now, since right now we only use base classes for the const halves.
-                    file.PushScope({}, "if (disposing)\n{\n", "}\n");
-
-                    if (class_info.DirectBase())
-                        file.WriteString("base.Dispose();");
-
-                    file.PopScope();
-                }
-
-                file.WriteString(
+                    "    return;\n" +
                     // Here we'd have `if (disposing)` where we would explicitly `.Dispose()` managed data members, if we had any.
                     dtor_strings.dllimport_decl +
-                    dtor_strings.csharp_name + "(" + (shared_ptr_desc ? "_UnderlyingSharedPtr" : csharp_underlying_ptr_method_name + "()") + ");\n" +
+                    dtor_strings.csharp_name + "(" + (shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + ");\n" +
                     (shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + " = null;\n"
                 );
 
-                // Propagate to the base class.
-                // I don't think this branch can ever execute right now, since right now we only use base classes for the const halves.
-                if (class_info.DirectBase())
-                    file.WriteString("base.Dispose(disposing);\n");
+                // Here we'd call `base.Dispose(disposing);` if we had a base class.
 
                 file.PopScope(); // Close `void Dispose(bool disposing)`.
                 file.WriteString(
-                    "public " + virtual_or_override + " void Dispose() {Dispose(true); GC.SuppressFinalize(this);}\n"
+                    "public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}\n"
                     "~" + std::string(unqual_csharp_name) + "() {Dispose(false);}\n"
                 );
             }
@@ -2457,38 +1959,43 @@ namespace mrbind::CSharp
                         if (class_desc.inheritance_info.bases_indirect.Map().at(base_name) == CInterop::InheritanceInfo::Kind::ambiguous)
                             continue; // Skip ambiguous bases.
 
-                        for (bool base_is_const : {true, false})
+                        if (first)
                         {
-                            if (!base_is_const && cl.is_const)
-                                continue; // Upcasts can't remove constness.
-
-                            if (class_info.indirect_base_classes.Set().contains({.class_name = base_name, .is_const = base_is_const}))
-                                continue; // This is a true base class (as opposed to an interface), no need for a custom upcast.
-
-                            if (first)
-                            {
-                                file.WriteSeparatingNewline();
-                                file.WriteString("// Upcasts:\n");
-                                first = false;
-                            }
-
-                            const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), base_is_const);
-
-                            file.WriteString("public static unsafe implicit operator " + csharp_base_name + "(" + unqual_csharp_name + " self)");
-                            if (!shared_ptr_desc)
-                            {
-                                file.WriteString(" {" + csharp_base_name + " ret = new(self." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(base_name)) + "(), is_owning: false); ret._KeepAlive(self); return ret;}\n");
-                            }
-                            else
-                            {
-                                // Here we must produce a proper copy of the shared pointer, instead of relying on our C# `_KeepAlive`, since the user
-                                //   can pass that shared pointer to C++, and it better be owning in case the C# code destroys its last wrapper for it.
-                                // Also here we reinterpret all shared pointers as `std::shared_ptr<const void>`, which is slightly uncool,
-                                //   but makes things easier for us. Our C API is good enough that we could express this legally, but that would
-                                //   introduce an extra heap-allocated instance of `std::shared_ptr<const void>`, which is something I don't want.
-                                file.WriteString(" {return " + csharp_base_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")self._UnderlyingSharedPtr, self." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(base_name)) + "());}\n");
-                            }
+                            file.WriteSeparatingNewline();
+                            file.WriteString("// Upcasts:\n");
+                            first = false;
                         }
+
+                        const auto &base_desc = std::get<CInterop::TypeKinds::Class>(c_desc.cpp_types.Map().at(base_name).var);
+
+                        const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), cl.is_const);
+
+                        file.WriteString("public static unsafe implicit operator " + csharp_base_name + "(" + unqual_csharp_name + " self)\n");
+                        file.PushScope({}, "{\n", "}\n");
+
+
+                        auto dllimport_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + base_desc.c_name, CppToCSharpClassName(ParseNameOrThrow(base_name), cl.is_const) + "._Underlying *", "_Underlying *_this");
+                        file.WriteString(dllimport_decl.dllimport_decl);
+
+                        if (!shared_ptr_desc)
+                        {
+                            file.WriteString(
+                                csharp_base_name + " ret = new(" + dllimport_decl.csharp_name + "(self._UnderlyingPtr), is_owning: false);\n"
+                                "ret._KeepAlive(self);\n"
+                                "return ret;\n"
+                            );
+                        }
+                        else
+                        {
+                            // Here we must produce a proper copy of the shared pointer, instead of relying on our C# `_KeepAlive`, since the user
+                            //   can pass that shared pointer to C++, and it better be owning in case the C# code destroys its last wrapper for it.
+                            // Also here we reinterpret all shared pointers as `std::shared_ptr<const void>`, which is slightly uncool,
+                            //   but makes things easier for us. Our C API is good enough that we could express this legally, but that would
+                            //   introduce an extra heap-allocated instance of `std::shared_ptr<const void>`, which is something I don't want.
+                            file.WriteString("return " + csharp_base_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")self._UnderlyingSharedPtr, " + dllimport_decl.csharp_name + "(self._UnderlyingPtr));\n");
+                        }
+
+                        file.PopScope();
                     }
                 }
 
@@ -2499,56 +2006,47 @@ namespace mrbind::CSharp
                         if (class_desc.inheritance_info.bases_indirect.Map().at(base_name) == CInterop::InheritanceInfo::Kind::ambiguous)
                             continue; // Skip ambiguous bases.
 
-                        for (bool base_is_const : {true, false})
+                        const auto &base_desc = std::get<CInterop::TypeKinds::Class>(c_desc.cpp_types.Map().at(base_name).var);
+
+                        if (!base_desc.is_polymorphic)
+                            continue; // For now we don't do static downcasts, as they are unsafe.
+
+                        if (first)
                         {
-                            if (!base_is_const && cl.is_const)
-                                continue; // Downcasts can't remove constness.
-
-                            if (class_info.indirect_base_classes.Set().contains({.class_name = base_name, .is_const = base_is_const}))
-                                continue; // This is a true base class (as opposed to an interface), no need for a custom downcast.
-
-                            const auto &base_desc = std::get<CInterop::TypeKinds::Class>(c_desc.cpp_types.Map().at(base_name).var);
-
-                            if (!base_desc.is_polymorphic)
-                                continue; // For now we don't do static downcasts, as they are unsafe.
-
-                            if (first)
-                            {
-                                file.WriteSeparatingNewline();
-                                file.WriteString("// Downcasts:\n");
-                                first = false;
-                            }
-
-                            const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), base_is_const);
-                            file.WriteString("public static unsafe explicit operator " + unqual_csharp_name + "?(" + csharp_base_name + " parent)\n");
-                            file.PushScope({}, "{\n", "}\n");
-
-                            auto dllimport_decl = MakeDllImportDecl(base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, csharp_primary_interface_name + "._Underlying *", CppToCSharpInterfaceName(ParseNameOrThrow(base_name), base_is_const) + "._Underlying *_this");
-                            file.WriteString(dllimport_decl.dllimport_decl);
-
-                            file.WriteString(
-                                "var ptr = " + dllimport_decl.csharp_name + "(parent." + CppClassToCSharpGetUnderlyingMethodName(ParseNameOrThrow(base_name)) + "());\n"
-                                "if (ptr == null) return null;\n"
-                            );
-
-                            if (!shared_ptr_desc)
-                            {
-                                file.WriteString(
-                                    unqual_csharp_name + " ret = new(ptr, is_owning: false);\n"
-                                    "ret._KeepAlive(parent);\n"
-                                    "return ret;\n"
-                                );
-                            }
-                            else
-                            {
-                                // See the upcast code above for an explanation of what we're doing here and why.
-                                file.WriteString(
-                                    "return " + csharp_base_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")self._UnderlyingSharedPtr, ptr);\n"
-                                );
-                            }
-
-                            file.PopScope();
+                            file.WriteSeparatingNewline();
+                            file.WriteString("// Downcasts:\n");
+                            first = false;
                         }
+
+                        const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), cl.is_const);
+                        file.WriteString("public static unsafe explicit operator " + unqual_csharp_name + "?(" + csharp_base_name + " parent)\n");
+                        file.PushScope({}, "{\n", "}\n");
+
+                        auto dllimport_decl = MakeDllImportDecl(base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), cl.is_const) + "._Underlying *_this");
+                        file.WriteString(dllimport_decl.dllimport_decl);
+
+                        file.WriteString(
+                            "var ptr = " + dllimport_decl.csharp_name + "(parent._UnderlyingPtr);\n"
+                            "if (ptr == null) return null;\n"
+                        );
+
+                        if (!shared_ptr_desc)
+                        {
+                            file.WriteString(
+                                unqual_csharp_name + " ret = new(ptr, is_owning: false);\n"
+                                "ret._KeepAlive(parent);\n"
+                                "return ret;\n"
+                            );
+                        }
+                        else
+                        {
+                            // See the upcast code above for an explanation of what we're doing here and why.
+                            file.WriteString(
+                                "return " + csharp_base_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")self._UnderlyingSharedPtr, ptr);\n"
+                            );
+                        }
+
+                        file.PopScope();
                     }
                 }
             }
@@ -2569,19 +2067,60 @@ namespace mrbind::CSharp
                 }
             }
 
-            // Emit the method wrappers.
-            for (const std::string &method_name : class_info.combined_methods.Vec())
+            // Emit the methods.
+            for (const auto &method : class_desc.methods)
             {
-                const EmittedClassInfo::MaybeInheritedMethod &method_info = class_info.combined_methods.Map().at(method_name);
-                if (!method_info.need_implementation)
+                bool is_const_or_static = method.is_static;
+                if (!is_const_or_static)
+                {
+                    // Check if the `this` parameter is const.
+                    assert(!method.params.empty() && method.params.front().is_this_param);
+                    if (!method.params.empty() && method.params.front().is_this_param)
+                    {
+                        cppdecl::Type type = ParseTypeOrThrow(method.params.front().cpp_type);
+                        if (type.Is<cppdecl::Reference>())
+                        {
+                            is_const_or_static = type.IsConst(1);
+                        }
+                        else
+                        {
+                            // A by-value parameter.
+                            // This branch will be useful when we eventually (hopefully) add support for explicit object parameters.
+                            // For now it should be unreachable.
+                            assert(type.modifiers.empty());
+                            is_const_or_static = true; // This is considered `const`.
+                        }
+                    }
+                }
+
+                bool should_emit = std::visit(Overload{
+                    [&](const CInterop::MethodKinds::Regular &elem)
+                    {
+                        (void)elem;
+                        return true;
+                    },
+                    [&](const CInterop::MethodKinds::Constructor &elem)
+                    {
+                        (void)elem;
+                        return false; // Constructors don't go through this system.
+                    },
+                    [&](const CInterop::MethodKinds::Operator &elem)
+                    {
+                        (void)elem;
+                        return false; // TODO
+                        // return !elem.is_copying_assignment;
+                    },
+                    [&](const CInterop::MethodKinds::ConversionOperator &elem)
+                    {
+                        (void)elem;
+                        return false; // TODO
+                    },
+                }, method.var);
+
+                if (!should_emit || is_const_or_static != cl.is_const)
                     continue;
 
-                file.WriteSeparatingNewline();
-
-                // Write the method itself.
-                file.WriteString(method_info.method.comment);
-                file.WriteString(method_info.method.header);
-                file.WriteString(method_info.method.body);
+                EmitCFuncLike(file, &method, MakeUnqualCSharpMethodName(method));
             }
 
             // Emit the nested types, if any.
