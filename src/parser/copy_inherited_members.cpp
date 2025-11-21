@@ -1,5 +1,6 @@
 #include "copy_inherited_members.h"
 
+#include <algorithm>
 #include <stdexcept>
 #include <unordered_map>
 #include <unordered_set>
