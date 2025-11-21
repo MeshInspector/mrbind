@@ -2051,22 +2051,6 @@ namespace mrbind::CSharp
                 }
             }
 
-            // Emit the constructors. But only if the type is destructible!
-            if (type_desc.traits.value().is_destructible)
-            {
-                for (const auto &method : class_desc.methods)
-                {
-                    const auto *ctor = std::get_if<CInterop::MethodKinds::Constructor>(&method.var);
-                    if (!ctor)
-                        continue; // Not a constructor.
-
-                    if (ctor->is_copying_ctor)
-                        continue; // A special combined copy/move ctor. We don't emit those directly, instead the copying should be done using the `IClonable` interface.
-
-                    EmitCFuncLike(file, &method, unqual_csharp_name);
-                }
-            }
-
             // Emit the methods.
             for (const auto &method : class_desc.methods)
             {
@@ -2101,8 +2085,11 @@ namespace mrbind::CSharp
                     },
                     [&](const CInterop::MethodKinds::Constructor &elem)
                     {
-                        (void)elem;
-                        return false; // Constructors don't go through this system.
+                        if (!type_desc.traits.value().is_destructible)
+                            return false;
+
+                        // A special combined copy/move ctor. We don't emit those directly, instead the copying should be done using the `IClonable` interface.
+                        return !elem.is_copying_ctor;
                     },
                     [&](const CInterop::MethodKinds::Operator &elem)
                     {
