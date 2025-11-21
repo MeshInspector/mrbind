@@ -14,6 +14,7 @@
 #include <mrbind/helpers/macro_sequence_for.h>
 #include <mrbind/helpers/map_filter_pack.h>
 #include <mrbind/helpers/rebind_container.h>
+#include <mrbind/helpers/type_index.h>
 #include <mrbind/helpers/type_lists.h>
 
 #include <mrbind/targets/pybind11/pre_include_pybind.h> // All pybind headers must be here: [
@@ -93,7 +94,7 @@ namespace MRBind::pb11
     // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
     [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
 
-    void RegisterTypeAliasLow(std::type_index type, std::string_view spelling);
+    void RegisterTypeAliasLow(MRBind::TypeIndex type, std::string_view spelling);
 
     template <typename T>
     [[nodiscard]] std::string GetConversionFuncName(const char *type_name)
@@ -109,7 +110,7 @@ namespace MRBind::pb11
     }
 
     // Converts the typeid of a `NsMarker<...::_pb11_ns_marker>` to the unqualified name of the namespace.
-    [[nodiscard]] std::string NamespaceMarkerToUnqualifiedName(std::type_index marker);
+    [[nodiscard]] std::string NamespaceMarkerToUnqualifiedName(MRBind::TypeIndex marker);
 
     // Which Python namespaces should be "stripped", i.e. their contents pasted directly into the module.
     // This is customized via the `MB_PB11_STRIPPED_NAMESPACES` macro (see the definition of this function for details).
@@ -164,7 +165,7 @@ namespace MRBind::pb11
     };
 
     // Use `ToPybindSignatureType` with this.
-    using PybindSignature = std::vector<std::type_index>;
+    using PybindSignature = std::vector<MRBind::TypeIndex>;
 
     // `TryAddFunc()` stores overload lists here.
     // Use one instance per scope (per class; all namespaces can share one).
@@ -326,8 +327,8 @@ namespace MRBind::pb11
         bool was_processed = false;
         std::vector<std::string> aliases;
 
-        std::type_index parent_namespace_or_class;
-        std::map<std::string, std::type_index, std::less<>> nested_types;
+        MRBind::TypeIndex parent_namespace_or_class;
+        std::map<std::string, MRBind::TypeIndex, std::less<>> nested_types;
 
         // We store this to load the methods after all types.
         // This and `typeinfo_from_other_module` are mutually exclusive.
@@ -335,10 +336,10 @@ namespace MRBind::pb11
 
         // Other types that must be loaded before this one.
         // Those are keys into `Registry::type_entries`.
-        std::unordered_set<std::type_index> type_deps;
+        std::unordered_set<MRBind::TypeIndex> type_deps;
 
         // Reverse dependencies. Those are populated automatically.
-        std::unordered_set<std::type_index> type_rdeps;
+        std::unordered_set<MRBind::TypeIndex> type_rdeps;
 
         FuncAliasRegistrationFuncs func_alias_registration_funcs;
 
@@ -354,13 +355,13 @@ namespace MRBind::pb11
 
         TypeEntry(
             bool is_parsed,
-            std::type_index parent_namespace_or_class,
+            MRBind::TypeIndex parent_namespace_or_class,
             const char *comment,
             bool set_docstring,
             std::string cpp_type_name,
             InitClass init,
             AddClassMembers load_members,
-            std::unordered_set<std::type_index> type_deps = {}
+            std::unordered_set<MRBind::TypeIndex> type_deps = {}
         )
             : init(init),
             load_members(load_members),
@@ -377,7 +378,7 @@ namespace MRBind::pb11
 
     struct NamespaceEntry
     {
-        std::type_index parent_namespace;
+        MRBind::TypeIndex parent_namespace;
 
         // Unqualified name.
         std::string name;
@@ -389,8 +390,8 @@ namespace MRBind::pb11
         // If true, this namespace doesn't appear in the final names.
         bool is_stripped = false;
 
-        std::map<std::string, std::type_index, std::less<>> nested_namespaces;
-        std::map<std::string, std::type_index, std::less<>> nested_types;
+        std::map<std::string, MRBind::TypeIndex, std::less<>> nested_namespaces;
+        std::map<std::string, MRBind::TypeIndex, std::less<>> nested_types;
 
         std::unique_ptr<BasicPybindType> (*init_pybind_type)(ModuleOrClassRef m, const char *n) = nullptr;
 
@@ -399,23 +400,23 @@ namespace MRBind::pb11
 
         FuncAliasRegistrationFuncs func_alias_registration_funcs;
 
-        NamespaceEntry(std::type_index parent_namespace) : parent_namespace(parent_namespace) {}
+        NamespaceEntry(MRBind::TypeIndex parent_namespace) : parent_namespace(parent_namespace) {}
     };
 
     // Each source file registers itself there.
     struct Registry
     {
-        std::unordered_map<std::type_index, TypeEntry> type_entries;
+        std::unordered_map<MRBind::TypeIndex, TypeEntry> type_entries;
 
         // This maps C++-spelled type alias names to the target types.
-        std::unordered_map<std::string_view, std::unordered_set<std::type_index>> type_aliases;
+        std::unordered_map<std::string_view, std::unordered_set<MRBind::TypeIndex>> type_aliases;
 
-        std::unordered_map<std::type_index, NamespaceEntry> namespace_entries;
+        std::unordered_map<MRBind::TypeIndex, NamespaceEntry> namespace_entries;
 
         // Points into `namespace_entries`. Only includes the top-level namespaces.
-        std::map<std::string_view, std::type_index, std::less<>> top_level_namespaces;
+        std::map<std::string_view, MRBind::TypeIndex, std::less<>> top_level_namespaces;
         // Points into `type_entries`. Only includes the top-level types (not inside any namespace nor a class).
-        std::map<std::string_view, std::type_index, std::less<>> top_level_types;
+        std::map<std::string_view, MRBind::TypeIndex, std::less<>> top_level_types;
 
         std::vector<FuncEntry> func_entries;
 
@@ -583,7 +584,7 @@ namespace MRBind::pb11
 
         // Which base classes we inherit from. Or in general, which types must be initialized before this one.
         // The return value should usually be obtained from calling `MakeBaseTypeids<...>()`.
-        static std::unordered_set<std::type_index> base_typeids() {return {};}
+        static std::unordered_set<MRBind::TypeIndex> base_typeids() {return {};}
 
         // Registers all members.
         // Usually must override this, unless you do something with `pybind_init` (see comment on it above).
@@ -685,12 +686,12 @@ namespace MRBind::pb11
 
     // A helper for `MakeBaseTypeids()`, see below.
     template <typename ...P>
-    struct TypeListToTypeidSet {static std::unordered_set<std::type_index> MakeSet() {return {typeid(P)...};}};
+    struct TypeListToTypeidSet {static std::unordered_set<MRBind::TypeIndex> MakeSet() {return {typeid(P)...};}};
 
     // This is what custom bindings should return from their `base_typeids()`.
     // This automatically applies `DecomposeTypeForRegistration` to the types.
     template <typename ...P>
-    [[nodiscard]] std::unordered_set<std::type_index> MakeBaseTypeids() {return CatTypeLists<DecomposeTypeForRegistration<P>...>::template Apply<TypeListToTypeidSet>::MakeSet();}
+    [[nodiscard]] std::unordered_set<MRBind::TypeIndex> MakeBaseTypeids() {return CatTypeLists<DecomposeTypeForRegistration<P>...>::template Apply<TypeListToTypeidSet>::MakeSet();}
 
     // Use this as an additional base class for your `CustomTypeBinding<...>` specializations.
     template <typename ...P>
@@ -1335,7 +1336,7 @@ namespace MRBind::pb11
         const char *fullname_with_template_args,
         // Opaque string to compare python signatures for equality.
         // Only used during the first pass.
-        std::initializer_list<std::type_index> python_signature,
+        std::initializer_list<MRBind::TypeIndex> python_signature,
         TryAddFuncState *state,
         TryAddFuncScopeState *scope_state,
         // The pass number, from 0 to `num_add_func_passes-1` inclusive. (Unless `{,scope_}state` is null, then this is ignored.)
@@ -2194,7 +2195,7 @@ namespace MRBind::pb11
         // _Arrow
     }
 
-    void RegisterTypeAliasLow(std::type_index type, std::string_view spelling)
+    void RegisterTypeAliasLow(MRBind::TypeIndex type, std::string_view spelling)
     {
         if (spelling.starts_with("const "))
             spelling.remove_prefix(6);
@@ -2203,7 +2204,7 @@ namespace MRBind::pb11
         MRBind::pb11::GetRegistry().type_aliases[spelling].insert(type);
     }
 
-    std::string NamespaceMarkerToUnqualifiedName(std::type_index marker)
+    std::string NamespaceMarkerToUnqualifiedName(MRBind::TypeIndex marker)
     {
         std::string str = Demangler{}(marker.name());
         static constexpr std::string_view prefix = "MRBind::pb11::NsMarker<";
@@ -2842,7 +2843,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 r.namespace_entries.at(e.parent_namespace).nested_namespaces.try_emplace(e.name, id);
         }
 
-        auto LoadNamespace = [&](auto &LoadNamespace, std::type_index type, NamespaceEntry *e)
+        auto LoadNamespace = [&](auto &LoadNamespace, MRBind::TypeIndex type, NamespaceEntry *e)
         {
             if (!e)
                 e = &r.namespace_entries.at(type);
@@ -2943,7 +2944,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         {
             auto &e = *queue.back();
             queue.pop_back();
-            for (std::type_index rdep : e.second.type_rdeps)
+            for (MRBind::TypeIndex rdep : e.second.type_rdeps)
             {
                 auto next_e_iter = r.type_entries.find(rdep);
                 if (next_e_iter == r.type_entries.end())
@@ -3547,7 +3548,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
             DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
         }, \
-        std::unordered_set<std::type_index>{} \
+        std::unordered_set<MRBind::TypeIndex>{} \
     ); \
 
 // This generates the aggregate constructor for a class if needed.

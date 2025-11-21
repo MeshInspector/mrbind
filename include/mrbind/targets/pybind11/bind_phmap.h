@@ -14,7 +14,7 @@ struct MRBind::pb11::CustomTypeBinding<phmap::flat_hash_map<T, U, P...>>
     // Make sure the element type is loaded first.
     // Normally it doesn't matter, but it matters here because we register some methods directly in `pybind_init`.
     // We could just avoid doing that for `std::vector`, but it's harder to pull off here, because `bind_map` registers SEVERAL different types (duh).
-    static std::unordered_set<std::type_index> base_typeids() {return MakeBaseTypeids<T, U>();}
+    static std::unordered_set<MRBind::TypeIndex> base_typeids() {return MakeBaseTypeids<T, U>();}
 
     #if MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS
     static void bind_members(typename DefaultCustomTypeBinding<phmap::flat_hash_map<T, U, P...>>::pybind_type &c)
