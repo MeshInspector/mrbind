@@ -1079,6 +1079,21 @@ namespace MRBind::pb11
 
     // ---
 
+    // See `FieldSetterKeepAlive` below. This is not a customization point, but `FieldSetterKeepAlive` is.
+    template <typename T>
+    struct DefaultFieldSetterKeepAlive : std::false_type {};
+
+    // If this is specialized to true, assigning something to this field will keep that object alive as long as the field exists.
+    // This is a customization point.
+    template <typename T>
+    struct FieldSetterKeepAlive : DefaultFieldSetterKeepAlive<T> {};
+
+    // Always keep alive for pointers.
+    template <typename T>
+    struct DefaultFieldSetterKeepAlive<T *> : std::true_type {};
+
+    // ---
+
     // MB_REGISTER_TYPE_... use those:
 
     template <typename T>
@@ -1158,6 +1173,15 @@ namespace MRBind::pb11
         {
             *Ptr = (UnadjustParam<const T &>)(std::forward<AdjustedParamType<const T &>>(value));
         }
+
+        template <typename T>
+        auto MaybeAddKeepAlive(auto setter)
+        {
+            if constexpr (FieldSetterKeepAlive<T>::value)
+                return pybind11::cpp_function(setter, pybind11::keep_alive<1, 2>());
+            else
+                return setter;
+        }
     }
 
     template <auto Getter, typename T>
@@ -1173,7 +1197,7 @@ namespace MRBind::pb11
             if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
                 c.def_property_readonly(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::Setter<ClassType, T, Getter>, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
     }
 
@@ -1191,7 +1215,7 @@ namespace MRBind::pb11
             if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
                 c.def_property_readonly_static(py_name.c_str(), MemberVarDetails::GetterStatic<T, Ptr>, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
             else
-                c.def_property_static(py_name.c_str(), MemberVarDetails::GetterStatic<T, Ptr>, MemberVarDetails::SetterStatic<T, Ptr>, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_static(py_name.c_str(), MemberVarDetails::GetterStatic<T, Ptr>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::SetterStatic<T, Ptr>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
         }
     }
 
