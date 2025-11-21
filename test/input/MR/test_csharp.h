@@ -78,8 +78,6 @@ namespace MR::CSharp
         A &operator=(A &&) = default;
         virtual ~A() = default;
 
-        int a = 10;
-
         void foo() {}
         void bar(int, int) const {}
 
@@ -215,5 +213,27 @@ namespace MR::CSharp
         {
             void bar() {}
         };
+    };
+
+
+    struct TestFields
+    {
+        int i;
+        static int static_i;
+        const int const_i;
+        static const int static_const_i;
+        int &i_ref;
+        static int &static_i_ref;
+        const int &const_i_ref;
+        static const int &static_const_i_ref;
+
+        std::string s;
+        const std::string const_s;
+        static std::string static_s;
+        static const std::string static_const_s;
+        std::string &s_ref;
+        const std::string &const_s_ref;
+        static std::string &static_s_ref;
+        static const std::string &static_const_s_ref;
     };
 }

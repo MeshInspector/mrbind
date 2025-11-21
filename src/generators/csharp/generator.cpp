@@ -321,22 +321,22 @@ namespace mrbind::CSharp
                     {
                         return {
                             .param_usage = TypeBinding::ParamUsage{
-                                .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                 {
                                     return TypeBinding::ParamUsage::Strings{
                                         .dllimport_decl_params = csharp_type + ' ' + name,
-                                        .csharp_decl_params = {csharp_type + ' ' + name},
+                                        .csharp_decl_params = {{.type = csharp_type, .name = name}},
                                         .extra_statements = fix_input ? fix_input(name) : "",
                                         .dllimport_args = name,
                                     };
                                 },
                             },
                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                 {
                                     return TypeBinding::ParamUsage::Strings{
                                         .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
-                                        .csharp_decl_params = {csharp_type + "? " + name + " = null"},
+                                        .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = "null"}},
                                         .extra_statements =
                                             csharp_type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n" +
                                             (fix_input ? fix_input("__deref_" + name) : ""),
@@ -390,21 +390,21 @@ namespace mrbind::CSharp
                             {
                                 return CreateBinding({
                                     .param_usage = TypeBinding::ParamUsage{
-                                        .make_strings = [](const std::string &name, bool &/*have_useless_defarg*/)
+                                        .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
                                         {
                                             return TypeBinding::ParamUsage::Strings{
                                                 .dllimport_decl_params = "byte " + name,
-                                                .csharp_decl_params = {"bool " + name},
+                                                .csharp_decl_params = {{.type = "bool", .name = name}},
                                                 .dllimport_args = name + " ? (byte)1 : (byte)0",
                                             };
                                         },
                                     },
                                     .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                        .make_strings = [](const std::string &name, bool &/*have_useless_defarg*/)
+                                        .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
                                         {
                                             return TypeBinding::ParamUsage::Strings{
                                                 .dllimport_decl_params = "byte *" + name, // No const pointers in C#.
-                                                .csharp_decl_params = {"bool? " + name + " = null"},
+                                                .csharp_decl_params = {{.type = "bool?", .name = name, .default_arg = "null"}},
                                                 .extra_statements = "byte __deref_" + name + " = " + name + ".GetValueOrDefault() ? (byte)1 : (byte)0;\n",
                                                 .dllimport_args = name + ".HasValue ? &__deref_" + name + " : null",
                                             };
@@ -469,21 +469,21 @@ namespace mrbind::CSharp
                               case CInterop::ClassKind::uses_pass_by_enum:
                                 return CreateBinding({
                                     .param_usage = TypeBinding::ParamUsage{
-                                        .make_strings = [this, csharp_type_mut, csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &/*have_useless_defarg*/)
+                                        .make_strings = [this, csharp_type_mut, csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                         {
                                             return TypeBinding::ParamUsage::Strings{
                                                 .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {RequestHelper("ByValue") + "<" + csharp_type_mut + ", " + csharp_type_const + "> " + name},
+                                                .csharp_decl_params = {{.type = RequestHelper("ByValue") + "<" + csharp_type_mut + ", " + csharp_type_const + ">", .name = name}},
                                                 .dllimport_args = name + ".PassByMode, " + name + ".Value != null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
                                             };
                                         },
                                     },
                                     .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                        .make_strings = [this, csharp_type_mut, csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &/*have_useless_defarg*/)
+                                        .make_strings = [this, csharp_type_mut, csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                         {
                                             return TypeBinding::ParamUsage::Strings{
                                                 .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {RequestHelper("ByValue") + "<" + csharp_type_mut + ", " + csharp_type_const + ">? " + name + " = null"},
+                                                .csharp_decl_params = {{.type = RequestHelper("ByValue") + "<" + csharp_type_mut + ", " + csharp_type_const + ">?", .name = name, .default_arg = "null"}},
                                                 .dllimport_args = name + ".HasValue ? " + name + ".Value.PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + ".HasValue && " + name + ".Value.Value != null ? " + name + ".Value.Value." + csharp_underlying_ptr + " : null",
                                             };
                                         },
@@ -501,21 +501,21 @@ namespace mrbind::CSharp
                               case CInterop::ClassKind::trivial_via_ptr:
                                 return CreateBinding({
                                     .param_usage = TypeBinding::ParamUsage{
-                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &/*have_useless_defarg*/)
+                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                         {
                                             return TypeBinding::ParamUsage::Strings{
                                                 .dllimport_decl_params = csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {csharp_type_const + ' ' + name},
+                                                .csharp_decl_params = {{.type = csharp_type_const, .name = name}},
                                                 .dllimport_args = name + "." + csharp_underlying_ptr,
                                             };
                                         },
                                     },
                                     .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &/*have_useless_defarg*/)
+                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                         {
                                             return TypeBinding::ParamUsage::Strings{
                                                 .dllimport_decl_params = csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {csharp_type_const + "? " + name + " = null"},
+                                                .csharp_decl_params = {{.type = csharp_type_const + "?", .name = name, .default_arg = "null"}},
                                                 .dllimport_args = name + " != null ? " + name + "." + csharp_underlying_ptr + " : null",
                                             };
                                         },
@@ -567,23 +567,23 @@ namespace mrbind::CSharp
 
                                         return {
                                             .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [is_const, csharp_ptr_type](const std::string &name, bool &have_useless_defarg)
+                                                .make_strings = [is_const, csharp_ptr_type](const std::string &name, bool have_useless_defarg)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
                                                         .dllimport_decl_params = csharp_ptr_type + name,
-                                                        .csharp_decl_params = {csharp_ptr_type + name + (std::exchange(have_useless_defarg, false) ? " = null" : "")},
+                                                        .csharp_decl_params = {{.type = csharp_ptr_type, .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
                                                         .dllimport_args = name,
                                                     };
                                                 },
                                             },
                                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                .make_strings = [is_const, csharp_ptr_type](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [is_const, csharp_ptr_type](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
                                                         .dllimport_decl_params = csharp_ptr_type + "*" + name,
-                                                        .csharp_decl_params = {csharp_ptr_type + "*" + name + " = null"},
+                                                        .csharp_decl_params = {{.type = csharp_ptr_type + "*", .name = name, .default_arg = "null"}},
                                                         .dllimport_args = name,
                                                     };
                                                 },
@@ -599,11 +599,11 @@ namespace mrbind::CSharp
                                     {
                                         return {
                                             .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool &have_useless_defarg)
+                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool have_useless_defarg)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " *" + name,
-                                                        .csharp_decl_params = {RequestHelper("InOut") + "<" + csharp_type + ">? " + name + (std::exchange(have_useless_defarg, false) ? " = null" : "")},
+                                                        .csharp_decl_params = {{.type = RequestHelper("InOut") + "<" + csharp_type + ">?", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
                                                         .extra_statements =
                                                             csharp_type + " __value_" + name + " = " + name + " != null ? " + name + ".Value : default(" + csharp_type + ");\n" +
                                                             (fix_input ? fix_input("__value_" + name) : ""),
@@ -613,11 +613,11 @@ namespace mrbind::CSharp
                                                 },
                                             },
                                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " **" + name,
-                                                        .csharp_decl_params = {RequestHelper("InOutOpt") + "<" + csharp_type + ">? " + name + " = null"},
+                                                        .csharp_decl_params = {{.type = RequestHelper("InOutOpt") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
                                                         .extra_statements =
                                                             csharp_type + " __value_" + name + " = " + name + " != null && " + name + ".Opt != null ? " + name + ".Opt.Value : default(" + csharp_type + ");\n" +
                                                             csharp_type + " *__valueptr_" + name + " = " + name + " != null && " + name + ".Opt != null ? &__value_" + name + " : null;\n" +
@@ -642,11 +642,11 @@ namespace mrbind::CSharp
                                     {
                                         return {
                                             .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool &have_useless_defarg)
+                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool have_useless_defarg)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
-                                                        .csharp_decl_params = {csharp_type + "? " + name + (std::exchange(have_useless_defarg, false) ? " = null" : "")},
+                                                        .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
                                                         .extra_statements =
                                                             csharp_type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n" +
                                                             (fix_input ? fix_input("__deref_" + name) : ""),
@@ -655,11 +655,11 @@ namespace mrbind::CSharp
                                                 },
                                             },
                                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " **" + name, // No const pointers in C#.
-                                                        .csharp_decl_params = {RequestHelper("InOpt") + "<" + csharp_type + ">? " + name + " = null"},
+                                                        .csharp_decl_params = {{.type = RequestHelper("InOpt") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
                                                         .extra_statements =
                                                             csharp_type + " __value_" + name + " = " + name + " != null && " + name + ".Opt != null ? " + name + ".Opt.Value : default(" + csharp_type + ");\n" +
                                                             csharp_type + " *__valueptr_" + name + " = " + name + " != null && " + name + ".Opt != null ? &__value_" + name + " : null;\n" +
@@ -687,23 +687,23 @@ namespace mrbind::CSharp
                                     {
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [is_const](const std::string &name, bool &have_useless_defarg)
+                                                .make_strings = [is_const](const std::string &name, bool have_useless_defarg)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
                                                         .dllimport_decl_params = "void *" + name,
-                                                        .csharp_decl_params = {"void *" + name + (std::exchange(have_useless_defarg, false) ? " = null" : "")},
+                                                        .csharp_decl_params = {{.type = "void *", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
                                                         .dllimport_args = name,
                                                     };
                                                 },
                                             },
                                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                .make_strings = [is_const](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [is_const](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
                                                         .dllimport_decl_params = "void **" + name,
-                                                        .csharp_decl_params = {"void **" + name + " = null"},
+                                                        .csharp_decl_params = {{.type = "void **", .name = name, .default_arg = "null"}},
                                                         .dllimport_args = name,
                                                     };
                                                 },
@@ -771,21 +771,21 @@ namespace mrbind::CSharp
                                           case CInterop::ClassKind::trivial_via_ptr:
                                             return CreateBinding({
                                                 .param_usage = TypeBinding::ParamUsage{
-                                                    .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &have_useless_defarg)
+                                                    .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool have_useless_defarg)
                                                     {
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + name,
-                                                            .csharp_decl_params = {csharp_type + "? " + name + (std::exchange(have_useless_defarg, false) ? " = null" : "")},
+                                                            .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
                                                             .dllimport_args = name + " != null ? " + name + "." + csharp_underlying_ptr + " : null",
                                                         };
                                                     },
                                                 },
                                                 .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                    .make_strings = [this, csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &/*have_useless_defarg*/)
+                                                    .make_strings = [this, csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                                     {
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + "*" + name,
-                                                            .csharp_decl_params = {RequestHelper("InOptClass") + "<" + csharp_type + ">? " + name + " = null"},
+                                                            .csharp_decl_params = {{.type = RequestHelper("InOptClass") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
                                                             .extra_statements = csharp_underlying_ptr_type + "__ptr_" + name + " = " + name + " != null && " + name + ".Opt != null ? " + name + ".Opt." + csharp_underlying_ptr + " : null;\n",
                                                             .dllimport_args = name + " != null ? &__ptr_" + name + " : null",
                                                         };
@@ -850,11 +850,11 @@ namespace mrbind::CSharp
                                     {
                                         return {
                                             .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " *" + name,
-                                                        .csharp_decl_params = {"ref " + csharp_type + " " + name},
+                                                        .csharp_decl_params = {{.type = "ref " + csharp_type, .name = name}},
                                                         .scope_open = "fixed (" + csharp_type + " *__ptr_" + name + " = &" + name + ")\n{\n",
                                                         .extra_statements = fix_input ? fix_input(name) : "",
                                                         .dllimport_args = "__ptr_" + name,
@@ -863,14 +863,14 @@ namespace mrbind::CSharp
                                                 },
                                             },
                                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [this, csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " *" + name,
                                                         // Must pass a class because C# `ref` parameters can't have default arguments, and and we can't just tell the user
                                                         //   to pass a placeholder, because we might have proper default arguments before this one, so omitting the default argument here
                                                         //   would cause a compilation error.
-                                                        .csharp_decl_params = {RequestHelper("InOut") + "<" + csharp_type + ">? " + name + " = null"},
+                                                        .csharp_decl_params = {{.type = RequestHelper("InOut") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
                                                         .extra_statements =
                                                             csharp_type + " __value_" + name + " = " + name + " != null ? " + name + ".Value : default(" + csharp_type + ");\n" +
                                                             (fix_input ? fix_input("__value_" + name) : ""),
@@ -890,22 +890,22 @@ namespace mrbind::CSharp
                                     {
                                         return {
                                             .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
-                                                        .csharp_decl_params = {csharp_type + " " + name},
+                                                        .csharp_decl_params = {{.type = csharp_type, .name = name}},
                                                         .extra_statements = fix_input ? fix_input(name) : "",
                                                         .dllimport_args = "&" + name,
                                                     };
                                                 },
                                             },
                                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool &/*have_useless_defarg*/)
+                                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
-                                                        .csharp_decl_params = {csharp_type + "? " + name + " = null"},
+                                                        .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = "null"}},
                                                         .extra_statements =
                                                             csharp_type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n" +
                                                             (fix_input ? fix_input("__deref_" + name) : ""),
@@ -987,21 +987,21 @@ namespace mrbind::CSharp
                                           case CInterop::ClassKind::trivial_via_ptr:
                                             return CreateBinding({
                                                 .param_usage = TypeBinding::ParamUsage{
-                                                    .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &/*have_useless_defarg*/)
+                                                    .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                                     {
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + name,
-                                                            .csharp_decl_params = {csharp_type + ' ' + name},
+                                                            .csharp_decl_params = {{.type = csharp_type, .name = name}},
                                                             .dllimport_args = name + "." + csharp_underlying_ptr,
                                                         };
                                                     },
                                                 },
                                                 .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                    .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool &/*have_useless_defarg*/)
+                                                    .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                                     {
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + name,
-                                                            .csharp_decl_params = {csharp_type + "? " + name + " = null"},
+                                                            .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = "null"}},
                                                             .dllimport_args = name + " != null ? " + name + "." + csharp_underlying_ptr + " : null",
                                                         };
                                                     },
@@ -1046,11 +1046,11 @@ namespace mrbind::CSharp
                 {
                     return {
                         .param_usage = TypeBinding::ParamUsage{
-                            .make_strings = [](const std::string &name, bool &/*have_useless_defarg*/)
+                            .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
                                     .dllimport_decl_params = "byte *" + name + ", byte *" + name + "_end",
-                                    .csharp_decl_params = {"ReadOnlySpan<char> " + name},
+                                    .csharp_decl_params = {{.type = "ReadOnlySpan<char>", .name = name}},
                                     .scope_open =
                                         "byte[] __bytes_" + name + " = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(" + name + ".Length)];\n"
                                         "int __len_" + name + " = System.Text.Encoding.UTF8.GetBytes(" + name + ", __bytes_" + name + ");\n"
@@ -1061,11 +1061,11 @@ namespace mrbind::CSharp
                             },
                         },
                         .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                            .make_strings = [this](const std::string &name, bool &/*have_useless_defarg*/)
+                            .make_strings = [this](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
                                     .dllimport_decl_params = "byte *" + name + ", byte *" + name + "_end",
-                                    .csharp_decl_params = {RequestHelper("ReadOnlyCharSpanOpt") + " " + name + " = new()"}, // For some reason `= null` doesn't compile in the default argument here, though passing it manually to those parameters works.
+                                    .csharp_decl_params = {{.type = RequestHelper("ReadOnlyCharSpanOpt"), .name = name, .default_arg = "new()"}}, // For some reason `= null` doesn't compile in the default argument here, though passing it manually to those parameters works.
                                     .scope_open =
                                         "byte[] __bytes_" + name + ";\n"
                                         "int __len_" + name + " = 0;\n"
@@ -1193,116 +1193,140 @@ namespace mrbind::CSharp
         return helpers_prefix + name;
     }
 
-    void Generator::EmitCFuncLike(OutputFile &file, AnyFuncLikePtr any_func_like, std::string_view csharp_name)
-    {
-        const CInterop::BasicFuncLike &func_like = *std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, any_func_like);
-        const CInterop::BasicClassMethodLike *method_like = std::visit(Overload{
+    Generator::FuncLikeEmitter::FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string new_csharp_name)
+    try
+        : generator(generator),
+        any_func_like(any_func_like),
+        csharp_name(std::move(new_csharp_name)),
+        func_like(*std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, any_func_like)),
+        method_like(std::visit(Overload{
             [](const CInterop::BasicClassMethodLike *ptr) -> const CInterop::BasicClassMethodLike * {return ptr;},
             [](const CInterop::Function *) -> const CInterop::BasicClassMethodLike * {return nullptr;},
-        }, any_func_like);
-
-        const CInterop::ClassMethod *method = std::visit(Overload{
+        }, any_func_like)),
+        method(std::visit(Overload{
             [](const CInterop::Function *) -> const CInterop::ClassMethod * {return nullptr;},
             [](const CInterop::ClassMethod *ptr) -> const CInterop::ClassMethod * {return ptr;},
             [](const CInterop::ClassField::Accessor *) -> const CInterop::ClassMethod * {return nullptr;},
-        }, any_func_like);
+        }, any_func_like)),
+        is_ctor(method && std::holds_alternative<CInterop::MethodKinds::Constructor>(method->var)),
+        is_property_get(csharp_name == "get"),
+        is_property_set(csharp_name == "set"),
+        is_property(is_property_get || is_property_set),
+        // If this is a constructor, is the target class backed by a `shared_ptr`?
+        ctor_class_backed_by_shared_ptr([&]{
+            assert(!is_ctor || generator.ParseTypeOrThrow(func_like.ret.cpp_type).IsOnlyQualifiedName());
+            return is_ctor && generator.GetSharedPtrTypeDescForCppTypeOpt(func_like.ret.cpp_type);
+        }())
+    {
+        // Find the return type binding.
+        if (!is_ctor)
+        {
+            ret_binding = &generator.GetReturnBinding(func_like.ret);
+            if (!ret_binding)
+                throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
+        }
 
+        // Generate the parameter strings.
+        param_usages.reserve(func_like.params.size());
+        param_strings.reserve(func_like.params.size());
+        for (const auto &param : func_like.params)
+        {
+            std::size_t visual_index = param_strings.size() + 1;
+            try
+            {
+                // For setters, here we force the parameter name to be `value` (which is the implicit parameter name for C# property setters).
+                auto param_binding = generator.GetParameterBinding(param, method_like, is_property_set && param_strings.size() == 1 ? std::optional<std::string>("value") : std::nullopt);
+
+                if (!param_binding.strings.dllimport_decl_params.empty())
+                {
+                    if (!dllimport_param_string.empty())
+                        dllimport_param_string += ", ";
+
+                    dllimport_param_string += param_binding.strings.dllimport_decl_params;
+                }
+
+                param_usages.push_back(param_binding.usage);
+                param_strings.push_back(std::move(param_binding.strings));
+            }
+            catch (...)
+            {
+                std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(visual_index) + " out of " + std::to_string(func_like.params.size()) + ", of type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + ":"));
+            }
+        }
+
+        // Generate the dllimport declaration.
+        dllimport_strings = generator.MakeDllImportDecl(func_like.c_name, is_ctor ? generator.CppToCSharpClassName(generator.ParseNameOrThrow(method_like->ret.cpp_type), true) + "._Underlying *" : ret_binding->dllimport_return_type, dllimport_param_string);
+    }
+    catch (...)
+    {
+        // Can't access member variables in constructor try blocks, so have to re-obtain the `BasicFuncLike` pointer.
+        const auto &c_name = std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, any_func_like)->c_name;
+        std::throw_with_nested(std::runtime_error("While emitting a wrapper for C function `" + c_name + "`: (during preparation)"));
+    }
+
+    void Generator::FuncLikeEmitter::Emit(OutputFile &file, std::optional<ShadowingDesc> shadowing_desc)
+    {
         try
         {
-            const bool is_ctor = method && std::holds_alternative<CInterop::MethodKinds::Constructor>(method->var);
-
-            assert(!is_ctor || ParseTypeOrThrow(func_like.ret.cpp_type).IsOnlyQualifiedName());
-            // If this is a constructor, is the target class backed by a `shared_ptr`?
-            const bool ctor_class_backed_by_shared_ptr = is_ctor && GetSharedPtrTypeDescForCppTypeOpt(func_like.ret.cpp_type);
-
-            // Find the return type binding.
-            const TypeBinding *ret_binding = nullptr;
-
-            if (!is_ctor)
-            {
-                ret_binding = &GetTypeBinding(ParseTypeOrThrow(func_like.ret.cpp_type), TypeBindingFlagsForReturn(func_like.ret));
-                if (!ret_binding->return_usage)
-                    throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
-            }
-
-            // Generate the parameter strings.
-            std::string dllimport_param_string;
-            std::vector<const TypeBinding::ParamUsage *> param_usages;
-            std::vector<TypeBinding::ParamUsage::Strings> param_strings;
-            param_usages.reserve(func_like.params.size());
-            param_strings.reserve(func_like.params.size());
-            for (const auto &param : func_like.params)
-            {
-                std::size_t visual_index = param_strings.size() + 1;
-                try
-                {
-                    auto param_binding = GetParameterBinding(param, method_like);
-
-                    if (!param_binding.strings.dllimport_decl_params.empty())
-                    {
-                        if (!dllimport_param_string.empty())
-                            dllimport_param_string += ", ";
-
-                        dllimport_param_string += param_binding.strings.dllimport_decl_params;
-                    }
-
-                    param_usages.push_back(param_binding.usage);
-                    param_strings.push_back(std::move(param_binding.strings));
-                }
-                catch (...)
-                {
-                    std::throw_with_nested(std::runtime_error("While handling parameter " + std::to_string(visual_index) + " out of " + std::to_string(func_like.params.size()) + ", of type `" + param.cpp_type + "`" + (param.uses_sugar ? " (with sugar enabled)" : "") + ":"));
-                }
-            }
-
-            // Generate the dllimport declaration.
-            const auto dllimport_strings = MakeDllImportDecl(func_like.c_name, is_ctor ? CppToCSharpClassName(ParseNameOrThrow(method_like->ret.cpp_type), true) + "._Underlying *" : ret_binding->return_usage->dllimport_return_type, dllimport_param_string);
-
             // Write a separating empty line if needed.
             file.WriteSeparatingNewline();
 
-            // Write the comment.
-            file.WriteString(MakeFuncComment(any_func_like));
-
-            // Deprecation attribute?
-            if (func_like.is_deprecated)
+            if (!is_property)
             {
-                file.WriteString("[Obsolete");
-                if (!func_like.is_deprecated->empty())
+                // Write the comment.
+                file.WriteString(generator.MakeFuncComment(any_func_like));
+
+                // Deprecation attribute?
+                if (func_like.is_deprecated)
                 {
-                    file.WriteString("(");
-                    file.WriteString(EscapeQuoteString(*func_like.is_deprecated));
-                    file.WriteString(")");
+                    file.WriteString("[Obsolete");
+                    if (!func_like.is_deprecated->empty())
+                    {
+                        file.WriteString("(");
+                        file.WriteString(EscapeQuoteString(*func_like.is_deprecated));
+                        file.WriteString(")");
+                    }
+                    file.WriteString("]\n");
                 }
-                file.WriteString("]\n");
-            }
 
-            // Public!
-            file.WriteString("public ");
+                // Public!
+                file.WriteString("public ");
 
-            // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
-            if (!is_ctor && (!method_like || method_like->is_static))
-                file.WriteString("static ");
+                // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
+                if (!is_ctor && (!method_like || method_like->is_static))
+                    file.WriteString("static ");
 
-            // Note, not emitting `virtual` here, because it's useless in the interfaces.
-            // We do emit it when explicitly inheriting each method in the derived classes.
+                // Note, not emitting `virtual` here, because it's useless in the interfaces.
+                // We do emit it when explicitly inheriting each method in the derived classes.
 
-            // Unsafe?
-            if (dllimport_strings.is_unsafe)
-                file.WriteString("unsafe ");
+                // Unsafe?
+                if (dllimport_strings.is_unsafe)
+                    file.WriteString("unsafe ");
 
-            // Write the return type.
-            if (!is_ctor)
-            {
-                file.WriteString(ret_binding->return_usage->csharp_return_type);
-                if (!ret_binding->return_usage->csharp_return_type.ends_with('*'))
-                    file.WriteString(" ");
+                // Silence shadowing?
+                if (shadowing_desc)
+                {
+                    if (shadowing_desc->write)
+                        shadowing_desc->shadowing_data->functions.insert(GetDescForShadowing());
+                    else if (shadowing_desc->shadowing_data->functions.contains(GetDescForShadowing()))
+                        file.WriteString("new ");
+                }
+
+                // Write the return type.
+                if (!is_ctor)
+                {
+                    file.WriteString(ret_binding->csharp_return_type);
+                    if (!ret_binding->csharp_return_type.ends_with('*'))
+                        file.WriteString(" ");
+                }
             }
 
             // Write the C# name.
             file.WriteString(csharp_name);
 
-            { // Write the parameter list.
+            // Write the parameter list.
+            if (!is_property)
+            {
                 file.WriteString("(");
 
                 bool first = true;
@@ -1313,7 +1337,7 @@ namespace mrbind::CSharp
                         if (!std::exchange(first, false))
                             file.WriteString(", ");
 
-                        file.WriteString(csharp_param);
+                        file.WriteString(csharp_param.ToString());
                     }
                 }
 
@@ -1417,16 +1441,16 @@ namespace mrbind::CSharp
 
                     file.WriteString(extra_statements_after);
                 }
-                else if (extra_statements_after.empty() && !ret_binding->return_usage->needs_temporary_variable)
+                else if (extra_statements_after.empty() && !ret_binding->needs_temporary_variable)
                 {
                     // Return the call directly.
                     file.WriteString(extra_statements);
-                    file.WriteString(ret_binding->return_usage->MakeReturnExpr(expr) + '\n');
+                    file.WriteString(ret_binding->MakeReturnExpr(expr) + '\n');
                 }
                 else
                 {
                     // Store the result to a temporary variable (if not void), run some custom code, and then return.
-                    std::string ret_expr = ret_binding->return_usage->MakeReturnExpr("__ret");
+                    std::string ret_expr = ret_binding->MakeReturnExpr("__ret");
 
                     if (ret_expr == "__ret;")
                     {
@@ -1454,11 +1478,32 @@ namespace mrbind::CSharp
         }
         catch (...)
         {
-            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C function `" + func_like.c_name + "`:"));
+            // Can't access member variables in constructor try blocks, so have to re-obtain the `BasicFuncLike` pointer.
+            const auto &c_name = std::visit([](auto ptr) -> const CInterop::BasicFuncLike * {return ptr;}, any_func_like)->c_name;
+            std::throw_with_nested(std::runtime_error("While emitting a wrapper for C function `" + c_name + "`: (during preparation)"));
         }
     }
 
-    std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method)
+    std::string Generator::FuncLikeEmitter::GetDescForShadowing() const
+    {
+        std::string ret = csharp_name;
+        ret += '(';
+        bool first = true;
+        for (const auto &param_strings : param_strings)
+        {
+            for (const auto &param_type : param_strings.csharp_decl_params)
+            {
+                if (!std::exchange(first, false))
+                    ret += ", ";
+
+                ret += param_type.type;
+            }
+        }
+        ret += ')';
+        return ret;
+    }
+
+    std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, bool is_const)
     {
         return std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
@@ -1468,8 +1513,7 @@ namespace mrbind::CSharp
             [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
             {
                 (void)elem;
-                assert(false); // TODO
-                return "";
+                return CppToCSharpUnqualClassName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), is_const);
             },
             [&](const CInterop::MethodKinds::Operator &elem) -> std::string
             {
@@ -1515,7 +1559,7 @@ namespace mrbind::CSharp
         }
 
         // The comment from the return type.
-        const auto &ret_comment = GetTypeBinding(ParseTypeOrThrow(func_like.ret.cpp_type), TypeBindingFlagsForReturn(func_like.ret)).return_usage.value().extra_comment;
+        const auto &ret_comment = GetReturnBinding(func_like.ret).extra_comment;
         if (!ret_comment.empty())
         {
             assert(!ret_comment.starts_with('\n'));
@@ -1526,9 +1570,11 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    Generator::ParameterBinding Generator::GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like)
+    Generator::ParameterBinding Generator::GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like, std::optional<std::string> override_name)
     {
         ParameterBinding ret;
+
+        const std::string &param_name = override_name ? *override_name : param.name_or_placeholder;
 
         // Handle the `this` parameter.
         if (param.is_this_param)
@@ -1542,7 +1588,7 @@ namespace mrbind::CSharp
 
             if (!method_like->is_static)
             {
-                ret.strings.dllimport_decl_params = "_Underlying *" + param.name_or_placeholder;
+                ret.strings.dllimport_decl_params = "_Underlying *" + param_name;
                 ret.strings.dllimport_args = "_UnderlyingPtr";
             }
         }
@@ -1556,17 +1602,32 @@ namespace mrbind::CSharp
                 throw std::runtime_error("This C++ parameter type is known, but this type isn't usable as a parameter type" + std::string(param.default_arg_affects_parameter_passing ? " (with a default argument)" : "") + ".");
 
             const bool useless_default_arg = param.default_arg_spelling && !param.default_arg_affects_parameter_passing;
-            bool useless_default_arg_var = useless_default_arg;
 
             ret.usage = &*param_usage;
-            ret.strings = param_usage->make_strings(param.name_or_placeholder, useless_default_arg_var);
+            ret.strings = param_usage->make_strings(param_name, useless_default_arg);
 
-            // Check that the callback handled our useless default arg, if any.
-            if (useless_default_arg && useless_default_arg_var)
-                throw std::runtime_error("This parameter has a default argument that doesn't affect parameter passing, but this type binding doesn't understand those.");
+            // Validate the default arguments.
+            if (!ret.strings.csharp_decl_params.empty())
+            {
+                std::size_t num_defargs = std::size_t(std::count_if(ret.strings.csharp_decl_params.begin(), ret.strings.csharp_decl_params.end(), [](const TypeBinding::ParamUsage::Strings::CSharpParam &p){return bool(p.default_arg);}));
+
+                // Check that either all of none parameters have default arguments.
+                if (num_defargs != 0 && num_defargs != ret.strings.csharp_decl_params.size())
+                    throw std::runtime_error("Our bindings map this C++ parameter maps to multiple C# parameters, but produce an inconsistent number of default arguments for those. Either all of them or none should have default arguments.");
+
+                if (num_defargs == 0 && param.default_arg_spelling)
+                    throw std::runtime_error("Our bindings fail to generate a default argument for this parameter, even though one is required." + std::string(param.default_arg_affects_parameter_passing ? "" : " (Note that this default argument in C++ doesn't affect the parameter passing style in C because it's trivial enough.)"));
+                if (num_defargs > 0 && !param.default_arg_spelling)
+                    throw std::runtime_error("Our bindings generate a default argument for this parameter, even though it's not needed.");
+            }
         }
 
         return ret;
+    }
+
+    const TypeBinding::ReturnUsage &Generator::GetReturnBinding(const CInterop::FuncReturn &ret)
+    {
+        return GetTypeBinding(ParseTypeOrThrow(ret.cpp_type), TypeBindingFlagsForReturn(ret)).return_usage.value();
     }
 
     Generator::CFuncDeclStrings Generator::MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params)
@@ -1661,7 +1722,37 @@ namespace mrbind::CSharp
         }
     }
 
-    void Generator::EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl)
+    bool Generator::IsConstOrStaticMethodLike(const CInterop::TypeDesc &class_type_desc, const CInterop::BasicClassMethodLike &method_like)
+    {
+        bool ret = method_like.is_static;
+        if (!ret)
+        {
+            // Check if the `this` parameter is const.
+            assert(!method_like.params.empty() && method_like.params.front().is_this_param);
+            if (!method_like.params.empty() && method_like.params.front().is_this_param)
+            {
+                cppdecl::Type type = ParseTypeOrThrow(method_like.params.front().cpp_type);
+                if (type.Is<cppdecl::Reference>())
+                {
+                    ret = type.IsConst(1);
+                }
+                else
+                {
+                    // A by-value parameter.
+                    // This branch will be useful when we eventually (hopefully) add support for explicit object parameters.
+                    // For now it should be unreachable.
+                    assert(type.modifiers.empty());
+
+                    // This is considered `const` only if the copy constructor takes a const reference, as it should.
+                    ret = !class_type_desc.traits.value().copy_constructor_takes_nonconst_ref;
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    void Generator::EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl, ClassShadowingData *shadowing_data)
     {
         try
         {
@@ -2051,31 +2142,14 @@ namespace mrbind::CSharp
                 }
             }
 
+            // Emit the fields.
+            for (const auto &field : class_desc.fields)
+                EmitCppField(file, type_desc, field, cl.is_const, shadowing_data);
+
             // Emit the methods.
             for (const auto &method : class_desc.methods)
             {
-                bool is_const_or_static = method.is_static;
-                if (!is_const_or_static)
-                {
-                    // Check if the `this` parameter is const.
-                    assert(!method.params.empty() && method.params.front().is_this_param);
-                    if (!method.params.empty() && method.params.front().is_this_param)
-                    {
-                        cppdecl::Type type = ParseTypeOrThrow(method.params.front().cpp_type);
-                        if (type.Is<cppdecl::Reference>())
-                        {
-                            is_const_or_static = type.IsConst(1);
-                        }
-                        else
-                        {
-                            // A by-value parameter.
-                            // This branch will be useful when we eventually (hopefully) add support for explicit object parameters.
-                            // For now it should be unreachable.
-                            assert(type.modifiers.empty());
-                            is_const_or_static = true; // This is considered `const`.
-                        }
-                    }
-                }
+                const bool is_const_or_static = IsConstOrStaticMethodLike(type_desc, method);
 
                 bool should_emit = std::visit(Overload{
                     [&](const CInterop::MethodKinds::Regular &elem)
@@ -2104,10 +2178,10 @@ namespace mrbind::CSharp
                     },
                 }, method.var);
 
-                if (!should_emit || is_const_or_static != cl.is_const)
+                if (!should_emit || (is_const_or_static != cl.is_const && !std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var)))
                     continue;
 
-                EmitCFuncLike(file, &method, MakeUnqualCSharpMethodName(method));
+                FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, cl.is_const)).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = cl.is_const});
             }
 
             // Emit the nested types, if any.
@@ -2151,8 +2225,9 @@ namespace mrbind::CSharp
         // Classes.
         else if (std::holds_alternative<CInterop::TypeKinds::Class>(type_desc.var))
         {
-            EmitMaybeConstCppClass(file, {.class_name = cpp_type, .is_const = true});
-            EmitMaybeConstCppClass(file, {.class_name = cpp_type, .is_const = false});
+            ClassShadowingData shadowing_data;
+            EmitMaybeConstCppClass(file, {.class_name = cpp_type, .is_const = true}, &shadowing_data);
+            EmitMaybeConstCppClass(file, {.class_name = cpp_type, .is_const = false}, &shadowing_data);
         }
     }
 
@@ -2195,6 +2270,148 @@ namespace mrbind::CSharp
         }
 
         return true;
+    }
+
+    void Generator::EmitCppField(OutputFile &file, const CInterop::TypeDesc &class_type_desc, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data)
+    {
+        try
+        {
+            // Fields without const getters should be impossible.
+            assert(field.getter_const);
+
+            // Those two can never end up null.
+            const CInterop::ClassField::Accessor *const_getter = nullptr;
+            const CInterop::ClassField::Accessor *mutable_getter = nullptr;
+
+            if (field.getter_mutable && IsConstOrStaticMethodLike(class_type_desc, *field.getter_mutable))
+            {
+                // If the "mutable" getter can be called on const instances, prefer it for const instances too.
+                // Not sure if this ever happens in the C code we emit.
+                const_getter = &*field.getter_mutable;
+                mutable_getter = &*field.getter_mutable;
+            }
+            else
+            {
+                // Use the const getter for the const instances, and the mutable one for mutable instances if it exists.
+                const_getter = &*field.getter_const;
+                mutable_getter = field.getter_mutable ? &*field.getter_mutable : &*field.getter_const;
+            }
+
+            // Those two can end up null.
+            const CInterop::ClassField::Accessor *const_setter = nullptr;
+            const CInterop::ClassField::Accessor *mutable_setter = nullptr;
+            if (field.setter)
+            {
+                // Allow the setter on const instances if the setter is const.
+                if (IsConstOrStaticMethodLike(class_type_desc, *field.setter))
+                    const_setter = &*field.setter;
+
+                mutable_setter = &*field.setter;
+            }
+
+            auto GetCSharpSetterParameterType = [this](const CInterop::ClassField::Accessor *setter) -> std::optional<std::string>
+            {
+                if (!setter)
+                    return {};
+                assert(setter->params.size() == 2 && setter->params.at(0).is_this_param); // `this` and the actual parameter.
+                auto csharp_decl_params = GetParameterBinding(setter->params.at(1), setter).strings.csharp_decl_params;
+                if (csharp_decl_params.size() == 1)
+                    return csharp_decl_params.front().type;
+                else
+                    return {};
+            };
+
+            // Can this field be a property? For that, the C# getter return type must match the C# setter return type,
+            //   or the setter must be missing entirely.
+            // This has to be true separately for both const getters/setters and mutable getters/setters.
+            // We check both, regardless of `is_const`, to consistently use or not use properties in both const and non-const halves of a class.
+            bool can_be_property = true;
+            // Check const getter and setter.
+            if (can_be_property)
+            {
+                if (auto param_type = GetCSharpSetterParameterType(const_setter); param_type && param_type != GetReturnBinding(const_getter->ret).csharp_return_type)
+                    can_be_property = false;
+            }
+            // Check mutable getter and setter.
+            if (can_be_property)
+            {
+                if (auto param_type = GetCSharpSetterParameterType(mutable_setter); param_type && param_type != GetReturnBinding(mutable_getter->ret).csharp_return_type)
+                    can_be_property = false;
+            }
+
+
+            const CInterop::ClassField::Accessor *const maybe_const_getter = is_const ? const_getter : mutable_getter;
+            const CInterop::ClassField::Accessor *const maybe_const_setter = is_const ? const_setter : mutable_setter;
+
+
+            // If this is a property, determine the C# property type.
+            // This can be different for const and mutable halves, but this is fine.
+            std::optional<std::string> csharp_property_type;
+            if (can_be_property)
+                csharp_property_type = GetReturnBinding(maybe_const_getter->ret).csharp_return_type;
+
+
+            // Emit...
+            if (can_be_property)
+            {
+                // Emit as a property.
+
+                // Skip in mutable class if it's the same function as in the const class.
+                if (!(!is_const && const_getter == mutable_getter && const_setter == mutable_setter))
+                {
+                    FuncLikeEmitter emit_getter(*this, maybe_const_getter, "get");
+
+                    std::optional<FuncLikeEmitter> emit_setter;
+                    if (maybe_const_setter)
+                        emit_setter.emplace(*this, maybe_const_setter, "set");
+
+                    // Write the property:
+
+                    file.WriteString("public ");
+
+                    if (field.is_static)
+                        file.WriteString("static ");
+
+                    // Be explicit about the shadowing.
+                    if (!is_const)
+                        file.WriteString("new ");
+
+                    if (emit_getter.IsUnsafe() || (emit_setter && emit_setter->IsUnsafe()))
+                        file.WriteString("unsafe ");
+
+                    // The return type.
+                    file.WriteString(csharp_property_type.value());
+                    file.WriteString(" ");
+
+                    // The property name.
+                    file.WriteString(CppStringToCsharpIdentifier(field.full_name));
+                    file.WriteString("\n");
+
+                    file.PushScope({}, "{\n", "}\n");
+
+                    emit_getter.Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+                    if (emit_setter)
+                        emit_setter->Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+
+                    file.PopScope();
+                }
+            }
+            else
+            {
+                // Emit the getter and setter separately, as plain functions.
+
+                // Here we can skip each of the two functions separately in the mutable class, if they are the same as in the const class.
+
+                if (!(!is_const && const_getter == mutable_getter))
+                    FuncLikeEmitter(*this, maybe_const_getter, CppStringToCsharpIdentifier("Get_" + field.full_name)).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+                if (maybe_const_setter && !(!is_const && const_setter == mutable_setter))
+                    FuncLikeEmitter(*this, maybe_const_setter, CppStringToCsharpIdentifier("Set_" + field.full_name)).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+            }
+        }
+        catch (...)
+        {
+            std::throw_with_nested(std::runtime_error("While emitting C++ field `" + field.full_name + "`:"));
+        }
     }
 
     void Generator::Generate()
@@ -2259,7 +2476,7 @@ namespace mrbind::CSharp
             assert(!qual_name.parts.empty());
             file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
 
-            EmitCFuncLike(file, &free_func, CppToCsharpIdentifier(qual_name.parts.back()));
+            FuncLikeEmitter(*this, &free_func, CppToCsharpIdentifier(qual_name.parts.back())).Emit(file);
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.

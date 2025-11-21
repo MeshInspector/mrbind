@@ -1731,6 +1731,288 @@ public static partial class MR
                 }
             }
 
+            // Fields.
+            /// Generated from class `MR::CSharp::TestFields`.
+            /// This is the const half of the class.
+            public class ConstTestFields : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstTestFields(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr == null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestFields_Destroy(_Underlying *_this);
+                    __MR_CSharp_TestFields_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstTestFields() {Dispose(false);}
+
+                /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `static_i`.
+                public static unsafe ref int GetStaticI()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_static_i", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_TestFields_GetMutable_static_i();
+                    return ref *__MR_CSharp_TestFields_GetMutable_static_i();
+                }
+
+                /// Modifies a member variable of class `MR::CSharp::TestFields` named `static_i`.
+                public static void SetStaticI(int value)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Set_static_i", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestFields_Set_static_i(int value);
+                    __MR_CSharp_TestFields_Set_static_i(value);
+                }
+                public static unsafe int StaticConstI
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_i", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_TestFields_Get_static_const_i();
+                        return *__MR_CSharp_TestFields_Get_static_const_i();
+                    }
+                }
+                public static unsafe ref int StaticIRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_i_ref", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_TestFields_Get_static_i_ref();
+                        return ref *__MR_CSharp_TestFields_Get_static_i_ref();
+                    }
+                }
+                public static unsafe int StaticConstIRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_i_ref", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_TestFields_Get_static_const_i_ref();
+                        return *__MR_CSharp_TestFields_Get_static_const_i_ref();
+                    }
+                }
+
+                /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `static_s`.
+                public static unsafe MR.CS.Std.String GetStaticS()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_static_s", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_static_s();
+                    return new(__MR_CSharp_TestFields_GetMutable_static_s(), is_owning: false);
+                }
+
+                /// Modifies a member variable of class `MR::CSharp::TestFields` named `static_s`.
+                public static unsafe void SetStaticS(ReadOnlySpan<char> value)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Set_static_s", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestFields_Set_static_s(byte *value, byte *value_end);
+                    byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
+                    int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
+                    fixed (byte *__ptr_value = __bytes_value)
+                    {
+                        __MR_CSharp_TestFields_Set_static_s(__ptr_value, __ptr_value + __len_value);
+                    }
+                }
+                public static unsafe MR.CS.Std.ConstString StaticConstS
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_TestFields_Get_static_const_s();
+                        return new(__MR_CSharp_TestFields_Get_static_const_s(), is_owning: false);
+                    }
+                }
+                public static unsafe MR.CS.Std.String StaticSRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_s_ref", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_Get_static_s_ref();
+                        return new(__MR_CSharp_TestFields_Get_static_s_ref(), is_owning: false);
+                    }
+                }
+                public static unsafe MR.CS.Std.ConstString StaticConstSRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_s_ref", ExactSpelling = true)]
+                        extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_TestFields_Get_static_const_s_ref();
+                        return new(__MR_CSharp_TestFields_Get_static_const_s_ref(), is_owning: false);
+                    }
+                }
+
+                /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `i`.
+                public unsafe int GetI()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_i", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_TestFields_Get_i(_Underlying *_this);
+                    return *__MR_CSharp_TestFields_Get_i(_UnderlyingPtr);
+                }
+                public unsafe int ConstI
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_i", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_TestFields_Get_const_i(_Underlying *_this);
+                        return *__MR_CSharp_TestFields_Get_const_i(_UnderlyingPtr);
+                    }
+                }
+                public unsafe ref int IRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_i_ref", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_TestFields_Get_i_ref(_Underlying *_this);
+                        return ref *__MR_CSharp_TestFields_Get_i_ref(_UnderlyingPtr);
+                    }
+                }
+                public unsafe int ConstIRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_i_ref", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_TestFields_Get_const_i_ref(_Underlying *_this);
+                        return *__MR_CSharp_TestFields_Get_const_i_ref(_UnderlyingPtr);
+                    }
+                }
+
+                /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `s`.
+                public unsafe MR.CS.Std.ConstString GetS()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_s", ExactSpelling = true)]
+                    extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_TestFields_Get_s(_Underlying *_this);
+                    return new(__MR_CSharp_TestFields_Get_s(_UnderlyingPtr), is_owning: false);
+                }
+                public unsafe MR.CS.Std.ConstString ConstS
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_TestFields_Get_const_s(_Underlying *_this);
+                        return new(__MR_CSharp_TestFields_Get_const_s(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+                public unsafe MR.CS.Std.String SRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_s_ref", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_Get_s_ref(_Underlying *_this);
+                        return new(__MR_CSharp_TestFields_Get_s_ref(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+                public unsafe MR.CS.Std.ConstString ConstSRef
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_s_ref", ExactSpelling = true)]
+                        extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_TestFields_Get_const_s_ref(_Underlying *_this);
+                        return new(__MR_CSharp_TestFields_Get_const_s_ref(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                /// Constructs `MR::CSharp::TestFields` elementwise.
+                public unsafe ConstTestFields(int i, int const_i, ref int i_ref, int const_i_ref, ReadOnlySpan<char> s, ReadOnlySpan<char> const_s, MR.CS.Std.String s_ref, ReadOnlySpan<char> const_s_ref) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestFields._Underlying *__MR_CSharp_TestFields_ConstructFrom(int i, int const_i, int *i_ref, int *const_i_ref, byte *s, byte *s_end, byte *const_s, byte *const_s_end, MR.CS.Std.String._Underlying *s_ref, byte *const_s_ref, byte *const_s_ref_end);
+                    fixed (int *__ptr_i_ref = &i_ref)
+                    {
+                        byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                        int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
+                        fixed (byte *__ptr_s = __bytes_s)
+                        {
+                            byte[] __bytes_const_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(const_s.Length)];
+                            int __len_const_s = System.Text.Encoding.UTF8.GetBytes(const_s, __bytes_const_s);
+                            fixed (byte *__ptr_const_s = __bytes_const_s)
+                            {
+                                byte[] __bytes_const_s_ref = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(const_s_ref.Length)];
+                                int __len_const_s_ref = System.Text.Encoding.UTF8.GetBytes(const_s_ref, __bytes_const_s_ref);
+                                fixed (byte *__ptr_const_s_ref = __bytes_const_s_ref)
+                                {
+                                    _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFrom(i, const_i, __ptr_i_ref, &const_i_ref, __ptr_s, __ptr_s + __len_s, __ptr_const_s, __ptr_const_s + __len_const_s, s_ref._UnderlyingPtr, __ptr_const_s_ref, __ptr_const_s_ref + __len_const_s_ref);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Fields.
+            /// Generated from class `MR::CSharp::TestFields`.
+            /// This is the non-const half of the class.
+            public class TestFields : ConstTestFields
+            {
+                internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `i`.
+                public unsafe new ref int GetI()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_i", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_TestFields_GetMutable_i(_Underlying *_this);
+                    return ref *__MR_CSharp_TestFields_GetMutable_i(_UnderlyingPtr);
+                }
+
+                /// Modifies a member variable of class `MR::CSharp::TestFields` named `i`.
+                public unsafe void SetI(int value)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Set_i", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestFields_Set_i(_Underlying *_this, int value);
+                    __MR_CSharp_TestFields_Set_i(_UnderlyingPtr, value);
+                }
+
+                /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `s`.
+                public unsafe new MR.CS.Std.String GetS()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_s", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_s(_Underlying *_this);
+                    return new(__MR_CSharp_TestFields_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                }
+
+                /// Modifies a member variable of class `MR::CSharp::TestFields` named `s`.
+                public unsafe void SetS(ReadOnlySpan<char> value)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Set_s", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestFields_Set_s(_Underlying *_this, byte *value, byte *value_end);
+                    byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
+                    int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
+                    fixed (byte *__ptr_value = __bytes_value)
+                    {
+                        __MR_CSharp_TestFields_Set_s(_UnderlyingPtr, __ptr_value, __ptr_value + __len_value);
+                    }
+                }
+
+                /// Constructs `MR::CSharp::TestFields` elementwise.
+                public unsafe TestFields(int i, int const_i, ref int i_ref, int const_i_ref, ReadOnlySpan<char> s, ReadOnlySpan<char> const_s, MR.CS.Std.String s_ref, ReadOnlySpan<char> const_s_ref) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestFields._Underlying *__MR_CSharp_TestFields_ConstructFrom(int i, int const_i, int *i_ref, int *const_i_ref, byte *s, byte *s_end, byte *const_s, byte *const_s_end, MR.CS.Std.String._Underlying *s_ref, byte *const_s_ref, byte *const_s_ref_end);
+                    fixed (int *__ptr_i_ref = &i_ref)
+                    {
+                        byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                        int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
+                        fixed (byte *__ptr_s = __bytes_s)
+                        {
+                            byte[] __bytes_const_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(const_s.Length)];
+                            int __len_const_s = System.Text.Encoding.UTF8.GetBytes(const_s, __bytes_const_s);
+                            fixed (byte *__ptr_const_s = __bytes_const_s)
+                            {
+                                byte[] __bytes_const_s_ref = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(const_s_ref.Length)];
+                                int __len_const_s_ref = System.Text.Encoding.UTF8.GetBytes(const_s_ref, __bytes_const_s_ref);
+                                fixed (byte *__ptr_const_s_ref = __bytes_const_s_ref)
+                                {
+                                    _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFrom(i, const_i, __ptr_i_ref, &const_i_ref, __ptr_s, __ptr_s + __len_s, __ptr_const_s, __ptr_const_s + __len_const_s, s_ref._UnderlyingPtr, __ptr_const_s_ref, __ptr_const_s_ref + __len_const_s_ref);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             /// Generated from function `MR::CSharp::foo`.
             public static void Foo()
             {

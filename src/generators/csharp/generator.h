@@ -80,10 +80,35 @@ namespace mrbind::CSharp
                 // A comma-separated list of parameter declarations for the `DllImport` C# function declaration, or empty if none.
                 std::string dllimport_decl_params;
 
+                struct CSharpParam
+                {
+                    std::string type;
+                    std::string name;
+                    std::optional<std::string> default_arg = {};
+
+                    [[nodiscard]] std::string ToString() const
+                    {
+                        assert(!type.empty() && !type.starts_with(' ') && !type.ends_with(' '));
+                        assert(!name.empty() && !name.starts_with(' ') && !name.ends_with(' '));
+
+                        std::string ret = type;
+                        if (!ret.ends_with('*'))
+                            ret += ' ';
+                        ret += name;
+                        if (default_arg)
+                        {
+                            assert(!default_arg->empty() && !default_arg->starts_with(' ') && !default_arg->ends_with(' '));
+                            ret += " = ";
+                            ret += *default_arg;
+                        }
+                        return ret;
+                    }
+                };
+
                 // A list of parameter declarations for the public C# function declaration, or empty if none.
                 // This one needs to be an actual vector, because we apply non-trivial transformations to it, and splitting a string
                 //   wouldn't be trivial, since we'd have to ignore commas in `<...>` generic argument lists.
-                std::vector<std::string> csharp_decl_params;
+                std::vector<CSharpParam> csharp_decl_params;
 
                 // Optional. If specified, the return statement is wrapped in a scope, where this string opens it, and `scope_close` closes.
                 // If not empty, must end with a newline. No indentation is needed.
@@ -110,9 +135,11 @@ namespace mrbind::CSharp
 
             // Generate all the necessary strings.
             // You can ignore `have_useless_defarg` by default, unless this type can have default arguments that don't affect parameter passing style.
-            // In this case, `param_usage` (not `_with_default_arg`) can receive this as `true`. In that case, you must add the default argument
-            //   and reset it back to false, to indicate that you've handled it. Typically all you need to do is to add the `= null` default argument.
-            std::function<Strings(const std::string &name, bool &/*have_useless_defarg*/)> make_strings;
+            // In this case, `param_usage` (not `_with_default_arg`) can receive this as `true`. In that case, you must emit the default argument.
+            // Typically all you need to do is to add the `= null` default argument.
+            // Failing to emit the default argument in this case will error, so if you don't expect your type to have default arguments that don't affect
+            //   parameter passing, you can just ignore this parameter, and if this assumption is wrong, you'll just get this error.
+            std::function<Strings(const std::string &name, bool /*have_useless_defarg*/)> make_strings;
         };
 
         // Unlike in C, those don't fall back to each other. Both need to be implemented separately.
@@ -243,6 +270,7 @@ namespace mrbind::CSharp
         // If not empty, it must have a trailing newline and no leading newline.
         [[nodiscard]] std::string GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, bool is_const);
 
+
         // You should almost never use this directly, prefer `RequestHelper()`.
         // This is set once when we start generating.
         // This is a prefix of the form `Foo.Bar.`, matching `helpers_namespace` of the form `Foo::Bar`.
@@ -258,30 +286,8 @@ namespace mrbind::CSharp
         // Passing an invalid name name will initially succeed, but then will cause an error at the end of generation, in `GenerateHelpers()`.
         [[nodiscard]] std::string RequestHelper(const std::string &name);
 
+
         using AnyFuncLikePtr = std::variant<const CInterop::Function *, const CInterop::ClassMethod *, const CInterop::ClassField::Accessor *>;
-
-        // A low-level function to emit a single C function.
-        // Assumes that the correct namespace or class was already entered in `file`.
-        // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
-        void EmitCFuncLike(OutputFile &file, AnyFuncLikePtr func_like, std::string_view csharp_name);
-
-        // Determine a suitable unqualified C# name for a method.
-        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method);
-
-        // Create a C# comment for a parsed function.
-        // This will always end with a newline if not empty, and will include slashes.
-        [[nodiscard]] std::string MakeFuncComment(AnyFuncLikePtr any_func_like);
-
-        struct ParameterBinding
-        {
-            // This is null only for `this` parameters.
-            const TypeBinding::ParamUsage *usage = nullptr;
-
-            TypeBinding::ParamUsage::Strings strings;
-        };
-        // A helper function that returns various binding information about a function parameter, or throws on failure.
-        // Passing `method_like` is only needed if this parameter belongs to a class member (and then it's only used if it's the `this` parameter).
-        [[nodiscard]] ParameterBinding GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like);
 
         struct CFuncDeclStrings
         {
@@ -296,6 +302,96 @@ namespace mrbind::CSharp
             bool is_unsafe = false;
         };
 
+        // This stores all functions declared in a class, and is used to track shadowing and insert `new` as needed.
+        struct ClassShadowingData
+        {
+            // Here we check functions but not properties, since our `EmitCppField()` will automatically insert `new` for properties, since that's simple enough.
+
+            std::unordered_set<std::string> functions;
+        };
+
+        // This is used to emit C# functions.
+        // This is a class to do the emitting in two phases, preparing it first (and allowing you to read some prepared data), and only then emitting.
+        // This separation was originally done to query `.is_unsafe` of the dllimported function in a getter or setter before emitting it,
+        //   to plop it on the enclosing property.
+        struct FuncLikeEmitter
+        {
+            Generator &generator;
+            AnyFuncLikePtr any_func_like;
+            std::string csharp_name;
+
+            const CInterop::BasicFuncLike &func_like;
+            const CInterop::BasicClassMethodLike *method_like;
+            const CInterop::ClassMethod *method;
+
+            const bool is_ctor;
+            const bool is_property_get;
+            const bool is_property_set;
+            const bool is_property;
+
+            const bool ctor_class_backed_by_shared_ptr;
+
+            const TypeBinding::ReturnUsage *ret_binding = nullptr;
+
+            CFuncDeclStrings dllimport_strings;
+
+            std::string dllimport_param_string;
+            std::vector<const TypeBinding::ParamUsage *> param_usages;
+            std::vector<TypeBinding::ParamUsage::Strings> param_strings;
+
+
+            // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
+            // `csharp_name` can be "get" or "set" if we're creating a property, in that case we won't emit the return type or the parameters,
+            //   and the parameter name (of the setter) will be replaced with "value".
+            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name);
+
+            struct ShadowingDesc
+            {
+                // This must not be null.
+                ClassShadowingData *shadowing_data = nullptr;
+
+                // If true, only write to `shadowing_data` and don't read from it. If false, only read and don't write.
+                bool write = false;
+            };
+
+            // Assumes that the correct namespace or class was already entered in `file`.
+            void Emit(OutputFile &file, std::optional<ShadowingDesc> shadowing_desc = {});
+
+            // Get the string that can be used for function shadowing checks. This emits the name and C# parameter types (not names). The return type is skipped.
+            // It seems that in C# the shadowing warning is based on the name and the parameter types, and ignores the return type.
+            // Interestingly, it's possible to call the shadowed base function using explicit parameter names (if they're different), but this doesn't stop the warning.
+            [[nodiscard]] std::string GetDescForShadowing() const;
+
+            [[nodiscard]] bool IsUnsafe() const
+            {
+                // This will eventually take into account the unsafety of the array size getter.
+                return dllimport_strings.is_unsafe;
+            }
+        };
+
+        // Determine a suitable unqualified C# name for a method.
+        // `is_const` should be set to true if we're in a const half of a class, or to false otherwise.
+        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, bool is_const);
+
+        // Create a C# comment for a parsed function.
+        // This will always end with a newline if not empty, and will include slashes.
+        [[nodiscard]] std::string MakeFuncComment(AnyFuncLikePtr any_func_like);
+
+        struct ParameterBinding
+        {
+            // This is null only for `this` parameters.
+            const TypeBinding::ParamUsage *usage = nullptr;
+
+            TypeBinding::ParamUsage::Strings strings;
+        };
+        // A helper function that returns various binding information about a function parameter, or throws on failure.
+        // Passing `method_like` is only needed if this parameter belongs to a class member (and then it's only used if it's the `this` parameter).
+        // If `override_name` is passed, it replaces the parameter name recoded in the parameter itself.
+        [[nodiscard]] ParameterBinding GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like, std::optional<std::string> override_name = {});
+
+        // Returns the binding information for a function return type.
+        [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret);
+
         // Creates a C function declaration for C# code.
         // `c_name` is the underlying C function name. `return_type` is the return type as it should be spelled in C#.
         // `params` is a comma-separated list as it should be spelled in C#.
@@ -304,6 +400,8 @@ namespace mrbind::CSharp
         // A low-level function to emit a wrapper for a single C enum.
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitCppEnum(OutputFile &file, const std::string &cpp_name_str);
+
+        [[nodiscard]] bool IsConstOrStaticMethodLike(const CInterop::TypeDesc &class_type_desc, const CInterop::BasicClassMethodLike &method_like);
 
         // Since we duplicate each class into const and non-const versions,
         //   we need an extra bool to describe which half of the class is being operated on.
@@ -319,7 +417,10 @@ namespace mrbind::CSharp
 
         // A low-level function to emit a wrapper for a single half (either const or non-const) of a C "class".
         // Assumes that the correct namespace or class was already entered in `file`.
-        void EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl);
+        // `shadowing_data` is used for the shadowing check (to automatically insert `new` on certain members). To enable this,
+        //   pass the same `ClassShadowingData` instance to both the const and the non-const halves of the class (the const one must be emitted first).
+        //   The `ClassShadowingData` object must initially be empty.
+        void EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl, ClassShadowingData *shadowing_data);
 
         // Emit a type unconditionally (you should check `ShouldEmitCppType()` yourself).
         // Assumes that the correct namespace or class was already entered in `file`.
@@ -336,6 +437,10 @@ namespace mrbind::CSharp
 
         // If this returns false, this C++ type (usually a class or enum) will not be emitted.
         [[nodiscard]] bool ShouldEmitCppType(const cppdecl::Type &cpp_type);
+
+        // Emits a single class field. Either as several accessor methods, or as a C# property if possible.
+        // `is_const` determines if we're considered to be inside of a const half of a class or not.
+        void EmitCppField(OutputFile &file, const CInterop::TypeDesc &class_type_desc, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
 
         void Generate();
 
