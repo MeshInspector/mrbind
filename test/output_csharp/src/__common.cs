@@ -16,7 +16,7 @@ public static partial class MR
                 public List<object>? _KeepAliveList;
                 public void _KeepAlive(object obj)
                 {
-                    if (_KeepAliveList == null)
+                    if (_KeepAliveList is null)
                         _KeepAliveList = new();
                     _KeepAliveList.Add(obj);
                 }
@@ -99,7 +99,7 @@ public static partial class MR
                 /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
                 internal Ref(T *NewPtr)
                 {
-                    System.Diagnostics.Trace.Assert(NewPtr != null);
+                    System.Diagnostics.Trace.Assert(NewPtr is not null);
                     Ptr = NewPtr;
                 }
 
@@ -161,9 +161,9 @@ public static partial class MR
                     }
                 }
 
-                public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr != null; Span = arr;}
+                public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; Span = arr;}
                 public ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {HasValue = true; Span = span;}
-                public ReadOnlyCharSpanOpt(string? str) {HasValue = str != null; Span = str;}
+                public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; Span = str;}
 
                 // This is disabled because it makes conversion from `null` ambiguous.
                 // public static implicit operator ReadOnlyCharSpanOpt(char[]? arr) {return new(arr);}

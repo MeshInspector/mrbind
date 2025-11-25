@@ -236,4 +236,237 @@ namespace MR::CSharp
         static std::string &static_s_ref;
         static const std::string &static_const_s_ref;
     };
+
+
+    struct TestConstness
+    {
+        void foo() {}
+        void foo() const {}
+    };
+
+
+    // Test operators `++` and `--`:
+
+    // This is the happy path.
+    // This emits static operators in the const half, and non-static operators (or functions pre C# 14) in the non-const half.
+    struct IncrDecrA
+    {
+        IncrDecrA &operator++() {return *this;}
+        IncrDecrA operator++(int) {return *this;}
+        IncrDecrA &operator--() {return *this;}
+        IncrDecrA operator--(int) {return *this;}
+    };
+
+    // This is a somewhat happy path. Same as above, but everything gets emitted in the const half.
+    struct IncrDecrB
+    {
+        const IncrDecrB &operator++() const {return *this;}
+        IncrDecrB operator++(int) const {return *this;}
+        const IncrDecrB &operator--() const {return *this;}
+        IncrDecrB operator--(int) const {return *this;}
+    };
+
+    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+    struct IncrDecrC
+    {
+        IncrDecrC() = default;
+        IncrDecrC(IncrDecrC &&) = default;
+        IncrDecrC &operator=(IncrDecrC &&) = default;
+        IncrDecrC &operator++() {return *this;}
+        IncrDecrC operator++(int) {return {};}
+        IncrDecrC &operator--() {return *this;}
+        IncrDecrC operator--(int) {return {};}
+    };
+
+    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+    struct IncrDecrD
+    {
+        IncrDecrD() = default;
+        IncrDecrD(IncrDecrD &&) = default;
+        IncrDecrD &operator=(IncrDecrD &&) = default;
+        const IncrDecrD &operator++() const {return *this;}
+        IncrDecrD operator++(int) const {return {};}
+        const IncrDecrD &operator--() const {return *this;}
+        IncrDecrD operator--(int) const {return {};}
+    };
+
+
+    // Test equality comparison.
+
+    struct EqualityA
+    {
+        bool operator==(int) {return true;}
+        bool operator!=(int) {return false;}
+        bool operator==(const EqualityA &) const {return true;}
+    };
+
+    // Return type isn't `bool`.
+    struct EqualityB
+    {
+        int operator==(int) {return true;}
+        int operator!=(int) {return false;}
+        int operator==(const EqualityB &) const {return true;}
+    };
+
+    // Return type is `void`.
+    struct EqualityC
+    {
+        void operator==(int) {}
+        void operator!=(int) {}
+        void operator==(const EqualityC &) const {}
+    };
+
+    // The C# parameter type ends with `?`, and isn't a managed type.
+    struct EqualityD
+    {
+        bool operator==(const int *) {return false;}
+    };
+
+    // The C# parameter type ends with `?`, and is a managed type.
+    struct EqualityE
+    {
+        bool operator==(EqualityD *) {return false;}
+    };
+
+
+    // Test relational comparisons:
+
+    // The happy path, the operator is const.
+    struct RelationalA
+    {
+        bool operator<(const RelationalA &) const {return false;}
+        bool operator>(const RelationalA &) const {return false;}
+        bool operator<=(const RelationalA &) const {return false;}
+        bool operator>=(const RelationalA &) const {return false;}
+    };
+
+    // The happy path, the operator is non-const.
+    struct RelationalB
+    {
+        bool operator<(RelationalB &) {return false;}
+        bool operator>(RelationalB &) {return false;}
+        bool operator<=(RelationalB &) {return false;}
+        bool operator>=(RelationalB &) {return false;}
+    };
+
+    // The operators have mixed constness, which causes them to be demoted to functions.
+    struct RelationalC
+    {
+        bool operator<(RelationalC &) const {return false;}
+        bool operator>(RelationalC &) const {return false;}
+        // bool operator<=(RelationalC &) const {return false;} // Skip one operator to observe the function missing.
+        bool operator>=(RelationalC &) const {return false;}
+    };
+
+    // The operators have operands of different types, causing them to be demoted to functions.
+    struct RelationalD
+    {
+        bool operator<(RelationalC &) const {return false;}
+        bool operator>(RelationalC &) const {return false;}
+        bool operator<=(RelationalC &) const {return false;}
+        bool operator>=(RelationalC &) const {return false;}
+    };
+
+    // The operators have a weird return type.
+    struct RelationalE
+    {
+        int operator<(RelationalC &) const {return 42;}
+        int operator>(RelationalC &) const {return 42;}
+        int operator<=(RelationalC &) const {return 42;}
+        int operator>=(RelationalC &) const {return 42;}
+    };
+
+    // The operators return void.
+    struct RelationalF
+    {
+        void operator<(RelationalC &) const {}
+        void operator>(RelationalC &) const {}
+        void operator<=(RelationalC &) const {}
+        void operator>=(RelationalC &) const {}
+    };
+
+
+    // Test some generic operators.
+    #define MBTEST_MAKE_TEST_OPS_CLASS(name_, ret_, ret_expr_, param_, .../*extras_*/) \
+        struct name_ \
+        { \
+            __VA_ARGS__ \
+          public: \
+            /* Unary plus. */ \
+            ret_ operator+() {return ret_expr_;} \
+            /* Binary plus. */ \
+            ret_ operator+(param_) {return ret_expr_;} \
+            /* Unary minus. */ \
+            ret_ operator-() {return ret_expr_;} \
+            /* Binary minus. */ \
+            ret_ operator-(param_) {return ret_expr_;} \
+            /* Dereference (unary star). */ \
+            ret_ operator*() {return ret_expr_;} \
+            /* Multiply (binary star). */ \
+            ret_ operator*(param_) {return ret_expr_;} \
+            /* Divide. */ \
+            ret_ operator/(param_) {return ret_expr_;} \
+            /* Modulo. */ \
+            ret_ operator%(param_) {return ret_expr_;} \
+            /* Bit xor. */ \
+            ret_ operator^(param_) {return ret_expr_;} \
+            /* Address of. */ \
+            ret_ operator&() {return ret_expr_;} \
+            /* Bit and. */ \
+            ret_ operator&(param_) {return ret_expr_;} \
+            /* Bit or. */ \
+            ret_ operator|(param_) {return ret_expr_;} \
+            /* Bit negate. */ \
+            ret_ operator~() {return ret_expr_;} \
+            /* Boolean negate. */ \
+            ret_ operator!() {return ret_expr_;} \
+            /* Assign. */ \
+            ret_ operator=(param_) {return ret_expr_;} \
+            /* Plus assign. */ \
+            ret_ operator+=(param_) {return ret_expr_;} \
+            /* Minus assign. */ \
+            ret_ operator-=(param_) {return ret_expr_;} \
+            /* Multiply assign. */ \
+            ret_ operator*=(param_) {return ret_expr_;} \
+            /* Divide assign. */ \
+            ret_ operator/=(param_) {return ret_expr_;} \
+            /* Modulo assign. */ \
+            ret_ operator%=(param_) {return ret_expr_;} \
+            /* Bit xor assign. */ \
+            ret_ operator^=(param_) {return ret_expr_;} \
+            /* Bit and assign. */ \
+            ret_ operator&=(param_) {return ret_expr_;} \
+            /* Bit or assign. */ \
+            ret_ operator|=(param_) {return ret_expr_;} \
+            /* Left shift. */ \
+            ret_ operator<<(param_) {return ret_expr_;} \
+            /* Right shift. */ \
+            ret_ operator>>(param_) {return ret_expr_;} \
+            /* Left shift assign. */ \
+            ret_ operator<<=(param_) {return ret_expr_;} \
+            /* Right shift assign. */ \
+            ret_ operator>>=(param_) {return ret_expr_;} \
+            /* Compare three way. */ \
+            ret_ operator<=>(param_) {return ret_expr_;} \
+            /* And. */ \
+            ret_ operator&&(param_) {return ret_expr_;} \
+            /* Or. */ \
+            ret_ operator||(param_) {return ret_expr_;} \
+            /* Comma. */ \
+            ret_ operator,(param_) {return ret_expr_;} \
+            /* Arrow star. */ \
+            ret_ operator->*(param_) {return ret_expr_;} \
+            /* Arrow. */ \
+            ret_ operator->() {return ret_expr_;} \
+            /* Function call. */ \
+            ret_ operator()(param_) {return ret_expr_;} \
+            /* Indexing. */ \
+            ret_ operator[](param_) {return ret_expr_;} \
+            /* Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning. */ \
+            name_(const name_ &) = default; \
+        };
+
+    MBTEST_MAKE_TEST_OPS_CLASS(TestOpsA, int, 42, TestOpsA)
+    MBTEST_MAKE_TEST_OPS_CLASS(TestOpsB, int, 42, TestOpsB, private: std::string s;) // Make the class non-trivial.
+    MBTEST_MAKE_TEST_OPS_CLASS(TestOpsC, void,, TestOpsA) // Return void.
 }

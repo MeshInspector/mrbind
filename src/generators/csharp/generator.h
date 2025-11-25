@@ -16,6 +16,9 @@
 
 namespace mrbind::CSharp
 {
+    using AnyFuncLikePtr = std::variant<const CInterop::Function *, const CInterop::ClassMethod *, const CInterop::ClassField::Accessor *>;
+    using AnyMethodLikePtr = std::variant<const CInterop::ClassMethod *, const CInterop::ClassField::Accessor *>;
+
     [[nodiscard]] std::string CppdeclToCode(const auto &value)
     {
         return cppdecl::ToCode(value, {});
@@ -206,6 +209,9 @@ namespace mrbind::CSharp
         // This C# namespace is added to the names that don't already start with the first unqualified part of it.
         std::optional<cppdecl::QualifiedName> forced_namespace;
 
+        // The language version. This affects what features we can use.
+        int csharp_version = -1; // This is set elsewhere.
+
         // ]
 
         // Maps relative file paths (without extensions) to the file descriptions and contents.
@@ -287,8 +293,6 @@ namespace mrbind::CSharp
         [[nodiscard]] std::string RequestHelper(const std::string &name);
 
 
-        using AnyFuncLikePtr = std::variant<const CInterop::Function *, const CInterop::ClassMethod *, const CInterop::ClassField::Accessor *>;
-
         struct CFuncDeclStrings
         {
             // This is the entire C function declaration with a trailing newline.
@@ -310,6 +314,35 @@ namespace mrbind::CSharp
             std::unordered_set<std::string> functions;
         };
 
+        // Those are alternative function variants that can be emitted by `FuncLikeEmitter`.
+        enum class EmitVariant
+        {
+            regular,
+
+            // Non-static operators `++` and `--` are a new feature in C# 14, allowing you to modify an instance in place instead of returning a copy,
+            //   like a static version would, which was the only valid approach in older C#.
+            // But we emit this even before C# 14, but in that case we make it a simple function.
+            // When we emit those, we must still keep the static ones, since when the result of `x++` isn't unused, the non-static version isn't considered at all,
+            //   since it must return void.
+            // By default we emit the non-static version, because it looks nicer and we want it to be first (even before C# 14 when it's just a function),
+            //   and then we follow up with the static one.
+            static_incr_or_decr,
+
+            // `!=` being defined in terms of `==`.
+            negated_comparison_operator,
+
+            // `>` being defined in terms of `<`.
+            less_to_greater,
+            // `<=` being defined in terms of `<`.
+            less_to_less_eq,
+            // `>=` being defined in terms of `<`.
+            less_to_greater_eq,
+        };
+
+        // For class methods, sometimes a single C++ method gets split into multiple C# methods.
+        // Then this function will return more than one enum element, and you must apply `FuncLikeEmitter` separately to each of them.
+        [[nodiscard]] std::vector<EmitVariant> GetMethodVariants(const CInterop::ClassMethod &method);
+
         // This is used to emit C# functions.
         // This is a class to do the emitting in two phases, preparing it first (and allowing you to read some prepared data), and only then emitting.
         // This separation was originally done to query `.is_unsafe` of the dllimported function in a getter or setter before emitting it,
@@ -317,8 +350,9 @@ namespace mrbind::CSharp
         struct FuncLikeEmitter
         {
             Generator &generator;
-            AnyFuncLikePtr any_func_like;
-            std::string csharp_name;
+            const AnyFuncLikePtr any_func_like;
+            const std::string csharp_name;
+            const EmitVariant emit_variant;
 
             const CInterop::BasicFuncLike &func_like;
             const CInterop::BasicClassMethodLike *method_like;
@@ -330,6 +364,10 @@ namespace mrbind::CSharp
             const bool is_property;
 
             const bool ctor_class_backed_by_shared_ptr;
+
+            const bool is_overloaded_op;
+            const bool is_incr_or_decr;
+            const bool acts_on_copy_of_this;
 
             const TypeBinding::ReturnUsage *ret_binding = nullptr;
 
@@ -343,7 +381,7 @@ namespace mrbind::CSharp
             // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
             // `csharp_name` can be "get" or "set" if we're creating a property, in that case we won't emit the return type or the parameters,
             //   and the parameter name (of the setter) will be replaced with "value".
-            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name);
+            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name, EmitVariant emit_variant = Generator::EmitVariant::regular);
 
             struct ShadowingDesc
             {
@@ -371,7 +409,7 @@ namespace mrbind::CSharp
 
         // Determine a suitable unqualified C# name for a method.
         // `is_const` should be set to true if we're in a const half of a class, or to false otherwise.
-        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, bool is_const);
+        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, bool is_const, EmitVariant emit_variant);
 
         // Create a C# comment for a parsed function.
         // This will always end with a newline if not empty, and will include slashes.
@@ -385,9 +423,9 @@ namespace mrbind::CSharp
             TypeBinding::ParamUsage::Strings strings;
         };
         // A helper function that returns various binding information about a function parameter, or throws on failure.
-        // Passing `method_like` is only needed if this parameter belongs to a class member (and then it's only used if it's the `this` parameter).
+        // `is_static_method` only matters if this is a `this` parameter.
         // If `override_name` is passed, it replaces the parameter name recoded in the parameter itself.
-        [[nodiscard]] ParameterBinding GetParameterBinding(const CInterop::FuncParam &param, const CInterop::BasicClassMethodLike *method_like, std::optional<std::string> override_name = {});
+        [[nodiscard]] ParameterBinding GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {});
 
         // Returns the binding information for a function return type.
         [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret);
@@ -401,7 +439,15 @@ namespace mrbind::CSharp
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitCppEnum(OutputFile &file, const std::string &cpp_name_str);
 
-        [[nodiscard]] bool IsConstOrStaticMethodLike(const CInterop::TypeDesc &class_type_desc, const CInterop::BasicClassMethodLike &method_like);
+        [[nodiscard]] bool IsConstOrStaticMethodLike(const cppdecl::QualifiedName &cpp_class_name, const CInterop::TypeDesc &class_type_desc, AnyMethodLikePtr any_method_like, EmitVariant emit_variant);
+
+        // Checks if `token` is a compound assignment operator, common between C++ and C#.
+        [[nodiscard]] static bool IsCompoundAssignmentToken(std::string_view token);
+
+        // Returns true if this C++ operator can be overloaded as a C# operator.
+        // The choice isn't necessarily based only on the operator token.
+        // If this returns true, you can usually use the same token as you did in C++, since they are the same in C#.
+        [[nodiscard]] bool IsOverloadableOperator(std::variant<const CInterop::Function *, const CInterop::ClassMethod *> func_or_method);
 
         // Since we duplicate each class into const and non-const versions,
         //   we need an extra bool to describe which half of the class is being operated on.
@@ -440,7 +486,7 @@ namespace mrbind::CSharp
 
         // Emits a single class field. Either as several accessor methods, or as a C# property if possible.
         // `is_const` determines if we're considered to be inside of a const half of a class or not.
-        void EmitCppField(OutputFile &file, const CInterop::TypeDesc &class_type_desc, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
+        void EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class_name, const CInterop::TypeDesc &class_type_desc, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
 
         void Generate();
 

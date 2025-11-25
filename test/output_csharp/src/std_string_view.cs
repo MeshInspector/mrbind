@@ -16,7 +16,7 @@ public static partial class MR
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
-                    if (_UnderlyingPtr == null || !_IsOwningVal)
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Destroy", ExactSpelling = true)]
                     extern static void __MR_C_std_string_view_Destroy(_Underlying *_this);
@@ -32,6 +32,14 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
+                }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe ConstStringView(MR.CS.Std.ConstStringView other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
                 }
 
                 /// Constructs a new instance.
@@ -100,6 +108,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe StringView(MR.CS.Std.ConstStringView other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
+                }
+
                 /// Constructs a new instance.
                 public unsafe StringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
@@ -110,6 +126,27 @@ public static partial class MR
                     fixed (byte *__ptr_other = __bytes_other)
                     {
                         _UnderlyingPtr = __MR_C_std_string_view_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                    }
+                }
+
+                /// Assigns the contents from another instance. Both objects remain alive after the call.
+                public unsafe void Assign(MR.CS.Std.ConstStringView other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_AssignFromAnother", ExactSpelling = true)]
+                    extern static void __MR_C_std_string_view_AssignFromAnother(_Underlying *_this, MR.CS.Std.StringView._Underlying *other);
+                    __MR_C_std_string_view_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
+                }
+
+                /// Assigns the contents.
+                public unsafe void Assign(ReadOnlySpan<char> other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_AssignFrom", ExactSpelling = true)]
+                    extern static void __MR_C_std_string_view_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
+                    byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                    int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
+                    fixed (byte *__ptr_other = __bytes_other)
+                    {
+                        __MR_C_std_string_view_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __len_other);
                     }
                 }
             }

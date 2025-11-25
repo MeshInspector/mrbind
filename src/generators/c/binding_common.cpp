@@ -768,7 +768,7 @@ namespace mrbind::CBindings
 
         // Guess the interop kind:
         if (cpp_type.Is<cppdecl::Pointer>())
-            ret.interop_info = CInterop::TypeKinds::PointerNonOwning{};
+            ret.interop_info = CInterop::TypeKinds::Invalid{}; // This is a pointer, but those are rejected when serializing, so setting to "invalid".
         else
             ret.interop_info = CInterop::TypeKinds::Arithmetic{}; // What else could it be? Hmm.
 
@@ -888,7 +888,8 @@ namespace mrbind::CBindings
                 // Also guess the interop kind.
                 if (cpp_type.Is<cppdecl::Pointer>())
                 {
-                    new_type.interop_info = CInterop::TypeKinds::PointerNonOwning{};
+                    // This is a pointer, but those are rejected when serializing, so setting to "invalid".
+                    new_type.interop_info = CInterop::TypeKinds::Invalid{};
                 }
                 else
                 {
@@ -1140,7 +1141,8 @@ namespace mrbind::CBindings
 
                 generator.FillDefaultTypeDependencies(cpp_type, new_type);
 
-                new_type.interop_info = CInterop::TypeKinds::ReferenceNonOwning{};
+                // This is a reference, but those are rejected when serializing, so setting to "invlaid".
+                new_type.interop_info = CInterop::TypeKinds::Invalid{};
 
                 return new_type;
             }

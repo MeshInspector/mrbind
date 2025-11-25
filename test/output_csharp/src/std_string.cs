@@ -16,7 +16,7 @@ public static partial class MR
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
-                    if (_UnderlyingPtr == null || !_IsOwningVal)
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Destroy", ExactSpelling = true)]
                     extern static void __MR_C_std_string_Destroy(_Underlying *_this);
@@ -32,6 +32,14 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.ConstString._Underlying *__MR_C_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_string_DefaultConstruct();
+                }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe ConstString(MR.CS.Misc.ByValue<MR.CS.Std.String, MR.CS.Std.ConstString> other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.ConstString._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
                 /// Constructs a new instance.
@@ -100,6 +108,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_DefaultConstruct();
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe String(MR.CS.Misc.ByValue<MR.CS.Std.String, MR.CS.Std.ConstString> other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.ConstString._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                }
+
                 /// Constructs a new instance.
                 public unsafe String(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
@@ -110,6 +126,27 @@ public static partial class MR
                     fixed (byte *__ptr_other = __bytes_other)
                     {
                         _UnderlyingPtr = __MR_C_std_string_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                    }
+                }
+
+                /// Assigns the contents from another instance. Both objects remain alive after the call.
+                public unsafe void Assign(MR.CS.Misc.ByValue<MR.CS.Std.String, MR.CS.Std.ConstString> other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFromAnother", ExactSpelling = true)]
+                    extern static void __MR_C_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
+                    __MR_C_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                }
+
+                /// Assigns the contents.
+                public unsafe void Assign(ReadOnlySpan<char> other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFrom", ExactSpelling = true)]
+                    extern static void __MR_C_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
+                    byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                    int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
+                    fixed (byte *__ptr_other = __bytes_other)
+                    {
+                        __MR_C_std_string_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __len_other);
                     }
                 }
 

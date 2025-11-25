@@ -25,6 +25,8 @@ int main(int argc, char **argv)
     std::vector<std::pair<std::string, std::string>> replaced_namespaces;
     std::optional<std::string> forced_namespace;
 
+    int csharp_version = 12; // = .NET 8
+
     mrbind::CommandLineParser args_parser;
 
     args_parser.AddFlag("--input-json", {
@@ -84,6 +86,17 @@ int main(int argc, char **argv)
             forced_namespace = args.front();
         },
     });
+    args_parser.AddFlag("--csharp-version", {
+        .arg_names = {"number"},
+        .desc = "Tune the generated bindings for a specific C# version. Defaults to " + std::to_string(csharp_version) + ".",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            if (args.front().size() > 2 || !std::all_of(args.front().begin(), args.front().end(), [](char ch){return ch >= '0' && ch <= '9';}))
+                throw std::runtime_error("Not a valid C# version: " + std::string(args.front()));
+
+            csharp_version = std::atoi(args.front().data()); // We guarantee that those are null-terminated.
+        },
+    });
 
     mrbind::CommandLineArgsAsUtf8 args(argc, argv);
     args_parser.Parse(args.argc, args.argv);
@@ -122,6 +135,8 @@ int main(int argc, char **argv)
 
     if (forced_namespace)
         generator.forced_namespace = generator.ParseNameOrThrow(*forced_namespace);
+
+    generator.csharp_version = csharp_version;
 
     // Generate.
     generator.Generate();

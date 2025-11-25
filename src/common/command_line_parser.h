@@ -10,6 +10,7 @@ namespace mrbind
 {
     struct CommandLineParser
     {
+        // The elements are always null-terminated.
         using ArgSpan = std::span<const std::string_view>;
 
         struct Flag
@@ -24,6 +25,7 @@ namespace mrbind
             std::string desc;
 
             // The callback. The size of `args` will always match the size of `arg_names`.
+            // Each element in `args` is always null-terminated.
             std::function<void(ArgSpan args)> func;
         };
 

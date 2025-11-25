@@ -176,6 +176,23 @@ namespace mrbind::CInterop
             // Even static member functions have this set to true, those have fake `this` parameters that are only used to prov
             (bool)(is_this_param, false)
         )
+
+        // Compares types for equality, and all the things that could affect the corresponding generated type in generated code.
+        [[nodiscard]] bool SameTypeAndModifiers(const FuncParam &other) const
+        {
+            auto Tie = [](const FuncParam &target)
+            {
+                return std::tie(
+                    target.cpp_type,
+                    target.uses_sugar,
+                    target.is_array_pointer,
+                    target.default_arg_affects_parameter_passing
+                    // Intentionally skipping `is_this_param`, it's more convenient this way in C#.
+                );
+            };
+
+            return Tie(*this) == Tie(other);
+        }
     };
 
     // Describes the return type and related properties of a free function or a method.
@@ -296,6 +313,9 @@ namespace mrbind::CInterop
 
                 // Is this the combined copy/move assignment? We only emit copy/move assignments in this combined form.
                 (bool)(is_copying_assignment, false)
+
+                // Is this a post increment or decrement?
+                (bool)(is_post_incr_or_decr, false)
             )
         };
 
@@ -488,20 +508,6 @@ namespace mrbind::CInterop
                 (bool)(is_polymorphic, false)
             )
         };
-
-        // A non-owning pointer.
-        struct PointerNonOwning
-        {
-            static constexpr std::string_view name_in_variant = "pointer_non_owning";
-            MBREFL_STRUCT()
-        };
-
-        // A non-owning pointer.
-        struct ReferenceNonOwning
-        {
-            static constexpr std::string_view name_in_variant = "reference_non_owning";
-            MBREFL_STRUCT()
-        };
     }
 
     using TypeKindVar = std::variant<
@@ -511,9 +517,7 @@ namespace mrbind::CInterop
         TypeKinds::EmptyTagPtr,
         TypeKinds::Arithmetic,
         TypeKinds::Enum,
-        TypeKinds::Class,
-        TypeKinds::PointerNonOwning,
-        TypeKinds::ReferenceNonOwning
+        TypeKinds::Class
     >;
 
     struct TypeDesc

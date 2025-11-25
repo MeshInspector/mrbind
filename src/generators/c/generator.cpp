@@ -935,23 +935,16 @@ namespace mrbind::CBindings
                 {
                     cppdecl::Type type_copy = type;
 
-                    do
-                    {
-                        type_copy.RemoveModifier();
+                    // Remove all modifiers at the same time. We don't need intermediate pointers and references, since those are emitted to the JSON anyway.
+                    type_copy.modifiers.clear();
 
-                        // Also drop arrays, since for `FindBindableType()` arrays are hard errors.
-                        while (type_copy.Is<cppdecl::Array>())
-                            type_copy.RemoveModifier();
+                    // Remove `const` at the same time, since `FindBindableType()` considers top-level const types an internal error.
+                    type_copy.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
-                        // Remove `const` at the same time, since `FindBindableType()` considers top-level const types an internal error.
-                        type_copy.RemoveQualifiers(cppdecl::CvQualifiers::const_);
-
-                        // Not sure if propagating `remove_sugar` makes sense here, so I won't by default. It'll probably never matter.
-                        // This is opt because we have types that are not bindable directly, e.g. `std::istream`,`std::ostream`.
-                        //   I could come up with a fancy way of rejecting them here, but it's easier to ignore the errors.
-                        (void)FindBindableTypeOpt(type_copy);
-                    }
-                    while (type_copy.Is<cppdecl::Pointer>() || type_copy.Is<cppdecl::Reference>());
+                    // Not sure if propagating `remove_sugar` makes sense here, so I won't by default. It'll probably never matter.
+                    // This is opt because we have types that are not bindable directly, e.g. `std::istream`,`std::ostream`.
+                    //   I could come up with a fancy way of rejecting them here, but it's easier to ignore the errors.
+                    (void)FindBindableTypeOpt(type_copy);
                 }
 
                 return InsertNewType(*opt);
@@ -1820,7 +1813,7 @@ namespace mrbind::CBindings
             name.c = self.overloaded_names.at(&new_method).name;
 
             if (new_method.IsOverloadedOperator())
-                name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = std::string(new_method.GetOverloadedOperatorToken())};
+                name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = std::string(new_method.GetOverloadedOperatorToken()), .is_post_incr_or_decr = new_method.IsPostIncrOrDecr()};
             else
                 name.cpp_for_interop = CInterop::MethodKinds::Regular{.name = new_method.name, .full_name = new_method.full_name};
         }
@@ -4421,14 +4414,24 @@ namespace mrbind::CBindings
         {
             try
             {
-                // It's tempting to filter out pointers and references from this, but it's not so simple.
+                // It's tempting to filter out ALL pointers and references from this, but it's not so simple.
                 // We can't filter e.g. `std::monostate *` because that maps to `bool` in return types, and you wouldn't know this
                 //   if we didn't emit an entry for it.
+                // The pointers and references that don't have any custom meaning are marked as `TypeKinds::Invalid`, so we only filter out those.
                 for (const auto &cpp_name : bindable_cpp_types.Vec())
                 {
                     try
                     {
                         const BindableType &input_type = bindable_cpp_types.Map().at(cpp_name);
+
+                        // Skip pointers and references with no special meaning (see above). Those have their kind set to `TypeKinds::Invalid`.
+                        if (std::holds_alternative<CInterop::TypeKinds::Invalid>(input_type.interop_info))
+                        {
+                            cppdecl::Type cpp_type = ParseTypeOrThrow(cpp_name);
+                            if (cpp_type.Is<cppdecl::Pointer>() || cpp_type.Is<cppdecl::Reference>())
+                                continue;
+                        }
+
                         CInterop::TypeDesc &new_type = output_desc->cpp_types.TryEmplace(cpp_name).first;
 
                         { // Dump the traits.
