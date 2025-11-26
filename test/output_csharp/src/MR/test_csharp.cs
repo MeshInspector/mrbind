@@ -4017,6 +4017,398 @@ public static partial class MR
                 }
             }
 
+            // The operator is injected correctly.
+            /// Generated from class `MR::CSharp::StaticOpsLhsA`.
+            /// This is the const half of the class.
+            public class ConstStaticOpsLhsA : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstStaticOpsLhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StaticOpsLhsA_Destroy(_Underlying *_this);
+                    __MR_CSharp_StaticOpsLhsA_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstStaticOpsLhsA() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstStaticOpsLhsA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsA._Underlying *__MR_CSharp_StaticOpsLhsA_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsA::StaticOpsLhsA`.
+                public unsafe ConstStaticOpsLhsA(MR.CS.CSharp.ConstStaticOpsLhsA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsA._Underlying *__MR_CSharp_StaticOpsLhsA_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator+`.
+                public static unsafe int operator+(MR.CS.CSharp.ConstStaticOpsLhsA _1, int _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsA_int", ExactSpelling = true)]
+                    extern static int __MR_C_add_MR_CSharp_StaticOpsLhsA_int(MR.CS.CSharp.ConstStaticOpsLhsA._Underlying *_1, int _2);
+                    return __MR_C_add_MR_CSharp_StaticOpsLhsA_int(_1._UnderlyingPtr, _2);
+                }
+            }
+
+            // The operator is injected correctly.
+            /// Generated from class `MR::CSharp::StaticOpsLhsA`.
+            /// This is the non-const half of the class.
+            public class StaticOpsLhsA : ConstStaticOpsLhsA
+            {
+                internal unsafe StaticOpsLhsA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StaticOpsLhsA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsA._Underlying *__MR_CSharp_StaticOpsLhsA_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsA::StaticOpsLhsA`.
+                public unsafe StaticOpsLhsA(MR.CS.CSharp.ConstStaticOpsLhsA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsA._Underlying *__MR_CSharp_StaticOpsLhsA_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StaticOpsLhsA::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsLhsA Assign(MR.CS.CSharp.ConstStaticOpsLhsA _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsLhsA._Underlying *__MR_CSharp_StaticOpsLhsA_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsA._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsLhsA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            // The operator injects but becomes a function, because it returns void.
+            /// Generated from class `MR::CSharp::StaticOpsLhsB`.
+            /// This is the const half of the class.
+            public class ConstStaticOpsLhsB : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstStaticOpsLhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StaticOpsLhsB_Destroy(_Underlying *_this);
+                    __MR_CSharp_StaticOpsLhsB_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstStaticOpsLhsB() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstStaticOpsLhsB() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsB._Underlying *__MR_CSharp_StaticOpsLhsB_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsB::StaticOpsLhsB`.
+                public unsafe ConstStaticOpsLhsB(MR.CS.CSharp.ConstStaticOpsLhsB _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsB._Underlying *__MR_CSharp_StaticOpsLhsB_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator+`.
+                public unsafe void Add(int _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsB_int", ExactSpelling = true)]
+                    extern static void __MR_C_add_MR_CSharp_StaticOpsLhsB_int(_Underlying *_1, int _2);
+                    __MR_C_add_MR_CSharp_StaticOpsLhsB_int(_UnderlyingPtr, _2);
+                }
+            }
+
+            // The operator injects but becomes a function, because it returns void.
+            /// Generated from class `MR::CSharp::StaticOpsLhsB`.
+            /// This is the non-const half of the class.
+            public class StaticOpsLhsB : ConstStaticOpsLhsB
+            {
+                internal unsafe StaticOpsLhsB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StaticOpsLhsB() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsB._Underlying *__MR_CSharp_StaticOpsLhsB_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsB::StaticOpsLhsB`.
+                public unsafe StaticOpsLhsB(MR.CS.CSharp.ConstStaticOpsLhsB _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsB._Underlying *__MR_CSharp_StaticOpsLhsB_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StaticOpsLhsB::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsLhsB Assign(MR.CS.CSharp.ConstStaticOpsLhsB _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsLhsB._Underlying *__MR_CSharp_StaticOpsLhsB_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsB._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsLhsB_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            // The operator fails to inject because the class isn't copyable, and the operator takes it by value.
+            /// Generated from class `MR::CSharp::StaticOpsLhsC`.
+            /// This is the const half of the class.
+            public class ConstStaticOpsLhsC : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstStaticOpsLhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StaticOpsLhsC_Destroy(_Underlying *_this);
+                    __MR_CSharp_StaticOpsLhsC_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstStaticOpsLhsC() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstStaticOpsLhsC() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsC._Underlying *__MR_CSharp_StaticOpsLhsC_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsC_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsC::StaticOpsLhsC`.
+                public unsafe ConstStaticOpsLhsC(MR.CS.CSharp.ConstStaticOpsLhsC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsC._Underlying *__MR_CSharp_StaticOpsLhsC_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsC_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // The operator fails to inject because the class isn't copyable, and the operator takes it by value.
+            /// Generated from class `MR::CSharp::StaticOpsLhsC`.
+            /// This is the non-const half of the class.
+            public class StaticOpsLhsC : ConstStaticOpsLhsC
+            {
+                internal unsafe StaticOpsLhsC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StaticOpsLhsC() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsC._Underlying *__MR_CSharp_StaticOpsLhsC_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsC_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsC::StaticOpsLhsC`.
+                public unsafe StaticOpsLhsC(MR.CS.CSharp.ConstStaticOpsLhsC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsC._Underlying *__MR_CSharp_StaticOpsLhsC_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsC_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StaticOpsLhsC::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsLhsC Assign(MR.CS.CSharp.ConstStaticOpsLhsC _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsLhsC._Underlying *__MR_CSharp_StaticOpsLhsC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsC._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsLhsC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+            /// Generated from class `MR::CSharp::StaticOpsLhsD`.
+            /// This is the const half of the class.
+            public class ConstStaticOpsLhsD : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstStaticOpsLhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StaticOpsLhsD_Destroy(_Underlying *_this);
+                    __MR_CSharp_StaticOpsLhsD_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstStaticOpsLhsD() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstStaticOpsLhsD() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsD._Underlying *__MR_CSharp_StaticOpsLhsD_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsD::StaticOpsLhsD`.
+                public unsafe ConstStaticOpsLhsD(MR.CS.CSharp.ConstStaticOpsLhsD _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsD._Underlying *__MR_CSharp_StaticOpsLhsD_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsD._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+            /// Generated from class `MR::CSharp::StaticOpsLhsD`.
+            /// This is the non-const half of the class.
+            public class StaticOpsLhsD : ConstStaticOpsLhsD
+            {
+                internal unsafe StaticOpsLhsD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StaticOpsLhsD() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsD._Underlying *__MR_CSharp_StaticOpsLhsD_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsD::StaticOpsLhsD`.
+                public unsafe StaticOpsLhsD(MR.CS.CSharp.ConstStaticOpsLhsD _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsD._Underlying *__MR_CSharp_StaticOpsLhsD_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsD._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StaticOpsLhsD::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsLhsD Assign(MR.CS.CSharp.ConstStaticOpsLhsD _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsLhsD._Underlying *__MR_CSharp_StaticOpsLhsD_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsD._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsLhsD_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from function `MR::CSharp::operator+`.
+                public static unsafe int operator+(MR.CS.CSharp.StaticOpsLhsD _1, int _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsD_int", ExactSpelling = true)]
+                    extern static int __MR_C_add_MR_CSharp_StaticOpsLhsD_int(MR.CS.CSharp.StaticOpsLhsD._Underlying *_1, int _2);
+                    return __MR_C_add_MR_CSharp_StaticOpsLhsD_int(_1._UnderlyingPtr, _2);
+                }
+            }
+
+            // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+            /// Generated from class `MR::CSharp::StaticOpsLhsE`.
+            /// This is the const half of the class.
+            public class ConstStaticOpsLhsE : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstStaticOpsLhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StaticOpsLhsE_Destroy(_Underlying *_this);
+                    __MR_CSharp_StaticOpsLhsE_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstStaticOpsLhsE() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstStaticOpsLhsE() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsE._Underlying *__MR_CSharp_StaticOpsLhsE_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsE_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsE::StaticOpsLhsE`.
+                public unsafe ConstStaticOpsLhsE(MR.CS.CSharp.ConstStaticOpsLhsE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsE._Underlying *__MR_CSharp_StaticOpsLhsE_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsE_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator+`.
+                public static unsafe int operator+(MR.CS.CSharp.ConstStaticOpsLhsE _1, int _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsE_int", ExactSpelling = true)]
+                    extern static int __MR_C_add_MR_CSharp_StaticOpsLhsE_int(MR.CS.CSharp.ConstStaticOpsLhsE._Underlying *_1, int _2);
+                    return __MR_C_add_MR_CSharp_StaticOpsLhsE_int(_1._UnderlyingPtr, _2);
+                }
+            }
+
+            // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+            /// Generated from class `MR::CSharp::StaticOpsLhsE`.
+            /// This is the non-const half of the class.
+            public class StaticOpsLhsE : ConstStaticOpsLhsE
+            {
+                internal unsafe StaticOpsLhsE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StaticOpsLhsE() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsE._Underlying *__MR_CSharp_StaticOpsLhsE_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsE_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsE::StaticOpsLhsE`.
+                public unsafe StaticOpsLhsE(MR.CS.CSharp.ConstStaticOpsLhsE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstStaticOpsLhsE._Underlying *__MR_CSharp_StaticOpsLhsE_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StaticOpsLhsE_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StaticOpsLhsE::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsLhsE Assign(MR.CS.CSharp.ConstStaticOpsLhsE _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsLhsE._Underlying *__MR_CSharp_StaticOpsLhsE_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsE._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsLhsE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
             /// Generated from class `MR::CSharp::TestOpsA`.
             /// This is the const half of the class.
             public class ConstTestOpsA : MR.CS.Misc.Object, System.IDisposable
@@ -5754,6 +6146,14 @@ public static partial class MR
                 MR.CS.Std.Filesystem.ConstPath._Underlying *__ptr_b = b is not null && b.Opt is not null ? b.Opt._UnderlyingPtr : null;
                 var __ret = __MR_CSharp_test_fspath_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? &__ptr_b : null);
                 return __ret is not null ? new MR.CS.Std.Filesystem.ConstPath(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::operator+`.
+            public static unsafe int Add(MR.CS.CSharp.ConstStaticOpsLhsC _1, int _2)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsC_int", ExactSpelling = true)]
+                extern static int __MR_C_add_MR_CSharp_StaticOpsLhsC_int(MR.CS.CSharp.StaticOpsLhsC._Underlying *_1, int _2);
+                return __MR_C_add_MR_CSharp_StaticOpsLhsC_int(_1._UnderlyingPtr, _2);
             }
         }
     }

@@ -386,6 +386,44 @@ namespace MR::CSharp
     };
 
 
+    // Free function operators getting injected into the lhs type:
+
+    // The operator is injected correctly.
+    struct StaticOpsLhsA {};
+    inline int operator+(StaticOpsLhsA, int) {return 42;}
+
+    // The operator injects but becomes a function, because it returns void.
+    struct StaticOpsLhsB {};
+    inline void operator+(StaticOpsLhsB, int) {}
+
+    // The operator fails to inject because the class isn't copyable, and the operator takes it by value.
+    struct StaticOpsLhsC
+    {
+        StaticOpsLhsC() = default;
+        StaticOpsLhsC(StaticOpsLhsC &&) = default;
+        StaticOpsLhsC &operator=(StaticOpsLhsC &&) = default;
+    };
+    inline int operator+(StaticOpsLhsC, int) {return 42;}
+
+    // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+    struct StaticOpsLhsD
+    {
+        StaticOpsLhsD() = default;
+        StaticOpsLhsD(StaticOpsLhsD &&) = default;
+        StaticOpsLhsD &operator=(StaticOpsLhsD &&) = default;
+    };
+    inline int operator+(StaticOpsLhsD &, int) {return 42;}
+
+    // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+    struct StaticOpsLhsE
+    {
+        StaticOpsLhsE() = default;
+        StaticOpsLhsE(StaticOpsLhsE &&) = default;
+        StaticOpsLhsE &operator=(StaticOpsLhsE &&) = default;
+    };
+    inline int operator+(const StaticOpsLhsE &, int) {return 42;}
+
+
     // Test some generic operators.
     #define MBTEST_MAKE_TEST_OPS_CLASS(name_, ret_, ret_expr_, param_, .../*extras_*/) \
         struct name_ \

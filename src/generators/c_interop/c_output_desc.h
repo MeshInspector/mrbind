@@ -237,6 +237,11 @@ namespace mrbind::CInterop
             MBREFL_STRUCT(
                 // Which operator this is.
                 (std::string)(token)
+
+                // The function name with all qualifiers, should end with `operator` followed by a token.
+                (std::string)(name)
+                // The function name with all qualifiers and with template arguments, if any. Otherwise equal to `name`.
+                (std::string)(full_name)
             )
         };
     }

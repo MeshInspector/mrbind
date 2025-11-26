@@ -1727,6 +1727,7 @@ namespace mrbind::CSharp
 
                 // The operator tokens aren't handled by `CppStringToCsharpIdentifier()`, so we have to manually call `cppdecl::TokenToIdentifier()` here.
                 // It's the same as `cppdecl::ToString(..., identifier)`, but minus the `operator` prefix that we'd have to add and then remove back.
+                // Sync this logic with how `Generate()` determines the names of free operator functions.
 
                 // But those doesn't give good names for unary `*` and `&`, so we have to handle that first.
                 if (method.params.size() == 1)
@@ -2925,44 +2926,58 @@ namespace mrbind::CSharp
         }
 
         { // Rewrite operators in `c_desc` into a suitable shape.
-            // First of all C# requires all operators to be static. For operators that are class members this is as simple as making them `static`
-            //   with no other changes.
-            // Operators that are free functions (including `friend` definitions) must be made static and moved to a class corresponding to one of their parameters.
+            // Rewrite operators that are free functions into non-static class members if possible (moving them into the type of the first argument),
+            //   or make them static class members of the type of the second operand.
 
-            for (auto type_iter = c_desc.cpp_types.MutableMapBegin(); type_iter != c_desc.cpp_types.MutableMapEnd(); ++type_iter)
+            std::unordered_set<const CInterop::Function *> funcs_to_erase;
+            for (CInterop::Function &func : c_desc.functions)
             {
-                CInterop::TypeDesc &type_desc = type_iter->second;
-
-                auto *cl = std::get_if<CInterop::TypeKinds::Class>(&type_desc.var);
-                if (!cl)
+                if (!std::holds_alternative<CInterop::FuncKinds::Operator>(func.var))
                     continue;
 
-                // for (auto &method : cl->methods)
-                // {
-                //     auto *op = std::get_if<CInterop::MethodKinds::Operator>(&method.var);
-                //     if (!op)
-                //         continue;
+                assert(!func.params.empty());
+                if (func.params.empty())
+                    continue; // This shouldn't happen.
 
-                //     if (!IsOverloadableOperator(&method))
-                //         continue; // This binds as a regular function, no point in rewriting it.
+                { // Try the first parameter.
+                    cppdecl::Type param_type = ParseTypeOrThrow(func.params.front().cpp_type);
+                    cppdecl::Type param_type_unqual = param_type;
+                    if (param_type_unqual.Is<cppdecl::Reference>())
+                        param_type_unqual.RemoveModifier();
+                    param_type_unqual.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
-                //     if (method.is_static)
-                //         throw std::logic_error("While rewriting operator `" + method.c_name + "`: Expected it to not be `static`, but it already is.");
-                //     if (method.params.empty() || !method.params.front().is_this_param)
-                //         throw std::logic_error("While rewriting operator `" + method.c_name + "`: Expected it to have a `this` parameter, but it doesn't have one.");
+                    auto iter = c_desc.cpp_types.FindMutable(CppdeclToCode(param_type_unqual));
+                    if (iter != c_desc.cpp_types.Map().end())
+                    {
+                        if (auto *cl = std::get_if<CInterop::TypeKinds::Class>(&iter->second.var))
+                        {
+                            if (param_type.Is<cppdecl::Reference>() || iter->second.traits.value().is_copy_constructible)
+                            {
+                                CInterop::ClassMethod new_method;
+                                new_method.BasicFuncLike::operator=(std::move(func));
+                                new_method.params.front().is_this_param = true;
 
-                //     method.is_static = true;
-                //     method.params.insert(method.params.begin(), method.params.front()); // Duplicate first parameter.
-                //     method.params.at(1).is_this_param = false;
+                                if (!param_type.Is<cppdecl::Reference>())
+                                {
+                                    param_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+                                    param_type.AddModifier(cppdecl::Reference{});
+                                    new_method.params.front().cpp_type = CppdeclToCode(param_type);
+                                }
 
-                //     // Remove constness and reference from the `this` parameter type.
-                //     cppdecl::Type new_type = ParseTypeOrThrow(method.params.front().cpp_type);
-                //     if (new_type.Is<cppdecl::Reference>())
-                //         new_type.RemoveModifier();
-                //     new_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
-                //     method.params.front().cpp_type = CppdeclToCode(new_type);
-                // }
+                                auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();
+                                new_op.token = std::move(std::get<CInterop::FuncKinds::Operator>(func.var).token);
+
+                                cl->methods.push_back(std::move(new_method));
+
+                                funcs_to_erase.insert(&func);
+                                continue;
+                            }
+                        }
+                    }
+                }
             }
+
+            std::erase_if(c_desc.functions, [&](const CInterop::Function &func){return funcs_to_erase.contains(&func);});
         }
 
         // Emit types.
@@ -3006,14 +3021,31 @@ namespace mrbind::CSharp
         for (const CInterop::Function &free_func : c_desc.functions)
         {
             OutputFile &file = GetOutputFile(free_func.output_file);
-            const auto &regular_func_desc = std::get<CInterop::FuncKinds::Regular>(free_func.var);
 
-            // Open the namespace.
-            cppdecl::QualifiedName qual_name = ParseNameOrThrow(regular_func_desc.name);
-            assert(!qual_name.parts.empty());
-            file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
+            // At this point, if `free_func` is an overloaded operator (a free function operator that wasn't adjusted to a member one earlier in `Generate()`),
+            //   then we can't bind it as an operator
 
-            FuncLikeEmitter(*this, &free_func, CppToCsharpIdentifier(qual_name.parts.back())).Emit(file);
+            std::string unqual_csharp_name;
+            std::visit(
+                [&]<typename T>(const T &elem)
+                {
+                    cppdecl::QualifiedName qual_name = ParseNameOrThrow(elem.name);
+                    assert(!qual_name.parts.empty());
+
+                    // Open the namespace.
+                    file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
+
+                    // Since `CppToCsharpIdentifier()` doesn't handle operator names, we need to special-case this.
+                    // Sync this logic for operators with `MakeUnqualCSharpMethodName()`.
+                    if constexpr (std::is_same_v<T, CInterop::FuncKinds::Operator>)
+                        unqual_csharp_name = CppStringToCsharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
+                    else
+                        unqual_csharp_name = CppToCsharpIdentifier(qual_name.parts.back());
+                },
+                free_func.var
+            );
+
+            FuncLikeEmitter(*this, &free_func, unqual_csharp_name).Emit(file);
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.
