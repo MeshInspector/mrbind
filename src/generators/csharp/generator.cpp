@@ -1302,9 +1302,9 @@ namespace mrbind::CSharp
                     param_binding = generator.GetParameterBinding(fake_param, false);
                     param_binding.strings.dllimport_args = "_this_copy._UnderlyingPtr"; // This better work.
                 }
-                else if (is_overloaded_op && &param == &func_like.params.at(0))
+                else if (is_overloaded_op && !method->is_static && &param == &func_like.params.at(0))
                 {
-                    // For overloaded operators that are artifically `static`, patch the `this` parameter to look like a normal parameter.
+                    // For overloaded operators that we artifically make `static`, patch the `this` parameter to look like a normal parameter.
 
                     CInterop::FuncParam fake_param = param;
                     // Pretend this isn't a `this` parameter.
@@ -2976,6 +2976,54 @@ namespace mrbind::CSharp
                                     param_type.AddQualifiers(cppdecl::CvQualifiers::const_ * !iter->second.traits.value().copy_constructor_takes_nonconst_ref);
                                     param_type.AddModifier(cppdecl::Reference{});
                                     new_method.params.front().cpp_type = CppdeclToCode(param_type);
+                                }
+
+                                auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();
+                                new_op.token = std::move(std::get<CInterop::FuncKinds::Operator>(func.var).token);
+
+                                cl->methods.push_back(std::move(new_method));
+
+                                funcs_to_erase.insert(&func);
+                                continue;
+                            }
+                        }
+                    }
+                }
+
+                // Try the second parameter.
+                if (func.params.size() >= 2)
+                {
+                    cppdecl::Type param_type = ParseTypeOrThrow(func.params.at(1).cpp_type);
+                    cppdecl::Type param_type_unqual = param_type;
+                    if (param_type_unqual.Is<cppdecl::Reference>())
+                        param_type_unqual.RemoveModifier();
+                    param_type_unqual.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                    auto iter = c_desc.cpp_types.FindMutable(CppdeclToCode(param_type_unqual));
+                    if (iter != c_desc.cpp_types.Map().end())
+                    {
+                        if (auto *cl = std::get_if<CInterop::TypeKinds::Class>(&iter->second.var))
+                        {
+                            if (param_type.Is<cppdecl::Reference>() || iter->second.traits.value().is_copy_constructible)
+                            {
+                                CInterop::ClassMethod new_method;
+                                new_method.BasicFuncLike::operator=(std::move(func));
+
+                                // This one must be explicitly `static` (as opposed to the first parameter rewrite, which is being made
+                                //   static implicitly by `FuncLikeEmitter`), since the parameter of our class type isn't the first one.
+                                new_method.is_static = true;
+
+                                // Add a static `this` parameter.
+                                CInterop::FuncParam &new_this_param = *new_method.params.emplace(new_method.params.begin());
+                                new_this_param.is_this_param = true;
+                                new_this_param.cpp_type = CppdeclToCode(param_type_unqual);
+
+                                // Adjust the second parameter to a reference, to match the enclosing class type.
+                                if (!param_type.Is<cppdecl::Reference>())
+                                {
+                                    param_type.AddQualifiers(cppdecl::CvQualifiers::const_ * !iter->second.traits.value().copy_constructor_takes_nonconst_ref);
+                                    param_type.AddModifier(cppdecl::Reference{});
+                                    new_method.params.at(2).cpp_type = CppdeclToCode(param_type);
                                 }
 
                                 auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();

@@ -468,6 +468,83 @@ namespace MR::CSharp
     inline int operator+(const StaticOpsLhsG &, int) {return 42;}
 
 
+    // Free function operators getting injected into the rhs type:
+
+    // The operator is injected correctly.
+    struct StaticOpsRhsA {};
+    inline int operator+(int, StaticOpsRhsA) {return 42;}
+
+    // The operator injects but becomes a function, because it returns void.
+    struct StaticOpsRhsB {};
+    inline void operator+(int, StaticOpsRhsB) {}
+
+    // The operator fails to inject because the class isn't copyable, and the operator takes it by value.
+    struct StaticOpsRhsC
+    {
+        StaticOpsRhsC() = default;
+        StaticOpsRhsC(StaticOpsRhsC &&) = default;
+        StaticOpsRhsC &operator=(StaticOpsRhsC &&) = default;
+    };
+    inline int operator+(int, StaticOpsRhsC) {return 42;}
+
+    // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+    struct StaticOpsRhsD
+    {
+        StaticOpsRhsD() = default;
+        StaticOpsRhsD(StaticOpsRhsD &&) = default;
+        StaticOpsRhsD &operator=(StaticOpsRhsD &&) = default;
+    };
+    inline int operator+(int, StaticOpsRhsD &) {return 42;}
+
+    // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+    struct StaticOpsRhsE
+    {
+        StaticOpsRhsE() = default;
+        StaticOpsRhsE(StaticOpsRhsE &&) = default;
+        StaticOpsRhsE &operator=(StaticOpsRhsE &&) = default;
+    };
+    inline int operator+(int, const StaticOpsRhsE &) {return 42;}
+
+    // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+    struct StaticOpsRhsF
+    {
+        StaticOpsRhsF() = default;
+        StaticOpsRhsF(StaticOpsRhsF &) = default;
+    };
+    inline int operator+(int, StaticOpsRhsF) {return 42;}
+
+    // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
+    //   so the operator gets injected into the const half.
+    struct StaticOpsRhsG
+    {
+        StaticOpsRhsG() = default;
+        StaticOpsRhsG(StaticOpsRhsG &) = default;
+    };
+    inline int operator+(int, const StaticOpsRhsG &) {return 42;}
+
+
+    // Other injection cases:
+
+    enum class StaticOpsEnum {};
+    // Fails to inject, becomes a free function.
+    inline int operator+(StaticOpsEnum, int) {return 42;}
+
+
+    struct StaticOpsMixedLhs {};
+    struct StaticOpsMixedRhs {};
+    // Gets injected into the lhs by default.
+    inline int operator+(StaticOpsMixedLhs, StaticOpsMixedRhs) {return 42;}
+
+
+    // Other operators:
+
+    // Test the call operator, since it can have an unusual amount of arguments.
+    // Not testing `[]` here to be able to run the tests on older C++.
+    struct CallOp
+    {
+        void operator()() {}
+        int operator()(int, int, int) {return 42;}
+    };
 
 
     // Test some generic operators.
