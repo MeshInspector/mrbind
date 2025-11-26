@@ -2715,7 +2715,8 @@ public static partial class MR
                 }
             }
 
-            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+            // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
+            // The non-static ones are not marked const, so they're also in the non-const half.
             /// Generated from class `MR::CSharp::IncrDecrC`.
             /// This is the const half of the class.
             public class ConstIncrDecrC : MR.CS.Misc.Object, System.IDisposable
@@ -2755,7 +2756,8 @@ public static partial class MR
                 }
             }
 
-            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+            // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
+            // The non-static ones are not marked const, so they're also in the non-const half.
             /// Generated from class `MR::CSharp::IncrDecrC`.
             /// This is the non-const half of the class.
             public class IncrDecrC : ConstIncrDecrC
@@ -2778,20 +2780,22 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
-                /// Generated from method `MR::CSharp::IncrDecrC::operator=`.
-                public unsafe MR.CS.CSharp.IncrDecrC Assign(MR.CS.CSharp.ConstIncrDecrC _other)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrC_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_CSharp_IncrDecrC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IncrDecrC._Underlying *_other);
-                    return new(__MR_CSharp_IncrDecrC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
-                }
-
                 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
                 public unsafe void Incr(MR.CS.CSharp.IncrDecrC _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_incr_MR_CSharp_IncrDecrC(MR.CS.CSharp.IncrDecrC._Underlying *_this);
                     MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrC(_this._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
+                public static unsafe IncrDecrC operator++(MR.CS.CSharp.IncrDecrC _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_incr_MR_CSharp_IncrDecrC(MR.CS.CSharp.IncrDecrC._Underlying *_this);
+                    IncrDecrC _this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrC(_this_copy._UnderlyingPtr), is_owning: false);
+                    return _this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrC::operator--`.
@@ -2801,9 +2805,20 @@ public static partial class MR
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_decr_MR_CSharp_IncrDecrC(MR.CS.CSharp.IncrDecrC._Underlying *_this);
                     MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(_this._UnderlyingPtr), is_owning: false);
                 }
+
+                /// Generated from method `MR::CSharp::IncrDecrC::operator--`.
+                public static unsafe IncrDecrC operator--(MR.CS.CSharp.IncrDecrC _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_decr_MR_CSharp_IncrDecrC(MR.CS.CSharp.IncrDecrC._Underlying *_this);
+                    IncrDecrC _this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(_this_copy._UnderlyingPtr), is_owning: false);
+                    return _this_copy;
+                }
             }
 
-            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+            // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
+            // The non-static ones are in the const half due to being marked const.
             /// Generated from class `MR::CSharp::IncrDecrD`.
             /// This is the const half of the class.
             public class ConstIncrDecrD : MR.CS.Misc.Object, System.IDisposable
@@ -2859,7 +2874,8 @@ public static partial class MR
                 }
             }
 
-            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+            // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
+            // The non-static ones are in the const half due to being marked const.
             /// Generated from class `MR::CSharp::IncrDecrD`.
             /// This is the non-const half of the class.
             public class IncrDecrD : ConstIncrDecrD
@@ -2882,12 +2898,200 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
-                /// Generated from method `MR::CSharp::IncrDecrD::operator=`.
-                public unsafe MR.CS.CSharp.IncrDecrD Assign(MR.CS.CSharp.ConstIncrDecrD _other)
+                /// Generated from method `MR::CSharp::IncrDecrD::operator++`.
+                public static unsafe IncrDecrD operator++(MR.CS.CSharp.IncrDecrD _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.IncrDecrD._Underlying *__MR_CSharp_IncrDecrD_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IncrDecrD._Underlying *_other);
-                    return new(__MR_CSharp_IncrDecrD_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrD._Underlying *__MR_C_incr_MR_CSharp_IncrDecrD(MR.CS.CSharp.IncrDecrD._Underlying *_this);
+                    IncrDecrD _this_copy = new(_this);
+                    MR.CS.CSharp.ConstIncrDecrD _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrD(_this_copy._UnderlyingPtr), is_owning: false);
+                    return _this_copy;
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrD::operator--`.
+                public static unsafe IncrDecrD operator--(MR.CS.CSharp.IncrDecrD _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrD._Underlying *__MR_C_decr_MR_CSharp_IncrDecrD(MR.CS.CSharp.IncrDecrD._Underlying *_this);
+                    IncrDecrD _this_copy = new(_this);
+                    MR.CS.CSharp.ConstIncrDecrD _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrD(_this_copy._UnderlyingPtr), is_owning: false);
+                    return _this_copy;
+                }
+            }
+
+            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+            /// Generated from class `MR::CSharp::IncrDecrE`.
+            /// This is the const half of the class.
+            public class ConstIncrDecrE : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstIncrDecrE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IncrDecrE_Destroy(_Underlying *_this);
+                    __MR_CSharp_IncrDecrE_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstIncrDecrE() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstIncrDecrE() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrE._Underlying *__MR_CSharp_IncrDecrE_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrE_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IncrDecrE::IncrDecrE`.
+                public unsafe ConstIncrDecrE(MR.CS.CSharp.ConstIncrDecrE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrE._Underlying *__MR_CSharp_IncrDecrE_ConstructFromAnother(MR.CS.CSharp.IncrDecrE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrE_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+            /// Generated from class `MR::CSharp::IncrDecrE`.
+            /// This is the non-const half of the class.
+            public class IncrDecrE : ConstIncrDecrE
+            {
+                internal unsafe IncrDecrE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe IncrDecrE() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrE._Underlying *__MR_CSharp_IncrDecrE_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrE_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IncrDecrE::IncrDecrE`.
+                public unsafe IncrDecrE(MR.CS.CSharp.ConstIncrDecrE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrE._Underlying *__MR_CSharp_IncrDecrE_ConstructFromAnother(MR.CS.CSharp.IncrDecrE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrE_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrE::operator=`.
+                public unsafe MR.CS.CSharp.IncrDecrE Assign(MR.CS.CSharp.ConstIncrDecrE _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_CSharp_IncrDecrE_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IncrDecrE._Underlying *_other);
+                    return new(__MR_CSharp_IncrDecrE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrE::operator++`.
+                public unsafe void Incr(MR.CS.CSharp.IncrDecrE _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_C_incr_MR_CSharp_IncrDecrE(MR.CS.CSharp.IncrDecrE._Underlying *_this);
+                    MR.CS.CSharp.IncrDecrE _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrE(_this._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrE::operator--`.
+                public unsafe void Decr(MR.CS.CSharp.IncrDecrE _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_C_decr_MR_CSharp_IncrDecrE(MR.CS.CSharp.IncrDecrE._Underlying *_this);
+                    MR.CS.CSharp.IncrDecrE _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrE(_this._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+            /// Generated from class `MR::CSharp::IncrDecrF`.
+            /// This is the const half of the class.
+            public class ConstIncrDecrF : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstIncrDecrF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IncrDecrF_Destroy(_Underlying *_this);
+                    __MR_CSharp_IncrDecrF_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstIncrDecrF() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstIncrDecrF() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_CSharp_IncrDecrF_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrF_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IncrDecrF::IncrDecrF`.
+                public unsafe ConstIncrDecrF(MR.CS.CSharp.ConstIncrDecrF _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_CSharp_IncrDecrF_ConstructFromAnother(MR.CS.CSharp.IncrDecrF._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrF_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrF::operator++`.
+                public unsafe void Incr(MR.CS.CSharp.ConstIncrDecrF _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_C_incr_MR_CSharp_IncrDecrF(MR.CS.CSharp.ConstIncrDecrF._Underlying *_this);
+                    MR.CS.CSharp.ConstIncrDecrF _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrF(_this._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrF::operator--`.
+                public unsafe void Decr(MR.CS.CSharp.ConstIncrDecrF _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_C_decr_MR_CSharp_IncrDecrF(MR.CS.CSharp.ConstIncrDecrF._Underlying *_this);
+                    MR.CS.CSharp.ConstIncrDecrF _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrF(_this._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+            /// Generated from class `MR::CSharp::IncrDecrF`.
+            /// This is the non-const half of the class.
+            public class IncrDecrF : ConstIncrDecrF
+            {
+                internal unsafe IncrDecrF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe IncrDecrF() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_CSharp_IncrDecrF_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrF_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IncrDecrF::IncrDecrF`.
+                public unsafe IncrDecrF(MR.CS.CSharp.ConstIncrDecrF _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_CSharp_IncrDecrF_ConstructFromAnother(MR.CS.CSharp.IncrDecrF._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrF_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrF::operator=`.
+                public unsafe MR.CS.CSharp.IncrDecrF Assign(MR.CS.CSharp.ConstIncrDecrF _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrF._Underlying *__MR_CSharp_IncrDecrF_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IncrDecrF._Underlying *_other);
+                    return new(__MR_CSharp_IncrDecrF_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -4430,6 +4634,14 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~ConstTestOpsA() {Dispose(false);}
+
+                /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
+                public unsafe ConstTestOpsA(MR.CS.CSharp.ConstTestOpsA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestOpsA._Underlying *__MR_CSharp_TestOpsA_ConstructFromAnother(MR.CS.CSharp.TestOpsA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestOpsA_ConstructFromAnother(_other._UnderlyingPtr);
+                }
             }
 
             /// Generated from class `MR::CSharp::TestOpsA`.
@@ -4437,6 +4649,14 @@ public static partial class MR
             public class TestOpsA : ConstTestOpsA
             {
                 internal unsafe TestOpsA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
+                public unsafe TestOpsA(MR.CS.CSharp.ConstTestOpsA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestOpsA._Underlying *__MR_CSharp_TestOpsA_ConstructFromAnother(MR.CS.CSharp.TestOpsA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestOpsA_ConstructFromAnother(_other._UnderlyingPtr);
+                }
 
                 /// Generated from method `MR::CSharp::TestOpsA::operator=`.
                 public unsafe int Assign(MR.CS.CSharp.ConstTestOpsA _other)
@@ -4740,6 +4960,14 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~ConstTestOpsB() {Dispose(false);}
+
+                /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                public unsafe ConstTestOpsB(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestOpsB._Underlying *__MR_CSharp_TestOpsB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestOpsB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
             }
 
             /// Generated from class `MR::CSharp::TestOpsB`.
@@ -4747,6 +4975,14 @@ public static partial class MR
             public class TestOpsB : ConstTestOpsB
             {
                 internal unsafe TestOpsB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                public unsafe TestOpsB(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestOpsB._Underlying *__MR_CSharp_TestOpsB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestOpsB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator=`.
                 public unsafe int Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _other)
@@ -5050,6 +5286,14 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~ConstTestOpsC() {Dispose(false);}
+
+                /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
+                public unsafe ConstTestOpsC(MR.CS.CSharp.ConstTestOpsC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestOpsC._Underlying *__MR_CSharp_TestOpsC_ConstructFromAnother(MR.CS.CSharp.TestOpsC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestOpsC_ConstructFromAnother(_other._UnderlyingPtr);
+                }
             }
 
             /// Generated from class `MR::CSharp::TestOpsC`.
@@ -5057,6 +5301,14 @@ public static partial class MR
             public class TestOpsC : ConstTestOpsC
             {
                 internal unsafe TestOpsC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
+                public unsafe TestOpsC(MR.CS.CSharp.ConstTestOpsC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstTestOpsC._Underlying *__MR_CSharp_TestOpsC_ConstructFromAnother(MR.CS.CSharp.TestOpsC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestOpsC_ConstructFromAnother(_other._UnderlyingPtr);
+                }
 
                 /// Generated from method `MR::CSharp::TestOpsC::operator+`.
                 public unsafe void Add()

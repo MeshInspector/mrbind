@@ -266,29 +266,56 @@ namespace MR::CSharp
         IncrDecrB operator--(int) const {return *this;}
     };
 
-    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+    // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
+    // The non-static ones are not marked const, so they're also in the non-const half.
     struct IncrDecrC
     {
         IncrDecrC() = default;
-        IncrDecrC(IncrDecrC &&) = default;
-        IncrDecrC &operator=(IncrDecrC &&) = default;
+        IncrDecrC(IncrDecrC &) = default;
+
         IncrDecrC &operator++() {return *this;}
-        IncrDecrC operator++(int) {return {};}
+        IncrDecrC operator++(int) {return *this;}
         IncrDecrC &operator--() {return *this;}
-        IncrDecrC operator--(int) {return {};}
+        IncrDecrC operator--(int) {return *this;}
     };
 
-    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+    // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
+    // The non-static ones are in the const half due to being marked const.
     struct IncrDecrD
     {
         IncrDecrD() = default;
-        IncrDecrD(IncrDecrD &&) = default;
-        IncrDecrD &operator=(IncrDecrD &&) = default;
+        IncrDecrD(IncrDecrD &) = default;
+
         const IncrDecrD &operator++() const {return *this;}
         IncrDecrD operator++(int) const {return {};}
         const IncrDecrD &operator--() const {return *this;}
         IncrDecrD operator--(int) const {return {};}
     };
+
+    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+    struct IncrDecrE
+    {
+        IncrDecrE() = default;
+        IncrDecrE(IncrDecrE &&) = default;
+        IncrDecrE &operator=(IncrDecrE &&) = default;
+        IncrDecrE &operator++() {return *this;}
+        IncrDecrE operator++(int) {return {};}
+        IncrDecrE &operator--() {return *this;}
+        IncrDecrE operator--(int) {return {};}
+    };
+
+    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+    struct IncrDecrF
+    {
+        IncrDecrF() = default;
+        IncrDecrF(IncrDecrF &&) = default;
+        IncrDecrF &operator=(IncrDecrF &&) = default;
+        const IncrDecrF &operator++() const {return *this;}
+        IncrDecrF operator++(int) const {return {};}
+        const IncrDecrF &operator--() const {return *this;}
+        IncrDecrF operator--(int) const {return {};}
+    };
+
 
 
     // Test equality comparison.
