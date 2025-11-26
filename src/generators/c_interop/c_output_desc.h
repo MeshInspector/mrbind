@@ -119,7 +119,15 @@ namespace mrbind::CInterop
 
             // If true, the copy constructor has the form `T(T &)` instead of `T(const T &)`.
             (bool)(copy_constructor_takes_nonconst_ref, false)
+
         )
+
+        // This should be a subset (or match exactly) of the conditions where the C generator passes by-value parameters without the enum,
+        //   using just a pointer.
+        [[nodiscard]] bool IsCopyableOrTriviallyMovable() const
+        {
+            return is_copy_constructible || is_trivially_move_constructible;
+        }
 
         // This is used to tie together all member of this class, and the similarly named methods of `Generator::TypeTraits`.`
         static auto TieSimilarType(auto &&input)

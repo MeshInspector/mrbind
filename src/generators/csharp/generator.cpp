@@ -1260,14 +1260,13 @@ namespace mrbind::CSharp
         }
 
         // Generate the parameter strings.
-        param_usages.reserve(func_like.params.size());
         param_strings.reserve(func_like.params.size());
         for (const auto &param : func_like.params)
         {
             std::size_t visual_index = param_strings.size() + 1;
             try
             {
-                ParameterBinding param_binding;
+                TypeBinding::ParamUsage::Strings this_param_strings;
 
                 if (acts_on_copy_of_this && &param == &func_like.params.at(0))
                 {
@@ -1299,36 +1298,66 @@ namespace mrbind::CSharp
 
                     fake_param.cpp_type = CppdeclToCode(new_type);
 
-                    param_binding = generator.GetParameterBinding(fake_param, false);
-                    param_binding.strings.dllimport_args = "_this_copy._UnderlyingPtr"; // This better work.
+                    this_param_strings = generator.GetParameterBinding(fake_param, false);
+                    this_param_strings.dllimport_args = "_this_copy._UnderlyingPtr"; // This better work.
                 }
-                else if (is_overloaded_op && !method->is_static && &param == &func_like.params.at(0))
+                else if (is_overloaded_op && &param == &func_like.params.at(method->is_static ? 2 : 0))
                 {
-                    // For overloaded operators that we artifically make `static`, patch the `this` parameter to look like a normal parameter.
+                    // For overloaded operators, patch the `this` parameter a bit.
+                    // For non-static operators, this is the actual `this` parameter with `.is_this_param == true`.
+                    // For static operators, this is the second parameter, the one that matches the enclosing class in type.
+                    // (When injecting operators, we ensure that the ones where the first parameter matches are non-static.)
 
                     CInterop::FuncParam fake_param = param;
-                    // Pretend this isn't a `this` parameter.
+                    // Pretend this isn't a `this` parameter. (Only matters if this is a non-static operator, see above.)
                     fake_param.is_this_param = false;
 
-                    param_binding = generator.GetParameterBinding(fake_param, false);
+                    // Here we can't adjust the reference-ness of `fake_param`, since that will affect the dllimport params,
+                    //   and we don't want that.
+
+                    this_param_strings = generator.GetParameterBinding(fake_param, false);
+
+                    // If the `this` type is a non-reference, further patch the usage.
+                    cppdecl::Type param_type = generator.ParseTypeOrThrow(param.cpp_type);
+                    if (!param_type.Is<cppdecl::Reference>())
+                    {
+                        const CInterop::TypeDesc &desc = *generator.c_desc.FindTypeOpt(param.cpp_type);
+
+                        // Make sure the type is copyable, or at least trivially movable.
+                        assert(desc.traits.value().IsCopyableOrTriviallyMovable());
+
+                        // Replace the C# parameter type to use the class name as is.
+                        // This removes the by-value helper from classes that use it, and also can replace `ConstFoo` with `Foo` for classes
+                        //   that don't use the pass-by enum,
+                        //   to be passed as `ConstFoo` when passed by value.
+                        this_param_strings.csharp_decl_params.front().type = generator.CppToCSharpUnqualClassName(param_type.simple_type.name.parts.back(), !desc.traits.value().copy_constructor_takes_nonconst_ref);
+
+                        if (std::get<CInterop::TypeKinds::Class>(desc.var).kind == CInterop::ClassKind::uses_pass_by_enum)
+                        {
+                            assert(this_param_strings.csharp_decl_params.size() == 1);
+                            assert(desc.traits.value().is_copy_constructible); // This is strictly copyable at this point.
+
+                            // Hardcode `PassBy::copy` mode.
+                            this_param_strings.dllimport_args = generator.RequestHelper("_PassBy") + ".copy, " + param.name_or_placeholder + "._UnderlyingPtr";
+                        }
+                    }
                 }
                 else
                 {
                     // For setters, here we force the parameter name to be `value` (which is the implicit parameter name for C# property setters).
-                    param_binding = generator.GetParameterBinding(param, method_like && method_like->is_static, is_property_set && param_strings.size() == 1 ? std::optional<std::string>("value") : std::nullopt);
+                    this_param_strings = generator.GetParameterBinding(param, method_like && method_like->is_static, is_property_set && param_strings.size() == 1 ? std::optional<std::string>("value") : std::nullopt);
                 }
 
 
-                if (!param_binding.strings.dllimport_decl_params.empty())
+                if (!this_param_strings.dllimport_decl_params.empty())
                 {
                     if (!dllimport_param_string.empty())
                         dllimport_param_string += ", ";
 
-                    dllimport_param_string += param_binding.strings.dllimport_decl_params;
+                    dllimport_param_string += this_param_strings.dllimport_decl_params;
                 }
 
-                param_usages.push_back(param_binding.usage);
-                param_strings.push_back(std::move(param_binding.strings));
+                param_strings.push_back(std::move(this_param_strings));
             }
             catch (...)
             {
@@ -1781,12 +1810,12 @@ namespace mrbind::CSharp
                 ret += "/// Parameter `" + param.name_or_placeholder + "` defaults to `" + *param.default_arg_spelling + "`.\n";
 
             // The custom comments.
-            ParameterBinding binding = GetParameterBinding(param, method_like && method_like->is_static);
-            if (!binding.strings.extra_comment.empty())
+            TypeBinding::ParamUsage::Strings strings = GetParameterBinding(param, method_like && method_like->is_static);
+            if (!strings.extra_comment.empty())
             {
-                assert(!binding.strings.extra_comment.starts_with('\n'));
-                assert(binding.strings.extra_comment.ends_with('\n'));
-                ret += binding.strings.extra_comment;
+                assert(!strings.extra_comment.starts_with('\n'));
+                assert(strings.extra_comment.ends_with('\n'));
+                ret += strings.extra_comment;
             }
         }
 
@@ -1802,9 +1831,9 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    Generator::ParameterBinding Generator::GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name)
+    TypeBinding::ParamUsage::Strings Generator::GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name)
     {
-        ParameterBinding ret;
+        TypeBinding::ParamUsage::Strings ret;
 
         const std::string &param_name = override_name ? *override_name : param.name_or_placeholder;
 
@@ -1812,16 +1841,55 @@ namespace mrbind::CSharp
         if (param.is_this_param)
         {
             cppdecl::Type this_type = ParseTypeOrThrow(param.cpp_type);
-            assert(this_type.Is<cppdecl::Reference>() != is_static_method); // Just for now. Support for explicit `this` parameters can be added later.
-            if (this_type.Is<cppdecl::Reference>())
-                this_type.RemoveModifier();
-            this_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
-            assert(this_type.IsOnlyQualifiedName());
 
-            if (!is_static_method)
+
+            if (is_static_method)
             {
-                ret.strings.dllimport_decl_params = "_Underlying *" + param_name;
-                ret.strings.dllimport_args = "_UnderlyingPtr";
+                // A static method, do nothing.
+                assert(!this_type.Is<cppdecl::Reference>());
+                assert(this_type.IsOnlyQualifiedName());
+            }
+            else
+            {
+                bool done = false;
+
+                if (!this_type.Is<cppdecl::Reference>())
+                {
+                    // A non-static method with a by-value this parameter (quite unusual).
+                    // Our parser doesn't currently support those, but we can still generate them when rewriting non-member operators.
+
+                    // This only needs special-casing if the class needs a pass-by enum. Otherwise our parameter passing style in C is the same
+                    //   as it would be for a reference `this`.
+
+                    assert(this_type.IsOnlyQualifiedName());
+
+                    if (std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(this_type))->var).kind == CInterop::ClassKind::uses_pass_by_enum)
+                    {
+                        done = true;
+
+                        // Make sure the type is copyable.
+                        assert(c_desc.FindTypeOpt(CppdeclToCode(this_type))->traits->is_copy_constructible);
+
+                        ret.dllimport_decl_params = RequestHelper("_PassBy") + " " + param_name + "_pass_by, _Underlying *" + param_name;
+
+                        // Unconditionally copy for now. This is sad, but I'm not sure how else to solve this.
+                        ret.dllimport_args = RequestHelper("_PassBy") + ".copy, _UnderlyingPtr";
+                    }
+                }
+
+
+                // A non-static method with a by-reference this parameter.
+                // Or one with a by-value parameter of a simple enough type, so we can use the same parameter passing style.
+                if (!done)
+                {
+                    if (this_type.Is<cppdecl::Reference>())
+                        this_type.RemoveModifier(); // Remove reference.
+                    this_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                    assert(this_type.IsOnlyQualifiedName());
+
+                    ret.dllimport_decl_params = "_Underlying *" + param_name;
+                    ret.dllimport_args = "_UnderlyingPtr";
+                }
             }
         }
         else
@@ -1835,16 +1903,15 @@ namespace mrbind::CSharp
 
             const bool useless_default_arg = param.default_arg_spelling && !param.default_arg_affects_parameter_passing;
 
-            ret.usage = &*param_usage;
-            ret.strings = param_usage->make_strings(param_name, useless_default_arg);
+            ret = param_usage->make_strings(param_name, useless_default_arg);
 
             // Validate the default arguments.
-            if (!ret.strings.csharp_decl_params.empty())
+            if (!ret.csharp_decl_params.empty())
             {
-                std::size_t num_defargs = std::size_t(std::count_if(ret.strings.csharp_decl_params.begin(), ret.strings.csharp_decl_params.end(), [](const TypeBinding::ParamUsage::Strings::CSharpParam &p){return bool(p.default_arg);}));
+                std::size_t num_defargs = std::size_t(std::count_if(ret.csharp_decl_params.begin(), ret.csharp_decl_params.end(), [](const TypeBinding::ParamUsage::Strings::CSharpParam &p){return bool(p.default_arg);}));
 
                 // Check that either all of none parameters have default arguments.
-                if (num_defargs != 0 && num_defargs != ret.strings.csharp_decl_params.size())
+                if (num_defargs != 0 && num_defargs != ret.csharp_decl_params.size())
                     throw std::runtime_error("Our bindings map this C++ parameter maps to multiple C# parameters, but produce an inconsistent number of default arguments for those. Either all of them or none should have default arguments.");
 
                 if (num_defargs == 0 && param.default_arg_spelling)
@@ -1960,25 +2027,33 @@ namespace mrbind::CSharp
         if (emit_variant == EmitVariant::static_incr_or_decr)
             return !class_type_desc.traits->copy_constructor_takes_nonconst_ref;
 
-
-        // For operators, we ignore their `static` status (in C# they always need to be static), and instead check the parameter types for constness.
-
+        // For operators, we don't directly use their `static` status (C# forces us to mark all of them static,
+        //   but internally we consider them static only when they're placed in the class matching their second operand, rather than the first).
+        // Instead, we use their parameter types to determine if they should be placed in the const half of the class or the non-const one.
         if (const auto **method_ptr = std::get_if<const CInterop::ClassMethod *>(&any_method_like))
         {
             const CInterop::ClassMethod &method = **method_ptr;
 
+            // Hmm, do we need this check? I think we do, since otherwise we don't do our jank parameter rewrites,
+            //   especially not for the by-value parameters.
             if (IsOverloadableOperator(&method))
             {
-                // If any of the parameters match the const class type, the entire thing does into the const class.
-                return std::any_of(method.params.begin(), method.params.end(), [&](const CInterop::FuncParam &param)
-                {
-                    cppdecl::Type param_type = ParseTypeOrThrow(param.cpp_type);
-                    return
-                        param_type.modifiers.size() == 1 &&
-                        param_type.Is<cppdecl::Reference>() &&
-                        param_type.IsConst(1) &&
-                        param_type.simple_type.name == cpp_class_name;
-                });
+                // Get the parameter that matches the enclosing class in type. We use `2` instead of `1` to skip the dummy `this` parameter
+                //   of static methods.
+                const CInterop::FuncParam &param = method.params.at(method.is_static ? 2 : 0);
+
+                cppdecl::Type param_type = ParseTypeOrThrow(param.cpp_type);
+
+                assert(param_type.simple_type.name == cpp_class_name);
+
+                // For a reference parameter, use the constness of the reference target.
+                if (param_type.modifiers.size() == 1 && param_type.Is<cppdecl::Reference>())
+                    return param_type.IsConst(1);
+
+                assert(param_type.modifiers.size() == 0);
+
+                // Otherwise check if the copy ctor of the enclosing class takes a const reference or not.
+                return !class_type_desc.traits.value().copy_constructor_takes_nonconst_ref;
             }
         }
 
@@ -2178,7 +2253,7 @@ namespace mrbind::CSharp
             {
                 // Must use `is_const` here instead of `cl.is_const`.
 
-                if (emit_variant == EmitVariant::static_incr_or_decr && !type_desc.traits.value().is_copy_constructible)
+                if (emit_variant == EmitVariant::static_incr_or_decr && !type_desc.traits.value().IsCopyableOrTriviallyMovable())
                     return false; // The static increment/decrement requires copying `this`.
 
                 const bool is_const_or_static = IsConstOrStaticMethodLike(ParseNameOrThrow(cl.class_name), type_desc, &method, emit_variant);
@@ -2224,7 +2299,7 @@ namespace mrbind::CSharp
                     [&](const CInterop::MethodKinds::ConversionOperator &elem)
                     {
                         (void)elem;
-                        return false; // TODO
+                        return true;
                     },
                 }, method.var);
 
@@ -2304,15 +2379,15 @@ namespace mrbind::CSharp
                         const bool param_is_managed = IsManagedTypeInCSharp(param_cpp_type);
 
                         const auto &param_binding = GetParameterBinding(method.params.at(1), false);
-                        assert(param_binding.strings.csharp_decl_params.size() == 1);
+                        assert(param_binding.csharp_decl_params.size() == 1);
 
-                        std::string interface_targ = param_binding.strings.csharp_decl_params.front().type;
+                        std::string interface_targ = param_binding.csharp_decl_params.front().type;
 
                         if (interface_targ.ends_with('?') && param_is_managed)
                             interface_targ.pop_back(); // `IEquatable<T>` requires implementing `Equals(T? t)`, so just in case.
                         file.WriteString("System.IEquatable<" + interface_targ + ">");
 
-                        auto param = param_binding.strings.csharp_decl_params.front();
+                        auto param = param_binding.csharp_decl_params.front();
                         param.default_arg = {};
                         bool added_nullability = false;
                         if (param_is_managed && !param.type.ends_with('?'))
@@ -2825,7 +2900,7 @@ namespace mrbind::CSharp
                 if (!setter)
                     return {};
                 assert(setter->params.size() == 2 && setter->params.at(0).is_this_param); // `this` and the actual parameter.
-                auto csharp_decl_params = GetParameterBinding(setter->params.at(1), setter->is_static).strings.csharp_decl_params;
+                auto csharp_decl_params = GetParameterBinding(setter->params.at(1), setter->is_static).csharp_decl_params;
                 if (csharp_decl_params.size() == 1)
                     return csharp_decl_params.front().type;
                 else
@@ -2965,18 +3040,11 @@ namespace mrbind::CSharp
                     {
                         if (auto *cl = std::get_if<CInterop::TypeKinds::Class>(&iter->second.var))
                         {
-                            if (param_type.Is<cppdecl::Reference>() || iter->second.traits.value().is_copy_constructible)
+                            if (param_type.Is<cppdecl::Reference>() || iter->second.traits.value().IsCopyableOrTriviallyMovable())
                             {
                                 CInterop::ClassMethod new_method;
                                 new_method.BasicFuncLike::operator=(std::move(func));
                                 new_method.params.front().is_this_param = true;
-
-                                if (!param_type.Is<cppdecl::Reference>())
-                                {
-                                    param_type.AddQualifiers(cppdecl::CvQualifiers::const_ * !iter->second.traits.value().copy_constructor_takes_nonconst_ref);
-                                    param_type.AddModifier(cppdecl::Reference{});
-                                    new_method.params.front().cpp_type = CppdeclToCode(param_type);
-                                }
 
                                 auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();
                                 new_op.token = std::move(std::get<CInterop::FuncKinds::Operator>(func.var).token);
@@ -3004,7 +3072,7 @@ namespace mrbind::CSharp
                     {
                         if (auto *cl = std::get_if<CInterop::TypeKinds::Class>(&iter->second.var))
                         {
-                            if (param_type.Is<cppdecl::Reference>() || iter->second.traits.value().is_copy_constructible)
+                            if (param_type.Is<cppdecl::Reference>() || iter->second.traits.value().IsCopyableOrTriviallyMovable())
                             {
                                 CInterop::ClassMethod new_method;
                                 new_method.BasicFuncLike::operator=(std::move(func));
@@ -3017,14 +3085,6 @@ namespace mrbind::CSharp
                                 CInterop::FuncParam &new_this_param = *new_method.params.emplace(new_method.params.begin());
                                 new_this_param.is_this_param = true;
                                 new_this_param.cpp_type = CppdeclToCode(param_type_unqual);
-
-                                // Adjust the second parameter to a reference, to match the enclosing class type.
-                                if (!param_type.Is<cppdecl::Reference>())
-                                {
-                                    param_type.AddQualifiers(cppdecl::CvQualifiers::const_ * !iter->second.traits.value().copy_constructor_takes_nonconst_ref);
-                                    param_type.AddModifier(cppdecl::Reference{});
-                                    new_method.params.at(2).cpp_type = CppdeclToCode(param_type);
-                                }
 
                                 auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();
                                 new_op.token = std::move(std::get<CInterop::FuncKinds::Operator>(func.var).token);

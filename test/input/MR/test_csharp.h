@@ -292,28 +292,48 @@ namespace MR::CSharp
         IncrDecrD operator--(int) const {return {};}
     };
 
-    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the non-const half.
+    // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the non-const half.
     struct IncrDecrE
     {
         IncrDecrE() = default;
-        IncrDecrE(IncrDecrE &&) = default;
-        IncrDecrE &operator=(IncrDecrE &&) = default;
+        IncrDecrE(IncrDecrE &&) {} // Non-trivial! See above.
         IncrDecrE &operator++() {return *this;}
         IncrDecrE operator++(int) {return {};}
         IncrDecrE &operator--() {return *this;}
         IncrDecrE operator--(int) {return {};}
     };
 
-    // Here we don't special-case those operators due to the class being non-copyable. They get spawned as functions as usual, in the const half.
+    // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the const half.
     struct IncrDecrF
     {
         IncrDecrF() = default;
-        IncrDecrF(IncrDecrF &&) = default;
-        IncrDecrF &operator=(IncrDecrF &&) = default;
+        IncrDecrF(IncrDecrF &&) {} // Non-trivial! See above.
         const IncrDecrF &operator++() const {return *this;}
         IncrDecrF operator++(int) const {return {};}
         const IncrDecrF &operator--() const {return *this;}
         IncrDecrF operator--(int) const {return {};}
+    };
+
+    // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
+    struct IncrDecrG
+    {
+        IncrDecrG() = default;
+        IncrDecrG(IncrDecrG &&) = default;
+        IncrDecrG &operator++() {return *this;}
+        IncrDecrG operator++(int) {return {};}
+        IncrDecrG &operator--() {return *this;}
+        IncrDecrG operator--(int) {return {};}
+    };
+
+    // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
+    struct IncrDecrH
+    {
+        IncrDecrH() = default;
+        IncrDecrH(IncrDecrH &&) = default;
+        const IncrDecrH &operator++() const {return *this;}
+        IncrDecrH operator++(int) const {return {};}
+        const IncrDecrH &operator--() const {return *this;}
+        IncrDecrH operator--(int) const {return {};}
     };
 
 
@@ -423,49 +443,56 @@ namespace MR::CSharp
     struct StaticOpsLhsB {};
     inline void operator+(StaticOpsLhsB, int) {}
 
-    // The operator fails to inject because the class isn't copyable, and the operator takes it by value.
+    // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
     struct StaticOpsLhsC
     {
         StaticOpsLhsC() = default;
-        StaticOpsLhsC(StaticOpsLhsC &&) = default;
-        StaticOpsLhsC &operator=(StaticOpsLhsC &&) = default;
+        StaticOpsLhsC(StaticOpsLhsC &&) {}
     };
     inline int operator+(StaticOpsLhsC, int) {return 42;}
 
-    // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+    // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
     struct StaticOpsLhsD
     {
         StaticOpsLhsD() = default;
         StaticOpsLhsD(StaticOpsLhsD &&) = default;
-        StaticOpsLhsD &operator=(StaticOpsLhsD &&) = default;
     };
-    inline int operator+(StaticOpsLhsD &, int) {return 42;}
+    inline int operator+(StaticOpsLhsD, int) {return 42;}
 
-    // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+    // The class isn't copyable, but the operator takes it by reference, so it injects fine.
     struct StaticOpsLhsE
     {
         StaticOpsLhsE() = default;
         StaticOpsLhsE(StaticOpsLhsE &&) = default;
         StaticOpsLhsE &operator=(StaticOpsLhsE &&) = default;
     };
-    inline int operator+(const StaticOpsLhsE &, int) {return 42;}
+    inline int operator+(StaticOpsLhsE &, int) {return 42;}
 
-    // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+    // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
     struct StaticOpsLhsF
     {
         StaticOpsLhsF() = default;
-        StaticOpsLhsF(StaticOpsLhsF &) = default;
+        StaticOpsLhsF(StaticOpsLhsF &&) = default;
+        StaticOpsLhsF &operator=(StaticOpsLhsF &&) = default;
     };
-    inline int operator+(StaticOpsLhsF, int) {return 42;}
+    inline int operator+(const StaticOpsLhsF &, int) {return 42;}
 
-    // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
-    //   so the operator gets injected into the const half.
+    // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
     struct StaticOpsLhsG
     {
         StaticOpsLhsG() = default;
         StaticOpsLhsG(StaticOpsLhsG &) = default;
     };
-    inline int operator+(const StaticOpsLhsG &, int) {return 42;}
+    inline int operator+(StaticOpsLhsG, int) {return 42;}
+
+    // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
+    //   so the operator gets injected into the const half.
+    struct StaticOpsLhsH
+    {
+        StaticOpsLhsH() = default;
+        StaticOpsLhsH(StaticOpsLhsH &) = default;
+    };
+    inline int operator+(const StaticOpsLhsH &, int) {return 42;}
 
 
     // Free function operators getting injected into the rhs type:
@@ -478,49 +505,56 @@ namespace MR::CSharp
     struct StaticOpsRhsB {};
     inline void operator+(int, StaticOpsRhsB) {}
 
-    // The operator fails to inject because the class isn't copyable, and the operator takes it by value.
+    // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
     struct StaticOpsRhsC
     {
         StaticOpsRhsC() = default;
-        StaticOpsRhsC(StaticOpsRhsC &&) = default;
-        StaticOpsRhsC &operator=(StaticOpsRhsC &&) = default;
+        StaticOpsRhsC(StaticOpsRhsC &&) {}
     };
     inline int operator+(int, StaticOpsRhsC) {return 42;}
 
-    // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+    // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
     struct StaticOpsRhsD
     {
         StaticOpsRhsD() = default;
         StaticOpsRhsD(StaticOpsRhsD &&) = default;
-        StaticOpsRhsD &operator=(StaticOpsRhsD &&) = default;
     };
-    inline int operator+(int, StaticOpsRhsD &) {return 42;}
+    inline int operator+(int, StaticOpsRhsD) {return 42;}
 
-    // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+    // The class isn't copyable, but the operator takes it by reference, so it injects fine.
     struct StaticOpsRhsE
     {
         StaticOpsRhsE() = default;
         StaticOpsRhsE(StaticOpsRhsE &&) = default;
         StaticOpsRhsE &operator=(StaticOpsRhsE &&) = default;
     };
-    inline int operator+(int, const StaticOpsRhsE &) {return 42;}
+    inline int operator+(int, StaticOpsRhsE &) {return 42;}
 
-    // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+    // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
     struct StaticOpsRhsF
     {
         StaticOpsRhsF() = default;
-        StaticOpsRhsF(StaticOpsRhsF &) = default;
+        StaticOpsRhsF(StaticOpsRhsF &&) = default;
+        StaticOpsRhsF &operator=(StaticOpsRhsF &&) = default;
     };
-    inline int operator+(int, StaticOpsRhsF) {return 42;}
+    inline int operator+(int, const StaticOpsRhsF &) {return 42;}
 
-    // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
-    //   so the operator gets injected into the const half.
+    // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
     struct StaticOpsRhsG
     {
         StaticOpsRhsG() = default;
         StaticOpsRhsG(StaticOpsRhsG &) = default;
     };
-    inline int operator+(int, const StaticOpsRhsG &) {return 42;}
+    inline int operator+(int, StaticOpsRhsG) {return 42;}
+
+    // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
+    //   so the operator gets injected into the const half.
+    struct StaticOpsRhsH
+    {
+        StaticOpsRhsH() = default;
+        StaticOpsRhsH(StaticOpsRhsH &) = default;
+    };
+    inline int operator+(int, const StaticOpsRhsH &) {return 42;}
 
 
     // Other injection cases:
@@ -534,6 +568,30 @@ namespace MR::CSharp
     struct StaticOpsMixedRhs {};
     // Gets injected into the lhs by default.
     inline int operator+(StaticOpsMixedLhs, StaticOpsMixedRhs) {return 42;}
+
+
+    // Check how non-trivial class types are passed by value into operators.
+    class NonTrivialClassOps
+    {
+        std::string x;
+
+      public:
+        int operator+(int) {return 42;}
+    };
+
+    inline int operator+(NonTrivialClassOps, float) {return 42;}
+    inline int operator+(float, NonTrivialClassOps) {return 42;}
+
+
+    // The class is non-copyable, so operators with by-value parameters fail to inject.
+    struct NonCopyableClassByValueOps
+    {
+        NonCopyableClassByValueOps() = default;
+        NonCopyableClassByValueOps(NonCopyableClassByValueOps &&) = default;
+        NonCopyableClassByValueOps &operator=(NonCopyableClassByValueOps &&) = default;
+    };
+    inline int operator+(NonCopyableClassByValueOps, int) {return 42;}
+    inline int operator+(int, NonCopyableClassByValueOps) {return 42;}
 
 
     // Other operators:

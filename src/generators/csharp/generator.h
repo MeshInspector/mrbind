@@ -374,7 +374,6 @@ namespace mrbind::CSharp
             CFuncDeclStrings dllimport_strings;
 
             std::string dllimport_param_string;
-            std::vector<const TypeBinding::ParamUsage *> param_usages;
             std::vector<TypeBinding::ParamUsage::Strings> param_strings;
 
 
@@ -415,17 +414,10 @@ namespace mrbind::CSharp
         // This will always end with a newline if not empty, and will include slashes.
         [[nodiscard]] std::string MakeFuncComment(AnyFuncLikePtr any_func_like);
 
-        struct ParameterBinding
-        {
-            // This is null only for `this` parameters.
-            const TypeBinding::ParamUsage *usage = nullptr;
-
-            TypeBinding::ParamUsage::Strings strings;
-        };
         // A helper function that returns various binding information about a function parameter, or throws on failure.
         // `is_static_method` only matters if this is a `this` parameter.
         // If `override_name` is passed, it replaces the parameter name recoded in the parameter itself.
-        [[nodiscard]] ParameterBinding GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {});
+        [[nodiscard]] TypeBinding::ParamUsage::Strings GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {});
 
         // Returns the binding information for a function return type.
         [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret);
@@ -439,6 +431,7 @@ namespace mrbind::CSharp
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitCppEnum(OutputFile &file, const std::string &cpp_name_str);
 
+        // This controls whether the method goes into the const half of the class (if this returns true), or the non-const one (if this returns false).
         [[nodiscard]] bool IsConstOrStaticMethodLike(const cppdecl::QualifiedName &cpp_class_name, const CInterop::TypeDesc &class_type_desc, AnyMethodLikePtr any_method_like, EmitVariant emit_variant);
 
         // Checks if `token` is a compound assignment operator, common between C++ and C#.
