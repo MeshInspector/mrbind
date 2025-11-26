@@ -450,6 +450,25 @@ namespace MR::CSharp
     };
     inline int operator+(const StaticOpsLhsE &, int) {return 42;}
 
+    // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+    struct StaticOpsLhsF
+    {
+        StaticOpsLhsF() = default;
+        StaticOpsLhsF(StaticOpsLhsF &) = default;
+    };
+    inline int operator+(StaticOpsLhsF, int) {return 42;}
+
+    // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
+    //   so the operator gets injected into the const half.
+    struct StaticOpsLhsG
+    {
+        StaticOpsLhsG() = default;
+        StaticOpsLhsG(StaticOpsLhsG &) = default;
+    };
+    inline int operator+(const StaticOpsLhsG &, int) {return 42;}
+
+
+
 
     // Test some generic operators.
     #define MBTEST_MAKE_TEST_OPS_CLASS(name_, ret_, ret_expr_, param_, .../*extras_*/) \

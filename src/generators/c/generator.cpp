@@ -1748,7 +1748,7 @@ namespace mrbind::CBindings
             // Rewrite the parameter to be a non-reference.
             assert(params.at(0).cpp_type.Is<cppdecl::Reference>());
             params.at(0).cpp_type.RemoveModifier();
-            params.at(0).cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_); // Just in case. Normally this should never happen, becuase we emit only the move constructors, not the copy constructors.
+            params.at(0).cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
         }
         else
         {
@@ -3924,6 +3924,9 @@ namespace mrbind::CBindings
 
                 bool emitted_misc_functions = false;
 
+                // We need to emit the combined copy/move ctor exactly once. We do it when seeing either a copy of a move ctor.
+                bool emitted_any_copy_or_move_ctor = false;
+
                 // This emits some additional functions. Repeated calls have no effect.
                 auto EmitMiscFunctionsOnce = [&]
                 {
@@ -4188,9 +4191,12 @@ namespace mrbind::CBindings
 
                             try
                             {
-                                // The copy constructors are not emitted. Instead the move constructors are rewritten as if they were accepting the parameter by value.
-                                if (elem.kind == CopyMoveKind::copy)
-                                    return;
+                                // Out of all copy/move constructors, emit exactly one. It gets rewritten as if it was accepting the parameter by value.
+                                if (elem.kind == CopyMoveKind::copy || elem.kind == CopyMoveKind::move)
+                                {
+                                    if (std::exchange(emitted_any_copy_or_move_ctor, true))
+                                        return;
+                                }
 
                                 // Custom behavior for default constructors.
                                 // Note that here we intentionally only handle the ones with actually zero parameters, and not the ones with all arguments defaulted.

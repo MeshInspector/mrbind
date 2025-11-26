@@ -1280,10 +1280,23 @@ namespace mrbind::CSharp
                     fake_param.is_this_param = false;
 
                     cppdecl::Type new_type = generator.ParseTypeOrThrow(fake_param.cpp_type);
+
+                    // Find the class information based on the parameter type.
+                    cppdecl::Type class_type = new_type;
+                    if (class_type.Is<cppdecl::Reference>())
+                        class_type.RemoveModifier();
+                    class_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                    const CInterop::TypeDesc &type_desc = *generator.c_desc.FindTypeOpt(CppdeclToCode(class_type));
+
                     if (!new_type.Is<cppdecl::Reference>())
                         new_type.AddModifier(cppdecl::Reference{}); // Force reference-ness to support by-value `this` params. This wasn't tested, since other parts of our code don't support them yet.
-                    // Add fake constness, since this will always end up in the const half (regardless of `this` being originally const or not).
-                    new_type.AddQualifiers(cppdecl::CvQualifiers::const_, 1);
+
+                    // Add fake constness, but only if the copy ctor of the class takes a const reference.
+                    // This replaces existing constness, so we remove it first.
+                    new_type.RemoveQualifiers(cppdecl::CvQualifiers::const_, 1);
+                    if (!type_desc.traits->copy_constructor_takes_nonconst_ref)
+                        new_type.AddQualifiers(cppdecl::CvQualifiers::const_, 1);
+
                     fake_param.cpp_type = CppdeclToCode(new_type);
 
                     param_binding = generator.GetParameterBinding(fake_param, false);
@@ -1943,8 +1956,9 @@ namespace mrbind::CSharp
 
     bool Generator::IsConstOrStaticMethodLike(const cppdecl::QualifiedName &cpp_class_name, const CInterop::TypeDesc &class_type_desc, AnyMethodLikePtr any_method_like, EmitVariant emit_variant)
     {
+        // The static operators `++` and `--` and only be in the const half if the copy ctor of the class has a const ref parameter.
         if (emit_variant == EmitVariant::static_incr_or_decr)
-            return true;
+            return !class_type_desc.traits->copy_constructor_takes_nonconst_ref;
 
 
         // For operators, we ignore their `static` status (in C# they always need to be static), and instead check the parameter types for constness.
@@ -2959,7 +2973,7 @@ namespace mrbind::CSharp
 
                                 if (!param_type.Is<cppdecl::Reference>())
                                 {
-                                    param_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+                                    param_type.AddQualifiers(cppdecl::CvQualifiers::const_ * !iter->second.traits.value().copy_constructor_takes_nonconst_ref);
                                     param_type.AddModifier(cppdecl::Reference{});
                                     new_method.params.front().cpp_type = CppdeclToCode(param_type);
                                 }
