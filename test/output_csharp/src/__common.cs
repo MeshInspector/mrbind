@@ -47,7 +47,10 @@ public static partial class MR
             }
 
             /// This is used for optional in/out parameters with default arguments.
-            /// Passing a null `InOutOpt` means "use default argument", and passing a one with a null `.Opt` means "I don't want to input/output via this parameter".
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `InOut<T>` to pass it to the function.
             public class InOutOpt<T> where T: unmanaged
             {
                 public InOut<T>? Opt;
@@ -76,18 +79,19 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class types with default arguments.
+            /// This is only used for non-const parameters. For const ones we generate unique wrappers per class.
             /// This needs to be separate from `InOpt`, since the lack of `unmanaged` constraint seems to somehow interfere with the behavior of unmanaged types.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `T` to pass it to the function.
-            public class InOptClass<T>
+            public class InOptMutClass<T>
             {
                 public T? Opt;
 
-                public InOptClass() {}
-                public InOptClass(T NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptClass<T>(T NewOpt) {return new InOptClass<T>(NewOpt);}
+                public InOptMutClass() {}
+                public InOptMutClass(T NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptMutClass<T>(T NewOpt) {return new InOptMutClass<T>(NewOpt);}
             }
 
             /// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.
@@ -106,26 +110,8 @@ public static partial class MR
                 public ref T Value => ref *Ptr;
             }
 
-            /// This is used as a function parameter when the underlying function receives a non-trivial C++ class by value.
-            /// Usage:
-            /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `T` to copy it into the function.
-            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public readonly struct ByValue<T, ConstT> where T: ConstT
-            {
-                internal readonly ConstT? Value;
-                internal readonly _PassBy PassByMode;
-                public ByValue() {PassByMode = _PassBy.default_construct;}
-                public ByValue(ConstT NewValue) {Value = NewValue; PassByMode = _PassBy.copy;}
-                public ByValue(_Moved<T> Moved) {Value = Moved.Value; PassByMode = _PassBy.move;}
-                public static implicit operator ByValue<T, ConstT>(ConstT Arg) {return new ByValue<T, ConstT>(Arg);}
-                public static implicit operator ByValue<T, ConstT>(_Moved<T> Arg) {return new ByValue<T, ConstT>(Arg);}
-            }
-
-            /// This can be used with `ByValue<...>` function parameters, to indicate that the argument should be moved.
-            /// See that struct for a longer explanation.
+            /// This can be used with `ByValue...` function parameters, to indicate that the argument should be moved.
+            /// See those structs for a longer explanation.
             public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}
 
             /// Don't use directly, this is the return type of `Move()`. See that for explanation.

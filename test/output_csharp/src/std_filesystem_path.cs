@@ -37,7 +37,7 @@ public static partial class MR
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
-                    public unsafe ConstPath(MR.CS.Misc.ByValue<MR.CS.Std.Filesystem.Path, MR.CS.Std.Filesystem.ConstPath> other) : this(null, is_owning: true)
+                    public unsafe ConstPath(MR.CS.Std.Filesystem.ByValuePath other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.ConstPath._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
@@ -91,7 +91,7 @@ public static partial class MR
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
-                    public unsafe Path(MR.CS.Misc.ByValue<MR.CS.Std.Filesystem.Path, MR.CS.Std.Filesystem.ConstPath> other) : this(null, is_owning: true)
+                    public unsafe Path(MR.CS.Std.Filesystem.ByValuePath other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.ConstPath._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
@@ -115,7 +115,7 @@ public static partial class MR
                     public static unsafe implicit operator Path(ReadOnlySpan<char> other) {return new(other);}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Misc.ByValue<MR.CS.Std.Filesystem.Path, MR.CS.Std.Filesystem.ConstPath> other)
+                    public unsafe void Assign(MR.CS.Std.Filesystem.ByValuePath other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_filesystem_path_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
@@ -141,6 +141,45 @@ public static partial class MR
                     {
                         return self.GetString();
                     }
+                }
+
+                /// This is used as a function parameter when the underlying function receives `Path` by value.
+                /// Usage:
+                /// * Pass `new()` to default-construct the instance.
+                /// * Pass an instance of `Path`/`ConstPath` to copy it into the function.
+                /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+                ///   Be careful if your input isn't a unique reference to this object.
+                /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+                public readonly struct ByValuePath
+                {
+                    internal readonly ConstPath? Value;
+                    internal readonly MR.CS.Misc._PassBy PassByMode;
+                    public ByValuePath() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                    public ByValuePath(ConstPath new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                    public ByValuePath(MR.CS.Misc._Moved<Path> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                    public static implicit operator ByValuePath(ConstPath arg) {return new(arg);}
+                    public static implicit operator ByValuePath(MR.CS.Misc._Moved<Path> arg) {return new(arg);}
+
+                    /// Constructs a new instance.
+                    public static unsafe implicit operator ByValuePath(ReadOnlySpan<char> other) {return new MR.CS.Std.Filesystem.Path(other);}
+                }
+
+                /// This is used for optional parameters of class `Path` with default arguments.
+                /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Path`/`ConstPath` to pass it to the function.
+                public class InOptConstPath
+                {
+                    public ConstPath? Opt;
+
+                    public InOptConstPath() {}
+                    public InOptConstPath(ConstPath NewOpt) {Opt = NewOpt;}
+                    public static implicit operator InOptConstPath(ConstPath NewOpt) {return new InOptConstPath(NewOpt);}
+
+                    /// Constructs a new instance.
+                    public static unsafe implicit operator InOptConstPath(ReadOnlySpan<char> other) {return new MR.CS.Std.Filesystem.Path(other);}
                 }
             }
         }

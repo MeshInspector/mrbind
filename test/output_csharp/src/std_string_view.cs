@@ -156,6 +156,24 @@ public static partial class MR
                     }
                 }
             }
+
+            /// This is used for optional parameters of class `StringView` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringView`/`ConstStringView` to pass it to the function.
+            public class InOptConstStringView
+            {
+                public ConstStringView? Opt;
+
+                public InOptConstStringView() {}
+                public InOptConstStringView(ConstStringView NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStringView(ConstStringView NewOpt) {return new InOptConstStringView(NewOpt);}
+
+                /// Constructs a new instance.
+                public static unsafe implicit operator InOptConstStringView(ReadOnlySpan<char> other) {return new MR.CS.Std.StringView(other);}
+            }
         }
     }
 }

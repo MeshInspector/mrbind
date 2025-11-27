@@ -156,7 +156,7 @@ namespace MR::CSharp
     inline const void *test_void_cptr(const void *a, const void *b = nullptr, const void *c = (const void *)42) {(void)a; (void)b; (void)c; return nullptr;}
 
     struct SA {};
-    struct SB {};
+    struct SB {private: std::string s;}; // Make this non-trivial for a change.
     struct SC : SA, SB {};
 
     inline std::shared_ptr<SA> default_shptr;
@@ -707,4 +707,37 @@ namespace MR::CSharp
         explicit ConvCtor(float) {}
         explicit ConvCtor(float, float) {}
     };
+
+
+    // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+    class ConvCtorTrivial
+    {
+        void foo() {}
+      public:
+        ConvCtorTrivial() {}
+        ConvCtorTrivial(int) {}
+    };
+    inline ConvCtorTrivial default_convtrivial;
+
+    inline ConvCtorTrivial test_class_convtrivial(ConvCtorTrivial a, ConvCtorTrivial b = {}) {(void)a; (void)b; return {};}
+    inline ConvCtorTrivial &test_class_convtrivial_ref(ConvCtorTrivial &a, ConvCtorTrivial &b = default_convtrivial) {(void)a; (void)b; return default_convtrivial;}
+    inline const ConvCtorTrivial &test_class_convtrivial_cref(const ConvCtorTrivial &a, const ConvCtorTrivial &b = default_convtrivial) {(void)a; (void)b; return default_convtrivial;}
+    inline ConvCtorTrivial *test_class_convtrivial_ptr(ConvCtorTrivial *a, ConvCtorTrivial *b = nullptr, ConvCtorTrivial *c = &default_convtrivial) {(void)a; (void)b; (void)c; return &default_convtrivial;}
+    inline const ConvCtorTrivial *test_class_convtrivial_cptr(const ConvCtorTrivial *a, const ConvCtorTrivial *b = nullptr, const ConvCtorTrivial *c = &default_convtrivial) {(void)a; (void)b; (void)c; return &default_convtrivial;}
+
+    // Test how a non-trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+    class ConvCtorNonTrivial
+    {
+        std::string a;
+      public:
+        ConvCtorNonTrivial() {}
+        ConvCtorNonTrivial(int) {}
+    };
+    inline ConvCtorNonTrivial default_convnontrivial;
+
+    inline ConvCtorNonTrivial test_class_convnontrivial(ConvCtorNonTrivial a, ConvCtorNonTrivial b = {}) {(void)a; (void)b; return {};}
+    inline ConvCtorNonTrivial &test_class_convnontrivial_ref(ConvCtorNonTrivial &a, ConvCtorNonTrivial &b = default_convnontrivial) {(void)a; (void)b; return default_convnontrivial;}
+    inline const ConvCtorNonTrivial &test_class_convnontrivial_cref(const ConvCtorNonTrivial &a, const ConvCtorNonTrivial &b = default_convnontrivial) {(void)a; (void)b; return default_convnontrivial;}
+    inline ConvCtorNonTrivial *test_class_convnontrivial_ptr(ConvCtorNonTrivial *a, ConvCtorNonTrivial *b = nullptr, ConvCtorNonTrivial *c = &default_convnontrivial) {(void)a; (void)b; (void)c; return &default_convnontrivial;}
+    inline const ConvCtorNonTrivial *test_class_convnontrivial_cptr(const ConvCtorNonTrivial *a, const ConvCtorNonTrivial *b = nullptr, const ConvCtorNonTrivial *c = &default_convnontrivial) {(void)a; (void)b; (void)c; return &default_convnontrivial;}
 }

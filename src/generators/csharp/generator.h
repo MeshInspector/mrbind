@@ -243,8 +243,19 @@ namespace mrbind::CSharp
         // Converts a C++ qualified class name to a C# name. Since we split classes into const and non-const halves, we need a bool to specify which half we want.
         [[nodiscard]] std::string CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const);
         // Same, but for unqualified names.
-        // Using `std::string_view` instead of `cppsharp::UnqualifiedName` here for simplicity.
         [[nodiscard]] std::string CppToCSharpUnqualClassName(const cppdecl::UnqualifiedName &name, bool is_const);
+
+        // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by value.
+        // This only makes sense for classes that use the pass-by enum.
+        [[nodiscard]] std::string CppToCSharpByValueHelperName(cppdecl::QualifiedName name);
+        // Same, but for unqualified names.
+        [[nodiscard]] std::string CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name);
+
+        // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by an optional const pointer.
+        // This only makes sense for classes that use the pass-by enum.
+        [[nodiscard]] std::string CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name);
+        // Same, but for unqualified names.
+        [[nodiscard]] std::string CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name);
 
         enum class TypeBindingFlags
         {
@@ -321,6 +332,10 @@ namespace mrbind::CSharp
 
             // A constructor getting rewritten as a conversion operator.
             conv_op_for_ctor,
+            // Same, but this one is emitted in the `ByValue...` helpers.
+            conv_op_for_ctor_for_by_value_helper,
+            // Same, but this one is emitted in the `InOptConstNontrivial...` helpers.
+            conv_op_for_ctor_for_in_opt_const_helper,
 
             // Non-static operators `++` and `--` are a new feature in C# 14, allowing you to modify an instance in place instead of returning a copy,
             //   like a static version would, which was the only valid approach in older C#.
@@ -444,25 +459,6 @@ namespace mrbind::CSharp
         // The choice isn't necessarily based only on the operator token.
         // If this returns true, you can usually use the same token as you did in C++, since they are the same in C#.
         [[nodiscard]] bool IsOverloadableOpOrConvOp(std::variant<const CInterop::Function *, const CInterop::ClassMethod *> func_or_method);
-
-        // Since we duplicate each class into const and non-const versions,
-        //   we need an extra bool to describe which half of the class is being operated on.
-        struct MaybeConstClass
-        {
-            // Qualified C++ class name.
-            std::string class_name;
-
-            bool is_const = false;
-
-            friend auto operator<=>(const MaybeConstClass &, const MaybeConstClass &) = default;
-        };
-
-        // A low-level function to emit a wrapper for a single half (either const or non-const) of a C "class".
-        // Assumes that the correct namespace or class was already entered in `file`.
-        // `shadowing_data` is used for the shadowing check (to automatically insert `new` on certain members). To enable this,
-        //   pass the same `ClassShadowingData` instance to both the const and the non-const halves of the class (the const one must be emitted first).
-        //   The `ClassShadowingData` object must initially be empty.
-        void EmitMaybeConstCppClass(OutputFile &file, const MaybeConstClass &cl, ClassShadowingData *shadowing_data);
 
         // Emit a type unconditionally (you should check `ShouldEmitCppType()` yourself).
         // Assumes that the correct namespace or class was already entered in `file`.

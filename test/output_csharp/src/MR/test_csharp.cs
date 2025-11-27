@@ -60,7 +60,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::A::A`.
-                public unsafe ConstA(MR.CS.Misc.ByValue<MR.CS.CSharp.A, MR.CS.CSharp.ConstA> _other) : this(null, is_owning: true)
+                public unsafe ConstA(MR.CS.CSharp.ByValueA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstA._Underlying *__MR_CSharp_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.A._Underlying *_other);
@@ -122,7 +122,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::A::A`.
-                public unsafe A(MR.CS.Misc.ByValue<MR.CS.CSharp.A, MR.CS.CSharp.ConstA> _other) : this(null, is_owning: true)
+                public unsafe A(MR.CS.CSharp.ByValueA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstA._Underlying *__MR_CSharp_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.A._Underlying *_other);
@@ -130,7 +130,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::A::operator=`.
-                public unsafe MR.CS.CSharp.A Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.A, MR.CS.CSharp.ConstA> _other)
+                public unsafe MR.CS.CSharp.A Assign(MR.CS.CSharp.ByValueA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.A._Underlying *_other);
@@ -166,6 +166,39 @@ public static partial class MR
                         }
                     }
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `A` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `A`/`ConstA` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueA
+            {
+                internal readonly ConstA? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueA() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueA(ConstA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueA(MR.CS.Misc._Moved<A> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueA(ConstA arg) {return new(arg);}
+                public static implicit operator ByValueA(MR.CS.Misc._Moved<A> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `A` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `A`/`ConstA` to pass it to the function.
+            public class InOptConstA
+            {
+                public ConstA? Opt;
+
+                public InOptConstA() {}
+                public InOptConstA(ConstA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstA(ConstA NewOpt) {return new InOptConstA(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::B`.
@@ -224,7 +257,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::B::B`.
-                public unsafe ConstB(MR.CS.Misc.ByValue<MR.CS.CSharp.B, MR.CS.CSharp.ConstB> _other) : this(null, is_owning: true)
+                public unsafe ConstB(MR.CS.CSharp.ByValueB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstB._Underlying *__MR_CSharp_B_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.B._Underlying *_other);
@@ -312,7 +345,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::B::B`.
-                public unsafe B(MR.CS.Misc.ByValue<MR.CS.CSharp.B, MR.CS.CSharp.ConstB> _other) : this(null, is_owning: true)
+                public unsafe B(MR.CS.CSharp.ByValueB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstB._Underlying *__MR_CSharp_B_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.B._Underlying *_other);
@@ -328,7 +361,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::B::operator=`.
-                public unsafe MR.CS.CSharp.B Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.B, MR.CS.CSharp.ConstB> _other)
+                public unsafe MR.CS.CSharp.B Assign(MR.CS.CSharp.ByValueB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.B._Underlying *__MR_CSharp_B_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.B._Underlying *_other);
@@ -364,6 +397,39 @@ public static partial class MR
                         }
                     }
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `B` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `B`/`ConstB` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueB
+            {
+                internal readonly ConstB? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueB(ConstB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueB(MR.CS.Misc._Moved<B> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueB(ConstB arg) {return new(arg);}
+                public static implicit operator ByValueB(MR.CS.Misc._Moved<B> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `B` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `B`/`ConstB` to pass it to the function.
+            public class InOptConstB
+            {
+                public ConstB? Opt;
+
+                public InOptConstB() {}
+                public InOptConstB(ConstB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstB(ConstB NewOpt) {return new InOptConstB(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::C`.
@@ -422,7 +488,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::C::C`.
-                public unsafe ConstC(MR.CS.Misc.ByValue<MR.CS.CSharp.C, MR.CS.CSharp.ConstC> _other) : this(null, is_owning: true)
+                public unsafe ConstC(MR.CS.CSharp.ByValueC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstC._Underlying *__MR_CSharp_C_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.C._Underlying *_other);
@@ -502,7 +568,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::C::C`.
-                public unsafe C(MR.CS.Misc.ByValue<MR.CS.CSharp.C, MR.CS.CSharp.ConstC> _other) : this(null, is_owning: true)
+                public unsafe C(MR.CS.CSharp.ByValueC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstC._Underlying *__MR_CSharp_C_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.C._Underlying *_other);
@@ -510,7 +576,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::C::operator=`.
-                public unsafe MR.CS.CSharp.C Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.C, MR.CS.CSharp.ConstC> _other)
+                public unsafe MR.CS.CSharp.C Assign(MR.CS.CSharp.ByValueC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.C._Underlying *__MR_CSharp_C_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.C._Underlying *_other);
@@ -546,6 +612,39 @@ public static partial class MR
                         }
                     }
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `C` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `C`/`ConstC` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueC
+            {
+                internal readonly ConstC? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueC(ConstC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueC(MR.CS.Misc._Moved<C> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueC(ConstC arg) {return new(arg);}
+                public static implicit operator ByValueC(MR.CS.Misc._Moved<C> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `C` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `C`/`ConstC` to pass it to the function.
+            public class InOptConstC
+            {
+                public ConstC? Opt;
+
+                public InOptConstC() {}
+                public InOptConstC(ConstC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstC(ConstC NewOpt) {return new InOptConstC(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::D`.
@@ -640,6 +739,21 @@ public static partial class MR
                     extern static void __MR_CSharp_D_d2(_Underlying *_this);
                     __MR_CSharp_D_d2(_UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `D` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `D`/`ConstD` to pass it to the function.
+            public class InOptConstD
+            {
+                public ConstD? Opt;
+
+                public InOptConstD() {}
+                public InOptConstD(ConstD NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstD(ConstD NewOpt) {return new InOptConstD(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::E`.
@@ -738,6 +852,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `E` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `E`/`ConstE` to pass it to the function.
+            public class InOptConstE
+            {
+                public ConstE? Opt;
+
+                public InOptConstE() {}
+                public InOptConstE(ConstE NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstE(ConstE NewOpt) {return new InOptConstE(NewOpt);}
+            }
+
             /// Generated from class `MR::CSharp::F`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -812,7 +941,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::F::F`.
-                public unsafe ConstF(MR.CS.Misc.ByValue<MR.CS.CSharp.F, MR.CS.CSharp.ConstF> _other) : this(null, is_owning: true)
+                public unsafe ConstF(MR.CS.CSharp.ByValueF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstF._Underlying *__MR_CSharp_F_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.F._Underlying *_other);
@@ -926,7 +1055,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::F::F`.
-                public unsafe F(MR.CS.Misc.ByValue<MR.CS.CSharp.F, MR.CS.CSharp.ConstF> _other) : this(null, is_owning: true)
+                public unsafe F(MR.CS.CSharp.ByValueF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstF._Underlying *__MR_CSharp_F_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.F._Underlying *_other);
@@ -934,7 +1063,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::F::operator=`.
-                public unsafe MR.CS.CSharp.F Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.F, MR.CS.CSharp.ConstF> _other)
+                public unsafe MR.CS.CSharp.F Assign(MR.CS.CSharp.ByValueF _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.F._Underlying *__MR_CSharp_F_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.F._Underlying *_other);
@@ -986,6 +1115,39 @@ public static partial class MR
                     extern static void __MR_CSharp_F_e2(_Underlying *_this);
                     __MR_CSharp_F_e2(_UnderlyingPtr);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `F` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `F`/`ConstF` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueF
+            {
+                internal readonly ConstF? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueF(ConstF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueF(MR.CS.Misc._Moved<F> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueF(ConstF arg) {return new(arg);}
+                public static implicit operator ByValueF(MR.CS.Misc._Moved<F> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `F` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `F`/`ConstF` to pass it to the function.
+            public class InOptConstF
+            {
+                public ConstF? Opt;
+
+                public InOptConstF() {}
+                public InOptConstF(ConstF NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstF(ConstF NewOpt) {return new InOptConstF(NewOpt);}
             }
 
             // Even if the secondary bases are virtual, this doesn't affect anything.
@@ -1064,7 +1226,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::G::G`.
-                public unsafe ConstG(MR.CS.Misc.ByValue<MR.CS.CSharp.G, MR.CS.CSharp.ConstG> _other) : this(null, is_owning: true)
+                public unsafe ConstG(MR.CS.CSharp.ByValueG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstG._Underlying *__MR_CSharp_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.G._Underlying *_other);
@@ -1180,7 +1342,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::G::G`.
-                public unsafe G(MR.CS.Misc.ByValue<MR.CS.CSharp.G, MR.CS.CSharp.ConstG> _other) : this(null, is_owning: true)
+                public unsafe G(MR.CS.CSharp.ByValueG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstG._Underlying *__MR_CSharp_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.G._Underlying *_other);
@@ -1188,7 +1350,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::G::operator=`.
-                public unsafe MR.CS.CSharp.G Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.G, MR.CS.CSharp.ConstG> _other)
+                public unsafe MR.CS.CSharp.G Assign(MR.CS.CSharp.ByValueG _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.G._Underlying *__MR_CSharp_G_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.G._Underlying *_other);
@@ -1240,6 +1402,39 @@ public static partial class MR
                     extern static void __MR_CSharp_G_e2(_Underlying *_this);
                     __MR_CSharp_G_e2(_UnderlyingPtr);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `G` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `G`/`ConstG` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueG
+            {
+                internal readonly ConstG? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueG() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueG(ConstG new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueG(MR.CS.Misc._Moved<G> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueG(ConstG arg) {return new(arg);}
+                public static implicit operator ByValueG(MR.CS.Misc._Moved<G> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `G` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `G`/`ConstG` to pass it to the function.
+            public class InOptConstG
+            {
+                public ConstG? Opt;
+
+                public InOptConstG() {}
+                public InOptConstG(ConstG NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstG(ConstG NewOpt) {return new InOptConstG(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::Trivial`.
@@ -1312,6 +1507,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `Trivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Trivial`/`ConstTrivial` to pass it to the function.
+            public class InOptConstTrivial
+            {
+                public ConstTrivial? Opt;
+
+                public InOptConstTrivial() {}
+                public InOptConstTrivial(ConstTrivial NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstTrivial(ConstTrivial NewOpt) {return new InOptConstTrivial(NewOpt);}
+            }
+
             /// Generated from class `MR::CSharp::TrivialDerived`.
             /// This is the const half of the class.
             public class ConstTrivialDerived : MR.CS.Misc.Object, System.IDisposable
@@ -1382,6 +1592,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `TrivialDerived` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TrivialDerived`/`ConstTrivialDerived` to pass it to the function.
+            public class InOptConstTrivialDerived
+            {
+                public ConstTrivialDerived? Opt;
+
+                public InOptConstTrivialDerived() {}
+                public InOptConstTrivialDerived(ConstTrivialDerived NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstTrivialDerived(ConstTrivialDerived NewOpt) {return new InOptConstTrivialDerived(NewOpt);}
+            }
+
             /// Generated from class `MR::CSharp::NonTrivial`.
             /// This is the const half of the class.
             public class ConstNonTrivial : MR.CS.Misc.Object, System.IDisposable
@@ -1413,7 +1638,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
-                public unsafe ConstNonTrivial(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivial, MR.CS.CSharp.ConstNonTrivial> _other) : this(null, is_owning: true)
+                public unsafe ConstNonTrivial(MR.CS.CSharp.ByValueNonTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstNonTrivial._Underlying *__MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *_other);
@@ -1436,7 +1661,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
-                public unsafe NonTrivial(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivial, MR.CS.CSharp.ConstNonTrivial> _other) : this(null, is_owning: true)
+                public unsafe NonTrivial(MR.CS.CSharp.ByValueNonTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstNonTrivial._Underlying *__MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *_other);
@@ -1444,12 +1669,45 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::NonTrivial::operator=`.
-                public unsafe MR.CS.CSharp.NonTrivial Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivial, MR.CS.CSharp.ConstNonTrivial> _other)
+                public unsafe MR.CS.CSharp.NonTrivial Assign(MR.CS.CSharp.ByValueNonTrivial _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_NonTrivial_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *_other);
                     return new(__MR_CSharp_NonTrivial_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `NonTrivial` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `NonTrivial`/`ConstNonTrivial` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueNonTrivial
+            {
+                internal readonly ConstNonTrivial? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueNonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueNonTrivial(ConstNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueNonTrivial(MR.CS.Misc._Moved<NonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueNonTrivial(ConstNonTrivial arg) {return new(arg);}
+                public static implicit operator ByValueNonTrivial(MR.CS.Misc._Moved<NonTrivial> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `NonTrivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonTrivial`/`ConstNonTrivial` to pass it to the function.
+            public class InOptConstNonTrivial
+            {
+                public ConstNonTrivial? Opt;
+
+                public InOptConstNonTrivial() {}
+                public InOptConstNonTrivial(ConstNonTrivial NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstNonTrivial(ConstNonTrivial NewOpt) {return new InOptConstNonTrivial(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::NonTrivialDerived`.
@@ -1483,7 +1741,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
-                public unsafe ConstNonTrivialDerived(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivialDerived, MR.CS.CSharp.ConstNonTrivialDerived> _other) : this(null, is_owning: true)
+                public unsafe ConstNonTrivialDerived(MR.CS.CSharp.ByValueNonTrivialDerived _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstNonTrivialDerived._Underlying *__MR_CSharp_NonTrivialDerived_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivialDerived._Underlying *_other);
@@ -1506,7 +1764,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
-                public unsafe NonTrivialDerived(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivialDerived, MR.CS.CSharp.ConstNonTrivialDerived> _other) : this(null, is_owning: true)
+                public unsafe NonTrivialDerived(MR.CS.CSharp.ByValueNonTrivialDerived _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstNonTrivialDerived._Underlying *__MR_CSharp_NonTrivialDerived_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivialDerived._Underlying *_other);
@@ -1514,12 +1772,45 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::NonTrivialDerived::operator=`.
-                public unsafe MR.CS.CSharp.NonTrivialDerived Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivialDerived, MR.CS.CSharp.ConstNonTrivialDerived> _other)
+                public unsafe MR.CS.CSharp.NonTrivialDerived Assign(MR.CS.CSharp.ByValueNonTrivialDerived _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.NonTrivialDerived._Underlying *__MR_CSharp_NonTrivialDerived_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivialDerived._Underlying *_other);
                     return new(__MR_CSharp_NonTrivialDerived_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `NonTrivialDerived` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `NonTrivialDerived`/`ConstNonTrivialDerived` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueNonTrivialDerived
+            {
+                internal readonly ConstNonTrivialDerived? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueNonTrivialDerived() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueNonTrivialDerived(ConstNonTrivialDerived new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueNonTrivialDerived(MR.CS.Misc._Moved<NonTrivialDerived> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueNonTrivialDerived(ConstNonTrivialDerived arg) {return new(arg);}
+                public static implicit operator ByValueNonTrivialDerived(MR.CS.Misc._Moved<NonTrivialDerived> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `NonTrivialDerived` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonTrivialDerived`/`ConstNonTrivialDerived` to pass it to the function.
+            public class InOptConstNonTrivialDerived
+            {
+                public ConstNonTrivialDerived? Opt;
+
+                public InOptConstNonTrivialDerived() {}
+                public InOptConstNonTrivialDerived(ConstNonTrivialDerived NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstNonTrivialDerived(ConstNonTrivialDerived NewOpt) {return new InOptConstNonTrivialDerived(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::SA`.
@@ -1657,6 +1948,39 @@ public static partial class MR
                 }
             }
 
+            /// This is used as a function parameter when the underlying function receives `SA` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SA`/`ConstSA` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueSA
+            {
+                internal readonly ConstSA? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueSA() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueSA(ConstSA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueSA(MR.CS.Misc._Moved<SA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueSA(ConstSA arg) {return new(arg);}
+                public static implicit operator ByValueSA(MR.CS.Misc._Moved<SA> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `SA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SA`/`ConstSA` to pass it to the function.
+            public class InOptConstSA
+            {
+                public ConstSA? Opt;
+
+                public InOptConstSA() {}
+                public InOptConstSA(ConstSA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstSA(ConstSA NewOpt) {return new InOptConstSA(NewOpt);}
+            }
+
             /// Generated from class `MR::CSharp::SB`.
             /// Derived classes:
             ///   Direct: (non-virtual)
@@ -1748,11 +2072,11 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::SB::SB`.
-                public unsafe ConstSB(MR.CS.CSharp.ConstSB _other) : this(shared_ptr: null, is_owning: true)
+                public unsafe ConstSB(MR.CS.CSharp.ByValueSB _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConstSB._Underlying *__MR_CSharp_SB_ConstructFromAnother(MR.CS.CSharp.SB._Underlying *_other);
-                    _LateMakeShared(__MR_CSharp_SB_ConstructFromAnother(_other._UnderlyingPtr));
+                    extern static MR.CS.CSharp.ConstSB._Underlying *__MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SB._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
             }
 
@@ -1776,20 +2100,53 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::SB::SB`.
-                public unsafe SB(MR.CS.CSharp.ConstSB _other) : this(shared_ptr: null, is_owning: true)
+                public unsafe SB(MR.CS.CSharp.ByValueSB _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConstSB._Underlying *__MR_CSharp_SB_ConstructFromAnother(MR.CS.CSharp.SB._Underlying *_other);
-                    _LateMakeShared(__MR_CSharp_SB_ConstructFromAnother(_other._UnderlyingPtr));
+                    extern static MR.CS.CSharp.ConstSB._Underlying *__MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SB._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
 
                 /// Generated from method `MR::CSharp::SB::operator=`.
-                public unsafe MR.CS.CSharp.SB Assign(MR.CS.CSharp.ConstSB _other)
+                public unsafe MR.CS.CSharp.SB Assign(MR.CS.CSharp.ByValueSB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.SB._Underlying *_other);
-                    return new(__MR_CSharp_SB_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SB._Underlying *_other);
+                    return new(__MR_CSharp_SB_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SB` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SB`/`ConstSB` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueSB
+            {
+                internal readonly ConstSB? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueSB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueSB(ConstSB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueSB(MR.CS.Misc._Moved<SB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueSB(ConstSB arg) {return new(arg);}
+                public static implicit operator ByValueSB(MR.CS.Misc._Moved<SB> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `SB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SB`/`ConstSB` to pass it to the function.
+            public class InOptConstSB
+            {
+                public ConstSB? Opt;
+
+                public InOptConstSB() {}
+                public InOptConstSB(ConstSB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstSB(ConstSB NewOpt) {return new InOptConstSB(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::SC`.
@@ -1898,11 +2255,11 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::SC::SC`.
-                public unsafe ConstSC(MR.CS.CSharp.ConstSC _other) : this(shared_ptr: null, is_owning: true)
+                public unsafe ConstSC(MR.CS.CSharp.ByValueSC _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConstSC._Underlying *__MR_CSharp_SC_ConstructFromAnother(MR.CS.CSharp.SC._Underlying *_other);
-                    _LateMakeShared(__MR_CSharp_SC_ConstructFromAnother(_other._UnderlyingPtr));
+                    extern static MR.CS.CSharp.ConstSC._Underlying *__MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SC._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SC_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
             }
 
@@ -1941,20 +2298,53 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::SC::SC`.
-                public unsafe SC(MR.CS.CSharp.ConstSC _other) : this(shared_ptr: null, is_owning: true)
+                public unsafe SC(MR.CS.CSharp.ByValueSC _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConstSC._Underlying *__MR_CSharp_SC_ConstructFromAnother(MR.CS.CSharp.SC._Underlying *_other);
-                    _LateMakeShared(__MR_CSharp_SC_ConstructFromAnother(_other._UnderlyingPtr));
+                    extern static MR.CS.CSharp.ConstSC._Underlying *__MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SC._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SC_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
 
                 /// Generated from method `MR::CSharp::SC::operator=`.
-                public unsafe MR.CS.CSharp.SC Assign(MR.CS.CSharp.ConstSC _other)
+                public unsafe MR.CS.CSharp.SC Assign(MR.CS.CSharp.ByValueSC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.SC._Underlying *__MR_CSharp_SC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.SC._Underlying *_other);
-                    return new(__MR_CSharp_SC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    extern static MR.CS.CSharp.SC._Underlying *__MR_CSharp_SC_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SC._Underlying *_other);
+                    return new(__MR_CSharp_SC_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SC` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SC`/`ConstSC` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueSC
+            {
+                internal readonly ConstSC? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueSC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueSC(ConstSC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueSC(MR.CS.Misc._Moved<SC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueSC(ConstSC arg) {return new(arg);}
+                public static implicit operator ByValueSC(MR.CS.Misc._Moved<SC> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `SC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SC`/`ConstSC` to pass it to the function.
+            public class InOptConstSC
+            {
+                public ConstSC? Opt;
+
+                public InOptConstSC() {}
+                public InOptConstSC(ConstSC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstSC(ConstSC NewOpt) {return new InOptConstSC(NewOpt);}
             }
 
             // Nested classes.
@@ -2073,6 +2463,21 @@ public static partial class MR
                         __MR_CSharp_Outer_Inner_bar(_UnderlyingPtr);
                     }
                 }
+
+                /// This is used for optional parameters of class `Inner` with default arguments.
+                /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Inner`/`ConstInner` to pass it to the function.
+                public class InOptConstInner
+                {
+                    public ConstInner? Opt;
+
+                    public InOptConstInner() {}
+                    public InOptConstInner(ConstInner NewOpt) {Opt = NewOpt;}
+                    public static implicit operator InOptConstInner(ConstInner NewOpt) {return new InOptConstInner(NewOpt);}
+                }
             }
 
             // Nested classes.
@@ -2113,6 +2518,21 @@ public static partial class MR
                     extern static void __MR_CSharp_Outer_foo(_Underlying *_this);
                     __MR_CSharp_Outer_foo(_UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `Outer` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Outer`/`ConstOuter` to pass it to the function.
+            public class InOptConstOuter
+            {
+                public ConstOuter? Opt;
+
+                public InOptConstOuter() {}
+                public InOptConstOuter(ConstOuter NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstOuter(ConstOuter NewOpt) {return new InOptConstOuter(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::TestFields`.
@@ -2299,7 +2719,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
-                public unsafe ConstTestFields(MR.CS.Misc.ByValue<MR.CS.CSharp.TestFields, MR.CS.CSharp.ConstTestFields> _other) : this(null, is_owning: true)
+                public unsafe ConstTestFields(MR.CS.CSharp.ByValueTestFields _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstTestFields._Underlying *__MR_CSharp_TestFields_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestFields._Underlying *_other);
@@ -2377,7 +2797,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
-                public unsafe TestFields(MR.CS.Misc.ByValue<MR.CS.CSharp.TestFields, MR.CS.CSharp.ConstTestFields> _other) : this(null, is_owning: true)
+                public unsafe TestFields(MR.CS.CSharp.ByValueTestFields _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstTestFields._Underlying *__MR_CSharp_TestFields_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestFields._Underlying *_other);
@@ -2409,6 +2829,39 @@ public static partial class MR
                         }
                     }
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `TestFields` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `TestFields`/`ConstTestFields` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueTestFields
+            {
+                internal readonly ConstTestFields? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueTestFields() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueTestFields(ConstTestFields new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueTestFields(MR.CS.Misc._Moved<TestFields> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueTestFields(ConstTestFields arg) {return new(arg);}
+                public static implicit operator ByValueTestFields(MR.CS.Misc._Moved<TestFields> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `TestFields` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestFields`/`ConstTestFields` to pass it to the function.
+            public class InOptConstTestFields
+            {
+                public ConstTestFields? Opt;
+
+                public InOptConstTestFields() {}
+                public InOptConstTestFields(ConstTestFields NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstTestFields(ConstTestFields NewOpt) {return new InOptConstTestFields(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::TestConstness`.
@@ -2495,6 +2948,21 @@ public static partial class MR
                     extern static void __MR_CSharp_TestConstness_foo(_Underlying *_this);
                     __MR_CSharp_TestConstness_foo(_UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `TestConstness` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestConstness`/`ConstTestConstness` to pass it to the function.
+            public class InOptConstTestConstness
+            {
+                public ConstTestConstness? Opt;
+
+                public InOptConstTestConstness() {}
+                public InOptConstTestConstness(ConstTestConstness NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstTestConstness(ConstTestConstness NewOpt) {return new InOptConstTestConstness(NewOpt);}
             }
 
             // This is the happy path.
@@ -2607,6 +3075,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `IncrDecrA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrA`/`ConstIncrDecrA` to pass it to the function.
+            public class InOptConstIncrDecrA
+            {
+                public ConstIncrDecrA? Opt;
+
+                public InOptConstIncrDecrA() {}
+                public InOptConstIncrDecrA(ConstIncrDecrA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrA(ConstIncrDecrA NewOpt) {return new InOptConstIncrDecrA(NewOpt);}
+            }
+
             // This is a somewhat happy path. Same as above, but everything gets emitted in the const half.
             /// Generated from class `MR::CSharp::IncrDecrB`.
             /// This is the const half of the class.
@@ -2715,6 +3198,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `IncrDecrB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrB`/`ConstIncrDecrB` to pass it to the function.
+            public class InOptConstIncrDecrB
+            {
+                public ConstIncrDecrB? Opt;
+
+                public InOptConstIncrDecrB() {}
+                public InOptConstIncrDecrB(ConstIncrDecrB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrB(ConstIncrDecrB NewOpt) {return new InOptConstIncrDecrB(NewOpt);}
+            }
+
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
             // The non-static ones are not marked const, so they're also in the non-const half.
             /// Generated from class `MR::CSharp::IncrDecrC`.
@@ -2815,6 +3313,21 @@ public static partial class MR
                     MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(_this_copy._UnderlyingPtr), is_owning: false);
                     return _this_copy;
                 }
+            }
+
+            /// This is used for optional parameters of class `IncrDecrC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrC`/`ConstIncrDecrC` to pass it to the function.
+            public class InOptConstIncrDecrC
+            {
+                public ConstIncrDecrC? Opt;
+
+                public InOptConstIncrDecrC() {}
+                public InOptConstIncrDecrC(ConstIncrDecrC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrC(ConstIncrDecrC NewOpt) {return new InOptConstIncrDecrC(NewOpt);}
             }
 
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
@@ -2919,6 +3432,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `IncrDecrD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrD`/`ConstIncrDecrD` to pass it to the function.
+            public class InOptConstIncrDecrD
+            {
+                public ConstIncrDecrD? Opt;
+
+                public InOptConstIncrDecrD() {}
+                public InOptConstIncrDecrD(ConstIncrDecrD NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrD(ConstIncrDecrD NewOpt) {return new InOptConstIncrDecrD(NewOpt);}
+            }
+
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the non-const half.
             /// Generated from class `MR::CSharp::IncrDecrE`.
             /// This is the const half of the class.
@@ -2951,7 +3479,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::IncrDecrE::IncrDecrE`.
-                public unsafe ConstIncrDecrE(MR.CS.Misc.ByValue<MR.CS.CSharp.IncrDecrE, MR.CS.CSharp.ConstIncrDecrE> _other) : this(null, is_owning: true)
+                public unsafe ConstIncrDecrE(MR.CS.CSharp.ByValueIncrDecrE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstIncrDecrE._Underlying *__MR_CSharp_IncrDecrE_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IncrDecrE._Underlying *_other);
@@ -2975,7 +3503,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::IncrDecrE::IncrDecrE`.
-                public unsafe IncrDecrE(MR.CS.Misc.ByValue<MR.CS.CSharp.IncrDecrE, MR.CS.CSharp.ConstIncrDecrE> _other) : this(null, is_owning: true)
+                public unsafe IncrDecrE(MR.CS.CSharp.ByValueIncrDecrE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstIncrDecrE._Underlying *__MR_CSharp_IncrDecrE_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IncrDecrE._Underlying *_other);
@@ -2997,6 +3525,39 @@ public static partial class MR
                     extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_C_decr_MR_CSharp_IncrDecrE(MR.CS.CSharp.IncrDecrE._Underlying *_this);
                     MR.CS.CSharp.IncrDecrE _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrE(_this._UnderlyingPtr), is_owning: false);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `IncrDecrE` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `IncrDecrE`/`ConstIncrDecrE` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueIncrDecrE
+            {
+                internal readonly ConstIncrDecrE? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueIncrDecrE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueIncrDecrE(ConstIncrDecrE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueIncrDecrE(MR.CS.Misc._Moved<IncrDecrE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueIncrDecrE(ConstIncrDecrE arg) {return new(arg);}
+                public static implicit operator ByValueIncrDecrE(MR.CS.Misc._Moved<IncrDecrE> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrE`/`ConstIncrDecrE` to pass it to the function.
+            public class InOptConstIncrDecrE
+            {
+                public ConstIncrDecrE? Opt;
+
+                public InOptConstIncrDecrE() {}
+                public InOptConstIncrDecrE(ConstIncrDecrE NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrE(ConstIncrDecrE NewOpt) {return new InOptConstIncrDecrE(NewOpt);}
             }
 
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the const half.
@@ -3031,7 +3592,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::IncrDecrF::IncrDecrF`.
-                public unsafe ConstIncrDecrF(MR.CS.Misc.ByValue<MR.CS.CSharp.IncrDecrF, MR.CS.CSharp.ConstIncrDecrF> _other) : this(null, is_owning: true)
+                public unsafe ConstIncrDecrF(MR.CS.CSharp.ByValueIncrDecrF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_CSharp_IncrDecrF_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IncrDecrF._Underlying *_other);
@@ -3071,12 +3632,45 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::IncrDecrF::IncrDecrF`.
-                public unsafe IncrDecrF(MR.CS.Misc.ByValue<MR.CS.CSharp.IncrDecrF, MR.CS.CSharp.ConstIncrDecrF> _other) : this(null, is_owning: true)
+                public unsafe IncrDecrF(MR.CS.CSharp.ByValueIncrDecrF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstIncrDecrF._Underlying *__MR_CSharp_IncrDecrF_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IncrDecrF._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IncrDecrF_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `IncrDecrF` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `IncrDecrF`/`ConstIncrDecrF` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueIncrDecrF
+            {
+                internal readonly ConstIncrDecrF? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueIncrDecrF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueIncrDecrF(ConstIncrDecrF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueIncrDecrF(MR.CS.Misc._Moved<IncrDecrF> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueIncrDecrF(ConstIncrDecrF arg) {return new(arg);}
+                public static implicit operator ByValueIncrDecrF(MR.CS.Misc._Moved<IncrDecrF> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrF`/`ConstIncrDecrF` to pass it to the function.
+            public class InOptConstIncrDecrF
+            {
+                public ConstIncrDecrF? Opt;
+
+                public InOptConstIncrDecrF() {}
+                public InOptConstIncrDecrF(ConstIncrDecrF NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrF(ConstIncrDecrF NewOpt) {return new InOptConstIncrDecrF(NewOpt);}
             }
 
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
@@ -3179,6 +3773,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `IncrDecrG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrG`/`ConstIncrDecrG` to pass it to the function.
+            public class InOptConstIncrDecrG
+            {
+                public ConstIncrDecrG? Opt;
+
+                public InOptConstIncrDecrG() {}
+                public InOptConstIncrDecrG(ConstIncrDecrG NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrG(ConstIncrDecrG NewOpt) {return new InOptConstIncrDecrG(NewOpt);}
+            }
+
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
             /// Generated from class `MR::CSharp::IncrDecrH`.
             /// This is the const half of the class.
@@ -3277,6 +3886,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.ConstIncrDecrH._Underlying *__MR_CSharp_IncrDecrH_ConstructFromAnother(MR.CS.CSharp.IncrDecrH._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IncrDecrH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `IncrDecrH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrH`/`ConstIncrDecrH` to pass it to the function.
+            public class InOptConstIncrDecrH
+            {
+                public ConstIncrDecrH? Opt;
+
+                public InOptConstIncrDecrH() {}
+                public InOptConstIncrDecrH(ConstIncrDecrH NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstIncrDecrH(ConstIncrDecrH NewOpt) {return new InOptConstIncrDecrH(NewOpt);}
             }
 
             // Test equality comparison.
@@ -3411,6 +4035,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `EqualityA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityA`/`ConstEqualityA` to pass it to the function.
+            public class InOptConstEqualityA
+            {
+                public ConstEqualityA? Opt;
+
+                public InOptConstEqualityA() {}
+                public InOptConstEqualityA(ConstEqualityA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstEqualityA(ConstEqualityA NewOpt) {return new InOptConstEqualityA(NewOpt);}
+            }
+
             // Return type isn't `bool`.
             /// Generated from class `MR::CSharp::EqualityB`.
             /// This is the const half of the class.
@@ -3507,6 +4146,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `EqualityB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityB`/`ConstEqualityB` to pass it to the function.
+            public class InOptConstEqualityB
+            {
+                public ConstEqualityB? Opt;
+
+                public InOptConstEqualityB() {}
+                public InOptConstEqualityB(ConstEqualityB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstEqualityB(ConstEqualityB NewOpt) {return new InOptConstEqualityB(NewOpt);}
+            }
+
             // Return type is `void`.
             /// Generated from class `MR::CSharp::EqualityC`.
             /// This is the const half of the class.
@@ -3601,6 +4255,21 @@ public static partial class MR
                     extern static void __MR_C_not_equal_MR_CSharp_EqualityC_int(_Underlying *_this, int _1);
                     __MR_C_not_equal_MR_CSharp_EqualityC_int(_UnderlyingPtr, _1);
                 }
+            }
+
+            /// This is used for optional parameters of class `EqualityC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityC`/`ConstEqualityC` to pass it to the function.
+            public class InOptConstEqualityC
+            {
+                public ConstEqualityC? Opt;
+
+                public InOptConstEqualityC() {}
+                public InOptConstEqualityC(ConstEqualityC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstEqualityC(ConstEqualityC NewOpt) {return new InOptConstEqualityC(NewOpt);}
             }
 
             // The C# parameter type ends with `?`, and isn't a managed type.
@@ -3705,6 +4374,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `EqualityD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityD`/`ConstEqualityD` to pass it to the function.
+            public class InOptConstEqualityD
+            {
+                public ConstEqualityD? Opt;
+
+                public InOptConstEqualityD() {}
+                public InOptConstEqualityD(ConstEqualityD NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstEqualityD(ConstEqualityD NewOpt) {return new InOptConstEqualityD(NewOpt);}
+            }
+
             // The C# parameter type ends with `?`, and is a managed type.
             /// Generated from class `MR::CSharp::EqualityE`.
             /// This is the const half of the class.
@@ -3806,6 +4490,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `EqualityE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityE`/`ConstEqualityE` to pass it to the function.
+            public class InOptConstEqualityE
+            {
+                public ConstEqualityE? Opt;
+
+                public InOptConstEqualityE() {}
+                public InOptConstEqualityE(ConstEqualityE NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstEqualityE(ConstEqualityE NewOpt) {return new InOptConstEqualityE(NewOpt);}
+            }
+
             // The happy path, the operator is const.
             /// Generated from class `MR::CSharp::RelationalA`.
             /// This is the const half of the class.
@@ -3899,6 +4598,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.RelationalA._Underlying *__MR_CSharp_RelationalA_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.RelationalA._Underlying *_other);
                     return new(__MR_CSharp_RelationalA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+            }
+
+            /// This is used for optional parameters of class `RelationalA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalA`/`ConstRelationalA` to pass it to the function.
+            public class InOptConstRelationalA
+            {
+                public ConstRelationalA? Opt;
+
+                public InOptConstRelationalA() {}
+                public InOptConstRelationalA(ConstRelationalA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstRelationalA(ConstRelationalA NewOpt) {return new InOptConstRelationalA(NewOpt);}
             }
 
             // The happy path, the operator is non-const.
@@ -3996,6 +4710,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `RelationalB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalB`/`ConstRelationalB` to pass it to the function.
+            public class InOptConstRelationalB
+            {
+                public ConstRelationalB? Opt;
+
+                public InOptConstRelationalB() {}
+                public InOptConstRelationalB(ConstRelationalB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstRelationalB(ConstRelationalB NewOpt) {return new InOptConstRelationalB(NewOpt);}
+            }
+
             // The operators have mixed constness, which causes them to be demoted to functions.
             /// Generated from class `MR::CSharp::RelationalC`.
             /// This is the const half of the class.
@@ -4091,6 +4820,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.RelationalC._Underlying *__MR_CSharp_RelationalC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.RelationalC._Underlying *_other);
                     return new(__MR_CSharp_RelationalC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+            }
+
+            /// This is used for optional parameters of class `RelationalC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalC`/`ConstRelationalC` to pass it to the function.
+            public class InOptConstRelationalC
+            {
+                public ConstRelationalC? Opt;
+
+                public InOptConstRelationalC() {}
+                public InOptConstRelationalC(ConstRelationalC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstRelationalC(ConstRelationalC NewOpt) {return new InOptConstRelationalC(NewOpt);}
             }
 
             // The operators have operands of different types, causing them to be demoted to functions.
@@ -4197,6 +4941,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `RelationalD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalD`/`ConstRelationalD` to pass it to the function.
+            public class InOptConstRelationalD
+            {
+                public ConstRelationalD? Opt;
+
+                public InOptConstRelationalD() {}
+                public InOptConstRelationalD(ConstRelationalD NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstRelationalD(ConstRelationalD NewOpt) {return new InOptConstRelationalD(NewOpt);}
+            }
+
             // The operators have a weird return type.
             /// Generated from class `MR::CSharp::RelationalE`.
             /// This is the const half of the class.
@@ -4299,6 +5058,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.RelationalE._Underlying *__MR_CSharp_RelationalE_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.RelationalE._Underlying *_other);
                     return new(__MR_CSharp_RelationalE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+            }
+
+            /// This is used for optional parameters of class `RelationalE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalE`/`ConstRelationalE` to pass it to the function.
+            public class InOptConstRelationalE
+            {
+                public ConstRelationalE? Opt;
+
+                public InOptConstRelationalE() {}
+                public InOptConstRelationalE(ConstRelationalE NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstRelationalE(ConstRelationalE NewOpt) {return new InOptConstRelationalE(NewOpt);}
             }
 
             // The operators return void.
@@ -4405,6 +5179,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `RelationalF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalF`/`ConstRelationalF` to pass it to the function.
+            public class InOptConstRelationalF
+            {
+                public ConstRelationalF? Opt;
+
+                public InOptConstRelationalF() {}
+                public InOptConstRelationalF(ConstRelationalF NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstRelationalF(ConstRelationalF NewOpt) {return new InOptConstRelationalF(NewOpt);}
+            }
+
             // The operator is injected correctly.
             /// Generated from class `MR::CSharp::StaticOpsLhsA`.
             /// This is the const half of the class.
@@ -4483,6 +5272,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.StaticOpsLhsA._Underlying *__MR_CSharp_StaticOpsLhsA_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsA._Underlying *_other);
                     return new(__MR_CSharp_StaticOpsLhsA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsA`/`ConstStaticOpsLhsA` to pass it to the function.
+            public class InOptConstStaticOpsLhsA
+            {
+                public ConstStaticOpsLhsA? Opt;
+
+                public InOptConstStaticOpsLhsA() {}
+                public InOptConstStaticOpsLhsA(ConstStaticOpsLhsA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsA(ConstStaticOpsLhsA NewOpt) {return new InOptConstStaticOpsLhsA(NewOpt);}
             }
 
             // The operator injects but becomes a function, because it returns void.
@@ -4565,6 +5369,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsLhsB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsB`/`ConstStaticOpsLhsB` to pass it to the function.
+            public class InOptConstStaticOpsLhsB
+            {
+                public ConstStaticOpsLhsB? Opt;
+
+                public InOptConstStaticOpsLhsB() {}
+                public InOptConstStaticOpsLhsB(ConstStaticOpsLhsB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsB(ConstStaticOpsLhsB NewOpt) {return new InOptConstStaticOpsLhsB(NewOpt);}
+            }
+
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
             /// Generated from class `MR::CSharp::StaticOpsLhsC`.
             /// This is the const half of the class.
@@ -4597,7 +5416,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsC::StaticOpsLhsC`.
-                public unsafe ConstStaticOpsLhsC(MR.CS.Misc.ByValue<MR.CS.CSharp.StaticOpsLhsC, MR.CS.CSharp.ConstStaticOpsLhsC> _other) : this(null, is_owning: true)
+                public unsafe ConstStaticOpsLhsC(MR.CS.CSharp.ByValueStaticOpsLhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstStaticOpsLhsC._Underlying *__MR_CSharp_StaticOpsLhsC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.StaticOpsLhsC._Underlying *_other);
@@ -4621,12 +5440,45 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsC::StaticOpsLhsC`.
-                public unsafe StaticOpsLhsC(MR.CS.Misc.ByValue<MR.CS.CSharp.StaticOpsLhsC, MR.CS.CSharp.ConstStaticOpsLhsC> _other) : this(null, is_owning: true)
+                public unsafe StaticOpsLhsC(MR.CS.CSharp.ByValueStaticOpsLhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstStaticOpsLhsC._Underlying *__MR_CSharp_StaticOpsLhsC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.StaticOpsLhsC._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsC_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `StaticOpsLhsC` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `StaticOpsLhsC`/`ConstStaticOpsLhsC` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueStaticOpsLhsC
+            {
+                internal readonly ConstStaticOpsLhsC? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueStaticOpsLhsC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueStaticOpsLhsC(ConstStaticOpsLhsC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueStaticOpsLhsC(MR.CS.Misc._Moved<StaticOpsLhsC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueStaticOpsLhsC(ConstStaticOpsLhsC arg) {return new(arg);}
+                public static implicit operator ByValueStaticOpsLhsC(MR.CS.Misc._Moved<StaticOpsLhsC> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsC`/`ConstStaticOpsLhsC` to pass it to the function.
+            public class InOptConstStaticOpsLhsC
+            {
+                public ConstStaticOpsLhsC? Opt;
+
+                public InOptConstStaticOpsLhsC() {}
+                public InOptConstStaticOpsLhsC(ConstStaticOpsLhsC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsC(ConstStaticOpsLhsC NewOpt) {return new InOptConstStaticOpsLhsC(NewOpt);}
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
@@ -4699,6 +5551,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.ConstStaticOpsLhsD._Underlying *__MR_CSharp_StaticOpsLhsD_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsD._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsD`/`ConstStaticOpsLhsD` to pass it to the function.
+            public class InOptConstStaticOpsLhsD
+            {
+                public ConstStaticOpsLhsD? Opt;
+
+                public InOptConstStaticOpsLhsD() {}
+                public InOptConstStaticOpsLhsD(ConstStaticOpsLhsD NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsD(ConstStaticOpsLhsD NewOpt) {return new InOptConstStaticOpsLhsD(NewOpt);}
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
@@ -4781,6 +5648,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsLhsE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsE`/`ConstStaticOpsLhsE` to pass it to the function.
+            public class InOptConstStaticOpsLhsE
+            {
+                public ConstStaticOpsLhsE? Opt;
+
+                public InOptConstStaticOpsLhsE() {}
+                public InOptConstStaticOpsLhsE(ConstStaticOpsLhsE NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsE(ConstStaticOpsLhsE NewOpt) {return new InOptConstStaticOpsLhsE(NewOpt);}
+            }
+
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
             /// Generated from class `MR::CSharp::StaticOpsLhsF`.
             /// This is the const half of the class.
@@ -4861,6 +5743,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsLhsF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsF`/`ConstStaticOpsLhsF` to pass it to the function.
+            public class InOptConstStaticOpsLhsF
+            {
+                public ConstStaticOpsLhsF? Opt;
+
+                public InOptConstStaticOpsLhsF() {}
+                public InOptConstStaticOpsLhsF(ConstStaticOpsLhsF NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsF(ConstStaticOpsLhsF NewOpt) {return new InOptConstStaticOpsLhsF(NewOpt);}
+            }
+
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
             /// Generated from class `MR::CSharp::StaticOpsLhsG`.
             /// This is the const half of the class.
@@ -4931,6 +5828,21 @@ public static partial class MR
                     extern static int __MR_C_add_MR_CSharp_StaticOpsLhsG_int(MR.CS.CSharp.StaticOpsLhsG._Underlying *_1, int _2);
                     return __MR_C_add_MR_CSharp_StaticOpsLhsG_int(_1._UnderlyingPtr, _2);
                 }
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsG`/`ConstStaticOpsLhsG` to pass it to the function.
+            public class InOptConstStaticOpsLhsG
+            {
+                public ConstStaticOpsLhsG? Opt;
+
+                public InOptConstStaticOpsLhsG() {}
+                public InOptConstStaticOpsLhsG(ConstStaticOpsLhsG NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsG(ConstStaticOpsLhsG NewOpt) {return new InOptConstStaticOpsLhsG(NewOpt);}
             }
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
@@ -5005,6 +5917,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.ConstStaticOpsLhsH._Underlying *__MR_CSharp_StaticOpsLhsH_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsH._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsH`/`ConstStaticOpsLhsH` to pass it to the function.
+            public class InOptConstStaticOpsLhsH
+            {
+                public ConstStaticOpsLhsH? Opt;
+
+                public InOptConstStaticOpsLhsH() {}
+                public InOptConstStaticOpsLhsH(ConstStaticOpsLhsH NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsLhsH(ConstStaticOpsLhsH NewOpt) {return new InOptConstStaticOpsLhsH(NewOpt);}
             }
 
             // The operator is injected correctly.
@@ -5087,6 +6014,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsRhsA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsA`/`ConstStaticOpsRhsA` to pass it to the function.
+            public class InOptConstStaticOpsRhsA
+            {
+                public ConstStaticOpsRhsA? Opt;
+
+                public InOptConstStaticOpsRhsA() {}
+                public InOptConstStaticOpsRhsA(ConstStaticOpsRhsA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsA(ConstStaticOpsRhsA NewOpt) {return new InOptConstStaticOpsRhsA(NewOpt);}
+            }
+
             // The operator injects but becomes a function, because it returns void.
             /// Generated from class `MR::CSharp::StaticOpsRhsB`.
             /// This is the const half of the class.
@@ -5167,6 +6109,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsRhsB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsB`/`ConstStaticOpsRhsB` to pass it to the function.
+            public class InOptConstStaticOpsRhsB
+            {
+                public ConstStaticOpsRhsB? Opt;
+
+                public InOptConstStaticOpsRhsB() {}
+                public InOptConstStaticOpsRhsB(ConstStaticOpsRhsB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsB(ConstStaticOpsRhsB NewOpt) {return new InOptConstStaticOpsRhsB(NewOpt);}
+            }
+
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
             /// Generated from class `MR::CSharp::StaticOpsRhsC`.
             /// This is the const half of the class.
@@ -5199,7 +6156,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsC::StaticOpsRhsC`.
-                public unsafe ConstStaticOpsRhsC(MR.CS.Misc.ByValue<MR.CS.CSharp.StaticOpsRhsC, MR.CS.CSharp.ConstStaticOpsRhsC> _other) : this(null, is_owning: true)
+                public unsafe ConstStaticOpsRhsC(MR.CS.CSharp.ByValueStaticOpsRhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsC_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstStaticOpsRhsC._Underlying *__MR_CSharp_StaticOpsRhsC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.StaticOpsRhsC._Underlying *_other);
@@ -5223,12 +6180,45 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsC::StaticOpsRhsC`.
-                public unsafe StaticOpsRhsC(MR.CS.Misc.ByValue<MR.CS.CSharp.StaticOpsRhsC, MR.CS.CSharp.ConstStaticOpsRhsC> _other) : this(null, is_owning: true)
+                public unsafe StaticOpsRhsC(MR.CS.CSharp.ByValueStaticOpsRhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsC_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstStaticOpsRhsC._Underlying *__MR_CSharp_StaticOpsRhsC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.StaticOpsRhsC._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsC_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `StaticOpsRhsC` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `StaticOpsRhsC`/`ConstStaticOpsRhsC` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueStaticOpsRhsC
+            {
+                internal readonly ConstStaticOpsRhsC? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueStaticOpsRhsC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueStaticOpsRhsC(ConstStaticOpsRhsC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueStaticOpsRhsC(MR.CS.Misc._Moved<StaticOpsRhsC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueStaticOpsRhsC(ConstStaticOpsRhsC arg) {return new(arg);}
+                public static implicit operator ByValueStaticOpsRhsC(MR.CS.Misc._Moved<StaticOpsRhsC> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsC`/`ConstStaticOpsRhsC` to pass it to the function.
+            public class InOptConstStaticOpsRhsC
+            {
+                public ConstStaticOpsRhsC? Opt;
+
+                public InOptConstStaticOpsRhsC() {}
+                public InOptConstStaticOpsRhsC(ConstStaticOpsRhsC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsC(ConstStaticOpsRhsC NewOpt) {return new InOptConstStaticOpsRhsC(NewOpt);}
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
@@ -5301,6 +6291,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.ConstStaticOpsRhsD._Underlying *__MR_CSharp_StaticOpsRhsD_ConstructFromAnother(MR.CS.CSharp.StaticOpsRhsD._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsD`/`ConstStaticOpsRhsD` to pass it to the function.
+            public class InOptConstStaticOpsRhsD
+            {
+                public ConstStaticOpsRhsD? Opt;
+
+                public InOptConstStaticOpsRhsD() {}
+                public InOptConstStaticOpsRhsD(ConstStaticOpsRhsD NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsD(ConstStaticOpsRhsD NewOpt) {return new InOptConstStaticOpsRhsD(NewOpt);}
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
@@ -5383,6 +6388,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsRhsE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsE`/`ConstStaticOpsRhsE` to pass it to the function.
+            public class InOptConstStaticOpsRhsE
+            {
+                public ConstStaticOpsRhsE? Opt;
+
+                public InOptConstStaticOpsRhsE() {}
+                public InOptConstStaticOpsRhsE(ConstStaticOpsRhsE NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsE(ConstStaticOpsRhsE NewOpt) {return new InOptConstStaticOpsRhsE(NewOpt);}
+            }
+
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
             /// Generated from class `MR::CSharp::StaticOpsRhsF`.
             /// This is the const half of the class.
@@ -5463,6 +6483,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsRhsF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsF`/`ConstStaticOpsRhsF` to pass it to the function.
+            public class InOptConstStaticOpsRhsF
+            {
+                public ConstStaticOpsRhsF? Opt;
+
+                public InOptConstStaticOpsRhsF() {}
+                public InOptConstStaticOpsRhsF(ConstStaticOpsRhsF NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsF(ConstStaticOpsRhsF NewOpt) {return new InOptConstStaticOpsRhsF(NewOpt);}
+            }
+
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
             /// Generated from class `MR::CSharp::StaticOpsRhsG`.
             /// This is the const half of the class.
@@ -5533,6 +6568,21 @@ public static partial class MR
                     extern static int __MR_C_add_int_MR_CSharp_StaticOpsRhsG(int _1, MR.CS.CSharp.StaticOpsRhsG._Underlying *_2);
                     return __MR_C_add_int_MR_CSharp_StaticOpsRhsG(_1, _2._UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsG`/`ConstStaticOpsRhsG` to pass it to the function.
+            public class InOptConstStaticOpsRhsG
+            {
+                public ConstStaticOpsRhsG? Opt;
+
+                public InOptConstStaticOpsRhsG() {}
+                public InOptConstStaticOpsRhsG(ConstStaticOpsRhsG NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsG(ConstStaticOpsRhsG NewOpt) {return new InOptConstStaticOpsRhsG(NewOpt);}
             }
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
@@ -5607,6 +6657,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.ConstStaticOpsRhsH._Underlying *__MR_CSharp_StaticOpsRhsH_ConstructFromAnother(MR.CS.CSharp.StaticOpsRhsH._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsH`/`ConstStaticOpsRhsH` to pass it to the function.
+            public class InOptConstStaticOpsRhsH
+            {
+                public ConstStaticOpsRhsH? Opt;
+
+                public InOptConstStaticOpsRhsH() {}
+                public InOptConstStaticOpsRhsH(ConstStaticOpsRhsH NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsRhsH(ConstStaticOpsRhsH NewOpt) {return new InOptConstStaticOpsRhsH(NewOpt);}
             }
 
             // Other injection cases:
@@ -5693,6 +6758,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsMixedLhs` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsMixedLhs`/`ConstStaticOpsMixedLhs` to pass it to the function.
+            public class InOptConstStaticOpsMixedLhs
+            {
+                public ConstStaticOpsMixedLhs? Opt;
+
+                public InOptConstStaticOpsMixedLhs() {}
+                public InOptConstStaticOpsMixedLhs(ConstStaticOpsMixedLhs NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsMixedLhs(ConstStaticOpsMixedLhs NewOpt) {return new InOptConstStaticOpsMixedLhs(NewOpt);}
+            }
+
             /// Generated from class `MR::CSharp::StaticOpsMixedRhs`.
             /// This is the const half of the class.
             public class ConstStaticOpsMixedRhs : MR.CS.Misc.Object, System.IDisposable
@@ -5763,6 +6843,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `StaticOpsMixedRhs` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsMixedRhs`/`ConstStaticOpsMixedRhs` to pass it to the function.
+            public class InOptConstStaticOpsMixedRhs
+            {
+                public ConstStaticOpsMixedRhs? Opt;
+
+                public InOptConstStaticOpsMixedRhs() {}
+                public InOptConstStaticOpsMixedRhs(ConstStaticOpsMixedRhs NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstStaticOpsMixedRhs(ConstStaticOpsMixedRhs NewOpt) {return new InOptConstStaticOpsMixedRhs(NewOpt);}
+            }
+
             // Check how non-trivial class types are passed by value into operators.
             /// Generated from class `MR::CSharp::NonTrivialClassOps`.
             /// This is the const half of the class.
@@ -5795,7 +6890,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
-                public unsafe ConstNonTrivialClassOps(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivialClassOps, MR.CS.CSharp.ConstNonTrivialClassOps> _other) : this(null, is_owning: true)
+                public unsafe ConstNonTrivialClassOps(MR.CS.CSharp.ByValueNonTrivialClassOps _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstNonTrivialClassOps._Underlying *__MR_CSharp_NonTrivialClassOps_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivialClassOps._Underlying *_other);
@@ -5835,7 +6930,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
-                public unsafe NonTrivialClassOps(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivialClassOps, MR.CS.CSharp.ConstNonTrivialClassOps> _other) : this(null, is_owning: true)
+                public unsafe NonTrivialClassOps(MR.CS.CSharp.ByValueNonTrivialClassOps _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstNonTrivialClassOps._Underlying *__MR_CSharp_NonTrivialClassOps_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivialClassOps._Underlying *_other);
@@ -5843,7 +6938,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::NonTrivialClassOps::operator=`.
-                public unsafe MR.CS.CSharp.NonTrivialClassOps Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivialClassOps, MR.CS.CSharp.ConstNonTrivialClassOps> _other)
+                public unsafe MR.CS.CSharp.NonTrivialClassOps Assign(MR.CS.CSharp.ByValueNonTrivialClassOps _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.NonTrivialClassOps._Underlying *__MR_CSharp_NonTrivialClassOps_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.NonTrivialClassOps._Underlying *_other);
@@ -5857,6 +6952,39 @@ public static partial class MR
                     extern static int __MR_C_add_MR_CSharp_NonTrivialClassOps_int(MR.CS.CSharp.NonTrivialClassOps._Underlying *_this, int _1);
                     return __MR_C_add_MR_CSharp_NonTrivialClassOps_int(_this._UnderlyingPtr, _1);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `NonTrivialClassOps` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `NonTrivialClassOps`/`ConstNonTrivialClassOps` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueNonTrivialClassOps
+            {
+                internal readonly ConstNonTrivialClassOps? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueNonTrivialClassOps() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueNonTrivialClassOps(ConstNonTrivialClassOps new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueNonTrivialClassOps(MR.CS.Misc._Moved<NonTrivialClassOps> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueNonTrivialClassOps(ConstNonTrivialClassOps arg) {return new(arg);}
+                public static implicit operator ByValueNonTrivialClassOps(MR.CS.Misc._Moved<NonTrivialClassOps> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `NonTrivialClassOps` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonTrivialClassOps`/`ConstNonTrivialClassOps` to pass it to the function.
+            public class InOptConstNonTrivialClassOps
+            {
+                public ConstNonTrivialClassOps? Opt;
+
+                public InOptConstNonTrivialClassOps() {}
+                public InOptConstNonTrivialClassOps(ConstNonTrivialClassOps NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstNonTrivialClassOps(ConstNonTrivialClassOps NewOpt) {return new InOptConstNonTrivialClassOps(NewOpt);}
             }
 
             // The class is non-copyable, so operators with by-value parameters fail to inject.
@@ -5947,6 +7075,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `NonCopyableClassByValueOps` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonCopyableClassByValueOps`/`ConstNonCopyableClassByValueOps` to pass it to the function.
+            public class InOptConstNonCopyableClassByValueOps
+            {
+                public ConstNonCopyableClassByValueOps? Opt;
+
+                public InOptConstNonCopyableClassByValueOps() {}
+                public InOptConstNonCopyableClassByValueOps(ConstNonCopyableClassByValueOps NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstNonCopyableClassByValueOps(ConstNonCopyableClassByValueOps NewOpt) {return new InOptConstNonCopyableClassByValueOps(NewOpt);}
+            }
+
             // Test the call operator, since it can have an unusual amount of arguments.
             // Not testing `[]` here to be able to run the tests on older C++.
             /// Generated from class `MR::CSharp::CallOp`.
@@ -6035,6 +7178,21 @@ public static partial class MR
                     extern static int __MR_CSharp_CallOp_call_3(_Underlying *_this, int _1, int _2, int _3);
                     return __MR_CSharp_CallOp_call_3(_UnderlyingPtr, _1, _2, _3);
                 }
+            }
+
+            /// This is used for optional parameters of class `CallOp` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `CallOp`/`ConstCallOp` to pass it to the function.
+            public class InOptConstCallOp
+            {
+                public ConstCallOp? Opt;
+
+                public InOptConstCallOp() {}
+                public InOptConstCallOp(ConstCallOp NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstCallOp(ConstCallOp NewOpt) {return new InOptConstCallOp(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::TestOpsA`.
@@ -6363,6 +7521,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `TestOpsA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestOpsA`/`ConstTestOpsA` to pass it to the function.
+            public class InOptConstTestOpsA
+            {
+                public ConstTestOpsA? Opt;
+
+                public InOptConstTestOpsA() {}
+                public InOptConstTestOpsA(ConstTestOpsA NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstTestOpsA(ConstTestOpsA NewOpt) {return new InOptConstTestOpsA(NewOpt);}
+            }
+
             /// Generated from class `MR::CSharp::TestOpsB`.
             /// This is the const half of the class.
             public class ConstTestOpsB : MR.CS.Misc.Object, System.IDisposable
@@ -6386,7 +7559,7 @@ public static partial class MR
                 ~ConstTestOpsB() {Dispose(false);}
 
                 /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
-                public unsafe ConstTestOpsB(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _other) : this(null, is_owning: true)
+                public unsafe ConstTestOpsB(MR.CS.CSharp.ByValueTestOpsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstTestOpsB._Underlying *__MR_CSharp_TestOpsB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_other);
@@ -6401,7 +7574,7 @@ public static partial class MR
                 internal unsafe TestOpsB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
-                public unsafe TestOpsB(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _other) : this(null, is_owning: true)
+                public unsafe TestOpsB(MR.CS.CSharp.ByValueTestOpsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConstTestOpsB._Underlying *__MR_CSharp_TestOpsB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_other);
@@ -6409,7 +7582,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator=`.
-                public unsafe int Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _other)
+                public unsafe int Assign(MR.CS.CSharp.ByValueTestOpsB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_AssignFromAnother", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_other);
@@ -6425,7 +7598,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator+`.
-                public static unsafe int operator+(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator+(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_add_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6441,7 +7614,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator-`.
-                public static unsafe int operator-(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator-(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_sub_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6457,7 +7630,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator*`.
-                public static unsafe int operator*(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator*(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_mul_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6465,7 +7638,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator/`.
-                public static unsafe int operator/(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator/(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_div_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6473,7 +7646,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator%`.
-                public static unsafe int operator%(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator%(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_mod_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6481,7 +7654,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator^`.
-                public static unsafe int operator^(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator^(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_xor_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_xor_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6497,7 +7670,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator&`.
-                public static unsafe int operator&(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator&(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_bitand_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6505,7 +7678,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator|`.
-                public static unsafe int operator|(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator|(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitor_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_bitor_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6529,7 +7702,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator+=`.
-                public unsafe int AddAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int AddAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_add_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_add_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6537,7 +7710,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator-=`.
-                public unsafe int SubAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int SubAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_sub_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_sub_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6545,7 +7718,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator*=`.
-                public unsafe int MulAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int MulAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_mul_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_mul_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6553,7 +7726,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator/=`.
-                public unsafe int DivAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int DivAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_div_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_div_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6561,7 +7734,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator%=`.
-                public unsafe int ModAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int ModAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_mod_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_mod_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6569,7 +7742,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator^=`.
-                public unsafe int XorAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int XorAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_xor_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_xor_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6577,7 +7750,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator&=`.
-                public unsafe int BitandAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int BitandAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_bitand_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_bitand_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6585,7 +7758,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator|=`.
-                public unsafe int BitorAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int BitorAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_bitor_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_bitor_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6593,7 +7766,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator<<`.
-                public static unsafe int operator<<(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator<<(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_lshift_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6601,7 +7774,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator>>`.
-                public static unsafe int operator>>(MR.CS.CSharp.TestOpsB _this, MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public static unsafe int operator>>(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_rshift_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_rshift_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6609,7 +7782,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator<<=`.
-                public unsafe int LshiftAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int LshiftAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_lshift_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_lshift_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6617,7 +7790,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator>>=`.
-                public unsafe int RshiftAssign(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int RshiftAssign(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_rshift_assign", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_rshift_assign(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6625,7 +7798,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator<=>`.
-                public unsafe int CompareThreeWay(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int CompareThreeWay(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_compare_three_way_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6633,7 +7806,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator&&`.
-                public unsafe int And(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int And(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_and_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_and_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6641,7 +7814,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator||`.
-                public unsafe int Or(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int Or(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_or_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_or_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6649,7 +7822,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator,`.
-                public unsafe int Comma(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int Comma(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_comma_MR_CSharp_TestOpsB", ExactSpelling = true)]
                     extern static int __MR_C_comma_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6657,7 +7830,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator->*`.
-                public unsafe int ArrowStar(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int ArrowStar(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_arrow_star", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_arrow_star(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6673,7 +7846,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator()`.
-                public unsafe int Call(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int Call(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_call", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_call(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
@@ -6681,12 +7854,45 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator[]`.
-                public unsafe int Index(MR.CS.Misc.ByValue<MR.CS.CSharp.TestOpsB, MR.CS.CSharp.ConstTestOpsB> _1)
+                public unsafe int Index(MR.CS.CSharp.ByValueTestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_index", ExactSpelling = true)]
                     extern static int __MR_CSharp_TestOpsB_index(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
                     return __MR_CSharp_TestOpsB_index(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `TestOpsB` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `TestOpsB`/`ConstTestOpsB` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueTestOpsB
+            {
+                internal readonly ConstTestOpsB? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueTestOpsB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueTestOpsB(ConstTestOpsB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueTestOpsB(MR.CS.Misc._Moved<TestOpsB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueTestOpsB(ConstTestOpsB arg) {return new(arg);}
+                public static implicit operator ByValueTestOpsB(MR.CS.Misc._Moved<TestOpsB> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `TestOpsB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestOpsB`/`ConstTestOpsB` to pass it to the function.
+            public class InOptConstTestOpsB
+            {
+                public ConstTestOpsB? Opt;
+
+                public InOptConstTestOpsB() {}
+                public InOptConstTestOpsB(ConstTestOpsB NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstTestOpsB(ConstTestOpsB NewOpt) {return new InOptConstTestOpsB(NewOpt);}
             }
 
             /// Generated from class `MR::CSharp::TestOpsC`.
@@ -7015,6 +8221,21 @@ public static partial class MR
                 }
             }
 
+            /// This is used for optional parameters of class `TestOpsC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestOpsC`/`ConstTestOpsC` to pass it to the function.
+            public class InOptConstTestOpsC
+            {
+                public ConstTestOpsC? Opt;
+
+                public InOptConstTestOpsC() {}
+                public InOptConstTestOpsC(ConstTestOpsC NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstTestOpsC(ConstTestOpsC NewOpt) {return new InOptConstTestOpsC(NewOpt);}
+            }
+
             // Conversion operators. We preserve explicit-ness.
             /// Generated from class `MR::CSharp::ConvOp`.
             /// This is the const half of the class.
@@ -7101,6 +8322,21 @@ public static partial class MR
                     extern static MR.CS.CSharp.ConvOp._Underlying *__MR_CSharp_ConvOp_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ConvOp._Underlying *_other);
                     return new(__MR_CSharp_ConvOp_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+            }
+
+            /// This is used for optional parameters of class `ConvOp` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvOp`/`ConstConvOp` to pass it to the function.
+            public class InOptConstConvOp
+            {
+                public ConstConvOp? Opt;
+
+                public InOptConstConvOp() {}
+                public InOptConstConvOp(ConstConvOp NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstConvOp(ConstConvOp NewOpt) {return new InOptConstConvOp(NewOpt);}
             }
 
             // Conversion constructors. Right now we only provide conversion operators for implicit ones,
@@ -7245,6 +8481,269 @@ public static partial class MR
                     extern static MR.CS.CSharp.ConvCtor._Underlying *__MR_CSharp_ConvCtor_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ConvCtor._Underlying *_other);
                     return new(__MR_CSharp_ConvCtor_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+            }
+
+            /// This is used for optional parameters of class `ConvCtor` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtor`/`ConstConvCtor` to pass it to the function.
+            public class InOptConstConvCtor
+            {
+                public ConstConvCtor? Opt;
+
+                public InOptConstConvCtor() {}
+                public InOptConstConvCtor(ConstConvCtor NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstConvCtor(ConstConvCtor NewOpt) {return new InOptConstConvCtor(NewOpt);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public static unsafe implicit operator InOptConstConvCtor(int _1) {return new MR.CS.CSharp.ConvCtor(_1);}
+            }
+
+            // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// Generated from class `MR::CSharp::ConvCtorTrivial`.
+            /// This is the const half of the class.
+            public class ConstConvCtorTrivial : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstConvCtorTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvCtorTrivial_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvCtorTrivial_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstConvCtorTrivial() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstConvCtorTrivial() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_ConvCtorTrivial_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                public unsafe ConstConvCtorTrivial(MR.CS.CSharp.ConstConvCtorTrivial _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_ConvCtorTrivial_ConstructFromAnother(MR.CS.CSharp.ConvCtorTrivial._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                public unsafe ConstConvCtorTrivial(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_ConvCtorTrivial_Construct(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_Construct(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                public static unsafe implicit operator ConstConvCtorTrivial(int _1) {return new(_1);}
+            }
+
+            // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// Generated from class `MR::CSharp::ConvCtorTrivial`.
+            /// This is the non-const half of the class.
+            public class ConvCtorTrivial : ConstConvCtorTrivial
+            {
+                internal unsafe ConvCtorTrivial(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConvCtorTrivial() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_ConvCtorTrivial_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                public unsafe ConvCtorTrivial(MR.CS.CSharp.ConstConvCtorTrivial _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_ConvCtorTrivial_ConstructFromAnother(MR.CS.CSharp.ConvCtorTrivial._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                public unsafe ConvCtorTrivial(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_ConvCtorTrivial_Construct(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_Construct(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                public static unsafe implicit operator ConvCtorTrivial(int _1) {return new(_1);}
+
+                /// Generated from method `MR::CSharp::ConvCtorTrivial::operator=`.
+                public unsafe MR.CS.CSharp.ConvCtorTrivial Assign(MR.CS.CSharp.ConstConvCtorTrivial _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorTrivial._Underlying *__MR_CSharp_ConvCtorTrivial_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ConvCtorTrivial._Underlying *_other);
+                    return new(__MR_CSharp_ConvCtorTrivial_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `ConvCtorTrivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorTrivial`/`ConstConvCtorTrivial` to pass it to the function.
+            public class InOptConstConvCtorTrivial
+            {
+                public ConstConvCtorTrivial? Opt;
+
+                public InOptConstConvCtorTrivial() {}
+                public InOptConstConvCtorTrivial(ConstConvCtorTrivial NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstConvCtorTrivial(ConstConvCtorTrivial NewOpt) {return new InOptConstConvCtorTrivial(NewOpt);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                public static unsafe implicit operator InOptConstConvCtorTrivial(int _1) {return new MR.CS.CSharp.ConvCtorTrivial(_1);}
+            }
+
+            // Test how a non-trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// Generated from class `MR::CSharp::ConvCtorNonTrivial`.
+            /// This is the const half of the class.
+            public class ConstConvCtorNonTrivial : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstConvCtorNonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvCtorNonTrivial_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvCtorNonTrivial_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstConvCtorNonTrivial() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstConvCtorNonTrivial() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_ConvCtorNonTrivial_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public unsafe ConstConvCtorNonTrivial(MR.CS.CSharp.ByValueConvCtorNonTrivial _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public unsafe ConstConvCtorNonTrivial(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_ConvCtorNonTrivial_Construct(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_Construct(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public static unsafe implicit operator ConstConvCtorNonTrivial(int _1) {return new(_1);}
+            }
+
+            // Test how a non-trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// Generated from class `MR::CSharp::ConvCtorNonTrivial`.
+            /// This is the non-const half of the class.
+            public class ConvCtorNonTrivial : ConstConvCtorNonTrivial
+            {
+                internal unsafe ConvCtorNonTrivial(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConvCtorNonTrivial() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_ConvCtorNonTrivial_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public unsafe ConvCtorNonTrivial(MR.CS.CSharp.ByValueConvCtorNonTrivial _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public unsafe ConvCtorNonTrivial(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_ConvCtorNonTrivial_Construct(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_Construct(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public static unsafe implicit operator ConvCtorNonTrivial(int _1) {return new(_1);}
+
+                /// Generated from method `MR::CSharp::ConvCtorNonTrivial::operator=`.
+                public unsafe MR.CS.CSharp.ConvCtorNonTrivial Assign(MR.CS.CSharp.ByValueConvCtorNonTrivial _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__MR_CSharp_ConvCtorNonTrivial_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *_other);
+                    return new(__MR_CSharp_ConvCtorNonTrivial_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `ConvCtorNonTrivial` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `ConvCtorNonTrivial`/`ConstConvCtorNonTrivial` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public readonly struct ByValueConvCtorNonTrivial
+            {
+                internal readonly ConstConvCtorNonTrivial? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueConvCtorNonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueConvCtorNonTrivial(ConstConvCtorNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValueConvCtorNonTrivial(MR.CS.Misc._Moved<ConvCtorNonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueConvCtorNonTrivial(ConstConvCtorNonTrivial arg) {return new(arg);}
+                public static implicit operator ByValueConvCtorNonTrivial(MR.CS.Misc._Moved<ConvCtorNonTrivial> arg) {return new(arg);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public static unsafe implicit operator ByValueConvCtorNonTrivial(int _1) {return new MR.CS.CSharp.ConvCtorNonTrivial(_1);}
+            }
+
+            /// This is used for optional parameters of class `ConvCtorNonTrivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorNonTrivial`/`ConstConvCtorNonTrivial` to pass it to the function.
+            public class InOptConstConvCtorNonTrivial
+            {
+                public ConstConvCtorNonTrivial? Opt;
+
+                public InOptConstConvCtorNonTrivial() {}
+                public InOptConstConvCtorNonTrivial(ConstConvCtorNonTrivial NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConstConvCtorNonTrivial(ConstConvCtorNonTrivial NewOpt) {return new InOptConstConvCtorNonTrivial(NewOpt);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                public static unsafe implicit operator InOptConstConvCtorNonTrivial(int _1) {return new MR.CS.CSharp.ConvCtorNonTrivial(_1);}
             }
 
             /// Generated from function `MR::CSharp::foo`.
@@ -7625,7 +9124,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_trivial_ptr`.
             /// Parameter `c` defaults to `&default_trivial`.
-            public static unsafe MR.CS.CSharp.Trivial? TestClassTrivialPtr(MR.CS.CSharp.Trivial? a, MR.CS.CSharp.Trivial? b = null, MR.CS.Misc.InOptClass<MR.CS.CSharp.Trivial>? c = null)
+            public static unsafe MR.CS.CSharp.Trivial? TestClassTrivialPtr(MR.CS.CSharp.Trivial? a, MR.CS.CSharp.Trivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.Trivial>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.Trivial._Underlying *__MR_CSharp_test_class_trivial_ptr(MR.CS.CSharp.Trivial._Underlying *a, MR.CS.CSharp.Trivial._Underlying *b, MR.CS.CSharp.Trivial._Underlying **c);
@@ -7636,7 +9135,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_trivial_cptr`.
             /// Parameter `c` defaults to `&default_trivial`.
-            public static unsafe MR.CS.CSharp.ConstTrivial? TestClassTrivialCptr(MR.CS.CSharp.ConstTrivial? a, MR.CS.CSharp.ConstTrivial? b = null, MR.CS.Misc.InOptClass<MR.CS.CSharp.ConstTrivial>? c = null)
+            public static unsafe MR.CS.CSharp.ConstTrivial? TestClassTrivialCptr(MR.CS.CSharp.ConstTrivial? a, MR.CS.CSharp.ConstTrivial? b = null, MR.CS.CSharp.InOptConstTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_cptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstTrivial._Underlying *__MR_CSharp_test_class_trivial_cptr(MR.CS.CSharp.ConstTrivial._Underlying *a, MR.CS.CSharp.ConstTrivial._Underlying *b, MR.CS.CSharp.ConstTrivial._Underlying **c);
@@ -7647,7 +9146,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_nontrivial`.
             /// Parameter `b` defaults to `{}`.
-            public static unsafe MR.CS.CSharp.NonTrivial TestClassNontrivial(MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivial, MR.CS.CSharp.ConstNonTrivial> a, MR.CS.Misc.ByValue<MR.CS.CSharp.NonTrivial, MR.CS.CSharp.ConstNonTrivial>? b = null)
+            public static unsafe MR.CS.CSharp.NonTrivial TestClassNontrivial(MR.CS.CSharp.ByValueNonTrivial a, MR.CS.CSharp.ByValueNonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial", ExactSpelling = true)]
                 extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.NonTrivial._Underlying *b);
@@ -7674,7 +9173,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_nontrivial_ptr`.
             /// Parameter `c` defaults to `&default_nontrivial`.
-            public static unsafe MR.CS.CSharp.NonTrivial? TestClassNontrivialPtr(MR.CS.CSharp.NonTrivial? a, MR.CS.CSharp.NonTrivial? b = null, MR.CS.Misc.InOptClass<MR.CS.CSharp.NonTrivial>? c = null)
+            public static unsafe MR.CS.CSharp.NonTrivial? TestClassNontrivialPtr(MR.CS.CSharp.NonTrivial? a, MR.CS.CSharp.NonTrivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.NonTrivial>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_ptr(MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.CSharp.NonTrivial._Underlying *b, MR.CS.CSharp.NonTrivial._Underlying **c);
@@ -7685,7 +9184,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_nontrivial_cptr`.
             /// Parameter `c` defaults to `&default_nontrivial`.
-            public static unsafe MR.CS.CSharp.ConstNonTrivial? TestClassNontrivialCptr(MR.CS.CSharp.ConstNonTrivial? a, MR.CS.CSharp.ConstNonTrivial? b = null, MR.CS.Misc.InOptClass<MR.CS.CSharp.ConstNonTrivial>? c = null)
+            public static unsafe MR.CS.CSharp.ConstNonTrivial? TestClassNontrivialCptr(MR.CS.CSharp.ConstNonTrivial? a, MR.CS.CSharp.ConstNonTrivial? b = null, MR.CS.CSharp.InOptConstNonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_cptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstNonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_cptr(MR.CS.CSharp.ConstNonTrivial._Underlying *a, MR.CS.CSharp.ConstNonTrivial._Underlying *b, MR.CS.CSharp.ConstNonTrivial._Underlying **c);
@@ -7723,7 +9222,7 @@ public static partial class MR
             // Pokeing a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
             /// Generated from function `MR::CSharp::test_shptr`.
             /// Parameter `b` defaults to `default_shptr`.
-            public static unsafe MR.CS.CSharp.SA TestShptr(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> a, MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA>? b = null)
+            public static unsafe MR.CS.CSharp.SA TestShptr(MR.CS.CSharp.ByValueSA a, MR.CS.CSharp.ByValueSA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);
@@ -7750,7 +9249,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shptr_ptr`.
             /// Parameter `b` defaults to `&default_shptr`.
-            public static unsafe MR.CS.CSharp.SA? TestShptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.SA>? b = null)
+            public static unsafe MR.CS.CSharp.SA? TestShptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.SA>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shptr_ptr(MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.CSharp.SA._UnderlyingShared **b);
@@ -7761,7 +9260,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shptr_cptr`.
             /// Parameter `b` defaults to `&default_shptr`.
-            public static unsafe MR.CS.CSharp.ConstSA? TestShptrCptr(MR.CS.CSharp.ConstSA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.ConstSA>? b = null)
+            public static unsafe MR.CS.CSharp.ConstSA? TestShptrCptr(MR.CS.CSharp.ConstSA? a, MR.CS.CSharp.InOptConstSA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_cptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstSA._UnderlyingShared *__MR_CSharp_test_shptr_cptr(MR.CS.CSharp.ConstSA._UnderlyingShared *a, MR.CS.CSharp.ConstSA._UnderlyingShared **b);
@@ -7772,7 +9271,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shcptr`.
             /// Parameter `b` defaults to `default_shcptr`.
-            public static unsafe MR.CS.CSharp.SA TestShcptr(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> a, MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA>? b = null)
+            public static unsafe MR.CS.CSharp.SA TestShcptr(MR.CS.CSharp.ByValueSA a, MR.CS.CSharp.ByValueSA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shcptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);
@@ -7799,7 +9298,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shcptr_ptr`.
             /// Parameter `b` defaults to `&default_shcptr`.
-            public static unsafe MR.CS.CSharp.SA? TestShcptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.SA>? b = null)
+            public static unsafe MR.CS.CSharp.SA? TestShcptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.SA>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shcptr_ptr(MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.CSharp.SA._UnderlyingShared **b);
@@ -7810,7 +9309,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shcptr_cptr`.
             /// Parameter `b` defaults to `&default_shcptr`.
-            public static unsafe MR.CS.CSharp.ConstSA? TestShcptrCptr(MR.CS.CSharp.ConstSA? a, MR.CS.Misc.InOptClass<MR.CS.CSharp.ConstSA>? b = null)
+            public static unsafe MR.CS.CSharp.ConstSA? TestShcptrCptr(MR.CS.CSharp.ConstSA? a, MR.CS.CSharp.InOptConstSA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_cptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstSA._UnderlyingShared *__MR_CSharp_test_shcptr_cptr(MR.CS.CSharp.ConstSA._UnderlyingShared *a, MR.CS.CSharp.ConstSA._UnderlyingShared **b);
@@ -7878,7 +9377,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_string_ptr`.
             /// Parameter `b` defaults to `&default_string`.
-            public static unsafe MR.CS.Std.String? TestStringPtr(MR.CS.Std.String? a, MR.CS.Misc.InOptClass<MR.CS.Std.String>? b = null)
+            public static unsafe MR.CS.Std.String? TestStringPtr(MR.CS.Std.String? a, MR.CS.Misc.InOptMutClass<MR.CS.Std.String>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_ptr", ExactSpelling = true)]
                 extern static MR.CS.Std.String._Underlying *__MR_CSharp_test_string_ptr(MR.CS.Std.String._Underlying *a, MR.CS.Std.String._Underlying **b);
@@ -7889,7 +9388,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_string_cptr`.
             /// Parameter `b` defaults to `&default_string`.
-            public static unsafe MR.CS.Std.ConstString? TestStringCptr(MR.CS.Std.ConstString? a, MR.CS.Misc.InOptClass<MR.CS.Std.ConstString>? b = null)
+            public static unsafe MR.CS.Std.ConstString? TestStringCptr(MR.CS.Std.ConstString? a, MR.CS.Std.InOptConstString? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_cptr", ExactSpelling = true)]
                 extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_test_string_cptr(MR.CS.Std.ConstString._Underlying *a, MR.CS.Std.ConstString._Underlying **b);
@@ -7957,7 +9456,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_stringview_ptr`.
             /// Parameter `b` defaults to `&default_stringview`.
-            public static unsafe MR.CS.Std.StringView? TestStringviewPtr(MR.CS.Std.StringView? a, MR.CS.Misc.InOptClass<MR.CS.Std.StringView>? b = null)
+            public static unsafe MR.CS.Std.StringView? TestStringviewPtr(MR.CS.Std.StringView? a, MR.CS.Misc.InOptMutClass<MR.CS.Std.StringView>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_ptr", ExactSpelling = true)]
                 extern static MR.CS.Std.StringView._Underlying *__MR_CSharp_test_stringview_ptr(MR.CS.Std.StringView._Underlying *a, MR.CS.Std.StringView._Underlying **b);
@@ -7968,7 +9467,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_stringview_cptr`.
             /// Parameter `b` defaults to `&default_stringview`.
-            public static unsafe MR.CS.Std.ConstStringView? TestStringviewCptr(MR.CS.Std.ConstStringView? a, MR.CS.Misc.InOptClass<MR.CS.Std.ConstStringView>? b = null)
+            public static unsafe MR.CS.Std.ConstStringView? TestStringviewCptr(MR.CS.Std.ConstStringView? a, MR.CS.Std.InOptConstStringView? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_cptr", ExactSpelling = true)]
                 extern static MR.CS.Std.ConstStringView._Underlying *__MR_CSharp_test_stringview_cptr(MR.CS.Std.ConstStringView._Underlying *a, MR.CS.Std.ConstStringView._Underlying **b);
@@ -8036,7 +9535,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_fspath_ptr`.
             /// Parameter `b` defaults to `&default_fspath`.
-            public static unsafe MR.CS.Std.Filesystem.Path? TestFspathPtr(MR.CS.Std.Filesystem.Path? a, MR.CS.Misc.InOptClass<MR.CS.Std.Filesystem.Path>? b = null)
+            public static unsafe MR.CS.Std.Filesystem.Path? TestFspathPtr(MR.CS.Std.Filesystem.Path? a, MR.CS.Misc.InOptMutClass<MR.CS.Std.Filesystem.Path>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_ptr", ExactSpelling = true)]
                 extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_CSharp_test_fspath_ptr(MR.CS.Std.Filesystem.Path._Underlying *a, MR.CS.Std.Filesystem.Path._Underlying **b);
@@ -8047,7 +9546,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_fspath_cptr`.
             /// Parameter `b` defaults to `&default_fspath`.
-            public static unsafe MR.CS.Std.Filesystem.ConstPath? TestFspathCptr(MR.CS.Std.Filesystem.ConstPath? a, MR.CS.Misc.InOptClass<MR.CS.Std.Filesystem.ConstPath>? b = null)
+            public static unsafe MR.CS.Std.Filesystem.ConstPath? TestFspathCptr(MR.CS.Std.Filesystem.ConstPath? a, MR.CS.Std.Filesystem.InOptConstPath? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_cptr", ExactSpelling = true)]
                 extern static MR.CS.Std.Filesystem.ConstPath._Underlying *__MR_CSharp_test_fspath_cptr(MR.CS.Std.Filesystem.ConstPath._Underlying *a, MR.CS.Std.Filesystem.ConstPath._Underlying **b);
@@ -8057,7 +9556,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::CSharp::operator+`.
-            public static unsafe int Add(MR.CS.Misc.ByValue<MR.CS.CSharp.StaticOpsLhsC, MR.CS.CSharp.ConstStaticOpsLhsC> _1, int _2)
+            public static unsafe int Add(MR.CS.CSharp.ByValueStaticOpsLhsC _1, int _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsC_int", ExactSpelling = true)]
                 extern static int __MR_C_add_MR_CSharp_StaticOpsLhsC_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.StaticOpsLhsC._Underlying *_1, int _2);
@@ -8065,7 +9564,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::CSharp::operator+`.
-            public static unsafe int Add(int _1, MR.CS.Misc.ByValue<MR.CS.CSharp.StaticOpsRhsC, MR.CS.CSharp.ConstStaticOpsRhsC> _2)
+            public static unsafe int Add(int _1, MR.CS.CSharp.ByValueStaticOpsRhsC _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsC", ExactSpelling = true)]
                 extern static int __MR_C_add_int_MR_CSharp_StaticOpsRhsC(int _1, MR.CS.Misc._PassBy _2_pass_by, MR.CS.CSharp.StaticOpsRhsC._Underlying *_2);
@@ -8079,6 +9578,104 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsEnum_int", ExactSpelling = true)]
                 extern static int __MR_C_add_MR_CSharp_StaticOpsEnum_int(MR.CS.CSharp.StaticOpsEnum _1, int _2);
                 return __MR_C_add_MR_CSharp_StaticOpsEnum_int(_1, _2);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convtrivial`.
+            /// Parameter `b` defaults to `{}`.
+            public static unsafe MR.CS.CSharp.ConvCtorTrivial TestClassConvtrivial(MR.CS.CSharp.ConstConvCtorTrivial a, MR.CS.CSharp.ConstConvCtorTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConvCtorTrivial._Underlying *__MR_CSharp_test_class_convtrivial(MR.CS.CSharp.ConvCtorTrivial._Underlying *a, MR.CS.CSharp.ConvCtorTrivial._Underlying *b);
+                return new(__MR_CSharp_test_class_convtrivial(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convtrivial_ref`.
+            /// Parameter `b` defaults to `default_convtrivial`.
+            public static unsafe MR.CS.CSharp.ConvCtorTrivial TestClassConvtrivialRef(MR.CS.CSharp.ConvCtorTrivial a, MR.CS.CSharp.ConvCtorTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConvCtorTrivial._Underlying *__MR_CSharp_test_class_convtrivial_ref(MR.CS.CSharp.ConvCtorTrivial._Underlying *a, MR.CS.CSharp.ConvCtorTrivial._Underlying *b);
+                return new(__MR_CSharp_test_class_convtrivial_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convtrivial_cref`.
+            /// Parameter `b` defaults to `default_convtrivial`.
+            public static unsafe MR.CS.CSharp.ConstConvCtorTrivial TestClassConvtrivialCref(MR.CS.CSharp.ConstConvCtorTrivial a, MR.CS.CSharp.ConstConvCtorTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_cref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_test_class_convtrivial_cref(MR.CS.CSharp.ConstConvCtorTrivial._Underlying *a, MR.CS.CSharp.ConstConvCtorTrivial._Underlying *b);
+                return new(__MR_CSharp_test_class_convtrivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convtrivial_ptr`.
+            /// Parameter `c` defaults to `&default_convtrivial`.
+            public static unsafe MR.CS.CSharp.ConvCtorTrivial? TestClassConvtrivialPtr(MR.CS.CSharp.ConvCtorTrivial? a, MR.CS.CSharp.ConvCtorTrivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.ConvCtorTrivial>? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConvCtorTrivial._Underlying *__MR_CSharp_test_class_convtrivial_ptr(MR.CS.CSharp.ConvCtorTrivial._Underlying *a, MR.CS.CSharp.ConvCtorTrivial._Underlying *b, MR.CS.CSharp.ConvCtorTrivial._Underlying **c);
+                MR.CS.CSharp.ConvCtorTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_class_convtrivial_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.ConvCtorTrivial(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convtrivial_cptr`.
+            /// Parameter `c` defaults to `&default_convtrivial`.
+            public static unsafe MR.CS.CSharp.ConstConvCtorTrivial? TestClassConvtrivialCptr(MR.CS.CSharp.ConstConvCtorTrivial? a, MR.CS.CSharp.ConstConvCtorTrivial? b = null, MR.CS.CSharp.InOptConstConvCtorTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_cptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__MR_CSharp_test_class_convtrivial_cptr(MR.CS.CSharp.ConstConvCtorTrivial._Underlying *a, MR.CS.CSharp.ConstConvCtorTrivial._Underlying *b, MR.CS.CSharp.ConstConvCtorTrivial._Underlying **c);
+                MR.CS.CSharp.ConstConvCtorTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_class_convtrivial_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.ConstConvCtorTrivial(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convnontrivial`.
+            /// Parameter `b` defaults to `{}`.
+            public static unsafe MR.CS.CSharp.ConvCtorNonTrivial TestClassConvnontrivial(MR.CS.CSharp.ByValueConvCtorNonTrivial a, MR.CS.CSharp.ByValueConvCtorNonTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *b);
+                return new(__MR_CSharp_test_class_convnontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value is not null ? b.Value.Value._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convnontrivial_ref`.
+            /// Parameter `b` defaults to `default_convnontrivial`.
+            public static unsafe MR.CS.CSharp.ConvCtorNonTrivial TestClassConvnontrivialRef(MR.CS.CSharp.ConvCtorNonTrivial a, MR.CS.CSharp.ConvCtorNonTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial_ref(MR.CS.CSharp.ConvCtorNonTrivial._Underlying *a, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *b);
+                return new(__MR_CSharp_test_class_convnontrivial_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convnontrivial_cref`.
+            /// Parameter `b` defaults to `default_convnontrivial`.
+            public static unsafe MR.CS.CSharp.ConstConvCtorNonTrivial TestClassConvnontrivialCref(MR.CS.CSharp.ConstConvCtorNonTrivial a, MR.CS.CSharp.ConstConvCtorNonTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_cref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial_cref(MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *a, MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *b);
+                return new(__MR_CSharp_test_class_convnontrivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convnontrivial_ptr`.
+            /// Parameter `c` defaults to `&default_convnontrivial`.
+            public static unsafe MR.CS.CSharp.ConvCtorNonTrivial? TestClassConvnontrivialPtr(MR.CS.CSharp.ConvCtorNonTrivial? a, MR.CS.CSharp.ConvCtorNonTrivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.ConvCtorNonTrivial>? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial_ptr(MR.CS.CSharp.ConvCtorNonTrivial._Underlying *a, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *b, MR.CS.CSharp.ConvCtorNonTrivial._Underlying **c);
+                MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_class_convnontrivial_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.ConvCtorNonTrivial(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_class_convnontrivial_cptr`.
+            /// Parameter `c` defaults to `&default_convnontrivial`.
+            public static unsafe MR.CS.CSharp.ConstConvCtorNonTrivial? TestClassConvnontrivialCptr(MR.CS.CSharp.ConstConvCtorNonTrivial? a, MR.CS.CSharp.ConstConvCtorNonTrivial? b = null, MR.CS.CSharp.InOptConstConvCtorNonTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_cptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial_cptr(MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *a, MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *b, MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying **c);
+                MR.CS.CSharp.ConstConvCtorNonTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_class_convnontrivial_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.ConstConvCtorNonTrivial(__ret, is_owning: false) : null;
             }
         }
     }
