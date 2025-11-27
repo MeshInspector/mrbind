@@ -204,7 +204,8 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Create a new instance, taking ownership of an existing pointer.";
-                        emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{});
+                        // This needs to be explicit for sure.
+                        emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{.is_explicit = true});
 
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
 
@@ -240,7 +241,8 @@ namespace mrbind::CBindings::Modules
                     { // Construct from a non-owning pointer.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Create a new instance, storing a non-owning pointer.";
-                        emit.name = binder.MakeMemberFuncName(generator, "ConstructNonOwning", CInterop::MethodKinds::Constructor{});
+                        // This doesn't HAVE to be explicit, but I think explicit looks better here.
+                        emit.name = binder.MakeMemberFuncName(generator, "ConstructNonOwning", CInterop::MethodKinds::Constructor{.is_explicit = true});
 
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
 

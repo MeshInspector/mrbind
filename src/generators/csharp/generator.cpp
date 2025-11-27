@@ -1185,15 +1185,40 @@ namespace mrbind::CSharp
     {
         std::vector<EmitVariant> ret = {Generator::EmitVariant::regular};
 
-        // This check is needed e.g. to reject `==` that returns non-bool.
-        if (IsOverloadableOperator(&method))
+        // Implicit conversion operators for implicit constructors.
+        // Do we also need explicit ones for explicit ctors? I don't think they're that necessary.
+        if (auto *ctor = std::get_if<CInterop::MethodKinds::Constructor>(&method.var))
         {
-            if (auto *opt = std::get_if<CInterop::MethodKinds::Operator>(&method.var))
+            // Check that we have the `this` param, as we should.
+            assert(method.params.size() >= 1 && method.params.front().is_this_param);
+
+            if (
+                // Must not be explicit. For now we only allow implicit conversions, see above.
+                !ctor->is_explicit &&
+                // Don't allow conversions for the copy ctor, out of general sanity.
+                // A conversion from a type to itself is illegal. The copy ctor doesn't always take the exact same C# type,
+                //   but even when it doesn't, I doubt allowing such conversions would do any good.
+                !ctor->is_copying_ctor &&
+                // One actual parameter and one static `this` parameter.
+                (method.params.size() == 2) &&
+                // Just in case, exactly one C# parameter also.
+                GetParameterBinding(method.params.at(1), false).csharp_decl_params.size() == 1
+            )
+            {
+                ret.push_back(Generator::EmitVariant::conv_op_for_ctor);
+            }
+        }
+
+        // Operator rewrites.
+        if (auto *opt = std::get_if<CInterop::MethodKinds::Operator>(&method.var))
+        {
+            // This check is needed e.g. to reject `==` that returns non-bool.
+            if (IsOverloadableOpOrConvOp(&method))
             {
                 if (opt->token == "++" || opt->token == "--")
                     ret.push_back(Generator::EmitVariant::static_incr_or_decr);
 
-                // We could try to be clever and emit `==` and `<` rewrites even if `IsOverloadableOperator()` above returns false,
+                // We could try to be clever and emit `==` and `<` rewrites even if `IsOverloadableOpOrConvOp()` above returns false,
                 //   but I can't think of any conditions where this could actually happen without interefering with the rewriting, so I don't even bother.
                 if (opt->token == "==")
                     ret.push_back(Generator::EmitVariant::negated_comparison_operator);
@@ -1237,7 +1262,8 @@ namespace mrbind::CSharp
         }()),
         // Here we only allow methods and not free functions, since all valid operators would've been moved to methods by this point,
         //   and all invalid ones (that C# doesn't support, that we must emit as functions) shouldn't be covered by this.
-        is_overloaded_op(method && generator.IsOverloadableOperator(method)),
+        // This excludes `EmitVariant::conv_op_for_ctor`, since that's a conversion to this type, not from it.
+        is_overloaded_op_or_conv_op_from_this(method && generator.IsOverloadableOpOrConvOp(method)),
         is_incr_or_decr([&]{
             if (method)
             {
@@ -1301,7 +1327,7 @@ namespace mrbind::CSharp
                     this_param_strings = generator.GetParameterBinding(fake_param, false);
                     this_param_strings.dllimport_args = "_this_copy._UnderlyingPtr"; // This better work.
                 }
-                else if (is_overloaded_op && &param == &func_like.params.at(method->is_static ? 2 : 0))
+                else if (is_overloaded_op_or_conv_op_from_this && &param == &func_like.params.at(method->is_static ? 2 : 0))
                 {
                     // For overloaded operators, patch the `this` parameter a bit.
                     // For non-static operators, this is the actual `this` parameter with `.is_this_param == true`.
@@ -1427,16 +1453,21 @@ namespace mrbind::CSharp
 
                 // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
                 if (
-                    // Not a constructor, and...
-                    !is_ctor &&
                     (
-                        // Either a free function.
-                        !method_like ||
-                        // Or a static member function.
-                        method_like->is_static ||
-                        // Or an overloaded operator, other than the non-static variant of `++` or `--`.
-                        (is_overloaded_op && !(is_incr_or_decr && emit_variant != EmitVariant::static_incr_or_decr))
-                    )
+                        // Not a constructor, and...
+                        !is_ctor &&
+                        (
+                            // Either a free function.
+                            !method_like ||
+                            // Or a static member function.
+                            method_like->is_static ||
+                            // Or an overloaded operator, other than the non-static variant of `++` or `--`.
+                            (is_overloaded_op_or_conv_op_from_this && !(is_incr_or_decr && emit_variant != EmitVariant::static_incr_or_decr))
+                        )
+                    ) ||
+                    // A conversion operator generated from a constructor.
+                    // Currently those happen to have `is_ctor == true`, so it has to be here.
+                    emit_variant == EmitVariant::conv_op_for_ctor
                 )
                 {
                     file.WriteString("static ");
@@ -1459,7 +1490,7 @@ namespace mrbind::CSharp
                 }
 
                 // Write the return type.
-                if (!is_ctor)
+                if (!is_ctor && !(method && std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(method->var)))
                 {
                     if (csharp_type_for_copy_of_this)
                     {
@@ -1538,6 +1569,13 @@ namespace mrbind::CSharp
                 if (emit_variant == EmitVariant::less_to_greater_eq)
                 {
                     file.WriteString("\n{\n    return !(" + ArgA() + " < " + ArgB() + ");\n}\n");
+                    return;
+                }
+
+                if (emit_variant == EmitVariant::conv_op_for_ctor)
+                {
+                    // `.at(1)` to skip the static `this` parameter.
+                    file.WriteString(" {return new(" + param_strings.at(1).csharp_decl_params.front().name + ");}\n");
                     return;
                 }
             }
@@ -1736,7 +1774,14 @@ namespace mrbind::CSharp
             },
             [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
             {
-                (void)elem;
+                // Rewriting the constructor to a conversion operator.
+                if (emit_variant == EmitVariant::conv_op_for_ctor)
+                {
+                    // I guess we can just assemble the entire thing here?
+                    return std::string(elem.is_explicit ? "explicit" : "implicit") + " operator " + CppToCSharpUnqualClassName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), is_const);
+                }
+
+                // Just the normal constructor.
                 return CppToCSharpUnqualClassName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), is_const);
             },
             [&](const CInterop::MethodKinds::Operator &elem) -> std::string
@@ -1744,7 +1789,7 @@ namespace mrbind::CSharp
                 (void)elem;
 
                 if (
-                    IsOverloadableOperator(&method) &&
+                    IsOverloadableOpOrConvOp(&method) &&
                     // If this is a non-static version of `++`/`--` and we're pre-C# 14, must fall back to the normal function name.
                     !(
                         (elem.token == "++" || elem.token == "--") &&
@@ -1784,9 +1829,8 @@ namespace mrbind::CSharp
             },
             [&](const CInterop::MethodKinds::ConversionOperator &elem) -> std::string
             {
-                (void)elem;
-                assert(false); // TODO
-                return "";
+                // I guess we can just assemble the entire thing here?
+                return std::string(elem.is_explicit ? "explicit" : "implicit") + " operator " + GetReturnBinding(method.ret).csharp_return_type;
             },
         }, method.var);
     }
@@ -2036,7 +2080,7 @@ namespace mrbind::CSharp
 
             // Hmm, do we need this check? I think we do, since otherwise we don't do our jank parameter rewrites,
             //   especially not for the by-value parameters.
-            if (IsOverloadableOperator(&method))
+            if (IsOverloadableOpOrConvOp(&method))
             {
                 // Get the parameter that matches the enclosing class in type. We use `2` instead of `1` to skip the dummy `this` parameter
                 //   of static methods.
@@ -2102,7 +2146,7 @@ namespace mrbind::CSharp
             token == ">>=";
     }
 
-    bool Generator::IsOverloadableOperator(std::variant<const CInterop::Function *, const CInterop::ClassMethod *> func_or_method)
+    bool Generator::IsOverloadableOpOrConvOp(std::variant<const CInterop::Function *, const CInterop::ClassMethod *> func_or_method)
     {
         std::string token;
 
@@ -2151,32 +2195,57 @@ namespace mrbind::CSharp
             return false;
         };
 
-        std::visit(Overload{
-            [&](const CInterop::Function *func)
+        std::optional<bool> ret = std::visit(Overload{
+            [&](const CInterop::Function *func) -> std::optional<bool>
             {
                 if (const auto *op = std::get_if<CInterop::FuncKinds::Operator>(&func->var))
                 {
-                    token = op->token;
-
                     if (ShouldSkipOperator(*func, op->token))
-                        return; // Don't bind this as an operator.
+                        return false; // Don't bind this as an operator.
+
+                    token = op->token;
+                    return {}; // Must further examine the token, see below.
                 }
+
+                return false;
             },
-            [&](const CInterop::ClassMethod *method)
+            [&](const CInterop::ClassMethod *method) -> std::optional<bool>
             {
                 if (const auto *op = std::get_if<CInterop::MethodKinds::Operator>(&method->var))
                 {
                     if (op->is_copying_assignment)
-                        return; // Don't bind this as an operator.
+                        return false; // Don't bind this as an operator.
 
                     if (ShouldSkipOperator(*method, op->token))
-                        return; // Don't bind this as an operator.
+                        return false; // Don't bind this as an operator.
 
                     token = op->token;
+                    return {}; // Must further examine the token, see below.
                 }
+
+                if (std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(method->var))
+                {
+                    // Make sure that we don't have a by-value this parameter and a non-copyable (and not trivially movable) class at the same time.
+                    // Right now this is impossible, since the parser doesn't emit by-value `this` parameters, and we don't rewrite conversion
+                    //   operators (which could create them) either, but this can be helpful in the future.
+                    const CInterop::FuncParam &param = method->params.at(0);
+                    cppdecl::Type param_type = ParseTypeOrThrow(param.cpp_type);
+                    if (param_type.Is<cppdecl::Reference>())
+                        return true; // Reference `this` is always ok.
+
+                    // Only ok if
+                    return c_desc.FindTypeOpt(param.cpp_type)->traits.value().IsCopyableOrTriviallyMovable();
+                }
+
+                return false;
             },
         }, func_or_method);
 
+        // If we know the final answer, stop now.
+        if (ret)
+            return *ret;
+
+        assert(!token.empty()); // If you wanted to have an empty token, `ret` should've been non-null.
         if (token.empty())
             return false;
 
@@ -2285,13 +2354,13 @@ namespace mrbind::CSharp
                         //   and the point of all this is consistency between omitting and not omitting `!=`.
                         // We can skip this logic if those don't get emitted as operators, to let the user have all their original functions.
                         //   This isn't as important here as it is for the relational operators below.
-                        if (elem.token == "!=" && IsOverloadableOperator(&method))
+                        if (elem.token == "!=" && IsOverloadableOpOrConvOp(&method))
                             return false;
 
                         // Similarly for all relational operators other than `<`, since we implement all of them in terms of `<`.
                         // C# requires defining them in pairs like this: `<` and `>`, `<=` and `>=`.
                         // We can skip this logic if those don't get emitted as operators, to let the user have all their original functions.
-                        if ((elem.token == ">" || elem.token == "<=" || elem.token == ">=") && IsOverloadableOperator(&method))
+                        if ((elem.token == ">" || elem.token == "<=" || elem.token == ">=") && IsOverloadableOpOrConvOp(&method))
                             return false;
 
                         return true;
@@ -2309,7 +2378,7 @@ namespace mrbind::CSharp
             // Is this an equality comparison that gets implemented as an overloaded operator in C#.
             auto IsEqualityComparisonForIEquatable = [&](const CInterop::ClassMethod &method)
             {
-                if (!IsOverloadableOperator(&method))
+                if (!std::holds_alternative<CInterop::MethodKinds::Operator>(method.var) || !IsOverloadableOpOrConvOp(&method))
                     return false;
                 if (std::get<CInterop::MethodKinds::Operator>(method.var).token != "==")
                     return false;

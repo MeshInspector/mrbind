@@ -319,6 +319,9 @@ namespace mrbind::CSharp
         {
             regular,
 
+            // A constructor getting rewritten as a conversion operator.
+            conv_op_for_ctor,
+
             // Non-static operators `++` and `--` are a new feature in C# 14, allowing you to modify an instance in place instead of returning a copy,
             //   like a static version would, which was the only valid approach in older C#.
             // But we emit this even before C# 14, but in that case we make it a simple function.
@@ -365,7 +368,7 @@ namespace mrbind::CSharp
 
             const bool ctor_class_backed_by_shared_ptr;
 
-            const bool is_overloaded_op;
+            const bool is_overloaded_op_or_conv_op_from_this;
             const bool is_incr_or_decr;
             const bool acts_on_copy_of_this;
 
@@ -440,7 +443,7 @@ namespace mrbind::CSharp
         // Returns true if this C++ operator can be overloaded as a C# operator.
         // The choice isn't necessarily based only on the operator token.
         // If this returns true, you can usually use the same token as you did in C++, since they are the same in C#.
-        [[nodiscard]] bool IsOverloadableOperator(std::variant<const CInterop::Function *, const CInterop::ClassMethod *> func_or_method);
+        [[nodiscard]] bool IsOverloadableOpOrConvOp(std::variant<const CInterop::Function *, const CInterop::ClassMethod *> func_or_method);
 
         // Since we duplicate each class into const and non-const versions,
         //   we need an extra bool to describe which half of the class is being operated on.

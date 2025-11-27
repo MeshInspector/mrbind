@@ -55,6 +55,9 @@ public static partial class MR
                     }
                 }
 
+                /// Constructs a new instance.
+                public static unsafe implicit operator ConstString(ReadOnlySpan<char> other) {return new(other);}
+
                 /// The number of characters in the string, excluding the null-terminator.
                 public unsafe ulong Size()
                 {
@@ -128,6 +131,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_string_ConstructFrom(__ptr_other, __ptr_other + __len_other);
                     }
                 }
+
+                /// Constructs a new instance.
+                public static unsafe implicit operator String(ReadOnlySpan<char> other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Misc.ByValue<MR.CS.Std.String, MR.CS.Std.ConstString> other)

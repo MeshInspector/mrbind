@@ -78,6 +78,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_void_ConstructFromMutable(ptr.PassByMode, ptr.Value is not null ? ptr.Value._UnderlyingPtr : null);
                 }
 
+                /// Create a new instance from a non-const pointer to the same type.
+                public static unsafe implicit operator ConstSharedPtr_ConstVoid(MR.CS.Misc.ByValue<MR.CS.Std.SharedPtr_Void, MR.CS.Std.ConstSharedPtr_Void> ptr) {return new(ptr);}
+
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
                 /// Parameter `ptr` is a read-only pointer.
@@ -95,6 +98,9 @@ public static partial class MR
                     extern static MR.CS.Std.ConstSharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_void_ConstructFrom_MR_C_std_shared_ptr_const_MR_CSharp_SA(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SA._UnderlyingShared *_other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_void_ConstructFrom_MR_C_std_shared_ptr_const_MR_CSharp_SA(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
                 }
+
+                /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+                public static unsafe implicit operator ConstSharedPtr_ConstVoid(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> _other) {return new(_other);}
             }
 
             /// Wraps a pointer to a single shared reference-counted heap-allocated `const void`.
@@ -153,6 +159,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_void_ConstructFromMutable(ptr.PassByMode, ptr.Value is not null ? ptr.Value._UnderlyingPtr : null);
                 }
 
+                /// Create a new instance from a non-const pointer to the same type.
+                public static unsafe implicit operator SharedPtr_ConstVoid(MR.CS.Misc.ByValue<MR.CS.Std.SharedPtr_Void, MR.CS.Std.ConstSharedPtr_Void> ptr) {return new(ptr);}
+
                 /// Overwrite the existing instance with a non-const pointer to the same type.
                 public unsafe void Assign(MR.CS.Misc.ByValue<MR.CS.Std.SharedPtr_Void, MR.CS.Std.ConstSharedPtr_Void> ptr)
                 {
@@ -188,6 +197,9 @@ public static partial class MR
                     extern static MR.CS.Std.ConstSharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_void_ConstructFrom_MR_C_std_shared_ptr_const_MR_CSharp_SA(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SA._UnderlyingShared *_other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_void_ConstructFrom_MR_C_std_shared_ptr_const_MR_CSharp_SA(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
                 }
+
+                /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+                public static unsafe implicit operator SharedPtr_ConstVoid(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> _other) {return new(_other);}
 
                 /// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
                 public unsafe void Assign(MR.CS.Misc.ByValue<MR.CS.CSharp.SA, MR.CS.CSharp.ConstSA> _other)

@@ -65,6 +65,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Constructs the tuple elementwise.";
+                        // Does this need to be explicit? Probably only matters if there's a single element, and even then I don't think it's really necessary.
                         emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{});
                         emit.cpp_return_type = type;
                         for (std::size_t i = 0; i < elem_types.size(); i++)

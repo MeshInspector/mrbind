@@ -688,4 +688,23 @@ namespace MR::CSharp
     MBTEST_MAKE_TEST_OPS_CLASS(TestOpsA, int, 42, TestOpsA)
     MBTEST_MAKE_TEST_OPS_CLASS(TestOpsB, int, 42, TestOpsB, private: std::string s;) // Make the class non-trivial.
     MBTEST_MAKE_TEST_OPS_CLASS(TestOpsC, void,, TestOpsA) // Return void.
+
+
+    // Conversion operators. We preserve explicit-ness.
+    struct ConvOp
+    {
+        operator int() {return 42;}
+        explicit operator float() {return 43;}
+    };
+
+    // Conversion constructors. Right now we only provide conversion operators for implicit ones,
+    //   because I have no idea when the explicit ones could be useful.
+    struct ConvCtor
+    {
+        ConvCtor() {}
+        ConvCtor(int) {}
+        ConvCtor(int, int) {}
+        explicit ConvCtor(float) {}
+        explicit ConvCtor(float, float) {}
+    };
 }

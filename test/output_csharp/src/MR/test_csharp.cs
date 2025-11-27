@@ -7015,6 +7015,238 @@ public static partial class MR
                 }
             }
 
+            // Conversion operators. We preserve explicit-ness.
+            /// Generated from class `MR::CSharp::ConvOp`.
+            /// This is the const half of the class.
+            public class ConstConvOp : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstConvOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvOp_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvOp_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstConvOp() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstConvOp() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvOp._Underlying *__MR_CSharp_ConvOp_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvOp_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvOp::ConvOp`.
+                public unsafe ConstConvOp(MR.CS.CSharp.ConstConvOp _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvOp._Underlying *__MR_CSharp_ConvOp_ConstructFromAnother(MR.CS.CSharp.ConvOp._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvOp_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // Conversion operators. We preserve explicit-ness.
+            /// Generated from class `MR::CSharp::ConvOp`.
+            /// This is the non-const half of the class.
+            public class ConvOp : ConstConvOp
+            {
+                internal unsafe ConvOp(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConvOp() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvOp._Underlying *__MR_CSharp_ConvOp_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvOp_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvOp::ConvOp`.
+                public unsafe ConvOp(MR.CS.CSharp.ConstConvOp _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvOp._Underlying *__MR_CSharp_ConvOp_ConstructFromAnother(MR.CS.CSharp.ConvOp._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvOp_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from conversion operator `MR::CSharp::ConvOp::operator int`.
+                public static unsafe implicit operator int(MR.CS.CSharp.ConvOp _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConvertTo_int", ExactSpelling = true)]
+                    extern static int __MR_CSharp_ConvOp_ConvertTo_int(MR.CS.CSharp.ConvOp._Underlying *_this);
+                    return __MR_CSharp_ConvOp_ConvertTo_int(_this._UnderlyingPtr);
+                }
+
+                /// Generated from conversion operator `MR::CSharp::ConvOp::operator float`.
+                public static unsafe explicit operator float(MR.CS.CSharp.ConvOp _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConvertTo_float", ExactSpelling = true)]
+                    extern static float __MR_CSharp_ConvOp_ConvertTo_float(MR.CS.CSharp.ConvOp._Underlying *_this);
+                    return __MR_CSharp_ConvOp_ConvertTo_float(_this._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::ConvOp::operator=`.
+                public unsafe MR.CS.CSharp.ConvOp Assign(MR.CS.CSharp.ConstConvOp _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvOp._Underlying *__MR_CSharp_ConvOp_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ConvOp._Underlying *_other);
+                    return new(__MR_CSharp_ConvOp_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            // Conversion constructors. Right now we only provide conversion operators for implicit ones,
+            //   because I have no idea when the explicit ones could be useful.
+            /// Generated from class `MR::CSharp::ConvCtor`.
+            /// This is the const half of the class.
+            public class ConstConvCtor : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstConvCtor(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvCtor_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvCtor_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstConvCtor() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstConvCtor() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConstConvCtor(MR.CS.CSharp.ConstConvCtor _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_ConstructFromAnother(MR.CS.CSharp.ConvCtor._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConstConvCtor(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_int", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_1_int(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_int(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public static unsafe implicit operator ConstConvCtor(int _1) {return new(_1);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConstConvCtor(int _1, int _2) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_int", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_2_int(int _1, int _2);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_int(_1, _2);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConstConvCtor(float _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_float", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_1_float(float _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_float(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConstConvCtor(float _1, float _2) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_float", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_2_float(float _1, float _2);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_float(_1, _2);
+                }
+            }
+
+            // Conversion constructors. Right now we only provide conversion operators for implicit ones,
+            //   because I have no idea when the explicit ones could be useful.
+            /// Generated from class `MR::CSharp::ConvCtor`.
+            /// This is the non-const half of the class.
+            public class ConvCtor : ConstConvCtor
+            {
+                internal unsafe ConvCtor(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConvCtor() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConvCtor(MR.CS.CSharp.ConstConvCtor _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_ConstructFromAnother(MR.CS.CSharp.ConvCtor._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConvCtor(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_int", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_1_int(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_int(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public static unsafe implicit operator ConvCtor(int _1) {return new(_1);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConvCtor(int _1, int _2) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_int", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_2_int(int _1, int _2);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_int(_1, _2);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConvCtor(float _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_float", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_1_float(float _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_float(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                public unsafe ConvCtor(float _1, float _2) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_float", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConstConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_2_float(float _1, float _2);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_float(_1, _2);
+                }
+
+                /// Generated from method `MR::CSharp::ConvCtor::operator=`.
+                public unsafe MR.CS.CSharp.ConvCtor Assign(MR.CS.CSharp.ConstConvCtor _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtor._Underlying *__MR_CSharp_ConvCtor_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ConvCtor._Underlying *_other);
+                    return new(__MR_CSharp_ConvCtor_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
             /// Generated from function `MR::CSharp::foo`.
             public static void Foo()
             {

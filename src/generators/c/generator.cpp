@@ -1756,6 +1756,7 @@ namespace mrbind::CBindings
         }
         name.cpp_for_interop = CInterop::MethodKinds::Constructor{
             .is_copying_ctor = new_ctor.kind != CopyMoveKind::none,
+            .is_explicit = new_ctor.is_explicit,
             .template_args = new_ctor.template_args.value_or(""),
         };
 
@@ -1882,7 +1883,9 @@ namespace mrbind::CBindings
         name.c += "_ConvertTo_";
         name.c += self.CppdeclToIdentifier(self.ParseTypeOrThrow(new_conv_op.return_type.canonical));
 
-        name.cpp_for_interop = CInterop::MethodKinds::ConversionOperator{};
+        name.cpp_for_interop = CInterop::MethodKinds::ConversionOperator{
+            .is_explicit = new_conv_op.is_explicit,
+        };
 
         cpp_called_func = "(" + target_cpp_type_str + ")(@this@)";
 
@@ -4020,6 +4023,7 @@ namespace mrbind::CBindings
                         {
                             EmitFuncParams emit;
                             emit.c_comment = "/// Constructs `" + cpp_class_name_str_deco + "` elementwise.";
+                            // Does this need to be explicit, to handle cases when there's only one element? I think implicit is fine.
                             emit.name = binder.MakeMemberFuncName(self, "ConstructFrom", CInterop::MethodKinds::Constructor{});
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_class_name);
                             for (const MemberDesc &member_desc : member_descs)

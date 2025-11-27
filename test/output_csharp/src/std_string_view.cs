@@ -55,6 +55,9 @@ public static partial class MR
                     }
                 }
 
+                /// Constructs a new instance.
+                public static unsafe implicit operator ConstStringView(ReadOnlySpan<char> other) {return new(other);}
+
                 /// The number of characters in the string.
                 public unsafe ulong Size()
                 {
@@ -128,6 +131,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_string_view_ConstructFrom(__ptr_other, __ptr_other + __len_other);
                     }
                 }
+
+                /// Constructs a new instance.
+                public static unsafe implicit operator StringView(ReadOnlySpan<char> other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.ConstStringView other)

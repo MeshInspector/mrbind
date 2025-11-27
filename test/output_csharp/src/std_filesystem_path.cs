@@ -57,6 +57,9 @@ public static partial class MR
                         }
                     }
 
+                    /// Constructs a new instance.
+                    public static unsafe implicit operator ConstPath(ReadOnlySpan<char> other) {return new(other);}
+
                     /// Get the contents as a UTF8-encoded string.
                     public unsafe MR.CS.Std.String GetString()
                     {
@@ -107,6 +110,9 @@ public static partial class MR
                             _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFrom(__ptr_other, __ptr_other + __len_other);
                         }
                     }
+
+                    /// Constructs a new instance.
+                    public static unsafe implicit operator Path(ReadOnlySpan<char> other) {return new(other);}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Misc.ByValue<MR.CS.Std.Filesystem.Path, MR.CS.Std.Filesystem.ConstPath> other)

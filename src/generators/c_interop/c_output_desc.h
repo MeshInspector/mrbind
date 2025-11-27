@@ -309,6 +309,8 @@ namespace mrbind::CInterop
                 // Is this the combined copy/move constructor? We only emit copy/move constructors in this combined form.
                 (bool)(is_copying_ctor, false)
 
+                (bool)(is_explicit, false)
+
                 // The template arguments including `<...>`, or empty if none.
                 (std::string)(template_args, {})
             )
@@ -336,7 +338,9 @@ namespace mrbind::CInterop
         struct ConversionOperator
         {
             static constexpr std::string_view name_in_variant = "conversion";
-            MBREFL_STRUCT()
+            MBREFL_STRUCT(
+                (bool)(is_explicit, false)
+            )
         };
     }
 
