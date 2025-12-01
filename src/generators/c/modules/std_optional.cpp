@@ -61,7 +61,7 @@ namespace mrbind::CBindings::Modules
                     // Dereference.
                     for (bool is_const : {true, false})
                     {
-                        if (!is_const && cpp_elem_type.IsConstOrReference())
+                        if (!is_const && cpp_elem_type.IsEffectivelyConst())
                             continue;
 
                         Generator::EmitFuncParams emit;

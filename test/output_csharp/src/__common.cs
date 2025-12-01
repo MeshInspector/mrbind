@@ -156,6 +156,26 @@ public static partial class MR
                 public static implicit operator ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {return new(span);}
                 public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}
             }
+
+            // Fixed-size arrays:
+
+            [System.Runtime.CompilerServices.InlineArray(4)]
+            public struct ArrayBool_4_5
+            {
+                MR.CS.Misc.ArrayBool_5 elem;
+            }
+
+            [System.Runtime.CompilerServices.InlineArray(5)]
+            public struct ArrayBool_5
+            {
+                byte elem;
+            }
+
+            [System.Runtime.CompilerServices.InlineArray(3)]
+            public struct ArrayInt_3
+            {
+                int elem;
+            }
         }
     }
 }

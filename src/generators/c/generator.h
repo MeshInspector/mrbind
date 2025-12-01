@@ -58,10 +58,14 @@ namespace mrbind::CBindings
 
         // The prefix to add to the names that we generate, as opposed to parsing (since the parsed names naturally use the namespace prefix).
         // Do not access directly! Use `MakePublicHelperName()` instead. That throws if this is not specified.
+        // This is only optional wasn't needed.
         std::string helper_name_prefix_opt;
 
         // Same, but for macros. If not specified, defaults to `helper_name_prefix_opt`.
         std::string helper_macro_name_prefix_opt;
+
+        // Always emit the helpers file, even if not needed.
+        bool force_emit_helpers_file = false;
 
         // Fail if `[unsigned] long [long]` appears in the parsed input.
         // This is designed to work with the parser's `--canonicalize-to-fixed-size-typedefs`.

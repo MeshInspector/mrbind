@@ -134,7 +134,7 @@ namespace mrbind::CBindings::Modules
                         {
                             for (bool is_const : {true, false})
                             {
-                                if (!is_const && elem_types[i].IsConstOrReference())
+                                if (!is_const && elem_types[i].IsEffectivelyConst())
                                     continue;
 
                                 Generator::EmitFuncParams emit;

@@ -48,6 +48,9 @@ MRBIND_GEN_C_FLAGS=(
     --expose-as-struct '/MR::DeclOrder::.*/'
     --expose-as-struct MR::StdContainers::SimpleStruct
     --expose-as-struct MR::StdContainers::StructWithArray
+    --expose-as-struct MR::CSharp::ExposedLayout
+    --expose-as-struct MR::CSharp::ExposedLayoutSh
+    --expose-as-struct MR::CSharp::ExposedLayoutB
 )
 
 COMPILER_FLAGS=(
@@ -84,7 +87,8 @@ build/mrbind_gen_c \
     --output-source-dir test/output_c/source \
     --output-desc-json test/output_c/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}" \
-    --bind-shared-ptr-virally
+    --bind-shared-ptr-virally \
+    --force-emit-common-helpers \
 
 build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
@@ -124,7 +128,8 @@ build/mrbind_gen_c \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --reject-long-and-long-long \
     --use-size_t-typedef-for-uint64_t \
-    --bind-shared-ptr-virally
+    --bind-shared-ptr-virally \
+    --force-emit-common-helpers
 
 
 "$CXX" \

@@ -80,6 +80,9 @@ namespace mrbind::CSharp
                 // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
                 std::string extra_comment = "";
 
+                // Forces the enclosing function to be `unsafe`. This happens automatically if you have `*` in the types.
+                bool force_unsafe = false;
+
                 // A comma-separated list of parameter declarations for the `DllImport` C# function declaration, or empty if none.
                 std::string dllimport_decl_params;
 
@@ -154,6 +157,9 @@ namespace mrbind::CSharp
         {
             // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
             std::string extra_comment = "";
+
+            // Forces the enclosing function to be `unsafe`. This happens automatically if you have `*` in the types.
+            bool force_unsafe = false;
 
             // If true, the returned result will always be saved to a temporary variable, and `make_return_expr` will receive that variable.
             // This is needed if `make_return_expr` wants to use the expression multiple times.
@@ -234,6 +240,19 @@ namespace mrbind::CSharp
         // This is needed since passing `bool` by value internally uses `int32_t` in C#, but passing it by reference seems to work correctly.
         [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect);
 
+        struct RequestedPlainArray
+        {
+            std::string csharp_elem_type;
+            std::size_t num_elems = 0; // Must be larger than zero, like in plain C arrays.
+        };
+
+        // All array types passed to `CToCSharpPrimitiveTypeOrFixedArray()`, accumulated for later generation.
+        // The keys are the C# type names for the whole arrays.
+        std::map<std::string, RequestedPlainArray> requested_plain_arrays;
+
+        // Like `CToCSharpPrimitiveTypeOpt()`, but also permits plain fixed-size arrays of those types, for which it generates helpers in the common file.
+        [[nodiscard]] std::optional<std::string> CToCSharpPrimitiveTypeOrFixedArray(const cppdecl::Type &c_type);
+
         // Adjusts a name to apply any `--remove-namespace` and `--force-namespace` flags.
         [[nodiscard]] cppdecl::QualifiedName AdjustCppNamespaces(cppdecl::QualifiedName name) const;
 
@@ -242,14 +261,27 @@ namespace mrbind::CSharp
 
         // Converts a C++ qualified class name to a C# name. Since we split classes into const and non-const halves, we need a bool to specify which half we want.
         [[nodiscard]] std::string CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const);
-        // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualClassName(const cppdecl::UnqualifiedName &name, bool is_const);
+        // Same, but produces an unqualified name. This still needs a full name on input,
+        //   since the result can be affected by the properties of the class.
+        [[nodiscard]] std::string CppToCSharpUnqualClassName(const cppdecl::QualifiedName &name, bool is_const);
+
+        // Converts a C++ qualified class name to a C# name. This is only for exposed structs, and returns the name of the corresponding C# `ref struct`.
+        [[nodiscard]] std::string CppToCSharpExposedStructName(cppdecl::QualifiedName name);
+        // Same, but produces an unqualified name. This still needs a full name on input,
+        //   since the result can be affected by the properties of the class.
+        [[nodiscard]] std::string CppToCSharpUnqualExposedStructName(const cppdecl::QualifiedName &name);
 
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by value.
         // This only makes sense for classes that use the pass-by enum.
         [[nodiscard]] std::string CppToCSharpByValueHelperName(cppdecl::QualifiedName name);
         // Same, but for unqualified names.
         [[nodiscard]] std::string CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name);
+
+        // Converts a C++ qualified exposed struct name to a C# name of its helper that's used to pass this struct by value with an optional parameter.
+        // This only makes sense for classes that use the pass-by enum.
+        [[nodiscard]] std::string CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name);
+        // Same, but for unqualified names.
+        [[nodiscard]] std::string CppToCSharpUnqualInOptStructHelperName(const cppdecl::UnqualifiedName &name);
 
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by an optional const pointer.
         // This only makes sense for classes that use the pass-by enum.
@@ -285,7 +317,9 @@ namespace mrbind::CSharp
 
         // Given a C++ class name, returns the string with the additional contents for this class.
         // If not empty, it must have a trailing newline and no leading newline.
-        [[nodiscard]] std::string GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, bool is_const);
+        // `class_part_kind == true` means we're in the const half of the class, `== false` means the non-const half,
+        //   and null means we're in an exposed `ref struct`.
+        [[nodiscard]] std::string GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind);
 
 
         // You should almost never use this directly, prefer `RequestHelper()`.
@@ -334,8 +368,10 @@ namespace mrbind::CSharp
             conv_op_for_ctor,
             // Same, but this one is emitted in the `ByValue...` helpers.
             conv_op_for_ctor_for_by_value_helper,
-            // Same, but this one is emitted in the `InOptConstNontrivial...` helpers.
+            // Same, but this one is emitted in the `InOptConst...` helpers.
             conv_op_for_ctor_for_in_opt_const_helper,
+            // Same, but this one is emitted in the `InOpt...` helpers. (Those are only for exposed structs.)
+            conv_op_for_ctor_for_in_opt_struct_helper,
 
             // Non-static operators `++` and `--` are a new feature in C# 14, allowing you to modify an instance in place instead of returning a copy,
             //   like a static version would, which was the only valid approach in older C#.
@@ -382,14 +418,17 @@ namespace mrbind::CSharp
             const bool is_property;
 
             const bool ctor_class_backed_by_shared_ptr;
+            const bool in_exposed_struct;
 
             const bool is_overloaded_op_or_conv_op_from_this;
+            const bool is_op_with_symmetric_args;
             const bool is_incr_or_decr;
             const bool acts_on_copy_of_this;
 
             const TypeBinding::ReturnUsage *ret_binding = nullptr;
 
             CFuncDeclStrings dllimport_strings;
+            bool forced_unsafe = false;
 
             std::string dllimport_param_string;
             std::vector<TypeBinding::ParamUsage::Strings> param_strings;
@@ -398,7 +437,8 @@ namespace mrbind::CSharp
             // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
             // `csharp_name` can be "get" or "set" if we're creating a property, in that case we won't emit the return type or the parameters,
             //   and the parameter name (of the setter) will be replaced with "value".
-            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name, EmitVariant emit_variant = Generator::EmitVariant::regular);
+            // Pass `in_exposed_struct == true` if this is a method inside an exposed struct. This only matters for constructors.
+            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name, bool in_exposed_struct, EmitVariant emit_variant = Generator::EmitVariant::regular);
 
             struct ShadowingDesc
             {
@@ -420,13 +460,19 @@ namespace mrbind::CSharp
             [[nodiscard]] bool IsUnsafe() const
             {
                 // This will eventually take into account the unsafety of the array size getter.
-                return dllimport_strings.is_unsafe;
+
+                // Ctors are always unsafe due to having to call the parent ctor with a null pointer, and having to manipulate pointers in general.
+                return dllimport_strings.is_unsafe || is_ctor || forced_unsafe;
             }
         };
 
+        // Is this an overloaded operator that's impossible to implement as an operator in exposed structs due to having a non-const reference argument to the enclosing class?
+        [[nodiscard]] bool IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(const CInterop::ClassMethod &method);
+
         // Determine a suitable unqualified C# name for a method.
-        // `is_const` should be set to true if we're in a const half of a class, or to false otherwise.
-        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, bool is_const, EmitVariant emit_variant);
+        // `class_part_kind == true` means we're in the const half of the class, `== false` means the non-const half,
+        //   and null means we're in an exposed `ref struct`.
+        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant);
 
         // Create a C# comment for a parsed function.
         // This will always end with a newline if not empty, and will include slashes.
@@ -435,7 +481,8 @@ namespace mrbind::CSharp
         // A helper function that returns various binding information about a function parameter, or throws on failure.
         // `is_static_method` only matters if this is a `this` parameter.
         // If `override_name` is passed, it replaces the parameter name recoded in the parameter itself.
-        [[nodiscard]] TypeBinding::ParamUsage::Strings GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {});
+        // Set `in_exposed_struct == true` when in a method of an exposed struct. This only matters for non-static methods.
+        [[nodiscard]] TypeBinding::ParamUsage::Strings GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {}, bool in_exposed_struct = false);
 
         // Returns the binding information for a function return type.
         [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret);
@@ -464,10 +511,11 @@ namespace mrbind::CSharp
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitCppTypeUnconditionally(OutputFile &file, const std::string &cpp_type);
 
-        // Returns true if this C++ type maps to a managed type in C#, e.g. a class (so force heap-allocated), as opposed to scalars and structs.
+        // Returns true if this C++ type maps to a class in C# (which we make hold `std::shared_ptr` internally).
+        // This also returns true for exposed structs, since in C# they get both a proper `ref struct` and the class wrappers.
         // Throws if this isn't a known type.
         // Ignores constness on the type.
-        [[nodiscard]] bool IsManagedTypeInCSharp(cppdecl::Type cpp_type);
+        [[nodiscard]] bool IsClassEmbeddingSharedPtr(cppdecl::Type cpp_type);
 
         // If our input has a binding for `std::shared_ptr<T>` (where `T` is `cpp_type`), returns that binding. Otherwise null.
         // This can be used to check if a class is backed by a shared pointer or not.
@@ -478,6 +526,7 @@ namespace mrbind::CSharp
 
         // Emits a single class field. Either as several accessor methods, or as a C# property if possible.
         // `is_const` determines if we're considered to be inside of a const half of a class or not.
+        // This can't be applied to fields of exposed structs.
         void EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class_name, const CInterop::TypeDesc &class_type_desc, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
 
         void Generate();

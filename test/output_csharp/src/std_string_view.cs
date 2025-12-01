@@ -30,7 +30,7 @@ public static partial class MR
                 public unsafe ConstStringView() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
                 }
 
@@ -38,7 +38,7 @@ public static partial class MR
                 public unsafe ConstStringView(MR.CS.Std.ConstStringView other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
+                    extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
                 }
 
@@ -46,7 +46,7 @@ public static partial class MR
                 public unsafe ConstStringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
+                    extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
                     int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
                     fixed (byte *__ptr_other = __bytes_other)
@@ -107,7 +107,7 @@ public static partial class MR
                 public unsafe StringView() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
                 }
 
@@ -115,7 +115,7 @@ public static partial class MR
                 public unsafe StringView(MR.CS.Std.ConstStringView other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
+                    extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
                 }
 
@@ -123,7 +123,7 @@ public static partial class MR
                 public unsafe StringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.ConstStringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
+                    extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
                     int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
                     fixed (byte *__ptr_other = __bytes_other)
@@ -163,16 +163,16 @@ public static partial class MR
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StringView`/`ConstStringView` to pass it to the function.
-            public class InOptConstStringView
+            public class InOptConst_StringView
             {
                 public ConstStringView? Opt;
 
-                public InOptConstStringView() {}
-                public InOptConstStringView(ConstStringView NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConstStringView(ConstStringView NewOpt) {return new InOptConstStringView(NewOpt);}
+                public InOptConst_StringView() {}
+                public InOptConst_StringView(ConstStringView NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConst_StringView(ConstStringView NewOpt) {return new InOptConst_StringView(NewOpt);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConstStringView(ReadOnlySpan<char> other) {return new MR.CS.Std.StringView(other);}
+                public static unsafe implicit operator InOptConst_StringView(ReadOnlySpan<char> other) {return new MR.CS.Std.StringView(other);}
             }
         }
     }

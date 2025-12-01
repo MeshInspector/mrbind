@@ -190,6 +190,50 @@ namespace mrbind::CSharp
         return {};
     }
 
+    std::optional<std::string> Generator::CToCSharpPrimitiveTypeOrFixedArray(const cppdecl::Type &c_type)
+    {
+        // Make sure all modifiers are arrays, and have known bounds.
+        if (!std::all_of(c_type.modifiers.begin(), c_type.modifiers.end(), [](const cppdecl::TypeModifier &mod)
+        {
+            return mod.Is<cppdecl::Array>() && mod.As<cppdecl::Array>()->GetSize();
+        }))
+        {
+            return {};
+        }
+
+        if (c_type.modifiers.empty())
+        {
+            // Not an array at all.
+            auto ret = CToCSharpPrimitiveTypeOpt(CppdeclToCode(c_type.simple_type), false);
+            return ret ? std::optional(std::string(*ret)) : std::nullopt;
+        }
+
+        cppdecl::Type c_type_copy = c_type;
+        c_type_copy.RemoveModifier();
+
+        auto elem = CToCSharpPrimitiveTypeOrFixedArray(c_type_copy);
+        if (!elem)
+            return {};
+
+        std::string csharp_array_name = "array_";
+        csharp_array_name += CppdeclToCode(c_type.simple_type);
+        csharp_array_name = CppStringToCsharpIdentifier(csharp_array_name);
+        for (const auto &extent : c_type.modifiers)
+        {
+            csharp_array_name += '_';
+            csharp_array_name += std::to_string(extent.As<cppdecl::Array>()->GetSize().value());
+        }
+
+        auto [iter, is_new] = requested_plain_arrays.try_emplace(csharp_array_name);
+        if (is_new)
+        {
+            iter->second.csharp_elem_type = *elem;
+            iter->second.num_elems = c_type.As<cppdecl::Array>()->GetSize().value();
+        }
+
+        return helpers_prefix + csharp_array_name;
+    }
+
     cppdecl::QualifiedName Generator::AdjustCppNamespaces(cppdecl::QualifiedName name) const
     {
         // Apply any replacements.
@@ -235,6 +279,9 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const)
     {
+        // Must make this before adjusting the name.
+        std::string unqual_part = CppToCSharpUnqualClassName(name, is_const);
+
         name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
@@ -245,7 +292,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualClassName(name.parts[i], is_const);
+                part = std::move(unqual_part);
             else
                 part = CppToCsharpIdentifier(name.parts[i]);
 
@@ -254,9 +301,44 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualClassName(const cppdecl::UnqualifiedName &name, bool is_const)
+    std::string Generator::CppToCSharpUnqualClassName(const cppdecl::QualifiedName &name, bool is_const)
     {
-        return is_const ? "Const" + CppToCsharpIdentifier(name) : CppToCsharpIdentifier(name);
+        if (is_const)
+            return "Const" + CppToCsharpIdentifier(name.parts.back());
+
+        // For exposed structs, the non-const half is named with the `Mut...` prefix, because there's also a `struct` that stores the thing by value.
+        const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(name))->var);
+        if (class_info.kind == CInterop::ClassKind::exposed_struct)
+            return "Mut" + CppToCsharpIdentifier(name.parts.back());
+
+        return CppToCsharpIdentifier(name.parts.back());
+    }
+
+    std::string Generator::CppToCSharpExposedStructName(cppdecl::QualifiedName name)
+    {
+        name = AdjustCppNamespaces(std::move(name));
+
+        std::string ret;
+        for (std::size_t i = 0; i < name.parts.size(); i++)
+        {
+            if (i > 0)
+                ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
+
+            std::string part;
+            if (i + 1 == name.parts.size())
+                part = CppToCSharpUnqualExposedStructName(name);
+            else
+                part = CppToCsharpIdentifier(name.parts[i]);
+
+            ret += part;
+        }
+        return ret;
+    }
+
+    std::string Generator::CppToCSharpUnqualExposedStructName(const cppdecl::QualifiedName &name)
+    {
+        // Return unchanged.
+        return CppToCsharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpByValueHelperName(cppdecl::QualifiedName name)
@@ -282,7 +364,33 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "ByValue" + CppToCsharpIdentifier(name);
+        return "ByValue_" + CppToCsharpIdentifier(name);
+    }
+
+    std::string Generator::CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name)
+    {
+        name = AdjustCppNamespaces(std::move(name));
+
+        std::string ret;
+        for (std::size_t i = 0; i < name.parts.size(); i++)
+        {
+            if (i > 0)
+                ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
+
+            std::string part;
+            if (i + 1 == name.parts.size())
+                part = CppToCSharpUnqualInOptStructHelperName(name.parts[i]);
+            else
+                part = CppToCsharpIdentifier(name.parts[i]);
+
+            ret += part;
+        }
+        return ret;
+    }
+
+    std::string Generator::CppToCSharpUnqualInOptStructHelperName(const cppdecl::UnqualifiedName &name)
+    {
+        return "InOpt_" + CppToCsharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name)
@@ -308,7 +416,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "InOptConst" + CppToCsharpIdentifier(name);
+        return "InOptConst_" + CppToCsharpIdentifier(name);
     }
 
     std::string Generator::TypeBindingFlagsToString(TypeBindingFlags flags)
@@ -511,7 +619,7 @@ namespace mrbind::CSharp
 
                                     const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
-                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsManagedTypeInCSharp(*shared_ptr_targ);
+                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsClassEmbeddingSharedPtr(*shared_ptr_targ);
 
                                     // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
                                     // Otherwise this is the original referenced type.
@@ -526,6 +634,7 @@ namespace mrbind::CSharp
                                       case CInterop::ClassKind::ref_only:
                                       case CInterop::ClassKind::uses_pass_by_enum:
                                       case CInterop::ClassKind::trivial_via_ptr:
+                                      case CInterop::ClassKind::exposed_struct:
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
                                                 .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
@@ -557,10 +666,6 @@ namespace mrbind::CSharp
                                             },
                                         });
 
-                                        break;
-                                      case CInterop::ClassKind::exposed_struct:
-                                        // TODO
-                                        throw std::logic_error("Not implemented yet!");
                                         break;
                                     }
                                     return nullptr;
@@ -789,7 +894,7 @@ namespace mrbind::CSharp
 
                                     const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
-                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsManagedTypeInCSharp(*shared_ptr_targ);
+                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsClassEmbeddingSharedPtr(*shared_ptr_targ);
 
                                     // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
                                     // Otherwise this is the original referenced type.
@@ -805,6 +910,7 @@ namespace mrbind::CSharp
                                       case CInterop::ClassKind::ref_only:
                                       case CInterop::ClassKind::uses_pass_by_enum:
                                       case CInterop::ClassKind::trivial_via_ptr:
+                                      case CInterop::ClassKind::exposed_struct:
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
                                                 .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool have_useless_defarg)
@@ -838,10 +944,6 @@ namespace mrbind::CSharp
                                             },
                                         });
 
-                                        break;
-                                      case CInterop::ClassKind::exposed_struct:
-                                        // TODO
-                                        throw std::logic_error("Not implemented yet!");
                                         break;
                                     }
                                     return nullptr;
@@ -992,7 +1094,7 @@ namespace mrbind::CSharp
 
                             const bool is_shared_ptr = cpp_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                             const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
-                            const bool is_transparent_shared_ptr = shared_ptr_targ && IsManagedTypeInCSharp(*shared_ptr_targ);
+                            const bool is_transparent_shared_ptr = shared_ptr_targ && IsClassEmbeddingSharedPtr(*shared_ptr_targ);
 
                             // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
                             // Otherwise this is the original referenced type.
@@ -1075,8 +1177,41 @@ namespace mrbind::CSharp
                                 });
                                 break;
                               case CInterop::ClassKind::exposed_struct:
-                                // TODO
-                                throw std::logic_error("Not implemented yet!");
+                                {
+                                    // Notice that `std::shared_ptr<T>` never arrives here, since we're switching on its kind directly,
+                                    //   not on the kind of the underlying type, so those always go to `ClassKind::uses_pass_by_enum`.
+
+                                    const std::string csharp_value_type = CppToCSharpExposedStructName(cpp_effective_type.simple_type.name);
+                                    const std::string csharp_in_opt_type = CppToCSharpInOptStructHelperName(cpp_effective_type.simple_type.name);
+
+                                    return CreateBinding({
+                                        .param_usage = TypeBinding::ParamUsage{
+                                            .make_strings = [csharp_value_type](const std::string &name, bool /*have_useless_defarg*/)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .dllimport_decl_params = csharp_value_type + " " + name,
+                                                    .csharp_decl_params = {{.type = csharp_value_type, .name = name}},
+                                                    .dllimport_args = name,
+                                                };
+                                            },
+                                        },
+                                        .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                            .make_strings = [csharp_value_type, csharp_in_opt_type](const std::string &name, bool /*have_useless_defarg*/)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .dllimport_decl_params = csharp_value_type + " *" + name,
+                                                    .csharp_decl_params = {{.type = csharp_in_opt_type, .name = name, .default_arg = "new()"}}, // Note `new()` instead of `= null`.
+                                                    .dllimport_args = name + ".HasValue ? &" + name + ".Value" + " : null",
+                                                };
+                                            },
+                                        },
+                                        .return_usage = TypeBinding::ReturnUsage{
+                                            .dllimport_return_type = csharp_value_type,
+                                            .csharp_return_type = csharp_value_type,
+                                            // Default `make_return_expr` is good enough!
+                                        },
+                                    });
+                                }
                                 break;
                             }
                         },
@@ -1167,9 +1302,9 @@ namespace mrbind::CSharp
         }
     }
 
-    std::string Generator::GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, bool is_const)
+    std::string Generator::GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind)
     {
-        const std::string csharp_name = CppToCSharpClassName(cpp_name, is_const);
+        const std::string csharp_name = class_part_kind ? CppToCSharpClassName(cpp_name, *class_part_kind) : CppToCSharpExposedStructName(cpp_name);
 
         std::string ret;
 
@@ -1181,7 +1316,10 @@ namespace mrbind::CSharp
 
         auto WriteConversionsToString = [&](bool is_mutable)
         {
-            if (is_const)
+            assert(class_part_kind);
+
+            // Const.
+            if (class_part_kind.value())
             {
                 WriteSeparator();
                 ret +=
@@ -1196,7 +1334,8 @@ namespace mrbind::CSharp
                     "}\n";
             }
 
-            if (!is_const && is_mutable)
+            // Non-const.
+            if (!class_part_kind.value() && is_mutable)
             {
                 WriteSeparator();
                 ret +=
@@ -1290,7 +1429,7 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    Generator::FuncLikeEmitter::FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string new_csharp_name, EmitVariant emit_variant)
+    Generator::FuncLikeEmitter::FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string new_csharp_name, bool in_exposed_struct, EmitVariant emit_variant)
     try
         : generator(generator),
         any_func_like(any_func_like),
@@ -1315,10 +1454,40 @@ namespace mrbind::CSharp
             assert(!is_ctor || generator.ParseTypeOrThrow(func_like.ret.cpp_type).IsOnlyQualifiedName());
             return is_ctor && generator.GetSharedPtrTypeDescForCppTypeOpt(func_like.ret.cpp_type);
         }()),
+        in_exposed_struct(in_exposed_struct),
         // Here we only allow methods and not free functions, since all valid operators would've been moved to methods by this point,
         //   and all invalid ones (that C# doesn't support, that we must emit as functions) shouldn't be covered by this.
         // This excludes `EmitVariant::conv_op_for_ctor`, since that's a conversion to this type, not from it.
-        is_overloaded_op_or_conv_op_from_this(method && generator.IsOverloadableOpOrConvOp(method)),
+        is_overloaded_op_or_conv_op_from_this(
+            method &&
+            generator.IsOverloadableOpOrConvOp(method) &&
+            !(in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
+        ),
+        // Is this an operator that wants all arguments to match the enclosing class type, as opposed to just one of them?
+        is_op_with_symmetric_args([&]
+        {
+            if (!method)
+                return false;
+            const auto *op = std::get_if<CInterop::MethodKinds::Operator>(&method->var);
+            if (!op)
+                return false;
+            if (!generator.IsOverloadableOpOrConvOp(method))
+                return false;
+            return
+                // For equality operators, this is a weak requirement that just makes the code look better.
+                // We only do this if the operands already have the same type, since we'll have to adjust one of them,
+                //   so might as well do the other too.
+                (
+                    (op->token == "==" || op->token == "!=") &&
+                    method->params.at(method->is_static).SameTypeAndModifiers(method->params.at(method->is_static + 1))
+                ) ||
+                // For relational ones, this is a more important requirements, since we need symmetricity for rewrites.
+                // Though our rewrites can probably handle non-symmetric cases too (by value vs by ref parameters),
+                //   it sounds safer to just always rewrite.
+                // Here we don't need to check that the parameter types are the same, since `IsOverloadableOpOrConvOp()` should already
+                //   ensure that for those operators.
+                (op->token == "<" || op->token == ">" || op->token == "<=" || op->token == ">=");
+        }()),
         is_incr_or_decr([&]{
             if (method)
             {
@@ -1332,12 +1501,14 @@ namespace mrbind::CSharp
         }()),
         acts_on_copy_of_this(is_incr_or_decr && emit_variant == EmitVariant::static_incr_or_decr)
     {
-        // Find the return type binding.
-        if (!is_ctor || emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper || emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper)
-        {
+        { // Find the return type binding.
             ret_binding = &generator.GetReturnBinding(func_like.ret);
             if (!ret_binding)
                 throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
+
+            // Accumulate unsafety.
+            if (ret_binding->force_unsafe)
+                forced_unsafe = true;
         }
 
         // Generate the parameter strings.
@@ -1368,21 +1539,57 @@ namespace mrbind::CSharp
                     class_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
                     const CInterop::TypeDesc &type_desc = *generator.c_desc.FindTypeOpt(CppdeclToCode(class_type));
 
-                    if (!new_type.Is<cppdecl::Reference>())
-                        new_type.AddModifier(cppdecl::Reference{}); // Force reference-ness to support by-value `this` params. This wasn't tested, since other parts of our code don't support them yet.
+                    if (in_exposed_struct)
+                    {
+                        if (new_type.Is<cppdecl::Reference>())
+                            new_type.RemoveModifier();
+                    }
+                    else
+                    {
+                        if (!new_type.Is<cppdecl::Reference>())
+                            new_type.AddModifier(cppdecl::Reference{}); // Force reference-ness to support by-value `this` params.
 
-                    // Add fake constness, but only if the copy ctor of the class takes a const reference.
-                    // This replaces existing constness, so we remove it first.
-                    new_type.RemoveQualifiers(cppdecl::CvQualifiers::const_, 1);
-                    if (!type_desc.traits->copy_constructor_takes_nonconst_ref)
-                        new_type.AddQualifiers(cppdecl::CvQualifiers::const_, 1);
+                        // Add fake constness, but only if the copy ctor of the class takes a const reference.
+                        // This replaces existing constness, so we remove it first.
+                        new_type.RemoveQualifiers(cppdecl::CvQualifiers::const_, 1);
+                        if (!type_desc.traits->copy_constructor_takes_nonconst_ref)
+                            new_type.AddQualifiers(cppdecl::CvQualifiers::const_, 1);
+                    }
 
                     fake_param.cpp_type = CppdeclToCode(new_type);
 
                     this_param_strings = generator.GetParameterBinding(fake_param, false);
-                    this_param_strings.dllimport_args = "_this_copy._UnderlyingPtr"; // This better work.
+
+                    if (in_exposed_struct)
+                    {
+                        // This better work.
+                        if (generator.ParseTypeOrThrow(param.cpp_type).Is<cppdecl::Reference>())
+                        {
+                            this_param_strings.dllimport_decl_params = generator.CppToCSharpUnqualExposedStructName(class_type.simple_type.name) + " *_this";
+                            this_param_strings.dllimport_args = "&_this_copy";
+                        }
+                        else
+                        {
+                            this_param_strings.dllimport_args = "_this_copy";
+                        }
+                    }
+                    else
+                    {
+                        this_param_strings.dllimport_args = "_this_copy._UnderlyingPtr"; // This better work.
+                    }
                 }
-                else if (is_overloaded_op_or_conv_op_from_this && &param == &func_like.params.at(method->is_static ? 2 : 0))
+                else if (
+                    is_overloaded_op_or_conv_op_from_this &&
+                    (
+                        // The effective `this` param. Either the actual `this` param of a non-static function,
+                        //   or the second param of a static one (which is the one with the same type as the enclosing class type).
+                        &param == &func_like.params.at(method->is_static ? 2 : 0) ||
+                        // Or any param of an operator that wants symmetric params, excluding the fake `this` parameter of static methods.
+                        (is_op_with_symmetric_args && !(method->is_static && param.is_this_param))
+                    )
+                    &&
+                    !(is_incr_or_decr && emit_variant != EmitVariant::static_incr_or_decr)
+                )
                 {
                     // For overloaded operators, patch the `this` parameter a bit.
                     // For non-static operators, this is the actual `this` parameter with `.is_this_param == true`.
@@ -1396,37 +1603,66 @@ namespace mrbind::CSharp
                     // Here we can't adjust the reference-ness of `fake_param`, since that will affect the dllimport params,
                     //   and we don't want that.
 
-                    this_param_strings = generator.GetParameterBinding(fake_param, false);
+                    this_param_strings = generator.GetParameterBinding(fake_param, false, {}, in_exposed_struct);
 
-                    // If the `this` type is a non-reference, further patch the usage.
                     cppdecl::Type param_type = generator.ParseTypeOrThrow(param.cpp_type);
-                    if (!param_type.Is<cppdecl::Reference>())
+
+                    cppdecl::Type unqual_param_type = param_type;
+                    if (unqual_param_type.Is<cppdecl::Reference>())
+                        unqual_param_type.RemoveModifier();
+                    unqual_param_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                    // If the `this` type is a reference, and we're in an exposed struct, patch the parameter to be by value.
+                    // Note that we've already rejected non-const reference `this` parameters by this point using `IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct()`
+                    //   in the initializer of `is_overloaded_op_or_conv_op_from_this`.
+                    if (in_exposed_struct)
                     {
-                        const CInterop::TypeDesc &desc = *generator.c_desc.FindTypeOpt(param.cpp_type);
-
-                        // Make sure the type is copyable, or at least trivially movable.
-                        assert(desc.traits.value().IsCopyableOrTriviallyMovable());
-
-                        // Replace the C# parameter type to use the class name as is.
-                        // This removes the by-value helper from classes that use it, and also can replace `ConstFoo` with `Foo` for classes
-                        //   that don't use the pass-by enum,
-                        //   to be passed as `ConstFoo` when passed by value.
-                        this_param_strings.csharp_decl_params.front().type = generator.CppToCSharpUnqualClassName(param_type.simple_type.name.parts.back(), !desc.traits.value().copy_constructor_takes_nonconst_ref);
-
-                        if (std::get<CInterop::TypeKinds::Class>(desc.var).kind == CInterop::ClassKind::uses_pass_by_enum)
+                        if (param_type.Is<cppdecl::Reference>())
                         {
-                            assert(this_param_strings.csharp_decl_params.size() == 1);
-                            assert(desc.traits.value().is_copy_constructible); // This is strictly copyable at this point.
+                            this_param_strings.csharp_decl_params.front().type = generator.CppToCSharpExposedStructName(param_type.simple_type.name);
+                            this_param_strings.dllimport_args = "(" + generator.CppToCSharpClassName(unqual_param_type.simple_type.name, false) + "._Underlying *)&" + param.name_or_placeholder;
+                        }
+                    }
+                    else
+                    {
+                        const CInterop::TypeDesc &type_desc = *generator.c_desc.FindTypeOpt(CppdeclToCode(unqual_param_type));
+                        const CInterop::TypeKinds::Class &class_desc = std::get<CInterop::TypeKinds::Class>(type_desc.var);
 
-                            // Hardcode `PassBy::copy` mode.
-                            this_param_strings.dllimport_args = generator.RequestHelper("_PassBy") + ".copy, " + param.name_or_placeholder + "._UnderlyingPtr";
+                        // If the `this` type is a non-reference, further patch the usage. But only outside of structs.
+                        if (!param_type.Is<cppdecl::Reference>())
+                        {
+                            // Make sure the type is copyable, or at least trivially movable.
+                            // This doesn't really matter for exposed structs.
+                            assert(class_desc.kind != CInterop::ClassKind::exposed_struct || type_desc.traits.value().IsCopyableOrTriviallyMovable());
+
+                            // Replace the C# parameter type to use the class name as is.
+                            // This removes the by-value helper from classes that use it, and also can replace `ConstFoo` with `Foo` for classes
+                            //   that don't use the pass-by enum,
+                            //   to be passed as `ConstFoo` when passed by value.
+                            this_param_strings.csharp_decl_params.front().type = generator.CppToCSharpUnqualClassName(param_type.simple_type.name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref);
+
+                            if (class_desc.kind == CInterop::ClassKind::uses_pass_by_enum)
+                            {
+                                assert(this_param_strings.csharp_decl_params.size() == 1);
+                                assert(type_desc.traits.value().is_copy_constructible); // This is strictly copyable at this point.
+
+                                // Hardcode `PassBy::copy` mode.
+                                this_param_strings.dllimport_args = generator.RequestHelper("_PassBy") + ".copy, " + param.name_or_placeholder + "._UnderlyingPtr";
+                            }
+                            else if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                            {
+                                assert(this_param_strings.csharp_decl_params.size() == 1);
+
+                                this_param_strings.dllimport_args = "*(" + generator.CppToCSharpUnqualExposedStructName(unqual_param_type.simple_type.name) + " *)" + this_param_strings.csharp_decl_params.front().name + "._UnderlyingPtr";
+                                forced_unsafe = true;
+                            }
                         }
                     }
                 }
                 else
                 {
                     // For setters, here we force the parameter name to be `value` (which is the implicit parameter name for C# property setters).
-                    this_param_strings = generator.GetParameterBinding(param, method_like && method_like->is_static, is_property_set && param_strings.size() == 1 ? std::optional<std::string>("value") : std::nullopt);
+                    this_param_strings = generator.GetParameterBinding(param, method_like && method_like->is_static, is_property_set && param_strings.size() == 1 ? std::optional<std::string>("value") : std::nullopt, in_exposed_struct);
                 }
 
 
@@ -1438,6 +1674,10 @@ namespace mrbind::CSharp
                     dllimport_param_string += this_param_strings.dllimport_decl_params;
                 }
 
+                // Accumulate forced unsafety.
+                if (this_param_strings.force_unsafe)
+                    forced_unsafe = true;
+
                 param_strings.push_back(std::move(this_param_strings));
             }
             catch (...)
@@ -1447,7 +1687,7 @@ namespace mrbind::CSharp
         }
 
         // Generate the dllimport declaration.
-        dllimport_strings = generator.MakeDllImportDecl(func_like.c_name, is_ctor ? generator.CppToCSharpClassName(generator.ParseNameOrThrow(method_like->ret.cpp_type), true) + "._Underlying *" : ret_binding->dllimport_return_type, dllimport_param_string);
+        dllimport_strings = generator.MakeDllImportDecl(func_like.c_name, ret_binding->dllimport_return_type, dllimport_param_string);
     }
     catch (...)
     {
@@ -1473,7 +1713,9 @@ namespace mrbind::CSharp
                 if (acts_on_copy_of_this)
                 {
                     cppdecl::Type type = generator.ParseTypeOrThrow(func_like.params.at(0).cpp_type);
-                    return generator.CppToCSharpUnqualClassName(type.simple_type.name.parts.back(), false);
+                    return in_exposed_struct
+                        ? generator.CppToCSharpUnqualExposedStructName(type.simple_type.name)
+                        : generator.CppToCSharpUnqualClassName(type.simple_type.name, false);
                 }
                 else
                 {
@@ -1524,7 +1766,8 @@ namespace mrbind::CSharp
                     // Currently those happen to have `is_ctor == true`, so it has to be here.
                     emit_variant == EmitVariant::conv_op_for_ctor ||
                     emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper
+                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
+                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper
                 )
                 {
                     file.WriteString("static ");
@@ -1534,7 +1777,7 @@ namespace mrbind::CSharp
                 // We do emit it when explicitly inheriting each method in the derived classes.
 
                 // Unsafe?
-                if (dllimport_strings.is_unsafe)
+                if (IsUnsafe())
                     file.WriteString("unsafe ");
 
                 // Silence shadowing?
@@ -1607,29 +1850,46 @@ namespace mrbind::CSharp
                 // `!=` to `==`.
                 if (emit_variant == EmitVariant::negated_comparison_operator)
                 {
-                    file.WriteString("\n{\n    return !(" + ArgA() + " == " + ArgB() + ");\n}\n");
+                    if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
+                        file.WriteString("\n{\n    return !" + ArgA() + ".Equal(" + ArgB() + ");\n}\n");
+                    else
+                        file.WriteString("\n{\n    return !(" + ArgA() + " == " + ArgB() + ");\n}\n");
                     return;
                 }
                 // `<` to `>`.
                 if (emit_variant == EmitVariant::less_to_greater)
                 {
-                    file.WriteString("\n{\n    return " + ArgB() + " < " + ArgA() + ";\n}\n");
+                    if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
+                        file.WriteString("\n{\n    return " + ArgB() + ".Less(" + ArgA() + ");\n}\n");
+                    else
+                        file.WriteString("\n{\n    return " + ArgB() + " < " + ArgA() + ";\n}\n");
                     return;
                 }
                 // `<` to `<=`.
                 if (emit_variant == EmitVariant::less_to_less_eq)
                 {
-                    file.WriteString("\n{\n    return !(" + ArgB() + " < " + ArgA() + ");\n}\n");
+                    if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
+                        file.WriteString("\n{\n    return !" + ArgB() + ".Equal(" + ArgA() + ");\n}\n");
+                    else
+                        file.WriteString("\n{\n    return !(" + ArgB() + " < " + ArgA() + ");\n}\n");
                     return;
                 }
                 // `<` to `>=`.
                 if (emit_variant == EmitVariant::less_to_greater_eq)
                 {
-                    file.WriteString("\n{\n    return !(" + ArgA() + " < " + ArgB() + ");\n}\n");
+                    if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
+                        file.WriteString("\n{\n    return !" + ArgA() + ".Less(" + ArgB() + ");\n}\n");
+                    else
+                        file.WriteString("\n{\n    return !(" + ArgA() + " < " + ArgB() + ");\n}\n");
                     return;
                 }
 
-                if (emit_variant == EmitVariant::conv_op_for_ctor || emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper || emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper)
+                if (
+                    emit_variant == EmitVariant::conv_op_for_ctor ||
+                    emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
+                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
+                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper
+                )
                 {
                     file.WriteString(" {return new");
 
@@ -1649,16 +1909,20 @@ namespace mrbind::CSharp
             // Write a member init list for the constructor.
             if (is_ctor)
             {
-                if (!ctor_class_backed_by_shared_ptr)
+                if (in_exposed_struct)
                 {
-                    file.WriteString(" : this(null, is_owning: true)");
+                    // Nothing.
                 }
-                else
+                else if (ctor_class_backed_by_shared_ptr)
                 {
                     // Here we're trying to call the constructor from a shared pointer, not from a raw pointer,
                     //   so we're using the parameter name `shared_ptr:` to disambiguate.
                     // Later in this constructor we'll call `_LateMakeShared()` to actually construct the object.
                     file.WriteString(" : this(shared_ptr: null, is_owning: true)");
+                }
+                else
+                {
+                    file.WriteString(" : this(null, is_owning: true)");
                 }
             }
 
@@ -1672,7 +1936,7 @@ namespace mrbind::CSharp
             if (acts_on_copy_of_this)
             {
                 file.WriteString(*csharp_type_for_copy_of_this);
-                file.WriteString(" _this_copy = new(_this);\n");
+                file.WriteString(" _this_copy = new(" + param_strings.at(0).csharp_decl_params.at(0).name + ");\n");
             }
 
             std::string extra_statements;
@@ -1741,7 +2005,8 @@ namespace mrbind::CSharp
 
                     if (force_void_return_type || acts_on_copy_of_this)
                     {
-                        expr = ret_binding->csharp_return_type + " _unused_ret = " + expr;
+                        if (ret_binding->csharp_return_type != "void")
+                            expr = ret_binding->csharp_return_type + " _unused_ret = " + expr;
                         if (acts_on_copy_of_this)
                             expr += "\nreturn _this_copy;";
                     }
@@ -1754,13 +2019,41 @@ namespace mrbind::CSharp
                 {
                     file.WriteString(extra_statements);
 
-                    if (!ctor_class_backed_by_shared_ptr)
+                    if (in_exposed_struct)
                     {
-                        file.WriteString("_UnderlyingPtr = " + expr + ";\n");
+                        // You can assign to `this`, and it assigns elementwise! Nice.
+                        // See: https://stackoverflow.com/q/10038598/2752075
+                        file.WriteString("this = " + expr + ";\n");
                     }
                     else
                     {
-                        file.WriteString("_LateMakeShared(" + expr + ");\n");
+                        const auto &class_desc = std::get<CInterop::TypeKinds::Class>(generator.c_desc.FindTypeOpt(func_like.ret.cpp_type)->var);
+
+                        std::string ctor_expr;
+                        std::string post_ctor_statements;
+                        if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                        {
+                            const std::string class_size_str = std::to_string(class_desc.size_and_alignment.value().size);
+
+                            auto dllimport_alloc = generator.MakeDllImportDecl(generator.c_desc.helpers_prefix + "Alloc", "_Underlying *", "nuint size");
+                            file.WriteString(dllimport_alloc.dllimport_decl);
+
+                            ctor_expr = dllimport_alloc.csharp_name + "(" + class_size_str + ")";
+
+                            post_ctor_statements =
+                                ret_binding->csharp_return_type + " _ctor_result = " + expr + ";\n"
+                                "System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, " + class_size_str + ");\n";
+                        }
+                        else
+                        {
+                            ctor_expr = expr;
+                        }
+
+                        if (ctor_class_backed_by_shared_ptr)
+                            file.WriteString("_LateMakeShared(" + ctor_expr + ");\n");
+                        else
+                            file.WriteString("_UnderlyingPtr = " + ctor_expr + ";\n");
+                        file.WriteString(post_ctor_statements);
                     }
 
                     file.WriteString(extra_statements_after);
@@ -1786,6 +2079,9 @@ namespace mrbind::CSharp
                     else
                     {
                         file.WriteString(extra_statements);
+                        // Note the untyped `var`. `expr` here contains not the result of `make_return_expr()` (which itself could be
+                        //   an untyped `new()`, which wouldn't work with `var`), but instead contains the result of calling
+                        //   a dllimported function, which always return a fixed type.
                         file.WriteString("var __ret = " + expr + ";\n");
                         file.WriteString(extra_statements_after);
                         file.WriteString(AdjustReturnIfNeeded(std::move(ret_expr)) + '\n');
@@ -1831,12 +2127,20 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, bool is_const, EmitVariant emit_variant)
+    bool Generator::IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(const CInterop::ClassMethod &method)
+    {
+        const CInterop::FuncParam &param = method.params.at(method.is_static ? 2 : 0); // `2` instead of `1` to skip the fake static `this`.
+
+        const cppdecl::Type &type = ParseTypeOrThrow(param.cpp_type);
+        return type.Is<cppdecl::Reference>() && !type.IsConst(1);
+    }
+
+    std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant)
     {
         return std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
             {
-                return elem.name;
+                return CppStringToCsharpIdentifier(elem.name);
             },
             [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
             {
@@ -1844,7 +2148,8 @@ namespace mrbind::CSharp
                 if (
                     emit_variant == EmitVariant::conv_op_for_ctor ||
                     emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper
+                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
+                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper
                 )
                 {
                     // I guess we can just assemble the entire thing here?
@@ -1855,17 +2160,35 @@ namespace mrbind::CSharp
                         ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper)
                         ret += CppToCSharpUnqualInOptConstNontrivialHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
+                    else if (emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper)
+                        ret += CppToCSharpUnqualInOptStructHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
+                    else if (!class_part_kind)
+                        ret += CppToCSharpUnqualExposedStructName(ParseNameOrThrow(method.ret.cpp_type));
                     else
-                        ret += CppToCSharpUnqualClassName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), is_const);
+                        ret += CppToCSharpUnqualClassName(ParseNameOrThrow(method.ret.cpp_type), *class_part_kind);
                     return ret;
                 }
 
                 // Just the normal constructor.
-                return CppToCSharpUnqualClassName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), is_const);
+                if (!class_part_kind)
+                    return CppToCSharpUnqualExposedStructName(ParseNameOrThrow(method.ret.cpp_type));
+                else
+                    return CppToCSharpUnqualClassName(ParseNameOrThrow(method.ret.cpp_type), *class_part_kind);
             },
             [&](const CInterop::MethodKinds::Operator &elem) -> std::string
             {
                 (void)elem;
+
+                std::string fixed_token = elem.token;
+
+                if (emit_variant == EmitVariant::negated_comparison_operator)
+                    fixed_token = "!=";
+                else if (emit_variant == EmitVariant::less_to_greater)
+                    fixed_token = ">";
+                else if (emit_variant == EmitVariant::less_to_less_eq)
+                    fixed_token = "<=";
+                else if (emit_variant == EmitVariant::less_to_greater_eq)
+                    fixed_token = ">=";
 
                 if (
                     IsOverloadableOpOrConvOp(&method) &&
@@ -1874,19 +2197,15 @@ namespace mrbind::CSharp
                         (elem.token == "++" || elem.token == "--") &&
                         emit_variant != EmitVariant::static_incr_or_decr &&
                         csharp_version < 14
+                    ) &&
+                    // If this is an overloaded operator that can't be implemented as such in an exposed struct, and we're in one, fall back to the normal function name.
+                    !(
+                        !class_part_kind &&
+                        IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(method)
                     )
                 )
                 {
-                    if (emit_variant == EmitVariant::negated_comparison_operator)
-                        return "operator!=";
-                    if (emit_variant == EmitVariant::less_to_greater)
-                        return "operator>";
-                    if (emit_variant == EmitVariant::less_to_less_eq)
-                        return "operator<=";
-                    if (emit_variant == EmitVariant::less_to_greater_eq)
-                        return "operator>=";
-
-                    return "operator" + elem.token;
+                    return "operator" + fixed_token;
                 }
 
                 // Fall back to an identifier.
@@ -1898,13 +2217,13 @@ namespace mrbind::CSharp
                 // But those doesn't give good names for unary `*` and `&`, so we have to handle that first.
                 if (method.params.size() == 1)
                 {
-                    if (elem.token == "*")
+                    if (fixed_token == "*")
                         return "Deref";
-                    if (elem.token == "&")
+                    if (fixed_token == "&")
                         return "AddressOf";
                 }
 
-                return CppStringToCsharpIdentifier(cppdecl::TokenToIdentifier(elem.token, true));
+                return CppStringToCsharpIdentifier(cppdecl::TokenToIdentifier(fixed_token, true));
             },
             [&](const CInterop::MethodKinds::ConversionOperator &elem) -> std::string
             {
@@ -1954,7 +2273,7 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    TypeBinding::ParamUsage::Strings Generator::GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name)
+    TypeBinding::ParamUsage::Strings Generator::GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name, bool in_exposed_struct)
     {
         TypeBinding::ParamUsage::Strings ret;
 
@@ -1981,12 +2300,14 @@ namespace mrbind::CSharp
                     // A non-static method with a by-value this parameter (quite unusual).
                     // Our parser doesn't currently support those, but we can still generate them when rewriting non-member operators.
 
-                    // This only needs special-casing if the class needs a pass-by enum. Otherwise our parameter passing style in C is the same
-                    //   as it would be for a reference `this`.
+                    // This only needs special-casing if the class needs a pass-by enum, or is an exposed struct.
+                    // Otherwise our parameter passing style in C is the same as it would be for a reference `this`.
 
                     assert(this_type.IsOnlyQualifiedName());
 
-                    if (std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(this_type))->var).kind == CInterop::ClassKind::uses_pass_by_enum)
+                    const CInterop::ClassKind class_kind = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(this_type))->var).kind;
+
+                    if (class_kind == CInterop::ClassKind::uses_pass_by_enum)
                     {
                         done = true;
 
@@ -1997,6 +2318,17 @@ namespace mrbind::CSharp
 
                         // Unconditionally copy for now. This is sad, but I'm not sure how else to solve this.
                         ret.dllimport_args = RequestHelper("_PassBy") + ".copy, _UnderlyingPtr";
+                    }
+                    else if (in_exposed_struct)
+                    {
+                        // We can't check this directly in this `if (...)`, since we want to reject `ConstFoo` and `MutFoo`, the reference-like classes
+                        //   that we generate alongside the struct.
+                        assert(class_kind == CInterop::ClassKind::exposed_struct);
+
+                        done = true;
+
+                        ret.dllimport_decl_params = CppToCSharpExposedStructName(this_type.simple_type.name) + " " + param_name;
+                        ret.dllimport_args = "this";
                     }
                 }
 
@@ -2010,8 +2342,22 @@ namespace mrbind::CSharp
                     this_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
                     assert(this_type.IsOnlyQualifiedName());
 
-                    ret.dllimport_decl_params = "_Underlying *" + param_name;
-                    ret.dllimport_args = "_UnderlyingPtr";
+                    if (in_exposed_struct)
+                    {
+                        const std::string csharp_class_name = CppToCSharpExposedStructName(this_type.simple_type.name);
+                        ret.dllimport_decl_params = csharp_class_name + " *" + param_name;
+                        // This doesn't work for some reason. Appears to be a defect: https://old.reddit.com/r/csharp/comments/137s9hv/taking_the_address_of_a_ref_struct_without_fixed/
+                        //     ret.dllimport_args = "&this";
+                        // So instead we have to use a `fixed` block:
+                        ret.scope_open = "fixed (" + csharp_class_name + " *__ptr_" + param_name + " = &this)\n{\n";
+                        ret.dllimport_args = "__ptr_" + param_name;
+                        ret.scope_close = "}\n";
+                    }
+                    else
+                    {
+                        ret.dllimport_decl_params = "_Underlying *" + param_name;
+                        ret.dllimport_args = "_UnderlyingPtr";
+                    }
                 }
             }
         }
@@ -2229,24 +2575,38 @@ namespace mrbind::CSharp
     {
         std::string token;
 
+        // For argument indexing purposes, do we need to skip the static `this` argument?
+        const bool is_static_member =
+            std::holds_alternative<const CInterop::ClassMethod *>(func_or_method) &&
+            std::get<const CInterop::ClassMethod *>(func_or_method)->is_static;
+
         auto ShouldSkipOperator = [&](const CInterop::BasicFuncLike &func, const std::string &op_token)
         {
+            auto ParamCount = [&]
+            {
+                return func.params.size() - is_static_member;
+            };
+            auto ParamAt = [&](std::size_t i) -> const CInterop::FuncParam &
+            {
+                return func.params.at(is_static_member + i);
+            };
+
             // Iostream operators are emitted as functions instead, because it looks better.
             if (op_token == "<<")
             {
-                assert(func.params.size() == 2);
-                if (func.params.at(0).cpp_type == "std::ostream &")
+                assert(ParamCount() == 2);
+                if (ParamAt(0).cpp_type == "std::ostream &")
                     return true;
             }
             else if (op_token == ">>")
             {
-                assert(func.params.size() == 2);
-                if (func.params.at(0).cpp_type == "std::istream &")
+                assert(ParamCount() == 2);
+                if (ParamAt(0).cpp_type == "std::istream &")
                     return true;
             }
 
             // C# doesn't support overloading unary `*` and `&`.
-            if (func.params.size() == 1 && (op_token == "*" || op_token == "&"))
+            if (ParamCount() == 1 && (op_token == "*" || op_token == "&"))
                 return true;
 
             // Skip equality comparison that doesn't return `bool`. It's not strictly necessary,
@@ -2261,9 +2621,9 @@ namespace mrbind::CSharp
                 if (func.ret.cpp_type != "bool")
                     return true;
 
-                // We ne operands to have the same type, since we rewrite `<` into the other three operators,
+                // We need operands to have the same type, since we rewrite `<` into the other three operators,
                 //   and that requires the operands to have the same type.
-                if (!func.params.at(0).SameTypeAndModifiers(func.params.at(1)))
+                if (!ParamAt(0).SameTypeAndModifiers(ParamAt(1)))
                     return true;
             }
 
@@ -2312,7 +2672,7 @@ namespace mrbind::CSharp
                     if (param_type.Is<cppdecl::Reference>())
                         return true; // Reference `this` is always ok.
 
-                    // Only ok if
+                    // Only ok if the class is trivial enough.
                     return c_desc.FindTypeOpt(param.cpp_type)->traits.value().IsCopyableOrTriviallyMovable();
                 }
 
@@ -2375,7 +2735,9 @@ namespace mrbind::CSharp
 
             const CInterop::TypeDesc *shared_ptr_desc = GetSharedPtrTypeDescForCppTypeOpt(cpp_type);
 
-            auto ShouldEmitMethod = [&](const CInterop::ClassMethod &method, bool is_const, EmitVariant emit_variant)
+            // If `class_part_kind` isn't null, then it means `is_const`.
+            // If it is null, we're in the `struct` corresponding to an exposed C++ struct.
+            auto ShouldEmitMethod = [&](const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant)
             {
                 // Must use `is_const` here instead of `is_const`.
 
@@ -2429,15 +2791,38 @@ namespace mrbind::CSharp
                     },
                 }, method.var);
 
-                return should_emit && (is_const_or_static == is_const || std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var));
+                return should_emit && ((!class_part_kind || is_const_or_static == *class_part_kind) || std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var));
             };
 
-            ClassShadowingData shadowing_data;
-            auto EmitMaybeConstHalf = [&](bool is_const)
+            // This lambda emits all types nested in this one, if any.
+            auto EmitNestedClasses = [&]
             {
+                std::string nested_type_prefix = CppdeclToCode(cpp_qual_name) + "::";
+
+                auto iter = c_desc.cpp_types.Map().lower_bound(nested_type_prefix);
+                while (iter != c_desc.cpp_types.Map().end() && iter->first.starts_with(nested_type_prefix))
+                {
+                    if (ShouldEmitCppType(ParseTypeOrThrow(iter->first)))
+                        EmitCppTypeUnconditionally(file, iter->first);
+
+                    ++iter;
+                }
+            };
+
+            // If `class_part_kind` isn't null, then it means `is_const`.
+            // If it is null, we're in the `struct` corresponding to an exposed C++ struct.
+            auto EmitClassPart = [&](std::optional<bool> class_part_kind, ClassShadowingData *shadowing_data)
+            {
+                // Is this a const half of the class, as opposed to non-const?
+                // Throws if this is actually a `struct`, which is neither.
+                auto IsConst = [&]{return class_part_kind.value();};
+                const bool is_exposed_struct_by_value = !class_part_kind;
+
                 try
                 {
-                    const std::string unqual_csharp_name = CppToCSharpUnqualClassName(cpp_qual_name.parts.back(), is_const);
+                    const std::string unqual_csharp_name = is_exposed_struct_by_value
+                        ? CppToCSharpUnqualExposedStructName(cpp_qual_name)
+                        : CppToCSharpUnqualClassName(cpp_qual_name, IsConst());
 
                     // Do we have bindings for `std::shared_ptr<T>`?
                     // The C name for `std::shared_ptr<T>`, if we have that.
@@ -2456,21 +2841,6 @@ namespace mrbind::CSharp
                     // This is the C# name of the underlying raw pointer used in the C# wrapper of `std::shared_ptr<const void>`.
                     static const std::string sharedptr_constvoid_underlying_ptr_type = CppToCSharpClassName(cpp_sharedptr_constvoid_name, true) + "._Underlying *";
 
-                    // This lambda emits all types nested in this one, if any.
-                    auto EmitNestedClasses = [&]
-                    {
-                        std::string nested_type_prefix = CppdeclToCode(cpp_qual_name) + "::";
-
-                        auto iter = c_desc.cpp_types.Map().lower_bound(nested_type_prefix);
-                        while (iter != c_desc.cpp_types.Map().end() && iter->first.starts_with(nested_type_prefix))
-                        {
-                            if (ShouldEmitCppType(ParseTypeOrThrow(iter->first)))
-                                EmitCppTypeUnconditionally(file, iter->first);
-
-                            ++iter;
-                        }
-                    };
-
                     // Is this an equality comparison that gets implemented as an overloaded operator in C#.
                     auto IsEqualityComparisonForIEquatable = [&](const CInterop::ClassMethod &method)
                     {
@@ -2488,12 +2858,23 @@ namespace mrbind::CSharp
                     // The comment, if any.
                     // This already has a trailing newline and the slashes.
                     file.WriteString(class_desc.comment.c_style);
-                    file.WriteString("/// This is the " + std::string(is_const ? "const" : "non-const") + " half of the class.\n");
+                    if (is_exposed_struct_by_value)
+                        file.WriteString("/// This is the by-value version of the struct.\n");
+                    else
+                        file.WriteString("/// This is the " + std::string(IsConst() ? "const" : "non-const") + " " + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "reference to the struct" : "half of the class") + ".\n");
+
+                    // The struct attributes.
+                    if (is_exposed_struct_by_value)
+                    {
+                        // There's also `Pack = ...` parameter. It looks related to alignment, but the docs say that it only affects
+                        //   the automatic field layout if that's enabled, and not the alignment of the entire struct.
+                        // Instead I'm going to assume that it aligns by the largest field size, and check that below.
+                        file.WriteString("[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = " + std::to_string(class_desc.size_and_alignment.value().size) + ")]\n");
+                    }
 
                     // The class header.
-                    file.WriteString("public class ");
+                    file.WriteString(is_exposed_struct_by_value ? "public ref struct " : "public class ");
                     file.WriteString(unqual_csharp_name);
-                    file.WriteString(" : ");
 
                     bool base_implements_any_iequatable = false;
                     std::string iequatable_impls;
@@ -2503,17 +2884,26 @@ namespace mrbind::CSharp
                         auto BaseSeparator = [&, first = true]() mutable
                         {
                             if (first)
+                            {
                                 first = false;
+                                file.WriteString(" : ");
+                            }
                             else
+                            {
                                 file.WriteString(", ");
+                            }
                         };
 
-                        if (!is_const)
+                        if (is_exposed_struct_by_value)
+                        {
+                            // Nothing.
+                        }
+                        else if (!IsConst())
                         {
                             BaseSeparator();
 
                             // Inherit from the const half.
-                            file.WriteString(CppToCSharpUnqualClassName(cpp_qual_name.parts.back(), true));
+                            file.WriteString(CppToCSharpUnqualClassName(cpp_qual_name, true));
                         }
                         else
                         {
@@ -2530,74 +2920,83 @@ namespace mrbind::CSharp
                         }
 
                         // `IEquatable` for our equality comparisons.
-                        for (const CInterop::ClassMethod &method : class_desc.methods)
+                        // Interfaces for `ref struct`s require C# 13 or newer. One day we might implement them behind `--sharp-version=13`,
+                        //   but for now I'm disabling them entirely.
+                        if (!is_exposed_struct_by_value)
                         {
-                            if (ShouldEmitMethod(method, is_const, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
+                            for (const CInterop::ClassMethod &method : class_desc.methods)
                             {
-                                BaseSeparator();
-
-                                cppdecl::Type param_cpp_type = ParseTypeOrThrow(method.params.at(1).cpp_type);
-                                if (param_cpp_type.Is<cppdecl::Reference>())
-                                    param_cpp_type.RemoveModifier();
-                                param_cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
-
-                                const bool param_is_managed = IsManagedTypeInCSharp(param_cpp_type);
-
-                                const auto &param_binding = GetParameterBinding(method.params.at(1), false);
-                                assert(param_binding.csharp_decl_params.size() == 1);
-
-                                std::string interface_targ = param_binding.csharp_decl_params.front().type;
-
-                                if (interface_targ.ends_with('?') && param_is_managed)
-                                    interface_targ.pop_back(); // `IEquatable<T>` requires implementing `Equals(T? t)`, so just in case.
-                                file.WriteString("System.IEquatable<" + interface_targ + ">");
-
-                                auto param = param_binding.csharp_decl_params.front();
-                                param.default_arg = {};
-                                bool added_nullability = false;
-                                if (param_is_managed && !param.type.ends_with('?'))
+                                if (ShouldEmitMethod(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
                                 {
-                                    added_nullability = true;
-                                    param.type += '?'; // The interface requires this.
+                                    BaseSeparator();
+
+                                    cppdecl::Type param_cpp_type = ParseTypeOrThrow(method.params.at(1).cpp_type);
+                                    if (param_cpp_type.Is<cppdecl::Reference>())
+                                        param_cpp_type.RemoveModifier();
+                                    param_cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                                    const bool param_is_managed = IsClassEmbeddingSharedPtr(param_cpp_type);
+
+                                    const auto &param_binding = GetParameterBinding(method.params.at(1), false);
+                                    assert(param_binding.csharp_decl_params.size() == 1);
+
+                                    std::string interface_targ = param_binding.csharp_decl_params.front().type;
+
+                                    if (interface_targ.ends_with('?') && param_is_managed)
+                                        interface_targ.pop_back(); // `IEquatable<T>` requires implementing `Equals(T? t)`, so just in case.
+                                    file.WriteString("System.IEquatable<" + interface_targ + ">");
+
+                                    auto param = param_binding.csharp_decl_params.front();
+                                    param.default_arg = {};
+                                    bool added_nullability = false;
+                                    if (param_is_managed && !param.type.ends_with('?'))
+                                    {
+                                        added_nullability = true;
+                                        param.type += '?'; // The interface requires this.
+                                    }
+
+                                    std::string param_type_without_nullable = param.type;
+                                    if (param_type_without_nullable.ends_with('?'))
+                                        param_type_without_nullable.pop_back();
+
+                                    if (iequatable_impls.empty())
+                                        iequatable_impls += "\n// IEquatable:\n\n";
+                                    else
+                                        iequatable_impls += '\n';
+
+                                    iequatable_impls +=
+                                        "public bool Equals(" + param.ToString() + ")\n"
+                                        "{\n"
+                                        + (added_nullability ? "    if (" + param.name + " is null)\n        return false;\n" : "") +
+                                        // If we added `?` to the parameter type, here we should cast back to the type without null.
+                                        // It seems to have no effect for managed classes, but is needed for something like `int`.
+                                        "    return this == " + param.name + ";\n"
+                                        "}\n";
+
+                                    iequatable_generic_impl +=
+                                        "    if (other is " + param_type_without_nullable + ")\n"
+                                        "        return this == (" + param_type_without_nullable + ")other;\n";
                                 }
 
-                                std::string param_type_without_nullable = param.type;
-                                if (param_type_without_nullable.ends_with('?'))
-                                    param_type_without_nullable.pop_back();
-
-                                if (iequatable_impls.empty())
-                                    iequatable_impls += "\n// IEquatable:\n\n";
-                                else
-                                    iequatable_impls += '\n';
-
-                                iequatable_impls +=
-                                    "public bool Equals(" + param.ToString() + ")\n"
-                                    "{\n"
-                                    + (added_nullability ? "    if (" + param.name + " is null)\n        return false;\n" : "") +
-                                    // If we added `?` to the parameter type, here we should cast back to the type without null.
-                                    // It seems to have no effect for managed classes, but is needed for something like `int`.
-                                    "    return this == " + param.name + ";\n"
-                                    "}\n";
-
-                                iequatable_generic_impl +=
-                                    "    if (other is " + param_type_without_nullable + ")\n"
-                                    "        return this == (" + param_type_without_nullable + ")other;\n";
+                                // Check the base too.
+                                // For now checking `!is_exposed_struct_by_value` here is redundant. But it can be useful in the future, see the comment above.
+                                if (!is_exposed_struct_by_value && !IsConst() && ShouldEmitMethod(method, true, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
+                                    base_implements_any_iequatable = true;
                             }
-
-                            // Check the base too.
-                            if (!is_const && ShouldEmitMethod(method, true, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
-                                base_implements_any_iequatable = true;
                         }
                     }
                     file.PushScope({}, "\n{\n", "}\n");
 
                     // The underlying pointer.
                     // This is done only for the const halves, because the non-const ones can always reuse the pointer from the const half.
-                    if (is_const)
+                    if (!is_exposed_struct_by_value && IsConst())
                     {
                         file.WriteSeparatingNewline();
 
                         // The opaque struct type for the raw pointer.
+                        // For exposed structs, this is wrongly typed, as it should match the struct itself.
+                        // But it's easier to keep this a separate type, since C# seemingly doesn't have type aliases, and it's easier to not touch
+                        //   all the other code that assumes this name.
                         file.WriteString("internal struct _Underlying; // Represents the underlying C++ type.\n");
 
                         // The opaque struct type for the shared pointer.
@@ -2667,59 +3066,62 @@ namespace mrbind::CSharp
                     }
 
                     // The constructor from a pointer.
-                    file.WriteSeparatingNewline();
-                    file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_Underlying *ptr, bool is_owning)");
-                    if (!is_const)
+                    if (!is_exposed_struct_by_value)
                     {
-                        file.WriteString(" : base(ptr, is_owning) {}\n");
-                    }
-                    else if (!shared_ptr_desc)
-                    {
-                        file.WriteString(" : base(is_owning) {_UnderlyingPtr = ptr;}\n");
-                    }
-                    else
-                    {
-                        // Here we must create either an owning or a non-owning shared pointer.
+                        file.WriteSeparatingNewline();
+                        file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_Underlying *ptr, bool is_owning)");
+                        if (!IsConst())
+                        {
+                            file.WriteString(" : base(ptr, is_owning) {}\n");
+                        }
+                        else if (!shared_ptr_desc)
+                        {
+                            file.WriteString(" : base(is_owning) {_UnderlyingPtr = ptr;}\n");
+                        }
+                        else
+                        {
+                            // Here we must create either an owning or a non-owning shared pointer.
 
-                        // We own our shared pointer regardless, so this is unconditionally true.
-                        file.WriteString(" : base(true)\n");
+                            // We own our shared pointer regardless, so this is unconditionally true.
+                            file.WriteString(" : base(true)\n");
 
-                        file.PushScope({}, "{\n", "}\n");
+                            file.PushScope({}, "{\n", "}\n");
 
-                        auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
-                        file.WriteString(dllimport_construct_owning.dllimport_decl);
+                            auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
+                            file.WriteString(dllimport_construct_owning.dllimport_decl);
 
-                        auto dllimport_construct_nonowning = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
-                        file.WriteString(dllimport_construct_nonowning.dllimport_decl);
+                            auto dllimport_construct_nonowning = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
+                            file.WriteString(dllimport_construct_nonowning.dllimport_decl);
 
-                        file.WriteString(
-                            "if (is_owning)\n"
-                            "    _UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n"
-                            "else\n"
-                            "    _UnderlyingSharedPtr = " + dllimport_construct_nonowning.csharp_name + "(ptr);\n"
-                        );
-                        file.PopScope();
+                            file.WriteString(
+                                "if (is_owning)\n"
+                                "    _UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n"
+                                "else\n"
+                                "    _UnderlyingSharedPtr = " + dllimport_construct_nonowning.csharp_name + "(ptr);\n"
+                            );
+                            file.PopScope();
+                        }
                     }
 
                     // Some shared-pointer-specific constructors and factory functions.
-                    if (shared_ptr_desc)
+                    if (!is_exposed_struct_by_value && shared_ptr_desc)
                     {
                         // A simple constructor from an existing shared pointer, either owning or not.
                         // Note, the parameter name here is `shared_ptr` instead of `ptr` for overload disambiguation when passing null.
                         file.WriteSeparatingNewline();
                         file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_UnderlyingShared *shared_ptr, bool is_owning)");
-                        if (is_const)
+                        if (IsConst())
                             file.WriteString(" : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}\n");
                         else
                             file.WriteString(" : base(shared_ptr, is_owning) {}\n");
 
                         // An aliasing constructor.
-                        if (is_const)
+                        if (IsConst())
                         {
                             file.WriteSeparatingNewline();
 
                             // Notice that this returns a non-const type. This allows us to avoid overriding it in the non-const half, and otherwise shouldn't change anything.
-                            file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name.parts.back(), false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr)\n");
+                            file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name, false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr)\n");
                             file.PushScope({}, "{\n", "}\n");
 
                             auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr");
@@ -2730,7 +3132,7 @@ namespace mrbind::CSharp
                         }
 
                         // `_LateMakeShared()`, a helper for parsed constructors.
-                        if (is_const)
+                        if (IsConst())
                         {
                             // This function is used in generated parsed constructors.
                             // First you put `: this(shared_ptr: null, is_owning: true)` in the member init list (calling the ctor from a `shared_ptr` pointer, rather than a raw pointer),
@@ -2757,7 +3159,7 @@ namespace mrbind::CSharp
                     // The `IDisposable` implementation and the destructor.
                     // We don't need this and can't emit this if the underlying type isn't destructible. In that case we don't emit the constructors as well.
                     // Except if we're also using a shared pointer; then we DO need this, as we must destroy the shared pointer even if it's non-owning.
-                    if (is_const && (type_desc.traits.value().is_destructible || shared_ptr_desc))
+                    if (!is_exposed_struct_by_value && IsConst() && (type_desc.traits.value().is_destructible || shared_ptr_desc))
                     {
                         const auto dtor_strings =
                             shared_ptr_desc
@@ -2791,7 +3193,10 @@ namespace mrbind::CSharp
                         );
                     }
 
-                    { // Emit the custom upcasts/downcasts.
+                    // Emit the custom upcasts/downcasts.
+                    // `struct`s can't inherit from classes (only from in
+                    if (!is_exposed_struct_by_value)
+                    {
                         { // Upcasts.
                             bool first = true;
                             for (const auto &base_name : class_desc.inheritance_info.bases_indirect.Vec())
@@ -2808,13 +3213,13 @@ namespace mrbind::CSharp
 
                                 const auto &base_desc = std::get<CInterop::TypeKinds::Class>(c_desc.cpp_types.Map().at(base_name).var);
 
-                                const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), is_const);
+                                const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst());
 
                                 file.WriteString("public static unsafe implicit operator " + csharp_base_name + "(" + unqual_csharp_name + " self)\n");
                                 file.PushScope({}, "{\n", "}\n");
 
 
-                                auto dllimport_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + base_desc.c_name, CppToCSharpClassName(ParseNameOrThrow(base_name), is_const) + "._Underlying *", "_Underlying *_this");
+                                auto dllimport_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + base_desc.c_name, CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *", "_Underlying *_this");
                                 file.WriteString(dllimport_decl.dllimport_decl);
 
                                 if (!shared_ptr_desc)
@@ -2858,11 +3263,11 @@ namespace mrbind::CSharp
                                     first = false;
                                 }
 
-                                const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), is_const);
+                                const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst());
                                 file.WriteString("public static unsafe explicit operator " + unqual_csharp_name + "?(" + csharp_base_name + " parent)\n");
                                 file.PushScope({}, "{\n", "}\n");
 
-                                auto dllimport_decl = MakeDllImportDecl(base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), is_const) + "._Underlying *_this");
+                                auto dllimport_decl = MakeDllImportDecl(base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *_this");
                                 file.WriteString(dllimport_decl.dllimport_decl);
 
                                 file.WriteString(
@@ -2891,24 +3296,159 @@ namespace mrbind::CSharp
                         }
                     }
 
-                    // Emit the fields.
-                    for (const auto &field : class_desc.fields)
-                        EmitCppField(file, ParseNameOrThrow(cpp_type), type_desc, field, is_const, &shadowing_data);
+                    { // Emit the fields.
+                        for (const auto &field : class_desc.fields)
+                        {
+                            if (is_exposed_struct_by_value && !field.is_static)
+                            {
+                                // Custom behavior for exposed fields.
+
+                                cppdecl::Type cpp_type = ParseTypeOrThrow(field.type);
+
+                                auto csharp_type = CToCSharpPrimitiveTypeOrFixedArray(cpp_type);
+                                if (!csharp_type)
+                                    throw std::runtime_error("Don't know how to bind field `" + field.full_name + "` of type `" + field.type + "` in an exposed struct.");
+
+                                const bool is_bool = cpp_type.AsSingleWord() == "bool";
+
+                                file.WriteSeparatingNewline();
+
+                                // Write comment.
+                                file.WriteString(field.comment.c_style);
+
+                                const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
+
+                                const std::string csharp_field_name = CppStringToCsharpIdentifier(field.name);
+
+                                // Write the field itself.
+                                if (is_bool)
+                                {
+                                    // We hide bools behind properties, since they're stores as `byte`s.
+                                    // We could try `bool` + `MarshalAs()`, but I heard that even then `bool`s in C# are "not blittable",
+                                    //   which roughly means "not trivially copyable" (apparently in the sense that they can be corrupted by writing bad bytes to them),
+                                    //   and as such don't work as return values: https://stackoverflow.com/a/32115697/2752075
+                                    file.WriteString(
+                                        // Put the field first, so that the emitted comment above gets attached to it.
+                                        "public bool " + csharp_field_name + " {get => __storage_" + csharp_field_name + " != 0; set => __storage_" + csharp_field_name + " = value ? (byte)1 : (byte)0;}\n"
+                                        + offset_attr +
+                                        "byte __storage_" + csharp_field_name + ";\n"
+                                    );
+                                }
+                                else
+                                {
+                                    file.WriteString(
+                                        offset_attr +
+                                        "public " +
+                                        *csharp_type + " " + csharp_field_name + ";\n"
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                if (!field.is_static && class_desc.kind == CInterop::ClassKind::exposed_struct)
+                                    continue;
+
+                                EmitCppField(file, ParseNameOrThrow(cpp_type), type_desc, field, is_exposed_struct_by_value ? false : IsConst(), shadowing_data);
+                            }
+                        }
+                    }
+
+                    // For exposed structs (and their ref wrappers!), we must manually emit the constructors that are trivial in C++,
+                    //   since we don't emit them in C.
+                    if (class_desc.kind == CInterop::ClassKind::exposed_struct) // Sic, not `in_exposed_struct`, see above.
+                    {
+                        // The default constructor, only if not emitted automatically (not emitted because it is trivial).
+                        // This isn't needed for the struct, since those are always default-constructible in C#.
+                        if (!is_exposed_struct_by_value && type_desc.traits.value().is_default_constructible && type_desc.traits.value().is_trivially_default_constructible)
+                        {
+                            file.WriteSeparatingNewline();
+                            file.WriteString("/// Generated default constructor.\n");
+                            file.WriteString("public unsafe " + unqual_csharp_name + "()");
+
+                            if (shared_ptr_desc)
+                                file.WriteString(" : this(shared_ptr: null, is_owning: true)\n");
+                            else
+                                file.WriteString(" : this(null, is_owning: true)\n");
+
+                            file.PushScope({}, "{\n", "}\n");
+
+                            auto dllimport_alloc = MakeDllImportDecl(c_desc.helpers_prefix + "Alloc", "_Underlying *", "nuint size");
+                            file.WriteString(dllimport_alloc.dllimport_decl);
+
+                            std::string expr = dllimport_alloc.csharp_name + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
+
+                            if (shared_ptr_desc)
+                                file.WriteString("_LateMakeShared(" + expr + ");\n");
+                            else
+                                file.WriteString("_UnderlyingPtr = " + expr + ";\n");
+
+                            // Memset to zero.
+                            file.WriteString("System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, " + std::to_string(class_desc.size_and_alignment.value().size) + ", 0);\n");
+
+                            file.PopScope();
+                        }
+
+                        { // The copy constructor.
+                            // No need to check the traits, since all this stuff is required to be trivial (or not exist at all). Just emit the copy ctor directly.
+
+                            const std::string unqual_param_type =
+                                is_exposed_struct_by_value
+                                ? unqual_csharp_name
+                                : CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref);
+
+                            file.WriteSeparatingNewline();
+                            file.WriteString("/// Generated copy constructor.\n");
+                            if (is_exposed_struct_by_value)
+                            {
+                                file.WriteString("public " + unqual_csharp_name + "(" + unqual_param_type + " _other) {this = _other;}\n");
+                            }
+                            else
+                            {
+                                // Argh.
+
+                                file.WriteString("public unsafe " + unqual_csharp_name + "(" + unqual_param_type + " _other)");
+
+                                if (shared_ptr_desc)
+                                    file.WriteString(" : this(shared_ptr: null, is_owning: true)\n");
+                                else
+                                    file.WriteString(" : this(null, is_owning: true)\n");
+
+                                file.PushScope({}, "{\n", "}\n");
+
+                                auto dllimport_alloc = MakeDllImportDecl(c_desc.helpers_prefix + "Alloc", "_Underlying *", "nuint size");
+                                file.WriteString(dllimport_alloc.dllimport_decl);
+
+                                std::string expr = dllimport_alloc.csharp_name + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
+
+                                if (shared_ptr_desc)
+                                    file.WriteString("_LateMakeShared(" + expr + ");\n");
+                                else
+                                    file.WriteString("_UnderlyingPtr = " + expr + ";\n");
+
+                                // Bytewise copy.
+                                file.WriteString("System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, " + std::to_string(class_desc.size_and_alignment.value().size) + ");\n");
+
+                                file.PopScope();
+                            }
+                        }
+                    }
 
                     // Emit the methods.
                     for (const auto &method : class_desc.methods)
                     {
                         for (EmitVariant emit_variant : GetMethodVariants(method))
                         {
-                            if (ShouldEmitMethod(method, is_const, emit_variant))
-                                FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, is_const, emit_variant), emit_variant).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = &shadowing_data, .write = is_const});
+                            if (ShouldEmitMethod(method, class_part_kind, emit_variant))
+                            {
+                                FuncLikeEmitter emit(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, emit_variant), is_exposed_struct_by_value, emit_variant);
+
+                                emit.Emit(file, is_exposed_struct_by_value ? std::nullopt : std::optional(FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = IsConst()}));
+                            }
                         }
                     }
 
                     // Emit the nested types, if any.
-                    // C# seems to allow declaring classes directly in interfaces, but accessing them through
-                    //   the derived class names doesn't work for some reason. So we put them there.
-                    if (is_const)
+                    if (is_exposed_struct_by_value || IsConst())
                         EmitNestedClasses();
 
                     // Implement `IEquatable<T>` if needed.
@@ -2930,7 +3470,7 @@ namespace mrbind::CSharp
                     }
 
                     // Emit the custom hardcoded extras.
-                    if (auto str = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), is_const); !str.empty())
+                    if (auto str = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), class_part_kind); !str.empty())
                     {
                         assert(!str.starts_with('\n'));
                         assert(str.ends_with('\n'));
@@ -2946,22 +3486,45 @@ namespace mrbind::CSharp
                 }
                 catch (...)
                 {
-                    std::throw_with_nested(std::runtime_error("While emitting a wrapper for C++ class `" + cpp_type + "` (" + (is_const ? "const" : "non-const") + " half):"));
+                    std::throw_with_nested(std::runtime_error("While emitting a wrapper for C++ class `" + cpp_type + "` (" + (is_exposed_struct_by_value ? "ref-struct" : IsConst() ? "const" : "non-const") + " part):"));
                 }
             };
 
-            EmitMaybeConstHalf(true);
-            EmitMaybeConstHalf(false);
+            ClassShadowingData shadowing_data;
+            EmitClassPart(true, &shadowing_data);
+            EmitClassPart(false, &shadowing_data);
 
-            // Emit the parameter passing helpers helpers. Those can't be generic because we need to give it our conversion operators.
-            {
+            // For exposed structs, emit the exposed struct itself.
+            if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                EmitClassPart({}, nullptr);
+
+
+            { // Emit the parameter passing helpers helpers. Those can't be generic because we need to copy our conversion operators to them.
                 const cppdecl::QualifiedName cpp_name = ParseNameOrThrow(cpp_type);
-                const std::string const_half_name = CppToCSharpUnqualClassName(cpp_name.parts.back(), true);
-                const std::string mut_half_name = CppToCSharpUnqualClassName(cpp_name.parts.back(), false);
+                const std::string const_half_name = CppToCSharpUnqualClassName(cpp_name, true);
+                const std::string mut_half_name = CppToCSharpUnqualClassName(cpp_name, false);
                 const std::string pass_by = RequestHelper("_PassBy");
                 const std::string moved = RequestHelper("_Moved");
 
-                // `PassBy...`.
+                auto EmitConvertingCtors = [&](EmitVariant this_variant)
+                {
+                    for (const auto &method : class_desc.methods)
+                    {
+                        for (EmitVariant emit_variant : GetMethodVariants(method))
+                        {
+                            if (emit_variant != EmitVariant::conv_op_for_ctor)
+                                continue;
+
+                            // Replace the variant!
+                            emit_variant = this_variant;
+
+                            if (ShouldEmitMethod(method, false/*doesn't matter*/, emit_variant))
+                                FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, false/*doesn't matter*/, emit_variant), false/*doesn't matter*/, emit_variant).Emit(file);
+                        }
+                    }
+                };
+
+                // `ByValue...`.
                 // Note that classes being backed by `std::shared_ptr` also go here, since passing `std::shared_ptr` by value would use this helper.
                 if (cl->kind == CInterop::ClassKind::uses_pass_by_enum || shared_ptr_desc)
                 {
@@ -2976,7 +3539,8 @@ namespace mrbind::CSharp
                         "/// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.\n"
                         "///   Be careful if your input isn't a unique reference to this object.\n"
                         "/// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.\n"
-                        "public readonly struct " + by_val_name + "\n"
+                        // Can't a `ref struct` because we use it with `?`. Can be a plain `struct` though, so we make it that as an optimization.
+                        "public struct " + by_val_name + "\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
                     file.WriteString(
@@ -2989,21 +3553,48 @@ namespace mrbind::CSharp
                         "public static implicit operator " + by_val_name + "(" + moved + "<" + mut_half_name + "> arg) {return new(arg);}\n"
                     );
 
-                    // Emit the methods.
-                    for (const auto &method : class_desc.methods)
-                    {
-                        for (EmitVariant emit_variant : GetMethodVariants(method))
-                        {
-                            if (emit_variant != EmitVariant::conv_op_for_ctor)
-                                continue;
+                    EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_by_value_helper);
 
-                            // Replace the variant!
-                            emit_variant = EmitVariant::conv_op_for_ctor_for_by_value_helper;
+                    file.PopScope();
+                }
 
-                            if (ShouldEmitMethod(method, false/*doesn't matter*/, emit_variant))
-                                FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, false/*doesn't matter*/, emit_variant), emit_variant).Emit(file);
-                        }
-                    }
+                // `InOpt...`.
+                // Note that those `InOpt...` wrappers for structs are used for a slightly different purpose than the generic `InOpt<T>` for classes.
+                if (cl->kind == CInterop::ClassKind::exposed_struct)
+                {
+                    const std::string in_opt_name = CppToCSharpUnqualInOptStructHelperName(cpp_name.parts.back());
+                    const std::string struct_name = CppToCSharpUnqualExposedStructName(cpp_name);
+
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// This is used as a function parameter when passing `" + mut_half_name + "` by value with a default argument, since `?` doesn't seem to work with `ref struct`.\n"
+                        "/// Usage:\n"
+                        "/// * Pass an instance of `" + struct_name + "`/`" + mut_half_name + "`/`" + const_half_name + "` to copy it into the function.\n"
+                        "/// * Pass `null` to use the default argument\n"
+                        "public readonly ref struct " + in_opt_name + "\n"
+                    );
+                    file.PushScope({}, "{\n", "}\n");
+                    file.WriteString(
+                        "public readonly bool HasValue;\n"
+                        // This looks like it requires the type to be default-constructible.
+                        // But this isn't a big deal, since apparently C# structs are always default-constructible. This isn't a problem for us,
+                        //   since our structs are trivial enough, so we don't mind.
+                        "readonly " + struct_name + " Object;\n"
+                        "public " + struct_name + " Value"
+                        "{\n"
+                        "    get\n"
+                        "    {\n"
+                        "        System.Diagnostics.Trace.Assert(HasValue);\n"
+                        "        return Object;\n"
+                        "    }\n"
+                        "}\n"
+                        "\n"
+                        "public " + in_opt_name + "() {HasValue = false;}\n"
+                        "public " + in_opt_name + "(" + struct_name + " new_value) {HasValue = true; Object = new_value;}\n"
+                        "public static implicit operator " + in_opt_name + "(" + struct_name + " new_value) {return new(new_value);}\n"
+                    );
+
+                    EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper);
 
                     file.PopScope();
                 }
@@ -3030,21 +3621,7 @@ namespace mrbind::CSharp
                         "public static implicit operator " + in_opt_const_name + "(" + const_half_name + " NewOpt) {return new " + in_opt_const_name + "(NewOpt);}\n"
                     );
 
-                    // Emit the methods.
-                    for (const auto &method : class_desc.methods)
-                    {
-                        for (EmitVariant emit_variant : GetMethodVariants(method))
-                        {
-                            if (emit_variant != EmitVariant::conv_op_for_ctor)
-                                continue;
-
-                            // Replace the variant!
-                            emit_variant = EmitVariant::conv_op_for_ctor_for_in_opt_const_helper;
-
-                            if (ShouldEmitMethod(method, false/*doesn't matter*/, emit_variant))
-                                FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, false/*doesn't matter*/, emit_variant), emit_variant).Emit(file);
-                        }
-                    }
+                    EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_in_opt_const_helper);
 
                     file.PopScope();
                 }
@@ -3052,7 +3629,7 @@ namespace mrbind::CSharp
         }
     }
 
-    bool Generator::IsManagedTypeInCSharp(cppdecl::Type cpp_type)
+    bool Generator::IsClassEmbeddingSharedPtr(cppdecl::Type cpp_type)
     {
         cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
@@ -3065,21 +3642,11 @@ namespace mrbind::CSharp
                 return false;
 
             // Otherwise throw on an unknown type.
-            throw std::logic_error("Unknown C++ type passed to `IsManagedTypeInCSharp()`: `" + CppdeclToCode(cpp_type) + "`.");
+            throw std::logic_error("Unknown C++ type passed to `IsClassEmbeddingSharedPtr()`: `" + CppdeclToCode(cpp_type) + "`.");
         }
 
-        if (const auto cl = std::get_if<CInterop::TypeKinds::Class>(&iter->second.var))
-        {
-            switch (cl->kind)
-            {
-              case CInterop::ClassKind::ref_only:
-              case CInterop::ClassKind::uses_pass_by_enum:
-              case CInterop::ClassKind::trivial_via_ptr:
-                return true;
-              case CInterop::ClassKind::exposed_struct:
-                return false;
-            }
-        }
+        if (std::holds_alternative<CInterop::TypeKinds::Class>(iter->second.var))
+            return true;
 
         return false;
     }
@@ -3097,7 +3664,7 @@ namespace mrbind::CSharp
             static const cppdecl::QualifiedName shared_ptr_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr");
             if (cpp_type.simple_type.name.Equals(shared_ptr_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
             {
-                if (IsManagedTypeInCSharp(*cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType()))
+                if (IsClassEmbeddingSharedPtr(*cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType()))
                     return false;
             }
         }
@@ -3110,6 +3677,7 @@ namespace mrbind::CSharp
         try
         {
             // Fields without const getters should be impossible.
+            // If this fails, did you perhaps to try call this method on a field of an exposed struct?
             assert(field.getter_const);
 
             // Those two can never end up null.
@@ -3192,11 +3760,11 @@ namespace mrbind::CSharp
                 // Skip in mutable class if it's the same function as in the const class.
                 if (!(!is_const && const_getter == mutable_getter && const_setter == mutable_setter))
                 {
-                    FuncLikeEmitter emit_getter(*this, maybe_const_getter, "get");
+                    FuncLikeEmitter emit_getter(*this, maybe_const_getter, "get", false/*doesn't matter since we're not in a ctor*/);
 
                     std::optional<FuncLikeEmitter> emit_setter;
                     if (maybe_const_setter)
-                        emit_setter.emplace(*this, maybe_const_setter, "set");
+                        emit_setter.emplace(*this, maybe_const_setter, "set", false/*doesn't matter since we're not in a ctor*/);
 
                     // Write the property:
 
@@ -3236,9 +3804,9 @@ namespace mrbind::CSharp
                 // Here we can skip each of the two functions separately in the mutable class, if they are the same as in the const class.
 
                 if (!(!is_const && const_getter == mutable_getter))
-                    FuncLikeEmitter(*this, maybe_const_getter, CppStringToCsharpIdentifier("Get_" + field.full_name)).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+                    FuncLikeEmitter(*this, maybe_const_getter, CppStringToCsharpIdentifier("Get_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
                 if (maybe_const_setter && !(!is_const && const_setter == mutable_setter))
-                    FuncLikeEmitter(*this, maybe_const_setter, CppStringToCsharpIdentifier("Set_" + field.full_name)).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+                    FuncLikeEmitter(*this, maybe_const_setter, CppStringToCsharpIdentifier("Set_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
             }
         }
         catch (...)
@@ -3414,7 +3982,7 @@ namespace mrbind::CSharp
                 free_func.var
             );
 
-            FuncLikeEmitter(*this, &free_func, unqual_csharp_name).Emit(file);
+            FuncLikeEmitter(*this, &free_func, unqual_csharp_name, false).Emit(file);
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.
@@ -3429,307 +3997,335 @@ namespace mrbind::CSharp
     void Generator::GenerateHelpers()
     {
         // Don't generate the file if no helpers are needed.
-        if (!requested_helpers.empty())
+        if (!requested_helpers.empty() || !requested_plain_arrays.empty())
         {
             OutputFile &file = output_files.try_emplace("__common").first->second;
 
             file.EnsureNamespace(*this, helpers_namespace);
 
-            // `Object` and `SharedObject`. Intentionally using the non-short-circuiting `|`.
-            bool need_shared_object = false;
-            if (requested_helpers.erase("Object") | (need_shared_object = requested_helpers.erase("SharedObject")))
+            // Generate the helpers.
+            if (!requested_helpers.empty())
             {
-                file.WriteSeparatingNewline();
-                file.WriteString(
-                    // This is semantically abstract, and we also must mark it as one due to the reasons explained in `SharedObject` below.
-                    "/// This is the base class for all our classes.\n"
-                    "public abstract class Object\n"
-                    "{\n"
-                    "    protected bool _IsOwningVal;\n"
-                    "    /// Returns true if this is an owning instance, and when disposed, will destroy the underlying C++ instance.\n"
-                    "    /// If false, we assume that the underlying C++ instance will live long enough.\n"
-                    "    public virtual bool _IsOwning => _IsOwningVal;\n"
-                    "\n"
-                    "    /// Which objects need to be kept alive while this object exists? This is public just in case.\n"
-                    "    public List<object>? _KeepAliveList;\n"
-                    "    public void _KeepAlive(object obj)\n"
-                    "    {\n"
-                    "        if (_KeepAliveList is null)\n"
-                    "            _KeepAliveList = new();\n"
-                    "        _KeepAliveList.Add(obj);\n"
-                    "    }\n"
-                    "\n"
-                    "    internal Object(bool is_owning) {_IsOwningVal = is_owning;}\n"
-                    "}\n"
-                );
-
-                // Add `SharedObject`.
-                if (need_shared_object)
+                // `Object` and `SharedObject`. Intentionally using the non-short-circuiting `|`.
+                bool need_shared_object = false;
+                if (requested_helpers.erase("Object") | (need_shared_object = requested_helpers.erase("SharedObject")))
                 {
                     file.WriteSeparatingNewline();
                     file.WriteString(
-                        // This is semantically abstract, and we also must mark it as one because we want to make the `IsOwning` property abstract.
-                        "/// This is the base class for those of our classes that are backed by `std::shared_ptr`.\n"
-                        "public abstract class SharedObject : Object\n"
+                        // This is semantically abstract, and we also must mark it as one due to the reasons explained in `SharedObject` below.
+                        "/// This is the base class for all our classes.\n"
+                        "public abstract class Object\n"
                         "{\n"
-                        "    /// This checks if the `shared_ptr` itself is owning or not, rather than whether we own our `shared_ptr`, which isn't a given.\n"
-                        "    /// The derived classes have to implement this, since it depends on the specific `shared_ptr` type.\n"
-                        "    public abstract override bool _IsOwning {get;}\n"
-                        "    /// This checks if we own the underlying `shared_ptr` instance, regardless of whether it owns the underlying object, which is orthogonal.\n"
-                        "    /// We repurpose `_IsOwningVal` for this.\n"
-                        "    public bool _IsOwningSharedPtr => _IsOwningVal;\n"
+                        "    protected bool _IsOwningVal;\n"
+                        "    /// Returns true if this is an owning instance, and when disposed, will destroy the underlying C++ instance.\n"
+                        "    /// If false, we assume that the underlying C++ instance will live long enough.\n"
+                        "    public virtual bool _IsOwning => _IsOwningVal;\n"
                         "\n"
-                        "    internal SharedObject(bool is_owning) : base(is_owning) {}\n"
-                        "}\n"
-                    );
-                }
-            }
-
-
-            { // `InOut`, `InOutOpt`.
-                bool need_inout = requested_helpers.erase("InOut");
-                bool need_inout_opt = requested_helpers.erase("InOutOpt");
-                if (need_inout || need_inout_opt)
-                {
-                    file.WriteSeparatingNewline();
-                    file.WriteString(
-                        "/// This is used for optional in/out parameters, since `ref` can't be nullable.\n"
-                        "public class InOut<T> where T: unmanaged\n"
-                        "{\n"
-                        "    public T Value;\n"
+                        "    /// Which objects need to be kept alive while this object exists? This is public just in case.\n"
+                        "    public List<object>? _KeepAliveList;\n"
+                        "    public void _KeepAlive(object obj)\n"
+                        "    {\n"
+                        "        if (_KeepAliveList is null)\n"
+                        "            _KeepAliveList = new();\n"
+                        "        _KeepAliveList.Add(obj);\n"
+                        "    }\n"
                         "\n"
-                        "    public InOut() {}\n"
-                        "    public InOut(T NewValue) {Value = NewValue;}\n"
+                        "    internal Object(bool is_owning) {_IsOwningVal = is_owning;}\n"
                         "}\n"
                     );
 
-                    if (need_inout_opt)
+                    // Add `SharedObject`.
+                    if (need_shared_object)
                     {
                         file.WriteSeparatingNewline();
                         file.WriteString(
-                            "/// This is used for optional in/out parameters with default arguments.\n"
-                            "/// Usage:\n"
-                            "/// * Pass `null` to use the default argument.\n"
-                            "/// * Pass `new()` to pass no object.\n"
-                            "/// * Pass an instance of `InOut<T>` to pass it to the function.\n"
-                            "public class InOutOpt<T> where T: unmanaged\n"
+                            // This is semantically abstract, and we also must mark it as one because we want to make the `IsOwning` property abstract.
+                            "/// This is the base class for those of our classes that are backed by `std::shared_ptr`.\n"
+                            "public abstract class SharedObject : Object\n"
                             "{\n"
-                            "    public InOut<T>? Opt;\n"
+                            "    /// This checks if the `shared_ptr` itself is owning or not, rather than whether we own our `shared_ptr`, which isn't a given.\n"
+                            "    /// The derived classes have to implement this, since it depends on the specific `shared_ptr` type.\n"
+                            "    public abstract override bool _IsOwning {get;}\n"
+                            "    /// This checks if we own the underlying `shared_ptr` instance, regardless of whether it owns the underlying object, which is orthogonal.\n"
+                            "    /// We repurpose `_IsOwningVal` for this.\n"
+                            "    public bool _IsOwningSharedPtr => _IsOwningVal;\n"
                             "\n"
-                            "    // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.\n"
-                            "    public InOutOpt() {}\n"
-                            "    // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.\n"
-                            "    public InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}\n"
-                            "    // An implicit conversion for passing function parameters.\n"
-                            "    public static implicit operator InOutOpt<T>(InOut<T>? NewOpt) {return new InOutOpt<T>(NewOpt);}\n"
+                            "    internal SharedObject(bool is_owning) : base(is_owning) {}\n"
                             "}\n"
                         );
                     }
                 }
-            }
 
-            // `InOpt`.
-            if (requested_helpers.erase("InOpt"))
-            {
-                file.WriteSeparatingNewline();
-                file.WriteString(
-                    "/// This is used for optional parameters with default arguments.\n"
-                    "/// Usage:\n"
-                    "/// * Pass `null` to use the default argument.\n"
-                    "/// * Pass `new()` to pass no object.\n"
-                    "/// * Pass an instance of `T` to pass it to the function.\n"
-                    "/// Passing a null `InOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"pass nothing to the function\".\n"
-                    "public class InOpt<T> where T: unmanaged\n"
-                    "{\n"
-                    "    public T? Opt;\n"
-                    "\n"
-                    "    public InOpt() {}\n"
-                    "    public InOpt(T NewOpt) {Opt = NewOpt;}\n"
-                    "    public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}\n"
-                    "}\n"
-                );
-            }
 
-            // `InOptMutClass`.
-            if (requested_helpers.erase("InOptMutClass"))
-            {
-                file.WriteSeparatingNewline();
-                file.WriteString(
-                    "/// This is used for optional parameters of class types with default arguments.\n"
-                    "/// This is only used for non-const parameters. For const ones we generate unique wrappers per class.\n"
-                    "/// This needs to be separate from `InOpt`, since the lack of `unmanaged` constraint seems to somehow interfere with the behavior of unmanaged types.\n"
-                    "/// Usage:\n"
-                    "/// * Pass `null` to use the default argument.\n"
-                    "/// * Pass `new()` to pass no object.\n"
-                    "/// * Pass an instance of `T` to pass it to the function.\n"
-                    "public class InOptMutClass<T>\n"
-                    "{\n"
-                    "    public T? Opt;\n"
-                    "\n"
-                    "    public InOptMutClass() {}\n"
-                    "    public InOptMutClass(T NewOpt) {Opt = NewOpt;}\n"
-                    "    public static implicit operator InOptMutClass<T>(T NewOpt) {return new InOptMutClass<T>(NewOpt);}\n"
-                    "}\n"
-                );
-            }
-
-            // `Ref`.
-            if (requested_helpers.erase("Ref"))
-            {
-                file.WriteSeparatingNewline();
-                file.WriteString(
-                    "/// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.\n"
-                    "/// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.\n"
-                    "public unsafe class Ref<T> where T: unmanaged\n"
-                    "{\n"
-                    "    /// Should never be null.\n"
-                    "    private T *Ptr;\n"
-                    "    /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
-                    "    internal Ref(T *NewPtr)\n"
-                    "    {\n"
-                    "        System.Diagnostics.Trace.Assert(NewPtr is not null);\n"
-                    "        Ptr = NewPtr;\n"
-                    "    }\n"
-                    "\n"
-                    "    public ref T Value => ref *Ptr;\n"
-                    "}\n"
-                );
-            }
-
-            // `ByValue` and friends.
-            // Intentionally using `|` to not short-circuit erasures.
-            if (requested_helpers.erase("_Moved") | requested_helpers.erase("_PassBy"))
-            {
-                file.WriteSeparatingNewline();
-                file.WriteString(
-                    "/// This can be used with `ByValue...` function parameters, to indicate that the argument should be moved.\n"
-                    "/// See those structs for a longer explanation.\n"
-                    "public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}\n"
-                    "\n"
-                    "/// Don't use directly, this is the return type of `Move()`. See that for explanation.\n"
-                    "public readonly struct _Moved<T>\n"
-                    "{\n"
-                    "    internal readonly T Value;\n"
-                    "    internal _Moved(T NewValue) {Value = NewValue;}\n"
-                    "}\n"
-                    "\n"
-                    "internal enum _PassBy : int\n" // This enum must be synced with `CInterop::PassBy`.`
-                    "{\n"
-                    "    default_construct,\n"
-                    "    copy,\n"
-                    "    move,\n"
-                    "    default_arg,\n"
-                    "    no_object,\n"
-                    "}\n"
-                );
-            }
-
-            { // `ReadOnlySpanOpt<T>` and `ReadOnlyCharSpanOpt`.
-                // Since `ReadOnlySpan<T>` doesn't work with `?` at least in .NET 8, we need this class.
-                if (requested_helpers.erase("ReadOnlySpanOpt"))
-                {
-                    file.WriteSeparatingNewline();
-                    file.WriteString(
-                        "/// This is used for optional `ReadOnlySpan` function parameters.\n"
-                        "/// Pass `null` or `new()` to use the default argument.\n"
-                        "///   Note that for the original `ReadOnlySpan`, those result in an empty span instead.\n"
-                        "public ref struct ReadOnlySpanOpt<T> where T: unmanaged\n"
-                        "{\n"
-                        "    public readonly bool HasValue;\n"
-                        "\n"
-                        "    ReadOnlySpan<T> Span;\n"
-                        "    public ReadOnlySpan<T> Value\n"
-                        "    {\n"
-                        "        get\n"
-                        "        {\n"
-                        "            System.Diagnostics.Trace.Assert(HasValue);\n"
-                        "            return Span;\n"
-                        "        }\n"
-                        "    }\n"
-                        "\n"
-                        "    public ReadOnlySpanOpt(T[]? arr) {HasValue = arr is not null; Span = arr;}\n"
-                        "    public ReadOnlySpanOpt(ReadOnlySpan<T> span) {HasValue = true; Span = span;}\n"
-                        "    public static implicit operator ReadOnlySpanOpt<T>(T[]? arr) {return new(arr);}\n"
-                        "    public static implicit operator ReadOnlySpanOpt<T>(ReadOnlySpan<T> span) {return new(span);}\n"
-                        "}\n"
-                    );
-                }
-
-                if (requested_helpers.erase("ReadOnlyCharSpanOpt"))
-                {
-                    file.WriteSeparatingNewline();
-                    file.WriteString(
-                        "/// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.\n"
-                        "/// Pass `null` or `new()` to use the default argument.\n"
-                        "///   Note that for the original `ReadOnlySpan`, those result in an empty span instead.\n"
-                        "public ref struct ReadOnlyCharSpanOpt\n"
-                        "{\n"
-                        "    public readonly bool HasValue;\n"
-                        "\n"
-                        "    ReadOnlySpan<char> Span;\n"
-                        "    public ReadOnlySpan<char> Value\n"
-                        "    {\n"
-                        "        get\n"
-                        "        {\n"
-                        "            System.Diagnostics.Trace.Assert(HasValue);\n"
-                        "            return Span;\n"
-                        "        }\n"
-                        "    }\n"
-                        "\n"
-                        "    public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; Span = arr;}\n"
-                        "    public ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {HasValue = true; Span = span;}\n"
-                        "    public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; Span = str;}\n"
-                        "\n"
-                        "    // This is disabled because it makes conversion from `null` ambiguous.\n"
-                        "    // public static implicit operator ReadOnlyCharSpanOpt(char[]? arr) {return new(arr);}\n"
-                        "    public static implicit operator ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {return new(span);}\n"
-                        "    public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}\n"
-                        "}\n"
-                    );
-                }
-            }
-
-            // Currently we don't need any custom exceptions.
-            { // Custom exceptions.
-                #if 0
-                auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)
-                {
-                    if (!requested_helpers.erase(name))
-                        return;
-
-                    file.WriteSeparatingNewline();
-
-                    if (!comment.empty())
+                { // `InOut`, `InOutOpt`.
+                    bool need_inout = requested_helpers.erase("InOut");
+                    bool need_inout_opt = requested_helpers.erase("InOutOpt");
+                    if (need_inout || need_inout_opt)
                     {
-                        assert(comment.ends_with('\n'));
-                        file.WriteString(comment);
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "/// This is used for optional in/out parameters, since `ref` can't be nullable.\n"
+                            "public class InOut<T> where T: unmanaged\n"
+                            "{\n"
+                            "    public T Value;\n"
+                            "\n"
+                            "    public InOut() {}\n"
+                            "    public InOut(T NewValue) {Value = NewValue;}\n"
+                            "}\n"
+                        );
+
+                        if (need_inout_opt)
+                        {
+                            file.WriteSeparatingNewline();
+                            file.WriteString(
+                                "/// This is used for optional in/out parameters with default arguments.\n"
+                                "/// Usage:\n"
+                                "/// * Pass `null` to use the default argument.\n"
+                                "/// * Pass `new()` to pass no object.\n"
+                                "/// * Pass an instance of `InOut<T>` to pass it to the function.\n"
+                                "public class InOutOpt<T> where T: unmanaged\n"
+                                "{\n"
+                                "    public InOut<T>? Opt;\n"
+                                "\n"
+                                "    // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.\n"
+                                "    public InOutOpt() {}\n"
+                                "    // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.\n"
+                                "    public InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}\n"
+                                "    // An implicit conversion for passing function parameters.\n"
+                                "    public static implicit operator InOutOpt<T>(InOut<T>? NewOpt) {return new InOutOpt<T>(NewOpt);}\n"
+                                "}\n"
+                            );
+                        }
+                    }
+                }
+
+                // `InOpt`.
+                if (requested_helpers.erase("InOpt"))
+                {
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// This is used for optional parameters with default arguments.\n"
+                        "/// Usage:\n"
+                        "/// * Pass `null` to use the default argument.\n"
+                        "/// * Pass `new()` to pass no object.\n"
+                        "/// * Pass an instance of `T` to pass it to the function.\n"
+                        "/// Passing a null `InOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"pass nothing to the function\".\n"
+                        "public class InOpt<T> where T: unmanaged\n"
+                        "{\n"
+                        "    public T? Opt;\n"
+                        "\n"
+                        "    public InOpt() {}\n"
+                        "    public InOpt(T NewOpt) {Opt = NewOpt;}\n"
+                        "    public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}\n"
+                        "}\n"
+                    );
+                }
+
+                // `InOptMutClass`.
+                if (requested_helpers.erase("InOptMutClass"))
+                {
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// This is used for optional parameters of class types with default arguments.\n"
+                        "/// This is only used for non-const parameters. For const ones we generate unique wrappers per class.\n"
+                        "/// This needs to be separate from `InOpt`, since the lack of `unmanaged` constraint seems to somehow interfere with the behavior of unmanaged types.\n"
+                        "/// Usage:\n"
+                        "/// * Pass `null` to use the default argument.\n"
+                        "/// * Pass `new()` to pass no object.\n"
+                        "/// * Pass an instance of `T` to pass it to the function.\n"
+                        "public class InOptMutClass<T>\n"
+                        "{\n"
+                        "    public T? Opt;\n"
+                        "\n"
+                        "    public InOptMutClass() {}\n"
+                        "    public InOptMutClass(T NewOpt) {Opt = NewOpt;}\n"
+                        "    public static implicit operator InOptMutClass<T>(T NewOpt) {return new InOptMutClass<T>(NewOpt);}\n"
+                        "}\n"
+                    );
+                }
+
+                // `Ref`.
+                if (requested_helpers.erase("Ref"))
+                {
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.\n"
+                        "/// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.\n"
+                        "public unsafe class Ref<T> where T: unmanaged\n"
+                        "{\n"
+                        "    /// Should never be null.\n"
+                        "    private T *Ptr;\n"
+                        "    /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
+                        "    internal Ref(T *NewPtr)\n"
+                        "    {\n"
+                        "        System.Diagnostics.Trace.Assert(NewPtr is not null);\n"
+                        "        Ptr = NewPtr;\n"
+                        "    }\n"
+                        "\n"
+                        "    public ref T Value => ref *Ptr;\n"
+                        "}\n"
+                    );
+                }
+
+                // `ByValue` and friends.
+                // Intentionally using `|` to not short-circuit erasures.
+                if (requested_helpers.erase("_Moved") | requested_helpers.erase("_PassBy"))
+                {
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// This can be used with `ByValue...` function parameters, to indicate that the argument should be moved.\n"
+                        "/// See those structs for a longer explanation.\n"
+                        "public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}\n"
+                        "\n"
+                        "/// Don't use directly, this is the return type of `Move()`. See that for explanation.\n"
+                        "public readonly struct _Moved<T>\n"
+                        "{\n"
+                        "    internal readonly T Value;\n"
+                        "    internal _Moved(T NewValue) {Value = NewValue;}\n"
+                        "}\n"
+                        "\n"
+                        "internal enum _PassBy : int\n" // This enum must be synced with `CInterop::PassBy`.`
+                        "{\n"
+                        "    default_construct,\n"
+                        "    copy,\n"
+                        "    move,\n"
+                        "    default_arg,\n"
+                        "    no_object,\n"
+                        "}\n"
+                    );
+                }
+
+                { // `ReadOnlySpanOpt<T>` and `ReadOnlyCharSpanOpt`.
+                    // Since `ReadOnlySpan<T>` doesn't work with `?` at least in .NET 8, we need this class.
+                    if (requested_helpers.erase("ReadOnlySpanOpt"))
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "/// This is used for optional `ReadOnlySpan` function parameters.\n"
+                            "/// Pass `null` or `new()` to use the default argument.\n"
+                            "///   Note that for the original `ReadOnlySpan`, those result in an empty span instead.\n"
+                            "public ref struct ReadOnlySpanOpt<T> where T: unmanaged\n"
+                            "{\n"
+                            "    public readonly bool HasValue;\n"
+                            "\n"
+                            "    ReadOnlySpan<T> Span;\n"
+                            "    public ReadOnlySpan<T> Value\n"
+                            "    {\n"
+                            "        get\n"
+                            "        {\n"
+                            "            System.Diagnostics.Trace.Assert(HasValue);\n"
+                            "            return Span;\n"
+                            "        }\n"
+                            "    }\n"
+                            "\n"
+                            "    public ReadOnlySpanOpt(T[]? arr) {HasValue = arr is not null; Span = arr;}\n"
+                            "    public ReadOnlySpanOpt(ReadOnlySpan<T> span) {HasValue = true; Span = span;}\n"
+                            "    public static implicit operator ReadOnlySpanOpt<T>(T[]? arr) {return new(arr);}\n"
+                            "    public static implicit operator ReadOnlySpanOpt<T>(ReadOnlySpan<T> span) {return new(span);}\n"
+                            "}\n"
+                        );
                     }
 
-                    file.WriteString(
-                        "public class " + name + " : System.Exception\n"
-                        "{\n"
-                        "    public " + name + "() {}\n"
-                        "    public " + name + "(string message) : base(message) {}\n"
-                        "    public " + name + "(string message, Exception inner) : base(message, inner) {}\n"
-                        "}\n"
-                    );
-                };
-                #endif
-            }
-
-            // Lastly, check for unknown helper names.
-            if (!requested_helpers.empty())
-            {
-                std::string list;
-                for (const auto &str : requested_helpers)
-                {
-                    if (!list.empty())
-                        list += "`, `";
-
-                    list += str;
+                    if (requested_helpers.erase("ReadOnlyCharSpanOpt"))
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "/// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.\n"
+                            "/// Pass `null` or `new()` to use the default argument.\n"
+                            "///   Note that for the original `ReadOnlySpan`, those result in an empty span instead.\n"
+                            "public ref struct ReadOnlyCharSpanOpt\n"
+                            "{\n"
+                            "    public readonly bool HasValue;\n"
+                            "\n"
+                            "    ReadOnlySpan<char> Span;\n"
+                            "    public ReadOnlySpan<char> Value\n"
+                            "    {\n"
+                            "        get\n"
+                            "        {\n"
+                            "            System.Diagnostics.Trace.Assert(HasValue);\n"
+                            "            return Span;\n"
+                            "        }\n"
+                            "    }\n"
+                            "\n"
+                            "    public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; Span = arr;}\n"
+                            "    public ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {HasValue = true; Span = span;}\n"
+                            "    public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; Span = str;}\n"
+                            "\n"
+                            "    // This is disabled because it makes conversion from `null` ambiguous.\n"
+                            "    // public static implicit operator ReadOnlyCharSpanOpt(char[]? arr) {return new(arr);}\n"
+                            "    public static implicit operator ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {return new(span);}\n"
+                            "    public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}\n"
+                            "}\n"
+                        );
+                    }
                 }
 
-                throw std::logic_error("Internal error: Following unknown C# helpers were requested: `" + list + "`.");
+                // Currently we don't need any custom exceptions.
+                { // Custom exceptions.
+                    #if 0
+                    auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)
+                    {
+                        if (!requested_helpers.erase(name))
+                            return;
+
+                        file.WriteSeparatingNewline();
+
+                        if (!comment.empty())
+                        {
+                            assert(comment.ends_with('\n'));
+                            file.WriteString(comment);
+                        }
+
+                        file.WriteString(
+                            "public class " + name + " : System.Exception\n"
+                            "{\n"
+                            "    public " + name + "() {}\n"
+                            "    public " + name + "(string message) : base(message) {}\n"
+                            "    public " + name + "(string message, Exception inner) : base(message, inner) {}\n"
+                            "}\n"
+                        );
+                    };
+                    #endif
+                }
+
+                // Lastly, check for unknown helper names.
+                if (!requested_helpers.empty())
+                {
+                    std::string list;
+                    for (const auto &str : requested_helpers)
+                    {
+                        if (!list.empty())
+                            list += "`, `";
+
+                        list += str;
+                    }
+
+                    throw std::logic_error("Internal error: Following unknown C# helpers were requested: `" + list + "`.");
+                }
+            }
+
+            // Generate plain arrays.
+            if (!requested_plain_arrays.empty())
+            {
+                file.WriteSeparatingNewline();
+                file.WriteString("// Fixed-size arrays:\n");
+
+                for (const auto &[csharp_name, desc] : requested_plain_arrays)
+                {
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "[System.Runtime.CompilerServices.InlineArray(" + std::to_string(desc.num_elems) + ")]\n"
+                        // Those can't be `ref struct`s, we need plain `struct`s.
+                        // But even plain `sturct`s seem to be usable as fields of `ref struct`s, so we're all good.
+                        "public struct " + csharp_name + "\n"
+                        "{\n"
+                        // The name here doesn't really matter, since the array access syntax ignores it.
+                        // This is intentionally private, since accessing this member directly would be possible otherwise (and would return the first element, I think?),
+                        //   and that isn't useful.
+                        "    " + desc.csharp_elem_type + " elem;\n"
+                        "}\n"
+                    );
+                }
             }
         }
     }

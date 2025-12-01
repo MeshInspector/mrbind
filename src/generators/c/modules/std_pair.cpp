@@ -84,7 +84,7 @@ namespace mrbind::CBindings::Modules
                     }
 
                     // first, mutable
-                    if (!cpp_elem_type_a.IsConstOrReference())
+                    if (!cpp_elem_type_a.IsEffectivelyConst())
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, mutable.";
@@ -106,7 +106,7 @@ namespace mrbind::CBindings::Modules
                     }
 
                     // second, mutable
-                    if (!cpp_elem_type_b.IsConstOrReference())
+                    if (!cpp_elem_type_b.IsEffectivelyConst())
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, mutable.";

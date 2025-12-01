@@ -1618,7 +1618,7 @@ namespace mrbind
                 new_class.is_polymorphic = cxxdecl->isPolymorphic();
                 new_class.is_abstract = cxxdecl->isAbstract();
                 new_class.is_standard_layout = cxxdecl->isStandardLayout();
-                new_class.is_trivially_copyable = cxxdecl->isStandardLayout();
+                new_class.is_trivially_copyable = cxxdecl->isTriviallyCopyable();
             }
 
             // Bases.

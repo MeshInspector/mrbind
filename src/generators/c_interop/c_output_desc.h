@@ -552,6 +552,9 @@ namespace mrbind::CInterop
     struct OutputDesc
     {
         MBREFL_STRUCT(
+            // This name prefix is added to all generated helper functions.
+            (std::string)(helpers_prefix)
+
             // Maps C++ type names to their descriptions.
             // The C generator fills it at the end for the `BindableType`s, so don't write to this manually for your specific types.
             (OrderedMap<std::string, TypeDesc>)(cpp_types)

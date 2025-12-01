@@ -695,7 +695,7 @@ namespace mrbind::CBindings
             ret.c_cpp_size_and_alignment = GetSizeAndAlignmentForPrimitiveType(generator, cpp_type);
         }
 
-        if (cpp_type.IsConstOrReference())
+        if (cpp_type.IsEffectivelyConst())
             ret.traits->MakeNonAssignable();
 
         auto &param = ret.param_usage.emplace();

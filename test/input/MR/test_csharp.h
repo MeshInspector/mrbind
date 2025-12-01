@@ -740,4 +740,80 @@ namespace MR::CSharp
     inline const ConvCtorNonTrivial &test_class_convnontrivial_cref(const ConvCtorNonTrivial &a, const ConvCtorNonTrivial &b = default_convnontrivial) {(void)a; (void)b; return default_convnontrivial;}
     inline ConvCtorNonTrivial *test_class_convnontrivial_ptr(ConvCtorNonTrivial *a, ConvCtorNonTrivial *b = nullptr, ConvCtorNonTrivial *c = &default_convnontrivial) {(void)a; (void)b; (void)c; return &default_convnontrivial;}
     inline const ConvCtorNonTrivial *test_class_convnontrivial_cptr(const ConvCtorNonTrivial *a, const ConvCtorNonTrivial *b = nullptr, const ConvCtorNonTrivial *c = &default_convnontrivial) {(void)a; (void)b; (void)c; return &default_convnontrivial;}
+
+
+    // Exported structs:
+
+    struct ExposedLayout
+    {
+        unsigned short x;
+        // This is field `y`!
+        int y;
+        double z;
+        int arr[3];
+
+        bool b;
+        bool ba[4][5];
+
+        void foo() {}
+        void bar() const {}
+
+        static void blah() {}
+
+        // Try some jank operators.
+        void operator++() {}
+
+        int operator+(int) {return 42;}
+        int operator*(int) const {return 42;}
+        bool operator<(const ExposedLayout &) const {return false;}
+        friend int operator-(int, ExposedLayout) {return 43;}
+        friend int operator/(int, ExposedLayout &) {return 43;}
+        friend int operator%(int, const ExposedLayout &) {return 43;}
+
+        bool operator==(float) {return true;}
+        bool operator<(char) {return true;}
+    };
+    inline void operator--(ExposedLayout) {}
+
+    // This one is backed by a shared pointer.
+    struct ExposedLayoutSh
+    {
+        unsigned short x;
+        // This is field `y`!
+        int y;
+        double z;
+        int arr[3];
+
+        bool b;
+        bool ba[4][5];
+
+        void foo() {}
+        void bar() const {}
+
+        static void blah() {}
+
+        // Try some jank operators.
+        void operator++() {}
+
+        int operator+(int) {return 42;}
+        int operator*(int) const {return 42;}
+        bool operator<(const ExposedLayoutSh &) const {return false;}
+        friend int operator-(int, ExposedLayoutSh) {return 43;}
+        friend int operator/(int, ExposedLayoutSh &) {return 43;}
+        friend int operator%(int, const ExposedLayoutSh &) {return 43;}
+
+        bool operator==(float) {return true;}
+        bool operator<(char) {return true;}
+    };
+    inline void operator--(ExposedLayoutSh) {}
+
+    inline std::shared_ptr<ExposedLayoutSh> make_exposed_layout_sh() {return nullptr;}
+
+    struct ExposedLayoutB
+    {
+        int x;
+
+        // Some random ctor.
+        ExposedLayoutB(int, int) {}
+    };
 }

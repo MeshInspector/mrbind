@@ -46,6 +46,7 @@ int main(int raw_argc, char **raw_argv)
         bool seen_max_num_fields_for_default_constructible_aggregate_init = false;
         bool seen_reject_long_and_long_long = false;
         bool seen_custom_typedef_for_uint64_t_pointing_to_size_t = false;
+        bool seen_force_emit_helpers_file = false;
         bool seen_verbose = false;
 
         for (int i = 1; i < args.argc; i++)
@@ -73,6 +74,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --preferred-max-num-aggregate-init-fields <n> - Don't generate aggregate initialization constructors for structures with more than this number of members. The default is no limit. This limit is ignored if the aggregate is not default-constructible, because that would make it impossible to construct from C.\n"
                     "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
                     "    --use-size_t-typedef-for-uint64_t      - This is intended to be used with the parser's `--canonicalize-size_t-to-uint64_t`. When the input contains `[u]int64_t`, we'll bind them as `size_t` and `ptrdiff_t` (or our own typedefs for them, rather), instead of the standard `[u]int64_t` typedefs.\n"
+                    "    --force-emit-common-helpers            - Always emit the header with some basic helpers, even if not otherwise needed. It includes, among other things, C++-compatible memory allocation/deallocation functions.\n"
                     "    --expose-as-struct          <type>     - Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.\n"
                     "    --adjust-comments           s/A/B/g    - Adjusts all generated comments in C code with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules.\n"
                     "    --verbose                              - Write some logs.\n";
@@ -268,6 +270,9 @@ int main(int raw_argc, char **raw_argv)
                 continue;
 
             if (ConsumeFlagWithNoArgs("--use-size_t-typedef-for-uint64_t", generator.custom_typedef_for_uint64_t_pointing_to_size_t, &seen_custom_typedef_for_uint64_t_pointing_to_size_t))
+                continue;
+
+            if (ConsumeFlagWithNoArgs("--force-emit-common-helpers", generator.force_emit_helpers_file, &seen_force_emit_helpers_file))
                 continue;
 
             { // --expose-as-struct

@@ -1508,6 +1508,9 @@ namespace mrbind::CBindings
 
     bool Generator::FieldTypeUsableInSameLayoutStruct(const cppdecl::Type &cpp_type)
     {
+        if (cpp_type.IsEffectivelyConst())
+            return false; // It's easier to ban this entirely.
+
         if (!FindSameSizeAndAlignmentOpt(cpp_type))
             return false;
 
@@ -1965,7 +1968,7 @@ namespace mrbind::CBindings
         }
 
         const bool is_const = kind == FieldAccessorKind::getter;
-        if (!is_const && field_type.IsConstOrReference())
+        if (!is_const && field_type.IsEffectivelyConst())
             return false; // No setters and mutable getters for const (and reference) fields.
 
         const bool is_setter = kind == FieldAccessorKind::setter;
@@ -1973,7 +1976,7 @@ namespace mrbind::CBindings
             cpp_return_type = field_type;
 
         // Setters additionally need assignability.
-        // This kinda makes the `.IsConstOrReference()` check above redundant, but I guess it's still an optimization, so let's keep it.
+        // This kinda makes the `.IsEffectivelyConst()` check above redundant, but I guess it's still an optimization, so let's keep it.
         // Also reject arrays, because those obviously can't be assigned, but `FindTypeTraits()` will throw on them.
         if (is_setter && (field_type.Is<cppdecl::Array>() || !self.FindTypeTraits(field_type).is_move_assignable))
             return false;
@@ -2771,11 +2774,13 @@ namespace mrbind::CBindings
             if (!field_comment.empty())
             {
                 assert(!field_comment.starts_with('\n'));
-                field_comment = IndentString(field_comment, 1, true, false);
+
+                // Must copy the comment, since we need the original one to save to the interop JSON.
+                std::string comment_copy = IndentString(field_comment, 1, true, false);
                 // Insert the leading blank line if this isn't the first field. This makes things look nicer.
                 if (!is_first)
-                    field_comment = '\n' + field_comment;
-                EmitCommentLow(file.header, field_comment);
+                    comment_copy = '\n' + comment_copy;
+                EmitCommentLow(file.header, comment_copy);
             }
 
             cppdecl::Decl field_decl;
@@ -4426,11 +4431,17 @@ namespace mrbind::CBindings
             v.Process(data.entities);
         }
 
+        // Poke the helpers file, if forced.
+        if (force_emit_helpers_file)
+            (void)GetCommonPublicHelpersFile();
+
         // Lastly, dump all known bindable types into the desc json.
         if (output_desc)
         {
             try
             {
+                output_desc->helpers_prefix = helper_name_prefix_opt;
+
                 // It's tempting to filter out ALL pointers and references from this, but it's not so simple.
                 // We can't filter e.g. `std::monostate *` because that maps to `bool` in return types, and you wouldn't know this
                 //   if we didn't emit an entry for it.
