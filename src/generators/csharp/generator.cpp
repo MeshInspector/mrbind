@@ -7,23 +7,31 @@
 
 namespace mrbind::CSharp
 {
-    std::string CppStringToCsharpIdentifier(std::string_view cpp_ident)
+    std::string CppStringToCSharpIdentifier(std::string_view cpp_ident)
     {
         std::string ret;
         ret.reserve(cpp_ident.size());
 
         bool uppercase_next = true;
+        bool prev_was_digit = false;
         for (char ch : cpp_ident)
         {
             if (ch == '<' || ch == '>' || ch == ',')
             {
                 ret += '_';
                 uppercase_next = true;
+                prev_was_digit = false;
                 continue;
             }
 
-            if (cppdecl::IsAlpha(ch) || cppdecl::IsDigit(ch))
+            bool is_digit = false;
+            if (cppdecl::IsAlpha(ch) || (is_digit = cppdecl::IsDigit(ch)))
             {
+                // Preserve underscores that have digits on both sides.
+                if (is_digit && prev_was_digit && uppercase_next)
+                    ret += '_';
+                prev_was_digit = is_digit;
+
                 if (std::exchange(uppercase_next, false))
                     ret += cppdecl::ToUpper(ch);
                 else
@@ -73,7 +81,7 @@ namespace mrbind::CSharp
     // Writes a separating newline, but only if the previous line doesn't end with `{`.
     void OutputFile::WriteSeparatingNewline()
     {
-        if (!contents.ends_with("{\n"))
+        if (!contents.empty() && !contents.ends_with("{\n"))
             WriteString("\n");
     }
 
@@ -94,28 +102,39 @@ namespace mrbind::CSharp
     {
         new_namespace = generator.AdjustCppNamespaces(std::move(new_namespace));
 
-        if (new_namespace.parts.empty())
-        {
-            // Pop any existing namespaces.
-            while (!current_scope.empty())
-                PopScope();
-            return;
-        }
+        bool inserted_new_namespaces = false;
 
         for (std::size_t i = 0; i < new_namespace.parts.size(); i++)
         {
             if (i < current_scope.size() && current_scope[i].name == new_namespace.parts[i])
                 continue; // This namespace is already open, nothing to do.
 
+            inserted_new_namespaces = true;
+
             // Pop any existing namespaces.
             while (i < current_scope.size())
                 PopScope();
 
+            WriteSeparatingNewline();
+
             // Push new ones, assuming those are plain namespaces.
             // Since C# namespaces can only contain classes, and not e.g. free functions, we instead use partial classes.
             // "Partial" you can reopen them later to add more members.
-            PushScope(new_namespace.parts[i], "public static partial class " + CppToCsharpIdentifier(new_namespace.parts[i]) + "\n{\n", "}\n");
+            PushScope(new_namespace.parts[i], "public static partial class " + CppToCSharpIdentifier(new_namespace.parts[i]) + "\n{\n", "}\n");
         }
+
+        // If the new namespace is a prefix of the old one, we need this special-casing.
+        if (!inserted_new_namespaces)
+        {
+            while (current_scope.size() > new_namespace.parts.size())
+                PopScope();
+        }
+    }
+
+    void OutputFile::ExitAllScopes()
+    {
+        while (!current_scope.empty())
+            PopScope();
     }
 
     OutputFile &Generator::GetOutputFile(const CInterop::OutputFile &interop_file)
@@ -158,15 +177,27 @@ namespace mrbind::CSharp
         return iter->second;
     }
 
-    std::optional<std::string_view> Generator::CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect)
+    std::optional<std::string_view> Generator::CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect, std::size_t *out_sizeof)
     {
-        if (c_type == "void") return "void";
+        if (out_sizeof)
+            *out_sizeof = 0; // Zero just in case.
+
+        if (c_type == "void")
+        {
+            // The size can stay zero, I guess.
+            return "void";
+        }
 
         if (auto opt = c_desc.platform_info.FindPrimitiveType(c_type))
         {
+            if (out_sizeof)
+                *out_sizeof = opt->type_size;
+
             switch (opt->kind)
             {
               case PrimitiveTypeInfo::Kind::boolean:
+                if (out_sizeof && !is_indirect)
+                    *out_sizeof = 4; // The size of an int. I'm not sure if we ever need this value, but it saner to report it like this.
                 return is_indirect ? "bool" : "byte"; // When passing `bool` by value, they get passed as an `int32_t`, so we must use a `byte` instead.
               case PrimitiveTypeInfo::Kind::floating_point:
                 if (opt->type_size == 4) return "float";
@@ -190,10 +221,10 @@ namespace mrbind::CSharp
         return {};
     }
 
-    std::optional<std::string> Generator::CToCSharpPrimitiveTypeOrFixedArray(const cppdecl::Type &c_type)
+    cppdecl::QualifiedName Generator::CppToCSharpArrayHelperName(cppdecl::Type cpp_array_type)
     {
         // Make sure all modifiers are arrays, and have known bounds.
-        if (!std::all_of(c_type.modifiers.begin(), c_type.modifiers.end(), [](const cppdecl::TypeModifier &mod)
+        if (!std::all_of(cpp_array_type.modifiers.begin(), cpp_array_type.modifiers.end(), [](const cppdecl::TypeModifier &mod)
         {
             return mod.Is<cppdecl::Array>() && mod.As<cppdecl::Array>()->GetSize();
         }))
@@ -201,37 +232,210 @@ namespace mrbind::CSharp
             return {};
         }
 
-        if (c_type.modifiers.empty())
+        // Add as many parts as we can without entering classes, since I really don't want to bother with reentering class scopes.
+        // Also we never copy the last part.
+        cppdecl::QualifiedName ret;
+        for (const cppdecl::UnqualifiedName &part : cpp_array_type.simple_type.name.parts)
         {
-            // Not an array at all.
-            auto ret = CToCSharpPrimitiveTypeOpt(CppdeclToCode(c_type.simple_type), false);
-            return ret ? std::optional(std::string(*ret)) : std::nullopt;
+            // Refuse to copy the last part.
+            if (&part == &cpp_array_type.simple_type.name.parts.back())
+                break;
+
+            ret.parts.push_back(part);
+            if (c_desc.FindTypeOpt(CppdeclToCode(ret)))
+            {
+                // Back out from the last part.
+                ret.parts.pop_back();
+                break;
+            }
         }
 
-        cppdecl::Type c_type_copy = c_type;
-        c_type_copy.RemoveModifier();
+        // Now copy the remaining unqualified parts from the input name.
+        cppdecl::QualifiedName remaining_parts;
+        remaining_parts.parts.assign(cpp_array_type.simple_type.name.parts.begin() + std::ptrdiff_t(ret.parts.size()), cpp_array_type.simple_type.name.parts.end());
 
-        auto elem = CToCSharpPrimitiveTypeOrFixedArray(c_type_copy);
-        if (!elem)
-            return {};
+        std::string csharp_array_name;
+        if (cpp_array_type.IsEffectivelyConst())
+            csharp_array_name += "const_";
 
-        std::string csharp_array_name = "array_";
-        csharp_array_name += CppdeclToCode(c_type.simple_type);
-        csharp_array_name = CppStringToCsharpIdentifier(csharp_array_name);
-        for (const auto &extent : c_type.modifiers)
+        csharp_array_name += "array_";
+        csharp_array_name += CppdeclToCode(remaining_parts);
+        csharp_array_name = CppStringToCSharpIdentifier(csharp_array_name);
+        for (const auto &extent : cpp_array_type.modifiers)
         {
             csharp_array_name += '_';
             csharp_array_name += std::to_string(extent.As<cppdecl::Array>()->GetSize().value());
         }
 
+        // Insert the final name part.
+        ret.parts.push_back(cppdecl::UnqualifiedName{.var = std::move(csharp_array_name), .template_args = {}});
+        return ret;
+    }
+
+    std::optional<std::string> Generator::CppToCSharpKnownSizeType(const cppdecl::Type &cpp_type, std::size_t *out_sizeof)
+    {
+        if (out_sizeof)
+            *out_sizeof = 0; // Zero initially, just in case.
+
+        // Make sure all modifiers are arrays, and have known bounds.
+        if (!std::all_of(cpp_type.modifiers.begin(), cpp_type.modifiers.end(), [](const cppdecl::TypeModifier &mod)
+        {
+            return mod.Is<cppdecl::Array>() && mod.As<cppdecl::Array>()->GetSize();
+        }))
+        {
+            return {};
+        }
+
+        const CInterop::TypeDesc *type_desc = c_desc.FindTypeOpt(CppdeclToCode(cpp_type.simple_type.name));
+        const CInterop::TypeKinds::Class *class_desc = std::get_if<CInterop::TypeKinds::Class>(type_desc ? &type_desc->var : nullptr);
+
+        if (cpp_type.modifiers.empty())
+        {
+            // Not an array at all.
+
+            // Is this an exposed struct?
+            if (class_desc && class_desc->kind == CInterop::ClassKind::exposed_struct)
+            {
+                if (out_sizeof)
+                    *out_sizeof = class_desc->size_and_alignment.value().size;
+
+                return CppToCSharpExposedStructName(cpp_type.simple_type.name);
+            }
+
+            // Is this a scalar?
+            cppdecl::Type cpp_type_without_const = cpp_type;
+            cpp_type_without_const.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+            auto ret = CToCSharpPrimitiveTypeOpt(CppdeclToCode(cpp_type_without_const), false, out_sizeof);
+            return ret ? std::optional(std::string(*ret)) : std::nullopt;
+        }
+
+        cppdecl::Type cpp_type_copy = cpp_type;
+        // No need to strip constness here, since `CppToCSharpKnownSizeType()` that we recurse into already ignores it.
+        cpp_type_copy.RemoveModifier();
+
+        std::size_t elem_size = 0;
+        auto elem = CppToCSharpKnownSizeType(cpp_type_copy, out_sizeof ? &elem_size : nullptr);
+        if (!elem)
+            return {};
+
+        // Compute the total array size.
+        const std::size_t array_size = cpp_type.As<cppdecl::Array>()->GetSize().value();
+        if (out_sizeof)
+            *out_sizeof = elem_size * array_size;
+
+        cppdecl::QualifiedName qual_array_name = CppToCSharpArrayHelperName(cpp_type);
+        std::string csharp_array_name = CppToCSharpHelperName(qual_array_name);
+
         auto [iter, is_new] = requested_plain_arrays.try_emplace(csharp_array_name);
         if (is_new)
         {
+            iter->second.qual_array_name = qual_array_name;
             iter->second.csharp_elem_type = *elem;
-            iter->second.num_elems = c_type.As<cppdecl::Array>()->GetSize().value();
+            iter->second.num_elems = array_size;
         }
 
-        return helpers_prefix + csharp_array_name;
+        return csharp_array_name;
+    }
+
+    Generator::ArrayStrings Generator::RequestCSharpArrayType(const cppdecl::Type &cpp_array_type, const RequestedMaybeOpaqueArray **desc)
+    {
+        if (desc)
+            *desc = nullptr;
+
+        if (!cpp_array_type.Is<cppdecl::Array>())
+            throw std::logic_error("Internal error: `RequestCSharpArrayType()` expects an array type, but got `" + CppdeclToCode(cpp_array_type) + "`.");
+
+        cppdecl::QualifiedName qual_array_name = CppToCSharpArrayHelperName(cpp_array_type);
+        std::string csharp_array_name = CppToCSharpHelperName(qual_array_name);
+
+        // Not inserting yet, in case this function fails.
+        auto iter = requested_maybe_opaque_arrays.find(csharp_array_name);
+
+        if (iter == requested_maybe_opaque_arrays.end())
+        {
+            const bool is_const = cpp_array_type.IsEffectivelyConst();
+
+            // Simple enough type.
+            if (auto opt = CppToCSharpKnownSizeType(cpp_array_type))
+            {
+                // Here we don't write to `requested_maybe_opaque_arrays`, and just reuse a simple array.
+
+                ArrayStrings ret;
+
+                ret.csharp_type = std::string(is_const ? "ref readonly " : "ref ") + *opt;
+                ret.csharp_underlying_ptr_target_type = *opt;
+                ret.construct = [](const std::string &expr){return "ref *(" + expr + ")";};
+
+                return ret;
+            }
+
+            RequestedMaybeOpaqueArray ret;
+
+            auto Return = [&]() -> ArrayStrings
+            {
+                auto result = requested_maybe_opaque_arrays.try_emplace(std::move(csharp_array_name), std::move(ret));
+                if (desc)
+                    *desc = &result.first->second;
+                return result.first->second.strings;
+            };
+
+            ret.num_elems = cpp_array_type.As<cppdecl::Array>()->GetSize().value();
+            ret.strings.csharp_type = csharp_array_name;
+            ret.qual_array_name = qual_array_name;
+
+            cppdecl::Type cpp_elem_type = cpp_array_type;
+            cpp_elem_type.RemoveModifier();
+
+            cpp_elem_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+            // Opaque class.
+            if (auto opt = c_desc.FindTypeOpt(CppdeclToCode(cpp_elem_type)))
+            {
+                if (auto *class_desc = std::get_if<CInterop::TypeKinds::Class>(&opt->var))
+                {
+                    // Make sure this isn't an exposed struct. Those should've been handled by the previous branch.
+                    if (class_desc->kind == CInterop::ClassKind::exposed_struct)
+                        throw std::logic_error("Internal error: In `RequestCSharpArrayType`: An exposed struct `" + CppdeclToCode(cpp_array_type) + "` should've been handled earlier.");
+
+                    ret.csharp_elem_type = CppToCSharpClassName(cpp_array_type.simple_type.name, is_const);
+                    ret.kind = RequestedMaybeOpaqueArray::ElemKind::ptr_maybeowning;
+                    ret.ptr_offset_func = class_desc->c_name + "_OffsetPtr";
+
+                    ret.strings.csharp_underlying_ptr_target_type = ret.csharp_elem_type + "._Underlying";
+                    ret.strings.construct = [](const std::string &expr){return "new(" + expr + ")";};
+
+                    return Return();
+                }
+            }
+
+            // Another array of opaque classes.
+            if (cpp_elem_type.Is<cppdecl::Array>())
+            {
+                const RequestedMaybeOpaqueArray *desc = nullptr;
+                ArrayStrings strings = RequestCSharpArrayType(cpp_elem_type, &desc);
+
+                // Those cases should be already handled as "simple arrays" above.
+                assert(desc->kind != RequestedMaybeOpaqueArray::ElemKind::ref && !strings.csharp_type.starts_with("ref "));
+
+                // Multiply remaining extents.
+
+                ret.csharp_elem_type = strings.csharp_type;
+                ret.kind = RequestedMaybeOpaqueArray::ElemKind::ptr;
+                ret.ptr_offset_func = desc->ptr_offset_func;
+                ret.size_for_ptr_offsets = desc->size_for_ptr_offsets * desc->num_elems;
+
+                ret.strings.csharp_underlying_ptr_target_type = desc->strings.csharp_underlying_ptr_target_type;
+                ret.strings.construct = [](const std::string &expr){return "new(" + expr + ")";};
+
+                return Return();
+            }
+
+            throw std::runtime_error("Don't know how to handle the element type of array: `" + CppdeclToCode(cpp_array_type) + "`. This normally shouldn't happen, probably a bug.");
+        }
+
+        if (desc)
+            *desc = &iter->second;
+        return iter->second.strings;
     }
 
     cppdecl::QualifiedName Generator::AdjustCppNamespaces(cppdecl::QualifiedName name) const
@@ -252,17 +456,13 @@ namespace mrbind::CSharp
         if (!forced_namespace || forced_namespace->parts.empty())
             return name;
 
-        // This can totally happen if the user passes the global namespace `EnsureNamespace()`.
-        if (name.parts.empty())
-            return name;
-
-        if (name.parts.front() != forced_namespace->parts.front())
+        if (name.parts.empty() || name.parts.front() != forced_namespace->parts.front())
             name.parts.insert(name.parts.begin(), forced_namespace->parts.begin(), forced_namespace->parts.end());
 
         return name;
     }
 
-    std::string Generator::CppToCSharpEnumName(cppdecl::QualifiedName name)
+    std::string Generator::CppToCSharpHelperName(cppdecl::QualifiedName name)
     {
         name = AdjustCppNamespaces(std::move(name));
 
@@ -272,9 +472,15 @@ namespace mrbind::CSharp
             if (i > 0)
                 ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
 
-            ret += CppToCsharpIdentifier(name.parts[i]);
+            ret += CppToCSharpIdentifier(name.parts[i]);
         }
         return ret;
+    }
+
+    std::string Generator::CppToCSharpEnumName(cppdecl::QualifiedName name)
+    {
+        // This works in our case.
+        return CppToCSharpHelperName(std::move(name));
     }
 
     std::string Generator::CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const)
@@ -294,7 +500,7 @@ namespace mrbind::CSharp
             if (i + 1 == name.parts.size())
                 part = std::move(unqual_part);
             else
-                part = CppToCsharpIdentifier(name.parts[i]);
+                part = CppToCSharpIdentifier(name.parts[i]);
 
             ret += part;
         }
@@ -304,14 +510,14 @@ namespace mrbind::CSharp
     std::string Generator::CppToCSharpUnqualClassName(const cppdecl::QualifiedName &name, bool is_const)
     {
         if (is_const)
-            return "Const" + CppToCsharpIdentifier(name.parts.back());
+            return "Const" + CppToCSharpIdentifier(name.parts.back());
 
         // For exposed structs, the non-const half is named with the `Mut...` prefix, because there's also a `struct` that stores the thing by value.
         const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(name))->var);
         if (class_info.kind == CInterop::ClassKind::exposed_struct)
-            return "Mut" + CppToCsharpIdentifier(name.parts.back());
+            return "Mut" + CppToCSharpIdentifier(name.parts.back());
 
-        return CppToCsharpIdentifier(name.parts.back());
+        return CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpExposedStructName(cppdecl::QualifiedName name)
@@ -328,7 +534,7 @@ namespace mrbind::CSharp
             if (i + 1 == name.parts.size())
                 part = CppToCSharpUnqualExposedStructName(name);
             else
-                part = CppToCsharpIdentifier(name.parts[i]);
+                part = CppToCSharpIdentifier(name.parts[i]);
 
             ret += part;
         }
@@ -338,7 +544,7 @@ namespace mrbind::CSharp
     std::string Generator::CppToCSharpUnqualExposedStructName(const cppdecl::QualifiedName &name)
     {
         // Return unchanged.
-        return CppToCsharpIdentifier(name.parts.back());
+        return CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpByValueHelperName(cppdecl::QualifiedName name)
@@ -355,7 +561,7 @@ namespace mrbind::CSharp
             if (i + 1 == name.parts.size())
                 part = CppToCSharpUnqualByValueHelperName(name.parts[i]);
             else
-                part = CppToCsharpIdentifier(name.parts[i]);
+                part = CppToCSharpIdentifier(name.parts[i]);
 
             ret += part;
         }
@@ -364,7 +570,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "ByValue_" + CppToCsharpIdentifier(name);
+        return "ByValue_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name)
@@ -381,7 +587,7 @@ namespace mrbind::CSharp
             if (i + 1 == name.parts.size())
                 part = CppToCSharpUnqualInOptStructHelperName(name.parts[i]);
             else
-                part = CppToCsharpIdentifier(name.parts[i]);
+                part = CppToCSharpIdentifier(name.parts[i]);
 
             ret += part;
         }
@@ -390,7 +596,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualInOptStructHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "InOpt_" + CppToCsharpIdentifier(name);
+        return "InOpt_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name)
@@ -407,7 +613,7 @@ namespace mrbind::CSharp
             if (i + 1 == name.parts.size())
                 part = CppToCSharpUnqualInOptConstNontrivialHelperName(name.parts[i]);
             else
-                part = CppToCsharpIdentifier(name.parts[i]);
+                part = CppToCSharpIdentifier(name.parts[i]);
 
             ret += part;
         }
@@ -416,7 +622,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "InOptConst_" + CppToCsharpIdentifier(name);
+        return "InOptConst_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::TypeBindingFlagsToString(TypeBindingFlags flags)
@@ -2140,7 +2346,7 @@ namespace mrbind::CSharp
         return std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
             {
-                return CppStringToCsharpIdentifier(elem.name);
+                return CppStringToCSharpIdentifier(elem.name);
             },
             [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
             {
@@ -2210,7 +2416,7 @@ namespace mrbind::CSharp
 
                 // Fall back to an identifier.
 
-                // The operator tokens aren't handled by `CppStringToCsharpIdentifier()`, so we have to manually call `cppdecl::TokenToIdentifier()` here.
+                // The operator tokens aren't handled by `CppStringToCSharpIdentifier()`, so we have to manually call `cppdecl::TokenToIdentifier()` here.
                 // It's the same as `cppdecl::ToString(..., identifier)`, but minus the `operator` prefix that we'd have to add and then remove back.
                 // Sync this logic with how `Generate()` determines the names of free operator functions.
 
@@ -2223,7 +2429,7 @@ namespace mrbind::CSharp
                         return "AddressOf";
                 }
 
-                return CppStringToCsharpIdentifier(cppdecl::TokenToIdentifier(fixed_token, true));
+                return CppStringToCSharpIdentifier(cppdecl::TokenToIdentifier(fixed_token, true));
             },
             [&](const CInterop::MethodKinds::ConversionOperator &elem) -> std::string
             {
@@ -2428,7 +2634,7 @@ namespace mrbind::CSharp
         try
         {
             const cppdecl::QualifiedName cpp_name = ParseNameOrThrow(cpp_name_str);
-            const std::string unqual_csharp_name = CppToCsharpIdentifier(cpp_name.parts.back());
+            const std::string unqual_csharp_name = CppToCSharpIdentifier(cpp_name.parts.back());
 
             const CInterop::TypeKinds::Enum &enum_desc = std::get<CInterop::TypeKinds::Enum>(c_desc.FindTypeOpt(cpp_name_str)->var);
 
@@ -3305,7 +3511,7 @@ namespace mrbind::CSharp
 
                                 cppdecl::Type cpp_type = ParseTypeOrThrow(field.type);
 
-                                auto csharp_type = CToCSharpPrimitiveTypeOrFixedArray(cpp_type);
+                                auto csharp_type = CppToCSharpKnownSizeType(cpp_type);
                                 if (!csharp_type)
                                     throw std::runtime_error("Don't know how to bind field `" + field.full_name + "` of type `" + field.type + "` in an exposed struct.");
 
@@ -3318,7 +3524,7 @@ namespace mrbind::CSharp
 
                                 const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
 
-                                const std::string csharp_field_name = CppStringToCsharpIdentifier(field.name);
+                                const std::string csharp_field_name = CppStringToCSharpIdentifier(field.name);
 
                                 // Write the field itself.
                                 if (is_bool)
@@ -3680,6 +3886,61 @@ namespace mrbind::CSharp
             // If this fails, did you perhaps to try call this method on a field of an exposed struct?
             assert(field.getter_const);
 
+            if (field.getter_array_size)
+            {
+                // Special-case array fields.
+
+                // Determine array constness.
+                bool array_is_const = true;
+                if (field.getter_mutable)
+                {
+                    const cppdecl::Type &mut_getter_return_type = ParseTypeOrThrow(field.getter_mutable->ret.cpp_type);
+
+                    // Our getters are considered to return references right now, because this indicates that the C pointer isn't null.
+                    assert(mut_getter_return_type.Is<cppdecl::Reference>());
+
+                    array_is_const = mut_getter_return_type.Is<cppdecl::Reference>() && mut_getter_return_type.IsEffectivelyConst(1);
+                }
+
+                // Maybe stop if we don't like the constness.
+                if (array_is_const && !is_const)
+                    return; // We'll inherit the const property from the parent.
+
+                const auto &getter = !is_const && field.getter_mutable ? field.getter_mutable : field.getter_const;
+                assert(getter);
+                assert(getter->params.size() == 1);
+
+                const cppdecl::Type &getter_return_type = ParseTypeOrThrow(getter->ret.cpp_type);
+
+                // Our getters are considered to return references right now, rather than pointers.
+                // In C it ends up as a pointer either way, but this indicates that it's non-null.
+                assert(getter_return_type.Is<cppdecl::Reference>());
+
+                ArrayStrings arr_strings = RequestCSharpArrayType(ParseTypeOrThrow(field.type));
+
+                file.WriteSeparatingNewline();
+                file.WriteString(field.comment.c_style);
+                if (!is_const)
+                    file.WriteString("new ");
+                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + " " + CppStringToCSharpIdentifier(field.name) + "\n");
+                file.PushScope({}, "{\n", "}\n");
+
+                file.WriteString("get\n");
+                file.PushScope({}, "{\n", "}\n");
+
+                auto dllimport_decl = MakeDllImportDecl(getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).dllimport_decl_params);
+                file.WriteString(dllimport_decl.dllimport_decl);
+
+                file.WriteString(
+                    "return " + arr_strings.construct(dllimport_decl.csharp_name + "(_UnderlyingPtr)") + ";\n"
+                );
+
+                file.PopScope();
+                file.PopScope();
+
+                return;
+            }
+
             // Those two can never end up null.
             const CInterop::ClassField::Accessor *const_getter = nullptr;
             const CInterop::ClassField::Accessor *mutable_getter = nullptr;
@@ -3785,7 +4046,7 @@ namespace mrbind::CSharp
                     file.WriteString(" ");
 
                     // The property name.
-                    file.WriteString(CppStringToCsharpIdentifier(field.full_name));
+                    file.WriteString(CppStringToCSharpIdentifier(field.full_name));
                     file.WriteString("\n");
 
                     file.PushScope({}, "{\n", "}\n");
@@ -3804,9 +4065,9 @@ namespace mrbind::CSharp
                 // Here we can skip each of the two functions separately in the mutable class, if they are the same as in the const class.
 
                 if (!(!is_const && const_getter == mutable_getter))
-                    FuncLikeEmitter(*this, maybe_const_getter, CppStringToCsharpIdentifier("Get_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+                    FuncLikeEmitter(*this, maybe_const_getter, CppStringToCSharpIdentifier("Get_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
                 if (maybe_const_setter && !(!is_const && const_setter == mutable_setter))
-                    FuncLikeEmitter(*this, maybe_const_setter, CppStringToCsharpIdentifier("Set_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+                    FuncLikeEmitter(*this, maybe_const_setter, CppStringToCSharpIdentifier("Set_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
             }
         }
         catch (...)
@@ -3821,7 +4082,7 @@ namespace mrbind::CSharp
             // Set `helpers_prefix`.
             for (const auto &elem : AdjustCppNamespaces(helpers_namespace).parts)
             {
-                helpers_prefix += CppToCsharpIdentifier(elem);
+                helpers_prefix += CppToCSharpIdentifier(elem);
                 helpers_prefix += '.';
             }
 
@@ -3972,12 +4233,12 @@ namespace mrbind::CSharp
                     // Open the namespace.
                     file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
 
-                    // Since `CppToCsharpIdentifier()` doesn't handle operator names, we need to special-case this.
+                    // Since `CppToCSharpIdentifier()` doesn't handle operator names, we need to special-case this.
                     // Sync this logic for operators with `MakeUnqualCSharpMethodName()`.
                     if constexpr (std::is_same_v<T, CInterop::FuncKinds::Operator>)
-                        unqual_csharp_name = CppStringToCsharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
+                        unqual_csharp_name = CppStringToCSharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
                     else
-                        unqual_csharp_name = CppToCsharpIdentifier(qual_name.parts.back());
+                        unqual_csharp_name = CppToCSharpIdentifier(qual_name.parts.back());
                 },
                 free_func.var
             );
@@ -3990,14 +4251,14 @@ namespace mrbind::CSharp
 
         { // Lastly, close the namespaces in all files.
             for (auto &file : output_files)
-                file.second.EnsureNamespace(*this, {});
+                file.second.ExitAllScopes();
         }
     }
 
     void Generator::GenerateHelpers()
     {
         // Don't generate the file if no helpers are needed.
-        if (!requested_helpers.empty() || !requested_plain_arrays.empty())
+        if (!requested_helpers.empty() || !requested_plain_arrays.empty() || !requested_maybe_opaque_arrays.empty())
         {
             OutputFile &file = output_files.try_emplace("__common").first->second;
 
@@ -4305,19 +4566,24 @@ namespace mrbind::CSharp
             }
 
             // Generate plain arrays.
+            // Note that this moves to a different namespace.
             if (!requested_plain_arrays.empty())
             {
                 file.WriteSeparatingNewline();
-                file.WriteString("// Fixed-size arrays:\n");
-
                 for (const auto &[csharp_name, desc] : requested_plain_arrays)
                 {
+                    { // Enter the correct namespace.
+                        cppdecl::QualifiedName ns = desc.qual_array_name;
+                        ns.parts.pop_back();
+                        file.EnsureNamespace(*this, ns);
+                    }
+
                     file.WriteSeparatingNewline();
                     file.WriteString(
                         "[System.Runtime.CompilerServices.InlineArray(" + std::to_string(desc.num_elems) + ")]\n"
                         // Those can't be `ref struct`s, we need plain `struct`s.
                         // But even plain `sturct`s seem to be usable as fields of `ref struct`s, so we're all good.
-                        "public struct " + csharp_name + "\n"
+                        "public struct " + CppToCSharpIdentifier(desc.qual_array_name.parts.back()) + "\n"
                         "{\n"
                         // The name here doesn't really matter, since the array access syntax ignores it.
                         // This is intentionally private, since accessing this member directly would be possible otherwise (and would return the first element, I think?),
@@ -4325,6 +4591,78 @@ namespace mrbind::CSharp
                         "    " + desc.csharp_elem_type + " elem;\n"
                         "}\n"
                     );
+                }
+            }
+
+            // Generate opaque arrays.
+            // Note that this moves to a different namespace.
+            if (!requested_maybe_opaque_arrays.empty())
+            {
+                for (const auto &[name, desc] : requested_maybe_opaque_arrays)
+                {
+                    { // Enter the correct namespace.
+                        cppdecl::QualifiedName ns = desc.qual_array_name;
+                        ns.parts.pop_back();
+                        file.EnsureNamespace(*this, ns);
+                    }
+
+                    const std::string unqual_csharp_name = CppToCSharpIdentifier(desc.qual_array_name.parts.back());
+
+                    file.WriteSeparatingNewline();
+
+                    file.WriteString("public unsafe struct " + unqual_csharp_name + "\n");
+                    file.PushScope({}, "{\n", "}\n");
+
+                    file.WriteString(
+                        desc.strings.csharp_underlying_ptr_target_type + " *Ptr;\n"
+                        "\n"
+                        "internal " + unqual_csharp_name + "(" + desc.strings.csharp_underlying_ptr_target_type + " *new_ptr) {Ptr = new_ptr;}\n"
+                        "\n"
+                        "public " + desc.csharp_elem_type + " this[int i]\n"
+                    );
+
+                    file.PushScope({}, "{\n", "}\n");
+
+                    // Properties and indexers of reference types only need getters. Attempting to provide a setter is an error.
+                    // And if `desc.csharp_elem_type` is a non-reference, we don't need setters either, you can use `.Assign()` or whatever.
+                    file.WriteString("get\n");
+
+                    file.PushScope({}, "{\n", "}\n");
+
+                    CFuncDeclStrings dllimport_decl;
+                    if (desc.ptr_offset_func)
+                    {
+                        dllimport_decl = MakeDllImportDecl(*desc.ptr_offset_func, desc.strings.csharp_underlying_ptr_target_type + " *", desc.strings.csharp_underlying_ptr_target_type + " *ptr, nint i");
+                        file.WriteString(dllimport_decl.dllimport_decl);
+                    }
+
+                    std::string expr = "i";
+                    if (desc.size_for_ptr_offsets != 1)
+                        expr += " * " + std::to_string(desc.size_for_ptr_offsets);
+
+                    if (desc.ptr_offset_func)
+                        expr = dllimport_decl.csharp_name + "(Ptr, " + expr + ")";
+                    else
+                        expr = "Ptr + " + expr;
+
+                    switch (desc.kind)
+                    {
+                      case RequestedMaybeOpaqueArray::ElemKind::ref:
+                        file.WriteString("return ref *" + expr + ";\n");
+                        break;
+                      case RequestedMaybeOpaqueArray::ElemKind::ptr:
+                        file.WriteString("return new(" + expr + ");\n");
+                        break;
+                      case RequestedMaybeOpaqueArray::ElemKind::ptr_maybeowning:
+                        file.WriteString("return new(" + expr + ", is_owning: false);\n");
+                        break;
+                    }
+
+                    file.PopScope(); // indexer getter
+
+                    file.PopScope(); // indexer
+
+                    file.PopScope(); // struct
                 }
             }
         }

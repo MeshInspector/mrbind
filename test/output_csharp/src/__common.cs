@@ -157,24 +157,96 @@ public static partial class MR
                 public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}
             }
 
-            // Fixed-size arrays:
+        }
 
-            [System.Runtime.CompilerServices.InlineArray(4)]
-            public struct ArrayBool_4_5
+        [System.Runtime.CompilerServices.InlineArray(4)]
+        public struct ArrayBool4_5
+        {
+            MR.CS.ArrayBool5 elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(5)]
+        public struct ArrayBool5
+        {
+            byte elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(2)]
+        public struct ArrayInt2
+        {
+            int elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(3)]
+        public struct ArrayInt3
+        {
+            int elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(3)]
+        public struct ArrayInt3_4
+        {
+            MR.CS.ArrayInt4 elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(4)]
+        public struct ArrayInt4
+        {
+            int elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(2)]
+        public struct ConstArrayInt2
+        {
+            int elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(3)]
+        public struct ConstArrayInt3_4
+        {
+            MR.CS.ConstArrayInt4 elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(4)]
+        public struct ConstArrayInt4
+        {
+            int elem;
+        }
+
+        public static partial class Std
+        {
+            public unsafe struct ArrayString2
             {
-                MR.CS.Misc.ArrayBool_5 elem;
+                MR.CS.Std.String._Underlying *Ptr;
+
+                internal ArrayString2(MR.CS.Std.String._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.Std.String this[int i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
+                        return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
             }
 
-            [System.Runtime.CompilerServices.InlineArray(5)]
-            public struct ArrayBool_5
+            public unsafe struct ConstArrayString2
             {
-                byte elem;
-            }
+                MR.CS.Std.ConstString._Underlying *Ptr;
 
-            [System.Runtime.CompilerServices.InlineArray(3)]
-            public struct ArrayInt_3
-            {
-                int elem;
+                internal ConstArrayString2(MR.CS.Std.ConstString._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.Std.ConstString this[int i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.Std.ConstString._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.ConstString._Underlying *ptr, nint i);
+                        return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
             }
         }
     }

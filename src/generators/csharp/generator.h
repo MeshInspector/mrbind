@@ -25,12 +25,12 @@ namespace mrbind::CSharp
     }
 
     // Transforms a single C++ string (usually a type name or a qualified name) to C# style.
-    [[nodiscard]] std::string CppStringToCsharpIdentifier(std::string_view cpp_ident);
+    [[nodiscard]] std::string CppStringToCSharpIdentifier(std::string_view cpp_ident);
 
     // Transforms any C++ entity to a C#-style name.
-    [[nodiscard]] std::string CppToCsharpIdentifier(const auto &value)
+    [[nodiscard]] std::string CppToCSharpIdentifier(const auto &value)
     {
-        return CppStringToCsharpIdentifier(cppdecl::ToCode(value, {}));
+        return CppStringToCSharpIdentifier(cppdecl::ToCode(value, {}));
     }
 
     struct Generator;
@@ -69,6 +69,10 @@ namespace mrbind::CSharp
 
         // Repeatedly calls `PushScope()` and `PopScope()` to end up in the desired namespace.
         void EnsureNamespace(const Generator &generator, cppdecl::QualifiedName new_namespace);
+
+        // This is similar to `EnsureNamespace(..., {});`, but not the same thing, since that can adjust the global namespace into something else
+        //   due to command-line flags, while this always resolves to the true C# global namespace.
+        void ExitAllScopes();
     };
 
     struct TypeBinding
@@ -238,23 +242,92 @@ namespace mrbind::CSharp
         // Translates a primitive C type to C#. This intentionally rejects pointers.
         // `is_indirect` affects how `bool` is mapped. If true, returns `bool` as is, and otherwise returns `byte`.
         // This is needed since passing `bool` by value internally uses `int32_t` in C#, but passing it by reference seems to work correctly.
-        [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect);
+        // `out_sizeof` receives the type size (respects `is_indirect` for `bool`), or zero on failure.s
+        [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect, std::size_t *out_sizeof = nullptr);
+
+        // This is mostly for internal use by `CppToCSharpKnownSizeType()` and `RequestCSharpArrayType()`.
+        // Given an array type (asserts otherwise), returns a suitable qualified C# name for it.
+        // Respects constness on the element type.
+        // Apply `CppToCSharpHelperName()` to the resulting name to get a C# name.
+        [[nodiscard]] cppdecl::QualifiedName CppToCSharpArrayHelperName(cppdecl::Type cpp_array_type);
 
         struct RequestedPlainArray
         {
+            cppdecl::QualifiedName qual_array_name; // Apply `CppToCSharpHelperName()` to this.
             std::string csharp_elem_type;
             std::size_t num_elems = 0; // Must be larger than zero, like in plain C arrays.
         };
 
-        // All array types passed to `CToCSharpPrimitiveTypeOrFixedArray()`, accumulated for later generation.
-        // The keys are the C# type names for the whole arrays.
+        // All array types passed to `CppToCSharpKnownSizeType()`, accumulated for later generation.
+        // The keys are qualified C# type names for the whole arrays (unqualified).
+        // This is intentionally an ordered map, to emit consistent C# code.
         std::map<std::string, RequestedPlainArray> requested_plain_arrays;
 
         // Like `CToCSharpPrimitiveTypeOpt()`, but also permits plain fixed-size arrays of those types, for which it generates helpers in the common file.
-        [[nodiscard]] std::optional<std::string> CToCSharpPrimitiveTypeOrFixedArray(const cppdecl::Type &c_type);
+        // Also permits exposed structs, and arrays of those.
+        // This ignores constness on the type.
+        // Writes the type size to `out_sizeof` on success, or writes `0` on failure.
+        [[nodiscard]] std::optional<std::string> CppToCSharpKnownSizeType(const cppdecl::Type &cpp_type, std::size_t *out_sizeof = nullptr);
+
+        struct ArrayStrings
+        {
+            // This may include `ref` or `ref readonly`, but not necessarily.
+            std::string csharp_type;
+
+            std::string csharp_underlying_ptr_target_type;
+
+            // This constructs an instance of `csharp_type` from a pointer to the first element of the array.
+            std::function<std::string(const std::string &ptr)> construct;
+        };
+
+        struct RequestedMaybeOpaqueArray
+        {
+            ArrayStrings strings;
+
+            cppdecl::QualifiedName qual_array_name;
+
+            std::string csharp_elem_type;
+
+            std::size_t num_elems = 0; // Must be larger than zero.
+
+            enum class ElemKind
+            {
+                // The element type is `ref` or `ref readonly`.
+                ref,
+                // Return the element type as as is, constructing it from the pointer to the first element of the array.
+                ptr,
+                // Same, but the element type constructor also takes `bool is_owning`.
+                ptr_maybeowning,
+            };
+            ElemKind kind{};
+
+            // If null, use `size_for_ptr_offsets` to directly compute pointer offsets.
+            // If set, multiply the offset by `size_for_ptr_offsets` and then pass it to this function.
+            std::optional<std::string> ptr_offset_func;
+
+            // Used in pointer offset calculation, see `ptr_offset_func`.
+            std::size_t size_for_ptr_offsets = 1;
+        };
+
+        // The custom types that `RequestCSharpSpanType()` wants to generate.
+        // The keys are the C# type names for the whole span classes.
+        // This is intentionally an ordered map, to emit consistent C# code.
+        std::map<std::string, RequestedMaybeOpaqueArray> requested_maybe_opaque_arrays;
+
+        // Returns an array-like type, suitable to hold a fixed-size array of some C++ type.
+        // This is more capable than `CppToCSharpKnownSizeType()`, supporting also arrays of opaque classes,
+        //   and const arrays (sometimes the constness is expressed as `ref` vs `ref readonly`, and otherwise doesn't affect the type).
+        // `cpp_array_type` must be an array type, throws otherwise.
+        // Throws on failure (if can't handle this element type).
+        [[nodiscard]] ArrayStrings RequestCSharpArrayType(const cppdecl::Type &cpp_array_type, const RequestedMaybeOpaqueArray **desc = nullptr);
 
         // Adjusts a name to apply any `--remove-namespace` and `--force-namespace` flags.
         [[nodiscard]] cppdecl::QualifiedName AdjustCppNamespaces(cppdecl::QualifiedName name) const;
+
+        // Converts a C++ qualified helper class name to a C# name.
+        // Only apply it to the names that are explicitly documented to be usable with this funuction.
+        // This is guaranteed to handle the final unqualified part as if by `CppToCSharpIdentifier()`.
+        [[nodiscard]] std::string CppToCSharpHelperName(cppdecl::QualifiedName name);
 
         // Converts a C++ qualified enum name to a C# name.
         [[nodiscard]] std::string CppToCSharpEnumName(cppdecl::QualifiedName name);

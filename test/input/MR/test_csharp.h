@@ -816,4 +816,29 @@ namespace MR::CSharp
         // Some random ctor.
         ExposedLayoutB(int, int) {}
     };
+
+
+    // Test various array members.
+    struct ArrayMembers
+    {
+        int i = 42;
+
+        int ia[2] = {10, 20};
+        int iaa[3][4] = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}};
+
+        const int ci = 43;
+
+        const int cia[2] = {100, 200};
+        const int ciaa[3][4] = {{10,20,30,40}, {50,60,70,80}, {90,100,110,120}};
+
+        std::string s = "s";
+
+        std::string sa[2] = {"sa0", "sa1"};
+        // std::string saa[3][4]; // The C generator doesn't support those yet. We'd need to expose them as flat arrays, with N size getters, I think?
+
+        const std::string cs = "cs";
+
+        const std::string csa[2] = {"csa0", "csa1"};
+        // const std::string csaa[6][7]; // See above.
+    };
 }

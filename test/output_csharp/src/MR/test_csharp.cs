@@ -8993,14 +8993,14 @@ public static partial class MR
                 public double Z;
 
                 [System.Runtime.InteropServices.FieldOffset(16)]
-                public MR.CS.Misc.ArrayInt_3 Arr;
+                public MR.CS.ArrayInt3 Arr;
 
                 public bool B {get => __storage_B != 0; set => __storage_B = value ? (byte)1 : (byte)0;}
                 [System.Runtime.InteropServices.FieldOffset(28)]
                 byte __storage_B;
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
-                public MR.CS.Misc.ArrayBool_4_5 Ba;
+                public MR.CS.ArrayBool4_5 Ba;
 
                 /// Generated copy constructor.
                 public ExposedLayout(ExposedLayout _other) {this = _other;}
@@ -9512,14 +9512,14 @@ public static partial class MR
                 public double Z;
 
                 [System.Runtime.InteropServices.FieldOffset(16)]
-                public MR.CS.Misc.ArrayInt_3 Arr;
+                public MR.CS.ArrayInt3 Arr;
 
                 public bool B {get => __storage_B != 0; set => __storage_B = value ? (byte)1 : (byte)0;}
                 [System.Runtime.InteropServices.FieldOffset(28)]
                 byte __storage_B;
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
-                public MR.CS.Misc.ArrayBool_4_5 Ba;
+                public MR.CS.ArrayBool4_5 Ba;
 
                 /// Generated copy constructor.
                 public ExposedLayoutSh(ExposedLayoutSh _other) {this = _other;}
@@ -9872,6 +9872,264 @@ public static partial class MR
                 public InOptConst_ExposedLayoutB() {}
                 public InOptConst_ExposedLayoutB(ConstExposedLayoutB NewOpt) {Opt = NewOpt;}
                 public static implicit operator InOptConst_ExposedLayoutB(ConstExposedLayoutB NewOpt) {return new InOptConst_ExposedLayoutB(NewOpt);}
+            }
+
+            // Test various array members.
+            /// Generated from class `MR::CSharp::ArrayMembers`.
+            /// This is the const half of the class.
+            public class ConstArrayMembers : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe ConstArrayMembers(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ArrayMembers_Destroy(_Underlying *_this);
+                    __MR_CSharp_ArrayMembers_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstArrayMembers() {Dispose(false);}
+
+                /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
+                public unsafe int GetI()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_i", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_ArrayMembers_Get_i(_Underlying *_this);
+                    return *__MR_CSharp_ArrayMembers_Get_i(_UnderlyingPtr);
+                }
+
+                public unsafe ref MR.CS.ArrayInt2 Ia
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ia", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt2 *__MR_CSharp_ArrayMembers_Get_ia(_Underlying *_this);
+                        return ref *(__MR_CSharp_ArrayMembers_Get_ia(_UnderlyingPtr));
+                    }
+                }
+
+                public unsafe ref MR.CS.ArrayInt3_4 Iaa
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_iaa", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3_4 *__MR_CSharp_ArrayMembers_Get_iaa(_Underlying *_this);
+                        return ref *(__MR_CSharp_ArrayMembers_Get_iaa(_UnderlyingPtr));
+                    }
+                }
+                public unsafe int Ci
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ci", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_ArrayMembers_Get_ci(_Underlying *_this);
+                        return *__MR_CSharp_ArrayMembers_Get_ci(_UnderlyingPtr);
+                    }
+                }
+
+                public unsafe ref readonly MR.CS.ConstArrayInt2 Cia
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_cia", ExactSpelling = true)]
+                        extern static MR.CS.ConstArrayInt2 *__MR_CSharp_ArrayMembers_Get_cia(_Underlying *_this);
+                        return ref *(__MR_CSharp_ArrayMembers_Get_cia(_UnderlyingPtr));
+                    }
+                }
+
+                public unsafe ref readonly MR.CS.ConstArrayInt3_4 Ciaa
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ciaa", ExactSpelling = true)]
+                        extern static MR.CS.ConstArrayInt3_4 *__MR_CSharp_ArrayMembers_Get_ciaa(_Underlying *_this);
+                        return ref *(__MR_CSharp_ArrayMembers_Get_ciaa(_UnderlyingPtr));
+                    }
+                }
+
+                /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `s`.
+                public unsafe MR.CS.Std.ConstString GetS()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_s", ExactSpelling = true)]
+                    extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_ArrayMembers_Get_s(_Underlying *_this);
+                    return new(__MR_CSharp_ArrayMembers_Get_s(_UnderlyingPtr), is_owning: false);
+                }
+
+                public unsafe MR.CS.Std.ArrayString2 Sa
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_sa", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_Get_sa(_Underlying *_this);
+                        return new(__MR_CSharp_ArrayMembers_Get_sa(_UnderlyingPtr));
+                    }
+                }
+                public unsafe MR.CS.Std.ConstString Cs
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_cs", ExactSpelling = true)]
+                        extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_ArrayMembers_Get_cs(_Underlying *_this);
+                        return new(__MR_CSharp_ArrayMembers_Get_cs(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                public unsafe MR.CS.Std.ConstArrayString2 Csa
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_csa", ExactSpelling = true)]
+                        extern static MR.CS.Std.ConstString._Underlying *__MR_CSharp_ArrayMembers_Get_csa(_Underlying *_this);
+                        return new(__MR_CSharp_ArrayMembers_Get_csa(_UnderlyingPtr));
+                    }
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConstArrayMembers() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ArrayMembers_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                public unsafe ConstArrayMembers(MR.CS.CSharp.ByValue_ArrayMembers _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ArrayMembers._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ArrayMembers_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
+            }
+
+            // Test various array members.
+            /// Generated from class `MR::CSharp::ArrayMembers`.
+            /// This is the non-const half of the class.
+            public class ArrayMembers : ConstArrayMembers
+            {
+                internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
+                public unsafe new ref int GetI()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_i", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_ArrayMembers_GetMutable_i(_Underlying *_this);
+                    return ref *__MR_CSharp_ArrayMembers_GetMutable_i(_UnderlyingPtr);
+                }
+
+                /// Modifies a member variable of class `MR::CSharp::ArrayMembers` named `i`.
+                public unsafe void SetI(int value)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Set_i", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ArrayMembers_Set_i(_Underlying *_this, int value);
+                    __MR_CSharp_ArrayMembers_Set_i(_UnderlyingPtr, value);
+                }
+
+                new public unsafe ref MR.CS.ArrayInt2 Ia
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_ia", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt2 *__MR_CSharp_ArrayMembers_GetMutable_ia(_Underlying *_this);
+                        return ref *(__MR_CSharp_ArrayMembers_GetMutable_ia(_UnderlyingPtr));
+                    }
+                }
+
+                new public unsafe ref MR.CS.ArrayInt3_4 Iaa
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_iaa", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3_4 *__MR_CSharp_ArrayMembers_GetMutable_iaa(_Underlying *_this);
+                        return ref *(__MR_CSharp_ArrayMembers_GetMutable_iaa(_UnderlyingPtr));
+                    }
+                }
+
+                /// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `s`.
+                public unsafe new MR.CS.Std.String GetS()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_s", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_s(_Underlying *_this);
+                    return new(__MR_CSharp_ArrayMembers_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                }
+
+                /// Modifies a member variable of class `MR::CSharp::ArrayMembers` named `s`.
+                public unsafe void SetS(ReadOnlySpan<char> value)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Set_s", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ArrayMembers_Set_s(_Underlying *_this, byte *value, byte *value_end);
+                    byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
+                    int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
+                    fixed (byte *__ptr_value = __bytes_value)
+                    {
+                        __MR_CSharp_ArrayMembers_Set_s(_UnderlyingPtr, __ptr_value, __ptr_value + __len_value);
+                    }
+                }
+
+                new public unsafe MR.CS.Std.ArrayString2 Sa
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_sa", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_sa(_Underlying *_this);
+                        return new(__MR_CSharp_ArrayMembers_GetMutable_sa(_UnderlyingPtr));
+                    }
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ArrayMembers() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ArrayMembers_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                public unsafe ArrayMembers(MR.CS.CSharp.ByValue_ArrayMembers _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ArrayMembers._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ArrayMembers_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `ArrayMembers` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `ArrayMembers`/`ConstArrayMembers` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            public struct ByValue_ArrayMembers
+            {
+                internal readonly ConstArrayMembers? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValue_ArrayMembers() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValue_ArrayMembers(ConstArrayMembers new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public ByValue_ArrayMembers(MR.CS.Misc._Moved<ArrayMembers> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValue_ArrayMembers(ConstArrayMembers arg) {return new(arg);}
+                public static implicit operator ByValue_ArrayMembers(MR.CS.Misc._Moved<ArrayMembers> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `ArrayMembers` with default arguments.
+            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ArrayMembers`/`ConstArrayMembers` to pass it to the function.
+            public class InOptConst_ArrayMembers
+            {
+                public ConstArrayMembers? Opt;
+
+                public InOptConst_ArrayMembers() {}
+                public InOptConst_ArrayMembers(ConstArrayMembers NewOpt) {Opt = NewOpt;}
+                public static implicit operator InOptConst_ArrayMembers(ConstArrayMembers NewOpt) {return new InOptConst_ArrayMembers(NewOpt);}
             }
 
             /// Generated from function `MR::CSharp::foo`.
