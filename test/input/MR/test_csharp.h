@@ -815,6 +815,9 @@ namespace MR::CSharp
 
         // Some random ctor.
         ExposedLayoutB(int, int) {}
+
+        // And try an equality comparison!
+        friend bool operator==(const ExposedLayoutB &, const ExposedLayoutB &) {return true;}
     };
 
 

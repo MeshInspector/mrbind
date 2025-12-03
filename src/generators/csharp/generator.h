@@ -494,7 +494,7 @@ namespace mrbind::CSharp
             const bool in_exposed_struct;
 
             const bool is_overloaded_op_or_conv_op_from_this;
-            const bool is_op_with_symmetric_args;
+            const bool is_op_with_symmetric_self_args;
             const bool is_incr_or_decr;
             const bool acts_on_copy_of_this;
 
@@ -584,11 +584,24 @@ namespace mrbind::CSharp
         // Assumes that the correct namespace or class was already entered in `file`.
         void EmitCppTypeUnconditionally(OutputFile &file, const std::string &cpp_type);
 
-        // Returns true if this C++ type maps to a class in C# (which we make hold `std::shared_ptr` internally).
+        // Returns true if this C++ type maps to a class in C# (which we could make hold `std::shared_ptr` internally, among other things).
         // This also returns true for exposed structs, since in C# they get both a proper `ref struct` and the class wrappers.
         // Throws if this isn't a known type.
         // Ignores constness on the type.
-        [[nodiscard]] bool IsClassEmbeddingSharedPtr(cppdecl::Type cpp_type);
+        [[nodiscard]] bool IsCppClass(cppdecl::Type cpp_type);
+
+        enum class ManagedKind
+        {
+            managed, // This is a managed class.
+            never_managed, // This is a `ref struct` that can never be on the managed heap.
+            unmanaged, // This is a struct or e.g. a scalar, that can be on the heap but doesn't have to be.
+            unsure, // We don't know what this is, probably isn't a managed class.
+        };
+
+        // Given a C++ type, possibly const and/or a reference, try to determine if it's a managed type or not.
+        // This this only reliable for classes and references to them. For everything else, for now it always returns `probably_unmanged`.
+        // We can improve this later.
+        [[nodiscard]] ManagedKind ClassifyParamManagedKind(const cppdecl::Type &cpp_type);
 
         // If our input has a binding for `std::shared_ptr<T>` (where `T` is `cpp_type`), returns that binding. Otherwise null.
         // This can be used to check if a class is backed by a shared pointer or not.

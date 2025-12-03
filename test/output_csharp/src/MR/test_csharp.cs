@@ -9150,6 +9150,22 @@ public static partial class MR
                     __MR_C_decr_MR_CSharp_ExposedLayout(_this_copy);
                     return _this_copy;
                 }
+
+                // IEquatable:
+
+                public bool Equals(float _1)
+                {
+                    return this.Equal(_1);
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is float)
+                        return this.Equals((float)other);
+                    return false;
+                }
             }
 
             /// This is used as a function parameter when passing `MutExposedLayout` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
@@ -9669,6 +9685,22 @@ public static partial class MR
                     __MR_C_decr_MR_CSharp_ExposedLayoutSh(_this_copy);
                     return _this_copy;
                 }
+
+                // IEquatable:
+
+                public bool Equals(float _1)
+                {
+                    return this.Equal(_1);
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is float)
+                        return this.Equals((float)other);
+                    return false;
+                }
             }
 
             /// This is used as a function parameter when the underlying function receives `MutExposedLayoutSh` by value.
@@ -9727,7 +9759,7 @@ public static partial class MR
 
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the const reference to the struct.
-            public class ConstExposedLayoutB : MR.CS.Misc.Object, System.IDisposable
+            public class ConstExposedLayoutB : MR.CS.Misc.Object, System.IDisposable, System.IEquatable<MR.CS.CSharp.ConstExposedLayoutB>
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
@@ -9767,6 +9799,38 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_Alloc(4);
                     MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct(_1, _2);
                     System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                }
+
+                // And try an equality comparison!
+                /// Generated from function `MR::CSharp::operator==`.
+                public static unsafe bool operator==(MR.CS.CSharp.ConstExposedLayoutB _1, MR.CS.CSharp.ConstExposedLayoutB _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutB", ExactSpelling = true)]
+                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutB(MR.CS.CSharp.ConstExposedLayoutB._Underlying *_1, MR.CS.CSharp.ConstExposedLayoutB._Underlying *_2);
+                    return __MR_C_equal_MR_CSharp_ExposedLayoutB(_1._UnderlyingPtr, _2._UnderlyingPtr) != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.CSharp.ConstExposedLayoutB _1, MR.CS.CSharp.ConstExposedLayoutB _2)
+                {
+                    return !(_1 == _2);
+                }
+
+                // IEquatable:
+
+                public bool Equals(MR.CS.CSharp.ConstExposedLayoutB? _2)
+                {
+                    if (_2 is null)
+                        return false;
+                    return this == _2;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is MR.CS.CSharp.ConstExposedLayoutB)
+                        return this == (MR.CS.CSharp.ConstExposedLayoutB)other;
+                    return false;
                 }
             }
 
@@ -9817,6 +9881,35 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct(int _1, int _2);
                     this = __MR_CSharp_ExposedLayoutB_Construct(_1, _2);
+                }
+
+                // And try an equality comparison!
+                /// Generated from function `MR::CSharp::operator==`.
+                public static unsafe bool operator==(MR.CS.CSharp.ExposedLayoutB _1, MR.CS.CSharp.ExposedLayoutB _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutB", ExactSpelling = true)]
+                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutB(MR.CS.CSharp.ConstExposedLayoutB._Underlying *_1, MR.CS.CSharp.ConstExposedLayoutB._Underlying *_2);
+                    return __MR_C_equal_MR_CSharp_ExposedLayoutB((MR.CS.CSharp.MutExposedLayoutB._Underlying *)&_1, (MR.CS.CSharp.MutExposedLayoutB._Underlying *)&_2) != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.CSharp.ExposedLayoutB _1, MR.CS.CSharp.ExposedLayoutB _2)
+                {
+                    return !(_1 == _2);
+                }
+
+                // IEquatable:
+
+                public bool Equals(MR.CS.CSharp.ExposedLayoutB _2)
+                {
+                    return this == _2;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    // Skipping `MR.CS.CSharp.ExposedLayoutB` because it can never be on the heap.
+                    return false;
                 }
             }
 

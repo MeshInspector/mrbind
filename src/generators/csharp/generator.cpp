@@ -825,7 +825,7 @@ namespace mrbind::CSharp
 
                                     const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
-                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsClassEmbeddingSharedPtr(*shared_ptr_targ);
+                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsCppClass(*shared_ptr_targ);
 
                                     // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
                                     // Otherwise this is the original referenced type.
@@ -1100,7 +1100,7 @@ namespace mrbind::CSharp
 
                                     const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
-                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsClassEmbeddingSharedPtr(*shared_ptr_targ);
+                                    const bool is_transparent_shared_ptr = shared_ptr_targ && IsCppClass(*shared_ptr_targ);
 
                                     // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
                                     // Otherwise this is the original referenced type.
@@ -1300,7 +1300,7 @@ namespace mrbind::CSharp
 
                             const bool is_shared_ptr = cpp_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                             const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
-                            const bool is_transparent_shared_ptr = shared_ptr_targ && IsClassEmbeddingSharedPtr(*shared_ptr_targ);
+                            const bool is_transparent_shared_ptr = shared_ptr_targ && IsCppClass(*shared_ptr_targ);
 
                             // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
                             // Otherwise this is the original referenced type.
@@ -1670,7 +1670,7 @@ namespace mrbind::CSharp
             !(in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
         ),
         // Is this an operator that wants all arguments to match the enclosing class type, as opposed to just one of them?
-        is_op_with_symmetric_args([&]
+        is_op_with_symmetric_self_args(is_overloaded_op_or_conv_op_from_this && [&]
         {
             if (!method)
                 return false;
@@ -1791,7 +1791,7 @@ namespace mrbind::CSharp
                         //   or the second param of a static one (which is the one with the same type as the enclosing class type).
                         &param == &func_like.params.at(method->is_static ? 2 : 0) ||
                         // Or any param of an operator that wants symmetric params, excluding the fake `this` parameter of static methods.
-                        (is_op_with_symmetric_args && !(method->is_static && param.is_this_param))
+                        (is_op_with_symmetric_self_args && !(method->is_static && param.is_this_param))
                     )
                     &&
                     !(is_incr_or_decr && emit_variant != EmitVariant::static_incr_or_decr)
@@ -3050,6 +3050,14 @@ namespace mrbind::CSharp
                     // Is this an equality comparison that gets implemented as an overloaded operator in C#.
                     auto IsEqualityComparisonForIEquatable = [&](const CInterop::ClassMethod &method)
                     {
+                        // Skip backwards comparisons.
+                        // This may not be correct in some cases, but this is way easier than doing the right thing.
+                        // If we don't check this, then we would also need to make sure there's no symmetric comparison, to avoid duplicating
+                        //   the IEquatable implementation.
+                        // Note that C# doesn't automatically mirror `==`.
+                        if (method.is_static)
+                            return false;
+
                         if (!std::holds_alternative<CInterop::MethodKinds::Operator>(method.var) || !IsOverloadableOpOrConvOp(&method))
                             return false;
                         if (std::get<CInterop::MethodKinds::Operator>(method.var).token != "==")
@@ -3126,69 +3134,93 @@ namespace mrbind::CSharp
                         }
 
                         // `IEquatable` for our equality comparisons.
-                        // Interfaces for `ref struct`s require C# 13 or newer. One day we might implement them behind `--sharp-version=13`,
-                        //   but for now I'm disabling them entirely.
-                        if (!is_exposed_struct_by_value)
+                        for (const CInterop::ClassMethod &method : class_desc.methods)
                         {
-                            for (const CInterop::ClassMethod &method : class_desc.methods)
+                            if (ShouldEmitMethod(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
                             {
-                                if (ShouldEmitMethod(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
+                                FuncLikeEmitter dummy_emitter(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, EmitVariant::regular), is_exposed_struct_by_value, EmitVariant::regular);
+
+                                const ManagedKind param_managed_kind =
+                                    is_exposed_struct_by_value && dummy_emitter.is_op_with_symmetric_self_args
+                                    ? ManagedKind::never_managed // Gotta adjust the condition a little.
+                                    : ClassifyParamManagedKind(ParseTypeOrThrow(method.params.at(1).cpp_type));
+                                const bool param_is_managed = param_managed_kind == ManagedKind::managed;
+
+                                // There's an extra dummy `this` parameter in static methods.
+                                // Note that `IsEqualityComparisonForIEquatable()` currently rejects static (i.e. backwards) comparisons,
+                                //   so this all is purely for the future.
+                                assert(dummy_emitter.param_strings.size() == (method.is_static ? 3 : 2));
+
+                                // This describes the other parameter, the one that may have a type not matching `this`.
+                                const auto &param_strings = dummy_emitter.param_strings.at(1);
+
+                                assert(param_strings.csharp_decl_params.size() == 1);
+
+                                std::string interface_targ = param_strings.csharp_decl_params.front().type;
+
+                                if (interface_targ.ends_with('?') && param_is_managed)
+                                    interface_targ.pop_back(); // `IEquatable<T>` requires implementing `Equals(T? t)`, so just in case.
+
+                                // Inheriting from the interface requires C# 13 or newer. But in older versions we can do everything else, provide the same methods etc.
+                                if (!is_exposed_struct_by_value || csharp_version >= 13)
                                 {
                                     BaseSeparator();
-
-                                    cppdecl::Type param_cpp_type = ParseTypeOrThrow(method.params.at(1).cpp_type);
-                                    if (param_cpp_type.Is<cppdecl::Reference>())
-                                        param_cpp_type.RemoveModifier();
-                                    param_cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
-
-                                    const bool param_is_managed = IsClassEmbeddingSharedPtr(param_cpp_type);
-
-                                    const auto &param_binding = GetParameterBinding(method.params.at(1), false);
-                                    assert(param_binding.csharp_decl_params.size() == 1);
-
-                                    std::string interface_targ = param_binding.csharp_decl_params.front().type;
-
-                                    if (interface_targ.ends_with('?') && param_is_managed)
-                                        interface_targ.pop_back(); // `IEquatable<T>` requires implementing `Equals(T? t)`, so just in case.
                                     file.WriteString("System.IEquatable<" + interface_targ + ">");
-
-                                    auto param = param_binding.csharp_decl_params.front();
-                                    param.default_arg = {};
-                                    bool added_nullability = false;
-                                    if (param_is_managed && !param.type.ends_with('?'))
-                                    {
-                                        added_nullability = true;
-                                        param.type += '?'; // The interface requires this.
-                                    }
-
-                                    std::string param_type_without_nullable = param.type;
-                                    if (param_type_without_nullable.ends_with('?'))
-                                        param_type_without_nullable.pop_back();
-
-                                    if (iequatable_impls.empty())
-                                        iequatable_impls += "\n// IEquatable:\n\n";
-                                    else
-                                        iequatable_impls += '\n';
-
-                                    iequatable_impls +=
-                                        "public bool Equals(" + param.ToString() + ")\n"
-                                        "{\n"
-                                        + (added_nullability ? "    if (" + param.name + " is null)\n        return false;\n" : "") +
-                                        // If we added `?` to the parameter type, here we should cast back to the type without null.
-                                        // It seems to have no effect for managed classes, but is needed for something like `int`.
-                                        "    return this == " + param.name + ";\n"
-                                        "}\n";
-
-                                    iequatable_generic_impl +=
-                                        "    if (other is " + param_type_without_nullable + ")\n"
-                                        "        return this == (" + param_type_without_nullable + ")other;\n";
                                 }
 
-                                // Check the base too.
-                                // For now checking `!is_exposed_struct_by_value` here is redundant. But it can be useful in the future, see the comment above.
-                                if (!is_exposed_struct_by_value && !IsConst() && ShouldEmitMethod(method, true, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
-                                    base_implements_any_iequatable = true;
+                                auto param = param_strings.csharp_decl_params.front();
+                                param.default_arg = {};
+                                bool added_nullability = false;
+                                if (param_is_managed && !param.type.ends_with('?'))
+                                {
+                                    added_nullability = true;
+                                    param.type += '?'; // The interface requires this.
+                                }
+
+                                std::string param_type_without_nullable = param.type;
+                                if (param_type_without_nullable.ends_with('?'))
+                                    param_type_without_nullable.pop_back();
+
+                                if (iequatable_impls.empty())
+                                    iequatable_impls += "\n// IEquatable:\n\n";
+                                else
+                                    iequatable_impls += '\n';
+
+                                // This should never be true normally, but let's be extra safe.
+                                const bool equal_is_method = is_exposed_struct_by_value && IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(method);
+
+                                iequatable_impls +=
+                                    "public bool Equals(" + param.ToString() + ")\n"
+                                    "{\n"
+                                    + (added_nullability ? "    if (" + param.name + " is null)\n        return false;\n" : "") +
+                                    (
+                                        equal_is_method
+                                        ? "    return this.Equal(" + param.name + ");\n" // This should never be necessary...
+                                        : "    return this == " + param.name + ";\n"
+                                    ) +
+                                    "}\n";
+
+                                // The `Equals(object?)` only makes sense if the class is not a `ref struct`, since an `object` can never point to one.
+                                // We still emit it to silence the warning, but it can't compare against that type.
+                                if (param_managed_kind == ManagedKind::never_managed)
+                                {
+                                    iequatable_generic_impl += "    // Skipping `" + param_type_without_nullable + "` because it can never be on the heap.\n";
+                                }
+                                else
+                                {
+                                    iequatable_generic_impl +=
+                                        "    if (other is " + param_type_without_nullable + ")\n" +
+                                        (
+                                            equal_is_method
+                                            ? "        return this.Equals((" + param_type_without_nullable + ")other);\n" // This should never be necessary...
+                                            : "        return this == (" + param_type_without_nullable + ")other;\n"
+                                        );
+                                }
                             }
+
+                            // Check the base too.
+                            if (!is_exposed_struct_by_value && !IsConst() && ShouldEmitMethod(method, true, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
+                                base_implements_any_iequatable = true;
                         }
                     }
                     file.PushScope({}, "\n{\n", "}\n");
@@ -3835,12 +3867,12 @@ namespace mrbind::CSharp
         }
     }
 
-    bool Generator::IsClassEmbeddingSharedPtr(cppdecl::Type cpp_type)
+    bool Generator::IsCppClass(cppdecl::Type cpp_type)
     {
         cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
-        auto iter = c_desc.cpp_types.Map().find(CppdeclToCode(cpp_type));
-        if (iter == c_desc.cpp_types.Map().end())
+        const CInterop::TypeDesc *type_desc = c_desc.FindTypeOpt(CppdeclToCode(cpp_type));
+        if (!type_desc)
         {
             // If this is a pointer or reference that's not in `cpp_types`, then it has nothing special
             //   about it (compare e.g. to `std::monostate *` that binds to bool), so we just return false.
@@ -3848,13 +3880,34 @@ namespace mrbind::CSharp
                 return false;
 
             // Otherwise throw on an unknown type.
-            throw std::logic_error("Unknown C++ type passed to `IsClassEmbeddingSharedPtr()`: `" + CppdeclToCode(cpp_type) + "`.");
+            throw std::logic_error("Unknown C++ type passed to `IsCppClass()`: `" + CppdeclToCode(cpp_type) + "`.");
         }
 
-        if (std::holds_alternative<CInterop::TypeKinds::Class>(iter->second.var))
+        if (std::holds_alternative<CInterop::TypeKinds::Class>(type_desc->var))
             return true;
 
         return false;
+    }
+
+    Generator::ManagedKind Generator::ClassifyParamManagedKind(const cppdecl::Type &cpp_type)
+    {
+        // If this is a reference, return true if it's a class reference.
+        if (cpp_type.modifiers.size() == 1 && cpp_type.Is<cppdecl::Reference>())
+            return IsCppClass(cppdecl::Type::FromSimpleType(cpp_type.simple_type)) ? ManagedKind::managed : ManagedKind::unsure;
+
+        // If this has no modifiers, return true if it's a class, unless it's an exposed struct.
+        if (cpp_type.modifiers.empty())
+        {
+            const CInterop::TypeDesc *type_desc = c_desc.FindTypeOpt(CppdeclToCode(cpp_type));
+            if (!type_desc)
+                return ManagedKind::unsure;
+            auto class_desc = std::get_if<CInterop::TypeKinds::Class>(&type_desc->var);
+            if (!class_desc)
+                return ManagedKind::unmanaged; // Hopefully this is always correct.
+            return class_desc->kind == CInterop::ClassKind::exposed_struct ? ManagedKind::never_managed : ManagedKind::managed;
+        }
+
+        return ManagedKind::unsure; // Whatever.
     }
 
     const CInterop::TypeDesc *Generator::GetSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type)
@@ -3870,7 +3923,7 @@ namespace mrbind::CSharp
             static const cppdecl::QualifiedName shared_ptr_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr");
             if (cpp_type.simple_type.name.Equals(shared_ptr_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
             {
-                if (IsClassEmbeddingSharedPtr(*cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType()))
+                if (IsCppClass(*cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType()))
                     return false;
             }
         }
@@ -4116,7 +4169,7 @@ namespace mrbind::CSharp
             {
                 const cppdecl::QualifiedName qual_name = ParseNameOrThrow(key);
 
-                { // Reject nested types. `EmitMaybeConstCppClass()` will emit them recursively by itself.
+                { // Reject nested types. They will get emitted with the enclosing classes instead.
                     if (qual_name.parts.size() > 1)
                     {
                         cppdecl::QualifiedName enclosing_class_name = qual_name;
