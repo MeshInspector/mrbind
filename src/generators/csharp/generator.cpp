@@ -3554,7 +3554,7 @@ namespace mrbind::CSharp
                                 if (!field.is_static && class_desc.kind == CInterop::ClassKind::exposed_struct)
                                     continue;
 
-                                EmitCppField(file, ParseNameOrThrow(cpp_type), type_desc, field, is_exposed_struct_by_value ? false : IsConst(), shadowing_data);
+                                EmitCppField(file, field, is_exposed_struct_by_value ? false : IsConst(), shadowing_data);
                             }
                         }
                     }
@@ -3878,7 +3878,7 @@ namespace mrbind::CSharp
         return true;
     }
 
-    void Generator::EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class_name, const CInterop::TypeDesc &class_type_desc, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data)
+    void Generator::EmitCppField(OutputFile &file, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data)
     {
         try
         {
@@ -3886,10 +3886,9 @@ namespace mrbind::CSharp
             // If this fails, did you perhaps to try call this method on a field of an exposed struct?
             assert(field.getter_const);
 
+            // Special-case array fields.
             if (field.getter_array_size)
             {
-                // Special-case array fields.
-
                 // Determine array constness.
                 bool array_is_const = true;
                 if (field.getter_mutable)
@@ -3941,134 +3940,56 @@ namespace mrbind::CSharp
                 return;
             }
 
-            // Those two can never end up null.
-            const CInterop::ClassField::Accessor *const_getter = nullptr;
-            const CInterop::ClassField::Accessor *mutable_getter = nullptr;
+            // If there's no mutable setter, then do nothing in the mutable half.
+            // Static fields are entirely in the const half as well.
+            if ((field.is_static || !field.getter_mutable) && !is_const)
+                return;
 
-            if (field.getter_mutable && IsConstOrStaticMethodLike(cpp_class_name, class_type_desc, &*field.getter_mutable, EmitVariant::regular))
-            {
-                // If the "mutable" getter can be called on const instances, prefer it for const instances too.
-                // Not sure if this ever happens in the C code we emit.
-                const_getter = &*field.getter_mutable;
-                mutable_getter = &*field.getter_mutable;
-            }
-            else
-            {
-                // Use the const getter for the const instances, and the mutable one for mutable instances if it exists.
-                const_getter = &*field.getter_const;
-                mutable_getter = field.getter_mutable ? &*field.getter_mutable : &*field.getter_const;
-            }
+            const auto &maybe_const_getter = !is_const || (field.is_static && field.getter_mutable) ? field.getter_mutable : field.getter_const;
+            assert(maybe_const_getter);
 
-            // Those two can end up null.
-            const CInterop::ClassField::Accessor *const_setter = nullptr;
-            const CInterop::ClassField::Accessor *mutable_setter = nullptr;
-            if (field.setter)
-            {
-                // Allow the setter on const instances if the setter is const.
-                if (IsConstOrStaticMethodLike(cpp_class_name, class_type_desc, &*field.setter, EmitVariant::regular))
-                    const_setter = &*field.setter;
-
-                mutable_setter = &*field.setter;
-            }
-
-            auto GetCSharpSetterParameterType = [this](const CInterop::ClassField::Accessor *setter) -> std::optional<std::string>
-            {
-                if (!setter)
-                    return {};
-                assert(setter->params.size() == 2 && setter->params.at(0).is_this_param); // `this` and the actual parameter.
-                auto csharp_decl_params = GetParameterBinding(setter->params.at(1), setter->is_static).csharp_decl_params;
-                if (csharp_decl_params.size() == 1)
-                    return csharp_decl_params.front().type;
-                else
-                    return {};
-            };
-
-            // Can this field be a property? For that, the C# getter return type must match the C# setter return type,
-            //   or the setter must be missing entirely.
-            // This has to be true separately for both const getters/setters and mutable getters/setters.
-            // We check both, regardless of `is_const`, to consistently use or not use properties in both const and non-const halves of a class.
-            bool can_be_property = true;
-            // Check const getter and setter.
-            if (can_be_property)
-            {
-                if (auto param_type = GetCSharpSetterParameterType(const_setter); param_type && param_type != GetReturnBinding(const_getter->ret).csharp_return_type)
-                    can_be_property = false;
-            }
-            // Check mutable getter and setter.
-            if (can_be_property)
-            {
-                if (auto param_type = GetCSharpSetterParameterType(mutable_setter); param_type && param_type != GetReturnBinding(mutable_getter->ret).csharp_return_type)
-                    can_be_property = false;
-            }
-
-
-            const CInterop::ClassField::Accessor *const maybe_const_getter = is_const ? const_getter : mutable_getter;
-            const CInterop::ClassField::Accessor *const maybe_const_setter = is_const ? const_setter : mutable_setter;
-
-
-            // If this is a property, determine the C# property type.
+            // Determine the C# property type.
             // This can be different for const and mutable halves, but this is fine.
-            std::optional<std::string> csharp_property_type;
-            if (can_be_property)
-                csharp_property_type = GetReturnBinding(maybe_const_getter->ret).csharp_return_type;
+            const std::string csharp_property_type = GetReturnBinding(maybe_const_getter->ret).csharp_return_type;
 
+            // Emit the property.
+            // We only emit the `get` half, never the `set` half.
+            // If the property returns a `ref` type, then the getter is enough, and adding a setter is a compilation error.
+            // If the property returns something else (aka a class wrapper), then we wouldn't be able to provide a setter anyway,
+            //   since its parameter type (the by-value wrapper) needs to be different from what the getter returns, and C# requires those types to match.
+            // But this isn't an issue, since we have `.Assign()` in our class wrappers.
 
-            // Emit...
-            if (can_be_property)
-            {
-                // Emit as a property.
+            FuncLikeEmitter emit_getter(*this, &maybe_const_getter.value(), "get", false/*doesn't matter since we're not in a ctor*/);
 
-                // Skip in mutable class if it's the same function as in the const class.
-                if (!(!is_const && const_getter == mutable_getter && const_setter == mutable_setter))
-                {
-                    FuncLikeEmitter emit_getter(*this, maybe_const_getter, "get", false/*doesn't matter since we're not in a ctor*/);
+            file.WriteSeparatingNewline();
 
-                    std::optional<FuncLikeEmitter> emit_setter;
-                    if (maybe_const_setter)
-                        emit_setter.emplace(*this, maybe_const_setter, "set", false/*doesn't matter since we're not in a ctor*/);
+            file.WriteString(field.comment.c_style);
 
-                    // Write the property:
+            file.WriteString("public ");
 
-                    file.WriteString("public ");
+            if (field.is_static)
+                file.WriteString("static ");
 
-                    if (field.is_static)
-                        file.WriteString("static ");
+            // Be explicit about the shadowing.
+            if (!is_const)
+                file.WriteString("new ");
 
-                    // Be explicit about the shadowing.
-                    if (!is_const)
-                        file.WriteString("new ");
+            if (emit_getter.IsUnsafe())
+                file.WriteString("unsafe ");
 
-                    if (emit_getter.IsUnsafe() || (emit_setter && emit_setter->IsUnsafe()))
-                        file.WriteString("unsafe ");
+            // The return type.
+            file.WriteString(csharp_property_type);
+            file.WriteString(" ");
 
-                    // The return type.
-                    file.WriteString(csharp_property_type.value());
-                    file.WriteString(" ");
+            // The property name.
+            file.WriteString(CppStringToCSharpIdentifier(field.full_name));
+            file.WriteString("\n");
 
-                    // The property name.
-                    file.WriteString(CppStringToCSharpIdentifier(field.full_name));
-                    file.WriteString("\n");
+            file.PushScope({}, "{\n", "}\n");
 
-                    file.PushScope({}, "{\n", "}\n");
+            emit_getter.Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
 
-                    emit_getter.Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
-                    if (emit_setter)
-                        emit_setter->Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
-
-                    file.PopScope();
-                }
-            }
-            else
-            {
-                // Emit the getter and setter separately, as plain functions.
-
-                // Here we can skip each of the two functions separately in the mutable class, if they are the same as in the const class.
-
-                if (!(!is_const && const_getter == mutable_getter))
-                    FuncLikeEmitter(*this, maybe_const_getter, CppStringToCSharpIdentifier("Get_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
-                if (maybe_const_setter && !(!is_const && const_setter == mutable_setter))
-                    FuncLikeEmitter(*this, maybe_const_setter, CppStringToCSharpIdentifier("Set_" + field.full_name), false/*doesn't matter since we're not in a ctor*/).Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
-            }
+            file.PopScope();
         }
         catch (...)
         {

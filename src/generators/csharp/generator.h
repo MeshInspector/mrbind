@@ -600,7 +600,7 @@ namespace mrbind::CSharp
         // Emits a single class field. Either as several accessor methods, or as a C# property if possible.
         // `is_const` determines if we're considered to be inside of a const half of a class or not.
         // This can't be applied to fields of exposed structs.
-        void EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class_name, const CInterop::TypeDesc &class_type_desc, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
+        void EmitCppField(OutputFile &file, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
 
         void Generate();
 
