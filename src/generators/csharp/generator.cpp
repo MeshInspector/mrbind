@@ -1859,7 +1859,7 @@ namespace mrbind::CSharp
                             {
                                 assert(this_param_strings.csharp_decl_params.size() == 1);
 
-                                this_param_strings.dllimport_args = "*(" + generator.CppToCSharpUnqualExposedStructName(unqual_param_type.simple_type.name) + " *)" + this_param_strings.csharp_decl_params.front().name + "._UnderlyingPtr";
+                                this_param_strings.dllimport_args = this_param_strings.csharp_decl_params.front().name + ".UnderlyingStruct";
                                 forced_unsafe = true;
                             }
                         }
@@ -3303,6 +3303,23 @@ namespace mrbind::CSharp
                         }
                     }
 
+                    // Get reference to the underlying exposed struct.
+                    // We can't rely on a conversion operator for this, since conversion operators apparently can't return references.
+                    if (class_desc.kind == CInterop::ClassKind::exposed_struct && !is_exposed_struct_by_value)
+                    {
+                        const std::string struct_name = CppToCSharpUnqualExposedStructName(cpp_qual_name);
+
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "/// Get the underlying struct.\n"
+                            "public unsafe " +
+                            std::string(IsConst() ? "" : "new ") +
+                            (IsConst() ? "ref readonly " : "ref ") +
+                            struct_name + " " +
+                            "UnderlyingStruct => ref *(" + struct_name + " *)_UnderlyingPtr;\n"
+                        );
+                    }
+
                     // The constructor from a pointer.
                     if (!is_exposed_struct_by_value)
                     {
@@ -3537,11 +3554,10 @@ namespace mrbind::CSharp
                     { // Emit the fields.
                         for (const auto &field : class_desc.fields)
                         {
-                            if (is_exposed_struct_by_value && !field.is_static)
+                            // Custom for non-static fields in exposed fields.
+                            if (!field.is_static && class_desc.kind == CInterop::ClassKind::exposed_struct)
                             {
-                                // Custom behavior for exposed fields.
-
-                                cppdecl::Type cpp_type = ParseTypeOrThrow(field.type);
+                                const cppdecl::Type cpp_type = ParseTypeOrThrow(field.type);
 
                                 auto csharp_type = CppToCSharpKnownSizeType(cpp_type);
                                 if (!csharp_type)
@@ -3549,43 +3565,73 @@ namespace mrbind::CSharp
 
                                 const bool is_bool = cpp_type.AsSingleWord() == "bool";
 
+                                const std::string csharp_field_name = CppStringToCSharpIdentifier(field.name);
+
                                 file.WriteSeparatingNewline();
 
                                 // Write comment.
                                 file.WriteString(field.comment.c_style);
 
-                                const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
-
-                                const std::string csharp_field_name = CppStringToCSharpIdentifier(field.name);
-
-                                // Write the field itself.
-                                if (is_bool)
+                                // Write the field by value, if we're in the by-value part.
+                                if (is_exposed_struct_by_value)
                                 {
-                                    // We hide bools behind properties, since they're stores as `byte`s.
-                                    // We could try `bool` + `MarshalAs()`, but I heard that even then `bool`s in C# are "not blittable",
-                                    //   which roughly means "not trivially copyable" (apparently in the sense that they can be corrupted by writing bad bytes to them),
-                                    //   and as such don't work as return values: https://stackoverflow.com/a/32115697/2752075
-                                    file.WriteString(
-                                        // Put the field first, so that the emitted comment above gets attached to it.
-                                        "public bool " + csharp_field_name + " {get => __storage_" + csharp_field_name + " != 0; set => __storage_" + csharp_field_name + " = value ? (byte)1 : (byte)0;}\n"
-                                        + offset_attr +
-                                        "byte __storage_" + csharp_field_name + ";\n"
-                                    );
+                                    const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
+
+                                    // Write the field itself.
+                                    if (is_bool)
+                                    {
+                                        // We hide bools behind properties, since they're stores as `byte`s.
+                                        // We could try `bool` + `MarshalAs()`, but I heard that even then `bool`s in C# are "not blittable",
+                                        //   which roughly means "not trivially copyable" (apparently in the sense that they can be corrupted by writing bad bytes to them),
+                                        //   and as such don't work as return values: https://stackoverflow.com/a/32115697/2752075
+                                        file.WriteString(
+                                            // Put the field first, so that the emitted comment above gets attached to it.
+                                            "public bool " + csharp_field_name + " {get => __storage_" + csharp_field_name + " != 0; set => __storage_" + csharp_field_name + " = value ? (byte)1 : (byte)0;}\n"
+                                            + offset_attr +
+                                            "byte __storage_" + csharp_field_name + ";\n"
+                                        );
+                                    }
+                                    else
+                                    {
+                                        file.WriteString(
+                                            offset_attr +
+                                            "public " +
+                                            *csharp_type + " " + csharp_field_name + ";\n"
+                                        );
+                                    }
                                 }
+                                // Or emit a property returning a reference to it, if we're in a wrapper class.
                                 else
                                 {
-                                    file.WriteString(
-                                        offset_attr +
-                                        "public " +
-                                        *csharp_type + " " + csharp_field_name + ";\n"
-                                    );
+                                    if (is_bool)
+                                    {
+                                        file.WriteString(
+                                            "public " +
+                                            std::string(IsConst() ? "" : "new ") +
+                                            "bool " +
+                                            csharp_field_name + " " +
+                                            (IsConst() ? "" : "{get ") +
+                                            "=> UnderlyingStruct." + csharp_field_name + ";" +
+                                            (IsConst() ? "" : " set => UnderlyingStruct." + csharp_field_name + " = value;}") +
+                                            "\n"
+                                        );
+                                    }
+                                    else
+                                    {
+                                        file.WriteString(
+                                            "public " +
+                                            std::string(IsConst() ? "" : "new ") +
+                                            (IsConst() ? "ref readonly " : "ref ") +
+                                            *csharp_type + " " +
+                                            csharp_field_name +
+                                            " => ref UnderlyingStruct." + csharp_field_name + ";\n"
+                                        );
+                                    }
                                 }
                             }
                             else
                             {
-                                if (!field.is_static && class_desc.kind == CInterop::ClassKind::exposed_struct)
-                                    continue;
-
+                                // Just the normal field.
                                 EmitCppField(file, field, is_exposed_struct_by_value ? false : IsConst(), shadowing_data);
                             }
                         }

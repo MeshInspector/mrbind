@@ -8737,6 +8737,9 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
+                /// Get the underlying struct.
+                public unsafe ref readonly ExposedLayout UnderlyingStruct => ref *(ExposedLayout *)_UnderlyingPtr;
+
                 internal unsafe ConstExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
@@ -8750,6 +8753,19 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~ConstExposedLayout() {Dispose(false);}
+
+                public ref readonly ushort X => ref UnderlyingStruct.X;
+
+                // This is field `y`!
+                public ref readonly int Y => ref UnderlyingStruct.Y;
+
+                public ref readonly double Z => ref UnderlyingStruct.Z;
+
+                public ref readonly MR.CS.ArrayInt3 Arr => ref UnderlyingStruct.Arr;
+
+                public bool B => UnderlyingStruct.B;
+
+                public ref readonly MR.CS.ArrayBool4_5 Ba => ref UnderlyingStruct.Ba;
 
                 /// Generated default constructor.
                 public unsafe ConstExposedLayout() : this(null, is_owning: true)
@@ -8832,7 +8848,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static int __MR_C_sub_int_MR_CSharp_ExposedLayout(int _1, MR.CS.CSharp.ExposedLayout _2);
-                    return __MR_C_sub_int_MR_CSharp_ExposedLayout(_1, *(ExposedLayout *)_2._UnderlyingPtr);
+                    return __MR_C_sub_int_MR_CSharp_ExposedLayout(_1, _2.UnderlyingStruct);
                 }
 
                 /// Generated from function `MR::CSharp::operator%`.
@@ -8867,7 +8883,23 @@ public static partial class MR
             /// This is the non-const reference to the struct.
             public class MutExposedLayout : ConstExposedLayout, System.IEquatable<float>
             {
+                /// Get the underlying struct.
+                public unsafe new ref ExposedLayout UnderlyingStruct => ref *(ExposedLayout *)_UnderlyingPtr;
+
                 internal unsafe MutExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                public new ref ushort X => ref UnderlyingStruct.X;
+
+                // This is field `y`!
+                public new ref int Y => ref UnderlyingStruct.Y;
+
+                public new ref double Z => ref UnderlyingStruct.Z;
+
+                public new ref MR.CS.ArrayInt3 Arr => ref UnderlyingStruct.Arr;
+
+                public new bool B {get => UnderlyingStruct.B; set => UnderlyingStruct.B = value;}
+
+                public new ref MR.CS.ArrayBool4_5 Ba => ref UnderlyingStruct.Ba;
 
                 /// Generated default constructor.
                 public unsafe MutExposedLayout() : this(null, is_owning: true)
@@ -9242,6 +9274,9 @@ public static partial class MR
                     return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
                 }
 
+                /// Get the underlying struct.
+                public unsafe ref readonly ExposedLayoutSh UnderlyingStruct => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+
                 internal unsafe ConstExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
@@ -9283,6 +9318,19 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~ConstExposedLayoutSh() {Dispose(false);}
+
+                public ref readonly ushort X => ref UnderlyingStruct.X;
+
+                // This is field `y`!
+                public ref readonly int Y => ref UnderlyingStruct.Y;
+
+                public ref readonly double Z => ref UnderlyingStruct.Z;
+
+                public ref readonly MR.CS.ArrayInt3 Arr => ref UnderlyingStruct.Arr;
+
+                public bool B => UnderlyingStruct.B;
+
+                public ref readonly MR.CS.ArrayBool4_5 Ba => ref UnderlyingStruct.Ba;
 
                 /// Generated default constructor.
                 public unsafe ConstExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
@@ -9365,7 +9413,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static int __MR_C_sub_int_MR_CSharp_ExposedLayoutSh(int _1, MR.CS.CSharp.ExposedLayoutSh _2);
-                    return __MR_C_sub_int_MR_CSharp_ExposedLayoutSh(_1, *(ExposedLayoutSh *)_2._UnderlyingPtr);
+                    return __MR_C_sub_int_MR_CSharp_ExposedLayoutSh(_1, _2.UnderlyingStruct);
                 }
 
                 /// Generated from function `MR::CSharp::operator%`.
@@ -9400,9 +9448,25 @@ public static partial class MR
             /// This is the non-const reference to the struct.
             public class MutExposedLayoutSh : ConstExposedLayoutSh, System.IEquatable<float>
             {
+                /// Get the underlying struct.
+                public unsafe new ref ExposedLayoutSh UnderlyingStruct => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+
                 internal unsafe MutExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 internal unsafe MutExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+
+                public new ref ushort X => ref UnderlyingStruct.X;
+
+                // This is field `y`!
+                public new ref int Y => ref UnderlyingStruct.Y;
+
+                public new ref double Z => ref UnderlyingStruct.Z;
+
+                public new ref MR.CS.ArrayInt3 Arr => ref UnderlyingStruct.Arr;
+
+                public new bool B {get => UnderlyingStruct.B; set => UnderlyingStruct.B = value;}
+
+                public new ref MR.CS.ArrayBool4_5 Ba => ref UnderlyingStruct.Ba;
 
                 /// Generated default constructor.
                 public unsafe MutExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
@@ -9765,6 +9829,9 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
+                /// Get the underlying struct.
+                public unsafe ref readonly ExposedLayoutB UnderlyingStruct => ref *(ExposedLayoutB *)_UnderlyingPtr;
+
                 internal unsafe ConstExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
@@ -9778,6 +9845,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~ConstExposedLayoutB() {Dispose(false);}
+
+                public ref readonly int X => ref UnderlyingStruct.X;
 
                 /// Generated copy constructor.
                 public unsafe ConstExposedLayoutB(ConstExposedLayoutB _other) : this(null, is_owning: true)
@@ -9838,7 +9907,12 @@ public static partial class MR
             /// This is the non-const reference to the struct.
             public class MutExposedLayoutB : ConstExposedLayoutB
             {
+                /// Get the underlying struct.
+                public unsafe new ref ExposedLayoutB UnderlyingStruct => ref *(ExposedLayoutB *)_UnderlyingPtr;
+
                 internal unsafe MutExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                public new ref int X => ref UnderlyingStruct.X;
 
                 /// Generated copy constructor.
                 public unsafe MutExposedLayoutB(ConstExposedLayoutB _other) : this(null, is_owning: true)
