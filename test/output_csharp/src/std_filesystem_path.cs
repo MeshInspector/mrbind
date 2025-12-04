@@ -165,7 +165,22 @@ public static partial class MR
                 }
 
                 /// This is used for optional parameters of class `Path` with default arguments.
-                /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+                /// This is only used mutable parameters. For const ones we have `InOptConst_Path`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Path`/`ConstPath` directly.
+                public class InOptMut_Path
+                {
+                    public Path? Opt;
+
+                    public InOptMut_Path() {}
+                    public InOptMut_Path(Path value) {Opt = value;}
+                    public static implicit operator InOptMut_Path(Path value) {return new(value);}
+                }
+
+                /// This is used for optional parameters of class `Path` with default arguments.
+                /// This is only used const parameters. For non-const ones we have `InOptMut_Path`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
@@ -175,8 +190,8 @@ public static partial class MR
                     public ConstPath? Opt;
 
                     public InOptConst_Path() {}
-                    public InOptConst_Path(ConstPath NewOpt) {Opt = NewOpt;}
-                    public static implicit operator InOptConst_Path(ConstPath NewOpt) {return new InOptConst_Path(NewOpt);}
+                    public InOptConst_Path(ConstPath value) {Opt = value;}
+                    public static implicit operator InOptConst_Path(ConstPath value) {return new(value);}
 
                     /// Constructs a new instance.
                     public static unsafe implicit operator InOptConst_Path(ReadOnlySpan<char> other) {return new MR.CS.Std.Filesystem.Path(other);}

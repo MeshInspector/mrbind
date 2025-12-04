@@ -158,7 +158,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StringView` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StringView`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringView`/`ConstStringView` directly.
+            public class InOptMut_StringView
+            {
+                public StringView? Opt;
+
+                public InOptMut_StringView() {}
+                public InOptMut_StringView(StringView value) {Opt = value;}
+                public static implicit operator InOptMut_StringView(StringView value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StringView` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StringView`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -168,8 +183,8 @@ public static partial class MR
                 public ConstStringView? Opt;
 
                 public InOptConst_StringView() {}
-                public InOptConst_StringView(ConstStringView NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StringView(ConstStringView NewOpt) {return new InOptConst_StringView(NewOpt);}
+                public InOptConst_StringView(ConstStringView value) {Opt = value;}
+                public static implicit operator InOptConst_StringView(ConstStringView value) {return new(value);}
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator InOptConst_StringView(ReadOnlySpan<char> other) {return new MR.CS.Std.StringView(other);}

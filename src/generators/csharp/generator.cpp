@@ -599,6 +599,32 @@ namespace mrbind::CSharp
         return "InOpt_" + CppToCSharpIdentifier(name);
     }
 
+    std::string Generator::CppToCSharpInOptMutNontrivialHelperName(cppdecl::QualifiedName name)
+    {
+        name = AdjustCppNamespaces(std::move(name));
+
+        std::string ret;
+        for (std::size_t i = 0; i < name.parts.size(); i++)
+        {
+            if (i > 0)
+                ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
+
+            std::string part;
+            if (i + 1 == name.parts.size())
+                part = CppToCSharpUnqualInOptMutNontrivialHelperName(name.parts[i]);
+            else
+                part = CppToCSharpIdentifier(name.parts[i]);
+
+            ret += part;
+        }
+        return ret;
+    }
+
+    std::string Generator::CppToCSharpUnqualInOptMutNontrivialHelperName(const cppdecl::UnqualifiedName &name)
+    {
+        return "InOptMut_" + CppToCSharpIdentifier(name);
+    }
+
     std::string Generator::CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name)
     {
         name = AdjustCppNamespaces(std::move(name));
@@ -1109,6 +1135,7 @@ namespace mrbind::CSharp
                                     const std::string csharp_type = CppToCSharpClassName(cpp_effective_type.simple_type.name, is_const);
                                     const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
                                     const std::string csharp_underlying_ptr_type = csharp_type + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
+                                    const std::string csharp_in_opt_mut = CppToCSharpInOptMutNontrivialHelperName(cpp_effective_type.simple_type.name);
                                     const std::string csharp_in_opt_const = CppToCSharpInOptConstNontrivialHelperName(cpp_effective_type.simple_type.name);
 
                                     switch (elem.kind)
@@ -1129,11 +1156,11 @@ namespace mrbind::CSharp
                                                 },
                                             },
                                             .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                                .make_strings = [this, is_const, csharp_in_opt_const, csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
+                                                .make_strings = [is_const, csharp_in_opt_const, csharp_in_opt_mut, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_underlying_ptr_type + "*" + name,
-                                                        .csharp_decl_params = {{.type = (is_const ? csharp_in_opt_const : RequestHelper("InOptMutClass") + "<" + csharp_type + ">") + "?", .name = name, .default_arg = "null"}},
+                                                        .csharp_decl_params = {{.type = (is_const ? csharp_in_opt_const : csharp_in_opt_mut) + "?", .name = name, .default_arg = "null"}},
                                                         .extra_statements = csharp_underlying_ptr_type + "__ptr_" + name + " = " + name + " is not null && " + name + ".Opt is not null ? " + name + ".Opt." + csharp_underlying_ptr + " : null;\n",
                                                         .dllimport_args = name + " is not null ? &__ptr_" + name + " : null",
                                                     };
@@ -1406,8 +1433,8 @@ namespace mrbind::CSharp
                                             {
                                                 return TypeBinding::ParamUsage::Strings{
                                                     .dllimport_decl_params = csharp_value_type + " *" + name,
-                                                    .csharp_decl_params = {{.type = csharp_in_opt_type, .name = name, .default_arg = "new()"}}, // Note `new()` instead of `= null`.
-                                                    .dllimport_args = name + ".HasValue ? &" + name + ".Value" + " : null",
+                                                    .csharp_decl_params = {{.type = csharp_in_opt_type, .name = name, .default_arg = "default"}}, // Note `default` instead of `new()` or `= null`. This isn't nullable, which is expected, but being unable to use `new()` as the default argument is weird.
+                                                    .dllimport_args = name + ".HasValue ? &" + name + ".Object" + " : null",
                                                 };
                                             },
                                         },
@@ -3320,6 +3347,21 @@ namespace mrbind::CSharp
                         );
                     }
 
+                    // Conversion operators between the exposed struct and its class wrappers.
+                    if (is_exposed_struct_by_value)
+                    {
+                        const std::string mut_name = CppToCSharpUnqualClassName(cpp_qual_name, false);
+                        const std::string const_name = CppToCSharpUnqualClassName(cpp_qual_name, true);
+
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "/// Copy contents from a wrapper class to this struct.\n"
+                            "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other.UnderlyingStruct;\n"
+                            "/// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)\n"
+                            "public unsafe static implicit operator " + mut_name + "(" + unqual_csharp_name + " other) => new(new " + mut_name + "((" + mut_name + "._Underlying *)&other, is_owning: false));\n"
+                        );
+                    }
+
                     // The constructor from a pointer.
                     if (!is_exposed_struct_by_value)
                     {
@@ -3790,6 +3832,19 @@ namespace mrbind::CSharp
                 const std::string pass_by = RequestHelper("_PassBy");
                 const std::string moved = RequestHelper("_Moved");
 
+                const std::optional<std::string> struct_name =
+                    class_desc.kind == CInterop::ClassKind::exposed_struct
+                    ? std::optional(CppToCSharpUnqualExposedStructName(cpp_name))
+                    : std::nullopt;
+
+                std::string related_classes_list = "`" + mut_half_name + "`/`" + const_half_name + "`";
+
+                std::string related_classes_list_with_struct;
+                if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                    related_classes_list_with_struct = "`" + *struct_name + "`/" + related_classes_list;
+                else
+                    related_classes_list_with_struct = related_classes_list;
+
                 auto EmitConvertingCtors = [&](EmitVariant this_variant)
                 {
                     for (const auto &method : class_desc.methods)
@@ -3819,7 +3874,7 @@ namespace mrbind::CSharp
                         "/// This is used as a function parameter when the underlying function receives `" + mut_half_name + "` by value.\n"
                         "/// Usage:\n"
                         "/// * Pass `new()` to default-construct the instance.\n"
-                        "/// * Pass an instance of `" + mut_half_name + "`/`" + const_half_name + "` to copy it into the function.\n"
+                        "/// * Pass an instance of " + related_classes_list + " to copy it into the function.\n"
                         "/// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.\n"
                         "///   Be careful if your input isn't a unique reference to this object.\n"
                         "/// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.\n"
@@ -3847,13 +3902,12 @@ namespace mrbind::CSharp
                 if (cl->kind == CInterop::ClassKind::exposed_struct)
                 {
                     const std::string in_opt_name = CppToCSharpUnqualInOptStructHelperName(cpp_name.parts.back());
-                    const std::string struct_name = CppToCSharpUnqualExposedStructName(cpp_name);
 
                     file.WriteSeparatingNewline();
                     file.WriteString(
                         "/// This is used as a function parameter when passing `" + mut_half_name + "` by value with a default argument, since `?` doesn't seem to work with `ref struct`.\n"
                         "/// Usage:\n"
-                        "/// * Pass an instance of `" + struct_name + "`/`" + mut_half_name + "`/`" + const_half_name + "` to copy it into the function.\n"
+                        "/// * Pass an instance of " + related_classes_list + " to copy it into the function.\n"
                         "/// * Pass `null` to use the default argument\n"
                         "public readonly ref struct " + in_opt_name + "\n"
                     );
@@ -3863,8 +3917,8 @@ namespace mrbind::CSharp
                         // This looks like it requires the type to be default-constructible.
                         // But this isn't a big deal, since apparently C# structs are always default-constructible. This isn't a problem for us,
                         //   since our structs are trivial enough, so we don't mind.
-                        "readonly " + struct_name + " Object;\n"
-                        "public " + struct_name + " Value"
+                        "internal readonly " + *struct_name + " Object;\n"
+                        "public " + *struct_name + " Value"
                         "{\n"
                         "    get\n"
                         "    {\n"
@@ -3874,11 +3928,55 @@ namespace mrbind::CSharp
                         "}\n"
                         "\n"
                         "public " + in_opt_name + "() {HasValue = false;}\n"
-                        "public " + in_opt_name + "(" + struct_name + " new_value) {HasValue = true; Object = new_value;}\n"
-                        "public static implicit operator " + in_opt_name + "(" + struct_name + " new_value) {return new(new_value);}\n"
+                        "public " + in_opt_name + "(" + *struct_name + " new_value) {HasValue = true; Object = new_value;}\n"
+                        "public static implicit operator " + in_opt_name + "(" + *struct_name + " new_value) {return new(new_value);}\n"
+                        "public " + in_opt_name + "(" + const_half_name + " new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}\n"
+                        "public static implicit operator " + in_opt_name + "(" + const_half_name + " new_value) {return new(new_value);}\n"
                     );
 
                     EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper);
+
+                    file.PopScope();
+                }
+
+                { // `InOptMut...`.
+                    const std::string in_opt_mut_name = CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name.parts.back());
+
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// This is used for optional parameters of class `" + mut_half_name + "` with default arguments.\n"
+                        "/// This is only used mutable parameters. For const ones we have `" + CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name.parts.back()) + "`.\n"
+                        "/// Usage:\n"
+                        "/// * Pass `null` to use the default argument.\n"
+                        "/// * Pass `new()` to pass no object.\n"
+                        "/// * Pass an instance of " + related_classes_list + " directly.\n"
+                        + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "/// * Pass `new(ref ...)` to pass a reference to `" + *struct_name + "`.\n" : "") +
+                        "public class " + in_opt_mut_name + "\n"
+                    );
+                    file.PushScope({}, "{\n", "}\n");
+                    file.WriteString(
+                        "public " + mut_half_name + "? Opt;\n"
+                        "\n"
+                        "public " + in_opt_mut_name + "() {}\n"
+                        "public " + in_opt_mut_name + "(" + mut_half_name + " value) {Opt = value;}\n"
+                        "public static implicit operator " + in_opt_mut_name + "(" + mut_half_name + " value) {return new(value);}\n"
+                        // No converting ctors here, just like `T &` parameters don't accept temporaries.
+                    );
+
+                    if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                    {
+                        // Construct from a struct reference.
+                        // Sadly conversion operators can't take references, so there's no conversion.
+                        file.WriteString(
+                            "public unsafe " + in_opt_mut_name + "(ref " + *struct_name + " value)\n"
+                            "{\n"
+                            "    fixed (" + *struct_name + " *value_ptr = &value)\n"
+                            "    {\n"
+                            "        Opt = new((" + const_half_name + "._Underlying *)value_ptr, is_owning: false);\n"
+                            "    }\n"
+                            "}\n"
+                        );
+                    }
 
                     file.PopScope();
                 }
@@ -3889,11 +3987,12 @@ namespace mrbind::CSharp
                     file.WriteSeparatingNewline();
                     file.WriteString(
                         "/// This is used for optional parameters of class `" + mut_half_name + "` with default arguments.\n"
-                        "/// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.\n"
+                        "/// This is only used const parameters. For non-const ones we have `" + CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name.parts.back()) + "`.\n"
                         "/// Usage:\n"
                         "/// * Pass `null` to use the default argument.\n"
                         "/// * Pass `new()` to pass no object.\n"
-                        "/// * Pass an instance of `" + mut_half_name + "`/`" + const_half_name + "` to pass it to the function.\n"
+                        "/// * Pass an instance of " + related_classes_list + " to pass it to the function.\n"
+                        + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "/// * Pass `new(ref ...)` to pass a reference to `" + *struct_name + "`.\n" : "") +
                         "public class " + in_opt_const_name + "\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
@@ -3901,9 +4000,24 @@ namespace mrbind::CSharp
                         "public " + const_half_name + "? Opt;\n"
                         "\n"
                         "public " + in_opt_const_name + "() {}\n"
-                        "public " + in_opt_const_name + "(" + const_half_name + " NewOpt) {Opt = NewOpt;}\n"
-                        "public static implicit operator " + in_opt_const_name + "(" + const_half_name + " NewOpt) {return new " + in_opt_const_name + "(NewOpt);}\n"
+                        "public " + in_opt_const_name + "(" + const_half_name + " value) {Opt = value;}\n"
+                        "public static implicit operator " + in_opt_const_name + "(" + const_half_name + " value) {return new(value);}\n"
                     );
+
+                    if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                    {
+                        // Construct from a const struct reference.
+                        // Sadly conversion operators can't take references, so there's no conversion.
+                        file.WriteString(
+                            "public unsafe " + in_opt_const_name + "(ref readonly " + *struct_name + " value)\n"
+                            "{\n"
+                            "    fixed (" + *struct_name + " *value_ptr = &value)\n"
+                            "    {\n"
+                            "        Opt = new((" + const_half_name + "._Underlying *)value_ptr, is_owning: false);\n"
+                            "    }\n"
+                            "}\n"
+                        );
+                    }
 
                     EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_in_opt_const_helper);
 
@@ -4398,29 +4512,6 @@ namespace mrbind::CSharp
                         "    public InOpt() {}\n"
                         "    public InOpt(T NewOpt) {Opt = NewOpt;}\n"
                         "    public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}\n"
-                        "}\n"
-                    );
-                }
-
-                // `InOptMutClass`.
-                if (requested_helpers.erase("InOptMutClass"))
-                {
-                    file.WriteSeparatingNewline();
-                    file.WriteString(
-                        "/// This is used for optional parameters of class types with default arguments.\n"
-                        "/// This is only used for non-const parameters. For const ones we generate unique wrappers per class.\n"
-                        "/// This needs to be separate from `InOpt`, since the lack of `unmanaged` constraint seems to somehow interfere with the behavior of unmanaged types.\n"
-                        "/// Usage:\n"
-                        "/// * Pass `null` to use the default argument.\n"
-                        "/// * Pass `new()` to pass no object.\n"
-                        "/// * Pass an instance of `T` to pass it to the function.\n"
-                        "public class InOptMutClass<T>\n"
-                        "{\n"
-                        "    public T? Opt;\n"
-                        "\n"
-                        "    public InOptMutClass() {}\n"
-                        "    public InOptMutClass(T NewOpt) {Opt = NewOpt;}\n"
-                        "    public static implicit operator InOptMutClass<T>(T NewOpt) {return new InOptMutClass<T>(NewOpt);}\n"
                         "}\n"
                     );
                 }

@@ -78,22 +78,6 @@ public static partial class MR
                 public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}
             }
 
-            /// This is used for optional parameters of class types with default arguments.
-            /// This is only used for non-const parameters. For const ones we generate unique wrappers per class.
-            /// This needs to be separate from `InOpt`, since the lack of `unmanaged` constraint seems to somehow interfere with the behavior of unmanaged types.
-            /// Usage:
-            /// * Pass `null` to use the default argument.
-            /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `T` to pass it to the function.
-            public class InOptMutClass<T>
-            {
-                public T? Opt;
-
-                public InOptMutClass() {}
-                public InOptMutClass(T NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptMutClass<T>(T NewOpt) {return new InOptMutClass<T>(NewOpt);}
-            }
-
             /// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.
             /// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.
             public unsafe class Ref<T> where T: unmanaged

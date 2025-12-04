@@ -356,8 +356,12 @@ namespace mrbind::CSharp
         // Same, but for unqualified names.
         [[nodiscard]] std::string CppToCSharpUnqualInOptStructHelperName(const cppdecl::UnqualifiedName &name);
 
+        // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by an optional mutable pointer.
+        [[nodiscard]] std::string CppToCSharpInOptMutNontrivialHelperName(cppdecl::QualifiedName name);
+        // Same, but for unqualified names.
+        [[nodiscard]] std::string CppToCSharpUnqualInOptMutNontrivialHelperName(const cppdecl::UnqualifiedName &name);
+
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by an optional const pointer.
-        // This only makes sense for classes that use the pass-by enum.
         [[nodiscard]] std::string CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name);
         // Same, but for unqualified names.
         [[nodiscard]] std::string CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name);

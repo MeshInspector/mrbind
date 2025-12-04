@@ -301,7 +301,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `SharedPtr_Void` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_SharedPtr_Void`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SharedPtr_Void`/`ConstSharedPtr_Void` directly.
+            public class InOptMut_SharedPtr_Void
+            {
+                public SharedPtr_Void? Opt;
+
+                public InOptMut_SharedPtr_Void() {}
+                public InOptMut_SharedPtr_Void(SharedPtr_Void value) {Opt = value;}
+                public static implicit operator InOptMut_SharedPtr_Void(SharedPtr_Void value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SharedPtr_Void` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_SharedPtr_Void`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -311,8 +326,8 @@ public static partial class MR
                 public ConstSharedPtr_Void? Opt;
 
                 public InOptConst_SharedPtr_Void() {}
-                public InOptConst_SharedPtr_Void(ConstSharedPtr_Void NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_SharedPtr_Void(ConstSharedPtr_Void NewOpt) {return new InOptConst_SharedPtr_Void(NewOpt);}
+                public InOptConst_SharedPtr_Void(ConstSharedPtr_Void value) {Opt = value;}
+                public static implicit operator InOptConst_SharedPtr_Void(ConstSharedPtr_Void value) {return new(value);}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
                 public static unsafe implicit operator InOptConst_SharedPtr_Void(MR.CS.CSharp.ByValue_SB _other) {return new MR.CS.Std.SharedPtr_Void(_other);}

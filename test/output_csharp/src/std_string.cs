@@ -204,7 +204,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `String` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_String`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `String`/`ConstString` directly.
+            public class InOptMut_String
+            {
+                public String? Opt;
+
+                public InOptMut_String() {}
+                public InOptMut_String(String value) {Opt = value;}
+                public static implicit operator InOptMut_String(String value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `String` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_String`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -214,8 +229,8 @@ public static partial class MR
                 public ConstString? Opt;
 
                 public InOptConst_String() {}
-                public InOptConst_String(ConstString NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_String(ConstString NewOpt) {return new InOptConst_String(NewOpt);}
+                public InOptConst_String(ConstString value) {Opt = value;}
+                public static implicit operator InOptConst_String(ConstString value) {return new(value);}
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator InOptConst_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}

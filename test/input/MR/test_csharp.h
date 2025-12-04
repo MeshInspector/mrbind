@@ -775,6 +775,15 @@ namespace MR::CSharp
     };
     inline void operator--(ExposedLayout) {}
 
+    inline ExposedLayout default_exposed;
+
+    inline ExposedLayout test_exposed(ExposedLayout a, ExposedLayout b = default_exposed) {(void)a; return b;}
+    inline ExposedLayout &test_exposed_ref(ExposedLayout &a, ExposedLayout &b = default_exposed) {(void)a; (void)b; return default_exposed;}
+    inline const ExposedLayout &test_exposed_cref(const ExposedLayout &a, const ExposedLayout &b = default_exposed) {(void)a; (void)b; return default_exposed;}
+    inline ExposedLayout *test_exposed_ptr(ExposedLayout *a, ExposedLayout *b = nullptr, ExposedLayout *c = &default_exposed) {(void)a; (void)b; (void)c; return &default_exposed;}
+    inline const ExposedLayout *test_exposed_cptr(const ExposedLayout *a, const ExposedLayout *b = nullptr, const ExposedLayout *c = &default_exposed) {(void)a; (void)b; (void)c; return &default_exposed;}
+
+
     // This one is backed by a shared pointer.
     struct ExposedLayoutSh
     {
@@ -807,7 +816,15 @@ namespace MR::CSharp
     };
     inline void operator--(ExposedLayoutSh) {}
 
-    inline std::shared_ptr<ExposedLayoutSh> make_exposed_layout_sh() {return nullptr;}
+    inline std::shared_ptr<ExposedLayoutSh> make_exposed_sh() {return nullptr;}
+
+    inline ExposedLayoutSh default_exposed_sh;
+
+    inline ExposedLayoutSh test_exposed(ExposedLayoutSh a, ExposedLayoutSh b = default_exposed_sh) {(void)a; return b;}
+    inline ExposedLayoutSh &test_exposed_ref(ExposedLayoutSh &a, ExposedLayoutSh &b = default_exposed_sh) {(void)a; (void)b; return default_exposed_sh;}
+    inline const ExposedLayoutSh &test_exposed_cref(const ExposedLayoutSh &a, const ExposedLayoutSh &b = default_exposed_sh) {(void)a; (void)b; return default_exposed_sh;}
+    inline ExposedLayoutSh *test_exposed_ptr(ExposedLayoutSh *a, ExposedLayoutSh *b = nullptr, ExposedLayoutSh *c = &default_exposed_sh) {(void)a; (void)b; (void)c; return &default_exposed_sh;}
+    inline const ExposedLayoutSh *test_exposed_cptr(const ExposedLayoutSh *a, const ExposedLayoutSh *b = nullptr, const ExposedLayoutSh *c = &default_exposed_sh) {(void)a; (void)b; (void)c; return &default_exposed_sh;}
 
     struct ExposedLayoutB
     {

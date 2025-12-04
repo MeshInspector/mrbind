@@ -187,7 +187,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `A` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_A`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `A`/`ConstA` directly.
+            public class InOptMut_A
+            {
+                public A? Opt;
+
+                public InOptMut_A() {}
+                public InOptMut_A(A value) {Opt = value;}
+                public static implicit operator InOptMut_A(A value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `A` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -197,8 +212,8 @@ public static partial class MR
                 public ConstA? Opt;
 
                 public InOptConst_A() {}
-                public InOptConst_A(ConstA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_A(ConstA NewOpt) {return new InOptConst_A(NewOpt);}
+                public InOptConst_A(ConstA value) {Opt = value;}
+                public static implicit operator InOptConst_A(ConstA value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::B`.
@@ -418,7 +433,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `B` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_B`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `B`/`ConstB` directly.
+            public class InOptMut_B
+            {
+                public B? Opt;
+
+                public InOptMut_B() {}
+                public InOptMut_B(B value) {Opt = value;}
+                public static implicit operator InOptMut_B(B value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `B` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -428,8 +458,8 @@ public static partial class MR
                 public ConstB? Opt;
 
                 public InOptConst_B() {}
-                public InOptConst_B(ConstB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_B(ConstB NewOpt) {return new InOptConst_B(NewOpt);}
+                public InOptConst_B(ConstB value) {Opt = value;}
+                public static implicit operator InOptConst_B(ConstB value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::C`.
@@ -633,7 +663,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `C` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_C`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `C`/`ConstC` directly.
+            public class InOptMut_C
+            {
+                public C? Opt;
+
+                public InOptMut_C() {}
+                public InOptMut_C(C value) {Opt = value;}
+                public static implicit operator InOptMut_C(C value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `C` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -643,8 +688,8 @@ public static partial class MR
                 public ConstC? Opt;
 
                 public InOptConst_C() {}
-                public InOptConst_C(ConstC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_C(ConstC NewOpt) {return new InOptConst_C(NewOpt);}
+                public InOptConst_C(ConstC value) {Opt = value;}
+                public static implicit operator InOptConst_C(ConstC value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::D`.
@@ -742,7 +787,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `D` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_D`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `D`/`ConstD` directly.
+            public class InOptMut_D
+            {
+                public D? Opt;
+
+                public InOptMut_D() {}
+                public InOptMut_D(D value) {Opt = value;}
+                public static implicit operator InOptMut_D(D value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `D` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_D`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -752,8 +812,8 @@ public static partial class MR
                 public ConstD? Opt;
 
                 public InOptConst_D() {}
-                public InOptConst_D(ConstD NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_D(ConstD NewOpt) {return new InOptConst_D(NewOpt);}
+                public InOptConst_D(ConstD value) {Opt = value;}
+                public static implicit operator InOptConst_D(ConstD value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::E`.
@@ -853,7 +913,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `E` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_E`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `E`/`ConstE` directly.
+            public class InOptMut_E
+            {
+                public E? Opt;
+
+                public InOptMut_E() {}
+                public InOptMut_E(E value) {Opt = value;}
+                public static implicit operator InOptMut_E(E value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `E` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_E`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -863,8 +938,8 @@ public static partial class MR
                 public ConstE? Opt;
 
                 public InOptConst_E() {}
-                public InOptConst_E(ConstE NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_E(ConstE NewOpt) {return new InOptConst_E(NewOpt);}
+                public InOptConst_E(ConstE value) {Opt = value;}
+                public static implicit operator InOptConst_E(ConstE value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::F`.
@@ -1136,7 +1211,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `F` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_F`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `F`/`ConstF` directly.
+            public class InOptMut_F
+            {
+                public F? Opt;
+
+                public InOptMut_F() {}
+                public InOptMut_F(F value) {Opt = value;}
+                public static implicit operator InOptMut_F(F value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `F` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_F`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -1146,8 +1236,8 @@ public static partial class MR
                 public ConstF? Opt;
 
                 public InOptConst_F() {}
-                public InOptConst_F(ConstF NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_F(ConstF NewOpt) {return new InOptConst_F(NewOpt);}
+                public InOptConst_F(ConstF value) {Opt = value;}
+                public static implicit operator InOptConst_F(ConstF value) {return new(value);}
             }
 
             // Even if the secondary bases are virtual, this doesn't affect anything.
@@ -1423,7 +1513,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `G` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_G`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `G`/`ConstG` directly.
+            public class InOptMut_G
+            {
+                public G? Opt;
+
+                public InOptMut_G() {}
+                public InOptMut_G(G value) {Opt = value;}
+                public static implicit operator InOptMut_G(G value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `G` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_G`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -1433,8 +1538,8 @@ public static partial class MR
                 public ConstG? Opt;
 
                 public InOptConst_G() {}
-                public InOptConst_G(ConstG NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_G(ConstG NewOpt) {return new InOptConst_G(NewOpt);}
+                public InOptConst_G(ConstG value) {Opt = value;}
+                public static implicit operator InOptConst_G(ConstG value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::Trivial`.
@@ -1508,7 +1613,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `Trivial` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_Trivial`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Trivial`/`ConstTrivial` directly.
+            public class InOptMut_Trivial
+            {
+                public Trivial? Opt;
+
+                public InOptMut_Trivial() {}
+                public InOptMut_Trivial(Trivial value) {Opt = value;}
+                public static implicit operator InOptMut_Trivial(Trivial value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `Trivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_Trivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -1518,8 +1638,8 @@ public static partial class MR
                 public ConstTrivial? Opt;
 
                 public InOptConst_Trivial() {}
-                public InOptConst_Trivial(ConstTrivial NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_Trivial(ConstTrivial NewOpt) {return new InOptConst_Trivial(NewOpt);}
+                public InOptConst_Trivial(ConstTrivial value) {Opt = value;}
+                public static implicit operator InOptConst_Trivial(ConstTrivial value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::TrivialDerived`.
@@ -1593,7 +1713,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `TrivialDerived` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_TrivialDerived`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TrivialDerived`/`ConstTrivialDerived` directly.
+            public class InOptMut_TrivialDerived
+            {
+                public TrivialDerived? Opt;
+
+                public InOptMut_TrivialDerived() {}
+                public InOptMut_TrivialDerived(TrivialDerived value) {Opt = value;}
+                public static implicit operator InOptMut_TrivialDerived(TrivialDerived value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `TrivialDerived` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_TrivialDerived`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -1603,8 +1738,8 @@ public static partial class MR
                 public ConstTrivialDerived? Opt;
 
                 public InOptConst_TrivialDerived() {}
-                public InOptConst_TrivialDerived(ConstTrivialDerived NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_TrivialDerived(ConstTrivialDerived NewOpt) {return new InOptConst_TrivialDerived(NewOpt);}
+                public InOptConst_TrivialDerived(ConstTrivialDerived value) {Opt = value;}
+                public static implicit operator InOptConst_TrivialDerived(ConstTrivialDerived value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::NonTrivial`.
@@ -1696,7 +1831,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `NonTrivial` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_NonTrivial`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonTrivial`/`ConstNonTrivial` directly.
+            public class InOptMut_NonTrivial
+            {
+                public NonTrivial? Opt;
+
+                public InOptMut_NonTrivial() {}
+                public InOptMut_NonTrivial(NonTrivial value) {Opt = value;}
+                public static implicit operator InOptMut_NonTrivial(NonTrivial value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `NonTrivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_NonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -1706,8 +1856,8 @@ public static partial class MR
                 public ConstNonTrivial? Opt;
 
                 public InOptConst_NonTrivial() {}
-                public InOptConst_NonTrivial(ConstNonTrivial NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_NonTrivial(ConstNonTrivial NewOpt) {return new InOptConst_NonTrivial(NewOpt);}
+                public InOptConst_NonTrivial(ConstNonTrivial value) {Opt = value;}
+                public static implicit operator InOptConst_NonTrivial(ConstNonTrivial value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::NonTrivialDerived`.
@@ -1799,7 +1949,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `NonTrivialDerived` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_NonTrivialDerived`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonTrivialDerived`/`ConstNonTrivialDerived` directly.
+            public class InOptMut_NonTrivialDerived
+            {
+                public NonTrivialDerived? Opt;
+
+                public InOptMut_NonTrivialDerived() {}
+                public InOptMut_NonTrivialDerived(NonTrivialDerived value) {Opt = value;}
+                public static implicit operator InOptMut_NonTrivialDerived(NonTrivialDerived value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `NonTrivialDerived` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_NonTrivialDerived`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -1809,8 +1974,8 @@ public static partial class MR
                 public ConstNonTrivialDerived? Opt;
 
                 public InOptConst_NonTrivialDerived() {}
-                public InOptConst_NonTrivialDerived(ConstNonTrivialDerived NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_NonTrivialDerived(ConstNonTrivialDerived NewOpt) {return new InOptConst_NonTrivialDerived(NewOpt);}
+                public InOptConst_NonTrivialDerived(ConstNonTrivialDerived value) {Opt = value;}
+                public static implicit operator InOptConst_NonTrivialDerived(ConstNonTrivialDerived value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::SA`.
@@ -1967,7 +2132,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `SA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_SA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SA`/`ConstSA` directly.
+            public class InOptMut_SA
+            {
+                public SA? Opt;
+
+                public InOptMut_SA() {}
+                public InOptMut_SA(SA value) {Opt = value;}
+                public static implicit operator InOptMut_SA(SA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_SA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -1977,8 +2157,8 @@ public static partial class MR
                 public ConstSA? Opt;
 
                 public InOptConst_SA() {}
-                public InOptConst_SA(ConstSA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_SA(ConstSA NewOpt) {return new InOptConst_SA(NewOpt);}
+                public InOptConst_SA(ConstSA value) {Opt = value;}
+                public static implicit operator InOptConst_SA(ConstSA value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::SB`.
@@ -2135,7 +2315,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `SB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_SB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SB`/`ConstSB` directly.
+            public class InOptMut_SB
+            {
+                public SB? Opt;
+
+                public InOptMut_SB() {}
+                public InOptMut_SB(SB value) {Opt = value;}
+                public static implicit operator InOptMut_SB(SB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_SB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -2145,8 +2340,8 @@ public static partial class MR
                 public ConstSB? Opt;
 
                 public InOptConst_SB() {}
-                public InOptConst_SB(ConstSB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_SB(ConstSB NewOpt) {return new InOptConst_SB(NewOpt);}
+                public InOptConst_SB(ConstSB value) {Opt = value;}
+                public static implicit operator InOptConst_SB(ConstSB value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::SC`.
@@ -2333,7 +2528,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `SC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_SC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SC`/`ConstSC` directly.
+            public class InOptMut_SC
+            {
+                public SC? Opt;
+
+                public InOptMut_SC() {}
+                public InOptMut_SC(SC value) {Opt = value;}
+                public static implicit operator InOptMut_SC(SC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_SC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -2343,8 +2553,8 @@ public static partial class MR
                 public ConstSC? Opt;
 
                 public InOptConst_SC() {}
-                public InOptConst_SC(ConstSC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_SC(ConstSC NewOpt) {return new InOptConst_SC(NewOpt);}
+                public InOptConst_SC(ConstSC value) {Opt = value;}
+                public static implicit operator InOptConst_SC(ConstSC value) {return new(value);}
             }
 
             // Nested classes.
@@ -2465,7 +2675,22 @@ public static partial class MR
                 }
 
                 /// This is used for optional parameters of class `Inner` with default arguments.
-                /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+                /// This is only used mutable parameters. For const ones we have `InOptConst_Inner`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Inner`/`ConstInner` directly.
+                public class InOptMut_Inner
+                {
+                    public Inner? Opt;
+
+                    public InOptMut_Inner() {}
+                    public InOptMut_Inner(Inner value) {Opt = value;}
+                    public static implicit operator InOptMut_Inner(Inner value) {return new(value);}
+                }
+
+                /// This is used for optional parameters of class `Inner` with default arguments.
+                /// This is only used const parameters. For non-const ones we have `InOptMut_Inner`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
@@ -2475,8 +2700,8 @@ public static partial class MR
                     public ConstInner? Opt;
 
                     public InOptConst_Inner() {}
-                    public InOptConst_Inner(ConstInner NewOpt) {Opt = NewOpt;}
-                    public static implicit operator InOptConst_Inner(ConstInner NewOpt) {return new InOptConst_Inner(NewOpt);}
+                    public InOptConst_Inner(ConstInner value) {Opt = value;}
+                    public static implicit operator InOptConst_Inner(ConstInner value) {return new(value);}
                 }
             }
 
@@ -2521,7 +2746,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `Outer` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_Outer`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Outer`/`ConstOuter` directly.
+            public class InOptMut_Outer
+            {
+                public Outer? Opt;
+
+                public InOptMut_Outer() {}
+                public InOptMut_Outer(Outer value) {Opt = value;}
+                public static implicit operator InOptMut_Outer(Outer value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `Outer` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_Outer`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -2531,8 +2771,8 @@ public static partial class MR
                 public ConstOuter? Opt;
 
                 public InOptConst_Outer() {}
-                public InOptConst_Outer(ConstOuter NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_Outer(ConstOuter NewOpt) {return new InOptConst_Outer(NewOpt);}
+                public InOptConst_Outer(ConstOuter value) {Opt = value;}
+                public static implicit operator InOptConst_Outer(ConstOuter value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::TestFields`.
@@ -2832,7 +3072,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `TestFields` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_TestFields`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestFields`/`ConstTestFields` directly.
+            public class InOptMut_TestFields
+            {
+                public TestFields? Opt;
+
+                public InOptMut_TestFields() {}
+                public InOptMut_TestFields(TestFields value) {Opt = value;}
+                public static implicit operator InOptMut_TestFields(TestFields value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `TestFields` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_TestFields`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -2842,8 +3097,8 @@ public static partial class MR
                 public ConstTestFields? Opt;
 
                 public InOptConst_TestFields() {}
-                public InOptConst_TestFields(ConstTestFields NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_TestFields(ConstTestFields NewOpt) {return new InOptConst_TestFields(NewOpt);}
+                public InOptConst_TestFields(ConstTestFields value) {Opt = value;}
+                public static implicit operator InOptConst_TestFields(ConstTestFields value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::TestConstness`.
@@ -2933,7 +3188,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `TestConstness` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_TestConstness`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestConstness`/`ConstTestConstness` directly.
+            public class InOptMut_TestConstness
+            {
+                public TestConstness? Opt;
+
+                public InOptMut_TestConstness() {}
+                public InOptMut_TestConstness(TestConstness value) {Opt = value;}
+                public static implicit operator InOptMut_TestConstness(TestConstness value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `TestConstness` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_TestConstness`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -2943,8 +3213,8 @@ public static partial class MR
                 public ConstTestConstness? Opt;
 
                 public InOptConst_TestConstness() {}
-                public InOptConst_TestConstness(ConstTestConstness NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_TestConstness(ConstTestConstness NewOpt) {return new InOptConst_TestConstness(NewOpt);}
+                public InOptConst_TestConstness(ConstTestConstness value) {Opt = value;}
+                public static implicit operator InOptConst_TestConstness(ConstTestConstness value) {return new(value);}
             }
 
             // This is the happy path.
@@ -3058,7 +3328,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrA`/`ConstIncrDecrA` directly.
+            public class InOptMut_IncrDecrA
+            {
+                public IncrDecrA? Opt;
+
+                public InOptMut_IncrDecrA() {}
+                public InOptMut_IncrDecrA(IncrDecrA value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrA(IncrDecrA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3068,8 +3353,8 @@ public static partial class MR
                 public ConstIncrDecrA? Opt;
 
                 public InOptConst_IncrDecrA() {}
-                public InOptConst_IncrDecrA(ConstIncrDecrA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrA(ConstIncrDecrA NewOpt) {return new InOptConst_IncrDecrA(NewOpt);}
+                public InOptConst_IncrDecrA(ConstIncrDecrA value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrA(ConstIncrDecrA value) {return new(value);}
             }
 
             // This is a somewhat happy path. Same as above, but everything gets emitted in the const half.
@@ -3181,7 +3466,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrB`/`ConstIncrDecrB` directly.
+            public class InOptMut_IncrDecrB
+            {
+                public IncrDecrB? Opt;
+
+                public InOptMut_IncrDecrB() {}
+                public InOptMut_IncrDecrB(IncrDecrB value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrB(IncrDecrB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3191,8 +3491,8 @@ public static partial class MR
                 public ConstIncrDecrB? Opt;
 
                 public InOptConst_IncrDecrB() {}
-                public InOptConst_IncrDecrB(ConstIncrDecrB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrB(ConstIncrDecrB NewOpt) {return new InOptConst_IncrDecrB(NewOpt);}
+                public InOptConst_IncrDecrB(ConstIncrDecrB value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrB(ConstIncrDecrB value) {return new(value);}
             }
 
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
@@ -3298,7 +3598,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrC`/`ConstIncrDecrC` directly.
+            public class InOptMut_IncrDecrC
+            {
+                public IncrDecrC? Opt;
+
+                public InOptMut_IncrDecrC() {}
+                public InOptMut_IncrDecrC(IncrDecrC value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrC(IncrDecrC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3308,8 +3623,8 @@ public static partial class MR
                 public ConstIncrDecrC? Opt;
 
                 public InOptConst_IncrDecrC() {}
-                public InOptConst_IncrDecrC(ConstIncrDecrC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrC(ConstIncrDecrC NewOpt) {return new InOptConst_IncrDecrC(NewOpt);}
+                public InOptConst_IncrDecrC(ConstIncrDecrC value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrC(ConstIncrDecrC value) {return new(value);}
             }
 
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
@@ -3415,7 +3730,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrD` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrD`/`ConstIncrDecrD` directly.
+            public class InOptMut_IncrDecrD
+            {
+                public IncrDecrD? Opt;
+
+                public InOptMut_IncrDecrD() {}
+                public InOptMut_IncrDecrD(IncrDecrD value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrD(IncrDecrD value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3425,8 +3755,8 @@ public static partial class MR
                 public ConstIncrDecrD? Opt;
 
                 public InOptConst_IncrDecrD() {}
-                public InOptConst_IncrDecrD(ConstIncrDecrD NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrD(ConstIncrDecrD NewOpt) {return new InOptConst_IncrDecrD(NewOpt);}
+                public InOptConst_IncrDecrD(ConstIncrDecrD value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrD(ConstIncrDecrD value) {return new(value);}
             }
 
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the non-const half.
@@ -3528,7 +3858,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrE` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrE`/`ConstIncrDecrE` directly.
+            public class InOptMut_IncrDecrE
+            {
+                public IncrDecrE? Opt;
+
+                public InOptMut_IncrDecrE() {}
+                public InOptMut_IncrDecrE(IncrDecrE value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrE(IncrDecrE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3538,8 +3883,8 @@ public static partial class MR
                 public ConstIncrDecrE? Opt;
 
                 public InOptConst_IncrDecrE() {}
-                public InOptConst_IncrDecrE(ConstIncrDecrE NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrE(ConstIncrDecrE NewOpt) {return new InOptConst_IncrDecrE(NewOpt);}
+                public InOptConst_IncrDecrE(ConstIncrDecrE value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrE(ConstIncrDecrE value) {return new(value);}
             }
 
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the const half.
@@ -3641,7 +3986,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrF` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrF`/`ConstIncrDecrF` directly.
+            public class InOptMut_IncrDecrF
+            {
+                public IncrDecrF? Opt;
+
+                public InOptMut_IncrDecrF() {}
+                public InOptMut_IncrDecrF(IncrDecrF value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrF(IncrDecrF value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3651,8 +4011,8 @@ public static partial class MR
                 public ConstIncrDecrF? Opt;
 
                 public InOptConst_IncrDecrF() {}
-                public InOptConst_IncrDecrF(ConstIncrDecrF NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrF(ConstIncrDecrF NewOpt) {return new InOptConst_IncrDecrF(NewOpt);}
+                public InOptConst_IncrDecrF(ConstIncrDecrF value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrF(ConstIncrDecrF value) {return new(value);}
             }
 
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
@@ -3756,7 +4116,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrG` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrG`/`ConstIncrDecrG` directly.
+            public class InOptMut_IncrDecrG
+            {
+                public IncrDecrG? Opt;
+
+                public InOptMut_IncrDecrG() {}
+                public InOptMut_IncrDecrG(IncrDecrG value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrG(IncrDecrG value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3766,8 +4141,8 @@ public static partial class MR
                 public ConstIncrDecrG? Opt;
 
                 public InOptConst_IncrDecrG() {}
-                public InOptConst_IncrDecrG(ConstIncrDecrG NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrG(ConstIncrDecrG NewOpt) {return new InOptConst_IncrDecrG(NewOpt);}
+                public InOptConst_IncrDecrG(ConstIncrDecrG value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrG(ConstIncrDecrG value) {return new(value);}
             }
 
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
@@ -3871,7 +4246,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `IncrDecrH` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_IncrDecrH`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrH`/`ConstIncrDecrH` directly.
+            public class InOptMut_IncrDecrH
+            {
+                public IncrDecrH? Opt;
+
+                public InOptMut_IncrDecrH() {}
+                public InOptMut_IncrDecrH(IncrDecrH value) {Opt = value;}
+                public static implicit operator InOptMut_IncrDecrH(IncrDecrH value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_IncrDecrH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -3881,8 +4271,8 @@ public static partial class MR
                 public ConstIncrDecrH? Opt;
 
                 public InOptConst_IncrDecrH() {}
-                public InOptConst_IncrDecrH(ConstIncrDecrH NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_IncrDecrH(ConstIncrDecrH NewOpt) {return new InOptConst_IncrDecrH(NewOpt);}
+                public InOptConst_IncrDecrH(ConstIncrDecrH value) {Opt = value;}
+                public static implicit operator InOptConst_IncrDecrH(ConstIncrDecrH value) {return new(value);}
             }
 
             // Test equality comparison.
@@ -4018,7 +4408,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `EqualityA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_EqualityA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityA`/`ConstEqualityA` directly.
+            public class InOptMut_EqualityA
+            {
+                public EqualityA? Opt;
+
+                public InOptMut_EqualityA() {}
+                public InOptMut_EqualityA(EqualityA value) {Opt = value;}
+                public static implicit operator InOptMut_EqualityA(EqualityA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `EqualityA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_EqualityA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4028,8 +4433,8 @@ public static partial class MR
                 public ConstEqualityA? Opt;
 
                 public InOptConst_EqualityA() {}
-                public InOptConst_EqualityA(ConstEqualityA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_EqualityA(ConstEqualityA NewOpt) {return new InOptConst_EqualityA(NewOpt);}
+                public InOptConst_EqualityA(ConstEqualityA value) {Opt = value;}
+                public static implicit operator InOptConst_EqualityA(ConstEqualityA value) {return new(value);}
             }
 
             // Return type isn't `bool`.
@@ -4129,7 +4534,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `EqualityB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_EqualityB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityB`/`ConstEqualityB` directly.
+            public class InOptMut_EqualityB
+            {
+                public EqualityB? Opt;
+
+                public InOptMut_EqualityB() {}
+                public InOptMut_EqualityB(EqualityB value) {Opt = value;}
+                public static implicit operator InOptMut_EqualityB(EqualityB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `EqualityB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_EqualityB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4139,8 +4559,8 @@ public static partial class MR
                 public ConstEqualityB? Opt;
 
                 public InOptConst_EqualityB() {}
-                public InOptConst_EqualityB(ConstEqualityB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_EqualityB(ConstEqualityB NewOpt) {return new InOptConst_EqualityB(NewOpt);}
+                public InOptConst_EqualityB(ConstEqualityB value) {Opt = value;}
+                public static implicit operator InOptConst_EqualityB(ConstEqualityB value) {return new(value);}
             }
 
             // Return type is `void`.
@@ -4240,7 +4660,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `EqualityC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_EqualityC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityC`/`ConstEqualityC` directly.
+            public class InOptMut_EqualityC
+            {
+                public EqualityC? Opt;
+
+                public InOptMut_EqualityC() {}
+                public InOptMut_EqualityC(EqualityC value) {Opt = value;}
+                public static implicit operator InOptMut_EqualityC(EqualityC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `EqualityC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_EqualityC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4250,8 +4685,8 @@ public static partial class MR
                 public ConstEqualityC? Opt;
 
                 public InOptConst_EqualityC() {}
-                public InOptConst_EqualityC(ConstEqualityC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_EqualityC(ConstEqualityC NewOpt) {return new InOptConst_EqualityC(NewOpt);}
+                public InOptConst_EqualityC(ConstEqualityC value) {Opt = value;}
+                public static implicit operator InOptConst_EqualityC(ConstEqualityC value) {return new(value);}
             }
 
             // The C# parameter type ends with `?`, and isn't a managed type.
@@ -4357,7 +4792,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `EqualityD` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_EqualityD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityD`/`ConstEqualityD` directly.
+            public class InOptMut_EqualityD
+            {
+                public EqualityD? Opt;
+
+                public InOptMut_EqualityD() {}
+                public InOptMut_EqualityD(EqualityD value) {Opt = value;}
+                public static implicit operator InOptMut_EqualityD(EqualityD value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `EqualityD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_EqualityD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4367,8 +4817,8 @@ public static partial class MR
                 public ConstEqualityD? Opt;
 
                 public InOptConst_EqualityD() {}
-                public InOptConst_EqualityD(ConstEqualityD NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_EqualityD(ConstEqualityD NewOpt) {return new InOptConst_EqualityD(NewOpt);}
+                public InOptConst_EqualityD(ConstEqualityD value) {Opt = value;}
+                public static implicit operator InOptConst_EqualityD(ConstEqualityD value) {return new(value);}
             }
 
             // The C# parameter type ends with `?`, and is a managed type.
@@ -4473,7 +4923,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `EqualityE` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_EqualityE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `EqualityE`/`ConstEqualityE` directly.
+            public class InOptMut_EqualityE
+            {
+                public EqualityE? Opt;
+
+                public InOptMut_EqualityE() {}
+                public InOptMut_EqualityE(EqualityE value) {Opt = value;}
+                public static implicit operator InOptMut_EqualityE(EqualityE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `EqualityE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_EqualityE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4483,8 +4948,8 @@ public static partial class MR
                 public ConstEqualityE? Opt;
 
                 public InOptConst_EqualityE() {}
-                public InOptConst_EqualityE(ConstEqualityE NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_EqualityE(ConstEqualityE NewOpt) {return new InOptConst_EqualityE(NewOpt);}
+                public InOptConst_EqualityE(ConstEqualityE value) {Opt = value;}
+                public static implicit operator InOptConst_EqualityE(ConstEqualityE value) {return new(value);}
             }
 
             // The happy path, the operator is const.
@@ -4583,7 +5048,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `RelationalA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_RelationalA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalA`/`ConstRelationalA` directly.
+            public class InOptMut_RelationalA
+            {
+                public RelationalA? Opt;
+
+                public InOptMut_RelationalA() {}
+                public InOptMut_RelationalA(RelationalA value) {Opt = value;}
+                public static implicit operator InOptMut_RelationalA(RelationalA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `RelationalA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_RelationalA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4593,8 +5073,8 @@ public static partial class MR
                 public ConstRelationalA? Opt;
 
                 public InOptConst_RelationalA() {}
-                public InOptConst_RelationalA(ConstRelationalA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_RelationalA(ConstRelationalA NewOpt) {return new InOptConst_RelationalA(NewOpt);}
+                public InOptConst_RelationalA(ConstRelationalA value) {Opt = value;}
+                public static implicit operator InOptConst_RelationalA(ConstRelationalA value) {return new(value);}
             }
 
             // The happy path, the operator is non-const.
@@ -4693,7 +5173,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `RelationalB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_RelationalB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalB`/`ConstRelationalB` directly.
+            public class InOptMut_RelationalB
+            {
+                public RelationalB? Opt;
+
+                public InOptMut_RelationalB() {}
+                public InOptMut_RelationalB(RelationalB value) {Opt = value;}
+                public static implicit operator InOptMut_RelationalB(RelationalB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `RelationalB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_RelationalB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4703,8 +5198,8 @@ public static partial class MR
                 public ConstRelationalB? Opt;
 
                 public InOptConst_RelationalB() {}
-                public InOptConst_RelationalB(ConstRelationalB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_RelationalB(ConstRelationalB NewOpt) {return new InOptConst_RelationalB(NewOpt);}
+                public InOptConst_RelationalB(ConstRelationalB value) {Opt = value;}
+                public static implicit operator InOptConst_RelationalB(ConstRelationalB value) {return new(value);}
             }
 
             // The operators have mixed constness, which causes them to be demoted to functions.
@@ -4805,7 +5300,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `RelationalC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_RelationalC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalC`/`ConstRelationalC` directly.
+            public class InOptMut_RelationalC
+            {
+                public RelationalC? Opt;
+
+                public InOptMut_RelationalC() {}
+                public InOptMut_RelationalC(RelationalC value) {Opt = value;}
+                public static implicit operator InOptMut_RelationalC(RelationalC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `RelationalC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_RelationalC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4815,8 +5325,8 @@ public static partial class MR
                 public ConstRelationalC? Opt;
 
                 public InOptConst_RelationalC() {}
-                public InOptConst_RelationalC(ConstRelationalC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_RelationalC(ConstRelationalC NewOpt) {return new InOptConst_RelationalC(NewOpt);}
+                public InOptConst_RelationalC(ConstRelationalC value) {Opt = value;}
+                public static implicit operator InOptConst_RelationalC(ConstRelationalC value) {return new(value);}
             }
 
             // The operators have operands of different types, causing them to be demoted to functions.
@@ -4924,7 +5434,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `RelationalD` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_RelationalD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalD`/`ConstRelationalD` directly.
+            public class InOptMut_RelationalD
+            {
+                public RelationalD? Opt;
+
+                public InOptMut_RelationalD() {}
+                public InOptMut_RelationalD(RelationalD value) {Opt = value;}
+                public static implicit operator InOptMut_RelationalD(RelationalD value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `RelationalD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_RelationalD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -4934,8 +5459,8 @@ public static partial class MR
                 public ConstRelationalD? Opt;
 
                 public InOptConst_RelationalD() {}
-                public InOptConst_RelationalD(ConstRelationalD NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_RelationalD(ConstRelationalD NewOpt) {return new InOptConst_RelationalD(NewOpt);}
+                public InOptConst_RelationalD(ConstRelationalD value) {Opt = value;}
+                public static implicit operator InOptConst_RelationalD(ConstRelationalD value) {return new(value);}
             }
 
             // The operators have a weird return type.
@@ -5043,7 +5568,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `RelationalE` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_RelationalE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalE`/`ConstRelationalE` directly.
+            public class InOptMut_RelationalE
+            {
+                public RelationalE? Opt;
+
+                public InOptMut_RelationalE() {}
+                public InOptMut_RelationalE(RelationalE value) {Opt = value;}
+                public static implicit operator InOptMut_RelationalE(RelationalE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `RelationalE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_RelationalE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5053,8 +5593,8 @@ public static partial class MR
                 public ConstRelationalE? Opt;
 
                 public InOptConst_RelationalE() {}
-                public InOptConst_RelationalE(ConstRelationalE NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_RelationalE(ConstRelationalE NewOpt) {return new InOptConst_RelationalE(NewOpt);}
+                public InOptConst_RelationalE(ConstRelationalE value) {Opt = value;}
+                public static implicit operator InOptConst_RelationalE(ConstRelationalE value) {return new(value);}
             }
 
             // The operators return void.
@@ -5162,7 +5702,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `RelationalF` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_RelationalF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `RelationalF`/`ConstRelationalF` directly.
+            public class InOptMut_RelationalF
+            {
+                public RelationalF? Opt;
+
+                public InOptMut_RelationalF() {}
+                public InOptMut_RelationalF(RelationalF value) {Opt = value;}
+                public static implicit operator InOptMut_RelationalF(RelationalF value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `RelationalF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_RelationalF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5172,8 +5727,8 @@ public static partial class MR
                 public ConstRelationalF? Opt;
 
                 public InOptConst_RelationalF() {}
-                public InOptConst_RelationalF(ConstRelationalF NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_RelationalF(ConstRelationalF NewOpt) {return new InOptConst_RelationalF(NewOpt);}
+                public InOptConst_RelationalF(ConstRelationalF value) {Opt = value;}
+                public static implicit operator InOptConst_RelationalF(ConstRelationalF value) {return new(value);}
             }
 
             // The operator is injected correctly.
@@ -5257,7 +5812,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsA`/`ConstStaticOpsLhsA` directly.
+            public class InOptMut_StaticOpsLhsA
+            {
+                public StaticOpsLhsA? Opt;
+
+                public InOptMut_StaticOpsLhsA() {}
+                public InOptMut_StaticOpsLhsA(StaticOpsLhsA value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsA(StaticOpsLhsA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5267,8 +5837,8 @@ public static partial class MR
                 public ConstStaticOpsLhsA? Opt;
 
                 public InOptConst_StaticOpsLhsA() {}
-                public InOptConst_StaticOpsLhsA(ConstStaticOpsLhsA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsA(ConstStaticOpsLhsA NewOpt) {return new InOptConst_StaticOpsLhsA(NewOpt);}
+                public InOptConst_StaticOpsLhsA(ConstStaticOpsLhsA value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsA(ConstStaticOpsLhsA value) {return new(value);}
             }
 
             // The operator injects but becomes a function, because it returns void.
@@ -5352,7 +5922,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsB`/`ConstStaticOpsLhsB` directly.
+            public class InOptMut_StaticOpsLhsB
+            {
+                public StaticOpsLhsB? Opt;
+
+                public InOptMut_StaticOpsLhsB() {}
+                public InOptMut_StaticOpsLhsB(StaticOpsLhsB value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsB(StaticOpsLhsB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5362,8 +5947,8 @@ public static partial class MR
                 public ConstStaticOpsLhsB? Opt;
 
                 public InOptConst_StaticOpsLhsB() {}
-                public InOptConst_StaticOpsLhsB(ConstStaticOpsLhsB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsB(ConstStaticOpsLhsB NewOpt) {return new InOptConst_StaticOpsLhsB(NewOpt);}
+                public InOptConst_StaticOpsLhsB(ConstStaticOpsLhsB value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsB(ConstStaticOpsLhsB value) {return new(value);}
             }
 
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
@@ -5449,7 +6034,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsC`/`ConstStaticOpsLhsC` directly.
+            public class InOptMut_StaticOpsLhsC
+            {
+                public StaticOpsLhsC? Opt;
+
+                public InOptMut_StaticOpsLhsC() {}
+                public InOptMut_StaticOpsLhsC(StaticOpsLhsC value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsC(StaticOpsLhsC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5459,8 +6059,8 @@ public static partial class MR
                 public ConstStaticOpsLhsC? Opt;
 
                 public InOptConst_StaticOpsLhsC() {}
-                public InOptConst_StaticOpsLhsC(ConstStaticOpsLhsC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsC(ConstStaticOpsLhsC NewOpt) {return new InOptConst_StaticOpsLhsC(NewOpt);}
+                public InOptConst_StaticOpsLhsC(ConstStaticOpsLhsC value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsC(ConstStaticOpsLhsC value) {return new(value);}
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
@@ -5536,7 +6136,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsD` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsD`/`ConstStaticOpsLhsD` directly.
+            public class InOptMut_StaticOpsLhsD
+            {
+                public StaticOpsLhsD? Opt;
+
+                public InOptMut_StaticOpsLhsD() {}
+                public InOptMut_StaticOpsLhsD(StaticOpsLhsD value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsD(StaticOpsLhsD value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5546,8 +6161,8 @@ public static partial class MR
                 public ConstStaticOpsLhsD? Opt;
 
                 public InOptConst_StaticOpsLhsD() {}
-                public InOptConst_StaticOpsLhsD(ConstStaticOpsLhsD NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsD(ConstStaticOpsLhsD NewOpt) {return new InOptConst_StaticOpsLhsD(NewOpt);}
+                public InOptConst_StaticOpsLhsD(ConstStaticOpsLhsD value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsD(ConstStaticOpsLhsD value) {return new(value);}
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
@@ -5631,7 +6246,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsE` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsE`/`ConstStaticOpsLhsE` directly.
+            public class InOptMut_StaticOpsLhsE
+            {
+                public StaticOpsLhsE? Opt;
+
+                public InOptMut_StaticOpsLhsE() {}
+                public InOptMut_StaticOpsLhsE(StaticOpsLhsE value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsE(StaticOpsLhsE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5641,8 +6271,8 @@ public static partial class MR
                 public ConstStaticOpsLhsE? Opt;
 
                 public InOptConst_StaticOpsLhsE() {}
-                public InOptConst_StaticOpsLhsE(ConstStaticOpsLhsE NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsE(ConstStaticOpsLhsE NewOpt) {return new InOptConst_StaticOpsLhsE(NewOpt);}
+                public InOptConst_StaticOpsLhsE(ConstStaticOpsLhsE value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsE(ConstStaticOpsLhsE value) {return new(value);}
             }
 
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
@@ -5726,7 +6356,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsF` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsF`/`ConstStaticOpsLhsF` directly.
+            public class InOptMut_StaticOpsLhsF
+            {
+                public StaticOpsLhsF? Opt;
+
+                public InOptMut_StaticOpsLhsF() {}
+                public InOptMut_StaticOpsLhsF(StaticOpsLhsF value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsF(StaticOpsLhsF value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5736,8 +6381,8 @@ public static partial class MR
                 public ConstStaticOpsLhsF? Opt;
 
                 public InOptConst_StaticOpsLhsF() {}
-                public InOptConst_StaticOpsLhsF(ConstStaticOpsLhsF NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsF(ConstStaticOpsLhsF NewOpt) {return new InOptConst_StaticOpsLhsF(NewOpt);}
+                public InOptConst_StaticOpsLhsF(ConstStaticOpsLhsF value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsF(ConstStaticOpsLhsF value) {return new(value);}
             }
 
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
@@ -5813,7 +6458,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsG` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsG`/`ConstStaticOpsLhsG` directly.
+            public class InOptMut_StaticOpsLhsG
+            {
+                public StaticOpsLhsG? Opt;
+
+                public InOptMut_StaticOpsLhsG() {}
+                public InOptMut_StaticOpsLhsG(StaticOpsLhsG value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsG(StaticOpsLhsG value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5823,8 +6483,8 @@ public static partial class MR
                 public ConstStaticOpsLhsG? Opt;
 
                 public InOptConst_StaticOpsLhsG() {}
-                public InOptConst_StaticOpsLhsG(ConstStaticOpsLhsG NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsG(ConstStaticOpsLhsG NewOpt) {return new InOptConst_StaticOpsLhsG(NewOpt);}
+                public InOptConst_StaticOpsLhsG(ConstStaticOpsLhsG value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsG(ConstStaticOpsLhsG value) {return new(value);}
             }
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
@@ -5902,7 +6562,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsLhsH` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsLhsH`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsLhsH`/`ConstStaticOpsLhsH` directly.
+            public class InOptMut_StaticOpsLhsH
+            {
+                public StaticOpsLhsH? Opt;
+
+                public InOptMut_StaticOpsLhsH() {}
+                public InOptMut_StaticOpsLhsH(StaticOpsLhsH value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsLhsH(StaticOpsLhsH value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsLhsH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsLhsH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -5912,8 +6587,8 @@ public static partial class MR
                 public ConstStaticOpsLhsH? Opt;
 
                 public InOptConst_StaticOpsLhsH() {}
-                public InOptConst_StaticOpsLhsH(ConstStaticOpsLhsH NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsLhsH(ConstStaticOpsLhsH NewOpt) {return new InOptConst_StaticOpsLhsH(NewOpt);}
+                public InOptConst_StaticOpsLhsH(ConstStaticOpsLhsH value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsLhsH(ConstStaticOpsLhsH value) {return new(value);}
             }
 
             // The operator is injected correctly.
@@ -5997,7 +6672,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsA`/`ConstStaticOpsRhsA` directly.
+            public class InOptMut_StaticOpsRhsA
+            {
+                public StaticOpsRhsA? Opt;
+
+                public InOptMut_StaticOpsRhsA() {}
+                public InOptMut_StaticOpsRhsA(StaticOpsRhsA value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsA(StaticOpsRhsA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6007,8 +6697,8 @@ public static partial class MR
                 public ConstStaticOpsRhsA? Opt;
 
                 public InOptConst_StaticOpsRhsA() {}
-                public InOptConst_StaticOpsRhsA(ConstStaticOpsRhsA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsA(ConstStaticOpsRhsA NewOpt) {return new InOptConst_StaticOpsRhsA(NewOpt);}
+                public InOptConst_StaticOpsRhsA(ConstStaticOpsRhsA value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsA(ConstStaticOpsRhsA value) {return new(value);}
             }
 
             // The operator injects but becomes a function, because it returns void.
@@ -6092,7 +6782,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsB`/`ConstStaticOpsRhsB` directly.
+            public class InOptMut_StaticOpsRhsB
+            {
+                public StaticOpsRhsB? Opt;
+
+                public InOptMut_StaticOpsRhsB() {}
+                public InOptMut_StaticOpsRhsB(StaticOpsRhsB value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsB(StaticOpsRhsB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6102,8 +6807,8 @@ public static partial class MR
                 public ConstStaticOpsRhsB? Opt;
 
                 public InOptConst_StaticOpsRhsB() {}
-                public InOptConst_StaticOpsRhsB(ConstStaticOpsRhsB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsB(ConstStaticOpsRhsB NewOpt) {return new InOptConst_StaticOpsRhsB(NewOpt);}
+                public InOptConst_StaticOpsRhsB(ConstStaticOpsRhsB value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsB(ConstStaticOpsRhsB value) {return new(value);}
             }
 
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
@@ -6189,7 +6894,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsC`/`ConstStaticOpsRhsC` directly.
+            public class InOptMut_StaticOpsRhsC
+            {
+                public StaticOpsRhsC? Opt;
+
+                public InOptMut_StaticOpsRhsC() {}
+                public InOptMut_StaticOpsRhsC(StaticOpsRhsC value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsC(StaticOpsRhsC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6199,8 +6919,8 @@ public static partial class MR
                 public ConstStaticOpsRhsC? Opt;
 
                 public InOptConst_StaticOpsRhsC() {}
-                public InOptConst_StaticOpsRhsC(ConstStaticOpsRhsC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsC(ConstStaticOpsRhsC NewOpt) {return new InOptConst_StaticOpsRhsC(NewOpt);}
+                public InOptConst_StaticOpsRhsC(ConstStaticOpsRhsC value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsC(ConstStaticOpsRhsC value) {return new(value);}
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
@@ -6276,7 +6996,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsD` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsD`/`ConstStaticOpsRhsD` directly.
+            public class InOptMut_StaticOpsRhsD
+            {
+                public StaticOpsRhsD? Opt;
+
+                public InOptMut_StaticOpsRhsD() {}
+                public InOptMut_StaticOpsRhsD(StaticOpsRhsD value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsD(StaticOpsRhsD value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6286,8 +7021,8 @@ public static partial class MR
                 public ConstStaticOpsRhsD? Opt;
 
                 public InOptConst_StaticOpsRhsD() {}
-                public InOptConst_StaticOpsRhsD(ConstStaticOpsRhsD NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsD(ConstStaticOpsRhsD NewOpt) {return new InOptConst_StaticOpsRhsD(NewOpt);}
+                public InOptConst_StaticOpsRhsD(ConstStaticOpsRhsD value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsD(ConstStaticOpsRhsD value) {return new(value);}
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
@@ -6371,7 +7106,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsE` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsE`/`ConstStaticOpsRhsE` directly.
+            public class InOptMut_StaticOpsRhsE
+            {
+                public StaticOpsRhsE? Opt;
+
+                public InOptMut_StaticOpsRhsE() {}
+                public InOptMut_StaticOpsRhsE(StaticOpsRhsE value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsE(StaticOpsRhsE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6381,8 +7131,8 @@ public static partial class MR
                 public ConstStaticOpsRhsE? Opt;
 
                 public InOptConst_StaticOpsRhsE() {}
-                public InOptConst_StaticOpsRhsE(ConstStaticOpsRhsE NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsE(ConstStaticOpsRhsE NewOpt) {return new InOptConst_StaticOpsRhsE(NewOpt);}
+                public InOptConst_StaticOpsRhsE(ConstStaticOpsRhsE value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsE(ConstStaticOpsRhsE value) {return new(value);}
             }
 
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
@@ -6466,7 +7216,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsF` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsF`/`ConstStaticOpsRhsF` directly.
+            public class InOptMut_StaticOpsRhsF
+            {
+                public StaticOpsRhsF? Opt;
+
+                public InOptMut_StaticOpsRhsF() {}
+                public InOptMut_StaticOpsRhsF(StaticOpsRhsF value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsF(StaticOpsRhsF value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6476,8 +7241,8 @@ public static partial class MR
                 public ConstStaticOpsRhsF? Opt;
 
                 public InOptConst_StaticOpsRhsF() {}
-                public InOptConst_StaticOpsRhsF(ConstStaticOpsRhsF NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsF(ConstStaticOpsRhsF NewOpt) {return new InOptConst_StaticOpsRhsF(NewOpt);}
+                public InOptConst_StaticOpsRhsF(ConstStaticOpsRhsF value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsF(ConstStaticOpsRhsF value) {return new(value);}
             }
 
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
@@ -6553,7 +7318,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsG` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsG`/`ConstStaticOpsRhsG` directly.
+            public class InOptMut_StaticOpsRhsG
+            {
+                public StaticOpsRhsG? Opt;
+
+                public InOptMut_StaticOpsRhsG() {}
+                public InOptMut_StaticOpsRhsG(StaticOpsRhsG value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsG(StaticOpsRhsG value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6563,8 +7343,8 @@ public static partial class MR
                 public ConstStaticOpsRhsG? Opt;
 
                 public InOptConst_StaticOpsRhsG() {}
-                public InOptConst_StaticOpsRhsG(ConstStaticOpsRhsG NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsG(ConstStaticOpsRhsG NewOpt) {return new InOptConst_StaticOpsRhsG(NewOpt);}
+                public InOptConst_StaticOpsRhsG(ConstStaticOpsRhsG value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsG(ConstStaticOpsRhsG value) {return new(value);}
             }
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
@@ -6642,7 +7422,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsRhsH` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsRhsH`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsRhsH`/`ConstStaticOpsRhsH` directly.
+            public class InOptMut_StaticOpsRhsH
+            {
+                public StaticOpsRhsH? Opt;
+
+                public InOptMut_StaticOpsRhsH() {}
+                public InOptMut_StaticOpsRhsH(StaticOpsRhsH value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsRhsH(StaticOpsRhsH value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsRhsH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsRhsH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6652,8 +7447,8 @@ public static partial class MR
                 public ConstStaticOpsRhsH? Opt;
 
                 public InOptConst_StaticOpsRhsH() {}
-                public InOptConst_StaticOpsRhsH(ConstStaticOpsRhsH NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsRhsH(ConstStaticOpsRhsH NewOpt) {return new InOptConst_StaticOpsRhsH(NewOpt);}
+                public InOptConst_StaticOpsRhsH(ConstStaticOpsRhsH value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsRhsH(ConstStaticOpsRhsH value) {return new(value);}
             }
 
             // Other injection cases:
@@ -6741,7 +7536,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsMixedLhs` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsMixedLhs`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsMixedLhs`/`ConstStaticOpsMixedLhs` directly.
+            public class InOptMut_StaticOpsMixedLhs
+            {
+                public StaticOpsMixedLhs? Opt;
+
+                public InOptMut_StaticOpsMixedLhs() {}
+                public InOptMut_StaticOpsMixedLhs(StaticOpsMixedLhs value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsMixedLhs(StaticOpsMixedLhs value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsMixedLhs` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsMixedLhs`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6751,8 +7561,8 @@ public static partial class MR
                 public ConstStaticOpsMixedLhs? Opt;
 
                 public InOptConst_StaticOpsMixedLhs() {}
-                public InOptConst_StaticOpsMixedLhs(ConstStaticOpsMixedLhs NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsMixedLhs(ConstStaticOpsMixedLhs NewOpt) {return new InOptConst_StaticOpsMixedLhs(NewOpt);}
+                public InOptConst_StaticOpsMixedLhs(ConstStaticOpsMixedLhs value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsMixedLhs(ConstStaticOpsMixedLhs value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::StaticOpsMixedRhs`.
@@ -6826,7 +7636,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StaticOpsMixedRhs` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_StaticOpsMixedRhs`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StaticOpsMixedRhs`/`ConstStaticOpsMixedRhs` directly.
+            public class InOptMut_StaticOpsMixedRhs
+            {
+                public StaticOpsMixedRhs? Opt;
+
+                public InOptMut_StaticOpsMixedRhs() {}
+                public InOptMut_StaticOpsMixedRhs(StaticOpsMixedRhs value) {Opt = value;}
+                public static implicit operator InOptMut_StaticOpsMixedRhs(StaticOpsMixedRhs value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StaticOpsMixedRhs` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_StaticOpsMixedRhs`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6836,8 +7661,8 @@ public static partial class MR
                 public ConstStaticOpsMixedRhs? Opt;
 
                 public InOptConst_StaticOpsMixedRhs() {}
-                public InOptConst_StaticOpsMixedRhs(ConstStaticOpsMixedRhs NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_StaticOpsMixedRhs(ConstStaticOpsMixedRhs NewOpt) {return new InOptConst_StaticOpsMixedRhs(NewOpt);}
+                public InOptConst_StaticOpsMixedRhs(ConstStaticOpsMixedRhs value) {Opt = value;}
+                public static implicit operator InOptConst_StaticOpsMixedRhs(ConstStaticOpsMixedRhs value) {return new(value);}
             }
 
             // Check how non-trivial class types are passed by value into operators.
@@ -6955,7 +7780,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `NonTrivialClassOps` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_NonTrivialClassOps`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonTrivialClassOps`/`ConstNonTrivialClassOps` directly.
+            public class InOptMut_NonTrivialClassOps
+            {
+                public NonTrivialClassOps? Opt;
+
+                public InOptMut_NonTrivialClassOps() {}
+                public InOptMut_NonTrivialClassOps(NonTrivialClassOps value) {Opt = value;}
+                public static implicit operator InOptMut_NonTrivialClassOps(NonTrivialClassOps value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `NonTrivialClassOps` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_NonTrivialClassOps`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -6965,8 +7805,8 @@ public static partial class MR
                 public ConstNonTrivialClassOps? Opt;
 
                 public InOptConst_NonTrivialClassOps() {}
-                public InOptConst_NonTrivialClassOps(ConstNonTrivialClassOps NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_NonTrivialClassOps(ConstNonTrivialClassOps NewOpt) {return new InOptConst_NonTrivialClassOps(NewOpt);}
+                public InOptConst_NonTrivialClassOps(ConstNonTrivialClassOps value) {Opt = value;}
+                public static implicit operator InOptConst_NonTrivialClassOps(ConstNonTrivialClassOps value) {return new(value);}
             }
 
             // The class is non-copyable, so operators with by-value parameters fail to inject.
@@ -7058,7 +7898,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `NonCopyableClassByValueOps` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_NonCopyableClassByValueOps`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `NonCopyableClassByValueOps`/`ConstNonCopyableClassByValueOps` directly.
+            public class InOptMut_NonCopyableClassByValueOps
+            {
+                public NonCopyableClassByValueOps? Opt;
+
+                public InOptMut_NonCopyableClassByValueOps() {}
+                public InOptMut_NonCopyableClassByValueOps(NonCopyableClassByValueOps value) {Opt = value;}
+                public static implicit operator InOptMut_NonCopyableClassByValueOps(NonCopyableClassByValueOps value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `NonCopyableClassByValueOps` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_NonCopyableClassByValueOps`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -7068,8 +7923,8 @@ public static partial class MR
                 public ConstNonCopyableClassByValueOps? Opt;
 
                 public InOptConst_NonCopyableClassByValueOps() {}
-                public InOptConst_NonCopyableClassByValueOps(ConstNonCopyableClassByValueOps NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_NonCopyableClassByValueOps(ConstNonCopyableClassByValueOps NewOpt) {return new InOptConst_NonCopyableClassByValueOps(NewOpt);}
+                public InOptConst_NonCopyableClassByValueOps(ConstNonCopyableClassByValueOps value) {Opt = value;}
+                public static implicit operator InOptConst_NonCopyableClassByValueOps(ConstNonCopyableClassByValueOps value) {return new(value);}
             }
 
             // Test the call operator, since it can have an unusual amount of arguments.
@@ -7163,7 +8018,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `CallOp` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_CallOp`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `CallOp`/`ConstCallOp` directly.
+            public class InOptMut_CallOp
+            {
+                public CallOp? Opt;
+
+                public InOptMut_CallOp() {}
+                public InOptMut_CallOp(CallOp value) {Opt = value;}
+                public static implicit operator InOptMut_CallOp(CallOp value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `CallOp` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_CallOp`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -7173,8 +8043,8 @@ public static partial class MR
                 public ConstCallOp? Opt;
 
                 public InOptConst_CallOp() {}
-                public InOptConst_CallOp(ConstCallOp NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_CallOp(ConstCallOp NewOpt) {return new InOptConst_CallOp(NewOpt);}
+                public InOptConst_CallOp(ConstCallOp value) {Opt = value;}
+                public static implicit operator InOptConst_CallOp(ConstCallOp value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::TestOpsA`.
@@ -7504,7 +8374,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `TestOpsA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_TestOpsA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestOpsA`/`ConstTestOpsA` directly.
+            public class InOptMut_TestOpsA
+            {
+                public TestOpsA? Opt;
+
+                public InOptMut_TestOpsA() {}
+                public InOptMut_TestOpsA(TestOpsA value) {Opt = value;}
+                public static implicit operator InOptMut_TestOpsA(TestOpsA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `TestOpsA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_TestOpsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -7514,8 +8399,8 @@ public static partial class MR
                 public ConstTestOpsA? Opt;
 
                 public InOptConst_TestOpsA() {}
-                public InOptConst_TestOpsA(ConstTestOpsA NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_TestOpsA(ConstTestOpsA NewOpt) {return new InOptConst_TestOpsA(NewOpt);}
+                public InOptConst_TestOpsA(ConstTestOpsA value) {Opt = value;}
+                public static implicit operator InOptConst_TestOpsA(ConstTestOpsA value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::TestOpsB`.
@@ -7863,7 +8748,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `TestOpsB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_TestOpsB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestOpsB`/`ConstTestOpsB` directly.
+            public class InOptMut_TestOpsB
+            {
+                public TestOpsB? Opt;
+
+                public InOptMut_TestOpsB() {}
+                public InOptMut_TestOpsB(TestOpsB value) {Opt = value;}
+                public static implicit operator InOptMut_TestOpsB(TestOpsB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `TestOpsB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_TestOpsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -7873,8 +8773,8 @@ public static partial class MR
                 public ConstTestOpsB? Opt;
 
                 public InOptConst_TestOpsB() {}
-                public InOptConst_TestOpsB(ConstTestOpsB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_TestOpsB(ConstTestOpsB NewOpt) {return new InOptConst_TestOpsB(NewOpt);}
+                public InOptConst_TestOpsB(ConstTestOpsB value) {Opt = value;}
+                public static implicit operator InOptConst_TestOpsB(ConstTestOpsB value) {return new(value);}
             }
 
             /// Generated from class `MR::CSharp::TestOpsC`.
@@ -8204,7 +9104,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `TestOpsC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_TestOpsC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestOpsC`/`ConstTestOpsC` directly.
+            public class InOptMut_TestOpsC
+            {
+                public TestOpsC? Opt;
+
+                public InOptMut_TestOpsC() {}
+                public InOptMut_TestOpsC(TestOpsC value) {Opt = value;}
+                public static implicit operator InOptMut_TestOpsC(TestOpsC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `TestOpsC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_TestOpsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -8214,8 +9129,8 @@ public static partial class MR
                 public ConstTestOpsC? Opt;
 
                 public InOptConst_TestOpsC() {}
-                public InOptConst_TestOpsC(ConstTestOpsC NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_TestOpsC(ConstTestOpsC NewOpt) {return new InOptConst_TestOpsC(NewOpt);}
+                public InOptConst_TestOpsC(ConstTestOpsC value) {Opt = value;}
+                public static implicit operator InOptConst_TestOpsC(ConstTestOpsC value) {return new(value);}
             }
 
             // Conversion operators. We preserve explicit-ness.
@@ -8307,7 +9222,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `ConvOp` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ConvOp`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvOp`/`ConstConvOp` directly.
+            public class InOptMut_ConvOp
+            {
+                public ConvOp? Opt;
+
+                public InOptMut_ConvOp() {}
+                public InOptMut_ConvOp(ConvOp value) {Opt = value;}
+                public static implicit operator InOptMut_ConvOp(ConvOp value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ConvOp` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ConvOp`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -8317,8 +9247,8 @@ public static partial class MR
                 public ConstConvOp? Opt;
 
                 public InOptConst_ConvOp() {}
-                public InOptConst_ConvOp(ConstConvOp NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ConvOp(ConstConvOp NewOpt) {return new InOptConst_ConvOp(NewOpt);}
+                public InOptConst_ConvOp(ConstConvOp value) {Opt = value;}
+                public static implicit operator InOptConst_ConvOp(ConstConvOp value) {return new(value);}
             }
 
             // Conversion constructors. Right now we only provide conversion operators for implicit ones,
@@ -8466,7 +9396,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `ConvCtor` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ConvCtor`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtor`/`ConstConvCtor` directly.
+            public class InOptMut_ConvCtor
+            {
+                public ConvCtor? Opt;
+
+                public InOptMut_ConvCtor() {}
+                public InOptMut_ConvCtor(ConvCtor value) {Opt = value;}
+                public static implicit operator InOptMut_ConvCtor(ConvCtor value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ConvCtor` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ConvCtor`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -8476,8 +9421,8 @@ public static partial class MR
                 public ConstConvCtor? Opt;
 
                 public InOptConst_ConvCtor() {}
-                public InOptConst_ConvCtor(ConstConvCtor NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ConvCtor(ConstConvCtor NewOpt) {return new InOptConst_ConvCtor(NewOpt);}
+                public InOptConst_ConvCtor(ConstConvCtor value) {Opt = value;}
+                public static implicit operator InOptConst_ConvCtor(ConstConvCtor value) {return new(value);}
 
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
                 public static unsafe implicit operator InOptConst_ConvCtor(int _1) {return new MR.CS.CSharp.ConvCtor(_1);}
@@ -8578,7 +9523,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `ConvCtorTrivial` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ConvCtorTrivial`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorTrivial`/`ConstConvCtorTrivial` directly.
+            public class InOptMut_ConvCtorTrivial
+            {
+                public ConvCtorTrivial? Opt;
+
+                public InOptMut_ConvCtorTrivial() {}
+                public InOptMut_ConvCtorTrivial(ConvCtorTrivial value) {Opt = value;}
+                public static implicit operator InOptMut_ConvCtorTrivial(ConvCtorTrivial value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ConvCtorTrivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ConvCtorTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -8588,8 +9548,8 @@ public static partial class MR
                 public ConstConvCtorTrivial? Opt;
 
                 public InOptConst_ConvCtorTrivial() {}
-                public InOptConst_ConvCtorTrivial(ConstConvCtorTrivial NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ConvCtorTrivial(ConstConvCtorTrivial NewOpt) {return new InOptConst_ConvCtorTrivial(NewOpt);}
+                public InOptConst_ConvCtorTrivial(ConstConvCtorTrivial value) {Opt = value;}
+                public static implicit operator InOptConst_ConvCtorTrivial(ConstConvCtorTrivial value) {return new(value);}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
                 public static unsafe implicit operator InOptConst_ConvCtorTrivial(int _1) {return new MR.CS.CSharp.ConvCtorTrivial(_1);}
@@ -8711,7 +9671,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `ConvCtorNonTrivial` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ConvCtorNonTrivial`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorNonTrivial`/`ConstConvCtorNonTrivial` directly.
+            public class InOptMut_ConvCtorNonTrivial
+            {
+                public ConvCtorNonTrivial? Opt;
+
+                public InOptMut_ConvCtorNonTrivial() {}
+                public InOptMut_ConvCtorNonTrivial(ConvCtorNonTrivial value) {Opt = value;}
+                public static implicit operator InOptMut_ConvCtorNonTrivial(ConvCtorNonTrivial value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ConvCtorNonTrivial` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ConvCtorNonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -8721,8 +9696,8 @@ public static partial class MR
                 public ConstConvCtorNonTrivial? Opt;
 
                 public InOptConst_ConvCtorNonTrivial() {}
-                public InOptConst_ConvCtorNonTrivial(ConstConvCtorNonTrivial NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ConvCtorNonTrivial(ConstConvCtorNonTrivial NewOpt) {return new InOptConst_ConvCtorNonTrivial(NewOpt);}
+                public InOptConst_ConvCtorNonTrivial(ConstConvCtorNonTrivial value) {Opt = value;}
+                public static implicit operator InOptConst_ConvCtorNonTrivial(ConstConvCtorNonTrivial value) {return new(value);}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
                 public static unsafe implicit operator InOptConst_ConvCtorNonTrivial(int _1) {return new MR.CS.CSharp.ConvCtorNonTrivial(_1);}
@@ -8996,6 +9971,11 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public ref struct ExposedLayout
             {
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ExposedLayout(ConstExposedLayout other) => other.UnderlyingStruct;
+                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe static implicit operator MutExposedLayout(ExposedLayout other) => new(new MutExposedLayout((MutExposedLayout._Underlying *)&other, is_owning: false));
+
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort X;
 
@@ -9202,12 +10182,12 @@ public static partial class MR
 
             /// This is used as a function parameter when passing `MutExposedLayout` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
             /// Usage:
-            /// * Pass an instance of `ExposedLayout`/`MutExposedLayout`/`ConstExposedLayout` to copy it into the function.
+            /// * Pass an instance of `MutExposedLayout`/`ConstExposedLayout` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct InOpt_ExposedLayout
             {
                 public readonly bool HasValue;
-                readonly ExposedLayout Object;
+                internal readonly ExposedLayout Object;
                 public ExposedLayout Value{
                     get
                     {
@@ -9219,21 +10199,54 @@ public static partial class MR
                 public InOpt_ExposedLayout() {HasValue = false;}
                 public InOpt_ExposedLayout(ExposedLayout new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator InOpt_ExposedLayout(ExposedLayout new_value) {return new(new_value);}
+                public InOpt_ExposedLayout(ConstExposedLayout new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public static implicit operator InOpt_ExposedLayout(ConstExposedLayout new_value) {return new(new_value);}
             }
 
             /// This is used for optional parameters of class `MutExposedLayout` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ExposedLayout`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `MutExposedLayout`/`ConstExposedLayout` directly.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayout`.
+            public class InOptMut_ExposedLayout
+            {
+                public MutExposedLayout? Opt;
+
+                public InOptMut_ExposedLayout() {}
+                public InOptMut_ExposedLayout(MutExposedLayout value) {Opt = value;}
+                public static implicit operator InOptMut_ExposedLayout(MutExposedLayout value) {return new(value);}
+                public unsafe InOptMut_ExposedLayout(ref ExposedLayout value)
+                {
+                    fixed (ExposedLayout *value_ptr = &value)
+                    {
+                        Opt = new((ConstExposedLayout._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
+            }
+
+            /// This is used for optional parameters of class `MutExposedLayout` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ExposedLayout`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `MutExposedLayout`/`ConstExposedLayout` to pass it to the function.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayout`.
             public class InOptConst_ExposedLayout
             {
                 public ConstExposedLayout? Opt;
 
                 public InOptConst_ExposedLayout() {}
-                public InOptConst_ExposedLayout(ConstExposedLayout NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ExposedLayout(ConstExposedLayout NewOpt) {return new InOptConst_ExposedLayout(NewOpt);}
+                public InOptConst_ExposedLayout(ConstExposedLayout value) {Opt = value;}
+                public static implicit operator InOptConst_ExposedLayout(ConstExposedLayout value) {return new(value);}
+                public unsafe InOptConst_ExposedLayout(ref readonly ExposedLayout value)
+                {
+                    fixed (ExposedLayout *value_ptr = &value)
+                    {
+                        Opt = new((ConstExposedLayout._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
             }
 
             // This one is backed by a shared pointer.
@@ -9563,6 +10576,11 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public ref struct ExposedLayoutSh
             {
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ExposedLayoutSh(ConstExposedLayoutSh other) => other.UnderlyingStruct;
+                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe static implicit operator MutExposedLayoutSh(ExposedLayoutSh other) => new(new MutExposedLayoutSh((MutExposedLayoutSh._Underlying *)&other, is_owning: false));
+
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort X;
 
@@ -9787,12 +10805,12 @@ public static partial class MR
 
             /// This is used as a function parameter when passing `MutExposedLayoutSh` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
             /// Usage:
-            /// * Pass an instance of `ExposedLayoutSh`/`MutExposedLayoutSh`/`ConstExposedLayoutSh` to copy it into the function.
+            /// * Pass an instance of `MutExposedLayoutSh`/`ConstExposedLayoutSh` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct InOpt_ExposedLayoutSh
             {
                 public readonly bool HasValue;
-                readonly ExposedLayoutSh Object;
+                internal readonly ExposedLayoutSh Object;
                 public ExposedLayoutSh Value{
                     get
                     {
@@ -9804,21 +10822,54 @@ public static partial class MR
                 public InOpt_ExposedLayoutSh() {HasValue = false;}
                 public InOpt_ExposedLayoutSh(ExposedLayoutSh new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator InOpt_ExposedLayoutSh(ExposedLayoutSh new_value) {return new(new_value);}
+                public InOpt_ExposedLayoutSh(ConstExposedLayoutSh new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public static implicit operator InOpt_ExposedLayoutSh(ConstExposedLayoutSh new_value) {return new(new_value);}
             }
 
             /// This is used for optional parameters of class `MutExposedLayoutSh` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ExposedLayoutSh`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `MutExposedLayoutSh`/`ConstExposedLayoutSh` directly.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutSh`.
+            public class InOptMut_ExposedLayoutSh
+            {
+                public MutExposedLayoutSh? Opt;
+
+                public InOptMut_ExposedLayoutSh() {}
+                public InOptMut_ExposedLayoutSh(MutExposedLayoutSh value) {Opt = value;}
+                public static implicit operator InOptMut_ExposedLayoutSh(MutExposedLayoutSh value) {return new(value);}
+                public unsafe InOptMut_ExposedLayoutSh(ref ExposedLayoutSh value)
+                {
+                    fixed (ExposedLayoutSh *value_ptr = &value)
+                    {
+                        Opt = new((ConstExposedLayoutSh._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
+            }
+
+            /// This is used for optional parameters of class `MutExposedLayoutSh` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ExposedLayoutSh`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `MutExposedLayoutSh`/`ConstExposedLayoutSh` to pass it to the function.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutSh`.
             public class InOptConst_ExposedLayoutSh
             {
                 public ConstExposedLayoutSh? Opt;
 
                 public InOptConst_ExposedLayoutSh() {}
-                public InOptConst_ExposedLayoutSh(ConstExposedLayoutSh NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ExposedLayoutSh(ConstExposedLayoutSh NewOpt) {return new InOptConst_ExposedLayoutSh(NewOpt);}
+                public InOptConst_ExposedLayoutSh(ConstExposedLayoutSh value) {Opt = value;}
+                public static implicit operator InOptConst_ExposedLayoutSh(ConstExposedLayoutSh value) {return new(value);}
+                public unsafe InOptConst_ExposedLayoutSh(ref readonly ExposedLayoutSh value)
+                {
+                    fixed (ExposedLayoutSh *value_ptr = &value)
+                    {
+                        Opt = new((ConstExposedLayoutSh._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
             }
 
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
@@ -9942,6 +10993,11 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public ref struct ExposedLayoutB
             {
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ExposedLayoutB(ConstExposedLayoutB other) => other.UnderlyingStruct;
+                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe static implicit operator MutExposedLayoutB(ExposedLayoutB other) => new(new MutExposedLayoutB((MutExposedLayoutB._Underlying *)&other, is_owning: false));
+
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int X;
 
@@ -9989,12 +11045,12 @@ public static partial class MR
 
             /// This is used as a function parameter when passing `MutExposedLayoutB` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
             /// Usage:
-            /// * Pass an instance of `ExposedLayoutB`/`MutExposedLayoutB`/`ConstExposedLayoutB` to copy it into the function.
+            /// * Pass an instance of `MutExposedLayoutB`/`ConstExposedLayoutB` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct InOpt_ExposedLayoutB
             {
                 public readonly bool HasValue;
-                readonly ExposedLayoutB Object;
+                internal readonly ExposedLayoutB Object;
                 public ExposedLayoutB Value{
                     get
                     {
@@ -10006,21 +11062,54 @@ public static partial class MR
                 public InOpt_ExposedLayoutB() {HasValue = false;}
                 public InOpt_ExposedLayoutB(ExposedLayoutB new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator InOpt_ExposedLayoutB(ExposedLayoutB new_value) {return new(new_value);}
+                public InOpt_ExposedLayoutB(ConstExposedLayoutB new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public static implicit operator InOpt_ExposedLayoutB(ConstExposedLayoutB new_value) {return new(new_value);}
             }
 
             /// This is used for optional parameters of class `MutExposedLayoutB` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ExposedLayoutB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `MutExposedLayoutB`/`ConstExposedLayoutB` directly.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutB`.
+            public class InOptMut_ExposedLayoutB
+            {
+                public MutExposedLayoutB? Opt;
+
+                public InOptMut_ExposedLayoutB() {}
+                public InOptMut_ExposedLayoutB(MutExposedLayoutB value) {Opt = value;}
+                public static implicit operator InOptMut_ExposedLayoutB(MutExposedLayoutB value) {return new(value);}
+                public unsafe InOptMut_ExposedLayoutB(ref ExposedLayoutB value)
+                {
+                    fixed (ExposedLayoutB *value_ptr = &value)
+                    {
+                        Opt = new((ConstExposedLayoutB._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
+            }
+
+            /// This is used for optional parameters of class `MutExposedLayoutB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ExposedLayoutB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `MutExposedLayoutB`/`ConstExposedLayoutB` to pass it to the function.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutB`.
             public class InOptConst_ExposedLayoutB
             {
                 public ConstExposedLayoutB? Opt;
 
                 public InOptConst_ExposedLayoutB() {}
-                public InOptConst_ExposedLayoutB(ConstExposedLayoutB NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ExposedLayoutB(ConstExposedLayoutB NewOpt) {return new InOptConst_ExposedLayoutB(NewOpt);}
+                public InOptConst_ExposedLayoutB(ConstExposedLayoutB value) {Opt = value;}
+                public static implicit operator InOptConst_ExposedLayoutB(ConstExposedLayoutB value) {return new(value);}
+                public unsafe InOptConst_ExposedLayoutB(ref readonly ExposedLayoutB value)
+                {
+                    fixed (ExposedLayoutB *value_ptr = &value)
+                    {
+                        Opt = new((ConstExposedLayoutB._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
             }
 
             // Test various array members.
@@ -10257,7 +11346,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `ArrayMembers` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_ArrayMembers`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ArrayMembers`/`ConstArrayMembers` directly.
+            public class InOptMut_ArrayMembers
+            {
+                public ArrayMembers? Opt;
+
+                public InOptMut_ArrayMembers() {}
+                public InOptMut_ArrayMembers(ArrayMembers value) {Opt = value;}
+                public static implicit operator InOptMut_ArrayMembers(ArrayMembers value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ArrayMembers` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_ArrayMembers`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -10267,8 +11371,8 @@ public static partial class MR
                 public ConstArrayMembers? Opt;
 
                 public InOptConst_ArrayMembers() {}
-                public InOptConst_ArrayMembers(ConstArrayMembers NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_ArrayMembers(ConstArrayMembers NewOpt) {return new InOptConst_ArrayMembers(NewOpt);}
+                public InOptConst_ArrayMembers(ConstArrayMembers value) {Opt = value;}
+                public static implicit operator InOptConst_ArrayMembers(ConstArrayMembers value) {return new(value);}
             }
 
             /// Generated from function `MR::CSharp::foo`.
@@ -10649,7 +11753,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_trivial_ptr`.
             /// Parameter `c` defaults to `&default_trivial`.
-            public static unsafe MR.CS.CSharp.Trivial? TestClassTrivialPtr(MR.CS.CSharp.Trivial? a, MR.CS.CSharp.Trivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.Trivial>? c = null)
+            public static unsafe MR.CS.CSharp.Trivial? TestClassTrivialPtr(MR.CS.CSharp.Trivial? a, MR.CS.CSharp.Trivial? b = null, MR.CS.CSharp.InOptMut_Trivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.Trivial._Underlying *__MR_CSharp_test_class_trivial_ptr(MR.CS.CSharp.Trivial._Underlying *a, MR.CS.CSharp.Trivial._Underlying *b, MR.CS.CSharp.Trivial._Underlying **c);
@@ -10698,7 +11802,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_nontrivial_ptr`.
             /// Parameter `c` defaults to `&default_nontrivial`.
-            public static unsafe MR.CS.CSharp.NonTrivial? TestClassNontrivialPtr(MR.CS.CSharp.NonTrivial? a, MR.CS.CSharp.NonTrivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.NonTrivial>? c = null)
+            public static unsafe MR.CS.CSharp.NonTrivial? TestClassNontrivialPtr(MR.CS.CSharp.NonTrivial? a, MR.CS.CSharp.NonTrivial? b = null, MR.CS.CSharp.InOptMut_NonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_ptr(MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.CSharp.NonTrivial._Underlying *b, MR.CS.CSharp.NonTrivial._Underlying **c);
@@ -10774,7 +11878,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shptr_ptr`.
             /// Parameter `b` defaults to `&default_shptr`.
-            public static unsafe MR.CS.CSharp.SA? TestShptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.SA>? b = null)
+            public static unsafe MR.CS.CSharp.SA? TestShptrPtr(MR.CS.CSharp.SA? a, MR.CS.CSharp.InOptMut_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shptr_ptr(MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.CSharp.SA._UnderlyingShared **b);
@@ -10823,7 +11927,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shcptr_ptr`.
             /// Parameter `b` defaults to `&default_shcptr`.
-            public static unsafe MR.CS.CSharp.SA? TestShcptrPtr(MR.CS.CSharp.SA? a, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.SA>? b = null)
+            public static unsafe MR.CS.CSharp.SA? TestShcptrPtr(MR.CS.CSharp.SA? a, MR.CS.CSharp.InOptMut_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shcptr_ptr(MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.CSharp.SA._UnderlyingShared **b);
@@ -10902,7 +12006,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_string_ptr`.
             /// Parameter `b` defaults to `&default_string`.
-            public static unsafe MR.CS.Std.String? TestStringPtr(MR.CS.Std.String? a, MR.CS.Misc.InOptMutClass<MR.CS.Std.String>? b = null)
+            public static unsafe MR.CS.Std.String? TestStringPtr(MR.CS.Std.String? a, MR.CS.Std.InOptMut_String? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_ptr", ExactSpelling = true)]
                 extern static MR.CS.Std.String._Underlying *__MR_CSharp_test_string_ptr(MR.CS.Std.String._Underlying *a, MR.CS.Std.String._Underlying **b);
@@ -10981,7 +12085,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_stringview_ptr`.
             /// Parameter `b` defaults to `&default_stringview`.
-            public static unsafe MR.CS.Std.StringView? TestStringviewPtr(MR.CS.Std.StringView? a, MR.CS.Misc.InOptMutClass<MR.CS.Std.StringView>? b = null)
+            public static unsafe MR.CS.Std.StringView? TestStringviewPtr(MR.CS.Std.StringView? a, MR.CS.Std.InOptMut_StringView? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_ptr", ExactSpelling = true)]
                 extern static MR.CS.Std.StringView._Underlying *__MR_CSharp_test_stringview_ptr(MR.CS.Std.StringView._Underlying *a, MR.CS.Std.StringView._Underlying **b);
@@ -11060,7 +12164,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_fspath_ptr`.
             /// Parameter `b` defaults to `&default_fspath`.
-            public static unsafe MR.CS.Std.Filesystem.Path? TestFspathPtr(MR.CS.Std.Filesystem.Path? a, MR.CS.Misc.InOptMutClass<MR.CS.Std.Filesystem.Path>? b = null)
+            public static unsafe MR.CS.Std.Filesystem.Path? TestFspathPtr(MR.CS.Std.Filesystem.Path? a, MR.CS.Std.Filesystem.InOptMut_Path? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_ptr", ExactSpelling = true)]
                 extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_CSharp_test_fspath_ptr(MR.CS.Std.Filesystem.Path._Underlying *a, MR.CS.Std.Filesystem.Path._Underlying **b);
@@ -11134,7 +12238,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_convtrivial_ptr`.
             /// Parameter `c` defaults to `&default_convtrivial`.
-            public static unsafe MR.CS.CSharp.ConvCtorTrivial? TestClassConvtrivialPtr(MR.CS.CSharp.ConvCtorTrivial? a, MR.CS.CSharp.ConvCtorTrivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.ConvCtorTrivial>? c = null)
+            public static unsafe MR.CS.CSharp.ConvCtorTrivial? TestClassConvtrivialPtr(MR.CS.CSharp.ConvCtorTrivial? a, MR.CS.CSharp.ConvCtorTrivial? b = null, MR.CS.CSharp.InOptMut_ConvCtorTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConvCtorTrivial._Underlying *__MR_CSharp_test_class_convtrivial_ptr(MR.CS.CSharp.ConvCtorTrivial._Underlying *a, MR.CS.CSharp.ConvCtorTrivial._Underlying *b, MR.CS.CSharp.ConvCtorTrivial._Underlying **c);
@@ -11183,7 +12287,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_convnontrivial_ptr`.
             /// Parameter `c` defaults to `&default_convnontrivial`.
-            public static unsafe MR.CS.CSharp.ConvCtorNonTrivial? TestClassConvnontrivialPtr(MR.CS.CSharp.ConvCtorNonTrivial? a, MR.CS.CSharp.ConvCtorNonTrivial? b = null, MR.CS.Misc.InOptMutClass<MR.CS.CSharp.ConvCtorNonTrivial>? c = null)
+            public static unsafe MR.CS.CSharp.ConvCtorNonTrivial? TestClassConvnontrivialPtr(MR.CS.CSharp.ConvCtorNonTrivial? a, MR.CS.CSharp.ConvCtorNonTrivial? b = null, MR.CS.CSharp.InOptMut_ConvCtorNonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_ptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial_ptr(MR.CS.CSharp.ConvCtorNonTrivial._Underlying *a, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *b, MR.CS.CSharp.ConvCtorNonTrivial._Underlying **c);
@@ -11203,12 +12307,110 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.ConstConvCtorNonTrivial(__ret, is_owning: false) : null;
             }
 
-            /// Generated from function `MR::CSharp::make_exposed_layout_sh`.
-            public static unsafe MR.CS.CSharp.MutExposedLayoutSh MakeExposedLayoutSh()
+            /// Generated from function `MR::CSharp::test_exposed`.
+            /// Parameter `b` defaults to `default_exposed`.
+            public static unsafe MR.CS.CSharp.ExposedLayout TestExposed(MR.CS.CSharp.ExposedLayout a, MR.CS.CSharp.InOpt_ExposedLayout b = default)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_make_exposed_layout_sh", ExactSpelling = true)]
-                extern static MR.CS.CSharp.MutExposedLayoutSh._UnderlyingShared *__MR_CSharp_make_exposed_layout_sh();
-                return new(__MR_CSharp_make_exposed_layout_sh(), is_owning: true);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_MR_CSharp_ExposedLayout", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ExposedLayout __MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(MR.CS.CSharp.ExposedLayout a, MR.CS.CSharp.ExposedLayout *b);
+                return __MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(a, b.HasValue ? &b.Object : null);
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_ref`.
+            /// Parameter `b` defaults to `default_exposed`.
+            public static unsafe MR.CS.CSharp.MutExposedLayout TestExposedRef(MR.CS.CSharp.MutExposedLayout a, MR.CS.CSharp.MutExposedLayout? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout", ExactSpelling = true)]
+                extern static MR.CS.CSharp.MutExposedLayout._Underlying *__MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout(MR.CS.CSharp.MutExposedLayout._Underlying *a, MR.CS.CSharp.MutExposedLayout._Underlying *b);
+                return new(__MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_cref`.
+            /// Parameter `b` defaults to `default_exposed`.
+            public static unsafe MR.CS.CSharp.ConstExposedLayout TestExposedCref(MR.CS.CSharp.ConstExposedLayout a, MR.CS.CSharp.ConstExposedLayout? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstExposedLayout._Underlying *__MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout(MR.CS.CSharp.ConstExposedLayout._Underlying *a, MR.CS.CSharp.ConstExposedLayout._Underlying *b);
+                return new(__MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_ptr`.
+            /// Parameter `c` defaults to `&default_exposed`.
+            public static unsafe MR.CS.CSharp.MutExposedLayout? TestExposedPtr(MR.CS.CSharp.MutExposedLayout? a, MR.CS.CSharp.MutExposedLayout? b = null, MR.CS.CSharp.InOptMut_ExposedLayout? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.MutExposedLayout._Underlying *__MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr(MR.CS.CSharp.MutExposedLayout._Underlying *a, MR.CS.CSharp.MutExposedLayout._Underlying *b, MR.CS.CSharp.MutExposedLayout._Underlying **c);
+                MR.CS.CSharp.MutExposedLayout._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.MutExposedLayout(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_cptr`.
+            /// Parameter `c` defaults to `&default_exposed`.
+            public static unsafe MR.CS.CSharp.ConstExposedLayout? TestExposedCptr(MR.CS.CSharp.ConstExposedLayout? a, MR.CS.CSharp.ConstExposedLayout? b = null, MR.CS.CSharp.InOptConst_ExposedLayout? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstExposedLayout._Underlying *__MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr(MR.CS.CSharp.ConstExposedLayout._Underlying *a, MR.CS.CSharp.ConstExposedLayout._Underlying *b, MR.CS.CSharp.ConstExposedLayout._Underlying **c);
+                MR.CS.CSharp.ConstExposedLayout._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.ConstExposedLayout(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::make_exposed_sh`.
+            public static unsafe MR.CS.CSharp.MutExposedLayoutSh MakeExposedSh()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_make_exposed_sh", ExactSpelling = true)]
+                extern static MR.CS.CSharp.MutExposedLayoutSh._UnderlyingShared *__MR_CSharp_make_exposed_sh();
+                return new(__MR_CSharp_make_exposed_sh(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed`.
+            /// Parameter `b` defaults to `default_exposed_sh`.
+            public static unsafe MR.CS.CSharp.ExposedLayoutSh TestExposed(MR.CS.CSharp.ExposedLayoutSh a, MR.CS.CSharp.InOpt_ExposedLayoutSh b = default)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ExposedLayoutSh __MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ExposedLayoutSh a, MR.CS.CSharp.ExposedLayoutSh *b);
+                return __MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(a, b.HasValue ? &b.Object : null);
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_ref`.
+            /// Parameter `b` defaults to `default_exposed_sh`.
+            public static unsafe MR.CS.CSharp.MutExposedLayoutSh TestExposedRef(MR.CS.CSharp.MutExposedLayoutSh a, MR.CS.CSharp.MutExposedLayoutSh? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
+                extern static MR.CS.CSharp.MutExposedLayoutSh._Underlying *__MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.MutExposedLayoutSh._Underlying *a, MR.CS.CSharp.MutExposedLayoutSh._Underlying *b);
+                return new(__MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_cref`.
+            /// Parameter `b` defaults to `default_exposed_sh`.
+            public static unsafe MR.CS.CSharp.ConstExposedLayoutSh TestExposedCref(MR.CS.CSharp.ConstExposedLayoutSh a, MR.CS.CSharp.ConstExposedLayoutSh? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstExposedLayoutSh._Underlying *__MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ConstExposedLayoutSh._Underlying *a, MR.CS.CSharp.ConstExposedLayoutSh._Underlying *b);
+                return new(__MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_ptr`.
+            /// Parameter `c` defaults to `&default_exposed_sh`.
+            public static unsafe MR.CS.CSharp.MutExposedLayoutSh? TestExposedPtr(MR.CS.CSharp.MutExposedLayoutSh? a, MR.CS.CSharp.MutExposedLayoutSh? b = null, MR.CS.CSharp.InOptMut_ExposedLayoutSh? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.MutExposedLayoutSh._Underlying *__MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr(MR.CS.CSharp.MutExposedLayoutSh._Underlying *a, MR.CS.CSharp.MutExposedLayoutSh._Underlying *b, MR.CS.CSharp.MutExposedLayoutSh._Underlying **c);
+                MR.CS.CSharp.MutExposedLayoutSh._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.MutExposedLayoutSh(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_cptr`.
+            /// Parameter `c` defaults to `&default_exposed_sh`.
+            public static unsafe MR.CS.CSharp.ConstExposedLayoutSh? TestExposedCptr(MR.CS.CSharp.ConstExposedLayoutSh? a, MR.CS.CSharp.ConstExposedLayoutSh? b = null, MR.CS.CSharp.InOptConst_ExposedLayoutSh? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstExposedLayoutSh._Underlying *__MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(MR.CS.CSharp.ConstExposedLayoutSh._Underlying *a, MR.CS.CSharp.ConstExposedLayoutSh._Underlying *b, MR.CS.CSharp.ConstExposedLayoutSh._Underlying **c);
+                MR.CS.CSharp.ConstExposedLayoutSh._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.CSharp.ConstExposedLayoutSh(__ret, is_owning: false) : null;
             }
         }
     }

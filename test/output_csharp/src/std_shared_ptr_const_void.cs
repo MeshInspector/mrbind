@@ -235,7 +235,22 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `SharedPtr_ConstVoid` with default arguments.
-            /// This is only used const parameters. For non-const ones we have a generic `InOptMutClass<T>`.
+            /// This is only used mutable parameters. For const ones we have `InOptConst_SharedPtr_ConstVoid`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SharedPtr_ConstVoid`/`ConstSharedPtr_ConstVoid` directly.
+            public class InOptMut_SharedPtr_ConstVoid
+            {
+                public SharedPtr_ConstVoid? Opt;
+
+                public InOptMut_SharedPtr_ConstVoid() {}
+                public InOptMut_SharedPtr_ConstVoid(SharedPtr_ConstVoid value) {Opt = value;}
+                public static implicit operator InOptMut_SharedPtr_ConstVoid(SharedPtr_ConstVoid value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SharedPtr_ConstVoid` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `InOptMut_SharedPtr_ConstVoid`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
@@ -245,8 +260,8 @@ public static partial class MR
                 public ConstSharedPtr_ConstVoid? Opt;
 
                 public InOptConst_SharedPtr_ConstVoid() {}
-                public InOptConst_SharedPtr_ConstVoid(ConstSharedPtr_ConstVoid NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOptConst_SharedPtr_ConstVoid(ConstSharedPtr_ConstVoid NewOpt) {return new InOptConst_SharedPtr_ConstVoid(NewOpt);}
+                public InOptConst_SharedPtr_ConstVoid(ConstSharedPtr_ConstVoid value) {Opt = value;}
+                public static implicit operator InOptConst_SharedPtr_ConstVoid(ConstSharedPtr_ConstVoid value) {return new(value);}
 
                 /// Create a new instance from a non-const pointer to the same type.
                 public static unsafe implicit operator InOptConst_SharedPtr_ConstVoid(MR.CS.Std.ByValue_SharedPtr_Void ptr) {return new MR.CS.Std.SharedPtr_ConstVoid(ptr);}
