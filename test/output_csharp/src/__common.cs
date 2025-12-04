@@ -94,7 +94,7 @@ public static partial class MR
                 public ref T Value => ref *Ptr;
             }
 
-            /// This can be used with `ByValue...` function parameters, to indicate that the argument should be moved.
+            /// This can be used with `ByValue_...` function parameters, to indicate that the argument should be moved.
             /// See those structs for a longer explanation.
             public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}
 
@@ -113,6 +113,12 @@ public static partial class MR
                 default_arg,
                 no_object,
             }
+
+            /// The type of `NullOpt`, see that for more details.
+            public struct NullOptType {}
+            /// This can be passed into `ByValueOptOpt_...` parameters to indicate that you want to pass no object,
+            ///   as opposed to using the default argument provided by the function.
+            public static NullOptType NullOpt;
 
             /// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.
             /// Pass `null` or `new()` to use the default argument.

@@ -174,7 +174,7 @@ public static partial class MR
             /// * Pass an instance of `A`/`ConstA` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_A
             {
                 internal readonly ConstA? Value;
@@ -420,7 +420,7 @@ public static partial class MR
             /// * Pass an instance of `B`/`ConstB` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_B
             {
                 internal readonly ConstB? Value;
@@ -650,7 +650,7 @@ public static partial class MR
             /// * Pass an instance of `C`/`ConstC` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_C
             {
                 internal readonly ConstC? Value;
@@ -1198,7 +1198,7 @@ public static partial class MR
             /// * Pass an instance of `F`/`ConstF` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_F
             {
                 internal readonly ConstF? Value;
@@ -1500,7 +1500,7 @@ public static partial class MR
             /// * Pass an instance of `G`/`ConstG` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_G
             {
                 internal readonly ConstG? Value;
@@ -1818,7 +1818,7 @@ public static partial class MR
             /// * Pass an instance of `NonTrivial`/`ConstNonTrivial` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_NonTrivial
             {
                 internal readonly ConstNonTrivial? Value;
@@ -1828,6 +1828,28 @@ public static partial class MR
                 public static implicit operator ByValue_NonTrivial(ConstNonTrivial arg) {return new(arg);}
                 public ByValue_NonTrivial(MR.CS.Misc._Moved<NonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_NonTrivial(MR.CS.Misc._Moved<NonTrivial> arg) {return new(arg);}
+            }
+
+            /// This is used as a function parameter when the underlying function receives an optional `NonTrivial` by value,
+            ///   and also has a default argument, meaning it has two different null states.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `NonTrivial`/`ConstNonTrivial` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument.
+            /// * Pass `MR.CS.Misc.NullOptType` to pass no object.
+            public class ByValueOptOpt_NonTrivial
+            {
+                internal readonly ConstNonTrivial? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueOptOpt_NonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueOptOpt_NonTrivial(ConstNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator ByValueOptOpt_NonTrivial(ConstNonTrivial arg) {return new(arg);}
+                public ByValueOptOpt_NonTrivial(MR.CS.Misc._Moved<NonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueOptOpt_NonTrivial(MR.CS.Misc._Moved<NonTrivial> arg) {return new(arg);}
+                public ByValueOptOpt_NonTrivial(MR.CS.Misc.NullOptType nullopt) {PassByMode = MR.CS.Misc._PassBy.no_object;}
+                public static implicit operator ByValueOptOpt_NonTrivial(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
             }
 
             /// This is used for optional parameters of class `NonTrivial` with default arguments.
@@ -1936,7 +1958,7 @@ public static partial class MR
             /// * Pass an instance of `NonTrivialDerived`/`ConstNonTrivialDerived` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_NonTrivialDerived
             {
                 internal readonly ConstNonTrivialDerived? Value;
@@ -2119,7 +2141,7 @@ public static partial class MR
             /// * Pass an instance of `SA`/`ConstSA` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_SA
             {
                 internal readonly ConstSA? Value;
@@ -2302,7 +2324,7 @@ public static partial class MR
             /// * Pass an instance of `SB`/`ConstSB` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_SB
             {
                 internal readonly ConstSB? Value;
@@ -2515,7 +2537,7 @@ public static partial class MR
             /// * Pass an instance of `SC`/`ConstSC` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_SC
             {
                 internal readonly ConstSC? Value;
@@ -3059,7 +3081,7 @@ public static partial class MR
             /// * Pass an instance of `TestFields`/`ConstTestFields` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_TestFields
             {
                 internal readonly ConstTestFields? Value;
@@ -3844,7 +3866,7 @@ public static partial class MR
             /// * Pass an instance of `IncrDecrE`/`ConstIncrDecrE` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_IncrDecrE
             {
                 internal readonly ConstIncrDecrE? Value;
@@ -3970,7 +3992,7 @@ public static partial class MR
             /// * Pass an instance of `IncrDecrF`/`ConstIncrDecrF` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_IncrDecrF
             {
                 internal readonly ConstIncrDecrF? Value;
@@ -6016,7 +6038,7 @@ public static partial class MR
             /// * Pass an instance of `StaticOpsLhsC`/`ConstStaticOpsLhsC` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_StaticOpsLhsC
             {
                 internal readonly ConstStaticOpsLhsC? Value;
@@ -6874,7 +6896,7 @@ public static partial class MR
             /// * Pass an instance of `StaticOpsRhsC`/`ConstStaticOpsRhsC` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_StaticOpsRhsC
             {
                 internal readonly ConstStaticOpsRhsC? Value;
@@ -7758,7 +7780,7 @@ public static partial class MR
             /// * Pass an instance of `NonTrivialClassOps`/`ConstNonTrivialClassOps` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_NonTrivialClassOps
             {
                 internal readonly ConstNonTrivialClassOps? Value;
@@ -8726,7 +8748,7 @@ public static partial class MR
             /// * Pass an instance of `TestOpsB`/`ConstTestOpsB` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_TestOpsB
             {
                 internal readonly ConstTestOpsB? Value;
@@ -9643,7 +9665,7 @@ public static partial class MR
             /// * Pass an instance of `ConvCtorNonTrivial`/`ConstConvCtorNonTrivial` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_ConvCtorNonTrivial
             {
                 internal readonly ConstConvCtorNonTrivial? Value;
@@ -10779,7 +10801,7 @@ public static partial class MR
             /// * Pass an instance of `MutExposedLayoutSh`/`ConstExposedLayoutSh` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_ExposedLayoutSh
             {
                 internal readonly ConstExposedLayoutSh? Value;
@@ -11321,7 +11343,7 @@ public static partial class MR
             /// * Pass an instance of `ArrayMembers`/`ConstArrayMembers` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_ArrayMembers
             {
                 internal readonly ConstArrayMembers? Value;
@@ -12399,6 +12421,308 @@ public static partial class MR
                 MR.CS.CSharp.ConstExposedLayoutSh._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
                 var __ret = __MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
                 return __ret is not null ? new MR.CS.CSharp.ConstExposedLayoutSh(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optint`.
+            /// Parameter `b` defaults to `default_optint`.
+            /// Parameter `c` defaults to `default_optint`.
+            public static unsafe MR.CS.Std.Optional_Int TestOptint(int? a, MR.CS.Std.ConstOptional_Int? b = null, MR.CS.Std.ConstOptional_Int? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_Int._Underlying *__MR_CSharp_test_optint(int *a, MR.CS.Std.Optional_Int._Underlying *b, MR.CS.Std.Optional_Int._Underlying *c);
+                int __deref_a = a.GetValueOrDefault();
+                return new(__MR_CSharp_test_optint(a.HasValue ? &__deref_a : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_optint_ref`.
+            /// Parameter `b` defaults to `default_optint`.
+            public static unsafe MR.CS.Std.Optional_Int TestOptintRef(MR.CS.Std.Optional_Int a, MR.CS.Std.Optional_Int? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_Int._Underlying *__MR_CSharp_test_optint_ref(MR.CS.Std.Optional_Int._Underlying *a, MR.CS.Std.Optional_Int._Underlying *b);
+                return new(__MR_CSharp_test_optint_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optint_cref`.
+            /// Parameter `b` defaults to `default_optint`.
+            public static unsafe MR.CS.Std.ConstOptional_Int TestOptintCref(int? a, MR.CS.Std.ConstOptional_Int? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_Int._Underlying *__MR_CSharp_test_optint_cref(int *a, MR.CS.Std.ConstOptional_Int._Underlying *b);
+                int __deref_a = a.GetValueOrDefault();
+                return new(__MR_CSharp_test_optint_cref(a.HasValue ? &__deref_a : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optint_ptr`.
+            /// Parameter `c` defaults to `&default_optint`.
+            public static unsafe MR.CS.Std.Optional_Int? TestOptintPtr(MR.CS.Std.Optional_Int? a, MR.CS.Std.Optional_Int? b = null, MR.CS.Std.InOptMut_Optional_Int? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_Int._Underlying *__MR_CSharp_test_optint_ptr(MR.CS.Std.Optional_Int._Underlying *a, MR.CS.Std.Optional_Int._Underlying *b, MR.CS.Std.Optional_Int._Underlying **c);
+                MR.CS.Std.Optional_Int._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optint_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Optional_Int(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optint_cptr`.
+            /// Parameter `c` defaults to `&default_optint`.
+            public static unsafe MR.CS.Std.ConstOptional_Int? TestOptintCptr(MR.CS.Std.ConstOptional_Int? a, MR.CS.Std.ConstOptional_Int? b = null, MR.CS.Std.InOptConst_Optional_Int? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_Int._Underlying *__MR_CSharp_test_optint_cptr(MR.CS.Std.ConstOptional_Int._Underlying *a, MR.CS.Std.ConstOptional_Int._Underlying *b, MR.CS.Std.ConstOptional_Int._Underlying **c);
+                MR.CS.Std.ConstOptional_Int._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optint_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.ConstOptional_Int(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optstr`.
+            /// Parameter `b` defaults to `default_optstr`.
+            /// Parameter `c` defaults to `default_optstr`.
+            public static unsafe MR.CS.Std.Optional_StdString TestOptstr(MR.CS.Std.ByValue_String? a, MR.CS.Std.ByValue_Optional_StdString? b = null, MR.CS.Std.ByValue_Optional_StdString? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_StdString._Underlying *__MR_CSharp_test_optstr(MR.CS.Misc._PassBy a_pass_by, MR.CS.Std.String._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.Std.Optional_StdString._Underlying *b, MR.CS.Misc._PassBy c_pass_by, MR.CS.Std.Optional_StdString._Underlying *c);
+                return new(__MR_CSharp_test_optstr(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_optstr_ref`.
+            /// Parameter `b` defaults to `default_optstr`.
+            public static unsafe MR.CS.Std.Optional_StdString TestOptstrRef(MR.CS.Std.Optional_StdString a, MR.CS.Std.Optional_StdString? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_StdString._Underlying *__MR_CSharp_test_optstr_ref(MR.CS.Std.Optional_StdString._Underlying *a, MR.CS.Std.Optional_StdString._Underlying *b);
+                return new(__MR_CSharp_test_optstr_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optstr_cref`.
+            /// Parameter `b` defaults to `default_optstr`.
+            public static unsafe MR.CS.Std.ConstOptional_StdString TestOptstrCref(MR.CS.Std.ByValue_String? a, MR.CS.Std.ConstOptional_StdString? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_StdString._Underlying *__MR_CSharp_test_optstr_cref(MR.CS.Misc._PassBy a_pass_by, MR.CS.Std.String._Underlying *a, MR.CS.Std.ConstOptional_StdString._Underlying *b);
+                return new(__MR_CSharp_test_optstr_cref(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optstr_ptr`.
+            /// Parameter `c` defaults to `&default_optstr`.
+            public static unsafe MR.CS.Std.Optional_StdString? TestOptstrPtr(MR.CS.Std.Optional_StdString? a, MR.CS.Std.Optional_StdString? b = null, MR.CS.Std.InOptMut_Optional_StdString? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_StdString._Underlying *__MR_CSharp_test_optstr_ptr(MR.CS.Std.Optional_StdString._Underlying *a, MR.CS.Std.Optional_StdString._Underlying *b, MR.CS.Std.Optional_StdString._Underlying **c);
+                MR.CS.Std.Optional_StdString._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optstr_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Optional_StdString(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optstr_cptr`.
+            /// Parameter `c` defaults to `&default_optstr`.
+            public static unsafe MR.CS.Std.ConstOptional_StdString? TestOptstrCptr(MR.CS.Std.ConstOptional_StdString? a, MR.CS.Std.ConstOptional_StdString? b = null, MR.CS.Std.InOptConst_Optional_StdString? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_StdString._Underlying *__MR_CSharp_test_optstr_cptr(MR.CS.Std.ConstOptional_StdString._Underlying *a, MR.CS.Std.ConstOptional_StdString._Underlying *b, MR.CS.Std.ConstOptional_StdString._Underlying **c);
+                MR.CS.Std.ConstOptional_StdString._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optstr_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.ConstOptional_StdString(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_opttriv`.
+            /// Parameter `b` defaults to `default_opttriv`.
+            /// Parameter `c` defaults to `default_opttriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpTrivial TestOpttriv(MR.CS.CSharp.ConstTrivial? a, MR.CS.Std.ConstOptional_MRCSharpTrivial? b = null, MR.CS.Std.ConstOptional_MRCSharpTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_CSharp_test_opttriv(MR.CS.CSharp.Trivial._Underlying *a, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *b, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *c);
+                return new(__MR_CSharp_test_opttriv(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_opttriv_ref`.
+            /// Parameter `b` defaults to `default_opttriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpTrivial TestOpttrivRef(MR.CS.Std.Optional_MRCSharpTrivial a, MR.CS.Std.Optional_MRCSharpTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_CSharp_test_opttriv_ref(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *a, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *b);
+                return new(__MR_CSharp_test_opttriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_opttriv_cref`.
+            /// Parameter `b` defaults to `default_opttriv`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpTrivial TestOpttrivCref(MR.CS.CSharp.ConstTrivial? a, MR.CS.Std.ConstOptional_MRCSharpTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpTrivial._Underlying *__MR_CSharp_test_opttriv_cref(MR.CS.CSharp.Trivial._Underlying *a, MR.CS.Std.ConstOptional_MRCSharpTrivial._Underlying *b);
+                return new(__MR_CSharp_test_opttriv_cref(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_opttriv_ptr`.
+            /// Parameter `c` defaults to `&default_opttriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpTrivial? TestOpttrivPtr(MR.CS.Std.Optional_MRCSharpTrivial? a, MR.CS.Std.Optional_MRCSharpTrivial? b = null, MR.CS.Std.InOptMut_Optional_MRCSharpTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_CSharp_test_opttriv_ptr(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *a, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *b, MR.CS.Std.Optional_MRCSharpTrivial._Underlying **c);
+                MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_opttriv_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Optional_MRCSharpTrivial(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_opttriv_cptr`.
+            /// Parameter `c` defaults to `&default_opttriv`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpTrivial? TestOpttrivCptr(MR.CS.Std.ConstOptional_MRCSharpTrivial? a, MR.CS.Std.ConstOptional_MRCSharpTrivial? b = null, MR.CS.Std.InOptConst_Optional_MRCSharpTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpTrivial._Underlying *__MR_CSharp_test_opttriv_cptr(MR.CS.Std.ConstOptional_MRCSharpTrivial._Underlying *a, MR.CS.Std.ConstOptional_MRCSharpTrivial._Underlying *b, MR.CS.Std.ConstOptional_MRCSharpTrivial._Underlying **c);
+                MR.CS.Std.ConstOptional_MRCSharpTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_opttriv_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.ConstOptional_MRCSharpTrivial(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optnontriv`.
+            /// Parameter `b` defaults to `default_optnontriv`.
+            /// Parameter `c` defaults to `default_optnontriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial TestOptnontriv(MR.CS.CSharp.ByValue_NonTrivial? a, MR.CS.CSharp.ByValueOptOpt_NonTrivial? b = null, MR.CS.CSharp.ByValueOptOpt_NonTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_CSharp_test_optnontriv(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.NonTrivial._Underlying *b, MR.CS.Misc._PassBy c_pass_by, MR.CS.CSharp.NonTrivial._Underlying *c);
+                return new(__MR_CSharp_test_optnontriv(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_optnontriv_ref`.
+            /// Parameter `b` defaults to `default_optnontriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial TestOptnontrivRef(MR.CS.Std.Optional_MRCSharpNonTrivial a, MR.CS.Std.Optional_MRCSharpNonTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_CSharp_test_optnontriv_ref(MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *a, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *b);
+                return new(__MR_CSharp_test_optnontriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optnontriv_cref`.
+            /// Parameter `b` defaults to `default_optnontriv`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpNonTrivial TestOptnontrivCref(MR.CS.CSharp.ByValue_NonTrivial? a, MR.CS.CSharp.ByValueOptOpt_NonTrivial? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpNonTrivial._Underlying *__MR_CSharp_test_optnontriv_cref(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.NonTrivial._Underlying *b);
+                return new(__MR_CSharp_test_optnontriv_cref(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optnontriv_ptr`.
+            /// Parameter `c` defaults to `&default_optnontriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial? TestOptnontrivPtr(MR.CS.Std.Optional_MRCSharpNonTrivial? a, MR.CS.Std.Optional_MRCSharpNonTrivial? b = null, MR.CS.Std.InOptMut_Optional_MRCSharpNonTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_CSharp_test_optnontriv_ptr(MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *a, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *b, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying **c);
+                MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optnontriv_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Optional_MRCSharpNonTrivial(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optnontriv_cptr`.
+            /// Parameter `c` defaults to `&default_optnontriv`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpNonTrivial? TestOptnontrivCptr(MR.CS.Std.ConstOptional_MRCSharpNonTrivial? a, MR.CS.Std.ConstOptional_MRCSharpNonTrivial? b = null, MR.CS.Std.InOptConst_Optional_MRCSharpNonTrivial? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpNonTrivial._Underlying *__MR_CSharp_test_optnontriv_cptr(MR.CS.Std.ConstOptional_MRCSharpNonTrivial._Underlying *a, MR.CS.Std.ConstOptional_MRCSharpNonTrivial._Underlying *b, MR.CS.Std.ConstOptional_MRCSharpNonTrivial._Underlying **c);
+                MR.CS.Std.ConstOptional_MRCSharpNonTrivial._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optnontriv_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.ConstOptional_MRCSharpNonTrivial(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optshexp`.
+            /// Parameter `b` defaults to `default_optshexp`.
+            /// Parameter `c` defaults to `default_optshexp`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh TestOptshexp(MR.CS.CSharp.InOpt_ExposedLayoutSh a, MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_CSharp_test_optshexp(MR.CS.CSharp.ExposedLayoutSh *a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *b, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *c);
+                return new(__MR_CSharp_test_optshexp(a.HasValue ? &a.Object : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_optshexp_ref`.
+            /// Parameter `b` defaults to `default_optshexp`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh TestOptshexpRef(MR.CS.Std.Optional_MRCSharpExposedLayoutSh a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_CSharp_test_optshexp_ref(MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *b);
+                return new(__MR_CSharp_test_optshexp_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optshexp_cref`.
+            /// Parameter `b` defaults to `default_optshexp`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh TestOptshexpCref(MR.CS.CSharp.InOpt_ExposedLayoutSh a, MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh._Underlying *__MR_CSharp_test_optshexp_cref(MR.CS.CSharp.ExposedLayoutSh *a, MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh._Underlying *b);
+                return new(__MR_CSharp_test_optshexp_cref(a.HasValue ? &a.Object : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optshexp_ptr`.
+            /// Parameter `c` defaults to `&default_optshexp`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh? TestOptshexpPtr(MR.CS.Std.Optional_MRCSharpExposedLayoutSh? a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std.InOptMut_Optional_MRCSharpExposedLayoutSh? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_CSharp_test_optshexp_ptr(MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *b, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying **c);
+                MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optshexp_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Optional_MRCSharpExposedLayoutSh(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optshexp_cptr`.
+            /// Parameter `c` defaults to `&default_optshexp`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh? TestOptshexpCptr(MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh? a, MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std.InOptConst_Optional_MRCSharpExposedLayoutSh? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh._Underlying *__MR_CSharp_test_optshexp_cptr(MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh._Underlying *a, MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh._Underlying *b, MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh._Underlying **c);
+                MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optshexp_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optshtriv`.
+            /// Parameter `b` defaults to `default_optshtriv`.
+            /// Parameter `c` defaults to `default_optshtriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpSA TestOptshtriv(MR.CS.CSharp.ConstSA? a, MR.CS.Std.ConstOptional_MRCSharpSA? b = null, MR.CS.Std.ConstOptional_MRCSharpSA? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_CSharp_test_optshtriv(MR.CS.CSharp.SA._Underlying *a, MR.CS.Std.Optional_MRCSharpSA._Underlying *b, MR.CS.Std.Optional_MRCSharpSA._Underlying *c);
+                return new(__MR_CSharp_test_optshtriv(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_optshtriv_ref`.
+            /// Parameter `b` defaults to `default_optshtriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpSA TestOptshtrivRef(MR.CS.Std.Optional_MRCSharpSA a, MR.CS.Std.Optional_MRCSharpSA? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_CSharp_test_optshtriv_ref(MR.CS.Std.Optional_MRCSharpSA._Underlying *a, MR.CS.Std.Optional_MRCSharpSA._Underlying *b);
+                return new(__MR_CSharp_test_optshtriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optshtriv_cref`.
+            /// Parameter `b` defaults to `default_optshtriv`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpSA TestOptshtrivCref(MR.CS.CSharp.ConstSA? a, MR.CS.Std.ConstOptional_MRCSharpSA? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *__MR_CSharp_test_optshtriv_cref(MR.CS.CSharp.SA._Underlying *a, MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *b);
+                return new(__MR_CSharp_test_optshtriv_cref(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_optshtriv_ptr`.
+            /// Parameter `c` defaults to `&default_optshtriv`.
+            public static unsafe MR.CS.Std.Optional_MRCSharpSA? TestOptshtrivPtr(MR.CS.Std.Optional_MRCSharpSA? a, MR.CS.Std.Optional_MRCSharpSA? b = null, MR.CS.Std.InOptMut_Optional_MRCSharpSA? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_CSharp_test_optshtriv_ptr(MR.CS.Std.Optional_MRCSharpSA._Underlying *a, MR.CS.Std.Optional_MRCSharpSA._Underlying *b, MR.CS.Std.Optional_MRCSharpSA._Underlying **c);
+                MR.CS.Std.Optional_MRCSharpSA._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optshtriv_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Optional_MRCSharpSA(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_optshtriv_cptr`.
+            /// Parameter `c` defaults to `&default_optshtriv`.
+            public static unsafe MR.CS.Std.ConstOptional_MRCSharpSA? TestOptshtrivCptr(MR.CS.Std.ConstOptional_MRCSharpSA? a, MR.CS.Std.ConstOptional_MRCSharpSA? b = null, MR.CS.Std.InOptConst_Optional_MRCSharpSA? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *__MR_CSharp_test_optshtriv_cptr(MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *a, MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *b, MR.CS.Std.ConstOptional_MRCSharpSA._Underlying **c);
+                MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_optshtriv_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.ConstOptional_MRCSharpSA(__ret, is_owning: false) : null;
             }
         }
     }

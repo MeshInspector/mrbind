@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <iostream>
 #include <memory>
+#include <optional>
 
 // This is a mixed bag of tests primarily intended for testing the C# bindings.
 
@@ -861,4 +862,55 @@ namespace MR::CSharp
         const std::string csa[2] = {"csa0", "csa1"};
         // const std::string csaa[6][7]; // See above.
     };
+
+
+    // 50 shades of `std::optional`:
+
+    inline std::optional<int> default_optint;
+
+    inline       std::optional<int>  test_optint     (      std::optional<int>  a,       std::optional<int>  b = default_optint,       std::optional<int>  c =  default_optint) {(void)a; (void)b; return c;}
+    inline       std::optional<int> &test_optint_ref (      std::optional<int> &a,       std::optional<int> &b = default_optint                                               ) {(void)a; (void)b; return default_optint;}
+    inline const std::optional<int> &test_optint_cref(const std::optional<int> &a, const std::optional<int> &b = default_optint                                               ) {(void)a; (void)b; return default_optint;}
+    inline       std::optional<int> *test_optint_ptr (      std::optional<int> *a,       std::optional<int> *b = nullptr       ,       std::optional<int> *c = &default_optint) {(void)a; (void)b; (void)c; return &default_optint;}
+    inline const std::optional<int> *test_optint_cptr(const std::optional<int> *a, const std::optional<int> *b = nullptr       , const std::optional<int> *c = &default_optint) {(void)a; (void)b; (void)c; return &default_optint;}
+
+    inline std::optional<std::string> default_optstr;
+
+    inline       std::optional<std::string>  test_optstr     (      std::optional<std::string>  a,       std::optional<std::string>  b = default_optstr,       std::optional<std::string>  c =  default_optstr) {(void)a; (void)b; return c;}
+    inline       std::optional<std::string> &test_optstr_ref (      std::optional<std::string> &a,       std::optional<std::string> &b = default_optstr                                               ) {(void)a; (void)b; return default_optstr;}
+    inline const std::optional<std::string> &test_optstr_cref(const std::optional<std::string> &a, const std::optional<std::string> &b = default_optstr                                               ) {(void)a; (void)b; return default_optstr;}
+    inline       std::optional<std::string> *test_optstr_ptr (      std::optional<std::string> *a,       std::optional<std::string> *b = nullptr       ,       std::optional<std::string> *c = &default_optstr) {(void)a; (void)b; (void)c; return &default_optstr;}
+    inline const std::optional<std::string> *test_optstr_cptr(const std::optional<std::string> *a, const std::optional<std::string> *b = nullptr       , const std::optional<std::string> *c = &default_optstr) {(void)a; (void)b; (void)c; return &default_optstr;}
+
+    inline std::optional<Trivial> default_opttriv;
+
+    inline       std::optional<Trivial>  test_opttriv     (      std::optional<Trivial>  a,       std::optional<Trivial>  b = default_opttriv,       std::optional<Trivial>  c =  default_opttriv) {(void)a; (void)b; return c;}
+    inline       std::optional<Trivial> &test_opttriv_ref (      std::optional<Trivial> &a,       std::optional<Trivial> &b = default_opttriv                                                    ) {(void)a; (void)b; return default_opttriv;}
+    inline const std::optional<Trivial> &test_opttriv_cref(const std::optional<Trivial> &a, const std::optional<Trivial> &b = default_opttriv                                                    ) {(void)a; (void)b; return default_opttriv;}
+    inline       std::optional<Trivial> *test_opttriv_ptr (      std::optional<Trivial> *a,       std::optional<Trivial> *b = nullptr        ,       std::optional<Trivial> *c = &default_opttriv) {(void)a; (void)b; (void)c; return &default_opttriv;}
+    inline const std::optional<Trivial> *test_opttriv_cptr(const std::optional<Trivial> *a, const std::optional<Trivial> *b = nullptr        , const std::optional<Trivial> *c = &default_opttriv) {(void)a; (void)b; (void)c; return &default_opttriv;}
+
+    inline std::optional<NonTrivial> default_optnontriv;
+
+    inline       std::optional<NonTrivial>  test_optnontriv     (      std::optional<NonTrivial>  a,       std::optional<NonTrivial>  b = default_optnontriv,       std::optional<NonTrivial>  c =  default_optnontriv) {(void)a; (void)b; return c;}
+    inline       std::optional<NonTrivial> &test_optnontriv_ref (      std::optional<NonTrivial> &a,       std::optional<NonTrivial> &b = default_optnontriv                                                          ) {(void)a; (void)b; return default_optnontriv;}
+    inline const std::optional<NonTrivial> &test_optnontriv_cref(const std::optional<NonTrivial> &a, const std::optional<NonTrivial> &b = default_optnontriv                                                          ) {(void)a; (void)b; return default_optnontriv;}
+    inline       std::optional<NonTrivial> *test_optnontriv_ptr (      std::optional<NonTrivial> *a,       std::optional<NonTrivial> *b = nullptr           ,       std::optional<NonTrivial> *c = &default_optnontriv) {(void)a; (void)b; (void)c; return &default_optnontriv;}
+    inline const std::optional<NonTrivial> *test_optnontriv_cptr(const std::optional<NonTrivial> *a, const std::optional<NonTrivial> *b = nullptr           , const std::optional<NonTrivial> *c = &default_optnontriv) {(void)a; (void)b; (void)c; return &default_optnontriv;}
+
+    inline std::optional<ExposedLayoutSh> default_optshexp;
+
+    inline       std::optional<ExposedLayoutSh>  test_optshexp     (      std::optional<ExposedLayoutSh>  a,       std::optional<ExposedLayoutSh>  b = default_optshexp,       std::optional<ExposedLayoutSh>  c =  default_optshexp) {(void)a; (void)b; return c;}
+    inline       std::optional<ExposedLayoutSh> &test_optshexp_ref (      std::optional<ExposedLayoutSh> &a,       std::optional<ExposedLayoutSh> &b = default_optshexp                                                             ) {(void)a; (void)b; return default_optshexp;}
+    inline const std::optional<ExposedLayoutSh> &test_optshexp_cref(const std::optional<ExposedLayoutSh> &a, const std::optional<ExposedLayoutSh> &b = default_optshexp                                                             ) {(void)a; (void)b; return default_optshexp;}
+    inline       std::optional<ExposedLayoutSh> *test_optshexp_ptr (      std::optional<ExposedLayoutSh> *a,       std::optional<ExposedLayoutSh> *b = nullptr         ,       std::optional<ExposedLayoutSh> *c = &default_optshexp) {(void)a; (void)b; (void)c; return &default_optshexp;}
+    inline const std::optional<ExposedLayoutSh> *test_optshexp_cptr(const std::optional<ExposedLayoutSh> *a, const std::optional<ExposedLayoutSh> *b = nullptr         , const std::optional<ExposedLayoutSh> *c = &default_optshexp) {(void)a; (void)b; (void)c; return &default_optshexp;}
+
+    inline std::optional<SA> default_optshtriv;
+
+    inline       std::optional<SA>  test_optshtriv     (      std::optional<SA>  a,       std::optional<SA>  b = default_optshtriv,       std::optional<SA>  c =  default_optshtriv) {(void)a; (void)b; return c;}
+    inline       std::optional<SA> &test_optshtriv_ref (      std::optional<SA> &a,       std::optional<SA> &b = default_optshtriv                                                 ) {(void)a; (void)b; return default_optshtriv;}
+    inline const std::optional<SA> &test_optshtriv_cref(const std::optional<SA> &a, const std::optional<SA> &b = default_optshtriv                                                 ) {(void)a; (void)b; return default_optshtriv;}
+    inline       std::optional<SA> *test_optshtriv_ptr (      std::optional<SA> *a,       std::optional<SA> *b = nullptr          ,       std::optional<SA> *c = &default_optshtriv) {(void)a; (void)b; (void)c; return &default_optshtriv;}
+    inline const std::optional<SA> *test_optshtriv_cptr(const std::optional<SA> *a, const std::optional<SA> *b = nullptr          , const std::optional<SA> *c = &default_optshtriv) {(void)a; (void)b; (void)c; return &default_optshtriv;}
 }

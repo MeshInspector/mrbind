@@ -350,6 +350,11 @@ namespace mrbind::CSharp
         // Same, but for unqualified names.
         [[nodiscard]] std::string CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name);
 
+        // Like `CppToCSharpByValueHelperName`, but for `std::optional
+        [[nodiscard]] std::string CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name);
+        // Same, but for unqualified names.
+        [[nodiscard]] std::string CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name);
+
         // Converts a C++ qualified exposed struct name to a C# name of its helper that's used to pass this struct by value with an optional parameter.
         // This only makes sense for classes that use the pass-by enum.
         [[nodiscard]] std::string CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name);
@@ -445,6 +450,8 @@ namespace mrbind::CSharp
             conv_op_for_ctor,
             // Same, but this one is emitted in the `ByValue...` helpers.
             conv_op_for_ctor_for_by_value_helper,
+            // Same, but this one is emitted in the `ByValueOptOpt...` helpers.
+            conv_op_for_ctor_for_by_value_opt_opt_helper,
             // Same, but this one is emitted in the `InOptConst...` helpers.
             conv_op_for_ctor_for_in_opt_const_helper,
             // Same, but this one is emitted in the `InOpt...` helpers. (Those are only for exposed structs.)
@@ -590,9 +597,9 @@ namespace mrbind::CSharp
 
         // Returns true if this C++ type maps to a class in C# (which we could make hold `std::shared_ptr` internally, among other things).
         // This also returns true for exposed structs, since in C# they get both a proper `ref struct` and the class wrappers.
-        // Throws if this isn't a known type.
+        // Note that this throws if this isn't a known type. To check if a type exists, instead use `c_desc.FindTypeOpt(...)`.
         // Ignores constness on the type.
-        [[nodiscard]] bool IsCppClass(cppdecl::Type cpp_type);
+        [[nodiscard]] bool TypeIsCppClass(cppdecl::Type cpp_type);
 
         enum class ManagedKind
         {

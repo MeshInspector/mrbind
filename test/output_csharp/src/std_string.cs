@@ -188,7 +188,7 @@ public static partial class MR
             /// * Pass an instance of `String`/`ConstString` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
-            /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class ByValue_String
             {
                 internal readonly ConstString? Value;
@@ -201,6 +201,31 @@ public static partial class MR
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator ByValue_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+            }
+
+            /// This is used as a function parameter when the underlying function receives an optional `String` by value,
+            ///   and also has a default argument, meaning it has two different null states.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `String`/`ConstString` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument.
+            /// * Pass `MR.CS.Misc.NullOptType` to pass no object.
+            public class ByValueOptOpt_String
+            {
+                internal readonly ConstString? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public ByValueOptOpt_String() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public ByValueOptOpt_String(ConstString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator ByValueOptOpt_String(ConstString arg) {return new(arg);}
+                public ByValueOptOpt_String(MR.CS.Misc._Moved<String> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator ByValueOptOpt_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
+                public ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {PassByMode = MR.CS.Misc._PassBy.no_object;}
+                public static implicit operator ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
+
+                /// Constructs a new instance.
+                public static unsafe implicit operator ByValueOptOpt_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
             }
 
             /// This is used for optional parameters of class `String` with default arguments.
