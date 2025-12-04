@@ -217,14 +217,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_SharedPtr_ConstVoid
+            public class ByValue_SharedPtr_ConstVoid
             {
                 internal readonly ConstSharedPtr_ConstVoid? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_SharedPtr_ConstVoid() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_SharedPtr_ConstVoid(ConstSharedPtr_ConstVoid new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_SharedPtr_ConstVoid(MR.CS.Misc._Moved<SharedPtr_ConstVoid> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SharedPtr_ConstVoid(ConstSharedPtr_ConstVoid arg) {return new(arg);}
+                public ByValue_SharedPtr_ConstVoid(MR.CS.Misc._Moved<SharedPtr_ConstVoid> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SharedPtr_ConstVoid(MR.CS.Misc._Moved<SharedPtr_ConstVoid> arg) {return new(arg);}
 
                 /// Create a new instance from a non-const pointer to the same type.

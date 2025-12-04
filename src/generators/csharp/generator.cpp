@@ -1363,7 +1363,7 @@ namespace mrbind::CSharp
                                             return TypeBinding::ParamUsage::Strings{
                                                 .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
                                                 .csharp_decl_params = {{.type = by_value_helper + "?", .name = name, .default_arg = "null"}},
-                                                .dllimport_args = name + ".HasValue ? " + name + ".Value.PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + ".HasValue && " + name + ".Value.Value is not null ? " + name + ".Value.Value." + csharp_underlying_ptr + " : null",
+                                                .dllimport_args = name + " is not null ? " + name + ".PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + " is not null && " + name + ".Value is not null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
                                             };
                                         },
                                     },
@@ -3868,6 +3868,7 @@ namespace mrbind::CSharp
                 if (cl->kind == CInterop::ClassKind::uses_pass_by_enum || shared_ptr_desc)
                 {
                     const std::string by_val_name = CppToCSharpUnqualByValueHelperName(cpp_name.parts.back());
+                    const std::string copy_ctor_param_half_name = type_desc.traits.value().copy_constructor_takes_nonconst_ref ? mut_half_name : const_half_name;
 
                     file.WriteSeparatingNewline();
                     file.WriteString(
@@ -3878,18 +3879,34 @@ namespace mrbind::CSharp
                         "/// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.\n"
                         "///   Be careful if your input isn't a unique reference to this object.\n"
                         "/// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.\n"
-                        // Can't a `ref struct` because we use it with `?`. Can be a plain `struct` though, so we make it that as an optimization.
-                        "public struct " + by_val_name + "\n"
+                        // Can't be a `ref struct` because we use it with `?`.
+                        // Can't be a plain `struct` because we might want it to not be default-constructible, if the underlying class isn't.
+                        "public class " + by_val_name + "\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
                     file.WriteString(
-                        "internal readonly " + const_half_name + "? Value;\n"
-                        "internal readonly " + pass_by + " PassByMode;\n"
-                        "public " + by_val_name + "() {PassByMode = " + pass_by + ".default_construct;}\n"
-                        "public " + by_val_name + "(" + const_half_name + " new_value) {Value = new_value; PassByMode = " + pass_by + ".copy;}\n"
-                        "public " + by_val_name + "(" + moved + "<" + mut_half_name + "> moved) {Value = moved.Value; PassByMode = " + pass_by + ".move;}\n"
-                        "public static implicit operator " + by_val_name + "(" + const_half_name + " arg) {return new(arg);}\n"
-                        "public static implicit operator " + by_val_name + "(" + moved + "<" + mut_half_name + "> arg) {return new(arg);}\n"
+                        "internal readonly " + const_half_name + "? Value;\n" // We always store the const half for simplicity, and then effectively `const_cast` it.
+                        "internal readonly " + pass_by + " PassByMode;\n" +
+                        (
+                            type_desc.traits.value().is_default_constructible
+                            ?
+                                "public " + by_val_name + "() {PassByMode = " + pass_by + ".default_construct;}\n"
+                            : ""
+                        ) +
+                        (
+                            type_desc.traits.value().is_copy_constructible
+                            ?
+                                "public " + by_val_name + "(" + copy_ctor_param_half_name + " new_value) {Value = new_value; PassByMode = " + pass_by + ".copy;}\n"
+                                "public static implicit operator " + by_val_name + "(" + copy_ctor_param_half_name + " arg) {return new(arg);}\n"
+                            : ""
+                        ) +
+                        (
+                            type_desc.traits.value().is_move_constructible
+                            ?
+                                "public " + by_val_name + "(" + moved + "<" + mut_half_name + "> moved) {Value = moved.Value; PassByMode = " + pass_by + ".move;}\n"
+                                "public static implicit operator " + by_val_name + "(" + moved + "<" + mut_half_name + "> arg) {return new(arg);}\n"
+                            : ""
+                        )
                     );
 
                     EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_by_value_helper);

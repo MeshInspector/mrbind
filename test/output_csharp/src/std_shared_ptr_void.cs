@@ -277,14 +277,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_SharedPtr_Void
+            public class ByValue_SharedPtr_Void
             {
                 internal readonly ConstSharedPtr_Void? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_SharedPtr_Void() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_SharedPtr_Void(ConstSharedPtr_Void new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_SharedPtr_Void(MR.CS.Misc._Moved<SharedPtr_Void> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SharedPtr_Void(ConstSharedPtr_Void arg) {return new(arg);}
+                public ByValue_SharedPtr_Void(MR.CS.Misc._Moved<SharedPtr_Void> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SharedPtr_Void(MR.CS.Misc._Moved<SharedPtr_Void> arg) {return new(arg);}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.

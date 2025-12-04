@@ -13,6 +13,19 @@
 
 namespace mrbind::CInterop
 {
+    // This is here to expose the underlying values of those enum constants.
+    // This must be synced with the enum generated `CBindings::Generator::GetCommonPublicHelpersFile()`.
+    // This must be synced with the enum generated `CSharp::Generator::GenerateHelpers()` named `_PassBy`.
+    enum class PassBy
+    {
+        default_construct, // Default-construct this parameter, the associated pointer must be null.
+        copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.
+        move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.
+        default_argument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.
+        no_object, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.
+    };
+
+
     // Lists bases and derived classes for a single class.
     struct InheritanceInfo
     {
@@ -574,17 +587,5 @@ namespace mrbind::CInterop
             else
                 return nullptr;
         }
-    };
-
-    // This is here to expose the underlying values of those enum constants.
-    // This must be synced with the enum generated `CBindings::Generator::GetCommonPublicHelpersFile()`.
-    // This must be synced with the enum generated `CSharp::Generator::GenerateHelpers()` named `_PassBy`.
-    enum class PassBy
-    {
-        PassBy_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n"
-        PassBy_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n"
-        PassBy_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n"
-        PassBy_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n"
-        PassBy_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n"
     };
 }

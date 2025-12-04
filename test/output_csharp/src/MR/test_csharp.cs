@@ -175,14 +175,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_A
+            public class ByValue_A
             {
                 internal readonly ConstA? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_A() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_A(ConstA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_A(MR.CS.Misc._Moved<A> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_A(ConstA arg) {return new(arg);}
+                public ByValue_A(MR.CS.Misc._Moved<A> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_A(MR.CS.Misc._Moved<A> arg) {return new(arg);}
             }
 
@@ -421,14 +421,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_B
+            public class ByValue_B
             {
                 internal readonly ConstB? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_B() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_B(ConstB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_B(MR.CS.Misc._Moved<B> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_B(ConstB arg) {return new(arg);}
+                public ByValue_B(MR.CS.Misc._Moved<B> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_B(MR.CS.Misc._Moved<B> arg) {return new(arg);}
             }
 
@@ -651,14 +651,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_C
+            public class ByValue_C
             {
                 internal readonly ConstC? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_C() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_C(ConstC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_C(MR.CS.Misc._Moved<C> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_C(ConstC arg) {return new(arg);}
+                public ByValue_C(MR.CS.Misc._Moved<C> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_C(MR.CS.Misc._Moved<C> arg) {return new(arg);}
             }
 
@@ -1199,14 +1199,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_F
+            public class ByValue_F
             {
                 internal readonly ConstF? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_F() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_F(ConstF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_F(MR.CS.Misc._Moved<F> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_F(ConstF arg) {return new(arg);}
+                public ByValue_F(MR.CS.Misc._Moved<F> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_F(MR.CS.Misc._Moved<F> arg) {return new(arg);}
             }
 
@@ -1501,14 +1501,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_G
+            public class ByValue_G
             {
                 internal readonly ConstG? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_G() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_G(ConstG new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_G(MR.CS.Misc._Moved<G> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_G(ConstG arg) {return new(arg);}
+                public ByValue_G(MR.CS.Misc._Moved<G> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_G(MR.CS.Misc._Moved<G> arg) {return new(arg);}
             }
 
@@ -1819,14 +1819,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_NonTrivial
+            public class ByValue_NonTrivial
             {
                 internal readonly ConstNonTrivial? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_NonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_NonTrivial(ConstNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_NonTrivial(MR.CS.Misc._Moved<NonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_NonTrivial(ConstNonTrivial arg) {return new(arg);}
+                public ByValue_NonTrivial(MR.CS.Misc._Moved<NonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_NonTrivial(MR.CS.Misc._Moved<NonTrivial> arg) {return new(arg);}
             }
 
@@ -1937,14 +1937,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_NonTrivialDerived
+            public class ByValue_NonTrivialDerived
             {
                 internal readonly ConstNonTrivialDerived? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_NonTrivialDerived() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_NonTrivialDerived(ConstNonTrivialDerived new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_NonTrivialDerived(MR.CS.Misc._Moved<NonTrivialDerived> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_NonTrivialDerived(ConstNonTrivialDerived arg) {return new(arg);}
+                public ByValue_NonTrivialDerived(MR.CS.Misc._Moved<NonTrivialDerived> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_NonTrivialDerived(MR.CS.Misc._Moved<NonTrivialDerived> arg) {return new(arg);}
             }
 
@@ -2120,14 +2120,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_SA
+            public class ByValue_SA
             {
                 internal readonly ConstSA? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_SA() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_SA(ConstSA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_SA(MR.CS.Misc._Moved<SA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SA(ConstSA arg) {return new(arg);}
+                public ByValue_SA(MR.CS.Misc._Moved<SA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SA(MR.CS.Misc._Moved<SA> arg) {return new(arg);}
             }
 
@@ -2303,14 +2303,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_SB
+            public class ByValue_SB
             {
                 internal readonly ConstSB? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_SB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_SB(ConstSB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_SB(MR.CS.Misc._Moved<SB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SB(ConstSB arg) {return new(arg);}
+                public ByValue_SB(MR.CS.Misc._Moved<SB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SB(MR.CS.Misc._Moved<SB> arg) {return new(arg);}
             }
 
@@ -2516,14 +2516,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_SC
+            public class ByValue_SC
             {
                 internal readonly ConstSC? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_SC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_SC(ConstSC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_SC(MR.CS.Misc._Moved<SC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SC(ConstSC arg) {return new(arg);}
+                public ByValue_SC(MR.CS.Misc._Moved<SC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_SC(MR.CS.Misc._Moved<SC> arg) {return new(arg);}
             }
 
@@ -3060,14 +3060,13 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_TestFields
+            public class ByValue_TestFields
             {
                 internal readonly ConstTestFields? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public ByValue_TestFields() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_TestFields(ConstTestFields new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_TestFields(MR.CS.Misc._Moved<TestFields> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_TestFields(ConstTestFields arg) {return new(arg);}
+                public ByValue_TestFields(MR.CS.Misc._Moved<TestFields> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_TestFields(MR.CS.Misc._Moved<TestFields> arg) {return new(arg);}
             }
 
@@ -3846,14 +3845,12 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_IncrDecrE
+            public class ByValue_IncrDecrE
             {
                 internal readonly ConstIncrDecrE? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_IncrDecrE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValue_IncrDecrE(ConstIncrDecrE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public ByValue_IncrDecrE(MR.CS.Misc._Moved<IncrDecrE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValue_IncrDecrE(ConstIncrDecrE arg) {return new(arg);}
                 public static implicit operator ByValue_IncrDecrE(MR.CS.Misc._Moved<IncrDecrE> arg) {return new(arg);}
             }
 
@@ -3974,14 +3971,12 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_IncrDecrF
+            public class ByValue_IncrDecrF
             {
                 internal readonly ConstIncrDecrF? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_IncrDecrF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValue_IncrDecrF(ConstIncrDecrF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public ByValue_IncrDecrF(MR.CS.Misc._Moved<IncrDecrF> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValue_IncrDecrF(ConstIncrDecrF arg) {return new(arg);}
                 public static implicit operator ByValue_IncrDecrF(MR.CS.Misc._Moved<IncrDecrF> arg) {return new(arg);}
             }
 
@@ -6022,14 +6017,12 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_StaticOpsLhsC
+            public class ByValue_StaticOpsLhsC
             {
                 internal readonly ConstStaticOpsLhsC? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_StaticOpsLhsC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValue_StaticOpsLhsC(ConstStaticOpsLhsC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public ByValue_StaticOpsLhsC(MR.CS.Misc._Moved<StaticOpsLhsC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValue_StaticOpsLhsC(ConstStaticOpsLhsC arg) {return new(arg);}
                 public static implicit operator ByValue_StaticOpsLhsC(MR.CS.Misc._Moved<StaticOpsLhsC> arg) {return new(arg);}
             }
 
@@ -6882,14 +6875,12 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_StaticOpsRhsC
+            public class ByValue_StaticOpsRhsC
             {
                 internal readonly ConstStaticOpsRhsC? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_StaticOpsRhsC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValue_StaticOpsRhsC(ConstStaticOpsRhsC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public ByValue_StaticOpsRhsC(MR.CS.Misc._Moved<StaticOpsRhsC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValue_StaticOpsRhsC(ConstStaticOpsRhsC arg) {return new(arg);}
                 public static implicit operator ByValue_StaticOpsRhsC(MR.CS.Misc._Moved<StaticOpsRhsC> arg) {return new(arg);}
             }
 
@@ -7768,14 +7759,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_NonTrivialClassOps
+            public class ByValue_NonTrivialClassOps
             {
                 internal readonly ConstNonTrivialClassOps? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_NonTrivialClassOps() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_NonTrivialClassOps(ConstNonTrivialClassOps new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_NonTrivialClassOps(MR.CS.Misc._Moved<NonTrivialClassOps> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_NonTrivialClassOps(ConstNonTrivialClassOps arg) {return new(arg);}
+                public ByValue_NonTrivialClassOps(MR.CS.Misc._Moved<NonTrivialClassOps> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_NonTrivialClassOps(MR.CS.Misc._Moved<NonTrivialClassOps> arg) {return new(arg);}
             }
 
@@ -8736,15 +8727,12 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_TestOpsB
+            public class ByValue_TestOpsB
             {
                 internal readonly ConstTestOpsB? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public ByValue_TestOpsB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_TestOpsB(ConstTestOpsB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_TestOpsB(MR.CS.Misc._Moved<TestOpsB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_TestOpsB(ConstTestOpsB arg) {return new(arg);}
-                public static implicit operator ByValue_TestOpsB(MR.CS.Misc._Moved<TestOpsB> arg) {return new(arg);}
             }
 
             /// This is used for optional parameters of class `TestOpsB` with default arguments.
@@ -9656,14 +9644,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_ConvCtorNonTrivial
+            public class ByValue_ConvCtorNonTrivial
             {
                 internal readonly ConstConvCtorNonTrivial? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_ConvCtorNonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_ConvCtorNonTrivial(ConstConvCtorNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_ConvCtorNonTrivial(MR.CS.Misc._Moved<ConvCtorNonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_ConvCtorNonTrivial(ConstConvCtorNonTrivial arg) {return new(arg);}
+                public ByValue_ConvCtorNonTrivial(MR.CS.Misc._Moved<ConvCtorNonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_ConvCtorNonTrivial(MR.CS.Misc._Moved<ConvCtorNonTrivial> arg) {return new(arg);}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
@@ -10792,14 +10780,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_ExposedLayoutSh
+            public class ByValue_ExposedLayoutSh
             {
                 internal readonly ConstExposedLayoutSh? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_ExposedLayoutSh() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_ExposedLayoutSh(ConstExposedLayoutSh new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_ExposedLayoutSh(MR.CS.Misc._Moved<MutExposedLayoutSh> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_ExposedLayoutSh(ConstExposedLayoutSh arg) {return new(arg);}
+                public ByValue_ExposedLayoutSh(MR.CS.Misc._Moved<MutExposedLayoutSh> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_ExposedLayoutSh(MR.CS.Misc._Moved<MutExposedLayoutSh> arg) {return new(arg);}
             }
 
@@ -11334,14 +11322,14 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-            public struct ByValue_ArrayMembers
+            public class ByValue_ArrayMembers
             {
                 internal readonly ConstArrayMembers? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public ByValue_ArrayMembers() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public ByValue_ArrayMembers(ConstArrayMembers new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public ByValue_ArrayMembers(MR.CS.Misc._Moved<ArrayMembers> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_ArrayMembers(ConstArrayMembers arg) {return new(arg);}
+                public ByValue_ArrayMembers(MR.CS.Misc._Moved<ArrayMembers> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator ByValue_ArrayMembers(MR.CS.Misc._Moved<ArrayMembers> arg) {return new(arg);}
             }
 
@@ -11779,7 +11767,7 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial", ExactSpelling = true)]
                 extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.NonTrivial._Underlying *b);
-                return new(__MR_CSharp_test_class_nontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value is not null ? b.Value.Value._UnderlyingPtr : null), is_owning: true);
+                return new(__MR_CSharp_test_class_nontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true);
             }
 
             /// Generated from function `MR::CSharp::test_class_nontrivial_ref`.
@@ -11855,7 +11843,7 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);
-                return new(__MR_CSharp_test_shptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value is not null ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: true);
+                return new(__MR_CSharp_test_shptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true);
             }
 
             /// Generated from function `MR::CSharp::test_shptr_ref`.
@@ -11904,7 +11892,7 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shcptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);
-                return new(__MR_CSharp_test_shcptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value is not null ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: true);
+                return new(__MR_CSharp_test_shcptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true);
             }
 
             /// Generated from function `MR::CSharp::test_shcptr_ref`.
@@ -12264,7 +12252,7 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *b);
-                return new(__MR_CSharp_test_class_convnontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b.HasValue ? b.Value.PassByMode : MR.CS.Misc._PassBy.default_arg, b.HasValue && b.Value.Value is not null ? b.Value.Value._UnderlyingPtr : null), is_owning: true);
+                return new(__MR_CSharp_test_class_convnontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true);
             }
 
             /// Generated from function `MR::CSharp::test_class_convnontrivial_ref`.

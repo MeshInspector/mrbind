@@ -150,14 +150,14 @@ public static partial class MR
                 /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
                 ///   Be careful if your input isn't a unique reference to this object.
                 /// * Pass `null` to use the default argument, assuming the parameter is nullable and has a default argument.
-                public struct ByValue_Path
+                public class ByValue_Path
                 {
                     internal readonly ConstPath? Value;
                     internal readonly MR.CS.Misc._PassBy PassByMode;
                     public ByValue_Path() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                     public ByValue_Path(ConstPath new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                    public ByValue_Path(MR.CS.Misc._Moved<Path> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                     public static implicit operator ByValue_Path(ConstPath arg) {return new(arg);}
+                    public ByValue_Path(MR.CS.Misc._Moved<Path> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                     public static implicit operator ByValue_Path(MR.CS.Misc._Moved<Path> arg) {return new(arg);}
 
                     /// Constructs a new instance.
