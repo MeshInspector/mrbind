@@ -1520,15 +1520,24 @@ namespace mrbind::CSharp
                         std::holds_alternative<CInterop::TypeKinds::Class>(type_desc->var) &&
                         std::get<CInterop::TypeKinds::Class>(type_desc->var).kind == CInterop::ClassKind::uses_pass_by_enum;
 
-                    const TypeBinding &elem_binding = GetTypeBinding(elem_type, flags & ~TypeBindingFlags::enable_sugar);
+                    // Note, must try propagate sugar here.
+                    // Because e.g. `std::optional<std::string> a` uses sugared parameters of the form `const char *a, const char *a_end`,
+                    //   as opposed to passing the entire string in an unsugared manner.
+                    const TypeBinding *elem_binding = GetTypeBindingOpt(elem_type, flags);
+                    // If we didn't find a sugared binding (as is usually the case), fall back to a unsugared one.
+                    if (!elem_binding && bool(flags & TypeBindingFlags::enable_sugar))
+                        elem_binding = GetTypeBindingOpt(elem_type, flags & ~TypeBindingFlags::enable_sugar);
+
+                    if (!elem_binding)
+                        return nullptr; // No binding for the element type, abort.
 
                     TypeBinding ret;
 
                     // Param usage without the default argument.
                     // This is based on the usage of the underlying type WITH the default argument.
-                    if (elem_binding.param_usage)
+                    if (elem_binding->param_usage)
                     {
-                        ret.param_usage = elem_binding.param_usage_with_default_arg;
+                        ret.param_usage = elem_binding->param_usage_with_default_arg;
 
                         ret.param_usage->make_strings = [
                             this,
@@ -1651,16 +1660,16 @@ namespace mrbind::CSharp
         }
     }
 
-    std::string Generator::GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind)
+    Generator::ExtraClassContents Generator::GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind)
     {
         const std::string csharp_name = class_part_kind ? CppToCSharpClassName(cpp_name, *class_part_kind) : CppToCSharpExposedStructName(cpp_name);
 
-        std::string ret;
+        ExtraClassContents ret;
 
         auto WriteSeparator = [&]
         {
-            if (!ret.empty())
-                ret += '\n';
+            if (!ret.text.empty())
+                ret.text += '\n';
         };
 
         auto WriteConversionsToString = [&](bool is_mutable)
@@ -1671,7 +1680,7 @@ namespace mrbind::CSharp
             if (class_part_kind.value())
             {
                 WriteSeparator();
-                ret +=
+                ret.text +=
                     "public static unsafe implicit operator ReadOnlySpan<byte>(" + csharp_name + " self)\n"
                     "{\n"
                     "    return new(self.Data(), checked((int)self.Size()));\n"
@@ -1687,7 +1696,7 @@ namespace mrbind::CSharp
             if (!class_part_kind.value() && is_mutable)
             {
                 WriteSeparator();
-                ret +=
+                ret.text +=
                     "public static unsafe implicit operator Span<byte>(" + csharp_name + " s)\n"
                     "{\n"
                     "    return new(s.MutableData(), checked((int)s.Size()));\n"
@@ -1707,8 +1716,10 @@ namespace mrbind::CSharp
 
         if (cpp_name == cpp_name_std_fs_path)
         {
+            // `std::filesystem::path` must be handled separately, because it doesn't store `char`s on Windows, so we can't expose spans to them.
+
             WriteSeparator();
-            ret +=
+            ret.text +=
                 "public static unsafe implicit operator string(" + csharp_name + " self)\n"
                 "{\n"
                 "    return self.GetString();\n"
@@ -2253,6 +2264,14 @@ namespace mrbind::CSharp
 
                     // `.at(1)` to skip the static `this` parameter.
                     file.WriteString("(" + param_strings.at(1).csharp_decl_params.front().name + ");}\n");
+
+                    // As a special case, when we're converting from `ReadOnlySpan<char>`, also insert a conversion from `string` for convenience.
+                    if (param_strings.at(1).csharp_decl_params.size() == 1 && param_strings.at(1).csharp_decl_params.front().type == "ReadOnlySpan<char>")
+                    {
+                        file.WriteString(
+                            "public static unsafe " + csharp_name + "(string other) {return new(other);}\n"
+                        );
+                    }
                     return;
                 }
             }
@@ -3924,16 +3943,28 @@ namespace mrbind::CSharp
                     }
 
                     // Emit the custom hardcoded extras.
-                    if (auto str = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), class_part_kind); !str.empty())
+                    if (auto extras = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), class_part_kind); !extras.IsEmpty())
                     {
-                        assert(!str.starts_with('\n'));
-                        assert(str.ends_with('\n'));
+                        assert(!extras.text.starts_with('\n'));
+                        assert(extras.text.ends_with('\n'));
 
                         file.WriteSeparatingNewline();
                         file.WriteString("// Custom extras:\n");
                         file.WriteSeparatingNewline();
 
-                        file.WriteString(str);
+                        file.WriteString(extras.text);
+
+                        // Implicit conversions.
+                        if (is_exposed_struct_by_value || IsConst())
+                        {
+                            for (const auto &conv : extras.implicit_conversions)
+                            {
+                                file.WriteSeparatingNewline();
+                                file.WriteString(
+                                    "public static unsafe implicit operator " + unqual_csharp_name + "(" + conv.csharp_param_type + " " + conv.csharp_param_name + ") {return new(" + conv.csharp_param_name + ");}"
+                                );
+                            }
+                        }
                     }
 
                     file.PopScope(); // Pop the class scope.
@@ -3953,7 +3984,7 @@ namespace mrbind::CSharp
                 EmitClassPart({}, nullptr);
 
 
-            { // Emit the parameter passing helpers helpers. Those can't be generic because we need to copy our conversion operators to them.
+            { // Emit the parameter passing helper classes. Those can't be generic because we need to copy our conversion operators to them.
                 const cppdecl::QualifiedName cpp_name = ParseNameOrThrow(cpp_type);
                 const std::string const_half_name = CppToCSharpUnqualClassName(cpp_name, true);
                 const std::string mut_half_name = CppToCSharpUnqualClassName(cpp_name, false);
@@ -3965,6 +3996,10 @@ namespace mrbind::CSharp
                     ? std::optional(CppToCSharpUnqualExposedStructName(cpp_name))
                     : std::nullopt;
 
+                // Obtain the conversion operators. We pass `true` to get them from the const half, since it makes the most sense, this is ultimately arbitrary.
+                const auto extras = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), true);
+
+
                 std::string related_classes_list = "`" + mut_half_name + "`/`" + const_half_name + "`";
 
                 std::string related_classes_list_with_struct;
@@ -3973,8 +4008,9 @@ namespace mrbind::CSharp
                 else
                     related_classes_list_with_struct = related_classes_list;
 
-                auto EmitConvertingCtors = [&](EmitVariant this_variant)
+                auto EmitConvertingCtors = [&](std::string this_wrapper, EmitVariant this_variant)
                 {
+                    // Conversions based on the parsed converting constructors.
                     for (const auto &method : class_desc.methods)
                     {
                         for (EmitVariant emit_variant : GetMethodVariants(method))
@@ -3988,6 +4024,15 @@ namespace mrbind::CSharp
                             if (ShouldEmitMethod(method, false/*doesn't matter*/, emit_variant))
                                 FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, false/*doesn't matter*/, emit_variant), false/*doesn't matter*/, emit_variant).Emit(file);
                         }
+                    }
+
+                    // Hardcoded extra conversions.
+                    for (const auto &conv : extras.implicit_conversions)
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "public static unsafe implicit operator " + this_wrapper + "(" + conv.csharp_param_type + " " + conv.csharp_param_name + ") {return new " + mut_half_name + "(" + conv.csharp_param_name + ");}"
+                        );
                     }
                 };
 
@@ -4061,6 +4106,7 @@ namespace mrbind::CSharp
                         );
 
                         EmitConvertingCtors(
+                            by_val_name,
                             is_opt_opt
                             ? Generator::EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper
                             : EmitVariant::conv_op_for_ctor_for_by_value_helper
@@ -4114,7 +4160,7 @@ namespace mrbind::CSharp
                         "public static implicit operator " + in_opt_name + "(" + const_half_name + " new_value) {return new(new_value);}\n"
                     );
 
-                    EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper);
+                    EmitConvertingCtors(in_opt_name, EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper);
 
                     file.PopScope();
                 }
@@ -4199,7 +4245,7 @@ namespace mrbind::CSharp
                         );
                     }
 
-                    EmitConvertingCtors(EmitVariant::conv_op_for_ctor_for_in_opt_const_helper);
+                    EmitConvertingCtors(in_opt_const_name, EmitVariant::conv_op_for_ctor_for_in_opt_const_helper);
 
                     file.PopScope();
                 }

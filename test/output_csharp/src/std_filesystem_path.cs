@@ -59,6 +59,7 @@ public static partial class MR
 
                     /// Constructs a new instance.
                     public static unsafe implicit operator ConstPath(ReadOnlySpan<char> other) {return new(other);}
+                    public static unsafe implicit operator ConstPath(string other) {return new(other);}
 
                     /// Get the contents as a UTF8-encoded string.
                     public unsafe MR.CS.Std.String GetString()
@@ -113,6 +114,7 @@ public static partial class MR
 
                     /// Constructs a new instance.
                     public static unsafe implicit operator Path(ReadOnlySpan<char> other) {return new(other);}
+                    public static unsafe implicit operator Path(string other) {return new(other);}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Std.Filesystem.ByValue_Path other)
@@ -162,6 +164,7 @@ public static partial class MR
 
                     /// Constructs a new instance.
                     public static unsafe implicit operator ByValue_Path(ReadOnlySpan<char> other) {return new MR.CS.Std.Filesystem.Path(other);}
+                    public static unsafe implicit operator ByValue_Path(string other) {return new(other);}
                 }
 
                 /// This is used for optional parameters of class `Path` with default arguments.
@@ -195,6 +198,7 @@ public static partial class MR
 
                     /// Constructs a new instance.
                     public static unsafe implicit operator InOptConst_Path(ReadOnlySpan<char> other) {return new MR.CS.Std.Filesystem.Path(other);}
+                    public static unsafe implicit operator InOptConst_Path(string other) {return new(other);}
                 }
             }
         }

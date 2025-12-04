@@ -397,11 +397,33 @@ namespace mrbind::CSharp
         // It can still throw if something goes seriously wrong.
         [[nodiscard]] const TypeBinding *GetTypeBindingOpt(const cppdecl::Type &cpp_type, TypeBindingFlags flags);
 
+        struct ExtraClassContents
+        {
+            // This is used as is.
+            std::string text;
+
+            struct ConvOp
+            {
+                std::string csharp_param_type;
+                std::string csharp_param_name;
+            };
+
+            // Those implicit conversions are added to the class itself and to various wrappers for it.
+            // Those are assumed to correspond to already existing constructors of the same class (that should probably be in `.text` above).
+            // Return this for the const half of the class, it's ignored on its other parts.
+            std::vector<ConvOp> implicit_conversions;
+
+            [[nodiscard]] bool IsEmpty() const
+            {
+                return text.empty() && implicit_conversions.empty();
+            }
+        };
+
         // Given a C++ class name, returns the string with the additional contents for this class.
         // If not empty, it must have a trailing newline and no leading newline.
         // `class_part_kind == true` means we're in the const half of the class, `== false` means the non-const half,
         //   and null means we're in an exposed `ref struct`.
-        [[nodiscard]] std::string GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind);
+        [[nodiscard]] ExtraClassContents GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind);
 
 
         // You should almost never use this directly, prefer `RequestHelper()`.

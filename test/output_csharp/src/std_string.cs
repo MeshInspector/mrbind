@@ -57,6 +57,7 @@ public static partial class MR
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator ConstString(ReadOnlySpan<char> other) {return new(other);}
+                public static unsafe implicit operator ConstString(string other) {return new(other);}
 
                 /// The number of characters in the string, excluding the null-terminator.
                 public unsafe ulong Size()
@@ -134,6 +135,7 @@ public static partial class MR
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator String(ReadOnlySpan<char> other) {return new(other);}
+                public static unsafe implicit operator String(string other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.ByValue_String other)
@@ -201,6 +203,7 @@ public static partial class MR
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator ByValue_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+                public static unsafe implicit operator ByValue_String(string other) {return new(other);}
             }
 
             /// This is used as a function parameter when the underlying function receives an optional `String` by value,
@@ -226,6 +229,7 @@ public static partial class MR
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator ByValueOptOpt_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+                public static unsafe implicit operator ByValueOptOpt_String(string other) {return new(other);}
             }
 
             /// This is used for optional parameters of class `String` with default arguments.
@@ -259,6 +263,7 @@ public static partial class MR
 
                 /// Constructs a new instance.
                 public static unsafe implicit operator InOptConst_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+                public static unsafe implicit operator InOptConst_String(string other) {return new(other);}
             }
         }
     }

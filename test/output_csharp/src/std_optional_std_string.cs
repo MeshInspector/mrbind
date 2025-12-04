@@ -43,15 +43,25 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe ConstOptional_StdString(MR.CS.Std.ByValue_String? other) : this(null, is_owning: true)
+                public unsafe ConstOptional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
-                    _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFrom(other is not null ? other.PassByMode : MR.CS.Misc._PassBy.no_object, other is not null && other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(byte *other, byte *other_end);
+                    byte[] __bytes_other;
+                    int __len_other = 0;
+                    if (other.HasValue)
+                    {
+                        __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Value.Length)];
+                        __len_other = System.Text.Encoding.UTF8.GetBytes(other.Value, __bytes_other);
+                    }
+                    fixed (byte *__ptr_other = __bytes_other)
+                    {
+                        _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFrom(other.HasValue ? __ptr_other : null, other.HasValue ? __ptr_other + __len_other : null);
+                    }
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ConstOptional_StdString(MR.CS.Std.ByValue_String? other) {return new(other);}
+                public static unsafe implicit operator ConstOptional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
                 public unsafe MR.CS.Std.ConstString? Value()
@@ -86,15 +96,25 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe Optional_StdString(MR.CS.Std.ByValue_String? other) : this(null, is_owning: true)
+                public unsafe Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
-                    _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFrom(other is not null ? other.PassByMode : MR.CS.Misc._PassBy.no_object, other is not null && other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(byte *other, byte *other_end);
+                    byte[] __bytes_other;
+                    int __len_other = 0;
+                    if (other.HasValue)
+                    {
+                        __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Value.Length)];
+                        __len_other = System.Text.Encoding.UTF8.GetBytes(other.Value, __bytes_other);
+                    }
+                    fixed (byte *__ptr_other = __bytes_other)
+                    {
+                        _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFrom(other.HasValue ? __ptr_other : null, other.HasValue ? __ptr_other + __len_other : null);
+                    }
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator Optional_StdString(MR.CS.Std.ByValue_String? other) {return new(other);}
+                public static unsafe implicit operator Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.ByValue_Optional_StdString other)
@@ -105,11 +125,21 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(MR.CS.Std.ByValue_String? other)
+                public unsafe void Assign(MR.CS.Misc.ReadOnlyCharSpanOpt other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_std_string_AssignFrom(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
-                    __MR_C_std_optional_std_string_AssignFrom(_UnderlyingPtr, other is not null ? other.PassByMode : MR.CS.Misc._PassBy.no_object, other is not null && other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    extern static void __MR_C_std_optional_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
+                    byte[] __bytes_other;
+                    int __len_other = 0;
+                    if (other.HasValue)
+                    {
+                        __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Value.Length)];
+                        __len_other = System.Text.Encoding.UTF8.GetBytes(other.Value, __bytes_other);
+                    }
+                    fixed (byte *__ptr_other = __bytes_other)
+                    {
+                        __MR_C_std_optional_std_string_AssignFrom(_UnderlyingPtr, other.HasValue ? __ptr_other : null, other.HasValue ? __ptr_other + __len_other : null);
+                    }
                 }
 
                 /// The stored element or null if none, mutable.
@@ -140,7 +170,7 @@ public static partial class MR
                 public static implicit operator ByValue_Optional_StdString(MR.CS.Misc._Moved<Optional_StdString> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ByValue_Optional_StdString(MR.CS.Std.ByValue_String? other) {return new MR.CS.Std.Optional_StdString(other);}
+                public static unsafe implicit operator ByValue_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Std.Optional_StdString(other);}
             }
 
             /// This is used for optional parameters of class `Optional_StdString` with default arguments.
@@ -173,7 +203,7 @@ public static partial class MR
                 public static implicit operator InOptConst_Optional_StdString(ConstOptional_StdString value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConst_Optional_StdString(MR.CS.Std.ByValue_String? other) {return new MR.CS.Std.Optional_StdString(other);}
+                public static unsafe implicit operator InOptConst_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Std.Optional_StdString(other);}
             }
         }
     }

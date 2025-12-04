@@ -12478,11 +12478,21 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_optstr`.
             /// Parameter `b` defaults to `default_optstr`.
             /// Parameter `c` defaults to `default_optstr`.
-            public static unsafe MR.CS.Std.Optional_StdString TestOptstr(MR.CS.Std.ByValue_String? a, MR.CS.Std.ByValue_Optional_StdString? b = null, MR.CS.Std.ByValue_Optional_StdString? c = null)
+            public static unsafe MR.CS.Std.Optional_StdString TestOptstr(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std.ByValue_Optional_StdString? b = null, MR.CS.Std.ByValue_Optional_StdString? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr", ExactSpelling = true)]
-                extern static MR.CS.Std.Optional_StdString._Underlying *__MR_CSharp_test_optstr(MR.CS.Misc._PassBy a_pass_by, MR.CS.Std.String._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.Std.Optional_StdString._Underlying *b, MR.CS.Misc._PassBy c_pass_by, MR.CS.Std.Optional_StdString._Underlying *c);
-                return new(__MR_CSharp_test_optstr(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true);
+                extern static MR.CS.Std.Optional_StdString._Underlying *__MR_CSharp_test_optstr(byte *a, byte *a_end, MR.CS.Misc._PassBy b_pass_by, MR.CS.Std.Optional_StdString._Underlying *b, MR.CS.Misc._PassBy c_pass_by, MR.CS.Std.Optional_StdString._Underlying *c);
+                byte[] __bytes_a;
+                int __len_a = 0;
+                if (a.HasValue)
+                {
+                    __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Value.Length)];
+                    __len_a = System.Text.Encoding.UTF8.GetBytes(a.Value, __bytes_a);
+                }
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    return new(__MR_CSharp_test_optstr(a.HasValue ? __ptr_a : null, a.HasValue ? __ptr_a + __len_a : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true);
+                }
             }
 
             /// Generated from function `MR::CSharp::test_optstr_ref`.
@@ -12496,11 +12506,21 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_optstr_cref`.
             /// Parameter `b` defaults to `default_optstr`.
-            public static unsafe MR.CS.Std.ConstOptional_StdString TestOptstrCref(MR.CS.Std.ByValue_String? a, MR.CS.Std.ConstOptional_StdString? b = null)
+            public static unsafe MR.CS.Std.ConstOptional_StdString TestOptstrCref(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std.ConstOptional_StdString? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_cref", ExactSpelling = true)]
-                extern static MR.CS.Std.ConstOptional_StdString._Underlying *__MR_CSharp_test_optstr_cref(MR.CS.Misc._PassBy a_pass_by, MR.CS.Std.String._Underlying *a, MR.CS.Std.ConstOptional_StdString._Underlying *b);
-                return new(__MR_CSharp_test_optstr_cref(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+                extern static MR.CS.Std.ConstOptional_StdString._Underlying *__MR_CSharp_test_optstr_cref(byte *a, byte *a_end, MR.CS.Std.ConstOptional_StdString._Underlying *b);
+                byte[] __bytes_a;
+                int __len_a = 0;
+                if (a.HasValue)
+                {
+                    __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Value.Length)];
+                    __len_a = System.Text.Encoding.UTF8.GetBytes(a.Value, __bytes_a);
+                }
+                fixed (byte *__ptr_a = __bytes_a)
+                {
+                    return new(__MR_CSharp_test_optstr_cref(a.HasValue ? __ptr_a : null, a.HasValue ? __ptr_a + __len_a : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+                }
             }
 
             /// Generated from function `MR::CSharp::test_optstr_ptr`.

@@ -4028,8 +4028,8 @@ namespace mrbind::CBindings
                         {
                             EmitFuncParams emit;
                             emit.c_comment = "/// Constructs `" + cpp_class_name_str_deco + "` elementwise.";
-                            // Does this need to be explicit, to handle cases when there's only one element? I think implicit is fine.
-                            emit.name = binder.MakeMemberFuncName(self, "ConstructFrom", CInterop::MethodKinds::Constructor{});
+                            // Does this need to be explicit, to handle cases when there's only one element? I think it does.
+                            emit.name = binder.MakeMemberFuncName(self, "ConstructFrom", CInterop::MethodKinds::Constructor{.is_explicit = true});
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cpp_class_name);
                             for (const MemberDesc &member_desc : member_descs)
                             {
