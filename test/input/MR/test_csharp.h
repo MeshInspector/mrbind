@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <optional>
+#include <variant>
 
 // This is a mixed bag of tests primarily intended for testing the C# bindings.
 
@@ -162,7 +163,7 @@ namespace MR::CSharp
 
     inline std::shared_ptr<SA> default_shptr;
 
-    // Pokeing a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
+    // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
     inline std::shared_ptr<SA> test_shptr(std::shared_ptr<SA> a, std::shared_ptr<SA> b = default_shptr) {(void)a; return b;}
     inline std::shared_ptr<SA> &test_shptr_ref(std::shared_ptr<SA> &a, std::shared_ptr<SA> &b = default_shptr) {(void)a; return b;}
     inline const std::shared_ptr<SA> &test_shptr_cref(const std::shared_ptr<SA> &a, const std::shared_ptr<SA> &b = default_shptr) {(void)a; return b;}
@@ -913,6 +914,30 @@ namespace MR::CSharp
     inline const std::optional<SA> &test_optshtriv_cref(const std::optional<SA> &a, const std::optional<SA> &b = default_optshtriv                                                 ) {(void)a; (void)b; return default_optshtriv;}
     inline       std::optional<SA> *test_optshtriv_ptr (      std::optional<SA> *a,       std::optional<SA> *b = nullptr          ,       std::optional<SA> *c = &default_optshtriv) {(void)a; (void)b; (void)c; return &default_optshtriv;}
     inline const std::optional<SA> *test_optshtriv_cptr(const std::optional<SA> *a, const std::optional<SA> *b = nullptr          , const std::optional<SA> *c = &default_optshtriv) {(void)a; (void)b; (void)c; return &default_optshtriv;}
+
+
+    // Tag types:
+
+    inline std::greater<int> test_tag(std::greater<int> a, std::greater<int> b = std::greater<int>{}) {(void)a; return b;}
+    // Returning refs doesn't work in C for now. It's not very useful.
+    // Passing non-const lvalues refs intentionally doesn't work.
+    // inline std::greater<int> &test_tag_ref() {}
+    inline /*const std::greater<int> &*/void test_tag_cref(const std::greater<int> &a, const std::greater<int> &b = std::greater<int>{}) {(void)a; (void)b;}
+    inline std::greater<int> *test_tag_ptr() {return nullptr;}
+    inline const std::greater<int> *test_tag_cptr() {return nullptr;}
+
+
+    // `std::variant`:
+
+    using Variant = std::variant<std::monostate, int, float>;
+
+    inline Variant default_variant;
+
+    inline Variant test_variant(Variant a, Variant b = default_variant) {(void)a; return b;}
+    inline Variant &test_variant_ref(Variant &a, Variant &b = default_variant) {(void)a; return b;}
+    inline const Variant &test_variant_cref(const Variant &a, const Variant &b = default_variant) {(void)a; return b;}
+    inline Variant *test_variant_ptr(Variant *a, Variant *b = &default_variant) {(void)a; return b;}
+    inline const Variant *test_variant_cptr(const Variant *a, const Variant *b = &default_variant) {(void)a; return b;}
 }
 
 

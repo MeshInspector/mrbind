@@ -507,7 +507,8 @@ namespace mrbind::CInterop
             MBREFL_STRUCT()
         };
 
-        // An empty tag struct. Doesn't need any codegen in C#.
+        // An empty tag struct.
+        // Note that this can optionally be a const and/or rvalue reference.
         struct EmptyTag
         {
             static constexpr std::string_view name_in_variant = "empty_tag";

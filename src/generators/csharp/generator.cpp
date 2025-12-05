@@ -438,6 +438,13 @@ namespace mrbind::CSharp
         return iter->second.strings;
     }
 
+    std::string Generator::RequestCSharpEmptyTagType(const cppdecl::QualifiedName &cpp_name)
+    {
+        std::string ret = CppToCSharpHelperName(cpp_name);
+        requested_empty_tag_types.try_emplace(ret, cpp_name);
+        return ret;
+    }
+
     cppdecl::QualifiedName Generator::AdjustCppNamespaces(cppdecl::QualifiedName name) const
     {
         // Apply any replacements.
@@ -730,7 +737,305 @@ namespace mrbind::CSharp
 
             if (!bool(flags & TypeBindingFlags::enable_sugar))
             {
-                { // Pointers and references.
+                // Without sugar.
+
+                if (const CInterop::TypeDesc *c_type_desc = c_desc.FindTypeOpt(cpp_type_str))
+                {
+                    // Makes a by-value binding for an arithmetic type or a enum.
+                    // If `fix_input` is specified, it should return an extra statement for parameters' `extra_statements`.
+                    // The result should be terminated with a newline, and you can read/write `name` in your statement.
+                    // NOTE: The `fix_input` lambda is preserved, make sure it doesn't dangle.
+                    auto MakeScalarByValueBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr) -> TypeBinding
+                    {
+                        return {
+                            .param_usage = TypeBinding::ParamUsage{
+                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
+                                {
+                                    return TypeBinding::ParamUsage::Strings{
+                                        .dllimport_decl_params = csharp_type + ' ' + name,
+                                        .csharp_decl_params = {{.type = csharp_type, .name = name}},
+                                        .extra_statements = fix_input ? fix_input(name) : "",
+                                        .dllimport_args = name,
+                                    };
+                                },
+                            },
+                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
+                                {
+                                    return TypeBinding::ParamUsage::Strings{
+                                        .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
+                                        .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = "null"}},
+                                        .extra_statements =
+                                            csharp_type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n" +
+                                            (fix_input ? fix_input("__deref_" + name) : ""),
+                                        .dllimport_args = name + ".HasValue ? &__deref_" + name + " : null",
+                                    };
+                                },
+                            },
+                            .return_usage = TypeBinding::ReturnUsage{
+                                .dllimport_return_type = csharp_type,
+                                .csharp_return_type = csharp_type,
+                            },
+                        };
+                    };
+
+                    return std::visit(Overload{
+                        [&](const CInterop::TypeKinds::Invalid &) -> const TypeBinding *
+                        {
+                            throw std::runtime_error("The type is marked `TypeKinds::Invalid`, but is passed without sugar.");
+                        },
+                        [&](const CInterop::TypeKinds::Void &) -> const TypeBinding *
+                        {
+                            // Void.
+                            if (cpp_type_str == "void")
+                            {
+                                return CreateBinding({
+                                    .return_usage = TypeBinding::ReturnUsage{
+                                        .dllimport_return_type = "void",
+                                        .csharp_return_type = "void",
+                                        .make_return_expr = [](std::string_view expr){return std::string(expr) + ";";},
+                                    },
+                                });
+                            }
+                            else
+                            {
+                                throw std::runtime_error("The type is marked `TypeKinds::Void` but isn't spelled `void`.");
+                            }
+                        },
+                        [&](const CInterop::TypeKinds::EmptyTag &) -> const TypeBinding *
+                        {
+                            // This can optionally be a const and/or rvalue reference.
+                            // So we don't check the modifiers/qualifiers at all.
+
+                            return CreateBinding({
+                                .param_usage = TypeBinding::ParamUsage{
+                                    .make_strings = [this, qual_name = cpp_type.simple_type.name](const std::string &name, bool have_useless_defarg)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = "", // Nothing.
+                                            .csharp_decl_params = {{.type = RequestCSharpEmptyTagType(qual_name), .name = name, .default_arg = have_useless_defarg ? std::optional<std::string>("default") : std::nullopt}}, // Note `default` over `null`, since this is a struct.
+                                            .dllimport_args = "", // Nothing.
+                                        };
+                                    },
+                                },
+                                // No `param_usage_with_default_arg`, since all default arguments are considered useless for tags.
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = "void",
+                                    .csharp_return_type = RequestCSharpEmptyTagType(cpp_type.simple_type.name),
+                                    .make_return_expr = [](const std::string &expr){return expr + ";\nreturn new();";}, // Note that we must still paste `expr` to call the function.
+                                },
+                            });
+                        },
+                        [&](const CInterop::TypeKinds::EmptyTagPtr &) -> const TypeBinding *
+                        {
+                            if (!(cpp_type.modifiers.size() == 1 && cpp_type.Is<cppdecl::Pointer>()))
+                                throw std::runtime_error("Expected an empty tag type pointer to be a pointer to a qualified name, but got `" + cpp_type_str + "`.");
+
+                            return CreateBinding({
+                                // Only usable as a return type.
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = "bool",
+                                    .csharp_return_type = RequestCSharpEmptyTagType(cpp_type.simple_type.name) + "?",
+                                    .make_return_expr = [this, qual_name = cpp_type.simple_type.name](const std::string &expr){return "return " + expr + " ? new " + RequestCSharpEmptyTagType(qual_name) + "() : null;";},
+                                },
+                            });
+                        },
+                        [&](const CInterop::TypeKinds::Arithmetic &) -> const TypeBinding *
+                        {
+                            // Bool.
+                            // I heard the C# `bool` gets passed as an `int32_t`, so it needs special-casing with `byte` as the underlying type.
+                            if (cpp_type_str == "bool")
+                            {
+                                return CreateBinding({
+                                    .param_usage = TypeBinding::ParamUsage{
+                                        .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
+                                        {
+                                            return TypeBinding::ParamUsage::Strings{
+                                                .dllimport_decl_params = "byte " + name,
+                                                .csharp_decl_params = {{.type = "bool", .name = name}},
+                                                .dllimport_args = name + " ? (byte)1 : (byte)0",
+                                            };
+                                        },
+                                    },
+                                    .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                        .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
+                                        {
+                                            return TypeBinding::ParamUsage::Strings{
+                                                .dllimport_decl_params = "byte *" + name, // No const pointers in C#.
+                                                .csharp_decl_params = {{.type = "bool?", .name = name, .default_arg = "null"}},
+                                                .extra_statements = "byte __deref_" + name + " = " + name + ".GetValueOrDefault() ? (byte)1 : (byte)0;\n",
+                                                .dllimport_args = name + ".HasValue ? &__deref_" + name + " : null",
+                                            };
+                                        },
+                                    },
+                                    .return_usage = TypeBinding::ReturnUsage{
+                                        .dllimport_return_type = "byte",
+                                        .csharp_return_type = "bool",
+                                        .make_return_expr = [](const std::string &expr){return "return " + expr + " != 0;";},
+                                    },
+                                });
+                            }
+
+                            // Arithmetic types.
+                            if (auto csharp_type_str = CToCSharpPrimitiveTypeOpt(cpp_type_str, false))
+                                return CreateBinding(MakeScalarByValueBinding(std::string(*csharp_type_str)));
+
+                            throw std::runtime_error("The type is marked `TypeKinds::Arithmetic`, but it isn't a known arithmetic type.");
+                        },
+                        [&](const CInterop::TypeKinds::Enum &elem) -> const TypeBinding *
+                        {
+                            if (!cpp_type.IsOnlyQualifiedName())
+                                throw std::runtime_error("This is marked as `TypeKinds::Enum`, but the type name isn't just a qualified name.");
+
+                            std::string csharp_type = CppToCSharpEnumName(cpp_type.simple_type.name);
+
+                            const bool underlying_is_bool = c_desc.platform_info.FindPrimitiveType(elem.underlying_type)->kind == PrimitiveTypeInfo::Kind::boolean;
+
+                            TypeBinding ret = MakeScalarByValueBinding(csharp_type,
+                                // If the underlying type was bool in C/C++, insert code to clamp out-of-range inputs.
+                                underlying_is_bool
+                                ? std::function([csharp_type](const std::string &name){return "if ((byte)" + name + " > 1) " + name + " = (" + csharp_type + ")1;\n";})
+                                : nullptr
+                            );
+
+                            return CreateBinding(std::move(ret));
+                        },
+                        [&](const CInterop::TypeKinds::Class &elem) -> const TypeBinding *
+                        {
+                            if (!cpp_type.IsOnlyQualifiedName())
+                                throw std::runtime_error("This type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
+
+
+                            const bool is_shared_ptr = cpp_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
+                            const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
+                            const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
+
+                            // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
+                            // Otherwise this is the original referenced type.
+                            const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
+
+                            const std::string csharp_type_mut = CppToCSharpClassName(cpp_effective_type.simple_type.name, false);
+                            const std::string csharp_type_const = CppToCSharpClassName(cpp_effective_type.simple_type.name, true);
+                            const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
+                            const std::string csharp_underlying_ptr_type = csharp_type_mut + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
+                            const std::string by_value_helper = CppToCSharpByValueHelperName(cpp_effective_type.simple_type.name);
+
+                            switch (elem.kind)
+                            {
+                              case CInterop::ClassKind::ref_only:
+                                throw std::runtime_error("The class marked as `ClassKind::ref_only`, but it's being passed by value.");
+                                break;
+                              case CInterop::ClassKind::uses_pass_by_enum:
+                                // `is_shared_ptr == true` also goes here!
+                                return CreateBinding({
+                                    .param_usage = TypeBinding::ParamUsage{
+                                        .make_strings = [this, by_value_helper, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
+                                        {
+                                            return TypeBinding::ParamUsage::Strings{
+                                                .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
+                                                .csharp_decl_params = {{.type = by_value_helper, .name = name}},
+                                                .dllimport_args = name + ".PassByMode, " + name + ".Value is not null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
+                                            };
+                                        },
+                                    },
+                                    .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                        .make_strings = [this, by_value_helper, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
+                                        {
+                                            return TypeBinding::ParamUsage::Strings{
+                                                .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
+                                                .csharp_decl_params = {{.type = by_value_helper + "?", .name = name, .default_arg = "null"}},
+                                                .dllimport_args = name + " is not null ? " + name + ".PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + " is not null && " + name + ".Value is not null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
+                                            };
+                                        },
+                                    },
+                                    .return_usage = TypeBinding::ReturnUsage{
+                                        .dllimport_return_type = csharp_underlying_ptr_type,
+                                        .csharp_return_type = csharp_type_mut,
+                                        .make_return_expr = [](const std::string &expr)
+                                        {
+                                            return "return new(" + expr + ", is_owning: true);";
+                                        },
+                                    },
+                                });
+                                break;
+                              case CInterop::ClassKind::trivial_via_ptr:
+                                return CreateBinding({
+                                    .param_usage = TypeBinding::ParamUsage{
+                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
+                                        {
+                                            return TypeBinding::ParamUsage::Strings{
+                                                .dllimport_decl_params = csharp_underlying_ptr_type + name,
+                                                .csharp_decl_params = {{.type = csharp_type_const, .name = name}},
+                                                .dllimport_args = name + "." + csharp_underlying_ptr,
+                                            };
+                                        },
+                                    },
+                                    .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
+                                        {
+                                            return TypeBinding::ParamUsage::Strings{
+                                                .dllimport_decl_params = csharp_underlying_ptr_type + name,
+                                                .csharp_decl_params = {{.type = csharp_type_const + "?", .name = name, .default_arg = "null"}},
+                                                .dllimport_args = name + " is not null ? " + name + "." + csharp_underlying_ptr + " : null",
+                                            };
+                                        },
+                                    },
+                                    .return_usage = TypeBinding::ReturnUsage{
+                                        .dllimport_return_type = csharp_underlying_ptr_type,
+                                        .csharp_return_type = csharp_type_mut,
+                                        .make_return_expr = [](const std::string &expr)
+                                        {
+                                            return "return new(" + expr + ", is_owning: true);";
+                                        },
+                                    },
+                                });
+                                break;
+                              case CInterop::ClassKind::exposed_struct:
+                                {
+                                    // Notice that `std::shared_ptr<T>` never arrives here, since we're switching on its kind directly,
+                                    //   not on the kind of the underlying type, so those always go to `ClassKind::uses_pass_by_enum`.
+
+                                    const std::string csharp_value_type = CppToCSharpExposedStructName(cpp_effective_type.simple_type.name);
+                                    const std::string csharp_in_opt_type = CppToCSharpInOptStructHelperName(cpp_effective_type.simple_type.name);
+
+                                    return CreateBinding({
+                                        .param_usage = TypeBinding::ParamUsage{
+                                            .make_strings = [csharp_value_type](const std::string &name, bool /*have_useless_defarg*/)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .dllimport_decl_params = csharp_value_type + " " + name,
+                                                    .csharp_decl_params = {{.type = csharp_value_type, .name = name}},
+                                                    .dllimport_args = name,
+                                                };
+                                            },
+                                        },
+                                        .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                            .make_strings = [csharp_value_type, csharp_in_opt_type](const std::string &name, bool /*have_useless_defarg*/)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .dllimport_decl_params = csharp_value_type + " *" + name,
+                                                    .csharp_decl_params = {{.type = csharp_in_opt_type, .name = name, .default_arg = "default"}}, // Note `default` instead of `new()` or `null`. This isn't nullable, which is expected, but being unable to use `new()` as the default argument is weird.
+                                                    .dllimport_args = name + ".HasValue ? &" + name + ".Object" + " : null",
+                                                };
+                                            },
+                                        },
+                                        .return_usage = TypeBinding::ReturnUsage{
+                                            .dllimport_return_type = csharp_value_type,
+                                            .csharp_return_type = csharp_value_type,
+                                            // Default `make_return_expr` is good enough!
+                                        },
+                                    });
+                                }
+                                break;
+                            }
+                        },
+                    }, c_type_desc->var);
+                }
+                else
+                {
+                    // Simple non-owning pointers and references.
+                    // Note that something like `std::monostate *` does have a type description, and so isn't handled here.
+
                     if (cpp_type.Is<cppdecl::Reference>())
                     {
                         // References to...
@@ -1213,269 +1518,6 @@ namespace mrbind::CSharp
 
                         return nullptr;
                     }
-                }
-
-                if (const CInterop::TypeDesc *c_type_desc = c_desc.FindTypeOpt(cpp_type_str))
-                {
-                    // Makes a by-value binding for an arithmetic type or a enum.
-                    // If `fix_input` is specified, it should return an extra statement for parameters' `extra_statements`.
-                    // The result should be terminated with a newline, and you can read/write `name` in your statement.
-                    // NOTE: The `fix_input` lambda is preserved, make sure it doesn't dangle.
-                    auto MakeScalarByValueBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr) -> TypeBinding
-                    {
-                        return {
-                            .param_usage = TypeBinding::ParamUsage{
-                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
-                                {
-                                    return TypeBinding::ParamUsage::Strings{
-                                        .dllimport_decl_params = csharp_type + ' ' + name,
-                                        .csharp_decl_params = {{.type = csharp_type, .name = name}},
-                                        .extra_statements = fix_input ? fix_input(name) : "",
-                                        .dllimport_args = name,
-                                    };
-                                },
-                            },
-                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                .make_strings = [csharp_type, fix_input](const std::string &name, bool /*have_useless_defarg*/)
-                                {
-                                    return TypeBinding::ParamUsage::Strings{
-                                        .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
-                                        .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = "null"}},
-                                        .extra_statements =
-                                            csharp_type + " __deref_" + name + " = " + name + ".GetValueOrDefault();\n" +
-                                            (fix_input ? fix_input("__deref_" + name) : ""),
-                                        .dllimport_args = name + ".HasValue ? &__deref_" + name + " : null",
-                                    };
-                                },
-                            },
-                            .return_usage = TypeBinding::ReturnUsage{
-                                .dllimport_return_type = csharp_type,
-                                .csharp_return_type = csharp_type,
-                            },
-                        };
-                    };
-
-                    return std::visit(Overload{
-                        [&](const CInterop::TypeKinds::Invalid &) -> const TypeBinding *
-                        {
-                            throw std::runtime_error("The type is marked `TypeKinds::Invalid`, but is passed without sugar.");
-                        },
-                        [&](const CInterop::TypeKinds::Void &) -> const TypeBinding *
-                        {
-                            // Void.
-                            if (cpp_type_str == "void")
-                            {
-                                return CreateBinding({
-                                    .return_usage = TypeBinding::ReturnUsage{
-                                        .dllimport_return_type = "void",
-                                        .csharp_return_type = "void",
-                                        .make_return_expr = [](std::string_view expr){return std::string(expr) + ";";},
-                                    },
-                                });
-                            }
-                            else
-                            {
-                                throw std::runtime_error("The type is marked `TypeKinds::Void` but isn't spelled `void`.");
-                            }
-                        },
-                        [&](const CInterop::TypeKinds::EmptyTag &) -> const TypeBinding *
-                        {
-                            return nullptr;
-                        },
-                        [&](const CInterop::TypeKinds::EmptyTagPtr &) -> const TypeBinding *
-                        {
-                            return nullptr;
-                        },
-                        [&](const CInterop::TypeKinds::Arithmetic &) -> const TypeBinding *
-                        {
-                            // Bool.
-                            // I heard the C# `bool` gets passed as an `int32_t`, so it needs special-casing with `byte` as the underlying type.
-                            if (cpp_type_str == "bool")
-                            {
-                                return CreateBinding({
-                                    .param_usage = TypeBinding::ParamUsage{
-                                        .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
-                                        {
-                                            return TypeBinding::ParamUsage::Strings{
-                                                .dllimport_decl_params = "byte " + name,
-                                                .csharp_decl_params = {{.type = "bool", .name = name}},
-                                                .dllimport_args = name + " ? (byte)1 : (byte)0",
-                                            };
-                                        },
-                                    },
-                                    .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                        .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
-                                        {
-                                            return TypeBinding::ParamUsage::Strings{
-                                                .dllimport_decl_params = "byte *" + name, // No const pointers in C#.
-                                                .csharp_decl_params = {{.type = "bool?", .name = name, .default_arg = "null"}},
-                                                .extra_statements = "byte __deref_" + name + " = " + name + ".GetValueOrDefault() ? (byte)1 : (byte)0;\n",
-                                                .dllimport_args = name + ".HasValue ? &__deref_" + name + " : null",
-                                            };
-                                        },
-                                    },
-                                    .return_usage = TypeBinding::ReturnUsage{
-                                        .dllimport_return_type = "byte",
-                                        .csharp_return_type = "bool",
-                                        .make_return_expr = [](const std::string &expr){return "return " + expr + " != 0;";},
-                                    },
-                                });
-                            }
-
-                            // Arithmetic types.
-                            if (auto csharp_type_str = CToCSharpPrimitiveTypeOpt(cpp_type_str, false))
-                                return CreateBinding(MakeScalarByValueBinding(std::string(*csharp_type_str)));
-
-                            throw std::runtime_error("The type is marked `TypeKinds::Arithmetic`, but it isn't a known arithmetic type.");
-                        },
-                        [&](const CInterop::TypeKinds::Enum &elem) -> const TypeBinding *
-                        {
-                            if (!cpp_type.IsOnlyQualifiedName())
-                                throw std::runtime_error("This is marked as `TypeKinds::Enum`, but the type name isn't just a qualified name.");
-
-                            std::string csharp_type = CppToCSharpEnumName(cpp_type.simple_type.name);
-
-                            const bool underlying_is_bool = c_desc.platform_info.FindPrimitiveType(elem.underlying_type)->kind == PrimitiveTypeInfo::Kind::boolean;
-
-                            TypeBinding ret = MakeScalarByValueBinding(csharp_type,
-                                // If the underlying type was bool in C/C++, insert code to clamp out-of-range inputs.
-                                underlying_is_bool
-                                ? std::function([csharp_type](const std::string &name){return "if ((byte)" + name + " > 1) " + name + " = (" + csharp_type + ")1;\n";})
-                                : nullptr
-                            );
-
-                            return CreateBinding(std::move(ret));
-                        },
-                        [&](const CInterop::TypeKinds::Class &elem) -> const TypeBinding *
-                        {
-                            if (!cpp_type.IsOnlyQualifiedName())
-                                throw std::runtime_error("This type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
-
-
-                            const bool is_shared_ptr = cpp_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
-                            const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
-                            const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
-
-                            // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
-                            // Otherwise this is the original referenced type.
-                            const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
-
-                            const std::string csharp_type_mut = CppToCSharpClassName(cpp_effective_type.simple_type.name, false);
-                            const std::string csharp_type_const = CppToCSharpClassName(cpp_effective_type.simple_type.name, true);
-                            const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
-                            const std::string csharp_underlying_ptr_type = csharp_type_mut + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
-                            const std::string by_value_helper = CppToCSharpByValueHelperName(cpp_effective_type.simple_type.name);
-
-                            switch (elem.kind)
-                            {
-                              case CInterop::ClassKind::ref_only:
-                                throw std::runtime_error("The class marked as `ClassKind::ref_only`, but it's being passed by value.");
-                                break;
-                              case CInterop::ClassKind::uses_pass_by_enum:
-                                // `is_shared_ptr == true` also goes here!
-                                return CreateBinding({
-                                    .param_usage = TypeBinding::ParamUsage{
-                                        .make_strings = [this, by_value_helper, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
-                                        {
-                                            return TypeBinding::ParamUsage::Strings{
-                                                .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {{.type = by_value_helper, .name = name}},
-                                                .dllimport_args = name + ".PassByMode, " + name + ".Value is not null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
-                                            };
-                                        },
-                                    },
-                                    .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                        .make_strings = [this, by_value_helper, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
-                                        {
-                                            return TypeBinding::ParamUsage::Strings{
-                                                .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {{.type = by_value_helper + "?", .name = name, .default_arg = "null"}},
-                                                .dllimport_args = name + " is not null ? " + name + ".PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + " is not null && " + name + ".Value is not null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
-                                            };
-                                        },
-                                    },
-                                    .return_usage = TypeBinding::ReturnUsage{
-                                        .dllimport_return_type = csharp_underlying_ptr_type,
-                                        .csharp_return_type = csharp_type_mut,
-                                        .make_return_expr = [](const std::string &expr)
-                                        {
-                                            return "return new(" + expr + ", is_owning: true);";
-                                        },
-                                    },
-                                });
-                                break;
-                              case CInterop::ClassKind::trivial_via_ptr:
-                                return CreateBinding({
-                                    .param_usage = TypeBinding::ParamUsage{
-                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
-                                        {
-                                            return TypeBinding::ParamUsage::Strings{
-                                                .dllimport_decl_params = csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {{.type = csharp_type_const, .name = name}},
-                                                .dllimport_args = name + "." + csharp_underlying_ptr,
-                                            };
-                                        },
-                                    },
-                                    .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                        .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
-                                        {
-                                            return TypeBinding::ParamUsage::Strings{
-                                                .dllimport_decl_params = csharp_underlying_ptr_type + name,
-                                                .csharp_decl_params = {{.type = csharp_type_const + "?", .name = name, .default_arg = "null"}},
-                                                .dllimport_args = name + " is not null ? " + name + "." + csharp_underlying_ptr + " : null",
-                                            };
-                                        },
-                                    },
-                                    .return_usage = TypeBinding::ReturnUsage{
-                                        .dllimport_return_type = csharp_underlying_ptr_type,
-                                        .csharp_return_type = csharp_type_mut,
-                                        .make_return_expr = [](const std::string &expr)
-                                        {
-                                            return "return new(" + expr + ", is_owning: true);";
-                                        },
-                                    },
-                                });
-                                break;
-                              case CInterop::ClassKind::exposed_struct:
-                                {
-                                    // Notice that `std::shared_ptr<T>` never arrives here, since we're switching on its kind directly,
-                                    //   not on the kind of the underlying type, so those always go to `ClassKind::uses_pass_by_enum`.
-
-                                    const std::string csharp_value_type = CppToCSharpExposedStructName(cpp_effective_type.simple_type.name);
-                                    const std::string csharp_in_opt_type = CppToCSharpInOptStructHelperName(cpp_effective_type.simple_type.name);
-
-                                    return CreateBinding({
-                                        .param_usage = TypeBinding::ParamUsage{
-                                            .make_strings = [csharp_value_type](const std::string &name, bool /*have_useless_defarg*/)
-                                            {
-                                                return TypeBinding::ParamUsage::Strings{
-                                                    .dllimport_decl_params = csharp_value_type + " " + name,
-                                                    .csharp_decl_params = {{.type = csharp_value_type, .name = name}},
-                                                    .dllimport_args = name,
-                                                };
-                                            },
-                                        },
-                                        .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                            .make_strings = [csharp_value_type, csharp_in_opt_type](const std::string &name, bool /*have_useless_defarg*/)
-                                            {
-                                                return TypeBinding::ParamUsage::Strings{
-                                                    .dllimport_decl_params = csharp_value_type + " *" + name,
-                                                    .csharp_decl_params = {{.type = csharp_in_opt_type, .name = name, .default_arg = "default"}}, // Note `default` instead of `new()` or `= null`. This isn't nullable, which is expected, but being unable to use `new()` as the default argument is weird.
-                                                    .dllimport_args = name + ".HasValue ? &" + name + ".Object" + " : null",
-                                                };
-                                            },
-                                        },
-                                        .return_usage = TypeBinding::ReturnUsage{
-                                            .dllimport_return_type = csharp_value_type,
-                                            .csharp_return_type = csharp_value_type,
-                                            // Default `make_return_expr` is good enough!
-                                        },
-                                    });
-                                }
-                                break;
-                            }
-                        },
-                    }, c_type_desc->var);
                 }
             }
             else
@@ -2759,9 +2801,9 @@ namespace mrbind::CSharp
                         throw std::runtime_error("Our bindings map this C++ parameter maps to multiple C# parameters, but produce an inconsistent number of default arguments for those. Either all of them or none should have default arguments.");
 
                     if (num_defargs == 0 && param.default_arg_spelling)
-                        throw std::runtime_error("Our bindings fail to generate a default argument for this parameter, even though one is required." + std::string(param.default_arg_affects_parameter_passing ? "" : " (Note that this default argument in C++ doesn't affect the parameter passing style in C because it's trivial enough.)"));
+                        throw std::runtime_error("Our bindings fail to generate the default argument for this parameter, even though one is required." + std::string(param.default_arg_affects_parameter_passing ? "" : " (Note that this default argument in C++ doesn't affect the parameter passing style in C because it's trivial enough.)"));
                     if (num_defargs > 0 && !param.default_arg_spelling)
-                        throw std::runtime_error("Our bindings generate a default argument for this parameter, even though it's not needed.");
+                        throw std::runtime_error("Our bindings generate the default argument for this parameter, even though it's not needed.");
                 }
             }
         }
@@ -4618,7 +4660,7 @@ namespace mrbind::CSharp
     void Generator::GenerateHelpers()
     {
         // Don't generate the file if no helpers are needed.
-        if (!requested_helpers.empty() || !requested_plain_arrays.empty() || !requested_maybe_opaque_arrays.empty())
+        if (!requested_helpers.empty() || !requested_empty_tag_types.empty() || !requested_plain_arrays.empty() || !requested_maybe_opaque_arrays.empty())
         {
             OutputFile &file = output_files.try_emplace("__common").first->second;
 
@@ -4914,6 +4956,28 @@ namespace mrbind::CSharp
                     }
 
                     throw std::logic_error("Internal error: Following unknown C# helpers were requested: `" + list + "`.");
+                }
+            }
+
+            // --- Starting from this point we begin entering custom namespaces.
+
+            if (!requested_empty_tag_types.empty())
+            {
+                file.WriteSeparatingNewline();
+                for (const auto &[csharp_name, cpp_name] : requested_empty_tag_types)
+                {
+                    { // Enter the correct namespace.
+                        cppdecl::QualifiedName ns = cpp_name;
+                        ns.parts.pop_back();
+                        file.EnsureNamespace(*this, ns);
+                    }
+
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        // A plain struct seems most appropriate. A `ref struct` would add extra limitations that we don't need.
+                        "/// This is an empty tag type, corresponding to C++ `" + CppdeclToCode(cpp_name) + "`.\n"
+                        "public struct " + CppToCSharpIdentifier(cpp_name.parts.back()) + " {}\n" // No members!
+                    );
                 }
             }
 

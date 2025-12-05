@@ -149,6 +149,16 @@ public static partial class MR
 
         }
 
+        public static partial class Std
+        {
+            /// This is an empty tag type, corresponding to C++ `std::greater<int>`.
+            public struct Greater_Int {}
+
+            /// This is an empty tag type, corresponding to C++ `std::monostate`.
+            public struct Monostate {}
+
+        }
+
         [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ArrayBool4_5
         {

@@ -11858,7 +11858,7 @@ public static partial class MR
                 return __MR_CSharp_test_void_cptr(a, b, c);
             }
 
-            // Pokeing a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
+            // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
             /// Generated from function `MR::CSharp::test_shptr`.
             /// Parameter `b` defaults to `default_shptr`.
             public static unsafe MR.CS.CSharp.SA TestShptr(MR.CS.CSharp.ByValue_SA a, MR.CS.CSharp.ByValue_SA? b = null)
@@ -12743,6 +12743,89 @@ public static partial class MR
                 MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
                 var __ret = __MR_CSharp_test_optshtriv_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
                 return __ret is not null ? new MR.CS.Std.ConstOptional_MRCSharpSA(__ret, is_owning: false) : null;
+            }
+
+            // Tag types:
+            /// Generated from function `MR::CSharp::test_tag`.
+            public static MR.CS.Std.Greater_Int TestTag(MR.CS.Std.Greater_Int a, MR.CS.Std.Greater_Int b = default)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag", ExactSpelling = true)]
+                extern static void __MR_CSharp_test_tag();
+                __MR_CSharp_test_tag();
+                return new();
+            }
+
+            /// Generated from function `MR::CSharp::test_tag_cref`.
+            public static void TestTagCref(MR.CS.Std.Greater_Int a, MR.CS.Std.Greater_Int b = default)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag_cref", ExactSpelling = true)]
+                extern static void __MR_CSharp_test_tag_cref();
+                __MR_CSharp_test_tag_cref();
+            }
+
+            /// Generated from function `MR::CSharp::test_tag_ptr`.
+            public static MR.CS.Std.Greater_Int? TestTagPtr()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag_ptr", ExactSpelling = true)]
+                extern static bool __MR_CSharp_test_tag_ptr();
+                return __MR_CSharp_test_tag_ptr() ? new MR.CS.Std.Greater_Int() : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_tag_cptr`.
+            public static MR.CS.Std.Greater_Int? TestTagCptr()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag_cptr", ExactSpelling = true)]
+                extern static bool __MR_CSharp_test_tag_cptr();
+                return __MR_CSharp_test_tag_cptr() ? new MR.CS.Std.Greater_Int() : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_variant`.
+            /// Parameter `b` defaults to `default_variant`.
+            public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float TestVariant(MR.CS.Std.ConstVariant_StdMonostate_Int_Float a, MR.CS.Std.ConstVariant_StdMonostate_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant", ExactSpelling = true)]
+                extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_CSharp_test_variant(MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *a, MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_variant(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_variant_ref`.
+            /// Parameter `b` defaults to `default_variant`.
+            public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float TestVariantRef(MR.CS.Std.Variant_StdMonostate_Int_Float a, MR.CS.Std.Variant_StdMonostate_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_CSharp_test_variant_ref(MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *a, MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_variant_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_variant_cref`.
+            /// Parameter `b` defaults to `default_variant`.
+            public static unsafe MR.CS.Std.ConstVariant_StdMonostate_Int_Float TestVariantCref(MR.CS.Std.ConstVariant_StdMonostate_Int_Float a, MR.CS.Std.ConstVariant_StdMonostate_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstVariant_StdMonostate_Int_Float._Underlying *__MR_CSharp_test_variant_cref(MR.CS.Std.ConstVariant_StdMonostate_Int_Float._Underlying *a, MR.CS.Std.ConstVariant_StdMonostate_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_variant_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_variant_ptr`.
+            /// Parameter `b` defaults to `&default_variant`.
+            public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float? TestVariantPtr(MR.CS.Std.Variant_StdMonostate_Int_Float? a, MR.CS.Std.InOptMut_Variant_StdMonostate_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_CSharp_test_variant_ptr(MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *a, MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying **b);
+                MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__ptr_b = b is not null && b.Opt is not null ? b.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_variant_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? &__ptr_b : null);
+                return __ret is not null ? new MR.CS.Std.Variant_StdMonostate_Int_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_variant_cptr`.
+            /// Parameter `b` defaults to `&default_variant`.
+            public static unsafe MR.CS.Std.ConstVariant_StdMonostate_Int_Float? TestVariantCptr(MR.CS.Std.ConstVariant_StdMonostate_Int_Float? a, MR.CS.Std.InOptConst_Variant_StdMonostate_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstVariant_StdMonostate_Int_Float._Underlying *__MR_CSharp_test_variant_cptr(MR.CS.Std.ConstVariant_StdMonostate_Int_Float._Underlying *a, MR.CS.Std.ConstVariant_StdMonostate_Int_Float._Underlying **b);
+                MR.CS.Std.ConstVariant_StdMonostate_Int_Float._Underlying *__ptr_b = b is not null && b.Opt is not null ? b.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_variant_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? &__ptr_b : null);
+                return __ret is not null ? new MR.CS.Std.ConstVariant_StdMonostate_Int_Float(__ret, is_owning: false) : null;
             }
 
             /// Generated from function `MR::CSharp::test_class_expected`.

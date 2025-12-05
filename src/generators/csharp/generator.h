@@ -321,6 +321,17 @@ namespace mrbind::CSharp
         // Throws on failure (if can't handle this element type).
         [[nodiscard]] ArrayStrings RequestCSharpArrayType(const cppdecl::Type &cpp_array_type, const RequestedMaybeOpaqueArray **desc = nullptr);
 
+
+        // The cache for `RequestCSharpEmptyTagType()`.
+        // The keys are the C# names, and the values are the unmodified input C++ types.
+        // The C# names are determined as if by `CppToCSharpHelperName()`.
+        std::map<std::string, cppdecl::QualifiedName> requested_empty_tag_types;
+
+        // Requests an empty tag type. Returns its C# name.
+        // The C# names are determined as if by `CppToCSharpHelperName()`.
+        [[nodiscard]] std::string RequestCSharpEmptyTagType(const cppdecl::QualifiedName &cpp_name);
+
+
         // Adjusts a name to apply any `--remove-namespace` and `--force-namespace` flags.
         [[nodiscard]] cppdecl::QualifiedName AdjustCppNamespaces(cppdecl::QualifiedName name) const;
 
