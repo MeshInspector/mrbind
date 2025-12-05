@@ -2850,7 +2850,7 @@ namespace mrbind::CSharp
                 // The comment, if any.
                 file.WriteString(elem.comment.c_style);
 
-                file.WriteString(elem.name);
+                file.WriteString(CppStringToCSharpIdentifier(elem.name));
                 file.WriteString(" = ");
 
                 if (is_signed)

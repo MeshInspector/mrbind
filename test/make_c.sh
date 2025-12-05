@@ -68,6 +68,7 @@ COMPILER_FLAGS=(
     -Wconversion
     -Wno-implicit-int-float-conversion
     -isystemtest/input/parallel-hashmap
+    -g
 )
 
 

@@ -914,3 +914,22 @@ namespace MR::CSharp
     inline       std::optional<SA> *test_optshtriv_ptr (      std::optional<SA> *a,       std::optional<SA> *b = nullptr          ,       std::optional<SA> *c = &default_optshtriv) {(void)a; (void)b; (void)c; return &default_optshtriv;}
     inline const std::optional<SA> *test_optshtriv_cptr(const std::optional<SA> *a, const std::optional<SA> *b = nullptr          , const std::optional<SA> *c = &default_optshtriv) {(void)a; (void)b; (void)c; return &default_optshtriv;}
 }
+
+
+// `std::expected`:
+
+// Libstdc++'s `<expected>` header checks `__cpp_concepts` and disables the class if the value is too small.
+// This makes their `std::expected` unusable on Clang 18. Works on Clang 20 though.
+#if __has_include(<expected>) && __cplusplus > 202002L && (!defined(_GLIBCXX_RELEASE) || __cpp_concepts >= 202002L)
+#include <expected>
+namespace MR::CSharp
+{
+    inline std::expected<int, float> default_expected;
+
+    inline std::expected<int, float> test_class_expected(std::expected<int, float> a, std::expected<int, float> b = std::expected<int, float>{42}) {(void)a; (void)b; return {};}
+    inline std::expected<int, float> &test_class_expected_ref(std::expected<int, float> &a, std::expected<int, float> &b = default_expected) {(void)a; (void)b; return default_expected;}
+    inline const std::expected<int, float> &test_class_expected_cref(const std::expected<int, float> &a, const std::expected<int, float> &b = default_expected) {(void)a; (void)b; return default_expected;}
+    inline std::expected<int, float> *test_class_expected_ptr(std::expected<int, float> *a, std::expected<int, float> *b = nullptr, std::expected<int, float> *c = &default_expected) {(void)a; (void)b; (void)c; return &default_expected;}
+    inline const std::expected<int, float> *test_class_expected_cptr(const std::expected<int, float> *a, const std::expected<int, float> *b = nullptr, const std::expected<int, float> *c = &default_expected) {(void)a; (void)b; (void)c; return &default_expected;}
+}
+#endif

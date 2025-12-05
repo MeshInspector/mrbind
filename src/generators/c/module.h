@@ -67,10 +67,16 @@ namespace mrbind::CBindings
 
         // Those are called when converting a C++ name to an identifier, or when printing it in a comment.
         // Those are NOT required to produce valid C++ types, as the result will never be compiled.
-        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Type &target) const {(void)generator; (void)target;}
-        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::QualifiedName &target) const {(void)generator; (void)target;}
-        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Decl &target) const {(void)generator; (void)target;}
-        virtual void AdjustForPrettyPrinting(const Generator &generator, cppdecl::PseudoExpr &target) const {(void)generator; (void)target;}
+        using AdjustableForCommentsAndInteropVar = std::variant<
+            cppdecl::Type *,
+            cppdecl::QualifiedName *,
+            cppdecl::Decl *,
+            cppdecl::PseudoExpr *,
+            cppdecl::SimpleType *,
+            cppdecl::TemplateArgumentList *
+        >;
+
+        virtual void AdjustForCommentsAndInterop(const Generator &generator, AdjustableForCommentsAndInteropVar target) const {(void)generator; (void)target;}
     };
 
     // Using `std::map` to ensure a consistent ordering. The keys are the type names.

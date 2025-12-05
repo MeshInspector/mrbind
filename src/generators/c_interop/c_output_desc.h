@@ -13,6 +13,10 @@
 
 namespace mrbind::CInterop
 {
+    // NOTE: When emitting this from the C generator, all cppdecl strings must be produced using `CppdeclToCodeForComments`,
+    //   to e.g. adjust `std/tl::expected` to just `expected`, if that's enabled.
+
+
     // This is here to expose the underlying values of those enum constants.
     // This must be synced with the enum generated `CBindings::Generator::GetCommonPublicHelpersFile()`.
     // This must be synced with the enum generated `CSharp::Generator::GenerateHelpers()` named `_PassBy`.
@@ -55,6 +59,8 @@ namespace mrbind::CInterop
             (OrderedMap<std::string, Kind>)(bases_indirect)
             // The reverse mapping for `bases_indirect`. This is sorted instead of being ordered, because there's no meaningful order to maintain here.
             (std::map<std::string, Kind, std::less<>>)(derived_indirect)
+
+            // When adding new fields here, don't forget to update `AdjustAllTypes()` below!
         )
 
 
@@ -79,6 +85,56 @@ namespace mrbind::CInterop
                 for (const auto &elem : bases_indirect.Vec())
                     func(*bases_indirect.Map().find(elem));
             }
+        }
+
+        // Applies `func` which is `(std::string &type) -> void` to every type string in this class, and returns a modified copy of the class.
+        [[nodiscard]] InheritanceInfo AdjustAllTypes(auto func) const
+        {
+            InheritanceInfo ret;
+
+            for (auto key : bases_direct_combined.Vec())
+            {
+                const auto &value = bases_direct_combined.Map().at(key);
+                func(key);
+                if (!ret.bases_direct_combined.TryEmplace(key, value).second)
+                    throw std::logic_error("Internal error: Adjusting a type in in `CInterop::InheritanceHierarchy` resulted in a duplicate name.");
+            }
+
+
+            for (auto key : derived_direct_nonvirtual)
+            {
+                func(key);
+                if (!ret.derived_direct_nonvirtual.insert(key).second)
+                    throw std::logic_error("Internal error: Adjusting a type in in `CInterop::InheritanceHierarchy` resulted in a duplicate name.");
+            }
+
+
+            for (auto key : bases_indirect_true_virtual.Vec())
+            {
+                func(key);
+                if (!ret.bases_indirect_true_virtual.Insert(key))
+                    throw std::logic_error("Internal error: Adjusting a type in in `CInterop::InheritanceHierarchy` resulted in a duplicate name.");
+            }
+
+
+            for (auto key : bases_indirect.Vec())
+            {
+                const auto &value = bases_indirect.Map().at(key);
+                func(key);
+                if (!ret.bases_indirect.TryEmplace(key, value).second)
+                    throw std::logic_error("Internal error: Adjusting a type in in `CInterop::InheritanceHierarchy` resulted in a duplicate name.");
+            }
+
+
+            for (const auto &[key, value] : derived_indirect)
+            {
+                auto new_key = key;
+                func(new_key);
+                if (!ret.derived_indirect.try_emplace(std::move(new_key), value).second)
+                    throw std::logic_error("Internal error: Adjusting a type in in `CInterop::InheritanceHierarchy` resulted in a duplicate name.");
+            }
+
+            return ret;
         }
     };
 

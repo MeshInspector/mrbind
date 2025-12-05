@@ -96,7 +96,7 @@ namespace mrbind::CBindings
             else
                 class_desc.kind = CInterop::ClassKind::ref_only; // I guess?
 
-            class_desc.inheritance_info = inheritance_info;
+            class_desc.inheritance_info = inheritance_info.AdjustAllTypes([&](std::string &s){s = generator.CppdeclToCodeForComments(generator.ParseTypeOrThrow(s));});
             class_desc.is_polymorphic = mark_polymorphic;
 
             // `fields` must be set separately, manually.

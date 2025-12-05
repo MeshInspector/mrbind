@@ -1165,6 +1165,44 @@ namespace mrbind::CBindings
         return iter->second;
     }
 
+    const cppdecl::TemplateArgumentList &Generator::ParseTargListOrThrow(const std::string &str) const
+    {
+        auto [iter, is_new] = cached_parsed_targ_lists.try_emplace(str);
+        if (!is_new)
+            return iter->second;
+
+        std::string_view view = str;
+        auto ret = cppdecl::ParseTemplateArgumentList(view);
+        if (auto error = std::get_if<cppdecl::ParseError>(&ret))
+            throw std::runtime_error("Unable to parse template argument list `" + str + "`, error at offset " + std::to_string(view.data() - str.data()) + ": " + error->message);
+        if (!view.empty())
+            throw std::runtime_error("Unable to parse template argument list `" + str + "`, junk starting at offset " + std::to_string(view.data() - str.data()) + ".");
+        auto &ret_list = std::get<std::optional<cppdecl::TemplateArgumentList>>(ret);
+        if (!ret_list)
+            throw std::runtime_error("Expected a non-empty template argument list.");
+        UnadjustFixedSizeTypedefsInCppdeclEntityAfterParsing(*this, *ret_list);
+        iter->second = std::move(*ret_list);
+        return iter->second;
+    }
+
+    const cppdecl::PseudoExpr &Generator::ParseExprOrThrow(const std::string &str) const
+    {
+        auto [iter, is_new] = cached_parsed_pseudoexprs.try_emplace(str);
+        if (!is_new)
+            return iter->second;
+
+        std::string_view view = str;
+        auto ret = cppdecl::ParsePseudoExpr(view);
+        if (auto error = std::get_if<cppdecl::ParseError>(&ret))
+            throw std::runtime_error("Unable to parse template argument list `" + str + "`, error at offset " + std::to_string(view.data() - str.data()) + ": " + error->message);
+        if (!view.empty())
+            throw std::runtime_error("Unable to parse template argument list `" + str + "`, junk starting at offset " + std::to_string(view.data() - str.data()) + ".");
+        auto &ret_expr = std::get<cppdecl::PseudoExpr>(ret);
+        UnadjustFixedSizeTypedefsInCppdeclEntityAfterParsing(*this, ret_expr);
+        iter->second = std::move(ret_expr);
+        return iter->second;
+    }
+
     template <typename T>
     static const T &AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(const Generator &generator, const T &input, T &storage)
     {
@@ -1223,6 +1261,12 @@ namespace mrbind::CBindings
         return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags, ignore_cv_quals);
     }
 
+    std::string Generator::CppdeclToCode(const cppdecl::TemplateArgumentList &input, cppdecl::ToCodeFlags extra_flags) const
+    {
+        cppdecl::TemplateArgumentList storage;
+        return cppdecl::ToCode(AdjustFixedSizeTypedefsInCppdeclEntityBeforeToCode(*this, input, storage), cppdecl::ToCodeFlags::canonical_c_style | extra_flags);
+    }
+
     std::string Generator::CppdeclToCodeForComments(cppdecl::Type input) const
     {
         CppdeclAdjustForCommentsAndIdentifiers(input);
@@ -1247,10 +1291,22 @@ namespace mrbind::CBindings
         return CppdeclToCode(input);
     }
 
+    std::string Generator::CppdeclToCodeForComments(cppdecl::SimpleType input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return CppdeclToCode(input);
+    }
+
+    std::string Generator::CppdeclToCodeForComments(cppdecl::TemplateArgumentList input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return CppdeclToCode(input);
+    }
+
     static void CppdeclAdjustForPrettyPrintingLow(const Generator &generator, auto &target)
     {
         for (const auto &m : generator.modules)
-            m->AdjustForPrettyPrinting(generator, target);
+            m->AdjustForCommentsAndInterop(generator, &target);
     }
 
     void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::Type &target) const
@@ -1269,6 +1325,16 @@ namespace mrbind::CBindings
     }
 
     void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::PseudoExpr &target) const
+    {
+        CppdeclAdjustForPrettyPrintingLow(*this, target);
+    }
+
+    void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::SimpleType &target) const
+    {
+        CppdeclAdjustForPrettyPrintingLow(*this, target);
+    }
+
+    void Generator::CppdeclAdjustForCommentsAndIdentifiers(cppdecl::TemplateArgumentList &target) const
     {
         CppdeclAdjustForPrettyPrintingLow(*this, target);
     }
@@ -1292,6 +1358,18 @@ namespace mrbind::CBindings
     }
 
     std::string Generator::CppdeclToIdentifier(cppdecl::PseudoExpr input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
+    }
+
+    std::string Generator::CppdeclToIdentifier(cppdecl::SimpleType input) const
+    {
+        CppdeclAdjustForCommentsAndIdentifiers(input);
+        return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
+    }
+
+    std::string Generator::CppdeclToIdentifier(cppdecl::TemplateArgumentList input) const
     {
         CppdeclAdjustForCommentsAndIdentifiers(input);
         return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
@@ -1665,29 +1743,34 @@ namespace mrbind::CBindings
 
         name.c = self.overloaded_names.at(&new_func).name;
 
+        const cppdecl::QualifiedName qual_name      = self.ParseQualNameOrThrow(new_func.qual_name);
+        const cppdecl::QualifiedName full_qual_name = self.ParseQualNameOrThrow(new_func.full_qual_name);
+
+        // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
+        const std::string full_qual_name_fixed = self.CppdeclToCode(full_qual_name);
+        const std::string full_qual_name_fixed_deco = self.CppdeclToCodeForComments(full_qual_name);
+        const std::string qual_name_fixed_deco = self.CppdeclToCodeForComments(qual_name);
+
+
         if (new_func.IsOverloadedOperator())
         {
             name.cpp_for_interop = CInterop::FuncKinds::Operator{
                 .token = std::string(new_func.GetOverloadedOperatorToken()),
-                .name = new_func.qual_name,
-                .full_name = new_func.full_qual_name,
+                .name = qual_name_fixed_deco,
+                .full_name = full_qual_name_fixed_deco,
             };
         }
         else
         {
             name.cpp_for_interop = CInterop::FuncKinds::Regular{
-                .name = new_func.qual_name,
-                .full_name = new_func.full_qual_name,
+                .name = qual_name_fixed_deco,
+                .full_name = full_qual_name_fixed_deco,
             };
         }
 
         SetReturnTypeFromParsedFunc(self, new_func);
 
-        cppdecl::QualifiedName full_qual_name = self.ParseQualNameOrThrow(new_func.full_qual_name);
 
-        // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
-        const std::string full_qual_name_fixed = self.CppdeclToCode(full_qual_name);
-        const std::string full_qual_name_fixed_deco = self.CppdeclToCodeForComments(full_qual_name);
 
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_qual_name));
@@ -1760,7 +1843,7 @@ namespace mrbind::CBindings
         name.cpp_for_interop = CInterop::MethodKinds::Constructor{
             .is_copying_ctor = new_ctor.kind != CopyMoveKind::none,
             .is_explicit = new_ctor.is_explicit,
-            .template_args = new_ctor.template_args.value_or(""),
+            .template_args = new_ctor.template_args ? self.CppdeclToCodeForComments(self.ParseTargListOrThrow(*new_ctor.template_args)) : "",
         };
 
         cpp_return_type = cpp_type;
@@ -1801,6 +1884,14 @@ namespace mrbind::CBindings
         if (new_method.assignment_kind != CopyMoveKind::none && params.at(1).name.empty())
             params.at(1).name = "_other";
 
+        const cppdecl::QualifiedName name_parsed = self.ParseQualNameOrThrow(new_method.name);
+        const cppdecl::QualifiedName full_name_parsed = self.ParseQualNameOrThrow(new_method.full_name);
+
+        // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
+        const std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
+        const std::string full_name_fixed_deco = self.CppdeclToCodeForComments(full_name_parsed);
+        const std::string name_fixed_deco = self.CppdeclToCodeForComments(name_parsed);
+
         // Special assignments have fixed names.
         if (new_method.assignment_kind != CopyMoveKind::none)
         {
@@ -1824,18 +1915,22 @@ namespace mrbind::CBindings
             name.c = self.overloaded_names.at(&new_method).name;
 
             if (new_method.IsOverloadedOperator())
-                name.cpp_for_interop = CInterop::MethodKinds::Operator{.token = std::string(new_method.GetOverloadedOperatorToken()), .is_post_incr_or_decr = new_method.IsPostIncrOrDecr()};
+            {
+                name.cpp_for_interop = CInterop::MethodKinds::Operator{
+                    .token = std::string(new_method.GetOverloadedOperatorToken()),
+                    .is_post_incr_or_decr = new_method.IsPostIncrOrDecr(),
+                };
+            }
             else
-                name.cpp_for_interop = CInterop::MethodKinds::Regular{.name = new_method.name, .full_name = new_method.full_name};
+            {
+                name.cpp_for_interop = CInterop::MethodKinds::Regular{
+                    .name = name_fixed_deco,
+                    .full_name = full_name_fixed_deco,
+                };
+            }
         }
 
         SetReturnTypeFromParsedFunc(self, new_method);
-
-        cppdecl::QualifiedName full_name_parsed = self.ParseQualNameOrThrow(new_method.full_name);
-
-        // Need this for `custom_typedef_for_uint64_t_pointing_to_size_t` to kick in.
-        const std::string full_name_fixed = self.CppdeclToCode(full_name_parsed);
-        const std::string full_name_fixed_deco = self.CppdeclToCodeForComments(full_name_parsed);
 
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
@@ -2191,7 +2286,7 @@ namespace mrbind::CBindings
                         ret.comment += "/// Parameter `";
                         ret.comment += param_name_fixed;
                         ret.comment += "` has a default argument: `";
-                        ret.comment += param.default_arg->original_spelling;
+                        ret.comment += CppdeclToCodeForComments(ParseExprOrThrow(param.default_arg->original_spelling));
                         ret.comment += "`, ";
                         if (!param_usage_defarg->explanation_how_to_use_default_arg)
                             throw std::logic_error("Internal error: Bad usage: `ParamUsageWithDefaultArg::explanation_how_to_use_default_arg` is not set.");
@@ -2479,6 +2574,8 @@ namespace mrbind::CBindings
         ret.c = c_type_name;
         ret.c += '_';
         ret.c += func_name;
+
+        assert(cppdecl::IsValidIdentifier(func_name));
         ret.cpp_for_interop = interop_var ? std::move(*interop_var) : CInterop::MethodKinds::Regular{.name = func_name, .full_name = std::move(func_name)};
         return ret;
     }
@@ -2501,6 +2598,8 @@ namespace mrbind::CBindings
     {
         EmitFuncParams::Name ret;
         ret.c = MakePublicHelperName(name);
+
+        assert(cppdecl::IsValidIdentifier(name));
         ret.cpp_for_interop = var ? std::move(*var) : CInterop::FuncKinds::Regular{.name = name, .full_name = std::move(name)};
         return ret;
     }
@@ -2543,6 +2642,8 @@ namespace mrbind::CBindings
             // Dump function description!
             if (output_desc && !params.name.ignore_in_interop)
             {
+                // NOTE: Everywhere in here you must use `CppdeclToCodeForComments()` instead of just `CppdeclToCode()`.
+
                 const bool is_member = !params.params.empty() && (params.params.front().kind == EmitFuncParams::Param::Kind::this_ref || params.params.front().kind == EmitFuncParams::Param::Kind::static_);
 
                 if (!is_member && params.mark_virtual)
@@ -2598,7 +2699,7 @@ namespace mrbind::CBindings
 
                     // Force insert the static-method-like dummy `this` parameter, for consistency.
                     func_like->params.insert(func_like->params.begin(), CInterop::FuncParam{
-                        .cpp_type = CppdeclToCode(params.cpp_return_type),
+                        .cpp_type = CppdeclToCodeForComments(params.cpp_return_type),
                         .name = "_this",
                         .name_or_placeholder = "_this",
                         .is_this_param = true,
@@ -2631,7 +2732,7 @@ namespace mrbind::CBindings
 
                 func_like->c_name = params.name.c;
 
-                func_like->ret.cpp_type = CppdeclToCode(params.cpp_return_type);
+                func_like->ret.cpp_type = CppdeclToCodeForComments(params.cpp_return_type);
                 func_like->ret.uses_sugar = !params.remove_return_type_sugar && FindBindableType(params.cpp_return_type).return_usage.value().considered_sugar_for_interop;
                 func_like->ret.is_array_pointer = params.mark_as_returning_pointer_to_array;
 
@@ -2645,13 +2746,13 @@ namespace mrbind::CBindings
 
                     const auto &fixed_param_type = strings.params_info[i].fixed_type;
 
-                    new_param.cpp_type = CppdeclToCode(fixed_param_type);
+                    new_param.cpp_type = CppdeclToCodeForComments(fixed_param_type);
                     new_param.name = input_param.name;
                     new_param.name_or_placeholder = strings.params_info[i].fixed_name;
 
                     if (input_param.default_arg)
                     {
-                        new_param.default_arg_spelling = input_param.default_arg->original_spelling;
+                        new_param.default_arg_spelling = CppdeclToCodeForComments(ParseExprOrThrow(input_param.default_arg->original_spelling));
                         new_param.default_arg_affects_parameter_passing = strings.params_info[i].has_useful_default_arg;
                     }
 
@@ -2687,9 +2788,9 @@ namespace mrbind::CBindings
 
             interop_field->comment = MakeCommentForInterop(new_field.comment ? new_field.comment->text_with_slashes + '\n' : "");
             interop_field->is_static = new_field.is_static;
-            interop_field->type = CppdeclToCode(ParseTypeOrThrow(new_field.type.canonical)); // Roundtrip the type to canonicalize it.
-            interop_field->name = new_field.name;
-            interop_field->full_name = new_field.full_name;
+            interop_field->type = CppdeclToCodeForComments(ParseTypeOrThrow(new_field.type.canonical)); // Roundtrip the type to canonicalize it, and to apply the `...ForComments` transformations, if any.
+            interop_field->name = CppdeclToCodeForComments(ParseQualNameOrThrow(new_field.name)); // This one should be a no-op. Just in case.
+            interop_field->full_name = CppdeclToCodeForComments(ParseQualNameOrThrow(new_field.full_name)); // Need to fix the template arguments here.
             // We COULD set `layout` too, but who needs it for opaque fields?
             // If you decide to write to it here, don't forget to change the comment on it to reflect that it can be set for opaque fields too.
         }
@@ -2799,9 +2900,9 @@ namespace mrbind::CBindings
                 CInterop::ClassField &new_field = class_desc->fields.emplace_back();
                 new_field.comment = MakeCommentForInterop(field_comment);
                 new_field.is_static = false;
-                new_field.type = CppdeclToCode(field_cpp_type);
-                new_field.name = field_name;
-                new_field.full_name = field_name; // Same.
+                new_field.type = CppdeclToCodeForComments(field_cpp_type);
+                new_field.name = CppdeclToCodeForComments(ParseQualNameOrThrow(field_name)); // Should be unnecessary, just in case.
+                new_field.full_name = CppdeclToCodeForComments(ParseQualNameOrThrow(field_name)); // This one is definitely necessary, because of the template arguments.
                 // No accessors.
                 new_field.layout.emplace();
                 new_field.layout->byte_size = field_info.size;
@@ -2843,6 +2944,7 @@ namespace mrbind::CBindings
 
         const cppdecl::Type parsed_cpp_underlying_type = ParseTypeOrThrow(std::string(cpp_underlying_type));
         const std::string cpp_underlying_type_str = CppdeclToCode(parsed_cpp_underlying_type); // Roundtrip to canonicalize the name.
+        const std::string cpp_underlying_type_str_deco = CppdeclToCodeForComments(parsed_cpp_underlying_type);
 
 
         // Should we also handle `[u]int32_t` here somehow? Maybe not.
@@ -2870,7 +2972,7 @@ namespace mrbind::CBindings
             enum_desc->output_file = MakeOutputFileDescForInterop(file);
             enum_desc->comment = MakeCommentForInterop(comment);
             enum_desc->c_name = c_enum_name;
-            enum_desc->underlying_type = cpp_underlying_type_str;
+            enum_desc->underlying_type = cpp_underlying_type_str_deco;
         }
 
         // Emit the enum header.
@@ -4460,7 +4562,8 @@ namespace mrbind::CBindings
                                 continue;
                         }
 
-                        CInterop::TypeDesc &new_type = output_desc->cpp_types.TryEmplace(cpp_name).first;
+                        // Note, need the `ForComments` transformation here...
+                        CInterop::TypeDesc &new_type = output_desc->cpp_types.TryEmplace(CppdeclToCodeForComments(ParseTypeOrThrow(cpp_name))).first;
 
                         { // Dump the traits.
                             if (input_type.traits)

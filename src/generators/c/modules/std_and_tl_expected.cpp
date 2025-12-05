@@ -81,7 +81,7 @@ namespace mrbind::CBindings::Modules
                     binder.EmitForwardDeclaration(generator, file, comment);
 
                     // The special member functions.
-                    binder.EmitSpecialMemberFunctions(generator, file, true);
+                    binder.EmitSpecialMemberFunctions(generator, file);
 
 
                     // Some custom functions:
@@ -183,29 +183,17 @@ namespace mrbind::CBindings::Modules
             return {};
         }
 
-        void AdjustForPrettyPrintingLow(const Generator &generator, auto &target) const
+        void AdjustForCommentsAndInterop(const Generator &generator, AdjustableForCommentsAndInteropVar target) const override
         {
             (void)generator;
 
             if (merge_std_and_tl_expected)
-                cppdecl::Simplify(cppdecl::SimplifyFlags::bit_extra_merge_std_tl_expected, target);
-        }
-
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Type &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
-        }
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::QualifiedName &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
-        }
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Decl &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
-        }
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::PseudoExpr &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
+            {
+                std::visit([&](auto *ptr)
+                {
+                    cppdecl::Simplify(cppdecl::SimplifyFlags::bit_extra_merge_std_tl_expected, *ptr);
+                }, target);
+            }
         }
     };
 }

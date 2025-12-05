@@ -8,18 +8,18 @@ public static partial class MR
             public enum E1 : int
             {
                 // A
-                a = 10,
+                A = 10,
                 // B
-                b = 20,
+                B = 20,
                 // C
-                c = 30,
+                C = 30,
             }
 
             /// This enum is intended to be boolean.
             public enum E2 : byte
             {
-                a = 0,
-                b = 1,
+                A = 0,
+                B = 1,
             }
 
             /// Generated from class `MR::CSharp::A`.
@@ -11835,7 +11835,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_void_ptr`.
             /// Parameter `a` is a mutable pointer.
             /// Parameter `b` is a mutable pointer.
-            /// Parameter `c` defaults to `(void *)42`.
+            /// Parameter `c` defaults to `(void*)42`.
             /// Parameter `c` is a mutable pointer.
             /// Returns a mutable pointer.
             public static unsafe void *TestVoidPtr(void *a, void *b = null, void **c = null)
@@ -11848,7 +11848,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_void_cptr`.
             /// Parameter `a` is a read-only pointer.
             /// Parameter `b` is a read-only pointer.
-            /// Parameter `c` defaults to `(const void *)42`.
+            /// Parameter `c` defaults to `(const void*)42`.
             /// Parameter `c` is a read-only pointer.
             /// Returns a read-only pointer.
             public static unsafe void *TestVoidCptr(void *a, void *b = null, void **c = null)
@@ -12743,6 +12743,55 @@ public static partial class MR
                 MR.CS.Std.ConstOptional_MRCSharpSA._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
                 var __ret = __MR_CSharp_test_optshtriv_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
                 return __ret is not null ? new MR.CS.Std.ConstOptional_MRCSharpSA(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_class_expected`.
+            /// Parameter `b` defaults to `std::expected<int, float>{42}`.
+            public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpected(MR.CS.Std.ConstExpected_Int_Float a, MR.CS.Std.ConstExpected_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_class_expected(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_expected_ref`.
+            /// Parameter `b` defaults to `default_expected`.
+            public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpectedRef(MR.CS.Std.Expected_Int_Float a, MR.CS.Std.Expected_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected_ref(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_class_expected_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_expected_cref`.
+            /// Parameter `b` defaults to `default_expected`.
+            public static unsafe MR.CS.Std.ConstExpected_Int_Float TestClassExpectedCref(MR.CS.Std.ConstExpected_Int_Float a, MR.CS.Std.ConstExpected_Int_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstExpected_Int_Float._Underlying *__MR_CSharp_test_class_expected_cref(MR.CS.Std.ConstExpected_Int_Float._Underlying *a, MR.CS.Std.ConstExpected_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_class_expected_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_expected_ptr`.
+            /// Parameter `c` defaults to `&default_expected`.
+            public static unsafe MR.CS.Std.Expected_Int_Float? TestClassExpectedPtr(MR.CS.Std.Expected_Int_Float? a, MR.CS.Std.Expected_Int_Float? b = null, MR.CS.Std.InOptMut_Expected_Int_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected_ptr(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b, MR.CS.Std.Expected_Int_Float._Underlying **c);
+                MR.CS.Std.Expected_Int_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_class_expected_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_Int_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_class_expected_cptr`.
+            /// Parameter `c` defaults to `&default_expected`.
+            public static unsafe MR.CS.Std.ConstExpected_Int_Float? TestClassExpectedCptr(MR.CS.Std.ConstExpected_Int_Float? a, MR.CS.Std.ConstExpected_Int_Float? b = null, MR.CS.Std.InOptConst_Expected_Int_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.ConstExpected_Int_Float._Underlying *__MR_CSharp_test_class_expected_cptr(MR.CS.Std.ConstExpected_Int_Float._Underlying *a, MR.CS.Std.ConstExpected_Int_Float._Underlying *b, MR.CS.Std.ConstExpected_Int_Float._Underlying **c);
+                MR.CS.Std.ConstExpected_Int_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_class_expected_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.ConstExpected_Int_Float(__ret, is_owning: false) : null;
             }
         }
     }

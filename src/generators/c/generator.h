@@ -1027,6 +1027,12 @@ namespace mrbind::CBindings
         mutable std::unordered_map<std::string, cppdecl::QualifiedName> cached_parsed_qual_names;
         [[nodiscard]] const cppdecl::QualifiedName &ParseQualNameOrThrow(const std::string &str) const;
 
+        mutable std::unordered_map<std::string, cppdecl::TemplateArgumentList> cached_parsed_targ_lists;
+        [[nodiscard]] const cppdecl::TemplateArgumentList &ParseTargListOrThrow(const std::string &str) const;
+
+        mutable std::unordered_map<std::string, cppdecl::PseudoExpr> cached_parsed_pseudoexprs;
+        [[nodiscard]] const cppdecl::PseudoExpr &ParseExprOrThrow(const std::string &str) const;
+
         // Calls `cppdecl::ToCode()` with the correct flags, and some adjustments.
         // Always use this instead of `ToCode()`.
         // This also replaces `[u]int64` with our custom typedefs.
@@ -1035,13 +1041,17 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string CppdeclToCode(const cppdecl::Decl &input, cppdecl::ToCodeFlags extra_flags = {}) const;
         [[nodiscard]] std::string CppdeclToCode(const cppdecl::PseudoExpr &input, cppdecl::ToCodeFlags extra_flags = {}) const;
         [[nodiscard]] std::string CppdeclToCode(const cppdecl::SimpleType &input, cppdecl::ToCodeFlags extra_flags = {}, cppdecl::CvQualifiers ignore_cv_quals = {}) const;
+        [[nodiscard]] std::string CppdeclToCode(const cppdecl::TemplateArgumentList &input, cppdecl::ToCodeFlags extra_flags = {}) const;
 
         // Use this when generating comments. The result might not be valid C++.
         // This e.g. merges `std::expected` and `tl::expected` into just `expected`, if `--merge-std-and-tl-expected` is enabled.
+        // Note, this must also be used for interop!
         [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::Type input) const;
         [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::QualifiedName input) const;
         [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::Decl input) const;
         [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::PseudoExpr input) const;
+        [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::SimpleType input) const;
+        [[nodiscard]] std::string CppdeclToCodeForComments(cppdecl::TemplateArgumentList input) const;
 
         // Tweaks the input to make it look prettier, such as for forming identifiers or generating comments.
         // Normally you don't need to call this manually, as `CppdeclToIdentifier()` and `CppdeclToCodeForComments()` do that automatically.
@@ -1051,12 +1061,16 @@ namespace mrbind::CBindings
         void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::QualifiedName &target) const;
         void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::Decl &target) const;
         void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::PseudoExpr &target) const;
+        void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::SimpleType &target) const;
+        void CppdeclAdjustForCommentsAndIdentifiers(cppdecl::TemplateArgumentList &target) const;
 
         // Use this instead of `cppdecl::ToString(..., identifier)`.
         [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::Type input) const;
         [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::QualifiedName input) const;
         [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::Decl input) const;
         [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::PseudoExpr input) const;
+        [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::SimpleType input) const;
+        [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::TemplateArgumentList input) const;
 
 
         // Maps a C++ type name to a C type name, by consulting `FindTypeBindableWithSameAddress()`.
@@ -1156,6 +1170,7 @@ namespace mrbind::CBindings
                 // Third-party patched code can skip setting this if they never use `--output-desc-json`.
                 // What kind of type is used here must match whether or not this is a member function (i.e. whether we have a `this` parameter,
                 //   including a fake one for static functions).
+                // NOTE: All strings in this must be produced using `CppdeclToCodeForComments`! To e.g. adjust `std/tl::expected` to just `expected`, if that's enabled.
                 std::variant<std::monostate, CInterop::FuncKindVar, CInterop::MethodKindVar> cpp_for_interop;
 
                 // If true, `cpp_for_interop` is ignored (can be empty) and the function isn't emitted at all in the description JSON.
