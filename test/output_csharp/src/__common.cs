@@ -51,16 +51,16 @@ public static partial class MR
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `InOut<T>` to pass it to the function.
-            public class InOutOpt<T> where T: unmanaged
+            public class _InOutOpt<T> where T: unmanaged
             {
                 public InOut<T>? Opt;
 
                 // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.
-                public InOutOpt() {}
+                public _InOutOpt() {}
                 // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.
-                public InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}
+                public _InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}
                 // An implicit conversion for passing function parameters.
-                public static implicit operator InOutOpt<T>(InOut<T>? NewOpt) {return new InOutOpt<T>(NewOpt);}
+                public static implicit operator _InOutOpt<T>(InOut<T>? NewOpt) {return new _InOutOpt<T>(NewOpt);}
             }
 
             /// This is used for optional parameters with default arguments.
@@ -68,14 +68,14 @@ public static partial class MR
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `T` to pass it to the function.
-            /// Passing a null `InOpt` means "use default argument", and passing a one with a null `.Opt` means "pass nothing to the function".
-            public class InOpt<T> where T: unmanaged
+            /// Passing a null `_InOpt` means "use default argument", and passing a one with a null `.Opt` means "pass nothing to the function".
+            public class _InOpt<T> where T: unmanaged
             {
                 public T? Opt;
 
-                public InOpt() {}
-                public InOpt(T NewOpt) {Opt = NewOpt;}
-                public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}
+                public _InOpt() {}
+                public _InOpt(T NewOpt) {Opt = NewOpt;}
+                public static implicit operator _InOpt<T>(T NewOpt) {return new _InOpt<T>(NewOpt);}
             }
 
             /// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.
@@ -94,7 +94,7 @@ public static partial class MR
                 public ref T Value => ref *Ptr;
             }
 
-            /// This can be used with `ByValue_...` function parameters, to indicate that the argument should be moved.
+            /// This can be used with `_ByValue_...` function parameters, to indicate that the argument should be moved.
             /// See those structs for a longer explanation.
             public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}
 
@@ -116,7 +116,7 @@ public static partial class MR
 
             /// The type of `NullOpt`, see that for more details.
             public struct NullOptType {}
-            /// This can be passed into `ByValueOptOpt_...` parameters to indicate that you want to pass no object,
+            /// This can be passed into `_ByValueOptOpt_...` parameters to indicate that you want to pass no object,
             ///   as opposed to using the default argument provided by the function.
             public static NullOptType NullOpt;
 
@@ -234,16 +234,16 @@ public static partial class MR
 
             public unsafe struct ConstArrayString2
             {
-                MR.CS.Std.ConstString._Underlying *Ptr;
+                MR.CS.Std.Const_String._Underlying *Ptr;
 
-                internal ConstArrayString2(MR.CS.Std.ConstString._Underlying *new_ptr) {Ptr = new_ptr;}
+                internal ConstArrayString2(MR.CS.Std.Const_String._Underlying *new_ptr) {Ptr = new_ptr;}
 
-                public MR.CS.Std.ConstString this[int i]
+                public MR.CS.Std.Const_String this[int i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.Std.ConstString._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.ConstString._Underlying *ptr, nint i);
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }

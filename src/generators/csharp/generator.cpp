@@ -7,8 +7,12 @@
 
 namespace mrbind::CSharp
 {
-    std::string CppStringToCSharpIdentifier(std::string_view cpp_ident)
+    std::string CppIdentifierToCSharpIdentifier(std::string_view cpp_ident)
     {
+        // Assert that `cpp_ident` is a valid identifier, except that we allow `char(1)` too, which is a placeholder used by `CppToCSharpIdentifier()`.
+        // We also don't paricularly care if this starts with a digit, I guess.
+        assert(std::all_of(cpp_ident.begin(), cpp_ident.end(), [](char ch){return cppdecl::IsIdentifierChar(ch) || ch == char(1);}));
+
         std::string ret;
         ret.reserve(cpp_ident.size());
 
@@ -16,23 +20,20 @@ namespace mrbind::CSharp
         bool prev_was_digit = false;
         for (char ch : cpp_ident)
         {
-            if (ch == '<' || ch == '>' || ch == ',')
-            {
-                ret += '_';
-                uppercase_next = true;
-                prev_was_digit = false;
-                continue;
-            }
-
             bool is_digit = false;
-            if (cppdecl::IsAlpha(ch) || (is_digit = cppdecl::IsDigit(ch)))
+
+            // `CppToCSharpIdentifier()` uses `char(1)` as a placeholder which is later replaced with a `_`,
+            //   specifically to prevent this function from removing a `_` which we want to keep.
+            if (cppdecl::IsAlpha(ch) || (is_digit = cppdecl::IsDigit(ch)) || ch == char(1))
             {
                 // Preserve underscores that have digits on both sides.
                 if (is_digit && prev_was_digit && uppercase_next)
                     ret += '_';
                 prev_was_digit = is_digit;
 
-                if (std::exchange(uppercase_next, false))
+                if (ch == char(1))
+                    ret += '_';
+                else if (std::exchange(uppercase_next, false))
                     ret += cppdecl::ToUpper(ch);
                 else
                     ret += ch;
@@ -256,11 +257,10 @@ namespace mrbind::CSharp
 
         std::string csharp_array_name;
         if (cpp_array_type.IsEffectivelyConst())
-            csharp_array_name += "const_";
+            csharp_array_name += "Const_";
 
-        csharp_array_name += "array_";
-        csharp_array_name += CppdeclToCode(remaining_parts);
-        csharp_array_name = CppStringToCSharpIdentifier(csharp_array_name);
+        csharp_array_name += "Array_";
+        csharp_array_name += CppToCSharpIdentifier(remaining_parts);
         for (const auto &extent : cpp_array_type.modifiers)
         {
             csharp_array_name += '_';
@@ -516,13 +516,15 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualClassName(const cppdecl::QualifiedName &name, bool is_const)
     {
+        // You can't trivially remove `_` from `Const_`, since we need `ConstIterator` (from `const_iterator`) to be different from the result
+        //   of this function applied to `iterator` (resulting in `Const_Iterator`).
         if (is_const)
-            return "Const" + CppToCSharpIdentifier(name.parts.back());
+            return "Const_" + CppToCSharpIdentifier(name.parts.back());
 
         // For exposed structs, the non-const half is named with the `Mut...` prefix, because there's also a `struct` that stores the thing by value.
         const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(name))->var);
         if (class_info.kind == CInterop::ClassKind::exposed_struct)
-            return "Mut" + CppToCSharpIdentifier(name.parts.back());
+            return "Mut_" + CppToCSharpIdentifier(name.parts.back());
 
         return CppToCSharpIdentifier(name.parts.back());
     }
@@ -577,7 +579,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "ByValue_" + CppToCSharpIdentifier(name);
+        return "_ByValue_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name)
@@ -604,7 +606,7 @@ namespace mrbind::CSharp
     std::string Generator::CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name)
     {
         // Sic, repeating `Opt` two times (once because those always have default arguments, then again because of `std::optional`).
-        return "ByValueOptOpt_" + CppToCSharpIdentifier(name);
+        return "_ByValueOptOpt_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name)
@@ -630,7 +632,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualInOptStructHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "InOpt_" + CppToCSharpIdentifier(name);
+        return "_InOpt_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInOptMutNontrivialHelperName(cppdecl::QualifiedName name)
@@ -656,7 +658,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualInOptMutNontrivialHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "InOptMut_" + CppToCSharpIdentifier(name);
+        return "_InOptMut_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name)
@@ -682,7 +684,7 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name)
     {
-        return "InOptConst_" + CppToCSharpIdentifier(name);
+        return "_InOptConst_" + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::TypeBindingFlagsToString(TypeBindingFlags flags)
@@ -1321,7 +1323,7 @@ namespace mrbind::CSharp
                                             {
                                                 return TypeBinding::ParamUsage::Strings{
                                                     .dllimport_decl_params = csharp_type + " **" + name,
-                                                    .csharp_decl_params = {{.type = RequestHelper("InOutOpt") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
+                                                    .csharp_decl_params = {{.type = RequestHelper("_InOutOpt") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
                                                     .extra_statements =
                                                         csharp_type + " __value_" + name + " = " + name + " is not null && " + name + ".Opt is not null ? " + name + ".Opt.Value : default(" + csharp_type + ");\n" +
                                                         csharp_type + " *__valueptr_" + name + " = " + name + " is not null && " + name + ".Opt is not null ? &__value_" + name + " : null;\n" +
@@ -1363,7 +1365,7 @@ namespace mrbind::CSharp
                                             {
                                                 return TypeBinding::ParamUsage::Strings{
                                                     .dllimport_decl_params = csharp_type + " **" + name, // No const pointers in C#.
-                                                    .csharp_decl_params = {{.type = RequestHelper("InOpt") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
+                                                    .csharp_decl_params = {{.type = RequestHelper("_InOpt") + "<" + csharp_type + ">?", .name = name, .default_arg = "null"}},
                                                     .extra_statements =
                                                         csharp_type + " __value_" + name + " = " + name + " is not null && " + name + ".Opt is not null ? " + name + ".Opt.Value : default(" + csharp_type + ");\n" +
                                                         csharp_type + " *__valueptr_" + name + " = " + name + " is not null && " + name + ".Opt is not null ? &__value_" + name + " : null;\n" +
@@ -2552,7 +2554,7 @@ namespace mrbind::CSharp
         return std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
             {
-                return CppStringToCSharpIdentifier(elem.name);
+                return CppIdentifierToCSharpIdentifier(elem.name);
             },
             [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
             {
@@ -2625,11 +2627,7 @@ namespace mrbind::CSharp
 
                 // Fall back to an identifier.
 
-                // The operator tokens aren't handled by `CppStringToCSharpIdentifier()`, so we have to manually call `cppdecl::TokenToIdentifier()` here.
-                // It's the same as `cppdecl::ToString(..., identifier)`, but minus the `operator` prefix that we'd have to add and then remove back.
-                // Sync this logic with how `Generate()` determines the names of free operator functions.
-
-                // But those doesn't give good names for unary `*` and `&`, so we have to handle that first.
+                // Those doesn't give good names for unary `*` and `&`, so we have to handle that first.
                 if (method.params.size() == 1)
                 {
                     if (fixed_token == "*")
@@ -2638,7 +2636,7 @@ namespace mrbind::CSharp
                         return "AddressOf";
                 }
 
-                return CppStringToCSharpIdentifier(cppdecl::TokenToIdentifier(fixed_token, true));
+                return CppIdentifierToCSharpIdentifier(cppdecl::TokenToIdentifier(fixed_token, true));
             },
             [&](const CInterop::MethodKinds::ConversionOperator &elem) -> std::string
             {
@@ -2894,7 +2892,7 @@ namespace mrbind::CSharp
                 // The comment, if any.
                 file.WriteString(elem.comment.c_style);
 
-                file.WriteString(CppStringToCSharpIdentifier(elem.name));
+                file.WriteString(CppIdentifierToCSharpIdentifier(elem.name));
                 file.WriteString(" = ");
 
                 if (is_signed)
@@ -3798,7 +3796,7 @@ namespace mrbind::CSharp
 
                                 const bool is_bool = cpp_type.AsSingleWord() == "bool";
 
-                                const std::string csharp_field_name = CppStringToCSharpIdentifier(field.name);
+                                const std::string csharp_field_name = CppIdentifierToCSharpIdentifier(field.name);
 
                                 file.WriteSeparatingNewline();
 
@@ -4080,7 +4078,7 @@ namespace mrbind::CSharp
                     }
                 };
 
-                // `ByValue_...`.
+                // `_ByValue_...`.
                 // Note that classes being backed by `std::shared_ptr` also go here, since passing `std::shared_ptr` by value would use this helper.
                 if (cl->kind == CInterop::ClassKind::uses_pass_by_enum || shared_ptr_desc)
                 {
@@ -4161,14 +4159,14 @@ namespace mrbind::CSharp
 
                     EmitByValueHelper(false);
 
-                    // The version for `std::optional` parameters with default arguments, `ByValueOptOpt_...`.
+                    // The version for `std::optional` parameters with default arguments, `_ByValueOptOpt_...`.
                     // This is enabled if the class uses the pass-by enum and at the same time `std::optional<cpp_type>` exists.
                     if (class_desc.kind == CInterop::ClassKind::uses_pass_by_enum && c_desc.FindTypeOpt(CppdeclToCode(cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("optional").AddTemplateArgument(cppdecl::Type::FromQualifiedName(cpp_qual_name))))))
                         EmitByValueHelper(true);
                 }
 
-                // `InOpt_...`.
-                // Note that those `InOpt_...` wrappers for structs are used for a slightly different purpose than the generic `InOpt<T>` for classes.
+                // `_InOpt_...`.
+                // Note that those `_InOpt_...` wrappers for structs are used for a slightly different purpose than the generic `_InOpt<T>` for classes.
                 if (cl->kind == CInterop::ClassKind::exposed_struct)
                 {
                     const std::string in_opt_name = CppToCSharpUnqualInOptStructHelperName(cpp_name.parts.back());
@@ -4209,7 +4207,7 @@ namespace mrbind::CSharp
                     file.PopScope();
                 }
 
-                { // `InOptMut_...`.
+                { // `_InOptMut_...`.
                     const std::string in_opt_mut_name = CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name.parts.back());
 
                     file.WriteSeparatingNewline();
@@ -4251,7 +4249,7 @@ namespace mrbind::CSharp
                     file.PopScope();
                 }
 
-                { // `InOptConst_...`.
+                { // `_InOptConst_...`.
                     const std::string in_opt_const_name = CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name.parts.back());
 
                     file.WriteSeparatingNewline();
@@ -4404,7 +4402,7 @@ namespace mrbind::CSharp
                 file.WriteString(field.comment.c_style);
                 if (!is_const)
                     file.WriteString("new ");
-                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + " " + CppStringToCSharpIdentifier(field.name) + "\n");
+                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + " " + CppToCSharpIdentifier(ParseNameOrThrow(field.name)) + "\n");
                 file.PushScope({}, "{\n", "}\n");
 
                 file.WriteString("get\n");
@@ -4465,7 +4463,7 @@ namespace mrbind::CSharp
             file.WriteString(" ");
 
             // The property name.
-            file.WriteString(CppStringToCSharpIdentifier(field.full_name));
+            file.WriteString(CppToCSharpIdentifier(ParseNameOrThrow(field.full_name)));
             file.WriteString("\n");
 
             file.PushScope({}, "{\n", "}\n");
@@ -4637,10 +4635,9 @@ namespace mrbind::CSharp
                     // Open the namespace.
                     file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
 
-                    // Since `CppToCSharpIdentifier()` doesn't handle operator names, we need to special-case this.
                     // Sync this logic for operators with `MakeUnqualCSharpMethodName()`.
                     if constexpr (std::is_same_v<T, CInterop::FuncKinds::Operator>)
-                        unqual_csharp_name = CppStringToCSharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
+                        unqual_csharp_name = CppIdentifierToCSharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
                     else
                         unqual_csharp_name = CppToCSharpIdentifier(qual_name.parts.back());
                 },
@@ -4722,13 +4719,14 @@ namespace mrbind::CSharp
                 }
 
 
-                { // `InOut`, `InOutOpt`.
-                    bool need_inout = requested_helpers.erase("InOut");
-                    bool need_inout_opt = requested_helpers.erase("InOutOpt");
+                { // `InOut`, `_InOutOpt`.
+                    bool need_inout = requested_helpers.erase("InOut"); // See below for why there's no `_` prefix.
+                    bool need_inout_opt = requested_helpers.erase("_InOutOpt");
                     if (need_inout || need_inout_opt)
                     {
                         file.WriteSeparatingNewline();
                         file.WriteString(
+                            // This one class isn't prefixed with `_`, since you need to manually construct instances of it ot pass to `_InOutOpt`.
                             "/// This is used for optional in/out parameters, since `ref` can't be nullable.\n"
                             "public class InOut<T> where T: unmanaged\n"
                             "{\n"
@@ -4748,24 +4746,24 @@ namespace mrbind::CSharp
                                 "/// * Pass `null` to use the default argument.\n"
                                 "/// * Pass `new()` to pass no object.\n"
                                 "/// * Pass an instance of `InOut<T>` to pass it to the function.\n"
-                                "public class InOutOpt<T> where T: unmanaged\n"
+                                "public class _InOutOpt<T> where T: unmanaged\n"
                                 "{\n"
                                 "    public InOut<T>? Opt;\n"
                                 "\n"
                                 "    // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.\n"
-                                "    public InOutOpt() {}\n"
+                                "    public _InOutOpt() {}\n"
                                 "    // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.\n"
-                                "    public InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}\n"
+                                "    public _InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}\n"
                                 "    // An implicit conversion for passing function parameters.\n"
-                                "    public static implicit operator InOutOpt<T>(InOut<T>? NewOpt) {return new InOutOpt<T>(NewOpt);}\n"
+                                "    public static implicit operator _InOutOpt<T>(InOut<T>? NewOpt) {return new _InOutOpt<T>(NewOpt);}\n"
                                 "}\n"
                             );
                         }
                     }
                 }
 
-                // `InOpt`.
-                if (requested_helpers.erase("InOpt"))
+                // `_InOpt`.
+                if (requested_helpers.erase("_InOpt"))
                 {
                     file.WriteSeparatingNewline();
                     file.WriteString(
@@ -4774,23 +4772,25 @@ namespace mrbind::CSharp
                         "/// * Pass `null` to use the default argument.\n"
                         "/// * Pass `new()` to pass no object.\n"
                         "/// * Pass an instance of `T` to pass it to the function.\n"
-                        "/// Passing a null `InOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"pass nothing to the function\".\n"
-                        "public class InOpt<T> where T: unmanaged\n"
+                        "/// Passing a null `_InOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"pass nothing to the function\".\n"
+                        "public class _InOpt<T> where T: unmanaged\n"
                         "{\n"
                         "    public T? Opt;\n"
                         "\n"
-                        "    public InOpt() {}\n"
-                        "    public InOpt(T NewOpt) {Opt = NewOpt;}\n"
-                        "    public static implicit operator InOpt<T>(T NewOpt) {return new InOpt<T>(NewOpt);}\n"
+                        "    public _InOpt() {}\n"
+                        "    public _InOpt(T NewOpt) {Opt = NewOpt;}\n"
+                        "    public static implicit operator _InOpt<T>(T NewOpt) {return new _InOpt<T>(NewOpt);}\n"
                         "}\n"
                     );
                 }
 
                 // `Ref`.
-                if (requested_helpers.erase("Ref"))
+                if (requested_helpers.erase("Ref")) // See below for why there's no `_` prefix.
                 {
                     file.WriteSeparatingNewline();
                     file.WriteString(
+                        // This isn't prefixed with `_`, since the user might need to deal with those directly,
+                        //   when handling results of functions returning this.
                         "/// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.\n"
                         "/// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.\n"
                         "public unsafe class Ref<T> where T: unmanaged\n"
@@ -4809,13 +4809,13 @@ namespace mrbind::CSharp
                     );
                 }
 
-                // Stuff for `ByValue_...`.
+                // Stuff for `_ByValue_...`.
                 // Intentionally using `|` to not short-circuit erasures.
                 if (requested_helpers.erase("_Moved") | requested_helpers.erase("_PassBy"))
                 {
                     file.WriteSeparatingNewline();
                     file.WriteString(
-                        "/// This can be used with `ByValue_...` function parameters, to indicate that the argument should be moved.\n"
+                        "/// This can be used with `_ByValue_...` function parameters, to indicate that the argument should be moved.\n"
                         "/// See those structs for a longer explanation.\n"
                         "public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}\n"
                         "\n"
@@ -4837,7 +4837,7 @@ namespace mrbind::CSharp
                     );
                 }
 
-                // `NullOpt`, for `ByValueOptOpt_...`.
+                // `NullOpt`, for `_ByValueOptOpt_...`.
                 // Intentionally using `|` to not short-circuit erasures.
                 if (requested_helpers.erase("NullOpt") || requested_helpers.erase("NullOptType"))
                 {
@@ -4846,7 +4846,7 @@ namespace mrbind::CSharp
                         // This is a struct as an optimization.
                         "/// The type of `NullOpt`, see that for more details.\n"
                         "public struct NullOptType {}\n"
-                        "/// This can be passed into `ByValueOptOpt_...` parameters to indicate that you want to pass no object,\n"
+                        "/// This can be passed into `_ByValueOptOpt_...` parameters to indicate that you want to pass no object,\n"
                         "///   as opposed to using the default argument provided by the function.\n"
                         "public static NullOptType NullOpt;\n"
                     );

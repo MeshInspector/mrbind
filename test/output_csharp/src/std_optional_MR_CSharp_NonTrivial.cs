@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// Stores either a single `MR::CSharp::NonTrivial` or nothing.
             /// This is the const half of the class.
-            public class ConstOptional_MRCSharpNonTrivial : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_MRCSharpNonTrivial : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstOptional_MRCSharpNonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Optional_MRCSharpNonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstOptional_MRCSharpNonTrivial() {Dispose(false);}
+                ~Const_Optional_MRCSharpNonTrivial() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstOptional_MRCSharpNonTrivial() : this(null, is_owning: true)
+                public unsafe Const_Optional_MRCSharpNonTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstOptional_MRCSharpNonTrivial(MR.CS.Std.ByValue_Optional_MRCSharpNonTrivial other) : this(null, is_owning: true)
+                public unsafe Const_Optional_MRCSharpNonTrivial(MR.CS.Std._ByValue_Optional_MRCSharpNonTrivial other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe ConstOptional_MRCSharpNonTrivial(MR.CS.CSharp.ByValue_NonTrivial? other) : this(null, is_owning: true)
+                public unsafe Const_Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
@@ -51,21 +51,21 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ConstOptional_MRCSharpNonTrivial(MR.CS.CSharp.ByValue_NonTrivial? other) {return new(other);}
+                public static unsafe implicit operator Const_Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
-                public unsafe MR.CS.CSharp.ConstNonTrivial? Value()
+                public unsafe MR.CS.CSharp.Const_NonTrivial? Value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_Value", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConstNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_Value(_Underlying *_this);
+                    extern static MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_Value(_Underlying *_this);
                     var __ret = __MR_C_std_optional_MR_CSharp_NonTrivial_Value(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.ConstNonTrivial(__ret, is_owning: false) : null;
+                    return __ret is not null ? new MR.CS.CSharp.Const_NonTrivial(__ret, is_owning: false) : null;
                 }
             }
 
             /// Stores either a single `MR::CSharp::NonTrivial` or nothing.
             /// This is the non-const half of the class.
-            public class Optional_MRCSharpNonTrivial : ConstOptional_MRCSharpNonTrivial
+            public class Optional_MRCSharpNonTrivial : Const_Optional_MRCSharpNonTrivial
             {
                 internal unsafe Optional_MRCSharpNonTrivial(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -78,7 +78,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Optional_MRCSharpNonTrivial(MR.CS.Std.ByValue_Optional_MRCSharpNonTrivial other) : this(null, is_owning: true)
+                public unsafe Optional_MRCSharpNonTrivial(MR.CS.Std._ByValue_Optional_MRCSharpNonTrivial other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
@@ -86,7 +86,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe Optional_MRCSharpNonTrivial(MR.CS.CSharp.ByValue_NonTrivial? other) : this(null, is_owning: true)
+                public unsafe Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
@@ -94,10 +94,10 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator Optional_MRCSharpNonTrivial(MR.CS.CSharp.ByValue_NonTrivial? other) {return new(other);}
+                public static unsafe implicit operator Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ByValue_Optional_MRCSharpNonTrivial other)
+                public unsafe void Assign(MR.CS.Std._ByValue_Optional_MRCSharpNonTrivial other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
@@ -105,7 +105,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(MR.CS.CSharp.ByValue_NonTrivial? other)
+                public unsafe void Assign(MR.CS.CSharp._ByValue_NonTrivial? other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
@@ -125,55 +125,55 @@ public static partial class MR
             /// This is used as a function parameter when the underlying function receives `Optional_MRCSharpNonTrivial` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `Optional_MRCSharpNonTrivial`/`ConstOptional_MRCSharpNonTrivial` to copy it into the function.
+            /// * Pass an instance of `Optional_MRCSharpNonTrivial`/`Const_Optional_MRCSharpNonTrivial` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class ByValue_Optional_MRCSharpNonTrivial
+            public class _ByValue_Optional_MRCSharpNonTrivial
             {
-                internal readonly ConstOptional_MRCSharpNonTrivial? Value;
+                internal readonly Const_Optional_MRCSharpNonTrivial? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public ByValue_Optional_MRCSharpNonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValue_Optional_MRCSharpNonTrivial(ConstOptional_MRCSharpNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator ByValue_Optional_MRCSharpNonTrivial(ConstOptional_MRCSharpNonTrivial arg) {return new(arg);}
-                public ByValue_Optional_MRCSharpNonTrivial(MR.CS.Misc._Moved<Optional_MRCSharpNonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValue_Optional_MRCSharpNonTrivial(MR.CS.Misc._Moved<Optional_MRCSharpNonTrivial> arg) {return new(arg);}
+                public _ByValue_Optional_MRCSharpNonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Optional_MRCSharpNonTrivial(Const_Optional_MRCSharpNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Optional_MRCSharpNonTrivial(Const_Optional_MRCSharpNonTrivial arg) {return new(arg);}
+                public _ByValue_Optional_MRCSharpNonTrivial(MR.CS.Misc._Moved<Optional_MRCSharpNonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Optional_MRCSharpNonTrivial(MR.CS.Misc._Moved<Optional_MRCSharpNonTrivial> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ByValue_Optional_MRCSharpNonTrivial(MR.CS.CSharp.ByValue_NonTrivial? other) {return new MR.CS.Std.Optional_MRCSharpNonTrivial(other);}
+                public static unsafe implicit operator _ByValue_Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) {return new MR.CS.Std.Optional_MRCSharpNonTrivial(other);}
             }
 
             /// This is used for optional parameters of class `Optional_MRCSharpNonTrivial` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_Optional_MRCSharpNonTrivial`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Optional_MRCSharpNonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_MRCSharpNonTrivial`/`ConstOptional_MRCSharpNonTrivial` directly.
-            public class InOptMut_Optional_MRCSharpNonTrivial
+            /// * Pass an instance of `Optional_MRCSharpNonTrivial`/`Const_Optional_MRCSharpNonTrivial` directly.
+            public class _InOptMut_Optional_MRCSharpNonTrivial
             {
                 public Optional_MRCSharpNonTrivial? Opt;
 
-                public InOptMut_Optional_MRCSharpNonTrivial() {}
-                public InOptMut_Optional_MRCSharpNonTrivial(Optional_MRCSharpNonTrivial value) {Opt = value;}
-                public static implicit operator InOptMut_Optional_MRCSharpNonTrivial(Optional_MRCSharpNonTrivial value) {return new(value);}
+                public _InOptMut_Optional_MRCSharpNonTrivial() {}
+                public _InOptMut_Optional_MRCSharpNonTrivial(Optional_MRCSharpNonTrivial value) {Opt = value;}
+                public static implicit operator _InOptMut_Optional_MRCSharpNonTrivial(Optional_MRCSharpNonTrivial value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Optional_MRCSharpNonTrivial` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_Optional_MRCSharpNonTrivial`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Optional_MRCSharpNonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_MRCSharpNonTrivial`/`ConstOptional_MRCSharpNonTrivial` to pass it to the function.
-            public class InOptConst_Optional_MRCSharpNonTrivial
+            /// * Pass an instance of `Optional_MRCSharpNonTrivial`/`Const_Optional_MRCSharpNonTrivial` to pass it to the function.
+            public class _InOptConst_Optional_MRCSharpNonTrivial
             {
-                public ConstOptional_MRCSharpNonTrivial? Opt;
+                public Const_Optional_MRCSharpNonTrivial? Opt;
 
-                public InOptConst_Optional_MRCSharpNonTrivial() {}
-                public InOptConst_Optional_MRCSharpNonTrivial(ConstOptional_MRCSharpNonTrivial value) {Opt = value;}
-                public static implicit operator InOptConst_Optional_MRCSharpNonTrivial(ConstOptional_MRCSharpNonTrivial value) {return new(value);}
+                public _InOptConst_Optional_MRCSharpNonTrivial() {}
+                public _InOptConst_Optional_MRCSharpNonTrivial(Const_Optional_MRCSharpNonTrivial value) {Opt = value;}
+                public static implicit operator _InOptConst_Optional_MRCSharpNonTrivial(Const_Optional_MRCSharpNonTrivial value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConst_Optional_MRCSharpNonTrivial(MR.CS.CSharp.ByValue_NonTrivial? other) {return new MR.CS.Std.Optional_MRCSharpNonTrivial(other);}
+                public static unsafe implicit operator _InOptConst_Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) {return new MR.CS.Std.Optional_MRCSharpNonTrivial(other);}
             }
         }
     }

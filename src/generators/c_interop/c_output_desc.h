@@ -363,9 +363,9 @@ namespace mrbind::CInterop
             static constexpr std::string_view name_in_variant = "regular";
 
             MBREFL_STRUCT(
-                // The name without (!) qualifiers.
+                // The name without qualifiers.
                 (std::string)(name)
-                // The name without (!) qualifiers and with template arguments, if any. Otherwise equal to `name`.
+                // The name without qualifiers and with template arguments, if any. Otherwise equal to `name`.
                 (std::string)(full_name)
             )
         };

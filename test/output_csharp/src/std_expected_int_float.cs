@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// Stores either a `int` that represents success or a `float` that represents an error.
             /// This is the const half of the class.
-            public class ConstExpected_Int_Float : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Expected_Int_Float : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstExpected_Int_Float(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Expected_Int_Float(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstExpected_Int_Float() {Dispose(false);}
+                ~Const_Expected_Int_Float() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstExpected_Int_Float() : this(null, is_owning: true)
+                public unsafe Const_Expected_Int_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_C_std_expected_int_float_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstExpected_Int_Float(MR.CS.Std.ConstExpected_Int_Float other) : this(null, is_owning: true)
+                public unsafe Const_Expected_Int_Float(MR.CS.Std.Const_Expected_Int_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_C_std_expected_int_float_ConstructFromAnother(MR.CS.Std.Expected_Int_Float._Underlying *other);
@@ -63,7 +63,7 @@ public static partial class MR
 
             /// Stores either a `int` that represents success or a `float` that represents an error.
             /// This is the non-const half of the class.
-            public class Expected_Int_Float : ConstExpected_Int_Float
+            public class Expected_Int_Float : Const_Expected_Int_Float
             {
                 internal unsafe Expected_Int_Float(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -76,7 +76,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Expected_Int_Float(MR.CS.Std.ConstExpected_Int_Float other) : this(null, is_owning: true)
+                public unsafe Expected_Int_Float(MR.CS.Std.Const_Expected_Int_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_C_std_expected_int_float_ConstructFromAnother(MR.CS.Std.Expected_Int_Float._Underlying *other);
@@ -84,7 +84,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ConstExpected_Int_Float other)
+                public unsafe void Assign(MR.CS.Std.Const_Expected_Int_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_expected_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Expected_Int_Float._Underlying *other);
@@ -111,33 +111,33 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `Expected_Int_Float` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_Expected_Int_Float`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Expected_Int_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Expected_Int_Float`/`ConstExpected_Int_Float` directly.
-            public class InOptMut_Expected_Int_Float
+            /// * Pass an instance of `Expected_Int_Float`/`Const_Expected_Int_Float` directly.
+            public class _InOptMut_Expected_Int_Float
             {
                 public Expected_Int_Float? Opt;
 
-                public InOptMut_Expected_Int_Float() {}
-                public InOptMut_Expected_Int_Float(Expected_Int_Float value) {Opt = value;}
-                public static implicit operator InOptMut_Expected_Int_Float(Expected_Int_Float value) {return new(value);}
+                public _InOptMut_Expected_Int_Float() {}
+                public _InOptMut_Expected_Int_Float(Expected_Int_Float value) {Opt = value;}
+                public static implicit operator _InOptMut_Expected_Int_Float(Expected_Int_Float value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Expected_Int_Float` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_Expected_Int_Float`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Expected_Int_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Expected_Int_Float`/`ConstExpected_Int_Float` to pass it to the function.
-            public class InOptConst_Expected_Int_Float
+            /// * Pass an instance of `Expected_Int_Float`/`Const_Expected_Int_Float` to pass it to the function.
+            public class _InOptConst_Expected_Int_Float
             {
-                public ConstExpected_Int_Float? Opt;
+                public Const_Expected_Int_Float? Opt;
 
-                public InOptConst_Expected_Int_Float() {}
-                public InOptConst_Expected_Int_Float(ConstExpected_Int_Float value) {Opt = value;}
-                public static implicit operator InOptConst_Expected_Int_Float(ConstExpected_Int_Float value) {return new(value);}
+                public _InOptConst_Expected_Int_Float() {}
+                public _InOptConst_Expected_Int_Float(Const_Expected_Int_Float value) {Opt = value;}
+                public static implicit operator _InOptConst_Expected_Int_Float(Const_Expected_Int_Float value) {return new(value);}
             }
         }
     }

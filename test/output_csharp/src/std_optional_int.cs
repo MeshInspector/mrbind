@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// Stores either a single `int` or nothing.
             /// This is the const half of the class.
-            public class ConstOptional_Int : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_Int : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstOptional_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Optional_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstOptional_Int() {Dispose(false);}
+                ~Const_Optional_Int() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstOptional_Int() : this(null, is_owning: true)
+                public unsafe Const_Optional_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstOptional_Int(MR.CS.Std.ConstOptional_Int other) : this(null, is_owning: true)
+                public unsafe Const_Optional_Int(MR.CS.Std.Const_Optional_Int other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe ConstOptional_Int(int? other) : this(null, is_owning: true)
+                public unsafe Const_Optional_Int(int? other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFrom(int *other);
@@ -52,7 +52,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ConstOptional_Int(int? other) {return new(other);}
+                public static unsafe implicit operator Const_Optional_Int(int? other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
                 public unsafe int? Value()
@@ -66,7 +66,7 @@ public static partial class MR
 
             /// Stores either a single `int` or nothing.
             /// This is the non-const half of the class.
-            public class Optional_Int : ConstOptional_Int
+            public class Optional_Int : Const_Optional_Int
             {
                 internal unsafe Optional_Int(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -79,7 +79,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Optional_Int(MR.CS.Std.ConstOptional_Int other) : this(null, is_owning: true)
+                public unsafe Optional_Int(MR.CS.Std.Const_Optional_Int other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
@@ -99,7 +99,7 @@ public static partial class MR
                 public static unsafe implicit operator Optional_Int(int? other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ConstOptional_Int other)
+                public unsafe void Assign(MR.CS.Std.Const_Optional_Int other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_Int._Underlying *other);
@@ -126,36 +126,36 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `Optional_Int` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_Optional_Int`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Optional_Int`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_Int`/`ConstOptional_Int` directly.
-            public class InOptMut_Optional_Int
+            /// * Pass an instance of `Optional_Int`/`Const_Optional_Int` directly.
+            public class _InOptMut_Optional_Int
             {
                 public Optional_Int? Opt;
 
-                public InOptMut_Optional_Int() {}
-                public InOptMut_Optional_Int(Optional_Int value) {Opt = value;}
-                public static implicit operator InOptMut_Optional_Int(Optional_Int value) {return new(value);}
+                public _InOptMut_Optional_Int() {}
+                public _InOptMut_Optional_Int(Optional_Int value) {Opt = value;}
+                public static implicit operator _InOptMut_Optional_Int(Optional_Int value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Optional_Int` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_Optional_Int`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Optional_Int`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_Int`/`ConstOptional_Int` to pass it to the function.
-            public class InOptConst_Optional_Int
+            /// * Pass an instance of `Optional_Int`/`Const_Optional_Int` to pass it to the function.
+            public class _InOptConst_Optional_Int
             {
-                public ConstOptional_Int? Opt;
+                public Const_Optional_Int? Opt;
 
-                public InOptConst_Optional_Int() {}
-                public InOptConst_Optional_Int(ConstOptional_Int value) {Opt = value;}
-                public static implicit operator InOptConst_Optional_Int(ConstOptional_Int value) {return new(value);}
+                public _InOptConst_Optional_Int() {}
+                public _InOptConst_Optional_Int(Const_Optional_Int value) {Opt = value;}
+                public static implicit operator _InOptConst_Optional_Int(Const_Optional_Int value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConst_Optional_Int(int? other) {return new MR.CS.Std.Optional_Int(other);}
+                public static unsafe implicit operator _InOptConst_Optional_Int(int? other) {return new MR.CS.Std.Optional_Int(other);}
             }
         }
     }

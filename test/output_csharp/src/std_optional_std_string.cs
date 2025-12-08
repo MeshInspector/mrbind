@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// Stores either a single `std::string` or nothing.
             /// This is the const half of the class.
-            public class ConstOptional_StdString : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_StdString : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstOptional_StdString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Optional_StdString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstOptional_StdString() {Dispose(false);}
+                ~Const_Optional_StdString() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstOptional_StdString() : this(null, is_owning: true)
+                public unsafe Const_Optional_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstOptional_StdString(MR.CS.Std.ByValue_Optional_StdString other) : this(null, is_owning: true)
+                public unsafe Const_Optional_StdString(MR.CS.Std._ByValue_Optional_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe ConstOptional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) : this(null, is_owning: true)
+                public unsafe Const_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(byte *other, byte *other_end);
@@ -61,21 +61,21 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ConstOptional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new(other);}
+                public static unsafe implicit operator Const_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
-                public unsafe MR.CS.Std.ConstString? Value()
+                public unsafe MR.CS.Std.Const_String? Value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_Value", ExactSpelling = true)]
-                    extern static MR.CS.Std.ConstString._Underlying *__MR_C_std_optional_std_string_Value(_Underlying *_this);
+                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_optional_std_string_Value(_Underlying *_this);
                     var __ret = __MR_C_std_optional_std_string_Value(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Std.ConstString(__ret, is_owning: false) : null;
+                    return __ret is not null ? new MR.CS.Std.Const_String(__ret, is_owning: false) : null;
                 }
             }
 
             /// Stores either a single `std::string` or nothing.
             /// This is the non-const half of the class.
-            public class Optional_StdString : ConstOptional_StdString
+            public class Optional_StdString : Const_Optional_StdString
             {
                 internal unsafe Optional_StdString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -88,7 +88,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Optional_StdString(MR.CS.Std.ByValue_Optional_StdString other) : this(null, is_owning: true)
+                public unsafe Optional_StdString(MR.CS.Std._ByValue_Optional_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
@@ -117,7 +117,7 @@ public static partial class MR
                 public static unsafe implicit operator Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ByValue_Optional_StdString other)
+                public unsafe void Assign(MR.CS.Std._ByValue_Optional_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
@@ -155,55 +155,55 @@ public static partial class MR
             /// This is used as a function parameter when the underlying function receives `Optional_StdString` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `Optional_StdString`/`ConstOptional_StdString` to copy it into the function.
+            /// * Pass an instance of `Optional_StdString`/`Const_Optional_StdString` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class ByValue_Optional_StdString
+            public class _ByValue_Optional_StdString
             {
-                internal readonly ConstOptional_StdString? Value;
+                internal readonly Const_Optional_StdString? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public ByValue_Optional_StdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValue_Optional_StdString(ConstOptional_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator ByValue_Optional_StdString(ConstOptional_StdString arg) {return new(arg);}
-                public ByValue_Optional_StdString(MR.CS.Misc._Moved<Optional_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValue_Optional_StdString(MR.CS.Misc._Moved<Optional_StdString> arg) {return new(arg);}
+                public _ByValue_Optional_StdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Optional_StdString(Const_Optional_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Optional_StdString(Const_Optional_StdString arg) {return new(arg);}
+                public _ByValue_Optional_StdString(MR.CS.Misc._Moved<Optional_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Optional_StdString(MR.CS.Misc._Moved<Optional_StdString> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ByValue_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Std.Optional_StdString(other);}
+                public static unsafe implicit operator _ByValue_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Std.Optional_StdString(other);}
             }
 
             /// This is used for optional parameters of class `Optional_StdString` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_Optional_StdString`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Optional_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_StdString`/`ConstOptional_StdString` directly.
-            public class InOptMut_Optional_StdString
+            /// * Pass an instance of `Optional_StdString`/`Const_Optional_StdString` directly.
+            public class _InOptMut_Optional_StdString
             {
                 public Optional_StdString? Opt;
 
-                public InOptMut_Optional_StdString() {}
-                public InOptMut_Optional_StdString(Optional_StdString value) {Opt = value;}
-                public static implicit operator InOptMut_Optional_StdString(Optional_StdString value) {return new(value);}
+                public _InOptMut_Optional_StdString() {}
+                public _InOptMut_Optional_StdString(Optional_StdString value) {Opt = value;}
+                public static implicit operator _InOptMut_Optional_StdString(Optional_StdString value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Optional_StdString` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_Optional_StdString`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Optional_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_StdString`/`ConstOptional_StdString` to pass it to the function.
-            public class InOptConst_Optional_StdString
+            /// * Pass an instance of `Optional_StdString`/`Const_Optional_StdString` to pass it to the function.
+            public class _InOptConst_Optional_StdString
             {
-                public ConstOptional_StdString? Opt;
+                public Const_Optional_StdString? Opt;
 
-                public InOptConst_Optional_StdString() {}
-                public InOptConst_Optional_StdString(ConstOptional_StdString value) {Opt = value;}
-                public static implicit operator InOptConst_Optional_StdString(ConstOptional_StdString value) {return new(value);}
+                public _InOptConst_Optional_StdString() {}
+                public _InOptConst_Optional_StdString(Const_Optional_StdString value) {Opt = value;}
+                public static implicit operator _InOptConst_Optional_StdString(Const_Optional_StdString value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConst_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Std.Optional_StdString(other);}
+                public static unsafe implicit operator _InOptConst_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Std.Optional_StdString(other);}
             }
         }
     }

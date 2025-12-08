@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// Stores one of 3 objects: `std::monostate`, `int`, `float`.
             /// This is the const half of the class.
-            public class ConstVariant_StdMonostate_Int_Float : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Variant_StdMonostate_Int_Float : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstVariant_StdMonostate_Int_Float(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Variant_StdMonostate_Int_Float(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstVariant_StdMonostate_Int_Float() {Dispose(false);}
+                ~Const_Variant_StdMonostate_Int_Float() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstVariant_StdMonostate_Int_Float() : this(null, is_owning: true)
+                public unsafe Const_Variant_StdMonostate_Int_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstVariant_StdMonostate_Int_Float(MR.CS.Std.ConstVariant_StdMonostate_Int_Float other) : this(null, is_owning: true)
+                public unsafe Const_Variant_StdMonostate_Int_Float(MR.CS.Std.Const_Variant_StdMonostate_Int_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_ConstructFromAnother(MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *other);
@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 0, of type `std::monostate`.
-                public unsafe ConstVariant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) : this(null, is_owning: true)
+                public unsafe Const_Variant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_ConstructAs_std_monostate", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_ConstructAs_std_monostate();
@@ -59,10 +59,10 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 0, of type `std::monostate`.
-                public static unsafe implicit operator ConstVariant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) {return new(value);}
+                public static unsafe implicit operator Const_Variant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) {return new(value);}
 
                 /// Constructs the variant storing the element 1, of type `int`.
-                public unsafe ConstVariant_StdMonostate_Int_Float(int value) : this(null, is_owning: true)
+                public unsafe Const_Variant_StdMonostate_Int_Float(int value) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_ConstructAs_int", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_ConstructAs_int(int value);
@@ -70,10 +70,10 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 1, of type `int`.
-                public static unsafe implicit operator ConstVariant_StdMonostate_Int_Float(int value) {return new(value);}
+                public static unsafe implicit operator Const_Variant_StdMonostate_Int_Float(int value) {return new(value);}
 
                 /// Constructs the variant storing the element 2, of type `float`.
-                public unsafe ConstVariant_StdMonostate_Int_Float(float value) : this(null, is_owning: true)
+                public unsafe Const_Variant_StdMonostate_Int_Float(float value) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_ConstructAs_float", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_ConstructAs_float(float value);
@@ -81,7 +81,7 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 2, of type `float`.
-                public static unsafe implicit operator ConstVariant_StdMonostate_Int_Float(float value) {return new(value);}
+                public static unsafe implicit operator Const_Variant_StdMonostate_Int_Float(float value) {return new(value);}
 
                 /// Returns the element 0, of type `std::monostate`, read-only. If it's not the active element, returns null.
                 public unsafe MR.CS.Std.Monostate? GetStdMonostate()
@@ -112,7 +112,7 @@ public static partial class MR
 
             /// Stores one of 3 objects: `std::monostate`, `int`, `float`.
             /// This is the non-const half of the class.
-            public class Variant_StdMonostate_Int_Float : ConstVariant_StdMonostate_Int_Float
+            public class Variant_StdMonostate_Int_Float : Const_Variant_StdMonostate_Int_Float
             {
                 internal unsafe Variant_StdMonostate_Int_Float(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -125,7 +125,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Variant_StdMonostate_Int_Float(MR.CS.Std.ConstVariant_StdMonostate_Int_Float other) : this(null, is_owning: true)
+                public unsafe Variant_StdMonostate_Int_Float(MR.CS.Std.Const_Variant_StdMonostate_Int_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_ConstructFromAnother(MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *other);
@@ -133,7 +133,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ConstVariant_StdMonostate_Int_Float other)
+                public unsafe void Assign(MR.CS.Std.Const_Variant_StdMonostate_Int_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_std_monostate_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *other);
@@ -217,42 +217,42 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `Variant_StdMonostate_Int_Float` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_Variant_StdMonostate_Int_Float`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Variant_StdMonostate_Int_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Variant_StdMonostate_Int_Float`/`ConstVariant_StdMonostate_Int_Float` directly.
-            public class InOptMut_Variant_StdMonostate_Int_Float
+            /// * Pass an instance of `Variant_StdMonostate_Int_Float`/`Const_Variant_StdMonostate_Int_Float` directly.
+            public class _InOptMut_Variant_StdMonostate_Int_Float
             {
                 public Variant_StdMonostate_Int_Float? Opt;
 
-                public InOptMut_Variant_StdMonostate_Int_Float() {}
-                public InOptMut_Variant_StdMonostate_Int_Float(Variant_StdMonostate_Int_Float value) {Opt = value;}
-                public static implicit operator InOptMut_Variant_StdMonostate_Int_Float(Variant_StdMonostate_Int_Float value) {return new(value);}
+                public _InOptMut_Variant_StdMonostate_Int_Float() {}
+                public _InOptMut_Variant_StdMonostate_Int_Float(Variant_StdMonostate_Int_Float value) {Opt = value;}
+                public static implicit operator _InOptMut_Variant_StdMonostate_Int_Float(Variant_StdMonostate_Int_Float value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Variant_StdMonostate_Int_Float` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_Variant_StdMonostate_Int_Float`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Variant_StdMonostate_Int_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Variant_StdMonostate_Int_Float`/`ConstVariant_StdMonostate_Int_Float` to pass it to the function.
-            public class InOptConst_Variant_StdMonostate_Int_Float
+            /// * Pass an instance of `Variant_StdMonostate_Int_Float`/`Const_Variant_StdMonostate_Int_Float` to pass it to the function.
+            public class _InOptConst_Variant_StdMonostate_Int_Float
             {
-                public ConstVariant_StdMonostate_Int_Float? Opt;
+                public Const_Variant_StdMonostate_Int_Float? Opt;
 
-                public InOptConst_Variant_StdMonostate_Int_Float() {}
-                public InOptConst_Variant_StdMonostate_Int_Float(ConstVariant_StdMonostate_Int_Float value) {Opt = value;}
-                public static implicit operator InOptConst_Variant_StdMonostate_Int_Float(ConstVariant_StdMonostate_Int_Float value) {return new(value);}
+                public _InOptConst_Variant_StdMonostate_Int_Float() {}
+                public _InOptConst_Variant_StdMonostate_Int_Float(Const_Variant_StdMonostate_Int_Float value) {Opt = value;}
+                public static implicit operator _InOptConst_Variant_StdMonostate_Int_Float(Const_Variant_StdMonostate_Int_Float value) {return new(value);}
 
                 /// Constructs the variant storing the element 0, of type `std::monostate`.
-                public static unsafe implicit operator InOptConst_Variant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) {return new MR.CS.Std.Variant_StdMonostate_Int_Float(value);}
+                public static unsafe implicit operator _InOptConst_Variant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) {return new MR.CS.Std.Variant_StdMonostate_Int_Float(value);}
 
                 /// Constructs the variant storing the element 1, of type `int`.
-                public static unsafe implicit operator InOptConst_Variant_StdMonostate_Int_Float(int value) {return new MR.CS.Std.Variant_StdMonostate_Int_Float(value);}
+                public static unsafe implicit operator _InOptConst_Variant_StdMonostate_Int_Float(int value) {return new MR.CS.Std.Variant_StdMonostate_Int_Float(value);}
 
                 /// Constructs the variant storing the element 2, of type `float`.
-                public static unsafe implicit operator InOptConst_Variant_StdMonostate_Int_Float(float value) {return new MR.CS.Std.Variant_StdMonostate_Int_Float(value);}
+                public static unsafe implicit operator _InOptConst_Variant_StdMonostate_Int_Float(float value) {return new MR.CS.Std.Variant_StdMonostate_Int_Float(value);}
             }
         }
     }

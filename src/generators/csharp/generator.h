@@ -25,12 +25,66 @@ namespace mrbind::CSharp
     }
 
     // Transforms a single C++ string (usually a type name or a qualified name) to C# style.
-    [[nodiscard]] std::string CppStringToCSharpIdentifier(std::string_view cpp_ident);
+    [[nodiscard]] std::string CppIdentifierToCSharpIdentifier(std::string_view cpp_ident);
 
     // Transforms any C++ entity to a C#-style name.
-    [[nodiscard]] std::string CppToCSharpIdentifier(const auto &value)
+    [[nodiscard]] std::string CppToCSharpIdentifier(auto value)
     {
-        return CppStringToCSharpIdentifier(cppdecl::ToCode(value, {}));
+        // Adjust qualified names first.
+
+        (void)value.template VisitEachComponent<cppdecl::UnqualifiedName, cppdecl::QualifiedName>({}, Overload{
+            [](cppdecl::UnqualifiedName &name)
+            {
+                std::string ret = CppIdentifierToCSharpIdentifier(cppdecl::ToString(name.var, cppdecl::ToStringFlags::identifier));
+
+                if (name.template_args)
+                {
+                    for (const auto &targ : name.template_args->args)
+                    {
+                        if (!ret.empty() && !ret.ends_with(char(1)))
+                            ret += char(1); // `CppIdentifierToCSharpIdentifier()` will preserve this, and later we'll replace it with `_`.
+                        ret += CppIdentifierToCSharpIdentifier(cppdecl::ToString(targ, cppdecl::ToStringFlags::identifier));
+                    }
+                }
+
+                // `FromSingleWord()` doesn't like our `char(1)` placeholders, so avoid it.
+                name = cppdecl::UnqualifiedName{.var = std::move(ret), .template_args = {}};
+
+                return false;
+            },
+            [](cppdecl::QualifiedName &name)
+            {
+                std::string ret;
+
+                for (auto &part : name.parts)
+                {
+                    // Due to post-order traversal, this should already be a single word.
+                    std::string_view word = part.AsSingleWord();
+                    if (word.empty())
+                        throw std::logic_error("Internal error: Converting name to C# style failed to produce a single word for an unqualified name part.");
+
+                    if (!ret.empty() && !ret.ends_with(char(1)))
+                        ret += char(1); // `CppIdentifierToCSharpIdentifier()` will preserve this, and later we'll replace it with `_`.
+
+                    ret += word;
+                }
+
+                // `QualifiedName::FromSingleWord()` doesn't like our `char(1)` placeholders, so avoid it.
+
+                name = cppdecl::QualifiedName::FromSinglePart(cppdecl::UnqualifiedName{.var = std::move(ret), .template_args = {}});
+
+                return false;
+            },
+        });
+
+        // Convert to identifier using cppdecl, and then apply `CppIdentifierToCSharpIdentifier()` again to handle things like `const` and such,
+        //   which the code above doesn't handle.
+        std::string ret = CppIdentifierToCSharpIdentifier(cppdecl::ToString(value, cppdecl::ToStringFlags::identifier));
+
+        // Lastly, replace our `char(1)` placeholders back with `_`.
+        std::replace(ret.begin(), ret.end(), char(1), '_');
+
+        return ret;
     }
 
     struct Generator;
@@ -487,7 +541,7 @@ namespace mrbind::CSharp
             conv_op_for_ctor_for_by_value_opt_opt_helper,
             // Same, but this one is emitted in the `InOptConst...` helpers.
             conv_op_for_ctor_for_in_opt_const_helper,
-            // Same, but this one is emitted in the `InOpt...` helpers. (Those are only for exposed structs.)
+            // Same, but this one is emitted in the `_InOpt...` helpers. (Those are only for exposed structs.)
             conv_op_for_ctor_for_in_opt_struct_helper,
 
             // Non-static operators `++` and `--` are a new feature in C# 14, allowing you to modify an instance in place instead of returning a copy,

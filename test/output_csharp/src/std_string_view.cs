@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// A non-owning string view. Not necessarily null-terminated.
             /// This is the const half of the class.
-            public class ConstStringView : MR.CS.Misc.Object, System.IDisposable
+            public class Const_StringView : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstStringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_StringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstStringView() {Dispose(false);}
+                ~Const_StringView() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstStringView() : this(null, is_owning: true)
+                public unsafe Const_StringView() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstStringView(MR.CS.Std.ConstStringView other) : this(null, is_owning: true)
+                public unsafe Const_StringView(MR.CS.Std.Const_StringView other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe ConstStringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
+                public unsafe Const_StringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFrom(byte *other, byte *other_end);
@@ -56,8 +56,8 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ConstStringView(ReadOnlySpan<char> other) {return new(other);}
-                public static unsafe implicit operator ConstStringView(string other) {return new(other);}
+                public static unsafe implicit operator Const_StringView(ReadOnlySpan<char> other) {return new(other);}
+                public static unsafe implicit operator Const_StringView(string other) {return new(other);}
 
                 /// The number of characters in the string.
                 public unsafe ulong Size()
@@ -87,12 +87,12 @@ public static partial class MR
 
                 // Custom extras:
 
-                public static unsafe implicit operator ReadOnlySpan<byte>(MR.CS.Std.ConstStringView self)
+                public static unsafe implicit operator ReadOnlySpan<byte>(MR.CS.Std.Const_StringView self)
                 {
                     return new(self.Data(), checked((int)self.Size()));
                 }
 
-                public static unsafe implicit operator string(MR.CS.Std.ConstStringView self)
+                public static unsafe implicit operator string(MR.CS.Std.Const_StringView self)
                 {
                     return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
                 }
@@ -100,7 +100,7 @@ public static partial class MR
 
             /// A non-owning string view. Not necessarily null-terminated.
             /// This is the non-const half of the class.
-            public class StringView : ConstStringView
+            public class StringView : Const_StringView
             {
                 internal unsafe StringView(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -113,7 +113,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe StringView(MR.CS.Std.ConstStringView other) : this(null, is_owning: true)
+                public unsafe StringView(MR.CS.Std.Const_StringView other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
@@ -138,7 +138,7 @@ public static partial class MR
                 public static unsafe implicit operator StringView(string other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ConstStringView other)
+                public unsafe void Assign(MR.CS.Std.Const_StringView other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_string_view_AssignFromAnother(_Underlying *_this, MR.CS.Std.StringView._Underlying *other);
@@ -160,37 +160,37 @@ public static partial class MR
             }
 
             /// This is used for optional parameters of class `StringView` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_StringView`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_StringView`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `StringView`/`ConstStringView` directly.
-            public class InOptMut_StringView
+            /// * Pass an instance of `StringView`/`Const_StringView` directly.
+            public class _InOptMut_StringView
             {
                 public StringView? Opt;
 
-                public InOptMut_StringView() {}
-                public InOptMut_StringView(StringView value) {Opt = value;}
-                public static implicit operator InOptMut_StringView(StringView value) {return new(value);}
+                public _InOptMut_StringView() {}
+                public _InOptMut_StringView(StringView value) {Opt = value;}
+                public static implicit operator _InOptMut_StringView(StringView value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `StringView` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_StringView`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_StringView`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `StringView`/`ConstStringView` to pass it to the function.
-            public class InOptConst_StringView
+            /// * Pass an instance of `StringView`/`Const_StringView` to pass it to the function.
+            public class _InOptConst_StringView
             {
-                public ConstStringView? Opt;
+                public Const_StringView? Opt;
 
-                public InOptConst_StringView() {}
-                public InOptConst_StringView(ConstStringView value) {Opt = value;}
-                public static implicit operator InOptConst_StringView(ConstStringView value) {return new(value);}
+                public _InOptConst_StringView() {}
+                public _InOptConst_StringView(Const_StringView value) {Opt = value;}
+                public static implicit operator _InOptConst_StringView(Const_StringView value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConst_StringView(ReadOnlySpan<char> other) {return new MR.CS.Std.StringView(other);}
-                public static unsafe implicit operator InOptConst_StringView(string other) {return new(other);}
+                public static unsafe implicit operator _InOptConst_StringView(ReadOnlySpan<char> other) {return new MR.CS.Std.StringView(other);}
+                public static unsafe implicit operator _InOptConst_StringView(string other) {return new(other);}
             }
         }
     }

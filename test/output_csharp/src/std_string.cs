@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// A heap-allocated null-terminated string.
             /// This is the const half of the class.
-            public class ConstString : MR.CS.Misc.Object, System.IDisposable
+            public class Const_String : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_String(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstString() {Dispose(false);}
+                ~Const_String() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstString() : this(null, is_owning: true)
+                public unsafe Const_String() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_string_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstString(MR.CS.Std.ByValue_String other) : this(null, is_owning: true)
+                public unsafe Const_String(MR.CS.Std._ByValue_String other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe ConstString(ReadOnlySpan<char> other) : this(null, is_owning: true)
+                public unsafe Const_String(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFrom(byte *other, byte *other_end);
@@ -56,8 +56,8 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ConstString(ReadOnlySpan<char> other) {return new(other);}
-                public static unsafe implicit operator ConstString(string other) {return new(other);}
+                public static unsafe implicit operator Const_String(ReadOnlySpan<char> other) {return new(other);}
+                public static unsafe implicit operator Const_String(string other) {return new(other);}
 
                 /// The number of characters in the string, excluding the null-terminator.
                 public unsafe ulong Size()
@@ -87,12 +87,12 @@ public static partial class MR
 
                 // Custom extras:
 
-                public static unsafe implicit operator ReadOnlySpan<byte>(MR.CS.Std.ConstString self)
+                public static unsafe implicit operator ReadOnlySpan<byte>(MR.CS.Std.Const_String self)
                 {
                     return new(self.Data(), checked((int)self.Size()));
                 }
 
-                public static unsafe implicit operator string(MR.CS.Std.ConstString self)
+                public static unsafe implicit operator string(MR.CS.Std.Const_String self)
                 {
                     return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
                 }
@@ -100,7 +100,7 @@ public static partial class MR
 
             /// A heap-allocated null-terminated string.
             /// This is the non-const half of the class.
-            public class String : ConstString
+            public class String : Const_String
             {
                 internal unsafe String(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -113,7 +113,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe String(MR.CS.Std.ByValue_String other) : this(null, is_owning: true)
+                public unsafe String(MR.CS.Std._ByValue_String other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
@@ -138,7 +138,7 @@ public static partial class MR
                 public static unsafe implicit operator String(string other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ByValue_String other)
+                public unsafe void Assign(MR.CS.Std._ByValue_String other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
@@ -187,83 +187,83 @@ public static partial class MR
             /// This is used as a function parameter when the underlying function receives `String` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `String`/`ConstString` to copy it into the function.
+            /// * Pass an instance of `String`/`Const_String` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class ByValue_String
+            public class _ByValue_String
             {
-                internal readonly ConstString? Value;
+                internal readonly Const_String? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public ByValue_String() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValue_String(ConstString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator ByValue_String(ConstString arg) {return new(arg);}
-                public ByValue_String(MR.CS.Misc._Moved<String> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValue_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
+                public _ByValue_String() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_String(Const_String new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_String(Const_String arg) {return new(arg);}
+                public _ByValue_String(MR.CS.Misc._Moved<String> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ByValue_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
-                public static unsafe implicit operator ByValue_String(string other) {return new(other);}
+                public static unsafe implicit operator _ByValue_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+                public static unsafe implicit operator _ByValue_String(string other) {return new(other);}
             }
 
             /// This is used as a function parameter when the underlying function receives an optional `String` by value,
             ///   and also has a default argument, meaning it has two different null states.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `String`/`ConstString` to copy it into the function.
+            /// * Pass an instance of `String`/`Const_String` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument.
             /// * Pass `MR.CS.Misc.NullOptType` to pass no object.
-            public class ByValueOptOpt_String
+            public class _ByValueOptOpt_String
             {
-                internal readonly ConstString? Value;
+                internal readonly Const_String? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public ByValueOptOpt_String() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public ByValueOptOpt_String(ConstString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator ByValueOptOpt_String(ConstString arg) {return new(arg);}
-                public ByValueOptOpt_String(MR.CS.Misc._Moved<String> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator ByValueOptOpt_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
-                public ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {PassByMode = MR.CS.Misc._PassBy.no_object;}
-                public static implicit operator ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
+                public _ByValueOptOpt_String() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueOptOpt_String(Const_String new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueOptOpt_String(Const_String arg) {return new(arg);}
+                public _ByValueOptOpt_String(MR.CS.Misc._Moved<String> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueOptOpt_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
+                public _ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {PassByMode = MR.CS.Misc._PassBy.no_object;}
+                public static implicit operator _ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ByValueOptOpt_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
-                public static unsafe implicit operator ByValueOptOpt_String(string other) {return new(other);}
+                public static unsafe implicit operator _ByValueOptOpt_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+                public static unsafe implicit operator _ByValueOptOpt_String(string other) {return new(other);}
             }
 
             /// This is used for optional parameters of class `String` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_String`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_String`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `String`/`ConstString` directly.
-            public class InOptMut_String
+            /// * Pass an instance of `String`/`Const_String` directly.
+            public class _InOptMut_String
             {
                 public String? Opt;
 
-                public InOptMut_String() {}
-                public InOptMut_String(String value) {Opt = value;}
-                public static implicit operator InOptMut_String(String value) {return new(value);}
+                public _InOptMut_String() {}
+                public _InOptMut_String(String value) {Opt = value;}
+                public static implicit operator _InOptMut_String(String value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `String` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_String`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_String`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `String`/`ConstString` to pass it to the function.
-            public class InOptConst_String
+            /// * Pass an instance of `String`/`Const_String` to pass it to the function.
+            public class _InOptConst_String
             {
-                public ConstString? Opt;
+                public Const_String? Opt;
 
-                public InOptConst_String() {}
-                public InOptConst_String(ConstString value) {Opt = value;}
-                public static implicit operator InOptConst_String(ConstString value) {return new(value);}
+                public _InOptConst_String() {}
+                public _InOptConst_String(Const_String value) {Opt = value;}
+                public static implicit operator _InOptConst_String(Const_String value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConst_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
-                public static unsafe implicit operator InOptConst_String(string other) {return new(other);}
+                public static unsafe implicit operator _InOptConst_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+                public static unsafe implicit operator _InOptConst_String(string other) {return new(other);}
             }
         }
     }

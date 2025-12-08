@@ -6,13 +6,13 @@ public static partial class MR
         {
             /// Stores either a single `MR::CSharp::ExposedLayoutSh` or nothing.
             /// This is the const half of the class.
-            public class ConstOptional_MRCSharpExposedLayoutSh : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_MRCSharpExposedLayoutSh : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe ConstOptional_MRCSharpExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Optional_MRCSharpExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -24,10 +24,10 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~ConstOptional_MRCSharpExposedLayoutSh() {Dispose(false);}
+                ~Const_Optional_MRCSharpExposedLayoutSh() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe ConstOptional_MRCSharpExposedLayoutSh() : this(null, is_owning: true)
+                public unsafe Const_Optional_MRCSharpExposedLayoutSh() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_DefaultConstruct();
@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe ConstOptional_MRCSharpExposedLayoutSh(MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh other) : this(null, is_owning: true)
+                public unsafe Const_Optional_MRCSharpExposedLayoutSh(MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *other);
@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe ConstOptional_MRCSharpExposedLayoutSh(MR.CS.CSharp.InOpt_ExposedLayoutSh other) : this(null, is_owning: true)
+                public unsafe Const_Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom(MR.CS.CSharp.ExposedLayoutSh *other);
@@ -51,21 +51,21 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator ConstOptional_MRCSharpExposedLayoutSh(MR.CS.CSharp.InOpt_ExposedLayoutSh other) {return new(other);}
+                public static unsafe implicit operator Const_Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
-                public unsafe MR.CS.CSharp.ConstExposedLayoutSh? Value()
+                public unsafe MR.CS.CSharp.Const_ExposedLayoutSh? Value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConstExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_Underlying *_this);
+                    extern static MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_Underlying *_this);
                     var __ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.ConstExposedLayoutSh(__ret, is_owning: false) : null;
+                    return __ret is not null ? new MR.CS.CSharp.Const_ExposedLayoutSh(__ret, is_owning: false) : null;
                 }
             }
 
             /// Stores either a single `MR::CSharp::ExposedLayoutSh` or nothing.
             /// This is the non-const half of the class.
-            public class Optional_MRCSharpExposedLayoutSh : ConstOptional_MRCSharpExposedLayoutSh
+            public class Optional_MRCSharpExposedLayoutSh : Const_Optional_MRCSharpExposedLayoutSh
             {
                 internal unsafe Optional_MRCSharpExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -78,7 +78,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Optional_MRCSharpExposedLayoutSh(MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh other) : this(null, is_owning: true)
+                public unsafe Optional_MRCSharpExposedLayoutSh(MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *other);
@@ -86,7 +86,7 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp.InOpt_ExposedLayoutSh other) : this(null, is_owning: true)
+                public unsafe Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom(MR.CS.CSharp.ExposedLayoutSh *other);
@@ -94,10 +94,10 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp.InOpt_ExposedLayoutSh other) {return new(other);}
+                public static unsafe implicit operator Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.ConstOptional_MRCSharpExposedLayoutSh other)
+                public unsafe void Assign(MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *other);
@@ -105,7 +105,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(MR.CS.CSharp.InOpt_ExposedLayoutSh other)
+                public unsafe void Assign(MR.CS.CSharp._InOpt_ExposedLayoutSh other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom(_Underlying *_this, MR.CS.CSharp.ExposedLayoutSh *other);
@@ -113,46 +113,46 @@ public static partial class MR
                 }
 
                 /// The stored element or null if none, mutable.
-                public unsafe MR.CS.CSharp.MutExposedLayoutSh? MutableValue()
+                public unsafe MR.CS.CSharp.Mut_ExposedLayoutSh? MutableValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.MutExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_Underlying *_this);
+                    extern static MR.CS.CSharp.Mut_ExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_Underlying *_this);
                     var __ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.MutExposedLayoutSh(__ret, is_owning: false) : null;
+                    return __ret is not null ? new MR.CS.CSharp.Mut_ExposedLayoutSh(__ret, is_owning: false) : null;
                 }
             }
 
             /// This is used for optional parameters of class `Optional_MRCSharpExposedLayoutSh` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `InOptConst_Optional_MRCSharpExposedLayoutSh`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Optional_MRCSharpExposedLayoutSh`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_MRCSharpExposedLayoutSh`/`ConstOptional_MRCSharpExposedLayoutSh` directly.
-            public class InOptMut_Optional_MRCSharpExposedLayoutSh
+            /// * Pass an instance of `Optional_MRCSharpExposedLayoutSh`/`Const_Optional_MRCSharpExposedLayoutSh` directly.
+            public class _InOptMut_Optional_MRCSharpExposedLayoutSh
             {
                 public Optional_MRCSharpExposedLayoutSh? Opt;
 
-                public InOptMut_Optional_MRCSharpExposedLayoutSh() {}
-                public InOptMut_Optional_MRCSharpExposedLayoutSh(Optional_MRCSharpExposedLayoutSh value) {Opt = value;}
-                public static implicit operator InOptMut_Optional_MRCSharpExposedLayoutSh(Optional_MRCSharpExposedLayoutSh value) {return new(value);}
+                public _InOptMut_Optional_MRCSharpExposedLayoutSh() {}
+                public _InOptMut_Optional_MRCSharpExposedLayoutSh(Optional_MRCSharpExposedLayoutSh value) {Opt = value;}
+                public static implicit operator _InOptMut_Optional_MRCSharpExposedLayoutSh(Optional_MRCSharpExposedLayoutSh value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Optional_MRCSharpExposedLayoutSh` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `InOptMut_Optional_MRCSharpExposedLayoutSh`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Optional_MRCSharpExposedLayoutSh`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Optional_MRCSharpExposedLayoutSh`/`ConstOptional_MRCSharpExposedLayoutSh` to pass it to the function.
-            public class InOptConst_Optional_MRCSharpExposedLayoutSh
+            /// * Pass an instance of `Optional_MRCSharpExposedLayoutSh`/`Const_Optional_MRCSharpExposedLayoutSh` to pass it to the function.
+            public class _InOptConst_Optional_MRCSharpExposedLayoutSh
             {
-                public ConstOptional_MRCSharpExposedLayoutSh? Opt;
+                public Const_Optional_MRCSharpExposedLayoutSh? Opt;
 
-                public InOptConst_Optional_MRCSharpExposedLayoutSh() {}
-                public InOptConst_Optional_MRCSharpExposedLayoutSh(ConstOptional_MRCSharpExposedLayoutSh value) {Opt = value;}
-                public static implicit operator InOptConst_Optional_MRCSharpExposedLayoutSh(ConstOptional_MRCSharpExposedLayoutSh value) {return new(value);}
+                public _InOptConst_Optional_MRCSharpExposedLayoutSh() {}
+                public _InOptConst_Optional_MRCSharpExposedLayoutSh(Const_Optional_MRCSharpExposedLayoutSh value) {Opt = value;}
+                public static implicit operator _InOptConst_Optional_MRCSharpExposedLayoutSh(Const_Optional_MRCSharpExposedLayoutSh value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator InOptConst_Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp.InOpt_ExposedLayoutSh other) {return new MR.CS.Std.Optional_MRCSharpExposedLayoutSh(other);}
+                public static unsafe implicit operator _InOptConst_Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) {return new MR.CS.Std.Optional_MRCSharpExposedLayoutSh(other);}
             }
         }
     }
