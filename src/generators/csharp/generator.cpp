@@ -4307,8 +4307,8 @@ namespace mrbind::CSharp
             if (cpp_type.Is<cppdecl::Pointer>() || cpp_type.Is<cppdecl::Reference>())
                 return false;
 
-            // Otherwise throw on an unknown type.
-            throw std::logic_error("Unknown C++ type passed to `TypeIsCppClass()`: `" + CppdeclToCode(cpp_type) + "`.");
+            // Otherwise return false on an unknown type.
+            return false;
         }
 
         if (std::holds_alternative<CInterop::TypeKinds::Class>(type_desc->var))

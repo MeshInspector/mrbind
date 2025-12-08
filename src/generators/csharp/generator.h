@@ -684,7 +684,7 @@ namespace mrbind::CSharp
 
         // Returns true if this C++ type maps to a class in C# (which we could make hold `std::shared_ptr` internally, among other things).
         // This also returns true for exposed structs, since in C# they get both a proper `ref struct` and the class wrappers.
-        // Note that this throws if this isn't a known type. To check if a type exists, instead use `c_desc.FindTypeOpt(...)`.
+        // Returns false for unknown types. (If you only want to check if a type exists, but not necessarily is a class, instead use `c_desc.FindTypeOpt(...)`.)
         // Ignores constness on the type.
         [[nodiscard]] bool TypeIsCppClass(cppdecl::Type cpp_type);
 
