@@ -2827,6 +2827,8 @@ namespace mrbind::CSharp
         ret.csharp_name = "__";
         ret.csharp_name += c_name;
 
+        // Note! If it turns out that we need to specify the calling convention here, don't forget to also add it
+        //   to our `std::function` implementation and its numerous delegates.
         ret.dllimport_decl = "[System.Runtime.InteropServices.DllImport(";
         ret.dllimport_decl += EscapeQuoteString(imported_lib_name);
         ret.dllimport_decl += ", EntryPoint = \"";

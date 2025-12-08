@@ -309,6 +309,7 @@ namespace mrbind::CBindings::Modules
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Construct a stateless function.";
                         emit.name = binder.MakeMemberFuncName(generator, "ConstructStateless", CInterop::MethodKinds::Constructor{}); // Intentionally implicit.
+                        emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
 
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
                         emit.params.push_back({
@@ -335,7 +336,10 @@ namespace mrbind::CBindings::Modules
                     { // Assign stateless.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Assign a stateless function.";
+
                         emit.name = binder.MakeMemberFuncName(generator, "Assign");
+                        emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
+
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "func",
@@ -475,6 +479,8 @@ namespace mrbind::CBindings::Modules
                             emit.c_comment_trailing = trailing_comment;
 
                             emit.name = binder.MakeMemberFuncName(generator, "ConstructWithDataPtr", CInterop::MethodKinds::Constructor{}); // Intentionally implicit.
+                            emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
+
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
                             emit.params.push_back({
                                 .name = "func",
@@ -505,6 +511,8 @@ namespace mrbind::CBindings::Modules
                             emit.c_comment_trailing = trailing_comment;
 
                             emit.name = binder.MakeMemberFuncName(generator, "AssignWithDataPtr");
+                            emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
+
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                             emit.params.push_back({
                                 .name = "func",
