@@ -1638,6 +1638,45 @@ namespace mrbind::CSharp
                 }
 
 
+                // `std::unique_ptr`.
+
+                static const cppdecl::QualifiedName cpp_name_std_uniqueptr = cppdecl::QualifiedName{}.AddPart("std").AddPart("unique_ptr");
+
+                if (TypeMatchesExactlyOrConstOrRvalueRef(cpp_name_std_uniqueptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                {
+                    // `std::unique_ptr` takes pointer ownership when used as a parameter, or releases it when returned.
+
+                    return CreateBinding({
+                        .param_usage = TypeBinding::ParamUsage{
+                            .make_strings = [](const std::string &name, bool have_useless_defarg)
+                            {
+                                return TypeBinding::ParamUsage::Strings{
+                                    .dllimport_decl_params = "void *" + name,
+                                    .csharp_decl_params = {{.type = "void *", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
+                                    .dllimport_args = name,
+                                };
+                            },
+                        },
+                        .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                            .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
+                            {
+                                return TypeBinding::ParamUsage::Strings{
+                                    .dllimport_decl_params = "void *" + name,
+                                    // `void *?` doesn't work, sadly. And neither does `Nullable<void *>`. We could provide a nicer syntax,
+                                    //   but this situation is so rare that it's easier to just use `void **`.
+                                    .csharp_decl_params = {{.type = "void **", .name = name, .default_arg = "null"}},
+                                    .dllimport_args = name,
+                                };
+                            },
+                        },
+                        .return_usage = TypeBinding::ReturnUsage{
+                            .dllimport_return_type = "void *",
+                            .csharp_return_type = "void *",
+                        },
+                    });
+                }
+
+
                 // String-like:
 
                 auto MakeStringLikeReadOnlyBinding = [&] -> TypeBinding

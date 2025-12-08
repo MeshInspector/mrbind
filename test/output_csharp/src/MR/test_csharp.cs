@@ -12863,6 +12863,55 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Ostream(__ret, is_owning: false) : null;
             }
 
+            /// Generated from function `MR::CSharp::test_uniqueptr`.
+            /// Parameter `b` defaults to `std::move(default_uniqueptr)`.
+            public static unsafe void *TestUniqueptr(void *a, void **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr", ExactSpelling = true)]
+                extern static void *__MR_CSharp_test_uniqueptr(void *a, void *b);
+                return __MR_CSharp_test_uniqueptr(a, b);
+            }
+
+            /// Generated from function `MR::CSharp::test_uniqueptr_ref`.
+            /// Parameter `b` defaults to `default_uniqueptr`.
+            public static unsafe MR.CS.Std.UniquePtr_Int TestUniqueptrRef(MR.CS.Std.UniquePtr_Int a, MR.CS.Std.UniquePtr_Int? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_CSharp_test_uniqueptr_ref(MR.CS.Std.UniquePtr_Int._Underlying *a, MR.CS.Std.UniquePtr_Int._Underlying *b);
+                return new(__MR_CSharp_test_uniqueptr_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_uniqueptr_cref`.
+            /// Parameter `b` defaults to `default_uniqueptr`.
+            public static unsafe MR.CS.Std.Const_UniquePtr_Int TestUniqueptrCref(MR.CS.Std.Const_UniquePtr_Int a, MR.CS.Std.Const_UniquePtr_Int? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_UniquePtr_Int._Underlying *__MR_CSharp_test_uniqueptr_cref(MR.CS.Std.Const_UniquePtr_Int._Underlying *a, MR.CS.Std.Const_UniquePtr_Int._Underlying *b);
+                return new(__MR_CSharp_test_uniqueptr_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_uniqueptr_ptr`.
+            /// Parameter `c` defaults to `&default_uniqueptr`.
+            public static unsafe MR.CS.Std.UniquePtr_Int? TestUniqueptrPtr(MR.CS.Std.UniquePtr_Int? a, MR.CS.Std.UniquePtr_Int? b = null, MR.CS.Std._InOptMut_UniquePtr_Int? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_CSharp_test_uniqueptr_ptr(MR.CS.Std.UniquePtr_Int._Underlying *a, MR.CS.Std.UniquePtr_Int._Underlying *b, MR.CS.Std.UniquePtr_Int._Underlying **c);
+                MR.CS.Std.UniquePtr_Int._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_uniqueptr_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.UniquePtr_Int(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_uniqueptr_cptr`.
+            /// Parameter `c` defaults to `&default_uniqueptr`.
+            public static unsafe MR.CS.Std.Const_UniquePtr_Int? TestUniqueptrCptr(MR.CS.Std.Const_UniquePtr_Int? a, MR.CS.Std.Const_UniquePtr_Int? b = null, MR.CS.Std._InOptConst_UniquePtr_Int? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_UniquePtr_Int._Underlying *__MR_CSharp_test_uniqueptr_cptr(MR.CS.Std.Const_UniquePtr_Int._Underlying *a, MR.CS.Std.Const_UniquePtr_Int._Underlying *b, MR.CS.Std.Const_UniquePtr_Int._Underlying **c);
+                MR.CS.Std.Const_UniquePtr_Int._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_uniqueptr_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_UniquePtr_Int(__ret, is_owning: false) : null;
+            }
+
             /// Generated from function `MR::CSharp::test_class_expected`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
             public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpected(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)

@@ -946,6 +946,17 @@ namespace MR::CSharp
     inline std::ostream *test_iostreams_ptr(std::istream *) {return &std::cout;}
     inline const std::ostream &test_iostreams_cref(const std::istream &) {return std::cout;}
     inline const std::ostream *test_iostreams_cptr(const std::istream *) {return &std::cout;}
+
+
+    // `std::unique_ptr`:
+
+    inline std::unique_ptr<int> default_uniqueptr;
+
+    inline std::unique_ptr<int> test_uniqueptr(std::unique_ptr<int> a, std::unique_ptr<int> b = std::move(default_uniqueptr)) {(void)a; (void)b; return {};}
+    inline std::unique_ptr<int> &test_uniqueptr_ref(std::unique_ptr<int> &a, std::unique_ptr<int> &b = default_uniqueptr) {(void)a; (void)b; return default_uniqueptr;}
+    inline const std::unique_ptr<int> &test_uniqueptr_cref(const std::unique_ptr<int> &a, const std::unique_ptr<int> &b = default_uniqueptr) {(void)a; (void)b; return default_uniqueptr;}
+    inline std::unique_ptr<int> *test_uniqueptr_ptr(std::unique_ptr<int> *a, std::unique_ptr<int> *b = nullptr, std::unique_ptr<int> *c = &default_uniqueptr) {(void)a; (void)b; (void)c; return &default_uniqueptr;}
+    inline const std::unique_ptr<int> *test_uniqueptr_cptr(const std::unique_ptr<int> *a, const std::unique_ptr<int> *b = nullptr, const std::unique_ptr<int> *c = &default_uniqueptr) {(void)a; (void)b; (void)c; return &default_uniqueptr;}
 }
 
 
