@@ -1073,6 +1073,12 @@ namespace mrbind::CBindings
         [[nodiscard]] std::string CppdeclToIdentifier(cppdecl::TemplateArgumentList input) const;
 
 
+        // This parses `str` as a pseudo-expression, and then applies `CppdeclToCodeForComments()`.
+        // Additionally, if the parsing fails (which can happen, since e.g. `cppdecl` currently doesn't handle `<` as an operator),
+        //   we log the failure and return the string unchanged, which is better than nothing.
+        [[nodiscard]] std::string RoundtripDefaultArgumentForComments(const std::string &str);
+
+
         // Maps a C++ type name to a C type name, by consulting `FindTypeBindableWithSameAddress()`.
         // This only handles the types that are already known. DON'T use when writing new bindings.
         // Throws if the type is unknown.

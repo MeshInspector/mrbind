@@ -1194,9 +1194,9 @@ namespace mrbind::CBindings
         std::string_view view = str;
         auto ret = cppdecl::ParsePseudoExpr(view);
         if (auto error = std::get_if<cppdecl::ParseError>(&ret))
-            throw std::runtime_error("Unable to parse template argument list `" + str + "`, error at offset " + std::to_string(view.data() - str.data()) + ": " + error->message);
+            throw std::runtime_error("Unable to parse expression `" + str + "`, error at offset " + std::to_string(view.data() - str.data()) + ": " + error->message);
         if (!view.empty())
-            throw std::runtime_error("Unable to parse template argument list `" + str + "`, junk starting at offset " + std::to_string(view.data() - str.data()) + ".");
+            throw std::runtime_error("Unable to parse expression `" + str + "`, junk starting at offset " + std::to_string(view.data() - str.data()) + ".");
         auto &ret_expr = std::get<cppdecl::PseudoExpr>(ret);
         UnadjustFixedSizeTypedefsInCppdeclEntityAfterParsing(*this, ret_expr);
         iter->second = std::move(ret_expr);
@@ -1373,6 +1373,19 @@ namespace mrbind::CBindings
     {
         CppdeclAdjustForCommentsAndIdentifiers(input);
         return cppdecl::ToString(input, cppdecl::ToStringFlags::identifier);
+    }
+
+    std::string Generator::RoundtripDefaultArgumentForComments(const std::string &str)
+    {
+        try
+        {
+            return CppdeclToCodeForComments(ParseExprOrThrow(str));
+        }
+        catch (...)
+        {
+            std::clog << "mrbind_gen_c: warning: Cppdecl failed to parse default argument expression `" << str << "`. Leaving it unadjusted.\n";
+            return str;
+        }
     }
 
     std::string Generator::CppTypeNameToCTypeName(const cppdecl::QualifiedName &cpp_name)
@@ -2286,7 +2299,7 @@ namespace mrbind::CBindings
                         ret.comment += "/// Parameter `";
                         ret.comment += param_name_fixed;
                         ret.comment += "` has a default argument: `";
-                        ret.comment += CppdeclToCodeForComments(ParseExprOrThrow(param.default_arg->original_spelling));
+                        ret.comment += RoundtripDefaultArgumentForComments(param.default_arg->original_spelling);
                         ret.comment += "`, ";
                         if (!param_usage_defarg->explanation_how_to_use_default_arg)
                             throw std::logic_error("Internal error: Bad usage: `ParamUsageWithDefaultArg::explanation_how_to_use_default_arg` is not set.");
@@ -2752,7 +2765,7 @@ namespace mrbind::CBindings
 
                     if (input_param.default_arg)
                     {
-                        new_param.default_arg_spelling = CppdeclToCodeForComments(ParseExprOrThrow(input_param.default_arg->original_spelling));
+                        new_param.default_arg_spelling = RoundtripDefaultArgumentForComments(input_param.default_arg->original_spelling);
                         new_param.default_arg_affects_parameter_passing = strings.params_info[i].has_useful_default_arg;
                     }
 
