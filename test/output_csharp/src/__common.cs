@@ -171,8 +171,20 @@ public static partial class MR
             byte elem;
         }
 
+        [System.Runtime.CompilerServices.InlineArray(10)]
+        public struct ArrayInt10_20
+        {
+            MR.CS.ArrayInt20 elem;
+        }
+
         [System.Runtime.CompilerServices.InlineArray(2)]
         public struct ArrayInt2
+        {
+            int elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(20)]
+        public struct ArrayInt20
         {
             int elem;
         }
@@ -195,8 +207,65 @@ public static partial class MR
             int elem;
         }
 
+        [System.Runtime.CompilerServices.InlineArray(42)]
+        public struct ArrayInt42
+        {
+            int elem;
+        }
+
+        public static partial class CSharp
+        {
+            [System.Runtime.CompilerServices.InlineArray(10)]
+            public struct ArrayE1_10_20
+            {
+                MR.CS.CSharp.ArrayE1_20 elem;
+            }
+
+            [System.Runtime.CompilerServices.InlineArray(20)]
+            public struct ArrayE1_20
+            {
+                MR.CS.CSharp.E1 elem;
+            }
+
+            [System.Runtime.CompilerServices.InlineArray(42)]
+            public struct ArrayE1_42
+            {
+                MR.CS.CSharp.E1 elem;
+            }
+
+            [System.Runtime.CompilerServices.InlineArray(10)]
+            public struct ConstArrayE1_10_20
+            {
+                MR.CS.CSharp.ConstArrayE1_20 elem;
+            }
+
+            [System.Runtime.CompilerServices.InlineArray(20)]
+            public struct ConstArrayE1_20
+            {
+                MR.CS.CSharp.E1 elem;
+            }
+
+            [System.Runtime.CompilerServices.InlineArray(42)]
+            public struct ConstArrayE1_42
+            {
+                MR.CS.CSharp.E1 elem;
+            }
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(10)]
+        public struct ConstArrayInt10_20
+        {
+            MR.CS.ConstArrayInt20 elem;
+        }
+
         [System.Runtime.CompilerServices.InlineArray(2)]
         public struct ConstArrayInt2
+        {
+            int elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(20)]
+        public struct ConstArrayInt20
         {
             int elem;
         }
@@ -209,6 +278,12 @@ public static partial class MR
 
         [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ConstArrayInt4
+        {
+            int elem;
+        }
+
+        [System.Runtime.CompilerServices.InlineArray(42)]
+        public struct ConstArrayInt42
         {
             int elem;
         }

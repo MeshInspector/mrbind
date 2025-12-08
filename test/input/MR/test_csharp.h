@@ -957,6 +957,41 @@ namespace MR::CSharp
     inline const std::unique_ptr<int> &test_uniqueptr_cref(const std::unique_ptr<int> &a, const std::unique_ptr<int> &b = default_uniqueptr) {(void)a; (void)b; return default_uniqueptr;}
     inline std::unique_ptr<int> *test_uniqueptr_ptr(std::unique_ptr<int> *a, std::unique_ptr<int> *b = nullptr, std::unique_ptr<int> *c = &default_uniqueptr) {(void)a; (void)b; (void)c; return &default_uniqueptr;}
     inline const std::unique_ptr<int> *test_uniqueptr_cptr(const std::unique_ptr<int> *a, const std::unique_ptr<int> *b = nullptr, const std::unique_ptr<int> *c = &default_uniqueptr) {(void)a; (void)b; (void)c; return &default_uniqueptr;}
+
+
+    // Pointers and references to arrays. Only known-size types for now.
+
+    using PlainArray = int[42];
+    inline PlainArray default_plainarr;
+
+    inline PlainArray &test_plainarr_ref(PlainArray &a, PlainArray &b = default_plainarr) {(void)a; (void)b; return default_plainarr;}
+    inline const PlainArray &test_plainarr_cref(const PlainArray &a, const PlainArray &b = default_plainarr) {(void)a; (void)b; return default_plainarr;}
+    inline PlainArray *test_plainarr_ptr(PlainArray *a, PlainArray *b = nullptr, PlainArray *c = &default_plainarr) {(void)a; (void)b; (void)c; return &default_plainarr;}
+    inline const PlainArray *test_plainarr_cptr(const PlainArray *a, const PlainArray *b = nullptr, const PlainArray *c = &default_plainarr) {(void)a; (void)b; (void)c; return &default_plainarr;}
+
+    using PlainArray2 = int[10][20];
+    inline PlainArray2 default_plainarr2;
+
+    inline PlainArray2 &test_plainarr2_ref(PlainArray2 &a, PlainArray2 &b = default_plainarr2) {(void)a; (void)b; return default_plainarr2;}
+    inline const PlainArray2 &test_plainarr2_cref(const PlainArray2 &a, const PlainArray2 &b = default_plainarr2) {(void)a; (void)b; return default_plainarr2;}
+    inline PlainArray2 *test_plainarr2_ptr(PlainArray2 *a, PlainArray2 *b = nullptr, PlainArray2 *c = &default_plainarr2) {(void)a; (void)b; (void)c; return &default_plainarr2;}
+    inline const PlainArray2 *test_plainarr2_cptr(const PlainArray2 *a, const PlainArray2 *b = nullptr, const PlainArray2 *c = &default_plainarr2) {(void)a; (void)b; (void)c; return &default_plainarr2;}
+
+    using PlainArrayEnum = E1[42];
+    inline PlainArrayEnum default_plainarrenum;
+
+    inline PlainArrayEnum &test_plainarrenum_ref(PlainArrayEnum &a, PlainArrayEnum &b = default_plainarrenum) {(void)a; (void)b; return default_plainarrenum;}
+    inline const PlainArrayEnum &test_plainarrenum_cref(const PlainArrayEnum &a, const PlainArrayEnum &b = default_plainarrenum) {(void)a; (void)b; return default_plainarrenum;}
+    inline PlainArrayEnum *test_plainarrenum_ptr(PlainArrayEnum *a, PlainArrayEnum *b = nullptr, PlainArrayEnum *c = &default_plainarrenum) {(void)a; (void)b; (void)c; return &default_plainarrenum;}
+    inline const PlainArrayEnum *test_plainarrenum_cptr(const PlainArrayEnum *a, const PlainArrayEnum *b = nullptr, const PlainArrayEnum *c = &default_plainarrenum) {(void)a; (void)b; (void)c; return &default_plainarrenum;}
+
+    using PlainArrayEnum2 = E1[10][20];
+    inline PlainArrayEnum2 default_plainarrenum2;
+
+    inline PlainArrayEnum2 &test_plainarrenum2_ref(PlainArrayEnum2 &a, PlainArrayEnum2 &b = default_plainarrenum2) {(void)a; (void)b; return default_plainarrenum2;}
+    inline const PlainArrayEnum2 &test_plainarrenum2_cref(const PlainArrayEnum2 &a, const PlainArrayEnum2 &b = default_plainarrenum2) {(void)a; (void)b; return default_plainarrenum2;}
+    inline PlainArrayEnum2 *test_plainarrenum2_ptr(PlainArrayEnum2 *a, PlainArrayEnum2 *b = nullptr, PlainArrayEnum2 *c = &default_plainarrenum2) {(void)a; (void)b; (void)c; return &default_plainarrenum2;}
+    inline const PlainArrayEnum2 *test_plainarrenum2_cptr(const PlainArrayEnum2 *a, const PlainArrayEnum2 *b = nullptr, const PlainArrayEnum2 *c = &default_plainarrenum2) {(void)a; (void)b; (void)c; return &default_plainarrenum2;}
 }
 
 

@@ -288,6 +288,7 @@ namespace mrbind::CSharp
 
         const CInterop::TypeDesc *type_desc = c_desc.FindTypeOpt(CppdeclToCode(cpp_type.simple_type.name));
         const CInterop::TypeKinds::Class *class_desc = std::get_if<CInterop::TypeKinds::Class>(type_desc ? &type_desc->var : nullptr);
+        const CInterop::TypeKinds::Enum *enum_desc = std::get_if<CInterop::TypeKinds::Enum>(type_desc ? &type_desc->var : nullptr);
 
         if (cpp_type.modifiers.empty())
         {
@@ -300,6 +301,15 @@ namespace mrbind::CSharp
                     *out_sizeof = class_desc->size_and_alignment.value().size;
 
                 return CppToCSharpExposedStructName(cpp_type.simple_type.name);
+            }
+
+            // A enum?
+            if (enum_desc)
+            {
+                if (out_sizeof)
+                    *out_sizeof = c_desc.platform_info.FindPrimitiveType(enum_desc->underlying_type)->type_size;
+
+                return CppToCSharpEnumName(cpp_type.simple_type.name);
             }
 
             // Is this a scalar?
@@ -992,6 +1002,19 @@ namespace mrbind::CSharp
                                     },
                                 });
                                 break;
+                              case CInterop::ClassKind::only_returnable:
+                                return CreateBinding({
+                                    // Not passable as a parameter.
+                                    .return_usage = TypeBinding::ReturnUsage{
+                                        .dllimport_return_type = csharp_underlying_ptr_type,
+                                        .csharp_return_type = csharp_type_mut,
+                                        .make_return_expr = [](const std::string &expr)
+                                        {
+                                            return "return new(" + expr + ", is_owning: true);";
+                                        },
+                                    },
+                                });
+                                break;
                               case CInterop::ClassKind::exposed_struct:
                                 {
                                     // Notice that `std::shared_ptr<T>` never arrives here, since we're switching on its kind directly,
@@ -1038,11 +1061,62 @@ namespace mrbind::CSharp
                     // Simple non-owning pointers and references.
                     // Note that something like `std::monostate *` does have a type description, and so isn't handled here.
 
+                    // References to...
+                    // This intentionally handles rvalue references too.
                     if (cpp_type.Is<cppdecl::Reference>())
                     {
-                        // References to...
-                        // This intentionally handles rvalue references too.
-                        if (cpp_type.Is<cppdecl::Reference>() && cpp_type.modifiers.size() == 1)
+                        // Reference to an array, possibly multidimensional.
+                        if (cpp_type.Is<cppdecl::Array>(1) && std::all_of(cpp_type.modifiers.begin() + 2, cpp_type.modifiers.end(), [](const cppdecl::TypeModifier &m){return m.Is<cppdecl::Array>();}))
+                        {
+                            cppdecl::Type cpp_array_type = cpp_type;
+                            cpp_array_type.RemoveModifier(); // Remove the pointer.
+
+                            auto csharp_type = CppToCSharpKnownSizeType(cpp_array_type);
+                            if (!csharp_type)
+                                throw std::runtime_error("This array element type isn't trivial enough for the array to be passed around indirectly. The array type is: `" + CppdeclToCode(cpp_array_type) + "`.");
+
+                            std::function<std::string(const std::string &name)> fix_input;
+                            if (cpp_array_type.simple_type.name.AsSingleWord() == "bool")
+                                fix_input = [](const std::string &name){return "foreach (ref byte __elem in " + name + ") if ((byte)__elem > 1) __elem = (byte)1;\n";};
+
+                            const bool is_const = bool(cpp_array_type.simple_type.quals & cppdecl::CvQualifiers::const_);
+                            const std::string ref = is_const ? "ref readonly " : "ref ";
+
+                            return CreateBinding({
+                                .param_usage = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type, fix_input, ref](const std::string &name, bool /*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = *csharp_type + " *" + name,
+                                            .csharp_decl_params = {{.type = ref + *csharp_type, .name = name}},
+                                            .scope_open = "fixed (" + *csharp_type + " *__ptr_" + name + " = &" + name + ")\n{\n",
+                                            .extra_statements = fix_input ? fix_input(name) : "",
+                                            .dllimport_args = "__ptr_" + name,
+                                            .scope_close = "}\n",
+                                        };
+                                    },
+                                },
+                                // I don't know a non-stupid way of implementing all this (as in without copying the array, and without a raw pointer).
+                                // I'm passing a raw pointer here, better this than copying.
+                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type](const std::string &name, bool /*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = *csharp_type + " *" + name,
+                                            .csharp_decl_params = {{.type = *csharp_type + " *", .name = name, .default_arg = "null"}},
+                                            .dllimport_args = name,
+                                        };
+                                    },
+                                },
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = *csharp_type + " *",
+                                    .csharp_return_type = ref + *csharp_type,
+                                    .make_return_expr = [](const std::string &expr){return "return ref *" + expr + ";";},
+                                },
+                            });
+                        }
+                        // A generic reference.
+                        else if (cpp_type.modifiers.size() == 1)
                         {
                             cppdecl::Type cpp_underlying_type = cpp_type;
                             cpp_underlying_type.RemoveModifier();
@@ -1200,6 +1274,7 @@ namespace mrbind::CSharp
                                       case CInterop::ClassKind::ref_only:
                                       case CInterop::ClassKind::uses_pass_by_enum:
                                       case CInterop::ClassKind::trivial_via_ptr:
+                                      case CInterop::ClassKind::only_returnable:
                                       case CInterop::ClassKind::exposed_struct:
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
@@ -1242,10 +1317,58 @@ namespace mrbind::CSharp
                         return nullptr;
                     }
 
+                    // Pointers to...
                     if (cpp_type.Is<cppdecl::Pointer>())
                     {
-                        // Pointers to...
-                        if (cpp_type.Is<cppdecl::Pointer>() && cpp_type.modifiers.size() == 1)
+                        // Pointer to an array, possibly multidimensional.
+                        if (cpp_type.Is<cppdecl::Array>(1) && std::all_of(cpp_type.modifiers.begin() + 2, cpp_type.modifiers.end(), [](const cppdecl::TypeModifier &m){return m.Is<cppdecl::Array>();}))
+                        {
+                            cppdecl::Type cpp_array_type = cpp_type;
+                            cpp_array_type.RemoveModifier(); // Remove the pointer.
+
+                            auto csharp_type = CppToCSharpKnownSizeType(cpp_array_type);
+                            if (!csharp_type)
+                                throw std::runtime_error("This array element type isn't trivial enough for the array to be passed around indirectly. The array type is: `" + CppdeclToCode(cpp_array_type) + "`.");
+
+                            std::function<std::string(const std::string &name)> fix_input;
+                            if (cpp_array_type.simple_type.name.AsSingleWord() == "bool")
+                                fix_input = [](const std::string &name){return "foreach (ref byte __elem in " + name + ") if ((byte)__elem > 1) __elem = (byte)1;\n";};
+
+                            const bool is_const = bool(cpp_array_type.simple_type.quals & cppdecl::CvQualifiers::const_);
+                            const std::string ref = is_const ? "ref readonly " : "ref ";
+
+                            // I don't know a non-stupid way of implementing all this (as in without copying the array, and without a raw pointer).
+                            // I'm passing a raw pointer here, better this than copying.
+                            // And since this is always just a pointer, I don't need to handle `TypeBindingFlags::pointer_to_array`.
+                            return CreateBinding({
+                                .param_usage = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type](const std::string &name, bool have_useless_defarg)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = *csharp_type + " *" + name,
+                                            .csharp_decl_params = {{.type = *csharp_type + " *", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
+                                            .dllimport_args = name,
+                                        };
+                                    },
+                                },
+                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type](const std::string &name, bool /*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = *csharp_type + " **" + name,
+                                            .csharp_decl_params = {{.type = *csharp_type + " **", .name = name, .default_arg = "null"}},
+                                            .dllimport_args = name,
+                                        };
+                                    },
+                                },
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = *csharp_type + " *",
+                                    .csharp_return_type = *csharp_type + " *",
+                                },
+                            });
+                        }
+                        // A generic pointer.
+                        else if (cpp_type.modifiers.size() == 1)
                         {
                             cppdecl::Type cpp_underlying_type = cpp_type;
                             cpp_underlying_type.RemoveModifier();
@@ -1477,6 +1600,7 @@ namespace mrbind::CSharp
                                       case CInterop::ClassKind::ref_only:
                                       case CInterop::ClassKind::uses_pass_by_enum:
                                       case CInterop::ClassKind::trivial_via_ptr:
+                                      case CInterop::ClassKind::only_returnable:
                                       case CInterop::ClassKind::exposed_struct:
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
@@ -4765,7 +4889,7 @@ namespace mrbind::CSharp
                     {
                         file.WriteSeparatingNewline();
                         file.WriteString(
-                            // This one class isn't prefixed with `_`, since you need to manually construct instances of it ot pass to `_InOutOpt`.
+                            // This class isn't prefixed with `_`, since you need to manually construct instances of it ot pass to `_InOutOpt`.
                             "/// This is used for optional in/out parameters, since `ref` can't be nullable.\n"
                             "public class InOut<T> where T: unmanaged\n"
                             "{\n"

@@ -485,6 +485,8 @@ namespace mrbind::CInterop
         (uses_pass_by_enum)
         // Trivial enough to be passed in parameters as a pointer, the contents of which can always be copied.
         (trivial_via_ptr)
+        // Can't be passed by value at all, but is still returnable in the same style as `uses_pass_by_enum` and `trivial_via_ptr`.
+        (only_returnable)
         // An exposed C struct. If this was parsed from C++ rather than invented, then the C++ struct will have the same layout as well.
         (exposed_struct)
     )

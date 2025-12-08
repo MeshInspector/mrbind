@@ -94,7 +94,7 @@ namespace mrbind::CBindings
             else if (traits.value().IsDefaultOrCopyOrMoveConstructible())
                 class_desc.kind = CInterop::ClassKind::uses_pass_by_enum;
             else
-                class_desc.kind = CInterop::ClassKind::ref_only; // I guess?
+                class_desc.kind = CInterop::ClassKind::only_returnable;
 
             class_desc.inheritance_info = inheritance_info.AdjustAllTypes([&](std::string &s){s = generator.CppdeclToCodeForComments(generator.ParseTypeOrThrow(s));});
             class_desc.is_polymorphic = mark_polymorphic;

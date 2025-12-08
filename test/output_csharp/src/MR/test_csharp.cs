@@ -12912,6 +12912,174 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_UniquePtr_Int(__ret, is_owning: false) : null;
             }
 
+            /// Generated from function `MR::CSharp::test_plainarr_ref`.
+            /// Parameter `b` defaults to `default_plainarr`.
+            public static unsafe ref MR.CS.ArrayInt42 TestPlainarrRef(ref MR.CS.ArrayInt42 a, MR.CS.ArrayInt42 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_ref", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 *__MR_CSharp_test_plainarr_ref(MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 *b);
+                fixed (MR.CS.ArrayInt42 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr_cref`.
+            /// Parameter `b` defaults to `default_plainarr`.
+            public static unsafe ref readonly MR.CS.ConstArrayInt42 TestPlainarrCref(ref readonly MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_cref", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt42 *__MR_CSharp_test_plainarr_cref(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b);
+                fixed (MR.CS.ConstArrayInt42 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr_ptr`.
+            /// Parameter `c` defaults to `&default_plainarr`.
+            public static unsafe MR.CS.ArrayInt42 *TestPlainarrPtr(MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 *b = null, MR.CS.ArrayInt42 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_ptr", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 *__MR_CSharp_test_plainarr_ptr(MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 *b, MR.CS.ArrayInt42 **c);
+                return __MR_CSharp_test_plainarr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr_cptr`.
+            /// Parameter `c` defaults to `&default_plainarr`.
+            public static unsafe MR.CS.ConstArrayInt42 *TestPlainarrCptr(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b = null, MR.CS.ConstArrayInt42 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_cptr", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt42 *__MR_CSharp_test_plainarr_cptr(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b, MR.CS.ConstArrayInt42 **c);
+                return __MR_CSharp_test_plainarr_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr2_ref`.
+            /// Parameter `b` defaults to `default_plainarr2`.
+            public static unsafe ref MR.CS.ArrayInt10_20 TestPlainarr2Ref(ref MR.CS.ArrayInt10_20 a, MR.CS.ArrayInt10_20 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_ref", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt10_20 *__MR_CSharp_test_plainarr2_ref(MR.CS.ArrayInt10_20 *a, MR.CS.ArrayInt10_20 *b);
+                fixed (MR.CS.ArrayInt10_20 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr2_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr2_cref`.
+            /// Parameter `b` defaults to `default_plainarr2`.
+            public static unsafe ref readonly MR.CS.ConstArrayInt10_20 TestPlainarr2Cref(ref readonly MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_cref", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt10_20 *__MR_CSharp_test_plainarr2_cref(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b);
+                fixed (MR.CS.ConstArrayInt10_20 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr2_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr2_ptr`.
+            /// Parameter `c` defaults to `&default_plainarr2`.
+            public static unsafe MR.CS.ArrayInt10_20 *TestPlainarr2Ptr(MR.CS.ArrayInt10_20 *a, MR.CS.ArrayInt10_20 *b = null, MR.CS.ArrayInt10_20 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_ptr", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt10_20 *__MR_CSharp_test_plainarr2_ptr(MR.CS.ArrayInt10_20 *a, MR.CS.ArrayInt10_20 *b, MR.CS.ArrayInt10_20 **c);
+                return __MR_CSharp_test_plainarr2_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr2_cptr`.
+            /// Parameter `c` defaults to `&default_plainarr2`.
+            public static unsafe MR.CS.ConstArrayInt10_20 *TestPlainarr2Cptr(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b = null, MR.CS.ConstArrayInt10_20 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_cptr", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt10_20 *__MR_CSharp_test_plainarr2_cptr(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b, MR.CS.ConstArrayInt10_20 **c);
+                return __MR_CSharp_test_plainarr2_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum_ref`.
+            /// Parameter `b` defaults to `default_plainarrenum`.
+            public static unsafe ref MR.CS.CSharp.ArrayE1_42 TestPlainarrenumRef(ref MR.CS.CSharp.ArrayE1_42 a, MR.CS.CSharp.ArrayE1_42 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ArrayE1_42 *__MR_CSharp_test_plainarrenum_ref(MR.CS.CSharp.ArrayE1_42 *a, MR.CS.CSharp.ArrayE1_42 *b);
+                fixed (MR.CS.CSharp.ArrayE1_42 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarrenum_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum_cref`.
+            /// Parameter `b` defaults to `default_plainarrenum`.
+            public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_42 TestPlainarrenumCref(ref readonly MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_cref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstArrayE1_42 *__MR_CSharp_test_plainarrenum_cref(MR.CS.CSharp.ConstArrayE1_42 *a, MR.CS.CSharp.ConstArrayE1_42 *b);
+                fixed (MR.CS.CSharp.ConstArrayE1_42 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarrenum_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum_ptr`.
+            /// Parameter `c` defaults to `&default_plainarrenum`.
+            public static unsafe MR.CS.CSharp.ArrayE1_42 *TestPlainarrenumPtr(MR.CS.CSharp.ArrayE1_42 *a, MR.CS.CSharp.ArrayE1_42 *b = null, MR.CS.CSharp.ArrayE1_42 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ArrayE1_42 *__MR_CSharp_test_plainarrenum_ptr(MR.CS.CSharp.ArrayE1_42 *a, MR.CS.CSharp.ArrayE1_42 *b, MR.CS.CSharp.ArrayE1_42 **c);
+                return __MR_CSharp_test_plainarrenum_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum_cptr`.
+            /// Parameter `c` defaults to `&default_plainarrenum`.
+            public static unsafe MR.CS.CSharp.ConstArrayE1_42 *TestPlainarrenumCptr(MR.CS.CSharp.ConstArrayE1_42 *a, MR.CS.CSharp.ConstArrayE1_42 *b = null, MR.CS.CSharp.ConstArrayE1_42 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_cptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstArrayE1_42 *__MR_CSharp_test_plainarrenum_cptr(MR.CS.CSharp.ConstArrayE1_42 *a, MR.CS.CSharp.ConstArrayE1_42 *b, MR.CS.CSharp.ConstArrayE1_42 **c);
+                return __MR_CSharp_test_plainarrenum_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum2_ref`.
+            /// Parameter `b` defaults to `default_plainarrenum2`.
+            public static unsafe ref MR.CS.CSharp.ArrayE1_10_20 TestPlainarrenum2Ref(ref MR.CS.CSharp.ArrayE1_10_20 a, MR.CS.CSharp.ArrayE1_10_20 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ArrayE1_10_20 *__MR_CSharp_test_plainarrenum2_ref(MR.CS.CSharp.ArrayE1_10_20 *a, MR.CS.CSharp.ArrayE1_10_20 *b);
+                fixed (MR.CS.CSharp.ArrayE1_10_20 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarrenum2_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum2_cref`.
+            /// Parameter `b` defaults to `default_plainarrenum2`.
+            public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_10_20 TestPlainarrenum2Cref(ref readonly MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_cref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstArrayE1_10_20 *__MR_CSharp_test_plainarrenum2_cref(MR.CS.CSharp.ConstArrayE1_10_20 *a, MR.CS.CSharp.ConstArrayE1_10_20 *b);
+                fixed (MR.CS.CSharp.ConstArrayE1_10_20 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarrenum2_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum2_ptr`.
+            /// Parameter `c` defaults to `&default_plainarrenum2`.
+            public static unsafe MR.CS.CSharp.ArrayE1_10_20 *TestPlainarrenum2Ptr(MR.CS.CSharp.ArrayE1_10_20 *a, MR.CS.CSharp.ArrayE1_10_20 *b = null, MR.CS.CSharp.ArrayE1_10_20 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_ptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ArrayE1_10_20 *__MR_CSharp_test_plainarrenum2_ptr(MR.CS.CSharp.ArrayE1_10_20 *a, MR.CS.CSharp.ArrayE1_10_20 *b, MR.CS.CSharp.ArrayE1_10_20 **c);
+                return __MR_CSharp_test_plainarrenum2_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarrenum2_cptr`.
+            /// Parameter `c` defaults to `&default_plainarrenum2`.
+            public static unsafe MR.CS.CSharp.ConstArrayE1_10_20 *TestPlainarrenum2Cptr(MR.CS.CSharp.ConstArrayE1_10_20 *a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null, MR.CS.CSharp.ConstArrayE1_10_20 **c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_cptr", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ConstArrayE1_10_20 *__MR_CSharp_test_plainarrenum2_cptr(MR.CS.CSharp.ConstArrayE1_10_20 *a, MR.CS.CSharp.ConstArrayE1_10_20 *b, MR.CS.CSharp.ConstArrayE1_10_20 **c);
+                return __MR_CSharp_test_plainarrenum2_cptr(a, b, c);
+            }
+
             /// Generated from function `MR::CSharp::test_class_expected`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
             public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpected(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
