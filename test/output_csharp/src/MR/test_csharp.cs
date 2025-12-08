@@ -12828,6 +12828,41 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Variant_StdMonostate_Int_Float(__ret, is_owning: false) : null;
             }
 
+            // Input and output streams:
+            /// Generated from function `MR::CSharp::test_iostreams_ref`.
+            public static unsafe MR.CS.Std.Ostream TestIostreamsRef(MR.CS.Std.Istream _1)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Ostream._Underlying *__MR_CSharp_test_iostreams_ref(MR.CS.Std.Istream._Underlying *_1);
+                return new(__MR_CSharp_test_iostreams_ref(_1._UnderlyingPtr), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_iostreams_ptr`.
+            public static unsafe MR.CS.Std.Ostream? TestIostreamsPtr(MR.CS.Std.Istream? _1)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Ostream._Underlying *__MR_CSharp_test_iostreams_ptr(MR.CS.Std.Istream._Underlying *_1);
+                var __ret = __MR_CSharp_test_iostreams_ptr(_1 is not null ? _1._UnderlyingPtr : null);
+                return __ret is not null ? new MR.CS.Std.Ostream(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_iostreams_cref`.
+            public static unsafe MR.CS.Std.Const_Ostream TestIostreamsCref(MR.CS.Std.Const_Istream _1)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Ostream._Underlying *__MR_CSharp_test_iostreams_cref(MR.CS.Std.Const_Istream._Underlying *_1);
+                return new(__MR_CSharp_test_iostreams_cref(_1._UnderlyingPtr), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_iostreams_cptr`.
+            public static unsafe MR.CS.Std.Const_Ostream? TestIostreamsCptr(MR.CS.Std.Const_Istream? _1)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Ostream._Underlying *__MR_CSharp_test_iostreams_cptr(MR.CS.Std.Const_Istream._Underlying *_1);
+                var __ret = __MR_CSharp_test_iostreams_cptr(_1 is not null ? _1._UnderlyingPtr : null);
+                return __ret is not null ? new MR.CS.Std.Const_Ostream(__ret, is_owning: false) : null;
+            }
+
             /// Generated from function `MR::CSharp::test_class_expected`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
             public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpected(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)

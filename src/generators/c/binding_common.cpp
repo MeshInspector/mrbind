@@ -630,7 +630,7 @@ namespace mrbind::CBindings
         return {};
     }
 
-    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, std::string_view c_type_name, std::string_view c_underlying_type_name)
+    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_name, std::string_view c_underlying_type_name)
     {
         if (!comment.empty())
         {
@@ -641,6 +641,18 @@ namespace mrbind::CBindings
 
         file.header.contents += MakeStructForwardDeclarationNoReg(c_type_name, c_underlying_type_name);
         file.header.contents += '\n';
+
+        if (generator.output_desc)
+        {
+            // Note, in this special case we write to this directly.
+            auto [ref, second] = generator.bindable_cpp_types.TryEmplace(generator.CppdeclToCode(cpp_type_name));
+            ref.traits = Generator::TypeTraits::Nothing{};
+            auto &class_desc = ref.interop_info.emplace<CInterop::TypeKinds::Class>();
+            class_desc.output_file = generator.MakeOutputFileDescForInterop(file);
+            class_desc.comment = generator.MakeCommentForInterop(comment);
+            class_desc.c_name = c_type_name;
+            class_desc.kind = CInterop::ClassKind::ref_only;
+        }
     }
 
     [[nodiscard]] std::optional<Generator::TypeSizeAndAlignment> GetSizeAndAlignmentForPrimitiveType(Generator &generator, const cppdecl::Type &cpp_type)

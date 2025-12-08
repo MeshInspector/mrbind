@@ -517,6 +517,13 @@ namespace mrbind::CBindings
                 is_any_constructible = true;
             }
 
+            struct Nothing {explicit Nothing() = default;};
+            // Absolutely no operations are supported. This is for opaque classes (e.g. `std::istream`, `std::ostream` at the moment).
+            TypeTraits(Nothing)
+            {
+                // Nothing!
+            }
+
             [[nodiscard]] bool IsDefaultOrCopyOrMoveConstructible() const
             {
                 return is_default_constructible || is_copy_constructible || is_move_constructible;

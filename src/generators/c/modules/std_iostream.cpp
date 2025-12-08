@@ -5,6 +5,9 @@ namespace mrbind::CBindings::Modules
 {
     struct StdIostream : DeriveModule<StdIostream>
     {
+        cppdecl::QualifiedName cpp_name_istream = cppdecl::QualifiedName{}.AddPart("std").AddPart("istream");
+        cppdecl::QualifiedName cpp_name_ostream = cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream");
+
         std::string c_name_istream;
         std::string c_name_ostream;
 
@@ -26,6 +29,7 @@ namespace mrbind::CBindings::Modules
                 return ret;
 
             auto get_output_file = [
+                this,
                 c_name_istream = c_name_istream,
                 c_name_ostream = c_name_ostream
             ](Generator &generator) -> Generator::OutputFile &
@@ -35,8 +39,8 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ output stream.\n", c_name_ostream);
-                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ input stream.\n", c_name_istream);
+                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ output stream.\n", cpp_name_ostream, c_name_ostream);
+                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ input stream.\n", cpp_name_istream, c_name_istream);
 
                     { // cout
                         Generator::EmitFuncParams emit;

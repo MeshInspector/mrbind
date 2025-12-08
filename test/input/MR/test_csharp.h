@@ -938,6 +938,14 @@ namespace MR::CSharp
     inline const Variant &test_variant_cref(const Variant &a, const Variant &b = default_variant) {(void)a; return b;}
     inline Variant *test_variant_ptr(Variant *a, Variant *b = &default_variant) {(void)a; return b;}
     inline const Variant *test_variant_cptr(const Variant *a, const Variant *b = &default_variant) {(void)a; return b;}
+
+
+    // Input and output streams:
+
+    inline std::ostream &test_iostreams_ref(std::istream &) {return std::cout;}
+    inline std::ostream *test_iostreams_ptr(std::istream *) {return &std::cout;}
+    inline const std::ostream &test_iostreams_cref(const std::istream &) {return std::cout;}
+    inline const std::ostream *test_iostreams_cptr(const std::istream *) {return &std::cout;}
 }
 
 

@@ -109,7 +109,8 @@ namespace mrbind::CBindings
     // This pastes the `MakeStructForwardDeclarationNoReg(...)` into the file, but also registers the type as a ref-only type.
     // Objects of those types can't be created by the C user, but pointers and references to them can still be passed around.
     // The `comment` is pasted before the declaration if not empty. Must end with a line break. Must include the leading slashes.
-    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, std::string_view c_type_name, std::string_view c_underlying_type_name = "");
+    // Currently `cpp_type_name` is only used for generating the interop description JSON.
+    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_name, std::string_view c_underlying_type_name = "");
 
 
     // If this is a simple enough type, returns its size and alignment.
