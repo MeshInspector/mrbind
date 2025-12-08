@@ -475,6 +475,14 @@ namespace mrbind::CInterop
             // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
             (std::optional<Layout>)(layout)
         )
+
+        void ForEachAccessor(auto &&func)
+        {
+            if (getter_const)      func(*getter_const);
+            if (getter_mutable)    func(*getter_mutable);
+            if (setter)            func(*setter);
+            if (getter_array_size) func(*getter_array_size);
+        }
     };
 
     MBREFL_ENUM( ClassKind,

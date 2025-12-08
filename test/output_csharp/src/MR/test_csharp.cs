@@ -13080,6 +13080,323 @@ public static partial class MR
                 return __MR_CSharp_test_plainarrenum2_cptr(a, b, c);
             }
 
+            // Some multi-level pointer madness:
+            /// Generated from function `MR::CSharp::test_ptrs1`.
+            public static unsafe MR.CS.ArrayInt42 **TestPtrs1(MR.CS.ArrayInt42 **ptr, ref MR.CS.ArrayInt42 *ref_)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ptrs1", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 **__MR_CSharp_test_ptrs1(MR.CS.ArrayInt42 **ptr, MR.CS.ArrayInt42 **ref_);
+                fixed (MR.CS.ArrayInt42 **__ptr_ref_ = &ref_)
+                {
+                    return __MR_CSharp_test_ptrs1(ptr, __ptr_ref_);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_ptrs2`.
+            public static unsafe MR.CS.ArrayInt42 ***TestPtrs2(MR.CS.ArrayInt42 ***ptr, ref MR.CS.ArrayInt42 **ref_)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ptrs2", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 ***__MR_CSharp_test_ptrs2(MR.CS.ArrayInt42 ***ptr, MR.CS.ArrayInt42 ***ref_);
+                fixed (MR.CS.ArrayInt42 ***__ptr_ref_ = &ref_)
+                {
+                    return __MR_CSharp_test_ptrs2(ptr, __ptr_ref_);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_intptr_ref`.
+            /// Parameter `b` defaults to `default_intptr`.
+            public static unsafe ref int *TestIntptrRef(ref int *a, int **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_ref", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intptr_ref(int **a, int **b);
+                fixed (int **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_intptr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_intptr_cref`.
+            /// Parameter `b` defaults to `default_intptr`.
+            public static unsafe ref int *TestIntptrCref(ref int *a, int **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_cref", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intptr_cref(int **a, int **b);
+                fixed (int **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_intptr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_intptr_ptr`.
+            /// Parameter `c` defaults to `&default_intptr`.
+            public static unsafe int **TestIntptrPtr(int **a, int **b = null, int ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_ptr", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intptr_ptr(int **a, int **b, int ***c);
+                return __MR_CSharp_test_intptr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_intptr_cptr`.
+            /// Parameter `c` defaults to `&default_intptr`.
+            public static unsafe int **TestIntptrCptr(int **a, int **b = null, int ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_cptr", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intptr_cptr(int **a, int **b, int ***c);
+                return __MR_CSharp_test_intptr_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_intcptr_ref`.
+            /// Parameter `b` defaults to `default_intcptr`.
+            public static unsafe ref readonly int *TestIntcptrRef(ref readonly int *a, int **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_ref", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intcptr_ref(int **a, int **b);
+                fixed (int **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_intcptr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_intcptr_cref`.
+            /// Parameter `b` defaults to `default_intcptr`.
+            public static unsafe ref readonly int *TestIntcptrCref(ref readonly int *a, int **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_cref", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intcptr_cref(int **a, int **b);
+                fixed (int **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_intcptr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_intcptr_ptr`.
+            /// Parameter `c` defaults to `&default_intcptr`.
+            public static unsafe int **TestIntcptrPtr(int **a, int **b = null, int ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_ptr", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intcptr_ptr(int **a, int **b, int ***c);
+                return __MR_CSharp_test_intcptr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_intcptr_cptr`.
+            /// Parameter `c` defaults to `&default_intcptr`.
+            public static unsafe int **TestIntcptrCptr(int **a, int **b = null, int ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_cptr", ExactSpelling = true)]
+                extern static int **__MR_CSharp_test_intcptr_cptr(int **a, int **b, int ***c);
+                return __MR_CSharp_test_intcptr_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_intptrptr_ref`.
+            /// Parameter `b` defaults to `default_intptrptr`.
+            public static unsafe ref int **TestIntptrptrRef(ref int **a, int ***b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_ref", ExactSpelling = true)]
+                extern static int ***__MR_CSharp_test_intptrptr_ref(int ***a, int ***b);
+                fixed (int ***__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_intptrptr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_intptrptr_cref`.
+            /// Parameter `b` defaults to `default_intptrptr`.
+            public static unsafe ref int **TestIntptrptrCref(ref int **a, int ***b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_cref", ExactSpelling = true)]
+                extern static int ***__MR_CSharp_test_intptrptr_cref(int ***a, int ***b);
+                fixed (int ***__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_intptrptr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_intptrptr_ptr`.
+            /// Parameter `c` defaults to `&default_intptrptr`.
+            public static unsafe int ***TestIntptrptrPtr(int ***a, int ***b = null, int ****c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_ptr", ExactSpelling = true)]
+                extern static int ***__MR_CSharp_test_intptrptr_ptr(int ***a, int ***b, int ****c);
+                return __MR_CSharp_test_intptrptr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_intptrptr_cptr`.
+            /// Parameter `c` defaults to `&default_intptrptr`.
+            public static unsafe int ***TestIntptrptrCptr(int ***a, int ***b = null, int ****c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_cptr", ExactSpelling = true)]
+                extern static int ***__MR_CSharp_test_intptrptr_cptr(int ***a, int ***b, int ****c);
+                return __MR_CSharp_test_intptrptr_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptr_ref`.
+            /// Parameter `b` defaults to `default_voidptr`.
+            public static unsafe ref void *TestVoidptrRef(ref void *a, void **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_ref", ExactSpelling = true)]
+                extern static void **__MR_CSharp_test_voidptr_ref(void **a, void **b);
+                fixed (void **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_voidptr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptr_cref`.
+            /// Parameter `b` defaults to `default_voidptr`.
+            public static unsafe ref void *TestVoidptrCref(ref void *a, void **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_cref", ExactSpelling = true)]
+                extern static void **__MR_CSharp_test_voidptr_cref(void **a, void **b);
+                fixed (void **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_voidptr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptr_ptr`.
+            /// Parameter `c` defaults to `&default_voidptr`.
+            public static unsafe void **TestVoidptrPtr(void **a, void **b = null, void ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_ptr", ExactSpelling = true)]
+                extern static void **__MR_CSharp_test_voidptr_ptr(void **a, void **b, void ***c);
+                return __MR_CSharp_test_voidptr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptr_cptr`.
+            /// Parameter `c` defaults to `&default_voidptr`.
+            public static unsafe void **TestVoidptrCptr(void **a, void **b = null, void ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_cptr", ExactSpelling = true)]
+                extern static void **__MR_CSharp_test_voidptr_cptr(void **a, void **b, void ***c);
+                return __MR_CSharp_test_voidptr_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptrptr_ref`.
+            /// Parameter `b` defaults to `default_voidptrptr`.
+            public static unsafe ref void **TestVoidptrptrRef(ref void **a, void ***b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_ref", ExactSpelling = true)]
+                extern static void ***__MR_CSharp_test_voidptrptr_ref(void ***a, void ***b);
+                fixed (void ***__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_voidptrptr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptrptr_cref`.
+            /// Parameter `b` defaults to `default_voidptrptr`.
+            public static unsafe ref void **TestVoidptrptrCref(ref void **a, void ***b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_cref", ExactSpelling = true)]
+                extern static void ***__MR_CSharp_test_voidptrptr_cref(void ***a, void ***b);
+                fixed (void ***__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_voidptrptr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptrptr_ptr`.
+            /// Parameter `c` defaults to `&default_voidptrptr`.
+            public static unsafe void ***TestVoidptrptrPtr(void ***a, void ***b = null, void ****c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_ptr", ExactSpelling = true)]
+                extern static void ***__MR_CSharp_test_voidptrptr_ptr(void ***a, void ***b, void ****c);
+                return __MR_CSharp_test_voidptrptr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_voidptrptr_cptr`.
+            /// Parameter `c` defaults to `&default_voidptrptr`.
+            public static unsafe void ***TestVoidptrptrCptr(void ***a, void ***b = null, void ****c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_cptr", ExactSpelling = true)]
+                extern static void ***__MR_CSharp_test_voidptrptr_cptr(void ***a, void ***b, void ****c);
+                return __MR_CSharp_test_voidptrptr_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_arrptr_ref`.
+            /// Parameter `b` defaults to `default_arrptr`.
+            public static unsafe ref MR.CS.ArrayInt42 *TestArrptrRef(ref MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_ref", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 **__MR_CSharp_test_arrptr_ref(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b);
+                fixed (MR.CS.ArrayInt42 **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_arrptr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_arrptr_cref`.
+            /// Parameter `b` defaults to `default_arrptr`.
+            public static unsafe ref MR.CS.ArrayInt42 *TestArrptrCref(ref MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_cref", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 **__MR_CSharp_test_arrptr_cref(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b);
+                fixed (MR.CS.ArrayInt42 **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_arrptr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_arrptr_ptr`.
+            /// Parameter `c` defaults to `&default_arrptr`.
+            public static unsafe MR.CS.ArrayInt42 **TestArrptrPtr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b = null, MR.CS.ArrayInt42 ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_ptr", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 **__MR_CSharp_test_arrptr_ptr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b, MR.CS.ArrayInt42 ***c);
+                return __MR_CSharp_test_arrptr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_arrptr_cptr`.
+            /// Parameter `c` defaults to `&default_arrptr`.
+            public static unsafe MR.CS.ArrayInt42 **TestArrptrCptr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b = null, MR.CS.ArrayInt42 ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_cptr", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 **__MR_CSharp_test_arrptr_cptr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b, MR.CS.ArrayInt42 ***c);
+                return __MR_CSharp_test_arrptr_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_arrcptr_ref`.
+            /// Parameter `b` defaults to `default_arrcptr`.
+            public static unsafe ref readonly MR.CS.ConstArrayInt42 *TestArrcptrRef(ref readonly MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_ref", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt42 **__MR_CSharp_test_arrcptr_ref(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b);
+                fixed (MR.CS.ConstArrayInt42 **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_arrcptr_ref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_arrcptr_cref`.
+            /// Parameter `b` defaults to `default_arrcptr`.
+            public static unsafe ref readonly MR.CS.ConstArrayInt42 *TestArrcptrCref(ref readonly MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_cref", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt42 **__MR_CSharp_test_arrcptr_cref(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b);
+                fixed (MR.CS.ConstArrayInt42 **__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_arrcptr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_arrcptr_ptr`.
+            /// Parameter `c` defaults to `&default_arrcptr`.
+            public static unsafe MR.CS.ConstArrayInt42 **TestArrcptrPtr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b = null, MR.CS.ConstArrayInt42 ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_ptr", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt42 **__MR_CSharp_test_arrcptr_ptr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b, MR.CS.ConstArrayInt42 ***c);
+                return __MR_CSharp_test_arrcptr_ptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::test_arrcptr_cptr`.
+            /// Parameter `c` defaults to `&default_arrcptr`.
+            public static unsafe MR.CS.ConstArrayInt42 **TestArrcptrCptr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b = null, MR.CS.ConstArrayInt42 ***c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_cptr", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt42 **__MR_CSharp_test_arrcptr_cptr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b, MR.CS.ConstArrayInt42 ***c);
+                return __MR_CSharp_test_arrcptr_cptr(a, b, c);
+            }
+
             /// Generated from function `MR::CSharp::test_class_expected`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
             public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpected(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)

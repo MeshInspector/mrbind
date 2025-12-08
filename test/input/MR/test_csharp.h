@@ -992,6 +992,71 @@ namespace MR::CSharp
     inline const PlainArrayEnum2 &test_plainarrenum2_cref(const PlainArrayEnum2 &a, const PlainArrayEnum2 &b = default_plainarrenum2) {(void)a; (void)b; return default_plainarrenum2;}
     inline PlainArrayEnum2 *test_plainarrenum2_ptr(PlainArrayEnum2 *a, PlainArrayEnum2 *b = nullptr, PlainArrayEnum2 *c = &default_plainarrenum2) {(void)a; (void)b; (void)c; return &default_plainarrenum2;}
     inline const PlainArrayEnum2 *test_plainarrenum2_cptr(const PlainArrayEnum2 *a, const PlainArrayEnum2 *b = nullptr, const PlainArrayEnum2 *c = &default_plainarrenum2) {(void)a; (void)b; (void)c; return &default_plainarrenum2;}
+
+
+    // Some multi-level pointer madness:
+
+    inline PlainArray **test_ptrs1(PlainArray **ptr, PlainArray *&ref) {(void)ptr; (void)ref; return nullptr;}
+    inline PlainArray ***test_ptrs2(PlainArray ***ptr, PlainArray **&ref) {(void)ptr; (void)ref; return nullptr;}
+
+    using IntPtr = int *;
+    inline IntPtr default_intptr = nullptr;
+
+    inline IntPtr &test_intptr_ref(IntPtr &a, IntPtr &b = default_intptr) {(void)a; (void)b; return default_intptr;}
+    inline const IntPtr &test_intptr_cref(const IntPtr &a, const IntPtr &b = default_intptr) {(void)a; (void)b; return default_intptr;}
+    inline IntPtr *test_intptr_ptr(IntPtr *a, IntPtr *b = nullptr, IntPtr *c = &default_intptr) {(void)a; (void)b; (void)c; return &default_intptr;}
+    inline const IntPtr *test_intptr_cptr(const IntPtr *a, const IntPtr *b = nullptr, const IntPtr *c = &default_intptr) {(void)a; (void)b; (void)c; return &default_intptr;}
+
+    using IntCptr = const int *;
+    inline IntCptr default_intcptr = nullptr;
+
+    inline IntCptr &test_intcptr_ref(IntCptr &a, IntCptr &b = default_intcptr) {(void)a; (void)b; return default_intcptr;}
+    inline const IntCptr &test_intcptr_cref(const IntCptr &a, const IntCptr &b = default_intcptr) {(void)a; (void)b; return default_intcptr;}
+    inline IntCptr *test_intcptr_ptr(IntCptr *a, IntCptr *b = nullptr, IntCptr *c = &default_intcptr) {(void)a; (void)b; (void)c; return &default_intcptr;}
+    inline const IntCptr *test_intcptr_cptr(const IntCptr *a, const IntCptr *b = nullptr, const IntCptr *c = &default_intcptr) {(void)a; (void)b; (void)c; return &default_intcptr;}
+
+
+    using IntPtrPtr = int **;
+    inline IntPtrPtr default_intptrptr = nullptr;
+
+    inline IntPtrPtr &test_intptrptr_ref(IntPtrPtr &a, IntPtrPtr &b = default_intptrptr) {(void)a; (void)b; return default_intptrptr;}
+    inline const IntPtrPtr &test_intptrptr_cref(const IntPtrPtr &a, const IntPtrPtr &b = default_intptrptr) {(void)a; (void)b; return default_intptrptr;}
+    inline IntPtrPtr *test_intptrptr_ptr(IntPtrPtr *a, IntPtrPtr *b = nullptr, IntPtrPtr *c = &default_intptrptr) {(void)a; (void)b; (void)c; return &default_intptrptr;}
+    inline const IntPtrPtr *test_intptrptr_cptr(const IntPtrPtr *a, const IntPtrPtr *b = nullptr, const IntPtrPtr *c = &default_intptrptr) {(void)a; (void)b; (void)c; return &default_intptrptr;}
+
+
+    using VoidPtr = void *;
+    inline VoidPtr default_voidptr = nullptr;
+
+    inline VoidPtr &test_voidptr_ref(VoidPtr &a, VoidPtr &b = default_voidptr) {(void)a; (void)b; return default_voidptr;}
+    inline const VoidPtr &test_voidptr_cref(const VoidPtr &a, const VoidPtr &b = default_voidptr) {(void)a; (void)b; return default_voidptr;}
+    inline VoidPtr *test_voidptr_ptr(VoidPtr *a, VoidPtr *b = nullptr, VoidPtr *c = &default_voidptr) {(void)a; (void)b; (void)c; return &default_voidptr;}
+    inline const VoidPtr *test_voidptr_cptr(const VoidPtr *a, const VoidPtr *b = nullptr, const VoidPtr *c = &default_voidptr) {(void)a; (void)b; (void)c; return &default_voidptr;}
+
+    using VoidPtrPtr = void **;
+    inline VoidPtrPtr default_voidptrptr = nullptr;
+
+    inline VoidPtrPtr &test_voidptrptr_ref(VoidPtrPtr &a, VoidPtrPtr &b = default_voidptrptr) {(void)a; (void)b; return default_voidptrptr;}
+    inline const VoidPtrPtr &test_voidptrptr_cref(const VoidPtrPtr &a, const VoidPtrPtr &b = default_voidptrptr) {(void)a; (void)b; return default_voidptrptr;}
+    inline VoidPtrPtr *test_voidptrptr_ptr(VoidPtrPtr *a, VoidPtrPtr *b = nullptr, VoidPtrPtr *c = &default_voidptrptr) {(void)a; (void)b; (void)c; return &default_voidptrptr;}
+    inline const VoidPtrPtr *test_voidptrptr_cptr(const VoidPtrPtr *a, const VoidPtrPtr *b = nullptr, const VoidPtrPtr *c = &default_voidptrptr) {(void)a; (void)b; (void)c; return &default_voidptrptr;}
+
+
+    using ArrPtr = PlainArray *;
+    inline ArrPtr default_arrptr = nullptr;
+
+    inline ArrPtr &test_arrptr_ref(ArrPtr &a, ArrPtr &b = default_arrptr) {(void)a; (void)b; return default_arrptr;}
+    inline const ArrPtr &test_arrptr_cref(const ArrPtr &a, const ArrPtr &b = default_arrptr) {(void)a; (void)b; return default_arrptr;}
+    inline ArrPtr *test_arrptr_ptr(ArrPtr *a, ArrPtr *b = nullptr, ArrPtr *c = &default_arrptr) {(void)a; (void)b; (void)c; return &default_arrptr;}
+    inline const ArrPtr *test_arrptr_cptr(const ArrPtr *a, const ArrPtr *b = nullptr, const ArrPtr *c = &default_arrptr) {(void)a; (void)b; (void)c; return &default_arrptr;}
+
+    using ArrCptr = const PlainArray *;
+    inline ArrCptr default_arrcptr = nullptr;
+
+    inline ArrCptr &test_arrcptr_ref(ArrCptr &a, ArrCptr &b = default_arrcptr) {(void)a; (void)b; return default_arrcptr;}
+    inline const ArrCptr &test_arrcptr_cref(const ArrCptr &a, const ArrCptr &b = default_arrcptr) {(void)a; (void)b; return default_arrcptr;}
+    inline ArrCptr *test_arrcptr_ptr(ArrCptr *a, ArrCptr *b = nullptr, ArrCptr *c = &default_arrcptr) {(void)a; (void)b; (void)c; return &default_arrcptr;}
+    inline const ArrCptr *test_arrcptr_cptr(const ArrCptr *a, const ArrCptr *b = nullptr, const ArrCptr *c = &default_arrcptr) {(void)a; (void)b; (void)c; return &default_arrcptr;}
 }
 
 

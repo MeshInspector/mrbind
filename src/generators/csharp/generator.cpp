@@ -277,6 +277,29 @@ namespace mrbind::CSharp
         if (out_sizeof)
             *out_sizeof = 0; // Zero initially, just in case.
 
+        // Custom behavior for pointers.
+        if (cpp_type.Is<cppdecl::Pointer>())
+        {
+            if (out_sizeof)
+                *out_sizeof = c_desc.platform_info.pointer_size;
+
+            cppdecl::Type pointee_type = cpp_type;
+            pointee_type.RemoveModifier();
+
+            auto opt = CppToCSharpKnownSizeType(pointee_type); // Don't care what `sizeof` this reports, so not passing the second argument.
+            if (opt)
+            {
+                if (!opt->ends_with('*'))
+                    *opt += ' ';
+                *opt += '*';
+                return *opt;
+            }
+            else
+            {
+                return "void *";
+            }
+        }
+
         // Make sure all modifiers are arrays, and have known bounds.
         if (!std::all_of(cpp_type.modifiers.begin(), cpp_type.modifiers.end(), [](const cppdecl::TypeModifier &mod)
         {
@@ -1065,59 +1088,12 @@ namespace mrbind::CSharp
                     // This intentionally handles rvalue references too.
                     if (cpp_type.Is<cppdecl::Reference>())
                     {
-                        // Reference to an array, possibly multidimensional.
-                        if (cpp_type.Is<cppdecl::Array>(1) && std::all_of(cpp_type.modifiers.begin() + 2, cpp_type.modifiers.end(), [](const cppdecl::TypeModifier &m){return m.Is<cppdecl::Array>();}))
-                        {
-                            cppdecl::Type cpp_array_type = cpp_type;
-                            cpp_array_type.RemoveModifier(); // Remove the pointer.
-
-                            auto csharp_type = CppToCSharpKnownSizeType(cpp_array_type);
-                            if (!csharp_type)
-                                throw std::runtime_error("This array element type isn't trivial enough for the array to be passed around indirectly. The array type is: `" + CppdeclToCode(cpp_array_type) + "`.");
-
-                            std::function<std::string(const std::string &name)> fix_input;
-                            if (cpp_array_type.simple_type.name.AsSingleWord() == "bool")
-                                fix_input = [](const std::string &name){return "foreach (ref byte __elem in " + name + ") if ((byte)__elem > 1) __elem = (byte)1;\n";};
-
-                            const bool is_const = bool(cpp_array_type.simple_type.quals & cppdecl::CvQualifiers::const_);
-                            const std::string ref = is_const ? "ref readonly " : "ref ";
-
-                            return CreateBinding({
-                                .param_usage = TypeBinding::ParamUsage{
-                                    .make_strings = [csharp_type, fix_input, ref](const std::string &name, bool /*have_useless_defarg*/)
-                                    {
-                                        return TypeBinding::ParamUsage::Strings{
-                                            .dllimport_decl_params = *csharp_type + " *" + name,
-                                            .csharp_decl_params = {{.type = ref + *csharp_type, .name = name}},
-                                            .scope_open = "fixed (" + *csharp_type + " *__ptr_" + name + " = &" + name + ")\n{\n",
-                                            .extra_statements = fix_input ? fix_input(name) : "",
-                                            .dllimport_args = "__ptr_" + name,
-                                            .scope_close = "}\n",
-                                        };
-                                    },
-                                },
-                                // I don't know a non-stupid way of implementing all this (as in without copying the array, and without a raw pointer).
-                                // I'm passing a raw pointer here, better this than copying.
-                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                    .make_strings = [csharp_type](const std::string &name, bool /*have_useless_defarg*/)
-                                    {
-                                        return TypeBinding::ParamUsage::Strings{
-                                            .dllimport_decl_params = *csharp_type + " *" + name,
-                                            .csharp_decl_params = {{.type = *csharp_type + " *", .name = name, .default_arg = "null"}},
-                                            .dllimport_args = name,
-                                        };
-                                    },
-                                },
-                                .return_usage = TypeBinding::ReturnUsage{
-                                    .dllimport_return_type = *csharp_type + " *",
-                                    .csharp_return_type = ref + *csharp_type,
-                                    .make_return_expr = [](const std::string &expr){return "return ref *" + expr + ";";},
-                                },
-                            });
-                        }
                         // A generic reference.
-                        else if (cpp_type.modifiers.size() == 1)
+                        const TypeBinding *ret = [&]() -> const TypeBinding *
                         {
+                            if (cpp_type.modifiers.size() != 1)
+                                return nullptr;
+
                             cppdecl::Type cpp_underlying_type = cpp_type;
                             cpp_underlying_type.RemoveModifier();
                             const bool is_const = cpp_underlying_type.IsConst();
@@ -1312,6 +1288,53 @@ namespace mrbind::CSharp
                                     return nullptr;
                                 },
                             }, underlying_type_desc->var);
+                        }();
+                        if (ret)
+                            return ret;
+
+                        // Perhaps a reference to a fixed-size type?
+                        cppdecl::Type ref_target_type = cpp_type;
+                        ref_target_type.RemoveModifier();
+                        if (auto csharp_type = CppToCSharpKnownSizeType(ref_target_type))
+                        {
+                            const std::string ref = bool(cpp_type.simple_type.quals & cppdecl::CvQualifiers::const_) ? "ref readonly " : "ref ";
+
+                            std::string csharp_type_ptr = *csharp_type;
+                            if (!csharp_type_ptr.ends_with('*'))
+                                csharp_type_ptr += ' ';
+                            csharp_type_ptr += '*';
+
+                            return CreateBinding({
+                                .param_usage = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type, csharp_type_ptr, ref](const std::string &name, bool /*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = csharp_type_ptr + name,
+                                            .csharp_decl_params = {{.type = ref + *csharp_type, .name = name}},
+                                            .scope_open = "fixed (" + csharp_type_ptr + "__ptr_" + name + " = &" + name + ")\n{\n",
+                                            .dllimport_args = "__ptr_" + name,
+                                            .scope_close = "}\n",
+                                        };
+                                    },
+                                },
+                                // I don't know a non-stupid way of implementing all this (as in without copying the array, and without a raw pointer).
+                                // I'm passing a raw pointer here, better this than copying.
+                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type_ptr](const std::string &name, bool /*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = csharp_type_ptr + name,
+                                            .csharp_decl_params = {{.type = csharp_type_ptr, .name = name, .default_arg = "null"}},
+                                            .dllimport_args = name,
+                                        };
+                                    },
+                                },
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = csharp_type_ptr,
+                                    .csharp_return_type = ref + *csharp_type,
+                                    .make_return_expr = [](const std::string &expr){return "return ref *" + expr + ";";},
+                                },
+                            });
                         }
 
                         return nullptr;
@@ -1320,56 +1343,13 @@ namespace mrbind::CSharp
                     // Pointers to...
                     if (cpp_type.Is<cppdecl::Pointer>())
                     {
-                        // Pointer to an array, possibly multidimensional.
-                        if (cpp_type.Is<cppdecl::Array>(1) && std::all_of(cpp_type.modifiers.begin() + 2, cpp_type.modifiers.end(), [](const cppdecl::TypeModifier &m){return m.Is<cppdecl::Array>();}))
-                        {
-                            cppdecl::Type cpp_array_type = cpp_type;
-                            cpp_array_type.RemoveModifier(); // Remove the pointer.
-
-                            auto csharp_type = CppToCSharpKnownSizeType(cpp_array_type);
-                            if (!csharp_type)
-                                throw std::runtime_error("This array element type isn't trivial enough for the array to be passed around indirectly. The array type is: `" + CppdeclToCode(cpp_array_type) + "`.");
-
-                            std::function<std::string(const std::string &name)> fix_input;
-                            if (cpp_array_type.simple_type.name.AsSingleWord() == "bool")
-                                fix_input = [](const std::string &name){return "foreach (ref byte __elem in " + name + ") if ((byte)__elem > 1) __elem = (byte)1;\n";};
-
-                            const bool is_const = bool(cpp_array_type.simple_type.quals & cppdecl::CvQualifiers::const_);
-                            const std::string ref = is_const ? "ref readonly " : "ref ";
-
-                            // I don't know a non-stupid way of implementing all this (as in without copying the array, and without a raw pointer).
-                            // I'm passing a raw pointer here, better this than copying.
-                            // And since this is always just a pointer, I don't need to handle `TypeBindingFlags::pointer_to_array`.
-                            return CreateBinding({
-                                .param_usage = TypeBinding::ParamUsage{
-                                    .make_strings = [csharp_type](const std::string &name, bool have_useless_defarg)
-                                    {
-                                        return TypeBinding::ParamUsage::Strings{
-                                            .dllimport_decl_params = *csharp_type + " *" + name,
-                                            .csharp_decl_params = {{.type = *csharp_type + " *", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
-                                            .dllimport_args = name,
-                                        };
-                                    },
-                                },
-                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                                    .make_strings = [csharp_type](const std::string &name, bool /*have_useless_defarg*/)
-                                    {
-                                        return TypeBinding::ParamUsage::Strings{
-                                            .dllimport_decl_params = *csharp_type + " **" + name,
-                                            .csharp_decl_params = {{.type = *csharp_type + " **", .name = name, .default_arg = "null"}},
-                                            .dllimport_args = name,
-                                        };
-                                    },
-                                },
-                                .return_usage = TypeBinding::ReturnUsage{
-                                    .dllimport_return_type = *csharp_type + " *",
-                                    .csharp_return_type = *csharp_type + " *",
-                                },
-                            });
-                        }
                         // A generic pointer.
-                        else if (cpp_type.modifiers.size() == 1)
+
+                        const TypeBinding *ret = [&]() -> const TypeBinding *
                         {
+                            if (cpp_type.modifiers.size() != 1)
+                                return nullptr;
+
                             cppdecl::Type cpp_underlying_type = cpp_type;
                             cpp_underlying_type.RemoveModifier();
                             const bool is_const = cpp_underlying_type.IsConst();
@@ -1640,6 +1620,42 @@ namespace mrbind::CSharp
                                     return nullptr;
                                 },
                             }, underlying_type_desc->var);
+                        }();
+                        if (ret)
+                            return ret;
+
+                        // Perhaps a pointer to a fixed-size type?
+                        if (auto csharp_type = CppToCSharpKnownSizeType(cpp_type))
+                        {
+                            // I don't know a non-stupid way of implementing all this (as in without copying the array, and without a raw pointer).
+                            // I'm passing a raw pointer here, better this than copying.
+                            // And since this is always just a pointer, I don't need to handle `TypeBindingFlags::pointer_to_array`.
+                            return CreateBinding({
+                                .param_usage = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type](const std::string &name, bool have_useless_defarg)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = *csharp_type + name,
+                                            .csharp_decl_params = {{.type = *csharp_type, .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
+                                            .dllimport_args = name,
+                                        };
+                                    },
+                                },
+                                .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                    .make_strings = [csharp_type](const std::string &name, bool /*have_useless_defarg*/)
+                                    {
+                                        return TypeBinding::ParamUsage::Strings{
+                                            .dllimport_decl_params = *csharp_type + "*" + name,
+                                            .csharp_decl_params = {{.type = *csharp_type + "*", .name = name, .default_arg = "null"}},
+                                            .dllimport_args = name,
+                                        };
+                                    },
+                                },
+                                .return_usage = TypeBinding::ReturnUsage{
+                                    .dllimport_return_type = *csharp_type,
+                                    .csharp_return_type = *csharp_type,
+                                },
+                            });
                         }
 
                         return nullptr;
@@ -4741,6 +4757,132 @@ namespace mrbind::CSharp
             }
 
             std::erase_if(c_desc.functions, [&](const CInterop::Function &func){return funcs_to_erase.contains(&func);});
+        }
+
+        { // Adjust parameter names to not be C# keywords.
+
+            static const std::unordered_set<std::string> csharp_keywords = {
+                // Those are from here: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/
+                // For now I copied only non-contextual keywords. I don't know if any of the contextual ones can be problematic.
+                "abstract",
+                "as",
+                "base",
+                "bool",
+                "break",
+                "byte",
+                "case",
+                "catch",
+                "char",
+                "checked",
+                "class",
+                "const",
+                "continue",
+                "decimal",
+                "default",
+                "delegate",
+                "do",
+                "double",
+                "else",
+                "enum",
+                "event",
+                "explicit",
+                "extern",
+                "false",
+                "finally",
+                "fixed",
+                "float",
+                "for",
+                "foreach",
+                "goto",
+                "if",
+                "implicit",
+                "in",
+                "int",
+                "interface",
+                "internal",
+                "is",
+                "lock",
+                "long",
+                "namespace",
+                "new",
+                "null",
+                "object",
+                "operator",
+                "out",
+                "override",
+                "params",
+                "private",
+                "protected",
+                "public",
+                "readonly",
+                "ref",
+                "return",
+                "sbyte",
+                "sealed",
+                "short",
+                "sizeof",
+                "stackalloc",
+                "static",
+                "string",
+                "struct",
+                "switch",
+                "this",
+                "throw",
+                "true",
+                "try",
+                "typeof",
+                "uint",
+                "ulong",
+                "unchecked",
+                "unsafe",
+                "ushort",
+                "using",
+                "virtual",
+                "void",
+                "volatile",
+                "while",
+            };
+
+            static constexpr auto AdjustParam = [](CInterop::FuncParam &param)
+            {
+                if (param.name)
+                {
+                    if (csharp_keywords.contains(*param.name))
+                    {
+                        *param.name += '_';
+                        param.name_or_placeholder = *param.name;
+                    }
+                    return;
+                }
+                else
+                {
+                    if (csharp_keywords.contains(param.name_or_placeholder)) // Just in case?
+                        param.name_or_placeholder += '_';
+                }
+            };
+
+            static constexpr auto AdjustFuncLike = [](CInterop::BasicFuncLike &func)
+            {
+                for (auto &param : func.params)
+                    AdjustParam(param);
+            };
+
+            // Free functions.
+            for (auto &func : c_desc.functions)
+                AdjustFuncLike(func);
+
+            // Member functions.
+            for (auto it = c_desc.cpp_types.MutableMapBegin(); it != c_desc.cpp_types.MutableMapEnd(); it++)
+            {
+                if (auto cl = std::get_if<CInterop::TypeKinds::Class>(&it->second.var))
+                {
+                    for (auto &method : cl->methods)
+                        AdjustFuncLike(method);
+
+                    for (auto &field : cl->fields)
+                        field.ForEachAccessor(AdjustFuncLike);
+                }
+            }
         }
 
         // Emit types.
