@@ -396,6 +396,7 @@ namespace mrbind::CSharp
 
         // Converts a C++ qualified enum name to a C# name.
         [[nodiscard]] std::string CppToCSharpEnumName(cppdecl::QualifiedName name);
+        [[nodiscard]] std::string CppToCSharpUnqualEnumName(const cppdecl::QualifiedName &name);
 
         // Converts a C++ qualified class name to a C# name. Since we split classes into const and non-const halves, we need a bool to specify which half we want.
         [[nodiscard]] std::string CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const);
@@ -437,13 +438,37 @@ namespace mrbind::CSharp
         [[nodiscard]] std::string CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name);
 
 
-        // Returns true if `candidate` matches any of the C# class names of `cpp_class`.
-        // `candidate` should typically be the result of `CppToCSharpIdentifier()`.
-        [[nodiscard]] bool MatchesAnyOfCSharpClassNames(const cppdecl::QualifiedName &cpp_class, std::string_view candidate);
+        // Calls `func` on each unqualified name of a part of a class `cpp_class`.
+        // If `func` returns true, stops and also returns true.
+        bool ForEachClassPartName(const cppdecl::QualifiedName &cpp_class, std::function<bool(const std::string &part)> func);
+
+        struct UsedMemberNamesInClass
+        {
+            // All keys and values here are C#-style names.
+
+            std::unordered_set<std::string> self_names;
+
+            std::unordered_set<std::string> nested_types;
+            std::unordered_set<std::string> fields;
+            std::unordered_set<std::string> methods;
+
+            std::unordered_map<std::string, std::string> field_adjustments;
+            std::unordered_map<std::string, std::string> method_adjustments;
+        };
+
+        // The cache for `GetUsedMemberNamesInClass()`.
+        // The keys are C++ qualified class names.
+        std::unordered_map<std::string, UsedMemberNamesInClass> cached_used_member_names_in_class;
+
+        [[nodiscard]] const UsedMemberNamesInClass &GetUsedMemberNamesInClass(const cppdecl::QualifiedName &cpp_class);
+
+        // Iterate over all types nested in `cpp_class`, which should be classes and enums.
+        // Don't forget to check `ShouldEmitCppType()` on the types you get.
+        void ForEachNestedType(const std::string &cpp_class, std::function<void(const std::string &nested_type)> func);
 
         // Converts a C++ class field name to C# as if by `CppToCSharpIdentifier(ParseNameOrThrow(cpp_field))`,
-        //   but additionally adjusts the name if it conflicts with the enclosing class name.
-        [[nodiscard]] std::string CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field);
+        //   but additionally adjusts the name if it conflicts with the enclosing class name (if `adjust_to_disambiguate == true`).
+        [[nodiscard]] std::string CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field, bool adjust_to_disambiguate = true);
 
 
         enum class TypeBindingFlags
@@ -653,7 +678,7 @@ namespace mrbind::CSharp
         // Determine a suitable unqualified C# name for a method.
         // `class_part_kind == true` means we're in the const half of the class, `== false` means the non-const half,
         //   and null means we're in an exposed `ref struct`.
-        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant);
+        [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant, bool adjust_to_disambiguate = true);
 
         // Create a C# comment for a parsed function.
         // This will always end with a newline if not empty, and will include slashes.
@@ -687,6 +712,17 @@ namespace mrbind::CSharp
         // The choice isn't necessarily based only on the operator token.
         // If this returns true, you can usually use the same token as you did in C++, since they are the same in C#.
         [[nodiscard]] bool IsOverloadableOpOrConvOp(std::variant<const CInterop::Function *, const CInterop::ClassMethod *> func_or_method);
+
+        struct ShouldEmitResult
+        {
+            // At least one of those will always be true.
+            // For exposed struct parts, ignore those and emit unconditionally.
+
+            bool emit_in_const = false;
+            bool emit_in_mut = false;
+        };
+
+        [[nodiscard]] std::optional<ShouldEmitResult> ShouldEmitMethod(const cppdecl::QualifiedName &class_name, const CInterop::TypeDesc &type_desc, const CInterop::ClassMethod &method, EmitVariant emit_variant);
 
         // Emit a type unconditionally (you should check `ShouldEmitCppType()` yourself).
         // Assumes that the correct namespace or class was already entered in `file`.

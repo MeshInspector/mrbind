@@ -519,8 +519,14 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpEnumName(cppdecl::QualifiedName name)
     {
-        // This works in our case.
+        // This works fine for enums.
         return CppToCSharpHelperName(std::move(name));
+    }
+
+    std::string Generator::CppToCSharpUnqualEnumName(const cppdecl::QualifiedName &name)
+    {
+        // This works fine for enums.
+        return CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const)
@@ -720,24 +726,149 @@ namespace mrbind::CSharp
         return "_InOptConst_" + CppToCSharpIdentifier(name);
     }
 
-    bool Generator::MatchesAnyOfCSharpClassNames(const cppdecl::QualifiedName &cpp_class, std::string_view candidate)
+    bool Generator::ForEachClassPartName(const cppdecl::QualifiedName &cpp_class, std::function<bool(const std::string &part)> func)
     {
-        if (candidate == CppToCSharpUnqualClassName(cpp_class, false) || candidate == CppToCSharpUnqualClassName(cpp_class, true))
+        if (func(CppToCSharpUnqualClassName(cpp_class, false)))
+            return true;
+        if (func(CppToCSharpUnqualClassName(cpp_class, true)))
             return true;
 
-        // If this is an exposed struct, try against that name too.
+        // If this is an exposed struct, pass that name too.
         const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_class))->var);
-        if (class_info.kind == CInterop::ClassKind::exposed_struct && candidate == CppToCSharpUnqualExposedStructName(cpp_class))
+        if (class_info.kind == CInterop::ClassKind::exposed_struct && func(CppToCSharpUnqualExposedStructName(cpp_class)))
             return true;
+
+        // We could pass all the other class helpers here too. For now it wasn't necessary, but if you ever get a conflict with one of those,
+        //   adding them here should be simple.
 
         return false;
     }
 
-    std::string Generator::CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field)
+    const Generator::UsedMemberNamesInClass &Generator::GetUsedMemberNamesInClass(const cppdecl::QualifiedName &cpp_class)
+    {
+        const std::string cpp_class_str = CppdeclToCode(cpp_class);
+        auto iter = cached_used_member_names_in_class.find(cpp_class_str);
+        if (iter != cached_used_member_names_in_class.end())
+            return iter->second;
+
+        UsedMemberNamesInClass ret;
+
+        ForEachClassPartName(cpp_class, [&](const std::string &part)
+        {
+            ret.self_names.insert(part);
+            return false;
+        });
+
+        // Insert nested types.
+        // We don't handle conflicts with `ret.self_names` here, since renaming types sounds too difficult for now.
+        ForEachNestedType(cpp_class_str, [&](const std::string &cpp_nested_type)
+        {
+            // A enum.
+            if (std::holds_alternative<CInterop::TypeKinds::Enum>(c_desc.FindTypeOpt(cpp_nested_type)->var))
+            {
+                [[maybe_unused]] bool ok = ret.nested_types.insert(CppToCSharpUnqualEnumName(ParseNameOrThrow(cpp_nested_type))).second;
+
+                assert(ok); // Uh-oh. Different part of different nested types collide with each other!
+                return;
+            }
+
+            // A class.
+            if (std::holds_alternative<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(cpp_nested_type)->var))
+            {
+                ForEachClassPartName(ParseNameOrThrow(cpp_nested_type), [&](const std::string &part)
+                {
+                    // For now we assume none of those conflict with one another.
+                    [[maybe_unused]] bool ok = ret.nested_types.insert(part).second;
+
+                    assert(ok); // Uh-oh. Different part of different nested types collide with each other!
+
+                    return false;
+                });
+
+                return;
+            }
+
+            assert(false); // What kind of member type is this?
+        });
+
+        const auto &type_desc = *c_desc.FindTypeOpt(cpp_class_str);
+        const auto &class_desc = std::get<CInterop::TypeKinds::Class>(type_desc.var);
+
+        // Insert fields.
+        for (const auto &field : class_desc.fields)
+        {
+            std::string name = CppToCSharpFieldName(cpp_class, field.full_name, false);
+            std::string fixed_name = name;
+
+            while (ret.self_names.contains(fixed_name) || ret.nested_types.contains(fixed_name) || ret.fields.contains(fixed_name))
+                fixed_name += '_';
+            ret.fields.insert(fixed_name);
+
+            if (name != fixed_name)
+            {
+                [[maybe_unused]] bool ok = ret.field_adjustments.try_emplace(std::move(name), std::move(fixed_name)).second;
+                assert(ok); // Hmm.
+            }
+        }
+
+        // Insert methods.
+        for (const auto &method : class_desc.methods)
+        {
+            if (std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var))
+                continue; // Constructors definitely don't need this. This could skip some weird rewrites though (if you fix this, sync the condition with that in `MakeUnqualCSharpMethodName()`.
+
+            for (EmitVariant emit_variant : GetMethodVariants(method))
+            {
+                if (!ShouldEmitMethod(cpp_class, type_desc, method, emit_variant))
+                    continue;
+
+                // The class part kind mostly doesn't matter here, until proven otherwise.
+                std::string name = MakeUnqualCSharpMethodName(method, true/*the class part kind, see above*/, emit_variant, false);
+
+                if (!cppdecl::IsValidIdentifier(name))
+                    continue; // If it's something weird, don't bother.
+                if (ret.method_adjustments.contains(name))
+                    continue; // We already handled this name, don't bother.
+
+                std::string fixed_name = name;
+
+                // Not checking `methods` since we allow overloading.
+                while (ret.self_names.contains(fixed_name) || ret.nested_types.contains(fixed_name) || ret.fields.contains(fixed_name))
+                    fixed_name += '_';
+
+                if (name != fixed_name)
+                {
+                    [[maybe_unused]] bool ok = ret.method_adjustments.try_emplace(std::move(name), std::move(fixed_name)).second;
+                    assert(ok); // Hmm.
+                }
+            }
+        }
+
+        return cached_used_member_names_in_class.try_emplace(cpp_class_str, std::move(ret)).first->second;
+    }
+
+    void Generator::ForEachNestedType(const std::string &cpp_class, std::function<void(const std::string &nested_type)> func)
+    {
+        std::string nested_type_prefix = cpp_class + "::";
+
+        auto iter = c_desc.cpp_types.Map().lower_bound(nested_type_prefix);
+        while (iter != c_desc.cpp_types.Map().end() && iter->first.starts_with(nested_type_prefix))
+        {
+            func(iter->first);
+            ++iter;
+        }
+    }
+
+    std::string Generator::CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field, bool adjust_to_disambiguate)
     {
         std::string ret = CppToCSharpIdentifier(ParseNameOrThrow(cpp_field));
-        if (MatchesAnyOfCSharpClassNames(cpp_class, ret))
-            ret += '_';
+
+        if (adjust_to_disambiguate)
+        {
+            const auto &info = GetUsedMemberNamesInClass(cpp_class);
+            if (auto iter = info.field_adjustments.find(ret); iter != info.field_adjustments.end())
+                ret = iter->second;
+        }
 
         return ret;
     }
@@ -2750,7 +2881,7 @@ namespace mrbind::CSharp
         return type.Is<cppdecl::Reference>() && !type.IsConst(1);
     }
 
-    std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant)
+    std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant, bool adjust_to_disambiguate)
     {
         std::string ret = std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
@@ -2846,15 +2977,22 @@ namespace mrbind::CSharp
             },
         }, method.var);
 
-        // Adjust the result if it conflicts with the enclosing class name.
+        // Adjust the result if it conflicts with other member names.
         if (
+            adjust_to_disambiguate &&
+            // Constructors definitely don't need this.
+            // This could skip some weird rewrites though (if you fix this, sync the condition with that in `GetUsedMemberNamesInClass()`.
             !std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var) &&
+            cppdecl::IsValidIdentifier(ret) &&
             !method.params.empty() &&
             method.params.front().is_this_param)
         {
             cppdecl::Type type = ParseTypeOrThrow(method.params.front().cpp_type);
-            if (MatchesAnyOfCSharpClassNames(type.simple_type.name, ret))
-                ret += '_';
+            const auto &names = GetUsedMemberNamesInClass(type.simple_type.name);
+
+            auto iter = names.method_adjustments.find(ret);
+            if (iter != names.method_adjustments.end())
+                ret = iter->second;
         }
 
         return ret;
@@ -3349,6 +3487,77 @@ namespace mrbind::CSharp
         // Could allow compound assignments here via `IsCompoundAssignmentToken()` in C# 14 or newer, but not bothering with it for now.
     }
 
+    std::optional<Generator::ShouldEmitResult> Generator::ShouldEmitMethod(const cppdecl::QualifiedName &class_name, const CInterop::TypeDesc &type_desc, const CInterop::ClassMethod &method, EmitVariant emit_variant)
+    {
+        if (emit_variant == EmitVariant::static_incr_or_decr && !type_desc.traits.value().IsCopyableOrTriviallyMovable())
+            return {}; // The static increment/decrement requires copying `this`.
+
+        const bool is_const_or_static = IsConstOrStaticMethodLike(class_name, type_desc, &method, emit_variant);
+
+        bool should_emit = std::visit(Overload{
+            [&](const CInterop::MethodKinds::Regular &elem)
+            {
+                (void)elem;
+                return true;
+            },
+            [&](const CInterop::MethodKinds::Constructor &elem)
+            {
+                // Note, we even allow `elem.is_copying_ctor` here. C# also has `IClonable`, but apparently copy ctors are acceptable too,
+                //   and some people even discourage the use of `IClonable`, including the official MS page: https://learn.microsoft.com/en-us/dotnet/api/system.icloneable.clone?view=net-8.0#remarks
+                (void)elem;
+                return type_desc.traits.value().is_destructible;
+            },
+            [&](const CInterop::MethodKinds::Operator &elem)
+            {
+                (void)elem;
+                // We don't need the post-increment/decrement operators, only the pre- ones.
+                // If you only provide the post- ones and not pre-, that's your problem. :/
+                if (elem.is_post_incr_or_decr)
+                    return false;
+
+                // We don't emit `!=` directly. Instead it gets emitted as the negated version of `==`.
+                // C# requires the two to always be defined together.
+                // We only do this if it returns `bool`, since it's the only case where C++20 allows `!=` to be omitted,
+                //   and the point of all this is consistency between omitting and not omitting `!=`.
+                // We can skip this logic if those don't get emitted as operators, to let the user have all their original functions.
+                //   This isn't as important here as it is for the relational operators below.
+                if (elem.token == "!=" && IsOverloadableOpOrConvOp(&method))
+                    return false;
+
+                // Similarly for all relational operators other than `<`, since we implement all of them in terms of `<`.
+                // C# requires defining them in pairs like this: `<` and `>`, `<=` and `>=`.
+                // We can skip this logic if those don't get emitted as operators, to let the user have all their original functions.
+                if ((elem.token == ">" || elem.token == "<=" || elem.token == ">=") && IsOverloadableOpOrConvOp(&method))
+                    return false;
+
+                return true;
+            },
+            [&](const CInterop::MethodKinds::ConversionOperator &elem)
+            {
+                (void)elem;
+                return true;
+            },
+        }, method.var);
+
+        if (!should_emit)
+            return {};
+
+        ShouldEmitResult ret;
+
+        if (std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var))
+        {
+            ret.emit_in_const = true;
+            ret.emit_in_mut = true;
+        }
+        else
+        {
+            ret.emit_in_const = is_const_or_static;
+            ret.emit_in_mut = !is_const_or_static;
+        }
+
+        return ret;
+    }
+
     void Generator::EmitCppTypeUnconditionally(OutputFile &file, const std::string &cpp_type)
     {
         // Most of the variant elements are useless to us, so we aren't using `std::visit` here.
@@ -3373,76 +3582,24 @@ namespace mrbind::CSharp
 
             // If `class_part_kind` isn't null, then it means `is_const`.
             // If it is null, we're in the `struct` corresponding to an exposed C++ struct.
-            auto ShouldEmitMethod = [&](const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant)
+            auto ShouldEmitMethodHere = [&](const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant)
             {
-                // Must use `is_const` here instead of `is_const`.
-
-                if (emit_variant == EmitVariant::static_incr_or_decr && !type_desc.traits.value().IsCopyableOrTriviallyMovable())
-                    return false; // The static increment/decrement requires copying `this`.
-
-                const bool is_const_or_static = IsConstOrStaticMethodLike(ParseNameOrThrow(cpp_type), type_desc, &method, emit_variant);
-
-                bool should_emit = std::visit(Overload{
-                    [&](const CInterop::MethodKinds::Regular &elem)
-                    {
-                        (void)elem;
-                        return true;
-                    },
-                    [&](const CInterop::MethodKinds::Constructor &elem)
-                    {
-                        // Note, we even allow `elem.is_copying_ctor` here. C# also has `IClonable`, but apparently copy ctors are acceptable too,
-                        //   and some people even discourage the use of `IClonable`, including the official MS page: https://learn.microsoft.com/en-us/dotnet/api/system.icloneable.clone?view=net-8.0#remarks
-                        (void)elem;
-                        return type_desc.traits.value().is_destructible;
-                    },
-                    [&](const CInterop::MethodKinds::Operator &elem)
-                    {
-                        (void)elem;
-                        // We don't need the post-increment/decrement operators, only the pre- ones.
-                        // If you only provide the post- ones and not pre-, that's your problem. :/
-                        if (elem.is_post_incr_or_decr)
-                            return false;
-
-                        // We don't emit `!=` directly. Instead it gets emitted as the negated version of `==`.
-                        // C# requires the two to always be defined together.
-                        // We only do this if it returns `bool`, since it's the only case where C++20 allows `!=` to be omitted,
-                        //   and the point of all this is consistency between omitting and not omitting `!=`.
-                        // We can skip this logic if those don't get emitted as operators, to let the user have all their original functions.
-                        //   This isn't as important here as it is for the relational operators below.
-                        if (elem.token == "!=" && IsOverloadableOpOrConvOp(&method))
-                            return false;
-
-                        // Similarly for all relational operators other than `<`, since we implement all of them in terms of `<`.
-                        // C# requires defining them in pairs like this: `<` and `>`, `<=` and `>=`.
-                        // We can skip this logic if those don't get emitted as operators, to let the user have all their original functions.
-                        if ((elem.token == ">" || elem.token == "<=" || elem.token == ">=") && IsOverloadableOpOrConvOp(&method))
-                            return false;
-
-                        return true;
-                    },
-                    [&](const CInterop::MethodKinds::ConversionOperator &elem)
-                    {
-                        (void)elem;
-                        return true;
-                    },
-                }, method.var);
-
-                return should_emit && ((!class_part_kind || is_const_or_static == *class_part_kind) || std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var));
+                auto result = ShouldEmitMethod(cpp_qual_name, type_desc, method, emit_variant);
+                if (!result)
+                    return false;
+                if (!class_part_kind)
+                    return true;
+                return *class_part_kind ? result->emit_in_const : result->emit_in_mut;
             };
 
             // This lambda emits all types nested in this one, if any.
             auto EmitNestedClasses = [&]
             {
-                std::string nested_type_prefix = CppdeclToCode(cpp_qual_name) + "::";
-
-                auto iter = c_desc.cpp_types.Map().lower_bound(nested_type_prefix);
-                while (iter != c_desc.cpp_types.Map().end() && iter->first.starts_with(nested_type_prefix))
+                ForEachNestedType(cpp_type, [&](const std::string &cpp_nested_type)
                 {
-                    if (ShouldEmitCppType(ParseTypeOrThrow(iter->first)))
-                        EmitCppTypeUnconditionally(file, iter->first);
-
-                    ++iter;
-                }
+                    if (ShouldEmitCppType(ParseTypeOrThrow(cpp_nested_type)))
+                        EmitCppTypeUnconditionally(file, cpp_nested_type);
+                });
             };
 
             // If `class_part_kind` isn't null, then it means `is_const`.
@@ -3566,7 +3723,7 @@ namespace mrbind::CSharp
                         // `IEquatable` for our equality comparisons.
                         for (const CInterop::ClassMethod &method : class_desc.methods)
                         {
-                            if (ShouldEmitMethod(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
+                            if (ShouldEmitMethodHere(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
                             {
                                 FuncLikeEmitter dummy_emitter(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, EmitVariant::regular), is_exposed_struct_by_value, EmitVariant::regular);
 
@@ -3649,7 +3806,7 @@ namespace mrbind::CSharp
                             }
 
                             // Check the base too.
-                            if (!is_exposed_struct_by_value && !IsConst() && ShouldEmitMethod(method, true, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
+                            if (!is_exposed_struct_by_value && !IsConst() && ShouldEmitMethodHere(method, true, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
                                 base_implements_any_iequatable = true;
                         }
                     }
@@ -4010,7 +4167,7 @@ namespace mrbind::CSharp
 
                                 const bool is_bool = cpp_type.AsSingleWord() == "bool";
 
-                                const std::string csharp_field_name = CppToCSharpFieldName(cpp_qual_name, field.name);
+                                const std::string csharp_field_name = CppToCSharpFieldName(cpp_qual_name, field.full_name);
 
                                 file.WriteSeparatingNewline();
 
@@ -4167,7 +4324,7 @@ namespace mrbind::CSharp
                     {
                         for (EmitVariant emit_variant : GetMethodVariants(method))
                         {
-                            if (ShouldEmitMethod(method, class_part_kind, emit_variant))
+                            if (ShouldEmitMethodHere(method, class_part_kind, emit_variant))
                             {
                                 FuncLikeEmitter emit(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, emit_variant), is_exposed_struct_by_value, emit_variant);
 
@@ -4277,7 +4434,7 @@ namespace mrbind::CSharp
                             // Replace the variant!
                             emit_variant = this_variant;
 
-                            if (ShouldEmitMethod(method, false/*doesn't matter*/, emit_variant))
+                            if (ShouldEmitMethodHere(method, false/*doesn't matter*/, emit_variant))
                                 FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, false/*doesn't matter*/, emit_variant), false/*doesn't matter*/, emit_variant).Emit(file);
                         }
                     }

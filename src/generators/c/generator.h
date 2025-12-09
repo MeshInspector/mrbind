@@ -1547,32 +1547,42 @@ namespace mrbind::CBindings
                 };
                 Guard guard{*this};
 
-                if (pass_number != 2) // 0 or 1
-                    VisitEarly(cl);
-                if (pass_number != 1) // 0 or 2
+                // Second (main) pass uses pre-order because it looks nicer.
+                if (pass_number == 2)
                     Visit(cl);
+
                 Process(static_cast<const mrbind::EntityContainer &>(cl), pass_number);
+
+                // First pass uses post-order because of e.g. this:
+                //     struct A
+                //     {
+                //         struct B {int x;};
+                //         B b;
+                //     };
+                // Assume both structs are exposed. To emit exposed `A`, we need to first emit exposed `B`, hence post-order.
+                if (pass_number == 1)
+                    VisitEarly(cl);
             }
 
             void Process(const FuncEntity &func, int pass_number)
             {
-                if (pass_number != 2) // 0 or 1
+                if (pass_number == 1)
                     VisitEarly(func);
-                if (pass_number != 1) // 0 or 2
+                if (pass_number == 2)
                     Visit(func);
             }
             void Process(const EnumEntity &en, int pass_number)
             {
-                if (pass_number != 2) // 0 or 1
+                if (pass_number == 1)
                     VisitEarly(en);
-                if (pass_number != 1) // 0 or 2
+                if (pass_number == 2)
                     Visit(en);
             }
             void Process(const TypedefEntity &td, int pass_number)
             {
-                if (pass_number != 2) // 0 or 1
+                if (pass_number == 1)
                     VisitEarly(td);
-                if (pass_number != 1) // 0 or 2
+                if (pass_number == 2)
                     Visit(td);
             }
             void Process(const NamespaceEntity &ns, int pass_number)

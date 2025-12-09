@@ -11386,247 +11386,723 @@ public static partial class MR
             }
 
             // Members having the same name as the exposed class, after rewriting.
-            // Right now we handle fields and methods separately. One day we might need them to avoid conflicts with each other too.
-            /// Generated from class `MR::CSharp::NameConflictsField`.
+            /// Generated from class `MR::CSharp::NameConflicts`.
             /// This is the const half of the class.
-            public class Const_NameConflictsField : MR.CS.Misc.Object, System.IDisposable
+            public class Const_NameConflicts : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NameConflictsField(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_NameConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CSharp_NameConflictsField_Destroy(_Underlying *_this);
-                    __MR_CSharp_NameConflictsField_Destroy(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_NameConflicts_Destroy(_Underlying *_this);
+                    __MR_CSharp_NameConflicts_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_NameConflictsField() {Dispose(false);}
+                ~Const_NameConflicts() {Dispose(false);}
 
-                public unsafe int NameConflictsField_
+                public unsafe int NameConflicts_
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_Get_name_conflicts_field", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_NameConflictsField_Get_name_conflicts_field(_Underlying *_this);
-                        return *__MR_CSharp_NameConflictsField_Get_name_conflicts_field(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Get_name_conflicts", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_NameConflicts_Get_name_conflicts(_Underlying *_this);
+                        return *__MR_CSharp_NameConflicts_Get_name_conflicts(_UnderlyingPtr);
+                    }
+                }
+
+                public unsafe MR.CS.CSharp.NameConflicts.Const_A A_
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.Const_A._Underlying *__MR_CSharp_NameConflicts_Get_a(_Underlying *_this);
+                        return new(__MR_CSharp_NameConflicts_Get_a(_UnderlyingPtr), is_owning: false);
                     }
                 }
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe Const_NameConflictsField() : this(null, is_owning: true)
+                public unsafe Const_NameConflicts() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsField._Underlying *__MR_CSharp_NameConflictsField_DefaultConstruct();
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsField_DefaultConstruct();
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_NameConflicts_DefaultConstruct();
                 }
 
-                /// Constructs `MR::CSharp::NameConflictsField` elementwise.
-                public unsafe Const_NameConflictsField(int name_conflicts_field) : this(null, is_owning: true)
+                /// Constructs `MR::CSharp::NameConflicts` elementwise.
+                public unsafe Const_NameConflicts(int name_conflicts, MR.CS.CSharp.NameConflicts.Const_A a) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsField._Underlying *__MR_CSharp_NameConflictsField_ConstructFrom(int name_conflicts_field);
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsField_ConstructFrom(name_conflicts_field);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFrom(int name_conflicts, MR.CS.CSharp.NameConflicts.A._Underlying *a);
+                    _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFrom(name_conflicts, a._UnderlyingPtr);
                 }
 
-                /// Generated from constructor `MR::CSharp::NameConflictsField::NameConflictsField`.
-                public unsafe Const_NameConflictsField(MR.CS.CSharp.Const_NameConflictsField _other) : this(null, is_owning: true)
+                /// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
+                public unsafe Const_NameConflicts(MR.CS.CSharp.Const_NameConflicts _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsField._Underlying *__MR_CSharp_NameConflictsField_ConstructFromAnother(MR.CS.CSharp.NameConflictsField._Underlying *_other);
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsField_ConstructFromAnother(_other._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFromAnother(MR.CS.CSharp.NameConflicts._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from class `MR::CSharp::NameConflicts::A`.
+                /// This is the const half of the class.
+                public class Const_A : MR.CS.Misc.Object, System.IDisposable
+                {
+                    internal struct _Underlying; // Represents the underlying C++ type.
+
+                    internal unsafe _Underlying *_UnderlyingPtr;
+
+                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                    protected virtual unsafe void Dispose(bool disposing)
+                    {
+                        if (_UnderlyingPtr is null || !_IsOwningVal)
+                            return;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_Destroy", ExactSpelling = true)]
+                        extern static void __MR_CSharp_NameConflicts_A_Destroy(_Underlying *_this);
+                        __MR_CSharp_NameConflicts_A_Destroy(_UnderlyingPtr);
+                        _UnderlyingPtr = null;
+                    }
+                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                    ~Const_A() {Dispose(false);}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe Const_A() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_A_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_NameConflicts_A_DefaultConstruct();
+                    }
+
+                    /// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
+                    public unsafe Const_A(MR.CS.CSharp.NameConflicts.Const_A _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_ConstructFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_A_ConstructFromAnother(MR.CS.CSharp.NameConflicts.A._Underlying *_other);
+                        _UnderlyingPtr = __MR_CSharp_NameConflicts_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::NameConflicts::A`.
+                /// This is the non-const half of the class.
+                public class A : Const_A
+                {
+                    internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe A() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_A_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_NameConflicts_A_DefaultConstruct();
+                    }
+
+                    /// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
+                    public unsafe A(MR.CS.CSharp.NameConflicts.Const_A _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_ConstructFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_A_ConstructFromAnother(MR.CS.CSharp.NameConflicts.A._Underlying *_other);
+                        _UnderlyingPtr = __MR_CSharp_NameConflicts_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    }
+
+                    /// Generated from method `MR::CSharp::NameConflicts::A::operator=`.
+                    public unsafe MR.CS.CSharp.NameConflicts.A Assign(MR.CS.CSharp.NameConflicts.Const_A _other)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_AssignFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_A_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.NameConflicts.A._Underlying *_other);
+                        return new(__MR_CSharp_NameConflicts_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                /// This is used for optional parameters of class `A` with default arguments.
+                /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `A`/`Const_A` directly.
+                public class _InOptMut_A
+                {
+                    public A? Opt;
+
+                    public _InOptMut_A() {}
+                    public _InOptMut_A(A value) {Opt = value;}
+                    public static implicit operator _InOptMut_A(A value) {return new(value);}
+                }
+
+                /// This is used for optional parameters of class `A` with default arguments.
+                /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+                public class _InOptConst_A
+                {
+                    public Const_A? Opt;
+
+                    public _InOptConst_A() {}
+                    public _InOptConst_A(Const_A value) {Opt = value;}
+                    public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
                 }
             }
 
             // Members having the same name as the exposed class, after rewriting.
-            // Right now we handle fields and methods separately. One day we might need them to avoid conflicts with each other too.
-            /// Generated from class `MR::CSharp::NameConflictsField`.
+            /// Generated from class `MR::CSharp::NameConflicts`.
             /// This is the non-const half of the class.
-            public class NameConflictsField : Const_NameConflictsField
+            public class NameConflicts : Const_NameConflicts
             {
-                internal unsafe NameConflictsField(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int NameConflictsField_
+                public new unsafe ref int NameConflicts_
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_GetMutable_name_conflicts_field", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_NameConflictsField_GetMutable_name_conflicts_field(_Underlying *_this);
-                        return ref *__MR_CSharp_NameConflictsField_GetMutable_name_conflicts_field(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_GetMutable_name_conflicts", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_NameConflicts_GetMutable_name_conflicts(_Underlying *_this);
+                        return ref *__MR_CSharp_NameConflicts_GetMutable_name_conflicts(_UnderlyingPtr);
+                    }
+                }
+
+                public new unsafe MR.CS.CSharp.NameConflicts.A A_
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_GetMutable_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_GetMutable_a(_Underlying *_this);
+                        return new(__MR_CSharp_NameConflicts_GetMutable_a(_UnderlyingPtr), is_owning: false);
                     }
                 }
 
                 /// Constructs an empty (default-constructed) instance.
-                public unsafe NameConflictsField() : this(null, is_owning: true)
+                public unsafe NameConflicts() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsField._Underlying *__MR_CSharp_NameConflictsField_DefaultConstruct();
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsField_DefaultConstruct();
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_NameConflicts_DefaultConstruct();
                 }
 
-                /// Constructs `MR::CSharp::NameConflictsField` elementwise.
-                public unsafe NameConflictsField(int name_conflicts_field) : this(null, is_owning: true)
+                /// Constructs `MR::CSharp::NameConflicts` elementwise.
+                public unsafe NameConflicts(int name_conflicts, MR.CS.CSharp.NameConflicts.Const_A a) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsField._Underlying *__MR_CSharp_NameConflictsField_ConstructFrom(int name_conflicts_field);
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsField_ConstructFrom(name_conflicts_field);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFrom(int name_conflicts, MR.CS.CSharp.NameConflicts.A._Underlying *a);
+                    _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFrom(name_conflicts, a._UnderlyingPtr);
                 }
 
-                /// Generated from constructor `MR::CSharp::NameConflictsField::NameConflictsField`.
-                public unsafe NameConflictsField(MR.CS.CSharp.Const_NameConflictsField _other) : this(null, is_owning: true)
+                /// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
+                public unsafe NameConflicts(MR.CS.CSharp.Const_NameConflicts _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsField._Underlying *__MR_CSharp_NameConflictsField_ConstructFromAnother(MR.CS.CSharp.NameConflictsField._Underlying *_other);
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsField_ConstructFromAnother(_other._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFromAnother(MR.CS.CSharp.NameConflicts._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
-                /// Generated from method `MR::CSharp::NameConflictsField::operator=`.
-                public unsafe MR.CS.CSharp.NameConflictsField Assign(MR.CS.CSharp.Const_NameConflictsField _other)
+                /// Generated from method `MR::CSharp::NameConflicts::operator=`.
+                public unsafe MR.CS.CSharp.NameConflicts Assign(MR.CS.CSharp.Const_NameConflicts _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsField_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsField._Underlying *__MR_CSharp_NameConflictsField_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.NameConflictsField._Underlying *_other);
-                    return new(__MR_CSharp_NameConflictsField_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.NameConflicts._Underlying *_other);
+                    return new(__MR_CSharp_NameConflicts_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::NameConflicts::name_Conflicts`.
+                public unsafe void NameConflicts__()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_name_Conflicts", ExactSpelling = true)]
+                    extern static void __MR_CSharp_NameConflicts_name_Conflicts(_Underlying *_this);
+                    __MR_CSharp_NameConflicts_name_Conflicts(_UnderlyingPtr);
                 }
             }
 
-            /// This is used for optional parameters of class `NameConflictsField` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflictsField`.
+            /// This is used for optional parameters of class `NameConflicts` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflicts`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `NameConflictsField`/`Const_NameConflictsField` directly.
-            public class _InOptMut_NameConflictsField
+            /// * Pass an instance of `NameConflicts`/`Const_NameConflicts` directly.
+            public class _InOptMut_NameConflicts
             {
-                public NameConflictsField? Opt;
+                public NameConflicts? Opt;
 
-                public _InOptMut_NameConflictsField() {}
-                public _InOptMut_NameConflictsField(NameConflictsField value) {Opt = value;}
-                public static implicit operator _InOptMut_NameConflictsField(NameConflictsField value) {return new(value);}
+                public _InOptMut_NameConflicts() {}
+                public _InOptMut_NameConflicts(NameConflicts value) {Opt = value;}
+                public static implicit operator _InOptMut_NameConflicts(NameConflicts value) {return new(value);}
             }
 
-            /// This is used for optional parameters of class `NameConflictsField` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflictsField`.
+            /// This is used for optional parameters of class `NameConflicts` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflicts`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `NameConflictsField`/`Const_NameConflictsField` to pass it to the function.
-            public class _InOptConst_NameConflictsField
+            /// * Pass an instance of `NameConflicts`/`Const_NameConflicts` to pass it to the function.
+            public class _InOptConst_NameConflicts
             {
-                public Const_NameConflictsField? Opt;
+                public Const_NameConflicts? Opt;
 
-                public _InOptConst_NameConflictsField() {}
-                public _InOptConst_NameConflictsField(Const_NameConflictsField value) {Opt = value;}
-                public static implicit operator _InOptConst_NameConflictsField(Const_NameConflictsField value) {return new(value);}
+                public _InOptConst_NameConflicts() {}
+                public _InOptConst_NameConflicts(Const_NameConflicts value) {Opt = value;}
+                public static implicit operator _InOptConst_NameConflicts(Const_NameConflicts value) {return new(value);}
             }
 
-            /// Generated from class `MR::CSharp::NameConflictsFieldExposed`.
+            /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the const reference to the struct.
-            public class Const_NameConflictsFieldExposed : MR.CS.Misc.Object, System.IDisposable
+            public class Const_NameConflictsExposed : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
                 /// Get the underlying struct.
-                public unsafe ref readonly NameConflictsFieldExposed UnderlyingStruct => ref *(NameConflictsFieldExposed *)_UnderlyingPtr;
+                public unsafe ref readonly NameConflictsExposed UnderlyingStruct => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
-                internal unsafe Const_NameConflictsFieldExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsFieldExposed_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CSharp_NameConflictsFieldExposed_Destroy(_Underlying *_this);
-                    __MR_CSharp_NameConflictsFieldExposed_Destroy(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_NameConflictsExposed_Destroy(_Underlying *_this);
+                    __MR_CSharp_NameConflictsExposed_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_NameConflictsFieldExposed() {Dispose(false);}
+                ~Const_NameConflictsExposed() {Dispose(false);}
 
-                public ref readonly int NameConflictsFieldExposed_ => ref UnderlyingStruct.NameConflictsFieldExposed_;
+                public ref readonly int NameConflictsExposed_ => ref UnderlyingStruct.NameConflictsExposed_;
+
+                public ref readonly MR.CS.CSharp.NameConflictsExposed.A A_ => ref UnderlyingStruct.A_;
 
                 /// Generated default constructor.
-                public unsafe Const_NameConflictsFieldExposed() : this(null, is_owning: true)
+                public unsafe Const_NameConflictsExposed() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    _UnderlyingPtr = __MR_C_Alloc(8);
+                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 8, 0);
                 }
 
                 /// Generated copy constructor.
-                public unsafe Const_NameConflictsFieldExposed(Const_NameConflictsFieldExposed _other) : this(null, is_owning: true)
+                public unsafe Const_NameConflictsExposed(Const_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    _UnderlyingPtr = __MR_C_Alloc(8);
+                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 8);
+                }
+
+                /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+                /// This is the const reference to the struct.
+                public class Const_A : MR.CS.Misc.Object, System.IDisposable
+                {
+                    internal struct _Underlying; // Represents the underlying C++ type.
+
+                    internal unsafe _Underlying *_UnderlyingPtr;
+
+                    /// Get the underlying struct.
+                    public unsafe ref readonly A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+
+                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                    protected virtual unsafe void Dispose(bool disposing)
+                    {
+                        if (_UnderlyingPtr is null || !_IsOwningVal)
+                            return;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_A_Destroy", ExactSpelling = true)]
+                        extern static void __MR_CSharp_NameConflictsExposed_A_Destroy(_Underlying *_this);
+                        __MR_CSharp_NameConflictsExposed_A_Destroy(_UnderlyingPtr);
+                        _UnderlyingPtr = null;
+                    }
+                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                    ~Const_A() {Dispose(false);}
+
+                    public ref readonly int X => ref UnderlyingStruct.X;
+
+                    /// Generated default constructor.
+                    public unsafe Const_A() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    }
+
+                    /// Generated copy constructor.
+                    public unsafe Const_A(Const_A _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+                /// This is the non-const reference to the struct.
+                public class Mut_A : Const_A
+                {
+                    /// Get the underlying struct.
+                    public unsafe new ref A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+
+                    internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                    public new ref int X => ref UnderlyingStruct.X;
+
+                    /// Generated default constructor.
+                    public unsafe Mut_A() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    }
+
+                    /// Generated copy constructor.
+                    public unsafe Mut_A(Const_A _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+                /// This is the by-value version of the struct.
+                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+                public ref struct A
+                {
+                    /// Copy contents from a wrapper class to this struct.
+                    public static implicit operator A(Const_A other) => other.UnderlyingStruct;
+                    /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    public unsafe static implicit operator Mut_A(A other) => new(new Mut_A((Mut_A._Underlying *)&other, is_owning: false));
+
+                    [System.Runtime.InteropServices.FieldOffset(0)]
+                    public int X;
+
+                    /// Generated copy constructor.
+                    public A(A _other) {this = _other;}
+                }
+
+                /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+                /// Usage:
+                /// * Pass an instance of `Mut_A`/`Const_A` to copy it into the function.
+                /// * Pass `null` to use the default argument
+                public readonly ref struct _InOpt_A
+                {
+                    public readonly bool HasValue;
+                    internal readonly A Object;
+                    public A Value{
+                        get
+                        {
+                            System.Diagnostics.Trace.Assert(HasValue);
+                            return Object;
+                        }
+                    }
+
+                    public _InOpt_A() {HasValue = false;}
+                    public _InOpt_A(A new_value) {HasValue = true; Object = new_value;}
+                    public static implicit operator _InOpt_A(A new_value) {return new(new_value);}
+                    public _InOpt_A(Const_A new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                    public static implicit operator _InOpt_A(Const_A new_value) {return new(new_value);}
+                }
+
+                /// This is used for optional parameters of class `Mut_A` with default arguments.
+                /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Mut_A`/`Const_A` directly.
+                /// * Pass `new(ref ...)` to pass a reference to `A`.
+                public class _InOptMut_A
+                {
+                    public Mut_A? Opt;
+
+                    public _InOptMut_A() {}
+                    public _InOptMut_A(Mut_A value) {Opt = value;}
+                    public static implicit operator _InOptMut_A(Mut_A value) {return new(value);}
+                    public unsafe _InOptMut_A(ref A value)
+                    {
+                        fixed (A *value_ptr = &value)
+                        {
+                            Opt = new((Const_A._Underlying *)value_ptr, is_owning: false);
+                        }
+                    }
+                }
+
+                /// This is used for optional parameters of class `Mut_A` with default arguments.
+                /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Mut_A`/`Const_A` to pass it to the function.
+                /// * Pass `new(ref ...)` to pass a reference to `A`.
+                public class _InOptConst_A
+                {
+                    public Const_A? Opt;
+
+                    public _InOptConst_A() {}
+                    public _InOptConst_A(Const_A value) {Opt = value;}
+                    public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
+                    public unsafe _InOptConst_A(ref readonly A value)
+                    {
+                        fixed (A *value_ptr = &value)
+                        {
+                            Opt = new((Const_A._Underlying *)value_ptr, is_owning: false);
+                        }
+                    }
                 }
             }
 
-            /// Generated from class `MR::CSharp::NameConflictsFieldExposed`.
+            /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the non-const reference to the struct.
-            public class Mut_NameConflictsFieldExposed : Const_NameConflictsFieldExposed
+            public class Mut_NameConflictsExposed : Const_NameConflictsExposed
             {
                 /// Get the underlying struct.
-                public unsafe new ref NameConflictsFieldExposed UnderlyingStruct => ref *(NameConflictsFieldExposed *)_UnderlyingPtr;
+                public unsafe new ref NameConflictsExposed UnderlyingStruct => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
-                internal unsafe Mut_NameConflictsFieldExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Mut_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int NameConflictsFieldExposed_ => ref UnderlyingStruct.NameConflictsFieldExposed_;
+                public new ref int NameConflictsExposed_ => ref UnderlyingStruct.NameConflictsExposed_;
+
+                public new ref MR.CS.CSharp.NameConflictsExposed.A A_ => ref UnderlyingStruct.A_;
 
                 /// Generated default constructor.
-                public unsafe Mut_NameConflictsFieldExposed() : this(null, is_owning: true)
+                public unsafe Mut_NameConflictsExposed() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    _UnderlyingPtr = __MR_C_Alloc(8);
+                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 8, 0);
                 }
 
                 /// Generated copy constructor.
-                public unsafe Mut_NameConflictsFieldExposed(Const_NameConflictsFieldExposed _other) : this(null, is_owning: true)
+                public unsafe Mut_NameConflictsExposed(Const_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    _UnderlyingPtr = __MR_C_Alloc(8);
+                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 8);
+                }
+
+                /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
+                public unsafe void NameConflictsExposed__()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_name_Conflicts_exposed", ExactSpelling = true)]
+                    extern static void __MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(_Underlying *_this);
+                    __MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(_UnderlyingPtr);
                 }
             }
 
-            /// Generated from class `MR::CSharp::NameConflictsFieldExposed`.
+            /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public ref struct NameConflictsFieldExposed
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 8)]
+            public ref struct NameConflictsExposed
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator NameConflictsFieldExposed(Const_NameConflictsFieldExposed other) => other.UnderlyingStruct;
+                public static implicit operator NameConflictsExposed(Const_NameConflictsExposed other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_NameConflictsFieldExposed(NameConflictsFieldExposed other) => new(new Mut_NameConflictsFieldExposed((Mut_NameConflictsFieldExposed._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_NameConflictsExposed(NameConflictsExposed other) => new(new Mut_NameConflictsExposed((Mut_NameConflictsExposed._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int NameConflictsFieldExposed_;
+                public int NameConflictsExposed_;
+
+                [System.Runtime.InteropServices.FieldOffset(4)]
+                public MR.CS.CSharp.NameConflictsExposed.A A_;
 
                 /// Generated copy constructor.
-                public NameConflictsFieldExposed(NameConflictsFieldExposed _other) {this = _other;}
+                public NameConflictsExposed(NameConflictsExposed _other) {this = _other;}
+
+                /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
+                public unsafe void NameConflictsExposed__()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_name_Conflicts_exposed", ExactSpelling = true)]
+                    extern static void __MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(MR.CS.CSharp.NameConflictsExposed *_this);
+                    fixed (MR.CS.CSharp.NameConflictsExposed *__ptr__this = &this)
+                    {
+                        __MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(__ptr__this);
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+                /// This is the const reference to the struct.
+                public class Const_A : MR.CS.Misc.Object, System.IDisposable
+                {
+                    internal struct _Underlying; // Represents the underlying C++ type.
+
+                    internal unsafe _Underlying *_UnderlyingPtr;
+
+                    /// Get the underlying struct.
+                    public unsafe ref readonly A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+
+                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                    protected virtual unsafe void Dispose(bool disposing)
+                    {
+                        if (_UnderlyingPtr is null || !_IsOwningVal)
+                            return;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_A_Destroy", ExactSpelling = true)]
+                        extern static void __MR_CSharp_NameConflictsExposed_A_Destroy(_Underlying *_this);
+                        __MR_CSharp_NameConflictsExposed_A_Destroy(_UnderlyingPtr);
+                        _UnderlyingPtr = null;
+                    }
+                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                    ~Const_A() {Dispose(false);}
+
+                    public ref readonly int X => ref UnderlyingStruct.X;
+
+                    /// Generated default constructor.
+                    public unsafe Const_A() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    }
+
+                    /// Generated copy constructor.
+                    public unsafe Const_A(Const_A _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+                /// This is the non-const reference to the struct.
+                public class Mut_A : Const_A
+                {
+                    /// Get the underlying struct.
+                    public unsafe new ref A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+
+                    internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                    public new ref int X => ref UnderlyingStruct.X;
+
+                    /// Generated default constructor.
+                    public unsafe Mut_A() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    }
+
+                    /// Generated copy constructor.
+                    public unsafe Mut_A(Const_A _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_Alloc(nuint size);
+                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+                /// This is the by-value version of the struct.
+                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+                public ref struct A
+                {
+                    /// Copy contents from a wrapper class to this struct.
+                    public static implicit operator A(Const_A other) => other.UnderlyingStruct;
+                    /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    public unsafe static implicit operator Mut_A(A other) => new(new Mut_A((Mut_A._Underlying *)&other, is_owning: false));
+
+                    [System.Runtime.InteropServices.FieldOffset(0)]
+                    public int X;
+
+                    /// Generated copy constructor.
+                    public A(A _other) {this = _other;}
+                }
+
+                /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+                /// Usage:
+                /// * Pass an instance of `Mut_A`/`Const_A` to copy it into the function.
+                /// * Pass `null` to use the default argument
+                public readonly ref struct _InOpt_A
+                {
+                    public readonly bool HasValue;
+                    internal readonly A Object;
+                    public A Value{
+                        get
+                        {
+                            System.Diagnostics.Trace.Assert(HasValue);
+                            return Object;
+                        }
+                    }
+
+                    public _InOpt_A() {HasValue = false;}
+                    public _InOpt_A(A new_value) {HasValue = true; Object = new_value;}
+                    public static implicit operator _InOpt_A(A new_value) {return new(new_value);}
+                    public _InOpt_A(Const_A new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                    public static implicit operator _InOpt_A(Const_A new_value) {return new(new_value);}
+                }
+
+                /// This is used for optional parameters of class `Mut_A` with default arguments.
+                /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Mut_A`/`Const_A` directly.
+                /// * Pass `new(ref ...)` to pass a reference to `A`.
+                public class _InOptMut_A
+                {
+                    public Mut_A? Opt;
+
+                    public _InOptMut_A() {}
+                    public _InOptMut_A(Mut_A value) {Opt = value;}
+                    public static implicit operator _InOptMut_A(Mut_A value) {return new(value);}
+                    public unsafe _InOptMut_A(ref A value)
+                    {
+                        fixed (A *value_ptr = &value)
+                        {
+                            Opt = new((Const_A._Underlying *)value_ptr, is_owning: false);
+                        }
+                    }
+                }
+
+                /// This is used for optional parameters of class `Mut_A` with default arguments.
+                /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Mut_A`/`Const_A` to pass it to the function.
+                /// * Pass `new(ref ...)` to pass a reference to `A`.
+                public class _InOptConst_A
+                {
+                    public Const_A? Opt;
+
+                    public _InOptConst_A() {}
+                    public _InOptConst_A(Const_A value) {Opt = value;}
+                    public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
+                    public unsafe _InOptConst_A(ref readonly A value)
+                    {
+                        fixed (A *value_ptr = &value)
+                        {
+                            Opt = new((Const_A._Underlying *)value_ptr, is_owning: false);
+                        }
+                    }
+                }
             }
 
-            /// This is used as a function parameter when passing `Mut_NameConflictsFieldExposed` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_NameConflictsExposed` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
             /// Usage:
-            /// * Pass an instance of `Mut_NameConflictsFieldExposed`/`Const_NameConflictsFieldExposed` to copy it into the function.
+            /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` to copy it into the function.
             /// * Pass `null` to use the default argument
-            public readonly ref struct _InOpt_NameConflictsFieldExposed
+            public readonly ref struct _InOpt_NameConflictsExposed
             {
                 public readonly bool HasValue;
-                internal readonly NameConflictsFieldExposed Object;
-                public NameConflictsFieldExposed Value{
+                internal readonly NameConflictsExposed Object;
+                public NameConflictsExposed Value{
                     get
                     {
                         System.Diagnostics.Trace.Assert(HasValue);
@@ -11634,344 +12110,55 @@ public static partial class MR
                     }
                 }
 
-                public _InOpt_NameConflictsFieldExposed() {HasValue = false;}
-                public _InOpt_NameConflictsFieldExposed(NameConflictsFieldExposed new_value) {HasValue = true; Object = new_value;}
-                public static implicit operator _InOpt_NameConflictsFieldExposed(NameConflictsFieldExposed new_value) {return new(new_value);}
-                public _InOpt_NameConflictsFieldExposed(Const_NameConflictsFieldExposed new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
-                public static implicit operator _InOpt_NameConflictsFieldExposed(Const_NameConflictsFieldExposed new_value) {return new(new_value);}
+                public _InOpt_NameConflictsExposed() {HasValue = false;}
+                public _InOpt_NameConflictsExposed(NameConflictsExposed new_value) {HasValue = true; Object = new_value;}
+                public static implicit operator _InOpt_NameConflictsExposed(NameConflictsExposed new_value) {return new(new_value);}
+                public _InOpt_NameConflictsExposed(Const_NameConflictsExposed new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public static implicit operator _InOpt_NameConflictsExposed(Const_NameConflictsExposed new_value) {return new(new_value);}
             }
 
-            /// This is used for optional parameters of class `Mut_NameConflictsFieldExposed` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflictsFieldExposed`.
+            /// This is used for optional parameters of class `Mut_NameConflictsExposed` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflictsExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_NameConflictsFieldExposed`/`Const_NameConflictsFieldExposed` directly.
-            /// * Pass `new(ref ...)` to pass a reference to `NameConflictsFieldExposed`.
-            public class _InOptMut_NameConflictsFieldExposed
+            /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` directly.
+            /// * Pass `new(ref ...)` to pass a reference to `NameConflictsExposed`.
+            public class _InOptMut_NameConflictsExposed
             {
-                public Mut_NameConflictsFieldExposed? Opt;
+                public Mut_NameConflictsExposed? Opt;
 
-                public _InOptMut_NameConflictsFieldExposed() {}
-                public _InOptMut_NameConflictsFieldExposed(Mut_NameConflictsFieldExposed value) {Opt = value;}
-                public static implicit operator _InOptMut_NameConflictsFieldExposed(Mut_NameConflictsFieldExposed value) {return new(value);}
-                public unsafe _InOptMut_NameConflictsFieldExposed(ref NameConflictsFieldExposed value)
+                public _InOptMut_NameConflictsExposed() {}
+                public _InOptMut_NameConflictsExposed(Mut_NameConflictsExposed value) {Opt = value;}
+                public static implicit operator _InOptMut_NameConflictsExposed(Mut_NameConflictsExposed value) {return new(value);}
+                public unsafe _InOptMut_NameConflictsExposed(ref NameConflictsExposed value)
                 {
-                    fixed (NameConflictsFieldExposed *value_ptr = &value)
+                    fixed (NameConflictsExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_NameConflictsFieldExposed._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((Const_NameConflictsExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_NameConflictsFieldExposed` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflictsFieldExposed`.
+            /// This is used for optional parameters of class `Mut_NameConflictsExposed` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflictsExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_NameConflictsFieldExposed`/`Const_NameConflictsFieldExposed` to pass it to the function.
-            /// * Pass `new(ref ...)` to pass a reference to `NameConflictsFieldExposed`.
-            public class _InOptConst_NameConflictsFieldExposed
+            /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` to pass it to the function.
+            /// * Pass `new(ref ...)` to pass a reference to `NameConflictsExposed`.
+            public class _InOptConst_NameConflictsExposed
             {
-                public Const_NameConflictsFieldExposed? Opt;
+                public Const_NameConflictsExposed? Opt;
 
-                public _InOptConst_NameConflictsFieldExposed() {}
-                public _InOptConst_NameConflictsFieldExposed(Const_NameConflictsFieldExposed value) {Opt = value;}
-                public static implicit operator _InOptConst_NameConflictsFieldExposed(Const_NameConflictsFieldExposed value) {return new(value);}
-                public unsafe _InOptConst_NameConflictsFieldExposed(ref readonly NameConflictsFieldExposed value)
+                public _InOptConst_NameConflictsExposed() {}
+                public _InOptConst_NameConflictsExposed(Const_NameConflictsExposed value) {Opt = value;}
+                public static implicit operator _InOptConst_NameConflictsExposed(Const_NameConflictsExposed value) {return new(value);}
+                public unsafe _InOptConst_NameConflictsExposed(ref readonly NameConflictsExposed value)
                 {
-                    fixed (NameConflictsFieldExposed *value_ptr = &value)
+                    fixed (NameConflictsExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_NameConflictsFieldExposed._Underlying *)value_ptr, is_owning: false);
-                    }
-                }
-            }
-
-            /// Generated from class `MR::CSharp::NameConflictsMethod`.
-            /// This is the const half of the class.
-            public class Const_NameConflictsMethod : MR.CS.Misc.Object, System.IDisposable
-            {
-                internal struct _Underlying; // Represents the underlying C++ type.
-
-                internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_NameConflictsMethod(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethod_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CSharp_NameConflictsMethod_Destroy(_Underlying *_this);
-                    __MR_CSharp_NameConflictsMethod_Destroy(_UnderlyingPtr);
-                    _UnderlyingPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_NameConflictsMethod() {Dispose(false);}
-
-                /// Constructs an empty (default-constructed) instance.
-                public unsafe Const_NameConflictsMethod() : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethod_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsMethod._Underlying *__MR_CSharp_NameConflictsMethod_DefaultConstruct();
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsMethod_DefaultConstruct();
-                }
-
-                /// Generated from constructor `MR::CSharp::NameConflictsMethod::NameConflictsMethod`.
-                public unsafe Const_NameConflictsMethod(MR.CS.CSharp.Const_NameConflictsMethod _other) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethod_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsMethod._Underlying *__MR_CSharp_NameConflictsMethod_ConstructFromAnother(MR.CS.CSharp.NameConflictsMethod._Underlying *_other);
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsMethod_ConstructFromAnother(_other._UnderlyingPtr);
-                }
-            }
-
-            /// Generated from class `MR::CSharp::NameConflictsMethod`.
-            /// This is the non-const half of the class.
-            public class NameConflictsMethod : Const_NameConflictsMethod
-            {
-                internal unsafe NameConflictsMethod(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                /// Constructs an empty (default-constructed) instance.
-                public unsafe NameConflictsMethod() : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethod_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsMethod._Underlying *__MR_CSharp_NameConflictsMethod_DefaultConstruct();
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsMethod_DefaultConstruct();
-                }
-
-                /// Generated from constructor `MR::CSharp::NameConflictsMethod::NameConflictsMethod`.
-                public unsafe NameConflictsMethod(MR.CS.CSharp.Const_NameConflictsMethod _other) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethod_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsMethod._Underlying *__MR_CSharp_NameConflictsMethod_ConstructFromAnother(MR.CS.CSharp.NameConflictsMethod._Underlying *_other);
-                    _UnderlyingPtr = __MR_CSharp_NameConflictsMethod_ConstructFromAnother(_other._UnderlyingPtr);
-                }
-
-                /// Generated from method `MR::CSharp::NameConflictsMethod::operator=`.
-                public unsafe MR.CS.CSharp.NameConflictsMethod Assign(MR.CS.CSharp.Const_NameConflictsMethod _other)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethod_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NameConflictsMethod._Underlying *__MR_CSharp_NameConflictsMethod_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.NameConflictsMethod._Underlying *_other);
-                    return new(__MR_CSharp_NameConflictsMethod_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
-                }
-
-                /// Generated from method `MR::CSharp::NameConflictsMethod::name_conflicts_method`.
-                public unsafe void NameConflictsMethod_()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethod_name_conflicts_method", ExactSpelling = true)]
-                    extern static void __MR_CSharp_NameConflictsMethod_name_conflicts_method(_Underlying *_this);
-                    __MR_CSharp_NameConflictsMethod_name_conflicts_method(_UnderlyingPtr);
-                }
-            }
-
-            /// This is used for optional parameters of class `NameConflictsMethod` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflictsMethod`.
-            /// Usage:
-            /// * Pass `null` to use the default argument.
-            /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `NameConflictsMethod`/`Const_NameConflictsMethod` directly.
-            public class _InOptMut_NameConflictsMethod
-            {
-                public NameConflictsMethod? Opt;
-
-                public _InOptMut_NameConflictsMethod() {}
-                public _InOptMut_NameConflictsMethod(NameConflictsMethod value) {Opt = value;}
-                public static implicit operator _InOptMut_NameConflictsMethod(NameConflictsMethod value) {return new(value);}
-            }
-
-            /// This is used for optional parameters of class `NameConflictsMethod` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflictsMethod`.
-            /// Usage:
-            /// * Pass `null` to use the default argument.
-            /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `NameConflictsMethod`/`Const_NameConflictsMethod` to pass it to the function.
-            public class _InOptConst_NameConflictsMethod
-            {
-                public Const_NameConflictsMethod? Opt;
-
-                public _InOptConst_NameConflictsMethod() {}
-                public _InOptConst_NameConflictsMethod(Const_NameConflictsMethod value) {Opt = value;}
-                public static implicit operator _InOptConst_NameConflictsMethod(Const_NameConflictsMethod value) {return new(value);}
-            }
-
-            /// Generated from class `MR::CSharp::NameConflictsMethodExposed`.
-            /// This is the const reference to the struct.
-            public class Const_NameConflictsMethodExposed : MR.CS.Misc.Object, System.IDisposable
-            {
-                internal struct _Underlying; // Represents the underlying C++ type.
-
-                internal unsafe _Underlying *_UnderlyingPtr;
-
-                /// Get the underlying struct.
-                public unsafe ref readonly NameConflictsMethodExposed UnderlyingStruct => ref *(NameConflictsMethodExposed *)_UnderlyingPtr;
-
-                internal unsafe Const_NameConflictsMethodExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethodExposed_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CSharp_NameConflictsMethodExposed_Destroy(_Underlying *_this);
-                    __MR_CSharp_NameConflictsMethodExposed_Destroy(_UnderlyingPtr);
-                    _UnderlyingPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_NameConflictsMethodExposed() {Dispose(false);}
-
-                public ref readonly int X => ref UnderlyingStruct.X;
-
-                /// Generated default constructor.
-                public unsafe Const_NameConflictsMethodExposed() : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
-                }
-
-                /// Generated copy constructor.
-                public unsafe Const_NameConflictsMethodExposed(Const_NameConflictsMethodExposed _other) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
-                }
-            }
-
-            /// Generated from class `MR::CSharp::NameConflictsMethodExposed`.
-            /// This is the non-const reference to the struct.
-            public class Mut_NameConflictsMethodExposed : Const_NameConflictsMethodExposed
-            {
-                /// Get the underlying struct.
-                public unsafe new ref NameConflictsMethodExposed UnderlyingStruct => ref *(NameConflictsMethodExposed *)_UnderlyingPtr;
-
-                internal unsafe Mut_NameConflictsMethodExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                public new ref int X => ref UnderlyingStruct.X;
-
-                /// Generated default constructor.
-                public unsafe Mut_NameConflictsMethodExposed() : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
-                }
-
-                /// Generated copy constructor.
-                public unsafe Mut_NameConflictsMethodExposed(Const_NameConflictsMethodExposed _other) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
-                }
-
-                /// Generated from method `MR::CSharp::NameConflictsMethodExposed::name_conflicts_method_exposed`.
-                public unsafe void NameConflictsMethodExposed_()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethodExposed_name_conflicts_method_exposed", ExactSpelling = true)]
-                    extern static void __MR_CSharp_NameConflictsMethodExposed_name_conflicts_method_exposed(_Underlying *_this);
-                    __MR_CSharp_NameConflictsMethodExposed_name_conflicts_method_exposed(_UnderlyingPtr);
-                }
-            }
-
-            /// Generated from class `MR::CSharp::NameConflictsMethodExposed`.
-            /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public ref struct NameConflictsMethodExposed
-            {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator NameConflictsMethodExposed(Const_NameConflictsMethodExposed other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_NameConflictsMethodExposed(NameConflictsMethodExposed other) => new(new Mut_NameConflictsMethodExposed((Mut_NameConflictsMethodExposed._Underlying *)&other, is_owning: false));
-
-                [System.Runtime.InteropServices.FieldOffset(0)]
-                public int X;
-
-                /// Generated copy constructor.
-                public NameConflictsMethodExposed(NameConflictsMethodExposed _other) {this = _other;}
-
-                /// Generated from method `MR::CSharp::NameConflictsMethodExposed::name_conflicts_method_exposed`.
-                public unsafe void NameConflictsMethodExposed_()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsMethodExposed_name_conflicts_method_exposed", ExactSpelling = true)]
-                    extern static void __MR_CSharp_NameConflictsMethodExposed_name_conflicts_method_exposed(MR.CS.CSharp.NameConflictsMethodExposed *_this);
-                    fixed (MR.CS.CSharp.NameConflictsMethodExposed *__ptr__this = &this)
-                    {
-                        __MR_CSharp_NameConflictsMethodExposed_name_conflicts_method_exposed(__ptr__this);
-                    }
-                }
-            }
-
-            /// This is used as a function parameter when passing `Mut_NameConflictsMethodExposed` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
-            /// Usage:
-            /// * Pass an instance of `Mut_NameConflictsMethodExposed`/`Const_NameConflictsMethodExposed` to copy it into the function.
-            /// * Pass `null` to use the default argument
-            public readonly ref struct _InOpt_NameConflictsMethodExposed
-            {
-                public readonly bool HasValue;
-                internal readonly NameConflictsMethodExposed Object;
-                public NameConflictsMethodExposed Value{
-                    get
-                    {
-                        System.Diagnostics.Trace.Assert(HasValue);
-                        return Object;
-                    }
-                }
-
-                public _InOpt_NameConflictsMethodExposed() {HasValue = false;}
-                public _InOpt_NameConflictsMethodExposed(NameConflictsMethodExposed new_value) {HasValue = true; Object = new_value;}
-                public static implicit operator _InOpt_NameConflictsMethodExposed(NameConflictsMethodExposed new_value) {return new(new_value);}
-                public _InOpt_NameConflictsMethodExposed(Const_NameConflictsMethodExposed new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
-                public static implicit operator _InOpt_NameConflictsMethodExposed(Const_NameConflictsMethodExposed new_value) {return new(new_value);}
-            }
-
-            /// This is used for optional parameters of class `Mut_NameConflictsMethodExposed` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflictsMethodExposed`.
-            /// Usage:
-            /// * Pass `null` to use the default argument.
-            /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_NameConflictsMethodExposed`/`Const_NameConflictsMethodExposed` directly.
-            /// * Pass `new(ref ...)` to pass a reference to `NameConflictsMethodExposed`.
-            public class _InOptMut_NameConflictsMethodExposed
-            {
-                public Mut_NameConflictsMethodExposed? Opt;
-
-                public _InOptMut_NameConflictsMethodExposed() {}
-                public _InOptMut_NameConflictsMethodExposed(Mut_NameConflictsMethodExposed value) {Opt = value;}
-                public static implicit operator _InOptMut_NameConflictsMethodExposed(Mut_NameConflictsMethodExposed value) {return new(value);}
-                public unsafe _InOptMut_NameConflictsMethodExposed(ref NameConflictsMethodExposed value)
-                {
-                    fixed (NameConflictsMethodExposed *value_ptr = &value)
-                    {
-                        Opt = new((Const_NameConflictsMethodExposed._Underlying *)value_ptr, is_owning: false);
-                    }
-                }
-            }
-
-            /// This is used for optional parameters of class `Mut_NameConflictsMethodExposed` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflictsMethodExposed`.
-            /// Usage:
-            /// * Pass `null` to use the default argument.
-            /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_NameConflictsMethodExposed`/`Const_NameConflictsMethodExposed` to pass it to the function.
-            /// * Pass `new(ref ...)` to pass a reference to `NameConflictsMethodExposed`.
-            public class _InOptConst_NameConflictsMethodExposed
-            {
-                public Const_NameConflictsMethodExposed? Opt;
-
-                public _InOptConst_NameConflictsMethodExposed() {}
-                public _InOptConst_NameConflictsMethodExposed(Const_NameConflictsMethodExposed value) {Opt = value;}
-                public static implicit operator _InOptConst_NameConflictsMethodExposed(Const_NameConflictsMethodExposed value) {return new(value);}
-                public unsafe _InOptConst_NameConflictsMethodExposed(ref readonly NameConflictsMethodExposed value)
-                {
-                    fixed (NameConflictsMethodExposed *value_ptr = &value)
-                    {
-                        Opt = new((Const_NameConflictsMethodExposed._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((Const_NameConflictsExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
