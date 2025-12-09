@@ -720,22 +720,24 @@ namespace mrbind::CSharp
         return "_InOptConst_" + CppToCSharpIdentifier(name);
     }
 
-    std::string Generator::CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field)
+    bool Generator::MatchesAnyOfCSharpClassNames(const cppdecl::QualifiedName &cpp_class, std::string_view candidate)
     {
-        std::string ret = CppToCSharpIdentifier(ParseNameOrThrow(cpp_field));
-        if (ret == CppToCSharpUnqualClassName(cpp_class, false) || ret == CppToCSharpUnqualClassName(cpp_class, true))
-        {
-            ret += '_';
-            return ret;
-        }
+        if (candidate == CppToCSharpUnqualClassName(cpp_class, false) || candidate == CppToCSharpUnqualClassName(cpp_class, true))
+            return true;
 
         // If this is an exposed struct, try against that name too.
         const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_class))->var);
-        if (class_info.kind == CInterop::ClassKind::exposed_struct && ret == CppToCSharpUnqualExposedStructName(cpp_class))
-        {
+        if (class_info.kind == CInterop::ClassKind::exposed_struct && candidate == CppToCSharpUnqualExposedStructName(cpp_class))
+            return true;
+
+        return false;
+    }
+
+    std::string Generator::CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field)
+    {
+        std::string ret = CppToCSharpIdentifier(ParseNameOrThrow(cpp_field));
+        if (MatchesAnyOfCSharpClassNames(cpp_class, ret))
             ret += '_';
-            return ret;
-        }
 
         return ret;
     }
@@ -2750,7 +2752,7 @@ namespace mrbind::CSharp
 
     std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant)
     {
-        return std::visit(Overload{
+        std::string ret = std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
             {
                 return CppIdentifierToCSharpIdentifier(elem.name);
@@ -2843,6 +2845,19 @@ namespace mrbind::CSharp
                 return std::string(elem.is_explicit ? "explicit" : "implicit") + " operator " + GetReturnBinding(method.ret).csharp_return_type;
             },
         }, method.var);
+
+        // Adjust the result if it conflicts with the enclosing class name.
+        if (
+            !std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var) &&
+            !method.params.empty() &&
+            method.params.front().is_this_param)
+        {
+            cppdecl::Type type = ParseTypeOrThrow(method.params.front().cpp_type);
+            if (MatchesAnyOfCSharpClassNames(type.simple_type.name, ret))
+                ret += '_';
+        }
+
+        return ret;
     }
 
     std::string Generator::MakeFuncComment(AnyFuncLikePtr any_func_like)

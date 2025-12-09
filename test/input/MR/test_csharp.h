@@ -1063,21 +1063,27 @@ namespace MR::CSharp
 
 
     // Members having the same name as the exposed class, after rewriting.
+    // Right now we handle fields and methods separately. One day we might need them to avoid conflicts with each other too.
 
-    struct NameConflicts
+    struct NameConflictsField
     {
-        int name_conflicts;
-
-        // Methods are not handled yet:
-        // void Name_conflicts() {}
+        int name_conflicts_field;
     };
 
-    struct NameConflictsExposed
+    struct NameConflictsFieldExposed
     {
-        int name_conflicts;
+        int name_conflicts_field_exposed;
+    };
 
-        // Methods are not handled yet:
-        // void Name_conflicts() {}
+    struct NameConflictsMethod
+    {
+        void name_conflicts_method() {}
+    };
+
+    struct NameConflictsMethodExposed
+    {
+        int x;
+        void name_conflicts_method_exposed() {}
     };
 }
 

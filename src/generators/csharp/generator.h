@@ -437,9 +437,14 @@ namespace mrbind::CSharp
         [[nodiscard]] std::string CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name);
 
 
+        // Returns true if `candidate` matches any of the C# class names of `cpp_class`.
+        // `candidate` should typically be the result of `CppToCSharpIdentifier()`.
+        [[nodiscard]] bool MatchesAnyOfCSharpClassNames(const cppdecl::QualifiedName &cpp_class, std::string_view candidate);
+
         // Converts a C++ class field name to C# as if by `CppToCSharpIdentifier(ParseNameOrThrow(cpp_field))`,
         //   but additionally adjusts the name if it conflicts with the enclosing class name.
         [[nodiscard]] std::string CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field);
+
 
         enum class TypeBindingFlags
         {
