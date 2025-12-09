@@ -151,11 +151,23 @@ public static partial class MR
 
         public static partial class Std
         {
-            /// This is an empty tag type, corresponding to C++ `std::greater<int>`.
+            /// This is an empty tag type.
             public struct Greater_Int {}
 
-            /// This is an empty tag type, corresponding to C++ `std::monostate`.
+            /// This is an empty tag type.
             public struct Monostate {}
+
+            /// This is an empty tag type.
+            public struct VariantIndex_0 {}
+
+            /// This is an empty tag type.
+            public struct VariantIndex_1 {}
+
+            /// This is an empty tag type.
+            public struct VariantIndex_2 {}
+
+            /// This is an empty tag type.
+            public struct VariantIndex_3 {}
 
         }
 

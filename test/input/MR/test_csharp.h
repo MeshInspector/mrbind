@@ -939,6 +939,9 @@ namespace MR::CSharp
     inline Variant *test_variant_ptr(Variant *a, Variant *b = &default_variant) {(void)a; return b;}
     inline const Variant *test_variant_cptr(const Variant *a, const Variant *b = &default_variant) {(void)a; return b;}
 
+    // Test a variant that has duplicate element types.
+    inline std::variant<std::monostate, int, float, float> test_variant_with_repeated_types() {return {};}
+
 
     // Input and output streams:
 

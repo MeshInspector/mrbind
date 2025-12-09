@@ -1446,4 +1446,91 @@ namespace mrbind::CBindings
 
         return ret;
     }
+
+    std::optional<Generator::BindableType> MakeEmptyTagBinding(Generator &generator, const cppdecl::Type &cpp_type)
+    {
+        (void)generator; // Heh.
+
+        std::optional<Generator::BindableType> ret;
+
+        { // Check against the predicate, and check the modifiers.
+            if (!cpp_type.simple_type.IsOnlyQualifiedName(cppdecl::SingleWordFlags::ignore_const))
+                return ret; // Hmm.
+            if (
+                !(
+                    cpp_type.modifiers.size() == 0 ||
+                    (
+                        cpp_type.modifiers.size() == 1 &&
+                        (
+                            (
+                                cpp_type.Is<cppdecl::Reference>() &&
+                                (
+                                    // Only accept const or rvalue references.
+                                    // Because non-const lvalue references don't accept default-constructed rvalues (what else would we do with them?).
+                                    cpp_type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue ||
+                                    bool(cpp_type.simple_type.quals & cppdecl::CvQualifiers::const_)
+                                )
+                            ) ||
+                            // Pointers get some limited bindings too (get returned as bools, and that's all).
+                            cpp_type.Is<cppdecl::Pointer>()
+                        )
+                    )
+                )
+            )
+            {
+                return ret; // Neither a qualified-name only, nor a reference to one.
+            }
+        }
+
+
+        Generator::BindableType &binding = ret.emplace();
+
+        binding.traits = Generator::TypeTraits::Trivial{};
+
+
+        // Entirely custom logic for pointers.
+        // They get replaced with `bool` when returned, and don't support being passed as parameters.
+        if (cpp_type.Is<cppdecl::Pointer>())
+        {
+            Generator::BindableType::ReturnUsage &return_usage = binding.return_usage.emplace();
+            return_usage.c_type = cppdecl::Type::FromSingleWord("bool");
+            return_usage.extra_headers.stdlib_in_header_file = {"stdbool.h"};
+
+            // This isn't considered sugar. Instead we have an entire custom type kind of this.
+            // Making this sugar doesn't make much sense, because it would be sugar for what exactly, for a non-owning pointer?
+            binding.interop_info = CInterop::TypeKinds::EmptyTagPtr{};
+            return ret; // That's all.
+        }
+
+
+        if (!cpp_type.Is<cppdecl::Reference>())
+        {
+            // The return usage only works for non-references.
+            Generator::BindableType::ReturnUsage &return_usage = binding.return_usage.emplace();
+            return_usage.c_type = cppdecl::Type::FromSingleWord("void");
+        }
+
+        binding.is_useless_default_argument = [](std::string_view) -> std::optional<std::string> {return "";}; // Always ignore default arguments.
+
+        // No actual default argument support, since all of them are rejected by `is_useless_default_argument`.
+        // This interacts nicely with `std::optional` bindings too, those would reject this class (as the element type) as expected.
+        Generator::BindableType::ParamUsage &param_usage = binding.param_usage_with_default_arg.emplace();
+        // Return a default-constructed instance, that's all. Don't add any `c_params`.
+        param_usage.c_params_to_cpp = [
+            ret = generator.CppdeclToCode(cpp_type.simple_type, {}, cppdecl::CvQualifiers::const_) + "{}"
+        ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg) -> std::string
+        {
+            (void)source_file;
+            (void)cpp_param_name;
+            (void)default_arg;
+
+            return ret;
+        };
+
+        // Not setting `considered_sugar_for_interop` because we have a special category for those tags, which we set below.
+        // We set the category here, unlike for other classes, because those tags don't have any C declarations that could set it later.
+        binding.interop_info = CInterop::TypeKinds::EmptyTag{};
+
+        return ret;
+    }
 }

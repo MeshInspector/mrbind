@@ -5281,8 +5281,10 @@ namespace mrbind::CSharp
 
                     file.WriteSeparatingNewline();
                     file.WriteString(
+                        // "/// This is an empty tag type, corresponding to C++ `" + CppdeclToCode(cpp_name) + "`.\n"
+                        // Don't tell the underlying C++ type, since this type can be made up, such as our fake `std::variant_index` in the variant binding.
+                        "/// This is an empty tag type.\n"
                         // A plain struct seems most appropriate. A `ref struct` would add extra limitations that we don't need.
-                        "/// This is an empty tag type, corresponding to C++ `" + CppdeclToCode(cpp_name) + "`.\n"
                         "public struct " + CppToCSharpIdentifier(cpp_name.parts.back()) + " {}\n" // No members!
                     );
                 }

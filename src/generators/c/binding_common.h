@@ -161,5 +161,11 @@ namespace mrbind::CBindings
         std::function<std::string(std::string_view begin, std::string_view end)> from_two_pointers = nullptr
     );
 
+    // Creates a tag type binding, and also handles related stuff like pointers and references to it when it makes sense.
+    // `cpp_type` is the input type, which can include modifiers (as in the combination ptrs/refs/etc). We'll return null if we don't support those modifiers.
+    // Before calling this, check that the name `cpp_type.simple_type.name` is correct. You don't need to check anything else about the type,
+    //   this function will return null if something is wrong with it.
+    [[nodiscard]] std::optional<Generator::BindableType> MakeEmptyTagBinding(Generator &generator, const cppdecl::Type &cpp_type);
+
     // ]
 }

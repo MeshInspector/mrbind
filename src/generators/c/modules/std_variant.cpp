@@ -16,6 +16,21 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
+            // We use this to disambiguate constructors (when the element types are duplicated) in languages other than C.
+            // Injecting a fake name into `std` is a bit sketchy, but I don't want to name this `in_place_index_t`,
+            //   since in our constructors it comes AFTER the value argument, which allows us to give this tag a default argument,
+            //   which helps when there's no ambiguity.
+            static const cppdecl::QualifiedName tag_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("variant_index");
+
+            { // Special handling for the `variant_index` tag.
+                if (type.simple_type.name.Equals(tag_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                {
+                    ret = MakeEmptyTagBinding(generator, type);
+                    if (ret)
+                        return ret;
+                }
+            }
+
             if (!type.IsOnlyQualifiedName() || !type.simple_type.name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
                 return ret;
 
@@ -106,6 +121,18 @@ namespace mrbind::CBindings::Modules
                                 .name = "value",
                                 .cpp_type = elem_types[i],
                             });
+                            { // A dummy tag parameter for disamgiuation in languages other than C. See the comment on `tag_name`.
+                                cppdecl::Type param_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName(tag_name).AddTemplateArgument(cppdecl::PseudoExpr{.tokens = {cppdecl::NumericLiteral{.var = cppdecl::NumericLiteral::Integer{.value = std::to_string(i)}}}}));
+                                emit.params.push_back({
+                                    .name = "tag",
+                                    .omit_from_call = true,
+                                    .cpp_type = param_type,
+                                    .default_arg = Generator::EmitFuncParams::Param::DefaultArg{
+                                        .cpp_expr = generator.CppdeclToCode(param_type) + "{}", // Not `CppdeclToCodeForComments`.
+                                        .original_spelling = "{}",
+                                    },
+                                });
+                            }
                             emit.cpp_called_func = generator.CppdeclToCode(type) + "(std::in_place_index<" + std::to_string(i) + ">, @1@)";
                             generator.EmitFunction(file, emit);
                         }

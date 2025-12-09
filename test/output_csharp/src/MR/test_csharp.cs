@@ -12828,6 +12828,15 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Variant_StdMonostate_Int_Float(__ret, is_owning: false) : null;
             }
 
+            // Test a variant that has duplicate element types.
+            /// Generated from function `MR::CSharp::test_variant_with_repeated_types`.
+            public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float_Float TestVariantWithRepeatedTypes()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_with_repeated_types", ExactSpelling = true)]
+                extern static MR.CS.Std.Variant_StdMonostate_Int_Float_Float._Underlying *__MR_CSharp_test_variant_with_repeated_types();
+                return new(__MR_CSharp_test_variant_with_repeated_types(), is_owning: true);
+            }
+
             // Input and output streams:
             /// Generated from function `MR::CSharp::test_iostreams_ref`.
             public static unsafe MR.CS.Std.Ostream TestIostreamsRef(MR.CS.Std.Istream _1)
