@@ -1060,6 +1060,25 @@ namespace MR::CSharp
     inline const ArrCptr &test_arrcptr_cref(const ArrCptr &a, const ArrCptr &b = default_arrcptr) {(void)a; (void)b; return default_arrcptr;}
     inline ArrCptr *test_arrcptr_ptr(ArrCptr *a, ArrCptr *b = nullptr, ArrCptr *c = &default_arrcptr) {(void)a; (void)b; (void)c; return &default_arrcptr;}
     inline const ArrCptr *test_arrcptr_cptr(const ArrCptr *a, const ArrCptr *b = nullptr, const ArrCptr *c = &default_arrcptr) {(void)a; (void)b; (void)c; return &default_arrcptr;}
+
+
+    // Members having the same name as the exposed class, after rewriting.
+
+    struct NameConflicts
+    {
+        int name_conflicts;
+
+        // Methods are not handled yet:
+        // void Name_conflicts() {}
+    };
+
+    struct NameConflictsExposed
+    {
+        int name_conflicts;
+
+        // Methods are not handled yet:
+        // void Name_conflicts() {}
+    };
 }
 
 

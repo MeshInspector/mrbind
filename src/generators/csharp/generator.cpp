@@ -720,6 +720,26 @@ namespace mrbind::CSharp
         return "_InOptConst_" + CppToCSharpIdentifier(name);
     }
 
+    std::string Generator::CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field)
+    {
+        std::string ret = CppToCSharpIdentifier(ParseNameOrThrow(cpp_field));
+        if (ret == CppToCSharpUnqualClassName(cpp_class, false) || ret == CppToCSharpUnqualClassName(cpp_class, true))
+        {
+            ret += '_';
+            return ret;
+        }
+
+        // If this is an exposed struct, try against that name too.
+        const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_class))->var);
+        if (class_info.kind == CInterop::ClassKind::exposed_struct && ret == CppToCSharpUnqualExposedStructName(cpp_class))
+        {
+            ret += '_';
+            return ret;
+        }
+
+        return ret;
+    }
+
     std::string Generator::TypeBindingFlagsToString(TypeBindingFlags flags)
     {
         std::string ret;
@@ -3975,7 +3995,7 @@ namespace mrbind::CSharp
 
                                 const bool is_bool = cpp_type.AsSingleWord() == "bool";
 
-                                const std::string csharp_field_name = CppIdentifierToCSharpIdentifier(field.name);
+                                const std::string csharp_field_name = CppToCSharpFieldName(cpp_qual_name, field.name);
 
                                 file.WriteSeparatingNewline();
 
@@ -4042,7 +4062,7 @@ namespace mrbind::CSharp
                             else
                             {
                                 // Just the normal field.
-                                EmitCppField(file, field, is_exposed_struct_by_value ? false : IsConst(), shadowing_data);
+                                EmitCppField(file, cpp_qual_name, field, is_exposed_struct_by_value ? false : IsConst(), shadowing_data);
                             }
                         }
                     }
@@ -4538,7 +4558,7 @@ namespace mrbind::CSharp
         return true;
     }
 
-    void Generator::EmitCppField(OutputFile &file, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data)
+    void Generator::EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data)
     {
         try
         {
@@ -4642,7 +4662,7 @@ namespace mrbind::CSharp
             file.WriteString(" ");
 
             // The property name.
-            file.WriteString(CppToCSharpIdentifier(ParseNameOrThrow(field.full_name)));
+            file.WriteString(CppToCSharpFieldName(cpp_class, field.full_name));
             file.WriteString("\n");
 
             file.PushScope({}, "{\n", "}\n");

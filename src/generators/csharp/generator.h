@@ -436,6 +436,11 @@ namespace mrbind::CSharp
         // Same, but for unqualified names.
         [[nodiscard]] std::string CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name);
 
+
+        // Converts a C++ class field name to C# as if by `CppToCSharpIdentifier(ParseNameOrThrow(cpp_field))`,
+        //   but additionally adjusts the name if it conflicts with the enclosing class name.
+        [[nodiscard]] std::string CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field);
+
         enum class TypeBindingFlags
         {
             // Enable type-specific sugared passing style.
@@ -711,7 +716,7 @@ namespace mrbind::CSharp
         // Emits a single class field. Either as several accessor methods, or as a C# property if possible.
         // `is_const` determines if we're considered to be inside of a const half of a class or not.
         // This can't be applied to fields of exposed structs.
-        void EmitCppField(OutputFile &file, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
+        void EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data);
 
         void Generate();
 

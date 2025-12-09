@@ -51,6 +51,7 @@ MRBIND_GEN_C_FLAGS=(
     --expose-as-struct MR::CSharp::ExposedLayout
     --expose-as-struct MR::CSharp::ExposedLayoutSh
     --expose-as-struct MR::CSharp::ExposedLayoutB
+    --expose-as-struct MR::CSharp::NameConflictsExposed
 )
 
 COMPILER_FLAGS=(
