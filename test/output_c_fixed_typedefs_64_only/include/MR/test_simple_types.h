@@ -37,16 +37,16 @@ typedef enum MR_TestSimpleTypes_E4
 // This will use a custom typedef for the underlying type, if that's enabled!
 typedef MR_C_int64_t MR_TestSimpleTypes_E5;
 
-// Class templates.
-/// Generated from class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
-typedef struct MR_TestSimpleTypes_ClassTemplate_uint64_t MR_TestSimpleTypes_ClassTemplate_uint64_t;
-
 // Enums.
 typedef enum MR_TestSimpleTypes_ClassTemplate_uint64_t_Enum
 {
     MR_TestSimpleTypes_ClassTemplate_uint64_t_Enum_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_TestSimpleTypes_ClassTemplate_uint64_t_Enum;
+
+// Class templates.
+/// Generated from class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_TestSimpleTypes_ClassTemplate_uint64_t MR_TestSimpleTypes_ClassTemplate_uint64_t;
 
 /// Generated from function `MR::TestSimpleTypes::GetInt`.
 MR_C_API int MR_TestSimpleTypes_GetInt(void);
@@ -202,8 +202,8 @@ MR_C_API void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1);
 MR_C_API void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1);
 
 // Test all kinds of `char`.
-/// Generated from function `MR::TestSimpleTypes::CheckChar`.
-MR_C_API void MR_TestSimpleTypes_CheckChar_char_ptr(char *_1);
+/// Generated from function `MR::TestSimpleTypes::CheckCharMaybeUnsigned`.
+MR_C_API void MR_TestSimpleTypes_CheckCharMaybeUnsigned(char *_1);
 
 /// Generated from function `MR::TestSimpleTypes::CheckChar`.
 MR_C_API void MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(unsigned char *_1);

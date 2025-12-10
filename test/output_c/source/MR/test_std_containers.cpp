@@ -272,6 +272,13 @@ MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(
     return (MR_StdContainers_NonAssignable *)(((MR::StdContainers::NonAssignable *)ptr) + i);
 }
 
+MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdContainers_NonAssignable *_other)
+{
+    return (MR_StdContainers_NonAssignable *)new MR::StdContainers::NonAssignable(MR::StdContainers::NonAssignable(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_other, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_other, MR::StdContainers::NonAssignable))
+    ));
+}
+
 void MR_StdContainers_NonAssignable_Destroy(const MR_StdContainers_NonAssignable *_this)
 {
     delete ((const MR::StdContainers::NonAssignable *)_this);

@@ -10,12 +10,24 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_expected_int_float MR_C_std_expected_int_float; // Defined in `#include <std_expected_int_float.h>`.
 typedef struct MR_C_std_filesystem_path MR_C_std_filesystem_path; // Defined in `#include <std_filesystem_path.h>`.
+typedef struct MR_C_std_istream MR_C_std_istream; // Defined in `#include <iostream.h>`.
+typedef struct MR_C_std_optional_MR_CSharp_ExposedLayoutSh MR_C_std_optional_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_optional_MR_CSharp_ExposedLayoutSh.h>`.
+typedef struct MR_C_std_optional_MR_CSharp_NonTrivial MR_C_std_optional_MR_CSharp_NonTrivial; // Defined in `#include <std_optional_MR_CSharp_NonTrivial.h>`.
+typedef struct MR_C_std_optional_MR_CSharp_SA MR_C_std_optional_MR_CSharp_SA; // Defined in `#include <std_optional_MR_CSharp_SA.h>`.
+typedef struct MR_C_std_optional_MR_CSharp_Trivial MR_C_std_optional_MR_CSharp_Trivial; // Defined in `#include <std_optional_MR_CSharp_Trivial.h>`.
+typedef struct MR_C_std_optional_int MR_C_std_optional_int; // Defined in `#include <std_optional_int.h>`.
+typedef struct MR_C_std_optional_std_string MR_C_std_optional_std_string; // Defined in `#include <std_optional_std_string.h>`.
+typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined in `#include <iostream.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SA MR_C_std_shared_ptr_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_MR_CSharp_SA.h>`.
 typedef struct MR_C_std_shared_ptr_const_MR_CSharp_SA MR_C_std_shared_ptr_const_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_const_MR_CSharp_SA.h>`.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#include <std_string_view.h>`.
+typedef struct MR_C_std_unique_ptr_int MR_C_std_unique_ptr_int; // Defined in `#include <std_unique_ptr_int.h>`.
+typedef struct MR_C_std_variant_std_monostate_int_float MR_C_std_variant_std_monostate_int_float; // Defined in `#include <std_variant_std_monostate_int_float.h>`.
+typedef struct MR_C_std_variant_std_monostate_int_float_float MR_C_std_variant_std_monostate_int_float_float; // Defined in `#include <std_variant_std_monostate_int_float_float.h>`.
 
 
 /// Enum comment.
@@ -136,14 +148,14 @@ typedef struct MR_CSharp_SB MR_CSharp_SB;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SC MR_CSharp_SC;
 
+/// Generated from class `MR::CSharp::Outer::Inner`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_Outer_Inner MR_CSharp_Outer_Inner;
+
 // Nested classes.
 /// Generated from class `MR::CSharp::Outer`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_Outer MR_CSharp_Outer;
-
-/// Generated from class `MR::CSharp::Outer::Inner`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
-typedef struct MR_CSharp_Outer_Inner MR_CSharp_Outer_Inner;
 
 /// Generated from class `MR::CSharp::TestFields`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -195,6 +207,11 @@ typedef struct MR_CSharp_IncrDecrG MR_CSharp_IncrDecrG;
 /// Generated from class `MR::CSharp::IncrDecrH`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrH MR_CSharp_IncrDecrH;
+
+// Friend functions.
+/// Generated from class `MR::CSharp::IncrDecrI`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IncrDecrI MR_CSharp_IncrDecrI;
 
 // Test equality comparison.
 /// Generated from class `MR::CSharp::EqualityA`.
@@ -429,6 +446,37 @@ typedef struct MR_CSharp_ExposedLayoutB
 {
     int x;
 } MR_CSharp_ExposedLayoutB;
+
+// Test various array members.
+/// Generated from class `MR::CSharp::ArrayMembers`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ArrayMembers MR_CSharp_ArrayMembers;
+
+/// Generated from class `MR::CSharp::NameConflicts::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_NameConflicts_A MR_CSharp_NameConflicts_A;
+
+// Members having the same name as the exposed class, after rewriting.
+/// Generated from class `MR::CSharp::NameConflicts`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_NameConflicts MR_CSharp_NameConflicts;
+
+/// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+typedef struct MR_CSharp_NameConflictsExposed_A
+{
+    int x;
+} MR_CSharp_NameConflictsExposed_A;
+
+/// Generated from class `MR::CSharp::NameConflictsExposed`.
+typedef struct MR_CSharp_NameConflictsExposed
+{
+    int name_conflicts_exposed;
+    MR_CSharp_NameConflictsExposed_A a;
+} MR_CSharp_NameConflictsExposed;
+
+/// Generated from class `MR::CSharp::AmbiguousTemplates`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_AmbiguousTemplates MR_CSharp_AmbiguousTemplates;
 
 /// Generated from function `MR::CSharp::foo`.
 MR_C_API void MR_CSharp_foo(void);
@@ -1370,12 +1418,12 @@ MR_C_API const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cptr(const 
 
 /// Generated from function `MR::CSharp::test_void_ptr`.
 /// Parameter `b` defaults to a null pointer in C++.
-/// Parameter `c` has a default argument: `(void *)42`, pass a null pointer to use it.
+/// Parameter `c` has a default argument: `(void*)42`, pass a null pointer to use it.
 MR_C_API void *MR_CSharp_test_void_ptr(void *a, void *b, void *const *c);
 
 /// Generated from function `MR::CSharp::test_void_cptr`.
 /// Parameter `b` defaults to a null pointer in C++.
-/// Parameter `c` has a default argument: `(const void *)42`, pass a null pointer to use it.
+/// Parameter `c` has a default argument: `(const void*)42`, pass a null pointer to use it.
 MR_C_API const void *MR_CSharp_test_void_cptr(const void *a, const void *b, const void *const *c);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1502,7 +1550,7 @@ MR_C_API void MR_CSharp_SC_DestroyArray(const MR_CSharp_SC *_this);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other);
 
-// Pokeing a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
+// Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
 /// Generated from function `MR::CSharp::test_shptr`.
 /// Parameter `b` has a default argument: `default_shptr`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CSharp_SA_Destroy()` to free it when you're done using it.
@@ -2278,6 +2326,54 @@ MR_C_API const MR_CSharp_IncrDecrH *MR_C_decr_MR_CSharp_IncrDecrH(const MR_CShar
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrH_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrH *MR_C_post_decr_MR_CSharp_IncrDecrH(const MR_CSharp_IncrDecrH *_this);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrI_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IncrDecrI_DestroyArray()`.
+/// Use `MR_CSharp_IncrDecrI_OffsetMutablePtr()` and `MR_CSharp_IncrDecrI_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_OffsetPtr(const MR_CSharp_IncrDecrI *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_OffsetMutablePtr(MR_CSharp_IncrDecrI *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrI_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_ConstructFromAnother(const MR_CSharp_IncrDecrI *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IncrDecrI`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IncrDecrI_Destroy(const MR_CSharp_IncrDecrI *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IncrDecrI`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IncrDecrI_DestroyArray(const MR_CSharp_IncrDecrI *_this);
+
+/// Generated from method `MR::CSharp::IncrDecrI::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_AssignFromAnother(MR_CSharp_IncrDecrI *_this, const MR_CSharp_IncrDecrI *_other);
+
+/// Generated from function `MR::CSharp::operator++`.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API int MR_C_incr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1);
+
+/// Generated from function `MR::CSharp::operator++`.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API int MR_C_post_incr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1);
+
+/// Generated from function `MR::CSharp::operator--`.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API int MR_C_decr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1);
+
+/// Generated from function `MR::CSharp::operator--`.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API int MR_C_post_decr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityA_Destroy()` to free it when you're done using it.
@@ -4307,6 +4403,34 @@ MR_C_API int MR_C_mod_int_MR_CSharp_ExposedLayout(int _1, const MR_CSharp_Expose
 /// Generated from function `MR::CSharp::operator--`.
 MR_C_API void MR_C_decr_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout _1);
 
+/// Generated from function `MR::CSharp::test_exposed`.
+/// Parameter `b` has a default argument: `default_exposed`, pass a null pointer to use it.
+MR_C_API MR_CSharp_ExposedLayout MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout a, const MR_CSharp_ExposedLayout *b);
+
+/// Generated from function `MR::CSharp::test_exposed_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_exposed`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b);
+
+/// Generated from function `MR::CSharp::test_exposed_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_exposed`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b);
+
+/// Generated from function `MR::CSharp::test_exposed_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_exposed`, pass a null pointer to use it.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b, MR_CSharp_ExposedLayout *const *c);
+
+/// Generated from function `MR::CSharp::test_exposed_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_exposed`, pass a null pointer to use it.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b, const MR_CSharp_ExposedLayout *const *c);
+
 /// Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_CSharp_ExposedLayoutSh_foo(MR_CSharp_ExposedLayoutSh *_this);
@@ -4358,13 +4482,969 @@ MR_C_API int MR_C_mod_int_MR_CSharp_ExposedLayoutSh(int _1, const MR_CSharp_Expo
 /// Generated from function `MR::CSharp::operator--`.
 MR_C_API void MR_C_decr_MR_CSharp_ExposedLayoutSh(MR_CSharp_ExposedLayoutSh _1);
 
-/// Generated from function `MR::CSharp::make_exposed_layout_sh`.
+/// Generated from function `MR::CSharp::make_exposed_sh`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_CSharp_make_exposed_layout_sh(void);
+MR_C_API MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_CSharp_make_exposed_sh(void);
+
+/// Generated from function `MR::CSharp::test_exposed`.
+/// Parameter `b` has a default argument: `default_exposed_sh`, pass a null pointer to use it.
+MR_C_API MR_CSharp_ExposedLayoutSh MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(MR_CSharp_ExposedLayoutSh a, const MR_CSharp_ExposedLayoutSh *b);
+
+/// Generated from function `MR::CSharp::test_exposed_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_exposed_sh`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh(MR_CSharp_ExposedLayoutSh *a, MR_CSharp_ExposedLayoutSh *b);
+
+/// Generated from function `MR::CSharp::test_exposed_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_exposed_sh`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *a, const MR_CSharp_ExposedLayoutSh *b);
+
+/// Generated from function `MR::CSharp::test_exposed_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_exposed_sh`, pass a null pointer to use it.
+MR_C_API MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr(MR_CSharp_ExposedLayoutSh *a, MR_CSharp_ExposedLayoutSh *b, MR_CSharp_ExposedLayoutSh *const *c);
+
+/// Generated from function `MR::CSharp::test_exposed_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_exposed_sh`, pass a null pointer to use it.
+MR_C_API const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(const MR_CSharp_ExposedLayoutSh *a, const MR_CSharp_ExposedLayoutSh *b, const MR_CSharp_ExposedLayoutSh *const *c);
 
 // Some random ctor.
 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
 MR_C_API MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct(int _1, int _2);
+
+// And try an equality comparison!
+/// Generated from function `MR::CSharp::operator==`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutB(const MR_CSharp_ExposedLayoutB *_1, const MR_CSharp_ExposedLayoutB *_2);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_ArrayMembers_Get_i(const MR_CSharp_ArrayMembers *_this);
+
+/// Modifies a member variable of class `MR::CSharp::ArrayMembers` named `i`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ArrayMembers_Set_i(MR_CSharp_ArrayMembers *_this, int value);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_ArrayMembers_GetMutable_i(MR_CSharp_ArrayMembers *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ia`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_ArrayMembers_Get_ia(const MR_CSharp_ArrayMembers *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ia`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_ArrayMembers_GetMutable_ia(MR_CSharp_ArrayMembers *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::ArrayMembers` named `ia`. The size is `2`.
+MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_ia(void);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `iaa`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int (*MR_CSharp_ArrayMembers_Get_iaa(const MR_CSharp_ArrayMembers *_this))[4];
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `iaa`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int (*MR_CSharp_ArrayMembers_GetMutable_iaa(MR_CSharp_ArrayMembers *_this))[4];
+
+/// Returns the size of the array member of class `MR::CSharp::ArrayMembers` named `iaa`. The size is `3`.
+MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_iaa(void);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ci`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_ArrayMembers_Get_ci(const MR_CSharp_ArrayMembers *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `cia`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_ArrayMembers_Get_cia(const MR_CSharp_ArrayMembers *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::ArrayMembers` named `cia`. The size is `2`.
+MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_cia(void);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ciaa`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int (*MR_CSharp_ArrayMembers_Get_ciaa(const MR_CSharp_ArrayMembers *_this))[4];
+
+/// Returns the size of the array member of class `MR::CSharp::ArrayMembers` named `ciaa`. The size is `3`.
+MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_ciaa(void);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `s`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_s(const MR_CSharp_ArrayMembers *_this);
+
+/// Modifies a member variable of class `MR::CSharp::ArrayMembers` named `s`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `value` can not be null.
+/// If `value_end` is null, then `value` is assumed to be null-terminated.
+MR_C_API void MR_CSharp_ArrayMembers_Set_s(MR_CSharp_ArrayMembers *_this, const char *value, const char *value_end);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `s`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_string *MR_CSharp_ArrayMembers_GetMutable_s(MR_CSharp_ArrayMembers *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `sa`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_sa(const MR_CSharp_ArrayMembers *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `sa`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_string *MR_CSharp_ArrayMembers_GetMutable_sa(MR_CSharp_ArrayMembers *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::ArrayMembers` named `sa`. The size is `2`.
+MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_sa(void);
+
+// std::string saa[3][4]; // The C generator doesn't support those yet. We'd need to expose them as flat arrays, with N size getters, I think?
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `cs`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_cs(const MR_CSharp_ArrayMembers *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `csa`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_csa(const MR_CSharp_ArrayMembers *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::ArrayMembers` named `csa`. The size is `2`.
+MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_csa(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ArrayMembers_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ArrayMembers_DestroyArray()`.
+/// Use `MR_CSharp_ArrayMembers_OffsetMutablePtr()` and `MR_CSharp_ArrayMembers_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_OffsetPtr(const MR_CSharp_ArrayMembers *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_OffsetMutablePtr(MR_CSharp_ArrayMembers *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ArrayMembers_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ArrayMembers *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ArrayMembers`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ArrayMembers_Destroy(const MR_CSharp_ArrayMembers *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ArrayMembers`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ArrayMembers_DestroyArray(const MR_CSharp_ArrayMembers *_this);
+
+/// Generated from function `MR::CSharp::test_optint`.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optint`, pass a null pointer to use it.
+/// Parameter `c` is a single object.
+/// Parameter `c` has a default argument: `default_optint`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_int_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_optional_int *MR_CSharp_test_optint(const int *a, const MR_C_std_optional_int *b, const MR_C_std_optional_int *c);
+
+/// Generated from function `MR::CSharp::test_optint_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optint`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_optional_int *MR_CSharp_test_optint_ref(MR_C_std_optional_int *a, MR_C_std_optional_int *b);
+
+/// Generated from function `MR::CSharp::test_optint_cref`.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optint`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_optional_int *MR_CSharp_test_optint_cref(const int *a, const MR_C_std_optional_int *b);
+
+/// Generated from function `MR::CSharp::test_optint_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optint`, pass a null pointer to use it.
+MR_C_API MR_C_std_optional_int *MR_CSharp_test_optint_ptr(MR_C_std_optional_int *a, MR_C_std_optional_int *b, MR_C_std_optional_int *const *c);
+
+/// Generated from function `MR::CSharp::test_optint_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optint`, pass a null pointer to use it.
+MR_C_API const MR_C_std_optional_int *MR_CSharp_test_optint_cptr(const MR_C_std_optional_int *a, const MR_C_std_optional_int *b, const MR_C_std_optional_int *const *c);
+
+/// Generated from function `MR::CSharp::test_optstr`.
+/// If `a_end` is null, then `a` is assumed to be null-terminated.
+/// Non-null `a_end` requires a non-null `a`.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer to both it and `a_end`.
+/// Parameter `b` has a default argument: `default_optstr`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `c` has a default argument: `default_optstr`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_std_string_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_optional_std_string *MR_CSharp_test_optstr(const char *a, const char *a_end, MR_C_PassBy b_pass_by, MR_C_std_optional_std_string *b, MR_C_PassBy c_pass_by, MR_C_std_optional_std_string *c);
+
+/// Generated from function `MR::CSharp::test_optstr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optstr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_optional_std_string *MR_CSharp_test_optstr_ref(MR_C_std_optional_std_string *a, MR_C_std_optional_std_string *b);
+
+/// Generated from function `MR::CSharp::test_optstr_cref`.
+/// If `a_end` is null, then `a` is assumed to be null-terminated.
+/// Non-null `a_end` requires a non-null `a`.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer to both it and `a_end`.
+/// Parameter `b` has a default argument: `default_optstr`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cref(const char *a, const char *a_end, MR_C_PassBy b_pass_by, MR_C_std_optional_std_string *b);
+
+/// Generated from function `MR::CSharp::test_optstr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optstr`, pass a null pointer to use it.
+MR_C_API MR_C_std_optional_std_string *MR_CSharp_test_optstr_ptr(MR_C_std_optional_std_string *a, MR_C_std_optional_std_string *b, MR_C_std_optional_std_string *const *c);
+
+/// Generated from function `MR::CSharp::test_optstr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optstr`, pass a null pointer to use it.
+MR_C_API const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cptr(const MR_C_std_optional_std_string *a, const MR_C_std_optional_std_string *b, const MR_C_std_optional_std_string *const *c);
+
+/// Generated from function `MR::CSharp::test_opttriv`.
+/// Parameter `a` is a single object.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_opttriv`, pass a null pointer to use it.
+/// Parameter `c` is a single object.
+/// Parameter `c` has a default argument: `default_opttriv`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_CSharp_Trivial_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv(const MR_CSharp_Trivial *a, const MR_C_std_optional_MR_CSharp_Trivial *b, const MR_C_std_optional_MR_CSharp_Trivial *c);
+
+/// Generated from function `MR::CSharp::test_opttriv_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_opttriv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_ref(MR_C_std_optional_MR_CSharp_Trivial *a, MR_C_std_optional_MR_CSharp_Trivial *b);
+
+/// Generated from function `MR::CSharp::test_opttriv_cref`.
+/// Parameter `a` is a single object.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_opttriv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_cref(const MR_CSharp_Trivial *a, const MR_C_std_optional_MR_CSharp_Trivial *b);
+
+/// Generated from function `MR::CSharp::test_opttriv_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_opttriv`, pass a null pointer to use it.
+MR_C_API MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_ptr(MR_C_std_optional_MR_CSharp_Trivial *a, MR_C_std_optional_MR_CSharp_Trivial *b, MR_C_std_optional_MR_CSharp_Trivial *const *c);
+
+/// Generated from function `MR::CSharp::test_opttriv_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_opttriv`, pass a null pointer to use it.
+MR_C_API const MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_cptr(const MR_C_std_optional_MR_CSharp_Trivial *a, const MR_C_std_optional_MR_CSharp_Trivial *b, const MR_C_std_optional_MR_CSharp_Trivial *const *c);
+
+/// Generated from function `MR::CSharp::test_optnontriv`.
+/// Parameter `a` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
+/// Parameter `b` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
+/// Parameter `b` has a default argument: `default_optnontriv`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Parameter `c` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
+/// Parameter `c` has a default argument: `default_optnontriv`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_CSharp_NonTrivial_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv(MR_C_PassBy a_pass_by, MR_CSharp_NonTrivial *a, MR_C_PassBy b_pass_by, MR_CSharp_NonTrivial *b, MR_C_PassBy c_pass_by, MR_CSharp_NonTrivial *c);
+
+/// Generated from function `MR::CSharp::test_optnontriv_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optnontriv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_ref(MR_C_std_optional_MR_CSharp_NonTrivial *a, MR_C_std_optional_MR_CSharp_NonTrivial *b);
+
+/// Generated from function `MR::CSharp::test_optnontriv_cref`.
+/// Parameter `a` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
+/// Parameter `b` is optional. To keep it empty, pass `MR_C_PassBy_NoObject` and a null pointer.
+/// Parameter `b` has a default argument: `default_optnontriv`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_cref(MR_C_PassBy a_pass_by, MR_CSharp_NonTrivial *a, MR_C_PassBy b_pass_by, MR_CSharp_NonTrivial *b);
+
+/// Generated from function `MR::CSharp::test_optnontriv_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optnontriv`, pass a null pointer to use it.
+MR_C_API MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_ptr(MR_C_std_optional_MR_CSharp_NonTrivial *a, MR_C_std_optional_MR_CSharp_NonTrivial *b, MR_C_std_optional_MR_CSharp_NonTrivial *const *c);
+
+/// Generated from function `MR::CSharp::test_optnontriv_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optnontriv`, pass a null pointer to use it.
+MR_C_API const MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_cptr(const MR_C_std_optional_MR_CSharp_NonTrivial *a, const MR_C_std_optional_MR_CSharp_NonTrivial *b, const MR_C_std_optional_MR_CSharp_NonTrivial *const *c);
+
+/// Generated from function `MR::CSharp::test_optshexp`.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optshexp`, pass a null pointer to use it.
+/// Parameter `c` is a single object.
+/// Parameter `c` has a default argument: `default_optshexp`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp(const MR_CSharp_ExposedLayoutSh *a, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *c);
+
+/// Generated from function `MR::CSharp::test_optshexp_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optshexp`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_ref(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *a, MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b);
+
+/// Generated from function `MR::CSharp::test_optshexp_cref`.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optshexp`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_cref(const MR_CSharp_ExposedLayoutSh *a, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b);
+
+/// Generated from function `MR::CSharp::test_optshexp_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optshexp`, pass a null pointer to use it.
+MR_C_API MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_ptr(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *a, MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b, MR_C_std_optional_MR_CSharp_ExposedLayoutSh *const *c);
+
+/// Generated from function `MR::CSharp::test_optshexp_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optshexp`, pass a null pointer to use it.
+MR_C_API const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_cptr(const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *a, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *const *c);
+
+/// Generated from function `MR::CSharp::test_optshtriv`.
+/// Parameter `a` is a single object.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optshtriv`, pass a null pointer to use it.
+/// Parameter `c` is a single object.
+/// Parameter `c` has a default argument: `default_optshtriv`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_CSharp_SA_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv(const MR_CSharp_SA *a, const MR_C_std_optional_MR_CSharp_SA *b, const MR_C_std_optional_MR_CSharp_SA *c);
+
+/// Generated from function `MR::CSharp::test_optshtriv_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optshtriv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_ref(MR_C_std_optional_MR_CSharp_SA *a, MR_C_std_optional_MR_CSharp_SA *b);
+
+/// Generated from function `MR::CSharp::test_optshtriv_cref`.
+/// Parameter `a` is a single object.
+/// Parameter `a` is optional. To keep it empty, pass a null pointer.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_optshtriv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_cref(const MR_CSharp_SA *a, const MR_C_std_optional_MR_CSharp_SA *b);
+
+/// Generated from function `MR::CSharp::test_optshtriv_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optshtriv`, pass a null pointer to use it.
+MR_C_API MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_ptr(MR_C_std_optional_MR_CSharp_SA *a, MR_C_std_optional_MR_CSharp_SA *b, MR_C_std_optional_MR_CSharp_SA *const *c);
+
+/// Generated from function `MR::CSharp::test_optshtriv_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_optshtriv`, pass a null pointer to use it.
+MR_C_API const MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_cptr(const MR_C_std_optional_MR_CSharp_SA *a, const MR_C_std_optional_MR_CSharp_SA *b, const MR_C_std_optional_MR_CSharp_SA *const *c);
+
+// Tag types:
+/// Generated from function `MR::CSharp::test_tag`.
+MR_C_API void MR_CSharp_test_tag(void);
+
+/// Generated from function `MR::CSharp::test_tag_cref`.
+MR_C_API void MR_CSharp_test_tag_cref(void);
+
+/// Generated from function `MR::CSharp::test_tag_ptr`.
+MR_C_API bool MR_CSharp_test_tag_ptr(void);
+
+/// Generated from function `MR::CSharp::test_tag_cptr`.
+MR_C_API bool MR_CSharp_test_tag_cptr(void);
+
+/// Generated from function `MR::CSharp::test_variant`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_variant`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_std_monostate_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant(const MR_C_std_variant_std_monostate_int_float *a, const MR_C_std_variant_std_monostate_int_float *b);
+
+/// Generated from function `MR::CSharp::test_variant_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_variant`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_ref(MR_C_std_variant_std_monostate_int_float *a, MR_C_std_variant_std_monostate_int_float *b);
+
+/// Generated from function `MR::CSharp::test_variant_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_variant`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_cref(const MR_C_std_variant_std_monostate_int_float *a, const MR_C_std_variant_std_monostate_int_float *b);
+
+/// Generated from function `MR::CSharp::test_variant_ptr`.
+/// Parameter `b` has a default argument: `&default_variant`, pass a null pointer to use it.
+MR_C_API MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_ptr(MR_C_std_variant_std_monostate_int_float *a, MR_C_std_variant_std_monostate_int_float *const *b);
+
+/// Generated from function `MR::CSharp::test_variant_cptr`.
+/// Parameter `b` has a default argument: `&default_variant`, pass a null pointer to use it.
+MR_C_API const MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_cptr(const MR_C_std_variant_std_monostate_int_float *a, const MR_C_std_variant_std_monostate_int_float *const *b);
+
+// Test a variant that has duplicate element types.
+/// Generated from function `MR::CSharp::test_variant_with_repeated_types`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_std_monostate_int_float_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_variant_std_monostate_int_float_float *MR_CSharp_test_variant_with_repeated_types(void);
+
+// Input and output streams:
+/// Generated from function `MR::CSharp::test_iostreams_ref`.
+/// Parameter `_1` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_ostream *MR_CSharp_test_iostreams_ref(MR_C_std_istream *_1);
+
+/// Generated from function `MR::CSharp::test_iostreams_ptr`.
+MR_C_API MR_C_std_ostream *MR_CSharp_test_iostreams_ptr(MR_C_std_istream *_1);
+
+/// Generated from function `MR::CSharp::test_iostreams_cref`.
+/// Parameter `_1` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_ostream *MR_CSharp_test_iostreams_cref(const MR_C_std_istream *_1);
+
+/// Generated from function `MR::CSharp::test_iostreams_cptr`.
+MR_C_API const MR_C_std_ostream *MR_CSharp_test_iostreams_cptr(const MR_C_std_istream *_1);
+
+/// Generated from function `MR::CSharp::test_uniqueptr`.
+/// Parameter `a` should point to a single object rather than to an array.
+/// Parameter `a` takes ownership of the passed pointer (if not null), and will later call `MR_C_Free()` on it automatically.
+/// Parameter `b` (after dereferencing) should point to a single object rather than to an array.
+/// Parameter `b` takes ownership of the (deferenced) passed pointer (if not null), and will later call `MR_C_Free()` on it automatically.
+/// Parameter `b` has a default argument: `std::move(default_uniqueptr)`, pass a null pointer to use it.
+/// The returned pointer is owning! If not null, it must be deallocated using `MR_C_Free().
+MR_C_API int *MR_CSharp_test_uniqueptr(int *a, int *const *b);
+
+/// Generated from function `MR::CSharp::test_uniqueptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_uniqueptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_ref(MR_C_std_unique_ptr_int *a, MR_C_std_unique_ptr_int *b);
+
+/// Generated from function `MR::CSharp::test_uniqueptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_uniqueptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_cref(const MR_C_std_unique_ptr_int *a, const MR_C_std_unique_ptr_int *b);
+
+/// Generated from function `MR::CSharp::test_uniqueptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_uniqueptr`, pass a null pointer to use it.
+MR_C_API MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_ptr(MR_C_std_unique_ptr_int *a, MR_C_std_unique_ptr_int *b, MR_C_std_unique_ptr_int *const *c);
+
+/// Generated from function `MR::CSharp::test_uniqueptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_uniqueptr`, pass a null pointer to use it.
+MR_C_API const MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_cptr(const MR_C_std_unique_ptr_int *a, const MR_C_std_unique_ptr_int *b, const MR_C_std_unique_ptr_int *const *c);
+
+/// Generated from function `MR::CSharp::test_plainarr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int (*MR_CSharp_test_plainarr_ref(int (*a)[42], int (*b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int (*MR_CSharp_test_plainarr_cref(const int (*a)[42], const int (*b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarr`, pass a null pointer to use it.
+MR_C_API int (*MR_CSharp_test_plainarr_ptr(int (*a)[42], int (*b)[42], int (*const *c)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarr`, pass a null pointer to use it.
+MR_C_API const int (*MR_CSharp_test_plainarr_cptr(const int (*a)[42], const int (*b)[42], const int (*const *c)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarr2_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarr2`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int (*MR_CSharp_test_plainarr2_ref(int (*a)[10][20], int (*b)[10][20]))[10][20];
+
+/// Generated from function `MR::CSharp::test_plainarr2_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarr2`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int (*MR_CSharp_test_plainarr2_cref(const int (*a)[10][20], const int (*b)[10][20]))[10][20];
+
+/// Generated from function `MR::CSharp::test_plainarr2_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarr2`, pass a null pointer to use it.
+MR_C_API int (*MR_CSharp_test_plainarr2_ptr(int (*a)[10][20], int (*b)[10][20], int (*const *c)[10][20]))[10][20];
+
+/// Generated from function `MR::CSharp::test_plainarr2_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarr2`, pass a null pointer to use it.
+MR_C_API const int (*MR_CSharp_test_plainarr2_cptr(const int (*a)[10][20], const int (*b)[10][20], const int (*const *c)[10][20]))[10][20];
+
+/// Generated from function `MR::CSharp::test_plainarrenum_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarrenum`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_ref(MR_CSharp_E1 (*a)[42], MR_CSharp_E1 (*b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarrenum_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarrenum`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_cref(const MR_CSharp_E1 (*a)[42], const MR_CSharp_E1 (*b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarrenum_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarrenum`, pass a null pointer to use it.
+MR_C_API MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_ptr(MR_CSharp_E1 (*a)[42], MR_CSharp_E1 (*b)[42], MR_CSharp_E1 (*const *c)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarrenum_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarrenum`, pass a null pointer to use it.
+MR_C_API const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_cptr(const MR_CSharp_E1 (*a)[42], const MR_CSharp_E1 (*b)[42], const MR_CSharp_E1 (*const *c)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_plainarrenum2_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarrenum2`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_ref(MR_CSharp_E1 (*a)[10][20], MR_CSharp_E1 (*b)[10][20]))[10][20];
+
+/// Generated from function `MR::CSharp::test_plainarrenum2_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_plainarrenum2`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_cref(const MR_CSharp_E1 (*a)[10][20], const MR_CSharp_E1 (*b)[10][20]))[10][20];
+
+/// Generated from function `MR::CSharp::test_plainarrenum2_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarrenum2`, pass a null pointer to use it.
+MR_C_API MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_ptr(MR_CSharp_E1 (*a)[10][20], MR_CSharp_E1 (*b)[10][20], MR_CSharp_E1 (*const *c)[10][20]))[10][20];
+
+/// Generated from function `MR::CSharp::test_plainarrenum2_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_plainarrenum2`, pass a null pointer to use it.
+MR_C_API const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_cptr(const MR_CSharp_E1 (*a)[10][20], const MR_CSharp_E1 (*b)[10][20], const MR_CSharp_E1 (*const *c)[10][20]))[10][20];
+
+// Some multi-level pointer madness:
+/// Generated from function `MR::CSharp::test_ptrs1`.
+/// Parameter `ref` can not be null. It is a single object.
+MR_C_API int (**MR_CSharp_test_ptrs1(int (**ptr)[42], int (**ref)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_ptrs2`.
+/// Parameter `ref` can not be null. It is a single object.
+MR_C_API int (***MR_CSharp_test_ptrs2(int (***ptr)[42], int (***ref)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_intptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_intptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int **MR_CSharp_test_intptr_ref(int **a, int **b);
+
+/// Generated from function `MR::CSharp::test_intptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_intptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *const *MR_CSharp_test_intptr_cref(int *const *a, int *const *b);
+
+/// Generated from function `MR::CSharp::test_intptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_intptr`, pass a null pointer to use it.
+MR_C_API int **MR_CSharp_test_intptr_ptr(int **a, int **b, int **const *c);
+
+/// Generated from function `MR::CSharp::test_intptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_intptr`, pass a null pointer to use it.
+MR_C_API int *const *MR_CSharp_test_intptr_cptr(int *const *a, int *const *b, int *const *const *c);
+
+/// Generated from function `MR::CSharp::test_intcptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_intcptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int **MR_CSharp_test_intcptr_ref(const int **a, const int **b);
+
+/// Generated from function `MR::CSharp::test_intcptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_intcptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *const *MR_CSharp_test_intcptr_cref(const int *const *a, const int *const *b);
+
+/// Generated from function `MR::CSharp::test_intcptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_intcptr`, pass a null pointer to use it.
+MR_C_API const int **MR_CSharp_test_intcptr_ptr(const int **a, const int **b, const int **const *c);
+
+/// Generated from function `MR::CSharp::test_intcptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_intcptr`, pass a null pointer to use it.
+MR_C_API const int *const *MR_CSharp_test_intcptr_cptr(const int *const *a, const int *const *b, const int *const *const *c);
+
+/// Generated from function `MR::CSharp::test_intptrptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_intptrptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int ***MR_CSharp_test_intptrptr_ref(int ***a, int ***b);
+
+/// Generated from function `MR::CSharp::test_intptrptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_intptrptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int **const *MR_CSharp_test_intptrptr_cref(int **const *a, int **const *b);
+
+/// Generated from function `MR::CSharp::test_intptrptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_intptrptr`, pass a null pointer to use it.
+MR_C_API int ***MR_CSharp_test_intptrptr_ptr(int ***a, int ***b, int ***const *c);
+
+/// Generated from function `MR::CSharp::test_intptrptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_intptrptr`, pass a null pointer to use it.
+MR_C_API int **const *MR_CSharp_test_intptrptr_cptr(int **const *a, int **const *b, int **const *const *c);
+
+/// Generated from function `MR::CSharp::test_voidptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_voidptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API void **MR_CSharp_test_voidptr_ref(void **a, void **b);
+
+/// Generated from function `MR::CSharp::test_voidptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_voidptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API void *const *MR_CSharp_test_voidptr_cref(void *const *a, void *const *b);
+
+/// Generated from function `MR::CSharp::test_voidptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_voidptr`, pass a null pointer to use it.
+MR_C_API void **MR_CSharp_test_voidptr_ptr(void **a, void **b, void **const *c);
+
+/// Generated from function `MR::CSharp::test_voidptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_voidptr`, pass a null pointer to use it.
+MR_C_API void *const *MR_CSharp_test_voidptr_cptr(void *const *a, void *const *b, void *const *const *c);
+
+/// Generated from function `MR::CSharp::test_voidptrptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_voidptrptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API void ***MR_CSharp_test_voidptrptr_ref(void ***a, void ***b);
+
+/// Generated from function `MR::CSharp::test_voidptrptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_voidptrptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API void **const *MR_CSharp_test_voidptrptr_cref(void **const *a, void **const *b);
+
+/// Generated from function `MR::CSharp::test_voidptrptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_voidptrptr`, pass a null pointer to use it.
+MR_C_API void ***MR_CSharp_test_voidptrptr_ptr(void ***a, void ***b, void ***const *c);
+
+/// Generated from function `MR::CSharp::test_voidptrptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_voidptrptr`, pass a null pointer to use it.
+MR_C_API void **const *MR_CSharp_test_voidptrptr_cptr(void **const *a, void **const *b, void **const *const *c);
+
+/// Generated from function `MR::CSharp::test_arrptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_arrptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int (**MR_CSharp_test_arrptr_ref(int (**a)[42], int (**b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_arrptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_arrptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int (*const *MR_CSharp_test_arrptr_cref(int (*const *a)[42], int (*const *b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_arrptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_arrptr`, pass a null pointer to use it.
+MR_C_API int (**MR_CSharp_test_arrptr_ptr(int (**a)[42], int (**b)[42], int (**const *c)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_arrptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_arrptr`, pass a null pointer to use it.
+MR_C_API int (*const *MR_CSharp_test_arrptr_cptr(int (*const *a)[42], int (*const *b)[42], int (*const *const *c)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_arrcptr_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_arrcptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int (**MR_CSharp_test_arrcptr_ref(const int (**a)[42], const int (**b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_arrcptr_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_arrcptr`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int (*const *MR_CSharp_test_arrcptr_cref(const int (*const *a)[42], const int (*const *b)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_arrcptr_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_arrcptr`, pass a null pointer to use it.
+MR_C_API const int (**MR_CSharp_test_arrcptr_ptr(const int (**a)[42], const int (**b)[42], const int (**const *c)[42]))[42];
+
+/// Generated from function `MR::CSharp::test_arrcptr_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_arrcptr`, pass a null pointer to use it.
+MR_C_API const int (*const *MR_CSharp_test_arrcptr_cptr(const int (*const *a)[42], const int (*const *b)[42], const int (*const *const *c)[42]))[42];
+
+/// Returns a pointer to a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_NameConflicts_Get_name_conflicts(const MR_CSharp_NameConflicts *_this);
+
+/// Modifies a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_NameConflicts_Set_name_conflicts(MR_CSharp_NameConflicts *_this, int value);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_NameConflicts_GetMutable_name_conflicts(MR_CSharp_NameConflicts *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::NameConflicts` named `a`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_Get_a(const MR_CSharp_NameConflicts *_this);
+
+/// Modifies a member variable of class `MR::CSharp::NameConflicts` named `a`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `value` can not be null. It is a single object.
+MR_C_API void MR_CSharp_NameConflicts_Set_a(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts_A *value);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::NameConflicts` named `a`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_GetMutable_a(MR_CSharp_NameConflicts *_this);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_NameConflicts_DestroyArray()`.
+/// Use `MR_CSharp_NameConflicts_OffsetMutablePtr()` and `MR_CSharp_NameConflicts_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_DefaultConstructArray(size_t num_elems);
+
+/// Constructs `MR::CSharp::NameConflicts` elementwise.
+/// Parameter `a` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_ConstructFrom(int name_conflicts, const MR_CSharp_NameConflicts_A *a);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_OffsetPtr(const MR_CSharp_NameConflicts *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_OffsetMutablePtr(MR_CSharp_NameConflicts *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_ConstructFromAnother(const MR_CSharp_NameConflicts *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_NameConflicts`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_NameConflicts_Destroy(const MR_CSharp_NameConflicts *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_NameConflicts`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_NameConflicts_DestroyArray(const MR_CSharp_NameConflicts *_this);
+
+/// Generated from method `MR::CSharp::NameConflicts::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_AssignFromAnother(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts *_other);
+
+/// Generated from method `MR::CSharp::NameConflicts::name_Conflicts`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_NameConflicts_name_Conflicts(MR_CSharp_NameConflicts *_this);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_NameConflicts_A_DestroyArray()`.
+/// Use `MR_CSharp_NameConflicts_A_OffsetMutablePtr()` and `MR_CSharp_NameConflicts_A_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_OffsetPtr(const MR_CSharp_NameConflicts_A *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_OffsetMutablePtr(MR_CSharp_NameConflicts_A *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_ConstructFromAnother(const MR_CSharp_NameConflicts_A *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_NameConflicts_A`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_NameConflicts_A_Destroy(const MR_CSharp_NameConflicts_A *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_NameConflicts_A`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_NameConflicts_A_DestroyArray(const MR_CSharp_NameConflicts_A *_this);
+
+/// Generated from method `MR::CSharp::NameConflicts::A::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_AssignFromAnother(MR_CSharp_NameConflicts_A *_this, const MR_CSharp_NameConflicts_A *_other);
+
+/// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(MR_CSharp_NameConflictsExposed *_this);
+
+// Test how template arguments are added to function names when needed to avoid ambiguities.
+/// Generated from function `MR::CSharp::template_a<int>`.
+MR_C_API void MR_CSharp_template_a_int(int _1);
+
+// Test how template arguments are added to function names when needed to avoid ambiguities.
+/// Generated from function `MR::CSharp::template_a<float>`.
+MR_C_API void MR_CSharp_template_a_float(float _1);
+
+/// Generated from function `MR::CSharp::template_b<int>`.
+MR_C_API int MR_CSharp_template_b_int(void);
+
+/// Generated from function `MR::CSharp::template_b<float>`.
+MR_C_API float MR_CSharp_template_b_float(void);
+
+/// Generated from function `MR::CSharp::template_c<int>`.
+MR_C_API void MR_CSharp_template_c_int(void);
+
+/// Generated from function `MR::CSharp::template_c<float>`.
+MR_C_API void MR_CSharp_template_c_float(void);
+
+/// Generated from function `MR::CSharp::instantiate`.
+MR_C_API void MR_CSharp_instantiate(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_AmbiguousTemplates_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_AmbiguousTemplates_DestroyArray()`.
+/// Use `MR_CSharp_AmbiguousTemplates_OffsetMutablePtr()` and `MR_CSharp_AmbiguousTemplates_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_OffsetPtr(const MR_CSharp_AmbiguousTemplates *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_OffsetMutablePtr(MR_CSharp_AmbiguousTemplates *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::AmbiguousTemplates::AmbiguousTemplates`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_AmbiguousTemplates_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_ConstructFromAnother(const MR_CSharp_AmbiguousTemplates *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_AmbiguousTemplates`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_AmbiguousTemplates_Destroy(const MR_CSharp_AmbiguousTemplates *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_AmbiguousTemplates`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_AmbiguousTemplates_DestroyArray(const MR_CSharp_AmbiguousTemplates *_this);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_AssignFromAnother(MR_CSharp_AmbiguousTemplates *_this, const MR_CSharp_AmbiguousTemplates *_other);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::template_a<int>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_AmbiguousTemplates_template_a_int(MR_CSharp_AmbiguousTemplates *_this, int _1);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::template_a<float>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_AmbiguousTemplates_template_a_float(MR_CSharp_AmbiguousTemplates *_this, float _1);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::template_b<int>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int MR_CSharp_AmbiguousTemplates_template_b_int(MR_CSharp_AmbiguousTemplates *_this);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::template_b<float>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API float MR_CSharp_AmbiguousTemplates_template_b_float(MR_CSharp_AmbiguousTemplates *_this);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::template_c<int>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_AmbiguousTemplates_template_c_int(MR_CSharp_AmbiguousTemplates *_this);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::template_c<float>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_AmbiguousTemplates_template_c_float(MR_CSharp_AmbiguousTemplates *_this);
+
+/// Generated from method `MR::CSharp::AmbiguousTemplates::instantiate`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_AmbiguousTemplates_instantiate(MR_CSharp_AmbiguousTemplates *_this);
+
+/// Generated from function `MR::CSharp::test_class_expected`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `std::expected<int, float>{42}`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_class_expected(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b);
+
+/// Generated from function `MR::CSharp::test_class_expected_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_class_expected_ref(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b);
+
+/// Generated from function `MR::CSharp::test_class_expected_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_int_float *MR_CSharp_test_class_expected_cref(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b);
+
+/// Generated from function `MR::CSharp::test_class_expected_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_class_expected_ptr(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b, MR_C_std_expected_int_float *const *c);
+
+/// Generated from function `MR::CSharp::test_class_expected_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_int_float *MR_CSharp_test_class_expected_cptr(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b, const MR_C_std_expected_int_float *const *c);
 
 #ifdef __cplusplus
 } // extern "C"

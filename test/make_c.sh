@@ -51,8 +51,8 @@ MRBIND_GEN_C_FLAGS=(
     --expose-as-struct MR::CSharp::ExposedLayout
     --expose-as-struct MR::CSharp::ExposedLayoutSh
     --expose-as-struct MR::CSharp::ExposedLayoutB
-    --expose-as-struct MR::CSharp::NameConflictsFieldExposed
-    --expose-as-struct MR::CSharp::NameConflictsMethodExposed
+    --expose-as-struct MR::CSharp::NameConflictsExposed
+    --expose-as-struct MR::CSharp::NameConflictsExposed::A
 )
 
 COMPILER_FLAGS=(
@@ -128,11 +128,12 @@ build/mrbind_gen_c \
     --input test/output_c_fixed_typedefs_64_only/parsed.json \
     --output-header-dir test/output_c_fixed_typedefs_64_only/include \
     --output-source-dir test/output_c_fixed_typedefs_64_only/source \
+    --output-desc-json test/output_c_fixed_typedefs_64_only/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --reject-long-and-long-long \
     --use-size_t-typedef-for-uint64_t \
     --bind-shared-ptr-virally \
-    --force-emit-common-helpers
+    --force-emit-common-helpers \
 
 
 "$CXX" \

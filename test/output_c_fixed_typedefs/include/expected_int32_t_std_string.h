@@ -34,17 +34,9 @@ MR_C_API MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_Defa
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_expected_int32_t_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_expected_int32_t_std_string *other);
 
-// Constructs a new instance.
-// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_expected_int32_t_std_string_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_ConstructFrom(MR_C_PassBy other_pass_by, MR_C_expected_int32_t_std_string *other);
-
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_expected_int32_t_std_string_AssignFromAnother(MR_C_expected_int32_t_std_string *_this, MR_C_PassBy other_pass_by, MR_C_expected_int32_t_std_string *other);
-
-// Assigns the contents.
-// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_expected_int32_t_std_string_AssignFrom(MR_C_expected_int32_t_std_string *_this, MR_C_PassBy other_pass_by, MR_C_expected_int32_t_std_string *other);
 
 // Destroys a heap-allocated instance of `MR_C_expected_int32_t_std_string`. Does nothing if the pointer is null.
 MR_C_API void MR_C_expected_int32_t_std_string_Destroy(const MR_C_expected_int32_t_std_string *_this);

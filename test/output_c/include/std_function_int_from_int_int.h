@@ -43,13 +43,27 @@ MR_C_API const MR_C_std_function_int_from_int_int *MR_C_std_function_int_from_in
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_function_int_from_int_int *MR_C_std_function_int_from_int_int_OffsetMutablePtr(MR_C_std_function_int_from_int_int *ptr, ptrdiff_t i);
 
+/// Construct a stateless function.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int_from_int_int_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_function_int_from_int_int *MR_C_std_function_int_from_int_int_ConstructStateless(int (*func)(int _1, int _2));
+
 /// Assign a stateless function.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_int_from_int_int_Assign(MR_C_std_function_int_from_int_int *_this, int (*func)(int _1, int _2));
 
-/// Assign a function with an extra user data pointer.
+/// Construct a function with an extra user data pointer.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int_from_int_int_Destroy()` to free it when you're done using it.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
+/// How to use `userdata_callback`:
+///   The `_this_userdata` parameter will never be null.
+///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.
+///   If `*_this_userdata` is     null and `_other_userdata` is non-null, a copy of the functor is being constructed. Perform copying if needed and write the new userdata to `*_this_userdata`.
+///   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.
+MR_C_API MR_C_std_function_int_from_int_int *MR_C_std_function_int_from_int_int_ConstructWithDataPtr(int (*func)(int _1, int _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata));
+
+/// Assign a function with an extra user data pointer.
 /// Parameter `_this` can not be null. It is a single object.
+/// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 /// How to use `userdata_callback`:
 ///   The `_this_userdata` parameter will never be null.
 ///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.

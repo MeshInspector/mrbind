@@ -304,9 +304,9 @@ void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
     );
 }
 
-void MR_TestSimpleTypes_CheckChar_char_ptr(char *_1)
+void MR_TestSimpleTypes_CheckCharMaybeUnsigned(char *_1)
 {
-    ::MR::TestSimpleTypes::CheckChar(
+    ::MR::TestSimpleTypes::CheckCharMaybeUnsigned(
         _1
     );
 }

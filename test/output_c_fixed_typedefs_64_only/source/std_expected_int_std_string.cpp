@@ -26,21 +26,7 @@ MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_ConstructFrom
     ));
 }
 
-MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_ConstructFrom(MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other)
-{
-    return (MR_C_std_expected_int_std_string *)new std::expected<int, std::string>(std::expected<int, std::string>(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(other, std::expected<int, std::string>))
-    ));
-}
-
 void MR_C_std_expected_int_std_string_AssignFromAnother(MR_C_std_expected_int_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other)
-{
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int, std::string> *)(_this)).operator=(
-        (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(other, std::expected<int, std::string>))
-    );
-}
-
-void MR_C_std_expected_int_std_string_AssignFrom(MR_C_std_expected_int_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int, std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(other, std::expected<int, std::string>))

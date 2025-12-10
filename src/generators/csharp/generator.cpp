@@ -2886,7 +2886,9 @@ namespace mrbind::CSharp
         std::string ret = std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
             {
-                return CppIdentifierToCSharpIdentifier(elem.name);
+                // Can't use `CppIdentifierToCSharpIdentifier(elem.name)`, since at the beginning of `Generate()`
+                //   we might replace `name` with `full_name` to disambiguate the names of templates, if necessary.
+                return CppToCSharpIdentifier(ParseNameOrThrow(elem.name));
             },
             [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
             {
@@ -4334,7 +4336,7 @@ namespace mrbind::CSharp
                     }
 
                     // Emit the nested types, if any.
-                    if (is_exposed_struct_by_value || IsConst())
+                    if (is_exposed_struct_by_value || (class_desc.kind != CInterop::ClassKind::exposed_struct && IsConst()))
                         EmitNestedClasses();
 
                     // Implement `IEquatable<T>` if needed.

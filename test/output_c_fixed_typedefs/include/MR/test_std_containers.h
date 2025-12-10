@@ -241,6 +241,10 @@ MR_C_API const MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_Of
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(MR_StdContainers_NonAssignable *ptr, ptrdiff_t i);
 
+// Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdContainers_NonAssignable *_other);
+
 // Destroys a heap-allocated instance of `MR_StdContainers_NonAssignable`. Does nothing if the pointer is null.
 MR_C_API void MR_StdContainers_NonAssignable_Destroy(const MR_StdContainers_NonAssignable *_this);
 

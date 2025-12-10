@@ -9,6 +9,11 @@ extern "C" {
 #endif
 
 
+typedef enum MR_UsingDecls_A_E
+{
+    MR_UsingDecls_A_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
+} MR_UsingDecls_A_E;
+
 // Test how `using` declarations import things.
 /// Generated from class `MR::UsingDecls::A`.
 /// Derived classes:
@@ -16,11 +21,6 @@ extern "C" {
 ///     `MR::UsingDecls::B`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_UsingDecls_A MR_UsingDecls_A;
-
-typedef enum MR_UsingDecls_A_E
-{
-    MR_UsingDecls_A_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
-} MR_UsingDecls_A_E;
 
 /// Generated from class `MR::UsingDecls::B`.
 /// Base classes:

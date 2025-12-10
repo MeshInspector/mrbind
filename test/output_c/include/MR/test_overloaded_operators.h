@@ -28,6 +28,18 @@ typedef struct MR_OverloadedOps_C MR_OverloadedOps_C;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_D MR_OverloadedOps_D;
 
+// Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
+/// Generated from constructor `MR::OverloadedOps::A::A`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_OverloadedOps_A *MR_OverloadedOps_A_ConstructFromAnother(const MR_OverloadedOps_A *_other);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetPtr(const MR_OverloadedOps_A *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetMutablePtr(MR_OverloadedOps_A *ptr, ptrdiff_t i);
+
 /// Destroys a heap-allocated instance of `MR_OverloadedOps_A`. Does nothing if the pointer is null.
 MR_C_API void MR_OverloadedOps_A_Destroy(const MR_OverloadedOps_A *_this);
 
@@ -287,12 +299,6 @@ MR_C_API int MR_OverloadedOps_A_call(MR_OverloadedOps_A *_this, const MR_Overloa
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API int MR_OverloadedOps_A_index(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_1);
-
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-MR_C_API const MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetPtr(const MR_OverloadedOps_A *ptr, ptrdiff_t i);
-
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-MR_C_API MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetMutablePtr(MR_OverloadedOps_A *ptr, ptrdiff_t i);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_B_Destroy()` to free it when you're done using it.

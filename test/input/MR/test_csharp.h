@@ -1107,6 +1107,23 @@ namespace MR::CSharp
         template_c<int>();
         template_c<float>();
     }
+
+    struct AmbiguousTemplates
+    {
+        template <typename T> void template_a(T) {}
+        template <typename T> T template_b() {return {};}
+        template <typename T> void template_c() {}
+
+        inline void instantiate()
+        {
+            template_a<int>({});
+            template_a<float>({});
+            template_b<int>();
+            template_b<float>();
+            template_c<int>();
+            template_c<float>();
+        }
+    };
 }
 
 

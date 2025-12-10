@@ -13,13 +13,6 @@ extern "C" {
 #endif
 
 
-// Here all classes are whitelisted using `--expose-as-struct`.
-// Generated from class `MR::DeclOrder::A`.
-typedef struct MR_DeclOrder_A
-{
-    int32_t blah;
-} MR_DeclOrder_A;
-
 typedef int32_t MR_DeclOrder_A_E;
 
 // Generated from class `MR::DeclOrder::A::B`.
@@ -27,6 +20,13 @@ typedef struct MR_DeclOrder_A_B
 {
     int32_t bleh;
 } MR_DeclOrder_A_B;
+
+// Here all classes are whitelisted using `--expose-as-struct`.
+// Generated from class `MR::DeclOrder::A`.
+typedef struct MR_DeclOrder_A
+{
+    int32_t blah;
+} MR_DeclOrder_A;
 
 // Generated from class `MR::DeclOrder::C<false>`.
 typedef struct MR_DeclOrder_C_false

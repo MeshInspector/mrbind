@@ -20,13 +20,13 @@ extern "C" {
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TypedefsInTemplates_A_int32_t MR_TypedefsInTemplates_A_int32_t;
 
-// Generated from class `MR::TypedefsInTemplates::B<int32_t>`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
-typedef struct MR_TypedefsInTemplates_B_int32_t MR_TypedefsInTemplates_B_int32_t;
-
 // Generated from class `MR::TypedefsInTemplates::B<int32_t>::BB<float>`.
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TypedefsInTemplates_B_int32_t_BB_float MR_TypedefsInTemplates_B_int32_t_BB_float;
+
+// Generated from class `MR::TypedefsInTemplates::B<int32_t>`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_TypedefsInTemplates_B_int32_t MR_TypedefsInTemplates_B_int32_t;
 
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int32_t_Destroy()` to free it when you're done using it.

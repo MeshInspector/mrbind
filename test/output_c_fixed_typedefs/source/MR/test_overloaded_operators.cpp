@@ -9,6 +9,23 @@
 #include <stdexcept>
 
 
+MR_OverloadedOps_A *MR_OverloadedOps_A_ConstructFromAnother(const MR_OverloadedOps_A *_other)
+{
+    return (MR_OverloadedOps_A *)new MR::OverloadedOps::A(MR::OverloadedOps::A(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::OverloadedOps::A(*(MR::OverloadedOps::A *)_other))
+    ));
+}
+
+const MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetPtr(const MR_OverloadedOps_A *ptr, ptrdiff_t i)
+{
+    return (const MR_OverloadedOps_A *)(((const MR::OverloadedOps::A *)ptr) + i);
+}
+
+MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetMutablePtr(MR_OverloadedOps_A *ptr, ptrdiff_t i)
+{
+    return (MR_OverloadedOps_A *)(((MR::OverloadedOps::A *)ptr) + i);
+}
+
 void MR_OverloadedOps_A_Destroy(const MR_OverloadedOps_A *_this)
 {
     delete ((const MR::OverloadedOps::A *)_this);
@@ -309,16 +326,6 @@ int32_t MR_OverloadedOps_A_index(MR_OverloadedOps_A *_this, const MR_OverloadedO
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OverloadedOps::A *)(_this)).operator[](
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::OverloadedOps::A(*(MR::OverloadedOps::A *)_1))
     );
-}
-
-const MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetPtr(const MR_OverloadedOps_A *ptr, ptrdiff_t i)
-{
-    return (const MR_OverloadedOps_A *)(((const MR::OverloadedOps::A *)ptr) + i);
-}
-
-MR_OverloadedOps_A *MR_OverloadedOps_A_OffsetMutablePtr(MR_OverloadedOps_A *ptr, ptrdiff_t i)
-{
-    return (MR_OverloadedOps_A *)(((MR::OverloadedOps::A *)ptr) + i);
 }
 
 MR_OverloadedOps_B *MR_OverloadedOps_B_DefaultConstruct(void)

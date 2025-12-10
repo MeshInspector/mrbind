@@ -54,6 +54,18 @@ MR_C_std_function_int32_t_from_int32_t_int32_t *MR_C_std_function_int32_t_from_i
     return (MR_C_std_function_int32_t_from_int32_t_int32_t *)(((std::function<int32_t(int32_t, int32_t)> *)ptr) + i);
 }
 
+MR_C_std_function_int32_t_from_int32_t_int32_t *MR_C_std_function_int32_t_from_int32_t_int32_t_ConstructStateless(int32_t (*func)(int32_t _1, int32_t _2))
+{
+    return (MR_C_std_function_int32_t_from_int32_t_int32_t *)new std::function<int32_t(int32_t, int32_t)>(func ? std::function<int32_t(int32_t, int32_t)>([_f = func](int32_t _1, int32_t _2) -> int32_t
+    {
+        decltype(auto) _return = _f(
+            _1,
+            _2
+        );
+        return _return;
+    }) : nullptr);
+}
+
 void MR_C_std_function_int32_t_from_int32_t_int32_t_Assign(MR_C_std_function_int32_t_from_int32_t_int32_t *_this, int32_t (*func)(int32_t _1, int32_t _2))
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(int32_t, int32_t)> *)(_this));
@@ -72,70 +84,66 @@ void MR_C_std_function_int32_t_from_int32_t_int32_t_Assign(MR_C_std_function_int
     };
 }
 
-void MR_C_std_function_int32_t_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_function_int32_t_from_int32_t_int32_t *_this, int32_t (*func)(int32_t _1, int32_t _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+namespace
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(int32_t, int32_t)> *)(_this));
-    if (!func)
-    {
-        _self = nullptr;
-        return;
-    }
-    
     struct _functor
     {
-        decltype(func) _func = nullptr;
+        using FuncPtr = int32_t (*)(int32_t _1, int32_t _2, void *_userdata);
+        using UserdataCbPtr = void (*)(void **_this_userdata, void *_other_userdata);
+
+        FuncPtr _func = nullptr;
         void *_userdata = nullptr;
-        decltype(userdata_callback) _userdata_cb = nullptr;
-    
-        _functor(decltype(func) _func, void *_userdata, decltype(userdata_callback) _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}
-    
-        _functor(const _functor &_other) : _func(_other._func), _userdata_cb(_other._userdata_cb)
+        UserdataCbPtr _userdata_cb = nullptr;
+
+        _functor(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}
+
+        _functor(const _functor &other) : _func(other._func), _userdata_cb(other._userdata_cb)
         {
-            if (!_other._userdata) return; // No data to copy.
-            if (!_userdata_cb) {_userdata = _other._userdata; return;} // No callback, just copy the data.
-            _userdata_cb(&_userdata, _other._userdata);
+            if (!other._userdata) return; // No data to copy.
+            if (!_userdata_cb) {_userdata = other._userdata; return;} // No callback, just copy the data.
+            _userdata_cb(&_userdata, other._userdata);
         }
-    
-        _functor(_functor &&_other) noexcept : _func(_other._func), _userdata(_other._userdata), _userdata_cb(_other._userdata_cb)
+
+        _functor(_functor &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)
         {
-            _other._func = nullptr;
-            _other._userdata = nullptr;
-            _other._userdata_cb = nullptr;
+            other._func = nullptr;
+            other._userdata = nullptr;
+            other._userdata_cb = nullptr;
         }
-    
-        _functor &operator=(const _functor &_other)
+
+        _functor &operator=(const _functor &other)
         {
-            if (_userdata_cb && _userdata_cb != _other._userdata_cb) // Callback exists but incompatible, destroy the old contents first.
+            if (_userdata_cb && _userdata_cb != other._userdata_cb) // Callback exists but incompatible, destroy the old contents first.
             {
                 _userdata_cb(&_userdata, nullptr);
                 _userdata = nullptr; // Don't need to zero the callbacks, we'll overwrite them anyway.
             }
-            _func = _other._func;
-            _userdata_cb = _other._userdata_cb;
-            if (_other._userdata && _userdata_cb) // If we have data to copy and a callback, use the callback. The data must be non-null, otherwise the callback will confuse this for a copy construction.
-                _userdata_cb(&_userdata, _other._userdata);
+            _func = other._func;
+            _userdata_cb = other._userdata_cb;
+            if (other._userdata && _userdata_cb) // If we have data to copy and a callback, use the callback. The data must be non-null, otherwise the callback will confuse this for a copy construction.
+                _userdata_cb(&_userdata, other._userdata);
             else // Otherwise shallow-copy.
-                _userdata = _other._userdata;
+                _userdata = other._userdata;
             return *this;
         }
-    
-        _functor &operator=(_functor &&_other) noexcept
+
+        _functor &operator=(_functor &&other) noexcept
         {
-            _func = _other._func;
-            _userdata = _other._userdata;
-            _userdata_cb = _other._userdata_cb;
-            _other._func = nullptr;
-            _other._userdata = nullptr;
-            _other._userdata_cb = nullptr;
+            _func = other._func;
+            _userdata = other._userdata;
+            _userdata_cb = other._userdata_cb;
+            other._func = nullptr;
+            other._userdata = nullptr;
+            other._userdata_cb = nullptr;
             return *this;
         }
-    
+
         ~_functor()
         {
             if (_userdata && _userdata_cb)
                 _userdata_cb(&_userdata, nullptr);
         }
-    
+
         auto operator()(int32_t _1, int32_t _2) -> int32_t
         {
             decltype(auto) _return = _func(
@@ -146,6 +154,21 @@ void MR_C_std_function_int32_t_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_f
             return _return;
         }
     };
+}
+
+MR_C_std_function_int32_t_from_int32_t_int32_t *MR_C_std_function_int32_t_from_int32_t_int32_t_ConstructWithDataPtr(int32_t (*func)(int32_t _1, int32_t _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+{
+    return (MR_C_std_function_int32_t_from_int32_t_int32_t *)new std::function<int32_t(int32_t, int32_t)>(func ? std::function<int32_t(int32_t, int32_t)>(_functor{func, userdata, userdata_callback}) : nullptr);
+}
+
+void MR_C_std_function_int32_t_from_int32_t_int32_t_AssignWithDataPtr(MR_C_std_function_int32_t_from_int32_t_int32_t *_this, int32_t (*func)(int32_t _1, int32_t _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+{
+    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(int32_t, int32_t)> *)(_this));
+    if (!func)
+    {
+        _self = nullptr;
+        return;
+    }
     
     _self = _functor{func, userdata, userdata_callback};
 }

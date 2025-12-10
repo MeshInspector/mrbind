@@ -7,13 +7,6 @@ extern "C" {
 #endif
 
 
-// Here all classes are whitelisted using `--expose-as-struct`.
-/// Generated from class `MR::DeclOrder::A`.
-typedef struct MR_DeclOrder_A
-{
-    int blah;
-} MR_DeclOrder_A;
-
 typedef enum MR_DeclOrder_A_E
 {
     MR_DeclOrder_A_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
@@ -24,6 +17,13 @@ typedef struct MR_DeclOrder_A_B
 {
     int bleh;
 } MR_DeclOrder_A_B;
+
+// Here all classes are whitelisted using `--expose-as-struct`.
+/// Generated from class `MR::DeclOrder::A`.
+typedef struct MR_DeclOrder_A
+{
+    int blah;
+} MR_DeclOrder_A;
 
 /// Generated from class `MR::DeclOrder::C<false>`.
 typedef struct MR_DeclOrder_C_false

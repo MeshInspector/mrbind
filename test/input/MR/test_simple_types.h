@@ -86,7 +86,7 @@ namespace MR::TestSimpleTypes
 
 
     // Test all kinds of `char`.
-    void CheckChar(char *);
+    void CheckCharMaybeUnsigned(char *); // This needs a different name than the other two specifically in C#, since C# only has two byte types, signed and unsigned.
     void CheckChar(unsigned char *);
     void CheckChar(signed char *);
 

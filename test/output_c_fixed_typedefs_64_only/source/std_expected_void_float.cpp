@@ -23,21 +23,7 @@ MR_C_std_expected_void_float *MR_C_std_expected_void_float_ConstructFromAnother(
     ));
 }
 
-MR_C_std_expected_void_float *MR_C_std_expected_void_float_ConstructFrom(const MR_C_std_expected_void_float *other)
-{
-    return (MR_C_std_expected_void_float *)new std::expected<void, float>(std::expected<void, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)other))
-    ));
-}
-
 void MR_C_std_expected_void_float_AssignFromAnother(MR_C_std_expected_void_float *_this, const MR_C_std_expected_void_float *other)
-{
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<void, float> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)other))
-    );
-}
-
-void MR_C_std_expected_void_float_AssignFrom(MR_C_std_expected_void_float *_this, const MR_C_std_expected_void_float *other)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<void, float> *)(_this)).operator=(
         ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)other))

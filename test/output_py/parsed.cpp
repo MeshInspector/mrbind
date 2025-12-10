@@ -85,7 +85,22 @@ MB_FUNC(/*returns*/(std::shared_ptr<MR::A>), GetSharedPtrClass, GetSharedPtrClas
 MB_FUNC(/*returns*/(std::unique_ptr<MR::A>), GetUniquePtrClass, GetUniquePtrClass, (MR::GetUniquePtrClass), (MR::GetUniquePtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
 #endif
 #if MB_CHECK_FRAGMENT(14)
-MB_CLASS(struct, B, (MR::B), (MR,ns), /*is aggregate:*/0, "No weak pointers yet.\ninline std::weak_ptr<A> GetWeakPtrClass() {return std::make_shared<A>();}",
+MB_FUNC(/*returns*/(void), PassUniquePtr, PassUniquePtr, (MR::PassUniquePtr), (MR::PassUniquePtr), (MR,ns), /*not deprecated*/, "Weak pointers in parameters disable the entire function.", /*params:*/
+    ((std::unique_ptr<MR::A>), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+)
+#endif
+#if MB_CHECK_FRAGMENT(15)
+MB_FUNC(/*returns*/(void), PassUniquePtrLref, PassUniquePtrLref, (MR::PassUniquePtrLref), (MR::PassUniquePtrLref), (MR,ns), /*not deprecated*/, /*no comment*/, /*params:*/
+    ((std::unique_ptr<MR::A> &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+)
+#endif
+#if MB_CHECK_FRAGMENT(16)
+MB_FUNC(/*returns*/(void), PassUniquePtrRref, PassUniquePtrRref, (MR::PassUniquePtrRref), (MR::PassUniquePtrRref), (MR,ns), /*not deprecated*/, /*no comment*/, /*params:*/
+    ((std::unique_ptr<MR::A> &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+)
+#endif
+#if MB_CHECK_FRAGMENT(17)
+MB_CLASS(struct, B, (MR::B), (MR,ns), /*is aggregate:*/0, /*no comment*/,
     /*bases:*/
     ((MR::A), virtual)
     ,/*members:*/
@@ -105,7 +120,7 @@ MB_CLASS(struct, B, (MR::B), (MR,ns), /*is aggregate:*/0, "No weak pointers yet.
 )
 MB_END_CLASS(B)
 #endif
-#if MB_CHECK_FRAGMENT(15)
+#if MB_CHECK_FRAGMENT(18)
 MB_CLASS(struct, C, (MR::C), (MR,ns), /*is aggregate:*/0, /*no comment*/,
     /*bases:*/
     ((MR::B), /*not virtual*/)
@@ -128,83 +143,90 @@ MB_END_CLASS(C)
 #endif
 MB_END_NAMESPACE(MR, /*not inline*/, /*::*/)
 
-#if MB_CHECK_FRAGMENT_TYPES(16)
-MB_REGISTER_TYPE(16, /*name source: auto*/, MR::A)
-MB_REGISTER_TYPE_PARSED(16, /*name source: auto*/, MR::A)
-MB_REGISTER_TYPE_BASE(16, /*name source: auto*/, MR::A)
-MB_REGISTER_TYPE_RETURNED(16, /*name source: auto*/, MR::A &)
-MB_REGISTER_TYPE_PARAM(16, /*name source: auto*/, MR::A &&)
-MB_REGISTER_TYPE_RETURNED(16, /*name source: auto*/, std::shared_ptr<MR::A>)
-MB_REGISTER_TYPE_RETURNED(16, /*name source: auto*/, std::unique_ptr<MR::A>)
-#endif
-#if MB_CHECK_FRAGMENT_TYPES(17)
-MB_REGISTER_TYPE(17, /*name source: auto*/, MR::B)
-MB_REGISTER_TYPE_PARSED(17, /*name source: auto*/, MR::B)
-MB_REGISTER_TYPE_BASE(17, /*name source: auto*/, MR::B)
-MB_REGISTER_TYPE_RETURNED(17, /*name source: auto*/, MR::B &)
-MB_REGISTER_TYPE_PARAM(17, /*name source: auto*/, MR::B &&)
-#endif
-#if MB_CHECK_FRAGMENT_TYPES(18)
-MB_REGISTER_TYPE(18, /*name source: auto*/, MR::C)
-MB_REGISTER_TYPE_PARSED(18, /*name source: auto*/, MR::C)
-MB_REGISTER_TYPE_RETURNED(18, /*name source: auto*/, MR::C &)
-MB_REGISTER_TYPE_PARAM(18, /*name source: auto*/, MR::C &&)
-#endif
 #if MB_CHECK_FRAGMENT_TYPES(19)
-MB_REGISTER_TYPE(19, /*name source: auto*/, const MR::A)
-MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, const MR::A &)
+MB_REGISTER_TYPE(19, /*name source: auto*/, MR::A)
+MB_REGISTER_TYPE_PARSED(19, /*name source: auto*/, MR::A)
+MB_REGISTER_TYPE_BASE(19, /*name source: auto*/, MR::A)
+MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, MR::A &)
+MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, MR::A &&)
+MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, std::shared_ptr<MR::A>)
+MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, std::unique_ptr<MR::A>)
+MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, std::unique_ptr<MR::A>)
+MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, std::unique_ptr<MR::A> &)
+MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, std::unique_ptr<MR::A> &&)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(20)
-MB_REGISTER_TYPE(20, /*name source: auto*/, const MR::B)
-MB_REGISTER_TYPE_PARAM(20, /*name source: auto*/, const MR::B &)
+MB_REGISTER_TYPE(20, /*name source: auto*/, MR::B)
+MB_REGISTER_TYPE_PARSED(20, /*name source: auto*/, MR::B)
+MB_REGISTER_TYPE_BASE(20, /*name source: auto*/, MR::B)
+MB_REGISTER_TYPE_RETURNED(20, /*name source: auto*/, MR::B &)
+MB_REGISTER_TYPE_PARAM(20, /*name source: auto*/, MR::B &&)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(21)
-MB_REGISTER_TYPE(21, /*name source: auto*/, const MR::C)
-MB_REGISTER_TYPE_PARAM(21, /*name source: auto*/, const MR::C &)
+MB_REGISTER_TYPE(21, /*name source: auto*/, MR::C)
+MB_REGISTER_TYPE_PARSED(21, /*name source: auto*/, MR::C)
+MB_REGISTER_TYPE_RETURNED(21, /*name source: auto*/, MR::C &)
+MB_REGISTER_TYPE_PARAM(21, /*name source: auto*/, MR::C &&)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(22)
-MB_REGISTER_TYPE(22, /*name source: auto*/, int)
-MB_REGISTER_TYPE_RETURNED(22, /*name source: auto*/, std::unique_ptr<int>)
+MB_REGISTER_TYPE(22, /*name source: auto*/, const MR::A)
+MB_REGISTER_TYPE_PARAM(22, /*name source: auto*/, const MR::A &)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(23)
-MB_REGISTER_TYPE(23, /*name source: auto*/, std::array<int, 42>)
-MB_REGISTER_TYPE_RETURNED(23, /*name source: auto*/, std::array<int, 42>)
+MB_REGISTER_TYPE(23, /*name source: auto*/, const MR::B)
+MB_REGISTER_TYPE_PARAM(23, /*name source: auto*/, const MR::B &)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(24)
-MB_REGISTER_TYPE(24, /*name source: auto*/, std::map<int, float>)
-MB_REGISTER_TYPE_RETURNED(24, /*name source: auto*/, std::map<int, float>)
+MB_REGISTER_TYPE(24, /*name source: auto*/, const MR::C)
+MB_REGISTER_TYPE_PARAM(24, /*name source: auto*/, const MR::C &)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(25)
-MB_REGISTER_TYPE(25, /*name source: auto*/, std::multimap<int, float>)
-MB_REGISTER_TYPE_RETURNED(25, /*name source: auto*/, std::multimap<int, float>)
+MB_REGISTER_TYPE(25, /*name source: auto*/, int)
+MB_REGISTER_TYPE_RETURNED(25, /*name source: auto*/, std::unique_ptr<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(26)
-MB_REGISTER_TYPE(26, /*name source: auto*/, std::multiset<int>)
-MB_REGISTER_TYPE_RETURNED(26, /*name source: auto*/, std::multiset<int>)
+MB_REGISTER_TYPE(26, /*name source: auto*/, std::array<int, 42>)
+MB_REGISTER_TYPE_RETURNED(26, /*name source: auto*/, std::array<int, 42>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(27)
-MB_REGISTER_TYPE(27, /*name source: auto*/, std::set<int>)
-MB_REGISTER_TYPE_RETURNED(27, /*name source: auto*/, std::set<int>)
+MB_REGISTER_TYPE(27, /*name source: auto*/, std::map<int, float>)
+MB_REGISTER_TYPE_RETURNED(27, /*name source: auto*/, std::map<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(28)
-MB_REGISTER_TYPE(28, /*name source: auto*/, std::unordered_map<int, float>)
-MB_REGISTER_TYPE_RETURNED(28, /*name source: auto*/, std::unordered_map<int, float>)
+MB_REGISTER_TYPE(28, /*name source: auto*/, std::multimap<int, float>)
+MB_REGISTER_TYPE_RETURNED(28, /*name source: auto*/, std::multimap<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(29)
-MB_REGISTER_TYPE(29, /*name source: auto*/, std::unordered_multimap<int, float>)
-MB_REGISTER_TYPE_RETURNED(29, /*name source: auto*/, std::unordered_multimap<int, float>)
+MB_REGISTER_TYPE(29, /*name source: auto*/, std::multiset<int>)
+MB_REGISTER_TYPE_RETURNED(29, /*name source: auto*/, std::multiset<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(30)
-MB_REGISTER_TYPE(30, /*name source: auto*/, std::unordered_multiset<int>)
-MB_REGISTER_TYPE_RETURNED(30, /*name source: auto*/, std::unordered_multiset<int>)
+MB_REGISTER_TYPE(30, /*name source: auto*/, std::set<int>)
+MB_REGISTER_TYPE_RETURNED(30, /*name source: auto*/, std::set<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(31)
-MB_REGISTER_TYPE(31, /*name source: auto*/, std::unordered_set<int>)
-MB_REGISTER_TYPE_RETURNED(31, /*name source: auto*/, std::unordered_set<int>)
+MB_REGISTER_TYPE(31, /*name source: auto*/, std::unordered_map<int, float>)
+MB_REGISTER_TYPE_RETURNED(31, /*name source: auto*/, std::unordered_map<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(32)
-MB_REGISTER_TYPE(32, /*name source: auto*/, std::vector<int>)
-MB_REGISTER_TYPE_RETURNED(32, /*name source: auto*/, std::vector<int>)
+MB_REGISTER_TYPE(32, /*name source: auto*/, std::unordered_multimap<int, float>)
+MB_REGISTER_TYPE_RETURNED(32, /*name source: auto*/, std::unordered_multimap<int, float>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(33)
+MB_REGISTER_TYPE(33, /*name source: auto*/, std::unordered_multiset<int>)
+MB_REGISTER_TYPE_RETURNED(33, /*name source: auto*/, std::unordered_multiset<int>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(34)
+MB_REGISTER_TYPE(34, /*name source: auto*/, std::unordered_set<int>)
+MB_REGISTER_TYPE_RETURNED(34, /*name source: auto*/, std::unordered_set<int>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(35)
+MB_REGISTER_TYPE(35, /*name source: auto*/, std::vector<int>)
+MB_REGISTER_TYPE_RETURNED(35, /*name source: auto*/, std::vector<int>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(36)
+MB_REGISTER_TYPE(36, /*name source: auto*/, void)
+MB_REGISTER_TYPE_RETURNED(36, /*name source: auto*/, void)
 #endif
 
 MB_END_FILE
