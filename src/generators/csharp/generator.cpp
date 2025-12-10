@@ -3676,7 +3676,7 @@ namespace mrbind::CSharp
                     }
 
                     // The class header.
-                    file.WriteString(is_exposed_struct_by_value ? "public ref struct " : "public class ");
+                    file.WriteString(is_exposed_struct_by_value ? "public struct " : "public class ");
                     file.WriteString(unqual_csharp_name);
 
                     bool base_implements_any_iequatable = false;
@@ -3789,22 +3789,13 @@ namespace mrbind::CSharp
                                     ) +
                                     "}\n";
 
-                                // The `Equals(object?)` only makes sense if the class is not a `ref struct`, since an `object` can never point to one.
-                                // We still emit it to silence the warning, but it can't compare against that type.
-                                if (param_managed_kind == ManagedKind::never_managed)
-                                {
-                                    iequatable_generic_impl += "    // Skipping `" + param_type_without_nullable + "` because it can never be on the heap.\n";
-                                }
-                                else
-                                {
-                                    iequatable_generic_impl +=
-                                        "    if (other is " + param_type_without_nullable + ")\n" +
-                                        (
-                                            equal_is_method
-                                            ? "        return this.Equals((" + param_type_without_nullable + ")other);\n" // This should never be necessary...
-                                            : "        return this == (" + param_type_without_nullable + ")other;\n"
-                                        );
-                                }
+                                iequatable_generic_impl +=
+                                    "    if (other is " + param_type_without_nullable + ")\n" +
+                                    (
+                                        equal_is_method
+                                        ? "        return this.Equals((" + param_type_without_nullable + ")other);\n" // This should never be necessary...
+                                        : "        return this == (" + param_type_without_nullable + ")other;\n"
+                                    );
                             }
 
                             // Check the base too.
@@ -4546,7 +4537,7 @@ namespace mrbind::CSharp
 
                     file.WriteSeparatingNewline();
                     file.WriteString(
-                        "/// This is used as a function parameter when passing `" + mut_half_name + "` by value with a default argument, since `?` doesn't seem to work with `ref struct`.\n"
+                        "/// This is used as a function parameter when passing `" + mut_half_name + "` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.\n"
                         "/// Usage:\n"
                         "/// * Pass an instance of " + related_classes_list + " to copy it into the function.\n"
                         "/// * Pass `null` to use the default argument\n"

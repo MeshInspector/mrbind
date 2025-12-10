@@ -10117,7 +10117,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
-            public ref struct ExposedLayout
+            public struct ExposedLayout
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayout(Const_ExposedLayout other) => other.UnderlyingStruct;
@@ -10328,7 +10328,7 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_ExposedLayout` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_ExposedLayout` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ExposedLayout`/`Const_ExposedLayout` to copy it into the function.
             /// * Pass `null` to use the default argument
@@ -10722,7 +10722,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutSh`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
-            public ref struct ExposedLayoutSh
+            public struct ExposedLayoutSh
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutSh(Const_ExposedLayoutSh other) => other.UnderlyingStruct;
@@ -10951,7 +10951,7 @@ public static partial class MR
                 public static implicit operator _ByValue_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> arg) {return new(arg);}
             }
 
-            /// This is used as a function parameter when passing `Mut_ExposedLayoutSh` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_ExposedLayoutSh` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` to copy it into the function.
             /// * Pass `null` to use the default argument
@@ -11139,7 +11139,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public ref struct ExposedLayoutB
+            public struct ExposedLayoutB
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutB(Const_ExposedLayoutB other) => other.UnderlyingStruct;
@@ -11186,12 +11186,13 @@ public static partial class MR
                 {
                     if (other is null)
                         return false;
-                    // Skipping `MR.CS.CSharp.ExposedLayoutB` because it can never be on the heap.
+                    if (other is MR.CS.CSharp.ExposedLayoutB)
+                        return this == (MR.CS.CSharp.ExposedLayoutB)other;
                     return false;
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_ExposedLayoutB` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_ExposedLayoutB` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ExposedLayoutB`/`Const_ExposedLayoutB` to copy it into the function.
             /// * Pass `null` to use the default argument
@@ -11880,7 +11881,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 8)]
-            public ref struct NameConflictsExposed
+            public struct NameConflictsExposed
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator NameConflictsExposed(Const_NameConflictsExposed other) => other.UnderlyingStruct;
@@ -11986,7 +11987,7 @@ public static partial class MR
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the by-value version of the struct.
                 [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-                public ref struct A
+                public struct A
                 {
                     /// Copy contents from a wrapper class to this struct.
                     public static implicit operator A(Const_A other) => other.UnderlyingStruct;
@@ -12000,7 +12001,7 @@ public static partial class MR
                     public A(A _other) {this = _other;}
                 }
 
-                /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+                /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
                 /// Usage:
                 /// * Pass an instance of `Mut_A`/`Const_A` to copy it into the function.
                 /// * Pass `null` to use the default argument
@@ -12070,7 +12071,7 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_NameConflictsExposed` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_NameConflictsExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` to copy it into the function.
             /// * Pass `null` to use the default argument

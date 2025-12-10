@@ -83,7 +83,7 @@ public static partial class MR
             /// A fixed-size array of `int` of size 43.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 172)]
-            public ref struct Array_Int_43
+            public struct Array_Int_43
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator Array_Int_43(Const_Array_Int_43 other) => other.UnderlyingStruct;
@@ -97,7 +97,7 @@ public static partial class MR
                 public Array_Int_43(Array_Int_43 _other) {this = _other;}
             }
 
-            /// This is used as a function parameter when passing `Mut_Array_Int_43` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_Array_Int_43` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_Array_Int_43`/`Const_Array_Int_43` to copy it into the function.
             /// * Pass `null` to use the default argument

@@ -120,7 +120,7 @@ public static partial class MR
             /// Generated from class `MR::MatchingLayout::A`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 120)]
-            public ref struct A
+            public struct A
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator A(Const_A other) => other.UnderlyingStruct;
@@ -152,7 +152,7 @@ public static partial class MR
                 public A(A _other) {this = _other;}
             }
 
-            /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_A`/`Const_A` to copy it into the function.
             /// * Pass `null` to use the default argument
@@ -314,7 +314,7 @@ public static partial class MR
             /// Generated from class `MR::MatchingLayout::B`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 136)]
-            public ref struct B
+            public struct B
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator B(Const_B other) => other.UnderlyingStruct;
@@ -342,7 +342,7 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_B` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_B` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_B`/`Const_B` to copy it into the function.
             /// * Pass `null` to use the default argument

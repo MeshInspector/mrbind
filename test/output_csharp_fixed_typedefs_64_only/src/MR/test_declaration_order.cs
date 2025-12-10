@@ -102,7 +102,7 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::A`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public ref struct A
+            public struct A
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator A(Const_A other) => other.UnderlyingStruct;
@@ -232,7 +232,7 @@ public static partial class MR
                 /// Generated from class `MR::DeclOrder::A::B`.
                 /// This is the by-value version of the struct.
                 [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-                public ref struct B
+                public struct B
                 {
                     /// Copy contents from a wrapper class to this struct.
                     public static implicit operator B(Const_B other) => other.UnderlyingStruct;
@@ -268,7 +268,7 @@ public static partial class MR
                     }
                 }
 
-                /// This is used as a function parameter when passing `Mut_B` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+                /// This is used as a function parameter when passing `Mut_B` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
                 /// Usage:
                 /// * Pass an instance of `Mut_B`/`Const_B` to copy it into the function.
                 /// * Pass `null` to use the default argument
@@ -342,7 +342,7 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_A`/`Const_A` to copy it into the function.
             /// * Pass `null` to use the default argument
@@ -498,7 +498,7 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::C<false>`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public ref struct C_False
+            public struct C_False
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator C_False(Const_C_False other) => other.UnderlyingStruct;
@@ -523,7 +523,7 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_C_False` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_C_False` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_C_False`/`Const_C_False` to copy it into the function.
             /// * Pass `null` to use the default argument
@@ -679,7 +679,7 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::C<true>`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public ref struct C_True
+            public struct C_True
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator C_True(Const_C_True other) => other.UnderlyingStruct;
@@ -704,7 +704,7 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_C_True` by value with a default argument, since `?` doesn't seem to work with `ref struct`.
+            /// This is used as a function parameter when passing `Mut_C_True` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_C_True`/`Const_C_True` to copy it into the function.
             /// * Pass `null` to use the default argument
