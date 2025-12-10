@@ -338,6 +338,15 @@ namespace MR::CSharp
         IncrDecrH operator--(int) const {return {};}
     };
 
+    // Friend functions.
+    struct IncrDecrI
+    {
+        friend int operator++(IncrDecrI) {return 42;}
+        friend int operator++(IncrDecrI, int) {return 42;}
+        friend int operator--(IncrDecrI) {return 42;}
+        friend int operator--(IncrDecrI, int) {return 42;}
+    };
+
 
 
     // Test equality comparison.

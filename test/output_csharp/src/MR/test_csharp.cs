@@ -4292,6 +4292,144 @@ public static partial class MR
                 public static implicit operator _InOptConst_IncrDecrH(Const_IncrDecrH value) {return new(value);}
             }
 
+            // Friend functions.
+            /// Generated from class `MR::CSharp::IncrDecrI`.
+            /// This is the const half of the class.
+            public class Const_IncrDecrI : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_IncrDecrI(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IncrDecrI_Destroy(_Underlying *_this);
+                    __MR_CSharp_IncrDecrI_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IncrDecrI() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_IncrDecrI() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrI._Underlying *__MR_CSharp_IncrDecrI_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrI_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
+                public unsafe Const_IncrDecrI(MR.CS.CSharp.Const_IncrDecrI _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrI._Underlying *__MR_CSharp_IncrDecrI_ConstructFromAnother(MR.CS.CSharp.IncrDecrI._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrI_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator++`.
+                public unsafe void Incr()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
+                    extern static int __MR_C_incr_MR_CSharp_IncrDecrI(_Underlying *_1);
+                    int _unused_ret = __MR_C_incr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator++`.
+                public static unsafe IncrDecrI operator++(MR.CS.CSharp.Const_IncrDecrI _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
+                    extern static int __MR_C_incr_MR_CSharp_IncrDecrI(MR.CS.CSharp.Const_IncrDecrI._Underlying *_1);
+                    IncrDecrI _this_copy = new(_1);
+                    int _unused_ret = __MR_C_incr_MR_CSharp_IncrDecrI(_this_copy._UnderlyingPtr);
+                    return _this_copy;
+                }
+
+                /// Generated from function `MR::CSharp::operator--`.
+                public unsafe void Decr()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
+                    extern static int __MR_C_decr_MR_CSharp_IncrDecrI(_Underlying *_1);
+                    int _unused_ret = __MR_C_decr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator--`.
+                public static unsafe IncrDecrI operator--(MR.CS.CSharp.Const_IncrDecrI _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
+                    extern static int __MR_C_decr_MR_CSharp_IncrDecrI(MR.CS.CSharp.Const_IncrDecrI._Underlying *_1);
+                    IncrDecrI _this_copy = new(_1);
+                    int _unused_ret = __MR_C_decr_MR_CSharp_IncrDecrI(_this_copy._UnderlyingPtr);
+                    return _this_copy;
+                }
+            }
+
+            // Friend functions.
+            /// Generated from class `MR::CSharp::IncrDecrI`.
+            /// This is the non-const half of the class.
+            public class IncrDecrI : Const_IncrDecrI
+            {
+                internal unsafe IncrDecrI(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe IncrDecrI() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrI._Underlying *__MR_CSharp_IncrDecrI_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrI_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
+                public unsafe IncrDecrI(MR.CS.CSharp.Const_IncrDecrI _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrI._Underlying *__MR_CSharp_IncrDecrI_ConstructFromAnother(MR.CS.CSharp.IncrDecrI._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IncrDecrI_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrI::operator=`.
+                public unsafe MR.CS.CSharp.IncrDecrI Assign(MR.CS.CSharp.Const_IncrDecrI _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrI._Underlying *__MR_CSharp_IncrDecrI_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IncrDecrI._Underlying *_other);
+                    return new(__MR_CSharp_IncrDecrI_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `IncrDecrI` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrI`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrI`/`Const_IncrDecrI` directly.
+            public class _InOptMut_IncrDecrI
+            {
+                public IncrDecrI? Opt;
+
+                public _InOptMut_IncrDecrI() {}
+                public _InOptMut_IncrDecrI(IncrDecrI value) {Opt = value;}
+                public static implicit operator _InOptMut_IncrDecrI(IncrDecrI value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IncrDecrI` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrI`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IncrDecrI`/`Const_IncrDecrI` to pass it to the function.
+            public class _InOptConst_IncrDecrI
+            {
+                public Const_IncrDecrI? Opt;
+
+                public _InOptConst_IncrDecrI() {}
+                public _InOptConst_IncrDecrI(Const_IncrDecrI value) {Opt = value;}
+                public static implicit operator _InOptConst_IncrDecrI(Const_IncrDecrI value) {return new(value);}
+            }
+
             // Test equality comparison.
             /// Generated from class `MR::CSharp::EqualityA`.
             /// This is the const half of the class.

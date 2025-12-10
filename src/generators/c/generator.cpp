@@ -1771,6 +1771,7 @@ namespace mrbind::CBindings
                 .token = std::string(new_func.GetOverloadedOperatorToken()),
                 .name = qual_name_fixed_deco,
                 .full_name = full_qual_name_fixed_deco,
+                .is_post_incr_or_decr = new_func.IsPostIncrOrDecr(),
             };
         }
         else

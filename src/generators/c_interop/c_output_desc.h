@@ -319,6 +319,8 @@ namespace mrbind::CInterop
                 (std::string)(name)
                 // The function name with all qualifiers and with template arguments, if any. Otherwise equal to `name`.
                 (std::string)(full_name)
+
+                (bool)(is_post_incr_or_decr, false)
             )
         };
     }

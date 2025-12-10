@@ -4897,6 +4897,7 @@ namespace mrbind::CSharp
 
                                 auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();
                                 new_op.token = std::move(std::get<CInterop::FuncKinds::Operator>(func.var).token);
+                                new_op.is_post_incr_or_decr = std::get<CInterop::FuncKinds::Operator>(func.var).is_post_incr_or_decr;
 
                                 cl->methods.push_back(std::move(new_method));
 
