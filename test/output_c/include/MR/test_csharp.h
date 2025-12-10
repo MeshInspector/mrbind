@@ -397,6 +397,11 @@ typedef struct MR_CSharp_TestOpsC MR_CSharp_TestOpsC;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvOp MR_CSharp_ConvOp;
 
+// Conversion operators to references.
+/// Generated from class `MR::CSharp::ConvOpToRef`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ConvOpToRef MR_CSharp_ConvOpToRef;
+
 // Conversion constructors. Right now we only provide conversion operators for implicit ones,
 //   because I have no idea when the explicit ones could be useful.
 /// Generated from class `MR::CSharp::ConvCtor`.
@@ -4173,6 +4178,55 @@ MR_C_API float MR_CSharp_ConvOp_ConvertTo_float(MR_CSharp_ConvOp *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ConvOp *MR_CSharp_ConvOp_AssignFromAnother(MR_CSharp_ConvOp *_this, const MR_CSharp_ConvOp *_other);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvOpToRef_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ConvOpToRef_DestroyArray()`.
+/// Use `MR_CSharp_ConvOpToRef_OffsetMutablePtr()` and `MR_CSharp_ConvOpToRef_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_OffsetPtr(const MR_CSharp_ConvOpToRef *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_OffsetMutablePtr(MR_CSharp_ConvOpToRef *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvOpToRef_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_ConstructFromAnother(const MR_CSharp_ConvOpToRef *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ConvOpToRef`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvOpToRef_Destroy(const MR_CSharp_ConvOpToRef *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ConvOpToRef`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvOpToRef_DestroyArray(const MR_CSharp_ConvOpToRef *_this);
+
+// Not to a reference.
+/// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator int`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int MR_CSharp_ConvOpToRef_ConvertTo_int(MR_CSharp_ConvOpToRef *_this);
+
+// To a reference.
+/// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator float &`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API float *MR_CSharp_ConvOpToRef_ConvertTo_float_ref(MR_CSharp_ConvOpToRef *_this);
+
+// To a reference, explicit.
+/// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator unsigned short &`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API unsigned short *MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref(MR_CSharp_ConvOpToRef *_this);
+
+/// Generated from method `MR::CSharp::ConvOpToRef::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_AssignFromAnother(MR_CSharp_ConvOpToRef *_this, const MR_CSharp_ConvOpToRef *_other);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtor_Destroy()` to free it when you're done using it.

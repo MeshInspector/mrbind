@@ -9399,6 +9399,135 @@ public static partial class MR
                 public static implicit operator _InOptConst_ConvOp(Const_ConvOp value) {return new(value);}
             }
 
+            // Conversion operators to references.
+            /// Generated from class `MR::CSharp::ConvOpToRef`.
+            /// This is the const half of the class.
+            public class Const_ConvOpToRef : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_ConvOpToRef(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvOpToRef_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvOpToRef_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ConvOpToRef() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ConvOpToRef() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvOpToRef._Underlying *__MR_CSharp_ConvOpToRef_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvOpToRef_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
+                public unsafe Const_ConvOpToRef(MR.CS.CSharp.Const_ConvOpToRef _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvOpToRef._Underlying *__MR_CSharp_ConvOpToRef_ConstructFromAnother(MR.CS.CSharp.ConvOpToRef._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvOpToRef_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // Conversion operators to references.
+            /// Generated from class `MR::CSharp::ConvOpToRef`.
+            /// This is the non-const half of the class.
+            public class ConvOpToRef : Const_ConvOpToRef
+            {
+                internal unsafe ConvOpToRef(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ConvOpToRef() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvOpToRef._Underlying *__MR_CSharp_ConvOpToRef_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_ConvOpToRef_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
+                public unsafe ConvOpToRef(MR.CS.CSharp.Const_ConvOpToRef _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvOpToRef._Underlying *__MR_CSharp_ConvOpToRef_ConstructFromAnother(MR.CS.CSharp.ConvOpToRef._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvOpToRef_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                // Not to a reference.
+                /// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator int`.
+                public static unsafe implicit operator int(MR.CS.CSharp.ConvOpToRef _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConvertTo_int", ExactSpelling = true)]
+                    extern static int __MR_CSharp_ConvOpToRef_ConvertTo_int(MR.CS.CSharp.ConvOpToRef._Underlying *_this);
+                    return __MR_CSharp_ConvOpToRef_ConvertTo_int(_this._UnderlyingPtr);
+                }
+
+                // To a reference.
+                /// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator float &`.
+                public unsafe ref float ConvertTo_FloatRef()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConvertTo_float_ref", ExactSpelling = true)]
+                    extern static float *__MR_CSharp_ConvOpToRef_ConvertTo_float_ref(_Underlying *_this);
+                    return ref *__MR_CSharp_ConvOpToRef_ConvertTo_float_ref(_UnderlyingPtr);
+                }
+
+                // To a reference, explicit.
+                /// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator unsigned short &`.
+                public unsafe ref ushort ConvertTo_UnsignedShortRef()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref", ExactSpelling = true)]
+                    extern static ushort *__MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref(_Underlying *_this);
+                    return ref *__MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref(_UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::ConvOpToRef::operator=`.
+                public unsafe MR.CS.CSharp.ConvOpToRef Assign(MR.CS.CSharp.Const_ConvOpToRef _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvOpToRef._Underlying *__MR_CSharp_ConvOpToRef_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ConvOpToRef._Underlying *_other);
+                    return new(__MR_CSharp_ConvOpToRef_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `ConvOpToRef` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvOpToRef`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvOpToRef`/`Const_ConvOpToRef` directly.
+            public class _InOptMut_ConvOpToRef
+            {
+                public ConvOpToRef? Opt;
+
+                public _InOptMut_ConvOpToRef() {}
+                public _InOptMut_ConvOpToRef(ConvOpToRef value) {Opt = value;}
+                public static implicit operator _InOptMut_ConvOpToRef(ConvOpToRef value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ConvOpToRef` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvOpToRef`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvOpToRef`/`Const_ConvOpToRef` to pass it to the function.
+            public class _InOptConst_ConvOpToRef
+            {
+                public Const_ConvOpToRef? Opt;
+
+                public _InOptConst_ConvOpToRef() {}
+                public _InOptConst_ConvOpToRef(Const_ConvOpToRef value) {Opt = value;}
+                public static implicit operator _InOptConst_ConvOpToRef(Const_ConvOpToRef value) {return new(value);}
+            }
+
             // Conversion constructors. Right now we only provide conversion operators for implicit ones,
             //   because I have no idea when the explicit ones could be useful.
             /// Generated from class `MR::CSharp::ConvCtor`.

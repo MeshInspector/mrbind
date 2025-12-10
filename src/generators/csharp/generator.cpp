@@ -2527,7 +2527,13 @@ namespace mrbind::CSharp
                 }
 
                 // Write the return type.
-                if (!is_ctor && !(method && std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(method->var)))
+                if (
+                    // If not a constructor.
+                    !is_ctor &&
+                    // And not a conversion operator.
+                    // Note that we must check `is_overloaded_op_or_conv_op_from_this` to ensure that it's a valid conversion operator, and not one
+                    //   that got rewritten as a function, due to `IsOverloadableOpOrConvOp()` returning false.
+                    !(method && is_overloaded_op_or_conv_op_from_this && std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(method->var)))
                 {
                     if (csharp_type_for_copy_of_this)
                     {
@@ -2974,6 +2980,13 @@ namespace mrbind::CSharp
             },
             [&](const CInterop::MethodKinds::ConversionOperator &elem) -> std::string
             {
+                if (!IsOverloadableOpOrConvOp(&method))
+                {
+                    // If this some weird conversion operator that we can't emit, make it a function instead.
+
+                    return "ConvertTo_" + CppToCSharpIdentifier(ParseTypeOrThrow(method.ret.cpp_type));
+                }
+
                 // I guess we can just assemble the entire thing here?
                 return std::string(elem.is_explicit ? "explicit" : "implicit") + " operator " + GetReturnBinding(method.ret).csharp_return_type;
             },
@@ -3440,6 +3453,10 @@ namespace mrbind::CSharp
 
                 if (std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(method->var))
                 {
+                    // Make sure the C# return type isn't spelled with `ref`. C# doesn't allow conversions to `ref`s.
+                    if (GetReturnBinding(method->ret).csharp_return_type.starts_with("ref "))
+                        return false; // Don't bind this as a conversion operator.
+
                     // Make sure that we don't have a by-value this parameter and a non-copyable (and not trivially movable) class at the same time.
                     // Right now this is impossible, since the parser doesn't emit by-value `this` parameters, and we don't rewrite conversion
                     //   operators (which could create them) either, but this can be helpful in the future.

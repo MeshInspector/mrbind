@@ -5223,6 +5223,65 @@ MR_CSharp_ConvOp *MR_CSharp_ConvOp_AssignFromAnother(MR_CSharp_ConvOp *_this, co
     ));
 }
 
+MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_DefaultConstruct(void)
+{
+    return (MR_CSharp_ConvOpToRef *)new MR::CSharp::ConvOpToRef(MR::CSharp::ConvOpToRef());
+}
+
+MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ConvOpToRef *)(new MR::CSharp::ConvOpToRef[num_elems]{});
+}
+
+const MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_OffsetPtr(const MR_CSharp_ConvOpToRef *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ConvOpToRef *)(((const MR::CSharp::ConvOpToRef *)ptr) + i);
+}
+
+MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_OffsetMutablePtr(MR_CSharp_ConvOpToRef *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ConvOpToRef *)(((MR::CSharp::ConvOpToRef *)ptr) + i);
+}
+
+MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_ConstructFromAnother(const MR_CSharp_ConvOpToRef *_other)
+{
+    return (MR_CSharp_ConvOpToRef *)new MR::CSharp::ConvOpToRef(MR::CSharp::ConvOpToRef(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvOpToRef(*(MR::CSharp::ConvOpToRef *)_other))
+    ));
+}
+
+void MR_CSharp_ConvOpToRef_Destroy(const MR_CSharp_ConvOpToRef *_this)
+{
+    delete ((const MR::CSharp::ConvOpToRef *)_this);
+}
+
+void MR_CSharp_ConvOpToRef_DestroyArray(const MR_CSharp_ConvOpToRef *_this)
+{
+    delete[] ((const MR::CSharp::ConvOpToRef *)_this);
+}
+
+int32_t MR_CSharp_ConvOpToRef_ConvertTo_int32_t(MR_CSharp_ConvOpToRef *_this)
+{
+    return (int32_t)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this)));
+}
+
+float *MR_CSharp_ConvOpToRef_ConvertTo_float_ref(MR_CSharp_ConvOpToRef *_this)
+{
+    return &((float &)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this))));
+}
+
+uint16_t *MR_CSharp_ConvOpToRef_ConvertTo_uint16_t_ref(MR_CSharp_ConvOpToRef *_this)
+{
+    return &((uint16_t &)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this))));
+}
+
+MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_AssignFromAnother(MR_CSharp_ConvOpToRef *_this, const MR_CSharp_ConvOpToRef *_other)
+{
+    return (MR_CSharp_ConvOpToRef *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvOpToRef(*(MR::CSharp::ConvOpToRef *)_other))
+    ));
+}
+
 MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_DefaultConstruct(void)
 {
     return (MR_CSharp_ConvCtor *)new MR::CSharp::ConvCtor(MR::CSharp::ConvCtor());

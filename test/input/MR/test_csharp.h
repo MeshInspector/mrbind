@@ -708,6 +708,21 @@ namespace MR::CSharp
         explicit operator float() {return 43;}
     };
 
+    // Conversion operators to references.
+    class ConvOpToRef
+    {
+        float f = 0;
+        unsigned short s = 0;
+
+      public:
+        // Not to a reference.
+        operator int() {return 42;}
+        // To a reference.
+        operator float &() {return f;}
+        // To a reference, explicit.
+        explicit operator unsigned short &() {return s;}
+    };
+
     // Conversion constructors. Right now we only provide conversion operators for implicit ones,
     //   because I have no idea when the explicit ones could be useful.
     struct ConvCtor
