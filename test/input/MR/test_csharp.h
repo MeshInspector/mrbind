@@ -723,6 +723,7 @@ namespace MR::CSharp
         explicit operator unsigned short &() {return s;}
     };
 
+
     // Conversion constructors. Right now we only provide conversion operators for implicit ones,
     //   because I have no idea when the explicit ones could be useful.
     struct ConvCtor
@@ -732,6 +733,12 @@ namespace MR::CSharp
         ConvCtor(int, int) {}
         explicit ConvCtor(float) {}
         explicit ConvCtor(float, float) {}
+    };
+
+    // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
+    struct ConvCtorWithDefArg
+    {
+        ConvCtorWithDefArg(int = 42) {}
     };
 
 

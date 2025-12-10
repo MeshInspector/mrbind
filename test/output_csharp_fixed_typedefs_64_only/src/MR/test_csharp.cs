@@ -9705,6 +9705,124 @@ public static partial class MR
                 public static unsafe implicit operator _InOptConst_ConvCtor(int _1) {return new MR.CS.CSharp.ConvCtor(_1);}
             }
 
+            // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
+            /// Generated from class `MR::CSharp::ConvCtorWithDefArg`.
+            /// This is the const half of the class.
+            public class Const_ConvCtorWithDefArg : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_ConvCtorWithDefArg(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvCtorWithDefArg_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvCtorWithDefArg_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ConvCtorWithDefArg() {Dispose(false);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// Parameter `_1` defaults to `42`.
+                public unsafe Const_ConvCtorWithDefArg(int? _1 = null) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorWithDefArg._Underlying *__MR_CSharp_ConvCtorWithDefArg_Construct(int *_1);
+                    int __deref__1 = _1.GetValueOrDefault();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_Construct(_1.HasValue ? &__deref__1 : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// Parameter `_1` defaults to `42`.
+                public static unsafe implicit operator Const_ConvCtorWithDefArg(int? _1) {return new(_1);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                public unsafe Const_ConvCtorWithDefArg(MR.CS.CSharp.Const_ConvCtorWithDefArg _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorWithDefArg._Underlying *__MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(MR.CS.CSharp.ConvCtorWithDefArg._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
+            /// Generated from class `MR::CSharp::ConvCtorWithDefArg`.
+            /// This is the non-const half of the class.
+            public class ConvCtorWithDefArg : Const_ConvCtorWithDefArg
+            {
+                internal unsafe ConvCtorWithDefArg(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// Parameter `_1` defaults to `42`.
+                public unsafe ConvCtorWithDefArg(int? _1 = null) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorWithDefArg._Underlying *__MR_CSharp_ConvCtorWithDefArg_Construct(int *_1);
+                    int __deref__1 = _1.GetValueOrDefault();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_Construct(_1.HasValue ? &__deref__1 : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// Parameter `_1` defaults to `42`.
+                public static unsafe implicit operator ConvCtorWithDefArg(int? _1) {return new(_1);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                public unsafe ConvCtorWithDefArg(MR.CS.CSharp.Const_ConvCtorWithDefArg _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorWithDefArg._Underlying *__MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(MR.CS.CSharp.ConvCtorWithDefArg._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::ConvCtorWithDefArg::operator=`.
+                public unsafe MR.CS.CSharp.ConvCtorWithDefArg Assign(MR.CS.CSharp.Const_ConvCtorWithDefArg _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorWithDefArg._Underlying *__MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ConvCtorWithDefArg._Underlying *_other);
+                    return new(__MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `ConvCtorWithDefArg` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorWithDefArg`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorWithDefArg`/`Const_ConvCtorWithDefArg` directly.
+            public class _InOptMut_ConvCtorWithDefArg
+            {
+                public ConvCtorWithDefArg? Opt;
+
+                public _InOptMut_ConvCtorWithDefArg() {}
+                public _InOptMut_ConvCtorWithDefArg(ConvCtorWithDefArg value) {Opt = value;}
+                public static implicit operator _InOptMut_ConvCtorWithDefArg(ConvCtorWithDefArg value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ConvCtorWithDefArg` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorWithDefArg`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorWithDefArg`/`Const_ConvCtorWithDefArg` to pass it to the function.
+            public class _InOptConst_ConvCtorWithDefArg
+            {
+                public Const_ConvCtorWithDefArg? Opt;
+
+                public _InOptConst_ConvCtorWithDefArg() {}
+                public _InOptConst_ConvCtorWithDefArg(Const_ConvCtorWithDefArg value) {Opt = value;}
+                public static implicit operator _InOptConst_ConvCtorWithDefArg(Const_ConvCtorWithDefArg value) {return new(value);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// Parameter `_1` defaults to `42`.
+                public static unsafe implicit operator _InOptConst_ConvCtorWithDefArg(int? _1) {return new MR.CS.CSharp.ConvCtorWithDefArg(_1);}
+            }
+
             // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
             /// Generated from class `MR::CSharp::ConvCtorTrivial`.
             /// This is the const half of the class.

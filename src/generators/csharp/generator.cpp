@@ -2111,6 +2111,16 @@ namespace mrbind::CSharp
         return helpers_prefix + name;
     }
 
+    bool Generator::IsConvOpForCtor(EmitVariant emit_variant)
+    {
+        return
+            emit_variant == EmitVariant::conv_op_for_ctor ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper;
+    }
+
     std::vector<Generator::EmitVariant> Generator::GetMethodVariants(const CInterop::ClassMethod &method)
     {
         std::vector<EmitVariant> ret = {Generator::EmitVariant::regular};
@@ -2182,6 +2192,7 @@ namespace mrbind::CSharp
             [](const CInterop::ClassField::Accessor *) -> const CInterop::ClassMethod * {return nullptr;},
         }, any_func_like)),
         is_ctor(method && std::holds_alternative<CInterop::MethodKinds::Constructor>(method->var)),
+        is_conv_op_rewritten_from_ctor(IsConvOpForCtor(emit_variant)),
         is_property_get(csharp_name == "get"),
         is_property_set(csharp_name == "set"),
         is_property(is_property_get || is_property_set),
@@ -2401,6 +2412,15 @@ namespace mrbind::CSharp
                     this_param_strings = generator.GetParameterBinding(param, method_like && method_like->is_static, is_property_set && param_strings.size() == 1 ? std::optional<std::string>("value") : std::nullopt, in_exposed_struct);
                 }
 
+                // Remove default arguments from operator parameters, since they apparently have no effect, and C# warns on them.
+                // Note that right now we must be explicit with `is_conv_op_rewritten_from_ctor`,
+                //   since in that case `is_overloaded_op_or_conv_op_from_this` is not set.
+                if (is_overloaded_op_or_conv_op_from_this || is_conv_op_rewritten_from_ctor)
+                {
+                    for (auto &csharp_param : this_param_strings.csharp_decl_params)
+                        csharp_param.default_arg = {};
+                }
+
 
                 if (!this_param_strings.dllimport_decl_params.empty())
                 {
@@ -2500,11 +2520,7 @@ namespace mrbind::CSharp
                     ) ||
                     // A conversion operator generated from a constructor.
                     // Currently those happen to have `is_ctor == true`, so it has to be here.
-                    emit_variant == EmitVariant::conv_op_for_ctor ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper
+                    is_conv_op_rewritten_from_ctor
                 )
                 {
                     file.WriteString("static ");
@@ -2627,13 +2643,7 @@ namespace mrbind::CSharp
                     return;
                 }
 
-                if (
-                    emit_variant == EmitVariant::conv_op_for_ctor ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper
-                )
+                if (is_conv_op_rewritten_from_ctor)
                 {
                     file.WriteString(" {return new");
 
@@ -2899,13 +2909,7 @@ namespace mrbind::CSharp
             [&](const CInterop::MethodKinds::Constructor &elem) -> std::string
             {
                 // Rewriting the constructor to a conversion operator.
-                if (
-                    emit_variant == EmitVariant::conv_op_for_ctor ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
-                    emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper
-                )
+                if (IsConvOpForCtor(emit_variant))
                 {
                     // I guess we can just assemble the entire thing here?
                     std::string ret;

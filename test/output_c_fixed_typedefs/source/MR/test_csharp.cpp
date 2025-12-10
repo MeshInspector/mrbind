@@ -5356,6 +5356,54 @@ MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_AssignFromAnother(MR_CSharp_ConvCtor *_th
     ));
 }
 
+MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_Construct(const int32_t *_1)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_CSharp_ConvCtorWithDefArg *)new MR::CSharp::ConvCtorWithDefArg(MR::CSharp::ConvCtorWithDefArg(
+        (_1 ? *_1 : static_cast<int32_t>(42))
+    ));
+}
+
+MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ConvCtorWithDefArg *)(new MR::CSharp::ConvCtorWithDefArg[num_elems]{});
+}
+
+const MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_OffsetPtr(const MR_CSharp_ConvCtorWithDefArg *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ConvCtorWithDefArg *)(((const MR::CSharp::ConvCtorWithDefArg *)ptr) + i);
+}
+
+MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_OffsetMutablePtr(MR_CSharp_ConvCtorWithDefArg *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ConvCtorWithDefArg *)(((MR::CSharp::ConvCtorWithDefArg *)ptr) + i);
+}
+
+MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(const MR_CSharp_ConvCtorWithDefArg *_other)
+{
+    return (MR_CSharp_ConvCtorWithDefArg *)new MR::CSharp::ConvCtorWithDefArg(MR::CSharp::ConvCtorWithDefArg(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtorWithDefArg(*(MR::CSharp::ConvCtorWithDefArg *)_other))
+    ));
+}
+
+void MR_CSharp_ConvCtorWithDefArg_Destroy(const MR_CSharp_ConvCtorWithDefArg *_this)
+{
+    delete ((const MR::CSharp::ConvCtorWithDefArg *)_this);
+}
+
+void MR_CSharp_ConvCtorWithDefArg_DestroyArray(const MR_CSharp_ConvCtorWithDefArg *_this)
+{
+    delete[] ((const MR::CSharp::ConvCtorWithDefArg *)_this);
+}
+
+MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_CSharp_ConvCtorWithDefArg *_this, const MR_CSharp_ConvCtorWithDefArg *_other)
+{
+    return (MR_CSharp_ConvCtorWithDefArg *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorWithDefArg *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtorWithDefArg(*(MR::CSharp::ConvCtorWithDefArg *)_other))
+    ));
+}
+
 MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_DefaultConstruct(void)
 {
     return (MR_CSharp_ConvCtorTrivial *)new MR::CSharp::ConvCtorTrivial(MR::CSharp::ConvCtorTrivial());

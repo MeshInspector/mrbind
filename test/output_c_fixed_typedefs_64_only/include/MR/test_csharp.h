@@ -408,6 +408,11 @@ typedef struct MR_CSharp_ConvOpToRef MR_CSharp_ConvOpToRef;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtor MR_CSharp_ConvCtor;
 
+// Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
+/// Generated from class `MR::CSharp::ConvCtorWithDefArg`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ConvCtorWithDefArg MR_CSharp_ConvCtorWithDefArg;
+
 // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
 /// Generated from class `MR::CSharp::ConvCtorTrivial`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -4275,6 +4280,39 @@ MR_C_API void MR_CSharp_ConvCtor_DestroyArray(const MR_CSharp_ConvCtor *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_AssignFromAnother(MR_CSharp_ConvCtor *_this, const MR_CSharp_ConvCtor *_other);
+
+/// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+/// Parameter `_1` has a default argument: `42`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorWithDefArg_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_Construct(const int *_1);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ConvCtorWithDefArg_DestroyArray()`.
+/// Use `MR_CSharp_ConvCtorWithDefArg_OffsetMutablePtr()` and `MR_CSharp_ConvCtorWithDefArg_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_OffsetPtr(const MR_CSharp_ConvCtorWithDefArg *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_OffsetMutablePtr(MR_CSharp_ConvCtorWithDefArg *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorWithDefArg_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(const MR_CSharp_ConvCtorWithDefArg *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ConvCtorWithDefArg`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvCtorWithDefArg_Destroy(const MR_CSharp_ConvCtorWithDefArg *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ConvCtorWithDefArg`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvCtorWithDefArg_DestroyArray(const MR_CSharp_ConvCtorWithDefArg *_this);
+
+/// Generated from method `MR::CSharp::ConvCtorWithDefArg::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_CSharp_ConvCtorWithDefArg *_this, const MR_CSharp_ConvCtorWithDefArg *_other);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorTrivial_Destroy()` to free it when you're done using it.

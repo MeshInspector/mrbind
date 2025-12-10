@@ -599,6 +599,9 @@ namespace mrbind::CSharp
             less_to_greater_eq,
         };
 
+        // Returns true if this is one of `conv_op_for_ctor...` enum constants, including exactly `conv_op_for_ctor`.
+        [[nodiscard]] static bool IsConvOpForCtor(EmitVariant emit_variant);
+
         // For class methods, sometimes a single C++ method gets split into multiple C# methods.
         // Then this function will return more than one enum element, and you must apply `FuncLikeEmitter` separately to each of them.
         [[nodiscard]] std::vector<EmitVariant> GetMethodVariants(const CInterop::ClassMethod &method);
@@ -619,6 +622,7 @@ namespace mrbind::CSharp
             const CInterop::ClassMethod *method;
 
             const bool is_ctor;
+            const bool is_conv_op_rewritten_from_ctor;
             const bool is_property_get;
             const bool is_property_set;
             const bool is_property;
