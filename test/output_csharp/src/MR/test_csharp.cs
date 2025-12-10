@@ -14322,6 +14322,64 @@ public static partial class MR
                 return __MR_CSharp_test_arrcptr_cptr(a, b, c);
             }
 
+            // Test how template arguments are added to function names when needed to avoid ambiguities.
+            /// Generated from function `MR::CSharp::template_a<int>`.
+            public static void TemplateA(int _1)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_a_int", ExactSpelling = true)]
+                extern static void __MR_CSharp_template_a_int(int _1);
+                __MR_CSharp_template_a_int(_1);
+            }
+
+            // Test how template arguments are added to function names when needed to avoid ambiguities.
+            /// Generated from function `MR::CSharp::template_a<float>`.
+            public static void TemplateA(float _1)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_a_float", ExactSpelling = true)]
+                extern static void __MR_CSharp_template_a_float(float _1);
+                __MR_CSharp_template_a_float(_1);
+            }
+
+            /// Generated from function `MR::CSharp::template_b<int>`.
+            public static int TemplateB_Int()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_b_int", ExactSpelling = true)]
+                extern static int __MR_CSharp_template_b_int();
+                return __MR_CSharp_template_b_int();
+            }
+
+            /// Generated from function `MR::CSharp::template_b<float>`.
+            public static float TemplateB_Float()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_b_float", ExactSpelling = true)]
+                extern static float __MR_CSharp_template_b_float();
+                return __MR_CSharp_template_b_float();
+            }
+
+            /// Generated from function `MR::CSharp::template_c<int>`.
+            public static void TemplateC_Int()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_c_int", ExactSpelling = true)]
+                extern static void __MR_CSharp_template_c_int();
+                __MR_CSharp_template_c_int();
+            }
+
+            /// Generated from function `MR::CSharp::template_c<float>`.
+            public static void TemplateC_Float()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_c_float", ExactSpelling = true)]
+                extern static void __MR_CSharp_template_c_float();
+                __MR_CSharp_template_c_float();
+            }
+
+            /// Generated from function `MR::CSharp::instantiate`.
+            public static void Instantiate()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_instantiate", ExactSpelling = true)]
+                extern static void __MR_CSharp_instantiate();
+                __MR_CSharp_instantiate();
+            }
+
             /// Generated from function `MR::CSharp::test_class_expected`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
             public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpected(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)

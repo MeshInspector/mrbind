@@ -1090,6 +1090,23 @@ namespace MR::CSharp
         struct A {int x;};
         A a;
     };
+
+
+    // Test how template arguments are added to function names when needed to avoid ambiguities.
+
+    template <typename T> void template_a(T) {}
+    template <typename T> T template_b() {return {};}
+    template <typename T> void template_c() {}
+
+    inline void instantiate()
+    {
+        template_a<int>({});
+        template_a<float>({});
+        template_b<int>();
+        template_b<float>();
+        template_c<int>();
+        template_c<float>();
+    }
 }
 
 

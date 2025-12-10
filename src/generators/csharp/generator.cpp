@@ -4952,6 +4952,80 @@ namespace mrbind::CSharp
             std::erase_if(c_desc.functions, [&](const CInterop::Function &func){return funcs_to_erase.contains(&func);});
         }
 
+        { // Add templates to function and method names if necessary to remove ambiguities.
+            // For now we do this based on C++ types, not based on C# types, primarily because this is easier.
+
+            // Returns a string describing C++ parameter types of a function.
+            auto ParamsToString = [&](const CInterop::BasicFuncLike &func_like) -> std::string
+            {
+                std::string ret;
+                for (const CInterop::FuncParam &param : func_like.params)
+                {
+                    if (!ret.empty())
+                        ret += ", ";
+
+                    if (param.is_this_param)
+                        ret += "`this` ";
+
+                    ret += CppdeclToCode(param.cpp_type);
+                }
+                return ret;
+            };
+
+            { // Handle free functions.
+                // Maps method names to parameter lists to the number of times they are used.
+                std::unordered_map<std::string, std::unordered_map<std::string, int>> func_param_lists;
+
+                // Collect parameter list strings.
+                for (const auto &func : c_desc.functions)
+                {
+                    auto regular = std::get_if<CInterop::FuncKinds::Regular>(&func.var);
+                    if (!regular)
+                        continue;
+                    func_param_lists[regular->name][ParamsToString(func)]++;
+                }
+
+                // Adjust the names if needed.
+                for (auto &func : c_desc.functions)
+                {
+                    auto regular = std::get_if<CInterop::FuncKinds::Regular>(&func.var);
+                    if (!regular)
+                        continue;
+                    if (func_param_lists.at(regular->name).at(ParamsToString(func)) > 1)
+                        regular->name = regular->full_name;
+                }
+            }
+
+            // Now the same for all class methods.
+            for (auto it = c_desc.cpp_types.MutableMapBegin(); it != c_desc.cpp_types.MutableMapEnd(); ++it)
+            {
+                auto class_desc = std::get_if<CInterop::TypeKinds::Class>(&it->second.var);
+                if (!class_desc)
+                    continue; // Not a class.
+
+                std::unordered_map<std::string, std::unordered_map<std::string, int>> method_param_lists;
+
+                // Collect parameter list strings.
+                for (const auto &func : class_desc->methods)
+                {
+                    auto regular = std::get_if<CInterop::MethodKinds::Regular>(&func.var);
+                    if (!regular)
+                        continue;
+                    method_param_lists[regular->name][ParamsToString(func)]++;
+                }
+
+                // Adjust the names if needed.
+                for (auto &func : class_desc->methods)
+                {
+                    auto regular = std::get_if<CInterop::MethodKinds::Regular>(&func.var);
+                    if (!regular)
+                        continue;
+                    if (method_param_lists.at(regular->name).at(ParamsToString(func)) > 1)
+                        regular->name = regular->full_name;
+                }
+            }
+        }
+
         { // Adjust parameter names to not be C# keywords.
 
             static const std::unordered_set<std::string> csharp_keywords = {
