@@ -12651,6 +12651,31 @@ public static partial class MR
                 return *__MR_CSharp_test_int_cref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// Generated from function `MR::CSharp::test_int_rref`.
+            /// Parameter `b` defaults to `42`.
+            public static unsafe ref int TestIntRref(MR.CS.Misc._MoveRef _move_a, ref int a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.InOut<int>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_rref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_test_int_rref(int *a, int *b);
+                fixed (int *__ptr_a = &a)
+                {
+                    int __value_b = b is not null ? b.Value : default(int);
+                    var __ret = __MR_CSharp_test_int_rref(__ptr_a, b is not null ? &__value_b : null);
+                    if (b is not null) b.Value = __value_b;
+                    return ref *__ret;
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_int_crref`.
+            /// Parameter `b` defaults to `42`.
+            public static unsafe int TestIntCrref(MR.CS.Misc._MoveRef _move_a, int a, MR.CS.Misc._MoveRef _move_b = default, int? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_crref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_test_int_crref(int *a, int *b);
+                int __deref_b = b.GetValueOrDefault();
+                return *__MR_CSharp_test_int_crref(&a, b.HasValue ? &__deref_b : null);
+            }
+
             /// Generated from function `MR::CSharp::test_int_ptr`.
             /// Parameter `c` defaults to `&default_int`.
             public static unsafe MR.CS.Misc.Ref<int>? TestIntPtr(MR.CS.Misc.InOut<int>? a, MR.CS.Misc.InOut<int>? b = null, MR.CS.Misc._InOutOpt<int>? c = null)
@@ -12717,6 +12742,31 @@ public static partial class MR
                 return *__MR_CSharp_test_ushort_cref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// Generated from function `MR::CSharp::test_ushort_rref`.
+            /// Parameter `b` defaults to `(unsigned short&&)default_ushort`.
+            public static unsafe ref ushort TestUshortRref(MR.CS.Misc._MoveRef _move_a, ref ushort a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.InOut<ushort>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_rref", ExactSpelling = true)]
+                extern static ushort *__MR_CSharp_test_ushort_rref(ushort *a, ushort *b);
+                fixed (ushort *__ptr_a = &a)
+                {
+                    ushort __value_b = b is not null ? b.Value : default(ushort);
+                    var __ret = __MR_CSharp_test_ushort_rref(__ptr_a, b is not null ? &__value_b : null);
+                    if (b is not null) b.Value = __value_b;
+                    return ref *__ret;
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_ushort_crref`.
+            /// Parameter `b` defaults to `(unsigned short&&)default_ushort`.
+            public static unsafe ushort TestUshortCrref(MR.CS.Misc._MoveRef _move_a, ushort a, MR.CS.Misc._MoveRef _move_b = default, ushort? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_crref", ExactSpelling = true)]
+                extern static ushort *__MR_CSharp_test_ushort_crref(ushort *a, ushort *b);
+                ushort __deref_b = b.GetValueOrDefault();
+                return *__MR_CSharp_test_ushort_crref(&a, b.HasValue ? &__deref_b : null);
+            }
+
             /// Generated from function `MR::CSharp::test_ushort_ptr`.
             /// Parameter `c` defaults to `&default_ushort`.
             public static unsafe MR.CS.Misc.Ref<ushort>? TestUshortPtr(MR.CS.Misc.InOut<ushort>? a, MR.CS.Misc.InOut<ushort>? b = null, MR.CS.Misc._InOutOpt<ushort>? c = null)
@@ -12781,6 +12831,31 @@ public static partial class MR
                 extern static MR.CS.CSharp.E1 *__MR_CSharp_test_enum_cref_MR_CSharp_E1(MR.CS.CSharp.E1 *a, MR.CS.CSharp.E1 *b);
                 MR.CS.CSharp.E1 __deref_b = b.GetValueOrDefault();
                 return *__MR_CSharp_test_enum_cref_MR_CSharp_E1(&a, b.HasValue ? &__deref_b : null);
+            }
+
+            /// Generated from function `MR::CSharp::test_enum_rref`.
+            /// Parameter `b` defaults to `(MR::CSharp::E1&&)default_e1`.
+            public static unsafe ref MR.CS.CSharp.E1 TestEnumRref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.CSharp.E1 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.InOut<MR.CS.CSharp.E1>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_rref_MR_CSharp_E1", ExactSpelling = true)]
+                extern static MR.CS.CSharp.E1 *__MR_CSharp_test_enum_rref_MR_CSharp_E1(MR.CS.CSharp.E1 *a, MR.CS.CSharp.E1 *b);
+                fixed (MR.CS.CSharp.E1 *__ptr_a = &a)
+                {
+                    MR.CS.CSharp.E1 __value_b = b is not null ? b.Value : default(MR.CS.CSharp.E1);
+                    var __ret = __MR_CSharp_test_enum_rref_MR_CSharp_E1(__ptr_a, b is not null ? &__value_b : null);
+                    if (b is not null) b.Value = __value_b;
+                    return ref *__ret;
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_enum_crref`.
+            /// Parameter `b` defaults to `(MR::CSharp::E1&&)default_e1`.
+            public static unsafe MR.CS.CSharp.E1 TestEnumCrref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E1 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E1? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_crref_MR_CSharp_E1", ExactSpelling = true)]
+                extern static MR.CS.CSharp.E1 *__MR_CSharp_test_enum_crref_MR_CSharp_E1(MR.CS.CSharp.E1 *a, MR.CS.CSharp.E1 *b);
+                MR.CS.CSharp.E1 __deref_b = b.GetValueOrDefault();
+                return *__MR_CSharp_test_enum_crref_MR_CSharp_E1(&a, b.HasValue ? &__deref_b : null);
             }
 
             /// Generated from function `MR::CSharp::test_enum_ptr`.
@@ -12855,6 +12930,35 @@ public static partial class MR
                 return *__MR_CSharp_test_enum_cref_MR_CSharp_E2(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// Generated from function `MR::CSharp::test_enum_rref`.
+            /// Parameter `b` defaults to `(MR::CSharp::E2&&)default_e2`.
+            public static unsafe ref MR.CS.CSharp.E2 TestEnumRref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.CSharp.E2 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.InOut<MR.CS.CSharp.E2>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_rref_MR_CSharp_E2", ExactSpelling = true)]
+                extern static MR.CS.CSharp.E2 *__MR_CSharp_test_enum_rref_MR_CSharp_E2(MR.CS.CSharp.E2 *a, MR.CS.CSharp.E2 *b);
+                fixed (MR.CS.CSharp.E2 *__ptr_a = &a)
+                {
+                    if ((byte)a > 1) a = (MR.CS.CSharp.E2)1;
+                    MR.CS.CSharp.E2 __value_b = b is not null ? b.Value : default(MR.CS.CSharp.E2);
+                    if ((byte)__value_b > 1) __value_b = (MR.CS.CSharp.E2)1;
+                    var __ret = __MR_CSharp_test_enum_rref_MR_CSharp_E2(__ptr_a, b is not null ? &__value_b : null);
+                    if (b is not null) b.Value = __value_b;
+                    return ref *__ret;
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_enum_crref`.
+            /// Parameter `b` defaults to `(MR::CSharp::E2&&)default_e2`.
+            public static unsafe MR.CS.CSharp.E2 TestEnumCrref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E2 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E2? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_crref_MR_CSharp_E2", ExactSpelling = true)]
+                extern static MR.CS.CSharp.E2 *__MR_CSharp_test_enum_crref_MR_CSharp_E2(MR.CS.CSharp.E2 *a, MR.CS.CSharp.E2 *b);
+                if ((byte)a > 1) a = (MR.CS.CSharp.E2)1;
+                MR.CS.CSharp.E2 __deref_b = b.GetValueOrDefault();
+                if ((byte)__deref_b > 1) __deref_b = (MR.CS.CSharp.E2)1;
+                return *__MR_CSharp_test_enum_crref_MR_CSharp_E2(&a, b.HasValue ? &__deref_b : null);
+            }
+
             /// Generated from function `MR::CSharp::test_enum_ptr`.
             /// Parameter `c` defaults to `&default_e2`.
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.E2>? TestEnumPtr(MR.CS.Misc.InOut<MR.CS.CSharp.E2>? a, MR.CS.Misc.InOut<MR.CS.CSharp.E2>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.E2>? c = null)
@@ -12919,6 +13023,24 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_trivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// Generated from function `MR::CSharp::test_class_trivial_rref`.
+            /// Parameter `b` defaults to `(MR::CSharp::Trivial&&)default_trivial`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Trivial> TestClassTrivialRref(MR.CS.Misc._Moved<MR.CS.CSharp.Trivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Trivial>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_rref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Trivial._Underlying *__MR_CSharp_test_class_trivial_rref(MR.CS.CSharp.Trivial._Underlying *a, MR.CS.CSharp.Trivial._Underlying *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Trivial(__MR_CSharp_test_class_trivial_rref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
+            }
+
+            /// Generated from function `MR::CSharp::test_class_trivial_crref`.
+            /// Parameter `b` defaults to `(MR::CSharp::Trivial&&)default_trivial`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial> TestClassTrivialCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_crref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_CSharp_test_class_trivial_crref(MR.CS.CSharp.Const_Trivial._Underlying *a, MR.CS.CSharp.Const_Trivial._Underlying *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Const_Trivial(__MR_CSharp_test_class_trivial_crref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
+            }
+
             /// Generated from function `MR::CSharp::test_class_trivial_ptr`.
             /// Parameter `c` defaults to `&default_trivial`.
             public static unsafe MR.CS.CSharp.Trivial? TestClassTrivialPtr(MR.CS.CSharp.Trivial? a, MR.CS.CSharp.Trivial? b = null, MR.CS.CSharp._InOptMut_Trivial? c = null)
@@ -12943,11 +13065,11 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_nontrivial`.
             /// Parameter `b` defaults to `{}`.
-            public static unsafe MR.CS.CSharp.NonTrivial TestClassNontrivial(MR.CS.CSharp._ByValue_NonTrivial a, MR.CS.CSharp._ByValue_NonTrivial? b = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> TestClassNontrivial(MR.CS.CSharp._ByValue_NonTrivial a, MR.CS.CSharp._ByValue_NonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial", ExactSpelling = true)]
                 extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.NonTrivial._Underlying *b);
-                return new(__MR_CSharp_test_class_nontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.NonTrivial(__MR_CSharp_test_class_nontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true));
             }
 
             /// Generated from function `MR::CSharp::test_class_nontrivial_ref`.
@@ -12966,6 +13088,24 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_cref(MR.CS.CSharp.Const_NonTrivial._Underlying *a, MR.CS.CSharp.Const_NonTrivial._Underlying *b);
                 return new(__MR_CSharp_test_class_nontrivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_class_nontrivial_rref`.
+            /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&&)default_nontrivial`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> TestClassNontrivialRref(MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_rref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_rref(MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.CSharp.NonTrivial._Underlying *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.NonTrivial(__MR_CSharp_test_class_nontrivial_rref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
+            }
+
+            /// Generated from function `MR::CSharp::test_class_nontrivial_crref`.
+            /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&&)default_nontrivial`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial> TestClassNontrivialCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_crref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_CSharp_test_class_nontrivial_crref(MR.CS.CSharp.Const_NonTrivial._Underlying *a, MR.CS.CSharp.Const_NonTrivial._Underlying *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Const_NonTrivial(__MR_CSharp_test_class_nontrivial_crref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
             }
 
             /// Generated from function `MR::CSharp::test_class_nontrivial_ptr`.
@@ -13019,11 +13159,11 @@ public static partial class MR
             // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
             /// Generated from function `MR::CSharp::test_shptr`.
             /// Parameter `b` defaults to `default_shptr`.
-            public static unsafe MR.CS.CSharp.SA TestShptr(MR.CS.CSharp._ByValue_SA a, MR.CS.CSharp._ByValue_SA? b = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShptr(MR.CS.CSharp._ByValue_SA a, MR.CS.CSharp._ByValue_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);
-                return new(__MR_CSharp_test_shptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true));
             }
 
             /// Generated from function `MR::CSharp::test_shptr_ref`.
@@ -13042,6 +13182,24 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.Const_SA._UnderlyingShared *__MR_CSharp_test_shptr_cref(MR.CS.CSharp.Const_SA._UnderlyingShared *a, MR.CS.CSharp.Const_SA._UnderlyingShared *b);
                 return new(__MR_CSharp_test_shptr_cref(a._UnderlyingSharedPtr, b is not null ? b._UnderlyingSharedPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_shptr_rref`.
+            /// Parameter `b` defaults to `(std::shared_ptr<MR::CSharp::SA>&&)default_shptr`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_rref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shptr_rref(MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.CSharp.SA._UnderlyingShared *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shptr_rref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
+            }
+
+            /// Generated from function `MR::CSharp::test_shptr_crref`.
+            /// Parameter `b` defaults to `(std::shared_ptr<MR::CSharp::SA>&&)default_shptr`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> TestShptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_crref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_SA._UnderlyingShared *__MR_CSharp_test_shptr_crref(MR.CS.CSharp.Const_SA._UnderlyingShared *a, MR.CS.CSharp.Const_SA._UnderlyingShared *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Const_SA(__MR_CSharp_test_shptr_crref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
             }
 
             /// Generated from function `MR::CSharp::test_shptr_ptr`.
@@ -13068,11 +13226,11 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shcptr`.
             /// Parameter `b` defaults to `default_shcptr`.
-            public static unsafe MR.CS.CSharp.SA TestShcptr(MR.CS.CSharp._ByValue_SA a, MR.CS.CSharp._ByValue_SA? b = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShcptr(MR.CS.CSharp._ByValue_SA a, MR.CS.CSharp._ByValue_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shcptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);
-                return new(__MR_CSharp_test_shcptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shcptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true));
             }
 
             /// Generated from function `MR::CSharp::test_shcptr_ref`.
@@ -13091,6 +13249,24 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.Const_SA._UnderlyingShared *__MR_CSharp_test_shcptr_cref(MR.CS.CSharp.Const_SA._UnderlyingShared *a, MR.CS.CSharp.Const_SA._UnderlyingShared *b);
                 return new(__MR_CSharp_test_shcptr_cref(a._UnderlyingSharedPtr, b is not null ? b._UnderlyingSharedPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_shcptr_rref`.
+            /// Parameter `b` defaults to `(std::shared_ptr<const MR::CSharp::SA>&&)default_shcptr`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShcptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_rref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shcptr_rref(MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.CSharp.SA._UnderlyingShared *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shcptr_rref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
+            }
+
+            /// Generated from function `MR::CSharp::test_shcptr_crref`.
+            /// Parameter `b` defaults to `(std::shared_ptr<const MR::CSharp::SA>&&)default_shcptr`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> TestShcptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_crref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_SA._UnderlyingShared *__MR_CSharp_test_shcptr_crref(MR.CS.CSharp.Const_SA._UnderlyingShared *a, MR.CS.CSharp.Const_SA._UnderlyingShared *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Const_SA(__MR_CSharp_test_shcptr_crref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
             }
 
             /// Generated from function `MR::CSharp::test_shcptr_ptr`.
@@ -13117,7 +13293,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_string`.
             /// Parameter `b` defaults to `default_string`.
-            public static unsafe MR.CS.Std.String TestString(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> TestString(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string", ExactSpelling = true)]
                 extern static MR.CS.Std.String._Underlying *__MR_CSharp_test_string(byte *a, byte *a_end, byte *b, byte *b_end);
@@ -13134,7 +13310,7 @@ public static partial class MR
                     }
                     fixed (byte *__ptr_b = __bytes_b)
                     {
-                        return new(__MR_CSharp_test_string(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: true);
+                        return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_CSharp_test_string(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: true));
                     }
                 }
             }
@@ -13275,7 +13451,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_fspath`.
             /// Parameter `b` defaults to `default_fspath`.
-            public static unsafe MR.CS.Std.Filesystem.Path TestFspath(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> TestFspath(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath", ExactSpelling = true)]
                 extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_CSharp_test_fspath(byte *a, byte *a_end, byte *b, byte *b_end);
@@ -13292,7 +13468,7 @@ public static partial class MR
                     }
                     fixed (byte *__ptr_b = __bytes_b)
                     {
-                        return new(__MR_CSharp_test_fspath(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: true);
+                        return MR.CS.Misc.Move(new MR.CS.Std.Filesystem.Path(__MR_CSharp_test_fspath(__ptr_a, __ptr_a + __len_a, b.HasValue ? __ptr_b : null, b.HasValue ? __ptr_b + __len_b : null), is_owning: true));
                     }
                 }
             }
@@ -13428,11 +13604,11 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_class_convnontrivial`.
             /// Parameter `b` defaults to `{}`.
-            public static unsafe MR.CS.CSharp.ConvCtorNonTrivial TestClassConvnontrivial(MR.CS.CSharp._ByValue_ConvCtorNonTrivial a, MR.CS.CSharp._ByValue_ConvCtorNonTrivial? b = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.ConvCtorNonTrivial> TestClassConvnontrivial(MR.CS.CSharp._ByValue_ConvCtorNonTrivial a, MR.CS.CSharp._ByValue_ConvCtorNonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConvCtorNonTrivial._Underlying *__MR_CSharp_test_class_convnontrivial(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.ConvCtorNonTrivial._Underlying *b);
-                return new(__MR_CSharp_test_class_convnontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.ConvCtorNonTrivial(__MR_CSharp_test_class_convnontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true));
             }
 
             /// Generated from function `MR::CSharp::test_class_convnontrivial_ref`.
@@ -13502,6 +13678,24 @@ public static partial class MR
                 return new(__MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// Generated from function `MR::CSharp::test_exposed_rref`.
+            /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&&)default_exposed`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Mut_ExposedLayout> TestExposedRref(MR.CS.Misc._Moved<MR.CS.CSharp.Mut_ExposedLayout> a, MR.CS.Misc._Moved<MR.CS.CSharp.Mut_ExposedLayout>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_rref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_CSharp_test_exposed_rref(MR.CS.CSharp.Mut_ExposedLayout._Underlying *a, MR.CS.CSharp.Mut_ExposedLayout._Underlying *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Mut_ExposedLayout(__MR_CSharp_test_exposed_rref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
+            }
+
+            /// Generated from function `MR::CSharp::test_exposed_crref`.
+            /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&&)default_exposed`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_ExposedLayout> TestExposedCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_ExposedLayout> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_ExposedLayout>? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_crref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_CSharp_test_exposed_crref(MR.CS.CSharp.Const_ExposedLayout._Underlying *a, MR.CS.CSharp.Const_ExposedLayout._Underlying *b);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Const_ExposedLayout(__MR_CSharp_test_exposed_crref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
+            }
+
             /// Generated from function `MR::CSharp::test_exposed_ptr`.
             /// Parameter `c` defaults to `&default_exposed`.
             public static unsafe MR.CS.CSharp.Mut_ExposedLayout? TestExposedPtr(MR.CS.CSharp.Mut_ExposedLayout? a, MR.CS.CSharp.Mut_ExposedLayout? b = null, MR.CS.CSharp._InOptMut_ExposedLayout? c = null)
@@ -13525,11 +13719,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::CSharp::make_exposed_sh`.
-            public static unsafe MR.CS.CSharp.Mut_ExposedLayoutSh MakeExposedSh()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Mut_ExposedLayoutSh> MakeExposedSh()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_make_exposed_sh", ExactSpelling = true)]
                 extern static MR.CS.CSharp.Mut_ExposedLayoutSh._UnderlyingShared *__MR_CSharp_make_exposed_sh();
-                return new(__MR_CSharp_make_exposed_sh(), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.CSharp.Mut_ExposedLayoutSh(__MR_CSharp_make_exposed_sh(), is_owning: true));
             }
 
             /// Generated from function `MR::CSharp::test_exposed`.
@@ -13636,7 +13830,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_optstr`.
             /// Parameter `b` defaults to `default_optstr`.
             /// Parameter `c` defaults to `default_optstr`.
-            public static unsafe MR.CS.Std.Optional_StdString TestOptstr(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std._ByValue_Optional_StdString? b = null, MR.CS.Std._ByValue_Optional_StdString? c = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_StdString> TestOptstr(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std._ByValue_Optional_StdString? b = null, MR.CS.Std._ByValue_Optional_StdString? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr", ExactSpelling = true)]
                 extern static MR.CS.Std.Optional_StdString._Underlying *__MR_CSharp_test_optstr(byte *a, byte *a_end, MR.CS.Misc._PassBy b_pass_by, MR.CS.Std.Optional_StdString._Underlying *b, MR.CS.Misc._PassBy c_pass_by, MR.CS.Std.Optional_StdString._Underlying *c);
@@ -13649,7 +13843,7 @@ public static partial class MR
                 }
                 fixed (byte *__ptr_a = __bytes_a)
                 {
-                    return new(__MR_CSharp_test_optstr(a.HasValue ? __ptr_a : null, a.HasValue ? __ptr_a + __len_a : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true);
+                    return MR.CS.Misc.Move(new MR.CS.Std.Optional_StdString(__MR_CSharp_test_optstr(a.HasValue ? __ptr_a : null, a.HasValue ? __ptr_a + __len_a : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true));
                 }
             }
 
@@ -13756,11 +13950,11 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_optnontriv`.
             /// Parameter `b` defaults to `default_optnontriv`.
             /// Parameter `c` defaults to `default_optnontriv`.
-            public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial TestOptnontriv(MR.CS.CSharp._ByValue_NonTrivial? a, MR.CS.CSharp._ByValueOptOpt_NonTrivial? b = null, MR.CS.CSharp._ByValueOptOpt_NonTrivial? c = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_MRCSharpNonTrivial> TestOptnontriv(MR.CS.CSharp._ByValue_NonTrivial? a, MR.CS.CSharp._ByValueOptOpt_NonTrivial? b = null, MR.CS.CSharp._ByValueOptOpt_NonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv", ExactSpelling = true)]
                 extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_CSharp_test_optnontriv(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.NonTrivial._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.NonTrivial._Underlying *b, MR.CS.Misc._PassBy c_pass_by, MR.CS.CSharp.NonTrivial._Underlying *c);
-                return new(__MR_CSharp_test_optnontriv(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.Std.Optional_MRCSharpNonTrivial(__MR_CSharp_test_optnontriv(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true));
             }
 
             /// Generated from function `MR::CSharp::test_optnontriv_ref`.
@@ -14081,6 +14275,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarr_ref`.
             /// Parameter `b` defaults to `default_plainarr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref MR.CS.ArrayInt42 TestPlainarrRef(ref MR.CS.ArrayInt42 a, MR.CS.ArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_ref", ExactSpelling = true)]
@@ -14093,6 +14288,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarr_cref`.
             /// Parameter `b` defaults to `default_plainarr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly MR.CS.ConstArrayInt42 TestPlainarrCref(ref readonly MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_cref", ExactSpelling = true)]
@@ -14100,6 +14296,32 @@ public static partial class MR
                 fixed (MR.CS.ConstArrayInt42 *__ptr_a = &a)
                 {
                     return ref *__MR_CSharp_test_plainarr_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr_rref`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray&&)default_plainarr`.
+            /// In C++ this function returns an rvalue reference.
+            public static unsafe ref MR.CS.ArrayInt42 TestPlainarrRref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ArrayInt42 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_rref", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt42 *__MR_CSharp_test_plainarr_rref(MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 *b);
+                fixed (MR.CS.ArrayInt42 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr_rref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr_crref`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray&&)default_plainarr`.
+            /// In C++ this function returns an rvalue reference.
+            public static unsafe ref readonly MR.CS.ConstArrayInt42 TestPlainarrCrref(MR.CS.Misc._MoveRef _move_a, ref readonly MR.CS.ConstArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt42 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_crref", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt42 *__MR_CSharp_test_plainarr_crref(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b);
+                fixed (MR.CS.ConstArrayInt42 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr_crref(__ptr_a, b);
                 }
             }
 
@@ -14123,6 +14345,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarr2_ref`.
             /// Parameter `b` defaults to `default_plainarr2`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref MR.CS.ArrayInt10_20 TestPlainarr2Ref(ref MR.CS.ArrayInt10_20 a, MR.CS.ArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_ref", ExactSpelling = true)]
@@ -14135,6 +14358,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarr2_cref`.
             /// Parameter `b` defaults to `default_plainarr2`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly MR.CS.ConstArrayInt10_20 TestPlainarr2Cref(ref readonly MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_cref", ExactSpelling = true)]
@@ -14142,6 +14366,32 @@ public static partial class MR
                 fixed (MR.CS.ConstArrayInt10_20 *__ptr_a = &a)
                 {
                     return ref *__MR_CSharp_test_plainarr2_cref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr2_rref`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&&)default_plainarr2`.
+            /// In C++ this function returns an rvalue reference.
+            public static unsafe ref MR.CS.ArrayInt10_20 TestPlainarr2Rref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ArrayInt10_20 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_rref", ExactSpelling = true)]
+                extern static MR.CS.ArrayInt10_20 *__MR_CSharp_test_plainarr2_rref(MR.CS.ArrayInt10_20 *a, MR.CS.ArrayInt10_20 *b);
+                fixed (MR.CS.ArrayInt10_20 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr2_rref(__ptr_a, b);
+                }
+            }
+
+            /// Generated from function `MR::CSharp::test_plainarr2_crref`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&&)default_plainarr2`.
+            /// In C++ this function returns an rvalue reference.
+            public static unsafe ref readonly MR.CS.ConstArrayInt10_20 TestPlainarr2Crref(MR.CS.Misc._MoveRef _move_a, ref readonly MR.CS.ConstArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt10_20 *b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_crref", ExactSpelling = true)]
+                extern static MR.CS.ConstArrayInt10_20 *__MR_CSharp_test_plainarr2_crref(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b);
+                fixed (MR.CS.ConstArrayInt10_20 *__ptr_a = &a)
+                {
+                    return ref *__MR_CSharp_test_plainarr2_crref(__ptr_a, b);
                 }
             }
 
@@ -14165,6 +14415,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarrenum_ref`.
             /// Parameter `b` defaults to `default_plainarrenum`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref MR.CS.CSharp.ArrayE1_42 TestPlainarrenumRef(ref MR.CS.CSharp.ArrayE1_42 a, MR.CS.CSharp.ArrayE1_42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_ref", ExactSpelling = true)]
@@ -14177,6 +14428,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarrenum_cref`.
             /// Parameter `b` defaults to `default_plainarrenum`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_42 TestPlainarrenumCref(ref readonly MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_cref", ExactSpelling = true)]
@@ -14207,6 +14459,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarrenum2_ref`.
             /// Parameter `b` defaults to `default_plainarrenum2`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref MR.CS.CSharp.ArrayE1_10_20 TestPlainarrenum2Ref(ref MR.CS.CSharp.ArrayE1_10_20 a, MR.CS.CSharp.ArrayE1_10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_ref", ExactSpelling = true)]
@@ -14219,6 +14472,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_plainarrenum2_cref`.
             /// Parameter `b` defaults to `default_plainarrenum2`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_10_20 TestPlainarrenum2Cref(ref readonly MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_cref", ExactSpelling = true)]
@@ -14272,6 +14526,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_intptr_ref`.
             /// Parameter `b` defaults to `default_intptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref int *TestIntptrRef(ref int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_ref", ExactSpelling = true)]
@@ -14284,6 +14539,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_intptr_cref`.
             /// Parameter `b` defaults to `default_intptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref int *TestIntptrCref(ref int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_cref", ExactSpelling = true)]
@@ -14314,6 +14570,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_intcptr_ref`.
             /// Parameter `b` defaults to `default_intcptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly int *TestIntcptrRef(ref readonly int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_ref", ExactSpelling = true)]
@@ -14326,6 +14583,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_intcptr_cref`.
             /// Parameter `b` defaults to `default_intcptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly int *TestIntcptrCref(ref readonly int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_cref", ExactSpelling = true)]
@@ -14356,6 +14614,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_intptrptr_ref`.
             /// Parameter `b` defaults to `default_intptrptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref int **TestIntptrptrRef(ref int **a, int ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_ref", ExactSpelling = true)]
@@ -14368,6 +14627,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_intptrptr_cref`.
             /// Parameter `b` defaults to `default_intptrptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref int **TestIntptrptrCref(ref int **a, int ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_cref", ExactSpelling = true)]
@@ -14398,6 +14658,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_voidptr_ref`.
             /// Parameter `b` defaults to `default_voidptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref void *TestVoidptrRef(ref void *a, void **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_ref", ExactSpelling = true)]
@@ -14410,6 +14671,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_voidptr_cref`.
             /// Parameter `b` defaults to `default_voidptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref void *TestVoidptrCref(ref void *a, void **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_cref", ExactSpelling = true)]
@@ -14440,6 +14702,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_voidptrptr_ref`.
             /// Parameter `b` defaults to `default_voidptrptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref void **TestVoidptrptrRef(ref void **a, void ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_ref", ExactSpelling = true)]
@@ -14452,6 +14715,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_voidptrptr_cref`.
             /// Parameter `b` defaults to `default_voidptrptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref void **TestVoidptrptrCref(ref void **a, void ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_cref", ExactSpelling = true)]
@@ -14482,6 +14746,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_arrptr_ref`.
             /// Parameter `b` defaults to `default_arrptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref MR.CS.ArrayInt42 *TestArrptrRef(ref MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_ref", ExactSpelling = true)]
@@ -14494,6 +14759,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_arrptr_cref`.
             /// Parameter `b` defaults to `default_arrptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref MR.CS.ArrayInt42 *TestArrptrCref(ref MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_cref", ExactSpelling = true)]
@@ -14524,6 +14790,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_arrcptr_ref`.
             /// Parameter `b` defaults to `default_arrcptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly MR.CS.ConstArrayInt42 *TestArrcptrRef(ref readonly MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_ref", ExactSpelling = true)]
@@ -14536,6 +14803,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_arrcptr_cref`.
             /// Parameter `b` defaults to `default_arrcptr`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref readonly MR.CS.ConstArrayInt42 *TestArrcptrCref(ref readonly MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_cref", ExactSpelling = true)]

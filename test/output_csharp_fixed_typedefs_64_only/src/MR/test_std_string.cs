@@ -37,11 +37,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::Get`.
-            public static unsafe MR.CS.Std.String Get()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> Get()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_Get", ExactSpelling = true)]
                 extern static MR.CS.Std.String._Underlying *__MR_StdString_Get();
-                return new(__MR_StdString_Get(), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_StdString_Get(), is_owning: true));
             }
 
             /// Generated from function `MR::StdString::WriteToRef`.

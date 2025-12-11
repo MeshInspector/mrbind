@@ -141,11 +141,11 @@ public static partial class MR
         }
 
         /// Generated from function `MR::foo`.
-        public static unsafe MR.CS.Std.Vector_MRA Foo()
+        public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRA> Foo()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_foo", ExactSpelling = true)]
             extern static MR.CS.Std.Vector_MRA._Underlying *__MR_foo();
-            return new(__MR_foo(), is_owning: true);
+            return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRA(__MR_foo(), is_owning: true));
         }
 
         /// Generated from function `MR::bar`.

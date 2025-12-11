@@ -5,11 +5,11 @@ public static partial class MR
         public static partial class StdFilesystem
         {
             /// Generated from function `MR::StdFilesystem::GetPath`.
-            public static unsafe MR.CS.Std.Filesystem.Path GetPath()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> GetPath()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_GetPath", ExactSpelling = true)]
                 extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_StdFilesystem_GetPath();
-                return new(__MR_StdFilesystem_GetPath(), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.Std.Filesystem.Path(__MR_StdFilesystem_GetPath(), is_owning: true));
             }
 
             /// Generated from function `MR::StdFilesystem::SetPath`.

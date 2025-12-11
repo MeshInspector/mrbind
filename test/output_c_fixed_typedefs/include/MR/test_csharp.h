@@ -542,6 +542,30 @@ MR_C_API int32_t *MR_CSharp_test_int_ref(int32_t *a, int32_t *b);
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_CSharp_test_int_cref(const int32_t *a, const int32_t *b);
 
+// Generated from function `MR::CSharp::test_int_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `42`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API int32_t *MR_CSharp_test_int_rref(int32_t *a, int32_t *b);
+
+// Generated from function `MR::CSharp::test_int_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `42`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const int32_t *MR_CSharp_test_int_crref(const int32_t *a, const int32_t *b);
+
 // Generated from function `MR::CSharp::test_int_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
 // Parameter `c` has a default argument: `&default_int`, pass a null pointer to use it.
@@ -569,6 +593,30 @@ MR_C_API uint16_t *MR_CSharp_test_ushort_ref(uint16_t *a, uint16_t *b);
 // Parameter `b` has a default argument: `default_ushort`, pass a null pointer to use it.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const uint16_t *MR_CSharp_test_ushort_cref(const uint16_t *a, const uint16_t *b);
+
+// Generated from function `MR::CSharp::test_ushort_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(unsigned short&&)default_ushort`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API uint16_t *MR_CSharp_test_ushort_rref(uint16_t *a, uint16_t *b);
+
+// Generated from function `MR::CSharp::test_ushort_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(unsigned short&&)default_ushort`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const uint16_t *MR_CSharp_test_ushort_crref(const uint16_t *a, const uint16_t *b);
 
 // Generated from function `MR::CSharp::test_ushort_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
@@ -598,6 +646,30 @@ MR_C_API MR_CSharp_E1 *MR_CSharp_test_enum_ref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_E1 *MR_CSharp_test_enum_cref_MR_CSharp_E1(const MR_CSharp_E1 *a, const MR_CSharp_E1 *b);
 
+// Generated from function `MR::CSharp::test_enum_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::E1&&)default_e1`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_CSharp_E1 *MR_CSharp_test_enum_rref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E1 *b);
+
+// Generated from function `MR::CSharp::test_enum_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::E1&&)default_e1`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_CSharp_E1 *MR_CSharp_test_enum_crref_MR_CSharp_E1(const MR_CSharp_E1 *a, const MR_CSharp_E1 *b);
+
 // Generated from function `MR::CSharp::test_enum_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
 // Parameter `c` has a default argument: `&default_e1`, pass a null pointer to use it.
@@ -625,6 +697,30 @@ MR_C_API MR_CSharp_E2 *MR_CSharp_test_enum_ref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_
 // Parameter `b` has a default argument: `default_e2`, pass a null pointer to use it.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_E2 *MR_CSharp_test_enum_cref_MR_CSharp_E2(const MR_CSharp_E2 *a, const MR_CSharp_E2 *b);
+
+// Generated from function `MR::CSharp::test_enum_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::E2&&)default_e2`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_CSharp_E2 *MR_CSharp_test_enum_rref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E2 *b);
+
+// Generated from function `MR::CSharp::test_enum_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::E2&&)default_e2`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_CSharp_E2 *MR_CSharp_test_enum_crref_MR_CSharp_E2(const MR_CSharp_E2 *a, const MR_CSharp_E2 *b);
 
 // Generated from function `MR::CSharp::test_enum_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
@@ -1182,6 +1278,30 @@ MR_C_API MR_CSharp_Trivial *MR_CSharp_test_class_trivial_ref(MR_CSharp_Trivial *
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_cref(const MR_CSharp_Trivial *a, const MR_CSharp_Trivial *b);
 
+// Generated from function `MR::CSharp::test_class_trivial_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::Trivial&&)default_trivial`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_CSharp_Trivial *MR_CSharp_test_class_trivial_rref(MR_CSharp_Trivial *a, MR_CSharp_Trivial *b);
+
+// Generated from function `MR::CSharp::test_class_trivial_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::Trivial&&)default_trivial`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_crref(const MR_CSharp_Trivial *a, const MR_CSharp_Trivial *b);
+
 // Generated from function `MR::CSharp::test_class_trivial_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
 // Parameter `c` has a default argument: `&default_trivial`, pass a null pointer to use it.
@@ -1270,6 +1390,30 @@ MR_C_API MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_ref(MR_CSharp_Non
 // Parameter `b` has a default argument: `default_nontrivial`, pass a null pointer to use it.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cref(const MR_CSharp_NonTrivial *a, const MR_CSharp_NonTrivial *b);
+
+// Generated from function `MR::CSharp::test_class_nontrivial_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::NonTrivial&&)default_nontrivial`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_rref(MR_CSharp_NonTrivial *a, MR_CSharp_NonTrivial *b);
+
+// Generated from function `MR::CSharp::test_class_nontrivial_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::NonTrivial&&)default_nontrivial`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_crref(const MR_CSharp_NonTrivial *a, const MR_CSharp_NonTrivial *b);
 
 // Generated from function `MR::CSharp::test_class_nontrivial_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
@@ -1435,6 +1579,30 @@ MR_C_API MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ref(MR_C_std_sha
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_cref(const MR_C_std_shared_ptr_MR_CSharp_SA *a, const MR_C_std_shared_ptr_MR_CSharp_SA *b);
 
+// Generated from function `MR::CSharp::test_shptr_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(std::shared_ptr<MR::CSharp::SA>&&)default_shptr`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_rref(MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_std_shared_ptr_MR_CSharp_SA *b);
+
+// Generated from function `MR::CSharp::test_shptr_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(std::shared_ptr<MR::CSharp::SA>&&)default_shptr`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_crref(const MR_C_std_shared_ptr_MR_CSharp_SA *a, const MR_C_std_shared_ptr_MR_CSharp_SA *b);
+
 // Generated from function `MR::CSharp::test_shptr_ptr`.
 // Parameter `b` has a default argument: `&default_shptr`, pass a null pointer to use it.
 MR_C_API MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ptr(MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_std_shared_ptr_MR_CSharp_SA *const *b);
@@ -1461,6 +1629,30 @@ MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_ref(MR_C_
 // Parameter `b` has a default argument: `default_shcptr`, pass a null pointer to use it.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cref(const MR_C_std_shared_ptr_const_MR_CSharp_SA *a, const MR_C_std_shared_ptr_const_MR_CSharp_SA *b);
+
+// Generated from function `MR::CSharp::test_shcptr_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(std::shared_ptr<const MR::CSharp::SA>&&)default_shcptr`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_rref(MR_C_std_shared_ptr_const_MR_CSharp_SA *a, MR_C_std_shared_ptr_const_MR_CSharp_SA *b);
+
+// Generated from function `MR::CSharp::test_shcptr_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(std::shared_ptr<const MR::CSharp::SA>&&)default_shcptr`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_crref(const MR_C_std_shared_ptr_const_MR_CSharp_SA *a, const MR_C_std_shared_ptr_const_MR_CSharp_SA *b);
 
 // Generated from function `MR::CSharp::test_shcptr_ptr`.
 // Parameter `b` has a default argument: `&default_shcptr`, pass a null pointer to use it.
@@ -4368,6 +4560,30 @@ MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLa
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b);
 
+// Generated from function `MR::CSharp::test_exposed_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::ExposedLayout&&)default_exposed`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_rref(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b);
+
+// Generated from function `MR::CSharp::test_exposed_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::ExposedLayout&&)default_exposed`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_crref(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b);
+
 // Generated from function `MR::CSharp::test_exposed_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
 // Parameter `c` has a default argument: `&default_exposed`, pass a null pointer to use it.
@@ -4914,6 +5130,30 @@ MR_C_API int32_t (*MR_CSharp_test_plainarr_ref(int32_t (*a)[42], int32_t (*b)[42
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t (*MR_CSharp_test_plainarr_cref(const int32_t (*a)[42], const int32_t (*b)[42]))[42];
 
+// Generated from function `MR::CSharp::test_plainarr_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::PlainArray&&)default_plainarr`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API int32_t (*MR_CSharp_test_plainarr_rref(int32_t (*a)[42], int32_t (*b)[42]))[42];
+
+// Generated from function `MR::CSharp::test_plainarr_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::PlainArray&&)default_plainarr`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const int32_t (*MR_CSharp_test_plainarr_crref(const int32_t (*a)[42], const int32_t (*b)[42]))[42];
+
 // Generated from function `MR::CSharp::test_plainarr_ptr`.
 // Parameter `b` defaults to a null pointer in C++.
 // Parameter `c` has a default argument: `&default_plainarr`, pass a null pointer to use it.
@@ -4937,6 +5177,30 @@ MR_C_API int32_t (*MR_CSharp_test_plainarr2_ref(int32_t (*a)[10][20], int32_t (*
 // Parameter `b` has a default argument: `default_plainarr2`, pass a null pointer to use it.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t (*MR_CSharp_test_plainarr2_cref(const int32_t (*a)[10][20], const int32_t (*b)[10][20]))[10][20];
+
+// Generated from function `MR::CSharp::test_plainarr2_rref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::PlainArray2&&)default_plainarr2`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API int32_t (*MR_CSharp_test_plainarr2_rref(int32_t (*a)[10][20], int32_t (*b)[10][20]))[10][20];
+
+// Generated from function `MR::CSharp::test_plainarr2_crref`.
+// Parameter `a` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// Parameter `b` has a default argument: `(MR::CSharp::PlainArray2&&)default_plainarr2`, pass a null pointer to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const int32_t (*MR_CSharp_test_plainarr2_crref(const int32_t (*a)[10][20], const int32_t (*b)[10][20]))[10][20];
 
 // Generated from function `MR::CSharp::test_plainarr2_ptr`.
 // Parameter `b` defaults to a null pointer in C++.

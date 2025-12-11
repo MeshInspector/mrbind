@@ -121,6 +121,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref ulong *Foo(ref ulong *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t_ptr", ExactSpelling = true)]
@@ -132,11 +133,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static unsafe MR.CS.Std.Vector_MRCUint64T Foo(MR.CS.Std._ByValue_Vector_MRCUint64T _1)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCUint64T> Foo(MR.CS.Std._ByValue_Vector_MRCUint64T _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_uint64_t", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRCUint64T._Underlying *__MR_TestSizeT_foo_std_vector_uint64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCUint64T._Underlying *_1);
-                return new(__MR_TestSizeT_foo_std_vector_uint64_t(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCUint64T(__MR_TestSizeT_foo_std_vector_uint64_t(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true));
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
@@ -148,6 +149,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref long *Foo(ref long *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t_ptr", ExactSpelling = true)]
@@ -159,11 +161,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static unsafe MR.CS.Std.Vector_MRCInt64T Foo(MR.CS.Std._ByValue_Vector_MRCInt64T _1)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCInt64T> Foo(MR.CS.Std._ByValue_Vector_MRCInt64T _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_int64_t", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRCInt64T._Underlying *__MR_TestSizeT_foo_std_vector_int64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCInt64T._Underlying *_1);
-                return new(__MR_TestSizeT_foo_std_vector_int64_t(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCInt64T(__MR_TestSizeT_foo_std_vector_int64_t(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true));
             }
         }
     }

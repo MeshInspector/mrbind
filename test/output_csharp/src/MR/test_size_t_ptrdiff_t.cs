@@ -121,6 +121,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref ulong *Foo(ref ulong *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_unsigned_long_ptr", ExactSpelling = true)]
@@ -132,11 +133,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static unsafe MR.CS.Std.Vector_UnsignedLong Foo(MR.CS.Std._ByValue_Vector_UnsignedLong _1)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_UnsignedLong> Foo(MR.CS.Std._ByValue_Vector_UnsignedLong _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_unsigned_long", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_UnsignedLong._Underlying *__MR_TestSizeT_foo_std_vector_unsigned_long(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_UnsignedLong._Underlying *_1);
-                return new(__MR_TestSizeT_foo_std_vector_unsigned_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.Std.Vector_UnsignedLong(__MR_TestSizeT_foo_std_vector_unsigned_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true));
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
@@ -148,6 +149,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
+            /// In C++ this function returns an rvalue reference.
             public static unsafe ref long *Foo(ref long *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_long_ptr", ExactSpelling = true)]
@@ -159,11 +161,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static unsafe MR.CS.Std.Vector_Long Foo(MR.CS.Std._ByValue_Vector_Long _1)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_Long> Foo(MR.CS.Std._ByValue_Vector_Long _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_long", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_Long._Underlying *__MR_TestSizeT_foo_std_vector_long(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Long._Underlying *_1);
-                return new(__MR_TestSizeT_foo_std_vector_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true);
+                return MR.CS.Misc.Move(new MR.CS.Std.Vector_Long(__MR_TestSizeT_foo_std_vector_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true));
             }
         }
     }

@@ -94,15 +94,19 @@ public static partial class MR
                 public ref T Value => ref *Ptr;
             }
 
+            /// Wraps the object in a wrapper that indicates that it should be treated as a temporary object.
             /// This can be used with `_ByValue_...` function parameters, to indicate that the argument should be moved.
             /// See those structs for a longer explanation.
-            public static _Moved<T> Move<T>(T NewValue) {return new(NewValue);}
+            public static _Moved<T> Move<T>(T new_value) {return new(new_value);}
 
-            /// Don't use directly, this is the return type of `Move()`. See that for explanation.
+            /// A wrapper for `T` that indicates that it's a temporary object, or should be treated as such.
+            /// If you're calling a function that returns this, you can safely convert this to `T`.
+            /// If you're calling a function that takes this as a parameter, use the `Move()` function to create this wrapper.
             public readonly struct _Moved<T>
             {
-                internal readonly T Value;
-                internal _Moved(T NewValue) {Value = NewValue;}
+                public readonly T Value;
+                internal _Moved(T new_value) {Value = new_value;}
+                public static implicit operator T(_Moved<T> moved) {return moved.Value;}
             }
 
             internal enum _PassBy : int
@@ -113,6 +117,12 @@ public static partial class MR
                 default_arg,
                 no_object,
             }
+
+            /// This is a tag value. Pass it to functions having a `_MoveRef` parameter.
+            /// This indicates that the reference parameter immediately following it is an rvalue reference.
+            public static _MoveRef MoveRef = default;
+            /// This is a tag type for passing rvalue references. Don't construct directly, prefer the `MoveRef` constant.
+            public struct _MoveRef {}
 
             /// The type of `NullOpt`, see that for more details.
             public struct NullOptType {}

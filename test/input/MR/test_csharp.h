@@ -29,6 +29,9 @@ namespace MR::CSharp
     inline int &test_int_ref(int &a, int &b = default_int) {(void)a; (void)b; return default_int;}
     inline const int &test_int_cref(const int &a, const int &b = default_int) {(void)a; (void)b; return default_int;}
 
+    inline int &&test_int_rref(int &&a, int &&b = 42) {(void)a; (void)b; return (int &&)default_int;}
+    inline const int &&test_int_crref(const int &&a, const int &&b = 42) {(void)a; (void)b; return (const int &&)default_int;}
+
     inline int *test_int_ptr(int *a, int *b = nullptr, int *c = &default_int) {(void)a; (void)b; (void)c; return &default_int;}
     inline const int *test_int_cptr(const int *a, const int *b = nullptr, const int *c = &default_int) {(void)a; (void)b; (void)c; return &default_int;}
 
@@ -37,6 +40,8 @@ namespace MR::CSharp
     inline unsigned short test_ushort(unsigned short a, unsigned short b = 42) {std::cout << int(a) << ' ' << int(b) << '\n'; return b;}
     inline unsigned short &test_ushort_ref(unsigned short &a, unsigned short &b = default_ushort) {(void)a; (void)b; return default_ushort;}
     inline const unsigned short &test_ushort_cref(const unsigned short &a, const unsigned short &b = default_ushort) {(void)a; (void)b; return default_ushort;}
+    inline unsigned short &&test_ushort_rref(unsigned short &&a, unsigned short &&b = (unsigned short &&)default_ushort) {(void)a; (void)b; return (unsigned short &&)default_ushort;}
+    inline const unsigned short &&test_ushort_crref(const unsigned short &&a, const unsigned short &&b = (unsigned short &&)default_ushort) {(void)a; (void)b; return (unsigned short &&)default_ushort;}
     inline unsigned short *test_ushort_ptr(unsigned short *a, unsigned short *b = nullptr, unsigned short *c = &default_ushort) {(void)a; (void)b; (void)c; return &default_ushort;}
     inline const unsigned short *test_ushort_cptr(const unsigned short *a, const unsigned short *b = nullptr, const unsigned short *c = &default_ushort) {(void)a; (void)b; (void)c; return &default_ushort;}
 
@@ -56,6 +61,8 @@ namespace MR::CSharp
     inline E1 test_enum(E1 a, E1 b = E1::b) {std::cout << int(a) << ' ' << int(b) << '\n'; return b;}
     inline E1 &test_enum_ref(E1 &a, E1 &b = default_e1) {(void)a; (void)b; return default_e1;}
     inline const E1 &test_enum_cref(const E1 &a, const E1 &b = default_e1) {(void)a; (void)b; return default_e1;}
+    inline E1 &&test_enum_rref(E1 &&a, E1 &&b = (E1 &&)default_e1) {(void)a; (void)b; return (E1 &&)default_e1;}
+    inline const E1 &&test_enum_crref(const E1 &&a, const E1 &&b = (E1 &&)default_e1) {(void)a; (void)b; return (E1 &&)default_e1;}
     inline E1 *test_enum_ptr(E1 *a, E1 *b = nullptr, E1 *c = &default_e1) {(void)a; (void)b; (void)c; return &default_e1;}
     inline const E1 *test_enum_cptr(const E1 *a, const E1 *b = nullptr, const E1 *c = &default_e1) {(void)a; (void)b; (void)c; return &default_e1;}
 
@@ -68,6 +75,8 @@ namespace MR::CSharp
     inline E2 test_enum(E2 a, E2 b = E2::b) {std::cout << int(a) << ' ' << int(b) << '\n'; return b;}
     inline E2 &test_enum_ref(E2 &a, E2 &b = default_e2) {(void)a; (void)b; return default_e2;}
     inline const E2 &test_enum_cref(const E2 &a, const E2 &b = default_e2) {(void)a; (void)b; return default_e2;}
+    inline E2 &&test_enum_rref(E2 &&a, E2 &&b = (E2 &&)default_e2) {(void)a; (void)b; return (E2 &&)default_e2;}
+    inline const E2 &&test_enum_crref(const E2 &&a, const E2 &&b = (E2 &&)default_e2) {(void)a; (void)b; return (E2 &&)default_e2;}
     inline E2 *test_enum_ptr(E2 *a, E2 *b = nullptr, E2 *c = &default_e2) {(void)a; (void)b; (void)c; return &default_e2;}
     inline const E2 *test_enum_cptr(const E2 *a, const E2 *b = nullptr, const E2 *c = &default_e2) {(void)a; (void)b; (void)c; return &default_e2;}
 
@@ -138,6 +147,8 @@ namespace MR::CSharp
     inline Trivial test_class_trivial(Trivial a, Trivial b = {}) {(void)a; (void)b; return {};}
     inline Trivial &test_class_trivial_ref(Trivial &a, Trivial &b = default_trivial) {(void)a; (void)b; return default_trivial;}
     inline const Trivial &test_class_trivial_cref(const Trivial &a, const Trivial &b = default_trivial) {(void)a; (void)b; return default_trivial;}
+    inline Trivial &&test_class_trivial_rref(Trivial &&a, Trivial &&b = (Trivial &&)default_trivial) {(void)a; (void)b; return (Trivial &&)default_trivial;}
+    inline const Trivial &&test_class_trivial_crref(const Trivial &&a, const Trivial &&b = (Trivial &&)default_trivial) {(void)a; (void)b; return (const Trivial &&)default_trivial;}
     inline Trivial *test_class_trivial_ptr(Trivial *a, Trivial *b = nullptr, Trivial *c = &default_trivial) {(void)a; (void)b; (void)c; return &default_trivial;}
     inline const Trivial *test_class_trivial_cptr(const Trivial *a, const Trivial *b = nullptr, const Trivial *c = &default_trivial) {(void)a; (void)b; (void)c; return &default_trivial;}
 
@@ -151,6 +162,8 @@ namespace MR::CSharp
     inline NonTrivial test_class_nontrivial(NonTrivial a, NonTrivial b = {}) {(void)a; (void)b; return {};}
     inline NonTrivial &test_class_nontrivial_ref(NonTrivial &a, NonTrivial &b = default_nontrivial) {(void)a; (void)b; return default_nontrivial;}
     inline const NonTrivial &test_class_nontrivial_cref(const NonTrivial &a, const NonTrivial &b = default_nontrivial) {(void)a; (void)b; return default_nontrivial;}
+    inline NonTrivial &&test_class_nontrivial_rref(NonTrivial &&a, NonTrivial &&b = (NonTrivial &&)default_nontrivial) {(void)a; (void)b; return (NonTrivial &&)default_nontrivial;}
+    inline const NonTrivial &&test_class_nontrivial_crref(const NonTrivial &&a, const NonTrivial &&b = (NonTrivial &&)default_nontrivial) {(void)a; (void)b; return (const NonTrivial &&)default_nontrivial;}
     inline NonTrivial *test_class_nontrivial_ptr(NonTrivial *a, NonTrivial *b = nullptr, NonTrivial *c = &default_nontrivial) {(void)a; (void)b; (void)c; return &default_nontrivial;}
     inline const NonTrivial *test_class_nontrivial_cptr(const NonTrivial *a, const NonTrivial *b = nullptr, const NonTrivial *c = &default_nontrivial) {(void)a; (void)b; (void)c; return &default_nontrivial;}
 
@@ -167,6 +180,8 @@ namespace MR::CSharp
     inline std::shared_ptr<SA> test_shptr(std::shared_ptr<SA> a, std::shared_ptr<SA> b = default_shptr) {(void)a; return b;}
     inline std::shared_ptr<SA> &test_shptr_ref(std::shared_ptr<SA> &a, std::shared_ptr<SA> &b = default_shptr) {(void)a; return b;}
     inline const std::shared_ptr<SA> &test_shptr_cref(const std::shared_ptr<SA> &a, const std::shared_ptr<SA> &b = default_shptr) {(void)a; return b;}
+    inline std::shared_ptr<SA> &&test_shptr_rref(std::shared_ptr<SA> &&a, std::shared_ptr<SA> &&b = (std::shared_ptr<SA> &&)default_shptr) {(void)a; return b;}
+    inline const std::shared_ptr<SA> &&test_shptr_crref(const std::shared_ptr<SA> &&a, const std::shared_ptr<SA> &&b = (std::shared_ptr<SA> &&)default_shptr) {(void)a; return b;}
     inline std::shared_ptr<SA> *test_shptr_ptr(std::shared_ptr<SA> *a, std::shared_ptr<SA> *b = &default_shptr) {(void)a; return b;}
     inline const std::shared_ptr<SA> *test_shptr_cptr(const std::shared_ptr<SA> *a, const std::shared_ptr<SA> *b = &default_shptr) {(void)a; return b;}
 
@@ -175,6 +190,8 @@ namespace MR::CSharp
     inline std::shared_ptr<const SA> test_shcptr(std::shared_ptr<const SA> a, std::shared_ptr<const SA> b = default_shcptr) {(void)a; return b;}
     inline std::shared_ptr<const SA> &test_shcptr_ref(std::shared_ptr<const SA> &a, std::shared_ptr<const SA> &b = default_shcptr) {(void)a; return b;}
     inline const std::shared_ptr<const SA> &test_shcptr_cref(const std::shared_ptr<const SA> &a, const std::shared_ptr<const SA> &b = default_shcptr) {(void)a; return b;}
+    inline std::shared_ptr<const SA> &&test_shcptr_rref(std::shared_ptr<const SA> &&a, std::shared_ptr<const SA> &&b = (std::shared_ptr<const SA> &&)default_shcptr) {(void)a; return b;}
+    inline const std::shared_ptr<const SA> &&test_shcptr_crref(const std::shared_ptr<const SA> &&a, const std::shared_ptr<const SA> &&b = (std::shared_ptr<const SA> &&)default_shcptr) {(void)a; return b;}
     inline std::shared_ptr<const SA> *test_shcptr_ptr(std::shared_ptr<const SA> *a, std::shared_ptr<const SA> *b = &default_shcptr) {(void)a; return b;}
     inline const std::shared_ptr<const SA> *test_shcptr_cptr(const std::shared_ptr<const SA> *a, const std::shared_ptr<const SA> *b = &default_shcptr) {(void)a; return b;}
 
@@ -813,6 +830,8 @@ namespace MR::CSharp
     inline ExposedLayout test_exposed(ExposedLayout a, ExposedLayout b = default_exposed) {(void)a; return b;}
     inline ExposedLayout &test_exposed_ref(ExposedLayout &a, ExposedLayout &b = default_exposed) {(void)a; (void)b; return default_exposed;}
     inline const ExposedLayout &test_exposed_cref(const ExposedLayout &a, const ExposedLayout &b = default_exposed) {(void)a; (void)b; return default_exposed;}
+    inline ExposedLayout &&test_exposed_rref(ExposedLayout &&a, ExposedLayout &&b = (ExposedLayout &&)default_exposed) {(void)a; (void)b; return (ExposedLayout &&)default_exposed;}
+    inline const ExposedLayout &&test_exposed_crref(const ExposedLayout &&a, const ExposedLayout &&b = (ExposedLayout &&)default_exposed) {(void)a; (void)b; return (const ExposedLayout &&)default_exposed;}
     inline ExposedLayout *test_exposed_ptr(ExposedLayout *a, ExposedLayout *b = nullptr, ExposedLayout *c = &default_exposed) {(void)a; (void)b; (void)c; return &default_exposed;}
     inline const ExposedLayout *test_exposed_cptr(const ExposedLayout *a, const ExposedLayout *b = nullptr, const ExposedLayout *c = &default_exposed) {(void)a; (void)b; (void)c; return &default_exposed;}
 
@@ -1000,6 +1019,8 @@ namespace MR::CSharp
 
     inline PlainArray &test_plainarr_ref(PlainArray &a, PlainArray &b = default_plainarr) {(void)a; (void)b; return default_plainarr;}
     inline const PlainArray &test_plainarr_cref(const PlainArray &a, const PlainArray &b = default_plainarr) {(void)a; (void)b; return default_plainarr;}
+    inline PlainArray &&test_plainarr_rref(PlainArray &&a, PlainArray &&b = (PlainArray &&)default_plainarr) {(void)a; (void)b; return (PlainArray &&)default_plainarr;}
+    inline const PlainArray &&test_plainarr_crref(const PlainArray &&a, const PlainArray &&b = (PlainArray &&)default_plainarr) {(void)a; (void)b; return (const PlainArray &&)default_plainarr;}
     inline PlainArray *test_plainarr_ptr(PlainArray *a, PlainArray *b = nullptr, PlainArray *c = &default_plainarr) {(void)a; (void)b; (void)c; return &default_plainarr;}
     inline const PlainArray *test_plainarr_cptr(const PlainArray *a, const PlainArray *b = nullptr, const PlainArray *c = &default_plainarr) {(void)a; (void)b; (void)c; return &default_plainarr;}
 
@@ -1008,6 +1029,8 @@ namespace MR::CSharp
 
     inline PlainArray2 &test_plainarr2_ref(PlainArray2 &a, PlainArray2 &b = default_plainarr2) {(void)a; (void)b; return default_plainarr2;}
     inline const PlainArray2 &test_plainarr2_cref(const PlainArray2 &a, const PlainArray2 &b = default_plainarr2) {(void)a; (void)b; return default_plainarr2;}
+    inline PlainArray2 &&test_plainarr2_rref(PlainArray2 &&a, PlainArray2 &&b = (PlainArray2 &&)default_plainarr2) {(void)a; (void)b; return (PlainArray2 &&)default_plainarr2;}
+    inline const PlainArray2 &&test_plainarr2_crref(const PlainArray2 &&a, const PlainArray2 &&b = (PlainArray2 &&)default_plainarr2) {(void)a; (void)b; return (const PlainArray2 &&)default_plainarr2;}
     inline PlainArray2 *test_plainarr2_ptr(PlainArray2 *a, PlainArray2 *b = nullptr, PlainArray2 *c = &default_plainarr2) {(void)a; (void)b; (void)c; return &default_plainarr2;}
     inline const PlainArray2 *test_plainarr2_cptr(const PlainArray2 *a, const PlainArray2 *b = nullptr, const PlainArray2 *c = &default_plainarr2) {(void)a; (void)b; (void)c; return &default_plainarr2;}
 

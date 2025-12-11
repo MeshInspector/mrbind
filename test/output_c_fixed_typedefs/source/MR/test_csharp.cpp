@@ -106,6 +106,26 @@ const int32_t *MR_CSharp_test_int_cref(const int32_t *a, const int32_t *b)
     ));
 }
 
+int32_t *MR_CSharp_test_int_rref(int32_t *a, int32_t *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_int_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<int32_t &&>(42))
+    ));
+}
+
+const int32_t *MR_CSharp_test_int_crref(const int32_t *a, const int32_t *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_int_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<const int32_t &&>(42))
+    ));
+}
+
 int32_t *MR_CSharp_test_int_ptr(int32_t *a, int32_t *b, int32_t *const *c)
 {
     using namespace MR;
@@ -155,6 +175,26 @@ const uint16_t *MR_CSharp_test_ushort_cref(const uint16_t *a, const uint16_t *b)
     return &(::MR::CSharp::test_ushort_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
         (b ? *b : static_cast<const uint16_t &>(default_ushort))
+    ));
+}
+
+uint16_t *MR_CSharp_test_ushort_rref(uint16_t *a, uint16_t *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_ushort_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<uint16_t &&>((unsigned short &&)default_ushort))
+    ));
+}
+
+const uint16_t *MR_CSharp_test_ushort_crref(const uint16_t *a, const uint16_t *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_ushort_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<const uint16_t &&>((unsigned short &&)default_ushort))
     ));
 }
 
@@ -210,6 +250,26 @@ const MR_CSharp_E1 *MR_CSharp_test_enum_cref_MR_CSharp_E1(const MR_CSharp_E1 *a,
     ));
 }
 
+MR_CSharp_E1 *MR_CSharp_test_enum_rref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E1 *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_CSharp_E1 *)&mrbindc_details::unmove(::MR::CSharp::test_enum_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::E1 *)(a))),
+        (b ? std::move(*(MR::CSharp::E1 *)(b)) : static_cast<MR::CSharp::E1 &&>((MR::CSharp::E1 &&)default_e1))
+    ));
+}
+
+const MR_CSharp_E1 *MR_CSharp_test_enum_crref_MR_CSharp_E1(const MR_CSharp_E1 *a, const MR_CSharp_E1 *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_CSharp_E1 *)&mrbindc_details::unmove(::MR::CSharp::test_enum_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::E1 *)(a))),
+        (b ? std::move(*(const MR::CSharp::E1 *)(b)) : static_cast<const MR::CSharp::E1 &&>((MR::CSharp::E1 &&)default_e1))
+    ));
+}
+
 MR_CSharp_E1 *MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr(MR_CSharp_E1 *a, MR_CSharp_E1 *b, MR_CSharp_E1 *const *c)
 {
     using namespace MR;
@@ -259,6 +319,26 @@ const MR_CSharp_E2 *MR_CSharp_test_enum_cref_MR_CSharp_E2(const MR_CSharp_E2 *a,
     return (const MR_CSharp_E2 *)&(::MR::CSharp::test_enum_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::E2 *)(a)),
         (b ? *(const MR::CSharp::E2 *)(b) : static_cast<const MR::CSharp::E2 &>(default_e2))
+    ));
+}
+
+MR_CSharp_E2 *MR_CSharp_test_enum_rref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E2 *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_CSharp_E2 *)&mrbindc_details::unmove(::MR::CSharp::test_enum_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::E2 *)(a))),
+        (b ? std::move(*(MR::CSharp::E2 *)(b)) : static_cast<MR::CSharp::E2 &&>((MR::CSharp::E2 &&)default_e2))
+    ));
+}
+
+const MR_CSharp_E2 *MR_CSharp_test_enum_crref_MR_CSharp_E2(const MR_CSharp_E2 *a, const MR_CSharp_E2 *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_CSharp_E2 *)&mrbindc_details::unmove(::MR::CSharp::test_enum_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::E2 *)(a))),
+        (b ? std::move(*(const MR::CSharp::E2 *)(b)) : static_cast<const MR::CSharp::E2 &&>((MR::CSharp::E2 &&)default_e2))
     ));
 }
 
@@ -1093,6 +1173,26 @@ const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_cref(const MR_CSharp_Trivi
     ));
 }
 
+MR_CSharp_Trivial *MR_CSharp_test_class_trivial_rref(MR_CSharp_Trivial *a, MR_CSharp_Trivial *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_CSharp_Trivial *)&mrbindc_details::unmove(::MR::CSharp::test_class_trivial_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::Trivial *)(a))),
+        (b ? std::move(*(MR::CSharp::Trivial *)(b)) : static_cast<MR::CSharp::Trivial &&>((MR::CSharp::Trivial &&)default_trivial))
+    ));
+}
+
+const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_crref(const MR_CSharp_Trivial *a, const MR_CSharp_Trivial *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_CSharp_Trivial *)&mrbindc_details::unmove(::MR::CSharp::test_class_trivial_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::Trivial *)(a))),
+        (b ? std::move(*(const MR::CSharp::Trivial *)(b)) : static_cast<const MR::CSharp::Trivial &&>((MR::CSharp::Trivial &&)default_trivial))
+    ));
+}
+
 MR_CSharp_Trivial *MR_CSharp_test_class_trivial_ptr(MR_CSharp_Trivial *a, MR_CSharp_Trivial *b, MR_CSharp_Trivial *const *c)
 {
     using namespace MR;
@@ -1230,6 +1330,26 @@ const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cref(const MR_CSharp
     return (const MR_CSharp_NonTrivial *)&(::MR::CSharp::test_class_nontrivial_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::NonTrivial *)(a)),
         (b ? *(const MR::CSharp::NonTrivial *)(b) : static_cast<const MR::CSharp::NonTrivial &>(default_nontrivial))
+    ));
+}
+
+MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_rref(MR_CSharp_NonTrivial *a, MR_CSharp_NonTrivial *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_CSharp_NonTrivial *)&mrbindc_details::unmove(::MR::CSharp::test_class_nontrivial_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::NonTrivial *)(a))),
+        (b ? std::move(*(MR::CSharp::NonTrivial *)(b)) : static_cast<MR::CSharp::NonTrivial &&>((MR::CSharp::NonTrivial &&)default_nontrivial))
+    ));
+}
+
+const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_crref(const MR_CSharp_NonTrivial *a, const MR_CSharp_NonTrivial *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_CSharp_NonTrivial *)&mrbindc_details::unmove(::MR::CSharp::test_class_nontrivial_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::NonTrivial *)(a))),
+        (b ? std::move(*(const MR::CSharp::NonTrivial *)(b)) : static_cast<const MR::CSharp::NonTrivial &&>((MR::CSharp::NonTrivial &&)default_nontrivial))
     ));
 }
 
@@ -1495,6 +1615,26 @@ const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_cref(const MR_C_std
     ));
 }
 
+MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_rref(MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_std_shared_ptr_MR_CSharp_SA *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_std_shared_ptr_MR_CSharp_SA *)&mrbindc_details::unmove(::MR::CSharp::test_shptr_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(std::shared_ptr<MR::CSharp::SA> *)(a))),
+        (b ? std::move(*(std::shared_ptr<MR::CSharp::SA> *)(b)) : static_cast<std::shared_ptr<MR::CSharp::SA> &&>((std::shared_ptr<MR::CSharp::SA> &&)default_shptr))
+    ));
+}
+
+const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_crref(const MR_C_std_shared_ptr_MR_CSharp_SA *a, const MR_C_std_shared_ptr_MR_CSharp_SA *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_std_shared_ptr_MR_CSharp_SA *)&mrbindc_details::unmove(::MR::CSharp::test_shptr_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const std::shared_ptr<MR::CSharp::SA> *)(a))),
+        (b ? std::move(*(const std::shared_ptr<MR::CSharp::SA> *)(b)) : static_cast<const std::shared_ptr<MR::CSharp::SA> &&>((std::shared_ptr<MR::CSharp::SA> &&)default_shptr))
+    ));
+}
+
 MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ptr(MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_std_shared_ptr_MR_CSharp_SA *const *b)
 {
     using namespace MR;
@@ -1542,6 +1682,26 @@ const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cref(const M
     return (const MR_C_std_shared_ptr_const_MR_CSharp_SA *)&(::MR::CSharp::test_shcptr_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::shared_ptr<const MR::CSharp::SA> *)(a)),
         (b ? *(const std::shared_ptr<const MR::CSharp::SA> *)(b) : static_cast<const std::shared_ptr<const MR::CSharp::SA> &>(default_shcptr))
+    ));
+}
+
+MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_rref(MR_C_std_shared_ptr_const_MR_CSharp_SA *a, MR_C_std_shared_ptr_const_MR_CSharp_SA *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)&mrbindc_details::unmove(::MR::CSharp::test_shcptr_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(std::shared_ptr<const MR::CSharp::SA> *)(a))),
+        (b ? std::move(*(std::shared_ptr<const MR::CSharp::SA> *)(b)) : static_cast<std::shared_ptr<const MR::CSharp::SA> &&>((std::shared_ptr<const MR::CSharp::SA> &&)default_shcptr))
+    ));
+}
+
+const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_crref(const MR_C_std_shared_ptr_const_MR_CSharp_SA *a, const MR_C_std_shared_ptr_const_MR_CSharp_SA *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_std_shared_ptr_const_MR_CSharp_SA *)&mrbindc_details::unmove(::MR::CSharp::test_shcptr_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const std::shared_ptr<const MR::CSharp::SA> *)(a))),
+        (b ? std::move(*(const std::shared_ptr<const MR::CSharp::SA> *)(b)) : static_cast<const std::shared_ptr<const MR::CSharp::SA> &&>((std::shared_ptr<const MR::CSharp::SA> &&)default_shcptr))
     ));
 }
 
@@ -5726,6 +5886,26 @@ const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayo
     ));
 }
 
+MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_rref(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_CSharp_ExposedLayout *)&mrbindc_details::unmove(::MR::CSharp::test_exposed_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::ExposedLayout *)(a))),
+        (b ? std::move(*(MR::CSharp::ExposedLayout *)(b)) : static_cast<MR::CSharp::ExposedLayout &&>((MR::CSharp::ExposedLayout &&)default_exposed))
+    ));
+}
+
+const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_crref(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_CSharp_ExposedLayout *)&mrbindc_details::unmove(::MR::CSharp::test_exposed_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::ExposedLayout *)(a))),
+        (b ? std::move(*(const MR::CSharp::ExposedLayout *)(b)) : static_cast<const MR::CSharp::ExposedLayout &&>((MR::CSharp::ExposedLayout &&)default_exposed))
+    ));
+}
+
 MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b, MR_CSharp_ExposedLayout *const *c)
 {
     using namespace MR;
@@ -6558,6 +6738,26 @@ const int32_t (*MR_CSharp_test_plainarr_cref(const int32_t (*a)[42], const int32
     ));
 }
 
+int32_t (*MR_CSharp_test_plainarr_rref(int32_t (*a)[42], int32_t (*b)[42]))[42]
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_plainarr_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<int32_t (&&)[42]>((MR::CSharp::PlainArray &&)default_plainarr))
+    ));
+}
+
+const int32_t (*MR_CSharp_test_plainarr_crref(const int32_t (*a)[42], const int32_t (*b)[42]))[42]
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_plainarr_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<const int32_t (&&)[42]>((MR::CSharp::PlainArray &&)default_plainarr))
+    ));
+}
+
 int32_t (*MR_CSharp_test_plainarr_ptr(int32_t (*a)[42], int32_t (*b)[42], int32_t (*const *c)[42]))[42]
 {
     using namespace MR;
@@ -6597,6 +6797,26 @@ const int32_t (*MR_CSharp_test_plainarr2_cref(const int32_t (*a)[10][20], const 
     return &(::MR::CSharp::test_plainarr2_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
         (b ? *b : static_cast<const int32_t (&)[10][20]>(default_plainarr2))
+    ));
+}
+
+int32_t (*MR_CSharp_test_plainarr2_rref(int32_t (*a)[10][20], int32_t (*b)[10][20]))[10][20]
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_plainarr2_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<int32_t (&&)[10][20]>((MR::CSharp::PlainArray2 &&)default_plainarr2))
+    ));
+}
+
+const int32_t (*MR_CSharp_test_plainarr2_crref(const int32_t (*a)[10][20], const int32_t (*b)[10][20]))[10][20]
+{
+    using namespace MR;
+    using namespace CSharp;
+    return &mrbindc_details::unmove(::MR::CSharp::test_plainarr2_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        (b ? std::move(*b) : static_cast<const int32_t (&&)[10][20]>((MR::CSharp::PlainArray2 &&)default_plainarr2))
     ));
 }
 

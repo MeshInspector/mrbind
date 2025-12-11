@@ -477,6 +477,9 @@ namespace mrbind::CSharp
             enable_sugar = 1 << 0,
             // Treat a pointer as a pointer to an array element.
             pointer_to_array = 1 << 1,
+            // When returning stuff by value, don't wrap it in the "_Moved<...>" wrapper.
+            // This is useful e.g. for binding the return types of constructors.
+            no_move_in_by_value_return = 1 << 2,
         };
         MRBIND_FLAG_OPERATORS_IN_CLASS(TypeBindingFlags)
 
@@ -695,7 +698,7 @@ namespace mrbind::CSharp
         [[nodiscard]] TypeBinding::ParamUsage::Strings GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {}, bool in_exposed_struct = false);
 
         // Returns the binding information for a function return type.
-        [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret);
+        [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret, TypeBindingFlags extra_flags = {});
 
         // Creates a C function declaration for C# code.
         // `c_name` is the underlying C function name. `return_type` is the return type as it should be spelled in C#.
