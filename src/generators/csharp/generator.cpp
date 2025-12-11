@@ -1446,6 +1446,8 @@ namespace mrbind::CSharp
                             return ret;
 
                         // Perhaps a reference to a fixed-size type?
+                        // You might be wondering, how is it the case that scalars don't fall down here too? (If they happen to miss their binding due to not being used directly?)
+                        // This is because in the C generator we always emit the bindings for the pointer and reference target types to avoid this.
                         cppdecl::Type ref_target_type = cpp_type;
                         ref_target_type.RemoveModifier();
                         if (auto csharp_type = CppToCSharpKnownSizeType(ref_target_type))
