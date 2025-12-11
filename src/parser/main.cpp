@@ -224,7 +224,11 @@ namespace mrbind
 
                 // We use `.getCanonicalType()` instead of a separate printing policy with this set to true,
                 // because `.getCanonicalType()` doesn't interfere with `SuppressDefaultTemplateArgs` (and other stuff?).
+                #if CLANG_VERSION_MAJOR >= 21
+                p->PrintAsCanonical = false;
+                #else
                 p->PrintCanonicalTypes = false;
+                #endif
 
                 // This almost never comes up.
                 // In default arguments, when there's a lambda, this disables SOME OF the newlines that get inserted automatically.
@@ -1160,8 +1164,13 @@ namespace mrbind
             if (auto args = decl.getTemplateSpecializationArgs())
             {
                 clang::ConstraintSatisfaction sat;
+                #if CLANG_VERSION_MAJOR >= 21
+                if (ci.getSema().CheckFunctionTemplateConstraints(decl.getSourceRange().getBegin(), &decl, args->asArray(), sat))
+                    throw std::runtime_error("Unable to evaluate the constraints for the function." );
+                #else
                 if (ci.getSema().CheckInstantiatedFunctionTemplateConstraints(decl.getSourceRange().getBegin(), &decl, args->asArray(), sat))
                     throw std::runtime_error("Unable to evaluate the constraints for the function." );
+                #endif
                 if (!sat.IsSatisfied)
                     return true; // Constraints are false.
             }
