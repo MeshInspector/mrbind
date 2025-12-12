@@ -1173,6 +1173,38 @@ namespace MR::CSharp
             template_c<float>();
         }
     };
+
+
+    // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+    struct ConstNonconstConflicts
+    {
+        int x;
+
+        void foo(int) {}
+        void foo(float) const {}
+
+        void foo(char) {}
+        void foo(char) const {}
+
+        int operator+() {return 42;}
+        int operator+() const {return 42;}
+
+        // Since this returns void, it gets rewritten into a method.
+        void operator~() {}
+        void operator~() const {}
+
+        friend int operator-(ConstNonconstConflicts &) {return 42;}
+        friend int operator-(const ConstNonconstConflicts &) {return 42;}
+
+        // Since this returns void, it gets rewritten into a method.
+        friend void operator!(ConstNonconstConflicts &) {}
+        friend void operator!(const ConstNonconstConflicts &) {}
+
+        int operator/(int) {return 42;}
+        int operator/(int) const {return 42;}
+        friend int operator&(int, ConstNonconstConflicts &) {return 42;}
+        friend int operator&(int, const ConstNonconstConflicts &) {return 42;}
+    };
 }
 
 

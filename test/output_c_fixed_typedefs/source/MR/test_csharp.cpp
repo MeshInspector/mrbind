@@ -7504,6 +7504,112 @@ void MR_CSharp_AmbiguousTemplates_instantiate(MR_CSharp_AmbiguousTemplates *_thi
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).instantiate();
 }
 
+void MR_CSharp_ConstNonconstConflicts_foo_int32_t(MR_CSharp_ConstNonconstConflicts *_this, int32_t _1)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+        _1
+    );
+}
+
+void MR_CSharp_ConstNonconstConflicts_foo_const_float(const MR_CSharp_ConstNonconstConflicts *_this, float _1)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+        _1
+    );
+}
+
+void MR_CSharp_ConstNonconstConflicts_foo_char(MR_CSharp_ConstNonconstConflicts *_this, char _1)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+        _1
+    );
+}
+
+void MR_CSharp_ConstNonconstConflicts_foo_const_char(const MR_CSharp_ConstNonconstConflicts *_this, char _1)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+        _1
+    );
+}
+
+int32_t MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator+();
+}
+
+int32_t MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator+();
+}
+
+void MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator~();
+}
+
+void MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator~();
+}
+
+int32_t MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int32_t(MR_CSharp_ConstNonconstConflicts *_this, int32_t _1)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator/(
+        _1
+    );
+}
+
+int32_t MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int32_t(const MR_CSharp_ConstNonconstConflicts *_this, int32_t _1)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator/(
+        _1
+    );
+}
+
+int32_t MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_1)
+{
+    return operator-(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_1))
+    );
+}
+
+int32_t MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_1)
+{
+    return operator-(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_1))
+    );
+}
+
+void MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_1)
+{
+    operator!(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_1))
+    );
+}
+
+void MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_1)
+{
+    operator!(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_1))
+    );
+}
+
+int32_t MR_C_bitand_int32_t_MR_CSharp_ConstNonconstConflicts_ref(int32_t _1, MR_CSharp_ConstNonconstConflicts *_2)
+{
+    return operator&(
+        _1,
+        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_2))
+    );
+}
+
+int32_t MR_C_bitand_int32_t_const_MR_CSharp_ConstNonconstConflicts_ref(int32_t _1, const MR_CSharp_ConstNonconstConflicts *_2)
+{
+    return operator&(
+        _1,
+        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_2))
+    );
+}
+
 MR_C_expected_int32_t_float *MR_CSharp_test_class_expected(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b)
 {
     using namespace MR;

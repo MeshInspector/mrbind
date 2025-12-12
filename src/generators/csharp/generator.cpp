@@ -3006,6 +3006,8 @@ namespace mrbind::CSharp
 
     bool Generator::IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(const CInterop::ClassMethod &method)
     {
+        assert(IsOverloadableOpOrConvOp(&method));
+
         const CInterop::FuncParam &param = method.params.at(method.is_static ? 2 : 0); // `2` instead of `1` to skip the fake static `this`.
 
         const cppdecl::Type &type = ParseTypeOrThrow(param.cpp_type);
@@ -3717,6 +3719,87 @@ namespace mrbind::CSharp
             const CInterop::TypeKinds::Class &class_desc = std::get<CInterop::TypeKinds::Class>(type_desc.var);
 
             const CInterop::TypeDesc *shared_ptr_desc = GetSharedPtrTypeDescForCppTypeOpt(cpp_type);
+
+            // This is only used in exposed structs, to avoid emitting both const and non-const versions of the same method
+            //   under the same name, which would cause ambiguities. Instead we rename the const versions if the mutable versions also exist.
+            std::unordered_set<std::string> nonconst_methods_in_exposed_struct;
+
+            // Returns a string method desc for `nonconst_methods_in_exposed_struct`, or null if this method shouldn't be tested in this manner.
+            // Here we return the C++ method name and all its C++ parameter types.
+            auto GetMethodDescForConstnessOverlapCheck = [&](const CInterop::ClassMethod &method) -> std::optional<std::string>
+            {
+                if (std::holds_alternative<CInterop::MethodKinds::Constructor>(method.var))
+                    return {}; // Skip constructors.
+
+                std::string ret;
+                std::visit(Overload{
+                    [&](const CInterop::MethodKinds::Regular &elem)
+                    {
+                        ret += elem.name;
+                    },
+                    [&](const CInterop::MethodKinds::Constructor &elem)
+                    {
+                        (void)elem;
+                        assert(false); // We skipped constructors above.
+                    },
+                    [&](const CInterop::MethodKinds::Operator &elem)
+                    {
+                        ret += "operator" + elem.token;
+                    },
+                    [&](const CInterop::MethodKinds::ConversionOperator &elem)
+                    {
+                        (void)elem;
+                        ret += "operator " + method.ret.cpp_type;
+                    },
+                }, method.var);
+
+                ret += "(";
+                for (bool first = true; const auto &param : method.params)
+                {
+                    // This isn't just to get a nicer-looking string. This would make const and non-const overloads have different strings, which we dont' want.
+                    if (param.is_this_param)
+                        continue;
+
+                    if (!std::exchange(first, false))
+                        ret += ", ";
+
+                    ret += param.cpp_type;
+                }
+
+                return ret;
+            };
+
+            // Fill `nonconst_methods_in_exposed_struct`.
+            if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+            {
+                for (const auto &method : class_desc.methods)
+                {
+                    if (method.is_static)
+                        continue; // Don't care about those.
+
+                    // Make sure we have a `this` param.
+                    assert(!method.params.empty() && method.params.front().is_this_param);
+
+                    // If this is a mutating overloaded operator that will get rewritten into a function because of this fact,
+                    //   skip it, because its const version won't be rewritten in this way, so there will be no conflict.
+                    // We could also check `IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(method)` here, but that looks like
+                    //   it doesn't change anything.
+                    // And it also makes things consistent with static operators (where the second parameter is the one matching enclosing class),
+                    //   which are skipped entirely due to the `is_static` check above.
+                    if (IsOverloadableOpOrConvOp(&method) && IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(method))
+                        continue;
+
+                    const auto &type = ParseTypeOrThrow(method.params.front().cpp_type);
+                    if (!type.Is<cppdecl::Reference>())
+                        continue; // We don't care about methods with non-ref this parameters.
+
+                    if (type.IsConst(1))
+                        continue; // We only want non-const methods.
+
+                    if (auto desc = GetMethodDescForConstnessOverlapCheck(method))
+                        nonconst_methods_in_exposed_struct.insert(std::move(*desc));
+                }
+            }
 
             // If `class_part_kind` isn't null, then it means `is_const`.
             // If it is null, we're in the `struct` corresponding to an exposed C++ struct.
@@ -4454,7 +4537,32 @@ namespace mrbind::CSharp
                         {
                             if (ShouldEmitMethodHere(method, class_part_kind, emit_variant))
                             {
-                                FuncLikeEmitter emit(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, emit_variant), is_exposed_struct_by_value, emit_variant);
+                                std::string unqual_method_name = MakeUnqualCSharpMethodName(method, class_part_kind, emit_variant);
+
+                                // In exposed structs by value, adjust the names of const methods to avoid overlap with non-const methods,
+                                //   if a non-const method with the same name and parameter types also exists.
+                                // And if we can't adjust the name because it's an operator or whatever, skip it entirely.
+                                if (is_exposed_struct_by_value && !method.is_static)
+                                {
+                                    assert(!method.params.empty() && method.params.front().is_this_param);
+
+                                    auto param_type = ParseTypeOrThrow(method.params.at(0).cpp_type);
+                                    if (param_type.Is<cppdecl::Reference>() && param_type.IsConst(1))
+                                    {
+                                        if (auto desc = GetMethodDescForConstnessOverlapCheck(method))
+                                        {
+                                            if (nonconst_methods_in_exposed_struct.contains(*desc))
+                                            {
+                                                if (cppdecl::IsValidIdentifier(unqual_method_name))
+                                                    unqual_method_name += "_Const"; // And pray for no collisions.
+                                                else
+                                                    continue; // Just skip this method. It's probably an operator or something.
+                                            }
+                                        }
+                                    }
+                                }
+
+                                FuncLikeEmitter emit(*this, &method, unqual_method_name, is_exposed_struct_by_value, emit_variant);
 
                                 emit.Emit(file, is_exposed_struct_by_value ? std::nullopt : std::optional(FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = IsConst()}));
                             }

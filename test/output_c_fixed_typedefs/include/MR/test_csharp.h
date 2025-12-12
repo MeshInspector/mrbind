@@ -491,6 +491,13 @@ typedef struct MR_CSharp_NameConflictsExposed
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_AmbiguousTemplates MR_CSharp_AmbiguousTemplates;
 
+// Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+// Generated from class `MR::CSharp::ConstNonconstConflicts`.
+typedef struct MR_CSharp_ConstNonconstConflicts
+{
+    int32_t x;
+} MR_CSharp_ConstNonconstConflicts;
+
 // Generated from function `MR::CSharp::foo`.
 MR_C_API void MR_CSharp_foo(void);
 
@@ -5631,6 +5638,72 @@ MR_C_API void MR_CSharp_AmbiguousTemplates_template_c_float(MR_CSharp_AmbiguousT
 // Generated from method `MR::CSharp::AmbiguousTemplates::instantiate`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_CSharp_AmbiguousTemplates_instantiate(MR_CSharp_AmbiguousTemplates *_this);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_int32_t(MR_CSharp_ConstNonconstConflicts *_this, int32_t _1);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_const_float(const MR_CSharp_ConstNonconstConflicts *_this, float _1);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_char(MR_CSharp_ConstNonconstConflicts *_this, char _1);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_const_char(const MR_CSharp_ConstNonconstConflicts *_this, char _1);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API int32_t MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_this);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API int32_t MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_this);
+
+// Since this returns void, it gets rewritten into a method.
+// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_this);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_this);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API int32_t MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int32_t(MR_CSharp_ConstNonconstConflicts *_this, int32_t _1);
+
+// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API int32_t MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int32_t(const MR_CSharp_ConstNonconstConflicts *_this, int32_t _1);
+
+// Generated from function `MR::CSharp::operator-`.
+// Parameter `_1` can not be null. It is a single object.
+MR_C_API int32_t MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_1);
+
+// Generated from function `MR::CSharp::operator-`.
+// Parameter `_1` can not be null. It is a single object.
+MR_C_API int32_t MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_1);
+
+// Since this returns void, it gets rewritten into a method.
+// Generated from function `MR::CSharp::operator!`.
+// Parameter `_1` can not be null. It is a single object.
+MR_C_API void MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_1);
+
+// Generated from function `MR::CSharp::operator!`.
+// Parameter `_1` can not be null. It is a single object.
+MR_C_API void MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_1);
+
+// Generated from function `MR::CSharp::operator&`.
+// Parameter `_2` can not be null. It is a single object.
+MR_C_API int32_t MR_C_bitand_int32_t_MR_CSharp_ConstNonconstConflicts_ref(int32_t _1, MR_CSharp_ConstNonconstConflicts *_2);
+
+// Generated from function `MR::CSharp::operator&`.
+// Parameter `_2` can not be null. It is a single object.
+MR_C_API int32_t MR_C_bitand_int32_t_const_MR_CSharp_ConstNonconstConflicts_ref(int32_t _1, const MR_CSharp_ConstNonconstConflicts *_2);
 
 // Generated from function `MR::CSharp::test_class_expected`.
 // Parameter `a` can not be null. It is a single object.

@@ -12543,6 +12543,464 @@ public static partial class MR
                 public static implicit operator _InOptConst_AmbiguousTemplates(Const_AmbiguousTemplates value) {return new(value);}
             }
 
+            // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+            /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
+            /// This is the const reference to the struct.
+            public class Const_ConstNonconstConflicts : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                /// Get the underlying struct.
+                public unsafe ref readonly ConstNonconstConflicts UnderlyingStruct => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+
+                internal unsafe Const_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConstNonconstConflicts_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ConstNonconstConflicts() {Dispose(false);}
+
+                public ref readonly int X => ref UnderlyingStruct.X;
+
+                /// Generated default constructor.
+                public unsafe Const_ConstNonconstConflicts() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                    extern static _Underlying *__MR_C_Alloc(nuint size);
+                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                }
+
+                /// Generated copy constructor.
+                public unsafe Const_ConstNonconstConflicts(Const_ConstNonconstConflicts _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                    extern static _Underlying *__MR_C_Alloc(nuint size);
+                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe void Foo(float _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_float", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_float(_Underlying *_this, float _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_const_float(_UnderlyingPtr, _1);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe void Foo(byte _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_char(_Underlying *_this, byte _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_const_char(_UnderlyingPtr, _1);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                public static unsafe int operator+(MR.CS.CSharp.Const_ConstNonconstConflicts _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_this);
+                    return __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(_this._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                public unsafe void Compl()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(_Underlying *_this);
+                    __MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                public static unsafe int operator/(MR.CS.CSharp.Const_ConstNonconstConflicts _this, int _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
+                    extern static int __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_this, int _1);
+                    return __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(_this._UnderlyingPtr, _1);
+                }
+
+                /// Generated from function `MR::CSharp::operator-`.
+                public static unsafe int operator-(MR.CS.CSharp.Const_ConstNonconstConflicts _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_1);
+                    return __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(_1._UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator!`.
+                public unsafe void Not()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(_Underlying *_1);
+                    __MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator&`.
+                public static unsafe int operator&(int _1, MR.CS.CSharp.Const_ConstNonconstConflicts _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_2);
+                    return __MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(_1, _2._UnderlyingPtr);
+                }
+            }
+
+            // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+            /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
+            /// This is the non-const reference to the struct.
+            public class Mut_ConstNonconstConflicts : Const_ConstNonconstConflicts
+            {
+                /// Get the underlying struct.
+                public unsafe new ref ConstNonconstConflicts UnderlyingStruct => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+
+                internal unsafe Mut_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                public new ref int X => ref UnderlyingStruct.X;
+
+                /// Generated default constructor.
+                public unsafe Mut_ConstNonconstConflicts() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                    extern static _Underlying *__MR_C_Alloc(nuint size);
+                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                }
+
+                /// Generated copy constructor.
+                public unsafe Mut_ConstNonconstConflicts(Const_ConstNonconstConflicts _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                    extern static _Underlying *__MR_C_Alloc(nuint size);
+                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe void Foo(int _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_int", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_int(_Underlying *_this, int _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_int(_UnderlyingPtr, _1);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe new void Foo(byte _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_char(_Underlying *_this, byte _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_char(_UnderlyingPtr, _1);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                public static unsafe int operator+(MR.CS.CSharp.Mut_ConstNonconstConflicts _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_this);
+                    return __MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(_this._UnderlyingPtr);
+                }
+
+                // Since this returns void, it gets rewritten into a method.
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                public unsafe new void Compl()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(_Underlying *_this);
+                    __MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                public static unsafe int operator/(MR.CS.CSharp.Mut_ConstNonconstConflicts _this, int _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
+                    extern static int __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_this, int _1);
+                    return __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(_this._UnderlyingPtr, _1);
+                }
+
+                /// Generated from function `MR::CSharp::operator-`.
+                public static unsafe int operator-(MR.CS.CSharp.Mut_ConstNonconstConflicts _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_1);
+                    return __MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(_1._UnderlyingPtr);
+                }
+
+                // Since this returns void, it gets rewritten into a method.
+                /// Generated from function `MR::CSharp::operator!`.
+                public unsafe new void Not()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(_Underlying *_1);
+                    __MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator&`.
+                public static unsafe int operator&(int _1, MR.CS.CSharp.Mut_ConstNonconstConflicts _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_2);
+                    return __MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(_1, _2._UnderlyingPtr);
+                }
+            }
+
+            // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+            /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
+            /// This is the by-value version of the struct.
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            public struct ConstNonconstConflicts
+            {
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ConstNonconstConflicts(Const_ConstNonconstConflicts other) => other.UnderlyingStruct;
+                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe static implicit operator Mut_ConstNonconstConflicts(ConstNonconstConflicts other) => new(new Mut_ConstNonconstConflicts((Mut_ConstNonconstConflicts._Underlying *)&other, is_owning: false));
+
+                [System.Runtime.InteropServices.FieldOffset(0)]
+                public int X;
+
+                /// Generated copy constructor.
+                public ConstNonconstConflicts(ConstNonconstConflicts _other) {this = _other;}
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe void Foo(int _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_int", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_int(MR.CS.CSharp.ConstNonconstConflicts *_this, int _1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        __MR_CSharp_ConstNonconstConflicts_foo_int(__ptr__this, _1);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe void Foo(float _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_float", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_float(MR.CS.CSharp.ConstNonconstConflicts *_this, float _1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        __MR_CSharp_ConstNonconstConflicts_foo_const_float(__ptr__this, _1);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe void Foo(byte _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_char(MR.CS.CSharp.ConstNonconstConflicts *_this, byte _1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        __MR_CSharp_ConstNonconstConflicts_foo_char(__ptr__this, _1);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                public unsafe void Foo_Const(byte _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_char(MR.CS.CSharp.ConstNonconstConflicts *_this, byte _1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        __MR_CSharp_ConstNonconstConflicts_foo_const_char(__ptr__this, _1);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                public unsafe int Add()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_this);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        return __MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(__ptr__this);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                public static unsafe int operator+(MR.CS.CSharp.ConstNonconstConflicts _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_this);
+                    return __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref((MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *)&_this);
+                }
+
+                // Since this returns void, it gets rewritten into a method.
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                public unsafe void Compl()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_this);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        __MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(__ptr__this);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                public unsafe void Compl_Const()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_this);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        __MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(__ptr__this);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                public unsafe int Div(int _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
+                    extern static int __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.ConstNonconstConflicts *_this, int _1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
+                    {
+                        return __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(__ptr__this, _1);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                public static unsafe int operator/(MR.CS.CSharp.ConstNonconstConflicts _this, int _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
+                    extern static int __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_this, int _1);
+                    return __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int((MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *)&_this, _1);
+                }
+
+                /// Generated from function `MR::CSharp::operator-`.
+                public unsafe int Sub()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__1 = &this)
+                    {
+                        return __MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(__ptr__1);
+                    }
+                }
+
+                /// Generated from function `MR::CSharp::operator-`.
+                public static unsafe int operator-(MR.CS.CSharp.ConstNonconstConflicts _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_1);
+                    return __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref((MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *)&_1);
+                }
+
+                // Since this returns void, it gets rewritten into a method.
+                /// Generated from function `MR::CSharp::operator!`.
+                public unsafe void Not()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__1 = &this)
+                    {
+                        __MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(__ptr__1);
+                    }
+                }
+
+                /// Generated from function `MR::CSharp::operator!`.
+                public unsafe void Not_Const()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static void __MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_1);
+                    fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__1 = &this)
+                    {
+                        __MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(__ptr__1);
+                    }
+                }
+
+                /// Generated from function `MR::CSharp::operator&`.
+                public static unsafe int Bitand(int _1, MR.CS.CSharp.Mut_ConstNonconstConflicts _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_2);
+                    return __MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(_1, _2._UnderlyingPtr);
+                }
+
+                /// Generated from function `MR::CSharp::operator&`.
+                public static unsafe int operator&(int _1, MR.CS.CSharp.ConstNonconstConflicts _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
+                    extern static int __MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_2);
+                    return __MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(_1, (MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *)&_2);
+                }
+            }
+
+            /// This is used as a function parameter when passing `Mut_ConstNonconstConflicts` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// Usage:
+            /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` to copy it into the function.
+            /// * Pass `null` to use the default argument
+            public readonly ref struct _InOpt_ConstNonconstConflicts
+            {
+                public readonly bool HasValue;
+                internal readonly ConstNonconstConflicts Object;
+                public ConstNonconstConflicts Value{
+                    get
+                    {
+                        System.Diagnostics.Trace.Assert(HasValue);
+                        return Object;
+                    }
+                }
+
+                public _InOpt_ConstNonconstConflicts() {HasValue = false;}
+                public _InOpt_ConstNonconstConflicts(ConstNonconstConflicts new_value) {HasValue = true; Object = new_value;}
+                public static implicit operator _InOpt_ConstNonconstConflicts(ConstNonconstConflicts new_value) {return new(new_value);}
+                public _InOpt_ConstNonconstConflicts(Const_ConstNonconstConflicts new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public static implicit operator _InOpt_ConstNonconstConflicts(Const_ConstNonconstConflicts new_value) {return new(new_value);}
+            }
+
+            /// This is used for optional parameters of class `Mut_ConstNonconstConflicts` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstNonconstConflicts`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` directly.
+            /// * Pass `new(ref ...)` to pass a reference to `ConstNonconstConflicts`.
+            public class _InOptMut_ConstNonconstConflicts
+            {
+                public Mut_ConstNonconstConflicts? Opt;
+
+                public _InOptMut_ConstNonconstConflicts() {}
+                public _InOptMut_ConstNonconstConflicts(Mut_ConstNonconstConflicts value) {Opt = value;}
+                public static implicit operator _InOptMut_ConstNonconstConflicts(Mut_ConstNonconstConflicts value) {return new(value);}
+                public unsafe _InOptMut_ConstNonconstConflicts(ref ConstNonconstConflicts value)
+                {
+                    fixed (ConstNonconstConflicts *value_ptr = &value)
+                    {
+                        Opt = new((Const_ConstNonconstConflicts._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
+            }
+
+            /// This is used for optional parameters of class `Mut_ConstNonconstConflicts` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstNonconstConflicts`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` to pass it to the function.
+            /// * Pass `new(ref ...)` to pass a reference to `ConstNonconstConflicts`.
+            public class _InOptConst_ConstNonconstConflicts
+            {
+                public Const_ConstNonconstConflicts? Opt;
+
+                public _InOptConst_ConstNonconstConflicts() {}
+                public _InOptConst_ConstNonconstConflicts(Const_ConstNonconstConflicts value) {Opt = value;}
+                public static implicit operator _InOptConst_ConstNonconstConflicts(Const_ConstNonconstConflicts value) {return new(value);}
+                public unsafe _InOptConst_ConstNonconstConflicts(ref readonly ConstNonconstConflicts value)
+                {
+                    fixed (ConstNonconstConflicts *value_ptr = &value)
+                    {
+                        Opt = new((Const_ConstNonconstConflicts._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
+            }
+
             /// Generated from function `MR::CSharp::foo`.
             public static void Foo()
             {

@@ -695,6 +695,7 @@ namespace mrbind::CSharp
         };
 
         // Is this an overloaded operator that's impossible to implement as an operator in exposed structs due to having a non-const reference argument to the enclosing class?
+        // Make sure the input satisfies `IsOverloadableOpOrConvOp()`, since we don't check that.
         [[nodiscard]] bool IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(const CInterop::ClassMethod &method);
 
         // Determine a suitable unqualified C# name for a method.
