@@ -1755,6 +1755,26 @@ const MR_C_std_string *MR_CSharp_test_string_cref(const char *a, const char *a_e
     ));
 }
 
+MR_C_std_string *MR_CSharp_test_string_rref(const char *a, const char *a_end, const char *b, const char *b_end)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_std_string *)&mrbindc_details::unmove(::MR::CSharp::test_string_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string(a, a_end) : std::string(a))),
+        (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
+    ));
+}
+
+const MR_C_std_string *MR_CSharp_test_string_crref(const char *a, const char *a_end, const char *b, const char *b_end)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_std_string *)&mrbindc_details::unmove(::MR::CSharp::test_string_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string(a, a_end) : std::string(a))),
+        (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
+    ));
+}
+
 MR_C_std_string *MR_CSharp_test_string_ptr(MR_C_std_string *a, MR_C_std_string *const *b)
 {
     using namespace MR;
@@ -1802,6 +1822,26 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_cref(const char *a, const 
     return (const MR_C_std_string_view *)&(::MR::CSharp::test_stringview_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view(default_stringview))
+    ));
+}
+
+MR_C_std_string_view *MR_CSharp_test_stringview_rref(const char *a, const char *a_end, const char *b, const char *b_end)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_std_string_view *)&mrbindc_details::unmove(::MR::CSharp::test_stringview_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
+    ));
+}
+
+const MR_C_std_string_view *MR_CSharp_test_stringview_crref(const char *a, const char *a_end, const char *b, const char *b_end)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_std_string_view *)&mrbindc_details::unmove(::MR::CSharp::test_stringview_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
     ));
 }
 
@@ -1855,6 +1895,30 @@ const MR_C_std_filesystem_path *MR_CSharp_test_fspath_cref(const char *a, const 
     return (const MR_C_std_filesystem_path *)&(::MR::CSharp::test_fspath_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
         (b ? (b_end ? std::filesystem::u8path(b, b_end) : std::filesystem::u8path(b)) : std::filesystem::path(default_fspath))
+    ));
+    ) // MRBINDC_IGNORE_DEPRECATION
+}
+
+MR_C_std_filesystem_path *MR_CSharp_test_fspath_rref(const char *a, const char *a_end, const char *b, const char *b_end)
+{
+    using namespace MR;
+    using namespace CSharp;
+    MRBINDC_IGNORE_DEPRECATION(
+    return (MR_C_std_filesystem_path *)&mrbindc_details::unmove(::MR::CSharp::test_fspath_rref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
+        (b ? (b_end ? std::filesystem::u8path(b, b_end) : std::filesystem::u8path(b)) : std::filesystem::path((std::filesystem::path &&)default_fspath))
+    ));
+    ) // MRBINDC_IGNORE_DEPRECATION
+}
+
+const MR_C_std_filesystem_path *MR_CSharp_test_fspath_crref(const char *a, const char *a_end, const char *b, const char *b_end)
+{
+    using namespace MR;
+    using namespace CSharp;
+    MRBINDC_IGNORE_DEPRECATION(
+    return (const MR_C_std_filesystem_path *)&mrbindc_details::unmove(::MR::CSharp::test_fspath_crref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
+        (b ? (b_end ? std::filesystem::u8path(b, b_end) : std::filesystem::u8path(b)) : std::filesystem::path((std::filesystem::path &&)default_fspath))
     ));
     ) // MRBINDC_IGNORE_DEPRECATION
 }

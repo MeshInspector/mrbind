@@ -949,6 +949,29 @@ namespace mrbind::CSharp
                 return &iter->second;
             };
 
+            // If this is an rvalue reference, prepends a special tag struct to `params`. Otherwise leaves it unchanged.
+            // Returns the resulting params vector.
+            // We only use this for cases where we can't use the `_Moved<...>` wrapper for the parameter type for some reason.
+            auto MaybePrependRvalueTag = [
+                this,
+                is_rvalue_ref = cpp_type.Is<cppdecl::Reference>() && cpp_type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue
+            ](const std::string &name, std::vector<TypeBinding::ParamUsage::Strings::CSharpParam> params)
+            {
+                if (is_rvalue_ref)
+                {
+                    params.insert(params.begin(), TypeBinding::ParamUsage::Strings::CSharpParam{
+                        .type = RequestHelper("_MoveRef"),
+                        .name = "_move_" + name,
+                    });
+
+                    // If the original parameter had a default argument, add a default argument for this one too.
+                    // This is strictly required, we have checks for this.
+                    if (params.at(1).default_arg)
+                        params.at(0).default_arg = "default";
+                }
+                return params;
+            };
+
             if (!bool(flags & TypeBindingFlags::enable_sugar))
             {
                 // Without sugar.
@@ -1278,28 +1301,6 @@ namespace mrbind::CSharp
                     if (cpp_type.Is<cppdecl::Reference>())
                     {
                         const bool is_rvalue_ref = cpp_type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue;
-
-                        // If this reference is an rvalue reference, prepends a special tag struct to `params`. Otherwise leaves it unchanged.
-                        // Returns the resulting params vector.
-                        auto MaybePrependRvalueTag = [
-                            this,
-                            is_rvalue_ref
-                        ](const std::string &name, std::vector<TypeBinding::ParamUsage::Strings::CSharpParam> params)
-                        {
-                            if (is_rvalue_ref)
-                            {
-                                params.insert(params.begin(), TypeBinding::ParamUsage::Strings::CSharpParam{
-                                    .type = RequestHelper("_MoveRef"),
-                                    .name = "_move_" + name,
-                                });
-
-                                // If the original parameter had a default argument, add a default argument for this one too.
-                                // This is strictly required, we have checks for this.
-                                if (params.at(1).default_arg)
-                                    params.at(0).default_arg = "default";
-                            }
-                            return params;
-                        };
 
                         // A generic reference.
                         const TypeBinding *ret = [&]() -> const TypeBinding *
@@ -2088,11 +2089,11 @@ namespace mrbind::CSharp
                 {
                     return {
                         .param_usage = TypeBinding::ParamUsage{
-                            .make_strings = [](const std::string &name, bool /*have_useless_defarg*/)
+                            .make_strings = [MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
                                     .dllimport_decl_params = "byte *" + name + ", byte *" + name + "_end",
-                                    .csharp_decl_params = {{.type = "ReadOnlySpan<char>", .name = name}},
+                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = "ReadOnlySpan<char>", .name = name}}),
                                     .scope_open =
                                         "byte[] __bytes_" + name + " = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(" + name + ".Length)];\n"
                                         "int __len_" + name + " = System.Text.Encoding.UTF8.GetBytes(" + name + ", __bytes_" + name + ");\n"
@@ -2103,11 +2104,11 @@ namespace mrbind::CSharp
                             },
                         },
                         .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                            .make_strings = [this](const std::string &name, bool /*have_useless_defarg*/)
+                            .make_strings = [this, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
                                     .dllimport_decl_params = "byte *" + name + ", byte *" + name + "_end",
-                                    .csharp_decl_params = {{.type = RequestHelper("ReadOnlyCharSpanOpt"), .name = name, .default_arg = "new()"}}, // For some reason `= null` doesn't compile in the default argument here, though passing it manually to those parameters works.
+                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = RequestHelper("ReadOnlyCharSpanOpt"), .name = name, .default_arg = "new()"}}), // For some reason `= null` doesn't compile in the default argument here, though passing it manually to those parameters works.
                                     .scope_open =
                                         "byte[] __bytes_" + name + ";\n"
                                         "int __len_" + name + " = 0;\n"

@@ -1694,6 +1694,26 @@ MR_C_API MR_C_std_string *MR_CSharp_test_string_ref(MR_C_std_string *a, MR_C_std
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_test_string_cref(const char *a, const char *a_end, const char *b, const char *b_end);
 
+// Generated from function `MR::CSharp::test_string_rref`.
+// Parameter `a` can not be null.
+// If `a_end` is null, then `a` is assumed to be null-terminated.
+// If `b_end` is null, then `b` is assumed to be null-terminated.
+// Non-null `b_end` requires a non-null `b`.
+// Parameter `b` has a default argument: `(std::string&&)default_string`, pass a null pointer to both it and `b_end` to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_C_std_string *MR_CSharp_test_string_rref(const char *a, const char *a_end, const char *b, const char *b_end);
+
+// Generated from function `MR::CSharp::test_string_crref`.
+// Parameter `a` can not be null.
+// If `a_end` is null, then `a` is assumed to be null-terminated.
+// If `b_end` is null, then `b` is assumed to be null-terminated.
+// Non-null `b_end` requires a non-null `b`.
+// Parameter `b` has a default argument: `(std::string&&)default_string`, pass a null pointer to both it and `b_end` to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_C_std_string *MR_CSharp_test_string_crref(const char *a, const char *a_end, const char *b, const char *b_end);
+
 // Generated from function `MR::CSharp::test_string_ptr`.
 // Parameter `b` has a default argument: `&default_string`, pass a null pointer to use it.
 MR_C_API MR_C_std_string *MR_CSharp_test_string_ptr(MR_C_std_string *a, MR_C_std_string *const *b);
@@ -1727,6 +1747,26 @@ MR_C_API MR_C_std_string_view *MR_CSharp_test_stringview_ref(MR_C_std_string_vie
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string_view *MR_CSharp_test_stringview_cref(const char *a, const char *a_end, const char *b, const char *b_end);
 
+// Generated from function `MR::CSharp::test_stringview_rref`.
+// Parameter `a` can not be null.
+// If `a_end` is null, then `a` is assumed to be null-terminated.
+// If `b_end` is null, then `b` is assumed to be null-terminated.
+// Non-null `b_end` requires a non-null `b`.
+// Parameter `b` has a default argument: `(std::string_view&&)default_stringview`, pass a null pointer to both it and `b_end` to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_C_std_string_view *MR_CSharp_test_stringview_rref(const char *a, const char *a_end, const char *b, const char *b_end);
+
+// Generated from function `MR::CSharp::test_stringview_crref`.
+// Parameter `a` can not be null.
+// If `a_end` is null, then `a` is assumed to be null-terminated.
+// If `b_end` is null, then `b` is assumed to be null-terminated.
+// Non-null `b_end` requires a non-null `b`.
+// Parameter `b` has a default argument: `(std::string_view&&)default_stringview`, pass a null pointer to both it and `b_end` to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_C_std_string_view *MR_CSharp_test_stringview_crref(const char *a, const char *a_end, const char *b, const char *b_end);
+
 // Generated from function `MR::CSharp::test_stringview_ptr`.
 // Parameter `b` has a default argument: `&default_stringview`, pass a null pointer to use it.
 MR_C_API MR_C_std_string_view *MR_CSharp_test_stringview_ptr(MR_C_std_string_view *a, MR_C_std_string_view *const *b);
@@ -1755,6 +1795,22 @@ MR_C_API MR_C_std_filesystem_path *MR_CSharp_test_fspath_ref(MR_C_std_filesystem
 // Parameter `b` has a default argument: `default_fspath`, pass a null pointer to both it and `b_end` to use it.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_filesystem_path *MR_CSharp_test_fspath_cref(const char *a, const char *a_end, const char *b, const char *b_end);
+
+// Generated from function `MR::CSharp::test_fspath_rref`.
+// Parameter `a` is a UTF-8 encoded filesystem path.
+// Parameter `b` is a UTF-8 encoded filesystem path.
+// Parameter `b` has a default argument: `(std::filesystem::path&&)default_fspath`, pass a null pointer to both it and `b_end` to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API MR_C_std_filesystem_path *MR_CSharp_test_fspath_rref(const char *a, const char *a_end, const char *b, const char *b_end);
+
+// Generated from function `MR::CSharp::test_fspath_crref`.
+// Parameter `a` is a UTF-8 encoded filesystem path.
+// Parameter `b` is a UTF-8 encoded filesystem path.
+// Parameter `b` has a default argument: `(std::filesystem::path&&)default_fspath`, pass a null pointer to both it and `b_end` to use it.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// In C++ returns an rvalue reference.
+MR_C_API const MR_C_std_filesystem_path *MR_CSharp_test_fspath_crref(const char *a, const char *a_end, const char *b, const char *b_end);
 
 // Generated from function `MR::CSharp::test_fspath_ptr`.
 // Parameter `b` has a default argument: `&default_fspath`, pass a null pointer to use it.

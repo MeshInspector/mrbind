@@ -74,7 +74,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::RvalueRef`.
-            public static unsafe void RvalueRef(ReadOnlySpan<char> s)
+            public static unsafe void RvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_RvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdString_RvalueRef(byte *s, byte *s_end);
@@ -87,7 +87,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::ConstRvalueRef`.
-            public static unsafe void ConstRvalueRef(ReadOnlySpan<char> s)
+            public static unsafe void ConstRvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_ConstRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdString_ConstRvalueRef(byte *s, byte *s_end);

@@ -201,6 +201,8 @@ namespace MR::CSharp
     inline std::string test_string(std::string a, std::string b = default_string) {(void)a; return b;}
     inline std::string &test_string_ref(std::string &a, std::string &b = default_string) {(void)a; return b;}
     inline const std::string &test_string_cref(const std::string &a, const std::string &b = default_string) {(void)a; return b;}
+    inline std::string &&test_string_rref(std::string &&a, std::string &&b = (std::string &&)default_string) {(void)a; return b;}
+    inline const std::string &&test_string_crref(const std::string &&a, const std::string &&b = (std::string &&)default_string) {(void)a; return b;}
     inline std::string *test_string_ptr(std::string *a, std::string *b = &default_string) {(void)a; return b;}
     inline const std::string *test_string_cptr(const std::string *a, const std::string *b = &default_string) {(void)a; return b;}
 
@@ -210,6 +212,8 @@ namespace MR::CSharp
     inline std::string_view test_stringview(std::string_view a, std::string_view b = default_stringview) {(void)a; return b;}
     inline std::string_view &test_stringview_ref(std::string_view &a, std::string_view &b = default_stringview) {(void)a; return b;}
     inline const std::string_view &test_stringview_cref(const std::string_view &a, const std::string_view &b = default_stringview) {(void)a; return b;}
+    inline std::string_view &&test_stringview_rref(std::string_view &&a, std::string_view &&b = (std::string_view &&)default_stringview) {(void)a; return b;}
+    inline const std::string_view &&test_stringview_crref(const std::string_view &&a, const std::string_view &&b = (std::string_view &&)default_stringview) {(void)a; return b;}
     inline std::string_view *test_stringview_ptr(std::string_view *a, std::string_view *b = &default_stringview) {(void)a; return b;}
     inline const std::string_view *test_stringview_cptr(const std::string_view *a, const std::string_view *b = &default_stringview) {(void)a; return b;}
 
@@ -219,6 +223,8 @@ namespace MR::CSharp
     inline std::filesystem::path test_fspath(std::filesystem::path a, std::filesystem::path b = default_fspath) {(void)a; return b;}
     inline std::filesystem::path &test_fspath_ref(std::filesystem::path &a, std::filesystem::path &b = default_fspath) {(void)a; return b;}
     inline const std::filesystem::path &test_fspath_cref(const std::filesystem::path &a, const std::filesystem::path &b = default_fspath) {(void)a; return b;}
+    inline std::filesystem::path &&test_fspath_rref(std::filesystem::path &&a, std::filesystem::path &&b = (std::filesystem::path &&)default_fspath) {(void)a; return b;}
+    inline const std::filesystem::path &&test_fspath_crref(const std::filesystem::path &&a, const std::filesystem::path &&b = (std::filesystem::path &&)default_fspath) {(void)a; return b;}
     inline std::filesystem::path *test_fspath_ptr(std::filesystem::path *a, std::filesystem::path *b = &default_fspath) {(void)a; return b;}
     inline const std::filesystem::path *test_fspath_cptr(const std::filesystem::path *a, const std::filesystem::path *b = &default_fspath) {(void)a; return b;}
 
