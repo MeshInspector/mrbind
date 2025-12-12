@@ -28,7 +28,7 @@ Notice `--ignore :: --allow YourNamespace`, which limits the parser output to yo
 
 It's intentional that we filter out `namespace std`, parsing the standard library contents is not supported. You can of course include standard headers, and use standard types in your interface. The point is that standard types have custom handwritten bindings instead of parsed ones.
 
-You can additionally `--ignore` more namespaces here, such as `--ignore YourLibrary::detail`. If your library adds entities to the global namespace, you'll have to individually bless every function/class/etc with `--allow` ( )note that it accepts regexes: `--allow '/MyLib_.*/'`; replace `'...'` with appropriate escapement for your shell, it's not a part of the syntax).
+You can additionally `--ignore` more namespaces here, such as `--ignore YourLibrary::detail`. If your library adds entities to the global namespace, you'll have to individually bless every function/class/etc with `--allow` (note that it accepts regexes: `--allow '/MyLib_.*/'`; replace `'...'` with appropriate escapement for your shell, it's not a part of the syntax).
 
 **`<clang_flags>`** is where you put `-I`, `-D`, `-std=c++??`, etc. Other useful flags that can be added here are:
 
