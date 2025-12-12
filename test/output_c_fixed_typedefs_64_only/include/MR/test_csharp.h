@@ -5684,9 +5684,15 @@ MR_C_API void MR_CSharp_NameConflicts_A_DestroyArray(const MR_CSharp_NameConflic
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_AssignFromAnother(MR_CSharp_NameConflicts_A *_this, const MR_CSharp_NameConflicts_A *_other);
 
+/// Generated from function `MR::CSharp::nameConflicts`.
+MR_C_API void MR_CSharp_nameConflicts(void);
+
 /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(MR_CSharp_NameConflictsExposed *_this);
+
+/// Generated from function `MR::CSharp::nameConflictsExposed`.
+MR_C_API void MR_CSharp_nameConflictsExposed(void);
 
 // Test how template arguments are added to function names when needed to avoid ambiguities.
 /// Generated from function `MR::CSharp::template_a<int>`.

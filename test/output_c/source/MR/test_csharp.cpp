@@ -7593,9 +7593,19 @@ MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_AssignFromAnother(MR_CSharp
     ));
 }
 
+void MR_CSharp_nameConflicts(void)
+{
+    ::MR::CSharp::nameConflicts();
+}
+
 void MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(MR_CSharp_NameConflictsExposed *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflictsExposed *)(_this)).name_Conflicts_exposed();
+}
+
+void MR_CSharp_nameConflictsExposed(void)
+{
+    ::MR::CSharp::nameConflictsExposed();
 }
 
 void MR_CSharp_template_a_int(int _1)

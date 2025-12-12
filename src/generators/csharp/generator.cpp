@@ -744,6 +744,47 @@ namespace mrbind::CSharp
         return false;
     }
 
+    bool Generator::ForEachTypePartName(const cppdecl::QualifiedName &cpp_type, std::function<bool(const std::string &part)> func)
+    {
+        const std::string cpp_type_str = CppdeclToCode(cpp_type);
+
+        // A enum.
+        if (std::holds_alternative<CInterop::TypeKinds::Enum>(c_desc.FindTypeOpt(cpp_type_str)->var))
+        {
+            if (func(CppToCSharpUnqualEnumName(ParseNameOrThrow(cpp_type_str))))
+                return true;
+        }
+
+        // A class.
+        if (std::holds_alternative<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(cpp_type_str)->var))
+            return ForEachClassPartName(cpp_type, func);
+
+        return false;
+    }
+
+    const Generator::UsedNamesInNamespace &Generator::GetUsedUsedNamesInNamespace(const cppdecl::QualifiedName &cpp_namespace)
+    {
+        const std::string cpp_namespace_str = cpp_namespace.parts.empty() ? "" : CppdeclToCode(cpp_namespace);
+        auto iter = cached_used_names_in_namespace.find(cpp_namespace_str);
+        if (iter != cached_used_names_in_namespace.end())
+            return iter->second;
+
+        UsedNamesInNamespace ret;
+
+        // Type names.
+        ForEachNestedType(cpp_namespace, [&](const cppdecl::QualifiedName &name)
+        {
+            ForEachTypePartName(name, [&](const std::string &part)
+            {
+                [[maybe_unused]] bool ok = ret.class_names.insert(part).second;
+                assert(ok); // D:
+                return false;
+            });
+        });
+
+        return cached_used_names_in_namespace.try_emplace(cpp_namespace_str, std::move(ret)).first->second;
+    }
+
     const Generator::UsedMemberNamesInClass &Generator::GetUsedMemberNamesInClass(const cppdecl::QualifiedName &cpp_class)
     {
         const std::string cpp_class_str = CppdeclToCode(cpp_class);
@@ -761,34 +802,14 @@ namespace mrbind::CSharp
 
         // Insert nested types.
         // We don't handle conflicts with `ret.self_names` here, since renaming types sounds too difficult for now.
-        ForEachNestedType(cpp_class_str, [&](const std::string &cpp_nested_type)
+        ForEachNestedType(cpp_class, [&](const cppdecl::QualifiedName &name)
         {
-            // A enum.
-            if (std::holds_alternative<CInterop::TypeKinds::Enum>(c_desc.FindTypeOpt(cpp_nested_type)->var))
+            ForEachTypePartName(name, [&](const std::string &part)
             {
-                [[maybe_unused]] bool ok = ret.nested_types.insert(CppToCSharpUnqualEnumName(ParseNameOrThrow(cpp_nested_type))).second;
-
-                assert(ok); // Uh-oh. Different part of different nested types collide with each other!
-                return;
-            }
-
-            // A class.
-            if (std::holds_alternative<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(cpp_nested_type)->var))
-            {
-                ForEachClassPartName(ParseNameOrThrow(cpp_nested_type), [&](const std::string &part)
-                {
-                    // For now we assume none of those conflict with one another.
-                    [[maybe_unused]] bool ok = ret.nested_types.insert(part).second;
-
-                    assert(ok); // Uh-oh. Different part of different nested types collide with each other!
-
-                    return false;
-                });
-
-                return;
-            }
-
-            assert(false); // What kind of member type is this?
+                [[maybe_unused]] bool ok = ret.nested_types.insert(part).second;
+                assert(ok); // D:
+                return false;
+            });
         });
 
         const auto &type_desc = *c_desc.FindTypeOpt(cpp_class_str);
@@ -847,14 +868,19 @@ namespace mrbind::CSharp
         return cached_used_member_names_in_class.try_emplace(cpp_class_str, std::move(ret)).first->second;
     }
 
-    void Generator::ForEachNestedType(const std::string &cpp_class, std::function<void(const std::string &nested_type)> func)
+    void Generator::ForEachNestedType(const cppdecl::QualifiedName &cpp_class_or_ns, std::function<void(const cppdecl::QualifiedName &nested_type)> func)
     {
-        std::string nested_type_prefix = cpp_class + "::";
+        std::string nested_type_prefix = CppdeclToCode(cpp_class_or_ns) + "::";
 
         auto iter = c_desc.cpp_types.Map().lower_bound(nested_type_prefix);
         while (iter != c_desc.cpp_types.Map().end() && iter->first.starts_with(nested_type_prefix))
         {
-            func(iter->first);
+            const cppdecl::QualifiedName &name = ParseNameOrThrow(iter->first);
+
+            // Note the `name.parts.size()` check to visit only the direct sub types, and not recurse into them.
+            if (name.parts.size() == cpp_class_or_ns.parts.size() + 1 && ShouldEmitCppType(cppdecl::Type::FromQualifiedName(name)))
+                func(name);
+
             ++iter;
         }
     }
@@ -3707,10 +3733,9 @@ namespace mrbind::CSharp
             // This lambda emits all types nested in this one, if any.
             auto EmitNestedClasses = [&]
             {
-                ForEachNestedType(cpp_type, [&](const std::string &cpp_nested_type)
+                ForEachNestedType(cpp_qual_name, [&](const cppdecl::QualifiedName &cpp_nested_type)
                 {
-                    if (ShouldEmitCppType(ParseTypeOrThrow(cpp_nested_type)))
-                        EmitCppTypeUnconditionally(file, cpp_nested_type);
+                    EmitCppTypeUnconditionally(file, CppdeclToCode(cpp_nested_type));
                 });
             };
 
@@ -5315,6 +5340,14 @@ namespace mrbind::CSharp
                         unqual_csharp_name = CppIdentifierToCSharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
                     else
                         unqual_csharp_name = CppToCSharpIdentifier(qual_name.parts.back());
+
+                    { // Adjust the name to avoid conflicts with types.
+                        qual_name.parts.pop_back();
+                        const auto &used_names = GetUsedUsedNamesInNamespace(qual_name);
+
+                        while (used_names.class_names.contains(unqual_csharp_name))
+                            unqual_csharp_name += '_';
+                    }
                 },
                 free_func.var
             );

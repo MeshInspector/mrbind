@@ -14832,6 +14832,22 @@ public static partial class MR
                 return __MR_CSharp_test_arrcptr_cptr(a, b, c);
             }
 
+            /// Generated from function `MR::CSharp::nameConflicts`.
+            public static void NameConflicts_()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_nameConflicts", ExactSpelling = true)]
+                extern static void __MR_CSharp_nameConflicts();
+                __MR_CSharp_nameConflicts();
+            }
+
+            /// Generated from function `MR::CSharp::nameConflictsExposed`.
+            public static void NameConflictsExposed_()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_nameConflictsExposed", ExactSpelling = true)]
+                extern static void __MR_CSharp_nameConflictsExposed();
+                __MR_CSharp_nameConflictsExposed();
+            }
+
             // Test how template arguments are added to function names when needed to avoid ambiguities.
             /// Generated from function `MR::CSharp::template_a<int>`.
             public static void TemplateA(int _1)

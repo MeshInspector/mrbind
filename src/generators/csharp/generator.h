@@ -441,6 +441,19 @@ namespace mrbind::CSharp
         // Calls `func` on each unqualified name of a part of a class `cpp_class`.
         // If `func` returns true, stops and also returns true.
         bool ForEachClassPartName(const cppdecl::QualifiedName &cpp_class, std::function<bool(const std::string &part)> func);
+        // Same, but also understands enums. This is strictly move powerful than `ForEachClassPartName()`.
+        bool ForEachTypePartName(const cppdecl::QualifiedName &cpp_type, std::function<bool(const std::string &part)> func);
+
+        struct UsedNamesInNamespace
+        {
+            std::unordered_set<std::string> class_names;
+        };
+
+        // The cache for `GetUsedMemberNamesInNamespace()`.
+        // The keys are C++ qualified namespace names, with the empty string for the global namespace.
+        std::unordered_map<std::string, UsedNamesInNamespace> cached_used_names_in_namespace;
+
+        [[nodiscard]] const UsedNamesInNamespace &GetUsedUsedNamesInNamespace(const cppdecl::QualifiedName &cpp_namespace);
 
         struct UsedMemberNamesInClass
         {
@@ -462,9 +475,11 @@ namespace mrbind::CSharp
 
         [[nodiscard]] const UsedMemberNamesInClass &GetUsedMemberNamesInClass(const cppdecl::QualifiedName &cpp_class);
 
-        // Iterate over all types nested in `cpp_class`, which should be classes and enums.
-        // Don't forget to check `ShouldEmitCppType()` on the types you get.
-        void ForEachNestedType(const std::string &cpp_class, std::function<void(const std::string &nested_type)> func);
+        // Iterate over all types nested in `cpp_class_or_ns`, which should be classes and enums.
+        // This automatically checks `ShouldEmitCppType()` on the types, and doesn't call `func` on types that it rejects.
+        // `cpp_class_or_ns` can be a class or namespace, or it can be an empty string to mean the global namespace.
+        // This function doesn't recurse into the nested types of nested types.
+        void ForEachNestedType(const cppdecl::QualifiedName &cpp_class_or_ns, std::function<void(const cppdecl::QualifiedName &nested_type)> func);
 
         // Converts a C++ class field name to C# as if by `CppToCSharpIdentifier(ParseNameOrThrow(cpp_field))`,
         //   but additionally adjusts the name if it conflicts with the enclosing class name (if `adjust_to_disambiguate == true`).

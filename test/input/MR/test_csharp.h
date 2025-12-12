@@ -1127,6 +1127,8 @@ namespace MR::CSharp
         A a;
     };
 
+    inline void nameConflicts() {}
+
     struct NameConflictsExposed
     {
         int name_conflicts_exposed;
@@ -1135,6 +1137,8 @@ namespace MR::CSharp
         struct A {int x;};
         A a;
     };
+
+    inline void nameConflictsExposed() {}
 
 
     // Test how template arguments are added to function names when needed to avoid ambiguities.
