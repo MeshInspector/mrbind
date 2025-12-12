@@ -99,6 +99,38 @@ This disables `operator-` if `-x` doesn't compile.
 
 Of course, this is only needed if `Vec3<std::string>` is mentioned somewhere in the input headers. We don't randomly try to substitute arbitrary template arguments into templates.
 
+### Templated constructor conflicting with copy constructor
+
+One common pitfall with templates is this:
+```cpp
+template <typename T>
+struct Vec3
+{
+    T x, y, z;
+
+    template <typename U>
+    Vec3(const Vec3<U> &other) : x(T(other.x)), y(T(other.y)), z(T(other.z)) {}
+
+    // More constructors here.
+}
+```
+
+This seems to work fine in C++, but MRBind sometimes ends up instantiating the constructor with `U == T`, which creates two duplicate functions in the output (which some language backends then choke on, at least C# at the time of writing).
+
+This should be fixed like this:
+```cpp
+template <typename U> requires(!std::same_as<T, U>)
+Vec3(const Vec3<U> &other) // ...
+```
+Fixing this on our side is relatively difficult, it's easier to fix in the input code. Arguably this makes the code look better even if we ignore MRBind.
+
+A similar scenario is when the constructor parameter type is entirely templated:
+```cpp
+template <typename U>
+Vec3(U &&other) // ...
+```
+Similarly, this can happen to `operator=` too.
+
 ### My templates are getting instantiated for no reason
 
 Sometimes you can run into cases like this one:
