@@ -439,6 +439,12 @@ typedef struct MR_CSharp_ConvCtor MR_CSharp_ConvCtor;
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtorWithDefArg MR_CSharp_ConvCtorWithDefArg;
 
+// A non-trivial move-only class with a converting ctor.
+// Here we test that our converting constructors injected into `_ByValue_...` don't attempt to copy the class.
+// Generated from class `MR::CSharp::ConvCtorNonTrivialRestricted`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ConvCtorNonTrivialRestricted MR_CSharp_ConvCtorNonTrivialRestricted;
+
 // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
 // Generated from class `MR::CSharp::ConvCtorTrivial`.
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -4594,6 +4600,31 @@ MR_C_API void MR_CSharp_ConvCtorWithDefArg_DestroyArray(const MR_CSharp_ConvCtor
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_CSharp_ConvCtorWithDefArg *_this, const MR_CSharp_ConvCtorWithDefArg *_other);
+
+// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorNonTrivialRestricted_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_OffsetPtr(const MR_CSharp_ConvCtorNonTrivialRestricted *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_OffsetMutablePtr(MR_CSharp_ConvCtorNonTrivialRestricted *ptr, ptrdiff_t i);
+
+// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorNonTrivialRestricted_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_Construct(int32_t _1);
+
+// Destroys a heap-allocated instance of `MR_CSharp_ConvCtorNonTrivialRestricted`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvCtorNonTrivialRestricted_Destroy(const MR_CSharp_ConvCtorNonTrivialRestricted *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_ConvCtorNonTrivialRestricted`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CSharp_ConvCtorNonTrivialRestricted *_this);
+
+// Generated from method `MR::CSharp::ConvCtorNonTrivialRestricted::operator=`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other);
 
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorTrivial_Destroy()` to free it when you're done using it.

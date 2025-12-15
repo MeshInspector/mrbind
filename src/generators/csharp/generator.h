@@ -641,6 +641,7 @@ namespace mrbind::CSharp
 
             const bool is_ctor;
             const bool is_conv_op_rewritten_from_ctor;
+            const bool is_conv_op_rewritten_from_ctor_for_by_value_wrapper;
             const bool is_property_get;
             const bool is_property_set;
             const bool is_property;

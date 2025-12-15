@@ -408,28 +408,28 @@ public static partial class MR
                 public static implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Misc._Moved<SharedPtr_ConstVoid> arg) {return new(arg);}
 
                 /// Create a new instance from a non-const pointer to the same type.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_Void ptr) {return new MR.CS.Std.SharedPtr_ConstVoid(ptr);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_Void ptr) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(ptr));}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.CSharp._ByValue_SA _other) {return new MR.CS.Std.SharedPtr_ConstVoid(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.CSharp._ByValue_SA _other) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(_other));}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstInt _other) {return new MR.CS.Std.SharedPtr_ConstVoid(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstInt _other) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(_other));}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstIntArray _other) {return new MR.CS.Std.SharedPtr_ConstVoid(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstIntArray _other) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(_other));}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstIntArray42 _other) {return new MR.CS.Std.SharedPtr_ConstVoid(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstIntArray42 _other) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(_other));}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.StdSharedPtr._ByValue_A _other) {return new MR.CS.Std.SharedPtr_ConstVoid(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.StdSharedPtr._ByValue_A _other) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(_other));}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstMRStdSharedPtrAArray _other) {return new MR.CS.Std.SharedPtr_ConstVoid(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstMRStdSharedPtrAArray _other) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(_other));}
 
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstMRStdSharedPtrAArray42 _other) {return new MR.CS.Std.SharedPtr_ConstVoid(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstMRStdSharedPtrAArray42 _other) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstVoid(_other));}
             }
 
             /// This is used for optional parameters of class `SharedPtr_ConstVoid` with default arguments.

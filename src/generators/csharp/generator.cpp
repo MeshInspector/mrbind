@@ -2309,6 +2309,12 @@ namespace mrbind::CSharp
         }, any_func_like)),
         is_ctor(method && std::holds_alternative<CInterop::MethodKinds::Constructor>(method->var)),
         is_conv_op_rewritten_from_ctor(IsConvOpForCtor(emit_variant)),
+        // This is a subset of `is_conv_op_rewritten_from_ctor` that's only true for by-value wrappers.
+        // In those, we can't just `return new T(...)` because that tries to copy it, so instead we move the result.
+        is_conv_op_rewritten_from_ctor_for_by_value_wrapper(
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper
+        ),
         is_property_get(csharp_name == "get"),
         is_property_set(csharp_name == "set"),
         is_property(is_property_get || is_property_set),
@@ -2761,7 +2767,23 @@ namespace mrbind::CSharp
 
                 if (is_conv_op_rewritten_from_ctor)
                 {
-                    file.WriteString(" {return new");
+                    file.WriteString(" {return ");
+
+                    // Don't forget to move the value if we're in a by-value wrapper.
+                    // But if the type isn't movable then don't do this. In that case, it must be copyable (which is rare but legal),
+                    //   or the conversion operator in the by-value wrapper wouldn't be emitted at all
+                    //   due to the condition in `EmitCppTypeUnconditionally()::EmitByValueHelper()`.
+                    // If the class is neither copyable nor movable, and we somehow arrive here (which should be prevent by the conditition mentioned above),
+                    //   then attempting to copy or move the object will cause a C# compilation error, so there won't be any silent breakage, hopefully.
+                    const bool should_move =
+                        is_conv_op_rewritten_from_ctor_for_by_value_wrapper &&
+                        generator.c_desc.FindTypeOpt(func_like.ret.cpp_type)->traits.value().is_move_constructible;
+
+                    // Perhaps a move?
+                    if (should_move)
+                        file.WriteString(generator.RequestHelper("Move") + "(");
+
+                    file.WriteString("new");
 
                     if (emit_variant != EmitVariant::conv_op_for_ctor)
                     {
@@ -2770,8 +2792,16 @@ namespace mrbind::CSharp
                         file.WriteString(ret_binding->csharp_return_type);
                     }
 
+                    // Propagate the argument.
                     // `.at(1)` to skip the static `this` parameter.
-                    file.WriteString("(" + param_strings.at(1).csharp_decl_params.front().name + ");}\n");
+                    file.WriteString("(" + param_strings.at(1).csharp_decl_params.front().name + ")");
+
+                    // Close the `Move(...)` call if needed.
+                    if (should_move)
+                        file.WriteString(")");
+
+                    // Close the function.
+                    file.WriteString(";}\n");
 
                     // As a special case, when we're converting from `ReadOnlySpan<char>`, also insert a conversion from `string` for convenience.
                     if (param_strings.at(1).csharp_decl_params.size() == 1 && param_strings.at(1).csharp_decl_params.front().type == "ReadOnlySpan<char>")
@@ -4755,12 +4785,19 @@ namespace mrbind::CSharp
                             )
                         );
 
-                        EmitConvertingCtors(
-                            by_val_name,
-                            is_opt_opt
-                            ? Generator::EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper
-                            : EmitVariant::conv_op_for_ctor_for_by_value_helper
-                        );
+                        // Specifically in the by-value wrappers, adding the conversion constructors only makes sense
+                        //   if the class is movable (or at least copyable, though not being movable at the same time would be weird).
+                        // That's because the function receiving this wrapper is going to try to copy/move from it,
+                        //   depending on what pass-by enum value it stores.
+                        if (type_desc.traits.value().is_copy_constructible || type_desc.traits.value().is_move_constructible)
+                        {
+                            EmitConvertingCtors(
+                                by_val_name,
+                                is_opt_opt
+                                ? Generator::EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper
+                                : EmitVariant::conv_op_for_ctor_for_by_value_helper
+                            );
+                        }
 
                         file.PopScope();
                     };

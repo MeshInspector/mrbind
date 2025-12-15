@@ -140,7 +140,7 @@ public static partial class MR
                 public static implicit operator _ByValue_Optional_MRStdOptionalB(MR.CS.Misc._Moved<Optional_MRStdOptionalB> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _ByValue_Optional_MRStdOptionalB(MR.CS.StdOptional._ByValue_B? other) {return new MR.CS.Std.Optional_MRStdOptionalB(other);}
+                public static unsafe implicit operator _ByValue_Optional_MRStdOptionalB(MR.CS.StdOptional._ByValue_B? other) {return MR.CS.Misc.Move(new MR.CS.Std.Optional_MRStdOptionalB(other));}
             }
 
             /// This is used for optional parameters of class `Optional_MRStdOptionalB` with default arguments.

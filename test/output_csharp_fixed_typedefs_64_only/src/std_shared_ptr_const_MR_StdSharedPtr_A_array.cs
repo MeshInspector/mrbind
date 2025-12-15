@@ -226,7 +226,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Misc._Moved<SharedPtr_ConstMRStdSharedPtrAArray> arg) {return new(arg);}
 
                 /// Create a new instance from a non-const pointer to the same type.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray ptr) {return new MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray(ptr);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray ptr) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray(ptr));}
             }
 
             /// This is used for optional parameters of class `SharedPtr_ConstMRStdSharedPtrAArray` with default arguments.

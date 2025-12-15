@@ -780,6 +780,17 @@ namespace MR::CSharp
         ConvCtorWithDefArg(int = 42) {}
     };
 
+    // A non-trivial move-only class with a converting ctor.
+    // Here we test that our converting constructors injected into `_ByValue_...` don't attempt to copy the class.
+    class ConvCtorNonTrivialRestricted
+    {
+        std::string s;
+      public:
+        ConvCtorNonTrivialRestricted(int) {}
+        ConvCtorNonTrivialRestricted(ConvCtorNonTrivialRestricted &&) = default;
+        ConvCtorNonTrivialRestricted &operator=(ConvCtorNonTrivialRestricted &&) = default;
+    };
+
 
     // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
     class ConvCtorTrivial

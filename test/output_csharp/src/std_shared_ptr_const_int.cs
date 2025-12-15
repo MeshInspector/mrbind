@@ -222,7 +222,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SharedPtr_ConstInt(MR.CS.Misc._Moved<SharedPtr_ConstInt> arg) {return new(arg);}
 
                 /// Create a new instance from a non-const pointer to the same type.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstInt(MR.CS.Std._ByValue_SharedPtr_Int ptr) {return new MR.CS.Std.SharedPtr_ConstInt(ptr);}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstInt(MR.CS.Std._ByValue_SharedPtr_Int ptr) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstInt(ptr));}
             }
 
             /// This is used for optional parameters of class `SharedPtr_ConstInt` with default arguments.

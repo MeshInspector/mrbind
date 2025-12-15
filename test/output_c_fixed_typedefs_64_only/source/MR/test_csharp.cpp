@@ -6075,6 +6075,47 @@ MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_
     ));
 }
 
+MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other)
+{
+    return (MR_CSharp_ConvCtorNonTrivialRestricted *)new MR::CSharp::ConvCtorNonTrivialRestricted(MR::CSharp::ConvCtorNonTrivialRestricted(
+        (MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivialRestricted), MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivialRestricted))
+    ));
+}
+
+const MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_OffsetPtr(const MR_CSharp_ConvCtorNonTrivialRestricted *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ConvCtorNonTrivialRestricted *)(((const MR::CSharp::ConvCtorNonTrivialRestricted *)ptr) + i);
+}
+
+MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_OffsetMutablePtr(MR_CSharp_ConvCtorNonTrivialRestricted *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ConvCtorNonTrivialRestricted *)(((MR::CSharp::ConvCtorNonTrivialRestricted *)ptr) + i);
+}
+
+MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_Construct(int _1)
+{
+    return (MR_CSharp_ConvCtorNonTrivialRestricted *)new MR::CSharp::ConvCtorNonTrivialRestricted(MR::CSharp::ConvCtorNonTrivialRestricted(
+        _1
+    ));
+}
+
+void MR_CSharp_ConvCtorNonTrivialRestricted_Destroy(const MR_CSharp_ConvCtorNonTrivialRestricted *_this)
+{
+    delete ((const MR::CSharp::ConvCtorNonTrivialRestricted *)_this);
+}
+
+void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CSharp_ConvCtorNonTrivialRestricted *_this)
+{
+    delete[] ((const MR::CSharp::ConvCtorNonTrivialRestricted *)_this);
+}
+
+MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other)
+{
+    return (MR_CSharp_ConvCtorNonTrivialRestricted *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorNonTrivialRestricted *)(_this)).operator=(
+        (MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivialRestricted), MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivialRestricted))
+    ));
+}
+
 MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_DefaultConstruct(void)
 {
     return (MR_CSharp_ConvCtorTrivial *)new MR::CSharp::ConvCtorTrivial(MR::CSharp::ConvCtorTrivial());
