@@ -3999,12 +3999,9 @@ namespace mrbind::CSharp
                                 if (interface_targ.ends_with('?') && param_is_managed)
                                     interface_targ.pop_back(); // `IEquatable<T>` requires implementing `Equals(T? t)`, so just in case.
 
-                                // Inheriting from the interface requires C# 13 or newer. But in older versions we can do everything else, provide the same methods etc.
-                                if (!is_exposed_struct_by_value || csharp_version >= 13)
-                                {
-                                    BaseSeparator();
-                                    file.WriteString("System.IEquatable<" + interface_targ + ">");
-                                }
+                                // Inherit from the interface.
+                                BaseSeparator();
+                                file.WriteString("System.IEquatable<" + interface_targ + ">");
 
                                 auto param = param_strings.csharp_decl_params.front();
                                 param.default_arg = {};

@@ -11094,7 +11094,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
-            public struct ExposedLayout
+            public struct ExposedLayout : System.IEquatable<float>
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayout(Const_ExposedLayout other) => other.UnderlyingStruct;
@@ -11699,7 +11699,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutSh`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
-            public struct ExposedLayoutSh
+            public struct ExposedLayoutSh : System.IEquatable<float>
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutSh(Const_ExposedLayoutSh other) => other.UnderlyingStruct;
@@ -12116,7 +12116,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public struct ExposedLayoutB
+            public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutB(Const_ExposedLayoutB other) => other.UnderlyingStruct;
