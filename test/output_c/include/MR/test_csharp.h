@@ -442,6 +442,13 @@ typedef struct MR_CSharp_ConvCtorWithDefArg MR_CSharp_ConvCtorWithDefArg;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtorNonTrivialRestricted MR_CSharp_ConvCtorNonTrivialRestricted;
 
+// A converting ctor in an exposed struct.
+/// Generated from class `MR::CSharp::ExposedConvCtor`.
+typedef struct MR_CSharp_ExposedConvCtor
+{
+    int x;
+} MR_CSharp_ExposedConvCtor;
+
 // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
 /// Generated from class `MR::CSharp::ConvCtorTrivial`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -4770,6 +4777,9 @@ MR_C_API void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CShar
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other);
+
+/// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
+MR_C_API MR_CSharp_ExposedConvCtor MR_CSharp_ExposedConvCtor_Construct(int _1);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorTrivial_Destroy()` to free it when you're done using it.

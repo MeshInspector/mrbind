@@ -152,7 +152,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_Optional_MRCSharpSA(Const_Optional_MRCSharpSA value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_Optional_MRCSharpSA(MR.CS.CSharp.Const_SA? other) {return new MR.CS.Std.Optional_MRCSharpSA(other);}
+                public static unsafe implicit operator _InOptConst_Optional_MRCSharpSA(MR.CS.CSharp.Const_SA? other) {return new Const_Optional_MRCSharpSA(other);}
             }
         }
     }

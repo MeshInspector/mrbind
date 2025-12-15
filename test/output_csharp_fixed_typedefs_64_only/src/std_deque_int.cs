@@ -303,7 +303,7 @@ public static partial class MR
                     public static implicit operator _InOptConst_ConstIterator(Const_ConstIterator value) {return new(value);}
 
                     /// Makes a const iterator from a mutable one.
-                    public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.Deque_Int.Const_Iterator iter) {return new MR.CS.Std.Deque_Int.ConstIterator(iter);}
+                    public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.Deque_Int.Const_Iterator iter) {return new Const_ConstIterator(iter);}
                 }
 
                 /// Mutable iterator for `MR_C_std_deque_int`.

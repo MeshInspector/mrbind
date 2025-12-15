@@ -2371,7 +2371,7 @@ namespace mrbind::CSharp
         acts_on_copy_of_this(is_incr_or_decr && emit_variant == EmitVariant::static_incr_or_decr)
     {
         { // Find the return type binding.
-            ret_binding = &generator.GetReturnBinding(func_like.ret, is_ctor * Generator::TypeBindingFlags::no_move_in_by_value_return);
+            ret_binding = &generator.GetReturnBinding(func_like.ret, (is_ctor && !is_conv_op_rewritten_from_ctor_for_by_value_wrapper) * Generator::TypeBindingFlags::no_move_in_by_value_return);
             if (!ret_binding)
                 throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
 
@@ -2769,36 +2769,30 @@ namespace mrbind::CSharp
                 {
                     file.WriteString(" {return ");
 
-                    // Don't forget to move the value if we're in a by-value wrapper.
-                    // But if the type isn't movable then don't do this. In that case, it must be copyable (which is rare but legal),
-                    //   or the conversion operator in the by-value wrapper wouldn't be emitted at all
-                    //   due to the condition in `EmitCppTypeUnconditionally()::EmitByValueHelper()`.
-                    // If the class is neither copyable nor movable, and we somehow arrive here (which should be prevent by the conditition mentioned above),
-                    //   then attempting to copy or move the object will cause a C# compilation error, so there won't be any silent breakage, hopefully.
-                    const bool should_move =
-                        is_conv_op_rewritten_from_ctor_for_by_value_wrapper &&
-                        generator.c_desc.FindTypeOpt(func_like.ret.cpp_type)->traits.value().is_move_constructible;
-
-                    // Perhaps a move?
-                    if (should_move)
-                        file.WriteString(generator.RequestHelper("Move") + "(");
-
                     file.WriteString("new");
 
                     if (emit_variant != EmitVariant::conv_op_for_ctor)
                     {
                         // Need the explicit type.
                         file.WriteString(" ");
-                        file.WriteString(ret_binding->csharp_return_type);
+
+                        if (!is_conv_op_rewritten_from_ctor_for_by_value_wrapper)
+                        {
+                            // Must use the `Const_...` class type.
+                            // Firstly, this is needed if this is an exposed struct, since otherwise this would be the C# struct type,
+                            //   and those are not convertible to our wrapper types, at least without saving it to a temporary variable and using `new(ref ...)`.
+                            // Secondly, even in non-structs, using the non-const class name sometimes causes ambiguities.
+                            file.WriteString(generator.CppToCSharpUnqualClassName(generator.ParseNameOrThrow(func_like.ret.cpp_type), true));
+                        }
+                        else
+                        {
+                            file.WriteString(ret_binding->csharp_return_type);
+                        }
                     }
 
                     // Propagate the argument.
                     // `.at(1)` to skip the static `this` parameter.
                     file.WriteString("(" + param_strings.at(1).csharp_decl_params.front().name + ")");
-
-                    // Close the `Move(...)` call if needed.
-                    if (should_move)
-                        file.WriteString(")");
 
                     // Close the function.
                     file.WriteString(";}\n");

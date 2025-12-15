@@ -214,7 +214,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_NonDefaultConstructible(Const_NonDefaultConstructible value) {return new(value);}
 
                 /// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
-                public static unsafe implicit operator _InOptConst_NonDefaultConstructible(int _1) {return new MR.CS.StdContainers.NonDefaultConstructible(_1);}
+                public static unsafe implicit operator _InOptConst_NonDefaultConstructible(int _1) {return new Const_NonDefaultConstructible(_1);}
             }
 
             // A non-assignable type?

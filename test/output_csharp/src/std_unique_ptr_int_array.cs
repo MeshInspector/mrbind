@@ -163,7 +163,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_UniquePtr_IntArray(Const_UniquePtr_IntArray value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_UniquePtr_IntArray(void *other) {return new MR.CS.Std.UniquePtr_IntArray(other);}
+                public static unsafe implicit operator _InOptConst_UniquePtr_IntArray(void *other) {return new Const_UniquePtr_IntArray(other);}
             }
         }
     }

@@ -791,6 +791,13 @@ namespace MR::CSharp
         ConvCtorNonTrivialRestricted &operator=(ConvCtorNonTrivialRestricted &&) = default;
     };
 
+    // A converting ctor in an exposed struct.
+    struct ExposedConvCtor
+    {
+        int x;
+        ExposedConvCtor(int) {}
+    };
+
 
     // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
     class ConvCtorTrivial

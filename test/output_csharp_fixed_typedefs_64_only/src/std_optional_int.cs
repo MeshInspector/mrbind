@@ -155,7 +155,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_Optional_Int(Const_Optional_Int value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_Optional_Int(int? other) {return new MR.CS.Std.Optional_Int(other);}
+                public static unsafe implicit operator _InOptConst_Optional_Int(int? other) {return new Const_Optional_Int(other);}
             }
         }
     }

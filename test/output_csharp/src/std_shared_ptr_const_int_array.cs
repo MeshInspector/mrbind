@@ -232,7 +232,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SharedPtr_ConstIntArray(MR.CS.Misc._Moved<SharedPtr_ConstIntArray> arg) {return new(arg);}
 
                 /// Create a new instance from a non-const pointer to the same type.
-                public static unsafe implicit operator _ByValue_SharedPtr_ConstIntArray(MR.CS.Std._ByValue_SharedPtr_IntArray ptr) {return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstIntArray(ptr));}
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstIntArray(MR.CS.Std._ByValue_SharedPtr_IntArray ptr) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray>(ptr);}
             }
 
             /// This is used for optional parameters of class `SharedPtr_ConstIntArray` with default arguments.
@@ -265,7 +265,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_SharedPtr_ConstIntArray(Const_SharedPtr_ConstIntArray value) {return new(value);}
 
                 /// Create a new instance from a non-const pointer to the same type.
-                public static unsafe implicit operator _InOptConst_SharedPtr_ConstIntArray(MR.CS.Std._ByValue_SharedPtr_IntArray ptr) {return new MR.CS.Std.SharedPtr_ConstIntArray(ptr);}
+                public static unsafe implicit operator _InOptConst_SharedPtr_ConstIntArray(MR.CS.Std._ByValue_SharedPtr_IntArray ptr) {return new Const_SharedPtr_ConstIntArray(ptr);}
             }
         }
     }

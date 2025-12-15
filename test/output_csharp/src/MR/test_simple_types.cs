@@ -202,11 +202,11 @@ public static partial class MR
 
                 // Constructors.
                 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
-                public static unsafe implicit operator _InOptConst_ClassTemplate_UnsignedLong(ulong _1) {return new MR.CS.TestSimpleTypes.ClassTemplate_UnsignedLong(_1);}
+                public static unsafe implicit operator _InOptConst_ClassTemplate_UnsignedLong(ulong _1) {return new Const_ClassTemplate_UnsignedLong(_1);}
 
                 // Constructors.
                 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
-                public static unsafe implicit operator _InOptConst_ClassTemplate_UnsignedLong(int _1) {return new MR.CS.TestSimpleTypes.ClassTemplate_UnsignedLong(_1);}
+                public static unsafe implicit operator _InOptConst_ClassTemplate_UnsignedLong(int _1) {return new Const_ClassTemplate_UnsignedLong(_1);}
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetInt`.

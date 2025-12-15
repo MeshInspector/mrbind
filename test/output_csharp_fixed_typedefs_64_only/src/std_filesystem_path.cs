@@ -163,7 +163,7 @@ public static partial class MR
                     public static implicit operator _ByValue_Path(MR.CS.Misc._Moved<Path> arg) {return new(arg);}
 
                     /// Constructs a new instance.
-                    public static unsafe implicit operator _ByValue_Path(ReadOnlySpan<char> other) {return MR.CS.Misc.Move(new MR.CS.Std.Filesystem.Path(other));}
+                    public static unsafe implicit operator _ByValue_Path(ReadOnlySpan<char> other) {return new MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path>(other);}
                     public static unsafe implicit operator _ByValue_Path(string other) {return new(other);}
                 }
 
@@ -197,7 +197,7 @@ public static partial class MR
                     public static implicit operator _InOptConst_Path(Const_Path value) {return new(value);}
 
                     /// Constructs a new instance.
-                    public static unsafe implicit operator _InOptConst_Path(ReadOnlySpan<char> other) {return new MR.CS.Std.Filesystem.Path(other);}
+                    public static unsafe implicit operator _InOptConst_Path(ReadOnlySpan<char> other) {return new Const_Path(other);}
                     public static unsafe implicit operator _InOptConst_Path(string other) {return new(other);}
                 }
             }

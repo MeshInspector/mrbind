@@ -54,6 +54,7 @@ MRBIND_GEN_C_FLAGS=(
     --expose-as-struct MR::CSharp::NameConflictsExposed
     --expose-as-struct MR::CSharp::NameConflictsExposed::A
     --expose-as-struct MR::CSharp::ConstNonconstConflicts
+    --expose-as-struct MR::CSharp::ExposedConvCtor
 )
 
 COMPILER_FLAGS=(

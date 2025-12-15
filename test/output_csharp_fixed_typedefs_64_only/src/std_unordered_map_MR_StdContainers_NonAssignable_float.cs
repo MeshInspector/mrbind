@@ -252,7 +252,7 @@ public static partial class MR
                     public static implicit operator _InOptConst_ConstIterator(Const_ConstIterator value) {return new(value);}
 
                     /// Makes a const iterator from a mutable one.
-                    public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float.Const_Iterator iter) {return new MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float.ConstIterator(iter);}
+                    public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float.Const_Iterator iter) {return new Const_ConstIterator(iter);}
                 }
 
                 /// Mutable iterator for `MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float`.

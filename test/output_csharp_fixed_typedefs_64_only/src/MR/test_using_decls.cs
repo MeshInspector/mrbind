@@ -184,7 +184,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
 
                 /// Generated from constructor `MR::UsingDecls::A::A`.
-                public static unsafe implicit operator _InOptConst_A(int _1) {return new MR.CS.UsingDecls.A(_1);}
+                public static unsafe implicit operator _InOptConst_A(int _1) {return new Const_A(_1);}
             }
 
             /// Generated from class `MR::UsingDecls::B`.

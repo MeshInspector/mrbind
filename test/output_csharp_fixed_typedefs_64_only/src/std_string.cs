@@ -202,7 +202,7 @@ public static partial class MR
                 public static implicit operator _ByValue_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _ByValue_String(ReadOnlySpan<char> other) {return MR.CS.Misc.Move(new MR.CS.Std.String(other));}
+                public static unsafe implicit operator _ByValue_String(ReadOnlySpan<char> other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
                 public static unsafe implicit operator _ByValue_String(string other) {return new(other);}
             }
 
@@ -228,7 +228,7 @@ public static partial class MR
                 public static implicit operator _ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _ByValueOptOpt_String(ReadOnlySpan<char> other) {return MR.CS.Misc.Move(new MR.CS.Std.String(other));}
+                public static unsafe implicit operator _ByValueOptOpt_String(ReadOnlySpan<char> other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
                 public static unsafe implicit operator _ByValueOptOpt_String(string other) {return new(other);}
             }
 
@@ -262,7 +262,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_String(Const_String value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_String(ReadOnlySpan<char> other) {return new MR.CS.Std.String(other);}
+                public static unsafe implicit operator _InOptConst_String(ReadOnlySpan<char> other) {return new Const_String(other);}
                 public static unsafe implicit operator _InOptConst_String(string other) {return new(other);}
             }
         }

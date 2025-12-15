@@ -5890,6 +5890,13 @@ MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_A
     ));
 }
 
+MR_CSharp_ExposedConvCtor MR_CSharp_ExposedConvCtor_Construct(int32_t _1)
+{
+    return MRBINDC_BIT_CAST((MR_CSharp_ExposedConvCtor), MR::CSharp::ExposedConvCtor(
+        _1
+    ));
+}
+
 MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_DefaultConstruct(void)
 {
     return (MR_CSharp_ConvCtorTrivial *)new MR::CSharp::ConvCtorTrivial(MR::CSharp::ConvCtorTrivial());

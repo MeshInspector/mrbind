@@ -189,7 +189,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_StringView(Const_StringView value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_StringView(ReadOnlySpan<char> other) {return new MR.CS.Std.StringView(other);}
+                public static unsafe implicit operator _InOptConst_StringView(ReadOnlySpan<char> other) {return new Const_StringView(other);}
                 public static unsafe implicit operator _InOptConst_StringView(string other) {return new(other);}
             }
         }

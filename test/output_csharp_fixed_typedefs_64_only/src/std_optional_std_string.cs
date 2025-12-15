@@ -170,7 +170,7 @@ public static partial class MR
                 public static implicit operator _ByValue_Optional_StdString(MR.CS.Misc._Moved<Optional_StdString> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _ByValue_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return MR.CS.Misc.Move(new MR.CS.Std.Optional_StdString(other));}
+                public static unsafe implicit operator _ByValue_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Misc._Moved<MR.CS.Std.Optional_StdString>(other);}
             }
 
             /// This is used for optional parameters of class `Optional_StdString` with default arguments.
@@ -203,7 +203,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_Optional_StdString(Const_Optional_StdString value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new MR.CS.Std.Optional_StdString(other);}
+                public static unsafe implicit operator _InOptConst_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new Const_Optional_StdString(other);}
             }
         }
     }

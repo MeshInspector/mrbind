@@ -152,7 +152,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_Optional_MRCSharpTrivial(Const_Optional_MRCSharpTrivial value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) {return new MR.CS.Std.Optional_MRCSharpTrivial(other);}
+                public static unsafe implicit operator _InOptConst_Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) {return new Const_Optional_MRCSharpTrivial(other);}
             }
         }
     }
