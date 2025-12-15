@@ -1811,6 +1811,227 @@ MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _o
     ));
 }
 
+MR_CSharp_SD *MR_CSharp_SD_DefaultConstruct(void)
+{
+    return (MR_CSharp_SD *)new MR::CSharp::SD(MR::CSharp::SD());
+}
+
+MR_CSharp_SD *MR_CSharp_SD_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_SD *)(new MR::CSharp::SD[num_elems]{});
+}
+
+const MR_CSharp_SD *MR_CSharp_SD_OffsetPtr(const MR_CSharp_SD *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_SD *)(((const MR::CSharp::SD *)ptr) + i);
+}
+
+MR_CSharp_SD *MR_CSharp_SD_OffsetMutablePtr(MR_CSharp_SD *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_SD *)(((MR::CSharp::SD *)ptr) + i);
+}
+
+const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
+{
+    return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
+        ((const MR::CSharp::SD *)object)
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
+{
+    return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(
+        ((MR::CSharp::SD *)object)
+    ));
+}
+
+const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
+{
+    return (const MR_CSharp_SF *)(dynamic_cast<const MR::CSharp::SF *>(
+        ((const MR::CSharp::SD *)object)
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
+{
+    return (MR_CSharp_SF *)(dynamic_cast<MR::CSharp::SF *>(
+        ((MR::CSharp::SD *)object)
+    ));
+}
+
+const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_CSharp_SD *object)
+{
+    return (const MR_CSharp_SF *)&(dynamic_cast<const MR::CSharp::SF &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::SD *)(object))
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp_SD *object)
+{
+    return (MR_CSharp_SF *)&(dynamic_cast<MR::CSharp::SF &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::SD *)(object))
+    ));
+}
+
+MR_CSharp_SD *MR_CSharp_SD_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other)
+{
+    return (MR_CSharp_SD *)new MR::CSharp::SD(MR::CSharp::SD(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SD) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SD) MRBINDC_CLASSARG_END(_other, MR::CSharp::SD))
+    ));
+}
+
+void MR_CSharp_SD_Destroy(const MR_CSharp_SD *_this)
+{
+    delete ((const MR::CSharp::SD *)_this);
+}
+
+void MR_CSharp_SD_DestroyArray(const MR_CSharp_SD *_this)
+{
+    delete[] ((const MR::CSharp::SD *)_this);
+}
+
+MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other)
+{
+    return (MR_CSharp_SD *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SD *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SD) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SD) MRBINDC_CLASSARG_END(_other, MR::CSharp::SD))
+    ));
+}
+
+MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void)
+{
+    return (MR_CSharp_SE *)new MR::CSharp::SE(MR::CSharp::SE());
+}
+
+MR_CSharp_SE *MR_CSharp_SE_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_SE *)(new MR::CSharp::SE[num_elems]{});
+}
+
+const MR_CSharp_SE *MR_CSharp_SE_OffsetPtr(const MR_CSharp_SE *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_SE *)(((const MR::CSharp::SE *)ptr) + i);
+}
+
+MR_CSharp_SE *MR_CSharp_SE_OffsetMutablePtr(MR_CSharp_SE *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_SE *)(((MR::CSharp::SE *)ptr) + i);
+}
+
+const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SE *object)
+{
+    return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
+        ((const MR::CSharp::SE *)object)
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *object)
+{
+    return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(
+        ((MR::CSharp::SE *)object)
+    ));
+}
+
+MR_CSharp_SE *MR_CSharp_SE_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other)
+{
+    return (MR_CSharp_SE *)new MR::CSharp::SE(MR::CSharp::SE(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SE) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SE) MRBINDC_CLASSARG_END(_other, MR::CSharp::SE))
+    ));
+}
+
+void MR_CSharp_SE_Destroy(const MR_CSharp_SE *_this)
+{
+    delete ((const MR::CSharp::SE *)_this);
+}
+
+void MR_CSharp_SE_DestroyArray(const MR_CSharp_SE *_this)
+{
+    delete[] ((const MR::CSharp::SE *)_this);
+}
+
+MR_CSharp_SE *MR_CSharp_SE_AssignFromAnother(MR_CSharp_SE *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other)
+{
+    return (MR_CSharp_SE *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SE) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SE) MRBINDC_CLASSARG_END(_other, MR::CSharp::SE))
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SF_DefaultConstruct(void)
+{
+    return (MR_CSharp_SF *)new MR::CSharp::SF(MR::CSharp::SF());
+}
+
+MR_CSharp_SF *MR_CSharp_SF_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_SF *)(new MR::CSharp::SF[num_elems]{});
+}
+
+const MR_CSharp_SF *MR_CSharp_SF_OffsetPtr(const MR_CSharp_SF *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_SF *)(((const MR::CSharp::SF *)ptr) + i);
+}
+
+MR_CSharp_SF *MR_CSharp_SF_OffsetMutablePtr(MR_CSharp_SF *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_SF *)(((MR::CSharp::SF *)ptr) + i);
+}
+
+const MR_CSharp_SD *MR_CSharp_SF_UpcastTo_MR_CSharp_SD(const MR_CSharp_SF *object)
+{
+    return (const MR_CSharp_SD *)(static_cast<const MR::CSharp::SD *>(
+        ((const MR::CSharp::SF *)object)
+    ));
+}
+
+MR_CSharp_SD *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SD(MR_CSharp_SF *object)
+{
+    return (MR_CSharp_SD *)(static_cast<MR::CSharp::SD *>(
+        ((MR::CSharp::SF *)object)
+    ));
+}
+
+const MR_CSharp_SE *MR_CSharp_SF_UpcastTo_MR_CSharp_SE(const MR_CSharp_SF *object)
+{
+    return (const MR_CSharp_SE *)(static_cast<const MR::CSharp::SE *>(
+        ((const MR::CSharp::SF *)object)
+    ));
+}
+
+MR_CSharp_SE *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SE(MR_CSharp_SF *object)
+{
+    return (MR_CSharp_SE *)(static_cast<MR::CSharp::SE *>(
+        ((MR::CSharp::SF *)object)
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SF_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other)
+{
+    return (MR_CSharp_SF *)new MR::CSharp::SF(MR::CSharp::SF(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SF) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SF) MRBINDC_CLASSARG_END(_other, MR::CSharp::SF))
+    ));
+}
+
+void MR_CSharp_SF_Destroy(const MR_CSharp_SF *_this)
+{
+    delete ((const MR::CSharp::SF *)_this);
+}
+
+void MR_CSharp_SF_DestroyArray(const MR_CSharp_SF *_this)
+{
+    delete[] ((const MR::CSharp::SF *)_this);
+}
+
+MR_CSharp_SF *MR_CSharp_SF_AssignFromAnother(MR_CSharp_SF *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other)
+{
+    return (MR_CSharp_SF *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SF *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SF) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SF) MRBINDC_CLASSARG_END(_other, MR::CSharp::SF))
+    ));
+}
+
+MR_C_std_shared_ptr_MR_CSharp_SE *MR_CSharp_mark_se_as_shared(void)
+{
+    return (MR_C_std_shared_ptr_MR_CSharp_SE *)new std::shared_ptr<MR::CSharp::SE>(::MR::CSharp::mark_se_as_shared());
+}
+
 MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr(MR_C_PassBy a_pass_by, MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_PassBy b_pass_by, MR_C_std_shared_ptr_MR_CSharp_SA *b)
 {
     using namespace MR;

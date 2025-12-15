@@ -4356,7 +4356,7 @@ namespace mrbind::CSharp
                                 {
                                     // See the upcast code above for an explanation of what we're doing here and why.
                                     file.WriteString(
-                                        "return " + csharp_base_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")self._UnderlyingSharedPtr, ptr);\n"
+                                        "return " + unqual_csharp_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")parent._UnderlyingSharedPtr, ptr);\n"
                                     );
                                 }
 

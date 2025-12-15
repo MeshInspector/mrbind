@@ -2579,6 +2579,605 @@ public static partial class MR
                 public static implicit operator _InOptConst_SC(Const_SC value) {return new(value);}
             }
 
+            /// Generated from class `MR::CSharp::SD`.
+            /// Derived classes:
+            ///   Direct: (non-virtual)
+            ///     `MR::CSharp::SF`
+            /// This is the const half of the class.
+            public class Const_SD : MR.CS.Misc.SharedObject, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+
+                internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
+                internal unsafe _Underlying *_UnderlyingPtr
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingSharedPtr);
+                    }
+                }
+
+                /// Check if the underlying shared pointer is owning or not.
+                public override bool _IsOwning
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_UseCount", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount();
+                        return __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount() > 0;
+                    }
+                }
+
+                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
+                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromAnother", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
+                    return __MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                }
+
+                internal unsafe Const_SD(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning(ptr);
+                }
+
+                internal unsafe Const_SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe SD _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_SD_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
+                }
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SD() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_SD() : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SD._Underlying *__MR_CSharp_SD_DefaultConstruct();
+                    _LateMakeShared(__MR_CSharp_SD_DefaultConstruct());
+                }
+
+                /// Generated from constructor `MR::CSharp::SD::SD`.
+                public unsafe Const_SD(MR.CS.CSharp._ByValue_SD _other) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SD._Underlying *__MR_CSharp_SD_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SD._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SD_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
+                }
+            }
+
+            /// Generated from class `MR::CSharp::SD`.
+            /// Derived classes:
+            ///   Direct: (non-virtual)
+            ///     `MR::CSharp::SF`
+            /// This is the non-const half of the class.
+            public class SD : Const_SD
+            {
+                internal unsafe SD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe SD() : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SD._Underlying *__MR_CSharp_SD_DefaultConstruct();
+                    _LateMakeShared(__MR_CSharp_SD_DefaultConstruct());
+                }
+
+                /// Generated from constructor `MR::CSharp::SD::SD`.
+                public unsafe SD(MR.CS.CSharp._ByValue_SD _other) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SD._Underlying *__MR_CSharp_SD_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SD._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SD_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
+                }
+
+                /// Generated from method `MR::CSharp::SD::operator=`.
+                public unsafe MR.CS.CSharp.SD Assign(MR.CS.CSharp._ByValue_SD _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SD._Underlying *__MR_CSharp_SD_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SD._Underlying *_other);
+                    return new(__MR_CSharp_SD_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SD` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SD`/`Const_SD` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValue_SD
+            {
+                internal readonly Const_SD? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_SD() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_SD(Const_SD new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_SD(Const_SD arg) {return new(arg);}
+                public _ByValue_SD(MR.CS.Misc._Moved<SD> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_SD(MR.CS.Misc._Moved<SD> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `SD` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_SD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SD`/`Const_SD` directly.
+            public class _InOptMut_SD
+            {
+                public SD? Opt;
+
+                public _InOptMut_SD() {}
+                public _InOptMut_SD(SD value) {Opt = value;}
+                public static implicit operator _InOptMut_SD(SD value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_SD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SD`/`Const_SD` to pass it to the function.
+            public class _InOptConst_SD
+            {
+                public Const_SD? Opt;
+
+                public _InOptConst_SD() {}
+                public _InOptConst_SD(Const_SD value) {Opt = value;}
+                public static implicit operator _InOptConst_SD(Const_SD value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::SE`.
+            /// Derived classes:
+            ///   Direct: (non-virtual)
+            ///     `MR::CSharp::SF`
+            /// This is the const half of the class.
+            public class Const_SE : MR.CS.Misc.SharedObject, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+
+                internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
+                internal unsafe _Underlying *_UnderlyingPtr
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingSharedPtr);
+                    }
+                }
+
+                /// Check if the underlying shared pointer is owning or not.
+                public override bool _IsOwning
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_UseCount", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount();
+                        return __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount() > 0;
+                    }
+                }
+
+                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
+                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
+                    return __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                }
+
+                internal unsafe Const_SE(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning(ptr);
+                }
+
+                internal unsafe Const_SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe SE _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_SE_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_Construct(ptr);
+                }
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SE() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_SE() : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_DefaultConstruct();
+                    _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
+                }
+
+                /// Generated from constructor `MR::CSharp::SE::SE`.
+                public unsafe Const_SE(MR.CS.CSharp._ByValue_SE _other) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SE_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
+                }
+            }
+
+            /// Generated from class `MR::CSharp::SE`.
+            /// Derived classes:
+            ///   Direct: (non-virtual)
+            ///     `MR::CSharp::SF`
+            /// This is the non-const half of the class.
+            public class SE : Const_SE
+            {
+                internal unsafe SE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe SE() : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_DefaultConstruct();
+                    _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
+                }
+
+                /// Generated from constructor `MR::CSharp::SE::SE`.
+                public unsafe SE(MR.CS.CSharp._ByValue_SE _other) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SE_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
+                }
+
+                /// Generated from method `MR::CSharp::SE::operator=`.
+                public unsafe MR.CS.CSharp.SE Assign(MR.CS.CSharp._ByValue_SE _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._Underlying *_other);
+                    return new(__MR_CSharp_SE_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SE` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SE`/`Const_SE` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValue_SE
+            {
+                internal readonly Const_SE? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_SE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_SE(Const_SE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_SE(Const_SE arg) {return new(arg);}
+                public _ByValue_SE(MR.CS.Misc._Moved<SE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_SE(MR.CS.Misc._Moved<SE> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `SE` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_SE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SE`/`Const_SE` directly.
+            public class _InOptMut_SE
+            {
+                public SE? Opt;
+
+                public _InOptMut_SE() {}
+                public _InOptMut_SE(SE value) {Opt = value;}
+                public static implicit operator _InOptMut_SE(SE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_SE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SE`/`Const_SE` to pass it to the function.
+            public class _InOptConst_SE
+            {
+                public Const_SE? Opt;
+
+                public _InOptConst_SE() {}
+                public _InOptConst_SE(Const_SE value) {Opt = value;}
+                public static implicit operator _InOptConst_SE(Const_SE value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::SF`.
+            /// Base classes:
+            ///   Direct: (non-virtual)
+            ///     `MR::CSharp::SD`
+            ///     `MR::CSharp::SE`
+            /// This is the const half of the class.
+            public class Const_SF : MR.CS.Misc.SharedObject, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+
+                internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
+                internal unsafe _Underlying *_UnderlyingPtr
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingSharedPtr);
+                    }
+                }
+
+                /// Check if the underlying shared pointer is owning or not.
+                public override bool _IsOwning
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_UseCount", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount();
+                        return __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount() > 0;
+                    }
+                }
+
+                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
+                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromAnother", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
+                    return __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                }
+
+                internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
+                }
+
+                internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe SF _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
+                }
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SF_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SF_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SF() {Dispose(false);}
+
+                // Upcasts:
+                public static unsafe implicit operator MR.CS.CSharp.Const_SD(Const_SF self)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_UpcastTo_MR_CSharp_SD", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.Const_SD._Underlying *__MR_CSharp_SF_UpcastTo_MR_CSharp_SD(_Underlying *_this);
+                    return MR.CS.CSharp.Const_SD._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SF_UpcastTo_MR_CSharp_SD(self._UnderlyingPtr));
+                }
+                public static unsafe implicit operator MR.CS.CSharp.Const_SE(Const_SF self)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_UpcastTo_MR_CSharp_SE", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.Const_SE._Underlying *__MR_CSharp_SF_UpcastTo_MR_CSharp_SE(_Underlying *_this);
+                    return MR.CS.CSharp.Const_SE._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SF_UpcastTo_MR_CSharp_SE(self._UnderlyingPtr));
+                }
+
+                // Downcasts:
+                public static unsafe explicit operator Const_SF?(MR.CS.CSharp.Const_SD parent)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(MR.CS.CSharp.Const_SD._Underlying *_this);
+                    var ptr = __MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(parent._UnderlyingPtr);
+                    if (ptr is null) return null;
+                    return Const_SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_SF() : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_DefaultConstruct();
+                    _LateMakeShared(__MR_CSharp_SF_DefaultConstruct());
+                }
+
+                /// Generated from constructor `MR::CSharp::SF::SF`.
+                public unsafe Const_SF(MR.CS.CSharp._ByValue_SF _other) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SF._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SF_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
+                }
+            }
+
+            /// Generated from class `MR::CSharp::SF`.
+            /// Base classes:
+            ///   Direct: (non-virtual)
+            ///     `MR::CSharp::SD`
+            ///     `MR::CSharp::SE`
+            /// This is the non-const half of the class.
+            public class SF : Const_SF
+            {
+                internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+
+                // Upcasts:
+                public static unsafe implicit operator MR.CS.CSharp.SD(SF self)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_UpcastTo_MR_CSharp_SD", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SD._Underlying *__MR_CSharp_SF_UpcastTo_MR_CSharp_SD(_Underlying *_this);
+                    return MR.CS.CSharp.SD._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SF_UpcastTo_MR_CSharp_SD(self._UnderlyingPtr));
+                }
+                public static unsafe implicit operator MR.CS.CSharp.SE(SF self)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_UpcastTo_MR_CSharp_SE", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SF_UpcastTo_MR_CSharp_SE(_Underlying *_this);
+                    return MR.CS.CSharp.SE._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SF_UpcastTo_MR_CSharp_SE(self._UnderlyingPtr));
+                }
+
+                // Downcasts:
+                public static unsafe explicit operator SF?(MR.CS.CSharp.SD parent)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(MR.CS.CSharp.SD._Underlying *_this);
+                    var ptr = __MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(parent._UnderlyingPtr);
+                    if (ptr is null) return null;
+                    return SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe SF() : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_DefaultConstruct();
+                    _LateMakeShared(__MR_CSharp_SF_DefaultConstruct());
+                }
+
+                /// Generated from constructor `MR::CSharp::SF::SF`.
+                public unsafe SF(MR.CS.CSharp._ByValue_SF _other) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SF._Underlying *_other);
+                    _LateMakeShared(__MR_CSharp_SF_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
+                }
+
+                /// Generated from method `MR::CSharp::SF::operator=`.
+                public unsafe MR.CS.CSharp.SF Assign(MR.CS.CSharp._ByValue_SF _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SF._Underlying *_other);
+                    return new(__MR_CSharp_SF_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SF` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SF`/`Const_SF` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValue_SF
+            {
+                internal readonly Const_SF? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_SF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_SF(Const_SF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_SF(Const_SF arg) {return new(arg);}
+                public _ByValue_SF(MR.CS.Misc._Moved<SF> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_SF(MR.CS.Misc._Moved<SF> arg) {return new(arg);}
+            }
+
+            /// This is used for optional parameters of class `SF` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_SF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SF`/`Const_SF` directly.
+            public class _InOptMut_SF
+            {
+                public SF? Opt;
+
+                public _InOptMut_SF() {}
+                public _InOptMut_SF(SF value) {Opt = value;}
+                public static implicit operator _InOptMut_SF(SF value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_SF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SF`/`Const_SF` to pass it to the function.
+            public class _InOptConst_SF
+            {
+                public Const_SF? Opt;
+
+                public _InOptConst_SF() {}
+                public _InOptConst_SF(Const_SF value) {Opt = value;}
+                public static implicit operator _InOptConst_SF(Const_SF value) {return new(value);}
+            }
+
             // Nested classes.
             /// Generated from class `MR::CSharp::Outer`.
             /// This is the const half of the class.
@@ -13612,6 +14211,14 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_void_cptr", ExactSpelling = true)]
                 extern static void *__MR_CSharp_test_void_cptr(void *a, void *b, void **c);
                 return __MR_CSharp_test_void_cptr(a, b, c);
+            }
+
+            /// Generated from function `MR::CSharp::mark_se_as_shared`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SE> MarkSeAsShared()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_mark_se_as_shared", ExactSpelling = true)]
+                extern static MR.CS.CSharp.SE._UnderlyingShared *__MR_CSharp_mark_se_as_shared();
+                return MR.CS.Misc.Move(new MR.CS.CSharp.SE(__MR_CSharp_mark_se_as_shared(), is_owning: true));
             }
 
             // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).

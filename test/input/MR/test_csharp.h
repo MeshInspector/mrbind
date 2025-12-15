@@ -174,6 +174,22 @@ namespace MR::CSharp
     struct SB {private: std::string s;}; // Make this non-trivial for a change.
     struct SC : SA, SB {};
 
+    struct SD
+    {
+        virtual ~SD() = default; // Make the base virtual, this allows downcasts (which use `dynamic_cast` at the moment, and need the base to be polymorphic.
+
+        // Add the remaining stuff to silence deprection warnings caused by the destructor:
+        SD() = default;
+        SD(const SD &) = default;
+        SD(SD &&) = default;
+        SD &operator=(const SD &) = default;
+        SD &operator=(SD &&) = default;
+    };
+    struct SE {private: std::string s;}; // Make this non-trivial for a change.
+    struct SF : SD, SE {};
+
+    inline std::shared_ptr<SE> mark_se_as_shared() {return nullptr;} // Mark this hierarchy as backed by `std::shared_ptr` as well.
+
     inline std::shared_ptr<SA> default_shptr;
 
     // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).

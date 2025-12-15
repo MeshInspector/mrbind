@@ -27,6 +27,7 @@ typedef struct MR_C_std_optional_std_string MR_C_std_optional_std_string; // Def
 typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined in `#include <iostream.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SA MR_C_std_shared_ptr_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_MR_CSharp_SA.h>`.
+typedef struct MR_C_std_shared_ptr_MR_CSharp_SE MR_C_std_shared_ptr_MR_CSharp_SE; // Defined in `#include <std_shared_ptr_MR_CSharp_SE.h>`.
 typedef struct MR_C_std_shared_ptr_const_MR_CSharp_SA MR_C_std_shared_ptr_const_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_const_MR_CSharp_SA.h>`.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#include <std_string_view.h>`.
@@ -153,6 +154,28 @@ typedef struct MR_CSharp_SB MR_CSharp_SB;
 //     `MR::CSharp::SB`
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SC MR_CSharp_SC;
+
+// Generated from class `MR::CSharp::SD`.
+// Derived classes:
+//   Direct: (non-virtual)
+//     `MR::CSharp::SF`
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_SD MR_CSharp_SD;
+
+// Generated from class `MR::CSharp::SE`.
+// Derived classes:
+//   Direct: (non-virtual)
+//     `MR::CSharp::SF`
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_SE MR_CSharp_SE;
+
+// Generated from class `MR::CSharp::SF`.
+// Base classes:
+//   Direct: (non-virtual)
+//     `MR::CSharp::SD`
+//     `MR::CSharp::SE`
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_SF MR_CSharp_SF;
 
 // Generated from class `MR::CSharp::Outer::Inner`.
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -1565,6 +1588,154 @@ MR_C_API void MR_CSharp_SC_DestroyArray(const MR_CSharp_SC *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other);
+
+// Constructs an empty (default-constructed) instance.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SD_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_SD *MR_CSharp_SD_DefaultConstruct(void);
+
+// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+// The array must be destroyed using `MR_CSharp_SD_DestroyArray()`.
+// Use `MR_CSharp_SD_OffsetMutablePtr()` and `MR_CSharp_SD_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_SD *MR_CSharp_SD_DefaultConstructArray(size_t num_elems);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_SD *MR_CSharp_SD_OffsetPtr(const MR_CSharp_SD *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_SD *MR_CSharp_SD_OffsetMutablePtr(MR_CSharp_SD *ptr, ptrdiff_t i);
+
+// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// This version is acting on mutable pointers.
+MR_C_API const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object);
+
+// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object);
+
+// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
+// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
+// This version is acting on mutable pointers.
+MR_C_API const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object);
+
+// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
+// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
+MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object);
+
+// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
+// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
+// This version is acting on mutable pointers.
+// Parameter `object` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_CSharp_SD *object);
+
+// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
+// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
+// Parameter `object` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp_SD *object);
+
+// Generated from constructor `MR::CSharp::SD::SD`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SD_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_SD *MR_CSharp_SD_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other);
+
+// Destroys a heap-allocated instance of `MR_CSharp_SD`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SD_Destroy(const MR_CSharp_SD *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_SD`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SD_DestroyArray(const MR_CSharp_SD *_this);
+
+// Generated from method `MR::CSharp::SD::operator=`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other);
+
+// Constructs an empty (default-constructed) instance.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SE_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void);
+
+// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+// The array must be destroyed using `MR_CSharp_SE_DestroyArray()`.
+// Use `MR_CSharp_SE_OffsetMutablePtr()` and `MR_CSharp_SE_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_SE *MR_CSharp_SE_DefaultConstructArray(size_t num_elems);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_SE *MR_CSharp_SE_OffsetPtr(const MR_CSharp_SE *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_SE *MR_CSharp_SE_OffsetMutablePtr(MR_CSharp_SE *ptr, ptrdiff_t i);
+
+// Downcasts an instance of `MR::CSharp::SE` to a derived class `MR::CSharp::SF`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// This version is acting on mutable pointers.
+MR_C_API const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SE *object);
+
+// Downcasts an instance of `MR::CSharp::SE` to a derived class `MR::CSharp::SF`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+MR_C_API MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *object);
+
+// Generated from constructor `MR::CSharp::SE::SE`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SE_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_SE *MR_CSharp_SE_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other);
+
+// Destroys a heap-allocated instance of `MR_CSharp_SE`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SE_Destroy(const MR_CSharp_SE *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_SE`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SE_DestroyArray(const MR_CSharp_SE *_this);
+
+// Generated from method `MR::CSharp::SE::operator=`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_SE *MR_CSharp_SE_AssignFromAnother(MR_CSharp_SE *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other);
+
+// Constructs an empty (default-constructed) instance.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SF_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_DefaultConstruct(void);
+
+// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+// The array must be destroyed using `MR_CSharp_SF_DestroyArray()`.
+// Use `MR_CSharp_SF_OffsetMutablePtr()` and `MR_CSharp_SF_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_DefaultConstructArray(size_t num_elems);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_SF *MR_CSharp_SF_OffsetPtr(const MR_CSharp_SF *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_OffsetMutablePtr(MR_CSharp_SF *ptr, ptrdiff_t i);
+
+// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SD`.
+// This version is acting on mutable pointers.
+MR_C_API const MR_CSharp_SD *MR_CSharp_SF_UpcastTo_MR_CSharp_SD(const MR_CSharp_SF *object);
+
+// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SD`.
+MR_C_API MR_CSharp_SD *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SD(MR_CSharp_SF *object);
+
+// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SE`.
+// This version is acting on mutable pointers.
+MR_C_API const MR_CSharp_SE *MR_CSharp_SF_UpcastTo_MR_CSharp_SE(const MR_CSharp_SF *object);
+
+// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SE`.
+MR_C_API MR_CSharp_SE *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SE(MR_CSharp_SF *object);
+
+// Generated from constructor `MR::CSharp::SF::SF`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SF_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other);
+
+// Destroys a heap-allocated instance of `MR_CSharp_SF`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SF_Destroy(const MR_CSharp_SF *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_SF`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SF_DestroyArray(const MR_CSharp_SF *_this);
+
+// Generated from method `MR::CSharp::SF::operator=`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_AssignFromAnother(MR_CSharp_SF *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other);
+
+// Generated from function `MR::CSharp::mark_se_as_shared`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CSharp_SE_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_MR_CSharp_SE *MR_CSharp_mark_se_as_shared(void);
 
 // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
 // Generated from function `MR::CSharp::test_shptr`.
@@ -5814,6 +5985,7 @@ MR_C_API const MR_C_expected_int32_t_float *MR_CSharp_test_class_expected_cptr(c
 #include <std_optional_std_string.h>
 #include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>
 #include <std_shared_ptr_MR_CSharp_SA.h>
+#include <std_shared_ptr_MR_CSharp_SE.h>
 #include <std_shared_ptr_const_MR_CSharp_SA.h>
 #include <std_string.h>
 #include <std_string_view.h>
