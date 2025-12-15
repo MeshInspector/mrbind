@@ -4151,7 +4151,8 @@ namespace mrbind::CSharp
                             "/// Copy contents from a wrapper class to this struct.\n"
                             "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other.UnderlyingStruct;\n"
                             "/// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)\n"
-                            "public unsafe static implicit operator " + mut_name + "(" + unqual_csharp_name + " other) => new(new " + mut_name + "((" + mut_name + "._Underlying *)&other, is_owning: false));\n"
+                            // Note, we must use of `... ? mut_name : const_name` here. Attempting to always use `mut_name` sometimes causes ambiguities.
+                            "public unsafe static implicit operator " + mut_name + "(" + unqual_csharp_name + " other) => new(new " + (type_desc.traits.value().copy_constructor_takes_nonconst_ref ? mut_name : const_name) + "((" + mut_name + "._Underlying *)&other, is_owning: false));\n"
                         );
                     }
 
