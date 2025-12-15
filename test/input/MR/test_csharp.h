@@ -792,10 +792,25 @@ namespace MR::CSharp
     };
 
     // A converting ctor in an exposed struct.
-    struct ExposedConvCtor
+    struct ConvCtorExposed
     {
         int x;
-        ExposedConvCtor(int) {}
+        ConvCtorExposed(int) {}
+    };
+
+    // A sad class that's copyable but not movable.
+    // This can often happen if you have a user-provided destructor.
+    class ConvCtorCopyButNoMove
+    {
+        std::string s; // Non-trivial.
+
+      public:
+        ConvCtorCopyButNoMove(int) {}
+
+        ConvCtorCopyButNoMove(const ConvCtorCopyButNoMove &) = default;
+        ConvCtorCopyButNoMove &operator=(const ConvCtorCopyButNoMove &) = default;
+        ConvCtorCopyButNoMove(ConvCtorCopyButNoMove &&) = delete;
+        ConvCtorCopyButNoMove &operator=(ConvCtorCopyButNoMove &&) = delete;
     };
 
 

@@ -446,11 +446,17 @@ typedef struct MR_CSharp_ConvCtorWithDefArg MR_CSharp_ConvCtorWithDefArg;
 typedef struct MR_CSharp_ConvCtorNonTrivialRestricted MR_CSharp_ConvCtorNonTrivialRestricted;
 
 // A converting ctor in an exposed struct.
-// Generated from class `MR::CSharp::ExposedConvCtor`.
-typedef struct MR_CSharp_ExposedConvCtor
+// Generated from class `MR::CSharp::ConvCtorExposed`.
+typedef struct MR_CSharp_ConvCtorExposed
 {
     int32_t x;
-} MR_CSharp_ExposedConvCtor;
+} MR_CSharp_ConvCtorExposed;
+
+// A sad class that's copyable but not movable.
+// This can often happen if you have a user-provided destructor.
+// Generated from class `MR::CSharp::ConvCtorCopyButNoMove`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ConvCtorCopyButNoMove MR_CSharp_ConvCtorCopyButNoMove;
 
 // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
 // Generated from class `MR::CSharp::ConvCtorTrivial`.
@@ -4633,8 +4639,28 @@ MR_C_API void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CShar
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other);
 
-// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-MR_C_API MR_CSharp_ExposedConvCtor MR_CSharp_ExposedConvCtor_Construct(int32_t _1);
+// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+MR_C_API MR_CSharp_ConvCtorExposed MR_CSharp_ConvCtorExposed_Construct(int32_t _1);
+
+// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorCopyButNoMove_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_OffsetPtr(const MR_CSharp_ConvCtorCopyButNoMove *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_OffsetMutablePtr(MR_CSharp_ConvCtorCopyButNoMove *ptr, ptrdiff_t i);
+
+// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorCopyButNoMove_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_Construct(int32_t _1);
+
+// Destroys a heap-allocated instance of `MR_CSharp_ConvCtorCopyButNoMove`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvCtorCopyButNoMove_Destroy(const MR_CSharp_ConvCtorCopyButNoMove *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_ConvCtorCopyButNoMove`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ConvCtorCopyButNoMove_DestroyArray(const MR_CSharp_ConvCtorCopyButNoMove *_this);
 
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorTrivial_Destroy()` to free it when you're done using it.

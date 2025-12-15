@@ -107,7 +107,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator A(Const_A other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_A(A other) => new(new Mut_A((Mut_A._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_A(A other) => new(new Const_A((Mut_A._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int Blah;
@@ -237,7 +237,7 @@ public static partial class MR
                     /// Copy contents from a wrapper class to this struct.
                     public static implicit operator B(Const_B other) => other.UnderlyingStruct;
                     /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                    public unsafe static implicit operator Mut_B(B other) => new(new Mut_B((Mut_B._Underlying *)&other, is_owning: false));
+                    public unsafe static implicit operator Mut_B(B other) => new(new Const_B((Mut_B._Underlying *)&other, is_owning: false));
 
                     [System.Runtime.InteropServices.FieldOffset(0)]
                     public int Bleh;
@@ -503,7 +503,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator C_False(Const_C_False other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_C_False(C_False other) => new(new Mut_C_False((Mut_C_False._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_C_False(C_False other) => new(new Const_C_False((Mut_C_False._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int Bleh;
@@ -684,7 +684,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator C_True(Const_C_True other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_C_True(C_True other) => new(new Mut_C_True((Mut_C_True._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_C_True(C_True other) => new(new Const_C_True((Mut_C_True._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int Bleh;

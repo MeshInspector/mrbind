@@ -88,7 +88,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator Array_Int_43(Const_Array_Int_43 other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_Array_Int_43(Array_Int_43 other) => new(new Mut_Array_Int_43((Mut_Array_Int_43._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_Array_Int_43(Array_Int_43 other) => new(new Const_Array_Int_43((Mut_Array_Int_43._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt43 Elems;

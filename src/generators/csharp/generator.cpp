@@ -2371,7 +2371,19 @@ namespace mrbind::CSharp
         acts_on_copy_of_this(is_incr_or_decr && emit_variant == EmitVariant::static_incr_or_decr)
     {
         { // Find the return type binding.
-            ret_binding = &generator.GetReturnBinding(func_like.ret, (is_ctor && !is_conv_op_rewritten_from_ctor_for_by_value_wrapper) * Generator::TypeBindingFlags::no_move_in_by_value_return);
+            ret_binding = &generator.GetReturnBinding(
+                func_like.ret,
+                Generator::TypeBindingFlags::no_move_in_by_value_return * (
+                    is_ctor && (
+                        !is_conv_op_rewritten_from_ctor_for_by_value_wrapper ||
+                        // If this is a weird class that's copyable but not movable, then don't try to move it.
+                        [&]{
+                            const auto &traits = generator.c_desc.FindTypeOpt(func_like.ret.cpp_type)->traits.value();
+                            return traits.is_copy_constructible && !traits.is_move_constructible;
+                        }()
+                    )
+                )
+            );
             if (!ret_binding)
                 throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
 

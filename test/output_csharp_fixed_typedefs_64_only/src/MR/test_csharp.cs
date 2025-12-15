@@ -10554,35 +10554,35 @@ public static partial class MR
             }
 
             // A converting ctor in an exposed struct.
-            /// Generated from class `MR::CSharp::ExposedConvCtor`.
+            /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the const reference to the struct.
-            public class Const_ExposedConvCtor : MR.CS.Misc.Object, System.IDisposable
+            public class Const_ConvCtorExposed : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying; // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
                 /// Get the underlying struct.
-                public unsafe ref readonly ExposedConvCtor UnderlyingStruct => ref *(ExposedConvCtor *)_UnderlyingPtr;
+                public unsafe ref readonly ConvCtorExposed UnderlyingStruct => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
-                internal unsafe Const_ExposedConvCtor(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedConvCtor_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ExposedConvCtor_Destroy(_Underlying *_this);
-                    __MR_CSharp_ExposedConvCtor_Destroy(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvCtorExposed_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvCtorExposed_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_ExposedConvCtor() {Dispose(false);}
+                ~Const_ConvCtorExposed() {Dispose(false);}
 
                 public ref readonly int X => ref UnderlyingStruct.X;
 
                 /// Generated copy constructor.
-                public unsafe Const_ExposedConvCtor(Const_ExposedConvCtor _other) : this(null, is_owning: true)
+                public unsafe Const_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
@@ -10590,36 +10590,36 @@ public static partial class MR
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                 }
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public unsafe Const_ExposedConvCtor(int _1) : this(null, is_owning: true)
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public unsafe Const_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedConvCtor_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedConvCtor __MR_CSharp_ExposedConvCtor_Construct(int _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    MR.CS.CSharp.ExposedConvCtor _ctor_result = __MR_CSharp_ExposedConvCtor_Construct(_1);
+                    MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
                     System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
                 }
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public static unsafe implicit operator Const_ExposedConvCtor(int _1) {return new(_1);}
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public static unsafe implicit operator Const_ConvCtorExposed(int _1) {return new(_1);}
             }
 
             // A converting ctor in an exposed struct.
-            /// Generated from class `MR::CSharp::ExposedConvCtor`.
+            /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the non-const reference to the struct.
-            public class Mut_ExposedConvCtor : Const_ExposedConvCtor
+            public class Mut_ConvCtorExposed : Const_ConvCtorExposed
             {
                 /// Get the underlying struct.
-                public unsafe new ref ExposedConvCtor UnderlyingStruct => ref *(ExposedConvCtor *)_UnderlyingPtr;
+                public unsafe new ref ConvCtorExposed UnderlyingStruct => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
-                internal unsafe Mut_ExposedConvCtor(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Mut_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int X => ref UnderlyingStruct.X;
 
                 /// Generated copy constructor.
-                public unsafe Mut_ExposedConvCtor(Const_ExposedConvCtor _other) : this(null, is_owning: true)
+                public unsafe Mut_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
@@ -10627,60 +10627,60 @@ public static partial class MR
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                 }
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public unsafe Mut_ExposedConvCtor(int _1) : this(null, is_owning: true)
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public unsafe Mut_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedConvCtor_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedConvCtor __MR_CSharp_ExposedConvCtor_Construct(int _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    MR.CS.CSharp.ExposedConvCtor _ctor_result = __MR_CSharp_ExposedConvCtor_Construct(_1);
+                    MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
                     System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
                 }
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public static unsafe implicit operator Mut_ExposedConvCtor(int _1) {return new(_1);}
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public static unsafe implicit operator Mut_ConvCtorExposed(int _1) {return new(_1);}
             }
 
             // A converting ctor in an exposed struct.
-            /// Generated from class `MR::CSharp::ExposedConvCtor`.
+            /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
-            public struct ExposedConvCtor
+            public struct ConvCtorExposed
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ExposedConvCtor(Const_ExposedConvCtor other) => other.UnderlyingStruct;
+                public static implicit operator ConvCtorExposed(Const_ConvCtorExposed other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ExposedConvCtor(ExposedConvCtor other) => new(new Mut_ExposedConvCtor((Mut_ExposedConvCtor._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_ConvCtorExposed(ConvCtorExposed other) => new(new Const_ConvCtorExposed((Mut_ConvCtorExposed._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int X;
 
                 /// Generated copy constructor.
-                public ExposedConvCtor(ExposedConvCtor _other) {this = _other;}
+                public ConvCtorExposed(ConvCtorExposed _other) {this = _other;}
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public unsafe ExposedConvCtor(int _1)
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public unsafe ConvCtorExposed(int _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedConvCtor_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedConvCtor __MR_CSharp_ExposedConvCtor_Construct(int _1);
-                    this = __MR_CSharp_ExposedConvCtor_Construct(_1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
+                    this = __MR_CSharp_ConvCtorExposed_Construct(_1);
                 }
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public static unsafe implicit operator ExposedConvCtor(int _1) {return new(_1);}
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public static unsafe implicit operator ConvCtorExposed(int _1) {return new(_1);}
             }
 
-            /// This is used as a function parameter when passing `Mut_ExposedConvCtor` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Mut_ConvCtorExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_ExposedConvCtor`/`Const_ExposedConvCtor` to copy it into the function.
+            /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` to copy it into the function.
             /// * Pass `null` to use the default argument
-            public readonly ref struct _InOpt_ExposedConvCtor
+            public readonly ref struct _InOpt_ConvCtorExposed
             {
                 public readonly bool HasValue;
-                internal readonly ExposedConvCtor Object;
-                public ExposedConvCtor Value{
+                internal readonly ConvCtorExposed Object;
+                public ConvCtorExposed Value{
                     get
                     {
                         System.Diagnostics.Trace.Assert(HasValue);
@@ -10688,63 +10688,186 @@ public static partial class MR
                     }
                 }
 
-                public _InOpt_ExposedConvCtor() {HasValue = false;}
-                public _InOpt_ExposedConvCtor(ExposedConvCtor new_value) {HasValue = true; Object = new_value;}
-                public static implicit operator _InOpt_ExposedConvCtor(ExposedConvCtor new_value) {return new(new_value);}
-                public _InOpt_ExposedConvCtor(Const_ExposedConvCtor new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
-                public static implicit operator _InOpt_ExposedConvCtor(Const_ExposedConvCtor new_value) {return new(new_value);}
+                public _InOpt_ConvCtorExposed() {HasValue = false;}
+                public _InOpt_ConvCtorExposed(ConvCtorExposed new_value) {HasValue = true; Object = new_value;}
+                public static implicit operator _InOpt_ConvCtorExposed(ConvCtorExposed new_value) {return new(new_value);}
+                public _InOpt_ConvCtorExposed(Const_ConvCtorExposed new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public static implicit operator _InOpt_ConvCtorExposed(Const_ConvCtorExposed new_value) {return new(new_value);}
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public static unsafe implicit operator _InOpt_ExposedConvCtor(int _1) {return new Const_ExposedConvCtor(_1);}
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public static unsafe implicit operator _InOpt_ConvCtorExposed(int _1) {return new Const_ConvCtorExposed(_1);}
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedConvCtor` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedConvCtor`.
+            /// This is used for optional parameters of class `Mut_ConvCtorExposed` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedConvCtor`/`Const_ExposedConvCtor` directly.
-            /// * Pass `new(ref ...)` to pass a reference to `ExposedConvCtor`.
-            public class _InOptMut_ExposedConvCtor
+            /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` directly.
+            /// * Pass `new(ref ...)` to pass a reference to `ConvCtorExposed`.
+            public class _InOptMut_ConvCtorExposed
             {
-                public Mut_ExposedConvCtor? Opt;
+                public Mut_ConvCtorExposed? Opt;
 
-                public _InOptMut_ExposedConvCtor() {}
-                public _InOptMut_ExposedConvCtor(Mut_ExposedConvCtor value) {Opt = value;}
-                public static implicit operator _InOptMut_ExposedConvCtor(Mut_ExposedConvCtor value) {return new(value);}
-                public unsafe _InOptMut_ExposedConvCtor(ref ExposedConvCtor value)
+                public _InOptMut_ConvCtorExposed() {}
+                public _InOptMut_ConvCtorExposed(Mut_ConvCtorExposed value) {Opt = value;}
+                public static implicit operator _InOptMut_ConvCtorExposed(Mut_ConvCtorExposed value) {return new(value);}
+                public unsafe _InOptMut_ConvCtorExposed(ref ConvCtorExposed value)
                 {
-                    fixed (ExposedConvCtor *value_ptr = &value)
+                    fixed (ConvCtorExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedConvCtor._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((Const_ConvCtorExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedConvCtor` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedConvCtor`.
+            /// This is used for optional parameters of class `Mut_ConvCtorExposed` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedConvCtor`/`Const_ExposedConvCtor` to pass it to the function.
-            /// * Pass `new(ref ...)` to pass a reference to `ExposedConvCtor`.
-            public class _InOptConst_ExposedConvCtor
+            /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` to pass it to the function.
+            /// * Pass `new(ref ...)` to pass a reference to `ConvCtorExposed`.
+            public class _InOptConst_ConvCtorExposed
             {
-                public Const_ExposedConvCtor? Opt;
+                public Const_ConvCtorExposed? Opt;
 
-                public _InOptConst_ExposedConvCtor() {}
-                public _InOptConst_ExposedConvCtor(Const_ExposedConvCtor value) {Opt = value;}
-                public static implicit operator _InOptConst_ExposedConvCtor(Const_ExposedConvCtor value) {return new(value);}
-                public unsafe _InOptConst_ExposedConvCtor(ref readonly ExposedConvCtor value)
+                public _InOptConst_ConvCtorExposed() {}
+                public _InOptConst_ConvCtorExposed(Const_ConvCtorExposed value) {Opt = value;}
+                public static implicit operator _InOptConst_ConvCtorExposed(Const_ConvCtorExposed value) {return new(value);}
+                public unsafe _InOptConst_ConvCtorExposed(ref readonly ConvCtorExposed value)
                 {
-                    fixed (ExposedConvCtor *value_ptr = &value)
+                    fixed (ConvCtorExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedConvCtor._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((Const_ConvCtorExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
 
-                /// Generated from constructor `MR::CSharp::ExposedConvCtor::ExposedConvCtor`.
-                public static unsafe implicit operator _InOptConst_ExposedConvCtor(int _1) {return new Const_ExposedConvCtor(_1);}
+                /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                public static unsafe implicit operator _InOptConst_ConvCtorExposed(int _1) {return new Const_ConvCtorExposed(_1);}
+            }
+
+            // A sad class that's copyable but not movable.
+            // This can often happen if you have a user-provided destructor.
+            /// Generated from class `MR::CSharp::ConvCtorCopyButNoMove`.
+            /// This is the const half of the class.
+            public class Const_ConvCtorCopyButNoMove : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_ConvCtorCopyButNoMove(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConvCtorCopyButNoMove_Destroy(_Underlying *_this);
+                    __MR_CSharp_ConvCtorCopyButNoMove_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ConvCtorCopyButNoMove() {Dispose(false);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public unsafe Const_ConvCtorCopyButNoMove(MR.CS.CSharp._ByValue_ConvCtorCopyButNoMove _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *__MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public unsafe Const_ConvCtorCopyButNoMove(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *__MR_CSharp_ConvCtorCopyButNoMove_Construct(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_Construct(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public static unsafe implicit operator Const_ConvCtorCopyButNoMove(int _1) {return new(_1);}
+            }
+
+            // A sad class that's copyable but not movable.
+            // This can often happen if you have a user-provided destructor.
+            /// Generated from class `MR::CSharp::ConvCtorCopyButNoMove`.
+            /// This is the non-const half of the class.
+            public class ConvCtorCopyButNoMove : Const_ConvCtorCopyButNoMove
+            {
+                internal unsafe ConvCtorCopyButNoMove(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public unsafe ConvCtorCopyButNoMove(MR.CS.CSharp._ByValue_ConvCtorCopyButNoMove _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *__MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public unsafe ConvCtorCopyButNoMove(int _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *__MR_CSharp_ConvCtorCopyButNoMove_Construct(int _1);
+                    _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_Construct(_1);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public static unsafe implicit operator ConvCtorCopyButNoMove(int _1) {return new(_1);}
+            }
+
+            /// This is used as a function parameter when the underlying function receives `ConvCtorCopyButNoMove` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `ConvCtorCopyButNoMove`/`Const_ConvCtorCopyButNoMove` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValue_ConvCtorCopyButNoMove
+            {
+                internal readonly Const_ConvCtorCopyButNoMove? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove arg) {return new(arg);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public static unsafe implicit operator _ByValue_ConvCtorCopyButNoMove(int _1) {return new MR.CS.CSharp.ConvCtorCopyButNoMove(_1);}
+            }
+
+            /// This is used for optional parameters of class `ConvCtorCopyButNoMove` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorCopyButNoMove`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorCopyButNoMove`/`Const_ConvCtorCopyButNoMove` directly.
+            public class _InOptMut_ConvCtorCopyButNoMove
+            {
+                public ConvCtorCopyButNoMove? Opt;
+
+                public _InOptMut_ConvCtorCopyButNoMove() {}
+                public _InOptMut_ConvCtorCopyButNoMove(ConvCtorCopyButNoMove value) {Opt = value;}
+                public static implicit operator _InOptMut_ConvCtorCopyButNoMove(ConvCtorCopyButNoMove value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ConvCtorCopyButNoMove` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorCopyButNoMove`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ConvCtorCopyButNoMove`/`Const_ConvCtorCopyButNoMove` to pass it to the function.
+            public class _InOptConst_ConvCtorCopyButNoMove
+            {
+                public Const_ConvCtorCopyButNoMove? Opt;
+
+                public _InOptConst_ConvCtorCopyButNoMove() {}
+                public _InOptConst_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove value) {Opt = value;}
+                public static implicit operator _InOptConst_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove value) {return new(value);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                public static unsafe implicit operator _InOptConst_ConvCtorCopyButNoMove(int _1) {return new Const_ConvCtorCopyButNoMove(_1);}
             }
 
             // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
@@ -11293,7 +11416,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayout(Const_ExposedLayout other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ExposedLayout(ExposedLayout other) => new(new Mut_ExposedLayout((Mut_ExposedLayout._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_ExposedLayout(ExposedLayout other) => new(new Const_ExposedLayout((Mut_ExposedLayout._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort X;
@@ -11898,7 +12021,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutSh(Const_ExposedLayoutSh other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ExposedLayoutSh(ExposedLayoutSh other) => new(new Mut_ExposedLayoutSh((Mut_ExposedLayoutSh._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_ExposedLayoutSh(ExposedLayoutSh other) => new(new Const_ExposedLayoutSh((Mut_ExposedLayoutSh._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort X;
@@ -12315,7 +12438,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutB(Const_ExposedLayoutB other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ExposedLayoutB(ExposedLayoutB other) => new(new Mut_ExposedLayoutB((Mut_ExposedLayoutB._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_ExposedLayoutB(ExposedLayoutB other) => new(new Const_ExposedLayoutB((Mut_ExposedLayoutB._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int X;
@@ -13057,7 +13180,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator NameConflictsExposed(Const_NameConflictsExposed other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_NameConflictsExposed(NameConflictsExposed other) => new(new Mut_NameConflictsExposed((Mut_NameConflictsExposed._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_NameConflictsExposed(NameConflictsExposed other) => new(new Const_NameConflictsExposed((Mut_NameConflictsExposed._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int NameConflictsExposed_;
@@ -13163,7 +13286,7 @@ public static partial class MR
                     /// Copy contents from a wrapper class to this struct.
                     public static implicit operator A(Const_A other) => other.UnderlyingStruct;
                     /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                    public unsafe static implicit operator Mut_A(A other) => new(new Mut_A((Mut_A._Underlying *)&other, is_owning: false));
+                    public unsafe static implicit operator Mut_A(A other) => new(new Const_A((Mut_A._Underlying *)&other, is_owning: false));
 
                     [System.Runtime.InteropServices.FieldOffset(0)]
                     public int X;
@@ -13684,7 +13807,7 @@ public static partial class MR
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ConstNonconstConflicts(Const_ConstNonconstConflicts other) => other.UnderlyingStruct;
                 /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ConstNonconstConflicts(ConstNonconstConflicts other) => new(new Mut_ConstNonconstConflicts((Mut_ConstNonconstConflicts._Underlying *)&other, is_owning: false));
+                public unsafe static implicit operator Mut_ConstNonconstConflicts(ConstNonconstConflicts other) => new(new Const_ConstNonconstConflicts((Mut_ConstNonconstConflicts._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int X;

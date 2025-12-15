@@ -6116,11 +6116,45 @@ MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_A
     ));
 }
 
-MR_CSharp_ExposedConvCtor MR_CSharp_ExposedConvCtor_Construct(int _1)
+MR_CSharp_ConvCtorExposed MR_CSharp_ConvCtorExposed_Construct(int _1)
 {
-    return MRBINDC_BIT_CAST((MR_CSharp_ExposedConvCtor), MR::CSharp::ExposedConvCtor(
+    return MRBINDC_BIT_CAST((MR_CSharp_ConvCtorExposed), MR::CSharp::ConvCtorExposed(
         _1
     ));
+}
+
+MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other)
+{
+    return (MR_CSharp_ConvCtorCopyButNoMove *)new MR::CSharp::ConvCtorCopyButNoMove(MR::CSharp::ConvCtorCopyButNoMove(
+        (MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ConvCtorCopyButNoMove), MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorCopyButNoMove))
+    ));
+}
+
+const MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_OffsetPtr(const MR_CSharp_ConvCtorCopyButNoMove *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ConvCtorCopyButNoMove *)(((const MR::CSharp::ConvCtorCopyButNoMove *)ptr) + i);
+}
+
+MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_OffsetMutablePtr(MR_CSharp_ConvCtorCopyButNoMove *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ConvCtorCopyButNoMove *)(((MR::CSharp::ConvCtorCopyButNoMove *)ptr) + i);
+}
+
+MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_Construct(int _1)
+{
+    return (MR_CSharp_ConvCtorCopyButNoMove *)new MR::CSharp::ConvCtorCopyButNoMove(MR::CSharp::ConvCtorCopyButNoMove(
+        _1
+    ));
+}
+
+void MR_CSharp_ConvCtorCopyButNoMove_Destroy(const MR_CSharp_ConvCtorCopyButNoMove *_this)
+{
+    delete ((const MR::CSharp::ConvCtorCopyButNoMove *)_this);
+}
+
+void MR_CSharp_ConvCtorCopyButNoMove_DestroyArray(const MR_CSharp_ConvCtorCopyButNoMove *_this)
+{
+    delete[] ((const MR::CSharp::ConvCtorCopyButNoMove *)_this);
 }
 
 MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_DefaultConstruct(void)
