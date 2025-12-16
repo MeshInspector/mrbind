@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class StdStringView
         {
             /// Generated from function `MR::StdStringView::Set`.
-            public static unsafe void Set(MR.CS.Misc.ReadOnlySpan<char> s)
+            public static unsafe void Set(MR.CS.Misc.ReadOnlyCharSpan s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_Set", ExactSpelling = true)]
                 extern static void __MR_StdStringView_Set(byte *s, byte *s_end);
@@ -64,7 +64,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdStringView::ConstRef`.
-            public static unsafe void ConstRef(MR.CS.Misc.ReadOnlySpan<char> s)
+            public static unsafe void ConstRef(MR.CS.Misc.ReadOnlyCharSpan s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_ConstRef", ExactSpelling = true)]
                 extern static void __MR_StdStringView_ConstRef(byte *s, byte *s_end);
@@ -77,7 +77,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdStringView::RvalueRef`.
-            public static unsafe void RvalueRef(MR.CS.Misc._MoveRef _move_s, MR.CS.Misc.ReadOnlySpan<char> s)
+            public static unsafe void RvalueRef(MR.CS.Misc._MoveRef _move_s, MR.CS.Misc.ReadOnlyCharSpan s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_RvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdStringView_RvalueRef(byte *s, byte *s_end);
@@ -90,7 +90,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdStringView::ConstRvalueRef`.
-            public static unsafe void ConstRvalueRef(MR.CS.Misc._MoveRef _move_s, MR.CS.Misc.ReadOnlySpan<char> s)
+            public static unsafe void ConstRvalueRef(MR.CS.Misc._MoveRef _move_s, MR.CS.Misc.ReadOnlyCharSpan s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_ConstRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdStringView_ConstRvalueRef(byte *s, byte *s_end);

@@ -49,7 +49,7 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdFunction::A` elementwise.
-                public unsafe Const_A(MR.CS.Misc.ReadOnlySpan<char> a) : this(null, is_owning: true)
+                public unsafe Const_A(MR.CS.Misc.ReadOnlyCharSpan a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_ConstructFrom(byte *a, byte *a_end);
@@ -95,7 +95,7 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdFunction::A` elementwise.
-                public unsafe A(MR.CS.Misc.ReadOnlySpan<char> a) : this(null, is_owning: true)
+                public unsafe A(MR.CS.Misc.ReadOnlyCharSpan a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_ConstructFrom(byte *a, byte *a_end);

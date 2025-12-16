@@ -186,7 +186,7 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdOptional::B` elementwise.
-                public unsafe Const_B(MR.CS.Misc.ReadOnlySpan<char> s) : this(null, is_owning: true)
+                public unsafe Const_B(MR.CS.Misc.ReadOnlyCharSpan s) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFrom(byte *s, byte *s_end);
@@ -232,7 +232,7 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdOptional::B` elementwise.
-                public unsafe B(MR.CS.Misc.ReadOnlySpan<char> s) : this(null, is_owning: true)
+                public unsafe B(MR.CS.Misc.ReadOnlyCharSpan s) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFrom(byte *s, byte *s_end);

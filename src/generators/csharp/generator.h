@@ -587,6 +587,12 @@ namespace mrbind::CSharp
         // Passing an invalid name name will initially succeed, but then will cause an error at the end of generation, in `GenerateHelpers()`.
         [[nodiscard]] std::string RequestHelper(const std::string &name);
 
+        [[nodiscard]] std::string RequestSpan(const std::string &elem_type);
+        [[nodiscard]] std::string RequestReadOnlySpan(const std::string &elem_type);
+
+        [[nodiscard]] std::string MakeSpanNameWithoutRegistration(const std::string &elem_type);
+        [[nodiscard]] std::string MakeReadOnlySpanNameWithoutRegistration(const std::string &elem_type);
+
 
         struct CFuncDeclStrings
         {

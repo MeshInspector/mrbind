@@ -67,7 +67,7 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 2, of type `std::string`.
-                public unsafe Const_Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
+                public unsafe Const_Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlyCharSpan value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
@@ -154,7 +154,7 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 2, of type `std::string`.
-                public unsafe Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
+                public unsafe Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlyCharSpan value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
@@ -183,7 +183,7 @@ public static partial class MR
                 }
 
                 /// Assigns to the variant, making it store the element 2, of type `std::string`.
-                public unsafe void AssignAsStdString(MR.CS.Misc.ReadOnlySpan<char> value)
+                public unsafe void AssignAsStdString(MR.CS.Misc.ReadOnlyCharSpan value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_std_string", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_Underlying *_this, byte *value, byte *value_end);

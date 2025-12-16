@@ -2093,7 +2093,7 @@ namespace mrbind::CSharp
                             {
                                 return TypeBinding::ParamUsage::Strings{
                                     .dllimport_decl_params = "byte *" + name + ", byte *" + name + "_end",
-                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = RequestHelper("ReadOnlySpan") + "<char>", .name = name}}),
+                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = RequestReadOnlySpan("char") + "", .name = name}}),
                                     .scope_open =
                                         "byte[] __bytes_" + name + " = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(" + name + ".Length)];\n" +
                                         (HaveCSharpFeatureSpans()
@@ -2185,7 +2185,7 @@ namespace mrbind::CSharp
             {
                 WriteSeparator();
                 ret.text +=
-                    "public static unsafe implicit operator " + RequestHelper("ReadOnlySpan") + "<byte>(" + csharp_name + " self)\n"
+                    "public static unsafe implicit operator " + RequestReadOnlySpan("byte") + "(" + csharp_name + " self)\n"
                     "{\n"
                     "    return new(self.Data(), checked((int)self.Size()));\n"
                     "}\n"
@@ -2201,7 +2201,7 @@ namespace mrbind::CSharp
             {
                 WriteSeparator();
                 ret.text +=
-                    "public static unsafe implicit operator " + RequestHelper("Span") + "<byte>(" + csharp_name + " s)\n"
+                    "public static unsafe implicit operator " + RequestSpan("byte") + "(" + csharp_name + " s)\n"
                     "{\n"
                     "    return new(s.MutableData(), checked((int)s.Size()));\n"
                     "}\n";
@@ -2266,6 +2266,38 @@ namespace mrbind::CSharp
 
         requested_helpers.insert(name);
         return helpers_prefix + name;
+    }
+
+    std::string Generator::RequestSpan(const std::string &elem_type)
+    {
+        if (!HaveCSharpFeatureSpans() && elem_type == "char")
+            return RequestHelper("CharSpan");
+        else
+            return RequestHelper("Span") + "<" + elem_type + ">";
+    }
+
+    std::string Generator::RequestReadOnlySpan(const std::string &elem_type)
+    {
+        if (!HaveCSharpFeatureSpans() && elem_type == "char")
+            return RequestHelper("ReadOnlyCharSpan");
+        else
+            return RequestHelper("ReadOnlySpan") + "<" + elem_type + ">";
+    }
+
+    std::string Generator::MakeSpanNameWithoutRegistration(const std::string &elem_type)
+    {
+        if (!HaveCSharpFeatureSpans() && elem_type == "char")
+            return MakeHelperNameWithoutRegistration("CharSpan");
+        else
+            return MakeHelperNameWithoutRegistration("Span") + "<" + elem_type + ">";
+    }
+
+    std::string Generator::MakeReadOnlySpanNameWithoutRegistration(const std::string &elem_type)
+    {
+        if (!HaveCSharpFeatureSpans() && elem_type == "char")
+            return MakeHelperNameWithoutRegistration("ReadOnlyCharSpan");
+        else
+            return MakeHelperNameWithoutRegistration("ReadOnlySpan") + "<" + elem_type + ">";
     }
 
     bool Generator::IsConvOpForCtor(EmitVariant emit_variant)
@@ -2855,8 +2887,8 @@ namespace mrbind::CSharp
                     // Close the function.
                     file.WriteString(";}\n");
 
-                    // As a special case, when we're converting from `" + RequestHelper("ReadOnlySpan") + "<char>`, also insert a conversion from `string` for convenience.
-                    if (param_strings.at(1).csharp_decl_params.size() == 1 && param_strings.at(1).csharp_decl_params.front().type == generator.MakeHelperNameWithoutRegistration("ReadOnlySpan") + "<char>")
+                    // As a special case, when we're converting from `ReadOnlySpan<char>`, also insert a conversion from `string` for convenience.
+                    if (param_strings.at(1).csharp_decl_params.size() == 1 && param_strings.at(1).csharp_decl_params.front().type == generator.MakeReadOnlySpanNameWithoutRegistration("char"))
                     {
                         file.WriteString(
                             "public static unsafe " + csharp_name + "(string other) {return new(other);}\n"
@@ -5818,8 +5850,8 @@ namespace mrbind::CSharp
                             "{\n"
                             "    public readonly bool HasValue;\n"
                             "\n"
-                            "    public " + RequestHelper("ReadOnlySpan") + "<T> _Span;\n" // This needs to be visible for us to take the address of `_Span._reference`, when using span polyfills.
-                            "    public " + RequestHelper("ReadOnlySpan") + "<T> Value\n"
+                            "    public " + RequestReadOnlySpan("T") + " _Span;\n" // This needs to be visible for us to take the address of `_Span._reference`, when using span polyfills.
+                            "    public " + RequestReadOnlySpan("T") + " Value\n"
                             "    {\n"
                             "        get\n"
                             "        {\n"
@@ -5829,9 +5861,9 @@ namespace mrbind::CSharp
                             "    }\n"
                             "\n"
                             "    public ReadOnlySpanOpt(T[]? arr) {HasValue = arr is not null; _Span = arr;}\n"
-                            "    public ReadOnlySpanOpt(" + RequestHelper("ReadOnlySpan") + "<T> span) {HasValue = true; _Span = span;}\n"
+                            "    public ReadOnlySpanOpt(" + RequestReadOnlySpan("T") + " span) {HasValue = true; _Span = span;}\n"
                             "    public static implicit operator ReadOnlySpanOpt<T>(T[]? arr) {return new(arr);}\n"
-                            "    public static implicit operator ReadOnlySpanOpt<T>(" + RequestHelper("ReadOnlySpan") + "<T> span) {return new(span);}\n"
+                            "    public static implicit operator ReadOnlySpanOpt<T>(" + RequestReadOnlySpan("T") + " span) {return new(span);}\n"
                             "}\n"
                         );
                     }
@@ -5847,8 +5879,8 @@ namespace mrbind::CSharp
                             "{\n"
                             "    public readonly bool HasValue;\n"
                             "\n"
-                            "    public " + RequestHelper("ReadOnlySpan") + "<char> _Span; // This needs to be visible for us to take the address of `_Span._reference`, when using span polyfills.\n"
-                            "    public " + RequestHelper("ReadOnlySpan") + "<char> Value\n"
+                            "    public " + RequestReadOnlySpan("char") + " _Span; // This needs to be visible for us to take the address of `_Span._reference`, when using span polyfills.\n"
+                            "    public " + RequestReadOnlySpan("char") + " Value\n"
                             "    {\n"
                             "        get\n"
                             "        {\n"
@@ -5858,12 +5890,12 @@ namespace mrbind::CSharp
                             "    }\n"
                             "\n"
                             "    public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; _Span = arr;}\n"
-                            "    public ReadOnlyCharSpanOpt(" + RequestHelper("ReadOnlySpan") + "<char> span) {HasValue = true; _Span = span;}\n"
+                            "    public ReadOnlyCharSpanOpt(" + RequestReadOnlySpan("char") + " span) {HasValue = true; _Span = span;}\n"
                             "    public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; " + (HaveCSharpFeatureSpans() ? "_Span = str;" : "if (str is not null) _Span = str.ToCharArray();") + "}\n"
                             "\n"
                             "    // This is disabled because it makes conversion from `null` ambiguous.\n"
                             "    // public static implicit operator ReadOnlyCharSpanOpt(char[]? arr) {return new(arr);}\n"
-                            "    public static implicit operator ReadOnlyCharSpanOpt(" + RequestHelper("ReadOnlySpan") + "<char> span) {return new(span);}\n"
+                            "    public static implicit operator ReadOnlyCharSpanOpt(" + RequestReadOnlySpan("char") + " span) {return new(span);}\n"
                             "    public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}\n"
                             "}\n"
                         );
@@ -5902,11 +5934,12 @@ namespace mrbind::CSharp
 
                 // Intentionally using the non-short-circuiting `|`.
                 // Note that we generate the two together, since they refer to one another.
+                // Those versions are for all types except `char`, since those also need string conversions.
                 if (requested_helpers.erase("Span") | requested_helpers.erase("ReadOnlySpan"))
                 {
                     file.WriteSeparatingNewline();
                     file.WriteString(
-R"code(// This is a polyfill of `Span`, pasted with minimal changes from:
+R"code(// This is a polyfill of `Span`, pasted with some changes from:
 //     https://github.com/dotnet/runtime/blob/cce23eef7f53ee914777425b7fd01228e548926c/src/libraries/System.Private.CoreLib/src/System/Span.cs
 //     https://github.com/dotnet/runtime/blob/cce23eef7f53ee914777425b7fd01228e548926c/src/libraries/System.Private.CoreLib/src/System/ReadOnlySpan.cs
 // The original is licensed under MIT:
@@ -6477,6 +6510,593 @@ public ref struct ReadOnlySpan<T> where T: unmanaged
 #endif
 
         return new ReadOnlySpan<T>(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), length);
+    }
+}
+
+#pragma warning restore 0660 // '...' defines operator == or operator != but does not override Object.Equals(object o)
+)code");
+                }
+
+                // Intentionally using the non-short-circuiting `|`.
+                // Note that we generate the two together, since they refer to one another.
+                if (requested_helpers.erase("CharSpan") | requested_helpers.erase("ReadOnlyCharSpan"))
+                {
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+R"code(// This is a polyfill of `CharSpan`, pasted with some changes from:
+//     https://github.com/dotnet/runtime/blob/cce23eef7f53ee914777425b7fd01228e548926c/src/libraries/System.Private.CoreLib/src/System/Span.cs
+//     https://github.com/dotnet/runtime/blob/cce23eef7f53ee914777425b7fd01228e548926c/src/libraries/System.Private.CoreLib/src/System/ReadOnlySpan.cs
+// The original is licensed under MIT:
+//     The MIT License (MIT)
+//     Copyright (c) .NET Foundation and Contributors
+//     All rights reserved.
+//     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+//     The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+#pragma warning disable 0660 // '...' defines operator == or operator != but does not override Object.Equals(object o)
+
+/// <summary>
+/// Span represents a contiguous region of arbitrary memory. Unlike arrays, it can point to either managed
+/// or native memory, or to memory allocated on the stack. It is type-safe and memory-safe.
+/// </summary>
+public ref struct CharSpan
+{
+    /// <summary>A byref or a native ptr.</summary>
+    public ref char _reference; // This must not be read-only for us to be able to take its address. Because of this, we also have to mark the entire struct not read-only.
+    /// <summary>The number of elements this CharSpan contains.</summary>
+    private readonly int _length;
+
+    /// <summary>
+    /// Creates a new span over the entirety of the target array.
+    /// </summary>
+    /// <param name="array">The target array.</param>
+    /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+    /// <exception cref="ArrayTypeMismatchException">Thrown when <paramref name="array"/> is covariant and array's type is not exactly char[].</exception>
+    public CharSpan(char[]? array)
+    {
+        if (array == null)
+        {
+            this = default;
+            return; // returns default
+        }
+        if (!typeof(char).IsValueType && array.GetType() != typeof(char[]))
+            throw new ArrayTypeMismatchException();
+
+        _reference = ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array);
+        _length = array.Length;
+    }
+
+    /// <summary>
+    /// Creates a new span over the portion of the target array beginning
+    /// at 'start' index and ending at 'end' index (exclusive).
+    /// </summary>
+    /// <param name="array">The target array.</param>
+    /// <param name="start">The zero-based index at which to begin the span.</param>
+    /// <param name="length">The number of items in the span.</param>
+    /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+    /// <exception cref="ArrayTypeMismatchException">Thrown when <paramref name="array"/> is covariant and array's type is not exactly char[].</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="start"/> or end index is not in the range (&lt;0 or &gt;Length).
+    /// </exception>
+    public CharSpan(char[]? array, int start, int length)
+    {
+        if (array == null)
+        {
+            if (start != 0 || length != 0)
+                throw new ArgumentOutOfRangeException();
+            this = default;
+            return; // returns default
+        }
+        if (!typeof(char).IsValueType && array.GetType() != typeof(char[]))
+            throw new ArrayTypeMismatchException();
+#if TARGET_64BIT
+        // See comment in Span<T>.Slice for how this works.
+        if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)array.Length)
+            throw new ArgumentOutOfRangeException();
+#else
+        if ((uint)start > (uint)array.Length || (uint)length > (uint)(array.Length - start))
+            throw new ArgumentOutOfRangeException();
+#endif
+
+        _reference = ref System.Runtime.CompilerServices.Unsafe.Add(ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array), (nint)(uint)start /* force zero-extension */);
+        _length = length;
+    }
+
+    /// <summary>
+    /// Creates a new span over the target unmanaged buffer.  Clearly this
+    /// is quite dangerous, because we are creating arbitrarily typed char's
+    /// out of a void*-typed block of memory.  And the length is not checked.
+    /// But if this creation is correct, then all subsequent uses are correct.
+    /// </summary>
+    /// <param name="pointer">An unmanaged pointer to memory.</param>
+    /// <param name="length">The number of char elements the memory contains.</param>
+    /// <exception cref="ArgumentException">
+    /// Thrown when char is reference type or contains pointers and hence cannot be stored in unmanaged memory.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="length"/> is negative.
+    /// </exception>
+    public unsafe CharSpan(void* pointer, int length)
+    {
+        if (length < 0)
+            throw new ArgumentOutOfRangeException();
+
+        _reference = ref *(char*)pointer;
+        _length = length;
+    }
+
+    /// <summary>Creates a new CharSpan of length 1 around the specified reference.</summary>
+    /// <param name="reference">A reference to data.</param>
+    public CharSpan(ref char reference)
+    {
+        _reference = ref reference;
+        _length = 1;
+    }
+
+    // Constructor for internal use only. It is not safe to expose publicly, and is instead exposed via the unsafe MemoryMarshal.CreateSpan.
+    internal CharSpan(ref char reference, int length)
+    {
+        System.Diagnostics.Debug.Assert(length >= 0);
+
+        _reference = ref reference;
+        _length = length;
+    }
+
+    /// <summary>
+    /// Returns a reference to specified element of the CharSpan.
+    /// </summary>
+    /// <param name="index">The zero-based index.</param>
+    /// <returns></returns>
+    /// <exception cref="IndexOutOfRangeException">
+    /// Thrown when index less than 0 or index greater than or equal to Length
+    /// </exception>
+    public ref char this[int index]
+    {
+        get
+        {
+            if ((uint)index >= (uint)_length)
+                throw new IndexOutOfRangeException();
+            return ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)index /* force zero-extension */);
+        }
+    }
+
+    /// <summary>
+    /// The number of items in the span.
+    /// </summary>
+    public int Length
+    {
+        get => _length;
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether this CharSpan is empty.
+    /// </summary>
+    /// <value><see langword="true"/> if this span is empty; otherwise, <see langword="false"/>.</value>
+    public bool IsEmpty
+    {
+        get => _length == 0;
+    }
+
+    /// <summary>
+    /// Returns false if left and right point at the same memory and have the same length.  Note that
+    /// this does *not* check to see if the *contents* are equal.
+    /// </summary>
+    public static bool operator !=(CharSpan left, CharSpan right) => !(left == right);
+
+    /// <summary>
+    /// Defines an implicit conversion of an array to a CharSpan
+    /// </summary>
+    public static implicit operator CharSpan(char[]? array) => new CharSpan(array);
+
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="ArraySegment{char}"/> to a CharSpan
+    /// </summary>
+    public static implicit operator CharSpan(ArraySegment<char> segment) =>
+        new CharSpan(segment.Array, segment.Offset, segment.Count);
+
+    /// <summary>
+    /// Returns an empty CharSpan
+    /// </summary>
+    public static CharSpan Empty => default;
+
+    /// <summary>Gets an enumerator for this span.</summary>
+    public Enumerator GetEnumerator() => new Enumerator(this);
+
+    /// <summary>Enumerates the elements of a CharSpan.</summary>
+    public ref struct Enumerator)code" + std::string(csharp_version >= 14 ? " : IEnumerator<char>" : "") + R"code(
+    {
+        /// <summary>The span being enumerated.</summary>
+        private readonly CharSpan _span;
+        /// <summary>The next index to yield.</summary>
+        private int _index;
+
+        /// <summary>Initialize the enumerator.</summary>
+        /// <param name="span">The span to enumerate.</param>
+        internal Enumerator(CharSpan span)
+        {
+            _span = span;
+            _index = -1;
+        }
+
+        /// <summary>Advances the enumerator to the next element of the span.</summary>
+        public bool MoveNext()
+        {
+            int index = _index + 1;
+            if (index < _span.Length)
+            {
+                _index = index;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>Gets the element at the current position of the enumerator.</summary>
+        public ref char Current
+        {
+            get => ref _span[_index];
+        }
+)code" + std::string(csharp_version >= 14 ? R"code(
+        /// <inheritdoc />
+        char IEnumerator<char>.Current => Current;
+
+        /// <inheritdoc />
+        object IEnumerator.Current => Current!;
+
+        /// <inheritdoc />
+        void IEnumerator.Reset() => _index = -1;
+
+        /// <inheritdoc />
+        void IDisposable.Dispose() { }
+)code" : R"code(
+        void Reset() => _index = -1;
+)code") + R"code(
+    }
+
+    /// <summary>
+    /// Returns a reference to the 0th element of the Span. If the Span is empty, returns null reference.
+    /// It can be used for pinning and is required to support the use of span within a fixed statement.
+    /// </summary>
+    public ref char GetPinnableReference()
+    {
+        // Ensure that the native code has just one forward branch that is predicted-not-taken.
+        ref char ret = ref System.Runtime.CompilerServices.Unsafe.NullRef<char>();
+        if (_length != 0) ret = ref _reference;
+        return ref ret;
+    }
+
+    /// <summary>
+    /// Returns true if left and right point at the same memory and have the same length.  Note that
+    /// this does *not* check to see if the *contents* are equal.
+    /// </summary>
+    public static bool operator ==(CharSpan left, CharSpan right) =>
+        left._length == right._length &&
+        System.Runtime.CompilerServices.Unsafe.AreSame(ref left._reference, ref right._reference);
+
+    /// <summary>
+    /// Defines an implicit conversion of a CharSpan to a ReadOnlyCharSpan
+    /// </summary>
+    public static implicit operator ReadOnlyCharSpan(CharSpan span) =>
+        new ReadOnlyCharSpan(ref span._reference, span._length);
+
+    /// <summary>
+    /// Forms a slice out of the given span, beginning at 'start'.
+    /// </summary>
+    /// <param name="start">The zero-based index at which to begin this slice.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="start"/> index is not in range (&lt;0 or &gt;Length).
+    /// </exception>
+    public CharSpan Slice(int start)
+    {
+        if ((uint)start > (uint)_length)
+            throw new ArgumentOutOfRangeException();
+
+        return new CharSpan(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), _length - start);
+    }
+
+    /// <summary>
+    /// Forms a slice out of the given span, beginning at 'start', of given length
+    /// </summary>
+    /// <param name="start">The zero-based index at which to begin this slice.</param>
+    /// <param name="length">The desired length for the slice (exclusive).</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="start"/> or end index is not in range (&lt;0 or &gt;Length).
+    /// </exception>
+    public CharSpan Slice(int start, int length)
+    {
+#if TARGET_64BIT
+        // Since start and length are both 32-bit, their sum can be computed across a 64-bit domain
+        // without loss of fidelity. The cast to uint before the cast to ulong ensures that the
+        // extension from 32- to 64-bit is zero-extending rather than sign-extending. The end result
+        // of this is that if either input is negative or if the input sum overflows past Int32.MaxValue,
+        // that information is captured correctly in the comparison against the backing _length field.
+        // We don't use this same mechanism in a 32-bit process due to the overhead of 64-bit arithmetic.
+        if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)_length)
+            throw new ArgumentOutOfRangeException();
+#else
+        if ((uint)start > (uint)_length || (uint)length > (uint)(_length - start))
+            throw new ArgumentOutOfRangeException();
+#endif
+
+        return new CharSpan(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), length);
+    }
+}
+
+/// <summary>
+/// ReadOnlySpan represents a contiguous region of arbitrary memory. Unlike arrays, it can point to either managed
+/// or native memory, or to memory allocated on the stack. It is type-safe and memory-safe.
+/// </summary>
+public ref struct ReadOnlyCharSpan
+{
+    // Extra string operations:
+    public ReadOnlyCharSpan(string? str) : this(str is null ? [] : str.ToCharArray()) {}
+    public static implicit operator ReadOnlyCharSpan(string? str) {return new(str);}
+    public static unsafe explicit operator string(ReadOnlyCharSpan span) {return new(&span._reference, 0, span.Length);}
+
+    /// <summary>A byref or a native ptr.</summary>
+    public ref char _reference; // This must not be read-only for us to be able to take its address. Because of this, we also have to mark the entire struct not read-only.
+    /// <summary>The number of elements this ReadOnlyCharSpan contains.</summary>
+    private readonly int _length;
+
+    /// <summary>
+    /// Creates a new read-only span over the entirety of the target array.
+    /// </summary>
+    /// <param name="array">The target array.</param>
+    /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+    public ReadOnlyCharSpan(char[]? array)
+    {
+        if (array == null)
+        {
+            this = default;
+            return; // returns default
+        }
+
+        _reference = ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array);
+        _length = array.Length;
+    }
+
+    /// <summary>
+    /// Creates a new read-only span over the portion of the target array beginning
+    /// at 'start' index and ending at 'end' index (exclusive).
+    /// </summary>
+    /// <param name="array">The target array.</param>
+    /// <param name="start">The zero-based index at which to begin the read-only span.</param>
+    /// <param name="length">The number of items in the read-only span.</param>
+    /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="start"/> or end index is not in the range (&lt;0 or &gt;Length).
+    /// </exception>
+    public ReadOnlyCharSpan(char[]? array, int start, int length)
+    {
+        if (array == null)
+        {
+            if (start != 0 || length != 0)
+                throw new ArgumentOutOfRangeException();
+            this = default;
+            return; // returns default
+        }
+#if TARGET_64BIT
+        // See comment in Span<T>.Slice for how this works.
+        if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)array.Length)
+            throw new ArgumentOutOfRangeException();
+#else
+        if ((uint)start > (uint)array.Length || (uint)length > (uint)(array.Length - start))
+            throw new ArgumentOutOfRangeException();
+#endif
+
+        _reference = ref System.Runtime.CompilerServices.Unsafe.Add(ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array), (nint)(uint)start /* force zero-extension */);
+        _length = length;
+    }
+
+    /// <summary>
+    /// Creates a new read-only span over the target unmanaged buffer.  Clearly this
+    /// is quite dangerous, because we are creating arbitrarily typed char's
+    /// out of a void*-typed block of memory.  And the length is not checked.
+    /// But if this creation is correct, then all subsequent uses are correct.
+    /// </summary>
+    /// <param name="pointer">An unmanaged pointer to memory.</param>
+    /// <param name="length">The number of <typeparamref name="char"/> elements the memory contains.</param>
+    /// <exception cref="ArgumentException">
+    /// Thrown when <typeparamref name="char"/> is reference type or contains pointers and hence cannot be stored in unmanaged memory.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="length"/> is negative.
+    /// </exception>
+    public unsafe ReadOnlyCharSpan(void* pointer, int length)
+    {
+        if (System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<char>())
+            throw new ArgumentException($"Type contains references: {typeof(char)}");
+        if (length < 0)
+            throw new ArgumentOutOfRangeException();
+
+        _reference = ref *(char*)pointer;
+        _length = length;
+    }
+
+    /// <summary>Creates a new ReadOnlyCharSpan of length 1 around the specified reference.</summary>
+    /// <param name="reference">A reference to data.</param>
+    public ReadOnlyCharSpan(ref readonly char reference)
+    {
+        _reference = ref System.Runtime.CompilerServices.Unsafe.AsRef(in reference);
+        _length = 1;
+    }
+
+    // Constructor for internal use only. It is not safe to expose publicly, and is instead exposed via the unsafe MemoryMarshal.CreateReadOnlySpan.
+    internal ReadOnlyCharSpan(ref char reference, int length)
+    {
+        System.Diagnostics.Debug.Assert(length >= 0);
+
+        _reference = ref reference;
+        _length = length;
+    }
+
+    /// <summary>
+    /// Returns the specified element of the read-only span.
+    /// </summary>
+    /// <param name="index">The zero-based index.</param>
+    /// <returns></returns>
+    /// <exception cref="IndexOutOfRangeException">
+    /// Thrown when index less than 0 or index greater than or equal to Length
+    /// </exception>
+    public ref readonly char this[int index]
+    {
+        get
+        {
+            if ((uint)index >= (uint)_length)
+                throw new IndexOutOfRangeException();
+            return ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)index /* force zero-extension */);
+        }
+    }
+
+    /// <summary>
+    /// The number of items in the read-only span.
+    /// </summary>
+    public int Length
+    {
+        get => _length;
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether this ReadOnlyCharSpan is empty.
+    /// </summary>
+    /// <value><see langword="true"/> if this span is empty; otherwise, <see langword="false"/>.</value>
+    public bool IsEmpty
+    {
+        get => _length == 0;
+    }
+
+    /// <summary>
+    /// Returns false if left and right point at the same memory and have the same length.  Note that
+    /// this does *not* check to see if the *contents* are equal.
+    /// </summary>
+    public static bool operator !=(ReadOnlyCharSpan left, ReadOnlyCharSpan right) => !(left == right);
+
+    /// <summary>
+    /// Defines an implicit conversion of an array to a ReadOnlyCharSpan
+    /// </summary>
+    public static implicit operator ReadOnlyCharSpan(char[]? array) => new ReadOnlyCharSpan(array);
+
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="ArraySegment{char}"/> to a ReadOnlyCharSpan
+    /// </summary>
+    public static implicit operator ReadOnlyCharSpan(ArraySegment<char> segment)
+        => new ReadOnlyCharSpan(segment.Array, segment.Offset, segment.Count);
+
+    /// <summary>
+    /// Returns a 0-length read-only span whose base is the null pointer.
+    /// </summary>
+    public static ReadOnlyCharSpan Empty => default;
+
+    /// <summary>Gets an enumerator for this span.</summary>
+    public Enumerator GetEnumerator() => new Enumerator(this);
+
+    /// <summary>Enumerates the elements of a ReadOnlyCharSpan.</summary>
+    public ref struct Enumerator)code" + std::string(csharp_version >= 14 ? " : IEnumerator<char>" : "") + R"code(
+    {
+        /// <summary>The span being enumerated.</summary>
+        private readonly ReadOnlyCharSpan _span;
+        /// <summary>The next index to yield.</summary>
+        private int _index;
+
+        /// <summary>Initialize the enumerator.</summary>
+        /// <param name="span">The span to enumerate.</param>
+        internal Enumerator(ReadOnlyCharSpan span)
+        {
+            _span = span;
+            _index = -1;
+        }
+
+        /// <summary>Advances the enumerator to the next element of the span.</summary>
+        public bool MoveNext()
+        {
+            int index = _index + 1;
+            if (index < _span.Length)
+            {
+                _index = index;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>Gets the element at the current position of the enumerator.</summary>
+        public ref readonly char Current
+        {
+            get => ref _span[_index];
+        }
+)code" + std::string(csharp_version >= 14 ? R"code(
+        /// <inheritdoc />
+        char IEnumerator<char>.Current => Current;
+
+        /// <inheritdoc />
+        object IEnumerator.Current => Current!;
+
+        /// <inheritdoc />
+        void IEnumerator.Reset() => _index = -1;
+
+        /// <inheritdoc />
+        void IDisposable.Dispose() { }
+)code" : R"code(
+        void Reset() => _index = -1;
+)code") + R"code(
+    }
+
+    /// <summary>
+    /// Returns a reference to the 0th element of the ReadOnlySpan. If the ReadOnlySpan is empty, returns null reference.
+    /// It can be used for pinning and is required to support the use of span within a fixed statement.
+    /// </summary>
+    public ref readonly char GetPinnableReference()
+    {
+        // Ensure that the native code has just one forward branch that is predicted-not-taken.
+        ref char ret = ref System.Runtime.CompilerServices.Unsafe.NullRef<char>();
+        if (_length != 0) ret = ref _reference;
+        return ref ret;
+    }
+
+    /// <summary>
+    /// Returns true if left and right point at the same memory and have the same length.  Note that
+    /// this does *not* check to see if the *contents* are equal.
+    /// </summary>
+    public static bool operator ==(ReadOnlyCharSpan left, ReadOnlyCharSpan right) =>
+        left._length == right._length &&
+        System.Runtime.CompilerServices.Unsafe.AreSame(ref left._reference, ref right._reference);
+
+    /// <summary>
+    /// Forms a slice out of the given read-only span, beginning at 'start'.
+    /// </summary>
+    /// <param name="start">The zero-based index at which to begin this slice.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="start"/> index is not in range (&lt;0 or &gt;Length).
+    /// </exception>
+    public ReadOnlyCharSpan Slice(int start)
+    {
+        if ((uint)start > (uint)_length)
+            throw new ArgumentOutOfRangeException();
+
+        return new ReadOnlyCharSpan(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), _length - start);
+    }
+
+    /// <summary>
+    /// Forms a slice out of the given read-only span, beginning at 'start', of given length
+    /// </summary>
+    /// <param name="start">The zero-based index at which to begin this slice.</param>
+    /// <param name="length">The desired length for the slice (exclusive).</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the specified <paramref name="start"/> or end index is not in range (&lt;0 or &gt;Length).
+    /// </exception>
+    public ReadOnlyCharSpan Slice(int start, int length)
+    {
+#if TARGET_64BIT
+        // See comment in Span<T>.Slice for how this works.
+        if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)_length)
+            throw new ArgumentOutOfRangeException();
+#else
+        if ((uint)start > (uint)_length || (uint)length > (uint)(_length - start))
+            throw new ArgumentOutOfRangeException();
+#endif
+
+        return new ReadOnlyCharSpan(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), length);
     }
 }
 

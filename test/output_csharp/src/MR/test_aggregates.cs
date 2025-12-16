@@ -57,7 +57,7 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::Aggregates::A` elementwise.
-                public unsafe Const_A(int x, MR.CS.Misc.ReadOnlySpan<char> y) : this(null, is_owning: true)
+                public unsafe Const_A(int x, MR.CS.Misc.ReadOnlyCharSpan y) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.A._Underlying *__MR_Aggregates_A_ConstructFrom(int x, byte *y, byte *y_end);
@@ -115,7 +115,7 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::Aggregates::A` elementwise.
-                public unsafe A(int x, MR.CS.Misc.ReadOnlySpan<char> y) : this(null, is_owning: true)
+                public unsafe A(int x, MR.CS.Misc.ReadOnlyCharSpan y) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.A._Underlying *__MR_Aggregates_A_ConstructFrom(int x, byte *y, byte *y_end);
