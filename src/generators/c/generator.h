@@ -1124,6 +1124,12 @@ namespace mrbind::CBindings
         {
             std::unordered_set<std::string> stdlib;
             std::unordered_set<std::string> generated;
+
+            void MergeFrom(const CachedIncludesForType &other)
+            {
+                stdlib.insert(other.stdlib.begin(), other.stdlib.end());
+                generated.insert(other.generated.begin(), other.generated.end());
+            }
         };
         // Don't access directly.
         // `TryFindHeadersForCppTypeForSourceFile()` caches the results here. The keys are stringified `QualifiedName`s.

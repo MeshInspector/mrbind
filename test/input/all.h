@@ -13,6 +13,9 @@
 #include <input/MR/test_custom_preferred_names.h>
 #include <input/MR/test_declaration_order.h>
 #include <input/MR/test_deprecation.h>
+#include <input/MR/test_includes_for_enum_constants_2.h>
+#include <input/MR/test_includes_for_enum_constants_3.h>
+#include <input/MR/test_includes_for_enum_constants.h>
 #include <input/MR/test_iostream.h>
 #include <input/MR/test_matching_layout.h>
 #include <input/MR/test_member_vars.h>

@@ -1630,10 +1630,13 @@ namespace mrbind::CBindings
         // Consider e.g. how we process `std::vector<T>`. Here we do need to visit `T`, and `no_recurse_into_names` would prevent that.
         (void)entity.template VisitEachComponent<cppdecl::QualifiedName>(
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_nontype_names,
-            [&](const cppdecl::QualifiedName &name)
+            [&](cppdecl::QualifiedName name)
             {
-                // Those checks are here as a little optimization. Even if we remove them, `parsed_type_info.find()` below should find nothing for those types.
-                if (!name.IsEmpty() && !generator.TypeNameIsCBuiltIn(name))
+                // Those are here primarily as a little optimization. Even without this, `parsed_type_info.find()` below should find nothing for those types.
+                if (name.IsEmpty() || generator.TypeNameIsCBuiltIn(name))
+                    return false;
+
+                auto lambda = [&](auto &self) -> const Generator::CachedIncludesForType &
                 {
                     auto [cache_iter, is_new] = generator.cached_cpp_includes_for_cpp_type_names.try_emplace(generator.CppdeclToCode(name));
 
@@ -1663,14 +1666,23 @@ namespace mrbind::CBindings
                                     break;
                                 }
                             }
+                        }
 
-                            // If we don't find anything, jsut ignore this name.
+                        // If we didn't find anything by this point, retry with the last unqualified part removed.
+                        if (name.parts.size() > 1)
+                        {
+                            name.parts.pop_back();
+                            cache_iter->second.MergeFrom(self(self));
                         }
                     }
 
-                    custom_in_source_file.insert(cache_iter->second.generated.begin(), cache_iter->second.generated.end());
-                    ret.stdlib_in_source_file.insert(cache_iter->second.stdlib.begin(), cache_iter->second.stdlib.end());
-                }
+                    // If we don't find anything, this will be an empty struct, which is fine.
+                    return cache_iter->second;
+                };
+                const auto &result = lambda(lambda);
+
+                custom_in_source_file.insert(result.generated.begin(), result.generated.end());
+                ret.stdlib_in_source_file.insert(result.stdlib.begin(), result.stdlib.end());
 
                 return false;
             }
