@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <parallel_hashmap/phmap.h>
 #include <stdexcept>
 
@@ -71,7 +72,7 @@ void MR_C_phmap_parallel_flat_hash_map_int32_t_float_Clear(MR_C_phmap_parallel_f
 
 float *MR_C_phmap_parallel_flat_hash_map_int32_t_float_FindOrConstructElem(MR_C_phmap_parallel_flat_hash_map_int32_t_float *_this, const int32_t *key)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_flat_hash_map<int32_t, float> *)(_this))[((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)]);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_flat_hash_map<int32_t, float> *)(_this))[((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)]);
 }
 
 bool MR_C_phmap_parallel_flat_hash_map_int32_t_float_Contains(const MR_C_phmap_parallel_flat_hash_map_int32_t_float *_this, const int32_t *key)
@@ -232,12 +233,12 @@ MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator *MR_C_phmap_parallel_fl
 
 const int32_t *MR_C_phmap_parallel_flat_hash_map_int32_t_float_const_iterator_DerefKey(const MR_C_phmap_parallel_flat_hash_map_int32_t_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::const_iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::const_iterator *)(_this))->first);
 }
 
 const float *MR_C_phmap_parallel_flat_hash_map_int32_t_float_const_iterator_DerefValue(const MR_C_phmap_parallel_flat_hash_map_int32_t_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::const_iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::const_iterator *)(_this))->second);
 }
 
 void MR_C_phmap_parallel_flat_hash_map_int32_t_float_const_iterator_Incr(MR_C_phmap_parallel_flat_hash_map_int32_t_float_const_iterator *_this)
@@ -247,12 +248,12 @@ void MR_C_phmap_parallel_flat_hash_map_int32_t_float_const_iterator_Incr(MR_C_ph
 
 const int32_t *MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator_DerefKey(const MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::iterator *)(_this))->first);
 }
 
 float *MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator_DerefValue(const MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_flat_hash_map<int32_t, float>::iterator *)(_this))->second);
 }
 
 void MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator_Incr(MR_C_phmap_parallel_flat_hash_map_int32_t_float_iterator *_this)

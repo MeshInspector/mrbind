@@ -5,6 +5,7 @@
 #include <input/MR/test_custom_preferred_names.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -47,7 +48,7 @@ void MR_CustomPrefNames_Ai_DestroyArray(const MR_CustomPrefNames_Ai *_this)
 
 MR_CustomPrefNames_Ai *MR_CustomPrefNames_Ai_AssignFromAnother(MR_CustomPrefNames_Ai *_this, const MR_CustomPrefNames_Ai *_other)
 {
-    return (MR_CustomPrefNames_Ai *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CustomPrefNames::Ai *)(_this)).operator=(
+    return (MR_CustomPrefNames_Ai *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CustomPrefNames::Ai *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CustomPrefNames::Ai(*(MR::CustomPrefNames::Ai *)_other))
     ));
 }
@@ -91,7 +92,7 @@ void MR_CustomPrefNames_Af_DestroyArray(const MR_CustomPrefNames_Af *_this)
 
 MR_CustomPrefNames_Af *MR_CustomPrefNames_Af_AssignFromAnother(MR_CustomPrefNames_Af *_this, const MR_CustomPrefNames_Af *_other)
 {
-    return (MR_CustomPrefNames_Af *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CustomPrefNames::Af *)(_this)).operator=(
+    return (MR_CustomPrefNames_Af *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CustomPrefNames::Af *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CustomPrefNames::Af(*(MR::CustomPrefNames::Af *)_other))
     ));
 }

@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <stdexcept>
 
 
@@ -227,12 +228,12 @@ MR_C_std_multimap_int32_t_float_iterator *MR_C_std_multimap_int32_t_float_iterat
 
 const int32_t *MR_C_std_multimap_int32_t_float_const_iterator_DerefKey(const MR_C_std_multimap_int32_t_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::const_iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::const_iterator *)(_this))->first);
 }
 
 const float *MR_C_std_multimap_int32_t_float_const_iterator_DerefValue(const MR_C_std_multimap_int32_t_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::const_iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::const_iterator *)(_this))->second);
 }
 
 void MR_C_std_multimap_int32_t_float_const_iterator_Incr(MR_C_std_multimap_int32_t_float_const_iterator *_this)
@@ -247,12 +248,12 @@ void MR_C_std_multimap_int32_t_float_const_iterator_Decr(MR_C_std_multimap_int32
 
 const int32_t *MR_C_std_multimap_int32_t_float_iterator_DerefKey(const MR_C_std_multimap_int32_t_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::iterator *)(_this))->first);
 }
 
 float *MR_C_std_multimap_int32_t_float_iterator_DerefValue(const MR_C_std_multimap_int32_t_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multimap<int32_t, float>::iterator *)(_this))->second);
 }
 
 void MR_C_std_multimap_int32_t_float_iterator_Incr(MR_C_std_multimap_int32_t_float_iterator *_this)

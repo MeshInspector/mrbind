@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <functional>
+#include <memory>
 #include <stdexcept>
 
 
@@ -59,7 +60,7 @@ MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_function_
     {
         decltype(auto) _return = _f(
             _1,
-            (MR_StdFunction_E *)&mrbindc_details::unmove(_2)
+            (MR_StdFunction_E *)std::addressof(mrbindc_details::unmove(_2))
         );
         return ((MR::StdFunction::E)_return);
     }) : nullptr);
@@ -77,7 +78,7 @@ void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Assign(MR_C_st
     {
         decltype(auto) _return = _f(
             _1,
-            (MR_StdFunction_E *)&mrbindc_details::unmove(_2)
+            (MR_StdFunction_E *)std::addressof(mrbindc_details::unmove(_2))
         );
         return ((MR::StdFunction::E)_return);
     };
@@ -147,7 +148,7 @@ namespace
         {
             decltype(auto) _return = _func(
                 _1,
-                (MR_StdFunction_E *)&mrbindc_details::unmove(_2),
+                (MR_StdFunction_E *)std::addressof(mrbindc_details::unmove(_2)),
                 _userdata
             );
             return ((MR::StdFunction::E)_return);

@@ -5,6 +5,7 @@
 #include <input/MR/test_std_optional.h>
 
 #include <cstddef>
+#include <memory>
 #include <optional>
 #include <stdexcept>
 #include <string>
@@ -82,7 +83,7 @@ void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E *_1)
 
 const int *MR_StdOptional_A_Get_x(const MR_StdOptional_A *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdOptional::A *)(_this)).x);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdOptional::A *)(_this)).x);
 }
 
 void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int value)
@@ -92,7 +93,7 @@ void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int value)
 
 int *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::A *)(_this)).x);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::A *)(_this)).x);
 }
 
 MR_StdOptional_A *MR_StdOptional_A_DefaultConstruct(void)
@@ -141,7 +142,7 @@ void MR_StdOptional_A_DestroyArray(const MR_StdOptional_A *_this)
 
 MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *_this, const MR_StdOptional_A *_other)
 {
-    return (MR_StdOptional_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::A *)(_this)).operator=(
+    return (MR_StdOptional_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdOptional::A(*(MR::StdOptional::A *)_other))
     ));
 }
@@ -183,7 +184,7 @@ void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_A *_1)
 
 const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_this)
 {
-    return (const MR_C_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdOptional::B *)(_this)).s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdOptional::B *)(_this)).s);
 }
 
 void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const char *value_end)
@@ -193,7 +194,7 @@ void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const ch
 
 MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this)
 {
-    return (MR_C_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::B *)(_this)).s);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::B *)(_this)).s);
 }
 
 MR_StdOptional_B *MR_StdOptional_B_DefaultConstruct(void)
@@ -242,7 +243,7 @@ void MR_StdOptional_B_DestroyArray(const MR_StdOptional_B *_this)
 
 MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other)
 {
-    return (MR_StdOptional_B *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::B *)(_this)).operator=(
+    return (MR_StdOptional_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::B *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdOptional::B) MRBINDC_CLASSARG_COPY(_other, (MR::StdOptional::B), MR::StdOptional::B) MRBINDC_CLASSARG_MOVE(_other, (MR::StdOptional::B), MR::StdOptional::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdOptional::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdOptional::B) MRBINDC_CLASSARG_END(_other, MR::StdOptional::B))
     ));
 }

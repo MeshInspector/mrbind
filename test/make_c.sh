@@ -6,7 +6,7 @@ if [[ "$(uname -o)" == Msys ]]; then
     CXX=clang++
 else
     EXT_SHARED=.so
-    CXX=clang++-20
+    CXX=clang++-21
 fi
 
 # Clone phmap if missing:
@@ -73,6 +73,10 @@ COMPILER_FLAGS=(
     -Wno-implicit-int-float-conversion
     -isystemtest/input/parallel-hashmap
     -g
+    # Since our tests have a bunch of deprecated implicitly generated copy operations,
+    #   we need to disable those warnings to not blow up on `-Werror`.
+    # But our users should instead fix their classes to avoid those warnings.
+    -Wno-deprecated-copy
 )
 
 

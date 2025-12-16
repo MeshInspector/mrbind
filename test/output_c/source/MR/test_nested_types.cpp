@@ -4,12 +4,13 @@
 #include <input/MR/test_nested_types.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
 const MR_NestedTypes_A_B *MR_NestedTypes_A_Get_b(const MR_NestedTypes_A *_this)
 {
-    return (const MR_NestedTypes_A_B *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::NestedTypes::A *)(_this)).b);
+    return (const MR_NestedTypes_A_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::NestedTypes::A *)(_this)).b);
 }
 
 void MR_NestedTypes_A_Set_b(MR_NestedTypes_A *_this, const MR_NestedTypes_A_B *value)
@@ -19,12 +20,12 @@ void MR_NestedTypes_A_Set_b(MR_NestedTypes_A *_this, const MR_NestedTypes_A_B *v
 
 MR_NestedTypes_A_B *MR_NestedTypes_A_GetMutable_b(MR_NestedTypes_A *_this)
 {
-    return (MR_NestedTypes_A_B *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A *)(_this)).b);
+    return (MR_NestedTypes_A_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A *)(_this)).b);
 }
 
 const MR_NestedTypes_A_E *MR_NestedTypes_A_Get_e(const MR_NestedTypes_A *_this)
 {
-    return (const MR_NestedTypes_A_E *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::NestedTypes::A *)(_this)).e);
+    return (const MR_NestedTypes_A_E *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::NestedTypes::A *)(_this)).e);
 }
 
 void MR_NestedTypes_A_Set_e(MR_NestedTypes_A *_this, MR_NestedTypes_A_E value)
@@ -34,7 +35,7 @@ void MR_NestedTypes_A_Set_e(MR_NestedTypes_A *_this, MR_NestedTypes_A_E value)
 
 MR_NestedTypes_A_E *MR_NestedTypes_A_GetMutable_e(MR_NestedTypes_A *_this)
 {
-    return (MR_NestedTypes_A_E *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A *)(_this)).e);
+    return (MR_NestedTypes_A_E *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A *)(_this)).e);
 }
 
 MR_NestedTypes_A *MR_NestedTypes_A_DefaultConstruct(void)
@@ -84,7 +85,7 @@ void MR_NestedTypes_A_DestroyArray(const MR_NestedTypes_A *_this)
 
 MR_NestedTypes_A *MR_NestedTypes_A_AssignFromAnother(MR_NestedTypes_A *_this, const MR_NestedTypes_A *_other)
 {
-    return (MR_NestedTypes_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A *)(_this)).operator=(
+    return (MR_NestedTypes_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTypes::A(*(MR::NestedTypes::A *)_other))
     ));
 }
@@ -128,7 +129,7 @@ void MR_NestedTypes_A_B_DestroyArray(const MR_NestedTypes_A_B *_this)
 
 MR_NestedTypes_A_B *MR_NestedTypes_A_B_AssignFromAnother(MR_NestedTypes_A_B *_this, const MR_NestedTypes_A_B *_other)
 {
-    return (MR_NestedTypes_A_B *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A::B *)(_this)).operator=(
+    return (MR_NestedTypes_A_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTypes::A::B *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTypes::A::B(*(MR::NestedTypes::A::B *)_other))
     ));
 }

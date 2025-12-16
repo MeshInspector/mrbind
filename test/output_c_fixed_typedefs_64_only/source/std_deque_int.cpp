@@ -5,6 +5,7 @@
 
 #include <cstddef>
 #include <deque>
+#include <memory>
 #include <stdexcept>
 
 
@@ -94,14 +95,14 @@ void MR_C_std_deque_int_Clear(MR_C_std_deque_int *_this)
 
 const int *MR_C_std_deque_int_At(const MR_C_std_deque_int *_this, size_t i)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).at(
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).at(
         i
     ));
 }
 
 int *MR_C_std_deque_int_MutableAt(MR_C_std_deque_int *_this, size_t i)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).at(
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).at(
         i
     ));
 }
@@ -337,7 +338,7 @@ MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_OffsetMutablePtr(MR_C_s
 
 const int *MR_C_std_deque_int_const_iterator_Deref(const MR_C_std_deque_int_const_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int>::const_iterator *)(_this)));
 }
 
 void MR_C_std_deque_int_const_iterator_Incr(MR_C_std_deque_int_const_iterator *_this)
@@ -362,7 +363,7 @@ ptrdiff_t MR_C_std_deque_int_const_iterator_Distance(const MR_C_std_deque_int_co
 
 int *MR_C_std_deque_int_iterator_Deref(const MR_C_std_deque_int_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int>::iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int>::iterator *)(_this)));
 }
 
 void MR_C_std_deque_int_iterator_Incr(MR_C_std_deque_int_iterator *_this)

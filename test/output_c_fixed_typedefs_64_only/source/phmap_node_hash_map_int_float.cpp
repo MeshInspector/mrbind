@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 
 #include <cstddef>
+#include <memory>
 #include <parallel_hashmap/phmap.h>
 #include <stdexcept>
 
@@ -69,7 +70,7 @@ void MR_C_phmap_node_hash_map_int_float_Clear(MR_C_phmap_node_hash_map_int_float
 
 float *MR_C_phmap_node_hash_map_int_float_FindOrConstructElem(MR_C_phmap_node_hash_map_int_float *_this, const int *key)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int, float> *)(_this))[((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)]);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int, float> *)(_this))[((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)]);
 }
 
 bool MR_C_phmap_node_hash_map_int_float_Contains(const MR_C_phmap_node_hash_map_int_float *_this, const int *key)
@@ -230,12 +231,12 @@ MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_
 
 const int *MR_C_phmap_node_hash_map_int_float_const_iterator_DerefKey(const MR_C_phmap_node_hash_map_int_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::const_iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::const_iterator *)(_this))->first);
 }
 
 const float *MR_C_phmap_node_hash_map_int_float_const_iterator_DerefValue(const MR_C_phmap_node_hash_map_int_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::const_iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::const_iterator *)(_this))->second);
 }
 
 void MR_C_phmap_node_hash_map_int_float_const_iterator_Incr(MR_C_phmap_node_hash_map_int_float_const_iterator *_this)
@@ -245,12 +246,12 @@ void MR_C_phmap_node_hash_map_int_float_const_iterator_Incr(MR_C_phmap_node_hash
 
 const int *MR_C_phmap_node_hash_map_int_float_iterator_DerefKey(const MR_C_phmap_node_hash_map_int_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::iterator *)(_this))->first);
 }
 
 float *MR_C_phmap_node_hash_map_int_float_iterator_DerefValue(const MR_C_phmap_node_hash_map_int_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int, float>::iterator *)(_this))->second);
 }
 
 void MR_C_phmap_node_hash_map_int_float_iterator_Incr(MR_C_phmap_node_hash_map_int_float_iterator *_this)

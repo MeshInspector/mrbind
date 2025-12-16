@@ -5,6 +5,7 @@
 
 #include <cstddef>
 #include <functional>
+#include <memory>
 #include <stdexcept>
 #include <string>
 
@@ -58,7 +59,7 @@ MR_C_std_function_void_from_std_string *MR_C_std_function_void_from_std_string_C
     return (MR_C_std_function_void_from_std_string *)new std::function<void(std::string)>(func ? std::function<void(std::string)>([_f = func](std::string _1) -> void
     {
         _f(
-            (MR_C_std_string *)&mrbindc_details::unmove(_1)
+            (MR_C_std_string *)std::addressof(mrbindc_details::unmove(_1))
         );
     }) : nullptr);
 }
@@ -74,7 +75,7 @@ void MR_C_std_function_void_from_std_string_Assign(MR_C_std_function_void_from_s
     _self = [_f = func](std::string _1) -> void
     {
         _f(
-            (MR_C_std_string *)&mrbindc_details::unmove(_1)
+            (MR_C_std_string *)std::addressof(mrbindc_details::unmove(_1))
         );
     };
 }
@@ -142,7 +143,7 @@ namespace
         auto operator()(std::string _1) -> void
         {
             _func(
-                (MR_C_std_string *)&mrbindc_details::unmove(_1),
+                (MR_C_std_string *)std::addressof(mrbindc_details::unmove(_1)),
                 _userdata
             );
         }

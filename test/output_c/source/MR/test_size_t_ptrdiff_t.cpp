@@ -5,6 +5,7 @@
 #include <input/MR/test_size_t_ptrdiff_t.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -18,7 +19,7 @@ unsigned long MR_TestSizeT_foo_unsigned_long(unsigned long _1)
 
 unsigned long **MR_TestSizeT_foo_unsigned_long_ptr(unsigned long **_1)
 {
-    return &(::MR::TestSizeT::foo(
+    return std::addressof(::MR::TestSizeT::foo(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
     ));
 }
@@ -39,7 +40,7 @@ long MR_TestSizeT_foo_long(long _1)
 
 long **MR_TestSizeT_foo_long_ptr(long **_1)
 {
-    return &(::MR::TestSizeT::foo(
+    return std::addressof(::MR::TestSizeT::foo(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
     ));
 }
@@ -90,7 +91,7 @@ void MR_TestSizeT_A_unsigned_long_DestroyArray(const MR_TestSizeT_A_unsigned_lon
 
 MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other)
 {
-    return (MR_TestSizeT_A_unsigned_long *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<unsigned long> *)(_this)).operator=(
+    return (MR_TestSizeT_A_unsigned_long *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<unsigned long> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSizeT::A<unsigned long>(*(MR::TestSizeT::A<unsigned long> *)_other))
     ));
 }

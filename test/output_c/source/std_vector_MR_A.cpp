@@ -5,6 +5,7 @@
 #include <input/MR/1.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -102,14 +103,14 @@ void MR_C_std_vector_MR_A_ShrinkToFit(MR_C_std_vector_MR_A *_this)
 
 const MR_A *MR_C_std_vector_MR_A_At(const MR_C_std_vector_MR_A *_this, size_t i)
 {
-    return (const MR_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).at(
+    return (const MR_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).at(
         i
     ));
 }
 
 MR_A *MR_C_std_vector_MR_A_MutableAt(MR_C_std_vector_MR_A *_this, size_t i)
 {
-    return (MR_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).at(
+    return (MR_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).at(
         i
     ));
 }
@@ -333,7 +334,7 @@ MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_OffsetMutablePtr(MR
 
 const MR_A *MR_C_std_vector_MR_A_const_iterator_Deref(const MR_C_std_vector_MR_A_const_iterator *_this)
 {
-    return (const MR_A *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A>::const_iterator *)(_this)));
+    return (const MR_A *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_MR_A_const_iterator_Incr(MR_C_std_vector_MR_A_const_iterator *_this)
@@ -358,7 +359,7 @@ ptrdiff_t MR_C_std_vector_MR_A_const_iterator_Distance(const MR_C_std_vector_MR_
 
 MR_A *MR_C_std_vector_MR_A_iterator_Deref(const MR_C_std_vector_MR_A_iterator *_this)
 {
-    return (MR_A *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A>::iterator *)(_this)));
+    return (MR_A *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_MR_A_iterator_Incr(MR_C_std_vector_MR_A_iterator *_this)

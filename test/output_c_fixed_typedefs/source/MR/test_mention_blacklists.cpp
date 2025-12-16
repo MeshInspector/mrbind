@@ -6,6 +6,7 @@
 #include <input/MR/test_mention_blacklists.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 
@@ -49,7 +50,7 @@ void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this)
 
 MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other)
 {
-    return (MR_SignatureFilters_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::A *)(_this)).operator=(
+    return (MR_SignatureFilters_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_other))
     ));
 }
@@ -75,7 +76,7 @@ void MR_SignatureFilters_foo2_1(MR_SignatureFilters_A *_1)
 
 MR_SignatureFilters_A *MR_SignatureFilters_foo2_0(void)
 {
-    return (MR_SignatureFilters_A *)&(::MR::SignatureFilters::foo2());
+    return (MR_SignatureFilters_A *)std::addressof(::MR::SignatureFilters::foo2());
 }
 
 void MR_SignatureFilters_foo3_1(MR_SignatureFilters_A *_1)
@@ -87,7 +88,7 @@ void MR_SignatureFilters_foo3_1(MR_SignatureFilters_A *_1)
 
 MR_SignatureFilters_A *MR_SignatureFilters_foo3_0(void)
 {
-    return (MR_SignatureFilters_A *)&mrbindc_details::unmove(::MR::SignatureFilters::foo3());
+    return (MR_SignatureFilters_A *)std::addressof(mrbindc_details::unmove(::MR::SignatureFilters::foo3()));
 }
 
 void MR_SignatureFilters_foo4_1(const MR_SignatureFilters_A *_1)
@@ -99,7 +100,7 @@ void MR_SignatureFilters_foo4_1(const MR_SignatureFilters_A *_1)
 
 const MR_SignatureFilters_A *MR_SignatureFilters_foo4_0(void)
 {
-    return (const MR_SignatureFilters_A *)&(::MR::SignatureFilters::foo4());
+    return (const MR_SignatureFilters_A *)std::addressof(::MR::SignatureFilters::foo4());
 }
 
 void MR_SignatureFilters_foo5_1(const MR_SignatureFilters_A *_1)
@@ -111,12 +112,12 @@ void MR_SignatureFilters_foo5_1(const MR_SignatureFilters_A *_1)
 
 const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void)
 {
-    return (const MR_SignatureFilters_A *)&mrbindc_details::unmove(::MR::SignatureFilters::foo5());
+    return (const MR_SignatureFilters_A *)std::addressof(mrbindc_details::unmove(::MR::SignatureFilters::foo5()));
 }
 
 const MR_SignatureFilters_A *MR_SignatureFilters_Blah_Get_a(const MR_SignatureFilters_Blah *_this)
 {
-    return (const MR_SignatureFilters_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::SignatureFilters::Blah *)(_this)).a);
+    return (const MR_SignatureFilters_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::SignatureFilters::Blah *)(_this)).a);
 }
 
 void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_A *value)
@@ -126,7 +127,7 @@ void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, const MR_Si
 
 MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetMutable_a(MR_SignatureFilters_Blah *_this)
 {
-    return (MR_SignatureFilters_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::Blah *)(_this)).a);
+    return (MR_SignatureFilters_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::Blah *)(_this)).a);
 }
 
 MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_DefaultConstruct(void)
@@ -168,7 +169,7 @@ void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this
 
 MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other)
 {
-    return (MR_SignatureFilters_Blah *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::Blah *)(_this)).operator=(
+    return (MR_SignatureFilters_Blah *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::Blah *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::SignatureFilters::Blah(*(MR::SignatureFilters::Blah *)_other))
     ));
 }

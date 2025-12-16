@@ -7,6 +7,7 @@
 #include <common.h>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <stdexcept>
 
 
@@ -61,7 +62,7 @@ void MR_TestSimpleTypes_SetIntPtrDefNull(int32_t *_1)
 
 int32_t *MR_TestSimpleTypes_GetIntRef(void)
 {
-    return &(::MR::TestSimpleTypes::GetIntRef());
+    return std::addressof(::MR::TestSimpleTypes::GetIntRef());
 }
 
 void MR_TestSimpleTypes_SetIntRef(int32_t *_1)
@@ -215,7 +216,7 @@ void MR_TestSimpleTypes_SetEnumPtrDefNull(MR_TestSimpleTypes_E *_1)
 
 MR_TestSimpleTypes_E *MR_TestSimpleTypes_GetEnumRef(void)
 {
-    return (MR_TestSimpleTypes_E *)&(::MR::TestSimpleTypes::GetEnumRef());
+    return (MR_TestSimpleTypes_E *)std::addressof(::MR::TestSimpleTypes::GetEnumRef());
 }
 
 void MR_TestSimpleTypes_SetEnumRef(MR_TestSimpleTypes_E *_1)
@@ -285,7 +286,7 @@ void MR_TestSimpleTypes_SetEnum2PtrDefNull(MR_TestSimpleTypes_E2 *_1)
 
 MR_TestSimpleTypes_E2 *MR_TestSimpleTypes_GetEnum2Ref(void)
 {
-    return (MR_TestSimpleTypes_E2 *)&(::MR::TestSimpleTypes::GetEnum2Ref());
+    return (MR_TestSimpleTypes_E2 *)std::addressof(::MR::TestSimpleTypes::GetEnum2Ref());
 }
 
 void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1)
@@ -355,7 +356,7 @@ int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1)
 
 const MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<MR_C_uint64_t>);
+    return std::addressof(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<MR_C_uint64_t>);
 }
 
 void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value)
@@ -365,7 +366,7 @@ void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t va
 
 MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<MR_C_uint64_t>);
+    return std::addressof(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::var<MR_C_uint64_t>);
 }
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other)
@@ -411,7 +412,7 @@ void MR_TestSimpleTypes_ClassTemplate_uint64_t_DestroyArray(const MR_TestSimpleT
 
 MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this, const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other)
 {
-    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)(_this)).operator=(
+    return (MR_TestSimpleTypes_ClassTemplate_uint64_t *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>(*(MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t> *)_other))
     ));
 }

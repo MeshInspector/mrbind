@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <expected>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -105,14 +106,14 @@ void MR_C_std_vector_expected_int32_t_std_string_ShrinkToFit(MR_C_std_vector_exp
 
 const MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_At(const MR_C_std_vector_expected_int32_t_std_string *_this, size_t i)
 {
-    return (const MR_C_expected_int32_t_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).at(
+    return (const MR_C_expected_int32_t_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>> *)(_this)).at(
         i
     ));
 }
 
 MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_MutableAt(MR_C_std_vector_expected_int32_t_std_string *_this, size_t i)
 {
-    return (MR_C_expected_int32_t_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).at(
+    return (MR_C_expected_int32_t_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).at(
         i
     ));
 }
@@ -336,7 +337,7 @@ MR_C_std_vector_expected_int32_t_std_string_iterator *MR_C_std_vector_expected_i
 
 const MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_const_iterator_Deref(const MR_C_std_vector_expected_int32_t_std_string_const_iterator *_this)
 {
-    return (const MR_C_expected_int32_t_std_string *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this)));
+    return (const MR_C_expected_int32_t_std_string *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_const_iterator_Incr(MR_C_std_vector_expected_int32_t_std_string_const_iterator *_this)
@@ -361,7 +362,7 @@ ptrdiff_t MR_C_std_vector_expected_int32_t_std_string_const_iterator_Distance(co
 
 MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_iterator_Deref(const MR_C_std_vector_expected_int32_t_std_string_iterator *_this)
 {
-    return (MR_C_expected_int32_t_std_string *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(_this)));
+    return (MR_C_expected_int32_t_std_string *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<std::expected<int32_t, std::string>>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_expected_int32_t_std_string_iterator_Incr(MR_C_std_vector_expected_int32_t_std_string_iterator *_this)

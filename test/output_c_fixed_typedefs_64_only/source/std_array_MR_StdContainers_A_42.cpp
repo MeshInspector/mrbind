@@ -5,6 +5,7 @@
 
 #include <array>
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -54,14 +55,14 @@ MR_C_std_array_MR_StdContainers_A_42 *MR_C_std_array_MR_StdContainers_A_42_Offse
 
 const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_At(const MR_C_std_array_MR_StdContainers_A_42 *_this, size_t i)
 {
-    return (const MR_StdContainers_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::array<MR::StdContainers::A, 42> *)(_this)).at(
+    return (const MR_StdContainers_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::array<MR::StdContainers::A, 42> *)(_this)).at(
         i
     ));
 }
 
 MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_MutableAt(MR_C_std_array_MR_StdContainers_A_42 *_this, size_t i)
 {
-    return (MR_StdContainers_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::array<MR::StdContainers::A, 42> *)(_this)).at(
+    return (MR_StdContainers_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::array<MR::StdContainers::A, 42> *)(_this)).at(
         i
     ));
 }

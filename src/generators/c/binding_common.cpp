@@ -992,14 +992,18 @@ namespace mrbind::CBindings
                         details_file = is_rvalue_ref ? generator.GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
                     {
+                        // Apparently this explodes if `&` is overloaded, so handle it. Why not, I guess.
+                        // I'm not sure if there are other places that need this or not.
+                        file.stdlib_headers.insert("memory"); // For `std::addressof`.
+
                         if (!is_rvalue_ref)
                         {
-                            return "(" + ref_target_c_type_ptr_str + ")&(" + std::string(expr) + ")";
+                            return "(" + ref_target_c_type_ptr_str + ")std::addressof(" + std::string(expr) + ")";
                         }
                         else
                         {
                             file.custom_headers.insert(details_file); // For `unmove()`.
-                            return "(" + ref_target_c_type_ptr_str + ")&mrbindc_details::unmove(" + std::string(expr) + ")";
+                            return "(" + ref_target_c_type_ptr_str + ")std::addressof(mrbindc_details::unmove(" + std::string(expr) + "))";
                         }
                     };
                 }
@@ -1012,15 +1016,18 @@ namespace mrbind::CBindings
                         details_file = is_rvalue_ref ? generator.GetInternalDetailsFile().header.path_for_inclusion : std::string{}
                     ](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
                     {
-                        (void)file;
+                        // Apparently this explodes if `&` is overloaded, so handle it. Why not, I guess.
+                        // I'm not sure if there are other places that need this or not.
+                        file.stdlib_headers.insert("memory"); // For `std::addressof`.
+
                         if (!is_rvalue_ref)
                         {
-                            return "&(" + std::string(expr) + ")";
+                            return "std::addressof(" + std::string(expr) + ")";
                         }
                         else
                         {
                             file.custom_headers.insert(details_file); // For `unmove()`.
-                            return "&mrbindc_details::unmove(" + std::string(expr) + ")";
+                            return "std::addressof(mrbindc_details::unmove(" + std::string(expr) + "))";
                         }
                     };
                 }

@@ -7,11 +7,12 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 
 
 const int32_t *MR_MatchingLayout_A_Get_x(void)
 {
-    return &(MR::MatchingLayout::A::x);
+    return std::addressof(MR::MatchingLayout::A::x);
 }
 
 void MR_MatchingLayout_A_Set_x(int32_t value)
@@ -21,7 +22,7 @@ void MR_MatchingLayout_A_Set_x(int32_t value)
 
 int32_t *MR_MatchingLayout_A_GetMutable_x(void)
 {
-    return &(MR::MatchingLayout::A::x);
+    return std::addressof(MR::MatchingLayout::A::x);
 }
 
 MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void)

@@ -138,7 +138,7 @@ void MR_StdUniquePtr_A_DestroyArray(const MR_StdUniquePtr_A *_this)
 
 MR_StdUniquePtr_A *MR_StdUniquePtr_A_AssignFromAnother(MR_StdUniquePtr_A *_this, const MR_StdUniquePtr_A *_other)
 {
-    return (MR_StdUniquePtr_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdUniquePtr::A *)(_this)).operator=(
+    return (MR_StdUniquePtr_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdUniquePtr::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdUniquePtr::A(*(MR::StdUniquePtr::A *)_other))
     ));
 }

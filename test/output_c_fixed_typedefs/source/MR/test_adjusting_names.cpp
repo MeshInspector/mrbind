@@ -6,6 +6,7 @@
 
 #include <common.h>
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -21,7 +22,7 @@ void MR_AdjustingNames_bar(void)
 
 const MR_C_uint64_t *MR_AdjustingNames_A_Get_var_uint64_t(void)
 {
-    return &(MR::AdjustingNames::A::var<MR_C_uint64_t>);
+    return std::addressof(MR::AdjustingNames::A::var<MR_C_uint64_t>);
 }
 
 void MR_AdjustingNames_A_Set_var_uint64_t(MR_C_uint64_t value)
@@ -31,7 +32,7 @@ void MR_AdjustingNames_A_Set_var_uint64_t(MR_C_uint64_t value)
 
 MR_C_uint64_t *MR_AdjustingNames_A_GetMutable_var_uint64_t(void)
 {
-    return &(MR::AdjustingNames::A::var<MR_C_uint64_t>);
+    return std::addressof(MR::AdjustingNames::A::var<MR_C_uint64_t>);
 }
 
 MR_AdjustingNames_A *MR_AdjustingNames_A_DefaultConstruct(void)
@@ -78,7 +79,7 @@ MR_C_uint64_t MR_AdjustingNames_A_ConvertTo_uint64_t(MR_AdjustingNames_A *_this)
 
 MR_AdjustingNames_A *MR_AdjustingNames_A_AssignFromAnother(MR_AdjustingNames_A *_this, const MR_AdjustingNames_A *_other)
 {
-    return (MR_AdjustingNames_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).operator=(
+    return (MR_AdjustingNames_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
     ));
 }

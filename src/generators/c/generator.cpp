@@ -1933,7 +1933,24 @@ namespace mrbind::CBindings
             if (params.at(1).cpp_type.Is<cppdecl::Reference>())
             {
                 params.at(1).cpp_type.RemoveModifier();
-                params.at(1).cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_); // Just in case. Normally this should never happen, becuase we emit only the move constructors, not the copy constructors.
+                params.at(1).cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                // If this is a weird type that's copy-assignable but not move-assignable, unmove the argument!
+                const auto &traits = self.FindTypeTraits(params.at(1).cpp_type);
+                if (traits.is_copy_assignable && !traits.is_move_assignable)
+                {
+                    // Include the details header.
+                    extra_headers.custom_in_source_file = [next = std::move(extra_headers.custom_in_source_file), &self]
+                    {
+                        std::unordered_set<std::string> ret;
+                        if (next)
+                            ret = next();
+                        ret.insert(self.GetInternalDetailsFile().header.path_for_inclusion);
+                        return ret;
+                    };
+
+                    params.at(1).postprocess_argument = [](std::string_view str){return "mrbindc_details::unmove(" + std::string(str) + ")";};
+                }
             }
         }
         else
@@ -2369,6 +2386,9 @@ namespace mrbind::CBindings
                         }
                         break;
                     }
+
+                    if (param.postprocess_argument)
+                        arg_expr = param.postprocess_argument(arg_expr);
                 }
 
                 // Append the argument to the call, if enabled.
@@ -4062,6 +4082,8 @@ namespace mrbind::CBindings
 
                 // We need to emit the combined copy/move ctor exactly once. We do it when seeing either a copy of a move ctor.
                 bool emitted_any_copy_or_move_ctor = false;
+                // Same for assignment (copy or move or by-value).
+                bool emitted_any_special_assignment = false;
 
                 // This emits some additional functions. Repeated calls have no effect.
                 auto EmitMiscFunctionsOnce = [&]
@@ -4331,6 +4353,11 @@ namespace mrbind::CBindings
                                 // Out of all copy/move constructors, emit exactly one. It gets rewritten as if it was accepting the parameter by value.
                                 if (elem.kind == CopyMoveKind::copy || elem.kind == CopyMoveKind::move)
                                 {
+                                    // If the class isn't destructible, don't even try, since emitting the by-value parameter apparently causes
+                                    //   the compiler the want to use the destructor too, probably for exception reasons.
+                                    if (!parsed_class_info.traits.is_destructible)
+                                        return;
+
                                     if (std::exchange(emitted_any_copy_or_move_ctor, true))
                                         return;
                                 }
@@ -4375,26 +4402,32 @@ namespace mrbind::CBindings
                         {
                             try
                             {
-                                // Complain if a same-layout struct has a non-trivial assignment.
-                                // We could support those, but it's easier not to.
-                                if (parsed_class_info.is_same_layout_struct && elem.assignment_kind != CopyMoveKind{})
+                                // Emit at most one special assignment, since we rewrite all of them into a by-value assignment.
+                                if (elem.assignment_kind != CopyMoveKind::none)
                                 {
-                                    if (elem.is_trivial_assignment)
+                                    // Complain if a same-layout struct has a non-trivial assignment.
+                                    // We could support those, but it's easier not to.
+                                    if (parsed_class_info.is_same_layout_struct && elem.assignment_kind != CopyMoveKind::none)
+                                    {
+                                        if (elem.is_trivial_assignment)
+                                            return;
+                                        throw std::runtime_error("The type `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but has a non-trivial assignment.");
+                                    }
+
+                                    // Don't emit assignments for abstract classes, since the way we bind them (with passing the class by value)
+                                    //   requires it to be copyable or movable.
+                                    // Maybe we could create alternative bindings for static classes, but honestly who cares about those, right?
+                                    if (parsed_class_info.is_abstract)
                                         return;
-                                    throw std::runtime_error("The type `" + cpp_class_name_str + "` is whitelisted by `--expose-as-struct`, but has a non-trivial assignment.");
+
+                                    // If the class isn't destructible, don't even try, since emitting the by-value parameter apparently causes
+                                    //   the compiler the want to use the destructor too, probably for exception reasons.
+                                    if (!parsed_class_info.traits.is_destructible)
+                                        return;
+
+                                    if (std::exchange(emitted_any_special_assignment, true))
+                                        return;
                                 }
-
-                                // The copy assignments are not emitted. Instead the move assignments are rewritten as if they were accepting the parameter by value.
-                                // We treat the (parsed) by-value assignments exactly the same as move assignments, generating the same code for both.
-                                // We expect at most one of them (move and by-value) to exist, since having both leads to overload resolution errors when calling them anyway.
-                                if (elem.assignment_kind == CopyMoveKind::copy)
-                                    return;
-
-                                // Don't emit assignments for abstract classes, since the way we bind them (with passing the class by value)
-                                //   requires it to be copyable or movable.
-                                // Maybe we could create alternative bindings for static classes, but honestly who cares about those, right?
-                                if (elem.assignment_kind != CopyMoveKind::none && parsed_class_info.is_abstract)
-                                    return;
 
                                 EmitFuncParams params;
                                 params.SetFromParsedClassMethod(self, cl, elem, GetNamespaceStack());

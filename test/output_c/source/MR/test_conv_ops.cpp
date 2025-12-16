@@ -4,6 +4,7 @@
 #include <input/MR/test_conv_ops.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -51,7 +52,7 @@ bool MR_ConvOps_A_ConvertTo_bool(const MR_ConvOps_A *_this)
 
 MR_ConvOps_A *MR_ConvOps_A_AssignFromAnother(MR_ConvOps_A *_this, const MR_ConvOps_A *_other)
 {
-    return (MR_ConvOps_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::ConvOps::A *)(_this)).operator=(
+    return (MR_ConvOps_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::ConvOps::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::ConvOps::A(*(MR::ConvOps::A *)_other))
     ));
 }

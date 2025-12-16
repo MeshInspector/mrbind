@@ -920,7 +920,7 @@ namespace mrbind::CBindings
                 // Generates a return statement to return a value of this type.
                 // If null, defaults to `"return " + expr + ";"`.
                 // You can generate more than one statement here.
-                // Providing the source `file` so you can add some extra headers or whatever. Note that this is intentionally redundant, as we also have `extra_headers` below.
+                // Providing the source `file` (which is the C++ source file, not the header) so you can add some extra headers or whatever. Note that this is intentionally redundant, as we also have `extra_headers` below.
                 // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
                 std::function<std::string(OutputFile::SpecificFileContents &file, std::string_view expr)> make_return_expr;
 
@@ -1286,6 +1286,12 @@ namespace mrbind::CBindings
                 // This works even with `use_type_as_is`.
                 // The parameter name has to be a parameter because it receives a proper adjusted name even if `.name` in this struct is empty.
                 std::function<std::string(std::string_view param_name)> custom_argument_spelling = nullptr;
+
+                // Normally null. If non-null, this is used to post-process the argument expression.
+                // Compare with `custom_argument_spelling`, which replaces the usual argument generation, instead of merely post-processing this.
+                // If both are specific, `postprocess_argument()` is applied to the result of `custom_argument_spelling()`.
+                // Don't forget to wrap `expr` in parentheses first, if necessary.
+                std::function<std::string(std::string_view expr)> postprocess_argument = nullptr;
 
                 enum class Kind
                 {

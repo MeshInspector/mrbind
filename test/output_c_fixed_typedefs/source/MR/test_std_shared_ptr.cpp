@@ -176,7 +176,7 @@ void MR_StdSharedPtr_A_DestroyArray(const MR_StdSharedPtr_A *_this)
 
 MR_StdSharedPtr_A *MR_StdSharedPtr_A_AssignFromAnother(MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *_other)
 {
-    return (MR_StdSharedPtr_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdSharedPtr::A *)(_this)).operator=(
+    return (MR_StdSharedPtr_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdSharedPtr::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdSharedPtr::A(*(MR::StdSharedPtr::A *)_other))
     ));
 }

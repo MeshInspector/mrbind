@@ -4,6 +4,7 @@
 #include <input/MR/test_abstract_classes.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -77,14 +78,14 @@ MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastTo_MR_AbstractC
 
 const MR_AbstractClasses_C *MR_AbstractClasses_B_DynamicDowncastToOrFail_MR_AbstractClasses_C(const MR_AbstractClasses_B *object)
 {
-    return (const MR_AbstractClasses_C *)&(dynamic_cast<const MR::AbstractClasses::C &>(
+    return (const MR_AbstractClasses_C *)std::addressof(dynamic_cast<const MR::AbstractClasses::C &>(
         ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::AbstractClasses::B *)(object))
     ));
 }
 
 MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastToOrFail_MR_AbstractClasses_C(MR_AbstractClasses_B *object)
 {
-    return (MR_AbstractClasses_C *)&(dynamic_cast<MR::AbstractClasses::C &>(
+    return (MR_AbstractClasses_C *)std::addressof(dynamic_cast<MR::AbstractClasses::C &>(
         ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::AbstractClasses::B *)(object))
     ));
 }

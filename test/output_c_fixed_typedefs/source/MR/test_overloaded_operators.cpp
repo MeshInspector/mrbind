@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <stdexcept>
 
 
@@ -367,7 +368,7 @@ void MR_OverloadedOps_B_DestroyArray(const MR_OverloadedOps_B *_this)
 
 MR_OverloadedOps_B *MR_OverloadedOps_B_AssignFromAnother(MR_OverloadedOps_B *_this, const MR_OverloadedOps_B *_other)
 {
-    return (MR_OverloadedOps_B *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OverloadedOps::B *)(_this)).operator=(
+    return (MR_OverloadedOps_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OverloadedOps::B *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::OverloadedOps::B(*(MR::OverloadedOps::B *)_other))
     ));
 }
@@ -724,7 +725,7 @@ void MR_OverloadedOps_C_DestroyArray(const MR_OverloadedOps_C *_this)
 
 MR_OverloadedOps_C *MR_OverloadedOps_C_AssignFromAnother(MR_OverloadedOps_C *_this, const MR_OverloadedOps_C *_other)
 {
-    return (MR_OverloadedOps_C *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OverloadedOps::C *)(_this)).operator=(
+    return (MR_OverloadedOps_C *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OverloadedOps::C *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::OverloadedOps::C(*(MR::OverloadedOps::C *)_other))
     ));
 }
@@ -784,7 +785,7 @@ void MR_OverloadedOps_D_DestroyArray(const MR_OverloadedOps_D *_this)
 
 MR_OverloadedOps_D *MR_OverloadedOps_D_AssignFromAnother(MR_OverloadedOps_D *_this, const MR_OverloadedOps_D *_other)
 {
-    return (MR_OverloadedOps_D *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OverloadedOps::D *)(_this)).operator=(
+    return (MR_OverloadedOps_D *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OverloadedOps::D *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::OverloadedOps::D(*(MR::OverloadedOps::D *)_other))
     ));
 }

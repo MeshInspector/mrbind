@@ -2534,6 +2534,12 @@ MR_C_API void MR_CSharp_IncrDecrC_Destroy(const MR_CSharp_IncrDecrC *_this);
 /// Destroys a heap-allocated array of `MR_CSharp_IncrDecrC`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_IncrDecrC_DestroyArray(const MR_CSharp_IncrDecrC *_this);
 
+/// Generated from method `MR::CSharp::IncrDecrC::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_AssignFromAnother(MR_CSharp_IncrDecrC *_this, const MR_CSharp_IncrDecrC *_other);
+
 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -2579,6 +2585,12 @@ MR_C_API void MR_CSharp_IncrDecrD_Destroy(const MR_CSharp_IncrDecrD *_this);
 
 /// Destroys a heap-allocated array of `MR_CSharp_IncrDecrD`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_IncrDecrD_DestroyArray(const MR_CSharp_IncrDecrD *_this);
+
+/// Generated from method `MR::CSharp::IncrDecrD::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_AssignFromAnother(MR_CSharp_IncrDecrD *_this, const MR_CSharp_IncrDecrD *_other);
 
 /// Generated from method `MR::CSharp::IncrDecrD::operator++`.
 /// Parameter `_this` can not be null. It is a single object.
@@ -3573,6 +3585,12 @@ MR_C_API void MR_CSharp_StaticOpsLhsG_Destroy(const MR_CSharp_StaticOpsLhsG *_th
 /// Destroys a heap-allocated array of `MR_CSharp_StaticOpsLhsG`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_StaticOpsLhsG_DestroyArray(const MR_CSharp_StaticOpsLhsG *_this);
 
+/// Generated from method `MR::CSharp::StaticOpsLhsG::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_AssignFromAnother(MR_CSharp_StaticOpsLhsG *_this, const MR_CSharp_StaticOpsLhsG *_other);
+
 /// Generated from function `MR::CSharp::operator+`.
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API int MR_C_add_MR_CSharp_StaticOpsLhsG_int(const MR_CSharp_StaticOpsLhsG *_1, int _2);
@@ -3602,6 +3620,12 @@ MR_C_API void MR_CSharp_StaticOpsLhsH_Destroy(const MR_CSharp_StaticOpsLhsH *_th
 
 /// Destroys a heap-allocated array of `MR_CSharp_StaticOpsLhsH`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_StaticOpsLhsH_DestroyArray(const MR_CSharp_StaticOpsLhsH *_this);
+
+/// Generated from method `MR::CSharp::StaticOpsLhsH::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_AssignFromAnother(MR_CSharp_StaticOpsLhsH *_this, const MR_CSharp_StaticOpsLhsH *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
 /// Parameter `_1` can not be null. It is a single object.
@@ -3835,6 +3859,12 @@ MR_C_API void MR_CSharp_StaticOpsRhsG_Destroy(const MR_CSharp_StaticOpsRhsG *_th
 /// Destroys a heap-allocated array of `MR_CSharp_StaticOpsRhsG`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_StaticOpsRhsG_DestroyArray(const MR_CSharp_StaticOpsRhsG *_this);
 
+/// Generated from method `MR::CSharp::StaticOpsRhsG::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_AssignFromAnother(MR_CSharp_StaticOpsRhsG *_this, const MR_CSharp_StaticOpsRhsG *_other);
+
 /// Generated from function `MR::CSharp::operator+`.
 /// Parameter `_2` can not be null. It is a single object.
 MR_C_API int MR_C_add_int_MR_CSharp_StaticOpsRhsG(int _1, const MR_CSharp_StaticOpsRhsG *_2);
@@ -3864,6 +3894,12 @@ MR_C_API void MR_CSharp_StaticOpsRhsH_Destroy(const MR_CSharp_StaticOpsRhsH *_th
 
 /// Destroys a heap-allocated array of `MR_CSharp_StaticOpsRhsH`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_StaticOpsRhsH_DestroyArray(const MR_CSharp_StaticOpsRhsH *_this);
+
+/// Generated from method `MR::CSharp::StaticOpsRhsH::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_AssignFromAnother(MR_CSharp_StaticOpsRhsH *_this, const MR_CSharp_StaticOpsRhsH *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
 /// Parameter `_2` can not be null. It is a single object.
@@ -4421,6 +4457,12 @@ MR_C_API void MR_CSharp_TestOpsC_Destroy(const MR_CSharp_TestOpsC *_this);
 /// Destroys a heap-allocated array of `MR_CSharp_TestOpsC`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_TestOpsC_DestroyArray(const MR_CSharp_TestOpsC *_this);
 
+/// Generated from method `MR::CSharp::TestOpsC::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_AssignFromAnother(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsC *_other);
+
 /// Generated from method `MR::CSharp::TestOpsC::operator+`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_pos_MR_CSharp_TestOpsC(MR_CSharp_TestOpsC *_this);
@@ -4806,6 +4848,11 @@ MR_C_API void MR_CSharp_ConvCtorCopyButNoMove_Destroy(const MR_CSharp_ConvCtorCo
 
 /// Destroys a heap-allocated array of `MR_CSharp_ConvCtorCopyButNoMove`. Does nothing if the pointer is null.
 MR_C_API void MR_CSharp_ConvCtorCopyButNoMove_DestroyArray(const MR_CSharp_ConvCtorCopyButNoMove *_this);
+
+/// Generated from method `MR::CSharp::ConvCtorCopyButNoMove::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother(MR_CSharp_ConvCtorCopyButNoMove *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorTrivial_Destroy()` to free it when you're done using it.

@@ -4269,6 +4269,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// Generated from method `MR::CSharp::IncrDecrC::operator=`.
+                public unsafe MR.CS.CSharp.IncrDecrC Assign(MR.CS.CSharp.Const_IncrDecrC _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrC_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_CSharp_IncrDecrC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IncrDecrC._Underlying *_other);
+                    return new(__MR_CSharp_IncrDecrC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
                 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
                 public unsafe void Incr()
                 {
@@ -4415,6 +4423,14 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrD._Underlying *__MR_CSharp_IncrDecrD_ConstructFromAnother(MR.CS.CSharp.IncrDecrD._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IncrDecrD_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IncrDecrD::operator=`.
+                public unsafe MR.CS.CSharp.IncrDecrD Assign(MR.CS.CSharp.Const_IncrDecrD _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IncrDecrD._Underlying *__MR_CSharp_IncrDecrD_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IncrDecrD._Underlying *_other);
+                    return new(__MR_CSharp_IncrDecrD_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrD::operator++`.
@@ -7286,6 +7302,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsG_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// Generated from method `MR::CSharp::StaticOpsLhsG::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsLhsG Assign(MR.CS.CSharp.Const_StaticOpsLhsG _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsG_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsLhsG._Underlying *__MR_CSharp_StaticOpsLhsG_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsG._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsLhsG_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
                 /// Generated from function `MR::CSharp::operator+`.
                 public static unsafe int operator+(StaticOpsLhsG _1, int _2)
                 {
@@ -7396,6 +7420,14 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsH_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.StaticOpsLhsH._Underlying *__MR_CSharp_StaticOpsLhsH_ConstructFromAnother(MR.CS.CSharp.StaticOpsLhsH._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsH_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StaticOpsLhsH::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsLhsH Assign(MR.CS.CSharp.Const_StaticOpsLhsH _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsH_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsLhsH._Underlying *__MR_CSharp_StaticOpsLhsH_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsLhsH._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsLhsH_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -8143,6 +8175,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsG_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// Generated from method `MR::CSharp::StaticOpsRhsG::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsRhsG Assign(MR.CS.CSharp.Const_StaticOpsRhsG _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsG_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsRhsG._Underlying *__MR_CSharp_StaticOpsRhsG_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsRhsG._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsRhsG_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
                 /// Generated from function `MR::CSharp::operator+`.
                 public static unsafe int operator+(int _1, StaticOpsRhsG _2)
                 {
@@ -8253,6 +8293,14 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsH_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CSharp.StaticOpsRhsH._Underlying *__MR_CSharp_StaticOpsRhsH_ConstructFromAnother(MR.CS.CSharp.StaticOpsRhsH._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsH_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StaticOpsRhsH::operator=`.
+                public unsafe MR.CS.CSharp.StaticOpsRhsH Assign(MR.CS.CSharp.Const_StaticOpsRhsH _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsH_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StaticOpsRhsH._Underlying *__MR_CSharp_StaticOpsRhsH_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StaticOpsRhsH._Underlying *_other);
+                    return new(__MR_CSharp_StaticOpsRhsH_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -9651,6 +9699,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// Generated from method `MR::CSharp::TestOpsC::operator=`.
+                public unsafe MR.CS.CSharp.TestOpsC Assign(MR.CS.CSharp.Const_TestOpsC _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestOpsC._Underlying *__MR_CSharp_TestOpsC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.TestOpsC._Underlying *_other);
+                    return new(__MR_CSharp_TestOpsC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
                 /// Generated from method `MR::CSharp::TestOpsC::operator+`.
                 public unsafe void Add()
                 {
@@ -10897,6 +10953,14 @@ public static partial class MR
 
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
                 public static unsafe implicit operator ConvCtorCopyButNoMove(int _1) {return new(_1);}
+
+                /// Generated from method `MR::CSharp::ConvCtorCopyButNoMove::operator=`.
+                public unsafe MR.CS.CSharp.ConvCtorCopyButNoMove Assign(MR.CS.CSharp._ByValue_ConvCtorCopyButNoMove _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *__MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ConvCtorCopyButNoMove._Underlying *_other);
+                    return new(__MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
             }
 
             /// This is used as a function parameter when the underlying function receives `ConvCtorCopyButNoMove` by value.

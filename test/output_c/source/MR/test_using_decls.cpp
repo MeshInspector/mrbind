@@ -4,12 +4,13 @@
 #include <input/MR/test_using_decls.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
 const int *MR_UsingDecls_A_Get_StaticVar(void)
 {
-    return &(MR::UsingDecls::A::StaticVar);
+    return std::addressof(MR::UsingDecls::A::StaticVar);
 }
 
 void MR_UsingDecls_A_Set_StaticVar(int value)
@@ -19,12 +20,12 @@ void MR_UsingDecls_A_Set_StaticVar(int value)
 
 int *MR_UsingDecls_A_GetMutable_StaticVar(void)
 {
-    return &(MR::UsingDecls::A::StaticVar);
+    return std::addressof(MR::UsingDecls::A::StaticVar);
 }
 
 const int *MR_UsingDecls_A_Get_Field(const MR_UsingDecls_A *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::UsingDecls::A *)(_this)).Field);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::UsingDecls::A *)(_this)).Field);
 }
 
 void MR_UsingDecls_A_Set_Field(MR_UsingDecls_A *_this, int value)
@@ -34,7 +35,7 @@ void MR_UsingDecls_A_Set_Field(MR_UsingDecls_A *_this, int value)
 
 int *MR_UsingDecls_A_GetMutable_Field(MR_UsingDecls_A *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).Field);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).Field);
 }
 
 MR_UsingDecls_A *MR_UsingDecls_A_ConstructFromAnother(const MR_UsingDecls_A *_other)
@@ -92,7 +93,7 @@ int MR_UsingDecls_A_ConvertTo_int(MR_UsingDecls_A *_this)
 
 MR_UsingDecls_A *MR_UsingDecls_A_AssignFromAnother(MR_UsingDecls_A *_this, const MR_UsingDecls_A *_other)
 {
-    return (MR_UsingDecls_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).operator=(
+    return (MR_UsingDecls_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::UsingDecls::A(*(MR::UsingDecls::A *)_other))
     ));
 }
@@ -116,7 +117,7 @@ void MR_UsingDecls_A_StaticFunc(void)
 
 const int *MR_UsingDecls_B_Get_Field(const MR_UsingDecls_B *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::UsingDecls::B *)(_this)).Field);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::UsingDecls::B *)(_this)).Field);
 }
 
 void MR_UsingDecls_B_Set_Field(MR_UsingDecls_B *_this, int value)
@@ -126,12 +127,12 @@ void MR_UsingDecls_B_Set_Field(MR_UsingDecls_B *_this, int value)
 
 int *MR_UsingDecls_B_GetMutable_Field(MR_UsingDecls_B *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::B *)(_this)).Field);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::B *)(_this)).Field);
 }
 
 const int *MR_UsingDecls_B_Get_StaticVar(void)
 {
-    return &(MR::UsingDecls::B::StaticVar);
+    return std::addressof(MR::UsingDecls::B::StaticVar);
 }
 
 void MR_UsingDecls_B_Set_StaticVar(int value)
@@ -141,7 +142,7 @@ void MR_UsingDecls_B_Set_StaticVar(int value)
 
 int *MR_UsingDecls_B_GetMutable_StaticVar(void)
 {
-    return &(MR::UsingDecls::B::StaticVar);
+    return std::addressof(MR::UsingDecls::B::StaticVar);
 }
 
 MR_UsingDecls_B *MR_UsingDecls_B_ConstructFromAnother(const MR_UsingDecls_B *_other)
@@ -192,7 +193,7 @@ int MR_UsingDecls_B_ConvertTo_int(MR_UsingDecls_B *_this)
 
 MR_UsingDecls_B *MR_UsingDecls_B_AssignFromAnother(MR_UsingDecls_B *_this, const MR_UsingDecls_B *_other)
 {
-    return (MR_UsingDecls_B *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::B *)(_this)).operator=(
+    return (MR_UsingDecls_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::B *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::UsingDecls::B(*(MR::UsingDecls::B *)_other))
     ));
 }

@@ -6,12 +6,13 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <stdexcept>
 
 
 const int32_t *MR_StaticFuncs_A_Get_x(void)
 {
-    return &(MR::StaticFuncs::A::x);
+    return std::addressof(MR::StaticFuncs::A::x);
 }
 
 void MR_StaticFuncs_A_Set_x(int32_t value)
@@ -21,7 +22,7 @@ void MR_StaticFuncs_A_Set_x(int32_t value)
 
 int32_t *MR_StaticFuncs_A_GetMutable_x(void)
 {
-    return &(MR::StaticFuncs::A::x);
+    return std::addressof(MR::StaticFuncs::A::x);
 }
 
 MR_StaticFuncs_A *MR_StaticFuncs_A_DefaultConstruct(void)
@@ -63,7 +64,7 @@ void MR_StaticFuncs_A_DestroyArray(const MR_StaticFuncs_A *_this)
 
 MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other)
 {
-    return (MR_StaticFuncs_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StaticFuncs::A *)(_this)).operator=(
+    return (MR_StaticFuncs_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StaticFuncs::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StaticFuncs::A(*(MR::StaticFuncs::A *)_other))
     ));
 }
