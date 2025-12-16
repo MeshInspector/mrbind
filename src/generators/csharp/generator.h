@@ -412,14 +412,14 @@ namespace mrbind::CSharp
 
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by value.
         // This only makes sense for classes that use the pass-by enum.
-        [[nodiscard]] std::string CppToCSharpByValueHelperName(cppdecl::QualifiedName name);
+        [[nodiscard]] std::string CppToCSharpByValueHelperName(cppdecl::QualifiedName name, bool is_shared);
         // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name);
+        [[nodiscard]] std::string CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name, bool is_shared);
 
         // Like `CppToCSharpByValueHelperName`, but for `std::optional
-        [[nodiscard]] std::string CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name);
+        [[nodiscard]] std::string CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name, bool is_shared);
         // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name);
+        [[nodiscard]] std::string CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name, bool is_shared);
 
         // Converts a C++ qualified exposed struct name to a C# name of its helper that's used to pass this struct by value with an optional parameter.
         // This only makes sense for classes that use the pass-by enum.
@@ -588,11 +588,15 @@ namespace mrbind::CSharp
 
             // A constructor getting rewritten as a conversion operator.
             conv_op_for_ctor,
-            // Same, but this one is emitted in the `ByValue...` helpers.
+            // Same, but this one is emitted in the `_ByValue_...` helpers.
             conv_op_for_ctor_for_by_value_helper,
-            // Same, but this one is emitted in the `ByValueOptOpt...` helpers.
+            // Same, but this one is emitted in the `_ByValue_...` helpers.
+            conv_op_for_ctor_for_by_value_shared_helper,
+            // Same, but this one is emitted in the `_ByValueOptOpt_...` helpers.
             conv_op_for_ctor_for_by_value_opt_opt_helper,
-            // Same, but this one is emitted in the `InOptConst...` helpers.
+            // Same, but this one is emitted in the `_ByValueOptOptShared_...` helpers.
+            conv_op_for_ctor_for_by_value_shared_opt_opt_helper,
+            // Same, but this one is emitted in the `_InOptConst_...` helpers.
             conv_op_for_ctor_for_in_opt_const_helper,
             // Same, but this one is emitted in the `_InOpt...` helpers. (Those are only for exposed structs.)
             conv_op_for_ctor_for_in_opt_struct_helper,
@@ -619,6 +623,8 @@ namespace mrbind::CSharp
 
         // Returns true if this is one of `conv_op_for_ctor...` enum constants, including exactly `conv_op_for_ctor`.
         [[nodiscard]] static bool IsConvOpForCtor(EmitVariant emit_variant);
+        // A subset of `IsConvOpForCtor()` for by-value wrapper classes.
+        [[nodiscard]] static bool IsConvOpForCtorForByValueWrapper(EmitVariant emit_variant);
 
         // For class methods, sometimes a single C++ method gets split into multiple C# methods.
         // Then this function will return more than one enum element, and you must apply `FuncLikeEmitter` separately to each of them.

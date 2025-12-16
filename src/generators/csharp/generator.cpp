@@ -595,7 +595,7 @@ namespace mrbind::CSharp
         return CppToCSharpIdentifier(name.parts.back());
     }
 
-    std::string Generator::CppToCSharpByValueHelperName(cppdecl::QualifiedName name)
+    std::string Generator::CppToCSharpByValueHelperName(cppdecl::QualifiedName name, bool is_shared)
     {
         name = AdjustCppNamespaces(std::move(name));
 
@@ -607,7 +607,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualByValueHelperName(name.parts[i]);
+                part = CppToCSharpUnqualByValueHelperName(name.parts[i], is_shared);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -616,12 +616,12 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name)
+    std::string Generator::CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name, bool is_shared)
     {
-        return "_ByValue_" + CppToCSharpIdentifier(name);
+        return (is_shared ? "_ByValueShared_" : "_ByValue_") + CppToCSharpIdentifier(name);
     }
 
-    std::string Generator::CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name)
+    std::string Generator::CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name, bool is_shared)
     {
         name = AdjustCppNamespaces(std::move(name));
 
@@ -633,7 +633,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualByValueOptOptHelperName(name.parts[i]);
+                part = CppToCSharpUnqualByValueOptOptHelperName(name.parts[i], is_shared);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -642,10 +642,10 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name)
+    std::string Generator::CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name, bool is_shared)
     {
         // Sic, repeating `Opt` two times (once because those always have default arguments, then again because of `std::optional`).
-        return "_ByValueOptOpt_" + CppToCSharpIdentifier(name);
+        return (is_shared ? "_ByValueSharedOptOpt_" : "_ByValueOptOpt_") + CppToCSharpIdentifier(name);
     }
 
     std::string Generator::CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name)
@@ -1155,7 +1155,7 @@ namespace mrbind::CSharp
                             const std::string csharp_type_const = CppToCSharpClassName(cpp_effective_type.simple_type.name, true);
                             const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
                             const std::string csharp_underlying_ptr_type = csharp_type_mut + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
-                            const std::string by_value_helper = CppToCSharpByValueHelperName(cpp_effective_type.simple_type.name);
+                            const std::string by_value_helper = CppToCSharpByValueHelperName(cpp_effective_type.simple_type.name, is_transparent_shared_ptr);
 
                             switch (elem.kind)
                             {
@@ -2022,7 +2022,7 @@ namespace mrbind::CSharp
                     // For all other types, it should never be sugared (for those, only parameters WITHOUT default arguments can be sugared).
                     if (is_class_with_pass_by_enum)
                     {
-                        const std::string by_value_opt_opt_helper = CppToCSharpByValueOptOptHelperName(elem_type.simple_type.name);
+                        const std::string by_value_opt_opt_helper = CppToCSharpByValueOptOptHelperName(elem_type.simple_type.name, false); // TODO: handle `shared_ptr` here!
                         const std::string csharp_type_mut = CppToCSharpClassName(elem_type.simple_type.name, false);
                         const std::string csharp_underlying_ptr_type = csharp_type_mut + "._Underlying *";
 
@@ -2231,10 +2231,18 @@ namespace mrbind::CSharp
     {
         return
             emit_variant == EmitVariant::conv_op_for_ctor ||
-            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
-            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper ||
+            IsConvOpForCtorForByValueWrapper(emit_variant) ||
             emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper ||
             emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper;
+    }
+
+    bool Generator::IsConvOpForCtorForByValueWrapper(EmitVariant emit_variant)
+    {
+        return
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_shared_helper ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper ||
+            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_shared_opt_opt_helper;
     }
 
     std::vector<Generator::EmitVariant> Generator::GetMethodVariants(const CInterop::ClassMethod &method)
@@ -2311,10 +2319,7 @@ namespace mrbind::CSharp
         is_conv_op_rewritten_from_ctor(IsConvOpForCtor(emit_variant)),
         // This is a subset of `is_conv_op_rewritten_from_ctor` that's only true for by-value wrappers.
         // In those, we can't just `return new T(...)` because that tries to copy it, so instead we move the result.
-        is_conv_op_rewritten_from_ctor_for_by_value_wrapper(
-            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper ||
-            emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper
-        ),
+        is_conv_op_rewritten_from_ctor_for_by_value_wrapper(IsConvOpForCtorForByValueWrapper(emit_variant)),
         is_property_get(csharp_name == "get"),
         is_property_set(csharp_name == "set"),
         is_property(is_property_get || is_property_set),
@@ -3069,10 +3074,14 @@ namespace mrbind::CSharp
                     std::string ret;
                     ret += elem.is_explicit ? "explicit" : "implicit";
                     ret += " operator ";
-                    if (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper)
-                        ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
+                    if      (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper)
+                        ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), false);
+                    else if (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_shared_helper)
+                        ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), true);
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper)
-                        ret += CppToCSharpUnqualByValueOptOptHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
+                        ret += CppToCSharpUnqualByValueOptOptHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), false);
+                    else if (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_shared_opt_opt_helper)
+                        ret += CppToCSharpUnqualByValueOptOptHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), true);
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper)
                         ret += CppToCSharpUnqualInOptConstNontrivialHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper)
@@ -4720,14 +4729,16 @@ namespace mrbind::CSharp
                     }
                 };
 
-                // `_ByValue_...`.
-                // Note that classes being backed by `std::shared_ptr` also go here, since passing `std::shared_ptr` by value would use this helper.
-                if (cl->kind == CInterop::ClassKind::uses_pass_by_enum || shared_ptr_desc)
-                {
-                    auto EmitByValueHelper = [&](bool is_opt_opt)
+                { // `_ByValue_...`.
+                    auto EmitByValueHelper = [&](bool is_opt_opt, bool is_shared)
                     {
-                        const std::string by_val_name = is_opt_opt ? CppToCSharpUnqualByValueOptOptHelperName(cpp_name.parts.back()) : CppToCSharpUnqualByValueHelperName(cpp_name.parts.back());
+                        const std::string by_val_name = is_opt_opt ? CppToCSharpUnqualByValueOptOptHelperName(cpp_name.parts.back(), is_shared) : CppToCSharpUnqualByValueHelperName(cpp_name.parts.back(), is_shared);
                         const std::string copy_ctor_param_half_name = type_desc.traits.value().copy_constructor_takes_nonconst_ref ? mut_half_name : const_half_name;
+
+                        // Shared pointers get all the operators.
+                        const bool allow_def_ctor = is_shared || type_desc.traits.value().is_default_constructible;
+                        const bool allow_copy_ctor = is_shared || type_desc.traits.value().is_copy_constructible;
+                        const bool allow_move_ctor = is_shared || type_desc.traits.value().is_move_constructible;
 
                         file.WriteSeparatingNewline();
                         file.WriteString(
@@ -4739,11 +4750,15 @@ namespace mrbind::CSharp
                                 :
                                     "/// This is used as a function parameter when the underlying function receives `" + mut_half_name + "` by value.\n"
                             ) +
-                            "/// Usage:\n"
-                            "/// * Pass `new()` to default-construct the instance.\n"
-                            "/// * Pass an instance of " + related_classes_list + " to copy it into the function.\n"
-                            "/// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.\n"
-                            "///   Be careful if your input isn't a unique reference to this object.\n" +
+                            "/// Usage:\n" +
+                            (allow_def_ctor ? "/// * Pass `new()` to default-construct the instance.\n" : "") +
+                            (allow_copy_ctor ? "/// * Pass an instance of " + related_classes_list + " to copy it into the function.\n" : "") +
+                            (allow_move_ctor
+                                ?
+                                    "/// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.\n"
+                                    "///   Be careful if your input isn't a unique reference to this object.\n"
+                                : ""
+                            ) +
                             (
                                 is_opt_opt
                                 ?
@@ -4761,20 +4776,20 @@ namespace mrbind::CSharp
                             "internal readonly " + const_half_name + "? Value;\n" // We always store the const half for simplicity, and then effectively `const_cast` it.
                             "internal readonly " + pass_by + " PassByMode;\n" +
                             (
-                                type_desc.traits.value().is_default_constructible
+                                allow_def_ctor
                                 ?
                                     "public " + by_val_name + "() {PassByMode = " + pass_by + ".default_construct;}\n"
                                 : ""
                             ) +
                             (
-                                type_desc.traits.value().is_copy_constructible
+                                allow_copy_ctor
                                 ?
                                     "public " + by_val_name + "(" + copy_ctor_param_half_name + " new_value) {Value = new_value; PassByMode = " + pass_by + ".copy;}\n"
                                     "public static implicit operator " + by_val_name + "(" + copy_ctor_param_half_name + " arg) {return new(arg);}\n"
                                 : ""
                             ) +
                             (
-                                type_desc.traits.value().is_move_constructible
+                                allow_move_ctor
                                 ?
                                     "public " + by_val_name + "(" + moved + "<" + mut_half_name + "> moved) {Value = moved.Value; PassByMode = " + pass_by + ".move;}\n"
                                     "public static implicit operator " + by_val_name + "(" + moved + "<" + mut_half_name + "> arg) {return new(arg);}\n"
@@ -4793,25 +4808,41 @@ namespace mrbind::CSharp
                         //   if the class is movable (or at least copyable, though not being movable at the same time would be weird).
                         // That's because the function receiving this wrapper is going to try to copy/move from it,
                         //   depending on what pass-by enum value it stores.
-                        if (type_desc.traits.value().is_copy_constructible || type_desc.traits.value().is_move_constructible)
+                        if (allow_copy_ctor || allow_move_ctor)
                         {
                             EmitConvertingCtors(
                                 by_val_name,
                                 is_opt_opt
-                                ? Generator::EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper
-                                : EmitVariant::conv_op_for_ctor_for_by_value_helper
+                                ? (
+                                    is_shared
+                                    ? Generator::EmitVariant::conv_op_for_ctor_for_by_value_shared_opt_opt_helper
+                                    : Generator::EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper
+                                )
+                                : (
+                                    is_shared
+                                    ? EmitVariant::conv_op_for_ctor_for_by_value_shared_helper
+                                    : EmitVariant::conv_op_for_ctor_for_by_value_helper
+                                )
                             );
                         }
 
                         file.PopScope();
                     };
 
-                    EmitByValueHelper(false);
+                    if (cl->kind == CInterop::ClassKind::uses_pass_by_enum)
+                        EmitByValueHelper(false, false);
+                    if (shared_ptr_desc)
+                        EmitByValueHelper(false, true);
 
                     // The version for `std::optional` parameters with default arguments, `_ByValueOptOpt_...`.
                     // This is enabled if the class uses the pass-by enum and at the same time `std::optional<cpp_type>` exists.
-                    if (class_desc.kind == CInterop::ClassKind::uses_pass_by_enum && c_desc.FindTypeOpt(CppdeclToCode(cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("optional").AddTemplateArgument(cppdecl::Type::FromQualifiedName(cpp_qual_name))))))
-                        EmitByValueHelper(true);
+
+                    // If `std::optional<T>` exists, and the class uses the pass-by enum...
+                    if (cl->kind == CInterop::ClassKind::uses_pass_by_enum && c_desc.FindTypeOpt(CppdeclToCode(cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("optional").AddTemplateArgument(cppdecl::Type::FromQualifiedName(cpp_qual_name))))))
+                        EmitByValueHelper(true, false);
+                    // If `std::optional<std::shared_ptr<T>>` exists...
+                    if (c_desc.FindTypeOpt(CppdeclToCode(cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("optional").AddTemplateArgument(cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr").AddTemplateArgument(cppdecl::Type::FromQualifiedName(cpp_qual_name))))))))
+                        EmitByValueHelper(true, true);
                 }
 
                 // `_InOpt_...`.

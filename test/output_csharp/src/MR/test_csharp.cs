@@ -2142,15 +2142,15 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class _ByValue_SA
+            public class _ByValueShared_SA
             {
                 internal readonly Const_SA? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_SA() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_SA(Const_SA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_SA(Const_SA arg) {return new(arg);}
-                public _ByValue_SA(MR.CS.Misc._Moved<SA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_SA(MR.CS.Misc._Moved<SA> arg) {return new(arg);}
+                public _ByValueShared_SA() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_SA(Const_SA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_SA(Const_SA arg) {return new(arg);}
+                public _ByValueShared_SA(MR.CS.Misc._Moved<SA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_SA(MR.CS.Misc._Moved<SA> arg) {return new(arg);}
             }
 
             /// This is used for optional parameters of class `SA` with default arguments.
@@ -2334,6 +2334,24 @@ public static partial class MR
                 public static implicit operator _ByValue_SB(Const_SB arg) {return new(arg);}
                 public _ByValue_SB(MR.CS.Misc._Moved<SB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_SB(MR.CS.Misc._Moved<SB> arg) {return new(arg);}
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SB` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SB`/`Const_SB` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValueShared_SB
+            {
+                internal readonly Const_SB? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValueShared_SB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_SB(Const_SB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_SB(Const_SB arg) {return new(arg);}
+                public _ByValueShared_SB(MR.CS.Misc._Moved<SB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_SB(MR.CS.Misc._Moved<SB> arg) {return new(arg);}
             }
 
             /// This is used for optional parameters of class `SB` with default arguments.
@@ -2549,6 +2567,24 @@ public static partial class MR
                 public static implicit operator _ByValue_SC(MR.CS.Misc._Moved<SC> arg) {return new(arg);}
             }
 
+            /// This is used as a function parameter when the underlying function receives `SC` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SC`/`Const_SC` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValueShared_SC
+            {
+                internal readonly Const_SC? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValueShared_SC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_SC(Const_SC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_SC(Const_SC arg) {return new(arg);}
+                public _ByValueShared_SC(MR.CS.Misc._Moved<SC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_SC(MR.CS.Misc._Moved<SC> arg) {return new(arg);}
+            }
+
             /// This is used for optional parameters of class `SC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SC`.
             /// Usage:
@@ -2732,6 +2768,24 @@ public static partial class MR
                 public static implicit operator _ByValue_SD(MR.CS.Misc._Moved<SD> arg) {return new(arg);}
             }
 
+            /// This is used as a function parameter when the underlying function receives `SD` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SD`/`Const_SD` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValueShared_SD
+            {
+                internal readonly Const_SD? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValueShared_SD() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_SD(Const_SD new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_SD(Const_SD arg) {return new(arg);}
+                public _ByValueShared_SD(MR.CS.Misc._Moved<SD> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_SD(MR.CS.Misc._Moved<SD> arg) {return new(arg);}
+            }
+
             /// This is used for optional parameters of class `SD` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SD`.
             /// Usage:
@@ -2913,6 +2967,24 @@ public static partial class MR
                 public static implicit operator _ByValue_SE(Const_SE arg) {return new(arg);}
                 public _ByValue_SE(MR.CS.Misc._Moved<SE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_SE(MR.CS.Misc._Moved<SE> arg) {return new(arg);}
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SE` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SE`/`Const_SE` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValueShared_SE
+            {
+                internal readonly Const_SE? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValueShared_SE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_SE(Const_SE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_SE(Const_SE arg) {return new(arg);}
+                public _ByValueShared_SE(MR.CS.Misc._Moved<SE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_SE(MR.CS.Misc._Moved<SE> arg) {return new(arg);}
             }
 
             /// This is used for optional parameters of class `SE` with default arguments.
@@ -3146,6 +3218,24 @@ public static partial class MR
                 public static implicit operator _ByValue_SF(Const_SF arg) {return new(arg);}
                 public _ByValue_SF(MR.CS.Misc._Moved<SF> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_SF(MR.CS.Misc._Moved<SF> arg) {return new(arg);}
+            }
+
+            /// This is used as a function parameter when the underlying function receives `SF` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `SF`/`Const_SF` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValueShared_SF
+            {
+                internal readonly Const_SF? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValueShared_SF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_SF(Const_SF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_SF(Const_SF arg) {return new(arg);}
+                public _ByValueShared_SF(MR.CS.Misc._Moved<SF> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_SF(MR.CS.Misc._Moved<SF> arg) {return new(arg);}
             }
 
             /// This is used for optional parameters of class `SF` with default arguments.
@@ -3676,7 +3766,6 @@ public static partial class MR
 
             /// This is used as a function parameter when the underlying function receives `TestFields` by value.
             /// Usage:
-            /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `TestFields`/`Const_TestFields` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
@@ -4462,7 +4551,6 @@ public static partial class MR
             /// This is used as a function parameter when the underlying function receives `IncrDecrE` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `IncrDecrE`/`Const_IncrDecrE` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
@@ -4588,7 +4676,6 @@ public static partial class MR
             /// This is used as a function parameter when the underlying function receives `IncrDecrF` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `IncrDecrF`/`Const_IncrDecrF` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
@@ -6772,7 +6859,6 @@ public static partial class MR
             /// This is used as a function parameter when the underlying function receives `StaticOpsLhsC` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `StaticOpsLhsC`/`Const_StaticOpsLhsC` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
@@ -7630,7 +7716,6 @@ public static partial class MR
             /// This is used as a function parameter when the underlying function receives `StaticOpsRhsC` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `StaticOpsRhsC`/`Const_StaticOpsRhsC` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
@@ -9481,10 +9566,7 @@ public static partial class MR
 
             /// This is used as a function parameter when the underlying function receives `TestOpsB` by value.
             /// Usage:
-            /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `TestOpsB`/`Const_TestOpsB` to copy it into the function.
-            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_TestOpsB
             {
@@ -10504,8 +10586,6 @@ public static partial class MR
 
             /// This is used as a function parameter when the underlying function receives `ConvCtorNonTrivialRestricted` by value.
             /// Usage:
-            /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `ConvCtorNonTrivialRestricted`/`Const_ConvCtorNonTrivialRestricted` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
@@ -10821,10 +10901,7 @@ public static partial class MR
 
             /// This is used as a function parameter when the underlying function receives `ConvCtorCopyButNoMove` by value.
             /// Usage:
-            /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `ConvCtorCopyButNoMove`/`Const_ConvCtorCopyButNoMove` to copy it into the function.
-            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_ConvCtorCopyButNoMove
             {
@@ -12234,15 +12311,15 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class _ByValue_ExposedLayoutSh
+            public class _ByValueShared_ExposedLayoutSh
             {
                 internal readonly Const_ExposedLayoutSh? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_ExposedLayoutSh() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_ExposedLayoutSh(Const_ExposedLayoutSh new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_ExposedLayoutSh(Const_ExposedLayoutSh arg) {return new(arg);}
-                public _ByValue_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> arg) {return new(arg);}
+                public _ByValueShared_ExposedLayoutSh() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_ExposedLayoutSh(Const_ExposedLayoutSh new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_ExposedLayoutSh(Const_ExposedLayoutSh arg) {return new(arg);}
+                public _ByValueShared_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> arg) {return new(arg);}
             }
 
             /// This is used as a function parameter when passing `Mut_ExposedLayoutSh` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
@@ -14672,7 +14749,7 @@ public static partial class MR
             // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
             /// Generated from function `MR::CSharp::test_shptr`.
             /// Parameter `b` defaults to `default_shptr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShptr(MR.CS.CSharp._ByValue_SA a, MR.CS.CSharp._ByValue_SA? b = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShptr(MR.CS.CSharp._ByValueShared_SA a, MR.CS.CSharp._ByValueShared_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);
@@ -14739,7 +14816,7 @@ public static partial class MR
 
             /// Generated from function `MR::CSharp::test_shcptr`.
             /// Parameter `b` defaults to `default_shcptr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShcptr(MR.CS.CSharp._ByValue_SA a, MR.CS.CSharp._ByValue_SA? b = null)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> TestShcptr(MR.CS.CSharp._ByValueShared_SA a, MR.CS.CSharp._ByValueShared_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr", ExactSpelling = true)]
                 extern static MR.CS.CSharp.SA._UnderlyingShared *__MR_CSharp_test_shcptr(MR.CS.Misc._PassBy a_pass_by, MR.CS.CSharp.SA._UnderlyingShared *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.CSharp.SA._UnderlyingShared *b);

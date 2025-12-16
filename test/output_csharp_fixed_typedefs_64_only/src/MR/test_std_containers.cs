@@ -324,8 +324,6 @@ public static partial class MR
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `NonAssignable`/`Const_NonAssignable` to copy it into the function.
-            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_NonAssignable
             {

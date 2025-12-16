@@ -142,15 +142,15 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class _ByValue_A
+            public class _ByValueShared_A
             {
                 internal readonly Const_A? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_A() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_A(Const_A new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_A(Const_A arg) {return new(arg);}
-                public _ByValue_A(MR.CS.Misc._Moved<A> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_A(MR.CS.Misc._Moved<A> arg) {return new(arg);}
+                public _ByValueShared_A() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValueShared_A(Const_A new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_A(Const_A arg) {return new(arg);}
+                public _ByValueShared_A(MR.CS.Misc._Moved<A> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_A(MR.CS.Misc._Moved<A> arg) {return new(arg);}
             }
 
             /// This is used for optional parameters of class `A` with default arguments.
@@ -334,7 +334,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClass`.
-            public static unsafe void SetClass(MR.CS.StdSharedPtr._ByValue_A _1)
+            public static unsafe void SetClass(MR.CS.StdSharedPtr._ByValueShared_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClass", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClass(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
@@ -351,7 +351,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetClassDefTrivial(MR.CS.StdSharedPtr._ByValue_A? _1 = null)
+            public static unsafe void SetClassDefTrivial(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
@@ -360,7 +360,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassDef`.
             /// Parameter `_1` defaults to `std::make_unique<MR::StdSharedPtr::A>(MR::StdSharedPtr::A{})`.
-            public static unsafe void SetClassDef(MR.CS.StdSharedPtr._ByValue_A? _1 = null)
+            public static unsafe void SetClassDef(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassDef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
