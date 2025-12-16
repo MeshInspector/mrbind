@@ -12,7 +12,8 @@ build/mrbind_gen_csharp \
     --imported-lib-name bleh \
     --helpers-namespace MR::Misc \
     --replace-namespace MR :: \
-    --force-namespace MR::CS
+    --force-namespace MR::CS \
+    --dotnet-version=std2.0
 
 dotnet build test/output_csharp
 

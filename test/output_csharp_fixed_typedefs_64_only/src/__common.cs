@@ -137,19 +137,19 @@ public static partial class MR
             {
                 public readonly bool HasValue;
 
-                ReadOnlySpan<char> Span;
+                public ReadOnlySpan<char> _Span; // This needs to be visible for us to take the address of `_Span._reference`, when using span polyfills.
                 public ReadOnlySpan<char> Value
                 {
                     get
                     {
                         System.Diagnostics.Trace.Assert(HasValue);
-                        return Span;
+                        return _Span;
                     }
                 }
 
-                public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; Span = arr;}
-                public ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {HasValue = true; Span = span;}
-                public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; Span = str;}
+                public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; _Span = arr;}
+                public ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {HasValue = true; _Span = span;}
+                public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; _Span = str;}
 
                 // This is disabled because it makes conversion from `null` ambiguous.
                 // public static implicit operator ReadOnlyCharSpanOpt(char[]? arr) {return new(arr);}

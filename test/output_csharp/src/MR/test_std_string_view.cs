@@ -5,14 +5,14 @@ public static partial class MR
         public static partial class StdStringView
         {
             /// Generated from function `MR::StdStringView::Set`.
-            public static unsafe void Set(ReadOnlySpan<char> s)
+            public static unsafe void Set(MR.CS.Misc.ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_Set", ExactSpelling = true)]
                 extern static void __MR_StdStringView_Set(byte *s, byte *s_end);
                 byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
-                int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(&s._reference, s.Length, __ptr_s, __bytes_s.Length);
                     __MR_StdStringView_Set(__ptr_s, __ptr_s + __len_s);
                 }
             }
@@ -28,7 +28,10 @@ public static partial class MR
                 if (s.HasValue)
                 {
                     __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Value.Length)];
-                    __len_s = System.Text.Encoding.UTF8.GetBytes(s.Value, __bytes_s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        __len_s = System.Text.Encoding.UTF8.GetBytes(&s._Span._reference, s.Value.Length, __ptr_s, __bytes_s.Length);
+                    }
                 }
                 fixed (byte *__ptr_s = __bytes_s)
                 {
@@ -61,40 +64,40 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdStringView::ConstRef`.
-            public static unsafe void ConstRef(ReadOnlySpan<char> s)
+            public static unsafe void ConstRef(MR.CS.Misc.ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_ConstRef", ExactSpelling = true)]
                 extern static void __MR_StdStringView_ConstRef(byte *s, byte *s_end);
                 byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
-                int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(&s._reference, s.Length, __ptr_s, __bytes_s.Length);
                     __MR_StdStringView_ConstRef(__ptr_s, __ptr_s + __len_s);
                 }
             }
 
             /// Generated from function `MR::StdStringView::RvalueRef`.
-            public static unsafe void RvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
+            public static unsafe void RvalueRef(MR.CS.Misc._MoveRef _move_s, MR.CS.Misc.ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_RvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdStringView_RvalueRef(byte *s, byte *s_end);
                 byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
-                int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(&s._reference, s.Length, __ptr_s, __bytes_s.Length);
                     __MR_StdStringView_RvalueRef(__ptr_s, __ptr_s + __len_s);
                 }
             }
 
             /// Generated from function `MR::StdStringView::ConstRvalueRef`.
-            public static unsafe void ConstRvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
+            public static unsafe void ConstRvalueRef(MR.CS.Misc._MoveRef _move_s, MR.CS.Misc.ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_ConstRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdStringView_ConstRvalueRef(byte *s, byte *s_end);
                 byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
-                int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(&s._reference, s.Length, __ptr_s, __bytes_s.Length);
                     __MR_StdStringView_ConstRvalueRef(__ptr_s, __ptr_s + __len_s);
                 }
             }

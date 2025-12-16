@@ -52,7 +52,10 @@ public static partial class MR
                     if (other.HasValue)
                     {
                         __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Value.Length)];
-                        __len_other = System.Text.Encoding.UTF8.GetBytes(other.Value, __bytes_other);
+                        fixed (byte *__ptr_other = __bytes_other)
+                        {
+                            __len_other = System.Text.Encoding.UTF8.GetBytes(&other._Span._reference, other.Value.Length, __ptr_other, __bytes_other.Length);
+                        }
                     }
                     fixed (byte *__ptr_other = __bytes_other)
                     {
@@ -105,7 +108,10 @@ public static partial class MR
                     if (other.HasValue)
                     {
                         __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Value.Length)];
-                        __len_other = System.Text.Encoding.UTF8.GetBytes(other.Value, __bytes_other);
+                        fixed (byte *__ptr_other = __bytes_other)
+                        {
+                            __len_other = System.Text.Encoding.UTF8.GetBytes(&other._Span._reference, other.Value.Length, __ptr_other, __bytes_other.Length);
+                        }
                     }
                     fixed (byte *__ptr_other = __bytes_other)
                     {
@@ -134,7 +140,10 @@ public static partial class MR
                     if (other.HasValue)
                     {
                         __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Value.Length)];
-                        __len_other = System.Text.Encoding.UTF8.GetBytes(other.Value, __bytes_other);
+                        fixed (byte *__ptr_other = __bytes_other)
+                        {
+                            __len_other = System.Text.Encoding.UTF8.GetBytes(&other._Span._reference, other.Value.Length, __ptr_other, __bytes_other.Length);
+                        }
                     }
                     fixed (byte *__ptr_other = __bytes_other)
                     {

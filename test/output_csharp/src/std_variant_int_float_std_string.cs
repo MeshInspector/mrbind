@@ -67,14 +67,14 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 2, of type `std::string`.
-                public unsafe Const_Variant_Int_Float_StdString(ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
+                public unsafe Const_Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
                     byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
-                    int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
                     fixed (byte *__ptr_value = __bytes_value)
                     {
+                        int __len_value = System.Text.Encoding.UTF8.GetBytes(&value._reference, value.Length, __ptr_value, __bytes_value.Length);
                         _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __len_value);
                     }
                 }
@@ -154,14 +154,14 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 2, of type `std::string`.
-                public unsafe Variant_Int_Float_StdString(ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
+                public unsafe Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
                     byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
-                    int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
                     fixed (byte *__ptr_value = __bytes_value)
                     {
+                        int __len_value = System.Text.Encoding.UTF8.GetBytes(&value._reference, value.Length, __ptr_value, __bytes_value.Length);
                         _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __len_value);
                     }
                 }
@@ -183,14 +183,14 @@ public static partial class MR
                 }
 
                 /// Assigns to the variant, making it store the element 2, of type `std::string`.
-                public unsafe void AssignAsStdString(ReadOnlySpan<char> value)
+                public unsafe void AssignAsStdString(MR.CS.Misc.ReadOnlySpan<char> value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_std_string", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_Underlying *_this, byte *value, byte *value_end);
                     byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
-                    int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
                     fixed (byte *__ptr_value = __bytes_value)
                     {
+                        int __len_value = System.Text.Encoding.UTF8.GetBytes(&value._reference, value.Length, __ptr_value, __bytes_value.Length);
                         __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_UnderlyingPtr, __ptr_value, __ptr_value + __len_value);
                     }
                 }

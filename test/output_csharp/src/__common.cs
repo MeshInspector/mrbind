@@ -137,25 +137,577 @@ public static partial class MR
             {
                 public readonly bool HasValue;
 
-                ReadOnlySpan<char> Span;
-                public ReadOnlySpan<char> Value
+                public MR.CS.Misc.ReadOnlySpan<char> _Span; // This needs to be visible for us to take the address of `_Span._reference`, when using span polyfills.
+                public MR.CS.Misc.ReadOnlySpan<char> Value
                 {
                     get
                     {
                         System.Diagnostics.Trace.Assert(HasValue);
-                        return Span;
+                        return _Span;
                     }
                 }
 
-                public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; Span = arr;}
-                public ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {HasValue = true; Span = span;}
-                public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; Span = str;}
+                public ReadOnlyCharSpanOpt(char[]? arr) {HasValue = arr is not null; _Span = arr;}
+                public ReadOnlyCharSpanOpt(MR.CS.Misc.ReadOnlySpan<char> span) {HasValue = true; _Span = span;}
+                public ReadOnlyCharSpanOpt(string? str) {HasValue = str is not null; if (str is not null) _Span = str.ToCharArray();}
 
                 // This is disabled because it makes conversion from `null` ambiguous.
                 // public static implicit operator ReadOnlyCharSpanOpt(char[]? arr) {return new(arr);}
-                public static implicit operator ReadOnlyCharSpanOpt(ReadOnlySpan<char> span) {return new(span);}
+                public static implicit operator ReadOnlyCharSpanOpt(MR.CS.Misc.ReadOnlySpan<char> span) {return new(span);}
                 public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}
             }
+
+            // This is a polyfill of `Span`, pasted with minimal changes from:
+            //     https://github.com/dotnet/runtime/blob/cce23eef7f53ee914777425b7fd01228e548926c/src/libraries/System.Private.CoreLib/src/System/Span.cs
+            //     https://github.com/dotnet/runtime/blob/cce23eef7f53ee914777425b7fd01228e548926c/src/libraries/System.Private.CoreLib/src/System/ReadOnlySpan.cs
+            // The original is licensed under MIT:
+            //     The MIT License (MIT)
+            //     Copyright (c) .NET Foundation and Contributors
+            //     All rights reserved.
+            //     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+            //     The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+            //     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+            #pragma warning disable 0660 // '...' defines operator == or operator != but does not override Object.Equals(object o)
+
+            /// <summary>
+            /// Span represents a contiguous region of arbitrary memory. Unlike arrays, it can point to either managed
+            /// or native memory, or to memory allocated on the stack. It is type-safe and memory-safe.
+            /// </summary>
+            public ref struct Span<T> where T: unmanaged
+            {
+                /// <summary>A byref or a native ptr.</summary>
+                public ref T _reference; // This must not be read-only for us to be able to take its address. Because of this, we also have to mark the entire struct not read-only.
+                /// <summary>The number of elements this Span contains.</summary>
+                private readonly int _length;
+
+                /// <summary>
+                /// Creates a new span over the entirety of the target array.
+                /// </summary>
+                /// <param name="array">The target array.</param>
+                /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+                /// <exception cref="ArrayTypeMismatchException">Thrown when <paramref name="array"/> is covariant and array's type is not exactly T[].</exception>
+                public Span(T[]? array)
+                {
+                    if (array == null)
+                    {
+                        this = default;
+                        return; // returns default
+                    }
+                    if (!typeof(T).IsValueType && array.GetType() != typeof(T[]))
+                        throw new ArrayTypeMismatchException();
+
+                    _reference = ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array);
+                    _length = array.Length;
+                }
+
+                /// <summary>
+                /// Creates a new span over the portion of the target array beginning
+                /// at 'start' index and ending at 'end' index (exclusive).
+                /// </summary>
+                /// <param name="array">The target array.</param>
+                /// <param name="start">The zero-based index at which to begin the span.</param>
+                /// <param name="length">The number of items in the span.</param>
+                /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+                /// <exception cref="ArrayTypeMismatchException">Thrown when <paramref name="array"/> is covariant and array's type is not exactly T[].</exception>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="start"/> or end index is not in the range (&lt;0 or &gt;Length).
+                /// </exception>
+                public Span(T[]? array, int start, int length)
+                {
+                    if (array == null)
+                    {
+                        if (start != 0 || length != 0)
+                            throw new ArgumentOutOfRangeException();
+                        this = default;
+                        return; // returns default
+                    }
+                    if (!typeof(T).IsValueType && array.GetType() != typeof(T[]))
+                        throw new ArrayTypeMismatchException();
+            #if TARGET_64BIT
+                    // See comment in Span<T>.Slice for how this works.
+                    if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)array.Length)
+                        throw new ArgumentOutOfRangeException();
+            #else
+                    if ((uint)start > (uint)array.Length || (uint)length > (uint)(array.Length - start))
+                        throw new ArgumentOutOfRangeException();
+            #endif
+
+                    _reference = ref System.Runtime.CompilerServices.Unsafe.Add(ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array), (nint)(uint)start /* force zero-extension */);
+                    _length = length;
+                }
+
+                /// <summary>
+                /// Creates a new span over the target unmanaged buffer.  Clearly this
+                /// is quite dangerous, because we are creating arbitrarily typed T's
+                /// out of a void*-typed block of memory.  And the length is not checked.
+                /// But if this creation is correct, then all subsequent uses are correct.
+                /// </summary>
+                /// <param name="pointer">An unmanaged pointer to memory.</param>
+                /// <param name="length">The number of <typeparamref name="T"/> elements the memory contains.</param>
+                /// <exception cref="ArgumentException">
+                /// Thrown when <typeparamref name="T"/> is reference type or contains pointers and hence cannot be stored in unmanaged memory.
+                /// </exception>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="length"/> is negative.
+                /// </exception>
+                public unsafe Span(void* pointer, int length)
+                {
+                    if (System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+                        throw new ArgumentException($"Type contains references: {typeof(T)}");
+                    if (length < 0)
+                        throw new ArgumentOutOfRangeException();
+
+                    _reference = ref *(T*)pointer;
+                    _length = length;
+                }
+
+                /// <summary>Creates a new <see cref="Span{T}"/> of length 1 around the specified reference.</summary>
+                /// <param name="reference">A reference to data.</param>
+                public Span(ref T reference)
+                {
+                    _reference = ref reference;
+                    _length = 1;
+                }
+
+                // Constructor for internal use only. It is not safe to expose publicly, and is instead exposed via the unsafe MemoryMarshal.CreateSpan.
+                internal Span(ref T reference, int length)
+                {
+                    System.Diagnostics.Debug.Assert(length >= 0);
+
+                    _reference = ref reference;
+                    _length = length;
+                }
+
+                /// <summary>
+                /// Returns a reference to specified element of the Span.
+                /// </summary>
+                /// <param name="index">The zero-based index.</param>
+                /// <returns></returns>
+                /// <exception cref="IndexOutOfRangeException">
+                /// Thrown when index less than 0 or index greater than or equal to Length
+                /// </exception>
+                public ref T this[int index]
+                {
+                    get
+                    {
+                        if ((uint)index >= (uint)_length)
+                            throw new IndexOutOfRangeException();
+                        return ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)index /* force zero-extension */);
+                    }
+                }
+
+                /// <summary>
+                /// The number of items in the span.
+                /// </summary>
+                public int Length
+                {
+                    get => _length;
+                }
+
+                /// <summary>
+                /// Gets a value indicating whether this <see cref="Span{T}"/> is empty.
+                /// </summary>
+                /// <value><see langword="true"/> if this span is empty; otherwise, <see langword="false"/>.</value>
+                public bool IsEmpty
+                {
+                    get => _length == 0;
+                }
+
+                /// <summary>
+                /// Returns false if left and right point at the same memory and have the same length.  Note that
+                /// this does *not* check to see if the *contents* are equal.
+                /// </summary>
+                public static bool operator !=(Span<T> left, Span<T> right) => !(left == right);
+
+                /// <summary>
+                /// Defines an implicit conversion of an array to a <see cref="Span{T}"/>
+                /// </summary>
+                public static implicit operator Span<T>(T[]? array) => new Span<T>(array);
+
+                /// <summary>
+                /// Defines an implicit conversion of a <see cref="ArraySegment{T}"/> to a <see cref="Span{T}"/>
+                /// </summary>
+                public static implicit operator Span<T>(ArraySegment<T> segment) =>
+                    new Span<T>(segment.Array, segment.Offset, segment.Count);
+
+                /// <summary>
+                /// Returns an empty <see cref="Span{T}"/>
+                /// </summary>
+                public static Span<T> Empty => default;
+
+                /// <summary>Gets an enumerator for this span.</summary>
+                public Enumerator GetEnumerator() => new Enumerator(this);
+
+                /// <summary>Enumerates the elements of a <see cref="Span{T}"/>.</summary>
+                public ref struct Enumerator
+                {
+                    /// <summary>The span being enumerated.</summary>
+                    private readonly Span<T> _span;
+                    /// <summary>The next index to yield.</summary>
+                    private int _index;
+
+                    /// <summary>Initialize the enumerator.</summary>
+                    /// <param name="span">The span to enumerate.</param>
+                    internal Enumerator(Span<T> span)
+                    {
+                        _span = span;
+                        _index = -1;
+                    }
+
+                    /// <summary>Advances the enumerator to the next element of the span.</summary>
+                    public bool MoveNext()
+                    {
+                        int index = _index + 1;
+                        if (index < _span.Length)
+                        {
+                            _index = index;
+                            return true;
+                        }
+
+                        return false;
+                    }
+
+                    /// <summary>Gets the element at the current position of the enumerator.</summary>
+                    public ref T Current
+                    {
+                        get => ref _span[_index];
+                    }
+
+                    void Reset() => _index = -1;
+
+                }
+
+                /// <summary>
+                /// Returns a reference to the 0th element of the Span. If the Span is empty, returns null reference.
+                /// It can be used for pinning and is required to support the use of span within a fixed statement.
+                /// </summary>
+                public ref T GetPinnableReference()
+                {
+                    // Ensure that the native code has just one forward branch that is predicted-not-taken.
+                    ref T ret = ref System.Runtime.CompilerServices.Unsafe.NullRef<T>();
+                    if (_length != 0) ret = ref _reference;
+                    return ref ret;
+                }
+
+                /// <summary>
+                /// Returns true if left and right point at the same memory and have the same length.  Note that
+                /// this does *not* check to see if the *contents* are equal.
+                /// </summary>
+                public static bool operator ==(Span<T> left, Span<T> right) =>
+                    left._length == right._length &&
+                    System.Runtime.CompilerServices.Unsafe.AreSame(ref left._reference, ref right._reference);
+
+                /// <summary>
+                /// Defines an implicit conversion of a <see cref="Span{T}"/> to a <see cref="ReadOnlySpan{T}"/>
+                /// </summary>
+                public static implicit operator ReadOnlySpan<T>(Span<T> span) =>
+                    new ReadOnlySpan<T>(ref span._reference, span._length);
+
+                /// <summary>
+                /// Forms a slice out of the given span, beginning at 'start'.
+                /// </summary>
+                /// <param name="start">The zero-based index at which to begin this slice.</param>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="start"/> index is not in range (&lt;0 or &gt;Length).
+                /// </exception>
+                public Span<T> Slice(int start)
+                {
+                    if ((uint)start > (uint)_length)
+                        throw new ArgumentOutOfRangeException();
+
+                    return new Span<T>(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), _length - start);
+                }
+
+                /// <summary>
+                /// Forms a slice out of the given span, beginning at 'start', of given length
+                /// </summary>
+                /// <param name="start">The zero-based index at which to begin this slice.</param>
+                /// <param name="length">The desired length for the slice (exclusive).</param>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="start"/> or end index is not in range (&lt;0 or &gt;Length).
+                /// </exception>
+                public Span<T> Slice(int start, int length)
+                {
+            #if TARGET_64BIT
+                    // Since start and length are both 32-bit, their sum can be computed across a 64-bit domain
+                    // without loss of fidelity. The cast to uint before the cast to ulong ensures that the
+                    // extension from 32- to 64-bit is zero-extending rather than sign-extending. The end result
+                    // of this is that if either input is negative or if the input sum overflows past Int32.MaxValue,
+                    // that information is captured correctly in the comparison against the backing _length field.
+                    // We don't use this same mechanism in a 32-bit process due to the overhead of 64-bit arithmetic.
+                    if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)_length)
+                        throw new ArgumentOutOfRangeException();
+            #else
+                    if ((uint)start > (uint)_length || (uint)length > (uint)(_length - start))
+                        throw new ArgumentOutOfRangeException();
+            #endif
+
+                    return new Span<T>(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), length);
+                }
+            }
+
+            /// <summary>
+            /// ReadOnlySpan represents a contiguous region of arbitrary memory. Unlike arrays, it can point to either managed
+            /// or native memory, or to memory allocated on the stack. It is type-safe and memory-safe.
+            /// </summary>
+            public ref struct ReadOnlySpan<T> where T: unmanaged
+            {
+                /// <summary>A byref or a native ptr.</summary>
+                public ref T _reference; // This must not be read-only for us to be able to take its address. Because of this, we also have to mark the entire struct not read-only.
+                /// <summary>The number of elements this ReadOnlySpan contains.</summary>
+                private readonly int _length;
+
+                /// <summary>
+                /// Creates a new read-only span over the entirety of the target array.
+                /// </summary>
+                /// <param name="array">The target array.</param>
+                /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+                public ReadOnlySpan(T[]? array)
+                {
+                    if (array == null)
+                    {
+                        this = default;
+                        return; // returns default
+                    }
+
+                    _reference = ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array);
+                    _length = array.Length;
+                }
+
+                /// <summary>
+                /// Creates a new read-only span over the portion of the target array beginning
+                /// at 'start' index and ending at 'end' index (exclusive).
+                /// </summary>
+                /// <param name="array">The target array.</param>
+                /// <param name="start">The zero-based index at which to begin the read-only span.</param>
+                /// <param name="length">The number of items in the read-only span.</param>
+                /// <remarks>Returns default when <paramref name="array"/> is null.</remarks>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="start"/> or end index is not in the range (&lt;0 or &gt;Length).
+                /// </exception>
+                public ReadOnlySpan(T[]? array, int start, int length)
+                {
+                    if (array == null)
+                    {
+                        if (start != 0 || length != 0)
+                            throw new ArgumentOutOfRangeException();
+                        this = default;
+                        return; // returns default
+                    }
+            #if TARGET_64BIT
+                    // See comment in Span<T>.Slice for how this works.
+                    if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)array.Length)
+                        throw new ArgumentOutOfRangeException();
+            #else
+                    if ((uint)start > (uint)array.Length || (uint)length > (uint)(array.Length - start))
+                        throw new ArgumentOutOfRangeException();
+            #endif
+
+                    _reference = ref System.Runtime.CompilerServices.Unsafe.Add(ref System.Runtime.InteropServices.MemoryMarshal.GetArrayDataReference(array), (nint)(uint)start /* force zero-extension */);
+                    _length = length;
+                }
+
+                /// <summary>
+                /// Creates a new read-only span over the target unmanaged buffer.  Clearly this
+                /// is quite dangerous, because we are creating arbitrarily typed T's
+                /// out of a void*-typed block of memory.  And the length is not checked.
+                /// But if this creation is correct, then all subsequent uses are correct.
+                /// </summary>
+                /// <param name="pointer">An unmanaged pointer to memory.</param>
+                /// <param name="length">The number of <typeparamref name="T"/> elements the memory contains.</param>
+                /// <exception cref="ArgumentException">
+                /// Thrown when <typeparamref name="T"/> is reference type or contains pointers and hence cannot be stored in unmanaged memory.
+                /// </exception>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="length"/> is negative.
+                /// </exception>
+                public unsafe ReadOnlySpan(void* pointer, int length)
+                {
+                    if (System.Runtime.CompilerServices.RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+                        throw new ArgumentException($"Type contains references: {typeof(T)}");
+                    if (length < 0)
+                        throw new ArgumentOutOfRangeException();
+
+                    _reference = ref *(T*)pointer;
+                    _length = length;
+                }
+
+                /// <summary>Creates a new <see cref="ReadOnlySpan{T}"/> of length 1 around the specified reference.</summary>
+                /// <param name="reference">A reference to data.</param>
+                public ReadOnlySpan(ref readonly T reference)
+                {
+                    _reference = ref System.Runtime.CompilerServices.Unsafe.AsRef(in reference);
+                    _length = 1;
+                }
+
+                // Constructor for internal use only. It is not safe to expose publicly, and is instead exposed via the unsafe MemoryMarshal.CreateReadOnlySpan.
+                internal ReadOnlySpan(ref T reference, int length)
+                {
+                    System.Diagnostics.Debug.Assert(length >= 0);
+
+                    _reference = ref reference;
+                    _length = length;
+                }
+
+                /// <summary>
+                /// Returns the specified element of the read-only span.
+                /// </summary>
+                /// <param name="index">The zero-based index.</param>
+                /// <returns></returns>
+                /// <exception cref="IndexOutOfRangeException">
+                /// Thrown when index less than 0 or index greater than or equal to Length
+                /// </exception>
+                public ref readonly T this[int index]
+                {
+                    get
+                    {
+                        if ((uint)index >= (uint)_length)
+                            throw new IndexOutOfRangeException();
+                        return ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)index /* force zero-extension */);
+                    }
+                }
+
+                /// <summary>
+                /// The number of items in the read-only span.
+                /// </summary>
+                public int Length
+                {
+                    get => _length;
+                }
+
+                /// <summary>
+                /// Gets a value indicating whether this <see cref="ReadOnlySpan{T}"/> is empty.
+                /// </summary>
+                /// <value><see langword="true"/> if this span is empty; otherwise, <see langword="false"/>.</value>
+                public bool IsEmpty
+                {
+                    get => _length == 0;
+                }
+
+                /// <summary>
+                /// Returns false if left and right point at the same memory and have the same length.  Note that
+                /// this does *not* check to see if the *contents* are equal.
+                /// </summary>
+                public static bool operator !=(ReadOnlySpan<T> left, ReadOnlySpan<T> right) => !(left == right);
+
+                /// <summary>
+                /// Defines an implicit conversion of an array to a <see cref="ReadOnlySpan{T}"/>
+                /// </summary>
+                public static implicit operator ReadOnlySpan<T>(T[]? array) => new ReadOnlySpan<T>(array);
+
+                /// <summary>
+                /// Defines an implicit conversion of a <see cref="ArraySegment{T}"/> to a <see cref="ReadOnlySpan{T}"/>
+                /// </summary>
+                public static implicit operator ReadOnlySpan<T>(ArraySegment<T> segment)
+                    => new ReadOnlySpan<T>(segment.Array, segment.Offset, segment.Count);
+
+                /// <summary>
+                /// Returns a 0-length read-only span whose base is the null pointer.
+                /// </summary>
+                public static ReadOnlySpan<T> Empty => default;
+
+                /// <summary>Gets an enumerator for this span.</summary>
+                public Enumerator GetEnumerator() => new Enumerator(this);
+
+                /// <summary>Enumerates the elements of a <see cref="ReadOnlySpan{T}"/>.</summary>
+                public ref struct Enumerator
+                {
+                    /// <summary>The span being enumerated.</summary>
+                    private readonly ReadOnlySpan<T> _span;
+                    /// <summary>The next index to yield.</summary>
+                    private int _index;
+
+                    /// <summary>Initialize the enumerator.</summary>
+                    /// <param name="span">The span to enumerate.</param>
+                    internal Enumerator(ReadOnlySpan<T> span)
+                    {
+                        _span = span;
+                        _index = -1;
+                    }
+
+                    /// <summary>Advances the enumerator to the next element of the span.</summary>
+                    public bool MoveNext()
+                    {
+                        int index = _index + 1;
+                        if (index < _span.Length)
+                        {
+                            _index = index;
+                            return true;
+                        }
+
+                        return false;
+                    }
+
+                    /// <summary>Gets the element at the current position of the enumerator.</summary>
+                    public ref readonly T Current
+                    {
+                        get => ref _span[_index];
+                    }
+
+                    void Reset() => _index = -1;
+
+                }
+
+                /// <summary>
+                /// Returns a reference to the 0th element of the Span. If the Span is empty, returns null reference.
+                /// It can be used for pinning and is required to support the use of span within a fixed statement.
+                /// </summary>
+                public ref readonly T GetPinnableReference()
+                {
+                    // Ensure that the native code has just one forward branch that is predicted-not-taken.
+                    ref T ret = ref System.Runtime.CompilerServices.Unsafe.NullRef<T>();
+                    if (_length != 0) ret = ref _reference;
+                    return ref ret;
+                }
+
+                /// <summary>
+                /// Returns true if left and right point at the same memory and have the same length.  Note that
+                /// this does *not* check to see if the *contents* are equal.
+                /// </summary>
+                public static bool operator ==(ReadOnlySpan<T> left, ReadOnlySpan<T> right) =>
+                    left._length == right._length &&
+                    System.Runtime.CompilerServices.Unsafe.AreSame(ref left._reference, ref right._reference);
+
+                /// <summary>
+                /// Forms a slice out of the given read-only span, beginning at 'start'.
+                /// </summary>
+                /// <param name="start">The zero-based index at which to begin this slice.</param>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="start"/> index is not in range (&lt;0 or &gt;Length).
+                /// </exception>
+                public ReadOnlySpan<T> Slice(int start)
+                {
+                    if ((uint)start > (uint)_length)
+                        throw new ArgumentOutOfRangeException();
+
+                    return new ReadOnlySpan<T>(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), _length - start);
+                }
+
+                /// <summary>
+                /// Forms a slice out of the given read-only span, beginning at 'start', of given length
+                /// </summary>
+                /// <param name="start">The zero-based index at which to begin this slice.</param>
+                /// <param name="length">The desired length for the slice (exclusive).</param>
+                /// <exception cref="ArgumentOutOfRangeException">
+                /// Thrown when the specified <paramref name="start"/> or end index is not in range (&lt;0 or &gt;Length).
+                /// </exception>
+                public ReadOnlySpan<T> Slice(int start, int length)
+                {
+            #if TARGET_64BIT
+                    // See comment in Span<T>.Slice for how this works.
+                    if ((ulong)(uint)start + (ulong)(uint)length > (ulong)(uint)_length)
+                        throw new ArgumentOutOfRangeException();
+            #else
+                    if ((uint)start > (uint)_length || (uint)length > (uint)(_length - start))
+                        throw new ArgumentOutOfRangeException();
+            #endif
+
+                    return new ReadOnlySpan<T>(ref System.Runtime.CompilerServices.Unsafe.Add(ref _reference, (nint)(uint)start /* force zero-extension */), length);
+                }
+            }
+
+            #pragma warning restore 0660 // '...' defines operator == or operator != but does not override Object.Equals(object o)
 
         }
 

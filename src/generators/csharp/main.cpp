@@ -24,8 +24,10 @@ int main(int argc, char **argv)
     std::optional<std::string> helpers_namespace;
     std::vector<std::pair<std::string, std::string>> replaced_namespaces;
     std::optional<std::string> forced_namespace;
+    bool no_csharp_span = false;
 
-    int csharp_version = 12; // = .NET 8
+    int csharp_version = 12; // C# 12 corresponds to .NET 8
+    int dotnet_version = 80; // = .NET 8
 
     mrbind::CommandLineParser args_parser;
 
@@ -91,10 +93,75 @@ int main(int argc, char **argv)
         .desc = "Tune the generated bindings for a specific C# version. Defaults to " + std::to_string(csharp_version) + ".",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            if (args.front().size() > 2 || !std::all_of(args.front().begin(), args.front().end(), [](char ch){return ch >= '0' && ch <= '9';}))
+            if (args.front().size() > 2 || !std::all_of(args.front().begin(), args.front().end(), cppdecl::IsDigit))
                 throw std::runtime_error("Not a valid C# version: " + std::string(args.front()));
 
             csharp_version = std::atoi(args.front().data()); // We guarantee that those are null-terminated.
+        },
+    });
+    args_parser.AddFlag("--dotnet-version", {
+        .arg_names = {"number"},
+        .desc = "Tune the generated bindings for a specific .NET framework version. Pass e.g. `8` for .NET 8, or `2.1` for .NET Core 2.1, or `std2.0` for .NET Standard 2.0.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            try
+            {
+                std::string_view arg = args.front();
+
+                bool is_std = false;
+                if (arg.starts_with("std"))
+                {
+                    arg.remove_prefix(3);
+                    is_std = true;
+                }
+
+                if (arg.empty())
+                    throw std::runtime_error("Expected the version number but reached the end of string.");
+                if (!cppdecl::IsDigit(arg.front()))
+                    throw std::runtime_error("Expected a version digit but got character `" + std::string(1, arg.front()) + "`.");
+
+                dotnet_version = 0;
+                do
+                {
+                    dotnet_version = dotnet_version * 10 + (arg.front() - '0');
+                    arg.remove_prefix(1);
+                }
+                while (!arg.empty() && cppdecl::IsDigit(arg.front()));
+
+                // The smallest digit is reserved for the minor version.
+                dotnet_version *= 10;
+
+                if (!arg.empty())
+                {
+                    if (!arg.starts_with('.'))
+                        throw std::runtime_error("Expected `.` or end of string after the first digit of the version.");
+                    arg.remove_prefix(1);
+
+                    if (arg.empty() || !cppdecl::IsDigit(arg.front()))
+                        throw std::runtime_error("Expected the minor version digit after the `.`.");
+
+                    dotnet_version += (arg.front() - '0');
+                    arg.remove_prefix(1);
+                }
+
+                if (!arg.empty())
+                    throw std::runtime_error("Unexpected junk after the version: `" + std::string(arg) + "`.");
+
+                if (is_std)
+                    dotnet_version = -dotnet_version;
+            }
+            catch (...)
+            {
+                std::throw_with_nested(std::runtime_error("While parsing .NET version `" + std::string(args.front()) + "`:"));
+            }
+        },
+    });
+    args_parser.AddFlag("--no-csharp-span", {
+        .desc = "Don't use C# classes `Span<T>` and `ReadOnlySpan<T> in generated code. This can be necessary for compatibility with older .NET frameworks.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            no_csharp_span = true;
         },
     });
 
@@ -137,6 +204,7 @@ int main(int argc, char **argv)
         generator.forced_namespace = generator.ParseNameOrThrow(*forced_namespace);
 
     generator.csharp_version = csharp_version;
+    generator.dotnet_version = dotnet_version;
 
     // Generate.
     generator.Generate();

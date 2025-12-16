@@ -276,6 +276,21 @@ namespace mrbind::CSharp
         // The language version. This affects what features we can use.
         int csharp_version = -1; // This is set elsewhere.
 
+        // The .NET framework version. This seems to affect what standard library features we can use, as opposed to C# language features.
+        // If positive, this is the .NET version, e.g. `80` means ".NET 8".
+        //   Similarly, `21` means .NET Core 2.1 (this is the numeration for some older versions).
+        // If negative, this is the .NET framework version, e.g. `-21` means `2.1`.
+        // Use `NetFrameworkAtLeast()` to test this variable.
+        int dotnet_version = 0; // This is set elsewhere.
+
+        // Test that we're using at least a specific .NET version, or a specific .NET Standard version.
+        // E.g. `NetFrameworkAtLeast(80, 21)` means ".NET 8 or newer, or .NET Standard 2.1 or newer".
+        // Smaller numbers in the first argument mean .NET Core, e.g. `21` means "".NET Core 2.1 or newer".
+        [[nodiscard]] bool NetFrameworkAtLeast(int net_ver, int net_std_ver) const
+        {
+            return dotnet_version >= net_ver || dotnet_version <= -net_std_ver;
+        }
+
         // ]
 
         // Maps relative file paths (without extensions) to the file descriptions and contents.
@@ -553,6 +568,19 @@ namespace mrbind::CSharp
         // `RequestHelper()` accumulates the requested helpers here.
         // Then, after generating everything else, we generate all helpers that were requested.
         std::unordered_set<std::string> requested_helpers;
+
+        // Check if our target C# and .NET framework support certain features: [
+
+        // `Span` and `ReadOnlySpan`.
+        [[nodiscard]] bool HaveCSharpFeatureSpans() const;
+        // ]
+
+        // Check if the currently selected version of the .NET framework includes this class or not.
+        [[nodiscard]] bool HaveStandardCSharpClass(std::string_view name) const;
+
+        // This is a low-level function that performs the same name translation as `RequestHelper()`,
+        //   but doesn't request the generation of this helper. Normally this isn't what you need.
+        [[nodiscard]] std::string MakeHelperNameWithoutRegistration(const std::string &name) const;
 
         // Returns the helper name, which is just `helper_prefix + name`, and also adds `name` to `requested_helpers`.
         // Every name that you pass here must be known by `GenerateHelpers()`.
