@@ -80,7 +80,7 @@ void MR_C_std_function_int32_t_Assign(MR_C_std_function_int32_t *_this, int32_t 
 
 namespace
 {
-    struct _functor
+    struct _functor_MR_C_std_function_int32_t
     {
         using FuncPtr = int32_t (*)(void *_userdata);
         using UserdataCbPtr = void (*)(void **_this_userdata, void *_other_userdata);
@@ -89,23 +89,23 @@ namespace
         void *_userdata = nullptr;
         UserdataCbPtr _userdata_cb = nullptr;
 
-        _functor(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}
+        _functor_MR_C_std_function_int32_t(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}
 
-        _functor(const _functor &other) : _func(other._func), _userdata_cb(other._userdata_cb)
+        _functor_MR_C_std_function_int32_t(const _functor_MR_C_std_function_int32_t &other) : _func(other._func), _userdata_cb(other._userdata_cb)
         {
             if (!other._userdata) return; // No data to copy.
             if (!_userdata_cb) {_userdata = other._userdata; return;} // No callback, just copy the data.
             _userdata_cb(&_userdata, other._userdata);
         }
 
-        _functor(_functor &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)
+        _functor_MR_C_std_function_int32_t(_functor_MR_C_std_function_int32_t &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)
         {
             other._func = nullptr;
             other._userdata = nullptr;
             other._userdata_cb = nullptr;
         }
 
-        _functor &operator=(const _functor &other)
+        _functor_MR_C_std_function_int32_t &operator=(const _functor_MR_C_std_function_int32_t &other)
         {
             if (_userdata_cb && _userdata_cb != other._userdata_cb) // Callback exists but incompatible, destroy the old contents first.
             {
@@ -121,7 +121,7 @@ namespace
             return *this;
         }
 
-        _functor &operator=(_functor &&other) noexcept
+        _functor_MR_C_std_function_int32_t &operator=(_functor_MR_C_std_function_int32_t &&other) noexcept
         {
             _func = other._func;
             _userdata = other._userdata;
@@ -132,7 +132,7 @@ namespace
             return *this;
         }
 
-        ~_functor()
+        ~_functor_MR_C_std_function_int32_t()
         {
             if (_userdata && _userdata_cb)
                 _userdata_cb(&_userdata, nullptr);
@@ -150,7 +150,7 @@ namespace
 
 MR_C_std_function_int32_t *MR_C_std_function_int32_t_ConstructWithDataPtr(int32_t (*func)(void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    return (MR_C_std_function_int32_t *)new std::function<int32_t(void)>(func ? std::function<int32_t(void)>(_functor{func, userdata, userdata_callback}) : nullptr);
+    return (MR_C_std_function_int32_t *)new std::function<int32_t(void)>(func ? std::function<int32_t(void)>(_functor_MR_C_std_function_int32_t{func, userdata, userdata_callback}) : nullptr);
 }
 
 void MR_C_std_function_int32_t_AssignWithDataPtr(MR_C_std_function_int32_t *_this, int32_t (*func)(void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
@@ -162,6 +162,6 @@ void MR_C_std_function_int32_t_AssignWithDataPtr(MR_C_std_function_int32_t *_thi
         return;
     }
     
-    _self = _functor{func, userdata, userdata_callback};
+    _self = _functor_MR_C_std_function_int32_t{func, userdata, userdata_callback};
 }
 

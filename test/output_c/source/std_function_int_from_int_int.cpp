@@ -84,7 +84,7 @@ void MR_C_std_function_int_from_int_int_Assign(MR_C_std_function_int_from_int_in
 
 namespace
 {
-    struct _functor
+    struct _functor_MR_C_std_function_int_from_int_int
     {
         using FuncPtr = int (*)(int _1, int _2, void *_userdata);
         using UserdataCbPtr = void (*)(void **_this_userdata, void *_other_userdata);
@@ -93,23 +93,23 @@ namespace
         void *_userdata = nullptr;
         UserdataCbPtr _userdata_cb = nullptr;
 
-        _functor(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}
+        _functor_MR_C_std_function_int_from_int_int(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}
 
-        _functor(const _functor &other) : _func(other._func), _userdata_cb(other._userdata_cb)
+        _functor_MR_C_std_function_int_from_int_int(const _functor_MR_C_std_function_int_from_int_int &other) : _func(other._func), _userdata_cb(other._userdata_cb)
         {
             if (!other._userdata) return; // No data to copy.
             if (!_userdata_cb) {_userdata = other._userdata; return;} // No callback, just copy the data.
             _userdata_cb(&_userdata, other._userdata);
         }
 
-        _functor(_functor &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)
+        _functor_MR_C_std_function_int_from_int_int(_functor_MR_C_std_function_int_from_int_int &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)
         {
             other._func = nullptr;
             other._userdata = nullptr;
             other._userdata_cb = nullptr;
         }
 
-        _functor &operator=(const _functor &other)
+        _functor_MR_C_std_function_int_from_int_int &operator=(const _functor_MR_C_std_function_int_from_int_int &other)
         {
             if (_userdata_cb && _userdata_cb != other._userdata_cb) // Callback exists but incompatible, destroy the old contents first.
             {
@@ -125,7 +125,7 @@ namespace
             return *this;
         }
 
-        _functor &operator=(_functor &&other) noexcept
+        _functor_MR_C_std_function_int_from_int_int &operator=(_functor_MR_C_std_function_int_from_int_int &&other) noexcept
         {
             _func = other._func;
             _userdata = other._userdata;
@@ -136,7 +136,7 @@ namespace
             return *this;
         }
 
-        ~_functor()
+        ~_functor_MR_C_std_function_int_from_int_int()
         {
             if (_userdata && _userdata_cb)
                 _userdata_cb(&_userdata, nullptr);
@@ -156,7 +156,7 @@ namespace
 
 MR_C_std_function_int_from_int_int *MR_C_std_function_int_from_int_int_ConstructWithDataPtr(int (*func)(int _1, int _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    return (MR_C_std_function_int_from_int_int *)new std::function<int(int, int)>(func ? std::function<int(int, int)>(_functor{func, userdata, userdata_callback}) : nullptr);
+    return (MR_C_std_function_int_from_int_int *)new std::function<int(int, int)>(func ? std::function<int(int, int)>(_functor_MR_C_std_function_int_from_int_int{func, userdata, userdata_callback}) : nullptr);
 }
 
 void MR_C_std_function_int_from_int_int_AssignWithDataPtr(MR_C_std_function_int_from_int_int *_this, int (*func)(int _1, int _2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
@@ -168,6 +168,6 @@ void MR_C_std_function_int_from_int_int_AssignWithDataPtr(MR_C_std_function_int_
         return;
     }
     
-    _self = _functor{func, userdata, userdata_callback};
+    _self = _functor_MR_C_std_function_int_from_int_int{func, userdata, userdata_callback};
 }
 

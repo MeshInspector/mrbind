@@ -384,6 +384,9 @@ namespace mrbind::CBindings::Modules
 
                         cppdecl::Type funcptr_userdata_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = userdata_cb_params}).AddModifier(cppdecl::Pointer{});
 
+                        // This name must depend on the function type, otherwise unity builds explode.
+                        const std::string functor_name = "_functor_" + binder.c_type_name;
+
                         { // Write some common helpers.
                             Generator::EmitFuncParams emit_lambda = PrepareLambda("_func", trailing_comment);
                             emit_lambda.extra_args_after.push_back("_userdata");
@@ -408,7 +411,7 @@ namespace mrbind::CBindings::Modules
                                 "\n"
                                 "namespace\n"
                                 "{\n"
-                                "    struct _functor\n"
+                                "    struct " + functor_name + "\n"
                                 "    {\n"
                                 "        using FuncPtr = " + generator.CppdeclToCode(funcptr_with_userdata) + ";\n"
                                 "        using UserdataCbPtr = " + generator.CppdeclToCode(funcptr_userdata_cb) + ";\n"
@@ -417,23 +420,23 @@ namespace mrbind::CBindings::Modules
                                 "        void *_userdata = nullptr;\n"
                                 "        UserdataCbPtr _userdata_cb = nullptr;\n"
                                 "\n"
-                                "        _functor(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}\n"
+                                "        " + functor_name + "(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}\n"
                                 "\n"
-                                "        _functor(const _functor &other) : _func(other._func), _userdata_cb(other._userdata_cb)\n"
+                                "        " + functor_name + "(const " + functor_name + " &other) : _func(other._func), _userdata_cb(other._userdata_cb)\n"
                                 "        {\n"
                                 "            if (!other._userdata) return; // No data to copy.\n"
                                 "            if (!_userdata_cb) {_userdata = other._userdata; return;} // No callback, just copy the data.\n"
                                 "            _userdata_cb(&_userdata, other._userdata);\n"
                                 "        }\n"
                                 "\n"
-                                "        _functor(_functor &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)\n"
+                                "        " + functor_name + "(" + functor_name + " &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)\n"
                                 "        {\n"
                                 "            other._func = nullptr;\n"
                                 "            other._userdata = nullptr;\n"
                                 "            other._userdata_cb = nullptr;\n"
                                 "        }\n"
                                 "\n"
-                                "        _functor &operator=(const _functor &other)\n"
+                                "        " + functor_name + " &operator=(const " + functor_name + " &other)\n"
                                 "        {\n"
                                 "            if (_userdata_cb && _userdata_cb != other._userdata_cb) // Callback exists but incompatible, destroy the old contents first.\n"
                                 "            {\n"
@@ -449,7 +452,7 @@ namespace mrbind::CBindings::Modules
                                 "            return *this;\n"
                                 "        }\n"
                                 "\n"
-                                "        _functor &operator=(_functor &&other) noexcept\n"
+                                "        " + functor_name + " &operator=(" + functor_name + " &&other) noexcept\n"
                                 "        {\n"
                                 "            _func = other._func;\n"
                                 "            _userdata = other._userdata;\n"
@@ -460,7 +463,7 @@ namespace mrbind::CBindings::Modules
                                 "            return *this;\n"
                                 "        }\n"
                                 "\n"
-                                "        ~_functor()\n"
+                                "        ~" + functor_name + "()\n"
                                 "        {\n"
                                 "            if (_userdata && _userdata_cb)\n"
                                 "                _userdata_cb(&_userdata, nullptr);\n"
@@ -498,7 +501,7 @@ namespace mrbind::CBindings::Modules
                                 .use_type_as_is = true,
                             });
 
-                            emit.cpp_called_func = "@1@ ? " + generator.CppdeclToCode(binder.cpp_type_name) + "(_functor{@1@, @2@, @3@}) : nullptr";
+                            emit.cpp_called_func = "@1@ ? " + generator.CppdeclToCode(binder.cpp_type_name) + "(" + functor_name + "{@1@, @2@, @3@}) : nullptr";
 
                             generator.EmitFunction(file, emit);
                         }
@@ -538,7 +541,7 @@ namespace mrbind::CBindings::Modules
                                 "    return;\n"
                                 "}\n";
 
-                            emit.cpp_called_func = "_self = _functor{@1@, @2@, @3@}";
+                            emit.cpp_called_func = "_self = " + functor_name + "{@1@, @2@, @3@}";
 
                             generator.EmitFunction(file, emit);
                         }
