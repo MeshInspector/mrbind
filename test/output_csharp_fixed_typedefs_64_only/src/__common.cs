@@ -132,12 +132,12 @@ public static partial class MR
 
             /// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.
             /// Pass `null` or `new()` to use the default argument.
-            ///   Note that for the original `ReadOnlySpan`, those result in an empty span instead.
+            ///   Note that for the original `ReadOnlySpan<char>`, those result in an empty span instead.
             public ref struct ReadOnlyCharSpanOpt
             {
                 public readonly bool HasValue;
 
-                public ReadOnlySpan<char> _Span; // This needs to be visible for us to take the address of `_Span._reference`, when using span polyfills.
+                ReadOnlySpan<char> _Span;
                 public ReadOnlySpan<char> Value
                 {
                     get

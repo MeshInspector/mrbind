@@ -575,9 +575,6 @@ namespace mrbind::CSharp
         [[nodiscard]] bool HaveCSharpFeatureSpans() const;
         // ]
 
-        // Check if the currently selected version of the .NET framework includes this class or not.
-        [[nodiscard]] bool HaveStandardCSharpClass(std::string_view name) const;
-
         // This is a low-level function that performs the same name translation as `RequestHelper()`,
         //   but doesn't request the generation of this helper. Normally this isn't what you need.
         [[nodiscard]] std::string MakeHelperNameWithoutRegistration(const std::string &name) const;
@@ -586,12 +583,6 @@ namespace mrbind::CSharp
         // Every name that you pass here must be known by `GenerateHelpers()`.
         // Passing an invalid name name will initially succeed, but then will cause an error at the end of generation, in `GenerateHelpers()`.
         [[nodiscard]] std::string RequestHelper(const std::string &name);
-
-        [[nodiscard]] std::string RequestSpan(const std::string &elem_type);
-        [[nodiscard]] std::string RequestReadOnlySpan(const std::string &elem_type);
-
-        [[nodiscard]] std::string MakeSpanNameWithoutRegistration(const std::string &elem_type);
-        [[nodiscard]] std::string MakeReadOnlySpanNameWithoutRegistration(const std::string &elem_type);
 
 
         struct CFuncDeclStrings

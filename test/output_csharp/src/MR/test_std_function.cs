@@ -49,15 +49,14 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdFunction::A` elementwise.
-                public unsafe Const_A(MR.CS.Misc.ReadOnlyCharSpan a) : this(null, is_owning: true)
+                public unsafe Const_A(string a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_ConstructFrom(byte *a, byte *a_end);
-                    byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                    byte[] __bytes_a = System.Text.Encoding.UTF8.GetBytes(a);
                     fixed (byte *__ptr_a = __bytes_a)
                     {
-                        int __len_a = System.Text.Encoding.UTF8.GetBytes(&a._reference, a.Length, __ptr_a, __bytes_a.Length);
-                        _UnderlyingPtr = __MR_StdFunction_A_ConstructFrom(__ptr_a, __ptr_a + __len_a);
+                        _UnderlyingPtr = __MR_StdFunction_A_ConstructFrom(__ptr_a, __ptr_a + __bytes_a.Length);
                     }
                 }
 
@@ -95,15 +94,14 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdFunction::A` elementwise.
-                public unsafe A(MR.CS.Misc.ReadOnlyCharSpan a) : this(null, is_owning: true)
+                public unsafe A(string a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_ConstructFrom(byte *a, byte *a_end);
-                    byte[] __bytes_a = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(a.Length)];
+                    byte[] __bytes_a = System.Text.Encoding.UTF8.GetBytes(a);
                     fixed (byte *__ptr_a = __bytes_a)
                     {
-                        int __len_a = System.Text.Encoding.UTF8.GetBytes(&a._reference, a.Length, __ptr_a, __bytes_a.Length);
-                        _UnderlyingPtr = __MR_StdFunction_A_ConstructFrom(__ptr_a, __ptr_a + __len_a);
+                        _UnderlyingPtr = __MR_StdFunction_A_ConstructFrom(__ptr_a, __ptr_a + __bytes_a.Length);
                     }
                 }
 

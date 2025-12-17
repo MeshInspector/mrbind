@@ -13,72 +13,62 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFilesystem::SetPath`.
-            public static unsafe void SetPath(MR.CS.Misc.ReadOnlyCharSpan _1)
+            public static unsafe void SetPath(string _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPath", ExactSpelling = true)]
                 extern static void __MR_StdFilesystem_SetPath(byte *_1, byte *_1_end);
-                byte[] __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Length)];
+                byte[] __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
-                    int __len__1 = System.Text.Encoding.UTF8.GetBytes(&_1._reference, _1.Length, __ptr__1, __bytes__1.Length);
-                    __MR_StdFilesystem_SetPath(__ptr__1, __ptr__1 + __len__1);
+                    __MR_StdFilesystem_SetPath(__ptr__1, __ptr__1 + __bytes__1.Length);
                 }
             }
 
             /// Generated from function `MR::StdFilesystem::SetPathConstRef`.
-            public static unsafe void SetPathConstRef(MR.CS.Misc.ReadOnlyCharSpan _1)
+            public static unsafe void SetPathConstRef(string _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathConstRef", ExactSpelling = true)]
                 extern static void __MR_StdFilesystem_SetPathConstRef(byte *_1, byte *_1_end);
-                byte[] __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Length)];
+                byte[] __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
-                    int __len__1 = System.Text.Encoding.UTF8.GetBytes(&_1._reference, _1.Length, __ptr__1, __bytes__1.Length);
-                    __MR_StdFilesystem_SetPathConstRef(__ptr__1, __ptr__1 + __len__1);
+                    __MR_StdFilesystem_SetPathConstRef(__ptr__1, __ptr__1 + __bytes__1.Length);
                 }
             }
 
             /// Generated from function `MR::StdFilesystem::SetPathDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetPathDefTrivial(MR.CS.Misc.ReadOnlyCharSpanOpt _1 = new())
+            public static unsafe void SetPathDefTrivial(string? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdFilesystem_SetPathDefTrivial(byte *_1, byte *_1_end);
                 byte[] __bytes__1;
                 int __len__1 = 0;
-                if (_1.HasValue)
+                if (_1 is not null)
                 {
-                    __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Value.Length)];
-                    fixed (byte *__ptr__1 = __bytes__1)
-                    {
-                        __len__1 = System.Text.Encoding.UTF8.GetBytes(&_1._Span._reference, _1.Value.Length, __ptr__1, __bytes__1.Length);
-                    }
+                    __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                 }
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
-                    __MR_StdFilesystem_SetPathDefTrivial(_1.HasValue ? __ptr__1 : null, _1.HasValue ? __ptr__1 + __len__1 : null);
+                    __MR_StdFilesystem_SetPathDefTrivial(_1 is not null ? __ptr__1 : null, _1 is not null ? __ptr__1 + __len__1 : null);
                 }
             }
 
             /// Generated from function `MR::StdFilesystem::SetPathDef`.
             /// Parameter `_1` defaults to `"hmm"`.
-            public static unsafe void SetPathDef(MR.CS.Misc.ReadOnlyCharSpanOpt _1 = new())
+            public static unsafe void SetPathDef(string? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDef", ExactSpelling = true)]
                 extern static void __MR_StdFilesystem_SetPathDef(byte *_1, byte *_1_end);
                 byte[] __bytes__1;
                 int __len__1 = 0;
-                if (_1.HasValue)
+                if (_1 is not null)
                 {
-                    __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Value.Length)];
-                    fixed (byte *__ptr__1 = __bytes__1)
-                    {
-                        __len__1 = System.Text.Encoding.UTF8.GetBytes(&_1._Span._reference, _1.Value.Length, __ptr__1, __bytes__1.Length);
-                    }
+                    __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                 }
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
-                    __MR_StdFilesystem_SetPathDef(_1.HasValue ? __ptr__1 : null, _1.HasValue ? __ptr__1 + __len__1 : null);
+                    __MR_StdFilesystem_SetPathDef(_1 is not null ? __ptr__1 : null, _1 is not null ? __ptr__1 + __len__1 : null);
                 }
             }
         }

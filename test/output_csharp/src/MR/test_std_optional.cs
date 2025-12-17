@@ -186,15 +186,14 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdOptional::B` elementwise.
-                public unsafe Const_B(MR.CS.Misc.ReadOnlyCharSpan s) : this(null, is_owning: true)
+                public unsafe Const_B(string s) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFrom(byte *s, byte *s_end);
-                    byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                    byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                     fixed (byte *__ptr_s = __bytes_s)
                     {
-                        int __len_s = System.Text.Encoding.UTF8.GetBytes(&s._reference, s.Length, __ptr_s, __bytes_s.Length);
-                        _UnderlyingPtr = __MR_StdOptional_B_ConstructFrom(__ptr_s, __ptr_s + __len_s);
+                        _UnderlyingPtr = __MR_StdOptional_B_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length);
                     }
                 }
 
@@ -232,15 +231,14 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::StdOptional::B` elementwise.
-                public unsafe B(MR.CS.Misc.ReadOnlyCharSpan s) : this(null, is_owning: true)
+                public unsafe B(string s) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFrom(byte *s, byte *s_end);
-                    byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                    byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                     fixed (byte *__ptr_s = __bytes_s)
                     {
-                        int __len_s = System.Text.Encoding.UTF8.GetBytes(&s._reference, s.Length, __ptr_s, __bytes_s.Length);
-                        _UnderlyingPtr = __MR_StdOptional_B_ConstructFrom(__ptr_s, __ptr_s + __len_s);
+                        _UnderlyingPtr = __MR_StdOptional_B_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length);
                     }
                 }
 

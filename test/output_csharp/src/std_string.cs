@@ -43,20 +43,18 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe Const_String(MR.CS.Misc.ReadOnlyCharSpan other) : this(null, is_owning: true)
+                public unsafe Const_String(string other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFrom(byte *other, byte *other_end);
-                    byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                    byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
-                        int __len_other = System.Text.Encoding.UTF8.GetBytes(&other._reference, other.Length, __ptr_other, __bytes_other.Length);
-                        _UnderlyingPtr = __MR_C_std_string_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                        _UnderlyingPtr = __MR_C_std_string_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
                     }
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator Const_String(MR.CS.Misc.ReadOnlyCharSpan other) {return new(other);}
                 public static unsafe implicit operator Const_String(string other) {return new(other);}
 
                 /// The number of characters in the string, excluding the null-terminator.
@@ -87,11 +85,6 @@ public static partial class MR
 
                 // Custom extras:
 
-                public static unsafe implicit operator MR.CS.Misc.ReadOnlySpan<byte>(MR.CS.Std.Const_String self)
-                {
-                    return new(self.Data(), checked((int)self.Size()));
-                }
-
                 public static unsafe implicit operator string(MR.CS.Std.Const_String self)
                 {
                     return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
@@ -121,20 +114,18 @@ public static partial class MR
                 }
 
                 /// Constructs a new instance.
-                public unsafe String(MR.CS.Misc.ReadOnlyCharSpan other) : this(null, is_owning: true)
+                public unsafe String(string other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFrom(byte *other, byte *other_end);
-                    byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                    byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
-                        int __len_other = System.Text.Encoding.UTF8.GetBytes(&other._reference, other.Length, __ptr_other, __bytes_other.Length);
-                        _UnderlyingPtr = __MR_C_std_string_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                        _UnderlyingPtr = __MR_C_std_string_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
                     }
                 }
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator String(MR.CS.Misc.ReadOnlyCharSpan other) {return new(other);}
                 public static unsafe implicit operator String(string other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -146,15 +137,14 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(MR.CS.Misc.ReadOnlyCharSpan other)
+                public unsafe void Assign(string other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
-                    byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                    byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
-                        int __len_other = System.Text.Encoding.UTF8.GetBytes(&other._reference, other.Length, __ptr_other, __bytes_other.Length);
-                        __MR_C_std_string_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __len_other);
+                        __MR_C_std_string_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __bytes_other.Length);
                     }
                 }
 
@@ -174,13 +164,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableDataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_MutableDataEnd(_Underlying *_this);
                     return __MR_C_std_string_MutableDataEnd(_UnderlyingPtr);
-                }
-
-                // Custom extras:
-
-                public static unsafe implicit operator MR.CS.Misc.Span<byte>(MR.CS.Std.String s)
-                {
-                    return new(s.MutableData(), checked((int)s.Size()));
                 }
             }
 
@@ -202,8 +185,7 @@ public static partial class MR
                 public static implicit operator _ByValue_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _ByValue_String(MR.CS.Misc.ReadOnlyCharSpan other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
-                public static unsafe implicit operator _ByValue_String(string other) {return new(other);}
+                public static unsafe implicit operator _ByValue_String(string other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
             }
 
             /// This is used as a function parameter when the underlying function receives an optional `String` by value,
@@ -228,8 +210,7 @@ public static partial class MR
                 public static implicit operator _ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _ByValueOptOpt_String(MR.CS.Misc.ReadOnlyCharSpan other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
-                public static unsafe implicit operator _ByValueOptOpt_String(string other) {return new(other);}
+                public static unsafe implicit operator _ByValueOptOpt_String(string other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
             }
 
             /// This is used for optional parameters of class `String` with default arguments.
@@ -262,8 +243,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_String(Const_String value) {return new(value);}
 
                 /// Constructs a new instance.
-                public static unsafe implicit operator _InOptConst_String(MR.CS.Misc.ReadOnlyCharSpan other) {return new Const_String(other);}
-                public static unsafe implicit operator _InOptConst_String(string other) {return new(other);}
+                public static unsafe implicit operator _InOptConst_String(string other) {return new Const_String(other);}
             }
         }
     }

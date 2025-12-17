@@ -67,15 +67,14 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 2, of type `std::string`.
-                public unsafe Const_Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlyCharSpan value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
+                public unsafe Const_Variant_Int_Float_StdString(string value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
-                    byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
+                    byte[] __bytes_value = System.Text.Encoding.UTF8.GetBytes(value);
                     fixed (byte *__ptr_value = __bytes_value)
                     {
-                        int __len_value = System.Text.Encoding.UTF8.GetBytes(&value._reference, value.Length, __ptr_value, __bytes_value.Length);
-                        _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __len_value);
+                        _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __bytes_value.Length);
                     }
                 }
 
@@ -154,15 +153,14 @@ public static partial class MR
                 }
 
                 /// Constructs the variant storing the element 2, of type `std::string`.
-                public unsafe Variant_Int_Float_StdString(MR.CS.Misc.ReadOnlyCharSpan value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
+                public unsafe Variant_Int_Float_StdString(string value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
-                    byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
+                    byte[] __bytes_value = System.Text.Encoding.UTF8.GetBytes(value);
                     fixed (byte *__ptr_value = __bytes_value)
                     {
-                        int __len_value = System.Text.Encoding.UTF8.GetBytes(&value._reference, value.Length, __ptr_value, __bytes_value.Length);
-                        _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __len_value);
+                        _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __bytes_value.Length);
                     }
                 }
 
@@ -183,15 +181,14 @@ public static partial class MR
                 }
 
                 /// Assigns to the variant, making it store the element 2, of type `std::string`.
-                public unsafe void AssignAsStdString(MR.CS.Misc.ReadOnlyCharSpan value)
+                public unsafe void AssignAsStdString(string value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_std_string", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_Underlying *_this, byte *value, byte *value_end);
-                    byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
+                    byte[] __bytes_value = System.Text.Encoding.UTF8.GetBytes(value);
                     fixed (byte *__ptr_value = __bytes_value)
                     {
-                        int __len_value = System.Text.Encoding.UTF8.GetBytes(&value._reference, value.Length, __ptr_value, __bytes_value.Length);
-                        __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_UnderlyingPtr, __ptr_value, __ptr_value + __len_value);
+                        __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_UnderlyingPtr, __ptr_value, __ptr_value + __bytes_value.Length);
                     }
                 }
 

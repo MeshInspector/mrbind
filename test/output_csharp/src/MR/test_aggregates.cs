@@ -57,15 +57,14 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::Aggregates::A` elementwise.
-                public unsafe Const_A(int x, MR.CS.Misc.ReadOnlyCharSpan y) : this(null, is_owning: true)
+                public unsafe Const_A(int x, string y) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.A._Underlying *__MR_Aggregates_A_ConstructFrom(int x, byte *y, byte *y_end);
-                    byte[] __bytes_y = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(y.Length)];
+                    byte[] __bytes_y = System.Text.Encoding.UTF8.GetBytes(y);
                     fixed (byte *__ptr_y = __bytes_y)
                     {
-                        int __len_y = System.Text.Encoding.UTF8.GetBytes(&y._reference, y.Length, __ptr_y, __bytes_y.Length);
-                        _UnderlyingPtr = __MR_Aggregates_A_ConstructFrom(x, __ptr_y, __ptr_y + __len_y);
+                        _UnderlyingPtr = __MR_Aggregates_A_ConstructFrom(x, __ptr_y, __ptr_y + __bytes_y.Length);
                     }
                 }
 
@@ -115,15 +114,14 @@ public static partial class MR
                 }
 
                 /// Constructs `MR::Aggregates::A` elementwise.
-                public unsafe A(int x, MR.CS.Misc.ReadOnlyCharSpan y) : this(null, is_owning: true)
+                public unsafe A(int x, string y) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.A._Underlying *__MR_Aggregates_A_ConstructFrom(int x, byte *y, byte *y_end);
-                    byte[] __bytes_y = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(y.Length)];
+                    byte[] __bytes_y = System.Text.Encoding.UTF8.GetBytes(y);
                     fixed (byte *__ptr_y = __bytes_y)
                     {
-                        int __len_y = System.Text.Encoding.UTF8.GetBytes(&y._reference, y.Length, __ptr_y, __bytes_y.Length);
-                        _UnderlyingPtr = __MR_Aggregates_A_ConstructFrom(x, __ptr_y, __ptr_y + __len_y);
+                        _UnderlyingPtr = __MR_Aggregates_A_ConstructFrom(x, __ptr_y, __ptr_y + __bytes_y.Length);
                     }
                 }
 

@@ -45,20 +45,18 @@ public static partial class MR
                     }
 
                     /// Constructs a new instance.
-                    public unsafe Const_Path(MR.CS.Misc.ReadOnlyCharSpan other) : this(null, is_owning: true)
+                    public unsafe Const_Path(string other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFrom", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFrom(byte *other, byte *other_end);
-                        byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                        byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                         fixed (byte *__ptr_other = __bytes_other)
                         {
-                            int __len_other = System.Text.Encoding.UTF8.GetBytes(&other._reference, other.Length, __ptr_other, __bytes_other.Length);
-                            _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                            _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
                         }
                     }
 
                     /// Constructs a new instance.
-                    public static unsafe implicit operator Const_Path(MR.CS.Misc.ReadOnlyCharSpan other) {return new(other);}
                     public static unsafe implicit operator Const_Path(string other) {return new(other);}
 
                     /// Get the contents as a UTF8-encoded string.
@@ -100,20 +98,18 @@ public static partial class MR
                     }
 
                     /// Constructs a new instance.
-                    public unsafe Path(MR.CS.Misc.ReadOnlyCharSpan other) : this(null, is_owning: true)
+                    public unsafe Path(string other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFrom", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFrom(byte *other, byte *other_end);
-                        byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                        byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                         fixed (byte *__ptr_other = __bytes_other)
                         {
-                            int __len_other = System.Text.Encoding.UTF8.GetBytes(&other._reference, other.Length, __ptr_other, __bytes_other.Length);
-                            _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFrom(__ptr_other, __ptr_other + __len_other);
+                            _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
                         }
                     }
 
                     /// Constructs a new instance.
-                    public static unsafe implicit operator Path(MR.CS.Misc.ReadOnlyCharSpan other) {return new(other);}
                     public static unsafe implicit operator Path(string other) {return new(other);}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -125,15 +121,14 @@ public static partial class MR
                     }
 
                     /// Assigns the contents.
-                    public unsafe void Assign(MR.CS.Misc.ReadOnlyCharSpan other)
+                    public unsafe void Assign(string other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_AssignFrom", ExactSpelling = true)]
                         extern static void __MR_C_std_filesystem_path_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
-                        byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
+                        byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                         fixed (byte *__ptr_other = __bytes_other)
                         {
-                            int __len_other = System.Text.Encoding.UTF8.GetBytes(&other._reference, other.Length, __ptr_other, __bytes_other.Length);
-                            __MR_C_std_filesystem_path_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __len_other);
+                            __MR_C_std_filesystem_path_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __bytes_other.Length);
                         }
                     }
 
@@ -163,8 +158,7 @@ public static partial class MR
                     public static implicit operator _ByValue_Path(MR.CS.Misc._Moved<Path> arg) {return new(arg);}
 
                     /// Constructs a new instance.
-                    public static unsafe implicit operator _ByValue_Path(MR.CS.Misc.ReadOnlyCharSpan other) {return new MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path>(other);}
-                    public static unsafe implicit operator _ByValue_Path(string other) {return new(other);}
+                    public static unsafe implicit operator _ByValue_Path(string other) {return new MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path>(other);}
                 }
 
                 /// This is used for optional parameters of class `Path` with default arguments.
@@ -197,8 +191,7 @@ public static partial class MR
                     public static implicit operator _InOptConst_Path(Const_Path value) {return new(value);}
 
                     /// Constructs a new instance.
-                    public static unsafe implicit operator _InOptConst_Path(MR.CS.Misc.ReadOnlyCharSpan other) {return new Const_Path(other);}
-                    public static unsafe implicit operator _InOptConst_Path(string other) {return new(other);}
+                    public static unsafe implicit operator _InOptConst_Path(string other) {return new Const_Path(other);}
                 }
             }
         }
