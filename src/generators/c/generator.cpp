@@ -286,7 +286,7 @@ namespace mrbind::CBindings
     Generator::OutputFile *Generator::GetCommonPublicHelpersFile(bool can_create)
     {
         bool is_new = false;
-        OutputFile *file = GetPublicHelperFile("common", &is_new, OutputFile::InitFlags::no_extern_c, can_create);
+        OutputFile *file = GetPublicHelperFile("common", &is_new, {}, can_create);
         if (!file)
             return nullptr;
         if (!is_new)

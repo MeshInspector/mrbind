@@ -4,6 +4,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 typedef enum MR_C_PassBy
 {
@@ -70,3 +74,6 @@ MR_C_API void MR_C_FreeArray(void *ptr);
 #  endif
 #endif
 
+#ifdef __cplusplus
+} // extern "C"
+#endif
