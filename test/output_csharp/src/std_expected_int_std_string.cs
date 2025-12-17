@@ -42,6 +42,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// Returns true if this instance represents success, or false if it represents an error.
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_Int_StdString _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_Success", ExactSpelling = true)]
+                    extern static byte __MR_C_std_expected_int_std_string_Success(MR.CS.Std.Const_Expected_Int_StdString._Underlying *_this);
+                    return __MR_C_std_expected_int_std_string_Success(_this._UnderlyingPtr) != 0;
+                }
+
                 /// If this instance represents success, returns the stored `int`. Otherwise null.
                 public unsafe int? GetValue()
                 {

@@ -2,6 +2,7 @@
 
 #include <exports.h>
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -43,6 +44,10 @@ MR_C_API const MR_C_std_expected_int_float *MR_C_std_expected_int_float_OffsetPt
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_expected_int_float *MR_C_std_expected_int_float_OffsetMutablePtr(MR_C_std_expected_int_float *ptr, ptrdiff_t i);
+
+/// Returns true if this instance represents success, or false if it represents an error.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_std_expected_int_float_Success(const MR_C_std_expected_int_float *_this);
 
 /// If this instance represents success, returns the stored `int`. Otherwise null.
 /// Parameter `_this` can not be null. It is a single object.

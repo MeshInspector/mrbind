@@ -45,6 +45,10 @@ MR_C_API const MR_C_std_expected_void_float *MR_C_std_expected_void_float_Offset
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_expected_void_float *MR_C_std_expected_void_float_OffsetMutablePtr(MR_C_std_expected_void_float *ptr, ptrdiff_t i);
 
+/// Returns true if this instance represents success, or false if it represents an error.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_std_expected_void_float_Success(const MR_C_std_expected_void_float *_this);
+
 /// Returns true if this instance stores nothing (which represents success).
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_std_expected_void_float_GetValue(const MR_C_std_expected_void_float *_this);

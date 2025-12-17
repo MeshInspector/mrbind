@@ -50,6 +50,11 @@ MR_C_std_expected_void_float *MR_C_std_expected_void_float_OffsetMutablePtr(MR_C
     return (MR_C_std_expected_void_float *)(((std::expected<void, float> *)ptr) + i);
 }
 
+bool MR_C_std_expected_void_float_Success(const MR_C_std_expected_void_float *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<void, float> *)(_this)));
+}
+
 bool MR_C_std_expected_void_float_GetValue(const MR_C_std_expected_void_float *_this)
 {
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<void, float> *)(_this)));

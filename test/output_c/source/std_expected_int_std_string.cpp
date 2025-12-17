@@ -53,6 +53,11 @@ MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_OffsetMutable
     return (MR_C_std_expected_int_std_string *)(((std::expected<int, std::string> *)ptr) + i);
 }
 
+bool MR_C_std_expected_int_std_string_Success(const MR_C_std_expected_int_std_string *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, std::string> *)(_this)));
+}
+
 const int *MR_C_std_expected_int_std_string_GetValue(const MR_C_std_expected_int_std_string *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, std::string> *)(_this));

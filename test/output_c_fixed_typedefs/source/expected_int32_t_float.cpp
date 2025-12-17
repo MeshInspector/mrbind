@@ -52,6 +52,11 @@ MR_C_expected_int32_t_float *MR_C_expected_int32_t_float_OffsetMutablePtr(MR_C_e
     return (MR_C_expected_int32_t_float *)(((std::expected<int32_t, float> *)ptr) + i);
 }
 
+bool MR_C_expected_int32_t_float_Success(const MR_C_expected_int32_t_float *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, float> *)(_this)));
+}
+
 const int32_t *MR_C_expected_int32_t_float_GetValue(const MR_C_expected_int32_t_float *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, float> *)(_this));

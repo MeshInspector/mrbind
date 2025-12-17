@@ -42,6 +42,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_void_float_ConstructFromAnother(other._UnderlyingPtr);
                 }
 
+                /// Returns true if this instance represents success, or false if it represents an error.
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_Void_Float _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_Success", ExactSpelling = true)]
+                    extern static byte __MR_C_std_expected_void_float_Success(MR.CS.Std.Const_Expected_Void_Float._Underlying *_this);
+                    return __MR_C_std_expected_void_float_Success(_this._UnderlyingPtr) != 0;
+                }
+
                 /// Returns true if this instance stores nothing (which represents success).
                 public unsafe bool GetValue()
                 {

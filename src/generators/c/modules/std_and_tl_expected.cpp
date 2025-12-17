@@ -86,7 +86,18 @@ namespace mrbind::CBindings::Modules
 
                     // Some custom functions:
 
-                    // There are no boolean checks, because the ones returning pointers can be used for the same purpose.
+                    // `bool Success()`
+                    // Note that this function is redundant, since you could use the other ones defined below that return pointers, for the same purpose.
+                    // But we're still defining this one, because it's marked as `operator bool` for interop purposes, which plays great with C#.
+                    {
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment += "/// Returns true if this instance represents success, or false if it represents an error.";
+                        emit.name = binder.MakeMemberFuncName(generator, "Success", CInterop::MethodKinds::ConversionOperator{});
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                        emit.cpp_called_func = "bool(@this@)";
+                        generator.EmitFunction(file, emit);
+                    }
 
                     const bool value_type_is_const = value_type_is_void || cpp_elem_type_value.IsConst();
                     const bool error_type_is_const = cpp_elem_type_error.IsConst();
