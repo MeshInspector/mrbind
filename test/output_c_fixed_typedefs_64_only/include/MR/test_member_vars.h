@@ -10,6 +10,7 @@ extern "C" {
 
 
 /// Generated from class `MR::MemberVars::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_MemberVars_A MR_MemberVars_A;
 
 /// Returns a pointer to a member variable of class `MR::MemberVars::A` named `z`.
@@ -67,7 +68,7 @@ MR_C_API int *MR_MemberVars_A_GetMutable_arr(MR_MemberVars_A *_this);
 /// Returns the size of the array member of class `MR::MemberVars::A` named `arr`. The size is `4`.
 MR_C_API size_t MR_MemberVars_A_GetSize_arr(void);
 
-/// Generated from a constructor of class `MR::MemberVars::A`.
+/// Generated from constructor `MR::MemberVars::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_MemberVars_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_MemberVars_A *MR_MemberVars_A_ConstructFromAnother(const MR_MemberVars_A *_other);

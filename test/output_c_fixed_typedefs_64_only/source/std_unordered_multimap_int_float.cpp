@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <unordered_map>
 
@@ -225,12 +226,12 @@ MR_C_std_unordered_multimap_int_float_iterator *MR_C_std_unordered_multimap_int_
 
 const int *MR_C_std_unordered_multimap_int_float_const_iterator_DerefKey(const MR_C_std_unordered_multimap_int_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::const_iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::const_iterator *)(_this))->first);
 }
 
 const float *MR_C_std_unordered_multimap_int_float_const_iterator_DerefValue(const MR_C_std_unordered_multimap_int_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::const_iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::const_iterator *)(_this))->second);
 }
 
 void MR_C_std_unordered_multimap_int_float_const_iterator_Incr(MR_C_std_unordered_multimap_int_float_const_iterator *_this)
@@ -240,12 +241,12 @@ void MR_C_std_unordered_multimap_int_float_const_iterator_Incr(MR_C_std_unordere
 
 const int *MR_C_std_unordered_multimap_int_float_iterator_DerefKey(const MR_C_std_unordered_multimap_int_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::iterator *)(_this))->first);
 }
 
 float *MR_C_std_unordered_multimap_int_float_iterator_DerefValue(const MR_C_std_unordered_multimap_int_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int, float>::iterator *)(_this))->second);
 }
 
 void MR_C_std_unordered_multimap_int_float_iterator_Incr(MR_C_std_unordered_multimap_int_float_iterator *_this)

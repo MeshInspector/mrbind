@@ -30,6 +30,7 @@ typedef enum MR_StdFunction_E
 } MR_StdFunction_E;
 
 // Generated from class `MR::StdFunction::A`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdFunction_A MR_StdFunction_A;
 
 // Generated from function `MR::StdFunction::foo`.
@@ -87,7 +88,7 @@ MR_C_API const MR_StdFunction_A *MR_StdFunction_A_OffsetPtr(const MR_StdFunction
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_OffsetMutablePtr(MR_StdFunction_A *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::StdFunction::A`.
+// Generated from constructor `MR::StdFunction::A::A`.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
 
@@ -97,7 +98,7 @@ MR_C_API void MR_StdFunction_A_Destroy(const MR_StdFunction_A *_this);
 // Destroys a heap-allocated array of `MR_StdFunction_A`. Does nothing if the pointer is null.
 MR_C_API void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this);
 
-// Generated from a method of class `MR::StdFunction::A` named `operator=`.
+// Generated from method `MR::StdFunction::A::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);

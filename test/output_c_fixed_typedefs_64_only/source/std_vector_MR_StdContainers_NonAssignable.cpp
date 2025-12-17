@@ -5,6 +5,7 @@
 #include <input/MR/test_std_containers.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -94,14 +95,14 @@ void MR_C_std_vector_MR_StdContainers_NonAssignable_ShrinkToFit(MR_C_std_vector_
 
 const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_At(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this, size_t i)
 {
-    return (const MR_StdContainers_NonAssignable *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonAssignable> *)(_this)).at(
+    return (const MR_StdContainers_NonAssignable *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonAssignable> *)(_this)).at(
         i
     ));
 }
 
 MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_MutableAt(MR_C_std_vector_MR_StdContainers_NonAssignable *_this, size_t i)
 {
-    return (MR_StdContainers_NonAssignable *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::StdContainers::NonAssignable> *)(_this)).at(
+    return (MR_StdContainers_NonAssignable *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::StdContainers::NonAssignable> *)(_this)).at(
         i
     ));
 }
@@ -285,7 +286,7 @@ MR_C_std_vector_MR_StdContainers_NonAssignable_iterator *MR_C_std_vector_MR_StdC
 
 const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Deref(const MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
-    return (const MR_StdContainers_NonAssignable *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
+    return (const MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Incr(MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator *_this)
@@ -310,7 +311,7 @@ ptrdiff_t MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Distance
 
 MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_Deref(const MR_C_std_vector_MR_StdContainers_NonAssignable_iterator *_this)
 {
-    return (MR_StdContainers_NonAssignable *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonAssignable>::iterator *)(_this)));
+    return (MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonAssignable>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_Incr(MR_C_std_vector_MR_StdContainers_NonAssignable_iterator *_this)

@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <list>
+#include <memory>
 #include <stdexcept>
 
 
@@ -294,7 +295,7 @@ MR_C_std_list_MR_StdContainers_NonAssignable_iterator *MR_C_std_list_MR_StdConta
 
 const MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_Deref(const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
-    return (const MR_StdContainers_NonAssignable *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
+    return (const MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
 }
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_Incr(MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *_this)
@@ -309,7 +310,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_Decr(MR_C_std_l
 
 MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_iterator_Deref(const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *_this)
 {
-    return (MR_StdContainers_NonAssignable *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(_this)));
+    return (MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(_this)));
 }
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_iterator_Incr(MR_C_std_list_MR_StdContainers_NonAssignable_iterator *_this)

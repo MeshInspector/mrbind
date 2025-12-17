@@ -182,6 +182,9 @@ namespace mrbind
         // Clang will report it as `unsigned int` on Linux (not on Windows) if there are no negative constants.
         bool implicit_enum_underlying_type_is_always_int = false;
 
+        // If true, `using` declarations cause a copy of the member to be emitted in the derived class.
+        bool copy_members_for_using_decls = false;
+
         // Copy inherited members into the derived classes.
         bool copy_inherited_members = false;
 
@@ -537,9 +540,10 @@ namespace mrbind
 
     // Divides the input by the byte size.
     // Throws if not it's not a multiple of the byte size.
-    [[nodiscard]] auto DivideByByteSize(std::unsigned_integral auto n)
+    [[nodiscard]] auto DivideByByteSize(std::unsigned_integral auto n) -> decltype(n)
     {
         // For now we unconditionally assume byte size 8.
+        // Clang hardcodes the same thing in `ci->getTarget().getCharWidth()`, so whatever.
         if (n % 8 != 0)
             throw std::logic_error("Internal error: Expected the number to be a multiple of the byte size.");
         return n / 8;
@@ -1519,6 +1523,8 @@ namespace mrbind
                         case clang::RQ_RValue: basic_ret_class_func->ref_qualifier = RefQualifier::rvalue; break;
                     }
 
+                    basic_ret_class_func->is_virtual = method->isVirtual();
+
                     // Force instantiate body to know the true return type rather than `auto`.
                     (void)InstantiateReturnTypeIfNeeded(*ci, *decl);
 
@@ -1621,7 +1627,7 @@ namespace mrbind
                 new_class.is_polymorphic = cxxdecl->isPolymorphic();
                 new_class.is_abstract = cxxdecl->isAbstract();
                 new_class.is_standard_layout = cxxdecl->isStandardLayout();
-                new_class.is_trivially_copyable = cxxdecl->isStandardLayout();
+                new_class.is_trivially_copyable = cxxdecl->isTriviallyCopyable();
             }
 
             // Bases.
@@ -1773,7 +1779,6 @@ namespace mrbind
 
                     // Now the specific member kinds:
 
-                    // Those seem to be unnecessary, and they cause issues.
                     if (auto *elem = llvm::dyn_cast<clang::CXXConstructorDecl>(target))
                     {
                         // TryHandleImplicitCtor(elem); // Not needed and causes issues.
@@ -1790,8 +1795,14 @@ namespace mrbind
                         }
 
                         TraverseCXXConstructorDecl(elem);
+                        continue;
                     }
-                    else if (auto *elem = llvm::dyn_cast<clang::CXXMethodDecl>(target))
+
+                    // Everything other than constructors is hidden behind a flag.
+                    if (!params->copy_inherited_members)
+                        continue;
+
+                    if (auto *elem = llvm::dyn_cast<clang::CXXMethodDecl>(target))
                     {
                         // TryHandleImplicitAssignment(elem); // Not needed and causes issues.
 
@@ -2804,6 +2815,116 @@ namespace mrbind
                 CombineSimilarTypes(params->parsed_result, params->enable_cppdecl_processing ? MakeAdjustTypeNameFunc(params->adjust_type_name_flags) : MakeAdjustTypeNameFuncLegacyWithoutCppdecl(params->adjust_type_name_flags));
             }
 
+            { // Emit the information about built-in types. This is independent from everything else.
+                // Integral types:
+
+                // Whether to adjust the `[u]int64_t` types to point to `size_t` and `ptrdiff_t` instead.
+                // Currently the C parser doesn't even care about this, but it's still a good idea to emit "correct" (if you can say that) information
+                //   in the platform description.
+                const bool uint64_typedef_is_size_t = (params->canonicalize_to_fixed_size_typedefs || params->canonicalize_64_to_fixed_size_typedefs) && params->only_canonicalize_size_t_to_uint64_t;
+
+                struct IntEntry
+                {
+                    // Need our own names, since `TargetInfo::getTypeName()` uses a slightly different format.
+                    // E.g. it uses `long unsigned int`, but we want `unsigned long` (not only do we skip `int`, but also put `unsigned` before `long`).
+                    std::string_view name;
+
+                    bool is_typedef = false;
+
+                    clang::TargetInfo::IntType type;
+                };
+
+                for (IntEntry e : std::array{
+                    IntEntry{.name = "char",               .type = ci->getLangOpts().CharIsSigned ? clang::TargetInfo::IntType::SignedChar : clang::TargetInfo::IntType::UnsignedChar},
+                    IntEntry{.name = "signed char",        .type = clang::TargetInfo::IntType::SignedChar},
+                    IntEntry{.name = "unsigned char",      .type = clang::TargetInfo::IntType::UnsignedChar},
+                    IntEntry{.name = "short",              .type = clang::TargetInfo::IntType::SignedShort},
+                    IntEntry{.name = "unsigned short",     .type = clang::TargetInfo::IntType::UnsignedShort},
+                    IntEntry{.name = "int",                .type = clang::TargetInfo::IntType::SignedInt},
+                    IntEntry{.name = "unsigned int",       .type = clang::TargetInfo::IntType::UnsignedInt},
+                    IntEntry{.name = "long",               .type = clang::TargetInfo::IntType::SignedLong},
+                    IntEntry{.name = "unsigned long",      .type = clang::TargetInfo::IntType::UnsignedLong},
+                    IntEntry{.name = "long long",          .type = clang::TargetInfo::IntType::SignedLongLong},
+                    IntEntry{.name = "unsigned long long", .type = clang::TargetInfo::IntType::UnsignedLongLong},
+                    // Here `getTarget()` doesn't have consistent functions for different types.
+                    // And we can't use `getIntTypeByWidth()` for everything, because sometimes that's an ambiguity, and it would select the wrong thing.
+                    IntEntry{.name = "int8_t",             .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, true)},
+                    IntEntry{.name = "uint8_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, false)},
+                    IntEntry{.name = "int16_t",            .is_typedef = true, .type = ci->getTarget().getInt16Type()},
+                    IntEntry{.name = "uint16_t",           .is_typedef = true, .type = ci->getTarget().getUInt16Type()},
+                    IntEntry{.name = "int32_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, true)},
+                    IntEntry{.name = "uint32_t",           .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, false)},
+                    IntEntry{.name = "int64_t",            .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSignedSizeType() : ci->getTarget().getInt64Type()},
+                    IntEntry{.name = "uint64_t",           .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSizeType()       : ci->getTarget().getCorrespondingUnsignedType(ci->getTarget().getInt64Type())},
+                    IntEntry{.name = "ptrdiff_t",          .is_typedef = true, .type = ci->getTarget().getSignedSizeType()}, // There's also `getPtrDiffType(address_space)`, but it should be the same thing.
+                    IntEntry{.name = "size_t",             .is_typedef = true, .type = ci->getTarget().getSizeType()},
+                })
+                {
+                    params->parsed_result.platform_info.primitive_types.try_emplace(
+                        std::string(e.name),
+                        PrimitiveTypeInfo{
+                            .type_size      = DivideByByteSize(ci->getTarget().getTypeWidth(e.type)),
+                            .type_alignment = DivideByByteSize(ci->getTarget().getTypeAlign(e.type)),
+                            .typedef_for    =
+                                !e.is_typedef ? std::nullopt : std::optional(
+                                    e.type == clang::TargetInfo::IntType::SignedChar ? "signed char" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedChar ? "unsigned char" :
+                                    e.type == clang::TargetInfo::IntType::SignedShort ? "short" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedShort ? "unsigned short" :
+                                    e.type == clang::TargetInfo::IntType::SignedInt ? "int" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedInt ? "unsigned int" :
+                                    e.type == clang::TargetInfo::IntType::SignedLong ? "long" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedLong ? "unsigned long" :
+                                    e.type == clang::TargetInfo::IntType::SignedLongLong ? "long long" :
+                                    e.type == clang::TargetInfo::IntType::UnsignedLongLong ? "unsigned long long" :
+                                    throw std::runtime_error("The standard typedef `" + std::string(e.name) + "` expands to some weird type.")
+                                ),
+                            .kind           = ci->getTarget().isTypeSigned(e.type) ? PrimitiveTypeInfo::Kind::signed_integral : PrimitiveTypeInfo::Kind::unsigned_integral,
+                        }
+                    );
+                }
+
+                // Floating-point types:
+
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "float",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getFloatWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getFloatAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                    }
+                );
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "double",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getDoubleWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getDoubleAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                    }
+                );
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "long double",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getLongDoubleWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getLongDoubleAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                    }
+                );
+
+                // Also add the bool.
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    "bool",
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getBoolWidth()),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getBoolAlign()),
+                        .kind           = PrimitiveTypeInfo::Kind::boolean,
+                    }
+                );
+
+                // Pointers:
+                params->parsed_result.platform_info.pointer_size = DivideByByteSize(ci->getTarget().PointerWidth);
+                params->parsed_result.platform_info.pointer_alignment = DivideByByteSize(ci->getTarget().PointerAlign);
+            }
 
             // Multiplex the output between several files, if needed.
             std::vector<ParsedFile> multiplexed_data = MultiplexData(std::move(params->parsed_result), params->output_filenames.size());
@@ -2811,10 +2932,9 @@ namespace mrbind
             // Write the output.
             for (std::size_t i = 0; i < multiplexed_data.size(); i++)
             {
-                std::error_code ec;
-                llvm::raw_fd_stream out(params->output_filenames.at(i), ec);
-                if (ec)
-                    throw std::runtime_error("Unable to open output file: " + ec.message());
+                std::ofstream out(MakePath(params->output_filenames.at(i)));
+                if (!out)
+                    throw std::runtime_error("Unable to open output file: `" + params->output_filenames.at(i) + "`.");
 
                 switch (params->output_format)
                 {
@@ -2829,6 +2949,9 @@ namespace mrbind
                     mrbind::ParsedFileToMacros(multiplexed_data[i], out);
                     break;
                 }
+
+                if (!out)
+                    throw std::runtime_error("Write error to output file: `" + params->output_filenames.at(i) + "`.");
             }
         }
     };

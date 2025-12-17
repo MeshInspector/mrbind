@@ -38,8 +38,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    generator.EmitComment(file.header, "\n/// Stores two objects: `" + generator.CppdeclToCodeForComments(cpp_elem_type_a) + "` and `" + generator.CppdeclToCodeForComments(cpp_elem_type_a) + "`.\n");
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, "/// Stores two objects: `" + generator.CppdeclToCodeForComments(cpp_elem_type_a) + "` and `" + generator.CppdeclToCodeForComments(cpp_elem_type_a) + "`.\n");
 
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);
@@ -47,7 +46,7 @@ namespace mrbind::CBindings::Modules
                     { // Elementwise constructor.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Constructs the pair elementwise.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Construct");
+                        emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{});
                         emit.cpp_return_type = type;
                         emit.params.push_back({
                             .name = "first",
@@ -77,7 +76,7 @@ namespace mrbind::CBindings::Modules
                     { // first, const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, read-only.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "First");
+                        emit.name = binder.MakeMemberFuncName(generator, "First");
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_a, true);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                         emit.cpp_called_func = "@this@.first";
@@ -85,11 +84,11 @@ namespace mrbind::CBindings::Modules
                     }
 
                     // first, mutable
-                    if (!cpp_elem_type_a.IsConstOrReference())
+                    if (!cpp_elem_type_a.IsEffectivelyConst())
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, mutable.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "MutableFirst");
+                        emit.name = binder.MakeMemberFuncName(generator, "MutableFirst");
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_a, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.first";
@@ -99,7 +98,7 @@ namespace mrbind::CBindings::Modules
                     { // second, const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, read-only.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Second");
+                        emit.name = binder.MakeMemberFuncName(generator, "Second");
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_b, true);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                         emit.cpp_called_func = "@this@.second";
@@ -107,11 +106,11 @@ namespace mrbind::CBindings::Modules
                     }
 
                     // second, mutable
-                    if (!cpp_elem_type_b.IsConstOrReference())
+                    if (!cpp_elem_type_b.IsEffectivelyConst())
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, mutable.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "MutableSecond");
+                        emit.name = binder.MakeMemberFuncName(generator, "MutableSecond");
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_b, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.second";

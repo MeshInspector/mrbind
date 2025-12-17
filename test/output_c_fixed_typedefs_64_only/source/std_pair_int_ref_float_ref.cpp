@@ -2,6 +2,7 @@
 #include "std_pair_int_ref_float_ref.h"
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 
@@ -36,11 +37,11 @@ MR_C_std_pair_int_ref_float_ref *MR_C_std_pair_int_ref_float_ref_Construct(int *
 
 int *MR_C_std_pair_int_ref_float_ref_First(const MR_C_std_pair_int_ref_float_ref *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &, float &> *)(_this)).first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &, float &> *)(_this)).first);
 }
 
 float *MR_C_std_pair_int_ref_float_ref_Second(const MR_C_std_pair_int_ref_float_ref *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &, float &> *)(_this)).second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &, float &> *)(_this)).second);
 }
 

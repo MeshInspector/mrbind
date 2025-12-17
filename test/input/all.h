@@ -1,5 +1,6 @@
 #include <input/MR/1.h>
 #include <input/MR/2.h>
+#include <input/MR/_common.h>
 #include <input/MR/test_abstract_classes.h>
 #include <input/MR/test_adjusting_names.h>
 #include <input/MR/test_aggregates.h>
@@ -8,9 +9,13 @@
 #include <input/MR/test_bases.h>
 #include <input/MR/test_conv_ops.h>
 #include <input/MR/test_copy_inherited_members.h>
+#include <input/MR/test_csharp.h>
 #include <input/MR/test_custom_preferred_names.h>
 #include <input/MR/test_declaration_order.h>
 #include <input/MR/test_deprecation.h>
+#include <input/MR/test_includes_for_enum_constants_2.h>
+#include <input/MR/test_includes_for_enum_constants_3.h>
+#include <input/MR/test_includes_for_enum_constants.h>
 #include <input/MR/test_iostream.h>
 #include <input/MR/test_matching_layout.h>
 #include <input/MR/test_member_vars.h>

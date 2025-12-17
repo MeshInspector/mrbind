@@ -5,6 +5,7 @@
 #include <input/MR/test_std_containers.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <unordered_set>
 
@@ -148,7 +149,7 @@ MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_u
 
 const MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Deref(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
-    return (const MR_StdContainers_NonAssignable *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
+    return (const MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
 }
 
 void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Incr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)

@@ -4,6 +4,7 @@
 #include <input/MR/test_simple_types.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -58,7 +59,7 @@ void MR_TestSimpleTypes_SetIntPtrDefNull(int *_1)
 
 int *MR_TestSimpleTypes_GetIntRef(void)
 {
-    return &(::MR::TestSimpleTypes::GetIntRef());
+    return std::addressof(::MR::TestSimpleTypes::GetIntRef());
 }
 
 void MR_TestSimpleTypes_SetIntRef(int *_1)
@@ -212,7 +213,7 @@ void MR_TestSimpleTypes_SetEnumPtrDefNull(MR_TestSimpleTypes_E *_1)
 
 MR_TestSimpleTypes_E *MR_TestSimpleTypes_GetEnumRef(void)
 {
-    return (MR_TestSimpleTypes_E *)&(::MR::TestSimpleTypes::GetEnumRef());
+    return (MR_TestSimpleTypes_E *)std::addressof(::MR::TestSimpleTypes::GetEnumRef());
 }
 
 void MR_TestSimpleTypes_SetEnumRef(MR_TestSimpleTypes_E *_1)
@@ -282,7 +283,7 @@ void MR_TestSimpleTypes_SetEnum2PtrDefNull(MR_TestSimpleTypes_E2 *_1)
 
 MR_TestSimpleTypes_E2 *MR_TestSimpleTypes_GetEnum2Ref(void)
 {
-    return (MR_TestSimpleTypes_E2 *)&(::MR::TestSimpleTypes::GetEnum2Ref());
+    return (MR_TestSimpleTypes_E2 *)std::addressof(::MR::TestSimpleTypes::GetEnum2Ref());
 }
 
 void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1)
@@ -301,9 +302,9 @@ void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
     );
 }
 
-void MR_TestSimpleTypes_CheckChar_char_ptr(char *_1)
+void MR_TestSimpleTypes_CheckCharMaybeUnsigned(char *_1)
 {
-    ::MR::TestSimpleTypes::CheckChar(
+    ::MR::TestSimpleTypes::CheckCharMaybeUnsigned(
         _1
     );
 }
@@ -359,7 +360,7 @@ int MR_TestSimpleTypes_FuncTemplate_int(int _1)
 
 const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Get_var_unsigned_long(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
+    return std::addressof(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
 }
 
 void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(unsigned long value)
@@ -369,7 +370,7 @@ void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(unsign
 
 unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long(void)
 {
-    return &(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
+    return std::addressof(MR::TestSimpleTypes::ClassTemplate<unsigned long>::var<unsigned long>);
 }
 
 MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other)
@@ -415,7 +416,7 @@ void MR_TestSimpleTypes_ClassTemplate_unsigned_long_DestroyArray(const MR_TestSi
 
 MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this, const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other)
 {
-    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).operator=(
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other))
     ));
 }

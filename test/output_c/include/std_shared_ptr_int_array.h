@@ -9,10 +9,13 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_shared_ptr_const_void MR_C_std_shared_ptr_const_void; // Defined in `#include <std_shared_ptr_const_void.h>`.
+typedef struct MR_C_std_shared_ptr_void MR_C_std_shared_ptr_void; // Defined in `#include <std_shared_ptr_void.h>`.
+
 
 /// Wraps a pointer to a shared reference-counted heap-allocated array of type `int`, of an unspecified size.
 /// Doesn't store the size, it has to be obtained separately.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_shared_ptr_int_array MR_C_std_shared_ptr_int_array;
 
 /// Constructs an empty (default-constructed) instance.
@@ -62,13 +65,40 @@ MR_C_API int MR_C_std_shared_ptr_int_array_UseCount(const MR_C_std_shared_ptr_in
 /// Create a new instance, taking ownership of an existing pointer.
 /// Parameter `ptr` can point to an array.
 /// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_C_FreeArray()` on it automatically.
-MR_C_API void MR_C_std_shared_ptr_int_array_Construct(int *ptr);
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_array_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_Construct(int *ptr);
 
 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `ptr` can point to an array.
 /// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_C_FreeArray()` on it automatically.
 MR_C_API void MR_C_std_shared_ptr_int_array_Assign(MR_C_std_shared_ptr_int_array *_this, int *ptr);
+
+/// Create a new instance, storing a non-owning pointer.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_array_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_ConstructNonOwning(int *ptr);
+
+/// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_int_array_AssignNonOwning(MR_C_std_shared_ptr_int_array *_this, int *ptr);
+
+/// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
+/// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_array_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int *ptr);
+
+/// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
+/// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_int_array_AssignAliasing(MR_C_std_shared_ptr_int_array *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int *ptr);
+
+/// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_void_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_int_array(MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_int_array *_other);
+
+/// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_int_array(MR_C_std_shared_ptr_void *_this, MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_int_array *_other);
 
 #ifdef __cplusplus
 } // extern "C"

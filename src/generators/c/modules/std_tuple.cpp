@@ -43,7 +43,7 @@ namespace mrbind::CBindings::Modules
                 if (is_new)
                 {
                     std::string comment;
-                    comment += "\n/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
+                    comment += "/// Stores " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
                         if (first)
@@ -54,10 +54,8 @@ namespace mrbind::CBindings::Modules
                         comment += '`' + generator.CppdeclToCodeForComments(elem_type) + '`';
                     }
                     comment += ".\n";
-                    generator.EmitComment(file.header, comment);
 
-
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, std::move(comment));
 
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);
@@ -67,7 +65,8 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Constructs the tuple elementwise.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Construct");
+                        // Does this need to be explicit? Probably only matters if there's a single element, and even then I don't think it's really necessary.
+                        emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{});
                         emit.cpp_return_type = type;
                         for (std::size_t i = 0; i < elem_types.size(); i++)
                         {
@@ -100,7 +99,7 @@ namespace mrbind::CBindings::Modules
                         {
                             for (bool is_const : {true, false})
                             {
-                                if (!is_const && elem_types[i].IsConstOrReference())
+                                if (!is_const && elem_types[i].IsEffectivelyConst())
                                     continue;
 
                                 std::string name = "Get";
@@ -118,7 +117,7 @@ namespace mrbind::CBindings::Modules
 
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ".";
-                                emit.c_name = binder.MakeMemberFuncName(generator, name);
+                                emit.name = binder.MakeMemberFuncName(generator, name);
                                 emit.cpp_return_type = elem_types[i];
                                 if (!emit.cpp_return_type.Is<cppdecl::Reference>())
                                 {

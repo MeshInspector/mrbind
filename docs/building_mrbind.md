@@ -55,6 +55,8 @@ Then build with CMake. Use the same Clang compiler that provides the parsing lib
 
   Just `cmake -B build && cmake --build build -j$(nproc)` as usual.
 
+If you get errors like `/usr/bin/ld: /usr/bin/ld: DWARF error: invalid or unhandled FORM value: 0x23`, switch to the LLD linker via `-DCMAKE_LINKER_TYPE=LLD`.
+
 ---
 
 After successful compilation, proceed to [running the parser on your code](/docs/running_parser.md).

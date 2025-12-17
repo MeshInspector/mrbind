@@ -3,6 +3,7 @@
 
 #pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
+#include <common.h>
 #include <exports.h>
 #pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
@@ -25,6 +26,9 @@ typedef struct MR_MatchingLayout_A
 
     // third
     float c;
+    MR_C_int64_t ll;
+    int32_t arr[3];
+    int32_t arr2d[4][5];
 } MR_MatchingLayout_A;
 
 // Generated from class `MR::MatchingLayout::B`.
@@ -34,6 +38,20 @@ typedef struct MR_MatchingLayout_B
     MR_MatchingLayout_A a;
     char y;
 } MR_MatchingLayout_B;
+
+// Having static fields is not an error! Those get their normal getters and setters.
+// Returns a pointer to a member variable of class `MR::MatchingLayout::A` named `x`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int32_t *MR_MatchingLayout_A_Get_x(void);
+
+// Having static fields is not an error! Those get their normal getters and setters.
+// Modifies a member variable of class `MR::MatchingLayout::A` named `x`.
+MR_C_API void MR_MatchingLayout_A_Set_x(int32_t value);
+
+// Having static fields is not an error! Those get their normal getters and setters.
+// Returns a mutable pointer to a member variable of class `MR::MatchingLayout::A` named `x`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t *MR_MatchingLayout_A_GetMutable_x(void);
 
 // Constructs an empty (default-constructed) instance.
 MR_C_API MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void);

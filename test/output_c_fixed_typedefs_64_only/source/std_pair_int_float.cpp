@@ -2,6 +2,7 @@
 #include "std_pair_int_float.h"
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 
@@ -60,21 +61,21 @@ MR_C_std_pair_int_float *MR_C_std_pair_int_float_Construct(int first, float seco
 
 const int *MR_C_std_pair_int_float_First(const MR_C_std_pair_int_float *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int, float> *)(_this)).first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int, float> *)(_this)).first);
 }
 
 int *MR_C_std_pair_int_float_MutableFirst(MR_C_std_pair_int_float *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, float> *)(_this)).first);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, float> *)(_this)).first);
 }
 
 const float *MR_C_std_pair_int_float_Second(const MR_C_std_pair_int_float *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int, float> *)(_this)).second);
 }
 
 float *MR_C_std_pair_int_float_MutableSecond(MR_C_std_pair_int_float *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, float> *)(_this)).second);
 }
 

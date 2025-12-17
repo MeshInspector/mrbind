@@ -1,5 +1,7 @@
 #pragma once
 
+#include "_common.h"
+
 #include <cstddef>
 #include <cstdint>
 
@@ -80,11 +82,11 @@ namespace MR::TestSimpleTypes
     enum class E4 : unsigned int {};
 
     // This will use a custom typedef for the underlying type, if that's enabled!
-    enum class E5 : std::int64_t {};
+    enum class E5 : MRint64 {};
 
 
     // Test all kinds of `char`.
-    void CheckChar(char *);
+    void CheckCharMaybeUnsigned(char *); // This needs a different name than the other two specifically in C#, since C# only has two byte types, signed and unsigned.
     void CheckChar(unsigned char *);
     void CheckChar(signed char *);
 

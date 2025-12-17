@@ -1,39 +1,19 @@
 #pragma once
 
 #include <filesystem>
+#include <optional>
 
 namespace mrbind
 {
     // Make path from a UTF-8 string.
-    [[nodiscard]] inline std::filesystem::path MakePath(std::string_view string)
-    {
-        #ifdef __GNUC__
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        #endif
-        // No good alternative to the deprecated `u8path()`.
-        return std::filesystem::u8path(string);
-        #ifdef __GNUC__
-        #pragma GCC diagnostic pop
-        #endif
-    }
+    [[nodiscard]] std::filesystem::path MakePath(std::string_view string);
 
     // Convert a path to an UTF-8 string.
-    [[nodiscard]] inline std::string PathToString(const std::filesystem::path &path)
-    {
-        auto ret_u8 = path.u8string();
-        std::string str(std::string_view(reinterpret_cast<const char *>(ret_u8.c_str()), ret_u8.size()));
+    [[nodiscard]] std::string PathToString(const std::filesystem::path &path);
 
-        // On Windows, replace `\` -> `/`.
-        // This helps us with the generated `#include` paths in C bindings, among other things.
-        #ifdef _WIN32
-        for (char &ch : str)
-        {
-            if (ch == '\\')
-                ch = '/';
-        }
-        #endif
-
-        return str;
-    }
+    // Prepares an output directory. If it doesn't exist, creates it.
+    // If it already exists but isn't a directory, throws.
+    // If it already exists but isn't empty, either destroys the content if `flag_to_clean` is empty,
+    //   or otherwise throws and says that this flag is needed to clean the directory.
+    void PrepareOutputDir(const std::filesystem::path &dir_path, std::string_view flag_to_clean);
 }

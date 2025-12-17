@@ -6,6 +6,7 @@
 #include <input/MR/test_std_containers.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -96,14 +97,14 @@ void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ShrinkToFit(MR_C_s
 
 const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_At(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t i)
 {
-    return (const MR_StdContainers_NonDefaultConstructible *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).at(
+    return (const MR_StdContainers_NonDefaultConstructible *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).at(
         i
     ));
 }
 
 MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableAt(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t i)
 {
-    return (MR_StdContainers_NonDefaultConstructible *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).at(
+    return (MR_StdContainers_NonDefaultConstructible *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).at(
         i
     ));
 }
@@ -327,7 +328,7 @@ MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C_std_vect
 
 const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Deref(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *_this)
 {
-    return (const MR_StdContainers_NonDefaultConstructible *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator *)(_this)));
+    return (const MR_StdContainers_NonDefaultConstructible *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Incr(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *_this)
@@ -352,7 +353,7 @@ ptrdiff_t MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterato
 
 MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Deref(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *_this)
 {
-    return (MR_StdContainers_NonDefaultConstructible *)&(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonDefaultConstructible>::iterator *)(_this)));
+    return (MR_StdContainers_NonDefaultConstructible *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonDefaultConstructible>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Incr(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *_this)

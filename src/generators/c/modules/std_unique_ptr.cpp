@@ -74,7 +74,7 @@ namespace mrbind::CBindings::Modules
                     if (!generator.FindTypeTraits(cpp_elem_type_minus_array_unqual).is_destructible)
                         throw std::runtime_error("Type `" + generator.CppdeclToCode(cpp_elem_type_minus_array_unqual) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
 
-                    func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound);
+                    func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound).c;
                 }
                 else if (
                     // This is a rough heuristic to allow only trivially destructible types.
@@ -83,6 +83,7 @@ namespace mrbind::CBindings::Modules
                     //   but isn't handled by `IsBuiltInTypeName()`, because it isn't, well, built-in.)
                     // And also we use `TypeNameIsCBuiltIn()`, but this should probably handle C++ types too (like `std::nullptr_t`?).
                     // We we'll either another function or somet flag for `TypeNameIsCBuiltIn()`?
+                    cpp_elem_type_minus_array_unqual.AsSingleWord() == "void" ||
                     cpp_elem_type_minus_array_unqual.Is<cppdecl::Pointer>() ||
                     (
                         cpp_elem_type_minus_array_unqual.IsOnlyQualifiedName() &&
@@ -92,7 +93,7 @@ namespace mrbind::CBindings::Modules
                 {
                     // Those are trivially destructible, so recommend the generic deallocation functions.
 
-                    func_name_destroy_released_ptr = generator.GetMemoryDeallocFuncName(is_array_of_unknown_bound, nullptr);
+                    func_name_destroy_released_ptr = generator.GetMemoryDeallocFuncName(is_array_of_unknown_bound, nullptr).c;
                     include_common_header_in_output_header = true; // Include the header that declares this deallocation function.
                 }
                 else
@@ -122,19 +123,18 @@ namespace mrbind::CBindings::Modules
                     if (include_common_header_in_output_header)
                         file.source.custom_headers.insert(generator.GetCommonPublicHelpersFile()->header.path_for_inclusion);
 
+                    std::string comment;
                     if (is_array_of_unknown_bound)
                     {
-                        generator.EmitComment(file.header,
-                            "\n"
+                        comment =
                             "/// Wraps a pointer to a heap-allocated array of type `" + generator.CppdeclToCodeForComments(cpp_elem_type_minus_array) + "`, of an unspecified size.\n"
-                            "/// Doesn't store the size, it has to be obtained separately.\n"
-                        );
+                            "/// Doesn't store the size, it has to be obtained separately.\n";
                     }
                     else
                     {
-                        generator.EmitComment(file.header, "\n/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n");
+                        comment = "/// Wraps a pointer to a single heap-allocated `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`.\n";
                     }
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, std::move(comment));
 
                     // The special member functions.
                     binder.EmitSpecialMemberFunctions(generator, file, true);
@@ -151,7 +151,7 @@ namespace mrbind::CBindings::Modules
                     { // Get pointer. Doesn't propagate const, since `std::unique_ptr` doesn't too.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the stored pointer, possibly null.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Get");
+                        emit.name = binder.MakeMemberFuncName(generator, "Get");
 
                         emit.cpp_return_type = underlying_ptr_type;
 
@@ -167,7 +167,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns an element from the stored array. The stored pointer must not be null.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "At");
+                        emit.name = binder.MakeMemberFuncName(generator, "At");
 
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Reference{});
 
@@ -192,7 +192,7 @@ namespace mrbind::CBindings::Modules
                             "/// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.\n"
                             "/// The returned pointer is owning! It must be deallocated using `" + func_name_destroy_released_ptr + "()`.";
 
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Release");
+                        emit.name = binder.MakeMemberFuncName(generator, "Release");
 
                         emit.cpp_return_type = underlying_ptr_type;
 
@@ -269,6 +269,7 @@ namespace mrbind::CBindings::Modules
 
                         return ret;
                     };
+                param_usage.considered_sugar_for_interop = true;
 
                 // Param usage with the default argument:
                 auto underlying_c_ptr_to_ptr_type = underlying_c_ptr_type;
@@ -339,6 +340,8 @@ namespace mrbind::CBindings::Modules
                     };
 
                 param_usage_defarg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
+                param_usage_defarg.considered_sugar_for_interop = true;
+
                 new_type.is_useless_default_argument = CheckPointerDefaultArgumentForNullptr;
 
 
@@ -365,6 +368,7 @@ namespace mrbind::CBindings::Modules
                         ret += ").release()";
                         return ret;
                     };
+                new_type.return_usage->considered_sugar_for_interop = true; // The automatic releasing is sugar!
 
                 new_type.return_usage->append_to_comment = [func_name_destroy_released_ptr](std::string_view callback_param_name) -> std::string
                 {

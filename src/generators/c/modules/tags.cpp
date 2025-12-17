@@ -29,85 +29,10 @@ namespace mrbind::CBindings::Modules
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
         {
-            (void)generator; // Heh.
             (void)type_str;
-
-            std::optional<Generator::BindableType> ret;
-
-            { // Check against the list of known types.
-                if (!type.simple_type.IsOnlyQualifiedName(cppdecl::SingleWordFlags::ignore_const))
-                    return ret; // Hmm.
-                if (
-                    !(
-                        type.modifiers.size() == 0 ||
-                        (
-                            type.modifiers.size() == 1 &&
-                            (
-                                (
-                                    type.Is<cppdecl::Reference>() &&
-                                    (
-                                        // Only accept const or rvalue references.
-                                        // Because non-const lvalue references don't accept default-constructed rvalues (what else would we do with them?).
-                                        type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue ||
-                                        bool(type.simple_type.quals & cppdecl::CvQualifiers::const_)
-                                    )
-                                ) ||
-                                // Pointers get some limited bindings too (get returned as bools, and that's all).
-                                type.Is<cppdecl::Pointer>()
-                            )
-                        )
-                    )
-                )
-                {
-                    return ret; // Neither a qualified-name only, nor a reference to one.
-                }
-
-                if (std::none_of(targets.begin(), targets.end(), [&](const Target &target){return type.simple_type.name.Equals(target.name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);}))
-                    return ret; // Not a matching type.
-            }
-
-
-            Generator::BindableType &binding = ret.emplace();
-
-            binding.traits = Generator::TypeTraits::TrivialButDifferentSizeInCAndCpp{};
-
-
-            // Entirely custom logic for pointers.
-            // They get replaced with `bool` when returned, and don't support being passed as parameters.
-            if (type.Is<cppdecl::Pointer>())
-            {
-                Generator::BindableType::ReturnUsage &return_usage = binding.return_usage.emplace();
-                return_usage.c_type = cppdecl::Type::FromSingleWord("bool");
-                return_usage.extra_headers.stdlib_in_header_file = {"stdbool.h"};
-                return ret; // That's all.
-            }
-
-
-            if (!type.Is<cppdecl::Reference>())
-            {
-                // The return usage only works for non-references.
-                Generator::BindableType::ReturnUsage &return_usage = binding.return_usage.emplace();
-                return_usage.c_type = cppdecl::Type::FromSingleWord("void");
-            }
-
-            binding.is_useless_default_argument = [](std::string_view) -> std::optional<std::string> {return "";}; // Always ignore default arguments.
-
-            // No actual default argument support, since all of them are rejected by `is_useless_default_argument`.
-            // This interacts nicely with `std::optional` bindings too, those would reject this class (as the element type) as expected.
-            Generator::BindableType::ParamUsage &param_usage = binding.param_usage_with_default_arg.emplace();
-            // Return a default-constructed instance, that's all. Don't add any `c_params`.
-            param_usage.c_params_to_cpp = [
-                ret = generator.CppdeclToCode(type.simple_type, {}, cppdecl::CvQualifiers::const_) + "{}"
-            ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg) -> std::string
-            {
-                (void)source_file;
-                (void)cpp_param_name;
-                (void)default_arg;
-
-                return ret;
-            };
-
-            return ret;
+            if (std::none_of(targets.begin(), targets.end(), [&](const Target &target) {return type.simple_type.name.Equals(target.name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);}))
+                return {};
+            return MakeEmptyTagBinding(generator, type);
         }
 
         std::optional<std::string> GetCppIncludeForQualifiedName(Generator &generator, const cppdecl::QualifiedName &name) override

@@ -244,6 +244,7 @@ namespace mrbind
         MBREFL_STRUCT(
             (bool)(is_const, false)
             (RefQualifier)(ref_qualifier, RefQualifier::none)
+            (bool)(is_virtual, false)
 
             (std::optional<DeclInheritedFrom>)(inherited_from)
         , // Bases:
@@ -729,6 +730,61 @@ namespace mrbind
         }
     };
 
+    struct PrimitiveTypeInfo
+    {
+        MBREFL_ENUM_IN_CLASS( Kind,
+            (signed_integral)
+            (unsigned_integral)
+            (floating_point)
+            (boolean)
+        )
+
+        MBREFL_STRUCT(
+            (std::size_t)(type_size)
+            (std::size_t)(type_alignment)
+            (std::optional<std::string>)(typedef_for, {})
+            (Kind)(kind, {})
+        )
+    };
+
+    // Describes the current platform and doesn't depend on anything else.
+    struct PlatformInfo
+    {
+        MBREFL_STRUCT(
+            // Don't read directly, use `FindPrimitiveType()`.
+            // The list of types here is hardcoded by us, and includes both integral and floating-point arithmetic types,
+            //   and also some standard typedefs without the `std::` prefix.
+            (std::map<std::string, PrimitiveTypeInfo, std::less<>>)(primitive_types)
+
+            (std::size_t)(pointer_size, std::size_t(-1))
+            (std::size_t)(pointer_alignment, std::size_t(-1))
+        )
+
+        // Finds information about a primitive type, or returns null if unknown.
+        // Use this instead of accessing `primitive_types` directly, because this automatically handles the optional `std::` namespace.
+        [[nodiscard]] const PrimitiveTypeInfo *FindPrimitiveType(std::string_view name)
+        {
+            bool had_namespace = false;
+
+            // Strip the `std::` namespace.
+            // We don't handle the `::` prefix yet, it's probably useless.
+            if (name.starts_with("std::"))
+            {
+                had_namespace = true;
+                name.remove_prefix(5);
+            }
+
+            auto iter = primitive_types.find(name);
+            if (iter == primitive_types.end())
+                return nullptr;
+
+            if (had_namespace && !iter->second.typedef_for)
+                return nullptr; // Only typedefs can have the `std::` namespace.
+
+            return &iter->second;
+        }
+    };
+
     // ---
 
     struct ParsedFile
@@ -762,6 +818,9 @@ namespace mrbind
             // Normally the nested maps only have one key, with the same value as the enclosing key.
             // This stops being true when similar types are combined, then the outer map will only contain simplified type names, and the inner maps will contain all the original variant spellings of it.
             (std::map<std::string, std::map<std::string, TypeInformation, std::less<>>, std::less<>>)(type_info)
+
+            // Describes the current platform. Independent from everything else.
+            (PlatformInfo)(platform_info)
         )
     };
 

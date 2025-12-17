@@ -1,3 +1,4 @@
 -Iinclude
 -Isource
 -I..
+-std=c++23

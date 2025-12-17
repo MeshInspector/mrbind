@@ -91,4 +91,32 @@ namespace MR::StdContainers
     inline std::unordered_map     <NonAssignable, float> GetUnorderedMapNA     () {return std::unordered_map     <NonAssignable, float>{};}
     inline std::unordered_multimap<NonAssignable, float> GetUnorderedMultiMapNA() {return std::unordered_multimap<NonAssignable, float>{};}
     inline std::array             <NonAssignable, 42>    GetStdArrayNA         () {return std::array             <NonAssignable, 42>{};}
+
+    // Fun stuff!
+    // The type name is a bit weird for this, but at least it works.
+    inline std::array<int[3][4], 5> GetStdArrayOfPlainArray() {return {};}
+
+
+    // All of those perfectly valid usecases explode due to circular includes: https://github.com/MeshInspector/mrbind/issues/25
+    #if 0
+    enum class E1 {};
+    inline std::array<E1, 3> GetStdArrayE1() {return {};}
+
+    enum class E2 : unsigned short {};
+    inline std::array<E2, 3> GetStdArrayE2() {return {};}
+
+    inline std::array<std::array<E2, 4>, 3> GetStdArrayStdArrayE2() {return {};}
+
+    struct SimpleStruct
+    {
+        int x;
+        float y;
+    };
+    inline std::array<SimpleStruct, 3> GetStdArraySimpleStruct() {return {};}
+
+    struct StructWithArray
+    {
+        std::array<int, 5> arr;
+    };
+    #endif
 }

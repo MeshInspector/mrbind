@@ -12,7 +12,7 @@ typedef struct MR_StdContainers_A MR_StdContainers_A; // Defined in `#include <M
 
 
 /// A fixed-size array of `MR::StdContainers::A` of size 42.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_array_MR_StdContainers_A_42 MR_C_std_array_MR_StdContainers_A_42;
 
 /// Constructs an empty (default-constructed) instance.

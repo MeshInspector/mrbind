@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <stdexcept>
 
 
@@ -48,7 +49,7 @@ void MR_NestedTemplateInst_A_int32_t_DestroyArray(const MR_NestedTemplateInst_A_
 
 MR_NestedTemplateInst_A_int32_t *MR_NestedTemplateInst_A_int32_t_AssignFromAnother(MR_NestedTemplateInst_A_int32_t *_this, const MR_NestedTemplateInst_A_int32_t *_other)
 {
-    return (MR_NestedTemplateInst_A_int32_t *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTemplateInst::A<int32_t> *)(_this)).operator=(
+    return (MR_NestedTemplateInst_A_int32_t *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTemplateInst::A<int32_t> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTemplateInst::A<int32_t>(*(MR::NestedTemplateInst::A<int32_t> *)_other))
     ));
 }
@@ -92,7 +93,7 @@ void MR_NestedTemplateInst_A_int32_t_AA_float_DestroyArray(const MR_NestedTempla
 
 MR_NestedTemplateInst_A_int32_t_AA_float *MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother(MR_NestedTemplateInst_A_int32_t_AA_float *_this, const MR_NestedTemplateInst_A_int32_t_AA_float *_other)
 {
-    return (MR_NestedTemplateInst_A_int32_t_AA_float *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTemplateInst::A<int32_t>::AA<float> *)(_this)).operator=(
+    return (MR_NestedTemplateInst_A_int32_t_AA_float *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTemplateInst::A<int32_t>::AA<float> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTemplateInst::A<int32_t>::AA<float>(*(MR::NestedTemplateInst::A<int32_t>::AA<float> *)_other))
     ));
 }

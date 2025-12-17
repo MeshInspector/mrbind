@@ -4,6 +4,7 @@
 #include <input/MR/test_adjusting_names.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -19,7 +20,7 @@ void MR_AdjustingNames_bar(void)
 
 const unsigned long *MR_AdjustingNames_A_Get_var_unsigned_long(void)
 {
-    return &(MR::AdjustingNames::A::var<unsigned long>);
+    return std::addressof(MR::AdjustingNames::A::var<unsigned long>);
 }
 
 void MR_AdjustingNames_A_Set_var_unsigned_long(unsigned long value)
@@ -29,7 +30,7 @@ void MR_AdjustingNames_A_Set_var_unsigned_long(unsigned long value)
 
 unsigned long *MR_AdjustingNames_A_GetMutable_var_unsigned_long(void)
 {
-    return &(MR::AdjustingNames::A::var<unsigned long>);
+    return std::addressof(MR::AdjustingNames::A::var<unsigned long>);
 }
 
 MR_AdjustingNames_A *MR_AdjustingNames_A_DefaultConstruct(void)
@@ -76,7 +77,7 @@ unsigned long MR_AdjustingNames_A_ConvertTo_unsigned_long(MR_AdjustingNames_A *_
 
 MR_AdjustingNames_A *MR_AdjustingNames_A_AssignFromAnother(MR_AdjustingNames_A *_this, const MR_AdjustingNames_A *_other)
 {
-    return (MR_AdjustingNames_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).operator=(
+    return (MR_AdjustingNames_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
     ));
 }

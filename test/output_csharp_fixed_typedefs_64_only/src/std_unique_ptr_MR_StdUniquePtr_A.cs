@@ -1,0 +1,160 @@
+public static partial class MR
+{
+    public static partial class CS
+    {
+        public static partial class Std
+        {
+            /// Wraps a pointer to a single heap-allocated `MR::StdUniquePtr::A`.
+            /// This is the const half of the class.
+            public class Const_UniquePtr_MRStdUniquePtrA : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying; // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_UniquePtr_MRStdUniquePtrA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Destroy(_Underlying *_this);
+                    __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_UniquePtr_MRStdUniquePtrA() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_UniquePtr_MRStdUniquePtrA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
+                    _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
+                }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe Const_UniquePtr_MRStdUniquePtrA(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(other._UnderlyingPtr);
+                }
+
+                /// Constructs a new instance.
+                public unsafe Const_UniquePtr_MRStdUniquePtrA(void *other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(void *other);
+                    _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(other);
+                }
+
+                /// Constructs a new instance.
+                public static unsafe implicit operator Const_UniquePtr_MRStdUniquePtrA(void *other) {return new(other);}
+
+                /// Returns the stored pointer, possibly null.
+                public unsafe MR.CS.StdUniquePtr.A? Get()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get", ExactSpelling = true)]
+                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(_Underlying *_this);
+                    var __ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(_UnderlyingPtr);
+                    return __ret is not null ? new MR.CS.StdUniquePtr.A(__ret, is_owning: false) : null;
+                }
+            }
+
+            /// Wraps a pointer to a single heap-allocated `MR::StdUniquePtr::A`.
+            /// This is the non-const half of the class.
+            public class UniquePtr_MRStdUniquePtrA : Const_UniquePtr_MRStdUniquePtrA
+            {
+                internal unsafe UniquePtr_MRStdUniquePtrA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe UniquePtr_MRStdUniquePtrA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
+                    _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
+                }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe UniquePtr_MRStdUniquePtrA(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(other._UnderlyingPtr);
+                }
+
+                /// Constructs a new instance.
+                public unsafe UniquePtr_MRStdUniquePtrA(void *other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(void *other);
+                    _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(other);
+                }
+
+                /// Constructs a new instance.
+                public static unsafe implicit operator UniquePtr_MRStdUniquePtrA(void *other) {return new(other);}
+
+                /// Assigns the contents from another instance. Both objects remain alive after the call.
+                public unsafe void Assign(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother", ExactSpelling = true)]
+                    extern static void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
+                    __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
+                }
+
+                /// Assigns the contents.
+                public unsafe void Assign(void *other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom", ExactSpelling = true)]
+                    extern static void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom(_Underlying *_this, void *other);
+                    __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom(_UnderlyingPtr, other);
+                }
+
+                /// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.
+                /// The returned pointer is owning! It must be deallocated using `MR_StdUniquePtr_A_Destroy()`.
+                public unsafe MR.CS.StdUniquePtr.A? Release()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release", ExactSpelling = true)]
+                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(_Underlying *_this);
+                    var __ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(_UnderlyingPtr);
+                    return __ret is not null ? new MR.CS.StdUniquePtr.A(__ret, is_owning: false) : null;
+                }
+            }
+
+            /// This is used for optional parameters of class `UniquePtr_MRStdUniquePtrA` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_UniquePtr_MRStdUniquePtrA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `UniquePtr_MRStdUniquePtrA`/`Const_UniquePtr_MRStdUniquePtrA` directly.
+            public class _InOptMut_UniquePtr_MRStdUniquePtrA
+            {
+                public UniquePtr_MRStdUniquePtrA? Opt;
+
+                public _InOptMut_UniquePtr_MRStdUniquePtrA() {}
+                public _InOptMut_UniquePtr_MRStdUniquePtrA(UniquePtr_MRStdUniquePtrA value) {Opt = value;}
+                public static implicit operator _InOptMut_UniquePtr_MRStdUniquePtrA(UniquePtr_MRStdUniquePtrA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `UniquePtr_MRStdUniquePtrA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_UniquePtr_MRStdUniquePtrA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `UniquePtr_MRStdUniquePtrA`/`Const_UniquePtr_MRStdUniquePtrA` to pass it to the function.
+            public class _InOptConst_UniquePtr_MRStdUniquePtrA
+            {
+                public Const_UniquePtr_MRStdUniquePtrA? Opt;
+
+                public _InOptConst_UniquePtr_MRStdUniquePtrA() {}
+                public _InOptConst_UniquePtr_MRStdUniquePtrA(Const_UniquePtr_MRStdUniquePtrA value) {Opt = value;}
+                public static implicit operator _InOptConst_UniquePtr_MRStdUniquePtrA(Const_UniquePtr_MRStdUniquePtrA value) {return new(value);}
+
+                /// Constructs a new instance.
+                public static unsafe implicit operator _InOptConst_UniquePtr_MRStdUniquePtrA(void *other) {return new Const_UniquePtr_MRStdUniquePtrA(other);}
+            }
+        }
+    }
+}

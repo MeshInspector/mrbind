@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <stdexcept>
 #include <unordered_set>
 
@@ -166,7 +167,7 @@ MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_co
 
 const int32_t *MR_C_std_unordered_set_int32_t_const_iterator_Deref(const MR_C_std_unordered_set_int32_t_const_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t>::const_iterator *)(_this)));
 }
 
 void MR_C_std_unordered_set_int32_t_const_iterator_Incr(MR_C_std_unordered_set_int32_t_const_iterator *_this)

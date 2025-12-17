@@ -24,6 +24,7 @@ extern "C" {
 ///     `MR::Bases::D`
 ///     `MR::Bases::D2`
 ///     `MR::Bases::D3`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_A MR_Bases_A;
 
 /// Generated from class `MR::Bases::B`.
@@ -36,6 +37,7 @@ typedef struct MR_Bases_A MR_Bases_A;
 ///     `MR::Bases::D`
 ///     `MR::Bases::D2`
 ///     `MR::Bases::D3`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_B MR_Bases_B;
 
 /// Generated from class `MR::Bases::B2`.
@@ -44,6 +46,7 @@ typedef struct MR_Bases_B MR_Bases_B;
 ///     `MR::Bases::B`
 ///   Indirect: (non-virtual)
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_B2 MR_Bases_B2;
 
 /// Generated from class `MR::Bases::C`.
@@ -53,6 +56,7 @@ typedef struct MR_Bases_B2 MR_Bases_B2;
 /// Derived classes:
 ///   Direct: (non-virtual)
 ///     `MR::Bases::D`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_C MR_Bases_C;
 
 /// Generated from class `MR::Bases::D`.
@@ -62,6 +66,7 @@ typedef struct MR_Bases_C MR_Bases_C;
 ///     `MR::Bases::C`
 ///   Ambiguous:
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D MR_Bases_D;
 
 /// Generated from class `MR::Bases::D2`.
@@ -70,6 +75,7 @@ typedef struct MR_Bases_D MR_Bases_D;
 ///     `MR::Bases::B`
 ///   Ambiguous:
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D2 MR_Bases_D2;
 
 /// Generated from class `MR::Bases::D3`.
@@ -78,16 +84,18 @@ typedef struct MR_Bases_D2 MR_Bases_D2;
 ///     `MR::Bases::B`
 ///   Ambiguous:
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D3 MR_Bases_D3;
 
 /// Generated from class `MR::Bases::E`.
 /// Derived classes:
-///   Virtual:
+///   Non-virtual along a virtual path:
 ///     `MR::Bases::G`
 ///     `MR::Bases::H`
 ///     `MR::Bases::I`
 ///   Direct: (non-virtual)
 ///     `MR::Bases::F`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_E MR_Bases_E;
 
 /// Generated from class `MR::Bases::F`.
@@ -99,30 +107,37 @@ typedef struct MR_Bases_E MR_Bases_E;
 ///     `MR::Bases::G`
 ///     `MR::Bases::H`
 ///     `MR::Bases::I`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_F MR_Bases_F;
 
 /// Generated from class `MR::Bases::G`.
 /// Base classes:
 ///   Virtual:
-///     `MR::Bases::E`
 ///     `MR::Bases::F`
+///   Non-virtual along a virtual path:
+///     `MR::Bases::E`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_G MR_Bases_G;
 
 /// Generated from class `MR::Bases::H`.
 /// Base classes:
 ///   Virtual:
-///     `MR::Bases::E`
 ///     `MR::Bases::F`
+///   Non-virtual along a virtual path:
+///     `MR::Bases::E`
 ///   Direct: (non-virtual)
 ///     `MR::Bases::A`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_H MR_Bases_H;
 
 /// Generated from class `MR::Bases::I`.
 /// Base classes:
 ///   Virtual:
-///     `MR::Bases::A`
-///     `MR::Bases::E`
 ///     `MR::Bases::F`
+///     `MR::Bases::A`
+///   Non-virtual along a virtual path:
+///     `MR::Bases::E`
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_I MR_Bases_I;
 
 /// Constructs an empty (default-constructed) instance.
@@ -176,7 +191,7 @@ MR_C_API const MR_Bases_H *MR_Bases_A_StaticDowncastTo_MR_Bases_H(const MR_Bases
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 MR_C_API MR_Bases_H *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_H(MR_Bases_A *object);
 
-/// Generated from a constructor of class `MR::Bases::A`.
+/// Generated from constructor `MR::Bases::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_A *MR_Bases_A_ConstructFromAnother(const MR_Bases_A *_other);
@@ -187,7 +202,7 @@ MR_C_API void MR_Bases_A_Destroy(const MR_Bases_A *_this);
 /// Destroys a heap-allocated array of `MR_Bases_A`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_A_DestroyArray(const MR_Bases_A *_this);
 
-/// Generated from a method of class `MR::Bases::A` named `operator=`.
+/// Generated from method `MR::Bases::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -251,7 +266,7 @@ MR_C_API const MR_Bases_D3 *MR_Bases_B_StaticDowncastTo_MR_Bases_D3(const MR_Bas
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 MR_C_API MR_Bases_D3 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_D3(MR_Bases_B *object);
 
-/// Generated from a constructor of class `MR::Bases::B`.
+/// Generated from constructor `MR::Bases::B::B`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_B *MR_Bases_B_ConstructFromAnother(const MR_Bases_B *_other);
@@ -262,7 +277,7 @@ MR_C_API void MR_Bases_B_Destroy(const MR_Bases_B *_this);
 /// Destroys a heap-allocated array of `MR_Bases_B`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_B_DestroyArray(const MR_Bases_B *_this);
 
-/// Generated from a method of class `MR::Bases::B` named `operator=`.
+/// Generated from method `MR::Bases::B::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -297,7 +312,7 @@ MR_C_API const MR_Bases_B *MR_Bases_B2_UpcastTo_MR_Bases_B(const MR_Bases_B2 *ob
 /// Upcasts an instance of `MR::Bases::B2` to its base class `MR::Bases::B`.
 MR_C_API MR_Bases_B *MR_Bases_B2_MutableUpcastTo_MR_Bases_B(MR_Bases_B2 *object);
 
-/// Generated from a constructor of class `MR::Bases::B2`.
+/// Generated from constructor `MR::Bases::B2::B2`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_B2_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_B2 *MR_Bases_B2_ConstructFromAnother(const MR_Bases_B2 *_other);
@@ -308,7 +323,7 @@ MR_C_API void MR_Bases_B2_Destroy(const MR_Bases_B2 *_this);
 /// Destroys a heap-allocated array of `MR_Bases_B2`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_B2_DestroyArray(const MR_Bases_B2 *_this);
 
-/// Generated from a method of class `MR::Bases::B2` named `operator=`.
+/// Generated from method `MR::Bases::B2::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -345,7 +360,7 @@ MR_C_API const MR_Bases_D *MR_Bases_C_StaticDowncastTo_MR_Bases_D(const MR_Bases
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 MR_C_API MR_Bases_D *MR_Bases_C_MutableStaticDowncastTo_MR_Bases_D(MR_Bases_C *object);
 
-/// Generated from a constructor of class `MR::Bases::C`.
+/// Generated from constructor `MR::Bases::C::C`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_C_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_C *MR_Bases_C_ConstructFromAnother(const MR_Bases_C *_other);
@@ -356,7 +371,7 @@ MR_C_API void MR_Bases_C_Destroy(const MR_Bases_C *_this);
 /// Destroys a heap-allocated array of `MR_Bases_C`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_C_DestroyArray(const MR_Bases_C *_this);
 
-/// Generated from a method of class `MR::Bases::C` named `operator=`.
+/// Generated from method `MR::Bases::C::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -391,7 +406,7 @@ MR_C_API const MR_Bases_C *MR_Bases_D_UpcastTo_MR_Bases_C(const MR_Bases_D *obje
 /// Upcasts an instance of `MR::Bases::D` to its base class `MR::Bases::C`.
 MR_C_API MR_Bases_C *MR_Bases_D_MutableUpcastTo_MR_Bases_C(MR_Bases_D *object);
 
-/// Generated from a constructor of class `MR::Bases::D`.
+/// Generated from constructor `MR::Bases::D::D`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D *MR_Bases_D_ConstructFromAnother(const MR_Bases_D *_other);
@@ -402,7 +417,7 @@ MR_C_API void MR_Bases_D_Destroy(const MR_Bases_D *_this);
 /// Destroys a heap-allocated array of `MR_Bases_D`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_D_DestroyArray(const MR_Bases_D *_this);
 
-/// Generated from a method of class `MR::Bases::D` named `operator=`.
+/// Generated from method `MR::Bases::D::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -430,7 +445,7 @@ MR_C_API const MR_Bases_B *MR_Bases_D2_UpcastTo_MR_Bases_B(const MR_Bases_D2 *ob
 /// Upcasts an instance of `MR::Bases::D2` to its base class `MR::Bases::B`.
 MR_C_API MR_Bases_B *MR_Bases_D2_MutableUpcastTo_MR_Bases_B(MR_Bases_D2 *object);
 
-/// Generated from a constructor of class `MR::Bases::D2`.
+/// Generated from constructor `MR::Bases::D2::D2`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D2_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D2 *MR_Bases_D2_ConstructFromAnother(const MR_Bases_D2 *_other);
@@ -441,7 +456,7 @@ MR_C_API void MR_Bases_D2_Destroy(const MR_Bases_D2 *_this);
 /// Destroys a heap-allocated array of `MR_Bases_D2`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_D2_DestroyArray(const MR_Bases_D2 *_this);
 
-/// Generated from a method of class `MR::Bases::D2` named `operator=`.
+/// Generated from method `MR::Bases::D2::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -469,7 +484,7 @@ MR_C_API const MR_Bases_B *MR_Bases_D3_UpcastTo_MR_Bases_B(const MR_Bases_D3 *ob
 /// Upcasts an instance of `MR::Bases::D3` to its base class `MR::Bases::B`.
 MR_C_API MR_Bases_B *MR_Bases_D3_MutableUpcastTo_MR_Bases_B(MR_Bases_D3 *object);
 
-/// Generated from a constructor of class `MR::Bases::D3`.
+/// Generated from constructor `MR::Bases::D3::D3`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_D3_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_D3 *MR_Bases_D3_ConstructFromAnother(const MR_Bases_D3 *_other);
@@ -480,7 +495,7 @@ MR_C_API void MR_Bases_D3_Destroy(const MR_Bases_D3 *_this);
 /// Destroys a heap-allocated array of `MR_Bases_D3`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_D3_DestroyArray(const MR_Bases_D3 *_this);
 
-/// Generated from a method of class `MR::Bases::D3` named `operator=`.
+/// Generated from method `MR::Bases::D3::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -510,7 +525,7 @@ MR_C_API const MR_Bases_F *MR_Bases_E_StaticDowncastTo_MR_Bases_F(const MR_Bases
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 MR_C_API MR_Bases_F *MR_Bases_E_MutableStaticDowncastTo_MR_Bases_F(MR_Bases_E *object);
 
-/// Generated from a constructor of class `MR::Bases::E`.
+/// Generated from constructor `MR::Bases::E::E`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_E *MR_Bases_E_ConstructFromAnother(const MR_Bases_E *_other);
@@ -521,7 +536,7 @@ MR_C_API void MR_Bases_E_Destroy(const MR_Bases_E *_this);
 /// Destroys a heap-allocated array of `MR_Bases_E`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_E_DestroyArray(const MR_Bases_E *_this);
 
-/// Generated from a method of class `MR::Bases::E` named `operator=`.
+/// Generated from method `MR::Bases::E::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -549,7 +564,7 @@ MR_C_API const MR_Bases_E *MR_Bases_F_UpcastTo_MR_Bases_E(const MR_Bases_F *obje
 /// Upcasts an instance of `MR::Bases::F` to its base class `MR::Bases::E`.
 MR_C_API MR_Bases_E *MR_Bases_F_MutableUpcastTo_MR_Bases_E(MR_Bases_F *object);
 
-/// Generated from a constructor of class `MR::Bases::F`.
+/// Generated from constructor `MR::Bases::F::F`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_F_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_F *MR_Bases_F_ConstructFromAnother(const MR_Bases_F *_other);
@@ -560,7 +575,7 @@ MR_C_API void MR_Bases_F_Destroy(const MR_Bases_F *_this);
 /// Destroys a heap-allocated array of `MR_Bases_F`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_F_DestroyArray(const MR_Bases_F *_this);
 
-/// Generated from a method of class `MR::Bases::F` named `operator=`.
+/// Generated from method `MR::Bases::F::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -595,7 +610,7 @@ MR_C_API const MR_Bases_F *MR_Bases_G_UpcastTo_MR_Bases_F(const MR_Bases_G *obje
 /// Upcasts an instance of `MR::Bases::G` to its base class `MR::Bases::F`.
 MR_C_API MR_Bases_F *MR_Bases_G_MutableUpcastTo_MR_Bases_F(MR_Bases_G *object);
 
-/// Generated from a constructor of class `MR::Bases::G`.
+/// Generated from constructor `MR::Bases::G::G`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_G_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_G *MR_Bases_G_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Bases_G *_other);
 
@@ -605,7 +620,7 @@ MR_C_API void MR_Bases_G_Destroy(const MR_Bases_G *_this);
 /// Destroys a heap-allocated array of `MR_Bases_G`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_G_DestroyArray(const MR_Bases_G *_this);
 
-/// Generated from a method of class `MR::Bases::G` named `operator=`.
+/// Generated from method `MR::Bases::G::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_pass_by, MR_Bases_G *_other);
@@ -625,13 +640,6 @@ MR_C_API const MR_Bases_H *MR_Bases_H_OffsetPtr(const MR_Bases_H *ptr, ptrdiff_t
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Bases_H *MR_Bases_H_OffsetMutablePtr(MR_Bases_H *ptr, ptrdiff_t i);
 
-/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
-/// This version is acting on mutable pointers.
-MR_C_API const MR_Bases_A *MR_Bases_H_UpcastTo_MR_Bases_A(const MR_Bases_H *object);
-
-/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
-MR_C_API MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object);
-
 /// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::E`.
 /// This version is acting on mutable pointers.
 MR_C_API const MR_Bases_E *MR_Bases_H_UpcastTo_MR_Bases_E(const MR_Bases_H *object);
@@ -646,7 +654,14 @@ MR_C_API const MR_Bases_F *MR_Bases_H_UpcastTo_MR_Bases_F(const MR_Bases_H *obje
 /// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::F`.
 MR_C_API MR_Bases_F *MR_Bases_H_MutableUpcastTo_MR_Bases_F(MR_Bases_H *object);
 
-/// Generated from a constructor of class `MR::Bases::H`.
+/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
+/// This version is acting on mutable pointers.
+MR_C_API const MR_Bases_A *MR_Bases_H_UpcastTo_MR_Bases_A(const MR_Bases_H *object);
+
+/// Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
+MR_C_API MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object);
+
+/// Generated from constructor `MR::Bases::H::H`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_H_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_H *MR_Bases_H_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Bases_H *_other);
 
@@ -656,7 +671,7 @@ MR_C_API void MR_Bases_H_Destroy(const MR_Bases_H *_this);
 /// Destroys a heap-allocated array of `MR_Bases_H`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_H_DestroyArray(const MR_Bases_H *_this);
 
-/// Generated from a method of class `MR::Bases::H` named `operator=`.
+/// Generated from method `MR::Bases::H::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_pass_by, MR_Bases_H *_other);
@@ -676,13 +691,6 @@ MR_C_API const MR_Bases_I *MR_Bases_I_OffsetPtr(const MR_Bases_I *ptr, ptrdiff_t
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_Bases_I *MR_Bases_I_OffsetMutablePtr(MR_Bases_I *ptr, ptrdiff_t i);
 
-/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
-/// This version is acting on mutable pointers.
-MR_C_API const MR_Bases_A *MR_Bases_I_UpcastTo_MR_Bases_A(const MR_Bases_I *object);
-
-/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
-MR_C_API MR_Bases_A *MR_Bases_I_MutableUpcastTo_MR_Bases_A(MR_Bases_I *object);
-
 /// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::E`.
 /// This version is acting on mutable pointers.
 MR_C_API const MR_Bases_E *MR_Bases_I_UpcastTo_MR_Bases_E(const MR_Bases_I *object);
@@ -697,7 +705,14 @@ MR_C_API const MR_Bases_F *MR_Bases_I_UpcastTo_MR_Bases_F(const MR_Bases_I *obje
 /// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::F`.
 MR_C_API MR_Bases_F *MR_Bases_I_MutableUpcastTo_MR_Bases_F(MR_Bases_I *object);
 
-/// Generated from a constructor of class `MR::Bases::I`.
+/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
+/// This version is acting on mutable pointers.
+MR_C_API const MR_Bases_A *MR_Bases_I_UpcastTo_MR_Bases_A(const MR_Bases_I *object);
+
+/// Upcasts an instance of `MR::Bases::I` to its base class `MR::Bases::A`.
+MR_C_API MR_Bases_A *MR_Bases_I_MutableUpcastTo_MR_Bases_A(MR_Bases_I *object);
+
+/// Generated from constructor `MR::Bases::I::I`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_I_Destroy()` to free it when you're done using it.
 MR_C_API MR_Bases_I *MR_Bases_I_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Bases_I *_other);
 
@@ -707,7 +722,7 @@ MR_C_API void MR_Bases_I_Destroy(const MR_Bases_I *_this);
 /// Destroys a heap-allocated array of `MR_Bases_I`. Does nothing if the pointer is null.
 MR_C_API void MR_Bases_I_DestroyArray(const MR_Bases_I *_this);
 
-/// Generated from a method of class `MR::Bases::I` named `operator=`.
+/// Generated from method `MR::Bases::I::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_Bases_I *MR_Bases_I_AssignFromAnother(MR_Bases_I *_this, MR_C_PassBy _other_pass_by, MR_Bases_I *_other);

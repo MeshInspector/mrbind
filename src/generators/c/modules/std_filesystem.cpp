@@ -33,9 +33,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    generator.EmitComment(file.header, "\n/// Stores a filesystem path.\n");
-
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, "/// Stores a filesystem path.\n");
 
                     // The special member functions.
                     binder.EmitSpecialMemberFunctions(generator, file, true);
@@ -46,7 +44,7 @@ namespace mrbind::CBindings::Modules
                     { // Get as a string.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Get the contents as a UTF8-encoded string.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "GetString");
+                        emit.name = binder.MakeMemberFuncName(generator, "GetString");
 
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
 

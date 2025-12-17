@@ -21,11 +21,16 @@ namespace mrbind::CBindings::Modules
             {
                 // This can throw if `type` has wrong template parameters, we don't mind. I'm not sure how it could be possible in valid C++ code in the first place.
                 const cppdecl::Type &cpp_elem_type = std::get<cppdecl::Type>(type.simple_type.name.parts.back().template_args.value().args.at(0).var);
-                const cppdecl::PseudoExpr &array_size = std::get<cppdecl::PseudoExpr>(type.simple_type.name.parts.back().template_args.value().args.at(1).var);
+                const cppdecl::PseudoExpr &array_size_expr = std::get<cppdecl::PseudoExpr>(type.simple_type.name.parts.back().template_args.value().args.at(1).var);
 
-                if (!generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type))
+                if (array_size_expr.tokens.size() != 1)
+                    throw std::runtime_error("The second template argument of `std::array` is somehow not a single token. The full type is: `" + type_str + "`.");
+                const auto array_size = std::get<cppdecl::NumericLiteral>(array_size_expr.tokens.front()).ToInteger().value();
+
+                if (array_size == 0 || !generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type))
                 {
                     // The normal heap-allocated array.
+                    // Zero-sized arrays go here too, because the layout of zero-sized arrays depends on the C++ standard library.
 
                     HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
 
@@ -37,7 +42,7 @@ namespace mrbind::CBindings::Modules
                         type,
                         cpp_elem_type,
                         binder,
-                        array_size_str = generator.CppdeclToCodeForComments(array_size)
+                        array_size_str = generator.CppdeclToCodeForComments(array_size_expr)
                     ](Generator &generator) -> Generator::OutputFile &
                     {
                         bool is_new = false;
@@ -45,8 +50,7 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            generator.EmitComment(file.header, "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + array_size_str + ".\n");
-                            binder.EmitForwardDeclaration(generator, file);
+                            binder.EmitForwardDeclaration(generator, file, "/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + array_size_str + ".\n");
 
                             // The special member functions:
                             binder.EmitSpecialMemberFunctions(generator, file);
@@ -56,7 +60,7 @@ namespace mrbind::CBindings::Modules
                             { // [] const
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element at a specific index, read-only.";
-                                emit.c_name = binder.MakeMemberFuncName(generator, "At");
+                                emit.name = binder.MakeMemberFuncName(generator, "At");
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                                 emit.params.push_back({
@@ -70,7 +74,7 @@ namespace mrbind::CBindings::Modules
                             { // [] mutable
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element at a specific index, mutable.";
-                                emit.c_name = binder.MakeMemberFuncName(generator, "MutableAt");
+                                emit.name = binder.MakeMemberFuncName(generator, "MutableAt");
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                                 emit.params.push_back({
@@ -84,8 +88,9 @@ namespace mrbind::CBindings::Modules
                             { // data const
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, read-only.";
-                                emit.c_name = binder.MakeMemberFuncName(generator, "Data");
+                                emit.name = binder.MakeMemberFuncName(generator, "Data");
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                                emit.mark_as_returning_pointer_to_array = true;
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                                 emit.cpp_called_func = "data";
                                 generator.EmitFunction(file, emit);
@@ -94,8 +99,9 @@ namespace mrbind::CBindings::Modules
                             { // data mutable
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
-                                emit.c_name = binder.MakeMemberFuncName(generator, "MutableData");
+                                emit.name = binder.MakeMemberFuncName(generator, "MutableData");
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
+                                emit.mark_as_returning_pointer_to_array = true;
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                                 emit.cpp_called_func = "data";
                                 generator.EmitFunction(file, emit);
@@ -116,15 +122,19 @@ namespace mrbind::CBindings::Modules
                     Generator::BindableType &new_type = ret.emplace();
                     const std::string c_type_name = generator.MakePublicHelperName(generator.CppdeclToIdentifier(type));
 
-                    new_type = MakeBitCastClassBinding(generator, type.simple_type.name, c_type_name, generator.FindTypeTraits(cpp_elem_type));
+                    auto array_size_and_alignment = generator.FindSameSizeAndAlignment(cpp_elem_type);
+                    array_size_and_alignment.size *= array_size;
+
+                    new_type = MakeBitCastClassBinding(generator, type.simple_type.name, c_type_name, generator.FindTypeTraits(cpp_elem_type), array_size_and_alignment);
                     new_type.bindable_with_same_address.custom_c_type_name = c_type_name;
-                    new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclaration(c_type_name);
+                    new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclarationNoReg(c_type_name);
 
                     auto get_output_file = [
                         type,
                         cpp_elem_type,
                         c_type_name,
-                        array_size
+                        array_size_expr,
+                        array_size_and_alignment
                     ](Generator &generator) -> Generator::OutputFile &
                     {
                         bool is_new = false;
@@ -132,22 +142,27 @@ namespace mrbind::CBindings::Modules
 
                         if (is_new)
                         {
-                            generator.EmitComment(file.header, "\n/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size) + ".\n");
+                            cppdecl::Type cpp_plain_array_type = cpp_elem_type;
+                            cpp_plain_array_type.AddModifier(cppdecl::Array{.size = array_size_expr});
 
-                            cppdecl::Decl array_field_decl;
-                            array_field_decl.name = cppdecl::QualifiedName::FromSingleWord("elems"); // Shrug.
-
-                            array_field_decl.type = cpp_elem_type;
-                            generator.ReplaceAllNamesInTypeWithCNames(array_field_decl.type);
-                            array_field_decl.type.AddModifier(cppdecl::Array{.size = array_size});
-
-                            // Passing the non-array type here (the element type), since a plain array will likely not have the bindings.
-                            generator.AddDependenciesToFileForFieldOfSameLayoutStruct(cpp_elem_type, file);
-
-                            file.header.contents += "typedef struct " + c_type_name + '\n';
-                            file.header.contents += "{\n";
-                            file.header.contents += "    " + generator.CppdeclToCode(array_field_decl) + ";\n";
-                            file.header.contents += "} " + c_type_name + ";\n";
+                            // Emit the `std::array` struct.
+                            generator.EmitExposedStruct(
+                                file,
+                                "/// A fixed-size array of `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "` of size " + generator.CppdeclToCodeForComments(array_size_expr) + ".\n",
+                                type.simple_type.name,
+                                c_type_name,
+                                array_size_and_alignment,
+                                [&](Generator::EmitExposedStructFieldFunc emit_field)
+                                {
+                                    emit_field(
+                                        cpp_plain_array_type,
+                                        "", // No comment.
+                                        "elems", // The field name. This is arbitrary.
+                                        array_size_and_alignment, // Same as what the entire struct has.
+                                        0 // The offset is zero, since this is the first field.
+                                    );
+                                }
+                            );
                         }
 
                         return file;

@@ -6,7 +6,7 @@ if [[ "$(uname -o)" == Msys ]]; then
     CXX=clang++
 else
     EXT_SHARED=.so
-    CXX=clang++-20
+    CXX=clang++-21
 fi
 
 # Clone phmap if missing:
@@ -46,6 +46,15 @@ MRBIND_GEN_C_FLAGS=(
     --expose-as-struct MR::MatchingLayout::A
     --expose-as-struct /MR::MatchingLayout::B/
     --expose-as-struct '/MR::DeclOrder::.*/'
+    --expose-as-struct MR::StdContainers::SimpleStruct
+    --expose-as-struct MR::StdContainers::StructWithArray
+    --expose-as-struct MR::CSharp::ExposedLayout
+    --expose-as-struct MR::CSharp::ExposedLayoutSh
+    --expose-as-struct MR::CSharp::ExposedLayoutB
+    --expose-as-struct MR::CSharp::NameConflictsExposed
+    --expose-as-struct MR::CSharp::NameConflictsExposed::A
+    --expose-as-struct MR::CSharp::ConstNonconstConflicts
+    --expose-as-struct MR::CSharp::ConvCtorExposed
 )
 
 COMPILER_FLAGS=(
@@ -63,6 +72,11 @@ COMPILER_FLAGS=(
     -Wconversion
     -Wno-implicit-int-float-conversion
     -isystemtest/input/parallel-hashmap
+    -g
+    # Since our tests have a bunch of deprecated implicitly generated copy operations,
+    #   we need to disable those warnings to not blow up on `-Werror`.
+    # But our users should instead fix their classes to avoid those warnings.
+    -Wno-deprecated-copy
 )
 
 
@@ -80,7 +94,10 @@ build/mrbind_gen_c \
     --input test/output_c/parsed.json \
     --output-header-dir test/output_c/include \
     --output-source-dir test/output_c/source \
-    "${MRBIND_GEN_C_FLAGS[@]}"
+    --output-desc-json test/output_c/desc.json \
+    "${MRBIND_GEN_C_FLAGS[@]}" \
+    --bind-shared-ptr-virally \
+    --force-emit-common-helpers \
 
 build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
@@ -94,6 +111,7 @@ build/mrbind_gen_c \
     --input test/output_c_fixed_typedefs/parsed.json \
     --output-header-dir test/output_c_fixed_typedefs/include \
     --output-source-dir test/output_c_fixed_typedefs/source \
+    --output-desc-json test/output_c_fixed_typedefs/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --reject-long-and-long-long \
     --use-size_t-typedef-for-uint64_t \
@@ -111,13 +129,17 @@ build/mrbind \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 
+# No `--output-desc-json` here, just to test that omitting it isn't broken.
 build/mrbind_gen_c \
     --input test/output_c_fixed_typedefs_64_only/parsed.json \
     --output-header-dir test/output_c_fixed_typedefs_64_only/include \
     --output-source-dir test/output_c_fixed_typedefs_64_only/source \
+    --output-desc-json test/output_c_fixed_typedefs_64_only/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --reject-long-and-long-long \
     --use-size_t-typedef-for-uint64_t \
+    --bind-shared-ptr-virally \
+    --force-emit-common-helpers \
 
 
 "$CXX" \

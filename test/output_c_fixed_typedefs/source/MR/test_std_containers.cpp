@@ -11,6 +11,7 @@
 #include <deque>
 #include <list>
 #include <map>
+#include <memory>
 #include <set>
 #include <stdexcept>
 #include <unordered_map>
@@ -164,7 +165,7 @@ void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this)
 
 MR_StdContainers_A *MR_StdContainers_A_AssignFromAnother(MR_StdContainers_A *_this, const MR_StdContainers_A *_other)
 {
-    return (MR_StdContainers_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdContainers::A *)(_this)).operator=(
+    return (MR_StdContainers_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdContainers::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdContainers::A(*(MR::StdContainers::A *)_other))
     ));
 }
@@ -244,7 +245,7 @@ void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_StdContainer
 
 MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other)
 {
-    return (MR_StdContainers_NonDefaultConstructible *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdContainers::NonDefaultConstructible *)(_this)).operator=(
+    return (MR_StdContainers_NonDefaultConstructible *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdContainers::NonDefaultConstructible *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other))
     ));
 }
@@ -272,6 +273,13 @@ const MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetPtr(c
 MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(MR_StdContainers_NonAssignable *ptr, ptrdiff_t i)
 {
     return (MR_StdContainers_NonAssignable *)(((MR::StdContainers::NonAssignable *)ptr) + i);
+}
+
+MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdContainers_NonAssignable *_other)
+{
+    return (MR_StdContainers_NonAssignable *)new MR::StdContainers::NonAssignable(MR::StdContainers::NonAssignable(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_other, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_other, MR::StdContainers::NonAssignable))
+    ));
 }
 
 void MR_StdContainers_NonAssignable_Destroy(const MR_StdContainers_NonAssignable *_this)
@@ -356,5 +364,10 @@ MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float *MR_StdContaine
 MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetStdArrayNA(void)
 {
     return (MR_C_std_array_MR_StdContainers_NonAssignable_42 *)new std::array<MR::StdContainers::NonAssignable, 42>(::MR::StdContainers::GetStdArrayNA());
+}
+
+MR_C_std_array_int32_t_array_4_array_3_5 MR_StdContainers_GetStdArrayOfPlainArray(void)
+{
+    return MRBINDC_BIT_CAST((MR_C_std_array_int32_t_array_4_array_3_5), ::MR::StdContainers::GetStdArrayOfPlainArray());
 }
 

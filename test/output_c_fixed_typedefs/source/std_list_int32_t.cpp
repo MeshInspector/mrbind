@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <list>
+#include <memory>
 #include <stdexcept>
 
 
@@ -305,7 +306,7 @@ MR_C_std_list_int32_t_iterator *MR_C_std_list_int32_t_iterator_OffsetMutablePtr(
 
 const int32_t *MR_C_std_list_int32_t_const_iterator_Deref(const MR_C_std_list_int32_t_const_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int32_t>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int32_t>::const_iterator *)(_this)));
 }
 
 void MR_C_std_list_int32_t_const_iterator_Incr(MR_C_std_list_int32_t_const_iterator *_this)
@@ -320,7 +321,7 @@ void MR_C_std_list_int32_t_const_iterator_Decr(MR_C_std_list_int32_t_const_itera
 
 int32_t *MR_C_std_list_int32_t_iterator_Deref(const MR_C_std_list_int32_t_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int32_t>::iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int32_t>::iterator *)(_this)));
 }
 
 void MR_C_std_list_int32_t_iterator_Incr(MR_C_std_list_int32_t_iterator *_this)

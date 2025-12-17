@@ -207,11 +207,13 @@ Here is the TL;DR of the fix. The rationale is discussed after.
   namespace mylib
   {
       #ifdef __APPLE__
+      #include <cstddef>
       using Int64 = std::ptrdiff_t;
       using Uint64 = std::size_t;
       static_assert(sizeof(Int64) == 8);
       static_assert(sizeof(Uint64) == 8);
       #else
+      #include <cstdint>
       using Int64 = std::int64_t;
       using Uint64 = std::uint64_t;
       #endif

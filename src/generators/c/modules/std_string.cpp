@@ -29,8 +29,7 @@ namespace mrbind::CBindings::Modules
             {
                 auto &binder = is_view ? binder_stdstringview : binder_stdstring;
 
-                generator.EmitComment(file.header, is_view ? "\n/// A non-owning string view. Not necessarily null-terminated.\n" : "\n/// A heap-allocated null-terminated string.\n");
-                binder.EmitForwardDeclaration(generator, file);
+                binder.EmitForwardDeclaration(generator, file, is_view ? "/// A non-owning string view. Not necessarily null-terminated.\n" : "/// A heap-allocated null-terminated string.\n");
 
                 binder.EmitSpecialMemberFunctions(generator, file, true);
 
@@ -39,7 +38,7 @@ namespace mrbind::CBindings::Modules
                 { // size
                     Generator::EmitFuncParams emit;
                     emit.c_comment = is_view ? "/// The number of characters in the string." : "/// The number of characters in the string, excluding the null-terminator.";
-                    emit.c_name = binder.MakeMemberFuncName(generator, "Size");
+                    emit.name = binder.MakeMemberFuncName(generator, "Size");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "size";
@@ -49,8 +48,9 @@ namespace mrbind::CBindings::Modules
                 { // data
                     Generator::EmitFuncParams emit;
                     emit.c_comment = is_view ? "/// Returns the string contents, NOT necessarily null-terminated." : "/// Returns the string contents, which are always null-terminated.";
-                    emit.c_name = binder.MakeMemberFuncName(generator, "Data");
+                    emit.name = binder.MakeMemberFuncName(generator, "Data");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                    emit.mark_as_returning_pointer_to_array = true;
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "data";
                     generator.EmitFunction(file, emit);
@@ -61,8 +61,9 @@ namespace mrbind::CBindings::Modules
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.";
-                    emit.c_name = binder.MakeMemberFuncName(generator, "MutableData");
+                    emit.name = binder.MakeMemberFuncName(generator, "MutableData");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                    emit.mark_as_returning_pointer_to_array = true;
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "data";
                     generator.EmitFunction(file, emit);
@@ -71,8 +72,9 @@ namespace mrbind::CBindings::Modules
                 { // data end
                     Generator::EmitFuncParams emit;
                     emit.c_comment = is_view ? "/// Returns a pointer to the end of string. Not dereferencable." : "/// Returns a pointer to the end of string, to its null-terminator.";
-                    emit.c_name = binder.MakeMemberFuncName(generator, "DataEnd");
+                    emit.name = binder.MakeMemberFuncName(generator, "DataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
+                    emit.mark_as_returning_pointer_to_array = true;
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                     emit.cpp_called_func = "@this@.data() + @this@.size()";
                     generator.EmitFunction(file, emit);
@@ -83,8 +85,9 @@ namespace mrbind::CBindings::Modules
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.";
-                    emit.c_name = binder.MakeMemberFuncName(generator, "MutableDataEnd");
+                    emit.name = binder.MakeMemberFuncName(generator, "MutableDataEnd");
                     emit.cpp_return_type = cppdecl::Type::FromSingleWord("char").AddModifier(cppdecl::Pointer{});
+                    emit.mark_as_returning_pointer_to_array = true;
                     emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                     emit.cpp_called_func = "@this@.data() + @this@.size()";
                     generator.EmitFunction(file, emit);
@@ -103,7 +106,7 @@ namespace mrbind::CBindings::Modules
             bool is_view = false;
 
             if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, target_name_stdstring))) {}
-            if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, target_name_stdstringview))) {}
+            else if ((ret = BindNonConstOrRvalueRefParamsSameAsNonRef(generator, type, target_name_stdstringview))) {}
             else if (type_str == "std::string" || (is_view = type_str == "std::string_view"))
             {
                 Generator::BindableType &new_type = ret.emplace();
@@ -114,7 +117,7 @@ namespace mrbind::CBindings::Modules
                 new_type.is_heap_allocated_class = true;
 
                 new_type.bindable_with_same_address.declared_in_file = [this, &generator, is_view]() -> auto & {return GetOutputFile(generator, is_view);};
-                new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclaration();
+                new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclarationNoReg();
                 new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
                 new_type.return_usage = binder.MakeReturnUsage(generator);

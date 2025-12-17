@@ -1,9 +1,10 @@
+#include "common/command_line_args_as_utf8.h"
 #include "common/filesystem.h"
 #include "common/set_error_handlers.h"
+#include "generators/c_interop/desc_to_and_from_json.h"
 #include "generators/c/generator.h"
 #include "generators/c/module.h"
-#include "generators/common/command_line_args_as_utf8.h"
-#include "generators/common/data_from_file.h"
+#include "generators/common/data_from_json.h"
 
 #include <fstream>
 #include <iomanip>
@@ -16,6 +17,8 @@ int main(int raw_argc, char **raw_argv)
     mrbind::CommandLineArgsAsUtf8 args(raw_argc, raw_argv);
 
     std::string input_filename;
+    std::string output_json_desc_filename;
+
     bool clean_output_dirs = false;
 
     bool verbose = false;
@@ -33,6 +36,7 @@ int main(int raw_argc, char **raw_argv)
         bool seen_input_filename = false;
         bool seen_output_header_dir = false;
         bool seen_output_source_dir = false;
+        bool seen_output_json_desc_filename = false;
         bool seen_helper_header_dir = false;
         bool seen_helper_name_prefix = false;
         bool seen_helper_macro_name_prefix = false;
@@ -42,6 +46,7 @@ int main(int raw_argc, char **raw_argv)
         bool seen_max_num_fields_for_default_constructible_aggregate_init = false;
         bool seen_reject_long_and_long_long = false;
         bool seen_custom_typedef_for_uint64_t_pointing_to_size_t = false;
+        bool seen_force_emit_helpers_file = false;
         bool seen_verbose = false;
 
         for (int i = 1; i < args.argc; i++)
@@ -56,8 +61,9 @@ int main(int raw_argc, char **raw_argv)
                     "    --input               <filename.json>  - Input JSON file, as produced by `mrbind --format=json`.\n"
                     "    --output-header-dir   <dir>            - Output directory for headers. Must be empty or not exist, unless you pass `--clean-output-dirs` too. It's always an error if it exists and is not a directory.\n"
                     "    --output-source-dir   <dir>            - Output directory for sources. Same rules are for `--output-header-dir`.\n"
-                    "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
                     "    --clean-output-dirs                    - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
+                    "    --output-desc-json    <filename.json>  - Optional. Outputs an additional JSON describing the generated C code, which is useful for building bindings for other languages on top of the C ones.\n"
+                    "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
                     "    --helper-header-dir         <dir>      - Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.\n"
                     "    --helper-name-prefix        <string>   - This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.\n"
                     "    --helper-macro-name-prefix  <string>   - Optional. If specified, it overrides `--helper-name-prefix` specifically for macro names.\n"
@@ -68,6 +74,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --preferred-max-num-aggregate-init-fields <n> - Don't generate aggregate initialization constructors for structures with more than this number of members. The default is no limit. This limit is ignored if the aggregate is not default-constructible, because that would make it impossible to construct from C.\n"
                     "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
                     "    --use-size_t-typedef-for-uint64_t      - This is intended to be used with the parser's `--canonicalize-size_t-to-uint64_t`. When the input contains `[u]int64_t`, we'll bind them as `size_t` and `ptrdiff_t` (or our own typedefs for them, rather), instead of the standard `[u]int64_t` typedefs.\n"
+                    "    --force-emit-common-helpers            - Always emit the header with some basic helpers, even if not otherwise needed. It includes, among other things, C++-compatible memory allocation/deallocation functions.\n"
                     "    --expose-as-struct          <type>     - Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.\n"
                     "    --adjust-comments           s/A/B/g    - Adjusts all generated comments in C code with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules.\n"
                     "    --verbose                              - Write some logs.\n";
@@ -199,6 +206,12 @@ int main(int raw_argc, char **raw_argv)
                 continue;
             if (ConsumeFlagWithNoArgs("--clean-output-dirs", clean_output_dirs, &seen_clean_output_dirs))
                 continue;
+            if (ConsumeFlagWithStringArg("--output-desc-json", output_json_desc_filename, &seen_output_json_desc_filename))
+            {
+                generator.output_desc.emplace(); // Tell the generator to begin collecting the description.
+                continue;
+            }
+
             { // --map-path
                 std::string from, to;
                 if (ConsumeFlagWithTwoStringArgs("--map-path", from, to, nullptr))
@@ -259,6 +272,9 @@ int main(int raw_argc, char **raw_argv)
             if (ConsumeFlagWithNoArgs("--use-size_t-typedef-for-uint64_t", generator.custom_typedef_for_uint64_t_pointing_to_size_t, &seen_custom_typedef_for_uint64_t_pointing_to_size_t))
                 continue;
 
+            if (ConsumeFlagWithNoArgs("--force-emit-common-helpers", generator.force_emit_helpers_file, &seen_force_emit_helpers_file))
+                continue;
+
             { // --expose-as-struct
                 std::string tmp;
                 if (ConsumeFlagWithStringArg("--expose-as-struct", tmp, nullptr))
@@ -313,10 +329,10 @@ int main(int raw_argc, char **raw_argv)
 
                         if (state == State::handled_by_this_module)
                             throw std::runtime_error("Bad usage of `FlagInterface`: must not call `FlagNameMatches()` again after it returned true.");
-                        if (state == State::handled_by_previous_module)
-                            throw std::runtime_error("Bad usage of `FlagInterface`: attempting to handle flag `" + std::string(current_flag) + "` after some other module has already handled it.");
                         if (name != current_flag)
                             return false;
+                        if (state == State::handled_by_previous_module)
+                            throw std::runtime_error("Bad usage of `FlagInterface`: attempting to handle flag `" + std::string(current_flag) + "` after some other module has already handled it.");
                         state = State::handled_by_this_module;
                         return true;
                     }
@@ -365,29 +381,14 @@ int main(int raw_argc, char **raw_argv)
 
     { // Prepare the output directories.
         for (const auto &path : {&generator.output_header_dir_path, &generator.output_source_dir_path})
+            mrbind::PrepareOutputDir(*path, clean_output_dirs ? "" : "--clean-output-dirs");
+    }
+
+    { // Adjust the platform type information if we're using custom `[u]int64_t` typedefs.
+        if (generator.custom_typedef_for_uint64_t_pointing_to_size_t)
         {
-            auto stat = std::filesystem::status(*path);
-
-            // Complain if the output path already exists but isn't a directory.
-            if (stat.type() != std::filesystem::file_type::not_found && stat.type() != std::filesystem::file_type::directory)
-                throw std::runtime_error("Output path `" + mrbind::PathToString(*path) + "` already exists but is not a directory.");
-
-            if (stat.type() == std::filesystem::file_type::not_found)
-            {
-                // Create the missing output directory.
-                std::filesystem::create_directories(*path);
-            }
-            else
-            {
-                // Destroy everything in the output directory or complain if `--clean-output-dirs` isn't specified.
-                for (const std::filesystem::directory_entry &e : std::filesystem::directory_iterator(*path))
-                {
-                    if (!clean_output_dirs)
-                        throw std::runtime_error("Output directory `" + mrbind::PathToString(*path) + "` is not empty, and `--clean-output-dirs` wasn't specfied.");
-
-                    std::filesystem::remove_all(e);
-                }
-            }
+            for (std::string_view name : {"int64_t", "uint64_t"})
+                generator.data.platform_info.primitive_types.try_emplace(generator.MakePublicHelperName(name), generator.data.platform_info.primitive_types.at(std::string(name)));
         }
     }
 
@@ -397,6 +398,17 @@ int main(int raw_argc, char **raw_argv)
 
     // Generate all sources, in memory for now.
     generator.Generate();
+
+    // Write the output description JSON.
+    if (generator.output_desc)
+    {
+        std::ofstream out(mrbind::MakePath(output_json_desc_filename));
+        if (!out)
+            throw std::runtime_error("Failed to open file for writing: `" + output_json_desc_filename + "`.");
+        mrbind::CInterop::OutputDescToJson(*generator.output_desc, out);
+        if (!out)
+            throw std::runtime_error("Failed to write to file: `" + output_json_desc_filename + "`.");
+    }
 
     // Create subdirectories in the output directory, if needed.
     for (const auto &elem : generator.directories_to_create)
@@ -413,13 +425,13 @@ int main(int raw_argc, char **raw_argv)
                 if (verbose)
                     std::cerr << "mrbind_gen_c: Writing file: " << file->full_output_path << '\n';
 
-                std::ofstream output(mrbind::MakePath(file->full_output_path));
-                if (!output)
-                    throw std::runtime_error("Failed to open to the output file: `" + file->full_output_path + "`. Is the filename too long? In that case consider using `--max-header-name-length <n>`.");
+                std::ofstream out(mrbind::MakePath(file->full_output_path));
+                if (!out)
+                    throw std::runtime_error("Failed to open file for writing: `" + file->full_output_path + "`. Is the filename too long? In that case consider using `--max-header-name-length <n>`.");
 
-                generator.DumpFileToOstream(elem.second, *file, output);
-                if (!output)
-                    throw std::runtime_error("Failed to write to the output file: `" + file->full_output_path + "`.");
+                generator.DumpFileToOstream(elem.second, *file, out);
+                if (!out)
+                    throw std::runtime_error("Failed to write to file: `" + file->full_output_path + "`.");
             }
         }
     }

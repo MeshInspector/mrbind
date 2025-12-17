@@ -10,9 +10,11 @@ extern "C" {
 
 
 /// Generated from class `MR::SignatureFilters::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_SignatureFilters_A MR_SignatureFilters_A;
 
 /// Generated from class `MR::SignatureFilters::Blah`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_SignatureFilters_Blah MR_SignatureFilters_Blah;
 
 /// Constructs an empty (default-constructed) instance.
@@ -30,7 +32,7 @@ MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_A_OffsetPtr(const MR_S
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_OffsetMutablePtr(MR_SignatureFilters_A *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::SignatureFilters::A`.
+/// Generated from constructor `MR::SignatureFilters::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_ConstructFromAnother(const MR_SignatureFilters_A *_other);
@@ -41,7 +43,7 @@ MR_C_API void MR_SignatureFilters_A_Destroy(const MR_SignatureFilters_A *_this);
 /// Destroys a heap-allocated array of `MR_SignatureFilters_A`. Does nothing if the pointer is null.
 MR_C_API void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this);
 
-/// Generated from a method of class `MR::SignatureFilters::A` named `operator=`.
+/// Generated from method `MR::SignatureFilters::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -123,7 +125,7 @@ MR_C_API const MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_OffsetPtr(cons
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_OffsetMutablePtr(MR_SignatureFilters_Blah *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::SignatureFilters::Blah`.
+/// Generated from constructor `MR::SignatureFilters::Blah::Blah`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_Blah_Destroy()` to free it when you're done using it.
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_ConstructFromAnother(const MR_SignatureFilters_Blah *_other);
@@ -134,7 +136,7 @@ MR_C_API void MR_SignatureFilters_Blah_Destroy(const MR_SignatureFilters_Blah *_
 /// Destroys a heap-allocated array of `MR_SignatureFilters_Blah`. Does nothing if the pointer is null.
 MR_C_API void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this);
 
-/// Generated from a method of class `MR::SignatureFilters::Blah` named `operator=`.
+/// Generated from method `MR::SignatureFilters::Blah::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

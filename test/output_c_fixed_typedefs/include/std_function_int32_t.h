@@ -16,7 +16,7 @@ extern "C" {
 
 
 // Stores a functor of type: `int32_t(void)`. Possibly stateful.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_function_int32_t MR_C_std_function_int32_t;
 
 // Constructs an empty (default-constructed) instance.
@@ -48,13 +48,27 @@ MR_C_API const MR_C_std_function_int32_t *MR_C_std_function_int32_t_OffsetPtr(co
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_OffsetMutablePtr(MR_C_std_function_int32_t *ptr, ptrdiff_t i);
 
+// Construct a stateless function.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int32_t_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_ConstructStateless(int32_t (*func)(void));
+
 // Assign a stateless function.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_int32_t_Assign(MR_C_std_function_int32_t *_this, int32_t (*func)(void));
 
-// Assign a function with an extra user data pointer.
+// Construct a function with an extra user data pointer.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int32_t_Destroy()` to free it when you're done using it.
 // Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
+// How to use `userdata_callback`:
+//   The `_this_userdata` parameter will never be null.
+//   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.
+//   If `*_this_userdata` is     null and `_other_userdata` is non-null, a copy of the functor is being constructed. Perform copying if needed and write the new userdata to `*_this_userdata`.
+//   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.
+MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_ConstructWithDataPtr(int32_t (*func)(void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata));
+
+// Assign a function with an extra user data pointer.
 // Parameter `_this` can not be null. It is a single object.
+// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 // How to use `userdata_callback`:
 //   The `_this_userdata` parameter will never be null.
 //   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.

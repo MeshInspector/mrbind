@@ -42,6 +42,11 @@ namespace MR
     // No weak pointers yet.
     // inline std::weak_ptr<A> GetWeakPtrClass() {return std::make_shared<A>();}
 
+    // Weak pointers in parameters disable the entire function.
+    inline void PassUniquePtr(std::unique_ptr<A>) {}
+    inline void PassUniquePtrLref(std::unique_ptr<A> &) {}
+    inline void PassUniquePtrRref(std::unique_ptr<A> &&) {}
+
     struct B : virtual A {};
 
     struct C : B {};

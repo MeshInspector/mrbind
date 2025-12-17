@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -113,14 +114,14 @@ void MR_C_std_vector_int32_t_ShrinkToFit(MR_C_std_vector_int32_t *_this)
 
 const int32_t *MR_C_std_vector_int32_t_At(const MR_C_std_vector_int32_t *_this, size_t i)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int32_t> *)(_this)).at(
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int32_t> *)(_this)).at(
         i
     ));
 }
 
 int32_t *MR_C_std_vector_int32_t_MutableAt(MR_C_std_vector_int32_t *_this, size_t i)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<int32_t> *)(_this)).at(
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<int32_t> *)(_this)).at(
         i
     ));
 }
@@ -354,7 +355,7 @@ MR_C_std_vector_int32_t_iterator *MR_C_std_vector_int32_t_iterator_OffsetMutable
 
 const int32_t *MR_C_std_vector_int32_t_const_iterator_Deref(const MR_C_std_vector_int32_t_const_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int32_t>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int32_t>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_int32_t_const_iterator_Incr(MR_C_std_vector_int32_t_const_iterator *_this)
@@ -379,7 +380,7 @@ ptrdiff_t MR_C_std_vector_int32_t_const_iterator_Distance(const MR_C_std_vector_
 
 int32_t *MR_C_std_vector_int32_t_iterator_Deref(const MR_C_std_vector_int32_t_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int32_t>::iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int32_t>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_int32_t_iterator_Incr(MR_C_std_vector_int32_t_iterator *_this)

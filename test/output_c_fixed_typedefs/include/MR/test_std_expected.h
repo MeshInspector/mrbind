@@ -54,7 +54,7 @@ MR_C_API void MR_StdExpected_SetExpVoidDefTrivial(const MR_C_expected_void_float
 
 // Generated from function `MR::StdExpected::SetExpVoidDef`.
 // Parameter `_1` is a single object.
-// Parameter `_1` has a default argument: `std::expected<void, float>{}`, pass a null pointer to use it.
+// Parameter `_1` has a default argument: `expected<void, float>{}`, pass a null pointer to use it.
 MR_C_API void MR_StdExpected_SetExpVoidDef(const MR_C_expected_void_float *_1);
 
 // Generated from function `MR::StdExpected::GetExpVec`.

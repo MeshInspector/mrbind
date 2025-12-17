@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 
 #include <cstddef>
+#include <memory>
 #include <set>
 #include <stdexcept>
 
@@ -164,7 +165,7 @@ MR_C_std_set_int_const_iterator *MR_C_std_set_int_const_iterator_OffsetMutablePt
 
 const int *MR_C_std_set_int_const_iterator_Deref(const MR_C_std_set_int_const_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<int>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<int>::const_iterator *)(_this)));
 }
 
 void MR_C_std_set_int_const_iterator_Incr(MR_C_std_set_int_const_iterator *_this)

@@ -3,6 +3,7 @@
 #include <common.h>
 #include <exports.h>
 #include <std_array_int_43.h>
+#include <std_array_int_array_4_array_3_5.h>
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -42,14 +43,17 @@ typedef struct MR_C_std_vector_int MR_C_std_vector_int; // Defined in `#include 
 
 // `std::array` behaves differently with simple types.
 /// Generated from class `MR::StdContainers::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_A MR_StdContainers_A;
 
 // Test vectors of a non-default-constructible type.
 /// Generated from class `MR::StdContainers::NonDefaultConstructible`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible;
 
 // A non-assignable type?
 /// Generated from class `MR::StdContainers::NonAssignable`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_NonAssignable MR_StdContainers_NonAssignable;
 
 /// Generated from function `MR::StdContainers::Set`.
@@ -142,7 +146,7 @@ MR_C_API const MR_StdContainers_A *MR_StdContainers_A_OffsetPtr(const MR_StdCont
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_OffsetMutablePtr(MR_StdContainers_A *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::StdContainers::A`.
+/// Generated from constructor `MR::StdContainers::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_ConstructFromAnother(const MR_StdContainers_A *_other);
@@ -153,7 +157,7 @@ MR_C_API void MR_StdContainers_A_Destroy(const MR_StdContainers_A *_this);
 /// Destroys a heap-allocated array of `MR_StdContainers_A`. Does nothing if the pointer is null.
 MR_C_API void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this);
 
-/// Generated from a method of class `MR::StdContainers::A` named `operator=`.
+/// Generated from method `MR::StdContainers::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -186,7 +190,7 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIter(void)
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(void);
 
-/// Generated from a constructor of class `MR::StdContainers::NonDefaultConstructible`.
+/// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(const MR_StdContainers_NonDefaultConstructible *_other);
@@ -197,7 +201,7 @@ MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDef
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_OffsetMutablePtr(MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i);
 
-/// Generated from a constructor of class `MR::StdContainers::NonDefaultConstructible`.
+/// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_Construct(int _1);
 
@@ -207,7 +211,7 @@ MR_C_API void MR_StdContainers_NonDefaultConstructible_Destroy(const MR_StdConta
 /// Destroys a heap-allocated array of `MR_StdContainers_NonDefaultConstructible`. Does nothing if the pointer is null.
 MR_C_API void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_StdContainers_NonDefaultConstructible *_this);
 
-/// Generated from a method of class `MR::StdContainers::NonDefaultConstructible` named `operator=`.
+/// Generated from method `MR::StdContainers::NonDefaultConstructible::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -232,17 +236,21 @@ MR_C_API const MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_Of
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(MR_StdContainers_NonAssignable *ptr, ptrdiff_t i);
 
+/// Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
+MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdContainers_NonAssignable *_other);
+
 /// Destroys a heap-allocated instance of `MR_StdContainers_NonAssignable`. Does nothing if the pointer is null.
 MR_C_API void MR_StdContainers_NonAssignable_Destroy(const MR_StdContainers_NonAssignable *_this);
 
 /// Destroys a heap-allocated array of `MR_StdContainers_NonAssignable`. Does nothing if the pointer is null.
 MR_C_API void MR_StdContainers_NonAssignable_DestroyArray(const MR_StdContainers_NonAssignable *_this);
 
-/// Generated from a method of class `MR::StdContainers::NonAssignable` named `operator<`.
+/// Generated from method `MR::StdContainers::NonAssignable::operator<`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_less_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
 
-/// Generated from a method of class `MR::StdContainers::NonAssignable` named `operator==`.
+/// Generated from method `MR::StdContainers::NonAssignable::operator==`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
 
@@ -293,6 +301,11 @@ MR_C_API MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float *MR_St
 /// Generated from function `MR::StdContainers::GetStdArrayNA`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_MR_StdContainers_NonAssignable_42_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_StdContainers_GetStdArrayNA(void);
+
+// Fun stuff!
+// The type name is a bit weird for this, but at least it works.
+/// Generated from function `MR::StdContainers::GetStdArrayOfPlainArray`.
+MR_C_API MR_C_std_array_int_array_4_array_3_5 MR_StdContainers_GetStdArrayOfPlainArray(void);
 
 #ifdef __cplusplus
 } // extern "C"

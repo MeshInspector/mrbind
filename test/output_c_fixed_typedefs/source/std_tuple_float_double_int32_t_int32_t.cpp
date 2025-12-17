@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <stdexcept>
 #include <tuple>
 
@@ -64,41 +65,41 @@ MR_C_std_tuple_float_double_int32_t_int32_t *MR_C_std_tuple_float_double_int32_t
 
 const float *MR_C_std_tuple_float_double_int32_t_int32_t_Get_float(const MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 
 float *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_float(MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 
 const double *MR_C_std_tuple_float_double_int32_t_int32_t_Get_double(const MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 
 double *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_double(MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 
 const int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_Get_int32_t_2(const MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<2>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<2>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 
 int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_int32_t_2(MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<2>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<2>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 
 const int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_Get_int32_t_3(const MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<3>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<3>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 
 int32_t *MR_C_std_tuple_float_double_int32_t_int32_t_GetMutable_int32_t_3(MR_C_std_tuple_float_double_int32_t_int32_t *_this)
 {
-    return &(std::get<3>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
+    return std::addressof(std::get<3>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<float, double, int32_t, int32_t> *)(_this))));
 }
 

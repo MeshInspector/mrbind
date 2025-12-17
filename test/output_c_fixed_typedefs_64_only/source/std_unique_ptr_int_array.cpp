@@ -74,7 +74,7 @@ int *MR_C_std_unique_ptr_int_array_Get(const MR_C_std_unique_ptr_int_array *_thi
 
 int *MR_C_std_unique_ptr_int_array_At(const MR_C_std_unique_ptr_int_array *_this, size_t i)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<int[]> *)(_this))[i]);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<int[]> *)(_this))[i]);
 }
 
 int *MR_C_std_unique_ptr_int_array_Release(MR_C_std_unique_ptr_int_array *_this)

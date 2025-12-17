@@ -16,6 +16,21 @@ namespace mrbind::CBindings::Modules
 
             std::optional<Generator::BindableType> ret;
 
+            // We use this to disambiguate constructors (when the element types are duplicated) in languages other than C.
+            // Injecting a fake name into `std` is a bit sketchy, but I don't want to name this `in_place_index_t`,
+            //   since in our constructors it comes AFTER the value argument, which allows us to give this tag a default argument,
+            //   which helps when there's no ambiguity.
+            static const cppdecl::QualifiedName tag_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("variant_index");
+
+            { // Special handling for the `variant_index` tag.
+                if (type.simple_type.name.Equals(tag_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+                {
+                    ret = MakeEmptyTagBinding(generator, type);
+                    if (ret)
+                        return ret;
+                }
+            }
+
             if (!type.IsOnlyQualifiedName() || !type.simple_type.name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
                 return ret;
 
@@ -46,7 +61,7 @@ namespace mrbind::CBindings::Modules
                 if (is_new)
                 {
                     std::string comment;
-                    comment += "\n/// Stores one of " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
+                    comment += "/// Stores one of " + std::to_string(elem_types.size()) + " object" + (elem_types.size() == 1 ? "" : "s") + (elem_types.empty() ? "" : ": ");
                     for (bool first = true; const auto &elem_type : elem_types)
                     {
                         if (first)
@@ -57,9 +72,8 @@ namespace mrbind::CBindings::Modules
                         comment += '`' + generator.CppdeclToCodeForComments(elem_type) + '`';
                     }
                     comment += ".\n";
-                    generator.EmitComment(file.header, comment);
 
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, std::move(comment));
 
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);
@@ -69,7 +83,7 @@ namespace mrbind::CBindings::Modules
                     { // index
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the index of the stored element type. In rare cases may return -1 if this variant is \"valueless by exception\".";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Index");
+                        emit.name = binder.MakeMemberFuncName(generator, "Index");
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                         emit.AddThisParam(type, true);
                         emit.cpp_called_func = "index";
@@ -101,12 +115,24 @@ namespace mrbind::CBindings::Modules
                         {
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Constructs the variant storing the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`.";
-                            emit.c_name = binder.MakeMemberFuncName(generator, "ConstructAs_" + type_identifiers[i]);
+                            emit.name = binder.MakeMemberFuncName(generator, "ConstructAs_" + type_identifiers[i], CInterop::MethodKinds::Constructor{});
                             emit.cpp_return_type = type;
                             emit.params.push_back({
                                 .name = "value",
                                 .cpp_type = elem_types[i],
                             });
+                            { // A dummy tag parameter for disamgiuation in languages other than C. See the comment on `tag_name`.
+                                cppdecl::Type param_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName(tag_name).AddTemplateArgument(cppdecl::PseudoExpr{.tokens = {cppdecl::NumericLiteral{.var = cppdecl::NumericLiteral::Integer{.value = std::to_string(i)}}}}));
+                                emit.params.push_back({
+                                    .name = "tag",
+                                    .omit_from_call = true,
+                                    .cpp_type = param_type,
+                                    .default_arg = Generator::EmitFuncParams::Param::DefaultArg{
+                                        .cpp_expr = generator.CppdeclToCode(param_type) + "{}", // Not `CppdeclToCodeForComments`.
+                                        .original_spelling = "{}",
+                                    },
+                                });
+                            }
                             emit.cpp_called_func = generator.CppdeclToCode(type) + "(std::in_place_index<" + std::to_string(i) + ">, @1@)";
                             generator.EmitFunction(file, emit);
                         }
@@ -116,7 +142,7 @@ namespace mrbind::CBindings::Modules
                         {
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Assigns to the variant, making it store the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`.";
-                            emit.c_name = binder.MakeMemberFuncName(generator, "AssignAs_" + type_identifiers[i]);
+                            emit.name = binder.MakeMemberFuncName(generator, "AssignAs_" + type_identifiers[i]);
                             emit.AddThisParam(type, false);
                             emit.params.push_back({
                                 .name = "value",
@@ -135,7 +161,7 @@ namespace mrbind::CBindings::Modules
                         {
                             for (bool is_const : {true, false})
                             {
-                                if (!is_const && elem_types[i].IsConstOrReference())
+                                if (!is_const && elem_types[i].IsEffectivelyConst())
                                     continue;
 
                                 Generator::EmitFuncParams emit;
@@ -163,7 +189,7 @@ namespace mrbind::CBindings::Modules
                                 name += type_identifiers[i];
 
                                 emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
-                                emit.c_name = binder.MakeMemberFuncName(generator, name);
+                                emit.name = binder.MakeMemberFuncName(generator, name);
 
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);

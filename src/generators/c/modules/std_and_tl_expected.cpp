@@ -71,24 +71,33 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    std::string comment = "\n/// Stores either ";
+                    std::string comment = "/// Stores either ";
                     if (value_type_is_void)
                         comment += "nothing (which represents success)";
                     else
                         comment += "a `" + generator.CppdeclToCodeForComments(cpp_elem_type_value) + "` that represents success";
                     comment += " or a `" + generator.CppdeclToCodeForComments(cpp_elem_type_error) + "` that represents an error.\n";
 
-                    generator.EmitComment(file.header, comment);
-
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, comment);
 
                     // The special member functions.
-                    binder.EmitSpecialMemberFunctions(generator, file, true);
+                    binder.EmitSpecialMemberFunctions(generator, file);
 
 
                     // Some custom functions:
 
-                    // There are no boolean checks, because the ones returning pointers can be used for the same purpose.
+                    // `bool Success()`
+                    // Note that this function is redundant, since you could use the other ones defined below that return pointers, for the same purpose.
+                    // But we're still defining this one, because it's marked as `operator bool` for interop purposes, which plays great with C#.
+                    {
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment += "/// Returns true if this instance represents success, or false if it represents an error.";
+                        emit.name = binder.MakeMemberFuncName(generator, "Success", CInterop::MethodKinds::ConversionOperator{});
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                        emit.cpp_called_func = "bool(@this@)";
+                        generator.EmitFunction(file, emit);
+                    }
 
                     const bool value_type_is_const = value_type_is_void || cpp_elem_type_value.IsConst();
                     const bool error_type_is_const = cpp_elem_type_error.IsConst();
@@ -111,7 +120,7 @@ namespace mrbind::CBindings::Modules
                                     emit.c_comment += " This version returns a mutable pointer.";
                             }
 
-                            emit.c_name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Value");
+                            emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Value");
 
                             if (value_type_is_void)
                             {
@@ -148,7 +157,7 @@ namespace mrbind::CBindings::Modules
                             if (!is_const)
                                 emit.c_comment += " This version returns a mutable pointer.";
 
-                            emit.c_name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Error");
+                            emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Error");
 
                             emit.cpp_return_type = cpp_elem_type_error;
                             emit.cpp_return_type.AddQualifiers(cppdecl::CvQualifiers::const_ * is_const);
@@ -185,29 +194,17 @@ namespace mrbind::CBindings::Modules
             return {};
         }
 
-        void AdjustForPrettyPrintingLow(const Generator &generator, auto &target) const
+        void AdjustForCommentsAndInterop(const Generator &generator, AdjustableForCommentsAndInteropVar target) const override
         {
             (void)generator;
 
             if (merge_std_and_tl_expected)
-                cppdecl::Simplify(cppdecl::SimplifyFlags::bit_extra_merge_std_tl_expected, target);
-        }
-
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Type &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
-        }
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::QualifiedName &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
-        }
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::Decl &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
-        }
-        void AdjustForPrettyPrinting(const Generator &generator, cppdecl::PseudoExpr &target) const override
-        {
-            AdjustForPrettyPrintingLow(generator, target);
+            {
+                std::visit([&](auto *ptr)
+                {
+                    cppdecl::Simplify(cppdecl::SimplifyFlags::bit_extra_merge_std_tl_expected, *ptr);
+                }, target);
+            }
         }
     };
 }

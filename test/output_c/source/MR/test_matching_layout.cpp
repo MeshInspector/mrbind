@@ -5,7 +5,23 @@
 #include <input/MR/test_matching_layout.h>
 
 #include <cstddef>
+#include <memory>
 
+
+const int *MR_MatchingLayout_A_Get_x(void)
+{
+    return std::addressof(MR::MatchingLayout::A::x);
+}
+
+void MR_MatchingLayout_A_Set_x(int value)
+{
+    MR::MatchingLayout::A::x = value;
+}
+
+int *MR_MatchingLayout_A_GetMutable_x(void)
+{
+    return std::addressof(MR::MatchingLayout::A::x);
+}
 
 MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void)
 {

@@ -6,6 +6,7 @@
 #include <input/MR/test_std_containers.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <unordered_map>
 
@@ -227,12 +228,12 @@ MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_
 
 const MR_StdContainers_NonAssignable *MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefKey(const MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator *_this)
 {
-    return (const MR_StdContainers_NonAssignable *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::const_iterator *)(_this))->first);
+    return (const MR_StdContainers_NonAssignable *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::const_iterator *)(_this))->first);
 }
 
 const float *MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefValue(const MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::const_iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::const_iterator *)(_this))->second);
 }
 
 void MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Incr(MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator *_this)
@@ -242,12 +243,12 @@ void MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iter
 
 const MR_StdContainers_NonAssignable *MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefKey(const MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator *_this)
 {
-    return (const MR_StdContainers_NonAssignable *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::iterator *)(_this))->first);
+    return (const MR_StdContainers_NonAssignable *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::iterator *)(_this))->first);
 }
 
 float *MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefValue(const MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator *_this)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<MR::StdContainers::NonAssignable, float>::iterator *)(_this))->second);
 }
 
 void MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_Incr(MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator *_this)

@@ -15,7 +15,7 @@ extern "C" {
 
 
 // Stores 4 objects: `float`, `double`, `int32_t`, `int32_t`.
-// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move`, (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_tuple_float_double_int32_t_int32_t MR_C_std_tuple_float_double_int32_t_int32_t;
 
 // Constructs an empty (default-constructed) instance.

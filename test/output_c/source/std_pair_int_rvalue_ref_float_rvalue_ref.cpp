@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 
@@ -45,11 +46,11 @@ MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int_rvalue_ref_floa
 
 int *MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_First(const MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *_this)
 {
-    return &mrbindc_details::unmove(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &&, float &&> *)(_this)).first);
+    return std::addressof(mrbindc_details::unmove(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &&, float &&> *)(_this)).first));
 }
 
 float *MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Second(const MR_C_std_pair_int_rvalue_ref_float_rvalue_ref *_this)
 {
-    return &mrbindc_details::unmove(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &&, float &&> *)(_this)).second);
+    return std::addressof(mrbindc_details::unmove(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int &&, float &&> *)(_this)).second));
 }
 

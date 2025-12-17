@@ -190,8 +190,7 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    generator.EmitComment(file.header, "\n/// Stores a functor of type: `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`. Possibly stateful.\n");
-                    binder.EmitForwardDeclaration(generator, file);
+                    binder.EmitForwardDeclaration(generator, file, "/// Stores a functor of type: `" + generator.CppdeclToCodeForComments(cpp_elem_type) + "`. Possibly stateful.\n");
 
                     // The special member functions:
                     binder.EmitSpecialMemberFunctions(generator, file);
@@ -306,10 +305,41 @@ namespace mrbind::CBindings::Modules
                         return ret;
                     };
 
+                    { // Construct stateless.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Construct a stateless function.";
+                        emit.name = binder.MakeMemberFuncName(generator, "ConstructStateless", CInterop::MethodKinds::Constructor{}); // Intentionally implicit.
+                        emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
+
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+                        emit.params.push_back({
+                            .name = "func",
+                            .cpp_type = cppdecl::Type(c_func_type).AddModifier(cppdecl::Pointer{}),
+                            .use_type_as_is = true,
+                        });
+
+
+                        Generator::EmitFuncParams emit_lambda = PrepareLambda("_f", emit.c_comment_trailing);
+
+                        auto strings = generator.EmitFunctionAsStrings(file, emit_lambda);
+                        strings.decl.type.As<cppdecl::Function>()->uses_trailing_return_type = true;
+
+                        emit.cpp_called_func = "@1@ ? " + generator.CppdeclToCode(binder.cpp_type_name) + "([_f = @1@]";
+                        emit.cpp_called_func += generator.CppdeclToCode(strings.decl.type, cppdecl::ToCodeFlags::lambda);
+                        emit.cpp_called_func += '\n';
+                        emit.cpp_called_func += generator.IndentString(strings.body, 1, true);
+                        emit.cpp_called_func += ") : nullptr";
+
+                        generator.EmitFunction(file, emit);
+                    }
+
                     { // Assign stateless.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Assign a stateless function.";
-                        emit.c_name = binder.MakeMemberFuncName(generator, "Assign");
+
+                        emit.name = binder.MakeMemberFuncName(generator, "Assign");
+                        emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
+
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "func",
@@ -339,23 +369,10 @@ namespace mrbind::CBindings::Modules
                         generator.EmitFunction(file, emit);
                     }
 
-                    { // Assign with user data pointer.
-                        Generator::EmitFuncParams emit;
-                        emit.c_comment =
-                            "/// Assign a function with an extra user data pointer.\n"
-                            "/// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.";
+                    { // Construct and assign stateful.
+                        std::string trailing_comment;
 
-                        emit.c_name = binder.MakeMemberFuncName(generator, "AssignWithDataPtr");
-                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
-                        emit.params.push_back({
-                            .name = "func",
-                            .cpp_type = cppdecl::Type(c_func_type_with_userdata_ptr).AddModifier(cppdecl::Pointer{}),
-                            .use_type_as_is = true,
-                        });
-                        emit.params.push_back({
-                            .name = "userdata",
-                            .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
-                        });
+                        cppdecl::Type funcptr_with_userdata = cppdecl::Type(c_func_type_with_userdata_ptr).AddModifier(cppdecl::Pointer{});
 
                         std::vector<cppdecl::MaybeAmbiguousDecl> userdata_cb_params;
                         userdata_cb_params.emplace_back();
@@ -365,101 +382,169 @@ namespace mrbind::CBindings::Modules
                         userdata_cb_params.back().name = cppdecl::QualifiedName::FromSingleWord("_other_userdata");
                         userdata_cb_params.back().type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
 
-                        emit.params.push_back({
-                            .name = "userdata_callback",
-                            .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = userdata_cb_params}).AddModifier(cppdecl::Pointer{}),
-                            .use_type_as_is = true,
-                        });
+                        cppdecl::Type funcptr_userdata_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = userdata_cb_params}).AddModifier(cppdecl::Pointer{});
+
+                        // This name must depend on the function type, otherwise unity builds explode.
+                        const std::string functor_name = "_functor_" + binder.c_type_name;
+
+                        { // Write some common helpers.
+                            Generator::EmitFuncParams emit_lambda = PrepareLambda("_func", trailing_comment);
+                            emit_lambda.extra_args_after.push_back("_userdata");
+
+                            // Add more stuff to the comment.
+                            if (!trailing_comment.empty())
+                                trailing_comment += '\n';
+                            trailing_comment +=
+                                "/// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.\n"
+                                "/// How to use `userdata_callback`:\n"
+                                "///   The `_this_userdata` parameter will never be null.\n"
+                                "///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.\n"
+                                "///   If `*_this_userdata` is     null and `_other_userdata` is non-null, a copy of the functor is being constructed. Perform copying if needed and write the new userdata to `*_this_userdata`.\n"
+                                "///   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.";
 
 
-                        Generator::EmitFuncParams emit_lambda = PrepareLambda("_func", emit.c_comment_trailing);
+                            auto lambda_strings = generator.EmitFunctionAsStrings(file, emit_lambda);
+                            lambda_strings.decl.type.As<cppdecl::Function>()->uses_trailing_return_type = true;
 
-                        // Add more stuff to the comment.
-                        if (!emit.c_comment_trailing.empty())
-                            emit.c_comment_trailing += '\n';
-                        emit.c_comment_trailing +=
-                            "/// How to use `userdata_callback`:\n"
-                            "///   The `_this_userdata` parameter will never be null.\n"
-                            "///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.\n"
-                            "///   If `*_this_userdata` is     null and `_other_userdata` is non-null, a copy of the functor is being constructed. Perform copying if needed and write the new userdata to `*_this_userdata`.\n"
-                            "///   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.";
 
-                        emit_lambda.extra_args_after.push_back("_userdata");
+                            file.source.contents +=
+                                "\n"
+                                "namespace\n"
+                                "{\n"
+                                "    struct " + functor_name + "\n"
+                                "    {\n"
+                                "        using FuncPtr = " + generator.CppdeclToCode(funcptr_with_userdata) + ";\n"
+                                "        using UserdataCbPtr = " + generator.CppdeclToCode(funcptr_userdata_cb) + ";\n"
+                                "\n"
+                                "        FuncPtr _func = nullptr;\n"
+                                "        void *_userdata = nullptr;\n"
+                                "        UserdataCbPtr _userdata_cb = nullptr;\n"
+                                "\n"
+                                "        " + functor_name + "(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}\n"
+                                "\n"
+                                "        " + functor_name + "(const " + functor_name + " &other) : _func(other._func), _userdata_cb(other._userdata_cb)\n"
+                                "        {\n"
+                                "            if (!other._userdata) return; // No data to copy.\n"
+                                "            if (!_userdata_cb) {_userdata = other._userdata; return;} // No callback, just copy the data.\n"
+                                "            _userdata_cb(&_userdata, other._userdata);\n"
+                                "        }\n"
+                                "\n"
+                                "        " + functor_name + "(" + functor_name + " &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)\n"
+                                "        {\n"
+                                "            other._func = nullptr;\n"
+                                "            other._userdata = nullptr;\n"
+                                "            other._userdata_cb = nullptr;\n"
+                                "        }\n"
+                                "\n"
+                                "        " + functor_name + " &operator=(const " + functor_name + " &other)\n"
+                                "        {\n"
+                                "            if (_userdata_cb && _userdata_cb != other._userdata_cb) // Callback exists but incompatible, destroy the old contents first.\n"
+                                "            {\n"
+                                "                _userdata_cb(&_userdata, nullptr);\n"
+                                "                _userdata = nullptr; // Don't need to zero the callbacks, we'll overwrite them anyway.\n"
+                                "            }\n"
+                                "            _func = other._func;\n"
+                                "            _userdata_cb = other._userdata_cb;\n"
+                                "            if (other._userdata && _userdata_cb) // If we have data to copy and a callback, use the callback. The data must be non-null, otherwise the callback will confuse this for a copy construction.\n"
+                                "                _userdata_cb(&_userdata, other._userdata);\n"
+                                "            else // Otherwise shallow-copy.\n"
+                                "                _userdata = other._userdata;\n"
+                                "            return *this;\n"
+                                "        }\n"
+                                "\n"
+                                "        " + functor_name + " &operator=(" + functor_name + " &&other) noexcept\n"
+                                "        {\n"
+                                "            _func = other._func;\n"
+                                "            _userdata = other._userdata;\n"
+                                "            _userdata_cb = other._userdata_cb;\n"
+                                "            other._func = nullptr;\n"
+                                "            other._userdata = nullptr;\n"
+                                "            other._userdata_cb = nullptr;\n"
+                                "            return *this;\n"
+                                "        }\n"
+                                "\n"
+                                "        ~" + functor_name + "()\n"
+                                "        {\n"
+                                "            if (_userdata && _userdata_cb)\n"
+                                "                _userdata_cb(&_userdata, nullptr);\n"
+                                "        }\n"
+                                "\n"
+                                "        auto operator()" + generator.CppdeclToCode(lambda_strings.decl.type, cppdecl::ToCodeFlags::lambda) + "\n"
+                                "        " + generator.IndentString(lambda_strings.body, 2, false) + "\n"
+                                "    };\n"
+                                "}\n";
+                        }
 
-                        auto strings = generator.EmitFunctionAsStrings(file, emit_lambda);
-                        strings.decl.type.As<cppdecl::Function>()->uses_trailing_return_type = true;
+                        { // Construct with user data pointer.
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// Construct a function with an extra user data pointer.";
 
-                        emit.cpp_extra_statements =
-                            "auto &_self = @this@;\n"
-                            "if (!@1@)\n" // Not moving `@1@` to a variable because it's just a plain argument.
-                            "{\n"
-                            "    _self = nullptr;\n"
-                            "    return;\n"
-                            "}\n"
-                            "\n"
-                            "struct _functor\n"
-                            "{\n"
-                            "    decltype(@1@) _func = nullptr;\n"
-                            "    void *_userdata = nullptr;\n"
-                            "    decltype(@3@) _userdata_cb = nullptr;\n"
-                            "\n"
-                            "    _functor(decltype(@1@) _func, void *_userdata, decltype(@3@) _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}\n"
-                            "\n"
-                            "    _functor(const _functor &_other) : _func(_other._func), _userdata_cb(_other._userdata_cb)\n"
-                            "    {\n"
-                            "        if (!_other._userdata) return; // No data to copy.\n"
-                            "        if (!_userdata_cb) {_userdata = _other._userdata; return;} // No callback, just copy the data.\n"
-                            "        _userdata_cb(&_userdata, _other._userdata);\n"
-                            "    }\n"
-                            "\n"
-                            "    _functor(_functor &&_other) noexcept : _func(_other._func), _userdata(_other._userdata), _userdata_cb(_other._userdata_cb)\n"
-                            "    {\n"
-                            "        _other._func = nullptr;\n"
-                            "        _other._userdata = nullptr;\n"
-                            "        _other._userdata_cb = nullptr;\n"
-                            "    }\n"
-                            "\n"
-                            "    _functor &operator=(const _functor &_other)\n"
-                            "    {\n"
-                            "        if (_userdata_cb && _userdata_cb != _other._userdata_cb) // Callback exists but incompatible, destroy the old contents first.\n"
-                            "        {\n"
-                            "            _userdata_cb(&_userdata, nullptr);\n"
-                            "            _userdata = nullptr; // Don't need to zero the callbacks, we'll overwrite them anyway.\n"
-                            "        }\n"
-                            "        _func = _other._func;\n"
-                            "        _userdata_cb = _other._userdata_cb;\n"
-                            "        if (_other._userdata && _userdata_cb) // If we have data to copy and a callback, use the callback. The data must be non-null, otherwise the callback will confuse this for a copy construction.\n"
-                            "            _userdata_cb(&_userdata, _other._userdata);\n"
-                            "        else // Otherwise shallow-copy.\n"
-                            "            _userdata = _other._userdata;\n"
-                            "        return *this;\n"
-                            "    }\n"
-                            "\n"
-                            "    _functor &operator=(_functor &&_other) noexcept\n"
-                            "    {\n"
-                            "        _func = _other._func;\n"
-                            "        _userdata = _other._userdata;\n"
-                            "        _userdata_cb = _other._userdata_cb;\n"
-                            "        _other._func = nullptr;\n"
-                            "        _other._userdata = nullptr;\n"
-                            "        _other._userdata_cb = nullptr;\n"
-                            "        return *this;\n"
-                            "    }\n"
-                            "\n"
-                            "    ~_functor()\n"
-                            "    {\n"
-                            "        if (_userdata && _userdata_cb)\n"
-                            "            _userdata_cb(&_userdata, nullptr);\n"
-                            "    }\n"
-                            "\n"
-                            "    auto operator()" + generator.CppdeclToCode(strings.decl.type, cppdecl::ToCodeFlags::lambda) + "\n"
-                            "    " + generator.IndentString(strings.body, 1, false) + "\n"
-                            "};\n"
-                            ;
+                            emit.c_comment_trailing = trailing_comment;
 
-                        emit.cpp_called_func = "_self = _functor{@1@, @2@, @3@}";
+                            emit.name = binder.MakeMemberFuncName(generator, "ConstructWithDataPtr", CInterop::MethodKinds::Constructor{}); // Intentionally implicit.
+                            emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
 
-                        generator.EmitFunction(file, emit);
+                            emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+                            emit.params.push_back({
+                                .name = "func",
+                                .cpp_type = funcptr_with_userdata,
+                                .use_type_as_is = true,
+                            });
+                            emit.params.push_back({
+                                .name = "userdata",
+                                .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                            });
+
+                            emit.params.push_back({
+                                .name = "userdata_callback",
+                                .cpp_type = funcptr_userdata_cb,
+                                .use_type_as_is = true,
+                            });
+
+                            emit.cpp_called_func = "@1@ ? " + generator.CppdeclToCode(binder.cpp_type_name) + "(" + functor_name + "{@1@, @2@, @3@}) : nullptr";
+
+                            generator.EmitFunction(file, emit);
+                        }
+
+                        { // Assign with user data pointer.
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment =
+                                "/// Assign a function with an extra user data pointer.";
+
+                            emit.c_comment_trailing = trailing_comment;
+
+                            emit.name = binder.MakeMemberFuncName(generator, "AssignWithDataPtr");
+                            emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
+
+                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                            emit.params.push_back({
+                                .name = "func",
+                                .cpp_type = funcptr_with_userdata,
+                                .use_type_as_is = true,
+                            });
+                            emit.params.push_back({
+                                .name = "userdata",
+                                .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                            });
+
+                            emit.params.push_back({
+                                .name = "userdata_callback",
+                                .cpp_type = funcptr_userdata_cb,
+                                .use_type_as_is = true,
+                            });
+
+                            emit.cpp_extra_statements =
+                                "auto &_self = @this@;\n"
+                                "if (!@1@)\n" // Not moving `@1@` to a variable because it's just a plain argument.
+                                "{\n"
+                                "    _self = nullptr;\n"
+                                "    return;\n"
+                                "}\n";
+
+                            emit.cpp_called_func = "_self = " + functor_name + "{@1@, @2@, @3@}";
+
+                            generator.EmitFunction(file, emit);
+                        }
                     }
                 }
 

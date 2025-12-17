@@ -127,6 +127,14 @@ namespace mrbind
 
                 for (const auto &member : class_iter->second.cl->members)
                 {
+                    // Refuse to inherit special assignments.
+                    // I believe this matches what C++ does (it should always shadow them).
+                    // If you wanted to inherit them for some reason (which would be a bad idea!),
+                    //   you'd have to at least set `.assignment_kind = none`, since for other values we expect the parameter type
+                    //   to match the enclosing class type.
+                    if (auto method = std::get_if<ClassMethod>(&member); method && method->assignment_kind != CopyMoveKind::none)
+                        continue;
+
                     auto HandleMember = [&]<typename T>(const T &elem, const std::string &name, auto &map)
                     {
                         // Figure out where this method is originally inherited from. Or is it directly from this base?

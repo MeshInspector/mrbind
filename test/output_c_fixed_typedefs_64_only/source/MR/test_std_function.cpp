@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <functional>
+#include <memory>
 #include <stdexcept>
 #include <string>
 
@@ -54,7 +55,7 @@ void MR_StdFunction_foo_std_function_void_func_from_std_string(MR_C_PassBy _1_pa
 
 const MR_C_std_string *MR_StdFunction_A_Get_a(const MR_StdFunction_A *_this)
 {
-    return (const MR_C_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdFunction::A *)(_this)).a);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdFunction::A *)(_this)).a);
 }
 
 void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value, const char *value_end)
@@ -64,7 +65,7 @@ void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value, const ch
 
 MR_C_std_string *MR_StdFunction_A_GetMutable_a(MR_StdFunction_A *_this)
 {
-    return (MR_C_std_string *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdFunction::A *)(_this)).a);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdFunction::A *)(_this)).a);
 }
 
 MR_StdFunction_A *MR_StdFunction_A_DefaultConstruct(void)
@@ -113,7 +114,7 @@ void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this)
 
 MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other)
 {
-    return (MR_StdFunction_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdFunction::A *)(_this)).operator=(
+    return (MR_StdFunction_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdFunction::A *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdFunction::A) MRBINDC_CLASSARG_COPY(_other, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_MOVE(_other, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdFunction::A) MRBINDC_CLASSARG_END(_other, MR::StdFunction::A))
     ));
 }

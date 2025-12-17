@@ -4,6 +4,7 @@
 #include <input/MR/test_omitting_template_args_and_quals.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 
 
@@ -46,7 +47,7 @@ void MR_OmittingTargsAndQuals_A_int_DestroyArray(const MR_OmittingTargsAndQuals_
 
 MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_AssignFromAnother(MR_OmittingTargsAndQuals_A_int *_this, const MR_OmittingTargsAndQuals_A_int *_other)
 {
-    return (MR_OmittingTargsAndQuals_A_int *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OmittingTargsAndQuals::A<int> *)(_this)).operator=(
+    return (MR_OmittingTargsAndQuals_A_int *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OmittingTargsAndQuals::A<int> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::OmittingTargsAndQuals::A<int>(*(MR::OmittingTargsAndQuals::A<int> *)_other))
     ));
 }
@@ -117,7 +118,7 @@ void MR_OmittingTargsAndQuals_A_float_DestroyArray(const MR_OmittingTargsAndQual
 
 MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_AssignFromAnother(MR_OmittingTargsAndQuals_A_float *_this, const MR_OmittingTargsAndQuals_A_float *_other)
 {
-    return (MR_OmittingTargsAndQuals_A_float *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OmittingTargsAndQuals::A<float> *)(_this)).operator=(
+    return (MR_OmittingTargsAndQuals_A_float *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::OmittingTargsAndQuals::A<float> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::OmittingTargsAndQuals::A<float>(*(MR::OmittingTargsAndQuals::A<float> *)_other))
     ));
 }

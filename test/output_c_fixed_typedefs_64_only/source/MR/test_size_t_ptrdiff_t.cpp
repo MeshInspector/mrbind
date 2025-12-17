@@ -6,6 +6,7 @@
 
 #include <common.h>
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -19,7 +20,7 @@ MR_C_uint64_t MR_TestSizeT_foo_uint64_t(MR_C_uint64_t _1)
 
 MR_C_uint64_t **MR_TestSizeT_foo_uint64_t_ptr(MR_C_uint64_t **_1)
 {
-    return &(::MR::TestSizeT::foo(
+    return std::addressof(::MR::TestSizeT::foo(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
     ));
 }
@@ -40,7 +41,7 @@ MR_C_int64_t MR_TestSizeT_foo_int64_t(MR_C_int64_t _1)
 
 MR_C_int64_t **MR_TestSizeT_foo_int64_t_ptr(MR_C_int64_t **_1)
 {
-    return &(::MR::TestSizeT::foo(
+    return std::addressof(::MR::TestSizeT::foo(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
     ));
 }
@@ -91,7 +92,7 @@ void MR_TestSizeT_A_uint64_t_DestroyArray(const MR_TestSizeT_A_uint64_t *_this)
 
 MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_A_uint64_t *_this, const MR_TestSizeT_A_uint64_t *_other)
 {
-    return (MR_TestSizeT_A_uint64_t *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<MR_C_uint64_t> *)(_this)).operator=(
+    return (MR_TestSizeT_A_uint64_t *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<MR_C_uint64_t> *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSizeT::A<MR_C_uint64_t>(*(MR::TestSizeT::A<MR_C_uint64_t> *)_other))
     ));
 }

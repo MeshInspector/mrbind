@@ -21,6 +21,7 @@ typedef struct MR_C_std_unique_ptr_int32_t_array MR_C_std_unique_ptr_int32_t_arr
 
 // Now with a class:
 // Generated from class `MR::StdUniquePtr::A`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdUniquePtr_A MR_StdUniquePtr_A;
 
 // Generated from function `MR::StdUniquePtr::GetInt`.
@@ -102,7 +103,7 @@ MR_C_API const MR_StdUniquePtr_A *MR_StdUniquePtr_A_OffsetPtr(const MR_StdUnique
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_OffsetMutablePtr(MR_StdUniquePtr_A *ptr, ptrdiff_t i);
 
-// Generated from a constructor of class `MR::StdUniquePtr::A`.
+// Generated from constructor `MR::StdUniquePtr::A::A`.
 // Parameter `_other` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdUniquePtr_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_ConstructFromAnother(const MR_StdUniquePtr_A *_other);
@@ -113,7 +114,7 @@ MR_C_API void MR_StdUniquePtr_A_Destroy(const MR_StdUniquePtr_A *_this);
 // Destroys a heap-allocated array of `MR_StdUniquePtr_A`. Does nothing if the pointer is null.
 MR_C_API void MR_StdUniquePtr_A_DestroyArray(const MR_StdUniquePtr_A *_this);
 
-// Generated from a method of class `MR::StdUniquePtr::A` named `operator=`.
+// Generated from method `MR::StdUniquePtr::A::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.

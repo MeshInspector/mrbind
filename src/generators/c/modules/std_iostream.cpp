@@ -5,6 +5,9 @@ namespace mrbind::CBindings::Modules
 {
     struct StdIostream : DeriveModule<StdIostream>
     {
+        cppdecl::QualifiedName cpp_name_istream = cppdecl::QualifiedName{}.AddPart("std").AddPart("istream");
+        cppdecl::QualifiedName cpp_name_ostream = cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream");
+
         std::string c_name_istream;
         std::string c_name_ostream;
 
@@ -26,6 +29,7 @@ namespace mrbind::CBindings::Modules
                 return ret;
 
             auto get_output_file = [
+                this,
                 c_name_istream = c_name_istream,
                 c_name_ostream = c_name_ostream
             ](Generator &generator) -> Generator::OutputFile &
@@ -35,15 +39,13 @@ namespace mrbind::CBindings::Modules
 
                 if (is_new)
                 {
-                    generator.EmitComment(file.header, "\n/// A C++ output stream.\n");
-                    file.header.contents += MakeStructForwardDeclaration(c_name_ostream) + '\n';
-                    generator.EmitComment(file.header, "\n/// A C++ input stream.\n");
-                    file.header.contents += MakeStructForwardDeclaration(c_name_istream) + '\n';
+                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ output stream.\n", cpp_name_ostream, c_name_ostream);
+                    EmitRefOnlyStructForwardDeclaration(generator, file, "/// A C++ input stream.\n", cpp_name_istream, c_name_istream);
 
                     { // cout
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stdout` stream.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdCout");
+                        emit.name = generator.MakeFreeFuncName("GetStdCout");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::cout";
                         emit.cpp_called_func_parens = {};
@@ -53,7 +55,7 @@ namespace mrbind::CBindings::Modules
                     { // cerr
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stderr` stream, buffered.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdCerr");
+                        emit.name = generator.MakeFreeFuncName("GetStdCerr");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::cerr";
                         emit.cpp_called_func_parens = {};
@@ -63,7 +65,7 @@ namespace mrbind::CBindings::Modules
                     { // clog
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stderr` stream, unbuffered.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdClog");
+                        emit.name = generator.MakeFreeFuncName("GetStdClog");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("ostream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::clog";
                         emit.cpp_called_func_parens = {};
@@ -73,7 +75,7 @@ namespace mrbind::CBindings::Modules
                     { // cin
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the `stdin` stream.";
-                        emit.c_name = generator.MakePublicHelperName("GetStdCin");
+                        emit.name = generator.MakeFreeFuncName("GetStdCin");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("istream")).AddModifier(cppdecl::Reference{});
                         emit.cpp_called_func = "std::cin";
                         emit.cpp_called_func_parens = {};
@@ -87,7 +89,7 @@ namespace mrbind::CBindings::Modules
             Generator::TypeBindableWithSameAddress &binding = ret.emplace();
 
             binding.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
-            binding.forward_declaration = MakeStructForwardDeclaration(is_output_stream ? c_name_ostream : c_name_istream);
+            binding.forward_declaration = MakeStructForwardDeclarationNoReg(is_output_stream ? c_name_ostream : c_name_istream);
             binding.custom_c_type_name = is_output_stream ? c_name_ostream : c_name_istream; // Need to customize this because we add a prefix.
 
             return ret;

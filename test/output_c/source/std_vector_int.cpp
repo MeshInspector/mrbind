@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 
 #include <cstddef>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -111,14 +112,14 @@ void MR_C_std_vector_int_ShrinkToFit(MR_C_std_vector_int *_this)
 
 const int *MR_C_std_vector_int_At(const MR_C_std_vector_int *_this, size_t i)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int> *)(_this)).at(
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int> *)(_this)).at(
         i
     ));
 }
 
 int *MR_C_std_vector_int_MutableAt(MR_C_std_vector_int *_this, size_t i)
 {
-    return &(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<int> *)(_this)).at(
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<int> *)(_this)).at(
         i
     ));
 }
@@ -352,7 +353,7 @@ MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_OffsetMutablePtr(MR_C
 
 const int *MR_C_std_vector_int_const_iterator_Deref(const MR_C_std_vector_int_const_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_int_const_iterator_Incr(MR_C_std_vector_int_const_iterator *_this)
@@ -377,7 +378,7 @@ ptrdiff_t MR_C_std_vector_int_const_iterator_Distance(const MR_C_std_vector_int_
 
 int *MR_C_std_vector_int_iterator_Deref(const MR_C_std_vector_int_iterator *_this)
 {
-    return &(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int>::iterator *)(_this)));
+    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<int>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_int_iterator_Incr(MR_C_std_vector_int_iterator *_this)

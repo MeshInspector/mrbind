@@ -5,6 +5,7 @@
 
 #include <cstddef>
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 
 
@@ -47,7 +48,7 @@ void MR_IOStream_A_DestroyArray(const MR_IOStream_A *_this)
 
 MR_IOStream_A *MR_IOStream_A_AssignFromAnother(MR_IOStream_A *_this, const MR_IOStream_A *_other)
 {
-    return (MR_IOStream_A *)&(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::IOStream::A *)(_this)).operator=(
+    return (MR_IOStream_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::IOStream::A *)(_this)).operator=(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::IOStream::A(*(MR::IOStream::A *)_other))
     ));
 }
@@ -60,7 +61,7 @@ void MR_C_print_MR_IOStream_A(MR_C_std_ostream *_1, const MR_IOStream_A *_2)
     );
 }
 
-void MR_C_rshift_std_istream_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2)
+void MR_C_input_MR_IOStream_A(MR_C_std_istream *_1, MR_IOStream_A *_2)
 {
     operator>>(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::istream *)(_1)),

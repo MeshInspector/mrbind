@@ -1,5 +1,7 @@
 #pragma once
 
+#include "_common.h"
+
 namespace MR::MatchingLayout
 {
     struct A
@@ -10,6 +12,14 @@ namespace MR::MatchingLayout
         short b;
         // third
         float c;
+
+        MRint64 ll;
+
+        int arr[3];
+        int arr2d[4][5];
+
+        // Having static fields is not an error! Those get their normal getters and setters.
+        static int x;
     };
 
     struct B

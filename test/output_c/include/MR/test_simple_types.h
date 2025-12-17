@@ -36,15 +36,16 @@ typedef enum MR_TestSimpleTypes_E4
 // This will use a custom typedef for the underlying type, if that's enabled!
 typedef long MR_TestSimpleTypes_E5;
 
-// Class templates.
-/// Generated from class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
-typedef struct MR_TestSimpleTypes_ClassTemplate_unsigned_long MR_TestSimpleTypes_ClassTemplate_unsigned_long;
-
 // Enums.
 typedef enum MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum
 {
     MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_TestSimpleTypes_ClassTemplate_unsigned_long_Enum;
+
+// Class templates.
+/// Generated from class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_TestSimpleTypes_ClassTemplate_unsigned_long MR_TestSimpleTypes_ClassTemplate_unsigned_long;
 
 /// Generated from function `MR::TestSimpleTypes::GetInt`.
 MR_C_API int MR_TestSimpleTypes_GetInt(void);
@@ -200,8 +201,8 @@ MR_C_API void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1);
 MR_C_API void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1);
 
 // Test all kinds of `char`.
-/// Generated from function `MR::TestSimpleTypes::CheckChar`.
-MR_C_API void MR_TestSimpleTypes_CheckChar_char_ptr(char *_1);
+/// Generated from function `MR::TestSimpleTypes::CheckCharMaybeUnsigned`.
+MR_C_API void MR_TestSimpleTypes_CheckCharMaybeUnsigned(char *_1);
 
 /// Generated from function `MR::TestSimpleTypes::CheckChar`.
 MR_C_API void MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(unsigned char *_1);
@@ -237,7 +238,7 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_lo
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long(void);
 
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
+/// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
 /// Parameter `_other` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other);
@@ -249,12 +250,12 @@ MR_C_API const MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleType
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_OffsetMutablePtr(MR_TestSimpleTypes_ClassTemplate_unsigned_long *ptr, ptrdiff_t i);
 
 // Constructors.
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
+/// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(unsigned long _1);
 
 // Constructors.
-/// Generated from a constructor of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>`.
+/// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_int(int _1);
 
@@ -264,19 +265,19 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy(const MR_Te
 /// Destroys a heap-allocated array of `MR_TestSimpleTypes_ClassTemplate_unsigned_long`. Does nothing if the pointer is null.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_DestroyArray(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this);
 
-/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `operator=`.
+/// Generated from method `MR::TestSimpleTypes::ClassTemplate<unsigned long>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this, const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other);
 
 // Methods.
-/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `foo<unsigned long>`.
+/// Generated from method `MR::TestSimpleTypes::ClassTemplate<unsigned long>::foo<unsigned long>`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_unsigned_long(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this);
 
 // Methods.
-/// Generated from a method of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `foo<int>`.
+/// Generated from method `MR::TestSimpleTypes::ClassTemplate<unsigned long>::foo<int>`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_int(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this);
 
