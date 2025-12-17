@@ -163,165 +163,464 @@ public static partial class MR
 
         }
 
-        [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ArrayBool4_5
         {
-            MR.CS.ArrayBool5 elem;
+            public MR.CS.ArrayBool5 _0;
+            public MR.CS.ArrayBool5 _1;
+            public MR.CS.ArrayBool5 _2;
+            public MR.CS.ArrayBool5 _3;
+            public unsafe ref MR.CS.ArrayBool5 this[int i]
+            {
+                get
+                {
+                    fixed(MR.CS.ArrayBool5 *ptr = &_0)
+                    {
+                        return ref *(ptr + i);
+                    }
+                }
+            }
         }
 
-        [System.Runtime.CompilerServices.InlineArray(5)]
         public struct ArrayBool5
         {
-            byte elem;
+            public unsafe fixed byte _elem[5];
+            public unsafe ref byte this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(10)]
         public struct ArrayInt10_20
         {
-            MR.CS.ArrayInt20 elem;
+            public MR.CS.ArrayInt20 _0;
+            public MR.CS.ArrayInt20 _1;
+            public MR.CS.ArrayInt20 _2;
+            public MR.CS.ArrayInt20 _3;
+            public MR.CS.ArrayInt20 _4;
+            public MR.CS.ArrayInt20 _5;
+            public MR.CS.ArrayInt20 _6;
+            public MR.CS.ArrayInt20 _7;
+            public MR.CS.ArrayInt20 _8;
+            public MR.CS.ArrayInt20 _9;
+            public unsafe ref MR.CS.ArrayInt20 this[int i]
+            {
+                get
+                {
+                    fixed(MR.CS.ArrayInt20 *ptr = &_0)
+                    {
+                        return ref *(ptr + i);
+                    }
+                }
+            }
         }
 
-        [System.Runtime.CompilerServices.InlineArray(2)]
         public struct ArrayInt2
         {
-            int elem;
+            public unsafe fixed int _elem[2];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(20)]
         public struct ArrayInt20
         {
-            int elem;
+            public unsafe fixed int _elem[20];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(3)]
         public struct ArrayInt3
         {
-            int elem;
+            public unsafe fixed int _elem[3];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(3)]
         public struct ArrayInt3_4
         {
-            MR.CS.ArrayInt4 elem;
+            public MR.CS.ArrayInt4 _0;
+            public MR.CS.ArrayInt4 _1;
+            public MR.CS.ArrayInt4 _2;
+            public unsafe ref MR.CS.ArrayInt4 this[int i]
+            {
+                get
+                {
+                    fixed(MR.CS.ArrayInt4 *ptr = &_0)
+                    {
+                        return ref *(ptr + i);
+                    }
+                }
+            }
         }
 
-        [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ArrayInt4
         {
-            int elem;
+            public unsafe fixed int _elem[4];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(42)]
         public struct ArrayInt42
         {
-            int elem;
+            public unsafe fixed int _elem[42];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(43)]
         public struct ArrayInt43
         {
-            int elem;
+            public unsafe fixed int _elem[43];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ArrayInt4_5
         {
-            MR.CS.ArrayInt5 elem;
+            public MR.CS.ArrayInt5 _0;
+            public MR.CS.ArrayInt5 _1;
+            public MR.CS.ArrayInt5 _2;
+            public MR.CS.ArrayInt5 _3;
+            public unsafe ref MR.CS.ArrayInt5 this[int i]
+            {
+                get
+                {
+                    fixed(MR.CS.ArrayInt5 *ptr = &_0)
+                    {
+                        return ref *(ptr + i);
+                    }
+                }
+            }
         }
 
-        [System.Runtime.CompilerServices.InlineArray(5)]
         public struct ArrayInt5
         {
-            int elem;
+            public unsafe fixed int _elem[5];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(5)]
         public struct ArrayInt5_3_4
         {
-            MR.CS.ArrayInt3_4 elem;
+            public MR.CS.ArrayInt3_4 _0;
+            public MR.CS.ArrayInt3_4 _1;
+            public MR.CS.ArrayInt3_4 _2;
+            public MR.CS.ArrayInt3_4 _3;
+            public MR.CS.ArrayInt3_4 _4;
+            public unsafe ref MR.CS.ArrayInt3_4 this[int i]
+            {
+                get
+                {
+                    fixed(MR.CS.ArrayInt3_4 *ptr = &_0)
+                    {
+                        return ref *(ptr + i);
+                    }
+                }
+            }
         }
 
         public static partial class CSharp
         {
-            [System.Runtime.CompilerServices.InlineArray(10)]
             public struct ArrayE1_10_20
             {
-                MR.CS.CSharp.ArrayE1_20 elem;
+                public MR.CS.CSharp.ArrayE1_20 _0;
+                public MR.CS.CSharp.ArrayE1_20 _1;
+                public MR.CS.CSharp.ArrayE1_20 _2;
+                public MR.CS.CSharp.ArrayE1_20 _3;
+                public MR.CS.CSharp.ArrayE1_20 _4;
+                public MR.CS.CSharp.ArrayE1_20 _5;
+                public MR.CS.CSharp.ArrayE1_20 _6;
+                public MR.CS.CSharp.ArrayE1_20 _7;
+                public MR.CS.CSharp.ArrayE1_20 _8;
+                public MR.CS.CSharp.ArrayE1_20 _9;
+                public unsafe ref MR.CS.CSharp.ArrayE1_20 this[int i]
+                {
+                    get
+                    {
+                        fixed(MR.CS.CSharp.ArrayE1_20 *ptr = &_0)
+                        {
+                            return ref *(ptr + i);
+                        }
+                    }
+                }
             }
 
-            [System.Runtime.CompilerServices.InlineArray(20)]
             public struct ArrayE1_20
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _0;
+                public MR.CS.CSharp.E1 _1;
+                public MR.CS.CSharp.E1 _2;
+                public MR.CS.CSharp.E1 _3;
+                public MR.CS.CSharp.E1 _4;
+                public MR.CS.CSharp.E1 _5;
+                public MR.CS.CSharp.E1 _6;
+                public MR.CS.CSharp.E1 _7;
+                public MR.CS.CSharp.E1 _8;
+                public MR.CS.CSharp.E1 _9;
+                public MR.CS.CSharp.E1 _10;
+                public MR.CS.CSharp.E1 _11;
+                public MR.CS.CSharp.E1 _12;
+                public MR.CS.CSharp.E1 _13;
+                public MR.CS.CSharp.E1 _14;
+                public MR.CS.CSharp.E1 _15;
+                public MR.CS.CSharp.E1 _16;
+                public MR.CS.CSharp.E1 _17;
+                public MR.CS.CSharp.E1 _18;
+                public MR.CS.CSharp.E1 _19;
+                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                {
+                    get
+                    {
+                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        {
+                            return ref *(ptr + i);
+                        }
+                    }
+                }
             }
 
-            [System.Runtime.CompilerServices.InlineArray(42)]
             public struct ArrayE1_42
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _0;
+                public MR.CS.CSharp.E1 _1;
+                public MR.CS.CSharp.E1 _2;
+                public MR.CS.CSharp.E1 _3;
+                public MR.CS.CSharp.E1 _4;
+                public MR.CS.CSharp.E1 _5;
+                public MR.CS.CSharp.E1 _6;
+                public MR.CS.CSharp.E1 _7;
+                public MR.CS.CSharp.E1 _8;
+                public MR.CS.CSharp.E1 _9;
+                public MR.CS.CSharp.E1 _10;
+                public MR.CS.CSharp.E1 _11;
+                public MR.CS.CSharp.E1 _12;
+                public MR.CS.CSharp.E1 _13;
+                public MR.CS.CSharp.E1 _14;
+                public MR.CS.CSharp.E1 _15;
+                public MR.CS.CSharp.E1 _16;
+                public MR.CS.CSharp.E1 _17;
+                public MR.CS.CSharp.E1 _18;
+                public MR.CS.CSharp.E1 _19;
+                public MR.CS.CSharp.E1 _20;
+                public MR.CS.CSharp.E1 _21;
+                public MR.CS.CSharp.E1 _22;
+                public MR.CS.CSharp.E1 _23;
+                public MR.CS.CSharp.E1 _24;
+                public MR.CS.CSharp.E1 _25;
+                public MR.CS.CSharp.E1 _26;
+                public MR.CS.CSharp.E1 _27;
+                public MR.CS.CSharp.E1 _28;
+                public MR.CS.CSharp.E1 _29;
+                public MR.CS.CSharp.E1 _30;
+                public MR.CS.CSharp.E1 _31;
+                public MR.CS.CSharp.E1 _32;
+                public MR.CS.CSharp.E1 _33;
+                public MR.CS.CSharp.E1 _34;
+                public MR.CS.CSharp.E1 _35;
+                public MR.CS.CSharp.E1 _36;
+                public MR.CS.CSharp.E1 _37;
+                public MR.CS.CSharp.E1 _38;
+                public MR.CS.CSharp.E1 _39;
+                public MR.CS.CSharp.E1 _40;
+                public MR.CS.CSharp.E1 _41;
+                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                {
+                    get
+                    {
+                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        {
+                            return ref *(ptr + i);
+                        }
+                    }
+                }
             }
 
-            [System.Runtime.CompilerServices.InlineArray(10)]
             public struct ConstArrayE1_10_20
             {
-                MR.CS.CSharp.ConstArrayE1_20 elem;
+                public MR.CS.CSharp.ConstArrayE1_20 _0;
+                public MR.CS.CSharp.ConstArrayE1_20 _1;
+                public MR.CS.CSharp.ConstArrayE1_20 _2;
+                public MR.CS.CSharp.ConstArrayE1_20 _3;
+                public MR.CS.CSharp.ConstArrayE1_20 _4;
+                public MR.CS.CSharp.ConstArrayE1_20 _5;
+                public MR.CS.CSharp.ConstArrayE1_20 _6;
+                public MR.CS.CSharp.ConstArrayE1_20 _7;
+                public MR.CS.CSharp.ConstArrayE1_20 _8;
+                public MR.CS.CSharp.ConstArrayE1_20 _9;
+                public unsafe ref MR.CS.CSharp.ConstArrayE1_20 this[int i]
+                {
+                    get
+                    {
+                        fixed(MR.CS.CSharp.ConstArrayE1_20 *ptr = &_0)
+                        {
+                            return ref *(ptr + i);
+                        }
+                    }
+                }
             }
 
-            [System.Runtime.CompilerServices.InlineArray(20)]
             public struct ConstArrayE1_20
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _0;
+                public MR.CS.CSharp.E1 _1;
+                public MR.CS.CSharp.E1 _2;
+                public MR.CS.CSharp.E1 _3;
+                public MR.CS.CSharp.E1 _4;
+                public MR.CS.CSharp.E1 _5;
+                public MR.CS.CSharp.E1 _6;
+                public MR.CS.CSharp.E1 _7;
+                public MR.CS.CSharp.E1 _8;
+                public MR.CS.CSharp.E1 _9;
+                public MR.CS.CSharp.E1 _10;
+                public MR.CS.CSharp.E1 _11;
+                public MR.CS.CSharp.E1 _12;
+                public MR.CS.CSharp.E1 _13;
+                public MR.CS.CSharp.E1 _14;
+                public MR.CS.CSharp.E1 _15;
+                public MR.CS.CSharp.E1 _16;
+                public MR.CS.CSharp.E1 _17;
+                public MR.CS.CSharp.E1 _18;
+                public MR.CS.CSharp.E1 _19;
+                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                {
+                    get
+                    {
+                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        {
+                            return ref *(ptr + i);
+                        }
+                    }
+                }
             }
 
-            [System.Runtime.CompilerServices.InlineArray(42)]
             public struct ConstArrayE1_42
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _0;
+                public MR.CS.CSharp.E1 _1;
+                public MR.CS.CSharp.E1 _2;
+                public MR.CS.CSharp.E1 _3;
+                public MR.CS.CSharp.E1 _4;
+                public MR.CS.CSharp.E1 _5;
+                public MR.CS.CSharp.E1 _6;
+                public MR.CS.CSharp.E1 _7;
+                public MR.CS.CSharp.E1 _8;
+                public MR.CS.CSharp.E1 _9;
+                public MR.CS.CSharp.E1 _10;
+                public MR.CS.CSharp.E1 _11;
+                public MR.CS.CSharp.E1 _12;
+                public MR.CS.CSharp.E1 _13;
+                public MR.CS.CSharp.E1 _14;
+                public MR.CS.CSharp.E1 _15;
+                public MR.CS.CSharp.E1 _16;
+                public MR.CS.CSharp.E1 _17;
+                public MR.CS.CSharp.E1 _18;
+                public MR.CS.CSharp.E1 _19;
+                public MR.CS.CSharp.E1 _20;
+                public MR.CS.CSharp.E1 _21;
+                public MR.CS.CSharp.E1 _22;
+                public MR.CS.CSharp.E1 _23;
+                public MR.CS.CSharp.E1 _24;
+                public MR.CS.CSharp.E1 _25;
+                public MR.CS.CSharp.E1 _26;
+                public MR.CS.CSharp.E1 _27;
+                public MR.CS.CSharp.E1 _28;
+                public MR.CS.CSharp.E1 _29;
+                public MR.CS.CSharp.E1 _30;
+                public MR.CS.CSharp.E1 _31;
+                public MR.CS.CSharp.E1 _32;
+                public MR.CS.CSharp.E1 _33;
+                public MR.CS.CSharp.E1 _34;
+                public MR.CS.CSharp.E1 _35;
+                public MR.CS.CSharp.E1 _36;
+                public MR.CS.CSharp.E1 _37;
+                public MR.CS.CSharp.E1 _38;
+                public MR.CS.CSharp.E1 _39;
+                public MR.CS.CSharp.E1 _40;
+                public MR.CS.CSharp.E1 _41;
+                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                {
+                    get
+                    {
+                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        {
+                            return ref *(ptr + i);
+                        }
+                    }
+                }
             }
         }
 
-        [System.Runtime.CompilerServices.InlineArray(10)]
         public struct ConstArrayInt10_20
         {
-            MR.CS.ConstArrayInt20 elem;
+            public MR.CS.ConstArrayInt20 _0;
+            public MR.CS.ConstArrayInt20 _1;
+            public MR.CS.ConstArrayInt20 _2;
+            public MR.CS.ConstArrayInt20 _3;
+            public MR.CS.ConstArrayInt20 _4;
+            public MR.CS.ConstArrayInt20 _5;
+            public MR.CS.ConstArrayInt20 _6;
+            public MR.CS.ConstArrayInt20 _7;
+            public MR.CS.ConstArrayInt20 _8;
+            public MR.CS.ConstArrayInt20 _9;
+            public unsafe ref MR.CS.ConstArrayInt20 this[int i]
+            {
+                get
+                {
+                    fixed(MR.CS.ConstArrayInt20 *ptr = &_0)
+                    {
+                        return ref *(ptr + i);
+                    }
+                }
+            }
         }
 
-        [System.Runtime.CompilerServices.InlineArray(2)]
         public struct ConstArrayInt2
         {
-            int elem;
+            public unsafe fixed int _elem[2];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(20)]
         public struct ConstArrayInt20
         {
-            int elem;
+            public unsafe fixed int _elem[20];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(3)]
         public struct ConstArrayInt3_4
         {
-            MR.CS.ConstArrayInt4 elem;
+            public MR.CS.ConstArrayInt4 _0;
+            public MR.CS.ConstArrayInt4 _1;
+            public MR.CS.ConstArrayInt4 _2;
+            public unsafe ref MR.CS.ConstArrayInt4 this[int i]
+            {
+                get
+                {
+                    fixed(MR.CS.ConstArrayInt4 *ptr = &_0)
+                    {
+                        return ref *(ptr + i);
+                    }
+                }
+            }
         }
 
-        [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ConstArrayInt4
         {
-            int elem;
+            public unsafe fixed int _elem[4];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
-        [System.Runtime.CompilerServices.InlineArray(42)]
         public struct ConstArrayInt42
         {
-            int elem;
+            public unsafe fixed int _elem[42];
+            public unsafe ref int this[int i] => ref _elem[i];
         }
 
         public static partial class IncompleteArrayElemType
         {
-            [System.Runtime.CompilerServices.InlineArray(4)]
             public struct ArrayE4
             {
-                MR.CS.IncompleteArrayElemType.E elem;
+                public MR.CS.IncompleteArrayElemType.E _0;
+                public MR.CS.IncompleteArrayElemType.E _1;
+                public MR.CS.IncompleteArrayElemType.E _2;
+                public MR.CS.IncompleteArrayElemType.E _3;
+                public unsafe ref MR.CS.IncompleteArrayElemType.E this[int i]
+                {
+                    get
+                    {
+                        fixed(MR.CS.IncompleteArrayElemType.E *ptr = &_0)
+                        {
+                            return ref *(ptr + i);
+                        }
+                    }
+                }
             }
         }
 

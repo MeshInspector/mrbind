@@ -193,79 +193,79 @@ public static partial class MR
         [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ArrayBool4_5
         {
-            MR.CS.ArrayBool5 elem;
+            public MR.CS.ArrayBool5 _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(5)]
         public struct ArrayBool5
         {
-            byte elem;
+            public byte _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(10)]
         public struct ArrayInt10_20
         {
-            MR.CS.ArrayInt20 elem;
+            public MR.CS.ArrayInt20 _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(2)]
         public struct ArrayInt2
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(20)]
         public struct ArrayInt20
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(3)]
         public struct ArrayInt3
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(3)]
         public struct ArrayInt3_4
         {
-            MR.CS.ArrayInt4 elem;
+            public MR.CS.ArrayInt4 _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ArrayInt4
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(42)]
         public struct ArrayInt42
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(43)]
         public struct ArrayInt43
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ArrayInt4_5
         {
-            MR.CS.ArrayInt5 elem;
+            public MR.CS.ArrayInt5 _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(5)]
         public struct ArrayInt5
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(5)]
         public struct ArrayInt5_3_4
         {
-            MR.CS.ArrayInt3_4 elem;
+            public MR.CS.ArrayInt3_4 _elem;
         }
 
         public static partial class CSharp
@@ -273,74 +273,74 @@ public static partial class MR
             [System.Runtime.CompilerServices.InlineArray(10)]
             public struct ArrayE1_10_20
             {
-                MR.CS.CSharp.ArrayE1_20 elem;
+                public MR.CS.CSharp.ArrayE1_20 _elem;
             }
 
             [System.Runtime.CompilerServices.InlineArray(20)]
             public struct ArrayE1_20
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _elem;
             }
 
             [System.Runtime.CompilerServices.InlineArray(42)]
             public struct ArrayE1_42
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _elem;
             }
 
             [System.Runtime.CompilerServices.InlineArray(10)]
             public struct ConstArrayE1_10_20
             {
-                MR.CS.CSharp.ConstArrayE1_20 elem;
+                public MR.CS.CSharp.ConstArrayE1_20 _elem;
             }
 
             [System.Runtime.CompilerServices.InlineArray(20)]
             public struct ConstArrayE1_20
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _elem;
             }
 
             [System.Runtime.CompilerServices.InlineArray(42)]
             public struct ConstArrayE1_42
             {
-                MR.CS.CSharp.E1 elem;
+                public MR.CS.CSharp.E1 _elem;
             }
         }
 
         [System.Runtime.CompilerServices.InlineArray(10)]
         public struct ConstArrayInt10_20
         {
-            MR.CS.ConstArrayInt20 elem;
+            public MR.CS.ConstArrayInt20 _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(2)]
         public struct ConstArrayInt2
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(20)]
         public struct ConstArrayInt20
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(3)]
         public struct ConstArrayInt3_4
         {
-            MR.CS.ConstArrayInt4 elem;
+            public MR.CS.ConstArrayInt4 _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(4)]
         public struct ConstArrayInt4
         {
-            int elem;
+            public int _elem;
         }
 
         [System.Runtime.CompilerServices.InlineArray(42)]
         public struct ConstArrayInt42
         {
-            int elem;
+            public int _elem;
         }
 
         public static partial class IncompleteArrayElemType
@@ -348,7 +348,7 @@ public static partial class MR
             [System.Runtime.CompilerServices.InlineArray(4)]
             public struct ArrayE4
             {
-                MR.CS.IncompleteArrayElemType.E elem;
+                public MR.CS.IncompleteArrayElemType.E _elem;
             }
         }
 

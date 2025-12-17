@@ -286,9 +286,10 @@ namespace mrbind::CSharp
         // Test that we're using at least a specific .NET version, or a specific .NET Standard version.
         // E.g. `NetFrameworkAtLeast(80, 21)` means ".NET 8 or newer, or .NET Standard 2.1 or newer".
         // Smaller numbers in the first argument mean .NET Core, e.g. `21` means "".NET Core 2.1 or newer".
+        // Pass `0` to one of the parameters if that flavor is not supported at all, e.g. `(80, 0)` to mean ".NET 8 or newer, .NET Standard isn't allowed".
         [[nodiscard]] bool NetFrameworkAtLeast(int net_ver, int net_std_ver) const
         {
-            return dotnet_version >= net_ver || dotnet_version <= -net_std_ver;
+            return (net_ver > 0 && dotnet_version >= net_ver) || (net_std_ver > 0 && dotnet_version <= -net_std_ver);
         }
 
         // ]
@@ -573,6 +574,10 @@ namespace mrbind::CSharp
 
         // `Span` and `ReadOnlySpan`.
         [[nodiscard]] bool HaveCSharpFeatureSpans() const;
+        // The `InlineArray` attribute
+        [[nodiscard]] bool HaveCSharpFeatureInlineArrays() const;
+        // `System.Runtime.InteropServices.NativeMemory.Copy()` and `Fill()` functions.
+        [[nodiscard]] bool HaveCSharpFeatureNativeMemoryCopyAndFill() const;
         // ]
 
         // This is a low-level function that performs the same name translation as `RequestHelper()`,

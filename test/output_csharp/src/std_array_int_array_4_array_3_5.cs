@@ -37,7 +37,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(240);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 240, 0);
+                    for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -46,7 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(240);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 240);
+                    for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
             }
 
@@ -67,7 +67,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(240);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 240, 0);
+                    for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -76,7 +76,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(240);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 240);
+                    for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
             }
 

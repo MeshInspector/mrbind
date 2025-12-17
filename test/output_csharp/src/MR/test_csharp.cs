@@ -10717,7 +10717,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -10729,7 +10729,7 @@ public static partial class MR
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
                     MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -10754,7 +10754,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -10766,7 +10766,7 @@ public static partial class MR
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
                     MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -11325,7 +11325,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(56);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -11334,7 +11334,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(56);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::bar`.
@@ -11459,7 +11459,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(56);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -11468,7 +11468,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(56);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::foo`.
@@ -11928,7 +11928,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _LateMakeShared(__MR_C_Alloc(56));
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -11937,7 +11937,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _LateMakeShared(__MR_C_Alloc(56));
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::bar`.
@@ -12064,7 +12064,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _LateMakeShared(__MR_C_Alloc(56));
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -12073,7 +12073,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _LateMakeShared(__MR_C_Alloc(56));
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
@@ -12482,7 +12482,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 // Some random ctor.
@@ -12495,7 +12495,7 @@ public static partial class MR
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
                     MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct(_1, _2);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
                 }
 
                 // And try an equality comparison!
@@ -12548,7 +12548,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 // Some random ctor.
@@ -12561,7 +12561,7 @@ public static partial class MR
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
                     MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct(_1, _2);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
                 }
             }
 
@@ -13254,7 +13254,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(8);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 8, 0);
+                    for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -13263,7 +13263,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(8);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 8);
+                    for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
             }
 
@@ -13286,7 +13286,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(8);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 8, 0);
+                    for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -13295,7 +13295,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(8);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 8);
+                    for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
@@ -13370,7 +13370,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_Alloc(nuint size);
                         _UnderlyingPtr = __MR_C_Alloc(4);
-                        System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                        for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                     }
 
                     /// Generated copy constructor.
@@ -13379,7 +13379,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_Alloc(nuint size);
                         _UnderlyingPtr = __MR_C_Alloc(4);
-                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                        for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                     }
                 }
 
@@ -13400,7 +13400,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_Alloc(nuint size);
                         _UnderlyingPtr = __MR_C_Alloc(4);
-                        System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                        for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                     }
 
                     /// Generated copy constructor.
@@ -13409,7 +13409,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_Alloc(nuint size);
                         _UnderlyingPtr = __MR_C_Alloc(4);
-                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                        for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                     }
                 }
 
@@ -13759,7 +13759,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -13768,7 +13768,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
@@ -13854,7 +13854,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
@@ -13863,7 +13863,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
                     extern static _Underlying *__MR_C_Alloc(nuint size);
                     _UnderlyingPtr = __MR_C_Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.

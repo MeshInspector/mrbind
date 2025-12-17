@@ -2257,6 +2257,16 @@ namespace mrbind::CSharp
         return NetFrameworkAtLeast(21, 21);
     }
 
+    bool Generator::HaveCSharpFeatureInlineArrays() const
+    {
+        return NetFrameworkAtLeast(80, 0);
+    }
+
+    bool Generator::HaveCSharpFeatureNativeMemoryCopyAndFill() const
+    {
+        return NetFrameworkAtLeast(70, 0);
+    }
+
     std::string Generator::MakeHelperNameWithoutRegistration(const std::string &name) const
     {
         return helpers_prefix + name;
@@ -3003,8 +3013,14 @@ namespace mrbind::CSharp
                             ctor_expr = dllimport_alloc.csharp_name + "(" + class_size_str + ")";
 
                             post_ctor_statements =
-                                ret_binding->csharp_return_type + " _ctor_result = " + expr + ";\n"
-                                "System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, " + class_size_str + ");\n";
+                                ret_binding->csharp_return_type + " _ctor_result = " + expr + ";\n" +
+                                (
+                                    generator.HaveCSharpFeatureNativeMemoryCopyAndFill()
+                                    ?
+                                        "System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, " + class_size_str + ");\n"
+                                    :
+                                        "for (nuint _i = 0; _i < " + class_size_str + "; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];\n"
+                                );
                         }
                         else
                         {
@@ -4567,7 +4583,16 @@ namespace mrbind::CSharp
                                 file.WriteString("_UnderlyingPtr = " + expr + ";\n");
 
                             // Memset to zero.
-                            file.WriteString("System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, " + std::to_string(class_desc.size_and_alignment.value().size) + ", 0);\n");
+                            if (HaveCSharpFeatureNativeMemoryCopyAndFill())
+                            {
+                                file.WriteString("System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, " + std::to_string(class_desc.size_and_alignment.value().size) + ", 0);\n");
+                            }
+                            else
+                            {
+                                file.WriteString(
+                                    "for (nuint _i = 0; _i < " + std::to_string(class_desc.size_and_alignment.value().size) + "; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;\n"
+                                );
+                            }
 
                             file.PopScope();
                         }
@@ -4610,7 +4635,14 @@ namespace mrbind::CSharp
                                     file.WriteString("_UnderlyingPtr = " + expr + ";\n");
 
                                 // Bytewise copy.
-                                file.WriteString("System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, " + std::to_string(class_desc.size_and_alignment.value().size) + ");\n");
+                                if (HaveCSharpFeatureNativeMemoryCopyAndFill())
+                                {
+                                    file.WriteString("System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, " + std::to_string(class_desc.size_and_alignment.value().size) + ");\n");
+                                }
+                                else
+                                {
+                                    file.WriteString("for (nuint _i = 0; _i < " + std::to_string(class_desc.size_and_alignment.value().size) + "; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];\n");
+                                }
 
                                 file.PopScope();
                             }
@@ -5957,19 +5989,79 @@ namespace mrbind::CSharp
                         file.EnsureNamespace(*this, ns);
                     }
 
-                    file.WriteSeparatingNewline();
-                    file.WriteString(
-                        "[System.Runtime.CompilerServices.InlineArray(" + std::to_string(desc.num_elems) + ")]\n"
-                        // Those can't be `ref struct`s, we need plain `struct`s.
-                        // But even plain `sturct`s seem to be usable as fields of `ref struct`s, so we're all good.
-                        "public struct " + CppToCSharpIdentifier(desc.qual_array_name.parts.back()) + "\n"
-                        "{\n"
-                        // The name here doesn't really matter, since the array access syntax ignores it.
-                        // This is intentionally private, since accessing this member directly would be possible otherwise (and would return the first element, I think?),
-                        //   and that isn't useful.
-                        "    " + desc.csharp_elem_type + " elem;\n"
-                        "}\n"
-                    );
+                    const std::string csharp_array_name = CppToCSharpIdentifier(desc.qual_array_name.parts.back());
+
+                    // We use one of several approaches to implementing arrays...
+
+                    if (HaveCSharpFeatureInlineArrays())
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "[System.Runtime.CompilerServices.InlineArray(" + std::to_string(desc.num_elems) + ")]\n"
+                            // Those can't be `ref struct`s, but we're fine with plain `structr`s too.
+                            "public struct " + csharp_array_name + "\n"
+                            "{\n"
+                            // The name here doesn't really matter, since the array access syntax ignores it.
+                            // This could be made private, since accessing this member directly would be possible otherwise (and would return the first element, I think?),
+                            //   and that isn't useful.
+                            // But I'm leaving this public just in case.
+                            "    public " + desc.csharp_elem_type + " _elem;\n"
+                            "}\n"
+                        );
+                    }
+                    else
+                    {
+                        // You can get this list from the compiler error message, by trying to use a wrong element type, e.g. a `struct`.
+                        static const std::unordered_set<std::string> allowed_fixed_array_elem_types = {
+                            "bool", "byte", "short", "int", "long", "char", "sbyte", "ushort", "uint", "ulong", "float", "double"
+                        };
+
+                        // Use a fixed array if it supports our element type.
+                        // Interestingly, only primitive scalar types are allowed, and structs are not allowed.
+                        if (allowed_fixed_array_elem_types.contains(desc.csharp_elem_type))
+                        {
+                            file.WriteSeparatingNewline();
+                            file.WriteString(
+                                "public struct " + csharp_array_name + "\n"
+                                "{\n"
+                                // Leaving this public just in case.
+                                "    public unsafe fixed " + desc.csharp_elem_type + " _elem[" + std::to_string(desc.num_elems) + "];\n"
+                                "    public unsafe ref " + desc.csharp_elem_type + " this[int i] => ref _elem[i];\n"
+                                "}\n"
+                            );
+                        }
+                        else
+                        {
+                            file.WriteSeparatingNewline();
+                            file.WriteString(
+                                "public struct " + csharp_array_name + "\n"
+                                "{\n"
+                            );
+                            for (std::size_t i = 0; i < desc.num_elems; i++)
+                            {
+                                // Lmao.
+                                // Leaving this public just in case.
+                                file.WriteString("    public " + desc.csharp_elem_type + " _" + std::to_string(i) + ";\n");
+                            }
+                            file.WriteString(
+                                "    public unsafe ref " + desc.csharp_elem_type + " this[int i]\n"
+                                "    {\n"
+                                "        get\n"
+                                "        {\n"
+                                "            fixed(" + desc.csharp_elem_type + " *ptr = &_0)\n"
+                                "            {\n"
+                                // Smuggling out a pointer like this is a bit sus, since C# GC is said to be able to move the objects around.
+                                // But from what I gathered, C# doesn't differentiate between `ref`s created from unsafe pointers and the normal ones,
+                                //   so it should adjust all of them equally well, when GC moves stuff.
+                                // See: https://stackoverflow.com/q/27616910/2752075
+                                "                return ref *(ptr + i);\n"
+                                "            }\n"
+                                "        }\n"
+                                "    }\n"
+                                "}\n"
+                            );
+                        }
+                    }
                 }
             }
 
