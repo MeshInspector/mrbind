@@ -3,7 +3,9 @@
 
 #include <cppdecl/declarations/parse.h>
 
+#include <exception>
 #include <numeric>
+#include <ostream>
 
 namespace mrbind::CSharp
 {
@@ -3528,6 +3530,7 @@ namespace mrbind::CSharp
 
                 cppdecl::Type param_type = ParseTypeOrThrow(param.cpp_type);
 
+                (void)cpp_class_name; // In case the assert i
                 assert(param_type.simple_type.name == cpp_class_name);
 
                 // For a reference parameter, use the constness of the reference target.
@@ -4739,7 +4742,7 @@ namespace mrbind::CSharp
                 }
                 catch (...)
                 {
-                    std::throw_with_nested(std::runtime_error("While emitting a wrapper for C++ class `" + cpp_type + "` (" + (is_exposed_struct_by_value ? "ref-struct" : IsConst() ? "const" : "non-const") + " part):"));
+                    std::throw_with_nested(std::runtime_error("While emitting a wrapper for C++ class `" + cpp_type + "` (" + (is_exposed_struct_by_value ? "exposed struct" : IsConst() ? "const" : "non-const") + " part):"));
                 }
             };
 
@@ -5145,11 +5148,9 @@ namespace mrbind::CSharp
                 assert(getter);
                 assert(getter->params.size() == 1);
 
-                const cppdecl::Type &getter_return_type = ParseTypeOrThrow(getter->ret.cpp_type);
-
                 // Our getters are considered to return references right now, rather than pointers.
                 // In C it ends up as a pointer either way, but this indicates that it's non-null.
-                assert(getter_return_type.Is<cppdecl::Reference>());
+                assert(ParseTypeOrThrow(getter->ret.cpp_type).Is<cppdecl::Reference>());
 
                 ArrayStrings arr_strings = RequestCSharpArrayType(ParseTypeOrThrow(field.type));
 

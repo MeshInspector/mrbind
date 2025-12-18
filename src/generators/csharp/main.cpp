@@ -5,6 +5,7 @@
 #include "generators/c_interop/desc_to_and_from_json.h"
 #include "generators/csharp/generator.h"
 
+#include <exception>
 #include <fstream>
 #include <optional>
 #include <span>

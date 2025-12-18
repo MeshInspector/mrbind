@@ -81,6 +81,7 @@ if(MRBIND_BUILD_GENERATOR_C OR MRBIND_BUILD_GENERATOR_CSHARP)
     )
     target_link_libraries(mrbind_c_interop PUBLIC
         mrbind_common
+        mrbind_gen_common
     )
 endif()
 

@@ -1,12 +1,10 @@
-// Uhh, on Clang 18 + libstdc++ 12 I get some deprecation warnings INSIDE of the standard library, when using `std::stable_sort()`.
-// Silence those.
-#include <version>
-#ifdef _GLIBCXX_RELEASE
+#if defined(__GNUC__) || defined(__clang__) // GCC, or Clang (possibly in MSVC-compatible mode, since libc++ can use that too).
 #pragma GCC diagnostic push
+// On Clang 18 + libstdc++ 12 I get some deprecation warnings INSIDE of the standard library, when using `std::stable_sort()` from `<algorithm>`.
+// Similarly, on libc++ (Mac and MSYS2 CLANG64)  I get warnings about `std::aligned_union` in `<type_traits>`
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#endif
 #include <algorithm>
-#ifdef _GLIBCXX_RELEASE
+#include <type_traits>
 #pragma GCC diagnostic pop
 #endif
 
