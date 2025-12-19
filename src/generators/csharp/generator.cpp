@@ -4138,11 +4138,14 @@ namespace mrbind::CSharp
                         // For exposed structs, this is wrongly typed, as it should match the struct itself.
                         // But it's easier to keep this a separate type, since C# seemingly doesn't have type aliases, and it's easier to not touch
                         //   all the other code that assumes this name.
-                        file.WriteString("internal struct _Underlying; // Represents the underlying C++ type.\n");
+                        // Fun fact: `struct X;` also works in C# 12 and newer, but it has the same effect (you can still make an object of this struct, unlike in C++).
+                        //   This isn't just a cool replacement for `{}`, since apparently it's a special case of the `struct X(params...)` syntax,
+                        //   which both defines the struct and gives it a list of members and a constructor at the same time.
+                        file.WriteString("internal struct _Underlying {} // Represents the underlying C++ type.\n");
 
                         // The opaque struct type for the shared pointer.
                         if (shared_ptr_desc)
-                            file.WriteString("internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.\n");
+                            file.WriteString("internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.\n");
 
 
                         if (!shared_ptr_desc)
@@ -6049,7 +6052,7 @@ namespace mrbind::CSharp
                                 "    {\n"
                                 "        get\n"
                                 "        {\n"
-                                "            fixed(" + desc.csharp_elem_type + " *ptr = &_0)\n"
+                                "            fixed (" + desc.csharp_elem_type + " *ptr = &_0)\n"
                                 "            {\n"
                                 // Smuggling out a pointer like this is a bit sus, since C# GC is said to be able to move the objects around.
                                 // But from what I gathered, C# doesn't differentiate between `ref`s created from unsafe pointers and the normal ones,

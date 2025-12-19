@@ -33,7 +33,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -223,7 +223,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_B : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -469,7 +469,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_C : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -700,7 +700,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_D : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -825,7 +825,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_E : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -951,7 +951,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_F : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -1251,7 +1251,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_G : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -1546,7 +1546,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_Trivial : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -1646,7 +1646,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_TrivialDerived : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -1746,7 +1746,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_NonTrivial : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -1886,7 +1886,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_NonTrivialDerived : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -2007,8 +2007,8 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_SA : MR.CS.Misc.SharedObject, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
-                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
+                internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
 
                 internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
                 internal unsafe _Underlying *_UnderlyingPtr
@@ -2190,8 +2190,8 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_SB : MR.CS.Misc.SharedObject, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
-                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
+                internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
 
                 internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
                 internal unsafe _Underlying *_UnderlyingPtr
@@ -2392,8 +2392,8 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_SC : MR.CS.Misc.SharedObject, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
-                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
+                internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
 
                 internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
                 internal unsafe _Underlying *_UnderlyingPtr
@@ -2622,8 +2622,8 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_SD : MR.CS.Misc.SharedObject, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
-                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
+                internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
 
                 internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
                 internal unsafe _Underlying *_UnderlyingPtr
@@ -2823,8 +2823,8 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_SE : MR.CS.Misc.SharedObject, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
-                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
+                internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
 
                 internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
                 internal unsafe _Underlying *_UnderlyingPtr
@@ -3025,8 +3025,8 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_SF : MR.CS.Misc.SharedObject, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
-                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
+                internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
 
                 internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
                 internal unsafe _Underlying *_UnderlyingPtr
@@ -3273,7 +3273,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_Outer : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -3311,7 +3311,7 @@ public static partial class MR
                 /// This is the const half of the class.
                 public class Const_Inner : MR.CS.Misc.Object, System.IDisposable
                 {
-                    internal struct _Underlying; // Represents the underlying C++ type.
+                    internal struct _Underlying {} // Represents the underlying C++ type.
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -3490,7 +3490,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_TestFields : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -3808,7 +3808,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_TestConstness : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -3926,7 +3926,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrA : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4065,7 +4065,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrB : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4204,7 +4204,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrC : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4344,7 +4344,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrD : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4483,7 +4483,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrE : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4608,7 +4608,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrF : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4733,7 +4733,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrG : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4863,7 +4863,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrH : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -4993,7 +4993,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_IncrDecrI : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -5131,7 +5131,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_EqualityA : MR.CS.Misc.Object, System.IDisposable, System.IEquatable<MR.CS.CSharp.Const_EqualityA>
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -5293,7 +5293,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_EqualityB : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -5419,7 +5419,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_EqualityC : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -5545,7 +5545,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_EqualityD : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -5677,7 +5677,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_EqualityE : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -5808,7 +5808,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_RelationalA : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -5933,7 +5933,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_RelationalB : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6058,7 +6058,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_RelationalC : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6185,7 +6185,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_RelationalD : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6319,7 +6319,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_RelationalE : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6453,7 +6453,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_RelationalF : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6587,7 +6587,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsA : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6697,7 +6697,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsB : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6807,7 +6807,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsC : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -6916,7 +6916,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsD : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7018,7 +7018,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsE : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7128,7 +7128,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsF : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7238,7 +7238,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsG : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7349,7 +7349,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsLhsH : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7460,7 +7460,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsA : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7570,7 +7570,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsB : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7680,7 +7680,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsC : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7789,7 +7789,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsD : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -7891,7 +7891,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsE : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8001,7 +8001,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsF : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8111,7 +8111,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsG : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8222,7 +8222,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsRhsH : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8337,7 +8337,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsMixedLhs : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8446,7 +8446,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_StaticOpsMixedRhs : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8547,7 +8547,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_NonTrivialClassOps : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8691,7 +8691,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_NonCopyableClassByValueOps : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8810,7 +8810,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_CallOp : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -8928,7 +8928,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_TestOpsA : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -9284,7 +9284,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_TestOpsB : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -9652,7 +9652,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_TestOpsC : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -10017,7 +10017,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvOp : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -10135,7 +10135,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvOpToRef : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -10265,7 +10265,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvCtor : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -10441,7 +10441,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvCtorWithDefArg : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -10560,7 +10560,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvCtorNonTrivialRestricted : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -10688,7 +10688,7 @@ public static partial class MR
             /// This is the const reference to the struct.
             public class Const_ConvCtorExposed : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -10883,7 +10883,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvCtorCopyButNoMove : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -11010,7 +11010,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvCtorTrivial : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -11137,7 +11137,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ConvCtorNonTrivial : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -11285,7 +11285,7 @@ public static partial class MR
             /// This is the const reference to the struct.
             public class Const_ExposedLayout : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -11831,8 +11831,8 @@ public static partial class MR
             /// This is the const reference to the struct.
             public class Const_ExposedLayoutSh : MR.CS.Misc.SharedObject, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
-                internal struct _UnderlyingShared; // Represents the underlying shared pointer C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
+                internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
 
                 internal unsafe _UnderlyingShared *_UnderlyingSharedPtr;
                 internal unsafe _Underlying *_UnderlyingPtr
@@ -12453,7 +12453,7 @@ public static partial class MR
             /// This is the const reference to the struct.
             public class Const_ExposedLayoutB : MR.CS.Misc.Object, System.IDisposable, System.IEquatable<MR.CS.CSharp.Const_ExposedLayoutB>
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -12695,7 +12695,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_ArrayMembers : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -12958,7 +12958,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_NameConflicts : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -13024,7 +13024,7 @@ public static partial class MR
                 /// This is the const half of the class.
                 public class Const_A : MR.CS.Misc.Object, System.IDisposable
                 {
-                    internal struct _Underlying; // Represents the underlying C++ type.
+                    internal struct _Underlying {} // Represents the underlying C++ type.
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -13223,7 +13223,7 @@ public static partial class MR
             /// This is the const reference to the struct.
             public class Const_NameConflictsExposed : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -13341,7 +13341,7 @@ public static partial class MR
                 /// This is the const reference to the struct.
                 public class Const_A : MR.CS.Misc.Object, System.IDisposable
                 {
-                    internal struct _Underlying; // Represents the underlying C++ type.
+                    internal struct _Underlying {} // Represents the underlying C++ type.
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -13573,7 +13573,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_AmbiguousTemplates : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -13730,7 +13730,7 @@ public static partial class MR
             /// This is the const reference to the struct.
             public class Const_ConstNonconstConflicts : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 

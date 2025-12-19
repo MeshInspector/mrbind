@@ -173,7 +173,7 @@ public static partial class MR
             {
                 get
                 {
-                    fixed(MR.CS.ArrayBool5 *ptr = &_0)
+                    fixed (MR.CS.ArrayBool5 *ptr = &_0)
                     {
                         return ref *(ptr + i);
                     }
@@ -203,7 +203,7 @@ public static partial class MR
             {
                 get
                 {
-                    fixed(MR.CS.ArrayInt20 *ptr = &_0)
+                    fixed (MR.CS.ArrayInt20 *ptr = &_0)
                     {
                         return ref *(ptr + i);
                     }
@@ -238,7 +238,7 @@ public static partial class MR
             {
                 get
                 {
-                    fixed(MR.CS.ArrayInt4 *ptr = &_0)
+                    fixed (MR.CS.ArrayInt4 *ptr = &_0)
                     {
                         return ref *(ptr + i);
                     }
@@ -274,7 +274,7 @@ public static partial class MR
             {
                 get
                 {
-                    fixed(MR.CS.ArrayInt5 *ptr = &_0)
+                    fixed (MR.CS.ArrayInt5 *ptr = &_0)
                     {
                         return ref *(ptr + i);
                     }
@@ -299,7 +299,7 @@ public static partial class MR
             {
                 get
                 {
-                    fixed(MR.CS.ArrayInt3_4 *ptr = &_0)
+                    fixed (MR.CS.ArrayInt3_4 *ptr = &_0)
                     {
                         return ref *(ptr + i);
                     }
@@ -325,7 +325,7 @@ public static partial class MR
                 {
                     get
                     {
-                        fixed(MR.CS.CSharp.ArrayE1_20 *ptr = &_0)
+                        fixed (MR.CS.CSharp.ArrayE1_20 *ptr = &_0)
                         {
                             return ref *(ptr + i);
                         }
@@ -359,7 +359,7 @@ public static partial class MR
                 {
                     get
                     {
-                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        fixed (MR.CS.CSharp.E1 *ptr = &_0)
                         {
                             return ref *(ptr + i);
                         }
@@ -415,7 +415,7 @@ public static partial class MR
                 {
                     get
                     {
-                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        fixed (MR.CS.CSharp.E1 *ptr = &_0)
                         {
                             return ref *(ptr + i);
                         }
@@ -439,7 +439,7 @@ public static partial class MR
                 {
                     get
                     {
-                        fixed(MR.CS.CSharp.ConstArrayE1_20 *ptr = &_0)
+                        fixed (MR.CS.CSharp.ConstArrayE1_20 *ptr = &_0)
                         {
                             return ref *(ptr + i);
                         }
@@ -473,7 +473,7 @@ public static partial class MR
                 {
                     get
                     {
-                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        fixed (MR.CS.CSharp.E1 *ptr = &_0)
                         {
                             return ref *(ptr + i);
                         }
@@ -529,7 +529,7 @@ public static partial class MR
                 {
                     get
                     {
-                        fixed(MR.CS.CSharp.E1 *ptr = &_0)
+                        fixed (MR.CS.CSharp.E1 *ptr = &_0)
                         {
                             return ref *(ptr + i);
                         }
@@ -554,7 +554,7 @@ public static partial class MR
             {
                 get
                 {
-                    fixed(MR.CS.ConstArrayInt20 *ptr = &_0)
+                    fixed (MR.CS.ConstArrayInt20 *ptr = &_0)
                     {
                         return ref *(ptr + i);
                     }
@@ -583,7 +583,7 @@ public static partial class MR
             {
                 get
                 {
-                    fixed(MR.CS.ConstArrayInt4 *ptr = &_0)
+                    fixed (MR.CS.ConstArrayInt4 *ptr = &_0)
                     {
                         return ref *(ptr + i);
                     }
@@ -615,7 +615,7 @@ public static partial class MR
                 {
                     get
                     {
-                        fixed(MR.CS.IncompleteArrayElemType.E *ptr = &_0)
+                        fixed (MR.CS.IncompleteArrayElemType.E *ptr = &_0)
                         {
                             return ref *(ptr + i);
                         }

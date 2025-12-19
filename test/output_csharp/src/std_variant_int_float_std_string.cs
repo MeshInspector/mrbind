@@ -8,7 +8,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_Variant_Int_Float_StdString : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 

@@ -9,7 +9,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_UniquePtr_IntArray : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 

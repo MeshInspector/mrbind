@@ -8,7 +8,7 @@ public static partial class MR
             /// This is the const half of the class.
             public class Const_Deque_MRStdContainersNonAssignable : MR.CS.Misc.Object, System.IDisposable
             {
-                internal struct _Underlying; // Represents the underlying C++ type.
+                internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -136,7 +136,7 @@ public static partial class MR
                 /// This is the const half of the class.
                 public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
                 {
-                    internal struct _Underlying; // Represents the underlying C++ type.
+                    internal struct _Underlying {} // Represents the underlying C++ type.
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
@@ -301,7 +301,7 @@ public static partial class MR
                 /// This is the const half of the class.
                 public class Const_Iterator : MR.CS.Misc.Object, System.IDisposable
                 {
-                    internal struct _Underlying; // Represents the underlying C++ type.
+                    internal struct _Underlying {} // Represents the underlying C++ type.
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
