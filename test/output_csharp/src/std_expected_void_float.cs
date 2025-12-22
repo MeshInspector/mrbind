@@ -99,7 +99,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
-                public unsafe MR.CS.Misc.Ref<float>? GetMutableError()
+                public unsafe new MR.CS.Misc.Ref<float>? GetError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_GetMutableError", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_void_float_GetMutableError(_Underlying *_this);

@@ -113,7 +113,7 @@ public static partial class MR
                 }
 
                 /// The stored element or null if none, mutable.
-                public unsafe MR.CS.CSharp.Trivial? MutableValue()
+                public unsafe new MR.CS.CSharp.Trivial? Value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_MutableValue(_Underlying *_this);

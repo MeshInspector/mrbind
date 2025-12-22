@@ -2220,7 +2220,7 @@ namespace mrbind::CSharp
                     ret.text +=
                         "public static unsafe implicit operator Span<byte>(" + csharp_name + " s)\n"
                         "{\n"
-                        "    return new(s.MutableData(), checked((int)s.Size()));\n"
+                        "    return new(s.Data(), checked((int)s.Size()));\n"
                         "}\n";
                 }
             }

@@ -20,6 +20,11 @@ namespace mrbind::CBindings
         return generator.MakeMemberFuncName(c_type_name, name, std::move(interop_var));
     }
 
+    Generator::EmitFuncParams::Name HeapAllocatedClassBinder::MakeMemberFuncName(const Generator &generator, std::string name, std::string name_for_interop) const
+    {
+        return MakeMemberFuncName(generator, std::move(name), CInterop::MethodKinds::Regular{.name = name_for_interop, .full_name = name_for_interop});
+    }
+
     void HeapAllocatedClassBinder::EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const
     {
         std::string comment_without_pass_by_modes;

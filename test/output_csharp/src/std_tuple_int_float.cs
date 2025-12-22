@@ -106,7 +106,7 @@ public static partial class MR
                 }
 
                 /// The element 0, of type `int`, mutable.
-                public unsafe ref int GetMutableInt()
+                public unsafe new ref int GetInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_float_GetMutable_int", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_int_float_GetMutable_int(_Underlying *_this);
@@ -114,7 +114,7 @@ public static partial class MR
                 }
 
                 /// The element 1, of type `float`, mutable.
-                public unsafe ref float GetMutableFloat()
+                public unsafe new ref float GetFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_float_GetMutable_float", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_int_float_GetMutable_float(_Underlying *_this);

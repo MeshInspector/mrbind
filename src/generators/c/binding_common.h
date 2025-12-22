@@ -37,6 +37,9 @@ namespace mrbind::CBindings
         // This is fine for "static" member functions too.
         // If `interop_var` isn't specified, the `CInterop::MethodKinds::Regular` is used, with the same `name`.
         [[nodiscard]] Generator::EmitFuncParams::Name MakeMemberFuncName(const Generator &generator, std::string name, std::optional<CInterop::MethodKindVar> interop_var = {}) const;
+        // This is a little helper overload that passes `CInterop::MethodKinds::Regular{.name = name_for_interop, .full_name = name_for_interop}`.
+        // The primary use of this is overloading const/non-const functions, which should have the same name in interop, but different names in C.
+        [[nodiscard]] Generator::EmitFuncParams::Name MakeMemberFuncName(const Generator &generator, std::string name, std::string name_for_interop) const;
 
         // The `comment` can be empty. Otherwise it must end with a newline and must include leading slashes.
         void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const;

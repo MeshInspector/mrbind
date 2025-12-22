@@ -133,7 +133,7 @@ public static partial class MR
                 }
 
                 /// Convert a mutable iterator to an index.
-                public unsafe long MutableToIndex(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
+                public unsafe long ToIndex(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_MutableToIndex", ExactSpelling = true)]
                     extern static long __MR_C_std_vector_MR_StdContainers_NonAssignable_MutableToIndex(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *iter);
@@ -509,7 +509,7 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe MR.CS.StdContainers.NonAssignable MutableAt(ulong i)
+                public unsafe new MR.CS.StdContainers.NonAssignable At(ulong i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_MutableAt", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_MutableAt(_Underlying *_this, ulong i);
@@ -517,7 +517,7 @@ public static partial class MR
                 }
 
                 /// The first element or null if empty, mutable.
-                public unsafe MR.CS.StdContainers.NonAssignable? MutableFront()
+                public unsafe new MR.CS.StdContainers.NonAssignable? Front()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_MutableFront", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_MutableFront(_Underlying *_this);
@@ -526,7 +526,7 @@ public static partial class MR
                 }
 
                 /// The last element or null if empty, mutable.
-                public unsafe MR.CS.StdContainers.NonAssignable? MutableBack()
+                public unsafe new MR.CS.StdContainers.NonAssignable? Back()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_MutableBack", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_MutableBack(_Underlying *_this);
@@ -551,7 +551,7 @@ public static partial class MR
                 }
 
                 /// The begin iterator, mutable.
-                public unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator MutableBegin()
+                public unsafe new MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator Begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_MutableBegin", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_MutableBegin(_Underlying *_this);
@@ -559,7 +559,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a mutable iterator is the begin iterator.
-                public unsafe bool IsMutableBegin(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
+                public unsafe bool IsBegin(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_IsMutableBegin", ExactSpelling = true)]
                     extern static byte __MR_C_std_vector_MR_StdContainers_NonAssignable_IsMutableBegin(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator._Underlying *iter);
@@ -567,7 +567,7 @@ public static partial class MR
                 }
 
                 /// The end iterator, mutable.
-                public unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator MutableEnd()
+                public unsafe new MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator End()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_MutableEnd", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_MutableEnd(_Underlying *_this);
@@ -575,7 +575,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a mutable iterator is the end iterator.
-                public unsafe bool IsMutableEnd(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
+                public unsafe bool IsEnd(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_IsMutableEnd", ExactSpelling = true)]
                     extern static byte __MR_C_std_vector_MR_StdContainers_NonAssignable_IsMutableEnd(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator._Underlying *iter);

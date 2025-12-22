@@ -88,7 +88,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, mutable.";
-                        emit.name = binder.MakeMemberFuncName(generator, "MutableFirst");
+                        emit.name = binder.MakeMemberFuncName(generator, "MutableFirst", "First");
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_a, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.first";
@@ -110,7 +110,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, mutable.";
-                        emit.name = binder.MakeMemberFuncName(generator, "MutableSecond");
+                        emit.name = binder.MakeMemberFuncName(generator, "MutableSecond", "Second");
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_b, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.second";

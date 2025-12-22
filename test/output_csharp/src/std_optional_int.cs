@@ -116,7 +116,7 @@ public static partial class MR
                 }
 
                 /// The stored element or null if none, mutable.
-                public unsafe MR.CS.Misc.Ref<int>? MutableValue()
+                public unsafe new MR.CS.Misc.Ref<int>? Value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_MutableValue", ExactSpelling = true)]
                     extern static int *__MR_C_std_optional_int_MutableValue(_Underlying *_this);

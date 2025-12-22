@@ -213,7 +213,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 1, of type `int`, mutable. If it's not the active element, returns null.
-                public unsafe MR.CS.Misc.Ref<int>? GetMutableInt()
+                public unsafe new MR.CS.Misc.Ref<int>? GetInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_GetMutable_int", ExactSpelling = true)]
                     extern static int *__MR_C_std_variant_std_monostate_int_float_float_GetMutable_int(_Underlying *_this);
@@ -222,7 +222,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 2, of type `float`, mutable. If it's not the active element, returns null.
-                public unsafe MR.CS.Misc.Ref<float>? GetMutableFloat2()
+                public unsafe new MR.CS.Misc.Ref<float>? GetFloat2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_2", ExactSpelling = true)]
                     extern static float *__MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_2(_Underlying *_this);
@@ -231,7 +231,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 3, of type `float`, mutable. If it's not the active element, returns null.
-                public unsafe MR.CS.Misc.Ref<float>? GetMutableFloat3()
+                public unsafe new MR.CS.Misc.Ref<float>? GetFloat3()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_3", ExactSpelling = true)]
                     extern static float *__MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_3(_Underlying *_this);

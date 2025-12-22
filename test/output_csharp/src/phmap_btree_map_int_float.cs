@@ -443,7 +443,7 @@ public static partial class MR
                 }
 
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
-                public unsafe MR.CS.Phmap.BtreeMap_Int_Float.Iterator FindMutable(int key)
+                public unsafe new MR.CS.Phmap.BtreeMap_Int_Float.Iterator Find(int key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_map_int_float_FindMutable", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMap_Int_Float.Iterator._Underlying *__MR_C_phmap_btree_map_int_float_FindMutable(_Underlying *_this, int *key);
@@ -451,7 +451,7 @@ public static partial class MR
                 }
 
                 /// The begin iterator, mutable.
-                public unsafe MR.CS.Phmap.BtreeMap_Int_Float.Iterator MutableBegin()
+                public unsafe new MR.CS.Phmap.BtreeMap_Int_Float.Iterator Begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_map_int_float_MutableBegin", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMap_Int_Float.Iterator._Underlying *__MR_C_phmap_btree_map_int_float_MutableBegin(_Underlying *_this);
@@ -459,7 +459,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a mutable iterator is the begin iterator.
-                public unsafe bool IsMutableBegin(MR.CS.Phmap.BtreeMap_Int_Float.Const_Iterator iter)
+                public unsafe bool IsBegin(MR.CS.Phmap.BtreeMap_Int_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_map_int_float_IsMutableBegin", ExactSpelling = true)]
                     extern static byte __MR_C_phmap_btree_map_int_float_IsMutableBegin(_Underlying *_this, MR.CS.Phmap.BtreeMap_Int_Float.Const_Iterator._Underlying *iter);
@@ -467,7 +467,7 @@ public static partial class MR
                 }
 
                 /// The end iterator, mutable.
-                public unsafe MR.CS.Phmap.BtreeMap_Int_Float.Iterator MutableEnd()
+                public unsafe new MR.CS.Phmap.BtreeMap_Int_Float.Iterator End()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_map_int_float_MutableEnd", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMap_Int_Float.Iterator._Underlying *__MR_C_phmap_btree_map_int_float_MutableEnd(_Underlying *_this);
@@ -475,7 +475,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a mutable iterator is the end iterator.
-                public unsafe bool IsMutableEnd(MR.CS.Phmap.BtreeMap_Int_Float.Const_Iterator iter)
+                public unsafe bool IsEnd(MR.CS.Phmap.BtreeMap_Int_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_map_int_float_IsMutableEnd", ExactSpelling = true)]
                     extern static byte __MR_C_phmap_btree_map_int_float_IsMutableEnd(_Underlying *_this, MR.CS.Phmap.BtreeMap_Int_Float.Const_Iterator._Underlying *iter);

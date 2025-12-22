@@ -284,7 +284,7 @@ namespace mrbind::CBindings
                     { // [] mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The element at a specific index, mutable.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableAt");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableAt", "At");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
@@ -348,7 +348,7 @@ namespace mrbind::CBindings
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, "FindMutable");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "FindMutable", "Find");
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_mutable.cpp_type_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
@@ -376,7 +376,7 @@ namespace mrbind::CBindings
                     { // front mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first element or null if empty, mutable.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableFront");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableFront", "Front");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.empty() ? nullptr : &@this@.front()";
@@ -396,7 +396,7 @@ namespace mrbind::CBindings
                     { // back mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The last element or null if empty, mutable.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableBack");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableBack", "Back");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@.empty() ? nullptr : &@this@.back()";
@@ -421,7 +421,7 @@ namespace mrbind::CBindings
                     { // data mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableData");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableData", "Data");
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                         emit.mark_as_returning_pointer_to_array = true;
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
@@ -584,7 +584,7 @@ namespace mrbind::CBindings
                         { // get
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// The " + begin_or_end_str + " iterator, " + mut_or_const_str + ".";
-                            emit.name = class_binder.MakeMemberFuncName(generator, mut_or_const_name + begin_or_end_method_name);
+                            emit.name = class_binder.MakeMemberFuncName(generator, mut_or_const_name + begin_or_end_method_name, begin_or_end_method_name);
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name);
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), is_const_iter);
                             emit.cpp_called_func = c_or_empty + begin_or_end_str;
@@ -594,7 +594,7 @@ namespace mrbind::CBindings
                         { // compare
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Tests whether a " + mut_or_const_str + " iterator is the " + begin_or_end_str + " iterator.";
-                            emit.name = class_binder.MakeMemberFuncName(generator, "Is" + mut_or_const_name + begin_or_end_method_name);
+                            emit.name = class_binder.MakeMemberFuncName(generator, "Is" + mut_or_const_name + begin_or_end_method_name, "Is" + begin_or_end_method_name);
                             emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), is_const_iter);
                             emit.params.push_back({
@@ -620,7 +620,7 @@ namespace mrbind::CBindings
 
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Convert a " + mut_or_const_str + " iterator to an index.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, std::string(is_const_iter ? "" : "Mutable") + "ToIndex");
+                        emit.name = class_binder.MakeMemberFuncName(generator, std::string(is_const_iter ? "" : "Mutable") + "ToIndex", "ToIndex");
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("ptrdiff_t");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.params.push_back({

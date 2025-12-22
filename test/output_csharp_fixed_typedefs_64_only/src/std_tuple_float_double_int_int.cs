@@ -122,7 +122,7 @@ public static partial class MR
                 }
 
                 /// The element 0, of type `float`, mutable.
-                public unsafe ref float GetMutableFloat()
+                public unsafe new ref float GetFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_float", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_float_double_int_int_GetMutable_float(_Underlying *_this);
@@ -130,7 +130,7 @@ public static partial class MR
                 }
 
                 /// The element 1, of type `double`, mutable.
-                public unsafe ref double GetMutableDouble()
+                public unsafe new ref double GetDouble()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_double", ExactSpelling = true)]
                     extern static double *__MR_C_std_tuple_float_double_int_int_GetMutable_double(_Underlying *_this);
@@ -138,7 +138,7 @@ public static partial class MR
                 }
 
                 /// The element 2, of type `int`, mutable.
-                public unsafe ref int GetMutableInt2()
+                public unsafe new ref int GetInt2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_int_2", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_float_double_int_int_GetMutable_int_2(_Underlying *_this);
@@ -146,7 +146,7 @@ public static partial class MR
                 }
 
                 /// The element 3, of type `int`, mutable.
-                public unsafe ref int GetMutableInt3()
+                public unsafe new ref int GetInt3()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_int_3", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_float_double_int_int_GetMutable_int_3(_Underlying *_this);

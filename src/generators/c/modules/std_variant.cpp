@@ -182,14 +182,12 @@ namespace mrbind::CBindings::Modules
                                         continue;
                                 }
 
-                                std::string name = "Get";
-                                if (!is_const)
-                                    name += "Mutable";
-                                name += "_";
-                                name += type_identifiers[i];
+                                std::string name_suffix;
+                                name_suffix += "_";
+                                name_suffix += type_identifiers[i];
 
                                 emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
-                                emit.name = binder.MakeMemberFuncName(generator, name);
+                                emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + name_suffix, "Get" + name_suffix);
 
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);

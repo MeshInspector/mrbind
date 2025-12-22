@@ -102,22 +102,20 @@ namespace mrbind::CBindings::Modules
                                 if (!is_const && elem_types[i].IsEffectivelyConst())
                                     continue;
 
-                                std::string name = "Get";
-                                if (!is_const)
-                                    name += "Mutable";
-                                name += "_";
-                                name += type_identifiers[i];
+                                std::string name_suffix;
+                                name_suffix += "_";
+                                name_suffix += type_identifiers[i];
 
                                 // Add a disambiguating suffix if the type is ambiguous.
                                 if (type_identifier_dupes.at(type_identifiers[i]))
                                 {
-                                    name += "_";
-                                    name += std::to_string(i);
+                                    name_suffix += "_";
+                                    name_suffix += std::to_string(i);
                                 }
 
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ".";
-                                emit.name = binder.MakeMemberFuncName(generator, name);
+                                emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + name_suffix, "Get" + name_suffix);
                                 emit.cpp_return_type = elem_types[i];
                                 if (!emit.cpp_return_type.Is<cppdecl::Reference>())
                                 {

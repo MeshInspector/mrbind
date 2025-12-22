@@ -150,7 +150,7 @@ public static partial class MR
 
                 /// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
                 /// Returns a read-only pointer.
-                public unsafe byte *MutableData()
+                public unsafe new byte *Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableData", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_MutableData(_Underlying *_this);
@@ -159,7 +159,7 @@ public static partial class MR
 
                 /// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
                 /// Returns a mutable pointer.
-                public unsafe byte *MutableDataEnd()
+                public unsafe new byte *DataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableDataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_MutableDataEnd(_Underlying *_this);

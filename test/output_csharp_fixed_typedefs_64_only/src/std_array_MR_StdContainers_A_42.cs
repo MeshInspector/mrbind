@@ -91,7 +91,7 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe MR.CS.StdContainers.A MutableAt(ulong i)
+                public unsafe new MR.CS.StdContainers.A At(ulong i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableAt", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_Underlying *_this, ulong i);
@@ -99,7 +99,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                public unsafe MR.CS.StdContainers.A? MutableData()
+                public unsafe new MR.CS.StdContainers.A? Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableData", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableData(_Underlying *_this);
