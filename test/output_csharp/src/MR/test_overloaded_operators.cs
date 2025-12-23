@@ -42,9 +42,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
-                    A _this_copy = new(_this);
-                    int _unused_ret = __MR_C_incr_MR_OverloadedOps_A(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    A __this_copy = new(_this);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_incr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
 
                 // Pre-decrement.
@@ -53,9 +54,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
-                    A _this_copy = new(_this);
-                    int _unused_ret = __MR_C_decr_MR_OverloadedOps_A(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    A __this_copy = new(_this);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_decr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
             }
 
@@ -396,7 +398,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_A(_Underlying *_this);
-                    int _unused_ret = __MR_C_incr_MR_OverloadedOps_A(_UnderlyingPtr);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_incr_MR_OverloadedOps_A(_UnderlyingPtr);
                 }
 
                 // Pre-decrement.
@@ -405,7 +408,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_A(_Underlying *_this);
-                    int _unused_ret = __MR_C_decr_MR_OverloadedOps_A(_UnderlyingPtr);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_decr_MR_OverloadedOps_A(_UnderlyingPtr);
                 }
 
                 // Comma.
@@ -837,7 +841,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_B(_Underlying *_1);
-                    int _unused_ret = __MR_C_incr_MR_OverloadedOps_B(_UnderlyingPtr);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_incr_MR_OverloadedOps_B(_UnderlyingPtr);
                 }
 
                 // Pre-increment.
@@ -846,9 +851,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
-                    B _this_copy = new(_1);
-                    int _unused_ret = __MR_C_incr_MR_OverloadedOps_B(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    B __this_copy = new(_1);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_incr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
 
                 // Pre-decrement.
@@ -857,7 +863,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_B(_Underlying *_1);
-                    int _unused_ret = __MR_C_decr_MR_OverloadedOps_B(_UnderlyingPtr);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_decr_MR_OverloadedOps_B(_UnderlyingPtr);
                 }
 
                 // Pre-decrement.
@@ -866,9 +873,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
-                    B _this_copy = new(_1);
-                    int _unused_ret = __MR_C_decr_MR_OverloadedOps_B(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    B __this_copy = new(_1);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_decr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
 
                 // Comma.

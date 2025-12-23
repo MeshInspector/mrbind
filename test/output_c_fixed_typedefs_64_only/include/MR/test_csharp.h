@@ -10,7 +10,14 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_expected_MR_CSharp_E1_float MR_C_std_expected_MR_CSharp_E1_float; // Defined in `#include <std_expected_MR_CSharp_E1_float.h>`.
+typedef struct MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float; // Defined in `#include <std_expected_MR_CSharp_ExposedLayoutSh_float.h>`.
+typedef struct MR_C_std_expected_MR_CSharp_ExposedLayout_float MR_C_std_expected_MR_CSharp_ExposedLayout_float; // Defined in `#include <std_expected_MR_CSharp_ExposedLayout_float.h>`.
+typedef struct MR_C_std_expected_MR_CSharp_NonTrivial_float MR_C_std_expected_MR_CSharp_NonTrivial_float; // Defined in `#include <std_expected_MR_CSharp_NonTrivial_float.h>`.
+typedef struct MR_C_std_expected_MR_CSharp_SA_float MR_C_std_expected_MR_CSharp_SA_float; // Defined in `#include <std_expected_MR_CSharp_SA_float.h>`.
+typedef struct MR_C_std_expected_MR_CSharp_Trivial_float MR_C_std_expected_MR_CSharp_Trivial_float; // Defined in `#include <std_expected_MR_CSharp_Trivial_float.h>`.
 typedef struct MR_C_std_expected_int_float MR_C_std_expected_int_float; // Defined in `#include <std_expected_int_float.h>`.
+typedef struct MR_C_std_expected_void_float MR_C_std_expected_void_float; // Defined in `#include <std_expected_void_float.h>`.
 typedef struct MR_C_std_filesystem_path MR_C_std_filesystem_path; // Defined in `#include <std_filesystem_path.h>`.
 typedef struct MR_C_std_istream MR_C_std_istream; // Defined in `#include <iostream.h>`.
 typedef struct MR_C_std_optional_MR_CSharp_ExposedLayoutSh MR_C_std_optional_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_optional_MR_CSharp_ExposedLayoutSh.h>`.
@@ -6191,36 +6198,251 @@ MR_C_API int MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR_CSh
 /// Parameter `_2` can not be null. It is a single object.
 MR_C_API int MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, const MR_CSharp_ConstNonconstConflicts *_2);
 
-/// Generated from function `MR::CSharp::test_class_expected`.
+/// Generated from function `MR::CSharp::test_expected_int`.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` is a single object.
 /// Parameter `b` has a default argument: `std::expected<int, float>{42}`, pass a null pointer to use it.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_int_float_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_class_expected(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b);
+MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b);
 
-/// Generated from function `MR::CSharp::test_class_expected_ref`.
+/// Generated from function `MR::CSharp::test_expected_int_ref`.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` is a single object.
-/// Parameter `b` has a default argument: `default_expected`, pass a null pointer to use it.
+/// Parameter `b` has a default argument: `default_expected_int`, pass a null pointer to use it.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_class_expected_ref(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b);
+MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_expected_int_ref(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b);
 
-/// Generated from function `MR::CSharp::test_class_expected_cref`.
+/// Generated from function `MR::CSharp::test_expected_int_cref`.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` is a single object.
-/// Parameter `b` has a default argument: `default_expected`, pass a null pointer to use it.
+/// Parameter `b` has a default argument: `default_expected_int`, pass a null pointer to use it.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_C_std_expected_int_float *MR_CSharp_test_class_expected_cref(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b);
+MR_C_API const MR_C_std_expected_int_float *MR_CSharp_test_expected_int_cref(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b);
 
-/// Generated from function `MR::CSharp::test_class_expected_ptr`.
+/// Generated from function `MR::CSharp::test_expected_int_ptr`.
 /// Parameter `b` defaults to a null pointer in C++.
-/// Parameter `c` has a default argument: `&default_expected`, pass a null pointer to use it.
-MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_class_expected_ptr(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b, MR_C_std_expected_int_float *const *c);
+/// Parameter `c` has a default argument: `&default_expected_int`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_int_float *MR_CSharp_test_expected_int_ptr(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b, MR_C_std_expected_int_float *const *c);
 
-/// Generated from function `MR::CSharp::test_class_expected_cptr`.
+/// Generated from function `MR::CSharp::test_expected_int_cptr`.
 /// Parameter `b` defaults to a null pointer in C++.
-/// Parameter `c` has a default argument: `&default_expected`, pass a null pointer to use it.
-MR_C_API const MR_C_std_expected_int_float *MR_CSharp_test_class_expected_cptr(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b, const MR_C_std_expected_int_float *const *c);
+/// Parameter `c` has a default argument: `&default_expected_int`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_int_float *MR_CSharp_test_expected_int_cptr(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b, const MR_C_std_expected_int_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_void`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `std::expected<void, float>{}`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_void_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_void_float *MR_CSharp_test_expected_void(const MR_C_std_expected_void_float *a, const MR_C_std_expected_void_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_void_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_void`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_void_float *MR_CSharp_test_expected_void_ref(MR_C_std_expected_void_float *a, MR_C_std_expected_void_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_void_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_void`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cref(const MR_C_std_expected_void_float *a, const MR_C_std_expected_void_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_void_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_void`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_void_float *MR_CSharp_test_expected_void_ptr(MR_C_std_expected_void_float *a, MR_C_std_expected_void_float *b, MR_C_std_expected_void_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_void_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_void`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cptr(const MR_C_std_expected_void_float *a, const MR_C_std_expected_void_float *b, const MR_C_std_expected_void_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_enum`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `std::expected<MR::CSharp::E1, float>{E1::b}`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_MR_CSharp_E1_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum(const MR_C_std_expected_MR_CSharp_E1_float *a, const MR_C_std_expected_MR_CSharp_E1_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_enum_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_enum`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ref(MR_C_std_expected_MR_CSharp_E1_float *a, MR_C_std_expected_MR_CSharp_E1_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_enum_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_enum`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cref(const MR_C_std_expected_MR_CSharp_E1_float *a, const MR_C_std_expected_MR_CSharp_E1_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_enum_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_enum`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ptr(MR_C_std_expected_MR_CSharp_E1_float *a, MR_C_std_expected_MR_CSharp_E1_float *b, MR_C_std_expected_MR_CSharp_E1_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_enum_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_enum`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cptr(const MR_C_std_expected_MR_CSharp_E1_float *a, const MR_C_std_expected_MR_CSharp_E1_float *b, const MR_C_std_expected_MR_CSharp_E1_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_triv`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `std::expected<MR::CSharp::Trivial, float>{MR::CSharp::Trivial{}}`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_MR_CSharp_Trivial_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv(const MR_C_std_expected_MR_CSharp_Trivial_float *a, const MR_C_std_expected_MR_CSharp_Trivial_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_triv_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_triv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ref(MR_C_std_expected_MR_CSharp_Trivial_float *a, MR_C_std_expected_MR_CSharp_Trivial_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_triv_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_triv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cref(const MR_C_std_expected_MR_CSharp_Trivial_float *a, const MR_C_std_expected_MR_CSharp_Trivial_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_triv_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_triv`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ptr(MR_C_std_expected_MR_CSharp_Trivial_float *a, MR_C_std_expected_MR_CSharp_Trivial_float *b, MR_C_std_expected_MR_CSharp_Trivial_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_triv_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_triv`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cptr(const MR_C_std_expected_MR_CSharp_Trivial_float *a, const MR_C_std_expected_MR_CSharp_Trivial_float *b, const MR_C_std_expected_MR_CSharp_Trivial_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_nontriv`.
+/// Parameter `b` has a default argument: `std::expected<MR::CSharp::NonTrivial, float>{MR::CSharp::NonTrivial{}}`, pass `MR_C_PassBy_DefaultArgument` and a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_MR_CSharp_NonTrivial_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv(MR_C_PassBy a_pass_by, MR_C_std_expected_MR_CSharp_NonTrivial_float *a, MR_C_PassBy b_pass_by, MR_C_std_expected_MR_CSharp_NonTrivial_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_nontriv_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_nontriv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_ref(MR_C_std_expected_MR_CSharp_NonTrivial_float *a, MR_C_std_expected_MR_CSharp_NonTrivial_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_nontriv_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_nontriv`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_cref(const MR_C_std_expected_MR_CSharp_NonTrivial_float *a, const MR_C_std_expected_MR_CSharp_NonTrivial_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_nontriv_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_nontriv`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_ptr(MR_C_std_expected_MR_CSharp_NonTrivial_float *a, MR_C_std_expected_MR_CSharp_NonTrivial_float *b, MR_C_std_expected_MR_CSharp_NonTrivial_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_nontriv_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_nontriv`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_cptr(const MR_C_std_expected_MR_CSharp_NonTrivial_float *a, const MR_C_std_expected_MR_CSharp_NonTrivial_float *b, const MR_C_std_expected_MR_CSharp_NonTrivial_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_shared`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `std::expected<MR::CSharp::SA, float>{MR::CSharp::SA{}}`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_MR_CSharp_SA_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared(const MR_C_std_expected_MR_CSharp_SA_float *a, const MR_C_std_expected_MR_CSharp_SA_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_shared_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_shared`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ref(MR_C_std_expected_MR_CSharp_SA_float *a, MR_C_std_expected_MR_CSharp_SA_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_shared_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_shared`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cref(const MR_C_std_expected_MR_CSharp_SA_float *a, const MR_C_std_expected_MR_CSharp_SA_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_shared_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_shared`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ptr(MR_C_std_expected_MR_CSharp_SA_float *a, MR_C_std_expected_MR_CSharp_SA_float *b, MR_C_std_expected_MR_CSharp_SA_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_shared_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_shared`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cptr(const MR_C_std_expected_MR_CSharp_SA_float *a, const MR_C_std_expected_MR_CSharp_SA_float *b, const MR_C_std_expected_MR_CSharp_SA_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_exposed`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `std::expected<MR::CSharp::ExposedLayout, float>{MR::CSharp::ExposedLayout{}}`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_MR_CSharp_ExposedLayout_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_exposed`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_ref(MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, MR_C_std_expected_MR_CSharp_ExposedLayout_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_exposed`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_cref(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_exposed`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_ptr(MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, MR_C_std_expected_MR_CSharp_ExposedLayout_float *b, MR_C_std_expected_MR_CSharp_ExposedLayout_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_exposed`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_cptr(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *b, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_shared`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `std::expected<MR::CSharp::ExposedLayoutSh, float>{MR::CSharp::ExposedLayoutSh{}}`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared(const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_shared_ref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_exposed_shared`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_ref(MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_shared_cref`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` is a single object.
+/// Parameter `b` has a default argument: `default_expected_exposed_shared`, pass a null pointer to use it.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_cref(const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_shared_ptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_exposed_shared`, pass a null pointer to use it.
+MR_C_API MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_ptr(MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b, MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *const *c);
+
+/// Generated from function `MR::CSharp::test_expected_exposed_shared_cptr`.
+/// Parameter `b` defaults to a null pointer in C++.
+/// Parameter `c` has a default argument: `&default_expected_exposed_shared`, pass a null pointer to use it.
+MR_C_API const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_cptr(const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *const *c);
 
 #ifdef __cplusplus
 } // extern "C"

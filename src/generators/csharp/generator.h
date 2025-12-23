@@ -219,8 +219,8 @@ namespace mrbind::CSharp
             // Forces the enclosing function to be `unsafe`. This happens automatically if you have `*` in the types.
             bool force_unsafe = false;
 
-            // If true, the returned result will always be saved to a temporary variable, and `make_return_expr` will receive that variable.
-            // This is needed if `make_return_expr` wants to use the expression multiple times.
+            // If true, the returned result will always be saved to a temporary variable, and `make_return_statements` will receive that variable.
+            // This is needed if `make_return_statements` wants to use the expression multiple times.
             bool needs_temporary_variable = false;
 
             // The return type for the `DllImport` C# function declaration.
@@ -229,19 +229,41 @@ namespace mrbind::CSharp
             // The public C# return type.
             std::string csharp_return_type;
 
-            // Given an expression, creates a return statement for it. If null, defaults to `"return " + expr + ";"`.
-            // You can embed newlines into this, no trailing newline is needed.
-            // You must not use `expr` more than once, unless you also set `needs_temporary_variable`.
-            // Don't call directly, use `MakeReturnExpr()`.
+            // Given an expression, creates a return statement for it. If null, defaults to `target + " " + expr + ";"`.
+            // Don't call directly, use `MakeReturnExpr()` to apply the default if this is null.
+            // `target` is usually "return", but can also be "some_var =". Either way, prepend it before your expression.
+            // You can omit `target` entirely (e.g. for the `void` type).
+            // Must not contain a trailing newline, but can contain embedded newlines.
+            // You must not use `expr` more than once (in this and `make_extra_statements` combined), unless you also set `needs_temporary_variable`.
+            //   (You might be wondering why we aren't requiring this function to make said variable if required. The answer is that we might already need it
+            //   for some other reason, so might as well allow opting into it via `needs_temporary_variable` and exposing it to this function).
+            // Note that you CAN return an untyped expression from this, such as `new(...)`, and assume it'll be converted to your `csharp_return_type`.
+            //   Similarly, if you chain into this callback, you must convert the result of the next callback in the chain to their `csharp_return_type`.
             // Need `= nullptr` to tell Clang that this is optional in designated initialization.
-            std::function<std::string(const std::string &expr)> make_return_expr = nullptr;
+            std::function<std::string(const std::string &target, const std::string &expr)> make_return_statements = nullptr;
 
-            [[nodiscard]] std::string MakeReturnExpr(const std::string &expr) const
+            // Calls `make_return_statements(target, expr)`, or if it's null, applies the default fallback.
+            [[nodiscard]] std::string MakeReturnStatements(const std::string &target, const std::string &expr) const
             {
-                if (make_return_expr)
-                    return make_return_expr(expr);
+                return MakeReturnStatementsFunctor()(target, expr);
+            }
+
+            // A little helper for chaining callbacks.
+            // Returns a standalone functor that when called acts as `MakeReturnStatements(...)`.
+            [[nodiscard]] const decltype(make_return_statements) &MakeReturnStatementsFunctor() const
+            {
+                if (make_return_statements)
+                {
+                    return make_return_statements;
+                }
                 else
-                    return "return " + expr + ';';
+                {
+                    static const decltype(make_return_statements) fallback_func = [](const std::string &target, const std::string &expr)
+                    {
+                        return target + ' ' + expr + ';';
+                    };
+                    return fallback_func;
+                }
             }
         };
 
@@ -291,6 +313,14 @@ namespace mrbind::CSharp
         {
             return (net_ver > 0 && dotnet_version >= net_ver) || (net_std_ver > 0 && dotnet_version <= -net_std_ver);
         }
+
+        // Extra per-feature toggles, checked in addition to the version numbers: [
+
+        bool allow_csharp_spans = true;
+        // ]
+
+        // If true, when a C++ function returns `std/tl::expected`, dereference it and throw on failure.
+        bool deref_expected = true;
 
         // ]
 

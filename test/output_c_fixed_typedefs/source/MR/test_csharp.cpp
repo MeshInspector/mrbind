@@ -8033,55 +8033,419 @@ int32_t MR_C_bitand_int32_t_const_MR_CSharp_ConstNonconstConflicts_ref(int32_t _
     );
 }
 
-MR_C_expected_int32_t_float *MR_CSharp_test_class_expected(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b)
+MR_C_expected_int32_t_float *MR_CSharp_test_expected_int(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b)
 {
     using namespace MR;
     using namespace CSharp;
-    return (MR_C_expected_int32_t_float *)new std::expected<int32_t, float>(::MR::CSharp::test_class_expected(
+    return (MR_C_expected_int32_t_float *)new std::expected<int32_t, float>(::MR::CSharp::test_expected_int(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<int32_t, float>(*(std::expected<int32_t, float> *)a)),
         (b ? std::expected<int32_t, float>(*(std::expected<int32_t, float> *)b) : static_cast<std::expected<int32_t, float>>(std::expected<int, float>{42}))
     ));
 }
 
-MR_C_expected_int32_t_float *MR_CSharp_test_class_expected_ref(MR_C_expected_int32_t_float *a, MR_C_expected_int32_t_float *b)
+MR_C_expected_int32_t_float *MR_CSharp_test_expected_int_ref(MR_C_expected_int32_t_float *a, MR_C_expected_int32_t_float *b)
 {
     using namespace MR;
     using namespace CSharp;
-    return (MR_C_expected_int32_t_float *)std::addressof(::MR::CSharp::test_class_expected_ref(
+    return (MR_C_expected_int32_t_float *)std::addressof(::MR::CSharp::test_expected_int_ref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<int32_t, float> *)(a)),
-        (b ? *(std::expected<int32_t, float> *)(b) : static_cast<std::expected<int32_t, float> &>(default_expected))
+        (b ? *(std::expected<int32_t, float> *)(b) : static_cast<std::expected<int32_t, float> &>(default_expected_int))
     ));
 }
 
-const MR_C_expected_int32_t_float *MR_CSharp_test_class_expected_cref(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b)
+const MR_C_expected_int32_t_float *MR_CSharp_test_expected_int_cref(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b)
 {
     using namespace MR;
     using namespace CSharp;
-    return (const MR_C_expected_int32_t_float *)std::addressof(::MR::CSharp::test_class_expected_cref(
+    return (const MR_C_expected_int32_t_float *)std::addressof(::MR::CSharp::test_expected_int_cref(
         ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<int32_t, float> *)(a)),
-        (b ? *(const std::expected<int32_t, float> *)(b) : static_cast<const std::expected<int32_t, float> &>(default_expected))
+        (b ? *(const std::expected<int32_t, float> *)(b) : static_cast<const std::expected<int32_t, float> &>(default_expected_int))
     ));
 }
 
-MR_C_expected_int32_t_float *MR_CSharp_test_class_expected_ptr(MR_C_expected_int32_t_float *a, MR_C_expected_int32_t_float *b, MR_C_expected_int32_t_float *const *c)
+MR_C_expected_int32_t_float *MR_CSharp_test_expected_int_ptr(MR_C_expected_int32_t_float *a, MR_C_expected_int32_t_float *b, MR_C_expected_int32_t_float *const *c)
 {
     using namespace MR;
     using namespace CSharp;
-    return (MR_C_expected_int32_t_float *)(::MR::CSharp::test_class_expected_ptr(
+    return (MR_C_expected_int32_t_float *)(::MR::CSharp::test_expected_int_ptr(
         ((std::expected<int32_t, float> *)a),
         ((std::expected<int32_t, float> *)b),
-        (c ? (std::expected<int32_t, float> *)(*c) : static_cast<std::expected<int32_t, float> *>(&default_expected))
+        (c ? (std::expected<int32_t, float> *)(*c) : static_cast<std::expected<int32_t, float> *>(&default_expected_int))
     ));
 }
 
-const MR_C_expected_int32_t_float *MR_CSharp_test_class_expected_cptr(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b, const MR_C_expected_int32_t_float *const *c)
+const MR_C_expected_int32_t_float *MR_CSharp_test_expected_int_cptr(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b, const MR_C_expected_int32_t_float *const *c)
 {
     using namespace MR;
     using namespace CSharp;
-    return (const MR_C_expected_int32_t_float *)(::MR::CSharp::test_class_expected_cptr(
+    return (const MR_C_expected_int32_t_float *)(::MR::CSharp::test_expected_int_cptr(
         ((const std::expected<int32_t, float> *)a),
         ((const std::expected<int32_t, float> *)b),
-        (c ? (const std::expected<int32_t, float> *)(*c) : static_cast<const std::expected<int32_t, float> *>(&default_expected))
+        (c ? (const std::expected<int32_t, float> *)(*c) : static_cast<const std::expected<int32_t, float> *>(&default_expected_int))
+    ));
+}
+
+MR_C_expected_void_float *MR_CSharp_test_expected_void(const MR_C_expected_void_float *a, const MR_C_expected_void_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_void_float *)new std::expected<void, float>(::MR::CSharp::test_expected_void(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)a)),
+        (b ? std::expected<void, float>(*(std::expected<void, float> *)b) : static_cast<std::expected<void, float>>(std::expected<void, float>{}))
+    ));
+}
+
+MR_C_expected_void_float *MR_CSharp_test_expected_void_ref(MR_C_expected_void_float *a, MR_C_expected_void_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_void_float *)std::addressof(::MR::CSharp::test_expected_void_ref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<void, float> *)(a)),
+        (b ? *(std::expected<void, float> *)(b) : static_cast<std::expected<void, float> &>(default_expected_void))
+    ));
+}
+
+const MR_C_expected_void_float *MR_CSharp_test_expected_void_cref(const MR_C_expected_void_float *a, const MR_C_expected_void_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_void_float *)std::addressof(::MR::CSharp::test_expected_void_cref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<void, float> *)(a)),
+        (b ? *(const std::expected<void, float> *)(b) : static_cast<const std::expected<void, float> &>(default_expected_void))
+    ));
+}
+
+MR_C_expected_void_float *MR_CSharp_test_expected_void_ptr(MR_C_expected_void_float *a, MR_C_expected_void_float *b, MR_C_expected_void_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_void_float *)(::MR::CSharp::test_expected_void_ptr(
+        ((std::expected<void, float> *)a),
+        ((std::expected<void, float> *)b),
+        (c ? (std::expected<void, float> *)(*c) : static_cast<std::expected<void, float> *>(&default_expected_void))
+    ));
+}
+
+const MR_C_expected_void_float *MR_CSharp_test_expected_void_cptr(const MR_C_expected_void_float *a, const MR_C_expected_void_float *b, const MR_C_expected_void_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_void_float *)(::MR::CSharp::test_expected_void_cptr(
+        ((const std::expected<void, float> *)a),
+        ((const std::expected<void, float> *)b),
+        (c ? (const std::expected<void, float> *)(*c) : static_cast<const std::expected<void, float> *>(&default_expected_void))
+    ));
+}
+
+MR_C_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum(const MR_C_expected_MR_CSharp_E1_float *a, const MR_C_expected_MR_CSharp_E1_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_E1_float *)new std::expected<MR::CSharp::E1, float>(::MR::CSharp::test_expected_enum(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)a)),
+        (b ? std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)b) : static_cast<std::expected<MR::CSharp::E1, float>>(std::expected<MR::CSharp::E1, float>{E1::b}))
+    ));
+}
+
+MR_C_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ref(MR_C_expected_MR_CSharp_E1_float *a, MR_C_expected_MR_CSharp_E1_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_E1_float *)std::addressof(::MR::CSharp::test_expected_enum_ref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::E1, float> *)(a)),
+        (b ? *(std::expected<MR::CSharp::E1, float> *)(b) : static_cast<std::expected<MR::CSharp::E1, float> &>(default_expected_enum))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cref(const MR_C_expected_MR_CSharp_E1_float *a, const MR_C_expected_MR_CSharp_E1_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_E1_float *)std::addressof(::MR::CSharp::test_expected_enum_cref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::E1, float> *)(a)),
+        (b ? *(const std::expected<MR::CSharp::E1, float> *)(b) : static_cast<const std::expected<MR::CSharp::E1, float> &>(default_expected_enum))
+    ));
+}
+
+MR_C_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ptr(MR_C_expected_MR_CSharp_E1_float *a, MR_C_expected_MR_CSharp_E1_float *b, MR_C_expected_MR_CSharp_E1_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_E1_float *)(::MR::CSharp::test_expected_enum_ptr(
+        ((std::expected<MR::CSharp::E1, float> *)a),
+        ((std::expected<MR::CSharp::E1, float> *)b),
+        (c ? (std::expected<MR::CSharp::E1, float> *)(*c) : static_cast<std::expected<MR::CSharp::E1, float> *>(&default_expected_enum))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cptr(const MR_C_expected_MR_CSharp_E1_float *a, const MR_C_expected_MR_CSharp_E1_float *b, const MR_C_expected_MR_CSharp_E1_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_E1_float *)(::MR::CSharp::test_expected_enum_cptr(
+        ((const std::expected<MR::CSharp::E1, float> *)a),
+        ((const std::expected<MR::CSharp::E1, float> *)b),
+        (c ? (const std::expected<MR::CSharp::E1, float> *)(*c) : static_cast<const std::expected<MR::CSharp::E1, float> *>(&default_expected_enum))
+    ));
+}
+
+MR_C_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv(const MR_C_expected_MR_CSharp_Trivial_float *a, const MR_C_expected_MR_CSharp_Trivial_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_Trivial_float *)new std::expected<MR::CSharp::Trivial, float>(::MR::CSharp::test_expected_triv(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)a)),
+        (b ? std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)b) : static_cast<std::expected<MR::CSharp::Trivial, float>>(std::expected<MR::CSharp::Trivial, float>{MR::CSharp::Trivial{}}))
+    ));
+}
+
+MR_C_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ref(MR_C_expected_MR_CSharp_Trivial_float *a, MR_C_expected_MR_CSharp_Trivial_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_Trivial_float *)std::addressof(::MR::CSharp::test_expected_triv_ref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::Trivial, float> *)(a)),
+        (b ? *(std::expected<MR::CSharp::Trivial, float> *)(b) : static_cast<std::expected<MR::CSharp::Trivial, float> &>(default_expected_triv))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cref(const MR_C_expected_MR_CSharp_Trivial_float *a, const MR_C_expected_MR_CSharp_Trivial_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_Trivial_float *)std::addressof(::MR::CSharp::test_expected_triv_cref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::Trivial, float> *)(a)),
+        (b ? *(const std::expected<MR::CSharp::Trivial, float> *)(b) : static_cast<const std::expected<MR::CSharp::Trivial, float> &>(default_expected_triv))
+    ));
+}
+
+MR_C_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ptr(MR_C_expected_MR_CSharp_Trivial_float *a, MR_C_expected_MR_CSharp_Trivial_float *b, MR_C_expected_MR_CSharp_Trivial_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_Trivial_float *)(::MR::CSharp::test_expected_triv_ptr(
+        ((std::expected<MR::CSharp::Trivial, float> *)a),
+        ((std::expected<MR::CSharp::Trivial, float> *)b),
+        (c ? (std::expected<MR::CSharp::Trivial, float> *)(*c) : static_cast<std::expected<MR::CSharp::Trivial, float> *>(&default_expected_triv))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cptr(const MR_C_expected_MR_CSharp_Trivial_float *a, const MR_C_expected_MR_CSharp_Trivial_float *b, const MR_C_expected_MR_CSharp_Trivial_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_Trivial_float *)(::MR::CSharp::test_expected_triv_cptr(
+        ((const std::expected<MR::CSharp::Trivial, float> *)a),
+        ((const std::expected<MR::CSharp::Trivial, float> *)b),
+        (c ? (const std::expected<MR::CSharp::Trivial, float> *)(*c) : static_cast<const std::expected<MR::CSharp::Trivial, float> *>(&default_expected_triv))
+    ));
+}
+
+MR_C_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv(MR_C_PassBy a_pass_by, MR_C_expected_MR_CSharp_NonTrivial_float *a, MR_C_PassBy b_pass_by, MR_C_expected_MR_CSharp_NonTrivial_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_NonTrivial_float *)new std::expected<MR::CSharp::NonTrivial, float>(::MR::CSharp::test_expected_nontriv(
+        (MRBINDC_CLASSARG_DEF_CTOR(a, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_COPY(a, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_MOVE(a, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_NoObject, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_END(a, std::expected<MR::CSharp::NonTrivial, float>)),
+        (MRBINDC_CLASSARG_DEF_CTOR(b, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_COPY(b, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_MOVE(b, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (std::expected<MR::CSharp::NonTrivial, float>{MR::CSharp::NonTrivial{}}), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_END(b, std::expected<MR::CSharp::NonTrivial, float>))
+    ));
+}
+
+MR_C_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_ref(MR_C_expected_MR_CSharp_NonTrivial_float *a, MR_C_expected_MR_CSharp_NonTrivial_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_NonTrivial_float *)std::addressof(::MR::CSharp::test_expected_nontriv_ref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::NonTrivial, float> *)(a)),
+        (b ? *(std::expected<MR::CSharp::NonTrivial, float> *)(b) : static_cast<std::expected<MR::CSharp::NonTrivial, float> &>(default_expected_nontriv))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_cref(const MR_C_expected_MR_CSharp_NonTrivial_float *a, const MR_C_expected_MR_CSharp_NonTrivial_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_NonTrivial_float *)std::addressof(::MR::CSharp::test_expected_nontriv_cref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::NonTrivial, float> *)(a)),
+        (b ? *(const std::expected<MR::CSharp::NonTrivial, float> *)(b) : static_cast<const std::expected<MR::CSharp::NonTrivial, float> &>(default_expected_nontriv))
+    ));
+}
+
+MR_C_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_ptr(MR_C_expected_MR_CSharp_NonTrivial_float *a, MR_C_expected_MR_CSharp_NonTrivial_float *b, MR_C_expected_MR_CSharp_NonTrivial_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_NonTrivial_float *)(::MR::CSharp::test_expected_nontriv_ptr(
+        ((std::expected<MR::CSharp::NonTrivial, float> *)a),
+        ((std::expected<MR::CSharp::NonTrivial, float> *)b),
+        (c ? (std::expected<MR::CSharp::NonTrivial, float> *)(*c) : static_cast<std::expected<MR::CSharp::NonTrivial, float> *>(&default_expected_nontriv))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_cptr(const MR_C_expected_MR_CSharp_NonTrivial_float *a, const MR_C_expected_MR_CSharp_NonTrivial_float *b, const MR_C_expected_MR_CSharp_NonTrivial_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_NonTrivial_float *)(::MR::CSharp::test_expected_nontriv_cptr(
+        ((const std::expected<MR::CSharp::NonTrivial, float> *)a),
+        ((const std::expected<MR::CSharp::NonTrivial, float> *)b),
+        (c ? (const std::expected<MR::CSharp::NonTrivial, float> *)(*c) : static_cast<const std::expected<MR::CSharp::NonTrivial, float> *>(&default_expected_nontriv))
+    ));
+}
+
+MR_C_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared(const MR_C_expected_MR_CSharp_SA_float *a, const MR_C_expected_MR_CSharp_SA_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_SA_float *)new std::expected<MR::CSharp::SA, float>(::MR::CSharp::test_expected_shared(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::SA, float>(*(std::expected<MR::CSharp::SA, float> *)a)),
+        (b ? std::expected<MR::CSharp::SA, float>(*(std::expected<MR::CSharp::SA, float> *)b) : static_cast<std::expected<MR::CSharp::SA, float>>(std::expected<MR::CSharp::SA, float>{MR::CSharp::SA{}}))
+    ));
+}
+
+MR_C_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ref(MR_C_expected_MR_CSharp_SA_float *a, MR_C_expected_MR_CSharp_SA_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_SA_float *)std::addressof(::MR::CSharp::test_expected_shared_ref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::SA, float> *)(a)),
+        (b ? *(std::expected<MR::CSharp::SA, float> *)(b) : static_cast<std::expected<MR::CSharp::SA, float> &>(default_expected_shared))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cref(const MR_C_expected_MR_CSharp_SA_float *a, const MR_C_expected_MR_CSharp_SA_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_SA_float *)std::addressof(::MR::CSharp::test_expected_shared_cref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::SA, float> *)(a)),
+        (b ? *(const std::expected<MR::CSharp::SA, float> *)(b) : static_cast<const std::expected<MR::CSharp::SA, float> &>(default_expected_shared))
+    ));
+}
+
+MR_C_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ptr(MR_C_expected_MR_CSharp_SA_float *a, MR_C_expected_MR_CSharp_SA_float *b, MR_C_expected_MR_CSharp_SA_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_SA_float *)(::MR::CSharp::test_expected_shared_ptr(
+        ((std::expected<MR::CSharp::SA, float> *)a),
+        ((std::expected<MR::CSharp::SA, float> *)b),
+        (c ? (std::expected<MR::CSharp::SA, float> *)(*c) : static_cast<std::expected<MR::CSharp::SA, float> *>(&default_expected_shared))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cptr(const MR_C_expected_MR_CSharp_SA_float *a, const MR_C_expected_MR_CSharp_SA_float *b, const MR_C_expected_MR_CSharp_SA_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_SA_float *)(::MR::CSharp::test_expected_shared_cptr(
+        ((const std::expected<MR::CSharp::SA, float> *)a),
+        ((const std::expected<MR::CSharp::SA, float> *)b),
+        (c ? (const std::expected<MR::CSharp::SA, float> *)(*c) : static_cast<const std::expected<MR::CSharp::SA, float> *>(&default_expected_shared))
+    ));
+}
+
+MR_C_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed(const MR_C_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_expected_MR_CSharp_ExposedLayout_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_ExposedLayout_float *)new std::expected<MR::CSharp::ExposedLayout, float>(::MR::CSharp::test_expected_exposed(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)a)),
+        (b ? std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)b) : static_cast<std::expected<MR::CSharp::ExposedLayout, float>>(std::expected<MR::CSharp::ExposedLayout, float>{MR::CSharp::ExposedLayout{}}))
+    ));
+}
+
+MR_C_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_ref(MR_C_expected_MR_CSharp_ExposedLayout_float *a, MR_C_expected_MR_CSharp_ExposedLayout_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_ExposedLayout_float *)std::addressof(::MR::CSharp::test_expected_exposed_ref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
+        (b ? *(std::expected<MR::CSharp::ExposedLayout, float> *)(b) : static_cast<std::expected<MR::CSharp::ExposedLayout, float> &>(default_expected_exposed))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_cref(const MR_C_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_expected_MR_CSharp_ExposedLayout_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_ExposedLayout_float *)std::addressof(::MR::CSharp::test_expected_exposed_cref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
+        (b ? *(const std::expected<MR::CSharp::ExposedLayout, float> *)(b) : static_cast<const std::expected<MR::CSharp::ExposedLayout, float> &>(default_expected_exposed))
+    ));
+}
+
+MR_C_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_ptr(MR_C_expected_MR_CSharp_ExposedLayout_float *a, MR_C_expected_MR_CSharp_ExposedLayout_float *b, MR_C_expected_MR_CSharp_ExposedLayout_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_ExposedLayout_float *)(::MR::CSharp::test_expected_exposed_ptr(
+        ((std::expected<MR::CSharp::ExposedLayout, float> *)a),
+        ((std::expected<MR::CSharp::ExposedLayout, float> *)b),
+        (c ? (std::expected<MR::CSharp::ExposedLayout, float> *)(*c) : static_cast<std::expected<MR::CSharp::ExposedLayout, float> *>(&default_expected_exposed))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_cptr(const MR_C_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_expected_MR_CSharp_ExposedLayout_float *b, const MR_C_expected_MR_CSharp_ExposedLayout_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_ExposedLayout_float *)(::MR::CSharp::test_expected_exposed_cptr(
+        ((const std::expected<MR::CSharp::ExposedLayout, float> *)a),
+        ((const std::expected<MR::CSharp::ExposedLayout, float> *)b),
+        (c ? (const std::expected<MR::CSharp::ExposedLayout, float> *)(*c) : static_cast<const std::expected<MR::CSharp::ExposedLayout, float> *>(&default_expected_exposed))
+    ));
+}
+
+MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared(const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_ExposedLayoutSh_float *)new std::expected<MR::CSharp::ExposedLayoutSh, float>(::MR::CSharp::test_expected_exposed_shared(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::ExposedLayoutSh, float>(*(std::expected<MR::CSharp::ExposedLayoutSh, float> *)a)),
+        (b ? std::expected<MR::CSharp::ExposedLayoutSh, float>(*(std::expected<MR::CSharp::ExposedLayoutSh, float> *)b) : static_cast<std::expected<MR::CSharp::ExposedLayoutSh, float>>(std::expected<MR::CSharp::ExposedLayoutSh, float>{MR::CSharp::ExposedLayoutSh{}}))
+    ));
+}
+
+MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_ref(MR_C_expected_MR_CSharp_ExposedLayoutSh_float *a, MR_C_expected_MR_CSharp_ExposedLayoutSh_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_ExposedLayoutSh_float *)std::addressof(::MR::CSharp::test_expected_exposed_shared_ref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
+        (b ? *(std::expected<MR::CSharp::ExposedLayoutSh, float> *)(b) : static_cast<std::expected<MR::CSharp::ExposedLayoutSh, float> &>(default_expected_exposed_shared))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_cref(const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *b)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *)std::addressof(::MR::CSharp::test_expected_exposed_shared_cref(
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
+        (b ? *(const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(b) : static_cast<const std::expected<MR::CSharp::ExposedLayoutSh, float> &>(default_expected_exposed_shared))
+    ));
+}
+
+MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_ptr(MR_C_expected_MR_CSharp_ExposedLayoutSh_float *a, MR_C_expected_MR_CSharp_ExposedLayoutSh_float *b, MR_C_expected_MR_CSharp_ExposedLayoutSh_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_expected_MR_CSharp_ExposedLayoutSh_float *)(::MR::CSharp::test_expected_exposed_shared_ptr(
+        ((std::expected<MR::CSharp::ExposedLayoutSh, float> *)a),
+        ((std::expected<MR::CSharp::ExposedLayoutSh, float> *)b),
+        (c ? (std::expected<MR::CSharp::ExposedLayoutSh, float> *)(*c) : static_cast<std::expected<MR::CSharp::ExposedLayoutSh, float> *>(&default_expected_exposed_shared))
+    ));
+}
+
+const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_cptr(const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *b, const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *const *c)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *)(::MR::CSharp::test_expected_exposed_shared_cptr(
+        ((const std::expected<MR::CSharp::ExposedLayoutSh, float> *)a),
+        ((const std::expected<MR::CSharp::ExposedLayoutSh, float> *)b),
+        (c ? (const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(*c) : static_cast<const std::expected<MR::CSharp::ExposedLayoutSh, float> *>(&default_expected_exposed_shared))
     ));
 }
 

@@ -13,7 +13,7 @@ build/mrbind_gen_csharp \
     --helpers-namespace MR::Misc \
     --replace-namespace MR :: \
     --force-namespace MR::CS \
-    --dotnet-version=std2.0
+    --dotnet-version=std2.0 \
 
 dotnet build test/output_csharp
 
@@ -26,6 +26,7 @@ build/mrbind_gen_csharp \
     --imported-lib-name bleh \
     --helpers-namespace MR::Misc \
     --replace-namespace MR :: \
-    --force-namespace MR::CS
+    --force-namespace MR::CS \
+    --no-deref-expected \
 
 dotnet build test/output_csharp_fixed_typedefs_64_only

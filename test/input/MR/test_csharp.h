@@ -1271,12 +1271,75 @@ namespace MR::CSharp
 #include <expected>
 namespace MR::CSharp
 {
-    inline std::expected<int, float> default_expected;
+    inline std::expected<int, float> default_expected_int;
 
-    inline std::expected<int, float> test_class_expected(std::expected<int, float> a, std::expected<int, float> b = std::expected<int, float>{42}) {(void)a; (void)b; return {};}
-    inline std::expected<int, float> &test_class_expected_ref(std::expected<int, float> &a, std::expected<int, float> &b = default_expected) {(void)a; (void)b; return default_expected;}
-    inline const std::expected<int, float> &test_class_expected_cref(const std::expected<int, float> &a, const std::expected<int, float> &b = default_expected) {(void)a; (void)b; return default_expected;}
-    inline std::expected<int, float> *test_class_expected_ptr(std::expected<int, float> *a, std::expected<int, float> *b = nullptr, std::expected<int, float> *c = &default_expected) {(void)a; (void)b; (void)c; return &default_expected;}
-    inline const std::expected<int, float> *test_class_expected_cptr(const std::expected<int, float> *a, const std::expected<int, float> *b = nullptr, const std::expected<int, float> *c = &default_expected) {(void)a; (void)b; (void)c; return &default_expected;}
+    inline std::expected<int, float> test_expected_int(std::expected<int, float> a, std::expected<int, float> b = std::expected<int, float>{42}) {(void)a; (void)b; return {};}
+    inline std::expected<int, float> &test_expected_int_ref(std::expected<int, float> &a, std::expected<int, float> &b = default_expected_int) {(void)a; (void)b; return default_expected_int;}
+    inline const std::expected<int, float> &test_expected_int_cref(const std::expected<int, float> &a, const std::expected<int, float> &b = default_expected_int) {(void)a; (void)b; return default_expected_int;}
+    inline std::expected<int, float> *test_expected_int_ptr(std::expected<int, float> *a, std::expected<int, float> *b = nullptr, std::expected<int, float> *c = &default_expected_int) {(void)a; (void)b; (void)c; return &default_expected_int;}
+    inline const std::expected<int, float> *test_expected_int_cptr(const std::expected<int, float> *a, const std::expected<int, float> *b = nullptr, const std::expected<int, float> *c = &default_expected_int) {(void)a; (void)b; (void)c; return &default_expected_int;}
+
+
+    inline std::expected<void, float> default_expected_void;
+
+    inline std::expected<void, float> test_expected_void(std::expected<void, float> a, std::expected<void, float> b = std::expected<void, float>{}) {(void)a; (void)b; return {};}
+    inline std::expected<void, float> &test_expected_void_ref(std::expected<void, float> &a, std::expected<void, float> &b = default_expected_void) {(void)a; (void)b; return default_expected_void;}
+    inline const std::expected<void, float> &test_expected_void_cref(const std::expected<void, float> &a, const std::expected<void, float> &b = default_expected_void) {(void)a; (void)b; return default_expected_void;}
+    inline std::expected<void, float> *test_expected_void_ptr(std::expected<void, float> *a, std::expected<void, float> *b = nullptr, std::expected<void, float> *c = &default_expected_void) {(void)a; (void)b; (void)c; return &default_expected_void;}
+    inline const std::expected<void, float> *test_expected_void_cptr(const std::expected<void, float> *a, const std::expected<void, float> *b = nullptr, const std::expected<void, float> *c = &default_expected_void) {(void)a; (void)b; (void)c; return &default_expected_void;}
+
+
+    inline std::expected<E1, float> default_expected_enum;
+
+    inline std::expected<E1, float> test_expected_enum(std::expected<E1, float> a, std::expected<E1, float> b = std::expected<E1, float>{E1::b}) {(void)a; (void)b; return {};}
+    inline std::expected<E1, float> &test_expected_enum_ref(std::expected<E1, float> &a, std::expected<E1, float> &b = default_expected_enum) {(void)a; (void)b; return default_expected_enum;}
+    inline const std::expected<E1, float> &test_expected_enum_cref(const std::expected<E1, float> &a, const std::expected<E1, float> &b = default_expected_enum) {(void)a; (void)b; return default_expected_enum;}
+    inline std::expected<E1, float> *test_expected_enum_ptr(std::expected<E1, float> *a, std::expected<E1, float> *b = nullptr, std::expected<E1, float> *c = &default_expected_enum) {(void)a; (void)b; (void)c; return &default_expected_enum;}
+    inline const std::expected<E1, float> *test_expected_enum_cptr(const std::expected<E1, float> *a, const std::expected<E1, float> *b = nullptr, const std::expected<E1, float> *c = &default_expected_enum) {(void)a; (void)b; (void)c; return &default_expected_enum;}
+
+
+    inline std::expected<Trivial, float> default_expected_triv;
+
+    inline std::expected<Trivial, float> test_expected_triv(std::expected<Trivial, float> a, std::expected<Trivial, float> b = std::expected<Trivial, float>{Trivial{}}) {(void)a; (void)b; return {};}
+    inline std::expected<Trivial, float> &test_expected_triv_ref(std::expected<Trivial, float> &a, std::expected<Trivial, float> &b = default_expected_triv) {(void)a; (void)b; return default_expected_triv;}
+    inline const std::expected<Trivial, float> &test_expected_triv_cref(const std::expected<Trivial, float> &a, const std::expected<Trivial, float> &b = default_expected_triv) {(void)a; (void)b; return default_expected_triv;}
+    inline std::expected<Trivial, float> *test_expected_triv_ptr(std::expected<Trivial, float> *a, std::expected<Trivial, float> *b = nullptr, std::expected<Trivial, float> *c = &default_expected_triv) {(void)a; (void)b; (void)c; return &default_expected_triv;}
+    inline const std::expected<Trivial, float> *test_expected_triv_cptr(const std::expected<Trivial, float> *a, const std::expected<Trivial, float> *b = nullptr, const std::expected<Trivial, float> *c = &default_expected_triv) {(void)a; (void)b; (void)c; return &default_expected_triv;}
+
+
+    inline std::expected<NonTrivial, float> default_expected_nontriv;
+
+    inline std::expected<NonTrivial, float> test_expected_nontriv(std::expected<NonTrivial, float> a, std::expected<NonTrivial, float> b = std::expected<NonTrivial, float>{NonTrivial{}}) {(void)a; (void)b; return {};}
+    inline std::expected<NonTrivial, float> &test_expected_nontriv_ref(std::expected<NonTrivial, float> &a, std::expected<NonTrivial, float> &b = default_expected_nontriv) {(void)a; (void)b; return default_expected_nontriv;}
+    inline const std::expected<NonTrivial, float> &test_expected_nontriv_cref(const std::expected<NonTrivial, float> &a, const std::expected<NonTrivial, float> &b = default_expected_nontriv) {(void)a; (void)b; return default_expected_nontriv;}
+    inline std::expected<NonTrivial, float> *test_expected_nontriv_ptr(std::expected<NonTrivial, float> *a, std::expected<NonTrivial, float> *b = nullptr, std::expected<NonTrivial, float> *c = &default_expected_nontriv) {(void)a; (void)b; (void)c; return &default_expected_nontriv;}
+    inline const std::expected<NonTrivial, float> *test_expected_nontriv_cptr(const std::expected<NonTrivial, float> *a, const std::expected<NonTrivial, float> *b = nullptr, const std::expected<NonTrivial, float> *c = &default_expected_nontriv) {(void)a; (void)b; (void)c; return &default_expected_nontriv;}
+
+
+    inline std::expected<SA, float> default_expected_shared;
+
+    inline std::expected<SA, float> test_expected_shared(std::expected<SA, float> a, std::expected<SA, float> b = std::expected<SA, float>{SA{}}) {(void)a; (void)b; return {};}
+    inline std::expected<SA, float> &test_expected_shared_ref(std::expected<SA, float> &a, std::expected<SA, float> &b = default_expected_shared) {(void)a; (void)b; return default_expected_shared;}
+    inline const std::expected<SA, float> &test_expected_shared_cref(const std::expected<SA, float> &a, const std::expected<SA, float> &b = default_expected_shared) {(void)a; (void)b; return default_expected_shared;}
+    inline std::expected<SA, float> *test_expected_shared_ptr(std::expected<SA, float> *a, std::expected<SA, float> *b = nullptr, std::expected<SA, float> *c = &default_expected_shared) {(void)a; (void)b; (void)c; return &default_expected_shared;}
+    inline const std::expected<SA, float> *test_expected_shared_cptr(const std::expected<SA, float> *a, const std::expected<SA, float> *b = nullptr, const std::expected<SA, float> *c = &default_expected_shared) {(void)a; (void)b; (void)c; return &default_expected_shared;}
+
+
+    inline std::expected<ExposedLayout, float> default_expected_exposed;
+
+    inline std::expected<ExposedLayout, float> test_expected_exposed(std::expected<ExposedLayout, float> a, std::expected<ExposedLayout, float> b = std::expected<ExposedLayout, float>{ExposedLayout{}}) {(void)a; (void)b; return {};}
+    inline std::expected<ExposedLayout, float> &test_expected_exposed_ref(std::expected<ExposedLayout, float> &a, std::expected<ExposedLayout, float> &b = default_expected_exposed) {(void)a; (void)b; return default_expected_exposed;}
+    inline const std::expected<ExposedLayout, float> &test_expected_exposed_cref(const std::expected<ExposedLayout, float> &a, const std::expected<ExposedLayout, float> &b = default_expected_exposed) {(void)a; (void)b; return default_expected_exposed;}
+    inline std::expected<ExposedLayout, float> *test_expected_exposed_ptr(std::expected<ExposedLayout, float> *a, std::expected<ExposedLayout, float> *b = nullptr, std::expected<ExposedLayout, float> *c = &default_expected_exposed) {(void)a; (void)b; (void)c; return &default_expected_exposed;}
+    inline const std::expected<ExposedLayout, float> *test_expected_exposed_cptr(const std::expected<ExposedLayout, float> *a, const std::expected<ExposedLayout, float> *b = nullptr, const std::expected<ExposedLayout, float> *c = &default_expected_exposed) {(void)a; (void)b; (void)c; return &default_expected_exposed;}
+
+
+    inline std::expected<ExposedLayoutSh, float> default_expected_exposed_shared;
+
+    inline std::expected<ExposedLayoutSh, float> test_expected_exposed_shared(std::expected<ExposedLayoutSh, float> a, std::expected<ExposedLayoutSh, float> b = std::expected<ExposedLayoutSh, float>{ExposedLayoutSh{}}) {(void)a; (void)b; return {};}
+    inline std::expected<ExposedLayoutSh, float> &test_expected_exposed_shared_ref(std::expected<ExposedLayoutSh, float> &a, std::expected<ExposedLayoutSh, float> &b = default_expected_exposed_shared) {(void)a; (void)b; return default_expected_exposed_shared;}
+    inline const std::expected<ExposedLayoutSh, float> &test_expected_exposed_shared_cref(const std::expected<ExposedLayoutSh, float> &a, const std::expected<ExposedLayoutSh, float> &b = default_expected_exposed_shared) {(void)a; (void)b; return default_expected_exposed_shared;}
+    inline std::expected<ExposedLayoutSh, float> *test_expected_exposed_shared_ptr(std::expected<ExposedLayoutSh, float> *a, std::expected<ExposedLayoutSh, float> *b = nullptr, std::expected<ExposedLayoutSh, float> *c = &default_expected_exposed_shared) {(void)a; (void)b; (void)c; return &default_expected_exposed_shared;}
+    inline const std::expected<ExposedLayoutSh, float> *test_expected_exposed_shared_cptr(const std::expected<ExposedLayoutSh, float> *a, const std::expected<ExposedLayoutSh, float> *b = nullptr, const std::expected<ExposedLayoutSh, float> *c = &default_expected_exposed_shared) {(void)a; (void)b; (void)c; return &default_expected_exposed_shared;}
 }
 #endif

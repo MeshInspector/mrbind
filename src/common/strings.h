@@ -27,6 +27,7 @@ namespace mrbind::Strings
     // Splits `input` by `sep`. Calls `func` which is `(std::string_view part) -> ??` on every part, including empty parts.
     // The return type of the lambda must be convertible to a `bool`. We stop the iteration if it's truthy and propagate the return value.
     // Otherwise we return the result from the last iteration.
+    // The `func` is always called at least once. If it always returns falsey, we return its last returned value.
     inline auto Split(std::string_view input, std::string_view sep, auto &&func)
     {
         while (true)

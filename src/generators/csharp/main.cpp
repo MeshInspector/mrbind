@@ -25,7 +25,8 @@ int main(int argc, char **argv)
     std::optional<std::string> helpers_namespace;
     std::vector<std::pair<std::string, std::string>> replaced_namespaces;
     std::optional<std::string> forced_namespace;
-    bool no_csharp_span = false;
+    bool allow_csharp_spans = true;
+    bool deref_expected = true;
 
     int csharp_version = 12; // C# 12 corresponds to .NET 8
     int dotnet_version = 80; // = .NET 8
@@ -157,12 +158,20 @@ int main(int argc, char **argv)
             }
         },
     });
-    args_parser.AddFlag("--no-csharp-span", {
-        .desc = "Don't use C# classes `Span<T>` and `ReadOnlySpan<T> in generated code. This can be necessary for compatibility with older .NET frameworks.",
+    args_parser.AddFlag("--no-csharp-spans", {
+        .desc = "Don't use C# classes `Span<T>` and `ReadOnlySpan<T> in generated code, including for strings. This is done automatically for older `--dotnet-version` values, or you can force it via this flag if you prever `string`s in function parameters and return types.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             (void)args;
-            no_csharp_span = true;
+            allow_csharp_spans = false;
+        },
+    });
+    args_parser.AddFlag("--no-deref-expected", {
+        .desc = "When a C++ function returns `std/tl::expected`, don't automatically dereference it and throw failure, and instead return the `expected` object as is.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            deref_expected = false;
         },
     });
 
@@ -206,6 +215,10 @@ int main(int argc, char **argv)
 
     generator.csharp_version = csharp_version;
     generator.dotnet_version = dotnet_version;
+
+    generator.allow_csharp_spans = allow_csharp_spans;
+
+    generator.deref_expected = deref_expected;
 
     // Generate.
     generator.Generate();

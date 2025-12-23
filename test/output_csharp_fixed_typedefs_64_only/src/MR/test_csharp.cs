@@ -3971,9 +3971,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrA._Underlying *__MR_C_incr_MR_CSharp_IncrDecrA(MR.CS.CSharp.Const_IncrDecrA._Underlying *_this);
-                    IncrDecrA _this_copy = new(_this);
-                    MR.CS.CSharp.IncrDecrA _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrA(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrA __this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrA __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrA(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrA::operator--`.
@@ -3981,9 +3982,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrA._Underlying *__MR_C_decr_MR_CSharp_IncrDecrA(MR.CS.CSharp.Const_IncrDecrA._Underlying *_this);
-                    IncrDecrA _this_copy = new(_this);
-                    MR.CS.CSharp.IncrDecrA _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrA(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrA __this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrA __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrA(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
             }
 
@@ -4024,7 +4026,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrA._Underlying *__MR_C_incr_MR_CSharp_IncrDecrA(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrA _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrA(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrA __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrA(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrA::operator--`.
@@ -4032,7 +4035,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrA._Underlying *__MR_C_decr_MR_CSharp_IncrDecrA(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrA _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrA(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrA __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrA(_UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -4110,7 +4114,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrB._Underlying *__MR_C_incr_MR_CSharp_IncrDecrB(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrB _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrB(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrB __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrB(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrB::operator++`.
@@ -4118,9 +4123,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrB._Underlying *__MR_C_incr_MR_CSharp_IncrDecrB(MR.CS.CSharp.Const_IncrDecrB._Underlying *_this);
-                    IncrDecrB _this_copy = new(_this);
-                    MR.CS.CSharp.Const_IncrDecrB _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrB(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrB __this_copy = new(_this);
+                    MR.CS.CSharp.Const_IncrDecrB __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrB(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrB::operator--`.
@@ -4128,7 +4134,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrB._Underlying *__MR_C_decr_MR_CSharp_IncrDecrB(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrB _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrB(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrB __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrB(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrB::operator--`.
@@ -4136,9 +4143,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrB._Underlying *__MR_C_decr_MR_CSharp_IncrDecrB(MR.CS.CSharp.Const_IncrDecrB._Underlying *_this);
-                    IncrDecrB _this_copy = new(_this);
-                    MR.CS.CSharp.Const_IncrDecrB _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrB(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrB __this_copy = new(_this);
+                    MR.CS.CSharp.Const_IncrDecrB __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrB(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
             }
 
@@ -4282,7 +4290,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_incr_MR_CSharp_IncrDecrC(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrC(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrC __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrC(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
@@ -4290,9 +4299,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_incr_MR_CSharp_IncrDecrC(MR.CS.CSharp.IncrDecrC._Underlying *_this);
-                    IncrDecrC _this_copy = new(_this);
-                    MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrC(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrC __this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrC __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrC(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrC::operator--`.
@@ -4300,7 +4310,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_decr_MR_CSharp_IncrDecrC(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrC __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrC::operator--`.
@@ -4308,9 +4319,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_decr_MR_CSharp_IncrDecrC(MR.CS.CSharp.IncrDecrC._Underlying *_this);
-                    IncrDecrC _this_copy = new(_this);
-                    MR.CS.CSharp.IncrDecrC _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrC __this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrC __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
             }
 
@@ -4389,7 +4401,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrD._Underlying *__MR_C_incr_MR_CSharp_IncrDecrD(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrD _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrD(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrD __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrD(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrD::operator--`.
@@ -4397,7 +4410,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrD._Underlying *__MR_C_decr_MR_CSharp_IncrDecrD(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrD _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrD(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrD __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrD(_UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -4438,9 +4452,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrD._Underlying *__MR_C_incr_MR_CSharp_IncrDecrD(MR.CS.CSharp.IncrDecrD._Underlying *_this);
-                    IncrDecrD _this_copy = new(_this);
-                    MR.CS.CSharp.Const_IncrDecrD _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrD(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrD __this_copy = new(_this);
+                    MR.CS.CSharp.Const_IncrDecrD __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrD(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrD::operator--`.
@@ -4448,9 +4463,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrD._Underlying *__MR_C_decr_MR_CSharp_IncrDecrD(MR.CS.CSharp.IncrDecrD._Underlying *_this);
-                    IncrDecrD _this_copy = new(_this);
-                    MR.CS.CSharp.Const_IncrDecrD _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrD(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrD __this_copy = new(_this);
+                    MR.CS.CSharp.Const_IncrDecrD __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrD(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
             }
 
@@ -4552,7 +4568,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_C_incr_MR_CSharp_IncrDecrE(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrE _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrE(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrE __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrE(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrE::operator--`.
@@ -4560,7 +4577,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_C_decr_MR_CSharp_IncrDecrE(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrE _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrE(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrE __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrE(_UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -4653,7 +4671,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrF._Underlying *__MR_C_incr_MR_CSharp_IncrDecrF(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrF _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrF(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrF __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrF(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrF::operator--`.
@@ -4661,7 +4680,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrF._Underlying *__MR_C_decr_MR_CSharp_IncrDecrF(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrF _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrF(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrF __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrF(_UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -4778,9 +4798,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrG._Underlying *__MR_C_incr_MR_CSharp_IncrDecrG(MR.CS.CSharp.Const_IncrDecrG._Underlying *_this);
-                    IncrDecrG _this_copy = new(_this);
-                    MR.CS.CSharp.IncrDecrG _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrG(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrG __this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrG __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrG(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrG::operator--`.
@@ -4788,9 +4809,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrG._Underlying *__MR_C_decr_MR_CSharp_IncrDecrG(MR.CS.CSharp.Const_IncrDecrG._Underlying *_this);
-                    IncrDecrG _this_copy = new(_this);
-                    MR.CS.CSharp.IncrDecrG _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrG(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrG __this_copy = new(_this);
+                    MR.CS.CSharp.IncrDecrG __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrG(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
             }
 
@@ -4822,7 +4844,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrG._Underlying *__MR_C_incr_MR_CSharp_IncrDecrG(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrG _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrG(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrG __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrG(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrG::operator--`.
@@ -4830,7 +4853,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrG._Underlying *__MR_C_decr_MR_CSharp_IncrDecrG(_Underlying *_this);
-                    MR.CS.CSharp.IncrDecrG _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrG(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.IncrDecrG __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrG(_UnderlyingPtr), is_owning: false);
                 }
             }
 
@@ -4908,7 +4932,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrH._Underlying *__MR_C_incr_MR_CSharp_IncrDecrH(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrH _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrH(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrH __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrH(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrH::operator++`.
@@ -4916,9 +4941,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrH._Underlying *__MR_C_incr_MR_CSharp_IncrDecrH(MR.CS.CSharp.Const_IncrDecrH._Underlying *_this);
-                    IncrDecrH _this_copy = new(_this);
-                    MR.CS.CSharp.Const_IncrDecrH _unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrH(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrH __this_copy = new(_this);
+                    MR.CS.CSharp.Const_IncrDecrH __unused_ret;
+                    __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrH(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrH::operator--`.
@@ -4926,7 +4952,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrH._Underlying *__MR_C_decr_MR_CSharp_IncrDecrH(_Underlying *_this);
-                    MR.CS.CSharp.Const_IncrDecrH _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrH(_UnderlyingPtr), is_owning: false);
+                    MR.CS.CSharp.Const_IncrDecrH __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrH(_UnderlyingPtr), is_owning: false);
                 }
 
                 /// Generated from method `MR::CSharp::IncrDecrH::operator--`.
@@ -4934,9 +4961,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrH._Underlying *__MR_C_decr_MR_CSharp_IncrDecrH(MR.CS.CSharp.Const_IncrDecrH._Underlying *_this);
-                    IncrDecrH _this_copy = new(_this);
-                    MR.CS.CSharp.Const_IncrDecrH _unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrH(_this_copy._UnderlyingPtr), is_owning: false);
-                    return _this_copy;
+                    IncrDecrH __this_copy = new(_this);
+                    MR.CS.CSharp.Const_IncrDecrH __unused_ret;
+                    __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrH(__this_copy._UnderlyingPtr), is_owning: false);
+                    return __this_copy;
                 }
             }
 
@@ -5038,7 +5066,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_CSharp_IncrDecrI(_Underlying *_1);
-                    int _unused_ret = __MR_C_incr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_incr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
                 }
 
                 /// Generated from function `MR::CSharp::operator++`.
@@ -5046,9 +5075,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_CSharp_IncrDecrI(MR.CS.CSharp.Const_IncrDecrI._Underlying *_1);
-                    IncrDecrI _this_copy = new(_1);
-                    int _unused_ret = __MR_C_incr_MR_CSharp_IncrDecrI(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    IncrDecrI __this_copy = new(_1);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_incr_MR_CSharp_IncrDecrI(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
 
                 /// Generated from function `MR::CSharp::operator--`.
@@ -5056,7 +5086,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_CSharp_IncrDecrI(_Underlying *_1);
-                    int _unused_ret = __MR_C_decr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_decr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
                 }
 
                 /// Generated from function `MR::CSharp::operator--`.
@@ -5064,9 +5095,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_CSharp_IncrDecrI(MR.CS.CSharp.Const_IncrDecrI._Underlying *_1);
-                    IncrDecrI _this_copy = new(_1);
-                    int _unused_ret = __MR_C_decr_MR_CSharp_IncrDecrI(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    IncrDecrI __this_copy = new(_1);
+                    int __unused_ret;
+                    __unused_ret = __MR_C_decr_MR_CSharp_IncrDecrI(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
             }
 
@@ -11365,9 +11397,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static void __MR_C_incr_MR_CSharp_ExposedLayout(MR.CS.CSharp.Const_ExposedLayout._Underlying *_this);
-                    Mut_ExposedLayout _this_copy = new(_this);
-                    __MR_C_incr_MR_CSharp_ExposedLayout(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    Mut_ExposedLayout __this_copy = new(_this);
+                    __MR_C_incr_MR_CSharp_ExposedLayout(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::operator*`.
@@ -11430,9 +11462,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayout(MR.CS.CSharp.Const_ExposedLayout._Underlying *_1);
-                    Mut_ExposedLayout _this_copy = new(_1);
-                    __MR_C_decr_MR_CSharp_ExposedLayout(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    Mut_ExposedLayout __this_copy = new(_1);
+                    __MR_C_decr_MR_CSharp_ExposedLayout(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
             }
 
@@ -11630,9 +11662,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static void __MR_C_incr_MR_CSharp_ExposedLayout(ExposedLayout *_this);
-                    ExposedLayout _this_copy = new(_this);
-                    __MR_C_incr_MR_CSharp_ExposedLayout(&_this_copy);
-                    return _this_copy;
+                    ExposedLayout __this_copy = new(_this);
+                    __MR_C_incr_MR_CSharp_ExposedLayout(&__this_copy);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
@@ -11741,9 +11773,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayout(MR.CS.CSharp.ExposedLayout _1);
-                    ExposedLayout _this_copy = new(_1);
-                    __MR_C_decr_MR_CSharp_ExposedLayout(_this_copy);
-                    return _this_copy;
+                    ExposedLayout __this_copy = new(_1);
+                    __MR_C_decr_MR_CSharp_ExposedLayout(__this_copy);
+                    return __this_copy;
                 }
 
                 // IEquatable:
@@ -11968,9 +12000,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static void __MR_C_incr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_this);
-                    Mut_ExposedLayoutSh _this_copy = new(_this);
-                    __MR_C_incr_MR_CSharp_ExposedLayoutSh(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    Mut_ExposedLayoutSh __this_copy = new(_this);
+                    __MR_C_incr_MR_CSharp_ExposedLayoutSh(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator*`.
@@ -12033,9 +12065,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_1);
-                    Mut_ExposedLayoutSh _this_copy = new(_1);
-                    __MR_C_decr_MR_CSharp_ExposedLayoutSh(_this_copy._UnderlyingPtr);
-                    return _this_copy;
+                    Mut_ExposedLayoutSh __this_copy = new(_1);
+                    __MR_C_decr_MR_CSharp_ExposedLayoutSh(__this_copy._UnderlyingPtr);
+                    return __this_copy;
                 }
             }
 
@@ -12235,9 +12267,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static void __MR_C_incr_MR_CSharp_ExposedLayoutSh(ExposedLayoutSh *_this);
-                    ExposedLayoutSh _this_copy = new(_this);
-                    __MR_C_incr_MR_CSharp_ExposedLayoutSh(&_this_copy);
-                    return _this_copy;
+                    ExposedLayoutSh __this_copy = new(_this);
+                    __MR_C_incr_MR_CSharp_ExposedLayoutSh(&__this_copy);
+                    return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator+`.
@@ -12346,9 +12378,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ExposedLayoutSh _1);
-                    ExposedLayoutSh _this_copy = new(_1);
-                    __MR_C_decr_MR_CSharp_ExposedLayoutSh(_this_copy);
-                    return _this_copy;
+                    ExposedLayoutSh __this_copy = new(_1);
+                    __MR_C_decr_MR_CSharp_ExposedLayoutSh(__this_copy);
+                    return __this_copy;
                 }
 
                 // IEquatable:
@@ -16704,53 +16736,396 @@ public static partial class MR
                 __MR_CSharp_instantiate();
             }
 
-            /// Generated from function `MR::CSharp::test_class_expected`.
+            /// Generated from function `MR::CSharp::test_expected_int`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
-            public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpected(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
+            public static unsafe MR.CS.Std.Expected_Int_Float TestExpectedInt(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected", ExactSpelling = true)]
-                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b);
-                return new(__MR_CSharp_test_class_expected(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_expected_int(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_int(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
-            /// Generated from function `MR::CSharp::test_class_expected_ref`.
-            /// Parameter `b` defaults to `default_expected`.
-            public static unsafe MR.CS.Std.Expected_Int_Float TestClassExpectedRef(MR.CS.Std.Expected_Int_Float a, MR.CS.Std.Expected_Int_Float? b = null)
+            /// Generated from function `MR::CSharp::test_expected_int_ref`.
+            /// Parameter `b` defaults to `default_expected_int`.
+            public static unsafe MR.CS.Std.Expected_Int_Float TestExpectedIntRef(MR.CS.Std.Expected_Int_Float a, MR.CS.Std.Expected_Int_Float? b = null)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_ref", ExactSpelling = true)]
-                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected_ref(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b);
-                return new(__MR_CSharp_test_class_expected_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_expected_int_ref(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_int_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
-            /// Generated from function `MR::CSharp::test_class_expected_cref`.
-            /// Parameter `b` defaults to `default_expected`.
-            public static unsafe MR.CS.Std.Const_Expected_Int_Float TestClassExpectedCref(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
+            /// Generated from function `MR::CSharp::test_expected_int_cref`.
+            /// Parameter `b` defaults to `default_expected_int`.
+            public static unsafe MR.CS.Std.Const_Expected_Int_Float TestExpectedIntCref(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_cref", ExactSpelling = true)]
-                extern static MR.CS.Std.Const_Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected_cref(MR.CS.Std.Const_Expected_Int_Float._Underlying *a, MR.CS.Std.Const_Expected_Int_Float._Underlying *b);
-                return new(__MR_CSharp_test_class_expected_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_Int_Float._Underlying *__MR_CSharp_test_expected_int_cref(MR.CS.Std.Const_Expected_Int_Float._Underlying *a, MR.CS.Std.Const_Expected_Int_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_int_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
-            /// Generated from function `MR::CSharp::test_class_expected_ptr`.
-            /// Parameter `c` defaults to `&default_expected`.
-            public static unsafe MR.CS.Std.Expected_Int_Float? TestClassExpectedPtr(MR.CS.Std.Expected_Int_Float? a, MR.CS.Std.Expected_Int_Float? b = null, MR.CS.Std._InOptMut_Expected_Int_Float? c = null)
+            /// Generated from function `MR::CSharp::test_expected_int_ptr`.
+            /// Parameter `c` defaults to `&default_expected_int`.
+            public static unsafe MR.CS.Std.Expected_Int_Float? TestExpectedIntPtr(MR.CS.Std.Expected_Int_Float? a, MR.CS.Std.Expected_Int_Float? b = null, MR.CS.Std._InOptMut_Expected_Int_Float? c = null)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_ptr", ExactSpelling = true)]
-                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected_ptr(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b, MR.CS.Std.Expected_Int_Float._Underlying **c);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_expected_int_ptr(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b, MR.CS.Std.Expected_Int_Float._Underlying **c);
                 MR.CS.Std.Expected_Int_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
-                var __ret = __MR_CSharp_test_class_expected_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                var __ret = __MR_CSharp_test_expected_int_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
                 return __ret is not null ? new MR.CS.Std.Expected_Int_Float(__ret, is_owning: false) : null;
             }
 
-            /// Generated from function `MR::CSharp::test_class_expected_cptr`.
-            /// Parameter `c` defaults to `&default_expected`.
-            public static unsafe MR.CS.Std.Const_Expected_Int_Float? TestClassExpectedCptr(MR.CS.Std.Const_Expected_Int_Float? a, MR.CS.Std.Const_Expected_Int_Float? b = null, MR.CS.Std._InOptConst_Expected_Int_Float? c = null)
+            /// Generated from function `MR::CSharp::test_expected_int_cptr`.
+            /// Parameter `c` defaults to `&default_expected_int`.
+            public static unsafe MR.CS.Std.Const_Expected_Int_Float? TestExpectedIntCptr(MR.CS.Std.Const_Expected_Int_Float? a, MR.CS.Std.Const_Expected_Int_Float? b = null, MR.CS.Std._InOptConst_Expected_Int_Float? c = null)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_expected_cptr", ExactSpelling = true)]
-                extern static MR.CS.Std.Const_Expected_Int_Float._Underlying *__MR_CSharp_test_class_expected_cptr(MR.CS.Std.Const_Expected_Int_Float._Underlying *a, MR.CS.Std.Const_Expected_Int_Float._Underlying *b, MR.CS.Std.Const_Expected_Int_Float._Underlying **c);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_Int_Float._Underlying *__MR_CSharp_test_expected_int_cptr(MR.CS.Std.Const_Expected_Int_Float._Underlying *a, MR.CS.Std.Const_Expected_Int_Float._Underlying *b, MR.CS.Std.Const_Expected_Int_Float._Underlying **c);
                 MR.CS.Std.Const_Expected_Int_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
-                var __ret = __MR_CSharp_test_class_expected_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                var __ret = __MR_CSharp_test_expected_int_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
                 return __ret is not null ? new MR.CS.Std.Const_Expected_Int_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_void`.
+            /// Parameter `b` defaults to `std::expected<void, float>{}`.
+            public static unsafe MR.CS.Std.Expected_Void_Float TestExpectedVoid(MR.CS.Std.Const_Expected_Void_Float a, MR.CS.Std.Const_Expected_Void_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_CSharp_test_expected_void(MR.CS.Std.Expected_Void_Float._Underlying *a, MR.CS.Std.Expected_Void_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_void(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_void_ref`.
+            /// Parameter `b` defaults to `default_expected_void`.
+            public static unsafe MR.CS.Std.Expected_Void_Float TestExpectedVoidRef(MR.CS.Std.Expected_Void_Float a, MR.CS.Std.Expected_Void_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_CSharp_test_expected_void_ref(MR.CS.Std.Expected_Void_Float._Underlying *a, MR.CS.Std.Expected_Void_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_void_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_void_cref`.
+            /// Parameter `b` defaults to `default_expected_void`.
+            public static unsafe MR.CS.Std.Const_Expected_Void_Float TestExpectedVoidCref(MR.CS.Std.Const_Expected_Void_Float a, MR.CS.Std.Const_Expected_Void_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_Void_Float._Underlying *__MR_CSharp_test_expected_void_cref(MR.CS.Std.Const_Expected_Void_Float._Underlying *a, MR.CS.Std.Const_Expected_Void_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_void_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_void_ptr`.
+            /// Parameter `c` defaults to `&default_expected_void`.
+            public static unsafe MR.CS.Std.Expected_Void_Float? TestExpectedVoidPtr(MR.CS.Std.Expected_Void_Float? a, MR.CS.Std.Expected_Void_Float? b = null, MR.CS.Std._InOptMut_Expected_Void_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_CSharp_test_expected_void_ptr(MR.CS.Std.Expected_Void_Float._Underlying *a, MR.CS.Std.Expected_Void_Float._Underlying *b, MR.CS.Std.Expected_Void_Float._Underlying **c);
+                MR.CS.Std.Expected_Void_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_void_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_Void_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_void_cptr`.
+            /// Parameter `c` defaults to `&default_expected_void`.
+            public static unsafe MR.CS.Std.Const_Expected_Void_Float? TestExpectedVoidCptr(MR.CS.Std.Const_Expected_Void_Float? a, MR.CS.Std.Const_Expected_Void_Float? b = null, MR.CS.Std._InOptConst_Expected_Void_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_Void_Float._Underlying *__MR_CSharp_test_expected_void_cptr(MR.CS.Std.Const_Expected_Void_Float._Underlying *a, MR.CS.Std.Const_Expected_Void_Float._Underlying *b, MR.CS.Std.Const_Expected_Void_Float._Underlying **c);
+                MR.CS.Std.Const_Expected_Void_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_void_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_Expected_Void_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_enum`.
+            /// Parameter `b` defaults to `std::expected<MR::CSharp::E1, float>{E1::b}`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float TestExpectedEnum(MR.CS.Std.Const_Expected_MRCSharpE1_Float a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *__MR_CSharp_test_expected_enum(MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_enum(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_enum_ref`.
+            /// Parameter `b` defaults to `default_expected_enum`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float TestExpectedEnumRef(MR.CS.Std.Expected_MRCSharpE1_Float a, MR.CS.Std.Expected_MRCSharpE1_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *__MR_CSharp_test_expected_enum_ref(MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_enum_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_enum_cref`.
+            /// Parameter `b` defaults to `default_expected_enum`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpE1_Float TestExpectedEnumCref(MR.CS.Std.Const_Expected_MRCSharpE1_Float a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying *__MR_CSharp_test_expected_enum_cref(MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_enum_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_enum_ptr`.
+            /// Parameter `c` defaults to `&default_expected_enum`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float? TestExpectedEnumPtr(MR.CS.Std.Expected_MRCSharpE1_Float? a, MR.CS.Std.Expected_MRCSharpE1_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpE1_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *__MR_CSharp_test_expected_enum_ptr(MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *b, MR.CS.Std.Expected_MRCSharpE1_Float._Underlying **c);
+                MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_enum_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_MRCSharpE1_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_enum_cptr`.
+            /// Parameter `c` defaults to `&default_expected_enum`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpE1_Float? TestExpectedEnumCptr(MR.CS.Std.Const_Expected_MRCSharpE1_Float? a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpE1_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying *__MR_CSharp_test_expected_enum_cptr(MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying *b, MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying **c);
+                MR.CS.Std.Const_Expected_MRCSharpE1_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_enum_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpE1_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_triv`.
+            /// Parameter `b` defaults to `std::expected<MR::CSharp::Trivial, float>{MR::CSharp::Trivial{}}`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float TestExpectedTriv(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *__MR_CSharp_test_expected_triv(MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_triv(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_triv_ref`.
+            /// Parameter `b` defaults to `default_expected_triv`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float TestExpectedTrivRef(MR.CS.Std.Expected_MRCSharpTrivial_Float a, MR.CS.Std.Expected_MRCSharpTrivial_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *__MR_CSharp_test_expected_triv_ref(MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_triv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_triv_cref`.
+            /// Parameter `b` defaults to `default_expected_triv`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpTrivial_Float TestExpectedTrivCref(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *__MR_CSharp_test_expected_triv_cref(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_triv_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_triv_ptr`.
+            /// Parameter `c` defaults to `&default_expected_triv`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float? TestExpectedTrivPtr(MR.CS.Std.Expected_MRCSharpTrivial_Float? a, MR.CS.Std.Expected_MRCSharpTrivial_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpTrivial_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *__MR_CSharp_test_expected_triv_ptr(MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *b, MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying **c);
+                MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_triv_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_MRCSharpTrivial_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_triv_cptr`.
+            /// Parameter `c` defaults to `&default_expected_triv`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? TestExpectedTrivCptr(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpTrivial_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *__MR_CSharp_test_expected_triv_cptr(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *b, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying **c);
+                MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_triv_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpTrivial_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_nontriv`.
+            /// Parameter `b` defaults to `std::expected<MR::CSharp::NonTrivial, float>{MR::CSharp::NonTrivial{}}`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Expected_MRCSharpNonTrivial_Float> TestExpectedNontriv(MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float a, MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_CSharp_test_expected_nontriv(MR.CS.Misc._PassBy a_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *b);
+                return MR.CS.Misc.Move(new MR.CS.Std.Expected_MRCSharpNonTrivial_Float(__MR_CSharp_test_expected_nontriv(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true));
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_nontriv_ref`.
+            /// Parameter `b` defaults to `default_expected_nontriv`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float TestExpectedNontrivRef(MR.CS.Std.Expected_MRCSharpNonTrivial_Float a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_CSharp_test_expected_nontriv_ref(MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_nontriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_nontriv_cref`.
+            /// Parameter `b` defaults to `default_expected_nontriv`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float TestExpectedNontrivCref(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *__MR_CSharp_test_expected_nontriv_cref(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_nontriv_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_nontriv_ptr`.
+            /// Parameter `c` defaults to `&default_expected_nontriv`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float? TestExpectedNontrivPtr(MR.CS.Std.Expected_MRCSharpNonTrivial_Float? a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpNonTrivial_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_CSharp_test_expected_nontriv_ptr(MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *b, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying **c);
+                MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_nontriv_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_MRCSharpNonTrivial_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_nontriv_cptr`.
+            /// Parameter `c` defaults to `&default_expected_nontriv`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? TestExpectedNontrivCptr(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpNonTrivial_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *__MR_CSharp_test_expected_nontriv_cptr(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *b, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying **c);
+                MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_nontriv_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_shared`.
+            /// Parameter `b` defaults to `std::expected<MR::CSharp::SA, float>{MR::CSharp::SA{}}`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float TestExpectedShared(MR.CS.Std.Const_Expected_MRCSharpSA_Float a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *__MR_CSharp_test_expected_shared(MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_shared_ref`.
+            /// Parameter `b` defaults to `default_expected_shared`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float TestExpectedSharedRef(MR.CS.Std.Expected_MRCSharpSA_Float a, MR.CS.Std.Expected_MRCSharpSA_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *__MR_CSharp_test_expected_shared_ref(MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_shared_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_shared_cref`.
+            /// Parameter `b` defaults to `default_expected_shared`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpSA_Float TestExpectedSharedCref(MR.CS.Std.Const_Expected_MRCSharpSA_Float a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *__MR_CSharp_test_expected_shared_cref(MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_shared_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_shared_ptr`.
+            /// Parameter `c` defaults to `&default_expected_shared`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float? TestExpectedSharedPtr(MR.CS.Std.Expected_MRCSharpSA_Float? a, MR.CS.Std.Expected_MRCSharpSA_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpSA_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *__MR_CSharp_test_expected_shared_ptr(MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *b, MR.CS.Std.Expected_MRCSharpSA_Float._Underlying **c);
+                MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_shared_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_MRCSharpSA_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_shared_cptr`.
+            /// Parameter `c` defaults to `&default_expected_shared`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpSA_Float? TestExpectedSharedCptr(MR.CS.Std.Const_Expected_MRCSharpSA_Float? a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpSA_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *__MR_CSharp_test_expected_shared_cptr(MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *b, MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying **c);
+                MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_shared_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpSA_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed`.
+            /// Parameter `b` defaults to `std::expected<MR::CSharp::ExposedLayout, float>{MR::CSharp::ExposedLayout{}}`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float TestExpectedExposed(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *__MR_CSharp_test_expected_exposed(MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_exposed(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_ref`.
+            /// Parameter `b` defaults to `default_expected_exposed`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float TestExpectedExposedRef(MR.CS.Std.Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *__MR_CSharp_test_expected_exposed_ref(MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_exposed_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_cref`.
+            /// Parameter `b` defaults to `default_expected_exposed`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float TestExpectedExposedCref(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying *__MR_CSharp_test_expected_exposed_cref(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_exposed_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_ptr`.
+            /// Parameter `c` defaults to `&default_expected_exposed`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float? TestExpectedExposedPtr(MR.CS.Std.Expected_MRCSharpExposedLayout_Float? a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpExposedLayout_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *__MR_CSharp_test_expected_exposed_ptr(MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *b, MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying **c);
+                MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_exposed_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_MRCSharpExposedLayout_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_cptr`.
+            /// Parameter `c` defaults to `&default_expected_exposed`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? TestExpectedExposedCptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpExposedLayout_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying *__MR_CSharp_test_expected_exposed_cptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying *b, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying **c);
+                MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_exposed_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_shared`.
+            /// Parameter `b` defaults to `std::expected<MR::CSharp::ExposedLayoutSh, float>{MR::CSharp::ExposedLayoutSh{}}`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float TestExpectedExposedShared(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *__MR_CSharp_test_expected_exposed_shared(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_exposed_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_shared_ref`.
+            /// Parameter `b` defaults to `default_expected_exposed_shared`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float TestExpectedExposedSharedRef(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *__MR_CSharp_test_expected_exposed_shared_ref(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_exposed_shared_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_shared_cref`.
+            /// Parameter `b` defaults to `default_expected_exposed_shared`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float TestExpectedExposedSharedCref(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_cref", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying *__MR_CSharp_test_expected_exposed_shared_cref(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying *b);
+                return new(__MR_CSharp_test_expected_exposed_shared_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_shared_ptr`.
+            /// Parameter `c` defaults to `&default_expected_exposed_shared`.
+            public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? TestExpectedExposedSharedPtr(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpExposedLayoutSh_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_ptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *__MR_CSharp_test_expected_exposed_shared_ptr(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *b, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying **c);
+                MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_exposed_shared_ptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float(__ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::test_expected_exposed_shared_cptr`.
+            /// Parameter `c` defaults to `&default_expected_exposed_shared`.
+            public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? TestExpectedExposedSharedCptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpExposedLayoutSh_Float? c = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_cptr", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying *__MR_CSharp_test_expected_exposed_shared_cptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying *a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying *b, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying **c);
+                MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float._Underlying *__ptr_c = c is not null && c.Opt is not null ? c.Opt._UnderlyingPtr : null;
+                var __ret = __MR_CSharp_test_expected_exposed_shared_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? &__ptr_c : null);
+                return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float(__ret, is_owning: false) : null;
             }
         }
     }

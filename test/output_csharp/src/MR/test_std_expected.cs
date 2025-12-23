@@ -5,11 +5,15 @@ public static partial class MR
         public static partial class StdExpected
         {
             /// Generated from function `MR::StdExpected::GetExp`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Expected_Int_StdString> GetExp()
+            public static unsafe int GetExp()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_GetExp", ExactSpelling = true)]
                 extern static MR.CS.Std.Expected_Int_StdString._Underlying *__MR_StdExpected_GetExp();
-                return MR.CS.Misc.Move(new MR.CS.Std.Expected_Int_StdString(__MR_StdExpected_GetExp(), is_owning: true));
+                MR.CS.Std.Expected_Int_StdString __expected_ret;
+                __expected_ret = MR.CS.Misc.Move(new MR.CS.Std.Expected_Int_StdString(__MR_StdExpected_GetExp(), is_owning: true));
+                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.GetValue()!;
+
             }
 
             /// Generated from function `MR::StdExpected::SetExp`.
@@ -47,11 +51,13 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdExpected::GetExpVoid`.
-            public static unsafe MR.CS.Std.Expected_Void_Float GetExpVoid()
+            public static unsafe void GetExpVoid()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_GetExpVoid", ExactSpelling = true)]
                 extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_StdExpected_GetExpVoid();
-                return new(__MR_StdExpected_GetExpVoid(), is_owning: true);
+                MR.CS.Std.Expected_Void_Float __expected_ret;
+                __expected_ret = new(__MR_StdExpected_GetExpVoid(), is_owning: true);
+                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
             }
 
             /// Generated from function `MR::StdExpected::SetExpVoid`.

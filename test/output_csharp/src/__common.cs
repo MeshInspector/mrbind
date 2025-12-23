@@ -85,13 +85,15 @@ public static partial class MR
                 /// Should never be null.
                 private T *Ptr;
                 /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
-                internal Ref(T *NewPtr)
+                internal Ref(T *new_ptr)
                 {
-                    System.Diagnostics.Trace.Assert(NewPtr is not null);
-                    Ptr = NewPtr;
+                    System.Diagnostics.Trace.Assert(new_ptr is not null);
+                    Ptr = new_ptr;
                 }
 
                 public ref T Value => ref *Ptr;
+
+                public static implicit operator T(Ref<T> wrapper) {return wrapper.Value;}
             }
 
             /// Wraps the object in a wrapper that indicates that it should be treated as a temporary object.
@@ -129,6 +131,14 @@ public static partial class MR
             /// This can be passed into `_ByValueOptOpt_...` parameters to indicate that you want to pass no object,
             ///   as opposed to using the default argument provided by the function.
             public static NullOptType NullOpt;
+
+            /// This is thrown when the underlying C++ function returns an error via `expected<>`.
+            public class UnexpectedResultException : System.Exception
+            {
+                public UnexpectedResultException() {}
+                public UnexpectedResultException(string message) : base(message) {}
+                public UnexpectedResultException(string message, Exception inner) : base(message, inner) {}
+            }
 
         }
 
