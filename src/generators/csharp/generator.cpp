@@ -2832,6 +2832,14 @@ namespace mrbind::CSharp
                     file.WriteString("static ");
                 }
 
+                // Add `readonly` if we're in an exposed struct and this is a const method.
+                if (in_exposed_struct && method && !method->is_static && !is_overloaded_op_or_conv_op_from_this)
+                {
+                    const cppdecl::Type &type = generator.ParseTypeOrThrow(method->params.at(0).cpp_type);
+                    if (type.Is<cppdecl::Reference>() && type.IsConst(1))
+                        file.WriteString("readonly ");
+                }
+
                 // Note, not emitting `virtual` here, because it's useless in the interfaces.
                 // We do emit it when explicitly inheriting each method in the derived classes.
 

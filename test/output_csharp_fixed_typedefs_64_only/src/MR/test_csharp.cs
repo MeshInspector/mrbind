@@ -11626,7 +11626,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::bar`.
-                public unsafe void Bar()
+                public readonly unsafe void Bar()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayout_bar", ExactSpelling = true)]
                     extern static void __MR_CSharp_ExposedLayout_bar(MR.CS.CSharp.ExposedLayout *_this);
@@ -12231,7 +12231,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::bar`.
-                public unsafe void Bar()
+                public readonly unsafe void Bar()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutSh_bar", ExactSpelling = true)]
                     extern static void __MR_CSharp_ExposedLayoutSh_bar(MR.CS.CSharp.ExposedLayoutSh *_this);
@@ -14000,7 +14000,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
-                public unsafe void Foo(float _1)
+                public readonly unsafe void Foo(float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_float", ExactSpelling = true)]
                     extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_float(MR.CS.CSharp.ConstNonconstConflicts *_this, float _1);
@@ -14022,7 +14022,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
-                public unsafe void Foo_Const(byte _1)
+                public readonly unsafe void Foo_Const(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_char", ExactSpelling = true)]
                     extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_char(MR.CS.CSharp.ConstNonconstConflicts *_this, byte _1);
@@ -14064,7 +14064,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
-                public unsafe void Compl_Const()
+                public readonly unsafe void Compl_Const()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
                     extern static void __MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_this);
@@ -14125,7 +14125,7 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator!`.
-                public unsafe void Not_Const()
+                public readonly unsafe void Not_Const()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
                     extern static void __MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstNonconstConflicts *_1);
