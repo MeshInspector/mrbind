@@ -5291,7 +5291,7 @@ namespace mrbind::CSharp
                 file.WriteString(field.comment.c_style);
                 if (!is_const)
                     file.WriteString("new ");
-                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + " " + CppToCSharpIdentifier(ParseNameOrThrow(field.name)) + "\n");
+                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + (arr_strings.csharp_type.ends_with('*') ? "" : " ") + CppToCSharpIdentifier(ParseNameOrThrow(field.name)) + "\n");
                 file.PushScope({}, "{\n", "}\n");
 
                 file.WriteString("get\n");
@@ -5349,7 +5349,8 @@ namespace mrbind::CSharp
 
             // The return type.
             file.WriteString(csharp_property_type);
-            file.WriteString(" ");
+            if (!csharp_property_type.ends_with('*'))
+                file.WriteString(" ");
 
             // The property name.
             file.WriteString(CppToCSharpFieldName(cpp_class, field.full_name));
