@@ -1672,7 +1672,7 @@ namespace mrbind::CSharp
                         ref_target_type.RemoveModifier();
                         if (auto csharp_type = CppToCSharpKnownSizeType(ref_target_type))
                         {
-                            const std::string ref = bool(cpp_type.simple_type.quals & cppdecl::CvQualifiers::const_) ? "ref readonly " : "ref ";
+                            const std::string ref = cpp_type.IsConst(1) ? "ref readonly " : "ref ";
 
                             std::string csharp_type_ptr = *csharp_type;
                             if (!csharp_type_ptr.ends_with('*'))
