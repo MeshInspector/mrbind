@@ -16714,7 +16714,6 @@ public static partial class MR
                 __expected_ret = new(__MR_CSharp_test_expected_int(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
                 return __expected_ret.GetValue()!;
-
             }
 
             /// Generated from function `MR::CSharp::test_expected_int_ref`.
@@ -16818,7 +16817,6 @@ public static partial class MR
                 __expected_ret = new(__MR_CSharp_test_expected_enum(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
                 return __expected_ret.GetValue()!;
-
             }
 
             /// Generated from function `MR::CSharp::test_expected_enum_ref`.
@@ -16873,7 +16871,6 @@ public static partial class MR
                 MR.CS.CSharp.Trivial __expected_success = __expected_ret.GetValue()!;
                 __expected_success._KeepAlive(__expected_ret);
                 return __expected_success;
-
             }
 
             /// Generated from function `MR::CSharp::test_expected_triv_ref`.
@@ -16928,7 +16925,6 @@ public static partial class MR
                 MR.CS.CSharp.NonTrivial __expected_success = __expected_ret.GetValue()!;
                 __expected_success._KeepAlive(__expected_ret);
                 return MR.CS.Misc.Move(__expected_success);
-
             }
 
             /// Generated from function `MR::CSharp::test_expected_nontriv_ref`.
@@ -16983,7 +16979,6 @@ public static partial class MR
                 MR.CS.CSharp.SA __expected_success = __expected_ret.GetValue()!;
                 __expected_success._KeepAlive(__expected_ret);
                 return __expected_success;
-
             }
 
             /// Generated from function `MR::CSharp::test_expected_shared_ref`.
@@ -17036,7 +17031,6 @@ public static partial class MR
                 __expected_ret = new(__MR_CSharp_test_expected_exposed(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
                 return __expected_ret.GetValue()!;
-
             }
 
             /// Generated from function `MR::CSharp::test_expected_exposed_ref`.
@@ -17089,7 +17083,6 @@ public static partial class MR
                 __expected_ret = new(__MR_CSharp_test_expected_exposed_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
                 return __expected_ret.GetValue()!;
-
             }
 
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_ref`.

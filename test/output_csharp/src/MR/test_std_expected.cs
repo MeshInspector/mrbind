@@ -13,7 +13,6 @@ public static partial class MR
                 __expected_ret = MR.CS.Misc.Move(new MR.CS.Std.Expected_Int_StdString(__MR_StdExpected_GetExp(), is_owning: true));
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
                 return __expected_ret.GetValue()!;
-
             }
 
             /// Generated from function `MR::StdExpected::SetExp`.

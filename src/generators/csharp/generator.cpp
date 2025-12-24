@@ -1376,14 +1376,14 @@ namespace mrbind::CSharp
 
                                             // A crude check to see if we need to move or not.
                                             if (csharp_success_type != csharp_success_type_nomove)
-                                                ret += target + " " + RequestHelper("Move") + "(__expected_success);\n";
+                                                ret += target + " " + RequestHelper("Move") + "(__expected_success);";
                                             else
-                                                ret += target + " __expected_success;\n";
+                                                ret += target + " __expected_success;";
                                         }
                                         else
                                         {
                                             // Just this.
-                                            ret += "\n" + target + " __expected_ret.GetValue()!;\n";
+                                            ret += "\n" + target + " __expected_ret.GetValue()!;";
                                         }
 
                                         return ret;
