@@ -459,11 +459,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdOptional::GetClass2`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_MRStdOptionalB> GetClass2()
+            public static unsafe MR.CS.Std.Optional_MRStdOptionalB GetClass2()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetClass2", ExactSpelling = true)]
                 extern static MR.CS.Std.Optional_MRStdOptionalB._Underlying *__MR_StdOptional_GetClass2();
-                return MR.CS.Misc.Move(new MR.CS.Std.Optional_MRStdOptionalB(__MR_StdOptional_GetClass2(), is_owning: true));
+                return new(__MR_StdOptional_GetClass2(), is_owning: true);
             }
 
             /// Generated from function `MR::StdOptional::SetClass2`.

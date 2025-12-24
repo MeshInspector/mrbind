@@ -184,11 +184,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetInt`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Int> GetInt()
+            public static unsafe MR.CS.Std.SharedPtr_Int GetInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetInt", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_Int._Underlying *__MR_StdSharedPtr_GetInt();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_Int(__MR_StdSharedPtr_GetInt(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetInt(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::SetInt`.
@@ -258,11 +258,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetIntArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray> GetIntArr()
+            public static unsafe MR.CS.Std.SharedPtr_IntArray GetIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetIntArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_IntArray._Underlying *__MR_StdSharedPtr_GetIntArr();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_IntArray(__MR_StdSharedPtr_GetIntArr(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetIntArr(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntArr`.
@@ -292,11 +292,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetIntArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray42> GetIntArr42()
+            public static unsafe MR.CS.Std.SharedPtr_IntArray42 GetIntArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetIntArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_IntArray42._Underlying *__MR_StdSharedPtr_GetIntArr42();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_IntArray42(__MR_StdSharedPtr_GetIntArr42(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetIntArr42(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntArr42`.
@@ -326,11 +326,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetClass`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> GetClass()
+            public static unsafe MR.CS.StdSharedPtr.A GetClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClass", ExactSpelling = true)]
                 extern static MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetClass();
-                return MR.CS.Misc.Move(new MR.CS.StdSharedPtr.A(__MR_StdSharedPtr_GetClass(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetClass(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClass`.
@@ -400,11 +400,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetClassArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray> GetClassArr()
+            public static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray GetClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClassArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetClassArr();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_MRStdSharedPtrAArray(__MR_StdSharedPtr_GetClassArr(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetClassArr(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassArr`.
@@ -434,11 +434,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetClassArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42> GetClassArr42()
+            public static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42 GetClassArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClassArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetClassArr42();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42(__MR_StdSharedPtr_GetClassArr42(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetClassArr42(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassArr42`.
@@ -470,51 +470,51 @@ public static partial class MR
             // With constness:
             // Try const element types:
             /// Generated from function `MR::StdSharedPtr::GetConstInt`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstInt> GetConstInt()
+            public static unsafe MR.CS.Std.SharedPtr_ConstInt GetConstInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstInt", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstInt._Underlying *__MR_StdSharedPtr_GetConstInt();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstInt(__MR_StdSharedPtr_GetConstInt(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetConstInt(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstIntArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray> GetConstIntArr()
+            public static unsafe MR.CS.Std.SharedPtr_ConstIntArray GetConstIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstIntArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstIntArray._Underlying *__MR_StdSharedPtr_GetConstIntArr();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstIntArray(__MR_StdSharedPtr_GetConstIntArr(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetConstIntArr(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstIntArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray42> GetConstIntArr42()
+            public static unsafe MR.CS.Std.SharedPtr_ConstIntArray42 GetConstIntArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstIntArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstIntArray42._Underlying *__MR_StdSharedPtr_GetConstIntArr42();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstIntArray42(__MR_StdSharedPtr_GetConstIntArr42(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetConstIntArr42(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstClass`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> GetConstClass()
+            public static unsafe MR.CS.StdSharedPtr.A GetConstClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClass", ExactSpelling = true)]
                 extern static MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetConstClass();
-                return MR.CS.Misc.Move(new MR.CS.StdSharedPtr.A(__MR_StdSharedPtr_GetConstClass(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetConstClass(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstClassArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray> GetConstClassArr()
+            public static unsafe MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray GetConstClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClassArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetConstClassArr();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray(__MR_StdSharedPtr_GetConstClassArr(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetConstClassArr(), is_owning: true);
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstClassArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42> GetConstClassArr42()
+            public static unsafe MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42 GetConstClassArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClassArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetConstClassArr42();
-                return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42(__MR_StdSharedPtr_GetConstClassArr42(), is_owning: true));
+                return new(__MR_StdSharedPtr_GetConstClassArr42(), is_owning: true);
             }
         }
     }

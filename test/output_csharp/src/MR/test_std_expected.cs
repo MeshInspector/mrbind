@@ -10,7 +10,7 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_GetExp", ExactSpelling = true)]
                 extern static MR.CS.Std.Expected_Int_StdString._Underlying *__MR_StdExpected_GetExp();
                 MR.CS.Std.Expected_Int_StdString __expected_ret;
-                __expected_ret = MR.CS.Misc.Move(new MR.CS.Std.Expected_Int_StdString(__MR_StdExpected_GetExp(), is_owning: true));
+                __expected_ret = new(__MR_StdExpected_GetExp(), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
                 return __expected_ret.GetValue()!;
             }
@@ -94,11 +94,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdExpected::GetExpVec`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_StdExpectedIntStdString> GetExpVec()
+            public static unsafe MR.CS.Std.Vector_StdExpectedIntStdString GetExpVec()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_GetExpVec", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_StdExpectedIntStdString._Underlying *__MR_StdExpected_GetExpVec();
-                return MR.CS.Misc.Move(new MR.CS.Std.Vector_StdExpectedIntStdString(__MR_StdExpected_GetExpVec(), is_owning: true));
+                return new(__MR_StdExpected_GetExpVec(), is_owning: true);
             }
         }
     }

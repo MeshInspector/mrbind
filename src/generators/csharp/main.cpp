@@ -27,6 +27,7 @@ int main(int argc, char **argv)
     std::optional<std::string> forced_namespace;
     bool allow_csharp_spans = true;
     bool deref_expected = true;
+    bool move_in_by_value_return = false;
 
     int csharp_version = 12; // C# 12 corresponds to .NET 8
     int dotnet_version = 80; // = .NET 8
@@ -174,6 +175,14 @@ int main(int argc, char **argv)
             deref_expected = false;
         },
     });
+    args_parser.AddFlag("--move-classes-returned-by-value", {
+        .desc = "Apply the `_Moved<T>` wrapper to non-trivial classes returned from functions by value. This helps to emulate C++ value categories, at the cost of making the bindings harder to understand and use, since now you either have to use `.Value` all the time to access the underlying `T` in the returned `_Moved<T>`, or save the function call result to an explicitly typed variable (not `var`).",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            move_in_by_value_return = true;
+        },
+    });
 
     mrbind::CommandLineArgsAsUtf8 args(argc, argv);
     args_parser.Parse(args.argc, args.argv);
@@ -219,6 +228,7 @@ int main(int argc, char **argv)
     generator.allow_csharp_spans = allow_csharp_spans;
 
     generator.deref_expected = deref_expected;
+    generator.move_in_by_value_return = move_in_by_value_return;
 
     // Generate.
     generator.Generate();

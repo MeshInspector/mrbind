@@ -322,6 +322,11 @@ namespace mrbind::CSharp
         // If true, when a C++ function returns `std/tl::expected`, dereference it and throw on failure.
         bool deref_expected = true;
 
+        // If true, wrap classes returned by value in `_Moved<...>` (assuming they need a pass-by enum).
+        // This gives a more correct behavior, at the cost of the bindings being harder to understand and use (having to use `.Value` on `_Moved<...>` returned
+        //   by the functions, or alternatively avoiding `var` and specifying all the variable types).
+        bool move_in_by_value_return = true;
+
         // ]
 
         // Maps relative file paths (without extensions) to the file descriptions and contents.
@@ -540,7 +545,10 @@ namespace mrbind::CSharp
             pointer_to_array = 1 << 1,
             // When returning stuff by value, don't wrap it in the "_Moved<...>" wrapper.
             // This is useful e.g. for binding the return types of constructors.
+            // This flag is implied by default, unless `--move-classes-returned-by-value` is used.
             no_move_in_by_value_return = 1 << 2,
+            // This flag disables the implicit `no_move_in_by_value_return` caused by the lack of `--move-classes-returned-by-value`.
+            force_move_in_by_value_return = 1 << 3,
         };
         MRBIND_FLAG_OPERATORS_IN_CLASS(TypeBindingFlags)
 

@@ -934,6 +934,11 @@ namespace mrbind::CSharp
 
     const TypeBinding *Generator::GetTypeBindingOpt(const cppdecl::Type &cpp_type, TypeBindingFlags flags)
     {
+        // Adjust the flags first.
+        if (!move_in_by_value_return && !bool(flags & TypeBindingFlags::force_move_in_by_value_return))
+            flags |= TypeBindingFlags::no_move_in_by_value_return;
+
+
         const std::string cpp_type_str = CppdeclToCode(cpp_type);
         auto cached_iter = cached_type_bindings.find(std::pair(cpp_type_str, flags));
         if (cached_iter != cached_type_bindings.end())
@@ -1640,14 +1645,12 @@ namespace mrbind::CSharp
                                                     .csharp_return_type = CSharpMovedType(),
                                                     .make_return_statements = [
                                                         this,
-                                                        csharp_type,
-                                                        disable_move = bool(flags & TypeBindingFlags::no_move_in_by_value_return)
+                                                        csharp_type
                                                     ](const std::string &target, const std::string &expr)
                                                     {
-                                                        if (disable_move)
-                                                            return target + " new(" + expr + ", is_owning: false);";
-                                                        else
-                                                            return target + " " + RequestHelper("Move") + "(new " + csharp_type + "(" + expr + ", is_owning: false));";
+                                                        // Since this is an rvalue reference (rather than a by-value return),
+                                                        //   the move here happens regardless of `no_move_in_by_value_return`.
+                                                        return target + " " + RequestHelper("Move") + "(new " + csharp_type + "(" + expr + ", is_owning: false));";
                                                     },
                                                 },
                                             });
@@ -2349,10 +2352,10 @@ namespace mrbind::CSharp
             ret.text +=
                 "public static unsafe implicit operator string(" + csharp_name + " self)\n"
                 "{\n"
-                // Need `.Value` because `GetString` returns `_Moved<Std.String>`.
+                // When `--move-classes-returned-by-value` is used, we need `.Value` because `GetString` returns `_Moved<Std.String>` in that case.
                 // This is a bit sad, ideally we'd copy `_Moved` for each class, and duplicate that conversion into it?
-                // But that sounds like a lot of work.
-                "    return self.GetString().Value;\n"
+                // But that sounds like a lot of work. And `--move-classes-returned-by-value` is opt-in anyway.
+                "    return self.GetString()" + (move_in_by_value_return ? ".Value" : "") + ";\n"
                 "}\n";
         }
 
@@ -2536,8 +2539,11 @@ namespace mrbind::CSharp
         { // Find the return type binding.
             ret_binding = &generator.GetReturnBinding(
                 func_like.ret,
-                Generator::TypeBindingFlags::no_move_in_by_value_return * (
-                    is_ctor && (
+                is_ctor
+                ? (
+                    // Here we always pass either `no_move_in_by_value_return` or `force_move_in_by_value_return`.
+                    // We don't want `--move-classes-returned-by-value` to affect this behavior, as that causes C# compilation errors.
+                    (
                         !is_conv_op_rewritten_from_ctor_for_by_value_wrapper ||
                         // If this is a weird class that's copyable but not movable, then don't try to move it.
                         [&]{
@@ -2545,7 +2551,10 @@ namespace mrbind::CSharp
                             return traits.is_copy_constructible && !traits.is_move_constructible;
                         }()
                     )
+                    ? Generator::TypeBindingFlags::no_move_in_by_value_return
+                    : Generator::TypeBindingFlags::force_move_in_by_value_return
                 )
+                : TypeBindingFlags{}
             );
             if (!ret_binding)
                 throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");

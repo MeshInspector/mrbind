@@ -382,11 +382,11 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::Get`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_Int> Get()
+            public static unsafe MR.CS.Std.Vector_Int Get()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_Get", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_Int._Underlying *__MR_StdContainers_Get();
-                return MR.CS.Misc.Move(new MR.CS.Std.Vector_Int(__MR_StdContainers_Get(), is_owning: true));
+                return new(__MR_StdContainers_Get(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::WriteToRef`.
@@ -431,83 +431,83 @@ public static partial class MR
 
             // Just the list of other containers.
             /// Generated from function `MR::StdContainers::GetDeque`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_Int> GetDeque()
+            public static unsafe MR.CS.Std.Deque_Int GetDeque()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetDeque", ExactSpelling = true)]
                 extern static MR.CS.Std.Deque_Int._Underlying *__MR_StdContainers_GetDeque();
-                return MR.CS.Misc.Move(new MR.CS.Std.Deque_Int(__MR_StdContainers_GetDeque(), is_owning: true));
+                return new(__MR_StdContainers_GetDeque(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetList`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_Int> GetList()
+            public static unsafe MR.CS.Std.List_Int GetList()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetList", ExactSpelling = true)]
                 extern static MR.CS.Std.List_Int._Underlying *__MR_StdContainers_GetList();
-                return MR.CS.Misc.Move(new MR.CS.Std.List_Int(__MR_StdContainers_GetList(), is_owning: true));
+                return new(__MR_StdContainers_GetList(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_Int> GetSet()
+            public static unsafe MR.CS.Std.Set_Int GetSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetSet", ExactSpelling = true)]
                 extern static MR.CS.Std.Set_Int._Underlying *__MR_StdContainers_GetSet();
-                return MR.CS.Misc.Move(new MR.CS.Std.Set_Int(__MR_StdContainers_GetSet(), is_owning: true));
+                return new(__MR_StdContainers_GetSet(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetMultiSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Int> GetMultiSet()
+            public static unsafe MR.CS.Std.Multiset_Int GetMultiSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSet", ExactSpelling = true)]
                 extern static MR.CS.Std.Multiset_Int._Underlying *__MR_StdContainers_GetMultiSet();
-                return MR.CS.Misc.Move(new MR.CS.Std.Multiset_Int(__MR_StdContainers_GetMultiSet(), is_owning: true));
+                return new(__MR_StdContainers_GetMultiSet(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_Int> GetUnorderedSet()
+            public static unsafe MR.CS.Std.UnorderedSet_Int GetUnorderedSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedSet", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedSet_Int._Underlying *__MR_StdContainers_GetUnorderedSet();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedSet_Int(__MR_StdContainers_GetUnorderedSet(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedSet(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_Int> GetUnorderedMultiSet()
+            public static unsafe MR.CS.Std.UnorderedMultiset_Int GetUnorderedMultiSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiSet", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultiset_Int._Underlying *__MR_StdContainers_GetUnorderedMultiSet();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultiset_Int(__MR_StdContainers_GetUnorderedMultiSet(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedMultiSet(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_Int_Float> GetMap()
+            public static unsafe MR.CS.Std.Map_Int_Float GetMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMap", ExactSpelling = true)]
                 extern static MR.CS.Std.Map_Int_Float._Underlying *__MR_StdContainers_GetMap();
-                return MR.CS.Misc.Move(new MR.CS.Std.Map_Int_Float(__MR_StdContainers_GetMap(), is_owning: true));
+                return new(__MR_StdContainers_GetMap(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetMultiMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_Int_Float> GetMultiMap()
+            public static unsafe MR.CS.Std.Multimap_Int_Float GetMultiMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiMap", ExactSpelling = true)]
                 extern static MR.CS.Std.Multimap_Int_Float._Underlying *__MR_StdContainers_GetMultiMap();
-                return MR.CS.Misc.Move(new MR.CS.Std.Multimap_Int_Float(__MR_StdContainers_GetMultiMap(), is_owning: true));
+                return new(__MR_StdContainers_GetMultiMap(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_Int_Float> GetUnorderedMap()
+            public static unsafe MR.CS.Std.UnorderedMap_Int_Float GetUnorderedMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMap", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMap();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMap_Int_Float(__MR_StdContainers_GetUnorderedMap(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedMap(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_Int_Float> GetUnorderedMultiMap()
+            public static unsafe MR.CS.Std.UnorderedMultimap_Int_Float GetUnorderedMultiMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiMap", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMap();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultimap_Int_Float(__MR_StdContainers_GetUnorderedMultiMap(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedMultiMap(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetStdArray`.
@@ -546,11 +546,11 @@ public static partial class MR
 
             // For this `std::multiset` specialization, mention all iterators so that they get merged.
             /// Generated from function `MR::StdContainers::GetMultiSetWithMergedIters`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Float> GetMultiSetWithMergedIters()
+            public static unsafe MR.CS.Std.Multiset_Float GetMultiSetWithMergedIters()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSetWithMergedIters", ExactSpelling = true)]
                 extern static MR.CS.Std.Multiset_Float._Underlying *__MR_StdContainers_GetMultiSetWithMergedIters();
-                return MR.CS.Misc.Move(new MR.CS.Std.Multiset_Float(__MR_StdContainers_GetMultiSetWithMergedIters(), is_owning: true));
+                return new(__MR_StdContainers_GetMultiSetWithMergedIters(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetMergedIter`.
@@ -570,107 +570,107 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::NonDefCon`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible> NonDefCon()
+            public static unsafe MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible NonDefCon()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefCon", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible._Underlying *__MR_StdContainers_NonDefCon();
-                return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible(__MR_StdContainers_NonDefCon(), is_owning: true));
+                return new(__MR_StdContainers_NonDefCon(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetVectorNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonAssignable> GetVectorNA()
+            public static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable GetVectorNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetVectorNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetVectorNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRStdContainersNonAssignable(__MR_StdContainers_GetVectorNA(), is_owning: true));
+                return new(__MR_StdContainers_GetVectorNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetDequeNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_MRStdContainersNonAssignable> GetDequeNA()
+            public static unsafe MR.CS.Std.Deque_MRStdContainersNonAssignable GetDequeNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetDequeNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Deque_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetDequeNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.Deque_MRStdContainersNonAssignable(__MR_StdContainers_GetDequeNA(), is_owning: true));
+                return new(__MR_StdContainers_GetDequeNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetListNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_MRStdContainersNonAssignable> GetListNA()
+            public static unsafe MR.CS.Std.List_MRStdContainersNonAssignable GetListNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetListNA", ExactSpelling = true)]
                 extern static MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetListNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.List_MRStdContainersNonAssignable(__MR_StdContainers_GetListNA(), is_owning: true));
+                return new(__MR_StdContainers_GetListNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_MRStdContainersNonAssignable> GetSetNA()
+            public static unsafe MR.CS.Std.Set_MRStdContainersNonAssignable GetSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Set_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetSetNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.Set_MRStdContainersNonAssignable(__MR_StdContainers_GetSetNA(), is_owning: true));
+                return new(__MR_StdContainers_GetSetNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetMultiSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_MRStdContainersNonAssignable> GetMultiSetNA()
+            public static unsafe MR.CS.Std.Multiset_MRStdContainersNonAssignable GetMultiSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Multiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetMultiSetNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.Multiset_MRStdContainersNonAssignable(__MR_StdContainers_GetMultiSetNA(), is_owning: true));
+                return new(__MR_StdContainers_GetMultiSetNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable> GetUnorderedSetNA()
+            public static unsafe MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable GetUnorderedSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedSetNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable(__MR_StdContainers_GetUnorderedSetNA(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedSetNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable> GetUnorderedMultiSetNA()
+            public static unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable GetUnorderedMultiSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedMultiSetNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable(__MR_StdContainers_GetUnorderedMultiSetNA(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedMultiSetNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_MRStdContainersNonAssignable_Float> GetMapNA()
+            public static unsafe MR.CS.Std.Map_MRStdContainersNonAssignable_Float GetMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Map_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMapNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.Map_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetMapNA(), is_owning: true));
+                return new(__MR_StdContainers_GetMapNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetMultiMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float> GetMultiMapNA()
+            public static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float GetMultiMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMultiMapNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetMultiMapNA(), is_owning: true));
+                return new(__MR_StdContainers_GetMultiMapNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float> GetUnorderedMapNA()
+            public static unsafe MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float GetUnorderedMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMapNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetUnorderedMapNA(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedMapNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float> GetUnorderedMultiMapNA()
+            public static unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float GetUnorderedMultiMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMapNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetUnorderedMultiMapNA(), is_owning: true));
+                return new(__MR_StdContainers_GetUnorderedMultiMapNA(), is_owning: true);
             }
 
             /// Generated from function `MR::StdContainers::GetStdArrayNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Array_MRStdContainersNonAssignable_42> GetStdArrayNA()
+            public static unsafe MR.CS.Std.Array_MRStdContainersNonAssignable_42 GetStdArrayNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetStdArrayNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Array_MRStdContainersNonAssignable_42._Underlying *__MR_StdContainers_GetStdArrayNA();
-                return MR.CS.Misc.Move(new MR.CS.Std.Array_MRStdContainersNonAssignable_42(__MR_StdContainers_GetStdArrayNA(), is_owning: true));
+                return new(__MR_StdContainers_GetStdArrayNA(), is_owning: true);
             }
 
             // Fun stuff!

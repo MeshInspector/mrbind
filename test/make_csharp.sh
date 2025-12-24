@@ -15,8 +15,6 @@ build/mrbind_gen_csharp \
     --force-namespace MR::CS \
     --dotnet-version=std2.0 \
 
-dotnet build test/output_csharp
-
 # Those `--replace-namespace` and `--force-namespace` are specifically crafted to not be idempotent,
 #   so we can make sure we're not applying the same replacement twice.
 build/mrbind_gen_csharp \
@@ -28,5 +26,7 @@ build/mrbind_gen_csharp \
     --replace-namespace MR :: \
     --force-namespace MR::CS \
     --no-deref-expected \
+    --move-classes-returned-by-value \
 
+dotnet build test/output_csharp
 dotnet build test/output_csharp_fixed_typedefs_64_only
