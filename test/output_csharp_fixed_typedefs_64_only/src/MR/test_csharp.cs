@@ -11081,6 +11081,8 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ConvCtorExposed UnderlyingStruct => ref *(ConvCtorExposed *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Const_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Const_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -11130,6 +11132,8 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ConvCtorExposed UnderlyingStruct => ref *(ConvCtorExposed *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Mut_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -11168,8 +11172,6 @@ public static partial class MR
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ConvCtorExposed(Const_ConvCtorExposed other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ConvCtorExposed(ConvCtorExposed other) => new(new Const_ConvCtorExposed((Mut_ConvCtorExposed._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int X;
@@ -11667,7 +11669,7 @@ public static partial class MR
                 public static unsafe implicit operator _InOptConst_ConvCtorNonTrivial(int _1) {return new Const_ConvCtorNonTrivial(_1);}
             }
 
-            // Exported structs:
+            // Exposed structs:
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the const reference to the struct.
             public class Const_ExposedLayout : MR.CS.Misc.Object, System.IDisposable
@@ -11678,6 +11680,8 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayout UnderlyingStruct => ref *(ExposedLayout *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Const_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Const_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -11817,13 +11821,15 @@ public static partial class MR
                 }
             }
 
-            // Exported structs:
+            // Exposed structs:
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the non-const reference to the struct.
             public class Mut_ExposedLayout : Const_ExposedLayout, System.IEquatable<float>
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayout UnderlyingStruct => ref *(ExposedLayout *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Mut_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -11929,7 +11935,7 @@ public static partial class MR
                 }
             }
 
-            // Exported structs:
+            // Exposed structs:
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the by-value version of the struct.
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
@@ -11937,8 +11943,6 @@ public static partial class MR
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayout(Const_ExposedLayout other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ExposedLayout(ExposedLayout other) => new(new Const_ExposedLayout((Mut_ExposedLayout._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort X;
@@ -12253,6 +12257,8 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayoutSh UnderlyingStruct => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Const_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Const_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
                 {
@@ -12427,6 +12433,8 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutSh UnderlyingStruct => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Mut_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -12542,8 +12550,6 @@ public static partial class MR
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutSh(Const_ExposedLayoutSh other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ExposedLayoutSh(ExposedLayoutSh other) => new(new Const_ExposedLayoutSh((Mut_ExposedLayoutSh._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort X;
@@ -12846,6 +12852,8 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayoutB UnderlyingStruct => ref *(ExposedLayoutB *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Const_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Const_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -12924,6 +12932,8 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutB UnderlyingStruct => ref *(ExposedLayoutB *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Mut_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -12959,8 +12969,6 @@ public static partial class MR
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ExposedLayoutB(Const_ExposedLayoutB other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ExposedLayoutB(ExposedLayoutB other) => new(new Const_ExposedLayoutB((Mut_ExposedLayoutB._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int X;
@@ -13616,6 +13624,8 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly NameConflictsExposed UnderlyingStruct => ref *(NameConflictsExposed *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Const_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Const_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -13660,6 +13670,8 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref NameConflictsExposed UnderlyingStruct => ref *(NameConflictsExposed *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Mut_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -13701,8 +13713,6 @@ public static partial class MR
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator NameConflictsExposed(Const_NameConflictsExposed other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_NameConflictsExposed(NameConflictsExposed other) => new(new Const_NameConflictsExposed((Mut_NameConflictsExposed._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int NameConflictsExposed_;
@@ -13734,6 +13744,8 @@ public static partial class MR
 
                     /// Get the underlying struct.
                     public unsafe ref readonly A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+                    /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    public unsafe Const_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
 
                     internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -13776,6 +13788,8 @@ public static partial class MR
                 {
                     /// Get the underlying struct.
                     public unsafe new ref A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+                    /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    public unsafe Mut_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
 
                     internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -13807,8 +13821,6 @@ public static partial class MR
                 {
                     /// Copy contents from a wrapper class to this struct.
                     public static implicit operator A(Const_A other) => other.UnderlyingStruct;
-                    /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                    public unsafe static implicit operator Mut_A(A other) => new(new Const_A((Mut_A._Underlying *)&other, is_owning: false));
 
                     [System.Runtime.InteropServices.FieldOffset(0)]
                     public int X;
@@ -14123,6 +14135,8 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ConstNonconstConflicts UnderlyingStruct => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Const_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Const_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -14230,6 +14244,8 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ConstNonconstConflicts UnderlyingStruct => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Mut_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -14328,8 +14344,6 @@ public static partial class MR
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator ConstNonconstConflicts(Const_ConstNonconstConflicts other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_ConstNonconstConflicts(ConstNonconstConflicts other) => new(new Const_ConstNonconstConflicts((Mut_ConstNonconstConflicts._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int X;

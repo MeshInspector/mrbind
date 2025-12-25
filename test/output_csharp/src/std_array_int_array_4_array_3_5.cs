@@ -14,6 +14,8 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly Array_IntArray4Array3_5 UnderlyingStruct => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Const_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Const_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -56,6 +58,8 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref Array_IntArray4Array3_5 UnderlyingStruct => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Mut_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
@@ -87,8 +91,6 @@ public static partial class MR
             {
                 /// Copy contents from a wrapper class to this struct.
                 public static implicit operator Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 other) => other.UnderlyingStruct;
-                /// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe static implicit operator Mut_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) => new(new Const_Array_IntArray4Array3_5((Mut_Array_IntArray4Array3_5._Underlying *)&other, is_owning: false));
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt5_3_4 Elems;

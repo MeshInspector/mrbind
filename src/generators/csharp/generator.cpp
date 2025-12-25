@@ -4399,7 +4399,7 @@ namespace mrbind::CSharp
                         );
                     }
 
-                    // Conversion operators between the exposed struct and its class wrappers.
+                    // Conversion operator from the class wrapper to the exposed struct.
                     if (is_exposed_struct_by_value)
                     {
                         const std::string mut_name = CppToCSharpUnqualClassName(cpp_qual_name, false);
@@ -4409,9 +4409,15 @@ namespace mrbind::CSharp
                         file.WriteString(
                             "/// Copy contents from a wrapper class to this struct.\n"
                             "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other.UnderlyingStruct;\n"
-                            "/// Copy this struct into a wrapper class. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)\n"
-                            // Note, we must use of `... ? mut_name : const_name` here. Attempting to always use `mut_name` sometimes causes ambiguities.
-                            "public unsafe static implicit operator " + mut_name + "(" + unqual_csharp_name + " other) => new(new " + (type_desc.traits.value().copy_constructor_takes_nonconst_ref ? mut_name : const_name) + "((" + mut_name + "._Underlying *)&other, is_owning: false));\n"
+                        );
+                    }
+                    // Constructor of the class wrapper from the exposed struct.
+                    else if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                    {
+                        file.WriteString(
+                            "/// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)\n"
+                            // Note, we must respect `copy_constructor_takes_nonconst_ref` here. Attempting to always use `is_const = false` sometimes causes ambiguities.
+                            "public unsafe " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) : this(new " + CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref) + "((_Underlying *)&other, is_owning: false)) {}\n"
                         );
                     }
 

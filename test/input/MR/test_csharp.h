@@ -864,7 +864,7 @@ namespace MR::CSharp
     inline const ConvCtorNonTrivial *test_class_convnontrivial_cptr(const ConvCtorNonTrivial *a, const ConvCtorNonTrivial *b = nullptr, const ConvCtorNonTrivial *c = &default_convnontrivial) {(void)a; (void)b; (void)c; return &default_convnontrivial;}
 
 
-    // Exported structs:
+    // Exposed structs:
 
     struct ExposedLayout
     {
