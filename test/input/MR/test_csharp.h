@@ -1277,6 +1277,21 @@ namespace MR::CSharp
         friend int operator&(int, ConstNonconstConflicts &) {return 42;}
         friend int operator&(int, const ConstNonconstConflicts &) {return 42;}
     };
+
+
+    // Class fields of pointer types.
+    struct ClassMemberPointers
+    {
+        A *a;
+        const A *b;
+        A &c;
+        const A &d;
+
+        static A *sa;
+        static const A *sb;
+        static A &sc;
+        static const A &sd;
+    };
 }
 
 

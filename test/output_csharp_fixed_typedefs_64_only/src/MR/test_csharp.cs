@@ -14584,6 +14584,230 @@ public static partial class MR
                 }
             }
 
+            // Class fields of pointer types.
+            /// Generated from class `MR::CSharp::ClassMemberPointers`.
+            /// This is the const half of the class.
+            public class Const_ClassMemberPointers : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_ClassMemberPointers(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ClassMemberPointers_Destroy(_Underlying *_this);
+                    __MR_CSharp_ClassMemberPointers_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ClassMemberPointers() {Dispose(false);}
+
+                public static unsafe MR.CS.CSharp.A? Sa
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_sa", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointers_Get_sa();
+                        var ptr = __MR_CSharp_ClassMemberPointers_Get_sa();
+                        return *ptr is not null ? new MR.CS.CSharp.A(*ptr, is_owning: false) : null;
+                    }
+                }
+                /// This holds the last value manually assigned to property `Sa`, to keep the target object alive.
+                public static MR.CS.CSharp.A? _Storage_Sa = null;
+
+                public static unsafe MR.CS.CSharp.Const_A? Sb
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_sb", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointers_Get_sb();
+                        var ptr = __MR_CSharp_ClassMemberPointers_Get_sb();
+                        return *ptr is not null ? new MR.CS.CSharp.Const_A(*ptr, is_owning: false) : null;
+                    }
+                }
+                /// This holds the last value manually assigned to property `Sb`, to keep the target object alive.
+                public static MR.CS.CSharp.Const_A? _Storage_Sb = null;
+
+                public static unsafe MR.CS.CSharp.A Sc
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_sc", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointers_Get_sc();
+                        return new(__MR_CSharp_ClassMemberPointers_Get_sc(), is_owning: false);
+                    }
+                }
+
+                public static unsafe MR.CS.CSharp.Const_A Sd
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_sd", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointers_Get_sd();
+                        return new(__MR_CSharp_ClassMemberPointers_Get_sd(), is_owning: false);
+                    }
+                }
+
+                public unsafe MR.CS.CSharp.A? A
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointers_Get_a(Const_ClassMemberPointers._Underlying *_this);
+                        var ptr = __MR_CSharp_ClassMemberPointers_Get_a(_UnderlyingPtr);
+                        return *ptr is not null ? new MR.CS.CSharp.A(*ptr, is_owning: false) : null;
+                    }
+                }
+                /// This holds the last value manually assigned to property `A`, to keep the target object alive.
+                public MR.CS.CSharp.A? _Storage_A = null;
+
+                public unsafe MR.CS.CSharp.Const_A? B
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_b", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointers_Get_b(Const_ClassMemberPointers._Underlying *_this);
+                        var ptr = __MR_CSharp_ClassMemberPointers_Get_b(_UnderlyingPtr);
+                        return *ptr is not null ? new MR.CS.CSharp.Const_A(*ptr, is_owning: false) : null;
+                    }
+                }
+                /// This holds the last value manually assigned to property `B`, to keep the target object alive.
+                public MR.CS.CSharp.Const_A? _Storage_B = null;
+
+                public unsafe MR.CS.CSharp.A C
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_c", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointers_Get_c(_Underlying *_this);
+                        return new(__MR_CSharp_ClassMemberPointers_Get_c(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                public unsafe MR.CS.CSharp.Const_A D
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_d", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointers_Get_d(_Underlying *_this);
+                        return new(__MR_CSharp_ClassMemberPointers_Get_d(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                /// Generated from constructor `MR::CSharp::ClassMemberPointers::ClassMemberPointers`.
+                public unsafe Const_ClassMemberPointers(MR.CS.CSharp.Const_ClassMemberPointers _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ClassMemberPointers._Underlying *__MR_CSharp_ClassMemberPointers_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointers._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ClassMemberPointers_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Constructs `MR::CSharp::ClassMemberPointers` elementwise.
+                public unsafe Const_ClassMemberPointers(MR.CS.CSharp.A? a, MR.CS.CSharp.Const_A? b, MR.CS.CSharp.A c, MR.CS.CSharp.Const_A d) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ClassMemberPointers._Underlying *__MR_CSharp_ClassMemberPointers_ConstructFrom(MR.CS.CSharp.A._Underlying *a, MR.CS.CSharp.Const_A._Underlying *b, MR.CS.CSharp.A._Underlying *c, MR.CS.CSharp.Const_A._Underlying *d);
+                    _UnderlyingPtr = __MR_CSharp_ClassMemberPointers_ConstructFrom(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c._UnderlyingPtr, d._UnderlyingPtr);
+                }
+            }
+
+            // Class fields of pointer types.
+            /// Generated from class `MR::CSharp::ClassMemberPointers`.
+            /// This is the non-const half of the class.
+            public class ClassMemberPointers : Const_ClassMemberPointers
+            {
+                internal unsafe ClassMemberPointers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                public new unsafe MR.CS.CSharp.A? A
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointers_Get_a(ClassMemberPointers._Underlying *_this);
+                        var ptr = __MR_CSharp_ClassMemberPointers_Get_a(_UnderlyingPtr);
+                        return *ptr is not null ? new MR.CS.CSharp.A(*ptr, is_owning: false) : null;
+                    }
+                    set
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_GetMutable_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointers_GetMutable_a(ClassMemberPointers._Underlying *_this);
+                        var ptr = __MR_CSharp_ClassMemberPointers_GetMutable_a(_UnderlyingPtr);
+                        _Storage_A = value;
+                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                    }
+                }
+
+                public new unsafe MR.CS.CSharp.Const_A? B
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_Get_b", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointers_Get_b(ClassMemberPointers._Underlying *_this);
+                        var ptr = __MR_CSharp_ClassMemberPointers_Get_b(_UnderlyingPtr);
+                        return *ptr is not null ? new MR.CS.CSharp.Const_A(*ptr, is_owning: false) : null;
+                    }
+                    set
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_GetMutable_b", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointers_GetMutable_b(ClassMemberPointers._Underlying *_this);
+                        var ptr = __MR_CSharp_ClassMemberPointers_GetMutable_b(_UnderlyingPtr);
+                        _Storage_B = value;
+                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                    }
+                }
+
+                /// Generated from constructor `MR::CSharp::ClassMemberPointers::ClassMemberPointers`.
+                public unsafe ClassMemberPointers(MR.CS.CSharp.Const_ClassMemberPointers _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ClassMemberPointers._Underlying *__MR_CSharp_ClassMemberPointers_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointers._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_ClassMemberPointers_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Constructs `MR::CSharp::ClassMemberPointers` elementwise.
+                public unsafe ClassMemberPointers(MR.CS.CSharp.A? a, MR.CS.CSharp.Const_A? b, MR.CS.CSharp.A c, MR.CS.CSharp.Const_A d) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointers_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ClassMemberPointers._Underlying *__MR_CSharp_ClassMemberPointers_ConstructFrom(MR.CS.CSharp.A._Underlying *a, MR.CS.CSharp.Const_A._Underlying *b, MR.CS.CSharp.A._Underlying *c, MR.CS.CSharp.Const_A._Underlying *d);
+                    _UnderlyingPtr = __MR_CSharp_ClassMemberPointers_ConstructFrom(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c._UnderlyingPtr, d._UnderlyingPtr);
+                }
+            }
+
+            /// This is used for optional parameters of class `ClassMemberPointers` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ClassMemberPointers`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ClassMemberPointers`/`Const_ClassMemberPointers` directly.
+            public class _InOptMut_ClassMemberPointers
+            {
+                public ClassMemberPointers? Opt;
+
+                public _InOptMut_ClassMemberPointers() {}
+                public _InOptMut_ClassMemberPointers(ClassMemberPointers value) {Opt = value;}
+                public static implicit operator _InOptMut_ClassMemberPointers(ClassMemberPointers value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ClassMemberPointers` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ClassMemberPointers`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ClassMemberPointers`/`Const_ClassMemberPointers` to pass it to the function.
+            public class _InOptConst_ClassMemberPointers
+            {
+                public Const_ClassMemberPointers? Opt;
+
+                public _InOptConst_ClassMemberPointers() {}
+                public _InOptConst_ClassMemberPointers(Const_ClassMemberPointers value) {Opt = value;}
+                public static implicit operator _InOptConst_ClassMemberPointers(Const_ClassMemberPointers value) {return new(value);}
+            }
+
             /// Generated from function `MR::CSharp::foo`.
             public static void Foo()
             {

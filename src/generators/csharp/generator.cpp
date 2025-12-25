@@ -4733,7 +4733,7 @@ namespace mrbind::CSharp
                             else
                             {
                                 // Just the normal field.
-                                EmitCppField(file, cpp_qual_name, field, is_exposed_struct_by_value ? false : IsConst(), shadowing_data);
+                                EmitCppField(file, cpp_qual_name, field, is_exposed_struct_by_value ? false : IsConst());
                             }
                         }
                     }
@@ -5299,13 +5299,16 @@ namespace mrbind::CSharp
         return true;
     }
 
-    void Generator::EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const, ClassShadowingData *shadowing_data)
+    void Generator::EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const)
     {
         try
         {
             // Fields without const getters should be impossible.
             // If this fails, did you perhaps to try call this method on a field of an exposed struct?
             assert(field.getter_const);
+
+            const std::string csharp_enclosing_class_name = CppToCSharpUnqualClassName(cpp_class, is_const);
+            const std::string csharp_field_name = CppToCSharpFieldName(cpp_class, field.full_name);
 
             // Special-case array fields.
             if (field.getter_array_size)
@@ -5340,7 +5343,7 @@ namespace mrbind::CSharp
                 file.WriteString(field.comment.c_style);
                 if (!is_const)
                     file.WriteString("new ");
-                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + (arr_strings.csharp_type.ends_with('*') ? "" : " ") + CppToCSharpIdentifier(ParseNameOrThrow(field.name)) + "\n");
+                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + (arr_strings.csharp_type.ends_with('*') ? "" : " ") + csharp_field_name + "\n");
                 file.PushScope({}, "{\n", "}\n");
 
                 file.WriteString("get\n");
@@ -5363,6 +5366,108 @@ namespace mrbind::CSharp
             // Static fields are entirely in the const half as well.
             if ((field.is_static || !field.getter_mutable) && !is_const)
                 return;
+
+            const cppdecl::Type &cpp_field_type = ParseTypeOrThrow(field.type);
+
+            // Special-case pointer fields to some types.
+            // Since the getters return references to pointers for those, and we don't bind those properly (we emit them as raw pointers),
+            //   we have to do a bunch of special-casing here.
+            if (cpp_field_type.Is<cppdecl::Pointer>())
+            {
+                cppdecl::Type cpp_underlying_type = cpp_field_type;
+                cpp_underlying_type.RemoveModifier(1);
+
+                const bool field_is_const = cpp_underlying_type.IsConst();
+                cpp_underlying_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                const std::string cpp_underlying_type_str = CppdeclToCode(cpp_underlying_type);
+
+                if (auto type_desc = c_desc.FindTypeOpt(cpp_underlying_type_str))
+                {
+                    // Only classes for now.
+                    if (std::holds_alternative<CInterop::TypeKinds::Class>(type_desc->var))
+                    {
+                        const std::string csharp_storage_field_name = "_Storage_" + csharp_field_name;
+
+                        file.WriteSeparatingNewline();
+                        file.WriteString(field.comment.c_style);
+                        file.WriteString("public ");
+                        if (field.is_static)
+                            file.WriteString("static ");
+                        if (!is_const)
+                            file.WriteString("new ");
+                        file.WriteString("unsafe ");
+
+                        const std::string csharp_field_class_name = CppToCSharpClassName(cpp_underlying_type.simple_type.name, field_is_const);
+
+                        // The property type.
+                        file.WriteString(csharp_field_class_name);
+
+                        file.WriteString("? ");
+                        file.WriteString(csharp_field_name);
+                        file.WriteString("\n");
+
+                        // Begin property.
+                        file.PushScope({}, "{\n", "}\n");
+
+                        { // Getter.
+                            // Begin getter.
+                            file.PushScope({}, "get\n{\n", "}\n");
+
+                            auto dllimport_getter = MakeDllImportDecl(field.getter_const->c_name, csharp_field_class_name + "._Underlying **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+
+                            file.WriteString(
+                                dllimport_getter.dllimport_decl +
+                                "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
+                                // Note `*ptr` in the condition! `ptr` itself should never be null, as it represents a reference.
+                                "return *ptr is not null ? new " + csharp_field_class_name + "(*ptr, is_owning: false) : null;\n"
+                            );
+
+                            // End getter.
+                            file.PopScope();
+                        }
+
+                        // Setter.
+                        if (!is_const && field.getter_mutable)
+                        {
+                            // Begin getter.
+                            file.PushScope({}, "set\n{\n", "}\n");
+
+                            auto dllimport_setter = MakeDllImportDecl(field.getter_mutable->c_name, csharp_field_class_name + "._Underlying **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+
+                            file.WriteString(
+                                dllimport_setter.dllimport_decl +
+                                "var ptr = " + dllimport_setter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n" +
+                                csharp_storage_field_name + " = value;\n"
+                                "*ptr = (value is not null ? value._UnderlyingPtr : null);\n"
+                            );
+
+                            // End getter.
+                            file.PopScope();
+                        }
+
+                        // End property.
+                        file.PopScope();
+
+                        // The keepalive field.
+                        if (is_const)
+                        {
+                            file.WriteString("/// This holds the last value manually assigned to property `" + csharp_field_name + "`, to keep the target object alive.\n");
+                            file.WriteString("public ");
+                            if (field.is_static)
+                                file.WriteString("static ");
+                            if (!is_const)
+                                file.WriteString("new ");
+                            file.WriteString(CppToCSharpClassName(cpp_underlying_type.simple_type.name, field_is_const));
+                            file.WriteString("? ");
+                            file.WriteString(csharp_storage_field_name);
+                            file.WriteString(" = null;\n");
+                        }
+
+                        return;
+                    }
+                }
+            }
 
             const auto &maybe_const_getter = !is_const || (field.is_static && field.getter_mutable) ? field.getter_mutable : field.getter_const;
             assert(maybe_const_getter);
@@ -5396,18 +5501,19 @@ namespace mrbind::CSharp
             if (emit_getter.IsUnsafe())
                 file.WriteString("unsafe ");
 
-            // The return type.
+            // The property type.
             file.WriteString(csharp_property_type);
             if (!csharp_property_type.ends_with('*'))
                 file.WriteString(" ");
 
             // The property name.
-            file.WriteString(CppToCSharpFieldName(cpp_class, field.full_name));
+            file.WriteString(csharp_field_name);
             file.WriteString("\n");
 
             file.PushScope({}, "{\n", "}\n");
 
-            emit_getter.Emit(file, FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = is_const});
+            // The getter.
+            emit_getter.Emit(file);
 
             file.PopScope();
         }
