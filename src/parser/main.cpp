@@ -707,6 +707,8 @@ namespace mrbind
         // Get the raw version with slashes.
         // But also remove the leading whitespace on each line (before the slashes).
         std::string raw_text(comment->getRawText(ctx.getSourceManager()));
+        // Get rid of `\r` on Windows. It causes some issues otherwise.
+        std::erase(raw_text, '\r');
         bool beginning_of_line = true; // Not sure if we can get whitespace before the first slashes, but checking doesn't hurt.
         for (char ch : raw_text)
         {
