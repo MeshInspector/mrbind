@@ -2316,7 +2316,8 @@ namespace mrbind::CSharp
                     "public static unsafe implicit operator string(" + csharp_name + " self)\n"
                     "{\n"
                     "    return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));\n"
-                    "}\n";
+                    "}\n"
+                    "public override string ToString() {return (string)this;}\n";
             }
 
             // Non-const.
@@ -2356,7 +2357,8 @@ namespace mrbind::CSharp
                 // This is a bit sad, ideally we'd copy `_Moved` for each class, and duplicate that conversion into it?
                 // But that sounds like a lot of work. And `--move-classes-returned-by-value` is opt-in anyway.
                 "    return self.GetString()" + (move_in_by_value_return ? ".Value" : "") + ";\n"
-                "}\n";
+                "}\n"
+                "public override string ToString() {return (string)this;}\n";
         }
 
         return ret;
@@ -2434,26 +2436,39 @@ namespace mrbind::CSharp
             }
         }
 
-        // Operator rewrites.
-        if (auto *opt = std::get_if<CInterop::MethodKinds::Operator>(&method.var))
+        // Overloaded operator rewrites.
+        if (auto *op = std::get_if<CInterop::MethodKinds::Operator>(&method.var))
         {
             // This check is needed e.g. to reject `==` that returns non-bool.
             if (IsOverloadableOpOrConvOp(&method))
             {
-                if (opt->token == "++" || opt->token == "--")
+                if (op->token == "++" || op->token == "--")
                     ret.push_back(Generator::EmitVariant::static_incr_or_decr);
 
                 // We could try to be clever and emit `==` and `<` rewrites even if `IsOverloadableOpOrConvOp()` above returns false,
                 //   but I can't think of any conditions where this could actually happen without interefering with the rewriting, so I don't even bother.
-                if (opt->token == "==")
+                if (op->token == "==")
                     ret.push_back(Generator::EmitVariant::negated_comparison_operator);
 
-                if (opt->token == "<")
+                if (op->token == "<")
                 {
                     ret.push_back(Generator::EmitVariant::less_to_greater);
                     ret.push_back(Generator::EmitVariant::less_to_less_eq);
                     ret.push_back(Generator::EmitVariant::less_to_greater_eq);
                 }
+            }
+        }
+
+        // Conversion operator rewrites.
+        if (std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(method.var))
+        {
+            // Not checking `IsOverloadableOpOrConvOp()`, it shouldn't matter I assume?
+
+            // We don't have an existing way to classify those, so just hardcode the type list here.
+            if (method.ret.cpp_type == "std::string" || method.ret.cpp_type == "std::string_view" || method.ret.cpp_type == "std::filesystem::path")
+            {
+                ret.push_back(Generator::EmitVariant::stringlike_conv_to_csharp_string_conv);
+                ret.push_back(Generator::EmitVariant::stringlike_conv_to_tostring);
             }
         }
 
@@ -2539,6 +2554,7 @@ namespace mrbind::CSharp
         { // Find the return type binding.
             ret_binding = &generator.GetReturnBinding(
                 func_like.ret,
+                // Custom behavior for ctors.
                 is_ctor
                 ? (
                     // Here we always pass either `no_move_in_by_value_return` or `force_move_in_by_value_return`.
@@ -2553,8 +2569,18 @@ namespace mrbind::CSharp
                     )
                     ? Generator::TypeBindingFlags::no_move_in_by_value_return
                     : Generator::TypeBindingFlags::force_move_in_by_value_return
-                )
-                : TypeBindingFlags{}
+                ) :
+                // Custom behavior for conversion operators.
+                method && std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(method->var) &&
+                is_overloaded_op_or_conv_op_from_this // Not sure if checking this ever does anything useful, but it makes sense I think.
+                ? (
+                    // Just because it looks ugly and weird. Who would ever call `operator _Moved<Std.String>` or whatever?
+                    // Also specifically for string conversions this helps our automatic rewrites of them into `operator string` and `ToString()`.
+                    // NOTE: This behavior must match what's done in `MakeUnqualCSharpMethodName()` to avoid spelling `_Moved<...>` in the name.
+                    Generator::TypeBindingFlags::no_move_in_by_value_return
+                ) :
+                // Otherwise use default flags.
+                TypeBindingFlags{}
             );
             if (!ret_binding)
                 throw std::runtime_error("The C++ return type `" + func_like.ret.cpp_type + "`" + (func_like.ret.uses_sugar ? " (with sugar enabled)" : "") + " is known, but isn't usable as a return type.");
@@ -2764,7 +2790,7 @@ namespace mrbind::CSharp
         {
             const bool force_void_return_type = is_incr_or_decr && emit_variant != EmitVariant::static_incr_or_decr;
 
-            const bool is_automatic_rewrite =
+            const bool is_comparison_rewrite =
                 emit_variant == EmitVariant::negated_comparison_operator ||
                 emit_variant == EmitVariant::less_to_greater ||
                 emit_variant == EmitVariant::less_to_less_eq ||
@@ -2791,7 +2817,7 @@ namespace mrbind::CSharp
             if (!is_property)
             {
                 // Write the comment.
-                if (!is_automatic_rewrite)
+                if (!is_comparison_rewrite)
                     file.WriteString(generator.MakeFuncComment(any_func_like));
 
                 // Deprecation attribute?
@@ -2809,6 +2835,22 @@ namespace mrbind::CSharp
 
                 // Public!
                 file.WriteString("public ");
+
+                { // Handle some entirely custom rewrites.
+                    // Conversions to string:
+                    if (emit_variant == EmitVariant::stringlike_conv_to_csharp_string_conv)
+                    {
+                        const auto &self_param = param_strings.at(0).csharp_decl_params.at(0);
+                        file.WriteString("static " + std::string(std::get<CInterop::MethodKinds::ConversionOperator>(method->var).is_explicit ? "explicit" : "implicit") + " operator string(" + self_param.ToString() + ") {return (" + ret_binding->csharp_return_type + ")" + self_param.name + ";}\n");
+                        return;
+                    }
+                    if (emit_variant == EmitVariant::stringlike_conv_to_tostring)
+                    {
+                        // The return type in the base class (C# `object`) seems to be `string?`, but it seems we're allowed to drop the `?` if we want.
+                        file.WriteString("override string ToString() {return (string)this;}\n");
+                        return;
+                    }
+                }
 
                 // Add `static` on static member functions, and on ALL non-member functions (since we put them into namespace-like classes anyway).
                 if (
@@ -3346,7 +3388,8 @@ namespace mrbind::CSharp
                 }
 
                 // I guess we can just assemble the entire thing here?
-                return std::string(elem.is_explicit ? "explicit" : "implicit") + " operator " + GetReturnBinding(method.ret).csharp_return_type;
+                // Note, the `IsOverloadableOpOrConvOp(&method)` check should match the return type binding selection logic in the `FuncLikeEmitter(...)` constructor.
+                return std::string(elem.is_explicit ? "explicit" : "implicit") + " operator " + GetReturnBinding(method.ret, TypeBindingFlags::no_move_in_by_value_return * IsOverloadableOpOrConvOp(&method)).csharp_return_type;
             },
         }, method.var);
 

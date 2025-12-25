@@ -432,6 +432,20 @@ typedef struct MR_CSharp_ConvOp MR_CSharp_ConvOp;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvOpToRef MR_CSharp_ConvOpToRef;
 
+// Conversions to string-like types.
+// Those create the additional `operator string` to convert directly to a C# string, and `override string ToString()` to override the method of the implicit base `object`.
+/// Generated from class `MR::CSharp::StringConvString`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_StringConvString MR_CSharp_StringConvString;
+
+/// Generated from class `MR::CSharp::StringConvStringView`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_StringConvStringView MR_CSharp_StringConvStringView;
+
+/// Generated from class `MR::CSharp::StringConvFsPath`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_StringConvFsPath MR_CSharp_StringConvFsPath;
+
 // Conversion constructors. Right now we only provide conversion operators for implicit ones,
 //   because I have no idea when the explicit ones could be useful.
 /// Generated from class `MR::CSharp::ConvCtor`.
@@ -4726,6 +4740,118 @@ MR_C_API unsigned short *MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref(MR_C
 /// Parameter `_other` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_AssignFromAnother(MR_CSharp_ConvOpToRef *_this, const MR_CSharp_ConvOpToRef *_other);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvString_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_StringConvString_DestroyArray()`.
+/// Use `MR_CSharp_StringConvString_OffsetMutablePtr()` and `MR_CSharp_StringConvString_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_StringConvString *MR_CSharp_StringConvString_OffsetPtr(const MR_CSharp_StringConvString *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_OffsetMutablePtr(MR_CSharp_StringConvString *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvString_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_ConstructFromAnother(const MR_CSharp_StringConvString *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_StringConvString`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_StringConvString_Destroy(const MR_CSharp_StringConvString *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_StringConvString`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_StringConvString_DestroyArray(const MR_CSharp_StringConvString *_this);
+
+/// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_string *MR_CSharp_StringConvString_ConvertTo_std_string(MR_CSharp_StringConvString *_this);
+
+/// Generated from method `MR::CSharp::StringConvString::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_AssignFromAnother(MR_CSharp_StringConvString *_this, const MR_CSharp_StringConvString *_other);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvStringView_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_StringConvStringView_DestroyArray()`.
+/// Use `MR_CSharp_StringConvStringView_OffsetMutablePtr()` and `MR_CSharp_StringConvStringView_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_OffsetPtr(const MR_CSharp_StringConvStringView *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_OffsetMutablePtr(MR_CSharp_StringConvStringView *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvStringView_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_ConstructFromAnother(const MR_CSharp_StringConvStringView *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_StringConvStringView`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_StringConvStringView_Destroy(const MR_CSharp_StringConvStringView *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_StringConvStringView`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_StringConvStringView_DestroyArray(const MR_CSharp_StringConvStringView *_this);
+
+// Mark this `explicit` and `const` for a change.
+/// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_view_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_string_view *MR_CSharp_StringConvStringView_ConvertTo_std_string_view(const MR_CSharp_StringConvStringView *_this);
+
+/// Generated from method `MR::CSharp::StringConvStringView::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_AssignFromAnother(MR_CSharp_StringConvStringView *_this, const MR_CSharp_StringConvStringView *_other);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvFsPath_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_StringConvFsPath_DestroyArray()`.
+/// Use `MR_CSharp_StringConvFsPath_OffsetMutablePtr()` and `MR_CSharp_StringConvFsPath_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_OffsetPtr(const MR_CSharp_StringConvFsPath *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_OffsetMutablePtr(MR_CSharp_StringConvFsPath *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvFsPath_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_ConstructFromAnother(const MR_CSharp_StringConvFsPath *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_StringConvFsPath`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_StringConvFsPath_Destroy(const MR_CSharp_StringConvFsPath *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_StringConvFsPath`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_StringConvFsPath_DestroyArray(const MR_CSharp_StringConvFsPath *_this);
+
+/// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_filesystem_path_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_filesystem_path *MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path(MR_CSharp_StringConvFsPath *_this);
+
+/// Generated from method `MR::CSharp::StringConvFsPath::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_AssignFromAnother(MR_CSharp_StringConvFsPath *_this, const MR_CSharp_StringConvFsPath *_other);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtor_Destroy()` to free it when you're done using it.

@@ -73,6 +73,7 @@ public static partial class MR
                     {
                         return self.GetString();
                     }
+                    public override string ToString() {return (string)this;}
                 }
 
                 /// Stores a filesystem path.
@@ -138,6 +139,7 @@ public static partial class MR
                     {
                         return self.GetString();
                     }
+                    public override string ToString() {return (string)this;}
                 }
 
                 /// This is used as a function parameter when the underlying function receives `Path` by value.

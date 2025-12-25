@@ -10297,6 +10297,355 @@ public static partial class MR
                 public static implicit operator _InOptConst_ConvOpToRef(Const_ConvOpToRef value) {return new(value);}
             }
 
+            // Conversions to string-like types.
+            // Those create the additional `operator string` to convert directly to a C# string, and `override string ToString()` to override the method of the implicit base `object`.
+            /// Generated from class `MR::CSharp::StringConvString`.
+            /// This is the const half of the class.
+            public class Const_StringConvString : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_StringConvString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StringConvString_Destroy(_Underlying *_this);
+                    __MR_CSharp_StringConvString_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_StringConvString() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_StringConvString() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvString._Underlying *__MR_CSharp_StringConvString_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StringConvString_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
+                public unsafe Const_StringConvString(MR.CS.CSharp.Const_StringConvString _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvString._Underlying *__MR_CSharp_StringConvString_ConstructFromAnother(MR.CS.CSharp.StringConvString._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StringConvString_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // Conversions to string-like types.
+            // Those create the additional `operator string` to convert directly to a C# string, and `override string ToString()` to override the method of the implicit base `object`.
+            /// Generated from class `MR::CSharp::StringConvString`.
+            /// This is the non-const half of the class.
+            public class StringConvString : Const_StringConvString
+            {
+                internal unsafe StringConvString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StringConvString() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvString._Underlying *__MR_CSharp_StringConvString_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StringConvString_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
+                public unsafe StringConvString(MR.CS.CSharp.Const_StringConvString _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvString._Underlying *__MR_CSharp_StringConvString_ConstructFromAnother(MR.CS.CSharp.StringConvString._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StringConvString_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
+                public static unsafe implicit operator MR.CS.Std.String(MR.CS.CSharp.StringConvString _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_ConvertTo_std_string", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_CSharp_StringConvString_ConvertTo_std_string(MR.CS.CSharp.StringConvString._Underlying *_this);
+                    return new(__MR_CSharp_StringConvString_ConvertTo_std_string(_this._UnderlyingPtr), is_owning: true);
+                }
+
+                /// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
+                public static implicit operator string(MR.CS.CSharp.StringConvString _this) {return (MR.CS.Std.String)_this;}
+
+                /// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
+                public override string ToString() {return (string)this;}
+
+                /// Generated from method `MR::CSharp::StringConvString::operator=`.
+                public unsafe MR.CS.CSharp.StringConvString Assign(MR.CS.CSharp.Const_StringConvString _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvString._Underlying *__MR_CSharp_StringConvString_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StringConvString._Underlying *_other);
+                    return new(__MR_CSharp_StringConvString_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `StringConvString` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_StringConvString`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringConvString`/`Const_StringConvString` directly.
+            public class _InOptMut_StringConvString
+            {
+                public StringConvString? Opt;
+
+                public _InOptMut_StringConvString() {}
+                public _InOptMut_StringConvString(StringConvString value) {Opt = value;}
+                public static implicit operator _InOptMut_StringConvString(StringConvString value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StringConvString` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_StringConvString`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringConvString`/`Const_StringConvString` to pass it to the function.
+            public class _InOptConst_StringConvString
+            {
+                public Const_StringConvString? Opt;
+
+                public _InOptConst_StringConvString() {}
+                public _InOptConst_StringConvString(Const_StringConvString value) {Opt = value;}
+                public static implicit operator _InOptConst_StringConvString(Const_StringConvString value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::StringConvStringView`.
+            /// This is the const half of the class.
+            public class Const_StringConvStringView : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_StringConvStringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StringConvStringView_Destroy(_Underlying *_this);
+                    __MR_CSharp_StringConvStringView_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_StringConvStringView() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_StringConvStringView() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvStringView._Underlying *__MR_CSharp_StringConvStringView_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StringConvStringView_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
+                public unsafe Const_StringConvStringView(MR.CS.CSharp.Const_StringConvStringView _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvStringView._Underlying *__MR_CSharp_StringConvStringView_ConstructFromAnother(MR.CS.CSharp.StringConvStringView._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StringConvStringView_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                // Mark this `explicit` and `const` for a change.
+                /// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
+                public static unsafe explicit operator MR.CS.Std.StringView(MR.CS.CSharp.Const_StringConvStringView _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_ConvertTo_std_string_view", ExactSpelling = true)]
+                    extern static MR.CS.Std.StringView._Underlying *__MR_CSharp_StringConvStringView_ConvertTo_std_string_view(MR.CS.CSharp.Const_StringConvStringView._Underlying *_this);
+                    return new(__MR_CSharp_StringConvStringView_ConvertTo_std_string_view(_this._UnderlyingPtr), is_owning: true);
+                }
+
+                // Mark this `explicit` and `const` for a change.
+                /// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
+                public static explicit operator string(MR.CS.CSharp.Const_StringConvStringView _this) {return (MR.CS.Std.StringView)_this;}
+
+                // Mark this `explicit` and `const` for a change.
+                /// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
+                public override string ToString() {return (string)this;}
+            }
+
+            /// Generated from class `MR::CSharp::StringConvStringView`.
+            /// This is the non-const half of the class.
+            public class StringConvStringView : Const_StringConvStringView
+            {
+                internal unsafe StringConvStringView(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StringConvStringView() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvStringView._Underlying *__MR_CSharp_StringConvStringView_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StringConvStringView_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
+                public unsafe StringConvStringView(MR.CS.CSharp.Const_StringConvStringView _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvStringView._Underlying *__MR_CSharp_StringConvStringView_ConstructFromAnother(MR.CS.CSharp.StringConvStringView._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StringConvStringView_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::StringConvStringView::operator=`.
+                public unsafe MR.CS.CSharp.StringConvStringView Assign(MR.CS.CSharp.Const_StringConvStringView _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvStringView._Underlying *__MR_CSharp_StringConvStringView_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StringConvStringView._Underlying *_other);
+                    return new(__MR_CSharp_StringConvStringView_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `StringConvStringView` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_StringConvStringView`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringConvStringView`/`Const_StringConvStringView` directly.
+            public class _InOptMut_StringConvStringView
+            {
+                public StringConvStringView? Opt;
+
+                public _InOptMut_StringConvStringView() {}
+                public _InOptMut_StringConvStringView(StringConvStringView value) {Opt = value;}
+                public static implicit operator _InOptMut_StringConvStringView(StringConvStringView value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StringConvStringView` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_StringConvStringView`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringConvStringView`/`Const_StringConvStringView` to pass it to the function.
+            public class _InOptConst_StringConvStringView
+            {
+                public Const_StringConvStringView? Opt;
+
+                public _InOptConst_StringConvStringView() {}
+                public _InOptConst_StringConvStringView(Const_StringConvStringView value) {Opt = value;}
+                public static implicit operator _InOptConst_StringConvStringView(Const_StringConvStringView value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::StringConvFsPath`.
+            /// This is the const half of the class.
+            public class Const_StringConvFsPath : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_StringConvFsPath(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_StringConvFsPath_Destroy(_Underlying *_this);
+                    __MR_CSharp_StringConvFsPath_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_StringConvFsPath() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_StringConvFsPath() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvFsPath._Underlying *__MR_CSharp_StringConvFsPath_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StringConvFsPath_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
+                public unsafe Const_StringConvFsPath(MR.CS.CSharp.Const_StringConvFsPath _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvFsPath._Underlying *__MR_CSharp_StringConvFsPath_ConstructFromAnother(MR.CS.CSharp.StringConvFsPath._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StringConvFsPath_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            /// Generated from class `MR::CSharp::StringConvFsPath`.
+            /// This is the non-const half of the class.
+            public class StringConvFsPath : Const_StringConvFsPath
+            {
+                internal unsafe StringConvFsPath(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe StringConvFsPath() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvFsPath._Underlying *__MR_CSharp_StringConvFsPath_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_StringConvFsPath_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
+                public unsafe StringConvFsPath(MR.CS.CSharp.Const_StringConvFsPath _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvFsPath._Underlying *__MR_CSharp_StringConvFsPath_ConstructFromAnother(MR.CS.CSharp.StringConvFsPath._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_StringConvFsPath_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
+                public static unsafe implicit operator MR.CS.Std.Filesystem.Path(MR.CS.CSharp.StringConvFsPath _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path", ExactSpelling = true)]
+                    extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path(MR.CS.CSharp.StringConvFsPath._Underlying *_this);
+                    return new(__MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path(_this._UnderlyingPtr), is_owning: true);
+                }
+
+                /// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
+                public static implicit operator string(MR.CS.CSharp.StringConvFsPath _this) {return (MR.CS.Std.Filesystem.Path)_this;}
+
+                /// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
+                public override string ToString() {return (string)this;}
+
+                /// Generated from method `MR::CSharp::StringConvFsPath::operator=`.
+                public unsafe MR.CS.CSharp.StringConvFsPath Assign(MR.CS.CSharp.Const_StringConvFsPath _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.StringConvFsPath._Underlying *__MR_CSharp_StringConvFsPath_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.StringConvFsPath._Underlying *_other);
+                    return new(__MR_CSharp_StringConvFsPath_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `StringConvFsPath` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_StringConvFsPath`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringConvFsPath`/`Const_StringConvFsPath` directly.
+            public class _InOptMut_StringConvFsPath
+            {
+                public StringConvFsPath? Opt;
+
+                public _InOptMut_StringConvFsPath() {}
+                public _InOptMut_StringConvFsPath(StringConvFsPath value) {Opt = value;}
+                public static implicit operator _InOptMut_StringConvFsPath(StringConvFsPath value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `StringConvFsPath` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_StringConvFsPath`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `StringConvFsPath`/`Const_StringConvFsPath` to pass it to the function.
+            public class _InOptConst_StringConvFsPath
+            {
+                public Const_StringConvFsPath? Opt;
+
+                public _InOptConst_StringConvFsPath() {}
+                public _InOptConst_StringConvFsPath(Const_StringConvFsPath value) {Opt = value;}
+                public static implicit operator _InOptConst_StringConvFsPath(Const_StringConvFsPath value) {return new(value);}
+            }
+
             // Conversion constructors. Right now we only provide conversion operators for implicit ones,
             //   because I have no idea when the explicit ones could be useful.
             /// Generated from class `MR::CSharp::ConvCtor`.
@@ -16119,7 +16468,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr_cref`.
             /// Parameter `b` defaults to `default_plainarr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly MR.CS.ConstArrayInt42 TestPlainarrCref(ref readonly MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
+            public static unsafe ref MR.CS.ConstArrayInt42 TestPlainarrCref(ref MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_cref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt42 *__MR_CSharp_test_plainarr_cref(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b);
@@ -16145,7 +16494,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray&&)default_plainarr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly MR.CS.ConstArrayInt42 TestPlainarrCrref(MR.CS.Misc._MoveRef _move_a, ref readonly MR.CS.ConstArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt42 *b = null)
+            public static unsafe ref MR.CS.ConstArrayInt42 TestPlainarrCrref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ConstArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_crref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt42 *__MR_CSharp_test_plainarr_crref(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b);
@@ -16189,7 +16538,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr2_cref`.
             /// Parameter `b` defaults to `default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly MR.CS.ConstArrayInt10_20 TestPlainarr2Cref(ref readonly MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
+            public static unsafe ref MR.CS.ConstArrayInt10_20 TestPlainarr2Cref(ref MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_cref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt10_20 *__MR_CSharp_test_plainarr2_cref(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b);
@@ -16215,7 +16564,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr2_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&&)default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly MR.CS.ConstArrayInt10_20 TestPlainarr2Crref(MR.CS.Misc._MoveRef _move_a, ref readonly MR.CS.ConstArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt10_20 *b = null)
+            public static unsafe ref MR.CS.ConstArrayInt10_20 TestPlainarr2Crref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ConstArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_crref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt10_20 *__MR_CSharp_test_plainarr2_crref(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b);
@@ -16259,7 +16608,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarrenum_cref`.
             /// Parameter `b` defaults to `default_plainarrenum`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_42 TestPlainarrenumCref(ref readonly MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
+            public static unsafe ref MR.CS.CSharp.ConstArrayE1_42 TestPlainarrenumCref(ref MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstArrayE1_42 *__MR_CSharp_test_plainarrenum_cref(MR.CS.CSharp.ConstArrayE1_42 *a, MR.CS.CSharp.ConstArrayE1_42 *b);
@@ -16303,7 +16652,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarrenum2_cref`.
             /// Parameter `b` defaults to `default_plainarrenum2`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_10_20 TestPlainarrenum2Cref(ref readonly MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
+            public static unsafe ref MR.CS.CSharp.ConstArrayE1_10_20 TestPlainarrenum2Cref(ref MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstArrayE1_10_20 *__MR_CSharp_test_plainarrenum2_cref(MR.CS.CSharp.ConstArrayE1_10_20 *a, MR.CS.CSharp.ConstArrayE1_10_20 *b);
@@ -16370,7 +16719,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_intptr_cref`.
             /// Parameter `b` defaults to `default_intptr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref int *TestIntptrCref(ref int *a, int **b = null)
+            public static unsafe ref readonly int *TestIntptrCref(ref readonly int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_cref", ExactSpelling = true)]
                 extern static int **__MR_CSharp_test_intptr_cref(int **a, int **b);
@@ -16401,7 +16750,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_intcptr_ref`.
             /// Parameter `b` defaults to `default_intcptr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly int *TestIntcptrRef(ref readonly int *a, int **b = null)
+            public static unsafe ref int *TestIntcptrRef(ref int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_ref", ExactSpelling = true)]
                 extern static int **__MR_CSharp_test_intcptr_ref(int **a, int **b);
@@ -16458,7 +16807,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_intptrptr_cref`.
             /// Parameter `b` defaults to `default_intptrptr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref int **TestIntptrptrCref(ref int **a, int ***b = null)
+            public static unsafe ref readonly int **TestIntptrptrCref(ref readonly int **a, int ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_cref", ExactSpelling = true)]
                 extern static int ***__MR_CSharp_test_intptrptr_cref(int ***a, int ***b);
@@ -16502,7 +16851,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_voidptr_cref`.
             /// Parameter `b` defaults to `default_voidptr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref void *TestVoidptrCref(ref void *a, void **b = null)
+            public static unsafe ref readonly void *TestVoidptrCref(ref readonly void *a, void **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_cref", ExactSpelling = true)]
                 extern static void **__MR_CSharp_test_voidptr_cref(void **a, void **b);
@@ -16546,7 +16895,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_voidptrptr_cref`.
             /// Parameter `b` defaults to `default_voidptrptr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref void **TestVoidptrptrCref(ref void **a, void ***b = null)
+            public static unsafe ref readonly void **TestVoidptrptrCref(ref readonly void **a, void ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_cref", ExactSpelling = true)]
                 extern static void ***__MR_CSharp_test_voidptrptr_cref(void ***a, void ***b);
@@ -16590,7 +16939,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_arrptr_cref`.
             /// Parameter `b` defaults to `default_arrptr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref MR.CS.ArrayInt42 *TestArrptrCref(ref MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
+            public static unsafe ref readonly MR.CS.ArrayInt42 *TestArrptrCref(ref readonly MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_cref", ExactSpelling = true)]
                 extern static MR.CS.ArrayInt42 **__MR_CSharp_test_arrptr_cref(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b);
@@ -16621,7 +16970,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_arrcptr_ref`.
             /// Parameter `b` defaults to `default_arrcptr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref readonly MR.CS.ConstArrayInt42 *TestArrcptrRef(ref readonly MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
+            public static unsafe ref MR.CS.ConstArrayInt42 *TestArrcptrRef(ref MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_ref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt42 **__MR_CSharp_test_arrcptr_ref(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b);

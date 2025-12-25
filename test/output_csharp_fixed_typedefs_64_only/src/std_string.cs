@@ -96,6 +96,7 @@ public static partial class MR
                 {
                     return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
                 }
+                public override string ToString() {return (string)this;}
             }
 
             /// A heap-allocated null-terminated string.

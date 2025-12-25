@@ -762,6 +762,23 @@ namespace MR::CSharp
         explicit operator unsigned short &() {return s;}
     };
 
+    // Conversions to string-like types.
+    // Those create the additional `operator string` to convert directly to a C# string, and `override string ToString()` to override the method of the implicit base `object`.
+
+    struct StringConvString
+    {
+        operator std::string() {return "blah";}
+    };
+    struct StringConvStringView
+    {
+        // Mark this `explicit` and `const` for a change.
+        explicit operator std::string_view() const {return "bleh";}
+    };
+    struct StringConvFsPath
+    {
+        operator std::filesystem::path() {return "bluh";}
+    };
+
 
     // Conversion constructors. Right now we only provide conversion operators for implicit ones,
     //   because I have no idea when the explicit ones could be useful.

@@ -5776,6 +5776,153 @@ MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_AssignFromAnother(MR_CSharp_ConvOpT
     ));
 }
 
+MR_CSharp_StringConvString *MR_CSharp_StringConvString_DefaultConstruct(void)
+{
+    return (MR_CSharp_StringConvString *)new MR::CSharp::StringConvString(MR::CSharp::StringConvString());
+}
+
+MR_CSharp_StringConvString *MR_CSharp_StringConvString_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_StringConvString *)(new MR::CSharp::StringConvString[num_elems]{});
+}
+
+const MR_CSharp_StringConvString *MR_CSharp_StringConvString_OffsetPtr(const MR_CSharp_StringConvString *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_StringConvString *)(((const MR::CSharp::StringConvString *)ptr) + i);
+}
+
+MR_CSharp_StringConvString *MR_CSharp_StringConvString_OffsetMutablePtr(MR_CSharp_StringConvString *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_StringConvString *)(((MR::CSharp::StringConvString *)ptr) + i);
+}
+
+MR_CSharp_StringConvString *MR_CSharp_StringConvString_ConstructFromAnother(const MR_CSharp_StringConvString *_other)
+{
+    return (MR_CSharp_StringConvString *)new MR::CSharp::StringConvString(MR::CSharp::StringConvString(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvString(*(MR::CSharp::StringConvString *)_other))
+    ));
+}
+
+void MR_CSharp_StringConvString_Destroy(const MR_CSharp_StringConvString *_this)
+{
+    delete ((const MR::CSharp::StringConvString *)_this);
+}
+
+void MR_CSharp_StringConvString_DestroyArray(const MR_CSharp_StringConvString *_this)
+{
+    delete[] ((const MR::CSharp::StringConvString *)_this);
+}
+
+MR_C_std_string *MR_CSharp_StringConvString_ConvertTo_std_string(MR_CSharp_StringConvString *_this)
+{
+    return (MR_C_std_string *)new std::string((std::string)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvString *)(_this))));
+}
+
+MR_CSharp_StringConvString *MR_CSharp_StringConvString_AssignFromAnother(MR_CSharp_StringConvString *_this, const MR_CSharp_StringConvString *_other)
+{
+    return (MR_CSharp_StringConvString *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvString *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvString(*(MR::CSharp::StringConvString *)_other))
+    ));
+}
+
+MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_DefaultConstruct(void)
+{
+    return (MR_CSharp_StringConvStringView *)new MR::CSharp::StringConvStringView(MR::CSharp::StringConvStringView());
+}
+
+MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_StringConvStringView *)(new MR::CSharp::StringConvStringView[num_elems]{});
+}
+
+const MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_OffsetPtr(const MR_CSharp_StringConvStringView *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_StringConvStringView *)(((const MR::CSharp::StringConvStringView *)ptr) + i);
+}
+
+MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_OffsetMutablePtr(MR_CSharp_StringConvStringView *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_StringConvStringView *)(((MR::CSharp::StringConvStringView *)ptr) + i);
+}
+
+MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_ConstructFromAnother(const MR_CSharp_StringConvStringView *_other)
+{
+    return (MR_CSharp_StringConvStringView *)new MR::CSharp::StringConvStringView(MR::CSharp::StringConvStringView(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvStringView(*(MR::CSharp::StringConvStringView *)_other))
+    ));
+}
+
+void MR_CSharp_StringConvStringView_Destroy(const MR_CSharp_StringConvStringView *_this)
+{
+    delete ((const MR::CSharp::StringConvStringView *)_this);
+}
+
+void MR_CSharp_StringConvStringView_DestroyArray(const MR_CSharp_StringConvStringView *_this)
+{
+    delete[] ((const MR::CSharp::StringConvStringView *)_this);
+}
+
+MR_C_std_string_view *MR_CSharp_StringConvStringView_ConvertTo_std_string_view(const MR_CSharp_StringConvStringView *_this)
+{
+    return (MR_C_std_string_view *)new std::string_view((std::string_view)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::StringConvStringView *)(_this))));
+}
+
+MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_AssignFromAnother(MR_CSharp_StringConvStringView *_this, const MR_CSharp_StringConvStringView *_other)
+{
+    return (MR_CSharp_StringConvStringView *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvStringView *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvStringView(*(MR::CSharp::StringConvStringView *)_other))
+    ));
+}
+
+MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_DefaultConstruct(void)
+{
+    return (MR_CSharp_StringConvFsPath *)new MR::CSharp::StringConvFsPath(MR::CSharp::StringConvFsPath());
+}
+
+MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_StringConvFsPath *)(new MR::CSharp::StringConvFsPath[num_elems]{});
+}
+
+const MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_OffsetPtr(const MR_CSharp_StringConvFsPath *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_StringConvFsPath *)(((const MR::CSharp::StringConvFsPath *)ptr) + i);
+}
+
+MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_OffsetMutablePtr(MR_CSharp_StringConvFsPath *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_StringConvFsPath *)(((MR::CSharp::StringConvFsPath *)ptr) + i);
+}
+
+MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_ConstructFromAnother(const MR_CSharp_StringConvFsPath *_other)
+{
+    return (MR_CSharp_StringConvFsPath *)new MR::CSharp::StringConvFsPath(MR::CSharp::StringConvFsPath(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvFsPath(*(MR::CSharp::StringConvFsPath *)_other))
+    ));
+}
+
+void MR_CSharp_StringConvFsPath_Destroy(const MR_CSharp_StringConvFsPath *_this)
+{
+    delete ((const MR::CSharp::StringConvFsPath *)_this);
+}
+
+void MR_CSharp_StringConvFsPath_DestroyArray(const MR_CSharp_StringConvFsPath *_this)
+{
+    delete[] ((const MR::CSharp::StringConvFsPath *)_this);
+}
+
+MR_C_std_filesystem_path *MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path(MR_CSharp_StringConvFsPath *_this)
+{
+    return (MR_C_std_filesystem_path *)new std::filesystem::path((std::filesystem::path)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvFsPath *)(_this))));
+}
+
+MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_AssignFromAnother(MR_CSharp_StringConvFsPath *_this, const MR_CSharp_StringConvFsPath *_other)
+{
+    return (MR_CSharp_StringConvFsPath *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvFsPath *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvFsPath(*(MR::CSharp::StringConvFsPath *)_other))
+    ));
+}
+
 MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_DefaultConstruct(void)
 {
     return (MR_CSharp_ConvCtor *)new MR::CSharp::ConvCtor(MR::CSharp::ConvCtor());

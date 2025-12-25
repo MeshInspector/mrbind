@@ -687,6 +687,11 @@ namespace mrbind::CSharp
             less_to_less_eq,
             // `>=` being defined in terms of `<`.
             less_to_greater_eq,
+
+            // From the `operator std::string` (or similar) to a conversion to C# `string`.
+            stringlike_conv_to_csharp_string_conv,
+            // From the `operator std::string` (or similar) to `.ToString()` (which overrides a method of `object`).
+            stringlike_conv_to_tostring,
         };
 
         // Returns true if this is one of `conv_op_for_ctor...` enum constants, including exactly `conv_op_for_ctor`.
