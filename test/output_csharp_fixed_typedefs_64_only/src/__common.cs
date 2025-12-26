@@ -159,6 +159,67 @@ public static partial class MR
                 public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}
             }
 
+            /// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.
+            /// This is used for class fields of pointer types to const non-classes.
+            /// Usage:
+            /// * To read a property of type `Const_Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.
+            /// * To modify the property, either assign a value of type `T`, or assign `null`.
+            ///   Assigning a value will allocate its copy and make the underlying pointer point to it.
+            public class Const_Box<T> : System.IDisposable where T: unmanaged
+            {
+                internal unsafe T *_UnderlyingPtr;
+                bool _IsOwning;
+
+                public unsafe ref readonly T Value => ref *_UnderlyingPtr;
+                public bool IsOwning => _IsOwning;
+
+                /// Allocate a new value.
+                unsafe public Const_Box(T value)
+                {
+                    _IsOwning = true;
+                    _UnderlyingPtr = (T *)MR.CS.Misc._Alloc((nuint)sizeof(T));
+                    *_UnderlyingPtr = value;
+                }
+
+                // Implicitly convert from a value, allocating a copy of it.
+                // Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.
+                public static implicit operator Const_Box<T>(T value) {return new(value);}
+
+                /// Store a non-owning pointer.
+                unsafe public Const_Box(T *ptr)
+                {
+                    _IsOwning = false;
+                    _UnderlyingPtr = ptr;
+                }
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwning)
+                        return;
+                    // Dealloc.
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_Box() {Dispose(false);}
+            }
+
+            /// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.
+            /// This is used for class fields of pointer types to mutable non-classes.
+            /// Usage:
+            /// * To read a property of type `Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.
+            /// * To modify the property, either assign `new(value)` (to allocate a copy of the value and point to it), or assign `null`.
+            ///   Since `.Value` returns a mutable ref, you can also assign to that to modify the pointee, assuming the property isn't null.
+            public class Box<T> : Const_Box<T> where T: unmanaged
+            {
+                public new unsafe ref T Value => ref *_UnderlyingPtr;
+
+                /// Allocate a new value.
+                unsafe public Box(T value) : base(value) {}
+
+                /// Store a non-owning pointer.
+                unsafe public Box(T *ptr) : base(ptr) {}
+            }
+
             /// An internal function for allocating memory through C++.
             internal static unsafe void *_Alloc(nuint size)
             {

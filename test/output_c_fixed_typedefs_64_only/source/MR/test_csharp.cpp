@@ -8406,96 +8406,96 @@ int MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, const MR_
     );
 }
 
-MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_sa(void)
+MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sa(void)
 {
-    return (MR_CSharp_A *const *)std::addressof(MR::CSharp::ClassMemberPointers::sa);
+    return (MR_CSharp_A *const *)std::addressof(MR::CSharp::ClassMemberPointersClass::sa);
 }
 
-void MR_CSharp_ClassMemberPointers_Set_sa(MR_CSharp_A *value)
+void MR_CSharp_ClassMemberPointersClass_Set_sa(MR_CSharp_A *value)
 {
-    MR::CSharp::ClassMemberPointers::sa = ((MR::CSharp::A *)value);
+    MR::CSharp::ClassMemberPointersClass::sa = ((MR::CSharp::A *)value);
 }
 
-MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_sa(void)
+MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_sa(void)
 {
-    return (MR_CSharp_A **)std::addressof(MR::CSharp::ClassMemberPointers::sa);
+    return (MR_CSharp_A **)std::addressof(MR::CSharp::ClassMemberPointersClass::sa);
 }
 
-const MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_sb(void)
+const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sb(void)
 {
-    return (const MR_CSharp_A *const *)std::addressof(MR::CSharp::ClassMemberPointers::sb);
+    return (const MR_CSharp_A *const *)std::addressof(MR::CSharp::ClassMemberPointersClass::sb);
 }
 
-void MR_CSharp_ClassMemberPointers_Set_sb(const MR_CSharp_A *value)
+void MR_CSharp_ClassMemberPointersClass_Set_sb(const MR_CSharp_A *value)
 {
-    MR::CSharp::ClassMemberPointers::sb = ((const MR::CSharp::A *)value);
+    MR::CSharp::ClassMemberPointersClass::sb = ((const MR::CSharp::A *)value);
 }
 
-const MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_sb(void)
+const MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_sb(void)
 {
-    return (const MR_CSharp_A **)std::addressof(MR::CSharp::ClassMemberPointers::sb);
+    return (const MR_CSharp_A **)std::addressof(MR::CSharp::ClassMemberPointersClass::sb);
 }
 
-MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_sc(void)
+MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_sc(void)
 {
-    return (MR_CSharp_A *)std::addressof(MR::CSharp::ClassMemberPointers::sc);
+    return (MR_CSharp_A *)std::addressof(MR::CSharp::ClassMemberPointersClass::sc);
 }
 
-const MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_sd(void)
+const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_sd(void)
 {
-    return (const MR_CSharp_A *)std::addressof(MR::CSharp::ClassMemberPointers::sd);
+    return (const MR_CSharp_A *)std::addressof(MR::CSharp::ClassMemberPointersClass::sd);
 }
 
-MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_a(const MR_CSharp_ClassMemberPointers *_this)
+MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_a(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (MR_CSharp_A *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointers *)(_this)).a);
+    return (MR_CSharp_A *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).a);
 }
 
-void MR_CSharp_ClassMemberPointers_Set_a(MR_CSharp_ClassMemberPointers *_this, MR_CSharp_A *value)
+void MR_CSharp_ClassMemberPointersClass_Set_a(MR_CSharp_ClassMemberPointersClass *_this, MR_CSharp_A *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointers *)(_this)).a = ((MR::CSharp::A *)value);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).a = ((MR::CSharp::A *)value);
 }
 
-MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_a(MR_CSharp_ClassMemberPointers *_this)
+MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_a(MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (MR_CSharp_A **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointers *)(_this)).a);
+    return (MR_CSharp_A **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).a);
 }
 
-const MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_b(const MR_CSharp_ClassMemberPointers *_this)
+const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_b(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (const MR_CSharp_A *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointers *)(_this)).b);
+    return (const MR_CSharp_A *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).b);
 }
 
-void MR_CSharp_ClassMemberPointers_Set_b(MR_CSharp_ClassMemberPointers *_this, const MR_CSharp_A *value)
+void MR_CSharp_ClassMemberPointersClass_Set_b(MR_CSharp_ClassMemberPointersClass *_this, const MR_CSharp_A *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointers *)(_this)).b = ((const MR::CSharp::A *)value);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).b = ((const MR::CSharp::A *)value);
 }
 
-const MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_b(MR_CSharp_ClassMemberPointers *_this)
+const MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_b(MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (const MR_CSharp_A **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointers *)(_this)).b);
+    return (const MR_CSharp_A **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).b);
 }
 
-MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_c(const MR_CSharp_ClassMemberPointers *_this)
+MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_c(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointers *)(_this)).c);
+    return (MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).c);
 }
 
-const MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_d(const MR_CSharp_ClassMemberPointers *_this)
+const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_d(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (const MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointers *)(_this)).d);
+    return (const MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).d);
 }
 
-MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_ConstructFromAnother(const MR_CSharp_ClassMemberPointers *_other)
+MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(const MR_CSharp_ClassMemberPointersClass *_other)
 {
-    return (MR_CSharp_ClassMemberPointers *)new MR::CSharp::ClassMemberPointers(MR::CSharp::ClassMemberPointers(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointers(*(MR::CSharp::ClassMemberPointers *)_other))
+    return (MR_CSharp_ClassMemberPointersClass *)new MR::CSharp::ClassMemberPointersClass(MR::CSharp::ClassMemberPointersClass(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersClass(*(MR::CSharp::ClassMemberPointersClass *)_other))
     ));
 }
 
-MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_ConstructFrom(MR_CSharp_A *a, const MR_CSharp_A *b, MR_CSharp_A *c, const MR_CSharp_A *d)
+MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_ConstructFrom(MR_CSharp_A *a, const MR_CSharp_A *b, MR_CSharp_A *c, const MR_CSharp_A *d)
 {
-    return (MR_CSharp_ClassMemberPointers *)new MR::CSharp::ClassMemberPointers(MR::CSharp::ClassMemberPointers{
+    return (MR_CSharp_ClassMemberPointersClass *)new MR::CSharp::ClassMemberPointersClass(MR::CSharp::ClassMemberPointersClass{
         ((MR::CSharp::A *)a),
         ((const MR::CSharp::A *)b),
         ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(MR::CSharp::A *)(c)),
@@ -8503,24 +8503,375 @@ MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_ConstructFrom(MR_CS
     });
 }
 
-const MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_OffsetPtr(const MR_CSharp_ClassMemberPointers *ptr, ptrdiff_t i)
+const MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_OffsetPtr(const MR_CSharp_ClassMemberPointersClass *ptr, ptrdiff_t i)
 {
-    return (const MR_CSharp_ClassMemberPointers *)(((const MR::CSharp::ClassMemberPointers *)ptr) + i);
+    return (const MR_CSharp_ClassMemberPointersClass *)(((const MR::CSharp::ClassMemberPointersClass *)ptr) + i);
 }
 
-MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_OffsetMutablePtr(MR_CSharp_ClassMemberPointers *ptr, ptrdiff_t i)
+MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_OffsetMutablePtr(MR_CSharp_ClassMemberPointersClass *ptr, ptrdiff_t i)
 {
-    return (MR_CSharp_ClassMemberPointers *)(((MR::CSharp::ClassMemberPointers *)ptr) + i);
+    return (MR_CSharp_ClassMemberPointersClass *)(((MR::CSharp::ClassMemberPointersClass *)ptr) + i);
 }
 
-void MR_CSharp_ClassMemberPointers_Destroy(const MR_CSharp_ClassMemberPointers *_this)
+void MR_CSharp_ClassMemberPointersClass_Destroy(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    delete ((const MR::CSharp::ClassMemberPointers *)_this);
+    delete ((const MR::CSharp::ClassMemberPointersClass *)_this);
 }
 
-void MR_CSharp_ClassMemberPointers_DestroyArray(const MR_CSharp_ClassMemberPointers *_this)
+void MR_CSharp_ClassMemberPointersClass_DestroyArray(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    delete[] ((const MR::CSharp::ClassMemberPointers *)_this);
+    delete[] ((const MR::CSharp::ClassMemberPointersClass *)_this);
+}
+
+MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_sa(void)
+{
+    return (MR_CSharp_ExposedLayout *const *)std::addressof(MR::CSharp::ClassMemberPointersExposed::sa);
+}
+
+void MR_CSharp_ClassMemberPointersExposed_Set_sa(MR_CSharp_ExposedLayout *value)
+{
+    MR::CSharp::ClassMemberPointersExposed::sa = ((MR::CSharp::ExposedLayout *)value);
+}
+
+MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_sa(void)
+{
+    return (MR_CSharp_ExposedLayout **)std::addressof(MR::CSharp::ClassMemberPointersExposed::sa);
+}
+
+const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_sb(void)
+{
+    return (const MR_CSharp_ExposedLayout *const *)std::addressof(MR::CSharp::ClassMemberPointersExposed::sb);
+}
+
+void MR_CSharp_ClassMemberPointersExposed_Set_sb(const MR_CSharp_ExposedLayout *value)
+{
+    MR::CSharp::ClassMemberPointersExposed::sb = ((const MR::CSharp::ExposedLayout *)value);
+}
+
+const MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_sb(void)
+{
+    return (const MR_CSharp_ExposedLayout **)std::addressof(MR::CSharp::ClassMemberPointersExposed::sb);
+}
+
+MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_sc(void)
+{
+    return (MR_CSharp_ExposedLayout *)std::addressof(MR::CSharp::ClassMemberPointersExposed::sc);
+}
+
+const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_sd(void)
+{
+    return (const MR_CSharp_ExposedLayout *)std::addressof(MR::CSharp::ClassMemberPointersExposed::sd);
+}
+
+MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_a(const MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    return (MR_CSharp_ExposedLayout *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).a);
+}
+
+void MR_CSharp_ClassMemberPointersExposed_Set_a(MR_CSharp_ClassMemberPointersExposed *_this, MR_CSharp_ExposedLayout *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).a = ((MR::CSharp::ExposedLayout *)value);
+}
+
+MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_a(MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    return (MR_CSharp_ExposedLayout **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).a);
+}
+
+const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_b(const MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    return (const MR_CSharp_ExposedLayout *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).b);
+}
+
+void MR_CSharp_ClassMemberPointersExposed_Set_b(MR_CSharp_ClassMemberPointersExposed *_this, const MR_CSharp_ExposedLayout *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).b = ((const MR::CSharp::ExposedLayout *)value);
+}
+
+const MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_b(MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    return (const MR_CSharp_ExposedLayout **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).b);
+}
+
+MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_c(const MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).c);
+}
+
+const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_d(const MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).d);
+}
+
+MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(const MR_CSharp_ClassMemberPointersExposed *_other)
+{
+    return (MR_CSharp_ClassMemberPointersExposed *)new MR::CSharp::ClassMemberPointersExposed(MR::CSharp::ClassMemberPointersExposed(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersExposed(*(MR::CSharp::ClassMemberPointersExposed *)_other))
+    ));
+}
+
+MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_ConstructFrom(MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b, MR_CSharp_ExposedLayout *c, const MR_CSharp_ExposedLayout *d)
+{
+    return (MR_CSharp_ClassMemberPointersExposed *)new MR::CSharp::ClassMemberPointersExposed(MR::CSharp::ClassMemberPointersExposed{
+        ((MR::CSharp::ExposedLayout *)a),
+        ((const MR::CSharp::ExposedLayout *)b),
+        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(MR::CSharp::ExposedLayout *)(c)),
+        ((d ? void() : throw std::runtime_error("Parameter `d` can not be null.")), *(const MR::CSharp::ExposedLayout *)(d))
+    });
+}
+
+const MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_OffsetPtr(const MR_CSharp_ClassMemberPointersExposed *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ClassMemberPointersExposed *)(((const MR::CSharp::ClassMemberPointersExposed *)ptr) + i);
+}
+
+MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_OffsetMutablePtr(MR_CSharp_ClassMemberPointersExposed *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ClassMemberPointersExposed *)(((MR::CSharp::ClassMemberPointersExposed *)ptr) + i);
+}
+
+void MR_CSharp_ClassMemberPointersExposed_Destroy(const MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    delete ((const MR::CSharp::ClassMemberPointersExposed *)_this);
+}
+
+void MR_CSharp_ClassMemberPointersExposed_DestroyArray(const MR_CSharp_ClassMemberPointersExposed *_this)
+{
+    delete[] ((const MR::CSharp::ClassMemberPointersExposed *)_this);
+}
+
+unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_sa(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersUshort::sa);
+}
+
+void MR_CSharp_ClassMemberPointersUshort_Set_sa(unsigned short *value)
+{
+    MR::CSharp::ClassMemberPointersUshort::sa = value;
+}
+
+unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_sa(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersUshort::sa);
+}
+
+const unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_sb(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersUshort::sb);
+}
+
+void MR_CSharp_ClassMemberPointersUshort_Set_sb(const unsigned short *value)
+{
+    MR::CSharp::ClassMemberPointersUshort::sb = value;
+}
+
+const unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_sb(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersUshort::sb);
+}
+
+unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_sc(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersUshort::sc);
+}
+
+const unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_sd(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersUshort::sd);
+}
+
+unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_a(const MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).a);
+}
+
+void MR_CSharp_ClassMemberPointersUshort_Set_a(MR_CSharp_ClassMemberPointersUshort *_this, unsigned short *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).a = value;
+}
+
+unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_a(MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).a);
+}
+
+const unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_b(const MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).b);
+}
+
+void MR_CSharp_ClassMemberPointersUshort_Set_b(MR_CSharp_ClassMemberPointersUshort *_this, const unsigned short *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).b = value;
+}
+
+const unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_b(MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).b);
+}
+
+unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_c(const MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).c);
+}
+
+const unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_d(const MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).d);
+}
+
+MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(const MR_CSharp_ClassMemberPointersUshort *_other)
+{
+    return (MR_CSharp_ClassMemberPointersUshort *)new MR::CSharp::ClassMemberPointersUshort(MR::CSharp::ClassMemberPointersUshort(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersUshort(*(MR::CSharp::ClassMemberPointersUshort *)_other))
+    ));
+}
+
+MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_ConstructFrom(unsigned short *a, const unsigned short *b, unsigned short *c, const unsigned short *d)
+{
+    return (MR_CSharp_ClassMemberPointersUshort *)new MR::CSharp::ClassMemberPointersUshort(MR::CSharp::ClassMemberPointersUshort{
+        a,
+        b,
+        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *c),
+        ((d ? void() : throw std::runtime_error("Parameter `d` can not be null.")), *d)
+    });
+}
+
+const MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_OffsetPtr(const MR_CSharp_ClassMemberPointersUshort *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ClassMemberPointersUshort *)(((const MR::CSharp::ClassMemberPointersUshort *)ptr) + i);
+}
+
+MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_OffsetMutablePtr(MR_CSharp_ClassMemberPointersUshort *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ClassMemberPointersUshort *)(((MR::CSharp::ClassMemberPointersUshort *)ptr) + i);
+}
+
+void MR_CSharp_ClassMemberPointersUshort_Destroy(const MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    delete ((const MR::CSharp::ClassMemberPointersUshort *)_this);
+}
+
+void MR_CSharp_ClassMemberPointersUshort_DestroyArray(const MR_CSharp_ClassMemberPointersUshort *_this)
+{
+    delete[] ((const MR::CSharp::ClassMemberPointersUshort *)_this);
+}
+
+bool *const *MR_CSharp_ClassMemberPointersBool_Get_sa(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersBool::sa);
+}
+
+void MR_CSharp_ClassMemberPointersBool_Set_sa(bool *value)
+{
+    MR::CSharp::ClassMemberPointersBool::sa = value;
+}
+
+bool **MR_CSharp_ClassMemberPointersBool_GetMutable_sa(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersBool::sa);
+}
+
+const bool *const *MR_CSharp_ClassMemberPointersBool_Get_sb(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersBool::sb);
+}
+
+void MR_CSharp_ClassMemberPointersBool_Set_sb(const bool *value)
+{
+    MR::CSharp::ClassMemberPointersBool::sb = value;
+}
+
+const bool **MR_CSharp_ClassMemberPointersBool_GetMutable_sb(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersBool::sb);
+}
+
+bool *MR_CSharp_ClassMemberPointersBool_Get_sc(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersBool::sc);
+}
+
+const bool *MR_CSharp_ClassMemberPointersBool_Get_sd(void)
+{
+    return std::addressof(MR::CSharp::ClassMemberPointersBool::sd);
+}
+
+bool *const *MR_CSharp_ClassMemberPointersBool_Get_a(const MR_CSharp_ClassMemberPointersBool *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).a);
+}
+
+void MR_CSharp_ClassMemberPointersBool_Set_a(MR_CSharp_ClassMemberPointersBool *_this, bool *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).a = value;
+}
+
+bool **MR_CSharp_ClassMemberPointersBool_GetMutable_a(MR_CSharp_ClassMemberPointersBool *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).a);
+}
+
+const bool *const *MR_CSharp_ClassMemberPointersBool_Get_b(const MR_CSharp_ClassMemberPointersBool *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).b);
+}
+
+void MR_CSharp_ClassMemberPointersBool_Set_b(MR_CSharp_ClassMemberPointersBool *_this, const bool *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).b = value;
+}
+
+const bool **MR_CSharp_ClassMemberPointersBool_GetMutable_b(MR_CSharp_ClassMemberPointersBool *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).b);
+}
+
+bool *MR_CSharp_ClassMemberPointersBool_Get_c(const MR_CSharp_ClassMemberPointersBool *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).c);
+}
+
+const bool *MR_CSharp_ClassMemberPointersBool_Get_d(const MR_CSharp_ClassMemberPointersBool *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).d);
+}
+
+MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(const MR_CSharp_ClassMemberPointersBool *_other)
+{
+    return (MR_CSharp_ClassMemberPointersBool *)new MR::CSharp::ClassMemberPointersBool(MR::CSharp::ClassMemberPointersBool(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersBool(*(MR::CSharp::ClassMemberPointersBool *)_other))
+    ));
+}
+
+MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFrom(bool *a, const bool *b, bool *c, const bool *d)
+{
+    return (MR_CSharp_ClassMemberPointersBool *)new MR::CSharp::ClassMemberPointersBool(MR::CSharp::ClassMemberPointersBool{
+        a,
+        b,
+        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *c),
+        ((d ? void() : throw std::runtime_error("Parameter `d` can not be null.")), *d)
+    });
+}
+
+const MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_OffsetPtr(const MR_CSharp_ClassMemberPointersBool *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ClassMemberPointersBool *)(((const MR::CSharp::ClassMemberPointersBool *)ptr) + i);
+}
+
+MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_OffsetMutablePtr(MR_CSharp_ClassMemberPointersBool *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ClassMemberPointersBool *)(((MR::CSharp::ClassMemberPointersBool *)ptr) + i);
+}
+
+void MR_CSharp_ClassMemberPointersBool_Destroy(const MR_CSharp_ClassMemberPointersBool *_this)
+{
+    delete ((const MR::CSharp::ClassMemberPointersBool *)_this);
+}
+
+void MR_CSharp_ClassMemberPointersBool_DestroyArray(const MR_CSharp_ClassMemberPointersBool *_this)
+{
+    delete[] ((const MR::CSharp::ClassMemberPointersBool *)_this);
 }
 
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)

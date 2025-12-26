@@ -561,10 +561,22 @@ typedef struct MR_CSharp_ConstNonconstConflicts
     int32_t x;
 } MR_CSharp_ConstNonconstConflicts;
 
-// Class fields of pointer types.
-// Generated from class `MR::CSharp::ClassMemberPointers`.
+// Class fields of pointer types:
+// Generated from class `MR::CSharp::ClassMemberPointersClass`.
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
-typedef struct MR_CSharp_ClassMemberPointers MR_CSharp_ClassMemberPointers;
+typedef struct MR_CSharp_ClassMemberPointersClass MR_CSharp_ClassMemberPointersClass;
+
+// Generated from class `MR::CSharp::ClassMemberPointersExposed`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ClassMemberPointersExposed MR_CSharp_ClassMemberPointersExposed;
+
+// Generated from class `MR::CSharp::ClassMemberPointersUshort`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ClassMemberPointersUshort MR_CSharp_ClassMemberPointersUshort;
+
+// Generated from class `MR::CSharp::ClassMemberPointersBool`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ClassMemberPointersBool MR_CSharp_ClassMemberPointersBool;
 
 // Generated from function `MR::CSharp::foo`.
 MR_C_API void MR_CSharp_foo(void);
@@ -6184,96 +6196,369 @@ MR_C_API int32_t MR_C_bitand_int32_t_MR_CSharp_ConstNonconstConflicts_ref(int32_
 // Parameter `_2` can not be null. It is a single object.
 MR_C_API int32_t MR_C_bitand_int32_t_const_MR_CSharp_ConstNonconstConflicts_ref(int32_t _1, const MR_CSharp_ConstNonconstConflicts *_2);
 
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `sa`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sa`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_sa(void);
+MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sa(void);
 
-// Modifies a member variable of class `MR::CSharp::ClassMemberPointers` named `sa`.
-MR_C_API void MR_CSharp_ClassMemberPointers_Set_sa(MR_CSharp_A *value);
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sa`.
+MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_sa(MR_CSharp_A *value);
 
-// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `sa`.
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sa`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_sa(void);
+MR_C_API MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_sa(void);
 
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `sb`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_sb(void);
+MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sb(void);
 
-// Modifies a member variable of class `MR::CSharp::ClassMemberPointers` named `sb`.
-MR_C_API void MR_CSharp_ClassMemberPointers_Set_sb(const MR_CSharp_A *value);
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
+MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_sb(const MR_CSharp_A *value);
 
-// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `sb`.
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_sb(void);
+MR_C_API const MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_sb(void);
 
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `sc`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sc`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_sc(void);
+MR_C_API MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_sc(void);
 
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `sd`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sd`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_sd(void);
+MR_C_API const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_sd(void);
 
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `a`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_a(const MR_CSharp_ClassMemberPointers *_this);
+MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_a(const MR_CSharp_ClassMemberPointersClass *_this);
 
-// Modifies a member variable of class `MR::CSharp::ClassMemberPointers` named `a`.
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_ClassMemberPointers_Set_a(MR_CSharp_ClassMemberPointers *_this, MR_CSharp_A *value);
+MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_a(MR_CSharp_ClassMemberPointersClass *_this, MR_CSharp_A *value);
 
-// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `a`.
-// Parameter `_this` can not be null. It is a single object.
-// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_a(MR_CSharp_ClassMemberPointers *_this);
-
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `b`.
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointers_Get_b(const MR_CSharp_ClassMemberPointers *_this);
+MR_C_API MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_a(MR_CSharp_ClassMemberPointersClass *_this);
 
-// Modifies a member variable of class `MR::CSharp::ClassMemberPointers` named `b`.
-// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_ClassMemberPointers_Set_b(MR_CSharp_ClassMemberPointers *_this, const MR_CSharp_A *value);
-
-// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `b`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_A **MR_CSharp_ClassMemberPointers_GetMutable_b(MR_CSharp_ClassMemberPointers *_this);
+MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_b(const MR_CSharp_ClassMemberPointersClass *_this);
 
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `c`.
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_b(MR_CSharp_ClassMemberPointersClass *_this, const MR_CSharp_A *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_c(const MR_CSharp_ClassMemberPointers *_this);
+MR_C_API const MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_b(MR_CSharp_ClassMemberPointersClass *_this);
 
-// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointers` named `d`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `c`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_A *MR_CSharp_ClassMemberPointers_Get_d(const MR_CSharp_ClassMemberPointers *_this);
+MR_C_API MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_c(const MR_CSharp_ClassMemberPointersClass *_this);
 
-// Generated from constructor `MR::CSharp::ClassMemberPointers::ClassMemberPointers`.
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `d`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_d(const MR_CSharp_ClassMemberPointersClass *_this);
+
+// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
 // Parameter `_other` can not be null. It is a single object.
-// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointers_Destroy()` to free it when you're done using it.
-MR_C_API MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_ConstructFromAnother(const MR_CSharp_ClassMemberPointers *_other);
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersClass_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(const MR_CSharp_ClassMemberPointersClass *_other);
 
-// Constructs `MR::CSharp::ClassMemberPointers` elementwise.
+// Constructs `MR::CSharp::ClassMemberPointersClass` elementwise.
 // Parameter `c` can not be null. It is a single object.
 // Parameter `d` can not be null. It is a single object.
-// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointers_Destroy()` to free it when you're done using it.
-MR_C_API MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_ConstructFrom(MR_CSharp_A *a, const MR_CSharp_A *b, MR_CSharp_A *c, const MR_CSharp_A *d);
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersClass_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_ConstructFrom(MR_CSharp_A *a, const MR_CSharp_A *b, MR_CSharp_A *c, const MR_CSharp_A *d);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-MR_C_API const MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_OffsetPtr(const MR_CSharp_ClassMemberPointers *ptr, ptrdiff_t i);
+MR_C_API const MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_OffsetPtr(const MR_CSharp_ClassMemberPointersClass *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-MR_C_API MR_CSharp_ClassMemberPointers *MR_CSharp_ClassMemberPointers_OffsetMutablePtr(MR_CSharp_ClassMemberPointers *ptr, ptrdiff_t i);
+MR_C_API MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_OffsetMutablePtr(MR_CSharp_ClassMemberPointersClass *ptr, ptrdiff_t i);
 
-// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointers`. Does nothing if the pointer is null.
-MR_C_API void MR_CSharp_ClassMemberPointers_Destroy(const MR_CSharp_ClassMemberPointers *_this);
+// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersClass`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersClass_Destroy(const MR_CSharp_ClassMemberPointersClass *_this);
 
-// Destroys a heap-allocated array of `MR_CSharp_ClassMemberPointers`. Does nothing if the pointer is null.
-MR_C_API void MR_CSharp_ClassMemberPointers_DestroyArray(const MR_CSharp_ClassMemberPointers *_this);
+// Destroys a heap-allocated array of `MR_CSharp_ClassMemberPointersClass`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersClass_DestroyArray(const MR_CSharp_ClassMemberPointersClass *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sa`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_sa(void);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sa`.
+MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_sa(MR_CSharp_ExposedLayout *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sa`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_sa(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_sb(void);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
+MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_sb(const MR_CSharp_ExposedLayout *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_sb(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sc`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_sc(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sd`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_sd(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_a(const MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_a(MR_CSharp_ClassMemberPointersExposed *_this, MR_CSharp_ExposedLayout *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_a(MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_b(const MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_b(MR_CSharp_ClassMemberPointersExposed *_this, const MR_CSharp_ExposedLayout *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_b(MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `c`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_c(const MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `d`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_d(const MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
+// Parameter `_other` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersExposed_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(const MR_CSharp_ClassMemberPointersExposed *_other);
+
+// Constructs `MR::CSharp::ClassMemberPointersExposed` elementwise.
+// Parameter `c` can not be null. It is a single object.
+// Parameter `d` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersExposed_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_ConstructFrom(MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b, MR_CSharp_ExposedLayout *c, const MR_CSharp_ExposedLayout *d);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_OffsetPtr(const MR_CSharp_ClassMemberPointersExposed *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_OffsetMutablePtr(MR_CSharp_ClassMemberPointersExposed *ptr, ptrdiff_t i);
+
+// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersExposed`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersExposed_Destroy(const MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_ClassMemberPointersExposed`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersExposed_DestroyArray(const MR_CSharp_ClassMemberPointersExposed *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sa`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_sa(void);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sa`.
+MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_sa(uint16_t *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sa`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API uint16_t **MR_CSharp_ClassMemberPointersUshort_GetMutable_sa(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_sb(void);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
+MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_sb(const uint16_t *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const uint16_t **MR_CSharp_ClassMemberPointersUshort_GetMutable_sb(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sc`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API uint16_t *MR_CSharp_ClassMemberPointersUshort_Get_sc(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sd`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const uint16_t *MR_CSharp_ClassMemberPointersUshort_Get_sd(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_a(const MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_a(MR_CSharp_ClassMemberPointersUshort *_this, uint16_t *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API uint16_t **MR_CSharp_ClassMemberPointersUshort_GetMutable_a(MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_b(const MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_b(MR_CSharp_ClassMemberPointersUshort *_this, const uint16_t *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const uint16_t **MR_CSharp_ClassMemberPointersUshort_GetMutable_b(MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `c`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API uint16_t *MR_CSharp_ClassMemberPointersUshort_Get_c(const MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `d`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const uint16_t *MR_CSharp_ClassMemberPointersUshort_Get_d(const MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
+// Parameter `_other` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersUshort_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(const MR_CSharp_ClassMemberPointersUshort *_other);
+
+// Constructs `MR::CSharp::ClassMemberPointersUshort` elementwise.
+// Parameter `c` can not be null. It is a single object.
+// Parameter `d` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersUshort_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_ConstructFrom(uint16_t *a, const uint16_t *b, uint16_t *c, const uint16_t *d);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_OffsetPtr(const MR_CSharp_ClassMemberPointersUshort *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_OffsetMutablePtr(MR_CSharp_ClassMemberPointersUshort *ptr, ptrdiff_t i);
+
+// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersUshort`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersUshort_Destroy(const MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_ClassMemberPointersUshort`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersUshort_DestroyArray(const MR_CSharp_ClassMemberPointersUshort *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API bool *const *MR_CSharp_ClassMemberPointersBool_Get_sa(void);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
+MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_sa(bool *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API bool **MR_CSharp_ClassMemberPointersBool_GetMutable_sa(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const bool *const *MR_CSharp_ClassMemberPointersBool_Get_sb(void);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
+MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_sb(const bool *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const bool **MR_CSharp_ClassMemberPointersBool_GetMutable_sb(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sc`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API bool *MR_CSharp_ClassMemberPointersBool_Get_sc(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sd`.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const bool *MR_CSharp_ClassMemberPointersBool_Get_sd(void);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API bool *const *MR_CSharp_ClassMemberPointersBool_Get_a(const MR_CSharp_ClassMemberPointersBool *_this);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_a(MR_CSharp_ClassMemberPointersBool *_this, bool *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API bool **MR_CSharp_ClassMemberPointersBool_GetMutable_a(MR_CSharp_ClassMemberPointersBool *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const bool *const *MR_CSharp_ClassMemberPointersBool_Get_b(const MR_CSharp_ClassMemberPointersBool *_this);
+
+// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_b(MR_CSharp_ClassMemberPointersBool *_this, const bool *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const bool **MR_CSharp_ClassMemberPointersBool_GetMutable_b(MR_CSharp_ClassMemberPointersBool *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `c`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API bool *MR_CSharp_ClassMemberPointersBool_Get_c(const MR_CSharp_ClassMemberPointersBool *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `d`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const bool *MR_CSharp_ClassMemberPointersBool_Get_d(const MR_CSharp_ClassMemberPointersBool *_this);
+
+// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
+// Parameter `_other` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersBool_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(const MR_CSharp_ClassMemberPointersBool *_other);
+
+// Constructs `MR::CSharp::ClassMemberPointersBool` elementwise.
+// Parameter `c` can not be null. It is a single object.
+// Parameter `d` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersBool_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFrom(bool *a, const bool *b, bool *c, const bool *d);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_OffsetPtr(const MR_CSharp_ClassMemberPointersBool *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_OffsetMutablePtr(MR_CSharp_ClassMemberPointersBool *ptr, ptrdiff_t i);
+
+// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersBool`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersBool_Destroy(const MR_CSharp_ClassMemberPointersBool *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_ClassMemberPointersBool`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ClassMemberPointersBool_DestroyArray(const MR_CSharp_ClassMemberPointersBool *_this);
 
 // Generated from function `MR::CSharp::test_expected_int`.
 // Parameter `a` can not be null. It is a single object.

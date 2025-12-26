@@ -16,6 +16,8 @@ public static partial class MR
                 public unsafe ref readonly Array_Int_43 UnderlyingStruct => ref *(Array_Int_43 *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_Array_Int_43(Array_Int_43 other) : this(new Const_Array_Int_43((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `Const_Array_Int_43` has this conversion, `Mut_Array_Int_43` intentionally doesn't.
+                public static implicit operator Const_Array_Int_43(Array_Int_43 other) {return new(other);}
 
                 internal unsafe Const_Array_Int_43(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 

@@ -1279,8 +1279,9 @@ namespace MR::CSharp
     };
 
 
-    // Class fields of pointer types.
-    struct ClassMemberPointers
+    // Class fields of pointer types:
+
+    struct ClassMemberPointersClass
     {
         A *a;
         const A *b;
@@ -1291,6 +1292,45 @@ namespace MR::CSharp
         static const A *sb;
         static A &sc;
         static const A &sd;
+    };
+
+    struct ClassMemberPointersExposed
+    {
+        ExposedLayout *a;
+        const ExposedLayout *b;
+        ExposedLayout &c;
+        const ExposedLayout &d;
+
+        static ExposedLayout *sa;
+        static const ExposedLayout *sb;
+        static ExposedLayout &sc;
+        static const ExposedLayout &sd;
+    };
+
+    struct ClassMemberPointersUshort
+    {
+        unsigned short *a;
+        const unsigned short *b;
+        unsigned short &c;
+        const unsigned short &d;
+
+        static unsigned short *sa;
+        static const unsigned short *sb;
+        static unsigned short &sc;
+        static const unsigned short &sd;
+    };
+
+    struct ClassMemberPointersBool
+    {
+        bool *a;
+        const bool *b;
+        bool &c;
+        const bool &d;
+
+        static bool *sa;
+        static const bool *sb;
+        static bool &sc;
+        static const bool &sd;
     };
 }
 

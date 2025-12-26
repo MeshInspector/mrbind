@@ -17,6 +17,8 @@ public static partial class MR
                 public unsafe ref readonly A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `Const_A` has this conversion, `Mut_A` intentionally doesn't.
+                public static implicit operator Const_A(A other) {return new(other);}
 
                 internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -141,6 +143,8 @@ public static partial class MR
                     public unsafe ref readonly B UnderlyingStruct => ref *(B *)_UnderlyingPtr;
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                     public unsafe Const_B(B other) : this(new Const_B((_Underlying *)&other, is_owning: false)) {}
+                    /// Convert from a struct by copying it. Note that only `Const_B` has this conversion, `Mut_B` intentionally doesn't.
+                    public static implicit operator Const_B(B other) {return new(other);}
 
                     internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -407,6 +411,8 @@ public static partial class MR
                 public unsafe ref readonly C_False UnderlyingStruct => ref *(C_False *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_C_False(C_False other) : this(new Const_C_False((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `Const_C_False` has this conversion, `Mut_C_False` intentionally doesn't.
+                public static implicit operator Const_C_False(C_False other) {return new(other);}
 
                 internal unsafe Const_C_False(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -580,6 +586,8 @@ public static partial class MR
                 public unsafe ref readonly C_True UnderlyingStruct => ref *(C_True *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_C_True(C_True other) : this(new Const_C_True((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `Const_C_True` has this conversion, `Mut_C_True` intentionally doesn't.
+                public static implicit operator Const_C_True(C_True other) {return new(other);}
 
                 internal unsafe Const_C_True(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 

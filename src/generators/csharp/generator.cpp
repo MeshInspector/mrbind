@@ -4416,6 +4416,16 @@ namespace mrbind::CSharp
                             // Note, we must respect `copy_constructor_takes_nonconst_ref` here. Attempting to always use `is_const = false` sometimes causes ambiguities.
                             "public unsafe " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) : this(new " + CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref) + "((_Underlying *)&other, is_owning: false)) {}\n"
                         );
+
+                        // In the const half, also add an implicit conversion.
+                        // Note that this behavior should be synced with how `Box<T>` and `Const_Box<T>` implicitly convert from `T`.
+                        if (IsConst())
+                        {
+                            file.WriteString(
+                                "/// Convert from a struct by copying it. Note that only `" + unqual_csharp_name + "` has this conversion, `" + CppToCSharpUnqualClassName(cpp_qual_name, false) + "` intentionally doesn't.\n"
+                                "public static implicit operator " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) {return new(other);}\n"
+                            );
+                        }
                     }
 
                     // The constructor from a pointer.
@@ -5381,8 +5391,13 @@ namespace mrbind::CSharp
 
                 if (auto type_desc = c_desc.FindTypeOpt(cpp_underlying_type_str))
                 {
-                    // Only classes for now.
-                    if (std::holds_alternative<CInterop::TypeKinds::Class>(type_desc->var))
+                    // Note that exposed structs are handled as classes, not as known-size types.
+                    // This is because they already have their own dedicated heap-allocating wrappers, so we don't need to resort to the generic one.
+                    const bool is_class = std::holds_alternative<CInterop::TypeKinds::Class>(type_desc->var);
+
+                    const std::optional<std::string> csharp_nonclass_type = !is_class ? CppToCSharpKnownSizeType(cpp_underlying_type) : std::nullopt;
+
+                    if (is_class || csharp_nonclass_type)
                     {
                         const std::string csharp_storage_field_name = "_Storage_" + csharp_field_name;
 
@@ -5395,10 +5410,13 @@ namespace mrbind::CSharp
                             file.WriteString("new ");
                         file.WriteString("unsafe ");
 
-                        const std::string csharp_field_class_name = CppToCSharpClassName(cpp_underlying_type.simple_type.name, field_is_const);
+                        const std::string csharp_field_wrapper_type =
+                            is_class
+                            ? CppToCSharpClassName(cpp_underlying_type.simple_type.name, field_is_const)
+                            : RequestHelper(field_is_const ? "Const_Box" : "Box") + "<" + *csharp_nonclass_type + ">";
 
                         // The property type.
-                        file.WriteString(csharp_field_class_name);
+                        file.WriteString(csharp_field_wrapper_type);
 
                         file.WriteString("? ");
                         file.WriteString(csharp_field_name);
@@ -5408,20 +5426,30 @@ namespace mrbind::CSharp
                         file.PushScope({}, "{\n", "}\n");
 
                         { // Getter.
-                            // Begin getter.
-                            file.PushScope({}, "get\n{\n", "}\n");
+                            if (!is_const)
+                            {
+                                // Call into the base getter, purely to improve how the code looks.
+                                file.WriteString("get => base." + csharp_field_name + ";\n");
+                            }
+                            else
+                            {
+                                // Begin getter.
+                                file.PushScope({}, "get\n{\n", "}\n");
 
-                            auto dllimport_getter = MakeDllImportDecl(field.getter_const->c_name, csharp_field_class_name + "._Underlying **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+                                auto dllimport_getter = MakeDllImportDecl(field.getter_const->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
 
-                            file.WriteString(
-                                dllimport_getter.dllimport_decl +
-                                "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
-                                // Note `*ptr` in the condition! `ptr` itself should never be null, as it represents a reference.
-                                "return *ptr is not null ? new " + csharp_field_class_name + "(*ptr, is_owning: false) : null;\n"
-                            );
+                                file.WriteString(
+                                    dllimport_getter.dllimport_decl +
+                                    "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
+                                    // Note `*ptr` in the `is not null` condition! `ptr` itself should never be null, as it represents a reference.
+                                    // Note that non-class wrapper is constructed from `*ptr` here, but since `ptr` is a pointer-to-pointer, it resolves to `T *`,
+                                    //   which is the non-owning constructor, which is what we want.
+                                    "return *ptr is not null ? new " + (is_class ? csharp_field_wrapper_type + "(*ptr, is_owning: false)" : csharp_field_wrapper_type + "(*ptr)") + " : null;\n"
+                                );
 
-                            // End getter.
-                            file.PopScope();
+                                // End getter.
+                                file.PopScope();
+                            }
                         }
 
                         // Setter.
@@ -5430,7 +5458,7 @@ namespace mrbind::CSharp
                             // Begin getter.
                             file.PushScope({}, "set\n{\n", "}\n");
 
-                            auto dllimport_setter = MakeDllImportDecl(field.getter_mutable->c_name, csharp_field_class_name + "._Underlying **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+                            auto dllimport_setter = MakeDllImportDecl(field.getter_mutable->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
 
                             file.WriteString(
                                 dllimport_setter.dllimport_decl +
@@ -5455,7 +5483,7 @@ namespace mrbind::CSharp
                                 file.WriteString("static ");
                             if (!is_const)
                                 file.WriteString("new ");
-                            file.WriteString(CppToCSharpClassName(cpp_underlying_type.simple_type.name, field_is_const));
+                            file.WriteString(csharp_field_wrapper_type);
                             file.WriteString("? ");
                             file.WriteString(csharp_storage_field_name);
                             file.WriteString(" = null;\n");
@@ -6196,6 +6224,80 @@ namespace mrbind::CSharp
                         );
                     }
                 }
+
+                // `Box` and `Const_Box`.
+                // Intentionally using the non-short-circuiting `|` here.
+                if (requested_helpers.erase("Box") | requested_helpers.erase("Const_Box"))
+                {
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.\n"
+                        "/// This is used for class fields of pointer types to const non-classes.\n"
+                        "/// Usage:\n"
+                        "/// * To read a property of type `Const_Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.\n"
+                        "/// * To modify the property, either assign a value of type `T`, or assign `null`.\n"
+                        "///   Assigning a value will allocate its copy and make the underlying pointer point to it.\n"
+                        "public class Const_Box<T> : System.IDisposable where T: unmanaged\n"
+                        "{\n"
+                        "    internal unsafe T *_UnderlyingPtr;\n"
+                        "    bool _IsOwning;\n"
+                        "\n"
+                        "    public unsafe ref readonly T Value => ref *_UnderlyingPtr;\n"
+                        "    public bool IsOwning => _IsOwning;\n"
+                        "\n"
+                        "    /// Allocate a new value.\n"
+                        "    unsafe public Const_Box(T value)\n"
+                        "    {\n"
+                        "        _IsOwning = true;\n"
+                        "        _UnderlyingPtr = (T *)" + RequestHelper("_Alloc") + "((nuint)sizeof(T));\n"
+                        "        *_UnderlyingPtr = value;\n"
+                        "    }\n"
+                        "\n"
+                        "    // Implicitly convert from a value, allocating a copy of it.\n"
+                        "    // Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.\n" // Note that this behavior should be synced with how exposed structs are converted to their wrappers.
+                        "    public static implicit operator Const_Box<T>(T value) {return new(value);}\n"
+                        "\n"
+                        "    /// Store a non-owning pointer.\n"
+                        "    unsafe public Const_Box(T *ptr)\n"
+                        "    {\n"
+                        "        _IsOwning = false;\n"
+                        "        _UnderlyingPtr = ptr;\n"
+                        "    }\n"
+                        "\n"
+                        "    protected virtual unsafe void Dispose(bool disposing)\n"
+                        "    {\n"
+                        "        if (_UnderlyingPtr is null || !_IsOwning)\n"
+                        "            return;\n"
+                        "        // Dealloc.\n"
+                        "        _UnderlyingPtr = null;\n"
+                        "    }\n"
+                        "    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}\n"
+                        "    ~Const_Box() {Dispose(false);}\n"
+                        "}\n"
+                    );
+
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.\n"
+                        "/// This is used for class fields of pointer types to mutable non-classes.\n"
+                        "/// Usage:\n"
+                        "/// * To read a property of type `Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.\n"
+                        "/// * To modify the property, either assign `new(value)` (to allocate a copy of the value and point to it), or assign `null`.\n"
+                        "///   Since `.Value` returns a mutable ref, you can also assign to that to modify the pointee, assuming the property isn't null.\n"
+                        "public class Box<T> : Const_Box<T> where T: unmanaged\n"
+                        "{\n"
+                        "    public new unsafe ref T Value => ref *_UnderlyingPtr;\n"
+                        "\n"
+                        "    /// Allocate a new value.\n"
+                        "    unsafe public Box(T value) : base(value) {}\n"
+                        "\n"
+                        "    /// Store a non-owning pointer.\n"
+                        "    unsafe public Box(T *ptr) : base(ptr) {}\n"
+                        "}\n"
+                    );
+                }
+
+                // <-- Insert new public helpers here.
 
                 { // Custom exceptions.
                     auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)
