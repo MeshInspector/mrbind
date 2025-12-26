@@ -1446,13 +1446,20 @@ namespace mrbind::CBindings
 
         // The destroy function name for parsed and custom classes. It calls `delete`.
         // We have a separate function for destroying arrays (`is_array == true`) which corresponds to C++'s `delete[]`.
+        // NOTE: You probably want `GetDestroyFuncNameForType()` and not this function. This function trusts you
+        //   that this is a class (and not an exposed struct) and that this function actually exists, while that one properly analyzes the given type.
         [[nodiscard]] EmitFuncParams::Name GetClassDestroyFuncName(std::string_view c_type_name, bool is_array = false) const;
 
         // The name for the functions that add an offset to a pointer. We need this because the pointers themselves are typically opaque on the C side.
         [[nodiscard]] EmitFuncParams::Name GetClassPtrOffsetFuncName(std::string_view c_type_name, bool is_const) const;
 
-        // Generates the name for a free function.
+        // Generates the name for a free function (as in a non-member function).
         [[nodiscard]] EmitFuncParams::Name MakeFreeFuncName(std::string name, std::optional<CInterop::FuncKindVar> var = {}) const;
+
+
+        // Returns the deletion function name that we think should be used to delete this type.
+        // Throws if the type is unknown.
+        [[nodiscard]] std::string GetDestroyFuncNameForType(cppdecl::Type type, bool is_array = false);
 
 
         void EmitClassMemberAccessors(OutputFile &file, const ClassEntity &new_class, const ClassField &new_field);

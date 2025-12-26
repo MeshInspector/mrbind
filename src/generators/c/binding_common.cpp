@@ -136,12 +136,17 @@ namespace mrbind::CBindings
         ret.c_type = cppdecl::Type::FromSingleWord(c_type_name).AddModifier(cppdecl::Pointer{});
         ret.same_addr_bindable_type_dependencies.try_emplace(cpp_type_str);
 
-        ret.append_to_comment = [destroy_func_name = generator.GetClassDestroyFuncName(c_type_name)](std::string_view callback_param_name) -> std::string
+        ret.append_to_comment = [&generator, cpp_type_name = cpp_type_name, destroy_func_name = std::optional<std::string>{}](std::string_view callback_param_name) mutable -> std::string
         {
+            // Initialize the deleter function name on the first use.
+            // We can't do this in the capture initializer because that causes an infinite recursion.
+            if (!destroy_func_name)
+                destroy_func_name = generator.GetDestroyFuncNameForType(cppdecl::Type::FromQualifiedName(cpp_type_name));
+
             if (callback_param_name.empty())
-                return "/// Never returns null. Returns an instance allocated on the heap! Must call `" + destroy_func_name.c + "()` to free it when you're done using it.";
+                return "/// Never returns null. Returns an instance allocated on the heap! Must call `" + *destroy_func_name + "()` to free it when you're done using it.";
             else
-                return "/// Callback parameter `" + std::string(callback_param_name) + "` is never null. It is an instance allocated on the heap! Must call `" + destroy_func_name.c + "()` to free it when you're done using it.";
+                return "/// Callback parameter `" + std::string(callback_param_name) + "` is never null. It is an instance allocated on the heap! Must call `" + *destroy_func_name + "()` to free it when you're done using it.";
         };
 
         ret.make_return_expr = [c_type_name = c_type_name, cpp_type_str = std::move(cpp_type_str)](Generator::OutputFile::SpecificFileContents &file, std::string_view expr)
@@ -485,7 +490,7 @@ namespace mrbind::CBindings
 
         ret.c_comment =
             "/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.\n"
-            "/// The array must be destroyed using `" + generator.GetClassDestroyFuncName(c_type_name, true).c + "()`.\n"
+            "/// The array must be destroyed using `" + generator.GetDestroyFuncNameForType(cppdecl::Type::FromQualifiedName(cpp_type_name), true) + "()`.\n"
             "/// Use `" + generator.GetClassPtrOffsetFuncName(c_type_name, false).c + "()` and `" + generator.GetClassPtrOffsetFuncName(c_type_name, true).c + "()` to access the array elements.";
 
         return ret;

@@ -63,14 +63,14 @@ MR_C_API int MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount(const MR_C_s
 
 // Create a new instance, taking ownership of an existing pointer.
 // Parameter `ptr` should point to a single object rather than to an array.
-// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_CSharp_ExposedLayoutSh_Destroy()` on it automatically.
+// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_C_Free()` on it automatically.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(MR_CSharp_ExposedLayoutSh *ptr);
 
 // Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `ptr` should point to a single object rather than to an array.
-// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_CSharp_ExposedLayoutSh_Destroy()` on it automatically.
+// Parameter `ptr` takes ownership of the passed pointer (if not null), and will later call `MR_C_Free()` on it automatically.
 MR_C_API void MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Assign(MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this, MR_CSharp_ExposedLayoutSh *ptr);
 
 // Create a new instance, storing a non-owning pointer.

@@ -2650,6 +2650,77 @@ namespace mrbind::CBindings
         return ret;
     }
 
+    std::string Generator::GetDestroyFuncNameForType(cppdecl::Type type, bool is_array)
+    {
+        type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+        const bool is_qual_name_only = type.IsOnlyQualifiedName();
+
+        std::optional<std::string> c_name;
+
+        bool is_same_layout_struct = false;
+        if (is_qual_name_only)
+        {
+            if (auto opt = FindTypeBindableWithSameAddressOpt(type.simple_type.name); opt && opt->declared_in_file)
+            {
+                // Don't allow exposed structs, those don't get their own deallocation functions.
+                if (auto iter = parsed_type_info.find(CppdeclToCode(type.simple_type.name)); iter != parsed_type_info.end())
+                {
+                    if (auto cl = std::get_if<ParsedTypeInfo::ClassDesc>(&iter->second.input_type))
+                    {
+                        if (cl->is_same_layout_struct)
+                            is_same_layout_struct = true;
+                    }
+                }
+
+                if (!is_same_layout_struct)
+                {
+                    // This shouldn't fail at this point.
+                    c_name = CppTypeNameToCTypeName(type.simple_type.name);
+
+                    // Might as well force-generate the file for the deleter function.
+                    (void)opt->declared_in_file();
+                }
+            }
+        }
+
+        if (c_name)
+        {
+            // This is a type that we bind. It SHOULD have its own deallocation function generated.
+
+            // Make sure it's destructible, because otherwise there will be no deallocation function.
+            // This will also throw if `FindBindableType` doesn't find anything, which is fine, and I don't see how it could possibly happen anyway.
+            if (!FindTypeTraits(type).is_destructible)
+                throw std::runtime_error("Type `" + CppdeclToCode(type) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
+
+            return GetClassDestroyFuncName(*c_name, is_array).c;
+        }
+        else if (
+            // This is a rough heuristic to allow only trivially destructible types.
+            // If this fails, or comes up in some other place too, we probably need to add a specialized function. (To `cppdecl::Type`? Or where?)
+            // Might name it `IsScalar()` or something, since all those types seem to be scalars. (Need to decide where to handle `std::nullptr_t`, since it's a scalar type,
+            //   but isn't handled by `IsBuiltInTypeName()`, because it isn't, well, built-in.)
+            // And also we use `TypeNameIsCBuiltIn()`, but this should probably handle C++ types too (like `std::nullptr_t`?).
+            // We we'll either another function or somet flag for `TypeNameIsCBuiltIn()`?
+            is_same_layout_struct ||
+            type.AsSingleWord() == "void" ||
+            type.Is<cppdecl::Pointer>() ||
+            (
+                type.IsOnlyQualifiedName() &&
+                TypeNameIsCBuiltIn(type.simple_type.name, cppdecl::IsBuiltInTypeNameFlags::allow_arithmetic, true)
+            )
+        )
+        {
+            // Those are trivially destructible, so recommend the generic deallocation functions.
+
+            return GetMemoryDeallocFuncName(is_array, nullptr).c;
+        }
+        else
+        {
+            throw std::runtime_error("Not sure what deallocation function to use for type: `" + CppdeclToCode(type) + "`.");
+        }
+    }
+
     void Generator::EmitFunction(OutputFile &file, const EmitFuncParams &params)
     {
         try

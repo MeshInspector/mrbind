@@ -57,7 +57,7 @@ MR_C_API int32_t *MR_MatchingLayout_A_GetMutable_x(void);
 MR_C_API MR_MatchingLayout_B MR_MatchingLayout_B_DefaultConstruct(void);
 
 // Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
-// The array must be destroyed using `MR_MatchingLayout_B_DestroyArray()`.
+// The array must be destroyed using `MR_C_FreeArray()`.
 // Use `MR_MatchingLayout_B_OffsetMutablePtr()` and `MR_MatchingLayout_B_OffsetPtr()` to access the array elements.
 MR_C_API MR_MatchingLayout_B *MR_MatchingLayout_B_DefaultConstructArray(size_t num_elems);
 

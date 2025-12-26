@@ -50,55 +50,13 @@ namespace mrbind::CBindings::Modules
             std::string func_name_destroy_released_ptr;
             if (!has_custom_deleter)
             {
-                const bool is_qual_name_only = cpp_elem_type_minus_array_unqual.IsOnlyQualifiedName();
-
-                std::optional<std::string> c_name;
-                if (is_qual_name_only)
+                try
                 {
-                    if (auto opt = generator.FindTypeBindableWithSameAddressOpt(cpp_elem_type_minus_array_unqual.simple_type.name); opt && opt->declared_in_file)
-                    {
-                        // This shouldn't fail at this point.
-                        c_name = generator.CppTypeNameToCTypeName(cpp_elem_type_minus_array_unqual.simple_type.name);
-
-                        // Might as well force-generate the file for the deleter function.
-                        (void)opt->declared_in_file();
-                    }
+                    func_name_destroy_released_ptr = generator.GetDestroyFuncNameForType(cpp_elem_type_minus_array_unqual, is_array_of_unknown_bound);
                 }
-
-                if (c_name)
+                catch (...)
                 {
-                    // This is a type that we bind. It SHOULD have its own deallocation function generated.
-
-                    // Make sure it's destructible, because otherwise there will be no deallocation function.
-                    // This will also throw if `FindBindableType` doesn't find anything, which is fine, and I don't see how it could possibly happen anyway.
-                    if (!generator.FindTypeTraits(cpp_elem_type_minus_array_unqual).is_destructible)
-                        throw std::runtime_error("Type `" + generator.CppdeclToCode(cpp_elem_type_minus_array_unqual) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
-
-                    func_name_destroy_released_ptr = generator.GetClassDestroyFuncName(*c_name, is_array_of_unknown_bound).c;
-                }
-                else if (
-                    // This is a rough heuristic to allow only trivially destructible types.
-                    // If this fails, or comes up in some other place too, we probably need to add a specialized function. (To `cppdecl::Type`? Or where?)
-                    // Might name it `IsScalar()` or something, since all those types seem to be scalars. (Need to decide where to handle `std::nullptr_t`, since it's a scalar type,
-                    //   but isn't handled by `IsBuiltInTypeName()`, because it isn't, well, built-in.)
-                    // And also we use `TypeNameIsCBuiltIn()`, but this should probably handle C++ types too (like `std::nullptr_t`?).
-                    // We we'll either another function or somet flag for `TypeNameIsCBuiltIn()`?
-                    cpp_elem_type_minus_array_unqual.AsSingleWord() == "void" ||
-                    cpp_elem_type_minus_array_unqual.Is<cppdecl::Pointer>() ||
-                    (
-                        cpp_elem_type_minus_array_unqual.IsOnlyQualifiedName() &&
-                        generator.TypeNameIsCBuiltIn(cpp_elem_type_minus_array_unqual.simple_type.name, cppdecl::IsBuiltInTypeNameFlags::allow_arithmetic, true)
-                    )
-                )
-                {
-                    // Those are trivially destructible, so recommend the generic deallocation functions.
-
-                    func_name_destroy_released_ptr = generator.GetMemoryDeallocFuncName(is_array_of_unknown_bound, nullptr).c;
-                    include_common_header_in_output_header = true; // Include the header that declares this deallocation function.
-                }
-                else
-                {
-                    throw std::runtime_error("Not sure what deallocation function to use for this `std::unique_ptr` element type: `" + generator.CppdeclToCode(cpp_elem_type_minus_array_unqual) + "`.");
+                    std::throw_with_nested(std::runtime_error("While determining the deallocation function for `" + type_str + "`:"));
                 }
             }
 
