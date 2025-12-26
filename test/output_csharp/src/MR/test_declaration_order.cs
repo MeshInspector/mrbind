@@ -24,9 +24,7 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_DeclOrder_A_Destroy(_Underlying *_this);
-                    __MR_DeclOrder_A_Destroy(_UnderlyingPtr);
+                    MR.CS.Misc._Free((void *)_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
@@ -37,18 +35,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
                 public unsafe Const_A(Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
             }
@@ -70,18 +64,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Mut_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
                 public unsafe Mut_A(Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
@@ -158,9 +148,7 @@ public static partial class MR
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_Destroy", ExactSpelling = true)]
-                        extern static void __MR_DeclOrder_A_B_Destroy(_Underlying *_this);
-                        __MR_DeclOrder_A_B_Destroy(_UnderlyingPtr);
+                        MR.CS.Misc._Free((void *)_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
@@ -171,18 +159,14 @@ public static partial class MR
                     /// Generated default constructor.
                     public unsafe Const_B() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_Alloc(nuint size);
-                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                     }
 
                     /// Generated copy constructor.
                     public unsafe Const_B(Const_B _other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_Alloc(nuint size);
-                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                     }
                 }
@@ -203,18 +187,14 @@ public static partial class MR
                     /// Generated default constructor.
                     public unsafe Mut_B() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_Alloc(nuint size);
-                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                     }
 
                     /// Generated copy constructor.
                     public unsafe Mut_B(Const_B _other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_Alloc(nuint size);
-                        _UnderlyingPtr = __MR_C_Alloc(4);
+                        _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                     }
 
@@ -434,9 +414,7 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_Destroy", ExactSpelling = true)]
-                    extern static void __MR_DeclOrder_C_false_Destroy(_Underlying *_this);
-                    __MR_DeclOrder_C_false_Destroy(_UnderlyingPtr);
+                    MR.CS.Misc._Free((void *)_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
@@ -447,18 +425,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Const_C_False() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
                 public unsafe Const_C_False(Const_C_False _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
             }
@@ -479,18 +453,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Mut_C_False() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
                 public unsafe Mut_C_False(Const_C_False _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
@@ -617,9 +587,7 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_Destroy", ExactSpelling = true)]
-                    extern static void __MR_DeclOrder_C_true_Destroy(_Underlying *_this);
-                    __MR_DeclOrder_C_true_Destroy(_UnderlyingPtr);
+                    MR.CS.Misc._Free((void *)_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
@@ -630,18 +598,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Const_C_True() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
                 public unsafe Const_C_True(Const_C_True _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
             }
@@ -662,18 +626,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Mut_C_True() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
                 public unsafe Mut_C_True(Const_C_True _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(4);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 

@@ -3181,10 +3181,7 @@ namespace mrbind::CSharp
                         {
                             const std::string class_size_str = std::to_string(class_desc.size_and_alignment.value().size);
 
-                            auto dllimport_alloc = generator.MakeDllImportDecl(generator.c_desc.helpers_prefix + "Alloc", "_Underlying *", "nuint size");
-                            file.WriteString(dllimport_alloc.dllimport_decl);
-
-                            ctor_expr = dllimport_alloc.csharp_name + "(" + class_size_str + ")";
+                            ctor_expr = "(_Underlying *)" + generator.RequestHelper("_Alloc") + "(" + class_size_str + ")";
 
                             post_ctor_statements =
                                 ret_binding->csharp_return_type + " _ctor_result = " + expr + ";\n" +
@@ -3586,9 +3583,9 @@ namespace mrbind::CSharp
         return GetTypeBinding(ParseTypeOrThrow(ret.cpp_type), TypeBindingFlagsForReturn(ret) | extra_flags).return_usage.value();
     }
 
-    Generator::CFuncDeclStrings Generator::MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params)
+    Generator::DllImportDeclStrings Generator::MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params)
     {
-        CFuncDeclStrings ret;
+        DllImportDeclStrings ret;
 
         ret.csharp_name = "__";
         ret.csharp_name += c_name;
@@ -4517,10 +4514,16 @@ namespace mrbind::CSharp
                     // Except if we're also using a shared pointer; then we DO need this, as we must destroy the shared pointer even if it's non-owning.
                     if (!is_exposed_struct_by_value && IsConst() && (type_desc.traits.value().is_destructible || shared_ptr_desc))
                     {
-                        const auto dtor_strings =
-                            shared_ptr_desc
-                            ? MakeDllImportDecl(c_sharedptr_name.value() + "_Destroy", "void", "_UnderlyingShared *_this")
-                            : MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", "_Underlying *_this");
+                        bool using_generic_free = class_desc.kind == CInterop::ClassKind::exposed_struct && !shared_ptr_desc;
+
+                        std::optional<DllImportDeclStrings> dllimport_free;
+                        if (!using_generic_free)
+                        {
+                            dllimport_free =
+                                shared_ptr_desc
+                                ? MakeDllImportDecl(c_sharedptr_name.value() + "_Destroy", "void", "_UnderlyingShared *_this")
+                                : MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", "_Underlying *_this");
+                        }
 
                         file.WriteSeparatingNewline();
 
@@ -4535,8 +4538,8 @@ namespace mrbind::CSharp
                             "if (" + std::string(shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + " is null || !_IsOwningVal)\n"
                             "    return;\n" +
                             // Here we'd have `if (disposing)` where we would explicitly `.Dispose()` managed data members, if we had any.
-                            dtor_strings.dllimport_decl +
-                            dtor_strings.csharp_name + "(" + (shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + ");\n" +
+                            (dllimport_free ? dllimport_free->dllimport_decl : "") +
+                            (using_generic_free ? RequestHelper("_Free") : dllimport_free.value().csharp_name) + "(" + (using_generic_free ? "(void *)" : "") + (shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + ");\n" +
                             (shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + " = null;\n"
                         );
 
@@ -4757,10 +4760,7 @@ namespace mrbind::CSharp
 
                             file.PushScope({}, "{\n", "}\n");
 
-                            auto dllimport_alloc = MakeDllImportDecl(c_desc.helpers_prefix + "Alloc", "_Underlying *", "nuint size");
-                            file.WriteString(dllimport_alloc.dllimport_decl);
-
-                            std::string expr = dllimport_alloc.csharp_name + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
+                            std::string expr = "(_Underlying *)" + RequestHelper("_Alloc") + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
 
                             if (shared_ptr_desc)
                                 file.WriteString("_LateMakeShared(" + expr + ");\n");
@@ -4809,10 +4809,7 @@ namespace mrbind::CSharp
 
                                 file.PushScope({}, "{\n", "}\n");
 
-                                auto dllimport_alloc = MakeDllImportDecl(c_desc.helpers_prefix + "Alloc", "_Underlying *", "nuint size");
-                                file.WriteString(dllimport_alloc.dllimport_decl);
-
-                                std::string expr = dllimport_alloc.csharp_name + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
+                                std::string expr = "(_Underlying *)" + RequestHelper("_Alloc") + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
 
                                 if (shared_ptr_desc)
                                     file.WriteString("_LateMakeShared(" + expr + ");\n");
@@ -6229,6 +6226,44 @@ namespace mrbind::CSharp
 
                 // ---
 
+                // Some non-public helpers.
+
+                if (requested_helpers.erase("_Alloc"))
+                {
+
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// An internal function for allocating memory through C++.\n"
+                        "internal static unsafe void *_Alloc(nuint size)\n"
+                    );
+                    file.PushScope({}, "{\n", "}\n");
+
+                    auto dllimport_alloc = MakeDllImportDecl(c_desc.helpers_prefix + "Alloc", "void *", "nuint size");
+                    file.WriteString(dllimport_alloc.dllimport_decl);
+                    file.WriteString("return " + dllimport_alloc.csharp_name + "(size);\n");
+
+                    file.PopScope();
+                }
+
+                if (requested_helpers.erase("_Free"))
+                {
+
+                    file.WriteSeparatingNewline();
+                    file.WriteString(
+                        "/// An internal function for deallocating memory through C++.\n"
+                        "internal static unsafe void _Free(void *ptr)\n"
+                    );
+                    file.PushScope({}, "{\n", "}\n");
+
+                    auto dllimport_free = MakeDllImportDecl(c_desc.helpers_prefix + "Free", "void", "void *ptr");
+                    file.WriteString(dllimport_free.dllimport_decl);
+                    file.WriteString(dllimport_free.csharp_name + "(ptr);\n");
+
+                    file.PopScope();
+                }
+
+                // ---
+
                 // Lastly, check for unknown helper names.
                 if (!requested_helpers.empty())
                 {
@@ -6393,7 +6428,7 @@ namespace mrbind::CSharp
 
                     file.PushScope({}, "{\n", "}\n");
 
-                    CFuncDeclStrings dllimport_decl;
+                    DllImportDeclStrings dllimport_decl;
                     if (desc.ptr_offset_func)
                     {
                         dllimport_decl = MakeDllImportDecl(*desc.ptr_offset_func, desc.strings.csharp_underlying_ptr_target_type + " *", desc.strings.csharp_underlying_ptr_target_type + " *ptr, nint i");

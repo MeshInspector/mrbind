@@ -628,7 +628,7 @@ namespace mrbind::CSharp
         [[nodiscard]] std::string RequestHelper(const std::string &name);
 
 
-        struct CFuncDeclStrings
+        struct DllImportDeclStrings
         {
             // This is the entire C function declaration with a trailing newline.
             std::string dllimport_decl;
@@ -735,7 +735,7 @@ namespace mrbind::CSharp
 
             const TypeBinding::ReturnUsage *ret_binding = nullptr;
 
-            CFuncDeclStrings dllimport_strings;
+            DllImportDeclStrings dllimport_strings;
             bool forced_unsafe = false;
 
             std::string dllimport_param_string;
@@ -799,7 +799,7 @@ namespace mrbind::CSharp
         // Creates a C function declaration for C# code.
         // `c_name` is the underlying C function name. `return_type` is the return type as it should be spelled in C#.
         // `params` is a comma-separated list as it should be spelled in C#.
-        [[nodiscard]] CFuncDeclStrings MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params);
+        [[nodiscard]] DllImportDeclStrings MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params);
 
         // A low-level function to emit a wrapper for a single C enum.
         // Assumes that the correct namespace or class was already entered in `file`.

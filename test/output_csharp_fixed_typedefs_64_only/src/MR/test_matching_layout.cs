@@ -23,9 +23,7 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_MatchingLayout_A_Destroy(_Underlying *_this);
-                    __MR_MatchingLayout_A_Destroy(_UnderlyingPtr);
+                    MR.CS.Misc._Free((void *)_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
@@ -60,18 +58,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(120);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 120, 0);
                 }
 
                 /// Generated copy constructor.
                 public unsafe Const_A(Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(120);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 120);
                 }
             }
@@ -105,18 +99,14 @@ public static partial class MR
                 /// Generated default constructor.
                 public unsafe Mut_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(120);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 120, 0);
                 }
 
                 /// Generated copy constructor.
                 public unsafe Mut_A(Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(120);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 120);
                 }
             }
@@ -242,9 +232,7 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_Destroy", ExactSpelling = true)]
-                    extern static void __MR_MatchingLayout_B_Destroy(_Underlying *_this);
-                    __MR_MatchingLayout_B_Destroy(_UnderlyingPtr);
+                    MR.CS.Misc._Free((void *)_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
@@ -259,9 +247,7 @@ public static partial class MR
                 /// Generated copy constructor.
                 public unsafe Const_B(Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(136);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 136);
                 }
 
@@ -270,9 +256,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(136);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     MR.CS.MatchingLayout.B _ctor_result = __MR_MatchingLayout_B_DefaultConstruct();
                     System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 136);
                 }
@@ -298,9 +282,7 @@ public static partial class MR
                 /// Generated copy constructor.
                 public unsafe Mut_B(Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(136);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 136);
                 }
 
@@ -309,9 +291,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_Alloc(nuint size);
-                    _UnderlyingPtr = __MR_C_Alloc(136);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     MR.CS.MatchingLayout.B _ctor_result = __MR_MatchingLayout_B_DefaultConstruct();
                     System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 136);
                 }

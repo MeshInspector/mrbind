@@ -159,6 +159,22 @@ public static partial class MR
                 public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}
             }
 
+            /// An internal function for allocating memory through C++.
+            internal static unsafe void *_Alloc(nuint size)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                extern static void *__MR_C_Alloc(nuint size);
+                return __MR_C_Alloc(size);
+            }
+
+            /// An internal function for deallocating memory through C++.
+            internal static unsafe void _Free(void *ptr)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Free", ExactSpelling = true)]
+                extern static void __MR_C_Free(void *ptr);
+                __MR_C_Free(ptr);
+            }
+
         }
 
         public static partial class Std
