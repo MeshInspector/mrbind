@@ -13,7 +13,7 @@ public static partial class MR
                 internal unsafe _Underlying *_UnderlyingPtr;
 
                 /// Get the underlying struct.
-                public unsafe ref readonly A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+                public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_A` has this conversion, `Mut_A` intentionally doesn't.
@@ -32,19 +32,19 @@ public static partial class MR
                 ~Const_A() {Dispose(false);}
 
                 // first
-                public ref readonly int A_ => ref UnderlyingStruct.A_;
+                public ref readonly int A_ => ref _Ref.A_;
 
                 // second
-                public ref readonly short B => ref UnderlyingStruct.B;
+                public ref readonly short B => ref _Ref.B;
 
                 // third
-                public ref readonly float C => ref UnderlyingStruct.C;
+                public ref readonly float C => ref _Ref.C;
 
-                public ref readonly long Ll => ref UnderlyingStruct.Ll;
+                public ref readonly long Ll => ref _Ref.Ll;
 
-                public ref readonly MR.CS.ArrayInt3 Arr => ref UnderlyingStruct.Arr;
+                public ref readonly MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
 
-                public ref readonly MR.CS.ArrayInt4_5 Arr2d => ref UnderlyingStruct.Arr2d;
+                public ref readonly MR.CS.ArrayInt4_5 Arr2d => ref _Ref.Arr2d;
 
                 // Having static fields is not an error! Those get their normal getters and setters.
                 public static unsafe ref int X
@@ -77,26 +77,26 @@ public static partial class MR
             public class Mut_A : Const_A
             {
                 /// Get the underlying struct.
-                public unsafe new ref A UnderlyingStruct => ref *(A *)_UnderlyingPtr;
+                public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 // first
-                public new ref int A_ => ref UnderlyingStruct.A_;
+                public new ref int A_ => ref _Ref.A_;
 
                 // second
-                public new ref short B => ref UnderlyingStruct.B;
+                public new ref short B => ref _Ref.B;
 
                 // third
-                public new ref float C => ref UnderlyingStruct.C;
+                public new ref float C => ref _Ref.C;
 
-                public new ref long Ll => ref UnderlyingStruct.Ll;
+                public new ref long Ll => ref _Ref.Ll;
 
-                public new ref MR.CS.ArrayInt3 Arr => ref UnderlyingStruct.Arr;
+                public new ref MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
 
-                public new ref MR.CS.ArrayInt4_5 Arr2d => ref UnderlyingStruct.Arr2d;
+                public new ref MR.CS.ArrayInt4_5 Arr2d => ref _Ref.Arr2d;
 
                 /// Generated default constructor.
                 public unsafe Mut_A() : this(null, is_owning: true)
@@ -111,6 +111,9 @@ public static partial class MR
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 120);
                 }
+
+                /// Generated copy assignment.
+                public void Assign(Const_A _other) {_Ref = _other._Ref;}
             }
 
             /// Generated from class `MR::MatchingLayout::A`.
@@ -119,7 +122,7 @@ public static partial class MR
             public struct A
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator A(Const_A other) => other.UnderlyingStruct;
+                public static implicit operator A(Const_A other) => other._Ref;
 
                 // first
                 [System.Runtime.InteropServices.FieldOffset(0)]
@@ -165,7 +168,7 @@ public static partial class MR
                 public _InOpt_A() {HasValue = false;}
                 public _InOpt_A(A new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_A(A new_value) {return new(new_value);}
-                public _InOpt_A(Const_A new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public _InOpt_A(Const_A new_value) {HasValue = true; Object = new_value._Ref;}
                 public static implicit operator _InOpt_A(Const_A new_value) {return new(new_value);}
             }
 
@@ -224,7 +227,7 @@ public static partial class MR
                 internal unsafe _Underlying *_UnderlyingPtr;
 
                 /// Get the underlying struct.
-                public unsafe ref readonly B UnderlyingStruct => ref *(B *)_UnderlyingPtr;
+                public unsafe ref readonly B _Ref => ref *(B *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_B(B other) : this(new Const_B((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_B` has this conversion, `Mut_B` intentionally doesn't.
@@ -242,11 +245,11 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_B() {Dispose(false);}
 
-                public ref readonly short X => ref UnderlyingStruct.X;
+                public ref readonly short X => ref _Ref.X;
 
-                public ref readonly MR.CS.MatchingLayout.A A => ref UnderlyingStruct.A;
+                public ref readonly MR.CS.MatchingLayout.A A => ref _Ref.A;
 
-                public ref readonly byte Y => ref UnderlyingStruct.Y;
+                public ref readonly byte Y => ref _Ref.Y;
 
                 /// Generated copy constructor.
                 public unsafe Const_B(Const_B _other) : this(null, is_owning: true)
@@ -271,17 +274,17 @@ public static partial class MR
             public class Mut_B : Const_B
             {
                 /// Get the underlying struct.
-                public unsafe new ref B UnderlyingStruct => ref *(B *)_UnderlyingPtr;
+                public unsafe new ref B _Ref => ref *(B *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_B(B other) : this(new Const_B((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref short X => ref UnderlyingStruct.X;
+                public new ref short X => ref _Ref.X;
 
-                public new ref MR.CS.MatchingLayout.A A => ref UnderlyingStruct.A;
+                public new ref MR.CS.MatchingLayout.A A => ref _Ref.A;
 
-                public new ref byte Y => ref UnderlyingStruct.Y;
+                public new ref byte Y => ref _Ref.Y;
 
                 /// Generated copy constructor.
                 public unsafe Mut_B(Const_B _other) : this(null, is_owning: true)
@@ -289,6 +292,9 @@ public static partial class MR
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 136);
                 }
+
+                /// Generated copy assignment.
+                public void Assign(Const_B _other) {_Ref = _other._Ref;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Mut_B() : this(null, is_owning: true)
@@ -307,7 +313,7 @@ public static partial class MR
             public struct B
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator B(Const_B other) => other.UnderlyingStruct;
+                public static implicit operator B(Const_B other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public short X;
@@ -349,7 +355,7 @@ public static partial class MR
                 public _InOpt_B() {HasValue = false;}
                 public _InOpt_B(B new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_B(B new_value) {return new(new_value);}
-                public _InOpt_B(Const_B new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public _InOpt_B(Const_B new_value) {HasValue = true; Object = new_value._Ref;}
                 public static implicit operator _InOpt_B(Const_B new_value) {return new(new_value);}
             }
 

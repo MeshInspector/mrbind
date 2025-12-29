@@ -2796,7 +2796,7 @@ namespace mrbind::CSharp
                             {
                                 assert(this_param_strings.csharp_decl_params.size() == 1);
 
-                                this_param_strings.dllimport_args = this_param_strings.csharp_decl_params.front().name + ".UnderlyingStruct";
+                                this_param_strings.dllimport_args = this_param_strings.csharp_decl_params.front().name + "._Ref";
                                 forced_unsafe = true;
                             }
                         }
@@ -4456,7 +4456,7 @@ namespace mrbind::CSharp
                             std::string(IsConst() ? "" : "new ") +
                             (IsConst() ? "ref readonly " : "ref ") +
                             struct_name + " " +
-                            "UnderlyingStruct => ref *(" + struct_name + " *)_UnderlyingPtr;\n"
+                            "_Ref => ref *(" + struct_name + " *)_UnderlyingPtr;\n"
                         );
                     }
 
@@ -4469,7 +4469,7 @@ namespace mrbind::CSharp
                         file.WriteSeparatingNewline();
                         file.WriteString(
                             "/// Copy contents from a wrapper class to this struct.\n"
-                            "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other.UnderlyingStruct;\n"
+                            "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other._Ref;\n"
                         );
                     }
                     // Constructor of the class wrapper from the exposed struct.
@@ -4789,8 +4789,8 @@ namespace mrbind::CSharp
                                             "bool " +
                                             csharp_field_name + " " +
                                             (IsConst() ? "" : "{get ") +
-                                            "=> UnderlyingStruct." + csharp_field_name + ";" +
-                                            (IsConst() ? "" : " set => UnderlyingStruct." + csharp_field_name + " = value;}") +
+                                            "=> _Ref." + csharp_field_name + ";" +
+                                            (IsConst() ? "" : " set => _Ref." + csharp_field_name + " = value;}") +
                                             "\n"
                                         );
                                     }
@@ -4802,7 +4802,7 @@ namespace mrbind::CSharp
                                             (IsConst() ? "ref readonly " : "ref ") +
                                             *csharp_type + " " +
                                             csharp_field_name +
-                                            " => ref UnderlyingStruct." + csharp_field_name + ";\n"
+                                            " => ref _Ref." + csharp_field_name + ";\n"
                                         );
                                     }
                                 }
@@ -4868,6 +4868,8 @@ namespace mrbind::CSharp
                             file.WriteString("/// Generated copy constructor.\n");
                             if (is_exposed_struct_by_value)
                             {
+                                // C# doesn't seem to generate this automatically.
+                                // They probably have some other built-in way of copying structs, but having this is convenient.
                                 file.WriteString("public " + unqual_csharp_name + "(" + unqual_param_type + " _other) {this = _other;}\n");
                             }
                             else
@@ -4902,6 +4904,23 @@ namespace mrbind::CSharp
 
                                 file.PopScope();
                             }
+                        }
+
+                        // The copy assignment.
+                        if (!is_exposed_struct_by_value && !IsConst())
+                        {
+                            // No need to check the traits, since all this stuff is required to be trivial (or not exist at all). Just emit the copy assignment directly.
+
+                            // TODO: It's possible for the assignment to allow const `this`, and independently to have a non-const reference parameter.
+                            // We don't yet support any of this here.
+
+                            // Not sure if it makes sense to respect `copy_constructor_takes_nonconst_ref` here, but we do so for the copy constructor above,
+                            //   so it probably makes sense to do it here too.
+                            const std::string unqual_param_type = CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref);
+
+                            file.WriteSeparatingNewline();
+                            file.WriteString("/// Generated copy assignment.\n");
+                            file.WriteString("public void Assign(" + unqual_param_type + " _other) {_Ref = _other._Ref;}\n");
                         }
                     }
 
@@ -5209,7 +5228,7 @@ namespace mrbind::CSharp
                         "public " + in_opt_name + "() {HasValue = false;}\n"
                         "public " + in_opt_name + "(" + *struct_name + " new_value) {HasValue = true; Object = new_value;}\n"
                         "public static implicit operator " + in_opt_name + "(" + *struct_name + " new_value) {return new(new_value);}\n"
-                        "public " + in_opt_name + "(" + const_half_name + " new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}\n"
+                        "public " + in_opt_name + "(" + const_half_name + " new_value) {HasValue = true; Object = new_value._Ref;}\n"
                         "public static implicit operator " + in_opt_name + "(" + const_half_name + " new_value) {return new(new_value);}\n"
                     );
 

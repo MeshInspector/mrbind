@@ -13,7 +13,7 @@ public static partial class MR
                 internal unsafe _Underlying *_UnderlyingPtr;
 
                 /// Get the underlying struct.
-                public unsafe ref readonly Array_Int_43 UnderlyingStruct => ref *(Array_Int_43 *)_UnderlyingPtr;
+                public unsafe ref readonly Array_Int_43 _Ref => ref *(Array_Int_43 *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_Array_Int_43(Array_Int_43 other) : this(new Const_Array_Int_43((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_Array_Int_43` has this conversion, `Mut_Array_Int_43` intentionally doesn't.
@@ -31,7 +31,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Array_Int_43() {Dispose(false);}
 
-                public ref readonly MR.CS.ArrayInt43 Elems => ref UnderlyingStruct.Elems;
+                public ref readonly MR.CS.ArrayInt43 Elems => ref _Ref.Elems;
 
                 /// Generated default constructor.
                 public unsafe Const_Array_Int_43() : this(null, is_owning: true)
@@ -53,13 +53,13 @@ public static partial class MR
             public class Mut_Array_Int_43 : Const_Array_Int_43
             {
                 /// Get the underlying struct.
-                public unsafe new ref Array_Int_43 UnderlyingStruct => ref *(Array_Int_43 *)_UnderlyingPtr;
+                public unsafe new ref Array_Int_43 _Ref => ref *(Array_Int_43 *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_Array_Int_43(Array_Int_43 other) : this(new Const_Array_Int_43((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_Array_Int_43(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref MR.CS.ArrayInt43 Elems => ref UnderlyingStruct.Elems;
+                public new ref MR.CS.ArrayInt43 Elems => ref _Ref.Elems;
 
                 /// Generated default constructor.
                 public unsafe Mut_Array_Int_43() : this(null, is_owning: true)
@@ -74,6 +74,9 @@ public static partial class MR
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(172);
                     for (nuint _i = 0; _i < 172; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
+
+                /// Generated copy assignment.
+                public void Assign(Const_Array_Int_43 _other) {_Ref = _other._Ref;}
             }
 
             /// A fixed-size array of `int` of size 43.
@@ -82,7 +85,7 @@ public static partial class MR
             public struct Array_Int_43
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator Array_Int_43(Const_Array_Int_43 other) => other.UnderlyingStruct;
+                public static implicit operator Array_Int_43(Const_Array_Int_43 other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt43 Elems;
@@ -110,7 +113,7 @@ public static partial class MR
                 public _InOpt_Array_Int_43() {HasValue = false;}
                 public _InOpt_Array_Int_43(Array_Int_43 new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_Array_Int_43(Array_Int_43 new_value) {return new(new_value);}
-                public _InOpt_Array_Int_43(Const_Array_Int_43 new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public _InOpt_Array_Int_43(Const_Array_Int_43 new_value) {HasValue = true; Object = new_value._Ref;}
                 public static implicit operator _InOpt_Array_Int_43(Const_Array_Int_43 new_value) {return new(new_value);}
             }
 

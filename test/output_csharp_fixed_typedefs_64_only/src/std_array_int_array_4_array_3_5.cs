@@ -13,7 +13,7 @@ public static partial class MR
                 internal unsafe _Underlying *_UnderlyingPtr;
 
                 /// Get the underlying struct.
-                public unsafe ref readonly Array_IntArray4Array3_5 UnderlyingStruct => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
+                public unsafe ref readonly Array_IntArray4Array3_5 _Ref => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_Array_IntArray4Array3_5` has this conversion, `Mut_Array_IntArray4Array3_5` intentionally doesn't.
@@ -31,7 +31,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Array_IntArray4Array3_5() {Dispose(false);}
 
-                public ref readonly MR.CS.ArrayInt5_3_4 Elems => ref UnderlyingStruct.Elems;
+                public ref readonly MR.CS.ArrayInt5_3_4 Elems => ref _Ref.Elems;
 
                 /// Generated default constructor.
                 public unsafe Const_Array_IntArray4Array3_5() : this(null, is_owning: true)
@@ -53,13 +53,13 @@ public static partial class MR
             public class Mut_Array_IntArray4Array3_5 : Const_Array_IntArray4Array3_5
             {
                 /// Get the underlying struct.
-                public unsafe new ref Array_IntArray4Array3_5 UnderlyingStruct => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
+                public unsafe new ref Array_IntArray4Array3_5 _Ref => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref MR.CS.ArrayInt5_3_4 Elems => ref UnderlyingStruct.Elems;
+                public new ref MR.CS.ArrayInt5_3_4 Elems => ref _Ref.Elems;
 
                 /// Generated default constructor.
                 public unsafe Mut_Array_IntArray4Array3_5() : this(null, is_owning: true)
@@ -74,6 +74,9 @@ public static partial class MR
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(240);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 240);
                 }
+
+                /// Generated copy assignment.
+                public void Assign(Const_Array_IntArray4Array3_5 _other) {_Ref = _other._Ref;}
             }
 
             /// A fixed-size array of `int[3][4]` of size 5.
@@ -82,7 +85,7 @@ public static partial class MR
             public struct Array_IntArray4Array3_5
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 other) => other.UnderlyingStruct;
+                public static implicit operator Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt5_3_4 Elems;
@@ -110,7 +113,7 @@ public static partial class MR
                 public _InOpt_Array_IntArray4Array3_5() {HasValue = false;}
                 public _InOpt_Array_IntArray4Array3_5(Array_IntArray4Array3_5 new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_Array_IntArray4Array3_5(Array_IntArray4Array3_5 new_value) {return new(new_value);}
-                public _InOpt_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 new_value) {HasValue = true; Object = new_value.UnderlyingStruct;}
+                public _InOpt_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 new_value) {HasValue = true; Object = new_value._Ref;}
                 public static implicit operator _InOpt_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 new_value) {return new(new_value);}
             }
 
