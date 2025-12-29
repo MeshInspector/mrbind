@@ -5382,7 +5382,7 @@ namespace mrbind::CSharp
             if (cpp_field_type.Is<cppdecl::Pointer>())
             {
                 cppdecl::Type cpp_underlying_type = cpp_field_type;
-                cpp_underlying_type.RemoveModifier(1);
+                cpp_underlying_type.RemoveModifier();
 
                 const bool field_is_const = cpp_underlying_type.IsConst();
                 cpp_underlying_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
