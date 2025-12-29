@@ -419,7 +419,7 @@ namespace mrbind::CSharp
         // The custom types that `RequestCSharpSpanType()` wants to generate.
         // The keys are the C# type names for the whole span classes.
         // This is intentionally an ordered map, to emit consistent C# code.
-        std::map<std::string, RequestedMaybeOpaqueArray> requested_maybe_opaque_arrays;
+        std::map<std::string, RequestedMaybeOpaqueArray> requested_opaque_arrays;
 
         // Returns an array-like type, suitable to hold a fixed-size (or of unknown bound) array of some C++ type.
         // This is more capable than `CppToCSharpKnownSizeType()`, supporting also arrays of opaque classes,

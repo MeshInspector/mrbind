@@ -388,16 +388,16 @@ namespace mrbind::CSharp
         // Not inserting yet, in case this function fails.
         // And also because arrays of simple enough types are not inserted into this map at all,
         //   and are instead handled through `CppToCSharpKnownSizeType()`, see below.
-        auto iter = requested_maybe_opaque_arrays.find(csharp_array_name);
+        auto iter = requested_opaque_arrays.find(csharp_array_name);
 
-        if (iter == requested_maybe_opaque_arrays.end())
+        if (iter == requested_opaque_arrays.end())
         {
             const bool is_const = cpp_array_type.IsEffectivelyConst();
 
             // Simple enough type.
             if (auto opt = CppToCSharpKnownSizeType(cpp_array_type))
             {
-                // Here we don't write to `requested_maybe_opaque_arrays`, and just reuse a simple array.
+                // Here we don't write to `requested_opaque_arrays`, and just reuse a simple array.
 
                 ArrayStrings ret;
 
@@ -423,7 +423,7 @@ namespace mrbind::CSharp
 
             auto Return = [&]() -> ArrayStrings
             {
-                auto result = requested_maybe_opaque_arrays.try_emplace(std::move(csharp_array_name), std::move(ret));
+                auto result = requested_opaque_arrays.try_emplace(std::move(csharp_array_name), std::move(ret));
                 if (desc)
                     *desc = &result.first->second;
                 return result.first->second.strings;
@@ -6002,7 +6002,7 @@ namespace mrbind::CSharp
     void Generator::GenerateHelpers()
     {
         // Don't generate the file if no helpers are needed.
-        if (!requested_helpers.empty() || !requested_empty_tag_types.empty() || !requested_plain_arrays.empty() || !requested_maybe_opaque_arrays.empty())
+        if (!requested_helpers.empty() || !requested_empty_tag_types.empty() || !requested_plain_arrays.empty() || !requested_opaque_arrays.empty())
         {
             OutputFile &file = output_files.try_emplace("__common").first->second;
 
@@ -6562,9 +6562,9 @@ namespace mrbind::CSharp
 
             // Generate opaque arrays.
             // Note that this moves to a different namespace.
-            if (!requested_maybe_opaque_arrays.empty())
+            if (!requested_opaque_arrays.empty())
             {
-                for (const auto &[name, desc] : requested_maybe_opaque_arrays)
+                for (const auto &[name, desc] : requested_opaque_arrays)
                 {
                     { // Enter the correct namespace.
                         cppdecl::QualifiedName ns = desc.qual_array_name;
