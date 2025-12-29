@@ -6474,6 +6474,7 @@ namespace mrbind::CSharp
                                 file.WriteString("    public " + desc.csharp_elem_type + " _" + std::to_string(i) + ";\n");
                             }
                             file.WriteString(
+                                "\n"
                                 "    public unsafe ref " + desc.csharp_elem_type + " this[int i]\n"
                                 "    {\n"
                                 "        get\n"

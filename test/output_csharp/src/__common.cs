@@ -256,6 +256,7 @@ public static partial class MR
             public MR.CS.ArrayBool5 _1;
             public MR.CS.ArrayBool5 _2;
             public MR.CS.ArrayBool5 _3;
+
             public unsafe ref MR.CS.ArrayBool5 this[int i]
             {
                 get
@@ -286,6 +287,7 @@ public static partial class MR
             public MR.CS.ArrayInt20 _7;
             public MR.CS.ArrayInt20 _8;
             public MR.CS.ArrayInt20 _9;
+
             public unsafe ref MR.CS.ArrayInt20 this[int i]
             {
                 get
@@ -321,6 +323,7 @@ public static partial class MR
             public MR.CS.ArrayInt4 _0;
             public MR.CS.ArrayInt4 _1;
             public MR.CS.ArrayInt4 _2;
+
             public unsafe ref MR.CS.ArrayInt4 this[int i]
             {
                 get
@@ -357,6 +360,7 @@ public static partial class MR
             public MR.CS.ArrayInt5 _1;
             public MR.CS.ArrayInt5 _2;
             public MR.CS.ArrayInt5 _3;
+
             public unsafe ref MR.CS.ArrayInt5 this[int i]
             {
                 get
@@ -382,6 +386,7 @@ public static partial class MR
             public MR.CS.ArrayInt3_4 _2;
             public MR.CS.ArrayInt3_4 _3;
             public MR.CS.ArrayInt3_4 _4;
+
             public unsafe ref MR.CS.ArrayInt3_4 this[int i]
             {
                 get
@@ -408,6 +413,7 @@ public static partial class MR
                 public MR.CS.CSharp.ArrayE1_20 _7;
                 public MR.CS.CSharp.ArrayE1_20 _8;
                 public MR.CS.CSharp.ArrayE1_20 _9;
+
                 public unsafe ref MR.CS.CSharp.ArrayE1_20 this[int i]
                 {
                     get
@@ -442,6 +448,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _17;
                 public MR.CS.CSharp.E1 _18;
                 public MR.CS.CSharp.E1 _19;
+
                 public unsafe ref MR.CS.CSharp.E1 this[int i]
                 {
                     get
@@ -498,6 +505,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _39;
                 public MR.CS.CSharp.E1 _40;
                 public MR.CS.CSharp.E1 _41;
+
                 public unsafe ref MR.CS.CSharp.E1 this[int i]
                 {
                     get
@@ -522,6 +530,7 @@ public static partial class MR
                 public MR.CS.CSharp.ConstArrayE1_20 _7;
                 public MR.CS.CSharp.ConstArrayE1_20 _8;
                 public MR.CS.CSharp.ConstArrayE1_20 _9;
+
                 public unsafe ref MR.CS.CSharp.ConstArrayE1_20 this[int i]
                 {
                     get
@@ -556,6 +565,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _17;
                 public MR.CS.CSharp.E1 _18;
                 public MR.CS.CSharp.E1 _19;
+
                 public unsafe ref MR.CS.CSharp.E1 this[int i]
                 {
                     get
@@ -612,6 +622,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _39;
                 public MR.CS.CSharp.E1 _40;
                 public MR.CS.CSharp.E1 _41;
+
                 public unsafe ref MR.CS.CSharp.E1 this[int i]
                 {
                     get
@@ -637,6 +648,7 @@ public static partial class MR
             public MR.CS.ConstArrayInt20 _7;
             public MR.CS.ConstArrayInt20 _8;
             public MR.CS.ConstArrayInt20 _9;
+
             public unsafe ref MR.CS.ConstArrayInt20 this[int i]
             {
                 get
@@ -666,6 +678,7 @@ public static partial class MR
             public MR.CS.ConstArrayInt4 _0;
             public MR.CS.ConstArrayInt4 _1;
             public MR.CS.ConstArrayInt4 _2;
+
             public unsafe ref MR.CS.ConstArrayInt4 this[int i]
             {
                 get
@@ -698,6 +711,7 @@ public static partial class MR
                 public MR.CS.IncompleteArrayElemType.E _1;
                 public MR.CS.IncompleteArrayElemType.E _2;
                 public MR.CS.IncompleteArrayElemType.E _3;
+
                 public unsafe ref MR.CS.IncompleteArrayElemType.E this[int i]
                 {
                     get
