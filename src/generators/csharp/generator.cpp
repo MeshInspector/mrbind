@@ -224,15 +224,15 @@ namespace mrbind::CSharp
         return {};
     }
 
-    cppdecl::QualifiedName Generator::CppToCSharpArrayHelperName(cppdecl::Type cpp_array_type)
+    cppdecl::QualifiedName Generator::CppToCSharpArrayHelperName(const cppdecl::Type &cpp_array_type)
     {
-        // Make sure all modifiers are arrays, and have known bounds.
+        // Make sure all modifiers are arrays, with a size we can parse, or of unknown bound.
         if (!std::all_of(cpp_array_type.modifiers.begin(), cpp_array_type.modifiers.end(), [](const cppdecl::TypeModifier &mod)
         {
-            return mod.Is<cppdecl::Array>() && mod.As<cppdecl::Array>()->GetSize();
+            return mod.Is<cppdecl::Array>() && (mod.As<cppdecl::Array>()->IsUnbounded() || mod.As<cppdecl::Array>()->GetSize());
         }))
         {
-            return {};
+            throw std::logic_error("Internal error: `CppToCSharpArrayHelperName()` called either on a non-array type or on an array type with a bad size: `" + CppdeclToCode(cpp_array_type) + "`.");
         }
 
         // Add as many parts as we can without entering classes, since I really don't want to bother with reentering class scopes.
@@ -261,10 +261,12 @@ namespace mrbind::CSharp
         if (cpp_array_type.IsEffectivelyConst())
             csharp_array_name += "Const_";
 
-        csharp_array_name += "Array_";
+        csharp_array_name += (cpp_array_type.As<cppdecl::Array>()->IsUnbounded() ? "Ptr_" : "Array_");
         csharp_array_name += CppToCSharpIdentifier(remaining_parts);
         for (const auto &extent : cpp_array_type.modifiers)
         {
+            if (extent.As<cppdecl::Array>()->IsUnbounded())
+                continue;
             csharp_array_name += '_';
             csharp_array_name += std::to_string(extent.As<cppdecl::Array>()->GetSize().value());
         }
@@ -384,6 +386,8 @@ namespace mrbind::CSharp
         std::string csharp_array_name = CppToCSharpHelperName(qual_array_name);
 
         // Not inserting yet, in case this function fails.
+        // And also because arrays of simple enough types are not inserted into this map at all,
+        //   and are instead handled through `CppToCSharpKnownSizeType()`, see below.
         auto iter = requested_maybe_opaque_arrays.find(csharp_array_name);
 
         if (iter == requested_maybe_opaque_arrays.end())
@@ -404,6 +408,17 @@ namespace mrbind::CSharp
                 return ret;
             }
 
+            // Make sure we're not trying to make an unbounded array to a known-size type.
+            // We don't support this yet for simplicity, and because plain pointers replace those in most cases.
+            // But we could support them, it's not an issue.
+            {
+                cppdecl::Type cpp_elem_type = cpp_array_type;
+                cpp_elem_type.RemoveModifier();
+
+                if (cpp_array_type.As<cppdecl::Array>()->IsUnbounded() && CppToCSharpKnownSizeType(cpp_elem_type))
+                    throw std::logic_error("Internal error: Unbounded arrays with a non-class element type are not supported. We shouldn't be requesting them though, why is one needed? Array type was `" + CppdeclToCode(cpp_array_type) + "`.");
+            }
+
             RequestedMaybeOpaqueArray ret;
 
             auto Return = [&]() -> ArrayStrings
@@ -414,7 +429,8 @@ namespace mrbind::CSharp
                 return result.first->second.strings;
             };
 
-            ret.num_elems = cpp_array_type.As<cppdecl::Array>()->GetSize().value();
+            if (!cpp_array_type.As<cppdecl::Array>()->IsUnbounded())
+                ret.num_elems = cpp_array_type.As<cppdecl::Array>()->GetSize().value();
             ret.strings.csharp_type = csharp_array_name;
             ret.qual_array_name = qual_array_name;
 
@@ -457,7 +473,9 @@ namespace mrbind::CSharp
                 ret.csharp_elem_type = strings.csharp_type;
                 ret.kind = RequestedMaybeOpaqueArray::ElemKind::ptr;
                 ret.ptr_offset_func = desc->ptr_offset_func;
-                ret.size_for_ptr_offsets = desc->size_for_ptr_offsets * desc->num_elems;
+
+                assert(bool(desc->num_elems)); // How did we get an array of unknown bound as the element type of another array? This shouldn't compile.
+                ret.size_for_ptr_offsets = desc->size_for_ptr_offsets * desc->num_elems.value();
 
                 ret.strings.csharp_underlying_ptr_target_type = desc->strings.csharp_underlying_ptr_target_type;
                 ret.strings.construct = [](const std::string &expr){return "new(" + expr + ")";};
@@ -1936,6 +1954,52 @@ namespace mrbind::CSharp
                                 {
                                     if (!cpp_underlying_type.IsOnlyQualifiedName())
                                         throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
+
+                                    // Special handling for pointers marked as pointers to arrays.
+                                    if (bool(flags & TypeBindingFlags::pointer_to_array))
+                                    {
+                                        // We bind those pointers as unbounded arrays.
+                                        cppdecl::Type cpp_unbounded_array_type = cpp_type;
+                                        cpp_unbounded_array_type.RemoveModifier(); // Remove pointer.
+                                        cpp_unbounded_array_type.AddModifier(cppdecl::Array{});
+                                        const Generator::ArrayStrings csharp_unbounded_array = RequestCSharpArrayType(cpp_unbounded_array_type);
+                                        const std::string csharp_ptr_type =
+                                            csharp_unbounded_array.csharp_underlying_ptr_target_type +
+                                            (csharp_unbounded_array.csharp_underlying_ptr_target_type.ends_with('*') ? "" : " ") + '*';
+
+                                        return CreateBinding({
+                                            .param_usage = TypeBinding::ParamUsage{
+                                                .make_strings = [csharp_unbounded_array, csharp_ptr_type](const std::string &name, bool have_useless_defarg)
+                                                {
+                                                    return TypeBinding::ParamUsage::Strings{
+                                                        .dllimport_decl_params = csharp_ptr_type + name,
+                                                        .csharp_decl_params = {{.type = csharp_unbounded_array.csharp_type + "?", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
+                                                        .dllimport_args = name + ".Ptr",
+                                                    };
+                                                },
+                                            },
+                                            .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                                .make_strings = [csharp_unbounded_array, csharp_ptr_type](const std::string &name, bool /*have_useless_defarg*/)
+                                                {
+                                                    return TypeBinding::ParamUsage::Strings{
+                                                        .dllimport_decl_params = csharp_ptr_type + "*" + name,
+                                                        .csharp_decl_params = {{.type = csharp_unbounded_array.csharp_type + "?", .name = name, .default_arg = "null"}},
+                                                        .extra_statements = csharp_ptr_type + "__ptr_" + name + " = " + name + " is not null ? " + name + ".Ptr : null;\n",
+                                                        .dllimport_args = name + " is not null ? &__ptr_" + name + " : null",
+                                                    };
+                                                },
+                                            },
+                                            .return_usage = TypeBinding::ReturnUsage{
+                                                .needs_temporary_variable = true,
+                                                .dllimport_return_type = csharp_ptr_type,
+                                                .csharp_return_type = csharp_unbounded_array.csharp_type + "?",
+                                                .make_return_statements = [](const std::string &target, const std::string &expr)
+                                                {
+                                                    return target + " new(" + expr + ");";
+                                                },
+                                            },
+                                        });
+                                    }
 
                                     const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
@@ -6456,7 +6520,7 @@ namespace mrbind::CSharp
                                 "{\n"
                                 // Leaving this public just in case.
                                 "    public unsafe fixed " + desc.csharp_elem_type + " _elem[" + std::to_string(desc.num_elems) + "];\n"
-                                "    public unsafe ref " + desc.csharp_elem_type + " this[int i] => ref _elem[i];\n"
+                                "    public unsafe ref " + desc.csharp_elem_type + " this[nint i] => ref _elem[i];\n"
                                 "}\n"
                             );
                         }
@@ -6475,7 +6539,7 @@ namespace mrbind::CSharp
                             }
                             file.WriteString(
                                 "\n"
-                                "    public unsafe ref " + desc.csharp_elem_type + " this[int i]\n"
+                                "    public unsafe ref " + desc.csharp_elem_type + " this[nint i]\n"
                                 "    {\n"
                                 "        get\n"
                                 "        {\n"
@@ -6516,11 +6580,14 @@ namespace mrbind::CSharp
                     file.PushScope({}, "{\n", "}\n");
 
                     file.WriteString(
-                        desc.strings.csharp_underlying_ptr_target_type + " *Ptr;\n"
+                        "internal " + desc.strings.csharp_underlying_ptr_target_type + " *Ptr;\n"
                         "\n"
                         "internal " + unqual_csharp_name + "(" + desc.strings.csharp_underlying_ptr_target_type + " *new_ptr) {Ptr = new_ptr;}\n"
                         "\n"
-                        "public " + desc.csharp_elem_type + " this[int i]\n"
+                        // This one is intentionally `nint` instead of `nuint`, because we use arrays of unknown bound
+                        //   to bind pointers marked as "pointers to arrays" in C bindings, and those sometimes
+                        //   point to the middle of an array, so we have to support negative indices.
+                        "public " + desc.csharp_elem_type + " this[nint i]\n"
                     );
 
                     file.PushScope({}, "{\n", "}\n");
@@ -6530,6 +6597,12 @@ namespace mrbind::CSharp
                     file.WriteString("get\n");
 
                     file.PushScope({}, "{\n", "}\n");
+
+                    // Assert that `i` is in bounds.
+                    // Note that for arrays of unknown bounds, we don't even check `i >= 0`, because we can use those
+                    //   to represent pointers to the middle of an array, so we might need negative indices.
+                    if (desc.num_elems)
+                        file.WriteString("System.Diagnostics.Trace.Assert(i >= 0 && i < " + std::to_string(*desc.num_elems) + ");\n");
 
                     DllImportDeclStrings dllimport_decl;
                     if (desc.ptr_offset_func)

@@ -257,7 +257,7 @@ public static partial class MR
             public MR.CS.ArrayBool5 _2;
             public MR.CS.ArrayBool5 _3;
 
-            public unsafe ref MR.CS.ArrayBool5 this[int i]
+            public unsafe ref MR.CS.ArrayBool5 this[nint i]
             {
                 get
                 {
@@ -272,7 +272,7 @@ public static partial class MR
         public struct ArrayBool5
         {
             public unsafe fixed byte _elem[5];
-            public unsafe ref byte this[int i] => ref _elem[i];
+            public unsafe ref byte this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt10_20
@@ -288,7 +288,7 @@ public static partial class MR
             public MR.CS.ArrayInt20 _8;
             public MR.CS.ArrayInt20 _9;
 
-            public unsafe ref MR.CS.ArrayInt20 this[int i]
+            public unsafe ref MR.CS.ArrayInt20 this[nint i]
             {
                 get
                 {
@@ -303,19 +303,19 @@ public static partial class MR
         public struct ArrayInt2
         {
             public unsafe fixed int _elem[2];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt20
         {
             public unsafe fixed int _elem[20];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt3
         {
             public unsafe fixed int _elem[3];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt3_4
@@ -324,7 +324,7 @@ public static partial class MR
             public MR.CS.ArrayInt4 _1;
             public MR.CS.ArrayInt4 _2;
 
-            public unsafe ref MR.CS.ArrayInt4 this[int i]
+            public unsafe ref MR.CS.ArrayInt4 this[nint i]
             {
                 get
                 {
@@ -339,19 +339,19 @@ public static partial class MR
         public struct ArrayInt4
         {
             public unsafe fixed int _elem[4];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt42
         {
             public unsafe fixed int _elem[42];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt43
         {
             public unsafe fixed int _elem[43];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt4_5
@@ -361,7 +361,7 @@ public static partial class MR
             public MR.CS.ArrayInt5 _2;
             public MR.CS.ArrayInt5 _3;
 
-            public unsafe ref MR.CS.ArrayInt5 this[int i]
+            public unsafe ref MR.CS.ArrayInt5 this[nint i]
             {
                 get
                 {
@@ -376,7 +376,7 @@ public static partial class MR
         public struct ArrayInt5
         {
             public unsafe fixed int _elem[5];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ArrayInt5_3_4
@@ -387,7 +387,7 @@ public static partial class MR
             public MR.CS.ArrayInt3_4 _3;
             public MR.CS.ArrayInt3_4 _4;
 
-            public unsafe ref MR.CS.ArrayInt3_4 this[int i]
+            public unsafe ref MR.CS.ArrayInt3_4 this[nint i]
             {
                 get
                 {
@@ -414,7 +414,7 @@ public static partial class MR
                 public MR.CS.CSharp.ArrayE1_20 _8;
                 public MR.CS.CSharp.ArrayE1_20 _9;
 
-                public unsafe ref MR.CS.CSharp.ArrayE1_20 this[int i]
+                public unsafe ref MR.CS.CSharp.ArrayE1_20 this[nint i]
                 {
                     get
                     {
@@ -449,7 +449,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _18;
                 public MR.CS.CSharp.E1 _19;
 
-                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                public unsafe ref MR.CS.CSharp.E1 this[nint i]
                 {
                     get
                     {
@@ -506,7 +506,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _40;
                 public MR.CS.CSharp.E1 _41;
 
-                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                public unsafe ref MR.CS.CSharp.E1 this[nint i]
                 {
                     get
                     {
@@ -531,7 +531,7 @@ public static partial class MR
                 public MR.CS.CSharp.ConstArrayE1_20 _8;
                 public MR.CS.CSharp.ConstArrayE1_20 _9;
 
-                public unsafe ref MR.CS.CSharp.ConstArrayE1_20 this[int i]
+                public unsafe ref MR.CS.CSharp.ConstArrayE1_20 this[nint i]
                 {
                     get
                     {
@@ -566,7 +566,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _18;
                 public MR.CS.CSharp.E1 _19;
 
-                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                public unsafe ref MR.CS.CSharp.E1 this[nint i]
                 {
                     get
                     {
@@ -623,7 +623,7 @@ public static partial class MR
                 public MR.CS.CSharp.E1 _40;
                 public MR.CS.CSharp.E1 _41;
 
-                public unsafe ref MR.CS.CSharp.E1 this[int i]
+                public unsafe ref MR.CS.CSharp.E1 this[nint i]
                 {
                     get
                     {
@@ -649,7 +649,7 @@ public static partial class MR
             public MR.CS.ConstArrayInt20 _8;
             public MR.CS.ConstArrayInt20 _9;
 
-            public unsafe ref MR.CS.ConstArrayInt20 this[int i]
+            public unsafe ref MR.CS.ConstArrayInt20 this[nint i]
             {
                 get
                 {
@@ -664,13 +664,13 @@ public static partial class MR
         public struct ConstArrayInt2
         {
             public unsafe fixed int _elem[2];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ConstArrayInt20
         {
             public unsafe fixed int _elem[20];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ConstArrayInt3_4
@@ -679,7 +679,7 @@ public static partial class MR
             public MR.CS.ConstArrayInt4 _1;
             public MR.CS.ConstArrayInt4 _2;
 
-            public unsafe ref MR.CS.ConstArrayInt4 this[int i]
+            public unsafe ref MR.CS.ConstArrayInt4 this[nint i]
             {
                 get
                 {
@@ -694,13 +694,13 @@ public static partial class MR
         public struct ConstArrayInt4
         {
             public unsafe fixed int _elem[4];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public struct ConstArrayInt42
         {
             public unsafe fixed int _elem[42];
-            public unsafe ref int this[int i] => ref _elem[i];
+            public unsafe ref int this[nint i] => ref _elem[i];
         }
 
         public static partial class IncompleteArrayElemType
@@ -712,7 +712,7 @@ public static partial class MR
                 public MR.CS.IncompleteArrayElemType.E _2;
                 public MR.CS.IncompleteArrayElemType.E _3;
 
-                public unsafe ref MR.CS.IncompleteArrayElemType.E this[int i]
+                public unsafe ref MR.CS.IncompleteArrayElemType.E this[nint i]
                 {
                     get
                     {
@@ -729,14 +729,15 @@ public static partial class MR
         {
             public unsafe struct ArrayString2
             {
-                MR.CS.Std.String._Underlying *Ptr;
+                internal MR.CS.Std.String._Underlying *Ptr;
 
                 internal ArrayString2(MR.CS.Std.String._Underlying *new_ptr) {Ptr = new_ptr;}
 
-                public MR.CS.Std.String this[int i]
+                public MR.CS.Std.String this[nint i]
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(i >= 0 && i < 2);
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
@@ -746,17 +747,89 @@ public static partial class MR
 
             public unsafe struct ConstArrayString2
             {
-                MR.CS.Std.Const_String._Underlying *Ptr;
+                internal MR.CS.Std.Const_String._Underlying *Ptr;
 
                 internal ConstArrayString2(MR.CS.Std.Const_String._Underlying *new_ptr) {Ptr = new_ptr;}
 
-                public MR.CS.Std.Const_String this[int i]
+                public MR.CS.Std.Const_String this[nint i]
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(i >= 0 && i < 2);
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+        }
+
+        public static partial class StdContainers
+        {
+            public unsafe struct ConstPtrA
+            {
+                internal MR.CS.StdContainers.Const_A._Underlying *Ptr;
+
+                internal ConstPtrA(MR.CS.StdContainers.Const_A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.Const_A this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_A_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+
+            public unsafe struct ConstPtrNonAssignable
+            {
+                internal MR.CS.StdContainers.Const_NonAssignable._Underlying *Ptr;
+
+                internal ConstPtrNonAssignable(MR.CS.StdContainers.Const_NonAssignable._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.Const_NonAssignable this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_NonAssignable_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+
+            public unsafe struct PtrA
+            {
+                internal MR.CS.StdContainers.A._Underlying *Ptr;
+
+                internal PtrA(MR.CS.StdContainers.A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.A this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_A_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+
+            public unsafe struct PtrNonAssignable
+            {
+                internal MR.CS.StdContainers.NonAssignable._Underlying *Ptr;
+
+                internal PtrNonAssignable(MR.CS.StdContainers.NonAssignable._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.NonAssignable this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_NonAssignable_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
             }

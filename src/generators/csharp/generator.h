@@ -354,7 +354,7 @@ namespace mrbind::CSharp
         // Given an array type (asserts otherwise), returns a suitable qualified C# name for it.
         // Respects constness on the element type.
         // Apply `CppToCSharpHelperName()` to the resulting name to get a C# name.
-        [[nodiscard]] cppdecl::QualifiedName CppToCSharpArrayHelperName(cppdecl::Type cpp_array_type);
+        [[nodiscard]] cppdecl::QualifiedName CppToCSharpArrayHelperName(const cppdecl::Type &cpp_array_type);
 
         struct RequestedPlainArray
         {
@@ -379,6 +379,7 @@ namespace mrbind::CSharp
             // This may include `ref` or `ref readonly`, but not necessarily.
             std::string csharp_type;
 
+            // This array will be backed by a pointer to this C# type.
             std::string csharp_underlying_ptr_target_type;
 
             // This constructs an instance of `csharp_type` from a pointer to the first element of the array.
@@ -393,7 +394,8 @@ namespace mrbind::CSharp
 
             std::string csharp_elem_type;
 
-            std::size_t num_elems = 0; // Must be larger than zero.
+            // Null for arrays of unknown bound. Otherwise larger than zero.
+            std::optional<std::size_t> num_elems;
 
             enum class ElemKind
             {
@@ -419,10 +421,10 @@ namespace mrbind::CSharp
         // This is intentionally an ordered map, to emit consistent C# code.
         std::map<std::string, RequestedMaybeOpaqueArray> requested_maybe_opaque_arrays;
 
-        // Returns an array-like type, suitable to hold a fixed-size array of some C++ type.
+        // Returns an array-like type, suitable to hold a fixed-size (or of unknown bound) array of some C++ type.
         // This is more capable than `CppToCSharpKnownSizeType()`, supporting also arrays of opaque classes,
         //   and const arrays (sometimes the constness is expressed as `ref` vs `ref readonly`, and otherwise doesn't affect the type).
-        // `cpp_array_type` must be an array type, throws otherwise.
+        // `cpp_array_type` must be an array type, throws otherwise. It's allowed to be an array of unknown bound.
         // Throws on failure (if can't handle this element type).
         [[nodiscard]] ArrayStrings RequestCSharpArrayType(const cppdecl::Type &cpp_array_type, const RequestedMaybeOpaqueArray **desc = nullptr);
 

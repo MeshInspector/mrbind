@@ -435,14 +435,15 @@ public static partial class MR
         {
             public unsafe struct ArrayString2
             {
-                MR.CS.Std.String._Underlying *Ptr;
+                internal MR.CS.Std.String._Underlying *Ptr;
 
                 internal ArrayString2(MR.CS.Std.String._Underlying *new_ptr) {Ptr = new_ptr;}
 
-                public MR.CS.Std.String this[int i]
+                public MR.CS.Std.String this[nint i]
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(i >= 0 && i < 2);
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
@@ -452,17 +453,89 @@ public static partial class MR
 
             public unsafe struct ConstArrayString2
             {
-                MR.CS.Std.Const_String._Underlying *Ptr;
+                internal MR.CS.Std.Const_String._Underlying *Ptr;
 
                 internal ConstArrayString2(MR.CS.Std.Const_String._Underlying *new_ptr) {Ptr = new_ptr;}
 
-                public MR.CS.Std.Const_String this[int i]
+                public MR.CS.Std.Const_String this[nint i]
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(i >= 0 && i < 2);
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+        }
+
+        public static partial class StdContainers
+        {
+            public unsafe struct ConstPtrA
+            {
+                internal MR.CS.StdContainers.Const_A._Underlying *Ptr;
+
+                internal ConstPtrA(MR.CS.StdContainers.Const_A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.Const_A this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_A_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+
+            public unsafe struct ConstPtrNonAssignable
+            {
+                internal MR.CS.StdContainers.Const_NonAssignable._Underlying *Ptr;
+
+                internal ConstPtrNonAssignable(MR.CS.StdContainers.Const_NonAssignable._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.Const_NonAssignable this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_NonAssignable_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+
+            public unsafe struct PtrA
+            {
+                internal MR.CS.StdContainers.A._Underlying *Ptr;
+
+                internal PtrA(MR.CS.StdContainers.A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.A this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_A_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+            }
+
+            public unsafe struct PtrNonAssignable
+            {
+                internal MR.CS.StdContainers.NonAssignable._Underlying *Ptr;
+
+                internal PtrNonAssignable(MR.CS.StdContainers.NonAssignable._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.NonAssignable this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_NonAssignable_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
             }

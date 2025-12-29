@@ -43,12 +43,12 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                public unsafe MR.CS.StdContainers.Const_NonAssignable? Data()
+                public unsafe MR.CS.StdContainers.ConstPtrNonAssignable? Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_Data", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_Data(_Underlying *_this);
                     var __ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_Data(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdContainers.Const_NonAssignable(__ret, is_owning: false) : null;
+                    return new(__ret);
                 }
             }
 
@@ -75,12 +75,12 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                public unsafe new MR.CS.StdContainers.NonAssignable? Data()
+                public unsafe new MR.CS.StdContainers.PtrNonAssignable? Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData(_Underlying *_this);
                     var __ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdContainers.NonAssignable(__ret, is_owning: false) : null;
+                    return new(__ret);
                 }
             }
 
