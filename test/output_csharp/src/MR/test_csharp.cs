@@ -14805,23 +14805,23 @@ public static partial class MR
                 /// This holds the last value manually assigned to property `Sb`, to keep the target object alive.
                 public static MR.CS.CSharp.Const_ExposedLayout? _Storage_Sb = null;
 
-                public static unsafe MR.CS.CSharp.Mut_ExposedLayout Sc
+                public static unsafe ref MR.CS.CSharp.ExposedLayout Sc
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sc", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_CSharp_ClassMemberPointersExposed_Get_sc();
-                        return new(__MR_CSharp_ClassMemberPointersExposed_Get_sc(), is_owning: false);
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_sc();
+                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_sc();
                     }
                 }
 
-                public static unsafe MR.CS.CSharp.Const_ExposedLayout Sd
+                public static unsafe ref readonly MR.CS.CSharp.ExposedLayout Sd
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sd", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_CSharp_ClassMemberPointersExposed_Get_sd();
-                        return new(__MR_CSharp_ClassMemberPointersExposed_Get_sd(), is_owning: false);
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_sd();
+                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_sd();
                     }
                 }
 
@@ -14851,23 +14851,23 @@ public static partial class MR
                 /// This holds the last value manually assigned to property `B`, to keep the target object alive.
                 public MR.CS.CSharp.Const_ExposedLayout? _Storage_B = null;
 
-                public unsafe MR.CS.CSharp.Mut_ExposedLayout C
+                public unsafe ref MR.CS.CSharp.ExposedLayout C
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_c", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_CSharp_ClassMemberPointersExposed_Get_c(_Underlying *_this);
-                        return new(__MR_CSharp_ClassMemberPointersExposed_Get_c(_UnderlyingPtr), is_owning: false);
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_c(_Underlying *_this);
+                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_c(_UnderlyingPtr);
                     }
                 }
 
-                public unsafe MR.CS.CSharp.Const_ExposedLayout D
+                public unsafe ref readonly MR.CS.CSharp.ExposedLayout D
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_d", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_CSharp_ClassMemberPointersExposed_Get_d(_Underlying *_this);
-                        return new(__MR_CSharp_ClassMemberPointersExposed_Get_d(_UnderlyingPtr), is_owning: false);
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_d(_Underlying *_this);
+                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_d(_UnderlyingPtr);
                     }
                 }
 

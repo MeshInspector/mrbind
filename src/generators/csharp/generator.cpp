@@ -1578,6 +1578,36 @@ namespace mrbind::CSharp
                                     if (!cpp_underlying_type.IsOnlyQualifiedName())
                                         throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
+                                    // Special behavior for when we want raw `ref`s to exposed structs.
+                                    if (bool(flags & TypeBindingFlags::use_ref_for_exposed_struct_refs) && elem.kind == CInterop::ClassKind::exposed_struct)
+                                    {
+                                        const std::string csharp_type = CppToCSharpExposedStructName(cpp_type.simple_type.name);
+                                        const std::string csharp_ref_type = (is_const ? "ref readonly " : "ref ") + csharp_type;
+
+                                        return CreateBinding({
+                                            .param_usage = TypeBinding::ParamUsage{
+                                                .make_strings = [csharp_type, csharp_ref_type](const std::string &name, bool /*have_useless_defarg*/)
+                                                {
+                                                    return TypeBinding::ParamUsage::Strings{
+                                                        .dllimport_decl_params = csharp_type + " *" + name,
+                                                        .csharp_decl_params = {{.type = csharp_ref_type, .name = name}},
+                                                        .dllimport_args = "&" + name,
+                                                    };
+                                                },
+                                            },
+                                            // No default argument support, since there are no optional refs.
+                                            // `use_ref_for_exposed_struct_refs` only exists for field properties anyway.
+                                            .return_usage = TypeBinding::ReturnUsage{
+                                                .dllimport_return_type = csharp_type + " *",
+                                                .csharp_return_type = csharp_ref_type,
+                                                .make_return_statements = [](const std::string &target, const std::string &expr)
+                                                {
+                                                    return target + " ref *" + expr + ";";
+                                                },
+                                            },
+                                        });
+                                    }
+
                                     const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
                                     const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
@@ -2642,6 +2672,13 @@ namespace mrbind::CSharp
                     // Also specifically for string conversions this helps our automatic rewrites of them into `operator string` and `ToString()`.
                     // NOTE: This behavior must match what's done in `MakeUnqualCSharpMethodName()` to avoid spelling `_Moved<...>` in the name.
                     Generator::TypeBindingFlags::no_move_in_by_value_return
+                ) :
+                // Custom behavior for property getters.
+                // This must match the logic `EmitCppField()` is using to determine the C# property type.
+                is_property_get
+                ? (
+                    // This improves the usability, allowing `=` instead of `.Assign()`. This is the only reason we're doing this.
+                    Generator::TypeBindingFlags::use_ref_for_exposed_struct_refs
                 ) :
                 // Otherwise use default flags.
                 TypeBindingFlags{}
@@ -5582,7 +5619,9 @@ namespace mrbind::CSharp
 
             // Determine the C# property type.
             // This can be different for const and mutable halves, but this is fine.
-            const std::string csharp_property_type = GetReturnBinding(maybe_const_getter->ret).csharp_return_type;
+            // Note that this (specifically the `use_ref_for_exposed_struct_refs` part) must match how `FuncLikeEmitter`
+            //   determines the return type binding for properties.
+            const std::string csharp_property_type = GetReturnBinding(maybe_const_getter->ret, TypeBindingFlags::use_ref_for_exposed_struct_refs).csharp_return_type;
 
             // Emit the property.
             // We only emit the `get` half, never the `set` half.

@@ -551,6 +551,11 @@ namespace mrbind::CSharp
             no_move_in_by_value_return = 1 << 2,
             // This flag disables the implicit `no_move_in_by_value_return` caused by the lack of `--move-classes-returned-by-value`.
             force_move_in_by_value_return = 1 << 3,
+            // When dealing with references to exposed structs, use `ref` and `ref readonly` instead of heap-allocating wrappers.
+            // This also disables default argument support, since there are no optional `ref`s. We could implement the default args
+            //   using some of our wrappers, but since this flag only exists to improve the interface of class field properties,
+            //   we don't need this at the moment.
+            use_ref_for_exposed_struct_refs = 1 << 4,
         };
         MRBIND_FLAG_OPERATORS_IN_CLASS(TypeBindingFlags)
 
