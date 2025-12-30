@@ -36,6 +36,7 @@ typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#includ
 typedef struct MR_C_std_unique_ptr_int MR_C_std_unique_ptr_int; // Defined in `#include <std_unique_ptr_int.h>`.
 typedef struct MR_C_std_variant_std_monostate_int_float MR_C_std_variant_std_monostate_int_float; // Defined in `#include <std_variant_std_monostate_int_float.h>`.
 typedef struct MR_C_std_variant_std_monostate_int_float_float MR_C_std_variant_std_monostate_int_float_float; // Defined in `#include <std_variant_std_monostate_int_float_float.h>`.
+typedef struct MR_C_std_vector_MR_CSharp_ExposedLayout MR_C_std_vector_MR_CSharp_ExposedLayout; // Defined in `#include <std_vector_MR_CSharp_ExposedLayout.h>`.
 
 
 /// Enum comment.
@@ -5236,6 +5237,11 @@ MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLa
 /// Parameter `b` defaults to a null pointer in C++.
 /// Parameter `c` has a default argument: `&default_exposed`, pass a null pointer to use it.
 MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b, const MR_CSharp_ExposedLayout *const *c);
+
+// This broke at one point, so testing it too.
+/// Generated from function `MR::CSharp::test_exposed_vec`.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_vec(void);
 
 /// Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
 /// Parameter `_this` can not be null. It is a single object.

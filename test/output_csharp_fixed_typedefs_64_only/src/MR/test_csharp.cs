@@ -16744,6 +16744,15 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Const_ExposedLayout(__ret, is_owning: false) : null;
             }
 
+            // This broke at one point, so testing it too.
+            /// Generated from function `MR::CSharp::test_exposed_vec`.
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCSharpExposedLayout> TestExposedVec()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_vec", ExactSpelling = true)]
+                extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_CSharp_test_exposed_vec();
+                return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCSharpExposedLayout(__MR_CSharp_test_exposed_vec(), is_owning: true));
+            }
+
             /// Generated from function `MR::CSharp::make_exposed_sh`.
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Mut_ExposedLayoutSh> MakeExposedSh()
             {

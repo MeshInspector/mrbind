@@ -431,6 +431,39 @@ public static partial class MR
             }
         }
 
+        public static partial class CSharp
+        {
+            public unsafe struct ConstPtrExposedLayout
+            {
+                internal MR.CS.CSharp.ExposedLayout *Ptr;
+
+                internal ConstPtrExposedLayout(MR.CS.CSharp.ExposedLayout *new_ptr) {Ptr = new_ptr;}
+
+                public ref readonly MR.CS.CSharp.ExposedLayout this[nint i]
+                {
+                    get
+                    {
+                        return ref *(Ptr + i * 56);
+                    }
+                }
+            }
+
+            public unsafe struct PtrExposedLayout
+            {
+                internal MR.CS.CSharp.ExposedLayout *Ptr;
+
+                internal PtrExposedLayout(MR.CS.CSharp.ExposedLayout *new_ptr) {Ptr = new_ptr;}
+
+                public ref MR.CS.CSharp.ExposedLayout this[nint i]
+                {
+                    get
+                    {
+                        return ref *(Ptr + i * 56);
+                    }
+                }
+            }
+        }
+
         public static partial class Std
         {
             public unsafe struct ArrayString2

@@ -19,6 +19,7 @@
 #include <type_traits>
 #include <utility>
 #include <variant>
+#include <vector>
 
 
 void MR_CSharp_foo(void)
@@ -6496,6 +6497,11 @@ const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cptr_const_MR_CSharp_Expos
         ((const MR::CSharp::ExposedLayout *)b),
         (c ? (const MR::CSharp::ExposedLayout *)(*c) : static_cast<const MR::CSharp::ExposedLayout *>(&default_exposed))
     ));
+}
+
+MR_C_std_vector_MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_vec(void)
+{
+    return (MR_C_std_vector_MR_CSharp_ExposedLayout *)new std::vector<MR::CSharp::ExposedLayout>(::MR::CSharp::test_exposed_vec());
 }
 
 void MR_CSharp_ExposedLayoutSh_foo(MR_CSharp_ExposedLayoutSh *_this)

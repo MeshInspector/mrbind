@@ -5,6 +5,7 @@
 #include <memory>
 #include <optional>
 #include <variant>
+#include <vector>
 
 // This is a mixed bag of tests primarily intended for testing the C# bindings.
 
@@ -906,6 +907,9 @@ namespace MR::CSharp
     inline const ExposedLayout &&test_exposed_crref(const ExposedLayout &&a, const ExposedLayout &&b = (ExposedLayout &&)default_exposed) {(void)a; (void)b; return (const ExposedLayout &&)default_exposed;}
     inline ExposedLayout *test_exposed_ptr(ExposedLayout *a, ExposedLayout *b = nullptr, ExposedLayout *c = &default_exposed) {(void)a; (void)b; (void)c; return &default_exposed;}
     inline const ExposedLayout *test_exposed_cptr(const ExposedLayout *a, const ExposedLayout *b = nullptr, const ExposedLayout *c = &default_exposed) {(void)a; (void)b; (void)c; return &default_exposed;}
+
+    // This broke at one point, so testing it too.
+    inline std::vector<ExposedLayout> test_exposed_vec() {return {};}
 
 
     // This one is backed by a shared pointer.

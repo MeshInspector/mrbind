@@ -524,17 +524,6 @@ namespace mrbind::CSharp
                 return ret;
             }
 
-            // Make sure we're not trying to make an unbounded array to a known-size type.
-            // We don't support this yet for simplicity, and because plain pointers replace those in most cases.
-            // But we could support them, it's not an issue.
-            {
-                cppdecl::Type cpp_elem_type = cpp_array_type;
-                cpp_elem_type.RemoveModifier();
-
-                if (cpp_array_type.As<cppdecl::Array>()->IsUnbounded() && CppToCSharpKnownSizeType(cpp_elem_type))
-                    throw std::logic_error("Internal error: Unbounded arrays with a non-class element type are not supported. We shouldn't be requesting them though, why is one needed? Array type was `" + CppdeclToCode(cpp_array_type) + "`.");
-            }
-
             RequestedMaybeOpaqueArray ret;
 
             auto Return = [&]() -> ArrayStrings
@@ -554,6 +543,22 @@ namespace mrbind::CSharp
             cpp_elem_type.RemoveModifier();
 
             cpp_elem_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+            // Fixed-size type. This should only happen for unbounded arrays, since bounded ones are handled above.
+            if (std::size_t elem_byte_size = 0; auto csharp_elem_type = CppToCSharpKnownSizeType(cpp_elem_type, &elem_byte_size))
+            {
+                assert(cpp_array_type.As<cppdecl::Array>()->IsUnbounded());
+
+                ret.csharp_elem_type = (is_const ? "ref readonly " : "ref ") + *csharp_elem_type;
+                ret.kind = RequestedMaybeOpaqueArray::ElemKind::ref;
+
+                ret.size_for_ptr_offsets = elem_byte_size;
+
+                ret.strings.csharp_underlying_ptr_target_type = *csharp_elem_type;
+                ret.strings.construct = [](const std::string &expr){return "new(" + expr + ")";};
+
+                return Return();
+            }
 
             // Opaque class.
             if (auto opt = c_desc.FindTypeOpt(CppdeclToCode(cpp_elem_type)))
@@ -6713,7 +6718,7 @@ namespace mrbind::CSharp
                     switch (desc.kind)
                     {
                       case RequestedMaybeOpaqueArray::ElemKind::ref:
-                        file.WriteString("return ref *" + expr + ";\n");
+                        file.WriteString("return ref *(" + expr + ");\n");
                         break;
                       case RequestedMaybeOpaqueArray::ElemKind::ptr:
                         file.WriteString("return new(" + expr + ");\n");

@@ -41,6 +41,7 @@ typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#includ
 typedef struct MR_C_std_unique_ptr_int32_t MR_C_std_unique_ptr_int32_t; // Defined in `#include <std_unique_ptr_int32_t.h>`.
 typedef struct MR_C_std_variant_std_monostate_int32_t_float MR_C_std_variant_std_monostate_int32_t_float; // Defined in `#include <std_variant_std_monostate_int32_t_float.h>`.
 typedef struct MR_C_std_variant_std_monostate_int32_t_float_float MR_C_std_variant_std_monostate_int32_t_float_float; // Defined in `#include <std_variant_std_monostate_int32_t_float_float.h>`.
+typedef struct MR_C_std_vector_MR_CSharp_ExposedLayout MR_C_std_vector_MR_CSharp_ExposedLayout; // Defined in `#include <std_vector_MR_CSharp_ExposedLayout.h>`.
 
 
 // Enum comment.
@@ -5092,6 +5093,11 @@ MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLa
 // Parameter `c` has a default argument: `&default_exposed`, pass a null pointer to use it.
 MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b, const MR_CSharp_ExposedLayout *const *c);
 
+// This broke at one point, so testing it too.
+// Generated from function `MR::CSharp::test_exposed_vec`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_vec(void);
+
 // Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_CSharp_ExposedLayoutSh_foo(MR_CSharp_ExposedLayoutSh *_this);
@@ -6842,5 +6848,6 @@ MR_C_API const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_exp
 #include <std_unique_ptr_int32_t.h>
 #include <std_variant_std_monostate_int32_t_float.h>
 #include <std_variant_std_monostate_int32_t_float_float.h>
+#include <std_vector_MR_CSharp_ExposedLayout.h>
 
 #endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_CSHARP_H_2)
