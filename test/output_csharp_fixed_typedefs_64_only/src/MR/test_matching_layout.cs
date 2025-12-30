@@ -32,19 +32,19 @@ public static partial class MR
                 ~Const_A() {Dispose(false);}
 
                 // first
-                public ref readonly int A_ => ref _Ref.A_;
+                public ref readonly int a => ref _Ref.a;
 
                 // second
-                public ref readonly short B => ref _Ref.B;
+                public ref readonly short b => ref _Ref.b;
 
                 // third
-                public ref readonly float C => ref _Ref.C;
+                public ref readonly float c => ref _Ref.c;
 
-                public ref readonly long Ll => ref _Ref.Ll;
+                public ref readonly long ll => ref _Ref.ll;
 
-                public ref readonly MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
+                public ref readonly MR.CS.ArrayInt3 arr => ref _Ref.arr;
 
-                public ref readonly MR.CS.ArrayInt4_5 Arr2d => ref _Ref.Arr2d;
+                public ref readonly MR.CS.ArrayInt4_5 arr2d => ref _Ref.arr2d;
 
                 // Having static fields is not an error! Those get their normal getters and setters.
                 public static unsafe ref int X
@@ -84,19 +84,19 @@ public static partial class MR
                 internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 // first
-                public new ref int A_ => ref _Ref.A_;
+                public new ref int a => ref _Ref.a;
 
                 // second
-                public new ref short B => ref _Ref.B;
+                public new ref short b => ref _Ref.b;
 
                 // third
-                public new ref float C => ref _Ref.C;
+                public new ref float c => ref _Ref.c;
 
-                public new ref long Ll => ref _Ref.Ll;
+                public new ref long ll => ref _Ref.ll;
 
-                public new ref MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
+                public new ref MR.CS.ArrayInt3 arr => ref _Ref.arr;
 
-                public new ref MR.CS.ArrayInt4_5 Arr2d => ref _Ref.Arr2d;
+                public new ref MR.CS.ArrayInt4_5 arr2d => ref _Ref.arr2d;
 
                 /// Generated default constructor.
                 public unsafe Mut_A() : this(null, is_owning: true)
@@ -126,24 +126,24 @@ public static partial class MR
 
                 // first
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int A_;
+                public int a;
 
                 // second
                 [System.Runtime.InteropServices.FieldOffset(4)]
-                public short B;
+                public short b;
 
                 // third
                 [System.Runtime.InteropServices.FieldOffset(8)]
-                public float C;
+                public float c;
 
                 [System.Runtime.InteropServices.FieldOffset(16)]
-                public long Ll;
+                public long ll;
 
                 [System.Runtime.InteropServices.FieldOffset(24)]
-                public MR.CS.ArrayInt3 Arr;
+                public MR.CS.ArrayInt3 arr;
 
                 [System.Runtime.InteropServices.FieldOffset(36)]
-                public MR.CS.ArrayInt4_5 Arr2d;
+                public MR.CS.ArrayInt4_5 arr2d;
 
                 /// Generated copy constructor.
                 public A(A _other) {this = _other;}
@@ -245,11 +245,11 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_B() {Dispose(false);}
 
-                public ref readonly short X => ref _Ref.X;
+                public ref readonly short x => ref _Ref.x;
 
-                public ref readonly MR.CS.MatchingLayout.A A => ref _Ref.A;
+                public ref readonly MR.CS.MatchingLayout.A a => ref _Ref.a;
 
-                public ref readonly byte Y => ref _Ref.Y;
+                public ref readonly byte y => ref _Ref.y;
 
                 /// Generated copy constructor.
                 public unsafe Const_B(Const_B _other) : this(null, is_owning: true)
@@ -280,11 +280,11 @@ public static partial class MR
 
                 internal unsafe Mut_B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref short X => ref _Ref.X;
+                public new ref short x => ref _Ref.x;
 
-                public new ref MR.CS.MatchingLayout.A A => ref _Ref.A;
+                public new ref MR.CS.MatchingLayout.A a => ref _Ref.a;
 
-                public new ref byte Y => ref _Ref.Y;
+                public new ref byte y => ref _Ref.y;
 
                 /// Generated copy constructor.
                 public unsafe Mut_B(Const_B _other) : this(null, is_owning: true)
@@ -316,13 +316,13 @@ public static partial class MR
                 public static implicit operator B(Const_B other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public short X;
+                public short x;
 
                 [System.Runtime.InteropServices.FieldOffset(8)]
-                public MR.CS.MatchingLayout.A A;
+                public MR.CS.MatchingLayout.A a;
 
                 [System.Runtime.InteropServices.FieldOffset(128)]
-                public byte Y;
+                public byte y;
 
                 /// Generated copy constructor.
                 public B(B _other) {this = _other;}

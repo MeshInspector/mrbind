@@ -26,7 +26,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
-                public unsafe MR.CS.NestedTypes.A.Const_B B_
+                public unsafe MR.CS.NestedTypes.A.Const_B b
                 {
                     get
                     {
@@ -36,7 +36,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.NestedTypes.A.E E_
+                public unsafe MR.CS.NestedTypes.A.E e
                 {
                     get
                     {
@@ -181,7 +181,7 @@ public static partial class MR
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe MR.CS.NestedTypes.A.B B_
+                public new unsafe MR.CS.NestedTypes.A.B b
                 {
                     get
                     {
@@ -191,7 +191,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref MR.CS.NestedTypes.A.E E_
+                public new unsafe ref MR.CS.NestedTypes.A.E e
                 {
                     get
                     {

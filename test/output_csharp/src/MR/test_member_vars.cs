@@ -46,7 +46,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int X
+                public unsafe int x
                 {
                     get
                     {
@@ -56,7 +56,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Y
+                public unsafe int y
                 {
                     get
                     {
@@ -67,7 +67,7 @@ public static partial class MR
                 }
 
                 // Those don't get setters, and also get only one (non-const-propagating) getter.
-                public unsafe ref int Ref
+                public unsafe ref int ref_
                 {
                     get
                     {
@@ -78,7 +78,7 @@ public static partial class MR
                 }
 
                 // Arrays don't get setters, because they aren't assignable. But they still get mutable getters
-                public unsafe ref MR.CS.ArrayInt4 Arr
+                public unsafe ref MR.CS.ArrayInt4 arr
                 {
                     get
                     {
@@ -103,7 +103,7 @@ public static partial class MR
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int X
+                public new unsafe ref int x
                 {
                     get
                     {
@@ -114,7 +114,7 @@ public static partial class MR
                 }
 
                 // Arrays don't get setters, because they aren't assignable. But they still get mutable getters
-                new public unsafe ref MR.CS.ArrayInt4 Arr
+                new public unsafe ref MR.CS.ArrayInt4 arr
                 {
                     get
                     {

@@ -31,7 +31,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Array_IntArray4Array3_5() {Dispose(false);}
 
-                public ref readonly MR.CS.ArrayInt5_3_4 Elems => ref _Ref.Elems;
+                public ref readonly MR.CS.ArrayInt5_3_4 elems => ref _Ref.elems;
 
                 /// Generated default constructor.
                 public unsafe Const_Array_IntArray4Array3_5() : this(null, is_owning: true)
@@ -59,7 +59,7 @@ public static partial class MR
 
                 internal unsafe Mut_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref MR.CS.ArrayInt5_3_4 Elems => ref _Ref.Elems;
+                public new ref MR.CS.ArrayInt5_3_4 elems => ref _Ref.elems;
 
                 /// Generated default constructor.
                 public unsafe Mut_Array_IntArray4Array3_5() : this(null, is_owning: true)
@@ -88,7 +88,7 @@ public static partial class MR
                 public static implicit operator Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public MR.CS.ArrayInt5_3_4 Elems;
+                public MR.CS.ArrayInt5_3_4 elems;
 
                 /// Generated copy constructor.
                 public Array_IntArray4Array3_5(Array_IntArray4Array3_5 _other) {this = _other;}

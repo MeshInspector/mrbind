@@ -24,7 +24,7 @@ public static partial class MR
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~Const_A() {Dispose(false);}
 
-            public unsafe MR.CS.Std.Const_String X
+            public unsafe MR.CS.Std.Const_String x
             {
                 get
                 {
@@ -57,7 +57,7 @@ public static partial class MR
         {
             internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-            public new unsafe MR.CS.Std.String X
+            public new unsafe MR.CS.Std.String x
             {
                 get
                 {

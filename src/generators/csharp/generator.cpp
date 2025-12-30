@@ -53,6 +53,122 @@ namespace mrbind::CSharp
         return ret;
     }
 
+    bool AdjustIfMatchesCSharpKeyword(std::string &str)
+    {
+        static const std::unordered_set<std::string> csharp_keywords = {
+            // Those are from here: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/
+            // For now I copied only non-contextual keywords. I don't know if any of the contextual ones can be problematic.
+            "abstract",
+            "as",
+            "base",
+            "bool",
+            "break",
+            "byte",
+            "case",
+            "catch",
+            "char",
+            "checked",
+            "class",
+            "const",
+            "continue",
+            "decimal",
+            "default",
+            "delegate",
+            "do",
+            "double",
+            "else",
+            "enum",
+            "event",
+            "explicit",
+            "extern",
+            "false",
+            "finally",
+            "fixed",
+            "float",
+            "for",
+            "foreach",
+            "goto",
+            "if",
+            "implicit",
+            "in",
+            "int",
+            "interface",
+            "internal",
+            "is",
+            "lock",
+            "long",
+            "namespace",
+            "new",
+            "null",
+            "object",
+            "operator",
+            "out",
+            "override",
+            "params",
+            "private",
+            "protected",
+            "public",
+            "readonly",
+            "ref",
+            "return",
+            "sbyte",
+            "sealed",
+            "short",
+            "sizeof",
+            "stackalloc",
+            "static",
+            "string",
+            "struct",
+            "switch",
+            "this",
+            "throw",
+            "true",
+            "try",
+            "typeof",
+            "uint",
+            "ulong",
+            "unchecked",
+            "unsafe",
+            "ushort",
+            "using",
+            "virtual",
+            "void",
+            "volatile",
+            "while",
+        };
+
+        if (csharp_keywords.contains(str))
+        {
+            str += '_';
+            return true;
+        }
+
+        return false;
+    }
+
+    void MakeFirstLetterLowercase(std::string &str)
+    {
+        const bool all_uppercase = std::all_of(str.begin(), str.end(), [](char ch){return cppdecl::IsAlpha(ch) <=/*implies*/ cppdecl::IsAlphaUppercase(ch);});
+
+        bool modified = false;
+
+        for (char &ch : str)
+        {
+            if (cppdecl::IsAlpha(ch))
+            {
+                ch = cppdecl::ToLower(ch);
+                modified = true;
+
+                // If the entire input is uppercase, change all of it, not just the first letter.
+                if (!all_uppercase)
+                    break;
+            }
+        }
+
+        if (modified)
+            AdjustIfMatchesCSharpKeyword(str);
+    }
+
     void OutputFile::DumpToOstream(std::ostream &out) const
     {
         out << contents;
@@ -838,7 +954,7 @@ namespace mrbind::CSharp
         // Insert fields.
         for (const auto &field : class_desc.fields)
         {
-            std::string name = CppToCSharpFieldName(cpp_class, field.full_name, false);
+            std::string name = CppToCSharpFieldName(cpp_class, field.is_static, field.full_name, false);
             std::string fixed_name = name;
 
             while (ret.self_names.contains(fixed_name) || ret.nested_types.contains(fixed_name) || ret.fields.contains(fixed_name))
@@ -905,9 +1021,11 @@ namespace mrbind::CSharp
         }
     }
 
-    std::string Generator::CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field, bool adjust_to_disambiguate)
+    std::string Generator::CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, bool is_static, const std::string &cpp_field, bool adjust_to_disambiguate)
     {
         std::string ret = CppToCSharpIdentifier(ParseNameOrThrow(cpp_field));
+        if (!is_static)
+            MakeFirstLetterLowercase(ret);
 
         if (adjust_to_disambiguate)
         {
@@ -4780,7 +4898,7 @@ namespace mrbind::CSharp
 
                                 const bool is_bool = cpp_type.AsSingleWord() == "bool";
 
-                                const std::string csharp_field_name = CppToCSharpFieldName(cpp_qual_name, field.full_name);
+                                const std::string csharp_field_name = CppToCSharpFieldName(cpp_qual_name, field.is_static, field.full_name);
 
                                 file.WriteSeparatingNewline();
 
@@ -5435,7 +5553,7 @@ namespace mrbind::CSharp
             assert(field.getter_const);
 
             const std::string csharp_enclosing_class_name = CppToCSharpUnqualClassName(cpp_class, is_const);
-            const std::string csharp_field_name = CppToCSharpFieldName(cpp_class, field.full_name);
+            const std::string csharp_field_name = CppToCSharpFieldName(cpp_class, field.is_static, field.full_name);
 
             // Special-case array fields.
             if (field.getter_array_size)
@@ -5849,103 +5967,17 @@ namespace mrbind::CSharp
 
         { // Adjust parameter names to not be C# keywords.
 
-            static const std::unordered_set<std::string> csharp_keywords = {
-                // Those are from here: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/
-                // For now I copied only non-contextual keywords. I don't know if any of the contextual ones can be problematic.
-                "abstract",
-                "as",
-                "base",
-                "bool",
-                "break",
-                "byte",
-                "case",
-                "catch",
-                "char",
-                "checked",
-                "class",
-                "const",
-                "continue",
-                "decimal",
-                "default",
-                "delegate",
-                "do",
-                "double",
-                "else",
-                "enum",
-                "event",
-                "explicit",
-                "extern",
-                "false",
-                "finally",
-                "fixed",
-                "float",
-                "for",
-                "foreach",
-                "goto",
-                "if",
-                "implicit",
-                "in",
-                "int",
-                "interface",
-                "internal",
-                "is",
-                "lock",
-                "long",
-                "namespace",
-                "new",
-                "null",
-                "object",
-                "operator",
-                "out",
-                "override",
-                "params",
-                "private",
-                "protected",
-                "public",
-                "readonly",
-                "ref",
-                "return",
-                "sbyte",
-                "sealed",
-                "short",
-                "sizeof",
-                "stackalloc",
-                "static",
-                "string",
-                "struct",
-                "switch",
-                "this",
-                "throw",
-                "true",
-                "try",
-                "typeof",
-                "uint",
-                "ulong",
-                "unchecked",
-                "unsafe",
-                "ushort",
-                "using",
-                "virtual",
-                "void",
-                "volatile",
-                "while",
-            };
 
             static constexpr auto AdjustParam = [](CInterop::FuncParam &param)
             {
                 if (param.name)
                 {
-                    if (csharp_keywords.contains(*param.name))
-                    {
-                        *param.name += '_';
+                    if (AdjustIfMatchesCSharpKeyword(*param.name))
                         param.name_or_placeholder = *param.name;
-                    }
-                    return;
                 }
                 else
                 {
-                    if (csharp_keywords.contains(param.name_or_placeholder)) // Just in case?
-                        param.name_or_placeholder += '_';
+                    AdjustIfMatchesCSharpKeyword(param.name_or_placeholder); // Just in case?
                 }
             };
 

@@ -3588,7 +3588,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int I
+                public unsafe int i
                 {
                     get
                     {
@@ -3598,7 +3598,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int ConstI
+                public unsafe int constI
                 {
                     get
                     {
@@ -3608,7 +3608,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe ref int IRef
+                public unsafe ref int iRef
                 {
                     get
                     {
@@ -3618,7 +3618,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int ConstIRef
+                public unsafe int constIRef
                 {
                     get
                     {
@@ -3628,7 +3628,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.Const_String S
+                public unsafe MR.CS.Std.Const_String s
                 {
                     get
                     {
@@ -3638,7 +3638,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.Const_String ConstS
+                public unsafe MR.CS.Std.Const_String constS
                 {
                     get
                     {
@@ -3648,7 +3648,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.String SRef
+                public unsafe MR.CS.Std.String sRef
                 {
                     get
                     {
@@ -3658,7 +3658,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.Const_String ConstSRef
+                public unsafe MR.CS.Std.Const_String constSRef
                 {
                     get
                     {
@@ -3706,7 +3706,7 @@ public static partial class MR
             {
                 internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int I
+                public new unsafe ref int i
                 {
                     get
                     {
@@ -3716,7 +3716,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe MR.CS.Std.String S
+                public new unsafe MR.CS.Std.String s
                 {
                     get
                     {
@@ -11092,7 +11092,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorExposed() {Dispose(false);}
 
-                public ref readonly int X => ref _Ref.X;
+                public ref readonly int x => ref _Ref.x;
 
                 /// Generated copy constructor.
                 public unsafe Const_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
@@ -11127,7 +11127,7 @@ public static partial class MR
 
                 internal unsafe Mut_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int X => ref _Ref.X;
+                public new ref int x => ref _Ref.x;
 
                 /// Generated copy constructor.
                 public unsafe Mut_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
@@ -11163,7 +11163,7 @@ public static partial class MR
                 public static implicit operator ConvCtorExposed(Const_ConvCtorExposed other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int X;
+                public int x;
 
                 /// Generated copy constructor.
                 public ConvCtorExposed(ConvCtorExposed _other) {this = _other;}
@@ -11686,18 +11686,18 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ExposedLayout() {Dispose(false);}
 
-                public ref readonly ushort X => ref _Ref.X;
+                public ref readonly ushort x => ref _Ref.x;
 
                 // This is field `y`!
-                public ref readonly int Y => ref _Ref.Y;
+                public ref readonly int y => ref _Ref.y;
 
-                public ref readonly double Z => ref _Ref.Z;
+                public ref readonly double z => ref _Ref.z;
 
-                public ref readonly MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
+                public ref readonly MR.CS.ArrayInt3 arr => ref _Ref.arr;
 
-                public bool B => _Ref.B;
+                public bool b => _Ref.b;
 
-                public ref readonly MR.CS.ArrayBool4_5 Ba => ref _Ref.Ba;
+                public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
                 public unsafe Const_ExposedLayout() : this(null, is_owning: true)
@@ -11818,18 +11818,18 @@ public static partial class MR
 
                 internal unsafe Mut_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref ushort X => ref _Ref.X;
+                public new ref ushort x => ref _Ref.x;
 
                 // This is field `y`!
-                public new ref int Y => ref _Ref.Y;
+                public new ref int y => ref _Ref.y;
 
-                public new ref double Z => ref _Ref.Z;
+                public new ref double z => ref _Ref.z;
 
-                public new ref MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
+                public new ref MR.CS.ArrayInt3 arr => ref _Ref.arr;
 
-                public new bool B {get => _Ref.B; set => _Ref.B = value;}
+                public new bool b {get => _Ref.b; set => _Ref.b = value;}
 
-                public new ref MR.CS.ArrayBool4_5 Ba => ref _Ref.Ba;
+                public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
                 public unsafe Mut_ExposedLayout() : this(null, is_owning: true)
@@ -11929,24 +11929,24 @@ public static partial class MR
                 public static implicit operator ExposedLayout(Const_ExposedLayout other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public ushort X;
+                public ushort x;
 
                 // This is field `y`!
                 [System.Runtime.InteropServices.FieldOffset(4)]
-                public int Y;
+                public int y;
 
                 [System.Runtime.InteropServices.FieldOffset(8)]
-                public double Z;
+                public double z;
 
                 [System.Runtime.InteropServices.FieldOffset(16)]
-                public MR.CS.ArrayInt3 Arr;
+                public MR.CS.ArrayInt3 arr;
 
-                public bool B {get => __storage_B != 0; set => __storage_B = value ? (byte)1 : (byte)0;}
+                public bool b {get => __storage_b != 0; set => __storage_b = value ? (byte)1 : (byte)0;}
                 [System.Runtime.InteropServices.FieldOffset(28)]
-                byte __storage_B;
+                byte __storage_b;
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
-                public MR.CS.ArrayBool4_5 Ba;
+                public MR.CS.ArrayBool4_5 ba;
 
                 /// Generated copy constructor.
                 public ExposedLayout(ExposedLayout _other) {this = _other;}
@@ -12288,18 +12288,18 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ExposedLayoutSh() {Dispose(false);}
 
-                public ref readonly ushort X => ref _Ref.X;
+                public ref readonly ushort x => ref _Ref.x;
 
                 // This is field `y`!
-                public ref readonly int Y => ref _Ref.Y;
+                public ref readonly int y => ref _Ref.y;
 
-                public ref readonly double Z => ref _Ref.Z;
+                public ref readonly double z => ref _Ref.z;
 
-                public ref readonly MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
+                public ref readonly MR.CS.ArrayInt3 arr => ref _Ref.arr;
 
-                public bool B => _Ref.B;
+                public bool b => _Ref.b;
 
-                public ref readonly MR.CS.ArrayBool4_5 Ba => ref _Ref.Ba;
+                public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
                 public unsafe Const_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
@@ -12422,18 +12422,18 @@ public static partial class MR
 
                 internal unsafe Mut_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
-                public new ref ushort X => ref _Ref.X;
+                public new ref ushort x => ref _Ref.x;
 
                 // This is field `y`!
-                public new ref int Y => ref _Ref.Y;
+                public new ref int y => ref _Ref.y;
 
-                public new ref double Z => ref _Ref.Z;
+                public new ref double z => ref _Ref.z;
 
-                public new ref MR.CS.ArrayInt3 Arr => ref _Ref.Arr;
+                public new ref MR.CS.ArrayInt3 arr => ref _Ref.arr;
 
-                public new bool B {get => _Ref.B; set => _Ref.B = value;}
+                public new bool b {get => _Ref.b; set => _Ref.b = value;}
 
-                public new ref MR.CS.ArrayBool4_5 Ba => ref _Ref.Ba;
+                public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
                 public unsafe Mut_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
@@ -12533,24 +12533,24 @@ public static partial class MR
                 public static implicit operator ExposedLayoutSh(Const_ExposedLayoutSh other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public ushort X;
+                public ushort x;
 
                 // This is field `y`!
                 [System.Runtime.InteropServices.FieldOffset(4)]
-                public int Y;
+                public int y;
 
                 [System.Runtime.InteropServices.FieldOffset(8)]
-                public double Z;
+                public double z;
 
                 [System.Runtime.InteropServices.FieldOffset(16)]
-                public MR.CS.ArrayInt3 Arr;
+                public MR.CS.ArrayInt3 arr;
 
-                public bool B {get => __storage_B != 0; set => __storage_B = value ? (byte)1 : (byte)0;}
+                public bool b {get => __storage_b != 0; set => __storage_b = value ? (byte)1 : (byte)0;}
                 [System.Runtime.InteropServices.FieldOffset(28)]
-                byte __storage_B;
+                byte __storage_b;
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
-                public MR.CS.ArrayBool4_5 Ba;
+                public MR.CS.ArrayBool4_5 ba;
 
                 /// Generated copy constructor.
                 public ExposedLayoutSh(ExposedLayoutSh _other) {this = _other;}
@@ -12850,7 +12850,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ExposedLayoutB() {Dispose(false);}
 
-                public ref readonly int X => ref _Ref.X;
+                public ref readonly int x => ref _Ref.x;
 
                 /// Generated copy constructor.
                 public unsafe Const_ExposedLayoutB(Const_ExposedLayoutB _other) : this(null, is_owning: true)
@@ -12914,7 +12914,7 @@ public static partial class MR
 
                 internal unsafe Mut_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int X => ref _Ref.X;
+                public new ref int x => ref _Ref.x;
 
                 /// Generated copy constructor.
                 public unsafe Mut_ExposedLayoutB(Const_ExposedLayoutB _other) : this(null, is_owning: true)
@@ -12947,7 +12947,7 @@ public static partial class MR
                 public static implicit operator ExposedLayoutB(Const_ExposedLayoutB other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int X;
+                public int x;
 
                 /// Generated copy constructor.
                 public ExposedLayoutB(ExposedLayoutB _other) {this = _other;}
@@ -13084,7 +13084,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ArrayMembers() {Dispose(false);}
 
-                public unsafe int I
+                public unsafe int i
                 {
                     get
                     {
@@ -13094,7 +13094,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe ref MR.CS.ArrayInt2 Ia
+                public unsafe ref MR.CS.ArrayInt2 ia
                 {
                     get
                     {
@@ -13104,7 +13104,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe ref MR.CS.ArrayInt3_4 Iaa
+                public unsafe ref MR.CS.ArrayInt3_4 iaa
                 {
                     get
                     {
@@ -13114,7 +13114,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Ci
+                public unsafe int ci
                 {
                     get
                     {
@@ -13124,7 +13124,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe ref readonly MR.CS.ConstArrayInt2 Cia
+                public unsafe ref readonly MR.CS.ConstArrayInt2 cia
                 {
                     get
                     {
@@ -13134,7 +13134,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe ref readonly MR.CS.ConstArrayInt3_4 Ciaa
+                public unsafe ref readonly MR.CS.ConstArrayInt3_4 ciaa
                 {
                     get
                     {
@@ -13144,7 +13144,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.Const_String S
+                public unsafe MR.CS.Std.Const_String s
                 {
                     get
                     {
@@ -13154,7 +13154,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.ArrayString2 Sa
+                public unsafe MR.CS.Std.ArrayString2 sa
                 {
                     get
                     {
@@ -13165,7 +13165,7 @@ public static partial class MR
                 }
 
                 // std::string saa[3][4]; // The C generator doesn't support those yet. We'd need to expose them as flat arrays, with N size getters, I think?
-                public unsafe MR.CS.Std.Const_String Cs
+                public unsafe MR.CS.Std.Const_String cs
                 {
                     get
                     {
@@ -13175,7 +13175,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.ConstArrayString2 Csa
+                public unsafe MR.CS.Std.ConstArrayString2 csa
                 {
                     get
                     {
@@ -13209,7 +13209,7 @@ public static partial class MR
             {
                 internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int I
+                public new unsafe ref int i
                 {
                     get
                     {
@@ -13219,7 +13219,7 @@ public static partial class MR
                     }
                 }
 
-                new public unsafe ref MR.CS.ArrayInt2 Ia
+                new public unsafe ref MR.CS.ArrayInt2 ia
                 {
                     get
                     {
@@ -13229,7 +13229,7 @@ public static partial class MR
                     }
                 }
 
-                new public unsafe ref MR.CS.ArrayInt3_4 Iaa
+                new public unsafe ref MR.CS.ArrayInt3_4 iaa
                 {
                     get
                     {
@@ -13239,7 +13239,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe MR.CS.Std.String S
+                public new unsafe MR.CS.Std.String s
                 {
                     get
                     {
@@ -13249,7 +13249,7 @@ public static partial class MR
                     }
                 }
 
-                new public unsafe MR.CS.Std.ArrayString2 Sa
+                new public unsafe MR.CS.Std.ArrayString2 sa
                 {
                     get
                     {
@@ -13347,7 +13347,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NameConflicts() {Dispose(false);}
 
-                public unsafe int NameConflicts_
+                public unsafe int nameConflicts
                 {
                     get
                     {
@@ -13357,7 +13357,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.CSharp.NameConflicts.Const_A A_
+                public unsafe MR.CS.CSharp.NameConflicts.Const_A a
                 {
                     get
                     {
@@ -13499,7 +13499,7 @@ public static partial class MR
             {
                 internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int NameConflicts_
+                public new unsafe ref int nameConflicts
                 {
                     get
                     {
@@ -13509,7 +13509,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe MR.CS.CSharp.NameConflicts.A A_
+                public new unsafe MR.CS.CSharp.NameConflicts.A a
                 {
                     get
                     {
@@ -13552,7 +13552,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::NameConflicts::name_Conflicts`.
-                public unsafe void NameConflicts__()
+                public unsafe void NameConflicts_()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_name_Conflicts", ExactSpelling = true)]
                     extern static void __MR_CSharp_NameConflicts_name_Conflicts(_Underlying *_this);
@@ -13617,9 +13617,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NameConflictsExposed() {Dispose(false);}
 
-                public ref readonly int NameConflictsExposed_ => ref _Ref.NameConflictsExposed_;
+                public ref readonly int nameConflictsExposed => ref _Ref.nameConflictsExposed;
 
-                public ref readonly MR.CS.CSharp.NameConflictsExposed.A A_ => ref _Ref.A_;
+                public ref readonly MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
                 /// Generated default constructor.
                 public unsafe Const_NameConflictsExposed() : this(null, is_owning: true)
@@ -13647,9 +13647,9 @@ public static partial class MR
 
                 internal unsafe Mut_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int NameConflictsExposed_ => ref _Ref.NameConflictsExposed_;
+                public new ref int nameConflictsExposed => ref _Ref.nameConflictsExposed;
 
-                public new ref MR.CS.CSharp.NameConflictsExposed.A A_ => ref _Ref.A_;
+                public new ref MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
                 /// Generated default constructor.
                 public unsafe Mut_NameConflictsExposed() : this(null, is_owning: true)
@@ -13669,7 +13669,7 @@ public static partial class MR
                 public void Assign(Const_NameConflictsExposed _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
-                public unsafe void NameConflictsExposed__()
+                public unsafe void NameConflictsExposed_()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_name_Conflicts_exposed", ExactSpelling = true)]
                     extern static void __MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(_Underlying *_this);
@@ -13686,16 +13686,16 @@ public static partial class MR
                 public static implicit operator NameConflictsExposed(Const_NameConflictsExposed other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int NameConflictsExposed_;
+                public int nameConflictsExposed;
 
                 [System.Runtime.InteropServices.FieldOffset(4)]
-                public MR.CS.CSharp.NameConflictsExposed.A A_;
+                public MR.CS.CSharp.NameConflictsExposed.A a;
 
                 /// Generated copy constructor.
                 public NameConflictsExposed(NameConflictsExposed _other) {this = _other;}
 
                 /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
-                public unsafe void NameConflictsExposed__()
+                public unsafe void NameConflictsExposed_()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_name_Conflicts_exposed", ExactSpelling = true)]
                     extern static void __MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(MR.CS.CSharp.NameConflictsExposed *_this);
@@ -13732,7 +13732,7 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_A() {Dispose(false);}
 
-                    public ref readonly int X => ref _Ref.X;
+                    public ref readonly int x => ref _Ref.x;
 
                     /// Generated default constructor.
                     public unsafe Const_A() : this(null, is_owning: true)
@@ -13760,7 +13760,7 @@ public static partial class MR
 
                     internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                    public new ref int X => ref _Ref.X;
+                    public new ref int x => ref _Ref.x;
 
                     /// Generated default constructor.
                     public unsafe Mut_A() : this(null, is_owning: true)
@@ -13789,7 +13789,7 @@ public static partial class MR
                     public static implicit operator A(Const_A other) => other._Ref;
 
                     [System.Runtime.InteropServices.FieldOffset(0)]
-                    public int X;
+                    public int x;
 
                     /// Generated copy constructor.
                     public A(A _other) {this = _other;}
@@ -14118,7 +14118,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConstNonconstConflicts() {Dispose(false);}
 
-                public ref readonly int X => ref _Ref.X;
+                public ref readonly int x => ref _Ref.x;
 
                 /// Generated default constructor.
                 public unsafe Const_ConstNonconstConflicts() : this(null, is_owning: true)
@@ -14211,7 +14211,7 @@ public static partial class MR
 
                 internal unsafe Mut_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int X => ref _Ref.X;
+                public new ref int x => ref _Ref.x;
 
                 /// Generated default constructor.
                 public unsafe Mut_ConstNonconstConflicts() : this(null, is_owning: true)
@@ -14307,7 +14307,7 @@ public static partial class MR
                 public static implicit operator ConstNonconstConflicts(Const_ConstNonconstConflicts other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int X;
+                public int x;
 
                 /// Generated copy constructor.
                 public ConstNonconstConflicts(ConstNonconstConflicts _other) {this = _other;}
@@ -14614,7 +14614,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.CSharp.A? A
+                public unsafe MR.CS.CSharp.A? a
                 {
                     get
                     {
@@ -14624,10 +14624,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.A(*ptr, is_owning: false) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `A`, to keep the target object alive.
-                public MR.CS.CSharp.A? _Storage_A = null;
+                /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                public MR.CS.CSharp.A? _Storage_a = null;
 
-                public unsafe MR.CS.CSharp.Const_A? B
+                public unsafe MR.CS.CSharp.Const_A? b
                 {
                     get
                     {
@@ -14637,10 +14637,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Const_A(*ptr, is_owning: false) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `B`, to keep the target object alive.
-                public MR.CS.CSharp.Const_A? _Storage_B = null;
+                /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                public MR.CS.CSharp.Const_A? _Storage_b = null;
 
-                public unsafe MR.CS.CSharp.A C
+                public unsafe MR.CS.CSharp.A c
                 {
                     get
                     {
@@ -14650,7 +14650,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.CSharp.Const_A D
+                public unsafe MR.CS.CSharp.Const_A d
                 {
                     get
                     {
@@ -14684,28 +14684,28 @@ public static partial class MR
             {
                 internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe MR.CS.CSharp.A? A
+                public new unsafe MR.CS.CSharp.A? a
                 {
-                    get => base.A;
+                    get => base.a;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_GetMutable_a(ClassMemberPointersClass._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersClass_GetMutable_a(_UnderlyingPtr);
-                        _Storage_A = value;
+                        _Storage_a = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
-                public new unsafe MR.CS.CSharp.Const_A? B
+                public new unsafe MR.CS.CSharp.Const_A? b
                 {
-                    get => base.B;
+                    get => base.b;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_GetMutable_b", ExactSpelling = true)]
                         extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_GetMutable_b(ClassMemberPointersClass._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersClass_GetMutable_b(_UnderlyingPtr);
-                        _Storage_B = value;
+                        _Storage_b = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
@@ -14825,7 +14825,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.CSharp.Mut_ExposedLayout? A
+                public unsafe MR.CS.CSharp.Mut_ExposedLayout? a
                 {
                     get
                     {
@@ -14835,10 +14835,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Mut_ExposedLayout(*ptr, is_owning: false) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `A`, to keep the target object alive.
-                public MR.CS.CSharp.Mut_ExposedLayout? _Storage_A = null;
+                /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                public MR.CS.CSharp.Mut_ExposedLayout? _Storage_a = null;
 
-                public unsafe MR.CS.CSharp.Const_ExposedLayout? B
+                public unsafe MR.CS.CSharp.Const_ExposedLayout? b
                 {
                     get
                     {
@@ -14848,10 +14848,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Const_ExposedLayout(*ptr, is_owning: false) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `B`, to keep the target object alive.
-                public MR.CS.CSharp.Const_ExposedLayout? _Storage_B = null;
+                /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                public MR.CS.CSharp.Const_ExposedLayout? _Storage_b = null;
 
-                public unsafe ref MR.CS.CSharp.ExposedLayout C
+                public unsafe ref MR.CS.CSharp.ExposedLayout c
                 {
                     get
                     {
@@ -14861,7 +14861,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe ref readonly MR.CS.CSharp.ExposedLayout D
+                public unsafe ref readonly MR.CS.CSharp.ExposedLayout d
                 {
                     get
                     {
@@ -14894,28 +14894,28 @@ public static partial class MR
             {
                 internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe MR.CS.CSharp.Mut_ExposedLayout? A
+                public new unsafe MR.CS.CSharp.Mut_ExposedLayout? a
                 {
-                    get => base.A;
+                    get => base.a;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_a(ClassMemberPointersExposed._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_GetMutable_a(_UnderlyingPtr);
-                        _Storage_A = value;
+                        _Storage_a = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
-                public new unsafe MR.CS.CSharp.Const_ExposedLayout? B
+                public new unsafe MR.CS.CSharp.Const_ExposedLayout? b
                 {
-                    get => base.B;
+                    get => base.b;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_GetMutable_b", ExactSpelling = true)]
                         extern static MR.CS.CSharp.Const_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_b(ClassMemberPointersExposed._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_GetMutable_b(_UnderlyingPtr);
-                        _Storage_B = value;
+                        _Storage_b = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
@@ -15035,7 +15035,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Misc.Box<ushort>? A
+                public unsafe MR.CS.Misc.Box<ushort>? a
                 {
                     get
                     {
@@ -15045,10 +15045,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Box<ushort>(*ptr) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `A`, to keep the target object alive.
-                public MR.CS.Misc.Box<ushort>? _Storage_A = null;
+                /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                public MR.CS.Misc.Box<ushort>? _Storage_a = null;
 
-                public unsafe MR.CS.Misc.Const_Box<ushort>? B
+                public unsafe MR.CS.Misc.Const_Box<ushort>? b
                 {
                     get
                     {
@@ -15058,10 +15058,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Const_Box<ushort>(*ptr) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `B`, to keep the target object alive.
-                public MR.CS.Misc.Const_Box<ushort>? _Storage_B = null;
+                /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                public MR.CS.Misc.Const_Box<ushort>? _Storage_b = null;
 
-                public unsafe ref ushort C
+                public unsafe ref ushort c
                 {
                     get
                     {
@@ -15071,7 +15071,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe ushort D
+                public unsafe ushort d
                 {
                     get
                     {
@@ -15110,28 +15110,28 @@ public static partial class MR
             {
                 internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe MR.CS.Misc.Box<ushort>? A
+                public new unsafe MR.CS.Misc.Box<ushort>? a
                 {
-                    get => base.A;
+                    get => base.a;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_GetMutable_a", ExactSpelling = true)]
                         extern static ushort **__MR_CSharp_ClassMemberPointersUshort_GetMutable_a(ClassMemberPointersUshort._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersUshort_GetMutable_a(_UnderlyingPtr);
-                        _Storage_A = value;
+                        _Storage_a = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
-                public new unsafe MR.CS.Misc.Const_Box<ushort>? B
+                public new unsafe MR.CS.Misc.Const_Box<ushort>? b
                 {
-                    get => base.B;
+                    get => base.b;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_GetMutable_b", ExactSpelling = true)]
                         extern static ushort **__MR_CSharp_ClassMemberPointersUshort_GetMutable_b(ClassMemberPointersUshort._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersUshort_GetMutable_b(_UnderlyingPtr);
-                        _Storage_B = value;
+                        _Storage_b = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
@@ -15257,7 +15257,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Misc.Box<byte>? A
+                public unsafe MR.CS.Misc.Box<byte>? a
                 {
                     get
                     {
@@ -15267,10 +15267,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Box<byte>(*ptr) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `A`, to keep the target object alive.
-                public MR.CS.Misc.Box<byte>? _Storage_A = null;
+                /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                public MR.CS.Misc.Box<byte>? _Storage_a = null;
 
-                public unsafe MR.CS.Misc.Const_Box<byte>? B
+                public unsafe MR.CS.Misc.Const_Box<byte>? b
                 {
                     get
                     {
@@ -15280,10 +15280,10 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Const_Box<byte>(*ptr) : null;
                     }
                 }
-                /// This holds the last value manually assigned to property `B`, to keep the target object alive.
-                public MR.CS.Misc.Const_Box<byte>? _Storage_B = null;
+                /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                public MR.CS.Misc.Const_Box<byte>? _Storage_b = null;
 
-                public unsafe ref bool C
+                public unsafe ref bool c
                 {
                     get
                     {
@@ -15293,7 +15293,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe bool D
+                public unsafe bool d
                 {
                     get
                     {
@@ -15332,28 +15332,28 @@ public static partial class MR
             {
                 internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe MR.CS.Misc.Box<byte>? A
+                public new unsafe MR.CS.Misc.Box<byte>? a
                 {
-                    get => base.A;
+                    get => base.a;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_GetMutable_a", ExactSpelling = true)]
                         extern static byte **__MR_CSharp_ClassMemberPointersBool_GetMutable_a(ClassMemberPointersBool._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersBool_GetMutable_a(_UnderlyingPtr);
-                        _Storage_A = value;
+                        _Storage_a = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
-                public new unsafe MR.CS.Misc.Const_Box<byte>? B
+                public new unsafe MR.CS.Misc.Const_Box<byte>? b
                 {
-                    get => base.B;
+                    get => base.b;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_GetMutable_b", ExactSpelling = true)]
                         extern static byte **__MR_CSharp_ClassMemberPointersBool_GetMutable_b(ClassMemberPointersBool._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersBool_GetMutable_b(_UnderlyingPtr);
-                        _Storage_B = value;
+                        _Storage_b = value;
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }

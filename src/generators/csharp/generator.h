@@ -87,6 +87,15 @@ namespace mrbind::CSharp
         return ret;
     }
 
+    // If `str` matches one of C# keywords, appends `_` to it to avoid collisions.
+    // Returns true if the adjustment has been made.
+    bool AdjustIfMatchesCSharpKeyword(std::string &str);
+
+    // You can call this on the result of the `...ToCSharpIdentifier()` functions above, to make the first letter of the result lowercase.
+    // Also calls `AdjustIfMatchesCSharpKeyword()` to avoid keyword collisions.
+    // Also as a special case, if every letter in the input is uppercase, they're all lowercased.
+    void MakeFirstLetterLowercase(std::string &str);
+
     struct Generator;
 
     struct OutputFile
@@ -536,7 +545,7 @@ namespace mrbind::CSharp
 
         // Converts a C++ class field name to C# as if by `CppToCSharpIdentifier(ParseNameOrThrow(cpp_field))`,
         //   but additionally adjusts the name if it conflicts with the enclosing class name (if `adjust_to_disambiguate == true`).
-        [[nodiscard]] std::string CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, const std::string &cpp_field, bool adjust_to_disambiguate = true);
+        [[nodiscard]] std::string CppToCSharpFieldName(const cppdecl::QualifiedName &cpp_class, bool is_static, const std::string &cpp_field, bool adjust_to_disambiguate = true);
 
 
         enum class TypeBindingFlags

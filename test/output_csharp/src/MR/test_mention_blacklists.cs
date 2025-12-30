@@ -126,7 +126,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Blah() {Dispose(false);}
 
-                public unsafe MR.CS.SignatureFilters.Const_A A
+                public unsafe MR.CS.SignatureFilters.Const_A a
                 {
                     get
                     {
@@ -159,7 +159,7 @@ public static partial class MR
             {
                 internal unsafe Blah(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe MR.CS.SignatureFilters.A A
+                public new unsafe MR.CS.SignatureFilters.A a
                 {
                     get
                     {

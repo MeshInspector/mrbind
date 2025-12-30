@@ -32,7 +32,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
-                public ref readonly int Blah => ref _Ref.Blah;
+                public ref readonly int blah => ref _Ref.blah;
 
                 /// Generated default constructor.
                 public unsafe Const_A() : this(null, is_owning: true)
@@ -61,7 +61,7 @@ public static partial class MR
 
                 internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int Blah => ref _Ref.Blah;
+                public new ref int blah => ref _Ref.blah;
 
                 /// Generated default constructor.
                 public unsafe Mut_A() : this(null, is_owning: true)
@@ -107,7 +107,7 @@ public static partial class MR
                 public static implicit operator A(Const_A other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int Blah;
+                public int blah;
 
                 /// Generated copy constructor.
                 public A(A _other) {this = _other;}
@@ -161,7 +161,7 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_B() {Dispose(false);}
 
-                    public ref readonly int Bleh => ref _Ref.Bleh;
+                    public ref readonly int bleh => ref _Ref.bleh;
 
                     /// Generated default constructor.
                     public unsafe Const_B() : this(null, is_owning: true)
@@ -189,7 +189,7 @@ public static partial class MR
 
                     internal unsafe Mut_B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                    public new ref int Bleh => ref _Ref.Bleh;
+                    public new ref int bleh => ref _Ref.bleh;
 
                     /// Generated default constructor.
                     public unsafe Mut_B() : this(null, is_owning: true)
@@ -234,7 +234,7 @@ public static partial class MR
                     public static implicit operator B(Const_B other) => other._Ref;
 
                     [System.Runtime.InteropServices.FieldOffset(0)]
-                    public int Bleh;
+                    public int bleh;
 
                     /// Generated copy constructor.
                     public B(B _other) {this = _other;}
@@ -432,7 +432,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_C_False() {Dispose(false);}
 
-                public ref readonly int Bleh => ref _Ref.Bleh;
+                public ref readonly int bleh => ref _Ref.bleh;
 
                 /// Generated default constructor.
                 public unsafe Const_C_False() : this(null, is_owning: true)
@@ -460,7 +460,7 @@ public static partial class MR
 
                 internal unsafe Mut_C_False(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int Bleh => ref _Ref.Bleh;
+                public new ref int bleh => ref _Ref.bleh;
 
                 /// Generated default constructor.
                 public unsafe Mut_C_False() : this(null, is_owning: true)
@@ -497,7 +497,7 @@ public static partial class MR
                 public static implicit operator C_False(Const_C_False other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int Bleh;
+                public int bleh;
 
                 /// Generated copy constructor.
                 public C_False(C_False _other) {this = _other;}
@@ -610,7 +610,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_C_True() {Dispose(false);}
 
-                public ref readonly int Bleh => ref _Ref.Bleh;
+                public ref readonly int bleh => ref _Ref.bleh;
 
                 /// Generated default constructor.
                 public unsafe Const_C_True() : this(null, is_owning: true)
@@ -638,7 +638,7 @@ public static partial class MR
 
                 internal unsafe Mut_C_True(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int Bleh => ref _Ref.Bleh;
+                public new ref int bleh => ref _Ref.bleh;
 
                 /// Generated default constructor.
                 public unsafe Mut_C_True() : this(null, is_owning: true)
@@ -675,7 +675,7 @@ public static partial class MR
                 public static implicit operator C_True(Const_C_True other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public int Bleh;
+                public int bleh;
 
                 /// Generated copy constructor.
                 public C_True(C_True _other) {this = _other;}

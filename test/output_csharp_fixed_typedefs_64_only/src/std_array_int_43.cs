@@ -31,7 +31,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Array_Int_43() {Dispose(false);}
 
-                public ref readonly MR.CS.ArrayInt43 Elems => ref _Ref.Elems;
+                public ref readonly MR.CS.ArrayInt43 elems => ref _Ref.elems;
 
                 /// Generated default constructor.
                 public unsafe Const_Array_Int_43() : this(null, is_owning: true)
@@ -59,7 +59,7 @@ public static partial class MR
 
                 internal unsafe Mut_Array_Int_43(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref MR.CS.ArrayInt43 Elems => ref _Ref.Elems;
+                public new ref MR.CS.ArrayInt43 elems => ref _Ref.elems;
 
                 /// Generated default constructor.
                 public unsafe Mut_Array_Int_43() : this(null, is_owning: true)
@@ -88,7 +88,7 @@ public static partial class MR
                 public static implicit operator Array_Int_43(Const_Array_Int_43 other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
-                public MR.CS.ArrayInt43 Elems;
+                public MR.CS.ArrayInt43 elems;
 
                 /// Generated copy constructor.
                 public Array_Int_43(Array_Int_43 _other) {this = _other;}

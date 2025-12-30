@@ -28,7 +28,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
-                public unsafe int X
+                public unsafe int x
                 {
                     get
                     {
@@ -38,7 +38,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.Std.Const_String Y
+                public unsafe MR.CS.Std.Const_String y
                 {
                     get
                     {
@@ -86,7 +86,7 @@ public static partial class MR
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int X
+                public new unsafe ref int x
                 {
                     get
                     {
@@ -96,7 +96,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe MR.CS.Std.String Y
+                public new unsafe MR.CS.Std.String y
                 {
                     get
                     {
@@ -401,7 +401,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_C() {Dispose(false);}
 
-                public unsafe int A
+                public unsafe int a
                 {
                     get
                     {
@@ -411,7 +411,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int B
+                public unsafe int b
                 {
                     get
                     {
@@ -421,7 +421,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int C_
+                public unsafe int c
                 {
                     get
                     {
@@ -431,7 +431,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int D
+                public unsafe int d
                 {
                     get
                     {
@@ -441,7 +441,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int E
+                public unsafe int e
                 {
                     get
                     {
@@ -451,7 +451,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int F
+                public unsafe int f
                 {
                     get
                     {
@@ -461,7 +461,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int G
+                public unsafe int g
                 {
                     get
                     {
@@ -471,7 +471,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int H
+                public unsafe int h
                 {
                     get
                     {
@@ -513,7 +513,7 @@ public static partial class MR
             {
                 internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int A
+                public new unsafe ref int a
                 {
                     get
                     {
@@ -523,7 +523,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int B
+                public new unsafe ref int b
                 {
                     get
                     {
@@ -533,7 +533,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int C_
+                public new unsafe ref int c
                 {
                     get
                     {
@@ -543,7 +543,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int D
+                public new unsafe ref int d
                 {
                     get
                     {
@@ -553,7 +553,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int E
+                public new unsafe ref int e
                 {
                     get
                     {
@@ -563,7 +563,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int F
+                public new unsafe ref int f
                 {
                     get
                     {
@@ -573,7 +573,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int G
+                public new unsafe ref int g
                 {
                     get
                     {
@@ -583,7 +583,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int H
+                public new unsafe ref int h
                 {
                     get
                     {
@@ -678,7 +678,7 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_D() {Dispose(false);}
 
-                public unsafe int A
+                public unsafe int a
                 {
                     get
                     {
@@ -688,7 +688,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int B
+                public unsafe int b
                 {
                     get
                     {
@@ -698,7 +698,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int C
+                public unsafe int c
                 {
                     get
                     {
@@ -708,7 +708,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int D_
+                public unsafe int d
                 {
                     get
                     {
@@ -718,7 +718,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int E
+                public unsafe int e
                 {
                     get
                     {
@@ -728,7 +728,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int F
+                public unsafe int f
                 {
                     get
                     {
@@ -738,7 +738,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int G
+                public unsafe int g
                 {
                     get
                     {
@@ -748,7 +748,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int H
+                public unsafe int h
                 {
                     get
                     {
@@ -758,7 +758,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int I
+                public unsafe int i
                 {
                     get
                     {
@@ -799,7 +799,7 @@ public static partial class MR
             {
                 internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int A
+                public new unsafe ref int a
                 {
                     get
                     {
@@ -809,7 +809,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int B
+                public new unsafe ref int b
                 {
                     get
                     {
@@ -819,7 +819,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int C
+                public new unsafe ref int c
                 {
                     get
                     {
@@ -829,7 +829,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int D_
+                public new unsafe ref int d
                 {
                     get
                     {
@@ -839,7 +839,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int E
+                public new unsafe ref int e
                 {
                     get
                     {
@@ -849,7 +849,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int F
+                public new unsafe ref int f
                 {
                     get
                     {
@@ -859,7 +859,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int G
+                public new unsafe ref int g
                 {
                     get
                     {
@@ -869,7 +869,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int H
+                public new unsafe ref int h
                 {
                     get
                     {
@@ -879,7 +879,7 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe ref int I
+                public new unsafe ref int i
                 {
                     get
                     {
@@ -975,7 +975,7 @@ public static partial class MR
                 ~Const_E() {Dispose(false);}
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int A
+                public unsafe int a
                 {
                     get
                     {
@@ -986,7 +986,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int B
+                public unsafe int b
                 {
                     get
                     {
@@ -997,7 +997,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int C
+                public unsafe int c
                 {
                     get
                     {
@@ -1008,7 +1008,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int D
+                public unsafe int d
                 {
                     get
                     {
@@ -1019,7 +1019,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int E_
+                public unsafe int e
                 {
                     get
                     {
@@ -1030,7 +1030,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int F
+                public unsafe int f
                 {
                     get
                     {
@@ -1041,7 +1041,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int G
+                public unsafe int g
                 {
                     get
                     {
@@ -1052,7 +1052,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int H
+                public unsafe int h
                 {
                     get
                     {
@@ -1063,7 +1063,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe int I
+                public unsafe int i
                 {
                     get
                     {
@@ -1074,7 +1074,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public unsafe MR.CS.Aggregates.Const_NonDefaultConstructible J
+                public unsafe MR.CS.Aggregates.Const_NonDefaultConstructible j
                 {
                     get
                     {
@@ -1108,7 +1108,7 @@ public static partial class MR
                 internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int A
+                public new unsafe ref int a
                 {
                     get
                     {
@@ -1119,7 +1119,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int B
+                public new unsafe ref int b
                 {
                     get
                     {
@@ -1130,7 +1130,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int C
+                public new unsafe ref int c
                 {
                     get
                     {
@@ -1141,7 +1141,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int D
+                public new unsafe ref int d
                 {
                     get
                     {
@@ -1152,7 +1152,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int E_
+                public new unsafe ref int e
                 {
                     get
                     {
@@ -1163,7 +1163,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int F
+                public new unsafe ref int f
                 {
                     get
                     {
@@ -1174,7 +1174,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int G
+                public new unsafe ref int g
                 {
                     get
                     {
@@ -1185,7 +1185,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int H
+                public new unsafe ref int h
                 {
                     get
                     {
@@ -1196,7 +1196,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe ref int I
+                public new unsafe ref int i
                 {
                     get
                     {
@@ -1207,7 +1207,7 @@ public static partial class MR
                 }
 
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
-                public new unsafe MR.CS.Aggregates.NonDefaultConstructible J
+                public new unsafe MR.CS.Aggregates.NonDefaultConstructible j
                 {
                     get
                     {

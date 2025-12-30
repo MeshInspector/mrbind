@@ -53,7 +53,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -119,7 +119,7 @@ public static partial class MR
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -247,7 +247,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -303,7 +303,7 @@ public static partial class MR
             {
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -585,7 +585,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -643,7 +643,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -1103,7 +1103,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -1163,7 +1163,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -1317,7 +1317,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -1381,7 +1381,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -1535,7 +1535,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -1599,7 +1599,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -1751,7 +1751,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -1813,7 +1813,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -2287,7 +2287,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -2357,7 +2357,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -2524,7 +2524,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -2601,7 +2601,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
@@ -2775,7 +2775,7 @@ public static partial class MR
                     }
                 }
 
-                public unsafe int Field
+                public unsafe int field
                 {
                     get
                     {
@@ -2859,7 +2859,7 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int Field
+                public new unsafe ref int field
                 {
                     get
                     {
