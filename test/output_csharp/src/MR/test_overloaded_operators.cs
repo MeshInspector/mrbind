@@ -450,11 +450,14 @@ public static partial class MR
 
                 // Indexing.
                 /// Generated from method `MR::OverloadedOps::A::operator[]`.
-                public unsafe int Index(MR.CS.OverloadedOps.Const_A _1)
+                public unsafe int this[MR.CS.OverloadedOps.Const_A _1]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_index", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_index(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
-                    return __MR_OverloadedOps_A_index(_UnderlyingPtr, _1._UnderlyingPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_index", ExactSpelling = true)]
+                        extern static int __MR_OverloadedOps_A_index(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                        return __MR_OverloadedOps_A_index(_UnderlyingPtr, _1._UnderlyingPtr);
+                    }
                 }
             }
 

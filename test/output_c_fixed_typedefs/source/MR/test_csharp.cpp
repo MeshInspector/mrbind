@@ -5664,6 +5664,223 @@ void MR_CSharp_TestOpsC_index(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOps
     );
 }
 
+const int32_t *MR_CSharp_IndexerA_Get_x(const MR_CSharp_IndexerA *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerA *)(_this)).x);
+}
+
+void MR_CSharp_IndexerA_Set_x(MR_CSharp_IndexerA *_this, int32_t value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).x = value;
+}
+
+int32_t *MR_CSharp_IndexerA_GetMutable_x(MR_CSharp_IndexerA *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).x);
+}
+
+MR_CSharp_IndexerA *MR_CSharp_IndexerA_DefaultConstruct(void)
+{
+    return (MR_CSharp_IndexerA *)new MR::CSharp::IndexerA(MR::CSharp::IndexerA());
+}
+
+MR_CSharp_IndexerA *MR_CSharp_IndexerA_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IndexerA *)(new MR::CSharp::IndexerA[num_elems]{});
+}
+
+MR_CSharp_IndexerA *MR_CSharp_IndexerA_ConstructFrom(int32_t x)
+{
+    return (MR_CSharp_IndexerA *)new MR::CSharp::IndexerA(MR::CSharp::IndexerA{
+        x
+    });
+}
+
+const MR_CSharp_IndexerA *MR_CSharp_IndexerA_OffsetPtr(const MR_CSharp_IndexerA *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IndexerA *)(((const MR::CSharp::IndexerA *)ptr) + i);
+}
+
+MR_CSharp_IndexerA *MR_CSharp_IndexerA_OffsetMutablePtr(MR_CSharp_IndexerA *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IndexerA *)(((MR::CSharp::IndexerA *)ptr) + i);
+}
+
+MR_CSharp_IndexerA *MR_CSharp_IndexerA_ConstructFromAnother(const MR_CSharp_IndexerA *_other)
+{
+    return (MR_CSharp_IndexerA *)new MR::CSharp::IndexerA(MR::CSharp::IndexerA(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)_other))
+    ));
+}
+
+void MR_CSharp_IndexerA_Destroy(const MR_CSharp_IndexerA *_this)
+{
+    delete ((const MR::CSharp::IndexerA *)_this);
+}
+
+void MR_CSharp_IndexerA_DestroyArray(const MR_CSharp_IndexerA *_this)
+{
+    delete[] ((const MR::CSharp::IndexerA *)_this);
+}
+
+MR_CSharp_IndexerA *MR_CSharp_IndexerA_AssignFromAnother(MR_CSharp_IndexerA *_this, const MR_CSharp_IndexerA *_other)
+{
+    return (MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)_other))
+    ));
+}
+
+int32_t *MR_CSharp_IndexerA_index(MR_CSharp_IndexerA *_this, int32_t i)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).operator[](
+        i
+    ));
+}
+
+const MR_CSharp_IndexerA *MR_CSharp_IndexerB_Get_a(const MR_CSharp_IndexerB *_this)
+{
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).a);
+}
+
+void MR_CSharp_IndexerB_Set_a(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerA *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerB *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)value));
+}
+
+MR_CSharp_IndexerA *MR_CSharp_IndexerB_GetMutable_a(MR_CSharp_IndexerB *_this)
+{
+    return (MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerB *)(_this)).a);
+}
+
+MR_CSharp_IndexerB *MR_CSharp_IndexerB_DefaultConstruct(void)
+{
+    return (MR_CSharp_IndexerB *)new MR::CSharp::IndexerB(MR::CSharp::IndexerB());
+}
+
+MR_CSharp_IndexerB *MR_CSharp_IndexerB_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IndexerB *)(new MR::CSharp::IndexerB[num_elems]{});
+}
+
+MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFrom(const MR_CSharp_IndexerA *a)
+{
+    return (MR_CSharp_IndexerB *)new MR::CSharp::IndexerB(MR::CSharp::IndexerB{
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)a))
+    });
+}
+
+const MR_CSharp_IndexerB *MR_CSharp_IndexerB_OffsetPtr(const MR_CSharp_IndexerB *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IndexerB *)(((const MR::CSharp::IndexerB *)ptr) + i);
+}
+
+MR_CSharp_IndexerB *MR_CSharp_IndexerB_OffsetMutablePtr(MR_CSharp_IndexerB *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IndexerB *)(((MR::CSharp::IndexerB *)ptr) + i);
+}
+
+MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFromAnother(const MR_CSharp_IndexerB *_other)
+{
+    return (MR_CSharp_IndexerB *)new MR::CSharp::IndexerB(MR::CSharp::IndexerB(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerB(*(MR::CSharp::IndexerB *)_other))
+    ));
+}
+
+void MR_CSharp_IndexerB_Destroy(const MR_CSharp_IndexerB *_this)
+{
+    delete ((const MR::CSharp::IndexerB *)_this);
+}
+
+void MR_CSharp_IndexerB_DestroyArray(const MR_CSharp_IndexerB *_this)
+{
+    delete[] ((const MR::CSharp::IndexerB *)_this);
+}
+
+MR_CSharp_IndexerB *MR_CSharp_IndexerB_AssignFromAnother(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerB *_other)
+{
+    return (MR_CSharp_IndexerB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerB *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerB(*(MR::CSharp::IndexerB *)_other))
+    ));
+}
+
+const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_1(const MR_CSharp_IndexerB *_this, int32_t i)
+{
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).operator[](
+        i
+    ));
+}
+
+const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_2(const MR_CSharp_IndexerB *_this, int32_t i, int32_t j)
+{
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).operator[](
+        i,
+        j
+    ));
+}
+
+const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_0(const MR_CSharp_IndexerB *_this)
+{
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).operator[]());
+}
+
+MR_CSharp_IndexerC *MR_CSharp_IndexerC_DefaultConstruct(void)
+{
+    return (MR_CSharp_IndexerC *)new MR::CSharp::IndexerC(MR::CSharp::IndexerC());
+}
+
+MR_CSharp_IndexerC *MR_CSharp_IndexerC_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IndexerC *)(new MR::CSharp::IndexerC[num_elems]{});
+}
+
+const MR_CSharp_IndexerC *MR_CSharp_IndexerC_OffsetPtr(const MR_CSharp_IndexerC *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IndexerC *)(((const MR::CSharp::IndexerC *)ptr) + i);
+}
+
+MR_CSharp_IndexerC *MR_CSharp_IndexerC_OffsetMutablePtr(MR_CSharp_IndexerC *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IndexerC *)(((MR::CSharp::IndexerC *)ptr) + i);
+}
+
+MR_CSharp_IndexerC *MR_CSharp_IndexerC_ConstructFromAnother(const MR_CSharp_IndexerC *_other)
+{
+    return (MR_CSharp_IndexerC *)new MR::CSharp::IndexerC(MR::CSharp::IndexerC(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerC(*(MR::CSharp::IndexerC *)_other))
+    ));
+}
+
+void MR_CSharp_IndexerC_Destroy(const MR_CSharp_IndexerC *_this)
+{
+    delete ((const MR::CSharp::IndexerC *)_this);
+}
+
+void MR_CSharp_IndexerC_DestroyArray(const MR_CSharp_IndexerC *_this)
+{
+    delete[] ((const MR::CSharp::IndexerC *)_this);
+}
+
+MR_CSharp_IndexerC *MR_CSharp_IndexerC_AssignFromAnother(MR_CSharp_IndexerC *_this, const MR_CSharp_IndexerC *_other)
+{
+    return (MR_CSharp_IndexerC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerC *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerC(*(MR::CSharp::IndexerC *)_other))
+    ));
+}
+
+int32_t MR_CSharp_IndexerC_index(MR_CSharp_IndexerC *_this, int32_t i)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerC *)(_this)).operator[](
+        i
+    );
+}
+
+float MR_CSharp_IndexerC_index_const(const MR_CSharp_IndexerC *_this, int32_t i)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerC *)(_this)).operator[](
+        i
+    );
+}
+
 MR_CSharp_ConvOp *MR_CSharp_ConvOp_DefaultConstruct(void)
 {
     return (MR_CSharp_ConvOp *)new MR::CSharp::ConvOp(MR::CSharp::ConvOp());

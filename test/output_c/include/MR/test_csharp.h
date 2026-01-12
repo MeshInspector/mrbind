@@ -423,6 +423,19 @@ typedef struct MR_CSharp_TestOpsB MR_CSharp_TestOpsB;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestOpsC MR_CSharp_TestOpsC;
 
+// Subscription operator.
+/// Generated from class `MR::CSharp::IndexerA`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IndexerA MR_CSharp_IndexerA;
+
+/// Generated from class `MR::CSharp::IndexerB`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IndexerB MR_CSharp_IndexerB;
+
+/// Generated from class `MR::CSharp::IndexerC`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IndexerC MR_CSharp_IndexerC;
+
 // Conversion operators. We preserve explicit-ness.
 /// Generated from class `MR::CSharp::ConvOp`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -4669,6 +4682,168 @@ MR_C_API void MR_CSharp_TestOpsC_call(MR_CSharp_TestOpsC *_this, const MR_CSharp
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API void MR_CSharp_TestOpsC_index(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IndexerA` named `x`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_IndexerA_Get_x(const MR_CSharp_IndexerA *_this);
+
+/// Modifies a member variable of class `MR::CSharp::IndexerA` named `x`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_CSharp_IndexerA_Set_x(MR_CSharp_IndexerA *_this, int value);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IndexerA` named `x`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IndexerA_GetMutable_x(MR_CSharp_IndexerA *_this);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerA_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IndexerA_DestroyArray()`.
+/// Use `MR_CSharp_IndexerA_OffsetMutablePtr()` and `MR_CSharp_IndexerA_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_DefaultConstructArray(size_t num_elems);
+
+/// Constructs `MR::CSharp::IndexerA` elementwise.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerA_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_ConstructFrom(int x);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerA_OffsetPtr(const MR_CSharp_IndexerA *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_OffsetMutablePtr(MR_CSharp_IndexerA *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerA_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_ConstructFromAnother(const MR_CSharp_IndexerA *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IndexerA`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IndexerA_Destroy(const MR_CSharp_IndexerA *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IndexerA`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IndexerA_DestroyArray(const MR_CSharp_IndexerA *_this);
+
+/// Generated from method `MR::CSharp::IndexerA::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_AssignFromAnother(MR_CSharp_IndexerA *_this, const MR_CSharp_IndexerA *_other);
+
+/// Generated from method `MR::CSharp::IndexerA::operator[]`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IndexerA_index(MR_CSharp_IndexerA *_this, int i);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IndexerB` named `a`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerB_Get_a(const MR_CSharp_IndexerB *_this);
+
+/// Modifies a member variable of class `MR::CSharp::IndexerB` named `a`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `value` can not be null. It is a single object.
+MR_C_API void MR_CSharp_IndexerB_Set_a(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerA *value);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IndexerB` named `a`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerB_GetMutable_a(MR_CSharp_IndexerB *_this);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerB_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IndexerB_DestroyArray()`.
+/// Use `MR_CSharp_IndexerB_OffsetMutablePtr()` and `MR_CSharp_IndexerB_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_DefaultConstructArray(size_t num_elems);
+
+/// Constructs `MR::CSharp::IndexerB` elementwise.
+/// Parameter `a` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerB_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFrom(const MR_CSharp_IndexerA *a);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_IndexerB *MR_CSharp_IndexerB_OffsetPtr(const MR_CSharp_IndexerB *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_OffsetMutablePtr(MR_CSharp_IndexerB *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerB_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFromAnother(const MR_CSharp_IndexerB *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IndexerB`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IndexerB_Destroy(const MR_CSharp_IndexerB *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IndexerB`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IndexerB_DestroyArray(const MR_CSharp_IndexerB *_this);
+
+/// Generated from method `MR::CSharp::IndexerB::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_AssignFromAnother(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerB *_other);
+
+/// Generated from method `MR::CSharp::IndexerB::operator[]`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_1(const MR_CSharp_IndexerB *_this, int i);
+
+/// Generated from method `MR::CSharp::IndexerB::operator[]`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_2(const MR_CSharp_IndexerB *_this, int i, int j);
+
+/// Generated from method `MR::CSharp::IndexerB::operator[]`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_0(const MR_CSharp_IndexerB *_this);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerC_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IndexerC_DestroyArray()`.
+/// Use `MR_CSharp_IndexerC_OffsetMutablePtr()` and `MR_CSharp_IndexerC_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API const MR_CSharp_IndexerC *MR_CSharp_IndexerC_OffsetPtr(const MR_CSharp_IndexerC *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_OffsetMutablePtr(MR_CSharp_IndexerC *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
+/// Parameter `_other` can not be null. It is a single object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerC_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_ConstructFromAnother(const MR_CSharp_IndexerC *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IndexerC`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IndexerC_Destroy(const MR_CSharp_IndexerC *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IndexerC`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IndexerC_DestroyArray(const MR_CSharp_IndexerC *_this);
+
+/// Generated from method `MR::CSharp::IndexerC::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_AssignFromAnother(MR_CSharp_IndexerC *_this, const MR_CSharp_IndexerC *_other);
+
+/// Generated from method `MR::CSharp::IndexerC::operator[]`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int MR_CSharp_IndexerC_index(MR_CSharp_IndexerC *_this, int i);
+
+/// Generated from method `MR::CSharp::IndexerC::operator[]`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API float MR_CSharp_IndexerC_index_const(const MR_CSharp_IndexerC *_this, int i);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvOp_Destroy()` to free it when you're done using it.

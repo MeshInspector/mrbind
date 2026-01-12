@@ -9274,11 +9274,14 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsA::operator[]`.
-                public unsafe int Index(MR.CS.CSharp.Const_TestOpsA _1)
+                public unsafe int this[MR.CS.CSharp.Const_TestOpsA _1]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_index", ExactSpelling = true)]
-                    extern static int __MR_CSharp_TestOpsA_index(_Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
-                    return __MR_CSharp_TestOpsA_index(_UnderlyingPtr, _1._UnderlyingPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_index", ExactSpelling = true)]
+                        extern static int __MR_CSharp_TestOpsA_index(_Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
+                        return __MR_CSharp_TestOpsA_index(_UnderlyingPtr, _1._UnderlyingPtr);
+                    }
                 }
             }
 
@@ -9630,11 +9633,14 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::TestOpsB::operator[]`.
-                public unsafe int Index(MR.CS.CSharp._ByValue_TestOpsB _1)
+                public unsafe int this[MR.CS.CSharp._ByValue_TestOpsB _1]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_index", ExactSpelling = true)]
-                    extern static int __MR_CSharp_TestOpsB_index(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
-                    return __MR_CSharp_TestOpsB_index(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_index", ExactSpelling = true)]
+                        extern static int __MR_CSharp_TestOpsB_index(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
+                        return __MR_CSharp_TestOpsB_index(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
+                    }
                 }
             }
 
@@ -10042,6 +10048,443 @@ public static partial class MR
                 public _InOptConst_TestOpsC() {}
                 public _InOptConst_TestOpsC(Const_TestOpsC value) {Opt = value;}
                 public static implicit operator _InOptConst_TestOpsC(Const_TestOpsC value) {return new(value);}
+            }
+
+            // Subscription operator.
+            /// Generated from class `MR::CSharp::IndexerA`.
+            /// This is the const half of the class.
+            public class Const_IndexerA : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_IndexerA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IndexerA_Destroy(_Underlying *_this);
+                    __MR_CSharp_IndexerA_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IndexerA() {Dispose(false);}
+
+                public unsafe int x
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_Get_x", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_IndexerA_Get_x(_Underlying *_this);
+                        return *__MR_CSharp_IndexerA_Get_x(_UnderlyingPtr);
+                    }
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_IndexerA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IndexerA_DefaultConstruct();
+                }
+
+                /// Constructs `MR::CSharp::IndexerA` elementwise.
+                public unsafe Const_IndexerA(int x) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFrom(int x);
+                    _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFrom(x);
+                }
+
+                /// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
+                public unsafe Const_IndexerA(MR.CS.CSharp.Const_IndexerA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFromAnother(MR.CS.CSharp.IndexerA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+            }
+
+            // Subscription operator.
+            /// Generated from class `MR::CSharp::IndexerA`.
+            /// This is the non-const half of the class.
+            public class IndexerA : Const_IndexerA
+            {
+                internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                public new unsafe ref int x
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_GetMutable_x", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_IndexerA_GetMutable_x(_Underlying *_this);
+                        return ref *__MR_CSharp_IndexerA_GetMutable_x(_UnderlyingPtr);
+                    }
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe IndexerA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IndexerA_DefaultConstruct();
+                }
+
+                /// Constructs `MR::CSharp::IndexerA` elementwise.
+                public unsafe IndexerA(int x) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFrom(int x);
+                    _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFrom(x);
+                }
+
+                /// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
+                public unsafe IndexerA(MR.CS.CSharp.Const_IndexerA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFromAnother(MR.CS.CSharp.IndexerA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IndexerA::operator=`.
+                public unsafe MR.CS.CSharp.IndexerA Assign(MR.CS.CSharp.Const_IndexerA _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IndexerA._Underlying *_other);
+                    return new(__MR_CSharp_IndexerA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::IndexerA::operator[]`.
+                public unsafe ref int this[int i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_index", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_IndexerA_index(_Underlying *_this, int i);
+                        return ref *__MR_CSharp_IndexerA_index(_UnderlyingPtr, i);
+                    }
+                }
+            }
+
+            /// This is used for optional parameters of class `IndexerA` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IndexerA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IndexerA`/`Const_IndexerA` directly.
+            public class _InOptMut_IndexerA
+            {
+                public IndexerA? Opt;
+
+                public _InOptMut_IndexerA() {}
+                public _InOptMut_IndexerA(IndexerA value) {Opt = value;}
+                public static implicit operator _InOptMut_IndexerA(IndexerA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IndexerA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IndexerA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IndexerA`/`Const_IndexerA` to pass it to the function.
+            public class _InOptConst_IndexerA
+            {
+                public Const_IndexerA? Opt;
+
+                public _InOptConst_IndexerA() {}
+                public _InOptConst_IndexerA(Const_IndexerA value) {Opt = value;}
+                public static implicit operator _InOptConst_IndexerA(Const_IndexerA value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::IndexerB`.
+            /// This is the const half of the class.
+            public class Const_IndexerB : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_IndexerB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IndexerB_Destroy(_Underlying *_this);
+                    __MR_CSharp_IndexerB_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IndexerB() {Dispose(false);}
+
+                public unsafe MR.CS.CSharp.Const_IndexerA a
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_Get_a(_Underlying *_this);
+                        return new(__MR_CSharp_IndexerB_Get_a(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_IndexerB() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IndexerB_DefaultConstruct();
+                }
+
+                /// Constructs `MR::CSharp::IndexerB` elementwise.
+                public unsafe Const_IndexerB(MR.CS.CSharp.Const_IndexerA a) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFrom(MR.CS.CSharp.IndexerA._Underlying *a);
+                    _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFrom(a._UnderlyingPtr);
+                }
+
+                /// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
+                public unsafe Const_IndexerB(MR.CS.CSharp.Const_IndexerB _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFromAnother(MR.CS.CSharp.IndexerB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IndexerB::operator[]`.
+                public unsafe MR.CS.CSharp.Const_IndexerA this[int i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_index_1", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_index_1(_Underlying *_this, int i);
+                        return new(__MR_CSharp_IndexerB_index_1(_UnderlyingPtr, i), is_owning: false);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::IndexerB::operator[]`.
+                public unsafe MR.CS.CSharp.Const_IndexerA this[int i, int j]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_index_2", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_index_2(_Underlying *_this, int i, int j);
+                        return new(__MR_CSharp_IndexerB_index_2(_UnderlyingPtr, i, j), is_owning: false);
+                    }
+                }
+
+                /// Generated from method `MR::CSharp::IndexerB::operator[]`.
+                public unsafe MR.CS.CSharp.Const_IndexerA Index()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_index_0", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_index_0(_Underlying *_this);
+                    return new(__MR_CSharp_IndexerB_index_0(_UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// Generated from class `MR::CSharp::IndexerB`.
+            /// This is the non-const half of the class.
+            public class IndexerB : Const_IndexerB
+            {
+                internal unsafe IndexerB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                public new unsafe MR.CS.CSharp.IndexerA a
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_GetMutable_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerB_GetMutable_a(_Underlying *_this);
+                        return new(__MR_CSharp_IndexerB_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe IndexerB() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IndexerB_DefaultConstruct();
+                }
+
+                /// Constructs `MR::CSharp::IndexerB` elementwise.
+                public unsafe IndexerB(MR.CS.CSharp.Const_IndexerA a) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFrom(MR.CS.CSharp.IndexerA._Underlying *a);
+                    _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFrom(a._UnderlyingPtr);
+                }
+
+                /// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
+                public unsafe IndexerB(MR.CS.CSharp.Const_IndexerB _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFromAnother(MR.CS.CSharp.IndexerB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IndexerB::operator=`.
+                public unsafe MR.CS.CSharp.IndexerB Assign(MR.CS.CSharp.Const_IndexerB _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IndexerB._Underlying *_other);
+                    return new(__MR_CSharp_IndexerB_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// This is used for optional parameters of class `IndexerB` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IndexerB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IndexerB`/`Const_IndexerB` directly.
+            public class _InOptMut_IndexerB
+            {
+                public IndexerB? Opt;
+
+                public _InOptMut_IndexerB() {}
+                public _InOptMut_IndexerB(IndexerB value) {Opt = value;}
+                public static implicit operator _InOptMut_IndexerB(IndexerB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IndexerB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IndexerB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IndexerB`/`Const_IndexerB` to pass it to the function.
+            public class _InOptConst_IndexerB
+            {
+                public Const_IndexerB? Opt;
+
+                public _InOptConst_IndexerB() {}
+                public _InOptConst_IndexerB(Const_IndexerB value) {Opt = value;}
+                public static implicit operator _InOptConst_IndexerB(Const_IndexerB value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::IndexerC`.
+            /// This is the const half of the class.
+            public class Const_IndexerC : MR.CS.Misc.Object, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                internal unsafe Const_IndexerC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IndexerC_Destroy(_Underlying *_this);
+                    __MR_CSharp_IndexerC_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IndexerC() {Dispose(false);}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_IndexerC() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerC._Underlying *__MR_CSharp_IndexerC_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IndexerC_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
+                public unsafe Const_IndexerC(MR.CS.CSharp.Const_IndexerC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerC._Underlying *__MR_CSharp_IndexerC_ConstructFromAnother(MR.CS.CSharp.IndexerC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IndexerC_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IndexerC::operator[]`.
+                public unsafe float this[int i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_index_const", ExactSpelling = true)]
+                        extern static float __MR_CSharp_IndexerC_index_const(_Underlying *_this, int i);
+                        return __MR_CSharp_IndexerC_index_const(_UnderlyingPtr, i);
+                    }
+                }
+            }
+
+            /// Generated from class `MR::CSharp::IndexerC`.
+            /// This is the non-const half of the class.
+            public class IndexerC : Const_IndexerC
+            {
+                internal unsafe IndexerC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe IndexerC() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerC._Underlying *__MR_CSharp_IndexerC_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IndexerC_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
+                public unsafe IndexerC(MR.CS.CSharp.Const_IndexerC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerC._Underlying *__MR_CSharp_IndexerC_ConstructFromAnother(MR.CS.CSharp.IndexerC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IndexerC_ConstructFromAnother(_other._UnderlyingPtr);
+                }
+
+                /// Generated from method `MR::CSharp::IndexerC::operator=`.
+                public unsafe MR.CS.CSharp.IndexerC Assign(MR.CS.CSharp.Const_IndexerC _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IndexerC._Underlying *__MR_CSharp_IndexerC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IndexerC._Underlying *_other);
+                    return new(__MR_CSharp_IndexerC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::IndexerC::operator[]`.
+                public unsafe new int this[int i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_index", ExactSpelling = true)]
+                        extern static int __MR_CSharp_IndexerC_index(_Underlying *_this, int i);
+                        return __MR_CSharp_IndexerC_index(_UnderlyingPtr, i);
+                    }
+                }
+            }
+
+            /// This is used for optional parameters of class `IndexerC` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IndexerC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IndexerC`/`Const_IndexerC` directly.
+            public class _InOptMut_IndexerC
+            {
+                public IndexerC? Opt;
+
+                public _InOptMut_IndexerC() {}
+                public _InOptMut_IndexerC(IndexerC value) {Opt = value;}
+                public static implicit operator _InOptMut_IndexerC(IndexerC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IndexerC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IndexerC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IndexerC`/`Const_IndexerC` to pass it to the function.
+            public class _InOptConst_IndexerC
+            {
+                public Const_IndexerC? Opt;
+
+                public _InOptConst_IndexerC() {}
+                public _InOptConst_IndexerC(Const_IndexerC value) {Opt = value;}
+                public static implicit operator _InOptConst_IndexerC(Const_IndexerC value) {return new(value);}
             }
 
             // Conversion operators. We preserve explicit-ness.

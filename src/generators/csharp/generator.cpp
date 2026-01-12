@@ -2722,13 +2722,16 @@ namespace mrbind::CSharp
             return is_ctor && generator.GetSharedPtrTypeDescForCppTypeOpt(func_like.ret.cpp_type);
         }()),
         in_exposed_struct(in_exposed_struct),
+        is_overloaded_subscript_op(csharp_name == "operator[]"), // This should imply `IsOverloadableOpOrConvOp(...) == true`. This is false if the operator is not overloadable.
         // Here we only allow methods and not free functions, since all valid operators would've been moved to methods by this point,
         //   and all invalid ones (that C# doesn't support, that we must emit as functions) shouldn't be covered by this.
         // This excludes `EmitVariant::conv_op_for_ctor`, since that's a conversion to this type, not from it.
         is_overloaded_op_or_conv_op_from_this(
             method &&
             generator.IsOverloadableOpOrConvOp(method) &&
-            !(in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
+            !(in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method)) &&
+            // We don't consider `this[int i]` indexers to be proper operators, specifically in this class, since they don't need to be made `static` and so on.
+            !is_overloaded_subscript_op
         ),
         // Is this an operator that wants all arguments to match the enclosing class type, as opposed to just one of them?
         is_op_with_symmetric_self_args(is_overloaded_op_or_conv_op_from_this && [&]
@@ -3150,12 +3153,12 @@ namespace mrbind::CSharp
             }
 
             // Write the C# name.
-            file.WriteString(csharp_name);
+            file.WriteString(is_overloaded_subscript_op ? "this" : csharp_name);
 
             // Write the parameter list.
             if (!is_property)
             {
-                file.WriteString("(");
+                file.WriteString(is_overloaded_subscript_op ? "[" : "(");
 
                 bool first = true;
                 for (const auto &param : param_strings)
@@ -3169,7 +3172,7 @@ namespace mrbind::CSharp
                     }
                 }
 
-                file.WriteString(")");
+                file.WriteString(is_overloaded_subscript_op ? "]" : ")");
             }
 
             { // If this is an automatic rewrite, write the body and stop early.
@@ -3290,6 +3293,11 @@ namespace mrbind::CSharp
 
             // Begin function body.
             file.PushScope({}, "\n{\n", "}\n");
+
+            // If this is a property, begin the getter body.
+            const bool is_property = is_overloaded_subscript_op;
+            if (is_property)
+                file.PushScope({}, "get\n{\n", "}\n");
 
             // The `DllImport` declaration.
             file.WriteString(dllimport_strings.dllimport_decl);
@@ -3466,6 +3474,10 @@ namespace mrbind::CSharp
             for (int i = 0; i < num_scopes_to_pop; i++)
                 file.PopScope();
 
+            // End property getter body.
+            if (is_property)
+                file.PopScope();
+
             // End function body.
             file.PopScope();
         }
@@ -3583,6 +3595,7 @@ namespace mrbind::CSharp
                     )
                 )
                 {
+                    // This can return `operator[]`, which isn't a valid operator in C#, but our `FuncLikeEmitter` has custom behavior for this string.
                     return "operator" + fixed_token;
                 }
 
@@ -4039,6 +4052,11 @@ namespace mrbind::CSharp
                     return true;
             }
 
+            // The subscription operator.
+            // C# requires this to have at least one argument, in addition to `this`.
+            if (op_token == "[]" && ParamCount() <= 1)
+                return true;
+
             // Reject if the operator returns void, and isn't one of the several blessed operators that can do that.
             if (func.ret.cpp_type == "void" && op_token != "++" && op_token != "--" && !IsCompoundAssignmentToken(op_token))
                 return true;
@@ -4124,7 +4142,8 @@ namespace mrbind::CSharp
             token == "<" ||
             token == ">" ||
             token == "<=" ||
-            token == ">=";
+            token == ">=" ||
+            token == "[]";
 
         // Could allow compound assignments here via `IsCompoundAssignmentToken()` in C# 14 or newer, but not bothering with it for now.
     }

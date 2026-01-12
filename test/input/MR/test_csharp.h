@@ -741,6 +741,29 @@ namespace MR::CSharp
     MBTEST_MAKE_TEST_OPS_CLASS(TestOpsC, void,, TestOpsA) // Return void.
 
 
+    // Subscription operator.
+
+    struct IndexerA
+    {
+        int x;
+        int &operator[](int i) {(void)i; return x;}
+    };
+
+    struct IndexerB
+    {
+        IndexerA a;
+        const IndexerA &operator[](int i) const {(void)i; return a;}
+        const IndexerA &operator[](int i, int j) const {(void)i; (void)j; return a;}
+        const IndexerA &operator[]() const {return a;}
+    };
+
+    struct IndexerC
+    {
+        int operator[](int i) {(void)i; return 42;}
+        float operator[](int i) const {(void)i; return 12.3f;}
+    };
+
+
     // Conversion operators. We preserve explicit-ness.
     struct ConvOp
     {

@@ -744,6 +744,7 @@ namespace mrbind::CSharp
             const bool ctor_class_backed_by_shared_ptr;
             const bool in_exposed_struct;
 
+            const bool is_overloaded_subscript_op;
             const bool is_overloaded_op_or_conv_op_from_this;
             const bool is_op_with_symmetric_self_args;
             const bool is_incr_or_decr;
