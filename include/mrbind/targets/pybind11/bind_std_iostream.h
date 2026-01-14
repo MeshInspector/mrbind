@@ -81,6 +81,8 @@ namespace MRBind::pb11
             holder.emplace(std::move(object));
             return holder->stream;
         }
+
+        // `ReverseUnadjustParam` not implemented.
     };
 
     // Adjust returned values.
@@ -219,6 +221,8 @@ namespace MRBind::pb11
             holder.emplace(std::move(object));
             return holder->stream;
         }
+
+        // `ReverseUnadjustParam` not implemented.
     };
 
     // Adjust returned values.

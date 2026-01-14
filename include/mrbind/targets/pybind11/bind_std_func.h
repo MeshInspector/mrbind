@@ -11,6 +11,8 @@
 
 namespace MRBind::pb11
 {
+    struct FuncWrapperFromCppFunc {explicit FuncWrapperFromCppFunc() = default;};
+
     template <typename F>
     struct FuncWrapper;
 
@@ -23,14 +25,22 @@ namespace MRBind::pb11
         // We probably need a similar check for the parameter types, but it wasn't needed so far.
         static constexpr bool can_be_created_from_python = std::is_same_v<typename AdjustReturnType<R>::type, R>;
 
+        // Return type adjustment not implemented yet. Only parameters are adjusted.
+        using AdjustedFunc = std::function<R(AdjustedParamType<P>...)>;
+
         std::function<R(P...)> underlying_func;
         bool holds_cpp_func = false; // If true, this is a C++ function. If false, this is a python function.
 
         FuncWrapper() {}
         FuncWrapper(std::nullptr_t) {}
-        FuncWrapper(std::function<R(P...)> underlying_func, bool holds_cpp_func = false)
-            : underlying_func(std::move(underlying_func)), holds_cpp_func(holds_cpp_func)
+        FuncWrapper(AdjustedFunc func, bool holds_cpp_func = false)
+            : underlying_func([next = std::move(func)](P ...params) -> R
+            {
+                return next((ReverseUnadjustParam<DecayToTrueParamType<P>>)(std::forward<P>(params))...);
+            }),
+            holds_cpp_func(holds_cpp_func)
         {}
+        FuncWrapper(FuncWrapperFromCppFunc, std::function<R(P...)> underlying_func) : underlying_func(std::move(underlying_func)), holds_cpp_func(true) {}
 
         [[nodiscard]] explicit operator bool() const {return bool(underlying_func);}
 
@@ -57,7 +67,7 @@ namespace MRBind::pb11
     {
         static auto Adjust(T &&value)
         {
-            return FuncWrapper<typename IsStdFunc<std::remove_cvref_t<T>>::underlying_type>(std::forward<T>(value), true);
+            return FuncWrapper<typename IsStdFunc<std::remove_cvref_t<T>>::underlying_type>(FuncWrapperFromCppFunc{}, std::forward<T>(value));
         }
     };
 
@@ -72,6 +82,11 @@ namespace MRBind::pb11
         static T UnadjustParam(adjusted_param_type &&wrapper)
         {
             return std::forward<adjusted_param_type>(wrapper).underlying_func;
+        }
+
+        static adjusted_param_type ReverseUnadjustParam(T &&func)
+        {
+            return adjusted_param_type(FuncWrapperFromCppFunc{}, std::move(func));
         }
 
         // Prefer to unlock the global interpreter lock. Otherwise calling python lambdas will deadlock.
@@ -115,8 +130,8 @@ namespace MRBind::pb11
             // Conversion from a Python lambda.
             if constexpr (FuncWrapper<R(P...)>::can_be_created_from_python)
             {
-                c.def(pybind11::init(+[](std::function<R(P...)> f){return FuncWrapper<R(P...)>(std::move(f));}));
-                pybind11::implicitly_convertible<std::function<R(P...)>, FuncWrapper<R(P...)>>();
+                c.def(pybind11::init(+[](typename FuncWrapper<R(P...)>::AdjustedFunc f){return FuncWrapper<R(P...)>(std::move(f));}));
+                pybind11::implicitly_convertible<typename FuncWrapper<R(P...)>::AdjustedFunc, FuncWrapper<R(P...)>>();
             }
 
             // Convert to bool.

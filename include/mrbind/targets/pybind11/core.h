@@ -836,13 +836,22 @@ namespace MRBind::pb11
         // using disables_func = void;
 
         // Optional: [
-        // using adjusted_param_type = ...; // Replaces the parameter type in the wrapping lambda.
-        // static T UnadjustParam(adjusted_param_type &&); // Unadjust the parameter type back to the original.
+        //
+        //     using adjusted_param_type = ...; // Replaces the parameter type in the wrapping lambda.
+        //     static T UnadjustParam(adjusted_param_type &&); // Unadjust the parameter type back to the original.
+        //
+        //     // Optional. If specified, a default-constructed argument of this type is passed as an extra argument to `UnadjustParam()`.
+        //     // It's useful to hold temporary objects that must remain alive until the call finishes.
+        //     using unadjust_param_extra_param = ...;
+        //
+        //     Optional: [
+        //         static adjusted_param_type ReverseUnadjustParam(T &&); // Adjust the parameter type. This is only necessary when this type serves as a parameter of `std::function`.
+        //
+        //         // Optional. If specified, a default-constructed argument of this type is passed as an extra argument to `ReverseUnadjustParam()`.
+        //         // It's useful to hold temporary objects that must remain alive until the call finishes.
+        //         using reverse_unadjust_param_extra_param = ...;
+        //     ]
         // ]
-
-        // Optional. If specified, a default-constructed argument of this type is passed as an extra argument to `UnadjustParam()`.
-        // It's useful to hold temporary objects that must remain alive until the call finishes.
-        // using unadjust_param_extra_param = ...;
 
         // Optional. Detauls to `GilHandling::neutral`.
         // What to do about python's global interpreter lock (temporarily unlock or keep locked).
@@ -873,6 +882,12 @@ namespace MRBind::pb11
         using adjusted_param_type = std::remove_reference_t<T>;
 
         static T UnadjustParam(adjusted_param_type &&param)
+        {
+            return std::move(param);
+        }
+
+        // Hmm.
+        static adjusted_param_type ReverseUnadjustParam(T &&param)
         {
             return std::move(param);
         }
@@ -935,6 +950,12 @@ namespace MRBind::pb11
     template <typename T> requires requires{typename ParamTraitsLow<T>::unadjust_param_extra_param;}
     struct ParamUnadjusterExtraParam<T> {using type = typename ParamTraitsLow<T>::unadjust_param_extra_param;};
 
+    // Extracts `reverse_unadjust_param_extra_param` from the parameter's traits, or `std::nullptr_t` if none.
+    template <typename T>
+    struct ParamReverseUnadjusterExtraParam {using type = std::nullptr_t;};
+    template <typename T> requires requires{typename ParamTraitsLow<T>::reverse_unadjust_param_extra_param;}
+    struct ParamReverseUnadjusterExtraParam<T> {using type = typename ParamTraitsLow<T>::reverse_unadjust_param_extra_param;};
+
     // Extract `gil_handling` from parameter's traits, or default to `neutral` if not specified.
     template <typename T>
     struct DefaultParamGilHandling : std::integral_constant<GilHandling, GilHandling::neutral> {};
@@ -950,6 +971,7 @@ namespace MRBind::pb11
     concept ParamTypeRequiresLateFuncRegistration = requires{typename ParamTraitsLow<T>::register_late;};
 
     // Converts from `AdjustedParamType<T>` back to `T`.
+    // Don't pass anything to `extra`, it's used by some types to provide a temporary object to hold data that should outlive the function.
     template <typename T>
     [[nodiscard]] T UnadjustParam(AdjustedParamType<T> &&param, typename ParamUnadjusterExtraParam<T>::type &&extra = {})
     {
@@ -959,6 +981,24 @@ namespace MRBind::pb11
                 return ParamTraitsLow<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param));
             else
                 return ParamTraitsLow<T>::UnadjustParam(std::forward<AdjustedParamType<T>>(param), std::move(extra));
+        }
+        else
+        {
+            return std::forward<T>(param);
+        }
+    }
+
+    // Converts from `T` to `AdjustedParamType<T>`. This is useful for implementing `std::function`.
+    // Don't pass anything to `extra`, it's used by some types to provide a temporary object to hold data that should outlive the function.
+    template <typename T>
+    [[nodiscard]] AdjustedParamType<T> ReverseUnadjustParam(T &&param, typename ParamReverseUnadjusterExtraParam<T>::type &&extra = {})
+    {
+        if constexpr (ParamTypeRequiresAdjustment<T>)
+        {
+            if constexpr (std::is_null_pointer_v<typename ParamReverseUnadjusterExtraParam<T>::type>)
+                return ParamTraitsLow<T>::ReverseUnadjustParam(std::forward<T>(param));
+            else
+                return ParamTraitsLow<T>::ReverseUnadjustParam(std::forward<T>(param), std::move(extra));
         }
         else
         {

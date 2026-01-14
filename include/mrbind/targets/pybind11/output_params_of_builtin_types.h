@@ -18,12 +18,14 @@ namespace MRBind::pb11
     struct OutputParamOfBuiltinType
     {
         using ElemType = std::conditional_t<std::is_same_v<T, bool>, char, T>;
-        using ElemTypeCrefIfNormal = std::conditional_t<std::is_same_v<T, bool>, char, const T &>; // Either `const T &` or exactly `bool`.
+        using ElemTypeCrefIfNormal = std::conditional_t<std::is_same_v<T, bool>, bool, const T &>; // Either `const T &` or exactly `bool`.
 
         std::vector<ElemType> values{};
+        T *cpp_target = nullptr; // If specified, `values` is ignored, and the only effective value is what this points to.
 
         OutputParamOfBuiltinType() : OutputParamOfBuiltinType(1) {}
         OutputParamOfBuiltinType(std::size_t size, const T &value = {}) : values(size, ElemTypeCrefIfNormal(value)) {}
+        OutputParamOfBuiltinType(T &cpp_target) : cpp_target(&cpp_target) {}
     };
 
 
@@ -38,6 +40,14 @@ namespace MRBind::pb11
                 throw std::runtime_error("Expected the output parameter size to be exactly 1.");
             return reinterpret_cast<T &>(object.values.front());
         }
+
+        using reverse_unadjust_param_extra_param = OutputParamOfBuiltinType<T>; // Need something to point to.
+
+        static adjusted_param_type ReverseUnadjustParam(T &object, reverse_unadjust_param_extra_param &&extra)
+        {
+            extra = OutputParamOfBuiltinType<T>(object);
+            return extra;
+        }
     };
 
     template <ValidTargetForOutputParamOfBuiltinType T>
@@ -48,6 +58,21 @@ namespace MRBind::pb11
         static T *UnadjustParam(adjusted_param_type object)
         {
             return object ? reinterpret_cast<T *>(object->values.data()) : nullptr;
+        }
+
+        using reverse_unadjust_param_extra_param = OutputParamOfBuiltinType<T>; // Need something to point to.
+
+        static adjusted_param_type ReverseUnadjustParam(T *object, reverse_unadjust_param_extra_param &&extra)
+        {
+            if (object)
+            {
+                extra = OutputParamOfBuiltinType<T>(*object);
+                return &extra;
+            }
+            else
+            {
+                return nullptr;
+            }
         }
     };
     // Const ref to pointer. This can happen in some generated functions such as the constructors created by `TryAddAggregateCtor(...)`.
@@ -97,17 +122,36 @@ namespace MRBind::pb11
             else
                 c.doc() = BASE_DOC;
 
+            #undef BASE_DOC
+
 
             // Bind the member.
             c.def_readwrite("values", &OutputParamOfBuiltinType<T>::values);
 
-            c.def(
+            c.def_property(
                 "value",
                 [](const OutputParamOfBuiltinType<T> &v) -> typename OutputParamOfBuiltinType<T>::ElemTypeCrefIfNormal
                 {
+                    if (v.cpp_target)
+                        return *v.cpp_target;
+
                     if (v.values.size() != 1)
                         throw std::runtime_error("Expected exactly one value.");
                     return v.values.front();
+                },
+                [](OutputParamOfBuiltinType<T> &v, AdjustedParamType<T> value)
+                {
+                    auto MakeValue = [&]() -> decltype(auto) {return (UnadjustParam<DecayToTrueParamType<T>>)(std::forward<AdjustedParamType<T>>(value));};
+
+                    if (v.cpp_target)
+                    {
+                        *v.cpp_target = MakeValue();
+                    }
+                    else
+                    {
+                        v.values.clear();
+                        v.values.push_back(MakeValue());
+                    }
                 },
                 "If the list contains exactly one value, returns it. Otherwise throws."
             );
@@ -119,14 +163,22 @@ namespace MRBind::pb11
                     static const std::string prefix = ToPythonName(CustomTypeBinding::cpp_type_name()) + "[";
                     std::ostringstream ret;
                     ret << prefix;
-                    for (std::size_t i = 0; i < v.values.size(); i++)
+
+                    if (v.cpp_target)
                     {
-                        if (i != 0)
-                            ret << ", ";
-                        if constexpr (std::is_same_v<T, std::string>)
-                            ret << std::quoted(v.values[i]); // A quick and dirty hack to print something reasonable.
-                        else
-                            ret << v.values[i];
+                        ret << *v.cpp_target;
+                    }
+                    else
+                    {
+                        for (std::size_t i = 0; i < v.values.size(); i++)
+                        {
+                            if (i != 0)
+                                ret << ", ";
+                            if constexpr (std::is_same_v<T, std::string>)
+                                ret << std::quoted(v.values[i]); // A quick and dirty hack to print something reasonable.
+                            else
+                                ret << v.values[i];
+                        }
                     }
                     ret << ']';
                     return std::move(ret).str();
